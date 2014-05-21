@@ -1,0 +1,67 @@
+@charset "utf-8";
+body, html {
+  color: #666;
+  font-family: verdana, tahoma, arial;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+form input {
+  border: 1px solid black;  
+}
+
+form input[type=search] {
+  width: 50%;
+}
+
+a {
+  text-decoration: none;
+}
+
+p.pagination, p.found {
+  font-size: 10pt;
+  padding: 0;
+  margin: 0;
+}
+
+p.found {
+  text-align: right;
+}
+
+p.found span.pagination {
+  padding-right: 3em;
+}
+
+#total-results {
+  color: #c1002b;
+}
+
+code {
+  background-color: #f4eebb;
+  display: block;
+  border-style: solid;
+  border-color: #ffa500;
+  border-width: 2px;
+  margin: 2pt;
+  cursor: pointer;
+}
+
+code:not(.active) {
+  height: 12pt;
+}
+
+code:not(.active) span {
+  padding: 2pt;
+}
+
+code:not(.active) pre {
+  display: none;
+}
+
+code.active pre {
+  display: block;
+  padding-left: 20px;
+}
+
+code.active span {
+  display: none;
+}

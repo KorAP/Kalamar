@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+%= stylesheet '/style.css'
+%= stylesheet '/kwic-3.0.css'
+%= javascript '/jquery-2.0.0.min.js'
+  </head>
+  <body>
+    <h1><%= title %></h1>
+%= form_for url_for() => begin
+%= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']]
+%= search_field 'q'
+%= submit_button
+% end
+%= content
+  </body>
+</html>

@@ -1,0 +1,48 @@
+% layout 'default', title 'KorAP';
+% use JSON::XS;
+
+
+%= search begin
+<div style="clear: both">
+<p class="found"><span class="pagination">
+% my $url = url_with->query(['p' => '{page}']);
+% my $pages = (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
+% $pages = $pages < 0 ? 0 : $pages;
+<%= pagination(stash('search.startPage'), $pages, $url); %></span>
+Found <span id="total-results"><%= format_thousands(stash('search.totalResults')) %> matches</span>
+% if (stash 'search.bm.hit') {
+ in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)
+% }
+</p>
+</div>
+
+
+%= notifications
+
+
+% if (stash('search.query')) {
+<code><span>JSON-LD Query</span><pre>
+%  my $json = JSON::XS->new->pretty;
+%= $json->encode(stash('search.query'))
+</pre></span></code>
+% }
+
+
+<ol class="left-aligned">
+%=  search_hits begin
+  <li>
+%# ID, title, corpusID, author, pubDate, textClass
+<%== $_->{snippet} %>
+  </li>
+%   end
+</ol>
+% end
+
+
+<script>
+<!--
+$("li,code").on("click", function () {
+  $(this).toggleClass('active');
+});
+-->
+</script>
