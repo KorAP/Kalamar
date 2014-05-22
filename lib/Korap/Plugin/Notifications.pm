@@ -4,6 +4,9 @@ use Mojo::Util qw/camelize/;
 
 our $TYPE_RE = qr/^[-a-zA-Z_]+$/;
 
+# This will be separated published as Mojolicious::Plugin::Notifications
+# (wasn't exclusively developed for KorAP)
+
 # Todo: Support multiple notification center,
 #       so the notifications can be part of
 #       json as well as XML
@@ -21,7 +24,9 @@ sub register {
 
   my $debug = $mojo->mode eq 'development' ? 1 : 0;
 
-  my $center = camelize(delete $param->{use} // __PACKAGE__ . '::HTML');
+  my $center = camelize(
+    delete $param->{use} // __PACKAGE__ . '::HTML'
+  );
 
   if (index($center,'::') < 0) {
     $center = __PACKAGE__ . '::' . $center;
@@ -111,26 +116,3 @@ __END__
 
 The notification won't be included in case no notifications are
 in the queue and no parameters are passed.
-
-
-
-% if (flash('fine') || flash('alert') || stash('fine') || stash('alert')) {
-%= javascript '/js/humane.min.js'
-%= javascript begin
-  humane.baseCls = 'humane-libnotify';
-%   if (flash('fine') || stash('fine')) {
-  humane.log("<%= l(flash('fine') || stash('fine')) %>", {
-    timeout: 3000,
-    clickToClose: true,
-    addnCls: 'humane-libnotify-success'
-  });
-%   };
-%   if (flash('alert') || stash('alert')) {
-  humane.log("<%= l(flash('alert') || stash('alert')) %>", {
-    timeout: 3000,
-    clickToClose: true,
-    addnCls: 'humane-libnotify-error'
-  });
-%   };
-%= end
-% };

@@ -2,6 +2,8 @@ package Korap::Plugin::KorapSearch;
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::ByteStream 'b';
 
+# TODO: This will probably be an engine for M::P::Search
+
 sub register {
   my ($plugin, $mojo, $param) = @_;
   $param ||= {};
@@ -73,14 +75,18 @@ sub register {
 
       my $ua = Mojo::UserAgent->new($url);
       $c->app->log->debug($url->to_string);
+
+      # Blocking request
+      # TODO: Make non-blocking
       my $tx = $ua->get($url);
 
+      # Request successful
       if (my $res = $tx->success) {
 	my $json = $res->json;
 
-	my $b_hit = $json->{benchmarkHitCounter};
+	# Reformat benchmark counter
+	my $b_hit    = $json->{benchmarkHitCounter};
 	my $b_search = $json->{benchmarkSearchResults};
-
 	if ($b_hit =~ s/\s+(m)?s$//) {
 	  $b_hit = sprintf("%.2f", $b_hit) . ($1 ? $1 : '') . 's';
 	};
@@ -88,21 +94,30 @@ sub register {
 	  $b_search = sprintf("%.2f", $b_search) . ($1 ? $1 : '') . 's';
 	};
 
-	$c->stash('search.bm.hit' => $b_hit);
-	$c->stash('search.bm.result' => $b_search);
-	$c->stash('search.itemsPerPage' => $json->{itemsPerPage});
+	for ($c->stash) {
+	  $_->{'search.bm.hit'}       = $b_hit;
+	  $_->{'search.bm.result'}    = $b_search;
+	  $_->{'search.itemsPerPage'} = $json->{itemsPerPage};
+	  $_->{'search.query'}        = $json->{request}->{query};
+	  $_->{'search.hits'}         = $json->{matches};
+	  $_->{'search.totalResults'} = $json->{totalResults};
+	};
+
 	if ($json->{error}) {
 	  $c->notify('error' => $json->{error});
 	};
-	$c->stash('search.query' => $json->{request}->{query});
-	$c->stash('search.hits' => $json->{matches});
-	$c->stash('search.totalResults' => $json->{totalResults});
       }
+
+      # Request failed
       else {
 	my $res = $tx->res;
 	$c->notify('error' =>  $res->code . ': ' . $res->message);
       };
+
+      # Run embedded template
       my $v = $cb->();
+
+      # Delete useless stash keys
       foreach (qw/hits totalResults bm.hit bm.result itemsPerPage error query/) {
 	delete $c->stash->{'search.' . $_};
       };
@@ -110,6 +125,8 @@ sub register {
     }
   );
 
+
+  # Establish 'search_hits' helper
   $mojo->helper(
     search_hits => sub {
       my $c = shift;
@@ -122,15 +139,20 @@ sub register {
 
       my $hits = delete $c->stash->{'search.hits'};
       my $string;
+
+      # Iterate over all hits
       foreach (@$hits) {
 	local $_ = $_;
 	$c->stash('search.hit' => $_);
 	$string .= $cb->($_);
       };
-      delete $c->stash->{'lucy.hit'};
+
+      # Delete unnecessary stash values
+      delete $c->stash->{'search.hit'};
       return b($string || '');
     }
   );
 };
+
 
 1;
