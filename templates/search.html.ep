@@ -9,7 +9,7 @@
 % my $pages = (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
 % $pages = $pages < 0 ? 0 : $pages;
 <%= pagination(stash('search.startPage'), $pages, $url); %></span>
-Found <span id="total-results"><%= format_thousands(stash('search.totalResults')) %> matches</span>
+Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matches</span>
 % if (stash 'search.bm.hit') {
  in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)
 % }
@@ -17,7 +17,7 @@ Found <span id="total-results"><%= format_thousands(stash('search.totalResults')
 </div>
 
 
-%= notifications
+%= notifications 'Humane'
 
 
 % if (stash('search.query')) {
@@ -39,10 +39,8 @@ Found <span id="total-results"><%= format_thousands(stash('search.totalResults')
 % end
 
 
-<script>
-<!--
+%= javascript begin
 $("li,code").on("click", function () {
   $(this).toggleClass('active');
 });
--->
-</script>
+% end

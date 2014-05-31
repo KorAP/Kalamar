@@ -1,0 +1,4 @@
+0.01 2014-05-31
+        - Simplifications:
+          Notifications plugin is at https://github.com/Akron/Mojolicious-Plugin-Notifications
+	  All other plugins can be found at CPAN

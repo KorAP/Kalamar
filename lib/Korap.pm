@@ -9,29 +9,16 @@ sub startup {
 
   $self->plugin('Config');
   $self->plugin('TagHelpers::Pagination');
+  $self->plugin('Notifications');
+  $self->plugin('Number::Commify');
 
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
   $self->plugin('KorapSearch');
-  $self->plugin('Notifications' => {
-    use => 'Humane'
-  });
-
-  $self->helper(
-    format_thousands => sub {
-      shift;
-      my ($n, @array) = @_;
-      while ($n =~ /\d\d\d\d/) {
-	$n =~ s/(\d\d\d)$//;
-	unshift @array, $1;
-      };
-      unshift @array, $n;
-      return join ',', @array;
-    }
-  );
 
   # Routes
   my $r = $self->routes;
 
+  # Create search endpoint
   $r->add_shortcut(
     search => sub {
       shift->get('/search')->to('search#remote')
@@ -41,7 +28,10 @@ sub startup {
   $r->get('/')->to(
     cb => sub {
       my $c = shift;
-      $c->render('text' => 'Go to '. $c->link_to('search', '/collection/search'));
+      $c->render(
+	text =>
+	  'Go to '.
+	    $c->link_to('search', '/collection/search'));
     }
   );
 

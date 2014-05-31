@@ -10,7 +10,7 @@ sub register {
 
   # Load parameter from Config file
   if (my $config_param = $mojo->config('KorAP')) {
-    $param = { %$config_param, %$param };
+    $param = { %$param, %$config_param };
   };
 
   my $api = $param->{api};
