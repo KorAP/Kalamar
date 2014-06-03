@@ -2,12 +2,11 @@
 
 ol {
   width: auto;
-  margin: 2pt;
   overflow: hidden;
   list-style-type: none;
-  font-size: 9pt;
+  font-size: 10pt;
+  margin: 0;
   padding: 0;
-  margin-bottom: 2em;
   text-indent: 0;
   border: 1px solid #ccc;
   font-family: verdana, tahoma, arial;

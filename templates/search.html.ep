@@ -1,5 +1,4 @@
 % layout 'default', title 'KorAP';
-% use JSON::XS;
 
 
 %= search begin
@@ -8,7 +7,14 @@
 % my $url = url_with->query(['p' => '{page}']);
 % my $pages = (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
 % $pages = $pages < 0 ? 0 : $pages;
-<%= pagination(stash('search.startPage'), $pages, $url); %></span>
+</span>
+
+<div id="pagination">
+%= pagination(stash('search.startPage'), $pages, $url)
+</div>
+
+%#= l('Found <span id="total-results">[_1]</span> [quant,_1,match]')
+%#= l('in [_1])
 Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matches</span>
 % if (stash 'search.bm.hit') {
  in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)
@@ -16,17 +22,7 @@ Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matc
 </p>
 </div>
 
-
-%= notifications 'Humane'
-
-
-% if (stash('search.query')) {
-<code><span>JSON-LD Query</span><pre>
-%  my $json = JSON::XS->new->pretty;
-%= $json->encode(stash('search.query'))
-</pre></span></code>
-% }
-
+%= include 'query'
 
 <ol class="left-aligned">
 %=  search_hits begin
@@ -36,11 +32,4 @@ Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matc
   </li>
 %   end
 </ol>
-% end
-
-
-%= javascript begin
-$("li,code").on("click", function () {
-  $(this).toggleClass('active');
-});
 % end

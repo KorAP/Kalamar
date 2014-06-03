@@ -8,7 +8,14 @@ sub startup {
   my $self = shift;
 
   $self->plugin('Config');
-  $self->plugin('TagHelpers::Pagination');
+  $self->plugin('TagHelpers::Pagination' => {
+    prev => '<span><i class="fa fa-caret-left"></i></span>',
+    next => '<span><i class="fa fa-caret-right"></i></span>',
+    ellipsis => '<span>&hellip;</span>',
+    separator => '',
+    current => '<span>{current}</span>',
+    page => '<span>{page}</span>'
+  });
   $self->plugin('Notifications');
   $self->plugin('Number::Commify');
 
@@ -34,6 +41,10 @@ sub startup {
 	    $c->link_to('search', '/collection/search'));
     }
   );
+
+  $r->get('/util/query')->to('search#query');
+
+  $r->get('/:resource' => [qw/collection corpus/])->to('search#info');
 
   # resource => [qw/collection corpus/]
   $r->get('/:resource')->search;

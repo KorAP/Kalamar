@@ -3,10 +3,31 @@ body, html {
   color: #666;
   font-family: verdana, tahoma, arial;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.4);
+  margin: 0;
 }
 
-form input {
-  border: 1px solid black;  
+#top {
+  background-color: #7ba400;
+  padding: 10pt 0 10pt 30pt;
+  position: relative;
+  height: 62.5px;
+}
+
+#button-right {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+input, button {
+  border: 2px solid white;
+  padding: 3px;
+  font-size: 11pt;
+}
+
+form {
+  margin-left: 235px;
+  margin-top:10px
 }
 
 form input[type=search] {
@@ -17,7 +38,7 @@ a {
   text-decoration: none;
 }
 
-p.pagination, p.found {
+p.found {
   font-size: 10pt;
   padding: 0;
   margin: 0;
@@ -27,8 +48,47 @@ p.found {
   text-align: right;
 }
 
-p.found span.pagination {
-  padding-right: 3em;
+#pagination {
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  z-index: 800;
+}
+
+#pagination span {
+  display: inline-block;
+  background-color: #ddd;
+  margin: 2pt;
+  height: 1.5em;
+  padding-left: .5em;
+  padding-right: .5em;
+  line-height: 1.5em;
+  text-align: center;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #999;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+#pagination a {
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+#pagination a[rel=self] span {
+  border-color: #ffa500;
+  background-color: #f4eebb;
+  color: #ff8000;
+}
+
+#pagination a[href] {
+  color: #7ba400;
+}
+
+#pagination a[href] span:hover {
+  background-color: #7ba400;
+  border-color: #496000;
+  color: #496000;
+  text-shadow: none;
 }
 
 #total-results {
@@ -40,13 +100,19 @@ code {
   display: block;
   border-style: solid;
   border-color: #ffa500;
+  font-size: 12pt;
+  padding: 2pt;
+  color: #ff8000;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.9);
   border-width: 2px;
-  margin: 2pt;
+  margin: 0;
   cursor: pointer;
 }
 
 code:not(.active) {
+/*
   height: 12pt;
+*/
 }
 
 code:not(.active) span {
@@ -59,9 +125,45 @@ code:not(.active) pre {
 
 code.active pre {
   display: block;
-  padding-left: 20px;
+  padding: 20px;
 }
 
 code.active span {
   display: none;
+}
+
+
+#sidebar.active {
+  margin-left: 0px;
+  left: 0;
+  top: 0;
+}
+
+#sidebar {
+  color: #fff;
+  text-shadow: none;
+  transition: all .3s ease-in-out;
+  position: fixed;
+  z-index: 500;
+  height: 100%;
+  background-color: #496000;
+  width: 260px;
+  margin-left: -245px;
+  left: 0;
+  top: 0;
+}
+
+#search {
+  margin-left: 30px;
+  margin-right: 15px;
+  margin-bottom: 40px;
+}
+
+
+iframe {
+  border-width: 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  height: 300px;
+  width: 100%;
 }

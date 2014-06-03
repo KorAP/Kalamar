@@ -68,6 +68,9 @@ sub register {
       $query{rctx} = 'chars';
       $query{rctxs} = 120;
 
+      $query{cutoff} = $param{cutoff} // $c->param('cutoff');
+
+
       $url->query(\%query);
 
       $c->stash('search.totalResults' => 0);

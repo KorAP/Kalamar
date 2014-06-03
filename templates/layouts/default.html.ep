@@ -4,15 +4,46 @@
     <title><%= title %></title>
 %= stylesheet '/style.css'
 %= stylesheet '/kwic-3.0.css'
+%= stylesheet '/fontawesome/font-awesome.min.css'
 %= javascript '/jquery-2.0.0.min.js'
+<meta charset="utf-8" />
   </head>
   <body>
-    <h1><%= title %></h1>
+%= notifications 'Alertify'
+
+<div id="top">
+%= image '/img/korap-logo.svg', style => 'position: absolute; z-index: 999'
 %= form_for url_for() => begin
 %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']]
+<br />
 %= search_field 'q'
-%= submit_button
+<button type="submit" name="action" value="ok"><i class="fa fa-search"></i></button>
+<button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
 % end
+
+% if (param('q')) {
+<div id="button-right">
+<button type="button" onclick="$('#search > ol').toggleClass('left-aligned right-aligned'); $(this).children('i').toggleClass('fa-align-right fa-align-left')"><i class="fa fa-align-right"></i></button>
+</div>
+% }
+
+</div>
+
+<div id="sidebar" style="padding-top: 90px">
+  <fieldset style="margin: 0 17px;">
+    <legend>Virtual Collections</legend>
+  </fieldset>
+</div>
+
+<div id="search">
 %= content
+</div>
+
+%= javascript begin
+$("li,code,#sidebar").on("click", function () {
+  $(this).toggleClass('active');
+});
+% end
+
   </body>
 </html>
