@@ -8,19 +8,30 @@ sub startup {
   my $self = shift;
 
   $self->plugin('Config');
+  $self->plugin('CHI');
   $self->plugin('TagHelpers::Pagination' => {
     prev => '<span><i class="fa fa-caret-left"></i></span>',
     next => '<span><i class="fa fa-caret-right"></i></span>',
-    ellipsis => '<span>&hellip;</span>',
+    ellipsis => '<span><i class="fa fa-ellipsis-h"></i></span>',
     separator => '',
     current => '<span>{current}</span>',
     page => '<span>{page}</span>'
   });
   $self->plugin('Notifications');
   $self->plugin('Number::Commify');
-
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
   $self->plugin('KorapSearch');
+  $self->plugin('KorapInfo');
+  $self->plugin('KorapTagHelpers');
+
+  $self->helper(
+    date_format => sub {
+      my ($c, $date) = @_;
+      return $date;
+    }
+  );
+
+  # TODO: Write search snippet
 
   # Routes
   my $r = $self->routes;
@@ -42,6 +53,10 @@ sub startup {
     }
   );
 
+  # Tutorial
+  $r->get('/tutorial')->to('tutorial#page')->name('tutorial');
+  $r->get('/tutorial/(*tutorial)')->to('tutorial#page');
+
   $r->get('/util/query')->to('search#query');
 
   $r->get('/:resource' => [qw/collection corpus/])->to('search#info');
@@ -51,6 +66,7 @@ sub startup {
   $r->get('/:resource/:cid', resource => [qw/collection corpus/])->search;
   $r->get('/:resource/')->search;
   # /matchInfo?id=...&f=&l=&spans
+
 };
 
 

@@ -1,17 +1,18 @@
-% layout 'default', title 'KorAP';
-
-
+% if (param 'q') {
 %= search begin
+
+% unless (param 'snippet') {
 <div style="clear: both">
-<p class="found"><span class="pagination">
+  <p class="found">
+    <span class="pagination">
 % my $url = url_with->query(['p' => '{page}']);
 % my $pages = (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
 % $pages = $pages < 0 ? 0 : $pages;
-</span>
+    </span>
 
-<div id="pagination">
+    <div id="pagination">
 %= pagination(stash('search.startPage'), $pages, $url)
-</div>
+    </div>
 
 %#= l('Found <span id="total-results">[_1]</span> [quant,_1,match]')
 %#= l('in [_1])
@@ -19,17 +20,32 @@ Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matc
 % if (stash 'search.bm.hit') {
  in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)
 % }
-</p>
+  </p>
 </div>
 
 %= include 'query'
+% };
 
 <ol class="left-aligned">
 %=  search_hits begin
   <li>
 %# ID, title, corpusID, author, pubDate, textClass
-<%== $_->{snippet} %>
+    <div class="snippet"><%== $_->{snippet} %></div>
+    <p><strong><%= $_->{title} %></strong><%= $_->{author} ? ' by ' . $_->{author}  : '' %>; published on <%= date_format $_->{pubDate} %> as <%= $_->{docID} %> (<%= $_->{corpusID} %>)</p>
+%#    as <%= $_->{ID} %>
+%#  textClass docID
+% foreach (grep { m!/morpho$! } split(/\s+/, $_->{foundries})) {
+%#  <%= $_ %>
+% };
+
+    <ul class="action right">
+      <li onmouseup="closeSnippet(this)" title="close"><i class="fa fa-toggle-up"></i></li>
+      <li title="Annotations"><i class="fa fa-info-circle"></i></li>
+      <li title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
+      <li title="Remember"><i class="fa fa-star-o"></i></li>
+    </ul>
   </li>
 %   end
 </ol>
 % end
+% }

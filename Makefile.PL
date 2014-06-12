@@ -18,6 +18,7 @@ WriteMakefile(
     'Mojolicious' => '4.92',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.01,
     'Mojolicious::Plugin::Notifications' => 0.03,
+    'Mojolicious::Plugin::CHI' => 0.09,
 #    'Mojolicious::Plugin::Search' => 0.01,
     'Mojolicious::Plugin::Number::Commify' => '0.022',
     'JSON::XS' => 0.0

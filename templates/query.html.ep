@@ -1,8 +1,8 @@
 % use JSON::XS;
 
 % if (stash('search.query')) {
-<code><span>JSON-LD Query for <%= param 'q' %> (<%= param 'ql' %>)</span><pre>
-%  my $json = JSON::XS->new->pretty;
+<code class="query serial<% if (param('action') eq 'inspect') { %> active<% } %>"><span>JSON-LD Query for <%= param 'q' %> (<%= param 'ql' %>)</span><pre>
+%  my $json = JSON::XS->new->allow_blessed->pretty;
 %= $json->encode(stash('search.query'))
 </pre></span></code>
 % }

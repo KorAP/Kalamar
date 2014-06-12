@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+/*
+  light orange: #f4eebb;
+  dark orange: #ffa500;
+  dark green: #496000;
+  light green: #7ba400;
+
+  Search for: [orth=erstens]
+*/
+
 ol {
   width: auto;
   overflow: hidden;
@@ -34,18 +43,18 @@ ol > li:nth-of-type(even) {
   background-color: #ddd;
 }
 
-ol > li > span,
-ol > li > span > span {
+ol > li > div.snippet > span,
+ol > li > div.snippet > span > span {
   white-space: no-wrap !important;
 }
 
-ol.free-aligned > li:not(.active) > span.left {
+ol.free-aligned > li:not(.active) > div.snippet > span.left {
   display: inline-block;
   text-align: right;
   width: 50.0046%;
 }
 
-ol.free-aligned > li:not(.active) > span.separator {
+ol.free-aligned > li:not(.active) > div.snippet > span.separator {
   width: 0px;
   height: 1em;
   margin-bottom: -2px;
@@ -56,11 +65,11 @@ ol.free-aligned > li:not(.active) > span.separator {
   margin-right: 2px;
 }
 
-ol.free-aligned > li > span.right {
+ol.free-aligned > li > div.snippet > span.right {
   text-align: left;
 }
 
-ol.left-aligned > li > span.context-left {
+ol.left-aligned > li > div.snippet > span.context-left {
   display: inline-block;
   text-align: right;
   width: 50.001%;
@@ -70,19 +79,20 @@ ol.right-aligned {
   text-align: right;
 }
 
-ol.right-aligned > li:not(.active) > span.context-right {
+ol.right-aligned > li:not(.active) > div.snippet > span.context-right {
   display: inline-block;
   text-align: left;
   width: 49.9915%;
 }
 
-li > span {
+li > div.snippet > span {
   color: #666;
 }
 
 .match {
   font-weight: bold;
-  color: #333;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.9);
+  color: #111;
   padding-left: 4pt;
   padding-right: 2pt;
 }
@@ -113,26 +123,30 @@ span.more:before {
 }
 
 /* active view */
-ol li.active {
+ol > li.active {
   text-align: left;
   width: auto;
   cursor: normal;
   white-space: wrap;
   height: auto;
-  padding: 5pt;
-  padding-left: 3em;
-  padding-bottom: 12px;
   border-width: 2px;
   background-color: #f4eebb;
   position: relative;
+  min-height: 68pt;
 }
 
-ol li.active > span {
-  line-height: 1.7em;
+ol > li.active > div.snippet {
+  margin: 5pt 10pt;
+  margin-right: 3em;
+  margin-bottom: 24pt;
+}
+
+ol > li.active > div.snippet > span {
+  line-height: 1.4em;
   width: auto;
 }
 
-ol li.active span.context-left {
+ol > li.active > div.snippet > span.context-left {
   margin-left: 0;
   display: inline;
   overflow: visible;
@@ -140,20 +154,22 @@ ol li.active span.context-left {
   width: auto;
 }
 
-
 /* Korap-Actions: */
 ol > li ul.action {
   display: none;
 }
 
-ol > li ul.action a {
+ol > li ul.action li {
+  cursor: pointer;
   color: white;
   text-decoration: none;
-  text-shadow: none;
 }
 
 ol > li.active ul.action {
   background-color: #ffa500;
+  font-size: 12pt;
+  color: white;
+  text-shadow: none;
   display: block;
   margin: 0;
   padding: 0;
@@ -163,6 +179,7 @@ ol > li.active ul.action {
   list-style-position: inline;
 }
 
+/*
 ol > li.active ul.action.right {
   position: absolute;
   right: 0;
@@ -170,20 +187,34 @@ ol > li.active ul.action.right {
   height: 1.2em;
 }
 
-ol > li.active ul.action.left {
-  position: absolute;
-  float: left;
-  padding: 0pt 3pt;
-  height: 100%;
-  width: 2em;;
-/*
-  margin: -5pt 2pt 2pt -5pt;
-*/
-  left: 0;
-  top: 0;
-}
-
 ol > li.active ul.action.right li {
   float: left;
   padding-left: 1em;
+}
+*/
+
+ol > li.active ul.action.right {
+  position: absolute;
+  float: right;
+  text-align: center;
+  padding: 0pt 3pt;
+  height: 100%;
+  width: 1.2em;;
+  right: 0;
+  top: 0;
+}
+
+ol > li:not(.active) p {
+  display: none;
+}
+
+ol > li.active p {
+  background-color: #ffa500;
+  color: white;
+  text-shadow: none;
+  padding: 3pt 10pt;
+  margin: 5pt 0pt 0pt 0pt;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }

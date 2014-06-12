@@ -9,30 +9,34 @@
 <meta charset="utf-8" />
   </head>
   <body>
-%= notifications 'Alertify'
+
+<div id="tutorial" style="display: none">
+  <i onclick="closeTutorial()" class="fa fa-toggle-up"></i>
+  <iframe src="about:blank" data-src="<%= url_for(session('tutorial') // 'tutorial') %>"></iframe>
+</div>
 
 <div id="top">
-%= image '/img/korap-logo.svg', style => 'position: absolute; z-index: 999'
+%#= image '/img/korap-logo.svg', style => 'position: absolute; z-index: 999'
+%= image '/img/korap-logo-solo.svg', style => 'position: absolute; z-index: 999'
 %= form_for url_for() => begin
-%= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']]
+%= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
 <br />
-%= search_field 'q'
+%= search_field 'q', id => 'q-field'
 <button type="submit" name="action" value="ok"><i class="fa fa-search"></i></button>
 <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
 % end
 
-% if (param('q')) {
 <div id="button-right">
+% if (param('q')) {
 <button type="button" onclick="$('#search > ol').toggleClass('left-aligned right-aligned'); $(this).children('i').toggleClass('fa-align-right fa-align-left')"><i class="fa fa-align-right"></i></button>
-</div>
 % }
+<button type="button" onclick="openTutorial()"><i class="fa fa-graduation-cap"></i></button>
+</div>
 
 </div>
 
 <div id="sidebar" style="padding-top: 90px">
-  <fieldset style="margin: 0 17px;">
-    <legend>Virtual Collections</legend>
-  </fieldset>
+%= include 'collections'
 </div>
 
 <div id="search">
@@ -40,10 +44,46 @@
 </div>
 
 %= javascript begin
-$("li,code,#sidebar").on("click", function () {
+
+$("ol > li:not(.active)").on("click", function () {
+  $(this).addClass('active');
+});
+
+function closeSnippet (o) {
+  $(o.parentNode.parentNode).removeClass('active');
+};
+
+function openTutorial (o) {
+  var tut = $("#tutorial");
+  tut.slideDown();
+  var iframe = tut.children("iframe");
+  var src = iframe.attr("data-src");
+  iframe.attr("src", src);
+};
+
+function closeTutorial (o) {
+  $("#tutorial").slideUp();
+};
+
+function useQuery (o) {
+  var q = o.getAttribute("data-query");
+  var ql = o.getAttribute("data-query-language");
+  $("#ql-field").val(ql);
+  $("#q-field").val(q);
+  closeTutorial();
+};
+
+/*
+function requestInfo
+*/
+
+$("code.query.serial,#sidebar").on("click", function () {
   $(this).toggleClass('active');
 });
+
+
 % end
 
+%= notifications 'Alertify'
   </body>
 </html>

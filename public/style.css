@@ -95,7 +95,7 @@ p.found {
   color: #c1002b;
 }
 
-code {
+code.query {
   background-color: #f4eebb;
   display: block;
   border-style: solid;
@@ -106,32 +106,27 @@ code {
   text-shadow: 1px 1px rgba(255, 255, 255, 0.9);
   border-width: 2px;
   margin: 0;
+  margin-bottom: 5pt;
   cursor: pointer;
 }
 
-code:not(.active) {
-/*
-  height: 12pt;
-*/
-}
-
-code:not(.active) span {
+code.query.serial:not(.active) span {
   padding: 2pt;
 }
 
-code:not(.active) pre {
-  display: none;
-}
-
-code.active pre {
+code.query pre {
   display: block;
-  padding: 20px;
+  padding: 2px 5px;
+  margin: 0;
 }
 
-code.active span {
+code.query.serial:not(.active) pre {
   display: none;
 }
 
+code.query.serial.active span {
+  display: none;
+}
 
 #sidebar.active {
   margin-left: 0px;
@@ -153,17 +148,113 @@ code.active span {
   top: 0;
 }
 
+#sidebar > * {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: .3s;
+}
+
+#sidebar.active > * {
+  opacity: 1;
+}
+
+#sidebar h2 {
+  font-size: 100%;
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 5pt 0;
+}
+
+#sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  font-size: 10pt;
+  text-indent: 0;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 4pt 10pt;
+}
+
+#sidebar ul li h3 {
+  font-weight: bold;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar ul li.active h3 {
+  margin-bottom: 2pt;
+  padding-bottom: 2pt;
+  border-bottom: 1px solid black;
+}
+
+#sidebar ul li.active {
+  background-color: #7ba400;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+dl.info {
+  font-size: 9pt;
+  padding: 0 10pt;
+}
+
+dl.info dt {
+  font-weight: bold;
+  float: left;
+}
+
+dl.info dd {
+  text-align: right;
+}
+
 #search {
   margin-left: 30px;
   margin-right: 15px;
   margin-bottom: 40px;
 }
 
-
+/*
 iframe {
   border-width: 0;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   height: 300px;
   width: 100%;
+}
+*/
+
+#tutorial {
+  position: fixed;
+  z-index: 9999;
+  top: 2%;
+  bottom: 2%;
+  left: 5%;
+  right: 5%;
+  background-color: #496000;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+#tutorial > i {
+  font-size: 20pt;
+  color: #496000;
+  position: absolute;
+  z-index: 100;
+  top: 10pt;
+  right: 20pt;
+  cursor: pointer;
+}
+
+#tutorial iframe {
+  width: 100%;
+  min-height: 100%;
+  border-width: 0;
+  border-radius: 10px;
+  background-image: url('img/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: white;
 }
