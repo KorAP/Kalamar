@@ -3,21 +3,22 @@
   <head>
     <title><%= title %></title>
 %= stylesheet '/style.css'
-%= stylesheet '/kwic-3.0.css'
+%= stylesheet '/kwic-4.0.css'
 %= stylesheet '/fontawesome/font-awesome.min.css'
 %= javascript '/jquery-2.0.0.min.js'
+%= javascript '/translatehtml.js'
 <meta charset="utf-8" />
   </head>
   <body>
 
 <div id="tutorial" style="display: none">
   <i onclick="closeTutorial()" class="fa fa-toggle-up"></i>
-  <iframe src="about:blank" data-src="<%= url_for(session('tutorial') // 'tutorial') %>"></iframe>
+  <iframe src="about:blank" data-src="<%= url_for(session('tutorial') || 'tutorial') %>"></iframe>
 </div>
 
+
 <div id="top">
-%#= image '/img/korap-logo.svg', style => 'position: absolute; z-index: 999'
-%= image '/img/korap-logo-solo.svg', style => 'position: absolute; z-index: 999'
+  <h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1>
 %= form_for url_for() => begin
 %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
 <br />
@@ -39,6 +40,13 @@
 %= include 'collections'
 </div>
 
+
+%# <div>
+%#= javascript begin
+%# translateTable();
+%# end
+%# </div>
+
 <div id="search">
 %= content
 </div>
@@ -51,6 +59,15 @@ $("ol > li:not(.active)").on("click", function () {
 
 function closeSnippet (o) {
   $(o.parentNode.parentNode).removeClass('active');
+};
+
+
+function showTable (o) {
+  var match = o.parentNode.parentNode;
+  var corpusID = match.getAttribute('data-corpus-id');
+  var docID = match.getAttribute('data-doc-id');
+  var matchID = match.getAttribute('data-match-id');
+  jQuery.getJSON('/corpus/' + corpusID + '/' + docID + '/' + matchID);
 };
 
 function openTutorial (o) {
@@ -73,16 +90,13 @@ function useQuery (o) {
   closeTutorial();
 };
 
-/*
-function requestInfo
-*/
-
 $("code.query.serial,#sidebar").on("click", function () {
   $(this).toggleClass('active');
 });
 
 
 % end
+
 
 %= notifications 'Alertify'
   </body>

@@ -18,7 +18,7 @@ sub register {
       my $c = shift;
       my $src = shift;
 
-/resource/matchInfo?id=match-WPD!WPD_TTT.07206-p151-152&f=treetagger&l=morpho&spans=true
+#/resource/matchInfo?id=match-WPD!WPD_TTT.07206-p151-152&f=treetagger&l=morpho&spans=true
 
       $src = 'VirtualCollection' if $src eq 'collection';
       $src = 'Corpus' if $src eq 'corpus';

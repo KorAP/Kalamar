@@ -14,8 +14,6 @@
 %= pagination(stash('search.startPage'), $pages, $url)
     </div>
 
-%#= l('Found <span id="total-results">[_1]</span> [quant,_1,match]')
-%#= l('in [_1])
 Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matches</span>
 % if (stash 'search.bm.hit') {
  in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)
@@ -28,19 +26,22 @@ Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matc
 
 <ol class="left-aligned">
 %=  search_hits begin
-  <li>
+  <li data-corpus-id="<%= $_->{corpusID} %>"
+      data-doc-id="<%= korap_doc_id($_) %>"
+      data-match-id="<%= korap_match_id($_) %>">
 %# ID, title, corpusID, author, pubDate, textClass
     <div class="snippet"><%== $_->{snippet} %></div>
     <p><strong><%= $_->{title} %></strong><%= $_->{author} ? ' by ' . $_->{author}  : '' %>; published on <%= date_format $_->{pubDate} %> as <%= $_->{docID} %> (<%= $_->{corpusID} %>)</p>
+
 %#    as <%= $_->{ID} %>
 %#  textClass docID
-% foreach (grep { m!/morpho$! } split(/\s+/, $_->{foundries})) {
+%# foreach (grep { m!/morpho$! } split(/\s+/, $_->{foundries})) {
 %#  <%= $_ %>
-% };
+%# };
 
     <ul class="action right">
       <li onmouseup="closeSnippet(this)" title="close"><i class="fa fa-toggle-up"></i></li>
-      <li title="Annotations"><i class="fa fa-info-circle"></i></li>
+      <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
       <li title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
       <li title="Remember"><i class="fa fa-star-o"></i></li>
     </ul>

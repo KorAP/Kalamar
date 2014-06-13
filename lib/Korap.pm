@@ -7,6 +7,8 @@ our $VERSION = '0.01';
 sub startup {
   my $self = shift;
 
+  $self->secrets(['fmhsfjgfchgsdbfgshfxztsbt32477eb45veu4vubrghfgghbtv']);
+
   $self->plugin('Config');
   $self->plugin('CHI');
   $self->plugin('TagHelpers::Pagination' => {
@@ -31,15 +33,13 @@ sub startup {
     }
   );
 
-  # TODO: Write search snippet
-
   # Routes
   my $r = $self->routes;
 
   # Create search endpoint
   $r->add_shortcut(
     search => sub {
-      shift->get('/search')->to('search#remote')
+      shift->route('/search')->to('search#remote')
     }
   );
 
@@ -53,21 +53,27 @@ sub startup {
     }
   );
 
+
+
+  $r->get('/util/query')->to('search#query');
+
   # Tutorial
   $r->get('/tutorial')->to('tutorial#page')->name('tutorial');
   $r->get('/tutorial/(*tutorial)')->to('tutorial#page');
 
-  $r->get('/util/query')->to('search#query');
-
-  $r->get('/:resource' => [qw/collection corpus/])->to('search#info');
-
-  # resource => [qw/collection corpus/]
-  $r->get('/:resource')->search;
-  $r->get('/:resource/:cid', resource => [qw/collection corpus/])->search;
-  $r->get('/:resource/')->search;
-  # /matchInfo?id=...&f=&l=&spans
-
+  my $res = $r->route('/:resource', resource => [qw/collection corpus/]);
+  $res->to('search#info');
+  $res->search;
+  $res->route('/:corpus_id')->search;
+#  $r->get(
+#    '/:resource/:corpus_id/#doc_id/#match_id',
+#    resource => [qw/collection corpus/])->to('search#match')->name('match');
+ # /matchInfo?id=...&f=&l=&spans
 };
 
 
 1;
+
+__END__
+
+  # TODO: Write search snippet

@@ -8,9 +8,11 @@ body, html {
 
 #top {
   background-color: #7ba400;
-  padding: 10pt 0 10pt 30pt;
+  padding: 0pt;
+  padding-top: 10px;
   position: relative;
-  height: 62.5px;
+  height: 70px;
+  padding-left: 30px;
 }
 
 #button-right {
@@ -216,16 +218,6 @@ dl.info dd {
   margin-bottom: 40px;
 }
 
-/*
-iframe {
-  border-width: 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  height: 300px;
-  width: 100%;
-}
-*/
-
 #tutorial {
   position: fixed;
   z-index: 9999;
@@ -253,8 +245,27 @@ iframe {
   min-height: 100%;
   border-width: 0;
   border-radius: 10px;
-  background-image: url('img/loading.gif');
+  background-image: url('img/crab.svg');
+  background-size: 10%;
   background-repeat: no-repeat;
   background-position: center center;
   background-color: white;
+}
+
+h1 {
+    margin: 0;
+    left: 0;
+    top: 0;
+    background-image: url('/img/korap-logo-solo.svg');
+    position: absolute;
+    width: 260px; /* like sidebars*/
+    height: 80px; /* like #top */
+    z-index: 999;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 65%;
+}
+
+h1 span {
+    margin-left: -3000px;
 }
