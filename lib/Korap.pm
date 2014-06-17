@@ -1,7 +1,7 @@
 package Korap;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # This method will run once at server start
 sub startup {
@@ -43,28 +43,25 @@ sub startup {
     }
   );
 
-  $r->get('/')->to(
-    cb => sub {
-      my $c = shift;
-      $c->render(
-	text =>
-	  'Go to '.
-	    $c->link_to('search', '/collection/search'));
-    }
-  );
-
-
-
+  $r->get('/')->to('search#remote');
   $r->get('/util/query')->to('search#query');
 
   # Tutorial
   $r->get('/tutorial')->to('tutorial#page')->name('tutorial');
   $r->get('/tutorial/(*tutorial)')->to('tutorial#page');
 
-  my $res = $r->route('/:resource', resource => [qw/collection corpus/]);
-  $res->to('search#info');
-  $res->search;
-  $res->route('/:corpus_id')->search;
+  my $collection = $r->route('/collection');
+  $collection->to('search#info');
+  $collection->search;
+
+  my $corpus = $r->route('/corpus');
+  $corpus->search;
+  $corpus->route('/:corpus_id')->search;
+  $corpus->route('/:corpus_id/:doc_id')->search;
+  $corpus->route('/:corpus_id/#doc_id/:match_id')->to('info#about_match');
+
+
+
 #  $r->get(
 #    '/:resource/:corpus_id/#doc_id/#match_id',
 #    resource => [qw/collection corpus/])->to('search#match')->name('match');

@@ -32,7 +32,7 @@ sub register {
       my $c = shift;
       my $match = shift;
       my $did = $match->{docID};
-      $did =~ s/^[^_]_//;
+      $did =~ s/^[^_]+_//;
       return $did // '';
     }
   );
@@ -47,21 +47,18 @@ sub register {
       my %param = @_;
 
       # Test envronment
-#      if ($c->app->mode eq 'test') {
-#	my $json = b(join(' ', <DATA>))->encode;
-#	$json = decode_json($json);
-#
-#	$c->stash('search.count' => 10);
-#	$c->stash('search.startPage' => 1);
-#	$c->stash('search.totalResults' => 666);
-#	$c->stash('search.itemsPerPage' => 10);
-#	$_->{'search.bm.hit'} = 20;
-#	$_->{'search.bm.result'} = 10;
-#	$_->{'search.query'} = $json->{request}->{query};
-#	$_->{'search.hits'} = $json->{matches};
-#	return $cb->();
-#      };
-
+      if ($c->app->mode eq 'test') {
+	state $json = decode_json(join(' ', <DATA>));
+	$c->stash('search.count' => 10);
+	$c->stash('search.startPage' => 1);
+	$c->stash('search.totalResults' => 666);
+	$c->stash('search.itemsPerPage' => 10);
+	$c->stash('search.bm.hit' => 20);
+	$c->stash('search.bm.result' => 10);
+	$c->stash('search.query' => $json->{request}->{query});
+	$c->stash('search.hits' => $json->{matches});
+	return $cb->();
+      };
 
       $c->stash(
 	'search.count' =>

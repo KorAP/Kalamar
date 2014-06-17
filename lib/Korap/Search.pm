@@ -34,18 +34,6 @@ sub remote {
   $c->render(template => 'search');
 };
 
-
-#sub match {
-#  my $c = shift;
-#  my $corpus_id = $c->stash('corpus_id');
-#  my $doc_id = $c->stash('doc_id');
-#  my $match_id = $c->stash('match_id');
-#  return $c->render(json => {
-#    match => 'match-' . $corpus_id . '!' . $corpus_id . '_' . $doc_id . '-' . $match_id
-#  });
-#};
-
-
 sub info {
   my $c = shift;
   my $api = $c->config('KorAP')->{api};

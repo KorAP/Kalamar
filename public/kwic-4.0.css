@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 /*
   light orange: #f4eebb;
   dark orange: #ffa500;
@@ -43,18 +42,18 @@ ol > li:nth-of-type(even) {
   background-color: #ddd;
 }
 
-ol > li > div.snippet > span,
-ol > li > div.snippet > span > span {
+ol > li > div > div.snippet > span,
+ol > li > div > div.snippet > span > span {
   white-space: no-wrap !important;
 }
 
-ol.free-aligned > li:not(.active) > div.snippet > span.left {
+ol.free-aligned > li:not(.active) > div > div.snippet > span.left {
   display: inline-block;
   text-align: right;
   width: 50.046%;
 }
 
-ol.free-aligned > li:not(.active) > div.snippet > span.separator {
+ol.free-aligned > li:not(.active) > div > div.snippet > span.separator {
   width: 0px;
   height: 1em;
   margin-bottom: -2px;
@@ -65,11 +64,11 @@ ol.free-aligned > li:not(.active) > div.snippet > span.separator {
   margin-right: 2px;
 }
 
-ol.free-aligned > li > div.snippet > span.right {
+ol.free-aligned > li > div > div.snippet > span.right {
   text-align: left;
 }
 
-ol.left-aligned > li > div.snippet > span.context-left {
+ol.left-aligned > li > div > div.snippet > span.context-left {
   display: inline-block;
   text-align: right;
   width: 50.01%;
@@ -79,13 +78,13 @@ ol.right-aligned {
   text-align: right;
 }
 
-ol.right-aligned > li:not(.active) > div.snippet > span.context-right {
+ol.right-aligned > li:not(.active) > div > div.snippet > span.context-right {
   display: inline-block;
   text-align: left;
   width: 49.915%;
 }
 
-li > div.snippet > span {
+li > div > div.snippet > span {
   color: #666;
 }
 
@@ -132,21 +131,23 @@ ol > li.active {
   border-width: 2px;
   background-color: #f4eebb;
   position: relative;
-  min-height: 68pt;
 }
 
-ol > li.active > div.snippet {
+ol > li.active > div > div.snippet {
   margin: 5pt 10pt;
   margin-right: 3em;
-  margin-bottom: 24pt;
 }
 
-ol > li.active > div.snippet > span {
+ol > li.active > div {
+  min-height: 42pt;
+}
+
+ol > li.active > div > div.snippet > span {
   line-height: 1.4em;
   width: auto;
 }
 
-ol > li.active > div.snippet > span.context-left {
+ol > li.active > div > div.snippet > span.context-left {
   margin-left: 0;
   display: inline;
   overflow: visible;
@@ -213,8 +214,8 @@ ol > li.active p {
   color: white;
   text-shadow: none;
   padding: 3pt 10pt;
-  margin: 5pt 0pt 0pt 0pt;
-  position: absolute;
+  margin: 0pt;
   width: 100%;
   bottom: 0;
+  z-index: 300;
 }

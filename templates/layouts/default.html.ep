@@ -3,10 +3,11 @@
   <head>
     <title><%= title %></title>
 %= stylesheet '/style.css'
+%= stylesheet '/table.css'
 %= stylesheet '/kwic-4.0.css'
 %= stylesheet '/fontawesome/font-awesome.min.css'
 %= javascript '/jquery-2.0.0.min.js'
-%= javascript '/translatehtml.js'
+%= javascript '/translateTable.js'
 <meta charset="utf-8" />
   </head>
   <body>
@@ -40,13 +41,6 @@
 %= include 'collections'
 </div>
 
-
-%# <div>
-%#= javascript begin
-%# translateTable();
-%# end
-%# </div>
-
 <div id="search">
 %= content
 </div>
@@ -61,13 +55,30 @@ function closeSnippet (o) {
   $(o.parentNode.parentNode).removeClass('active');
 };
 
-
 function showTable (o) {
   var match = o.parentNode.parentNode;
+  var table = $(match).children("div").children("div.tokenInfo").first();
+
+  if (table.hasClass("active")) {
+    table.removeClass("active");
+    return;
+  }
+  else if (table.children("table").length > 0) {
+    table.addClass("active");
+    return;
+  };
+
   var corpusID = match.getAttribute('data-corpus-id');
   var docID = match.getAttribute('data-doc-id');
   var matchID = match.getAttribute('data-match-id');
-  jQuery.getJSON('/corpus/' + corpusID + '/' + docID + '/' + matchID);
+  var url = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
+  var snippet;
+
+  jQuery.getJSON(url, function (res) {
+    var snippet = new SnippetTable(res['snippet']);
+    table.addClass("active");
+    table.append(snippet.toTable());
+  });
 };
 
 function openTutorial (o) {

@@ -1,6 +1,6 @@
 <h2>Virtual Collections</h2>
 <ul>
-% foreach my $vc (@{info_on 'collection'}) {
+% foreach my $vc (@{resource_info('collection')}) {
 <li class="active" title="<%= $vc->{description} // '' %>"><h3><%= $vc->{name} %></h3>
 % my $stats = $vc->{stats};
   <dl class="info">
