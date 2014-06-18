@@ -234,7 +234,8 @@ dl.info dd {
   padding: 5px;
 }
 
-#tutorial > i {
+#tutorial > i,
+#tutorial > a > i {
   font-size: 20pt;
   color: #496000;
   position: absolute;
@@ -242,6 +243,10 @@ dl.info dd {
   top: 10pt;
   right: 20pt;
   cursor: pointer;
+}
+
+#tutorial > a > i {
+  right: 40pt;
 }
 
 #tutorial iframe {

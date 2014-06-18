@@ -43,12 +43,11 @@ sub startup {
     }
   );
 
-  $r->get('/')->to('search#remote');
+  $r->get('/')->to('search#remote')->name('index');
   $r->get('/util/query')->to('search#query');
 
   # Tutorial
-  $r->get('/tutorial')->to('tutorial#page')->name('tutorial');
-  $r->get('/tutorial/(*tutorial)')->to('tutorial#page');
+  $r->get('/tutorial/(*tutorial)', { tutorial => 'start' })->to('tutorial#page')->name('tutorial');
 
   my $collection = $r->route('/collection');
   $collection->to('search#info');

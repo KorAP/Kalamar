@@ -12,14 +12,17 @@
   </head>
   <body>
 
+% unless (current_route 'tutorial') {
 <div id="tutorial" style="display: none">
-  <i onclick="closeTutorial()" class="fa fa-toggle-up"></i>
-  <iframe src="about:blank" data-src="<%= url_for(session('tutorial') || 'tutorial') %>"></iframe>
+  % my $tut_page = url_for(session('tutorial') || 'tutorial');
+  <a href="<%= $tut_page %>" target="_blank"><i title="Open in new tab" class="fa fa-external-link-square"></i></a>
+  <i onclick="closeTutorial()" title="close" class="fa fa-toggle-up"></i>
+  <iframe src="about:blank" data-src="<%= $tut_page->query([snippet => 1]) %>"></iframe>
 </div>
-
+% };
 
 <div id="top">
-  <h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1>
+  <a href="<%= url_for 'index' %>"><h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1></a>
 %= form_for url_for() => begin
 %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
 <br />
@@ -32,7 +35,9 @@
 % if (param('q')) {
 <button type="button" onclick="$('#search > ol').toggleClass('left-aligned right-aligned'); $(this).children('i').toggleClass('fa-align-right fa-align-left')"><i class="fa fa-align-right"></i></button>
 % }
+% unless (current_route 'tutorial') {
 <button type="button" onclick="openTutorial()"><i class="fa fa-graduation-cap"></i></button>
+% };
 </div>
 
 </div>

@@ -3,7 +3,13 @@ use Mojo::Base 'Mojolicious::Controller';
 
 sub page {
   my $c = shift;
-  $c->layout('snippet');
+
+  if ($c->param('snippet')) {
+    $c->layout('snippet');
+  }
+  else {
+    $c->layout('default');
+  };
   $c->title('KorAP');
 
   my $page = $c->stash('tutorial');
