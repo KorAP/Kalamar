@@ -3,49 +3,37 @@
 
 % unless (param 'snippet') {
 <div style="clear: both">
-  <p class="found">
-    <span class="pagination">
 % my $url = url_with->query(['p' => '{page}']);
 % my $pages = (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
 % $pages = $pages < 0 ? 0 : $pages;
-    </span>
-
-    <div id="pagination">
-%= pagination(stash('search.startPage'), $pages, $url)
-    </div>
-
-Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matches</span>
-% if (stash 'search.bm.hit') {
- in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)
-% }
+  <div id="pagination"><%= pagination(stash('search.startPage'), $pages, $url) =%></div>
+  <p class="found">Found
+    <span id="total-results"><%= commify(stash('search.totalResults')) %> matches</span>
+    <% if (stash 'search.bm.hit') { %> in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)<% } %>
   </p>
 </div>
 
 %= include 'query'
 % };
 
+
+
 <ol class="left-aligned">
 %=  search_hits begin
-
+%# ID, title, corpusID, author, pubDate, textClass
   <li data-corpus-id="<%= $_->{corpusID} %>"
       data-doc-id="<%= korap_doc_id($_) %>"
       data-match-id="<%= korap_match_id($_) %>">
-%# ID, title, corpusID, author, pubDate, textClass
     <div>
-      <div class="snippet">
-        <%== $_->{snippet} %>
-      </div>
-
-%#    as <%= $_->{ID} %>
-%#  textClass docID
-%# foreach (grep { m!/morpho$! } split(/\s+/, $_->{foundries})) {
-%#  <%= $_ %>
-%# };
-
+      <div class="snippet"><%== $_->{snippet} %></div>
       <div class="tokenInfo"></div>
     </div>
-    <p><strong><%= $_->{title} %></strong><%= $_->{author} ? ' by ' . $_->{author}  : '' %>; published on <%= date_format $_->{pubDate} %> as <%= $_->{docID} %> (<%= $_->{corpusID} %>)</p>
-
+    <p>
+      <strong><%= $_->{title} %></strong>
+      <%= $_->{author} ? ' by ' . $_->{author}  : '' %>;
+      published on <%= date_format $_->{pubDate} %>
+      as <%= $_->{docID} %> (<%= $_->{corpusID} %>)
+    </p>
     <ul class="action right">
       <li onmouseup="closeSnippet(this)" title="close"><i class="fa fa-toggle-up"></i></li>
       <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
@@ -54,16 +42,13 @@ Found <span id="total-results"><%= commify(stash('search.totalResults')) %> matc
       <li title="Remember"><i class="fa fa-star-o"></i></li>
 -->
     </ul>
-
-
   </li>
 %   end
 </ol>
+
 % end
-% } else {
-<div id="intro">
-  <p>This is the alternative KorAP Frontend.</p>
-  <p>The primary goal is to serve as a testbed for the query serialization and for different flavours of user interfaces.</p>
-  <p>Search capabilities are limited to the demo user.</p>
-</div>
+
+% }
+% else {
+%= include 'intro'
 % };

@@ -9,7 +9,6 @@ WriteMakefile(
   ABSTRACT     => 'Test Frontend for the KorAP API',
   NAME         => 'Korap',
   AUTHOR       => 'Nils Diewald',
-  VERSION      => '0.01',
   BUILD_REQUIRES => {
     'Test::More' => 0
   },
@@ -20,9 +19,9 @@ WriteMakefile(
     'Mojolicious::Plugin::Notifications' => 0.03,
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
-#    'Mojolicious::Plugin::Search' => 0.01,
     'Mojolicious::Plugin::Number::Commify' => '0.022',
-    'JSON::XS' => 0.0
+    'JSON::XS' => 0.0,
+#    'Mojolicious::Plugin::Search' => 0.01,
   },
   test => {
     TESTS => 't/*.t'

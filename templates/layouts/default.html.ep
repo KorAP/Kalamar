@@ -3,11 +3,13 @@
   <head>
     <title><%= title %></title>
 %= stylesheet '/style.css'
+%= stylesheet '/hint.css'
 %= stylesheet '/table.css'
 %= stylesheet '/kwic-4.0.css'
 %= stylesheet '/fontawesome/font-awesome.min.css'
 %= javascript '/jquery-2.0.0.min.js'
 %= javascript '/translateTable.js'
+%= javascript '/hint.js'
 <meta charset="utf-8" />
   </head>
   <body>
@@ -26,7 +28,59 @@
 %= form_for url_for() => begin
 %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
 <br />
-%= search_field 'q', id => 'q-field'
+%= search_field 'q', id => 'q-field', autofocus => 'autofocus'
+%= javascript begin
+new Hint({
+  "ref" : "q-field",
+  "hintSize" : 10,
+  "hints" : {
+    "corenlp" : {
+      "ne_dewac_175m_600" : ["ne_dewac_175m_600=", "Named Entity"],
+      "ne_hgc_175m_600" : ["ne_hgc_175m_600=", "Named Entity"]
+    },
+    "corenlp/ne_dewac_175m_600" : ["I-LOC","I-MISC","I-ORG","I-PER"],
+    "corenlp/ne_hgc_175m_600" : ["I-LOC","I-MISC","I-ORG","I-PER"],
+    "cnx" : {
+      "c" : ["c=", "Constituency"],
+      "l" : ["l=", "Lemma"],
+      "m" : ["m=", "Morpho Syntax"],
+      "p" : ["p=", "Part of Speech"],
+      "syn" : ["syn=", "Syntax"]
+    },
+    "cnx/m" : ["Abbr","CMP","IMP","IND","INF","ORD","PAST","PCP","PERF","PL","PRES","PROG","Prop","SUB","SUP"],
+    "cnx/p" : ["A","ADV","CC","CS","DET","INTERJ","N","NUM","PREP","PRON","V"],
+    "cnx/syn" : ["@ADVL","@AUX","@CC","@MAIN","@NH","@POSTMOD","@PREMARK","@PREMOD"],
+    "opennlp" : {
+      "p" : ["p=", "Part of Speech"]
+    },
+    "opennlp/p" : ["$(","$,","$.","ADJA","ADJD","ADV","APPR","APPRART","ART","CARD","FM","KOKOM","KON","KOUI","KOUS","NE","NN","PDAT","PDS","PIAT","PIS","PPER","PPOSAT","PRELS","PRF","PROAV","PTKNEG","PTKVZ","PTKZU","PWAT","PWAV","PWS","TRUNC","VAFIN","VAINF","VAPP","VMFIN","VVFIN","VVIMP","VVINF","VVIZU","VVPP","XY"],
+    "xip" : {
+      "c" : ["c=", "Constituency"],
+      "d" : ["d=", "Dependency"],
+      "l" : ["l=", "Lemma"],
+      "p" : ["p=", "Part of Speech"]
+    },
+    "xip/c" : ["ADJ","ADV","AP","CONJ","DET","INFC","INS","ITJ","MC","NEGAT","NOUN","NP","NPA","NUM","POSTP","PP","PREP","PRON","PTCL","PUNCT","SC","SYMBOL","TOP","TRUNC","VERB"],
+    "xip/d" : ["ADJMOD","AUXIL","CONNECT","COORD","DATE","DETERM","EXPL","LOC","MODAL","NEGAT","NMOD","NMOD2","NUMMOD","OBJ","ORG","PERSON","PLINK","PRED","REFLEX","SUBJ","THEMA","TIME","TRUNC","VMAIN","VMOD","VPREF"],
+    "xip/p" : ["ADJ","ADV","CONJ","DET","ITJ","NEGAT","NOUN","NUM","POSTP","PREP","PRON","PTCL","PUNCT","SYMBOL","TRUNC","VERB"],
+    "tt" : {
+      "l" : ["l=", "Lemma"],
+      "p" : ["p=", "Part of Speech"]
+    },
+    "tt/p" : ["$.","ADJA","ADJD","ADV","APPO","APPR","APPRART","APZR","ART","CARD","FM","ITJ","KOKOM","KON","KOUI","KOUS","NE","NN","PDAT","PDS","PIAT","PIS","PPER","PPOSAT","PRELS","PRF","PROAV","PTKA","PTKNEG","PTKVZ","PTKZU","PWAT","PWAV","PWS","TRUNC","VAFIN","VAINF","VAPP","VMFIN","VMINF","VVFIN","VVIMP","VVINF","VVIZU","VVPP","XY"],
+    "mate" : {
+      "d" : ["d=", "Dependency"],
+      "l" : ["l=", "Lemma"],
+      "m" : ["m=", "Morpho Syntax"],
+      "p" : ["p=", "Part of Speech"]
+    },
+    "mate/d" : ["--","AG","AMS","APP","CC","CD","CJ","CM","CP","CVC","DA","DM","EP","JU","MNR","MO","NG","NK","NMC","OA","OC","OG","OP","PAR","PD","PG","PH","PM","PNC","RC","RE","RS","SB","SBP","SVP","UC"],
+    "mate/m" : ["<no-type>","case:*","case:acc","case:dat","case:gen","case:nom","degree:comp","degree:pos","degree:sup","gender:*","gender:fem","gender:masc","gender:neut","mood:imp","mood:ind","mood:subj","number:*","number:pl","number:sg","person:1","person:2","person:3","tense:past","tense:pres"],
+    "mate/p" : ["$(","$,","$.","<root-POS>","ADJA","ADJD","ADV","APPO","APPR","APPRART","ART","CARD","FM","ITJ","KOKOM","KON","KOUI","KOUS","NE","NN","PDAT","PDS","PIAT","PIS","PPER","PPOSAT","PPOSS","PRELAT","PRELS","PRF","PROAV","PTKA","PTKNEG","PTKVZ","PTKZU","PWAT","PWAV","PWS","TRUNC","VAFIN","VAINF","VAPP","VMFIN","VVFIN","VVIMP","VVINF","VVIZU","VVPP","XY"]
+  }}
+);
+
+% end
 <button type="submit" name="action" value="ok"><i class="fa fa-search"></i></button>
 <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
 % end

@@ -1,14 +1,14 @@
 <h2>Virtual Collections</h2>
 <ul>
 % foreach my $vc (@{resource_info('collection')}) {
-<li class="active" title="<%= $vc->{description} // '' %>"><h3><%= $vc->{name} %></h3>
+  <li class="active" title="<%= $vc->{description} // '' %>"><h3><%= $vc->{name} %></h3>
 % my $stats = $vc->{stats};
-  <dl class="info">
-    <dt>Documents</dt><dd><%= commify $stats->{documents} %></dd>
-    <dt>Paragraphs</dt><dd><%= commify $stats->{paragraphs} %></dd>
-    <dt>Sentences</dt><dd><%= commify $stats->{sentences} %></dd>
-    <dt>Tokens</dt><dd><%= commify $stats->{tokens} %></dd>
-  </dl>
-</li>
+    <dl class="info">
+      <dt>Documents</dt>  <dd><%= commify $stats->{documents} %></dd>
+      <dt>Paragraphs</dt> <dd><%= commify $stats->{paragraphs} %></dd>
+      <dt>Sentences</dt>  <dd><%= commify $stats->{sentences} %></dd>
+      <dt>Tokens</dt>     <dd><%= commify $stats->{tokens} %></dd>
+    </dl>
+  </li>
 % };
 </ul>

@@ -1,7 +1,7 @@
 package Korap;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # This method will run once at server start
 sub startup {
