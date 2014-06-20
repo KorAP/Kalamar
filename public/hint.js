@@ -31,6 +31,7 @@ var Hint = function (param) {
   this.show = function (topic) {
     if (!hints[topic])
       return;
+    this.hide();
     this.active = -1;
     this.list(hints[topic]);
     var searchRight = search.getBoundingClientRect().right;
@@ -64,6 +65,8 @@ var Hint = function (param) {
 
   // Hide hint table
   this.hide = function () {
+    if (this.active === -2)
+      return;
     this.active = -2;
     hint.style.opacity = 0;
     hint.style.marginLeft = 0;
@@ -173,7 +176,10 @@ var Hint = function (param) {
       if (foundryRegex.exec(sub))
 	that.show(RegExp.$1 + (RegExp.$2 ? '/' + RegExp.$2 : ''));
     }
-    else if (ql === 'poliqarp' && (e.key === '[' || (e.key === '<' && !e.shiftKey))) {
+    else if (e.key === '>') {
+      that.hide();
+    }
+    else if (ql === 'poliqarp' && (e.key === '[' || e.key === '<')) {
       mirror.firstChild.textContent = el.value.substring(0, el.selectionStart);
       that.show("-foundries");
     }
@@ -203,7 +209,7 @@ var Hint = function (param) {
       e.stopPropagation();
       e.preventDefault();
       return false;
-    };
+    }
   };
 
   function qlSelect () {
@@ -219,6 +225,6 @@ var Hint = function (param) {
   // Initialize style
   init();
   search.addEventListener("keyup",    changed,  false);
-  search.addEventListener("keypress", select,   false);
+  search.addEventListener("keydown", select,   false);
   qlField.addEventListener('change',  qlSelect, false);
 };
