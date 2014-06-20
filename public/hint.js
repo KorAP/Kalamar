@@ -8,12 +8,14 @@ TODO:
 var Hint = function (param) {
   var foundryRegex = new RegExp("(?:^|[^a-zA-Z0-9])([-a-zA-Z0-9]+?)\/(?:([^=]+?)=)?$");
 
-  var search = document.getElementById(param["ref"]);
-  var mirror = document.createElement("div");
-  var hint = document.createElement("ul");
+  var search =   document.getElementById(param["ref"]);
+  var qlField =  document.getElementById(param["qlRef"]);
+  var mirror =   document.createElement("div");
+  var hint =     document.createElement("ul");
   var hintSize = param["hintSize"] ? param["hintSize"] : 10;
-  var hints = param["hints"];
+  var hints =    param["hints"];
   var that = this;
+  var ql;
 
   // Build the mirror element
   // <div id="searchMirror"><span></span><ul></ul></div>
@@ -56,6 +58,8 @@ var Hint = function (param) {
       fontSize        = searchStyle.getPropertyValue("font-size");
       fontFamily      = searchStyle.getPropertyValue("font-family");
     };
+
+    qlSelect();
   };
 
   // Hide hint table
@@ -146,12 +150,14 @@ var Hint = function (param) {
     var begin = value.substring(0, start);
     var end = value.substring(start, value.length);
     search.value = begin + action + end;
-    search.selectionStart = search.selectionEnd = (begin + action).length;
+    search.selectionStart = (begin + action).length
+    search.selectionEnd = search.selectionStart;
 
     this.hide();
 
     // Check for new changes
-    mirror.firstChild.innerHTML = begin + action;
+    mirror.firstChild.textContent = begin + action;
+
     if (foundryRegex.exec(begin + action))
       this.show(RegExp.$1 + (RegExp.$2 ? '/' + RegExp.$2 : ''));
   };
@@ -161,16 +167,23 @@ var Hint = function (param) {
 
     if (e.key === '/' || e.key === '=') {
       var start = el.selectionStart;
-      mirror.firstChild.innerHTML = el.value.substring(0, start);
+      mirror.firstChild.textContent = el.value.substring(0, start);
       var sub = el.value.substring(start - 128 >= 0 ? start - 128 : 0, start);
 
       if (foundryRegex.exec(sub))
 	that.show(RegExp.$1 + (RegExp.$2 ? '/' + RegExp.$2 : ''));
     }
+    else if (ql === 'poliqarp' && (e.key === '[' || (e.key === '<' && !e.shiftKey))) {
+      mirror.firstChild.textContent = el.value.substring(0, el.selectionStart);
+      that.show("-foundries");
+    }
     else if (e.key !== 'Shift' &&
              e.key !== 'Up'    &&
              e.key !== 'Down'  &&
-             e.key !== 'Enter') {
+             e.key !== 'Enter' &&
+	     e.key !== 'Alt'   &&
+	     e.key !== 'AltGraph' &&
+	     e.key !== 'CapsLock') {
       that.hide();
     };
   };
@@ -193,8 +206,19 @@ var Hint = function (param) {
     };
   };
 
+  function qlSelect () {
+    var nodes = qlField.childNodes;
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].selected) {
+        ql = nodes[i].value;
+        break;
+      };
+    };
+  };
+
   // Initialize style
   init();
-  search.addEventListener("keyup", changed, false);
-  search.addEventListener("keypress", select, false);
+  search.addEventListener("keyup",    changed,  false);
+  search.addEventListener("keypress", select,   false);
+  qlField.addEventListener('change',  qlSelect, false);
 };

@@ -32,8 +32,17 @@
 %= javascript begin
 new Hint({
   "ref" : "q-field",
+  "qlRef" : "ql-field",
   "hintSize" : 10,
   "hints" : {
+    "-foundries" : {
+      "corenlp" : ["corenlp/", "CoreNLP"],
+      "cnx" : ["cnx/", "Connexor"],
+      "opennlp" : ["opennlp/", "OpenNLP"],
+      "xip" : ["xip/", "Xerox"],
+      "tt"  : ["tt/", "TreeTagger"],
+      "mate" : ["mate/", "Mate"]
+    },
     "corenlp" : {
       "ne_dewac_175m_600" : ["ne_dewac_175m_600=", "Named Entity"],
       "ne_hgc_175m_600" : ["ne_hgc_175m_600=", "Named Entity"]
@@ -163,7 +172,6 @@ function useQuery (o) {
 $("code.query.serial,#sidebar").on("click", function () {
   $(this).toggleClass('active');
 });
-
 
 % end
 
