@@ -1,10 +1,13 @@
-<div style="padding: 20pt">
+<main>
 
-<p>Links to Blog, FAQ, About, Contact ...</p>
+%# Store the id of an active section in the session, so the system is able to directly scroll to the relevant section
+%# This should be stored when clicking on a specific query
+%# but the remembered section contains the id - not the query
 
 <h2>KorAP-Tutorial</h2>
 
 <!--
+<p>Links to Blog, FAQ, About, Contact ...</p>
 <ul>
   <li>Introduction to KorAP</li>
   <li>How to use Poliqarp+ QL?</li>
@@ -13,6 +16,8 @@
 </ul>
 -->
 
+<section id="intro">
+<h3>Introduction</h3>
 <p>This is a Tutorial to KorAP. It may be maintained separately (as a Wiki?) and
 has some nice features - like embedded example queries - just click on the queries below:</p>
 
@@ -21,53 +26,57 @@ has some nice features - like embedded example queries - just click on the queri
 %= korap_tut_query cosmas2 => 'der /w5 Baum'
 
 <p>And here is a short cheat sheet for foundries and layers</p>
+</section>
 
-<ul>
-  <li><strong>base</strong>
-    <ul>
-      <li>Supports two types of spans: <strong>&lt;s&gt;</strong> for sentences and <strong>&lt;p&gt;</strong> for paragraphs - this will likely change in the next index version. These spans lack prefix information!</li>
-    </ul>
-  </li>
-  <li><strong>cnx</strong>
-    <ul>
-      <li><strong>l</strong> (Token:Lemma): All lemmas are written in lower case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leit&quot; and &quot;fähigkeit&quot; - not by the lemma &quot;leitfähigkeit&quot;</li>
-      <li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
-      <li><strong>syn</strong> (Token:Syntactical information): Includes token based information like @PREMOD, @NH, @MAIN ...</li>
-      <li><strong>m</strong> (Token:Morphosyntactical information): Includes information about tense (&quot;PRES&quot; ...), mode (&quot;IND&qut;), number (&quot;PL&quot; ...) etc.</li>
-      <li><strong>c</strong> (Span:Phrases): Only nominal phrases are available and all nominal phrases are written in lower case (&quot;np&quot;)</li>
-    </ul>
-  </li>
-  <li><strong>corenlp</strong>
-    <ul>
-      <li><strong>ne_hgc_175m_600</strong> (Token:Named Entity): Contains named entities like &quot;I-PER&quot;, &quot;I-ORG&quot; etc. </li>
-      <li><strong>ne_dewac_175_175m_600</strong> (Token:Named Entity): see above</li>
-    </ul>
-  </li>
-  <li><strong>tt</strong>
-    <ul>
-      <li><strong>l</strong> (Token:Lemma): All non-noun lemmas are written in lower case, nouns are written upper case. Composita stay intact (e.g. &quot;Normalbedingung&quot;)</li>
-      <li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
-    </ul>
-  </li>
-  <li><strong>mate</strong>
-    <ul>
-      <li><strong>l</strong> (Token:Lemma): All lemmas are written in lower case. Composita stay intact (e.g. &quot;buchstabenbezeichnung&quot;)</li>
-      <li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
-      <li><strong>m</strong> (Token:Morphosyntactical information): Includes information about tense (&quot;tense:pres&quot; ...), mode (&quot;mood:ind&qut;), number (&quot;number:pl&quot; ...), gender (&quot;gender:masc&quot; etc.</li>
-    </ul>
-  </li>
-  <li><strong>opennlp</strong>
-    <ul>
-      <li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
-    </ul>
-  </li>
-  <li><strong>xip</strong>
-    <ul>
-      <li><strong>l</strong> (Token:Lemma): All non-noun lemmas are written in lower case, nouns are written upper case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leiten&quot; and &quot;Fähigkeit&quot; - and by a merged and pretty useless &quot;leitenfähigkeit&quot; (This is going to change)</li>
-      <li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
-      <li><strong>c</strong> (Span:Phrases): Some phrases to create sentences, all upper case (&quot;NP&quot;, &quot;NPA&quot;, &quot;NOUN&quot;, &quot;VERB&quot;, &quot;PREP&quot;, &quot;AP&quot; ...)</li>      
-    </ul>
-  </li>
-</ul>
+<section id="cheatsheet">
+  <h3>Cheatsheet</h3>
+  <ul>
+    <li><strong>base</strong>
+      <ul>
+	<li>Supports two types of spans: <strong>&lt;s&gt;</strong> for sentences and <strong>&lt;p&gt;</strong> for paragraphs - this will likely change in the next index version. These spans lack prefix information!</li>
+      </ul>
+    </li>
+    <li><strong>cnx</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All lemmas are written in lower case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leit&quot; and &quot;fähigkeit&quot; - not by the lemma &quot;leitfähigkeit&quot;</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+	<li><strong>syn</strong> (Token:Syntactical information): Includes token based information like @PREMOD, @NH, @MAIN ...</li>
+	<li><strong>m</strong> (Token:Morphosyntactical information): Includes information about tense (&quot;PRES&quot; ...), mode (&quot;IND&qut;), number (&quot;PL&quot; ...) etc.</li>
+	<li><strong>c</strong> (Span:Phrases): Only nominal phrases are available and all nominal phrases are written in lower case (&quot;np&quot;)</li>
+      </ul>
+    </li>
+    <li><strong>corenlp</strong>
+      <ul>
+	<li><strong>ne_hgc_175m_600</strong> (Token:Named Entity): Contains named entities like &quot;I-PER&quot;, &quot;I-ORG&quot; etc. </li>
+	<li><strong>ne_dewac_175_175m_600</strong> (Token:Named Entity): see above</li>
+      </ul>
+    </li>
+    <li><strong>tt</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All non-noun lemmas are written in lower case, nouns are written upper case. Composita stay intact (e.g. &quot;Normalbedingung&quot;)</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+      </ul>
+    </li>
+    <li><strong>mate</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All lemmas are written in lower case. Composita stay intact (e.g. &quot;buchstabenbezeichnung&quot;)</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+	<li><strong>m</strong> (Token:Morphosyntactical information): Includes information about tense (&quot;tense:pres&quot; ...), mode (&quot;mood:ind&qut;), number (&quot;number:pl&quot; ...), gender (&quot;gender:masc&quot; etc.</li>
+      </ul>
+    </li>
+    <li><strong>opennlp</strong>
+      <ul>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+      </ul>
+    </li>
+    <li><strong>xip</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All non-noun lemmas are written in lower case, nouns are written upper case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leiten&quot; and &quot;Fähigkeit&quot; - and by a merged and pretty useless &quot;leitenfähigkeit&quot; (This is going to change)</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+	<li><strong>c</strong> (Span:Phrases): Some phrases to create sentences, all upper case (&quot;NP&quot;, &quot;NPA&quot;, &quot;NOUN&quot;, &quot;VERB&quot;, &quot;PREP&quot;, &quot;AP&quot; ...)</li>      
+      </ul>
+    </li>
+  </ul>
+</section>
 
-</div>
+</main>

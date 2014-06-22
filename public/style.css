@@ -19,6 +19,12 @@ body, html {
   padding-left: 30px;
 }
 
+#q-field {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
 #button-right {
   position: absolute;
   right: 15px;
@@ -277,4 +283,8 @@ h1 {
 
 h1 span {
     margin-left: -3000px;
+}
+
+main {
+  padding: 20px;
 }
