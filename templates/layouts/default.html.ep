@@ -115,13 +115,16 @@ new Hint({
 
 %= javascript begin
 
-$("ol > li:not(.active)").on("click", function () {
+$("#search > ol > li:not(.active)").on("click", function (e) {
   $(this).addClass('active');
+  e.stopPropagation();
 });
 
-function closeSnippet (o) {
-  $(o.parentNode.parentNode).removeClass('active');
-};
+$("#search > ol > li:not(.active) > ul > li.close").on("click", function (e) {
+  $(this.parentNode.parentNode).removeClass('active');
+  e.stopPropagation();
+});
+
 
 function showTable (o) {
   var match = o.parentNode.parentNode;
@@ -137,9 +140,9 @@ function showTable (o) {
   };
 
   var corpusID = match.getAttribute('data-corpus-id');
-  var docID = match.getAttribute('data-doc-id');
-  var matchID = match.getAttribute('data-match-id');
-  var url = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
+  var docID    = match.getAttribute('data-doc-id');
+  var matchID  = match.getAttribute('data-match-id');
+  var url      = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
   var snippet;
 
   jQuery.getJSON(url, function (res) {
@@ -169,7 +172,7 @@ function useQuery (o) {
   closeTutorial();
 };
 
-$("code.query.serial,#sidebar").on("click", function () {
+$("code.query.serial, #sidebar").on("click", function () {
   $(this).toggleClass('active');
 });
 

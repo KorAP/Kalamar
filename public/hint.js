@@ -224,7 +224,7 @@ var Hint = function (param) {
 
   // Initialize style
   init();
-  search.addEventListener("keyup",    changed,  false);
+  search.addEventListener("keyup",   changed,  false);
   search.addEventListener("keydown", select,   false);
-  qlField.addEventListener('change',  qlSelect, false);
+  qlField.addEventListener('change', qlSelect, false);
 };

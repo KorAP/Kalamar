@@ -3,28 +3,27 @@ use Mojo::Base 'Mojolicious';
 
 our $VERSION = '0.03';
 
-# This method will run once at server start
+# Start the application and register all routes and plugins
 sub startup {
   my $self = shift;
 
+  # Set secret for signed cookies
   $self->secrets(['fmhsfjgfchgsdbfgshfxztsbt32477eb45veu4vubrghfgghbtv']);
 
-  $self->plugin('Config');
-  $self->plugin('CHI');
-  $self->plugin('TagHelpers::Pagination' => {
-    prev => '<span><i class="fa fa-caret-left"></i></span>',
-    next => '<span><i class="fa fa-caret-right"></i></span>',
-    ellipsis => '<span><i class="fa fa-ellipsis-h"></i></span>',
-    separator => '',
-    current => '<span>{current}</span>',
-    page => '<span>{page}</span>'
-  });
-  $self->plugin('Notifications');
-  $self->plugin('Number::Commify');
+  # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
-  $self->plugin('KorapSearch');
-  $self->plugin('KorapInfo');
-  $self->plugin('KorapTagHelpers');
+
+  # Load plugins
+  foreach (qw/Config
+	      CHI
+	      TagHelpers::Pagination
+	      Notifications
+	      Number::Commify
+	      KorapSearch
+	      KorapInfo
+	      KorapTagHelpers/) {
+    $self->plugin($_);
+  };
 
   $self->helper(
     date_format => sub {
@@ -36,40 +35,29 @@ sub startup {
   # Routes
   my $r = $self->routes;
 
-  # Create search endpoint
-  $r->add_shortcut(
-    search => sub {
-      shift->route('/search')->to('search#remote')
-    }
-  );
-
+  # Base search route
   $r->get('/')->to('search#remote')->name('index');
-  $r->get('/util/query')->to('search#query');
 
-  # Tutorial
-  $r->get('/tutorial/(*tutorial)', { tutorial => 'start' })->to('tutorial#page')->name('tutorial');
+  # Tutorial data
+  $r->get('/tutorial/(*tutorial)', { tutorial => 'start' })
+    ->to('tutorial#page')->name('tutorial');
 
+  # Collection data
   my $collection = $r->route('/collection');
   $collection->to('search#info');
   $collection->search;
 
+  # Corpus data
   my $corpus = $r->route('/corpus');
   $corpus->search;
   $corpus->route('/:corpus_id')->search;
-  $corpus->route('/:corpus_id/:doc_id')->search;
-  $corpus->route('/:corpus_id/#doc_id/:match_id')->to('info#about_match');
+  $corpus->route('/:corpus_id/#doc_id')->search;
+  $corpus->route('/:corpus_id/#doc_id/:match_id')
+         ->to('info#about_match');
 
-
-
-#  $r->get(
-#    '/:resource/:corpus_id/#doc_id/#match_id',
-#    resource => [qw/collection corpus/])->to('search#match')->name('match');
- # /matchInfo?id=...&f=&l=&spans
+  # Utilities
+  $r->get('/util/query')->to('search#query');
 };
 
 
 1;
-
-__END__
-
-  # TODO: Write search snippet

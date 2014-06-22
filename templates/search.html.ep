@@ -35,7 +35,7 @@
       as <%= $_->{docID} %> (<%= $_->{corpusID} %>)
     </p>
     <ul class="action right">
-      <li onmouseup="closeSnippet(this)" title="close"><i class="fa fa-toggle-up"></i></li>
+      <li class="close" title="close"><i class="fa fa-toggle-up"></i></li>
       <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
 <!--
       <li title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>

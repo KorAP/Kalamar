@@ -5,6 +5,7 @@ use Mojo::ByteStream 'b';
 
 # TODO: This will probably be an engine for M::P::Search
 # cutoff has to be true or false
+# TODO: Write search snippet
 
 sub register {
   my ($plugin, $mojo, $param) = @_;
@@ -34,6 +35,13 @@ sub register {
       my $did = $match->{docID};
       $did =~ s/^[^_]+_//;
       return $did // '';
+    }
+  );
+
+  # Create search endpoint
+  $mojo->routes->add_shortcut(
+    search => sub {
+      shift->route('/search')->to('search#remote')
     }
   );
 
