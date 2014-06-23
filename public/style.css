@@ -168,6 +168,7 @@ code.query.serial.active span {
 
 #sidebar:not(.active) > i.fa-bars {
   opacity: 1;
+  cursor: pointer;
   background-color: #496000;
   position: fixed;
   font-size: 12pt;
