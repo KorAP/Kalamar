@@ -7,6 +7,8 @@ sub remote {
   $c->layout('default');
   $c->title('KorAP');
 
+  $c->stash(test_port => $c->req->url->to_abs->port == 6666 ? 1 : 0);
+
   if ((scalar $c->param('action') // '') eq 'inspect') {
     my $api = $c->config('KorAP')->{api};
     my $url = Mojo::URL->new($api)->path('resource/query');

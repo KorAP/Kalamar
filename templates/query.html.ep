@@ -1,6 +1,6 @@
 % use JSON::XS;
 
-% if (stash('search.query')) {
+% if (stash('search.query') && stash('test_port')) {
 %   state $json = JSON::XS->new->allow_blessed->pretty;
 <code class="query serial<% if (param('action') eq 'inspect') { %> active<% } %>">
   <span>JSON-LD Serialization for <%= param 'q' %> (<%= param 'ql' %>)</span>

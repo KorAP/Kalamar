@@ -98,7 +98,9 @@ new Hint({
 
 % end
 <button type="submit" name="action" value="ok"><i class="fa fa-search"></i></button>
+%   if (stash('test_port')) {
 <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
+%   };
 % end
 
 <div id="button-right">
