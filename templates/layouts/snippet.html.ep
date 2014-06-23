@@ -3,7 +3,8 @@
   <head>
     <title><%= title %></title>
 %= stylesheet '/style.css'
-%= stylesheet '/kwic-3.0.css'
+%= stylesheet '/kwic-4.0.css'
+%= stylesheet '/responsive.css'
 %= stylesheet '/fontawesome/font-awesome.min.css'
 %= javascript '/jquery-2.0.0.min.js'
 <meta charset="utf-8" />

@@ -17,6 +17,7 @@ html, body {
   top: 0;
   border-width: 0;
   padding: 0;
+  font-size: 9pt;
 }
 
 #tutorial > iframe {
@@ -68,8 +69,18 @@ form {
   display: none;
 }
 
-#pagination {
-  width: 100%;
-  right: auto;
-  margin: 0 auto;
+#search > ol > li {
+  font-size: 9pt;
+}
+
+#search > ol > li:not(.active) {
+  padding: 4pt 0 5pt 0;
+}
+
+#search > ol > li.active {
+  padding: 0 0 0 0;
+}
+
+code.query.serial {
+  font-size: 10pt;
 }

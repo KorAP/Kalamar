@@ -166,8 +166,25 @@ code.query.serial.active span {
   transition-duration: .3s;
 }
 
+#sidebar:not(.active) > i.fa-bars {
+  opacity: 1;
+  background-color: #496000;
+  position: fixed;
+  font-size: 12pt;
+  width: 11pt;  
+  height: 12pt;
+  padding: 4pt;
+  bottom: 0;
+  left: 0;
+  border-top-right-radius: 5pt;
+}
+
 #sidebar.active > * {
   opacity: 1;
+}
+
+#sidebar.active > i.fa-bars {
+  opacity: 0;
 }
 
 #sidebar h2 {
@@ -230,14 +247,23 @@ dl.info dd {
 
 #tutorial {
   position: fixed;
+  display: block;
   z-index: 9999;
+  background-color: #496000;
+  border-radius: 15px;
+  padding: 5px;
   top: 2%;
   bottom: 2%;
   left: 5%;
   right: 5%;
-  background-color: #496000;
-  border-radius: 15px;
-  padding: 5px;
+}
+
+#tutorial:not(.active) {
+  display: none;
+}
+
+#tutorial.active {
+  display: block;
 }
 
 #tutorial > i,

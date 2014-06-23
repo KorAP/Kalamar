@@ -2,6 +2,8 @@
   position: absolute;
   height: 0px;
   margin-top: 1px;
+  white-space:nowrap;
+  overflow: show;
 }
 
 #searchMirror > span {

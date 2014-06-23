@@ -34,7 +34,7 @@ ol > li:not(.active) {
   overflow: hidden;
   white-space: no-wrap;
   cursor: pointer;
-  padding: 10px 0;
+  padding: 5pt 0 6pt 0;
   text-indent: 0;
 }
 

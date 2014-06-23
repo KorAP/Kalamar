@@ -15,18 +15,24 @@
   </head>
   <body>
 
+% my $search_route = url_for;
 % unless (current_route 'tutorial') {
-<div id="tutorial" style="display: none">
+<div id="tutorial">
   % my $tut_page = url_for(session('tutorial') || 'tutorial');
   <a href="<%= $tut_page %>" target="_blank"><i title="Open in new tab" class="fa fa-external-link-square"></i></a>
   <i onclick="closeTutorial()" title="close" class="fa fa-toggle-up"></i>
   <iframe src="about:blank" data-src="<%= $tut_page->query([snippet => 1]) %>"></iframe>
 </div>
+% }
+% else {
+%   $search_route = url_for('index');
 % };
 
 <div id="top">
   <a href="<%= url_for 'index' %>"><h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1></a>
-%= form_for url_for() => begin
+
+
+%= form_for $search_route => begin
 %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
 <br />
 %= search_field 'q', id => 'q-field', autofocus => 'autofocus'
@@ -108,6 +114,7 @@ new Hint({
 
 <div id="sidebar" style="padding-top: 90px">
 %= include 'collections'
+<i class="fa fa-bars"></i>
 </div>
 
 <div id="search">
@@ -155,14 +162,14 @@ function showTable (o) {
 
 function openTutorial (o) {
   var tut = $("#tutorial");
-  tut.slideDown();
+  tut.addClass("active");
   var iframe = tut.children("iframe");
   var src = iframe.attr("data-src");
   iframe.attr("src", src);
 };
 
 function closeTutorial (o) {
-  $("#tutorial").slideUp();
+  $("#tutorial").removeClass("active");
 };
 
 function useQuery (o) {
