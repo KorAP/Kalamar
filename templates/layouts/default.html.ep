@@ -7,7 +7,7 @@
 %= stylesheet '/table.css'
 %= stylesheet '/kwic-4.0.css'
 %= stylesheet '/fontawesome/font-awesome.min.css'
-%= stylesheet '/responsive.css', media => '(max-width: 640px)'
+%= stylesheet '/responsive.css', media => '(orientation: portrait) and (max-device-width: 800px)'
 %= javascript '/jquery-2.0.0.min.js'
 %= javascript '/translateTable.js'
 %= javascript '/hint.js'

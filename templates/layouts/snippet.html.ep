@@ -4,7 +4,7 @@
     <title><%= title %></title>
 %= stylesheet '/style.css'
 %= stylesheet '/kwic-4.0.css'
-%= stylesheet '/responsive.css'
+%= stylesheet '/responsive.css', media => '(orientation: portrait) and (max-device-width: 800px)'
 %= stylesheet '/fontawesome/font-awesome.min.css'
 %= javascript '/jquery-2.0.0.min.js'
 <meta charset="utf-8" />
