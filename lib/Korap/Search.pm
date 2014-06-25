@@ -7,7 +7,9 @@ sub remote {
   $c->layout('default');
   $c->title('KorAP');
 
-  $c->stash(test_port => $c->req->url->to_abs->port == 6666 ? 1 : 0);
+  $c->stash(test_port => (
+    $c->req->url->to_abs->port == 6666 ||
+      $c->app->mode eq 'development') ? 1 : 0);
 
   if ((scalar $c->param('action') // '') eq 'inspect') {
     my $api = $c->config('KorAP')->{api};
@@ -26,7 +28,7 @@ sub remote {
     };
 
     $c->param(cutoff => 1);
-    return $c->render(template => 'query');
+    return $c->render(template => 'query_info');
   }
 
   elsif ($c->param('snippet')) {
