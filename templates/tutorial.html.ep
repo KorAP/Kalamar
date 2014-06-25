@@ -1,4 +1,4 @@
-<main>
+% content main => begin
 
 %# Store the id of an active section in the session, so the system is able to directly scroll to the relevant section
 %# This should be stored when clicking on a specific query
@@ -24,6 +24,10 @@ has some nice features - like embedded example queries - just click on the queri
 %= korap_tut_query poliqarp => '[base=baum]'
 
 %= korap_tut_query cosmas2 => 'der /w5 Baum'
+
+%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,[opennlp/p=KOUS])'
+
+%= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=der]})'
 
 <p>And here is a short cheat sheet for foundries and layers</p>
 </section>
@@ -79,4 +83,4 @@ has some nice features - like embedded example queries - just click on the queri
   </ul>
 </section>
 
-</main>
+% end

@@ -22,8 +22,19 @@ sub startup {
 	      KorapSearch
 	      KorapInfo
 	      KorapTagHelpers/) {
+    # AssetPack
     $self->plugin($_);
   };
+
+#  $self->asset(
+#    'korap.css' => (
+#      'style.css',
+#      'sass/hint.scss',
+#      'table.css',
+#      'sass/kwic-4.0.scss',
+#      'fontawesome/font-awesome.min.css'
+#    )
+#  );
 
   $self->helper(
     date_format => sub {
@@ -53,7 +64,7 @@ sub startup {
   $corpus->route('/:corpus_id')->search;
   $corpus->route('/:corpus_id/#doc_id')->search;
   $corpus->route('/:corpus_id/#doc_id/:match_id')
-         ->to('info#about_match');
+         ->to('info#about_match')->name('match');
 
   # Utilities
   $r->get('/util/query')->to('search#query');

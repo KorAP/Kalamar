@@ -1,6 +1,6 @@
 // Store Table object in global object
 
-var splitRegex = /^([^\/]+?)(?:\/(.+?))?:([^:]+?)$/;
+var splitRegex = /^([^\/]+?)(?:\/([^:]+?))?:(.+?)$/;
 
 var textFoundry = "Foundry";
 var textLayer = "Layer";
@@ -16,6 +16,12 @@ function SnippetTable (snippet) {
   this.load = function (children) {
     for (var i in children) {
       var c = children[i];
+
+      // Create object on position unless it exists
+      if (this.info[this.pos] === undefined)
+	this.info[this.pos] = {};
+
+      var found = this.info[this.pos];
 
       // element with title
       if (c.nodeType === 1) {
@@ -33,11 +39,10 @@ function SnippetTable (snippet) {
 	      layer = RegExp.$1
 	    };
 
-	    // Create object on position unless it exists
-	    if (!this.info[this.pos])
-	      this.info[this.pos] = {};
+	    if (found[foundry + "/" + layer] === undefined)
+	      found[foundry + "/" + layer] = [];
 
-	    this.info[this.pos][foundry + "/" + layer] = RegExp.$3;
+	    found[foundry + "/" + layer].push(RegExp.$3);
 
 	    // Set foundry
 	    if (!this.foundry[foundry])
@@ -57,10 +62,12 @@ function SnippetTable (snippet) {
       }
 
       // Leaf node - store string on position and go to next string
-      else if (c.nodeType === 3)
-	if (c.nodeValue.match(/[-a-z0-9]/i))
+      else if (c.nodeType === 3) {
+	if (c.nodeValue.match(/[a-z0-9]/i))
 	  this.info[this.pos++]["-s"] = c.nodeValue;
+      };
     };
+    delete this.info[this.pos];
     return this;
   };
 
@@ -157,8 +164,15 @@ function SnippetTable (snippet) {
 	  var td = d.createElement('td');
 	  tr.appendChild(td);
 
-	  if (this.info[t][infoString] !== undefined)
-	    td.appendChild(d.createTextNode(this.info[t][infoString]));
+	  var surfaces = this.info[t][infoString];
+	  if (surfaces !== undefined) {
+	    for (i in surfaces) {
+	      td.appendChild(d.createTextNode(surfaces[i]));
+	      if (i !== surfaces.length -1) {
+		td.appendChild(d.createElement("br"));
+	      };
+	    };
+	  };
 	};
 	rowSpan++;
       };
@@ -174,6 +188,33 @@ function SnippetTable (snippet) {
 
   // Create table object and load data from HTML
   this.load(html.childNodes);
+};
+
+
+function showTable (o) {
+  var match = o.parentNode.parentNode;
+  var table = $(match).children("div").children("div.tokenInfo").first();
+
+  if (table.hasClass("active")) {
+    table.removeClass("active");
+    return;
+  }
+  else if (table.children("table").length > 0) {
+    table.addClass("active");
+    return;
+  };
+
+  var corpusID = match.getAttribute('data-corpus-id');
+  var docID    = match.getAttribute('data-doc-id');
+  var matchID  = match.getAttribute('data-match-id');
+  var url      = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
+  var snippet;
+
+  jQuery.getJSON(url, function (res) {
+    var snippet = new SnippetTable(res['snippet']);
+    table.addClass("active");
+    table.append(snippet.toTable());
+  });
 };
 
 

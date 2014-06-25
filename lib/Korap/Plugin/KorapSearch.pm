@@ -7,6 +7,17 @@ use Mojo::ByteStream 'b';
 # cutoff has to be true or false
 # TODO: Write search snippet
 
+sub map_matches {
+  my $matches = shift;
+  [
+    map {
+      $_->{ID} =~ s/^match\-[^!]+![^-]+-//;
+      $_->{docID} =~ s/^[^_]+_//;
+      $_;
+    } @$matches
+  ];
+};
+
 sub register {
   my ($plugin, $mojo, $param) = @_;
   $param ||= {};
@@ -17,26 +28,6 @@ sub register {
   };
 
   my $api = $param->{api};
-
-  $mojo->helper(
-    korap_match_id => sub {
-      my $c = shift;
-      my $match = shift;
-      my $mid = $match->{ID};
-      $mid =~ s/^match\-[^!]+![^-]+-//;
-      return $mid // '';
-    }
-  );
-
-  $mojo->helper(
-    korap_doc_id => sub {
-      my $c = shift;
-      my $match = shift;
-      my $did = $match->{docID};
-      $did =~ s/^[^_]+_//;
-      return $did // '';
-    }
-  );
 
   # Create search endpoint
   $mojo->routes->add_shortcut(
@@ -160,7 +151,7 @@ sub register {
 	  $_->{'search.bm.result'}    = $b_search;
 	  $_->{'search.itemsPerPage'} = $json->{itemsPerPage};
 	  $_->{'search.query'}        = $json->{request}->{query};
-	  $_->{'search.hits'}         = $json->{matches};
+	  $_->{'search.hits'}         = map_matches($json->{matches});
 	};
 
 	if ($json->{totalResults} > -1) {

@@ -1,0 +1,26 @@
+%# ID, title, corpusID, author, pubDate, textClass
+<li data-corpus-id="<%= $match->{corpusID} %>"
+    data-doc-id="<%= $match->{docID} %>"
+    data-match-id="<%= $match->{ID} %>"
+<% if (current_route eq 'match') { %>class="active"<% } %>
+    >
+  <div>
+    <div class="snippet"><%== $match->{snippet} %></div>
+    <div class="tokenInfo"></div>
+  </div>
+  <p>
+    <strong><%= $match->{title} %></strong>
+    <%= $match->{author} ? ' by ' . $match->{author}  : '' %>;
+    published on <%= date_format $match->{pubDate} %>
+    as <%= $match->{docID} %> (<%= $match->{corpusID} %>)
+  </p>
+  <ul class="action right">
+% if (current_route ne 'match') {
+    <li class="close" title="Close"><i class="fa fa-toggle-up"></i></li>
+%#    <li class="open" title="Open in new tab"><%= link_to 'match', { corpus_id => $match->{corpusID}, doc_id => $match->{docID}, match_id => $match->{ID} }, target => '_blank', begin %><i class="fa fa-external-link-square"></i><% end %></li>
+% }
+    <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
+%#    <li title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
+%#    <li title="Remember"><i class="fa fa-star-o"></i></li>
+  </ul>
+</li>

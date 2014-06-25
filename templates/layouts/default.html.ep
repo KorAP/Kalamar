@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-%= stylesheet '/style.css'
-%= stylesheet '/hint.css'
-%= stylesheet '/table.css'
-%= stylesheet '/kwic-4.0.css'
-%= stylesheet '/fontawesome/font-awesome.min.css'
-%= stylesheet '/responsive.css', media => '(orientation: portrait) and (max-device-width: 800px)'
-%= javascript '/jquery-2.0.0.min.js'
-%= javascript '/translateTable.js'
-%= javascript '/hint.js'
-<meta charset="utf-8" />
-  </head>
+%= include 'partial/header'
   <body>
 
 % my $search_route = url_for;
 % unless (current_route 'tutorial') {
 <div id="tutorial">
-  % my $tut_page = url_for(session('tutorial') || 'tutorial');
-  <a href="<%= $tut_page %>" target="_blank"><i title="Open in new tab" class="fa fa-external-link-square"></i></a>
-  <i onclick="closeTutorial()" title="close" class="fa fa-toggle-up"></i>
-  <iframe src="about:blank" data-src="<%= $tut_page->query([snippet => 1]) %>"></iframe>
+%   my $tut_page = url_for(session('tutorial') || 'tutorial');
+  <a href="<%= $tut_page %>"
+     target="_blank"><i title="Open in new tab"
+                        class="fa fa-external-link-square"></i></a>
+  <i onclick="closeTutorial()"
+     title="close"
+     class="fa fa-toggle-up"></i>
+  <iframe src="about:blank"
+          data-src="<%= $tut_page->query([embedded => 1]) %>"></iframe>
 </div>
 % }
 % else {
@@ -31,72 +24,10 @@
 <div id="top">
   <a href="<%= url_for 'index' %>"><h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1></a>
 
-
 %= form_for $search_route => begin
 %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
 <br />
 %= search_field 'q', id => 'q-field', autofocus => 'autofocus'
-%= javascript begin
-new Hint({
-  "ref" : "q-field",
-  "qlRef" : "ql-field",
-  "hintSize" : 10,
-  "hints" : {
-    "-foundries" : {
-      "corenlp" : ["corenlp/", "CoreNLP"],
-      "cnx" : ["cnx/", "Connexor"],
-      "opennlp" : ["opennlp/", "OpenNLP"],
-      "xip" : ["xip/", "Xerox"],
-      "tt"  : ["tt/", "TreeTagger"],
-      "mate" : ["mate/", "Mate"]
-    },
-    "corenlp" : {
-      "ne_dewac_175m_600" : ["ne_dewac_175m_600=", "Named Entity"],
-      "ne_hgc_175m_600" : ["ne_hgc_175m_600=", "Named Entity"]
-    },
-    "corenlp/ne_dewac_175m_600" : ["I-LOC","I-MISC","I-ORG","I-PER"],
-    "corenlp/ne_hgc_175m_600" : ["I-LOC","I-MISC","I-ORG","I-PER"],
-    "cnx" : {
-      "c" : ["c=", "Constituency"],
-      "l" : ["l=", "Lemma"],
-      "m" : ["m=", "Morpho Syntax"],
-      "p" : ["p=", "Part of Speech"],
-      "syn" : ["syn=", "Syntax"]
-    },
-    "cnx/m" : ["Abbr","CMP","IMP","IND","INF","ORD","PAST","PCP","PERF","PL","PRES","PROG","Prop","SUB","SUP"],
-    "cnx/p" : ["A","ADV","CC","CS","DET","INTERJ","N","NUM","PREP","PRON","V"],
-    "cnx/syn" : ["@ADVL","@AUX","@CC","@MAIN","@NH","@POSTMOD","@PREMARK","@PREMOD"],
-    "opennlp" : {
-      "p" : ["p=", "Part of Speech"]
-    },
-    "opennlp/p" : ["$(","$,","$.","ADJA","ADJD","ADV","APPR","APPRART","ART","CARD","FM","KOKOM","KON","KOUI","KOUS","NE","NN","PDAT","PDS","PIAT","PIS","PPER","PPOSAT","PRELS","PRF","PROAV","PTKNEG","PTKVZ","PTKZU","PWAT","PWAV","PWS","TRUNC","VAFIN","VAINF","VAPP","VMFIN","VVFIN","VVIMP","VVINF","VVIZU","VVPP","XY"],
-    "xip" : {
-      "c" : ["c=", "Constituency"],
-      "d" : ["d=", "Dependency"],
-      "l" : ["l=", "Lemma"],
-      "p" : ["p=", "Part of Speech"]
-    },
-    "xip/c" : ["ADJ","ADV","AP","CONJ","DET","INFC","INS","ITJ","MC","NEGAT","NOUN","NP","NPA","NUM","POSTP","PP","PREP","PRON","PTCL","PUNCT","SC","SYMBOL","TOP","TRUNC","VERB"],
-    "xip/d" : ["ADJMOD","AUXIL","CONNECT","COORD","DATE","DETERM","EXPL","LOC","MODAL","NEGAT","NMOD","NMOD2","NUMMOD","OBJ","ORG","PERSON","PLINK","PRED","REFLEX","SUBJ","THEMA","TIME","TRUNC","VMAIN","VMOD","VPREF"],
-    "xip/p" : ["ADJ","ADV","CONJ","DET","ITJ","NEGAT","NOUN","NUM","POSTP","PREP","PRON","PTCL","PUNCT","SYMBOL","TRUNC","VERB"],
-    "tt" : {
-      "l" : ["l=", "Lemma"],
-      "p" : ["p=", "Part of Speech"]
-    },
-    "tt/p" : ["$.","ADJA","ADJD","ADV","APPO","APPR","APPRART","APZR","ART","CARD","FM","ITJ","KOKOM","KON","KOUI","KOUS","NE","NN","PDAT","PDS","PIAT","PIS","PPER","PPOSAT","PRELS","PRF","PROAV","PTKA","PTKNEG","PTKVZ","PTKZU","PWAT","PWAV","PWS","TRUNC","VAFIN","VAINF","VAPP","VMFIN","VMINF","VVFIN","VVIMP","VVINF","VVIZU","VVPP","XY"],
-    "mate" : {
-      "d" : ["d=", "Dependency"],
-      "l" : ["l=", "Lemma"],
-      "m" : ["m=", "Morpho Syntax"],
-      "p" : ["p=", "Part of Speech"]
-    },
-    "mate/d" : ["--","AG","AMS","APP","CC","CD","CJ","CM","CP","CVC","DA","DM","EP","JU","MNR","MO","NG","NK","NMC","OA","OC","OG","OP","PAR","PD","PG","PH","PM","PNC","RC","RE","RS","SB","SBP","SVP","UC"],
-    "mate/m" : ["<no-type>","case:*","case:acc","case:dat","case:gen","case:nom","degree:comp","degree:pos","degree:sup","gender:*","gender:fem","gender:masc","gender:neut","mood:imp","mood:ind","mood:subj","number:*","number:pl","number:sg","person:1","person:2","person:3","tense:past","tense:pres"],
-    "mate/p" : ["$(","$,","$.","<root-POS>","ADJA","ADJD","ADV","APPO","APPR","APPRART","ART","CARD","FM","ITJ","KOKOM","KON","KOUI","KOUS","NE","NN","PDAT","PDS","PIAT","PIS","PPER","PPOSAT","PPOSS","PRELAT","PRELS","PRF","PROAV","PTKA","PTKNEG","PTKVZ","PTKZU","PWAT","PWAV","PWS","TRUNC","VAFIN","VAINF","VAPP","VMFIN","VVFIN","VVIMP","VVINF","VVIZU","VVPP","XY"]
-  }}
-);
-
-% end
 <button type="submit" name="action" value="ok"><i class="fa fa-search"></i></button>
 %   if (stash('test_port')) {
 <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
@@ -114,81 +45,23 @@ new Hint({
 
 </div>
 
+%= content 'sidebar' => begin
 <div id="sidebar" style="padding-top: 90px">
 %= include 'collections'
-<i class="fa fa-bars"></i>
+  <i class="fa fa-bars"></i>
 </div>
-
-<div id="search">
-%= content
-</div>
-
-%= javascript begin
-
-$("#search > ol > li:not(.active)").on("click", function (e) {
-  $(this).addClass('active');
-  e.stopPropagation();
-});
-
-$("#search > ol > li:not(.active) > ul > li.close").on("click", function (e) {
-  $(this.parentNode.parentNode).removeClass('active');
-  e.stopPropagation();
-});
-
-
-function showTable (o) {
-  var match = o.parentNode.parentNode;
-  var table = $(match).children("div").children("div.tokenInfo").first();
-
-  if (table.hasClass("active")) {
-    table.removeClass("active");
-    return;
-  }
-  else if (table.children("table").length > 0) {
-    table.addClass("active");
-    return;
-  };
-
-  var corpusID = match.getAttribute('data-corpus-id');
-  var docID    = match.getAttribute('data-doc-id');
-  var matchID  = match.getAttribute('data-match-id');
-  var url      = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
-  var snippet;
-
-  jQuery.getJSON(url, function (res) {
-    var snippet = new SnippetTable(res['snippet']);
-    table.addClass("active");
-    table.append(snippet.toTable());
-  });
-};
-
-function openTutorial (o) {
-  var tut = $("#tutorial");
-  tut.addClass("active");
-  var iframe = tut.children("iframe");
-  var src = iframe.attr("data-src");
-  iframe.attr("src", src);
-};
-
-function closeTutorial (o) {
-  $("#tutorial").removeClass("active");
-};
-
-function useQuery (o) {
-  var q = o.getAttribute("data-query");
-  var ql = o.getAttribute("data-query-language");
-  $("#ql-field").val(ql);
-  $("#q-field").val(q);
-  closeTutorial();
-};
-
-$("code.query.serial, #sidebar").on("click", function () {
-  $(this).toggleClass('active');
-});
-
 % end
 
+<main>
+%= content main => begin
+  <p>This is the alternative KorAP Frontend.</p>
+  <p>The primary goal is to serve as a testbed for the query serialization and for different flavours of user interfaces.</p>
+  <p>Search capabilities are limited to the demo user.</p>
+% end
+</main>
 
+%= content 'javascript'
+%= include 'partial/javascript'
 %= notifications 'Alertify'
   </body>
 </html>

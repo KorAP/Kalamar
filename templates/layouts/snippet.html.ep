@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-%= stylesheet '/style.css'
-%= stylesheet '/kwic-4.0.css'
-%= stylesheet '/responsive.css', media => '(orientation: portrait) and (max-device-width: 800px)'
-%= stylesheet '/fontawesome/font-awesome.min.css'
-%= javascript '/jquery-2.0.0.min.js'
-<meta charset="utf-8" />
-  </head>
+%= include 'partial/header'
   <body style="background-color:white">
+<main<% if (stash('embedded')) { %> class="embedded"<% } %>>
+%= content 'main' => begin
+    <p>Welcome to the tutorial</p>
+% end
+</main>
+
 %= notifications 'Alertify'
-%= content
+
 %= javascript begin
 $("li,code,#sidebar").on("click", function () {
   $(this).toggleClass('active');
 });
 % end
+
   </body>
 </html>

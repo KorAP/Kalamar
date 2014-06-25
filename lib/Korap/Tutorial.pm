@@ -4,8 +4,9 @@ use Mojo::Base 'Mojolicious::Controller';
 sub page {
   my $c = shift;
 
-  if ($c->param('snippet')) {
+  if ($c->param('embedded')) {
     $c->layout('snippet');
+    $c->stash(embedded => 1);
   }
   else {
     $c->layout('default');

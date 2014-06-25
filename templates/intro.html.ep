@@ -1,5 +1,0 @@
-<div id="intro">
-  <p>This is the alternative KorAP Frontend.</p>
-  <p>The primary goal is to serve as a testbed for the query serialization and for different flavours of user interfaces.</p>
-  <p>Search capabilities are limited to the demo user.</p>
-</div>
