@@ -1,0 +1,64 @@
+@charset "utf-8";
+
+ol > li:not(.active) .tokenInfo {
+  display: none;
+}
+
+.tokenInfo {
+  display: none;
+  background-color: #ffa500;
+  margin-right: 26px;
+  overflow: auto;
+  &.active {
+    display: block;
+  }
+  table {
+    font-size: 10pt;
+    padding: 3pt 10pt; /* wie in ol > li.active p */
+    /* All cells */
+    > tr {
+      > * {
+	padding: 1pt 6pt;
+	vertical-align: top;
+      }
+      > td {
+	text-align: center;
+	background-color: #f4eebb;
+      }
+      /* header */
+      > th{
+	&:not([rowspan]) {
+	  color: white;
+	  text-shadow: none;
+	}
+	&[rowspan]:first-child {
+	  background-color: #f4eebb;
+	}
+	span.switchSort {
+	  cursor: pointer;
+	  position: absolute;
+	  display: inline-block;
+	  right: 0;
+	  margin-right: -11pt;
+	  width: 20pt;
+	}
+      }
+      &:first-child th {
+	text-align: center;
+	background-color: #ff8000;
+	/* first column header */
+	&:first-child {
+	  position: relative;
+	  padding-right: 20pt;
+	  padding-left: 5pt;
+	}
+	/* second column header */
+	&:nth-child(2) {
+	  text-align: left;
+	  padding-left: 20pt;
+	  padding-right: 5pt;
+	}
+      }
+    }
+  }
+}

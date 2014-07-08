@@ -3,7 +3,8 @@
 %= include 'partial/header'
   <body>
 
-% my $search_route = url_for;
+% my $location;
+% my $search_route;
 % unless (current_route 'tutorial') {
 <div id="tutorial">
 %   my $tut_page = url_for(session('tutorial') || 'tutorial');
@@ -16,6 +17,22 @@
   <iframe src="about:blank"
           data-src="<%= $tut_page->query([embedded => 1]) %>"></iframe>
 </div>
+%   if (current_route eq 'match') {
+%     $search_route = url_for('search_corpus');
+%     $location = 'in corpus <span class="location">' . stash('corpus_id') . '</span>';
+%   }
+%   else {
+%     $search_route = url_for;
+%     if (stash('doc_id')) {
+%       $location = ' in document <span class="location">' . stash('corpus_id') . '/' . stash('doc_id') . '</span>';
+%     }
+%     elsif (stash('corpus_id')) {
+%       $location = ' in corpus <span class="location">' . stash('corpus_id') . '</span>';
+%     }
+%     elsif (stash('collection_id')) {
+%       $location = ' in collection <span class="location">' . stash('collection_id') . '</span>';
+%     };
+%   }
 % }
 % else {
 %   $search_route = url_for('index');
@@ -25,28 +42,35 @@
   <a href="<%= url_for 'index' %>"><h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1></a>
 
 %= form_for $search_route => begin
-%= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
-<br />
-%= search_field 'q', id => 'q-field', autofocus => 'autofocus'
-<button type="submit" name="action" value="ok"><i class="fa fa-search"></i></button>
+  <div id="searchbar">
+%= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => 'Find ...'
+    <button type="submit"><i class="fa fa-search"></i></button>
 %   if (stash('test_port')) {
-<button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
+    <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
 %   };
-% end
+  </div>
+  <% if ($location) { %><%== $location %><% } %>
+  with
+  <div class="select">
+    %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
+  </div>
+
 
 <div id="button-right">
-% if (param('q')) {
-<button type="button" onclick="$('#search > ol').toggleClass('left-aligned right-aligned'); $(this).children('i').toggleClass('fa-align-right fa-align-left')"><i class="fa fa-align-right"></i></button>
-% }
 % unless (current_route 'tutorial') {
-<button type="button" onclick="openTutorial()"><i class="fa fa-graduation-cap"></i></button>
+<button type="button" title="Tutorial" onclick="openTutorial()"><i class="fa fa-graduation-cap"></i></button>
 % };
+% if (param('q')) {
+<button type="button" title="Alignment" onclick="$('#search > ol').toggleClass('left-aligned right-aligned'); $(this).children('i').toggleClass('fa-align-right fa-align-left')"><i class="fa fa-align-right"></i></button>
+% }
 </div>
+
+% end
 
 </div>
 
 %= content 'sidebar' => begin
-<div id="sidebar" style="padding-top: 90px">
+<div id="sidebar">
 %= include 'collections'
   <i class="fa fa-bars"></i>
 </div>

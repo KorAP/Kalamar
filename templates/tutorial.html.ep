@@ -13,26 +13,33 @@
   <li>How to use Poliqarp+ QL?</li>
   <li>How to use Cosmas-II QL?</li>
   <li>How to use CQL?</li>
+  <li>API</li>
+  <li>Search</li>
 </ul>
 -->
 
-<section id="intro">
-<h3>Introduction</h3>
-<p>This is a Tutorial to KorAP. It may be maintained separately (as a Wiki?) and
-has some nice features - like embedded example queries - just click on the queries below:</p>
+<section name="intro">
+<h3>Example Queries</h3>
+%# <p>This is a Tutorial to KorAP. It may be maintained separately (as a Wiki?) and has some nice features - like embedded example queries - just click on the queries below:</p>
 
+<p><strong>Poliqarp</strong>: Find all occurrences of the lemma &quot;baum&quot; as annotated by the default foundry.</p>
 %= korap_tut_query poliqarp => '[base=baum]'
 
+<p><strong>Cosmas-II</strong>: Find all occurrences of the words &quot;der&quot; and &quot;Baum&quot;, in case they are in a maximum distance of 5 tokens. The order is not relevant.</p>
 %= korap_tut_query cosmas2 => 'der /w5 Baum'
 
-%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,[opennlp/p=KOUS])'
 
+<p><strong>Poliqarp+</strong>: Find all nominal phrases as annotated using Connexor, that contain an adverb as annotated by OpenNLP.</p>
+%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,[opennlp/p=ADV])'
+
+<p><strong>Poliqarp+</strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Connexor and the lemma &quot;der&quot; annotated by the default foundry. Highlight both terms of the sequence.</p>
 %= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=der]})'
 
-<p>And here is a short cheat sheet for foundries and layers</p>
+
+%# <p>And here is a short cheat sheet for foundries and layers</p>
 </section>
 
-<section id="cheatsheet">
+<section name="cheatsheet">
   <h3>Cheatsheet</h3>
   <ul>
     <li><strong>base</strong>

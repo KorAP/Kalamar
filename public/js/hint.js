@@ -22,8 +22,7 @@ var Hint = function (param) {
   mirror.setAttribute("id", "searchMirror");
   mirror.appendChild(document.createElement("span"));
   mirror.appendChild(hint);
-  search.parentNode.insertBefore(mirror, search);
-
+  document.getElementsByTagName("body")[0].appendChild(mirror);
   // Default active state
   this.active = -2;
 
@@ -103,7 +102,8 @@ var Hint = function (param) {
   // Choose next item in list
   this.next = function () {
     if (this.active === -2)
-      return;
+      return false;
+
     var lis = hint.getElementsByTagName("li");
     if (this.active === -1) {
       lis[0].setAttribute("class", "active");
@@ -118,6 +118,8 @@ var Hint = function (param) {
       lis[this.active].removeAttribute("class");
       lis[++this.active].setAttribute("class", "active");
     };
+
+    return true;
   };
 
   // Choose previous item in list
@@ -163,6 +165,8 @@ var Hint = function (param) {
 
     if (foundryRegex.exec(begin + action))
       this.show(RegExp.$1 + (RegExp.$2 ? '/' + RegExp.$2 : ''));
+
+    return true;
   };
 
   function changed (e) {
@@ -199,17 +203,17 @@ var Hint = function (param) {
     if (that.active === -2)
       return;
     if (e.key === 'Down') {
-      that.next();
+      return that.next();
     }
     else if (e.key === 'Up') {
-      that.previous();
+      return that.previous();
     }
-    else if (e.key === 'Enter') {
-      that.choose();
+    else if (e.key === 'Enter' && that.choose()) {
       e.stopPropagation();
       e.preventDefault();
       return false;
-    }
+    };
+    that.hide();
   };
 
   function qlSelect () {

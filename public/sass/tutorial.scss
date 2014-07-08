@@ -1,0 +1,49 @@
+@import "colors";
+
+#tutorial {
+  position: fixed;
+  display: block;
+  z-index: 9999;
+  background-color: $dark-green;
+  border-radius: 15px;
+  padding: 5px;
+  top:    2%;
+  bottom: 2%;
+  left:   5%;
+  right:  5%;
+  &:not(.active) {
+    display: none;
+  }
+  &.active {
+    display: block;
+  }
+  > i,
+  > a > i {
+    font-size: 20pt;
+    color: $dark-green;
+    position: absolute;
+    z-index: 100;
+    top: 10pt;
+    right: 20pt;
+    cursor: pointer;
+  }
+  > a > i {
+    right: 40pt;
+  }
+  iframe {
+    width: 100%;
+    min-height: 100%;
+    border: {
+      width: 0;
+      radius: 10px;
+    }
+    background: {
+      image: url('img/crab.svg');
+      size: 10%;
+      repeat: no-repeat;
+      position: center center;
+      color: white;
+    }
+  }
+}
+

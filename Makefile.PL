@@ -23,7 +23,8 @@ WriteMakefile(
     'JSON::XS' => 0.0,
     'Mojolicious::Plugin::AssetPack' => 0.14,
     'JavaScript::Minifier::XS' => 0.09,
-    'CSS::Minifier::XS' => 0.09
+    'CSS::Minifier::XS' => 0.09,
+    'CSS::Sass' => '0.8.1'
 #    'Mojolicious::Plugin::Search' => 0.01,
   },
   test => {

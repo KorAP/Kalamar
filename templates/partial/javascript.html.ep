@@ -81,8 +81,12 @@ function useQuery (o) {
   closeTutorial();
 };
 
-$("code.query.serial, #sidebar").on("click", function () {
+$("#sidebar").on("click", function () {
   $(this).toggleClass('active');
+});
+
+$("span.location").on("click", function () {
+  $("#sidebar").toggleClass('active');
 });
 
 % end

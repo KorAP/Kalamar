@@ -1,0 +1,10 @@
+% contain main => begin
+<h2>KorAP-Tutorial: Regular Expressions</h2>
+
+The support for regular expressions in KorAP may be backend dependend. Below you can find the description for the respective backends.</p>
+
+<section name="lucene">
+<h3>Lucene</h3>
+</section>
+
+% end

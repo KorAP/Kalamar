@@ -15,6 +15,7 @@
 %= include 'query'
 %     };
 
+% unless (stash('search.totalResults') == 0) {
 <div id="search">
 <ol class="left-aligned">
 %=    search_hits begin
@@ -22,6 +23,7 @@
 %     end
 </ol>
 </div>
+% };
 
 %   end
 % end

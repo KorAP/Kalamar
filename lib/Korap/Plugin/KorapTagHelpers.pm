@@ -10,9 +10,9 @@ sub register {
     korap_tut_query => sub {
       my ($c, $ql, $q) = @_;
       $q = xml_escape $q;
-      b('<code class="query tutorial" onclick="top.useQuery(this)" ' .
-	  qq!data-query="$q" data-query-language="$ql"><pre>! .
-	    $q . '</pre></code>');
+      b('<pre class="query tutorial" onclick="top.useQuery(this)" ' .
+	  qq!data-query="$q" data-query-language="$ql"><code>! .
+	    $q . '</code></pre>');
     }
   );
 };

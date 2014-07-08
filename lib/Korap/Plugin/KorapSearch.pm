@@ -8,13 +8,12 @@ use Mojo::ByteStream 'b';
 # TODO: Write search snippet
 
 sub map_matches {
-  my $matches = shift;
   [
     map {
       $_->{ID} =~ s/^match\-[^!]+![^-]+-//;
       $_->{docID} =~ s/^[^_]+_//;
       $_;
-    } @$matches
+    } @{ shift() }
   ];
 };
 
@@ -27,12 +26,13 @@ sub register {
     $param = { %$param, %$config_param };
   };
 
-  my $api = $param->{api};
+  my $api = $param->{'api-0.1'};
 
   # Create search endpoint
   $mojo->routes->add_shortcut(
     search => sub {
-      shift->route('/search')->to('search#remote')
+      # Todo: Support TRACE
+      return shift->route('/search')->to('search#remote')
     }
   );
 
@@ -55,7 +55,7 @@ sub register {
 	$c->stash('search.bm.hit' => 20);
 	$c->stash('search.bm.result' => 10);
 	$c->stash('search.query' => $json->{request}->{query});
-	$c->stash('search.hits' => $json->{matches});
+	$c->stash('search.hits' => map_matches $json->{matches});
 	return $cb->();
       };
 
@@ -85,7 +85,17 @@ sub register {
       };
 
       my $url = Mojo::URL->new($api);
-      $url->path('resource/search');
+
+      if ($c->stash('corpus_id')) {
+	$url->path('corpus/' . $c->stash('corpus_id') . '/search');
+      }
+      elsif ($c->stash('collection_id')) {
+	$url->path('virtualcollection/' . $c->stash('collection_id') . '/search');
+      }
+      else {
+	$url->path('search');
+      };
+
       #if ($c->stash('resource')) {
       #$url->path($c->stash('resource'));
       #if ($c->stash('cid')) {
@@ -100,7 +110,7 @@ sub register {
       $url->query(\%query);
       my $cache_url = $url->to_string;
 
-      $url->query({ctx => 'paragraph'});
+      $url->query({context => 'paragraph'});
 
       # Check cache for total results
       my $total_results = $c->chi->get('total-' . $cache_url);
@@ -108,7 +118,6 @@ sub register {
 	$c->stash('search.totalResults' => $total_results);
 	$c->app->log->warn('Get total result from cache');
 	$url->query({cutoff => 'true'});
-	$url->query({cutOff => 'true'});
       }
       else {
 	$c->stash('search.totalResults' => 0);
@@ -118,10 +127,9 @@ sub register {
 
       $c->stash('search.itemsPerPage' => $count);
 
-      my $ua = Mojo::UserAgent->new($url);
       $c->app->log->debug($url->to_string);
 
-      $c->app->log->debug("Start tx");
+      my $ua = Mojo::UserAgent->new($url);
 
       # Blocking request
       # TODO: Make non-blocking
@@ -139,10 +147,10 @@ sub register {
 	# Reformat benchmark counter
 	my $b_hit    = $json->{benchmarkHitCounter};
 	my $b_search = $json->{benchmarkSearchResults};
-	if ($b_hit =~ s/\s+(m)?s$//) {
+	if ($b_hit & $b_hit =~ s/\s+(m)?s$//) {
 	  $b_hit = sprintf("%.2f", $b_hit) . ($1 ? $1 : '') . 's';
 	};
-	if ($b_search =~ s/\s+(m)?s$//) {
+	if ($b_search && $b_search =~ s/\s+(m)?s$//) {
 	  $b_search = sprintf("%.2f", $b_search) . ($1 ? $1 : '') . 's';
 	};
 

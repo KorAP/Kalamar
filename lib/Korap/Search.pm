@@ -7,24 +7,28 @@ sub remote {
   $c->layout('default');
   $c->title('KorAP');
 
+  my $api = $c->config('KorAP')->{'api-0.1'};
+
+  # Todo: Support query building directly
+
   $c->stash(test_port => (
     $c->req->url->to_abs->port == 6666 ||
-      $c->app->mode eq 'development') ? 1 : 0);
+      $c->app->mode =~ m/^development|test$/) ? 1 : 0);
 
   if ((scalar $c->param('action') // '') eq 'inspect') {
-    my $api = $c->config('KorAP')->{api};
-    my $url = Mojo::URL->new($api)->path('resource/query');
+    my $url = Mojo::URL->new($api)->path('search');
 
     $url->query({
       q => scalar $c->param('q') // '',
       ql => scalar $c->param('ql') // 'poliqarp'
     });
 
-    if (my $response = $c->ua->get($url)->success) {
+    my $tx = $c->ua->build_tx(TRACE => $url);
+    if (my $response = $c->ua->start($tx)->success) {
       $c->stash('search.query' => $response->json);
     }
     else {
-      $c->notify(error => 'Unable to retrieve serialized query');
+      $c->notify(error => 'Unable to trace query');
     };
 
     $c->param(cutoff => 1);
@@ -38,13 +42,6 @@ sub remote {
   $c->render(template => 'search');
 };
 
-sub info {
-  my $c = shift;
-  my $api = $c->config('KorAP')->{api};
-  my $src = $c->stash('resource');
-  $c->render(json => $c->notifications(json => $c->info_on($src)));
-};
-
 
 1;
 
@@ -52,9 +49,6 @@ sub info {
 __END__
 
 [{"shared":false,"id":1,"managed":true,"created":1401193381119,"stats":{"documents":196510,"tokens":51545081,"sentences":4116282,"paragraphs":2034752},"query":[{"@type":"korap:meta-filter","@value":{"@type":"korap:term","@field":"korap:field#corpusID","@value":"WPD"}}],"description":"Die freie Enzyklopädie","name":"Wikipedia","foundries":"base;corenlp;mate;mpt;opennlp;tt;xip"}]
-
-
-
 
 
 http://10.0.10.13:8070/api/v1/resource/matchInfo?id=match-WPD!WPD_NNN.02848-p1223-1224&f=mate&l=

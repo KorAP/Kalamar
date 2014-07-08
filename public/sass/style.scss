@@ -1,0 +1,289 @@
+@charset "utf-8";
+
+@import "colors";
+
+@mixin box-sizing-box() {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+@mixin no-appearance() {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}
+
+body, html, select {
+  color: #666;
+  font-family: verdana, tahoma, arial;
+  margin: 0;
+}
+
+body, html, #searchbar button {
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#top {
+  background-color: #7ba400;
+  @include box-sizing-box();
+  padding: 8px;
+  padding-bottom: 0;
+  position: relative;
+  font-size: 10pt;
+  color: white;
+  text-shadow: none;
+  button {
+    color: $light-green;
+    background-color: transparent;
+    border-width: 0;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
+  form {
+    display: block;
+    padding-left: 230px;
+    margin: 0px;
+    position: relative;
+    > div.select, > span.location {
+      line-height: 1.8em;
+      border: {
+	width: 0;
+	bottom-width: 3px;
+	style: solid;
+	color: transparent;
+      }
+      display: inline-block;
+      &:hover {
+	border-color: $dark-green;
+      }
+    }
+    > span.location {
+      padding: 0 2px;
+      cursor:pointer;
+    }
+    > div.select {      
+      position: relative;
+      padding: 0;
+      margin: 0;
+      &:after {
+	content: "";
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	right: 0px;
+	top: 0px;
+	width: 18px;
+	text-align: center;
+	position: absolute;
+	pointer-events: none;
+	background-color: $light-green;
+      }
+      > * {
+	cursor: pointer;
+	padding: 0pt;
+	line-height: 1.8em;
+	outline: none;
+      }
+    }
+  }
+}
+
+
+
+/*
+http://cssdeck.com/labs/styling-select-box-with-css3
+*/
+
+#ql-field {
+  margin: 0;
+  outline: none;
+  border: none;
+  display: inline-block;
+  position: relative;
+  color: white;
+  background-color: transparent;
+  -webkit-appearance: none;
+  border-width: 0;
+  border-radius: 0;
+  @include no-appearance();
+  &:checked {
+    outline: none;
+  }
+  > option {
+    padding: 0pt 2pt;
+    outline: none;
+  }
+}
+
+/* funny hack */
+#ql-field:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}
+
+
+#searchbar {
+  position: relative;
+  @include box-sizing-box();
+  width: 100%;
+  padding-right: 60px;
+  button {
+    position: absolute;
+    font-weight: normal;
+    background-color: $pagination-bg;
+    padding: 0;
+    height: 100%;
+    top: 0;
+    right: 30px;
+    width: 30px;
+    border: {
+      top-width: 2px;
+      top-style: solid;
+      bottom-width:  2px;
+      bottom-style: solid;
+      color: white;
+    }
+    &:hover {
+      cursor:pointer;
+      color: white;
+    }
+    &:first-of-type {
+      border: {
+	left-width: 1px;
+	left-style: solid;
+	left-color: $pagination-border;
+      }
+    }
+    &:last-of-type {
+      @include box-sizing-box();
+      border: {
+	right-width: 2px;
+	right-style: solid;
+	top-right-radius: 12px;
+	bottom-right-radius: 12px;
+      }
+    }
+    &:hover {
+      background-color: $light-green;
+      border-color: $dark-green;
+      color: $dark-green;
+      text-shadow: none;
+    }
+  }
+  button + button {
+    right: 0;
+  }
+}
+
+#q-field {
+  border: 2px solid white;
+  padding: 3px;
+  font-size: 11pt;
+  width: 100%;
+  margin: 0;
+  @include box-sizing-box();
+  display: block;
+}
+
+#button-right {
+  display: inline-block;
+  float: right;
+  color: white;
+  line-height: 2em;
+  > button {
+    border-bottom: 3px solid transparent;
+    font-size: 120%;
+    cursor: pointer;
+    color: white;
+    line-height: 14pt;
+    padding: 0;
+    &:hover {
+      border-bottom-color: $dark-green;
+    }
+  }
+}
+/*
+#button-right {
+  position: absolute;
+  @include box-sizing-box();
+  right: 0px;
+  bottom: 0px;
+  height: 2em;
+  width: 6em;
+  > button {
+    cursor: pointer;
+    color: white;
+    right: 5px;
+    width: 2em;
+    bottom: 0;
+    &:hover {
+      border-bottom: 2px solid green;
+    }
+    &[name=alignment] {
+    }
+    &[name=tutorial] {
+    }
+  }
+}
+*/
+
+p.found {
+  font-size: 10pt;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+
+#total-results {
+  color: $total-results;
+  font-weight: bold;
+}
+
+/* KorAP header logo */
+h1 {
+  margin: 0;
+  margin-left:15px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 7.8em;
+  height: 2.6em;
+  z-index: 999;
+  background: {
+    repeat: no-repeat;
+    position: center center;
+    size: 65%;
+    image: url('/img/korap-logo-solo.svg');
+  }
+  span {
+    margin-left: -3000px;
+  }
+}
+
+#search {
+  margin-bottom: 44px;
+  &.match {
+    margin-top: 14pt;
+  }
+}
+
+main {
+  margin: {
+    left: 30px;
+    right: 14px;
+  }
+  &.embedded {
+    margin: {
+      left: 14px;
+      right: 14px;
+    }
+  }
+}
+

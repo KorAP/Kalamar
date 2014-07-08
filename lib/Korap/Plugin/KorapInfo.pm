@@ -68,23 +68,29 @@ sub register {
     match_info => sub {
       my $c = shift;
 
-      return map_match($json->{matchInfo2}) if $c->app->mode eq 'test';
-
       my $corpus = shift;
       my $doc = shift;
       my $match = shift;
+      my %param = @_;
+
+      if ($c->app->mode eq 'test') {
+	return map_match($json->{treeInfo}) if $param{spans};
+	return map_match($json->{matchInfo2});
+      };
 
       # Build url
-      my $temp_api = 'http://10.0.10.13:8070/api/v0.1/';
-      my $url = Mojo::URL->new($temp_api)->path('matchInfo');
+      my $temp_api = $c->config('KorAP')->{'api-0.1'};
+      my $url = Mojo::URL->new($temp_api)->path(
+	join('/', 'corpus', $corpus, $doc, $match, 'matchInfo')
+      );
 
       # Build match id
-      $match = 'match-' . $corpus . '!' . $corpus . '_' . $doc . '-' . $match;
+      # $match = 'match-' . $corpus . '!' . $corpus . '_' . $doc . '-' . $match;
 
-      my %param = @_;
-      my %query = ( id => $match );
-      $query{foundry} = $param{foundry} // '*';
-      $query{layer} = $param{layer} if defined $param{layer};
+      my %query;
+      $query{foundry} = $param{foundry} if defined $param{foundry};
+      $query{layer}   = $param{layer}   if defined $param{layer};
+      $query{spans}   = $param{spans} ? 'true' : 'false';
 
       # Add query
       $url->query(\%query);
@@ -94,6 +100,7 @@ sub register {
       if (my $response = $c->ua->get($url)->success) {
 	return map_match($response->json);
       };
+
       $c->notify(error => 'Unable to retrieve resource');
       return {};
     }
@@ -105,6 +112,25 @@ sub register {
 
 __DATA__
 {
+  "treeInfo": {
+    "author":"Filzstift,Alexander Sommer,TheK",
+    "textClass":"freizeit-unterhaltung reisen",
+    "corpusID":"WPD",
+    "title":"Neuseeland",
+    "foundries":"xip xip/morpho xip/constituency xip/dependency corenlp corenlp/namedentities corenlp/namedentities/ne_dewac_175m_600 corenlp/namedentities corenlp/namedentities/ne_hgc_175m_600 mate mate/morpho mate/dependency connexor connexor/morpho connexor/syntax connexor/phrase treetagger treetagger/morpho base base/sentences base/paragraphs opennlp opennlp/morpho",
+    "tokenization":"opennlp#tokens",
+    "field":"tokens",
+    "startMore":false,
+    "endMore":false,
+    "docID":"WPD_NNN.02848",
+    "snippet" : "<span class=\"context-left\"><span class=\"more\"></span></span><span class=\"match\"><span title=\"xip/c:VERB\">enthält</span>, <span title=\"xip/c:CONJ\">aber</span> <span title=\"xip/c:PTCL\">an</span> <span title=\"xip/c:CONJ\">und</span> <span title=\"xip/c:PP\"><span title=\"xip/c:PREP\">für</span> <span title=\"xip/c:NP\"><span title=\"xip/c:PRON\">sich</span></span></span> <span title=\"xip/c:NP\"><span title=\"xip/c:DET\">keinen</span> <span title=\"xip/c:NPA\"><span title=\"xip/c:AP\"><span title=\"xip/c:ADJ\">weiteren</span></span> <span title=\"xip/c:NOUN\">Sinn</span></span></span> <span title=\"xip/c:VERB\">enthält</span></span><span class=\"context-right\"><span class=\"more\"></span></span>",
+    "ID":"match-WPD!WPD_NNN.02848-p1213-1224",
+    "pubDate":"2005-03-28",
+    "context":{
+      "left":["token",0],
+      "right":["token",0]
+    }
+  },
   "matchInfo": {
     "author":"Filzstift,Alexander Sommer,TheK",
     "textClass":"freizeit-unterhaltung reisen",

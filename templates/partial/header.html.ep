@@ -1,14 +1,7 @@
 <head>
   <title><%= title %></title>
-%#= asset 'korap.css'
-%= stylesheet '/style.css'
-%= stylesheet '/hint.css'
-%= stylesheet '/table.css'
-%= stylesheet '/kwic-4.0.css'
-%= stylesheet '/fontawesome/font-awesome.min.css'
-%= stylesheet '/responsive.css', media => '(orientation: portrait) and (max-device-width: 800px)'
-%= javascript '/jquery-2.0.0.min.js'
-%= javascript '/translateTable.js'
-%= javascript '/hint.js'
+%= asset 'korap.css'
+%= asset 'korap.js'
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width;initial-scale=1.0;" />
 </head>

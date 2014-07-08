@@ -18,22 +18,24 @@ html, body {
   border-width: 0;
   padding: 0;
   font-size: 9pt;
-}
-
-#tutorial > iframe {
-  border-radius: 0;
+  > iframe {
+    border-radius: 0;
+  }
 }
 
 #top {
   padding: 0 0 0 0;
   height: 80px;
-}
-
-#top h1 {
-  margin: 5px;
-  height: 30px;
-  width: 80px;
-  background-size: 98% auto;
+  h1 {
+    margin: 5px;
+    height: 30px;
+    width: 80px;
+    background-size: 98% auto;
+  }
+  /* Temporary */
+  form button {
+    display: none;
+  }
 }
 
 #sidebar {
@@ -41,8 +43,10 @@ html, body {
 }
 
 #search {
-  margin-left: 0;
-  margin-right: 0;
+  margin {
+    left: 0;
+    right: 0;
+  }
 }
 
 form {
@@ -64,21 +68,14 @@ form {
   right: 7px;
 }
 
-/* Temporary */
-#top form button {
-  display: none;
-}
-
 #search > ol > li {
   font-size: 9pt;
-}
-
-#search > ol > li:not(.active) {
-  padding: 4pt 0 5pt 0;
-}
-
-#search > ol > li.active {
-  padding: 0 0 0 0;
+  &:not(.active) {
+    padding: 4pt 0 5pt 0;
+  }
+  &.active {
+    padding: 0 0 0 0;
+  }
 }
 
 code.query.serial {

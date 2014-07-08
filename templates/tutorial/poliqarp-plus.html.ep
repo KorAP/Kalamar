@@ -1,0 +1,152 @@
+% content main => begin
+
+<h2>KorAP-Tutorial: Poliqarp+</h2>
+
+<section name="segments">
+<h3>Simple Segments</h3>
+
+<p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
+%# footnote: In the polish national corpus, Poliqarp can join multiple segments when identifying a single word.
+
+%= korap_tut_query poliqarp => 'Baum'
+
+<p>Sequences of simple segments are expressed using a space delimiter:</p>
+
+%= korap_tut_query poliqarp => 'der Baum'
+
+<p>Simple segments always refer to the surface form of a word. To search for surface forms without case sensitivity, you can use the <code>/i</code> flag.</p>
+
+%= korap_tut_query poliqarp => 'laufen/i'
+
+<p>The query above will find all occurrences of <code>laufen</code> irrespective of the capitalization of letters, so <code>wir laufen</code> will be find as well as <code>das Laufen</code> and even <code>&quot;GEH LAUFEN!&quot;</code>.
+</section>
+
+<section name="regexp">
+  <h3>Regular Expressions</h3>
+
+<p>Segments can also be queried using <%= link_to 'tut-regex', 'regular expressions' %> - by surrounding the segment with double quotes.</p>
+
+%= korap_tut_query poliqarp => '"l(au|ie)fen"'
+
+<p>Regular expression segments will always match the whole segment, meaning the above query will find words starting with <code>l</code> and ending with <code>n</code>. To support subqueries, you can use the <code>/x</code> flag.
+
+%= korap_tut_query poliqarp => '"l(au|ie)fen"/x', cutoff => 1
+
+<p>The <code>/x</code> will search for all segments that contain a sequence of characters the regular expression matches. That means the above query is equivalent to:</p>
+
+%= korap_tut_query poliqarp => '.*?"l(au|ie)fen.*?"', cutoff => 1
+
+<p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
+
+%= korap_tut_query poliqarp => 'trenn/xi', cutoff => 1
+
+<p>The above query will find all occurrences of segments including the string <code>trenn</code> case insensitive, like &quot;Trennung&quot;, &quot;unzertrennlich&quot;, or &quot;Wettrennen&quot;.</p>
+
+<blockquote>
+  <p>These kinds of queries are extremely slow!</p>
+</blockquote>
+
+<p>You can again apply the <code>/i</code> flag to search case insensitive.</p>
+
+%= korap_tut_query poliqarp => '"l(au|ie)fen"/xi', cutoff => 1
+
+</section>
+
+<section name="complex">
+  <h3>Complex Segments</h3>
+
+<p>Complex segments are expressed in square brackets and contain additional information on the resource of the term under scrutiny by prividing key/value pairs, separated by a <code>=</code> symbol.</p>
+
+<p>The KorAP implementation of Poliqarp provides three special segment keys: <code>orth</code> for surface forms, <code>base</code> for lemmata, and <code>pos</code> for Part-of-Speech. The following complex query finds all surface forms of <code>Baum</code>.</p>
+
+%# There are more special keys in Poliqarp, but KorAP doesn't provide them.
+
+%= korap_tut_query poliqarp => '[orth=Baum]'
+
+<p>The query is thus equivalent to:</p>
+
+%= korap_tut_query poliqarp => 'Baum'
+
+<p>Complex segments expect simple expressions as a values, meaning that the following expression is valid as well:</p>
+
+%= korap_tut_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
+
+<p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= link_to 'tut-foundries', 'default foundry' %>. The following query finds all occurrences of segments annotated as the lemma <code>Baum</code> by the default foundry.</p>
+
+%= korap_tut_query poliqarp => '[base=Baum]'
+
+<p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= link_to 'tut-foundries', 'default foundry' %>. The following query finds all attributive adjectives:</p>
+
+%= korap_tut_query poliqarp => '[pos=ADJA]'
+
+<p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation. For example to find all occurrences of <span style="color: red">plural words in the mate foundry, you can search using the following query:</span></p>
+
+%= korap_tut_query poliqarp => '[mate/m=number:pl]'
+
+</section>
+
+<section name="spans">
+<h3>Span Segments</h3>
+
+%= korap_tut_query poliqarp => '<s>'
+
+</section>
+
+<section name="paradigmatic-operators">
+<h3>Paradigmatic Operators</h3>
+%= korap_tut_query poliqarp => '[orth=bäume & base=bäumen]'
+
+%= korap_tut_query poliqarp => '[orth=bäume & base!=bäumen]'
+
+<p>The following query is equivalent</p>
+
+%= korap_tut_query poliqarp => '[orth=bäume & !base=bäumen]'
+
+%= korap_tut_query poliqarp => '[base=laufen | base=gehen]'
+
+%= korap_tut_query poliqarp => '[(base=laufen | base=gehen) & tt/pos=VVFIN]'
+
+%= korap_tut_query poliqarp => '[]'
+
+</section>
+
+<section name="syntagmatic-operators">
+<h3>Syntagmatic Operators</h3>
+
+<h4>Sequences</h4>
+
+<h4>Repetition</h4>
+%= korap_tut_query poliqarp => '[base=der][][base=Baum]'
+
+%= korap_tut_query poliqarp => '[base=der][]{2}[base=Baum]'
+%= korap_tut_query poliqarp => '[base=der][]{2,3}[base=Baum]'
+%= korap_tut_query poliqarp => '[base=der][]{2,}[base=Baum]'
+%= korap_tut_query poliqarp => '[base=der][]{,3}[base=Baum]'
+
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]?[base=Baum]'
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]*[base=Baum]'
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]+[base=Baum]'
+
+<h4>Alternation</h4>
+
+<h4>Position Operators</h4>
+
+contains()
+startsWith()
+endsWith()
+
+<blockquote>
+  The KorAP implementation of Poliqarp also support the postfix <code>within</code> operator, that works similar to the <code>contains()</code>, but is not nestable.
+</blockquote>
+
+<h4>Class Operators</h4>
+
+{}
+focus()
+
+
+
+
+</section>
+
+% end
