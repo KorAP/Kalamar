@@ -23,8 +23,6 @@ function setTutorialPage(obj) {
 function getTutorialPage() {
   var pc = 'tutorial_page';
   var c_value = document.cookie;
-  console.log("Found cookie " + c_value);
-
   var c_start = c_value.indexOf(" " + pc + "=");
   if (c_start == -1)
     c_start = c_value.indexOf(pc + "=");
@@ -41,6 +39,5 @@ function getTutorialPage() {
 
     c_value = unescape(c_value.substring(c_start,c_end));
   };
-console.log("got tutpage " + c_value);
   return c_value;
 };

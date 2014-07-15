@@ -176,6 +176,8 @@ var Hint = function (param) {
   function changed (e) {
     var el = e.target;
 
+console.log("Change " + e.key);
+
     if (e.key === '/' || e.key === '=') {
       var start = el.selectionStart;
       mirror.firstChild.textContent = el.value.substring(0, start);
@@ -216,8 +218,14 @@ var Hint = function (param) {
       e.stopPropagation();
       e.preventDefault();
       return false;
+    }
+    else if (e.key !== 'Shift' &&
+	     e.key !== 'Alt' &&
+	     e.key !== 'AltGraph' &&
+	     e.key !== 'CapsLock') {
+      that.hide();
     };
-    that.hide();
+    return true;
   };
 
   function qlSelect () {
@@ -235,5 +243,5 @@ var Hint = function (param) {
   window.onresize = init;
   search.addEventListener("keyup",   changed,  false);
   search.addEventListener("keydown", select,   false);
-  qlField.addEventListener('change', qlSelect, false);
+  qlField.addEventListener("change", qlSelect, false);
 };

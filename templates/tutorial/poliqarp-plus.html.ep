@@ -38,7 +38,7 @@
 
 <p>The <code>/x</code> will search for all segments that contain a sequence of characters the regular expression matches. That means the above query is equivalent to:</p>
 
-%= korap_tut_query poliqarp => '.*?"l(au|ie)fen.*?"', cutoff => 1
+%= korap_tut_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
 
 <p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
 
