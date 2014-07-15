@@ -175,9 +175,6 @@ var Hint = function (param) {
 
   function changed (e) {
     var el = e.target;
-
-console.log("Change " + e.key);
-
     if (e.key === '/' || e.key === '=') {
       var start = el.selectionStart;
       mirror.firstChild.textContent = el.value.substring(0, start);
