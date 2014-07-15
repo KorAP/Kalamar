@@ -1,3 +1,7 @@
+0.05 2014-07-15
+        - Improved tutorial support
+	- Added Exception mail system
+
 0.04 2014-07-08
         - Fixed template view
    	- Preliminary match view

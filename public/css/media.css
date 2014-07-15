@@ -1,11 +1,18 @@
 @media (orientation: portrait), (max-width: 42.5em) {
+  body {
+    font-size: 10pt;
+  }
   #sidebar {
     margin-left: -230px;
   }
   h1 {
     margin-left: 3px;
+/*
     width: 4em;
     height: 1.8em;
+*/
+    width: 80px;
+    height: 40px;
     background-size: 90%;
     z-index: 300;
   }
@@ -14,7 +21,10 @@
   }
   #top form {
     padding-left: 0px;
+/*
     padding-top: 2.9em;
+*/
+    padding-top: 33px;
   }
   #sidebar {
     padding-top: 22px;
@@ -30,5 +40,23 @@
   }
   #tutorial iframe {
     border-radius: 0;
+  }
+  #sidebar:not(.active) > i.fa-bars {
+    font-size: 12pt;
+    width: 10pt;
+    height: 11pt;
+  }
+  #searchbar, #searchbar input {
+    font-size: 9pt;
+  }
+  ol {
+    font-size: 9pt;
+  }
+  ol > li:target > div > div.snippet,
+  ol > li.active > div > div.snippet {
+    margin: 2px 3em 2px 4px;
+  }
+  pre.query {
+    font-size: 9.5pt;
   }
 }

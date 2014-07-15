@@ -254,7 +254,7 @@ h1 {
   top: 0;
   position: absolute;
   width: 7.8em;
-  height: 2.6em;
+  height: 2.4em;
   z-index: 999;
   background: {
     repeat: no-repeat;
@@ -287,3 +287,38 @@ main {
   }
 }
 
+main {
+  > section > p,
+  > p {
+    a {
+      border-radius: 6px;
+      padding: 0 .3em;
+      background-color: $pagination-bg;
+      text-shadow: light-shadow;
+      color: $light-green;
+      &:hover {
+        color: $dark-green;
+	text-shadow: none;
+	background-color: $light-green;
+      }
+    }
+  }
+  blockquote {
+    border-radius: 12px;
+    margin: 0;
+    text-indent: 0;
+    padding: 1em;
+    border-left: {
+      color: $dark-grey;
+      style: solid;
+      width: 1em;
+    }
+    background-color: $light-grey;
+    &.warning {
+      border-left-color: $dark-orange;
+    }
+    &.exception {
+      border-left-color: red;
+    }
+  }
+}

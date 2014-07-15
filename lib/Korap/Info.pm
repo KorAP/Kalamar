@@ -19,7 +19,9 @@ sub about_match {
 
   return $c->respond_to(
     json => sub {
-      $c->render(json => $c->notifications(json => $c->match_info($corpus_id, $doc_id, $match_id, %query)))
+      $c->render(json => $c->notifications(
+	json => $c->match_info($corpus_id, $doc_id, $match_id, %query))
+      )
     },
     html => sub {
       my $match = $c->match_info($corpus_id, $doc_id, $match_id);
@@ -40,7 +42,6 @@ sub about_match {
 # Todo: Return info for all collections
 sub about_collection {
   my $c = shift;
-  my $api = $c->config('KorAP')->{'api0.1'};
   my $src = $c->stash('collection_id');
   if ($src) {
     $c->render(

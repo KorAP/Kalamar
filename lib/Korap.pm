@@ -1,7 +1,7 @@
 package Korap;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 # Start dev with
 # morbo -w lib -w templates -w public/sass -w public/js script/korap
@@ -36,6 +36,7 @@ sub startup {
   });
 
   $self->plugin('AssetPack::LibSass');
+  $self->plugin('MailException' => $self->config('MailException'));
 
   $self->asset(
     'korap.css' => (
@@ -56,6 +57,7 @@ sub startup {
   $self->asset(
     'korap.js' => (
       '/js/jquery-2.0.0.min.js',
+      '/js/tutorialCookie.js',
       '/js/translateTable.js',
       '/js/hint.js',
       '/js/highlight.pack.js'
@@ -76,8 +78,8 @@ sub startup {
   $r->get('/')->to('search#remote')->name('index');
 
   # Tutorial data
-  $r->get('/tutorial/(*tutorial)', { tutorial => 'start' })
-    ->to('tutorial#page')->name('tutorial');
+  $r->get('/tutorial')->to('tutorial#page', tutorial => 'index');
+  $r->get('/tutorial/(*tutorial)')->to('tutorial#page')->name('tutorial');
 
   # Collection data
   my $collection = $r->bridge('/collection');

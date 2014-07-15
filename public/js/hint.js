@@ -3,6 +3,10 @@ TODO:
   - Limit the size to a certain number of elements
   - addEventListener("click", ... , false);
   - addEventListener("paste", ... , false);
+  - Make this a general purpose hint-System with left-context-suport
+  - Die Funktion, wann was angezeigt werden soll, sollte extern
+    definiert sein (der Kontext / changed)
+  - Die Werteliste sollte weitere Attribute enthalten, wie title und class
 */
 
 var Hint = function (param) {

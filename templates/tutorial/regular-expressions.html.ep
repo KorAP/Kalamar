@@ -1,10 +1,18 @@
-% contain main => begin
+% content main => begin
+
 <h2>KorAP-Tutorial: Regular Expressions</h2>
 
-The support for regular expressions in KorAP may be backend dependend. Below you can find the description for the respective backends.</p>
+<p><%= korap_tut_link_to 'Back to Index', '/tutorial' %></p>
 
-<section name="lucene">
+<p>The support for regular expressions in KorAP may be backend dependend. Below you can find the description for the respective backends.</p>
+
+<section id="tut-lucene">
 <h3>Lucene</h3>
+
+<blockquote>
+  <p>Description still missing.</p>
+</blockquote>
+
 </section>
 
 % end

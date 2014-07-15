@@ -2,7 +2,11 @@
 
 <h2>KorAP-Tutorial: Poliqarp+</h2>
 
-<section name="segments">
+<p><%= korap_tut_link_to 'Back to Index', '/tutorial' %></p>
+
+<p>The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
+
+<section id="tut-segments">
 <h3>Simple Segments</h3>
 
 <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
@@ -21,10 +25,10 @@
 <p>The query above will find all occurrences of <code>laufen</code> irrespective of the capitalization of letters, so <code>wir laufen</code> will be find as well as <code>das Laufen</code> and even <code>&quot;GEH LAUFEN!&quot;</code>.
 </section>
 
-<section name="regexp">
+<section id="tut-regexp">
   <h3>Regular Expressions</h3>
 
-<p>Segments can also be queried using <%= link_to 'tut-regex', 'regular expressions' %> - by surrounding the segment with double quotes.</p>
+<p>Segments can also be queried using <%= korap_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %> - by surrounding the segment with double quotes.</p>
 
 %= korap_tut_query poliqarp => '"l(au|ie)fen"'
 
@@ -42,8 +46,8 @@
 
 <p>The above query will find all occurrences of segments including the string <code>trenn</code> case insensitive, like &quot;Trennung&quot;, &quot;unzertrennlich&quot;, or &quot;Wettrennen&quot;.</p>
 
-<blockquote>
-  <p>These kinds of queries are extremely slow!</p>
+<blockquote class="warning">
+  <p>Beware: These kinds of queries (with prepended <code>.*</code> expressions) are extremely slow!</p>
 </blockquote>
 
 <p>You can again apply the <code>/i</code> flag to search case insensitive.</p>
@@ -52,10 +56,10 @@
 
 </section>
 
-<section name="complex">
+<section id="tut-complex">
   <h3>Complex Segments</h3>
 
-<p>Complex segments are expressed in square brackets and contain additional information on the resource of the term under scrutiny by prividing key/value pairs, separated by a <code>=</code> symbol.</p>
+<p>Complex segments are expressed in square brackets and contain additional information on the resource of the term under scrutiny by providing key/value pairs, separated by a <code>=</code> symbol.</p>
 
 <p>The KorAP implementation of Poliqarp provides three special segment keys: <code>orth</code> for surface forms, <code>base</code> for lemmata, and <code>pos</code> for Part-of-Speech. The following complex query finds all surface forms of <code>Baum</code>.</p>
 
@@ -71,36 +75,47 @@
 
 %= korap_tut_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
 
-<p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= link_to 'tut-foundries', 'default foundry' %>. The following query finds all occurrences of segments annotated as the lemma <code>Baum</code> by the default foundry.</p>
+<p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>. The following query finds all occurrences of segments annotated as the lemma <code>Baum</code> by the default foundry.</p>
 
-%= korap_tut_query poliqarp => '[base=Baum]'
+%= korap_tut_query poliqarp => '[base=baum]'
 
-<p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= link_to 'tut-foundries', 'default foundry' %>. The following query finds all attributive adjectives:</p>
+<p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>. The following query finds all attributive adjectives:</p>
 
 %= korap_tut_query poliqarp => '[pos=ADJA]'
 
-<p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation. For example to find all occurrences of <span style="color: red">plural words in the mate foundry, you can search using the following query:</span></p>
+<p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation. For example to find all occurrences of plural words in the mate foundry, you can search using the following query:</p>
 
 %= korap_tut_query poliqarp => '[mate/m=number:pl]'
 
+<blockquote class="warning">
+  <p>There is currently a bug in the serialization of this query.</p>
+  <p><strong>The following stuff in the tutorial is not yet tested.</strong></p>
+</blockquote>
+
 </section>
 
-<section name="spans">
+<section id="tut-spans">
 <h3>Span Segments</h3>
 
 %= korap_tut_query poliqarp => '<s>'
 
 </section>
 
-<section name="paradigmatic-operators">
+<section id="tut-paradigmatic-operators">
 <h3>Paradigmatic Operators</h3>
-%= korap_tut_query poliqarp => '[orth=bäume & base=bäumen]'
+%= korap_tut_query poliqarp => '[orth=laufe/i & base=lauf]'
 
-%= korap_tut_query poliqarp => '[orth=bäume & base!=bäumen]'
+%= korap_tut_query poliqarp => '[orth=laufe/i & base!=lauf]'
+
+<blockquote class="warning">
+  <p>There is a bug in the Lucene backend regarding the negation of matches</p>
+</blockquote>
 
 <p>The following query is equivalent</p>
 
 %= korap_tut_query poliqarp => '[orth=bäume & !base=bäumen]'
+
+<p>Some more ...</p>
 
 %= korap_tut_query poliqarp => '[base=laufen | base=gehen]'
 
@@ -110,7 +125,7 @@
 
 </section>
 
-<section name="syntagmatic-operators">
+<section id="tut-syntagmatic-operators">
 <h3>Syntagmatic Operators</h3>
 
 <h4>Sequences</h4>
@@ -131,21 +146,20 @@
 
 <h4>Position Operators</h4>
 
-contains()
-startsWith()
-endsWith()
+<p>contains()</p>
+<p>startsWith()</p>
+<p>endsWith()</p>
+<p>overlaps()</p>
 
 <blockquote>
-  The KorAP implementation of Poliqarp also support the postfix <code>within</code> operator, that works similar to the <code>contains()</code>, but is not nestable.
+  <p>The KorAP implementation of Poliqarp also support the postfix <code>within</code> operator, that works similar to the <code>contains()</code>, but is not nestable.</p>
 </blockquote>
 
 <h4>Class Operators</h4>
 
-{}
-focus()
-
-
-
+<p>{}</p>
+<p>focus()</p>
+<p>...</p>
 
 </section>
 

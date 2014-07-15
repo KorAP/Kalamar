@@ -26,7 +26,7 @@ sub register {
   state $json = decode_json(b(join('', <DATA>))->encode);
 
   # Get the API endpoint
-  my $api = $param->{api};
+  my $api = $param->{'api-0.1'};
 
   # Todo: Make this recognize the user!
   $mojo->helper(
@@ -42,9 +42,11 @@ sub register {
       };
 
       # Rename info endpoints and build URL
-      $src = 'VirtualCollection' if $src eq 'collection';
-      $src = 'Corpus' if $src eq 'corpus';
-      my $url = Mojo::URL->new($api)->path('resource/' . $src);
+      $src = 'virtualcollection' if $src eq 'collection';
+      $src = 'corpus' if $src eq 'corpus';
+      my $url = Mojo::URL->new($api)->path($src);
+
+      $c->app->log->debug($url);
 
       # Check for cached information
       if (my $json = $c->chi->get($url->to_string)) {
@@ -156,7 +158,7 @@ __DATA__
       "id":1,
       "managed":true,
       "created":1401193381119,
-      "stats":{
+      "statistics":{
         "documents":196510,
         "tokens":51545081,
         "sentences":4116282,

@@ -1,1 +1,73 @@
-default foundries
+% content main => begin
+
+<h2>KorAP-Tutorial: Foundries and Layers</h2>
+
+<p><%= korap_tut_link_to 'Back to Index', '/tutorial' %></p>
+
+<p>KorAP provides access to multiple levels of annotations originating from multiple resources, so called <i>foundries</i>.</p>
+
+<section name="cheatsheet">
+  <ul>
+    <li><strong>base</strong>
+      <ul>
+	<li>Supports two types of spans: <strong>&lt;s&gt;</strong> for sentences and <strong>&lt;p&gt;</strong> for paragraphs - this will likely change in the next index version. These spans lack prefix information!</li>
+      </ul>
+    </li>
+    <li><strong>cnx</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All lemmas are written in lower case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leit&quot; and &quot;fähigkeit&quot; - not by the lemma &quot;leitfähigkeit&quot;</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+	<li><strong>syn</strong> (Token:Syntactical information): Includes token based information like @PREMOD, @NH, @MAIN ...</li>
+	<li><strong>m</strong> (Token:Morphosyntactical information): Includes information about tense (&quot;PRES&quot; ...), mode (&quot;IND&qut;), number (&quot;PL&quot; ...) etc.</li>
+	<li><strong>c</strong> (Span:Phrases): Only nominal phrases are available and all nominal phrases are written in lower case (&quot;np&quot;)</li>
+      </ul>
+    </li>
+    <li><strong>corenlp</strong>
+      <ul>
+	<li><strong>ne_hgc_175m_600</strong> (Token:Named Entity): Contains named entities like &quot;I-PER&quot;, &quot;I-ORG&quot; etc. </li>
+	<li><strong>ne_dewac_175_175m_600</strong> (Token:Named Entity): see above</li>
+      </ul>
+    </li>
+    <li><strong>tt</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All non-noun lemmas are written in lower case, nouns are written upper case. Composita stay intact (e.g. &quot;Normalbedingung&quot;)</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+      </ul>
+    </li>
+    <li><strong>mate</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All lemmas are written in lower case. Composita stay intact (e.g. &quot;buchstabenbezeichnung&quot;)</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+	<li><strong>m</strong> (Token:Morphosyntactical information): Includes information about tense (&quot;tense:pres&quot; ...), mode (&quot;mood:ind&qut;), number (&quot;number:pl&quot; ...), gender (&quot;gender:masc&quot; etc.</li>
+      </ul>
+    </li>
+    <li><strong>opennlp</strong>
+      <ul>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+      </ul>
+    </li>
+    <li><strong>xip</strong>
+      <ul>
+	<li><strong>l</strong> (Token:Lemma): All non-noun lemmas are written in lower case, nouns are written upper case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leiten&quot; and &quot;Fähigkeit&quot; - and by a merged and pretty useless &quot;leitenfähigkeit&quot; (This is going to change)</li>
+	<li><strong>p</strong> (Token:Part of Speech): All pos infos are written in capital letters and are based on STTS</li>
+	<li><strong>c</strong> (Span:Phrases): Some phrases to create sentences, all upper case (&quot;NP&quot;, &quot;NPA&quot;, &quot;NOUN&quot;, &quot;VERB&quot;, &quot;PREP&quot;, &quot;AP&quot; ...)</li>      
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<h3>Default Foundries</h3>
+
+<p>For queries on specific layers without given foundries, KorAP provides default foundries, that can be overwritten by user configurations. The default foundries apply to the following layers:</p>
+
+<ul>
+  <li><strong>orth</strong>: opennlp </li>
+  <li><strong>lemma</strong>: opennlp </li>
+  <li><strong>pos</strong>: mate</li>
+</ul>
+
+<blockquote>
+  <p>In the Lucene backend, the <strong>orth</strong> layer can be bound to a specific foundry, as only one tokenization is supported.</p>
+</blockquote>
+
+% end

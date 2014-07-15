@@ -14,9 +14,9 @@ sub page {
   $c->title('KorAP');
 
   my $page = $c->stash('tutorial');
-
-  $c->render(template => 'tutorial');
+  return $c->render(template => 'tutorial/' . $page);
 };
+
 
 1;
 

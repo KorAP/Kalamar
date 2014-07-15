@@ -2,22 +2,30 @@ $light-orange:  #f4eebb;
 $dark-orange:   #ffa500;
 $darker-orange: #ff8000;
 $darkest-orange: darken($dark-orange, 20%);
+
 $dark-green:    #496000;
 $light-green:   #7ba400;
+
 $total-results: $light-green; // #c1002b;
 
 $light-shadow: 1px 1px rgba(255, 255, 255, 0.9);
 
-$kwic-border:       #999;
-$kwic-line-noneven: #f5f5f5;
-$kwic-line-even:    #ddd;
-$kwic-match-color:  #333;
+$light-grey: #ddd;
+$middle-grey: #999;
+$dark-grey: #333;
+
+$nearly-white: #f5f5f5;
+
+$kwic-border:       $middle-grey;
+$kwic-line-noneven: $nearly-white;
+$kwic-line-even:    $light-grey;
+$kwic-match-color:  $dark-grey;
 $kwic-match-shadow: $light-shadow;
 
 $kwic-highlight-0: #c1002b;
 $kwic-highlight-1: #009ee0;
 $kwic-highlight-2: #f29400;
 
-$pagination-bg: #ddd;
-$pagination-border: $kwic-border;
+$pagination-bg: $light-grey;
+$pagination-border: $middle-grey;
 $pagination-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);

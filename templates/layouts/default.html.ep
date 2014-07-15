@@ -7,15 +7,24 @@
 % my $search_route;
 % unless (current_route 'tutorial') {
 <div id="tutorial">
-%   my $tut_page = url_for(session('tutorial') || 'tutorial');
-  <a href="<%= $tut_page %>"
-     target="_blank"><i title="Open in new tab"
-                        class="fa fa-external-link-square"></i></a>
+%#   my $tut_page = url_for(session('tutorial') || 'tutorial');
+%#  <a href="<%= $tut_page %>"
+%#     target="_blank"><i title="Open in new tab"
+%#                        class="fa fa-external-link-square"></i></a>
+%#
+%#  <a href="javascript:window.open(getTutorialPage())"
+%#     target="_blank"><i title="Open in new tab"
+%#                        class="fa fa-external-link-square"></i></a>
+%= javascript begin
+document.write('<a href="' + getTutorialPage().replace(/\?embedded=1/, '') + '" ');
+document.write('target="_blank"><i title="Open in new tab" ');
+document.write('class="fa fa-external-link-square"></i></a>');
+% end
   <i onclick="closeTutorial()"
      title="close"
      class="fa fa-toggle-up"></i>
-  <iframe src="about:blank"
-          data-src="<%= $tut_page->query([embedded => 1]) %>"></iframe>
+  <iframe src="about:blank"></iframe>
+%#          data-src="<%= $tut_page->query([embedded => 1]) %>"></iframe>
 </div>
 %   if (current_route eq 'match') {
 %     $search_route = url_for('search_corpus');

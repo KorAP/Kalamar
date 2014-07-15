@@ -2,7 +2,7 @@
 <ul>
 % foreach my $vc (@{resource_info('collection')}) {
   <li class="active" title="<%= $vc->{description} // '' %>"><h3><%= $vc->{name} %></h3>
-% my $stats = $vc->{stats};
+% my $stats = $vc->{statistics};
     <dl class="info">
       <dt>Documents</dt>  <dd><%= commify $stats->{documents} %></dd>
       <dt>Paragraphs</dt> <dd><%= commify $stats->{paragraphs} %></dd>

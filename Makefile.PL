@@ -17,6 +17,7 @@ WriteMakefile(
     'Mojolicious' => '4.92',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.01,
     'Mojolicious::Plugin::Notifications' => 0.03,
+    'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
     'Mojolicious::Plugin::Number::Commify' => '0.022',

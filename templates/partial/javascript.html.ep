@@ -65,8 +65,11 @@ function openTutorial (o) {
   var tut = $("#tutorial");
   tut.addClass("active");
   var iframe = tut.children("iframe");
+/*
   var src = iframe.attr("data-src");
   iframe.attr("src", src);
+*/
+  iframe.attr("src", getTutorialPage());
 };
 
 function closeTutorial (o) {
