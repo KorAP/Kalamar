@@ -40,6 +40,10 @@
 
 %= korap_tut_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
 
+<blockquote class="exception">
+  <p>There is a minor serialization bug currently, not accepting non-greedy quantifiers at the moment, so this query may fail.</p>
+</blockquote>
+
 <p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
 
 %= korap_tut_query poliqarp => 'trenn/xi', cutoff => 1
@@ -89,7 +93,7 @@
 
 <blockquote class="warning">
   <p>There is currently a bug in the serialization of this query.</p>
-  <p><strong>The following stuff in the tutorial is not yet tested.</strong></p>
+  <p><strong>The following queries in the tutorial are not yet tested and may not work.</strong></p>
 </blockquote>
 
 </section>
