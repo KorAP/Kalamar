@@ -137,7 +137,8 @@ sub register {
       my $tx = $ua->get($url);
 
       if (my $e = $tx->error) {
-	$c->notify(error => $e->{code} . ': ' . $e->{message} . ' (remote)');
+	$c->notify(error => ($e->{code} ? $e->{code} . ': ' : '') .
+		     $e->{message} . ' (remote)');
 	return;
       };
 
