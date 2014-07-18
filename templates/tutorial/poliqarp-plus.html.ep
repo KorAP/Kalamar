@@ -40,10 +40,6 @@
 
 %= korap_tut_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
 
-<blockquote class="exception">
-  <p>There is a minor serialization bug currently, not accepting non-greedy quantifiers at the moment, so this query may fail.</p>
-</blockquote>
-
 <p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
 
 %= korap_tut_query poliqarp => 'trenn/xi', cutoff => 1
@@ -157,7 +153,7 @@
 <p>overlaps()</p>
 
 <blockquote>
-  <p>The KorAP implementation of Poliqarp also support the postfix <code>within</code> operator, that works similar to the <code>contains()</code>, but is not nestable.</p>
+  <p>The KorAP implementation of Poliqarp also supports the postfix <code>within</code> operator, that works similar to the <code>contains()</code> operator, but is not nestable.</p>
 </blockquote>
 
 <h4>Class Operators</h4>
