@@ -48,6 +48,7 @@ sub startup {
       '/sass/table.scss',
       '/sass/pagination.scss',
       '/sass/kwic-4.0.scss',
+      '/sass/alertify.scss',
       '/css/media.css',
       '/css/font-awesome.min.css',
       '/css/highlight.css'

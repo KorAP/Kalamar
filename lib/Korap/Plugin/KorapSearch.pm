@@ -169,15 +169,20 @@ sub register {
 	  $c->chi->set('total-' . $cache_url => $json->{totalResults}, '30min');
 	};
 
+	if ($json->{warning}) {
+	  $c->notify(warn => $json->{warning});
+	};
+
 	if ($json->{error}) {
-	  $c->notify('error' => $json->{error});
+	  $c->notify(error => $json->{error});
 	};
       }
 
       # Request failed
       else {
 	my $res = $tx->res;
-	$c->notify('error' =>  $res->{code} . ': ' . $res->{message} . ' (remote)');
+	$c->notify(error =>  ($res->{code} ? $res->{code} . ': ' : '') .
+		     $res->{message} . ' (remote)');
       };
 
       # Run embedded template
