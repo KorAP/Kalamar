@@ -8,6 +8,7 @@ use Mojo::ByteStream 'b';
 # TODO: Write search snippet
 
 sub map_matches {
+  return [] unless $_[0];
   [
     map {
       $_->{ID} =~ s/^match\-[^!]+![^-]+-//;
@@ -147,7 +148,7 @@ sub register {
 	# Reformat benchmark counter
 	my $b_hit    = $json->{benchmarkHitCounter};
 	my $b_search = $json->{benchmarkSearchResults};
-	if ($b_hit & $b_hit =~ s/\s+(m)?s$//) {
+	if ($b_hit && $b_hit =~ s/\s+(m)?s$//) {
 	  $b_hit = sprintf("%.2f", $b_hit) . ($1 ? $1 : '') . 's';
 	};
 	if ($b_search && $b_search =~ s/\s+(m)?s$//) {

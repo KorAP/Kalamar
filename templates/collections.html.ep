@@ -4,7 +4,7 @@
   <li class="active" title="<%= $vc->{description} // '' %>"><h3><%= $vc->{name} %></h3>
 % my $stats = $vc->{statistics};
     <dl class="info">
-      <dt>Documents</dt>  <dd><%= commify $stats->{documents} %></dd>
+      <dt>Texts</dt>      <dd><%= commify($stats->{documents} // $stats->{texts}) %></dd>
       <dt>Paragraphs</dt> <dd><%= commify $stats->{paragraphs} %></dd>
       <dt>Sentences</dt>  <dd><%= commify $stats->{sentences} %></dd>
       <dt>Tokens</dt>     <dd><%= commify $stats->{tokens} %></dd>

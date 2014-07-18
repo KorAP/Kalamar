@@ -61,7 +61,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
   <% if ($location) { %><%== $location %><% } %>
   with
   <div class="select">
-    %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2']], id => 'ql-field'
+    %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2'], ['Annis' => 'annis'], ['CQL v1.2' => 'cql']], id => 'ql-field'
   </div>
 
 

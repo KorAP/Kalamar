@@ -92,7 +92,6 @@
 %= korap_tut_query poliqarp => '[mate/m=number:pl]'
 
 <blockquote class="warning">
-  <p>There is currently a bug in the serialization of this query.</p>
   <p><strong>The following queries in the tutorial are not yet tested and may not work.</strong></p>
 </blockquote>
 
@@ -150,6 +149,8 @@
 
 <h4>Position Operators</h4>
 
+%#= korap_tut_query poliqarp => 'matches(<s>,[])'
+%# matches(<s>,[cnx/p=INTERJ]{2})
 <p>contains()</p>
 <p>startsWith()</p>
 <p>endsWith()</p>
