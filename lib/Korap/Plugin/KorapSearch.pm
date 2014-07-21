@@ -182,8 +182,13 @@ sub register {
       # Request failed
       else {
 	my $res = $tx->res;
-	$c->notify(error =>  ($res->{code} ? $res->{code} . ': ' : '') .
-		     $res->{message} . ' (remote)');
+	if (my $error = $res->json('/error')) {
+	  $c->notify(error =>  $error);
+	}
+	else {
+	  $c->notify(error =>  ($res->{code} ? $res->{code} . ': ' : '') .
+		       $res->{message} . ' (remote)');
+	};
       };
 
       # Run embedded template
