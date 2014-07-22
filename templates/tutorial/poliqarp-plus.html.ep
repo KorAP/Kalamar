@@ -130,8 +130,20 @@
 <h4>Sequences</h4>
 
 <h4>Repetition</h4>
-%= korap_tut_query poliqarp => '[base=der][][base=Baum]'
 
+<p>Repetitions in Poliqarp are realized as in <%= korap_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %>, by giving quantifieres in curly brackets.</p>
+<p>To search for a sequence of three occurrences of <code>der</code>, you can formulate your query in any of the following ways - they will have the same results:</p>
+
+%= korap_tut_query poliqarp => 'der der der'
+%= korap_tut_query poliqarp => 'der{3}'
+%= korap_tut_query poliqarp => '[orth=der]{3}'
+
+<p>In difference to regular expressions, the repetition operation won't refer to the match but to the pattern given. So the following query will give you a sequence of three words having the term <code>der</code> as a substring - but the words don't have to be identical. The following query for example will match the a sequence of three words all starting with <code>la</code>.</p>
+
+%= korap_tut_query poliqarp => '"la.*?"/i{3}'
+
+
+%= korap_tut_query poliqarp => '[base=der][][base=Baum]'
 %= korap_tut_query poliqarp => '[base=der][]{2}[base=Baum]'
 %= korap_tut_query poliqarp => '[base=der][]{2,3}[base=Baum]'
 %= korap_tut_query poliqarp => '[base=der][]{2,}[base=Baum]'
