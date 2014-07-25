@@ -4,7 +4,8 @@ use Mojo::Base 'Mojolicious';
 our $VERSION = '0.05';
 
 # Start dev with
-# morbo -w lib -w templates -w public/sass -w public/js script/korap
+# morbo -w lib -w templates -w public/sass -w public/js -w public/css script/korap
+
 
 # Start the application and register all routes and plugins
 sub startup {

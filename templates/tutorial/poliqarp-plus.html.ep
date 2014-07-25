@@ -102,7 +102,12 @@
 
 <section id="tut-paradigmatic-operators">
 <h3>Paradigmatic Operators</h3>
+
+<p>A complex segment can have multiple properties a token has to fulfill. For example to search for all words with the surface form <code>laufe</code> (no matter if capitalized or not) that have the lemma <code>lauf</code> (and not, for example, <code>laufen</code>, which would indicate a verb or a gerund), you can search for:</p>
+
 %= korap_tut_query poliqarp => '[orth=laufe/i & base=lauf]'
+
+<p>The ampersand combines multiple properties with a logical AND.</p>
 
 %= korap_tut_query poliqarp => '[orth=laufe/i & base!=lauf]'
 
@@ -129,6 +134,22 @@
 
 <h4>Sequences</h4>
 
+<h4>Groups</h4>
+
+<h4>Alternation</h4>
+
+<p>Alternations allow for searching alternative segments or sequences of segments, similar to the paradigmatic operator. You already have seen that you can search for both sequences of <code>der alte Mann</code> and <code>der junge Mann</code> by typing in:</p>
+
+%= korap_tut_query poliqarp => 'der [orth=alte | orth=junge] Mann'
+
+<p>However, this formulation has problems in case you want to search for alternations of sequences rather than terms. If you want to search for both sequences of <code>dem jungen Mann</code> and <code>der alte Mann</code> you can use syntagmatic alternations and groups:</p>
+
+%= korap_tut_query poliqarp => '(dem jungen | der alte) Mann'
+
+<p>The pipe symbol works the same way as with the paradigmatic alternation, but supports sequences of different length as operands. The above query for <code>der alte Mann</code> and <code>der junge Mann</code> can therefor be reformulated as:</p>
+
+%= korap_tut_query poliqarp => 'der (junge | alte) Mann'
+
 <h4>Repetition</h4>
 
 <p>Repetitions in Poliqarp are realized as in <%= korap_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %>, by giving quantifieres in curly brackets.</p>
@@ -138,24 +159,47 @@
 %= korap_tut_query poliqarp => 'der{3}'
 %= korap_tut_query poliqarp => '[orth=der]{3}'
 
-<p>In difference to regular expressions, the repetition operation won't refer to the match but to the pattern given. So the following query will give you a sequence of three words having the term <code>der</code> as a substring - but the words don't have to be identical. The following query for example will match the a sequence of three words all starting with <code>la</code>.</p>
+<p>In difference to regular expressions, the repetition operation won't refer to the match but to the pattern given. So the following query will give you a sequence of three words having the term <code>der</code> as a substring - but the words don't have to be identical. The following query for example will match a sequence of three words all starting with <code>la</code>.</p>
 
 %= korap_tut_query poliqarp => '"la.*?"/i{3}'
 
+<p>The same is true for annotations. The following query will find a sequence of 3 to 4 adjectives as annotated by the TreeTagger foundry, that is preceded by the lemma <code>ein</code> as annotated by the default foundry and followed by a noun as annotated by the XIP foundry. The adjectives do not have to be identical though.</p>
 
-%= korap_tut_query poliqarp => '[base=der][][base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{2}[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{2,3}[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{2,}[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{,3}[base=Baum]'
+%= korap_tut_query poliqarp => '[base=ein][tt/p=ADJA]{3,4}[xip/p=NOUN]'
 
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]?[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]*[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]+[base=Baum]'
+<p>In addition to numbered quantities, it is also possible to pass repetition information as Kleene operators <code>?</code>, <code>+</code>, and <code>+</code>.</p>
 
-<h4>Alternation</h4>
+<p>To search for a sequence of the lemma <code>der</code> followed by the lemma <code>baum</code> as annotated by the base foundry, but allowing an optional adjective as annotated by the TreeTagger foundry in between, you can search for:</p>
 
-<h4>Position Operators</h4>
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]?[base=baum]'
+
+<p>This query is identical to the numbered quantification of:</p>
+
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]{,1}[base=baum]'
+
+<p>To search for the same sequences but with unlimited adjectives as annotated by the TreeTagger foundry in between, you can use the Kleene Star:</p>
+
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]*[base=baum]'
+
+<p>And to search for this sequence but with at least one adjective in between, you can use the Kleene Plus (all queries are identical):</p>
+
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]+[base=baum]'
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]{1,}[base=baum]'
+%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA][tt/pos=ADJA]*[base=baum]'
+
+<blockquote class="warning">
+  <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional. Keep in mind that optionality may be somehow <i>inherited</i>, for example when you search for <code>(junge|alte)?|tote</code>, one segment of the alternation is optional, which makes the whole query optional as well.</p>
+</blockquote>
+
+%#= korap_tut_query poliqarp => '[base=der][][base=Baum]'
+%#= korap_tut_query poliqarp => '[base=der][]{2}[base=Baum]'
+%#= korap_tut_query poliqarp => '[base=der][]{2,}[base=Baum]'
+%#= korap_tut_query poliqarp => '[base=der][]{,3}[base=Baum]'
+
+%#= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]*[base=Baum]'
+%#= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]+[base=Baum]'
+
+<h4>Position</h4>
 
 %#= korap_tut_query poliqarp => 'matches(<s>,[])'
 %# matches(<s>,[cnx/p=INTERJ]{2})
@@ -163,6 +207,11 @@
 <p>startsWith()</p>
 <p>endsWith()</p>
 <p>overlaps()</p>
+
+<blockquote class="warning">
+  <p>Optional operands in position operators, like in <code>within(&lt;s&gt;,[orth=Baum]*)</code>, have to be mandatory at the moment and will be reformulated to occur at least once.</p>
+  <p>This behaviour may change in the future.</p>
+</blockquote>
 
 <blockquote>
   <p>The KorAP implementation of Poliqarp also supports the postfix <code>within</code> operator, that works similar to the <code>contains()</code> operator, but is not nestable.</p>

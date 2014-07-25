@@ -6,7 +6,12 @@
 
 <h2>KorAP-Tutorial</h2>
 
-<p><%= korap_tut_link_to 'Poliqarp+-Tutorial', '/tutorial/poliqarp-plus' %> <%= korap_tut_link_to 'Foundry Overview', '/tutorial/foundries' %> <%= korap_tut_link_to 'Regular Expressions', '/tutorial/regular-expressions' %></p>
+<p>
+ <%= korap_tut_link_to 'Poliqarp+-Tutorial', '/tutorial/poliqarp-plus' %>
+ <%= korap_tut_link_to 'Foundry Overview', '/tutorial/foundries' %>
+ <%= korap_tut_link_to 'Regular Expressions', '/tutorial/regular-expressions' %>
+ <%= korap_tut_link_to 'Wildcards', '/tutorial/wildcards' %>
+</p>
 
 <!--
 <p>Links to Blog, FAQ, About, Contact ...</p>
