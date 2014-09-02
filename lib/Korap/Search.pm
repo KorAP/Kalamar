@@ -24,6 +24,10 @@ sub remote {
     });
 
     my $tx = $c->ua->build_tx(TRACE => $url);
+
+    $c->app->log->debug('Trace URL: ' . $url);
+    $c->app->log->debug('Trace Request: ' . $tx->req->url);
+
     if (my $response = $c->ua->start($tx)->success) {
       $c->stash('search.query' => $response->json);
     }
