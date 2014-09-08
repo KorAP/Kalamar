@@ -49,10 +49,11 @@ sub startup {
       '/sass/table.scss',
       '/sass/pagination.scss',
       '/sass/kwic-4.0.scss',
-      '/sass/alertify.scss',
       '/css/media.css',
       '/css/font-awesome.min.css',
-      '/css/highlight.css'
+      '/css/highlight.css',
+      # '/sass/alertify.scss',
+      $self->notifications->styles
     )
   );
 
@@ -62,7 +63,8 @@ sub startup {
       '/js/tutorialCookie.js',
       '/js/translateTable.js',
       '/js/hint.js',
-      '/js/highlight.pack.js'
+      '/js/highlight.pack.js',
+      $self->notifications->scripts
     )
   );
 

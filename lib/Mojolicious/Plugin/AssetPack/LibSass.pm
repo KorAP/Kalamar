@@ -19,7 +19,6 @@ sub register {
       my ($as, $text, $file) = @_;
       $$text = CSS::Minifier::XS::minify($sass->compile($$text));
     });
-  $proc->map_type(scss => 'css');
 };
 
 1;

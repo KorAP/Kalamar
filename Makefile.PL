@@ -14,15 +14,15 @@ WriteMakefile(
   },
   LICENSE      => 'artistic_2',
   PREREQ_PM => {
-    'Mojolicious' => '4.92',
+    'Mojolicious' => '5.00',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.01,
-    'Mojolicious::Plugin::Notifications' => 0.03,
+    'Mojolicious::Plugin::Notifications' => 0.04,
     'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
     'Mojolicious::Plugin::Number::Commify' => '0.022',
     'JSON::XS' => 0.0,
-    'Mojolicious::Plugin::AssetPack' => 0.14,
+    'Mojolicious::Plugin::AssetPack' => 0.23,
     'JavaScript::Minifier::XS' => 0.09,
     'CSS::Minifier::XS' => 0.09,
     'CSS::Sass' => '0.8.1'

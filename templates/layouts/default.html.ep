@@ -96,6 +96,6 @@ document.write('class="fa fa-external-link-square"></i></a>');
 
 %= content 'javascript'
 %= include 'partial/javascript'
-%= notifications 'Alertify'
+%= notifications 'Alertify', -no_include
   </body>
 </html>
