@@ -15,7 +15,8 @@ WriteMakefile(
   LICENSE      => 'artistic_2',
   PREREQ_PM => {
     'Mojolicious' => '5.00',
-    'Mojolicious::Plugin::TagHelpers::Pagination' => 0.01,
+#    'Mojolicious::Plugin::Oro::Account' => 0.07,
+    'Mojolicious::Plugin::TagHelpers::Pagination' => 0.04,
     'Mojolicious::Plugin::Notifications' => 0.04,
     'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,

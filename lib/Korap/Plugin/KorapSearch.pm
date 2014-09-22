@@ -165,7 +165,7 @@ sub register {
 	};
 
 	if ($json->{totalResults} > -1) {
-	  $c->app->log->warn('Set total result from cache');
+	  $c->app->log->warn('Cache total result');
 	  $c->stash('search.totalResults' => $json->{totalResults});
 	  $c->chi->set('total-' . $cache_url => $json->{totalResults}, '30min');
 	};

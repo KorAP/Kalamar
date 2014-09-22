@@ -1,11 +1,10 @@
 package Korap;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 # Start dev with
 # morbo -w lib -w templates -w public/sass -w public/js -w public/css script/korap
-
 
 # Start the application and register all routes and plugins
 sub startup {
@@ -28,17 +27,17 @@ sub startup {
 	      KorapSearch
 	      KorapInfo
 	      KorapTagHelpers
-              /) {
+	     /) {
+    # Oro::Account
+    # Oro::Account::ConfirmMail
     $self->plugin($_);
   };
 
-  $self->plugin(AssetPack => {
-    minify => 1
-  });
-
+  $self->plugin(AssetPack => { minify => 1 });
   $self->plugin('AssetPack::LibSass');
   $self->plugin('MailException' => $self->config('MailException'));
 
+  # Add assets for AssetPack
   $self->asset(
     'korap.css' => (
       '/sass/style.scss',
@@ -77,6 +76,14 @@ sub startup {
 
   # Routes
   my $r = $self->routes;
+
+  # User account management
+  #  $r->route('/login')->acct('login');
+  #  $r->route('/login/forgotten')->acct('forgotten');
+  #  $r->route('/login/remove')->acct('remove');
+  #  $r->route('/register')->acct('register');
+  #  $r->route('/logout')->acct('logout');
+  #  $r->route('/preferences')->acct('preferences');
 
   # Base search route
   $r->get('/')->to('search#remote')->name('index');

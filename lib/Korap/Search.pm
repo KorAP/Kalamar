@@ -19,7 +19,7 @@ sub remote {
     my $url = Mojo::URL->new($api)->path('search');
 
     $url->query({
-      q => scalar $c->param('q') // '',
+      q  => scalar $c->param('q') // '',
       ql => scalar $c->param('ql') // 'poliqarp'
     });
 
