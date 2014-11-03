@@ -1,3 +1,6 @@
+0.07 2014-11-03
+        - Added API-Response view.
+
 0.06 2014-09-22
         - Updated certain Notifications and AssetPack plugins
 	- Updated pagination plugin.

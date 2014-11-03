@@ -5,7 +5,15 @@
 /* code data - clickable */
 pre.query {
   overflow-x: hidden;
+  color: $darkest-orange;
   background-color: $light-orange;
+  text-shadow: $light-shadow;
+  border: {
+    color: $dark-orange;
+    style: solid;
+    width: 3px;
+    radius: 6px;
+  }
   white-space: normal;
   cursor: pointer;
   display: block;
@@ -16,33 +24,30 @@ pre.query {
   padding: 2pt;
   margin: 0;
   margin-bottom: 5pt;
-  color: $darkest-orange;
-  text-shadow: $light-shadow;
-  border: {
-    color: $dark-orange;
-    style: solid;
-    width: 3px;
-    radius: 6px;
-  }
-  code {
+  > code {
     white-space: pre;
     display: block;
     padding: 2px 5px;
     margin: 0;
   }
-  &.serial {
+  > span {
+     padding: 2pt;
+  }
+  &.serial, &.api {
     overflow-x: auto;
     &:not(.active) {
       overflow-x: hidden;
-      > span {
-        padding: 2pt;
-      }
       code {
         display: none;
       }
     }
-    &.active > span {
-      display: none;
-    }
+  }
+}
+
+pre.query.api {
+  background-color: $light-blue;
+  color: $darkest-blue;
+  border: {
+    color: $dark-blue;
   }
 }

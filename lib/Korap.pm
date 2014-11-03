@@ -1,7 +1,7 @@
 package Korap;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 # Start dev with
 # morbo -w lib -w templates -w public/sass -w public/js -w public/css script/korap

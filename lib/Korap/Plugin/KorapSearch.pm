@@ -128,9 +128,9 @@ sub register {
 
       $c->stash('search.itemsPerPage' => $count);
 
-      $c->app->log->debug($url->to_string);
+      $c->stash('search.apirequest' => $url->to_string);
 
-      my $ua = Mojo::UserAgent->new($url);
+      my $ua = Mojo::UserAgent->new;
 
       # Blocking request
       # TODO: Make non-blocking
@@ -144,6 +144,9 @@ sub register {
 
       # Request successful
       if (my $res = $tx->success) {
+
+	$c->stash('search.apiresponse' => $res->body);
+
 	my $json = $res->json;
 
 	# Reformat benchmark counter
@@ -177,6 +180,8 @@ sub register {
 	if ($json->{error}) {
 	  $c->notify(error => $json->{error});
 	};
+
+#	$json->{}
       }
 
       # Request failed

@@ -1,7 +1,11 @@
-$light-orange:  #f4eebb;
-$dark-orange:   #ffa500;
-$darker-orange: #ff8000;
+$light-orange:   #f4eebb;
+$dark-orange:    #ffa500;
+$darker-orange:  #ff8000;
 $darkest-orange: darken($dark-orange, 20%);
+
+$light-blue:     #cfe6f4;
+$dark-blue:      #73b2f4;
+$darkest-blue:   darken($dark-blue, 40%);
 
 $dark-green:    #496000;
 $light-green:   #7ba400;
@@ -23,7 +27,7 @@ $kwic-match-color:  $dark-grey;
 $kwic-match-shadow: $light-shadow;
 
 $kwic-highlight-0: #c1002b;
-$kwic-highlight-1: #009ee0;
+$kwic-highlight-1: $dark-blue; // #009ee0;
 $kwic-highlight-2: #f29400;
 
 $pagination-bg: $light-grey;
