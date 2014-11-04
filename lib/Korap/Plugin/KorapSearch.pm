@@ -117,7 +117,7 @@ sub register {
       my $total_results = $c->chi->get('total-' . $cache_url);
       if (defined $total_results) {
 	$c->stash('search.totalResults' => $total_results);
-	$c->app->log->warn('Get total result from cache');
+	$c->app->log->debug('Get total result from cache');
 	$url->query({cutoff => 'true'});
       }
       else {
@@ -150,25 +150,28 @@ sub register {
 	my $json = $res->json;
 
 	# Reformat benchmark counter
-	my $b_hit    = $json->{benchmarkHitCounter};
-	my $b_search = $json->{benchmarkSearchResults};
-	if ($b_hit && $b_hit =~ s/\s+(m)?s$//) {
-	  $b_hit = sprintf("%.2f", $b_hit) . ($1 ? $1 : '') . 's';
-	};
-	if ($b_search && $b_search =~ s/\s+(m)?s$//) {
-	  $b_search = sprintf("%.2f", $b_search) . ($1 ? $1 : '') . 's';
+#	my $b_hit    = $json->{benchmarkHitCounter};
+#	my $b_search = $json->{benchmarkSearchResults};
+#	if ($b_hit && $b_hit =~ s/\s+(m)?s$//) {
+#	  $b_hit = sprintf("%.2f", $b_hit) . ($1 ? $1 : '') . 's';
+#	};
+#	if ($b_search && $b_search =~ s/\s+(m)?s$//) {
+#	  $b_search = sprintf("%.2f", $b_search) . ($1 ? $1 : '') . 's';
+#	};
+	my $benchmark = $json->{benchmark};
+	if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
+	  $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
 	};
 
 	for ($c->stash) {
-	  $_->{'search.bm.hit'}       = $b_hit;
-	  $_->{'search.bm.result'}    = $b_search;
+	  $_->{'search.benchmark'}    = $benchmark;
 	  $_->{'search.itemsPerPage'} = $json->{itemsPerPage};
 	  $_->{'search.query'}        = $json->{request}->{query};
 	  $_->{'search.hits'}         = map_matches($json->{matches});
 	};
 
 	if ($json->{totalResults} > -1) {
-	  $c->app->log->warn('Cache total result');
+	  $c->app->log->debug('Cache total result');
 	  $c->stash('search.totalResults' => $json->{totalResults});
 	  $c->chi->set('total-' . $cache_url => $json->{totalResults}, '30min');
 	};
@@ -179,9 +182,12 @@ sub register {
 
 	if ($json->{error}) {
 	  $c->notify(error => $json->{error});
-	};
+	}
 
-#	$json->{}
+	# New error messages
+	elsif ($json->{errstr}) {
+	  $c->notify(error => $json->{errstr});
+	};
       }
 
       # Request failed
@@ -200,7 +206,7 @@ sub register {
       my $v = $cb->();
 
       # Delete useless stash keys
-      foreach (qw/hits totalResults bm.hit bm.result itemsPerPage error query/) {
+      foreach (qw/hits totalResults benchmark itemsPerPage error query/) {
 	delete $c->stash->{'search.' . $_};
       };
       return $v;

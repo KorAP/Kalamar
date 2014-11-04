@@ -9,7 +9,7 @@
   <div id="pagination"><%= pagination(stash('search.startPage'), $pages, $url) =%></div>
   <p class="found">Found
     <span id="total-results"><%= commify(stash('search.totalResults')) %> matches</span>
-    <% if (stash 'search.bm.hit') { %> in <%= stash 'search.bm.hit' %> (<%= stash 'search.bm.result' %>)<% } %>
+    <% if (stash 'search.benchmark') { %> in <%= stash 'search.benchmark' %><% } %>
   </p>
 </div>
 %= include 'query'
