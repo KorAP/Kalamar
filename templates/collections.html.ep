@@ -12,4 +12,6 @@
   </li>
 % };
 </ul>
+% if (stash('test_port')) {
 <p style="font-size: 9pt; padding-left: 1em">Index port: <%= $c->url_for($c->config('KorAP')->{'api-0.1'})->port %></p>
+% };
