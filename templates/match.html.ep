@@ -10,8 +10,10 @@
     <div class="tokenInfo"></div>
   </div>
   <p>
+% if ($match->{title}) {
     <strong><%= $match->{title} %></strong>
-    <%= $match->{author} ? ' by ' . $match->{author}  : '' %>;
+% };
+    <%= $match->{author} ? ' by ' . $match->{author}  : '' %><% if ($match->{title} || $match->{author}) %>;<% } %>
     published on <%= date_format $match->{pubDate} %>
     as <%= $match->{docID} %> (<%= $match->{corpusID} %>)
   </p>
