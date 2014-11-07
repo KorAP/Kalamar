@@ -122,7 +122,7 @@ For example to find all occurrences of plural words in the mate foundry, you can
 <p>Not all segments are bound to words - some are bound to concepts spanning multiple words, for example noun phrases, sentences, or paragraphs.
 Span segments can be searched for using angular brackets instead of square brackets.</p>
 
-%= korap_tut_query poliqarp => '<xip/c=NPA>'
+%= korap_tut_query poliqarp => '<xip/c=INFC>'
 
 <p>Otherwise they can be treated in exactly the same way as simple or complex segments.</p>
 </section>
