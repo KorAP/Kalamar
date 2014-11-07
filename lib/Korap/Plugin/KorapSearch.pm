@@ -1,5 +1,6 @@
 package Korap::Plugin::KorapSearch;
 use Mojo::Base 'Mojolicious::Plugin';
+use Scalar::Util qw/blessed/;
 use Mojo::JSON qw/decode_json/;
 use Mojo::ByteStream 'b';
 
@@ -170,7 +171,7 @@ sub register {
 	  $_->{'search.hits'}         = map_matches($json->{matches});
 	};
 
-	if ($json->{totalResults} > -1) {
+	if ($json->{totalResults} && $json->{totalResults} > -1) {
 	  $c->app->log->debug('Cache total result');
 	  $c->stash('search.totalResults' => $json->{totalResults});
 	  $c->chi->set('total-' . $cache_url => $json->{totalResults}, '30min');
@@ -180,26 +181,13 @@ sub register {
 	  $c->notify(warn => $json->{warning});
 	};
 
-	if ($json->{error}) {
-	  $c->notify(error => $json->{error});
-	}
-
-	# New error messages
-	elsif ($json->{errstr}) {
-	  $c->notify(error => $json->{errstr});
-	};
+	# Check for error
+	$plugin->_notify_on_error($c, 0, $res, $json);
       }
 
       # Request failed
       else {
-	my $res = $tx->res;
-	if (my $error = $res->json('/error')) {
-	  $c->notify(error =>  $error);
-	}
-	else {
-	  $c->notify(error =>  ($res->{code} ? $res->{code} . ': ' : '') .
-		       $res->{message} . ' (remote)');
-	};
+	$plugin->_notify_on_error($c, 1, $tx->res);
       };
 
       # Run embedded template
@@ -240,6 +228,49 @@ sub register {
       return b($string || '');
     }
   );
+};
+
+sub _notify_on_error {
+  my ($self, $c, $failure, $res) = @_;
+  my $json = $res;
+
+  my $log = $c->app->log;
+
+  if (blessed $res) {
+    if (blessed $res ne 'Mojo::JSON') {
+      $json = $res->json;
+    };
+  }
+  else {
+    $json = undef;
+  };
+
+  if ($json) {
+    if ($json->{error}) {
+      $c->notify(error => $json->{error});
+      return;
+    }
+
+    # New error messages
+    elsif ($json->{errstr}) {
+      $c->notify(error => $json->{errstr});
+      return;
+    }
+
+    # policy service error messages
+    elsif ($json->{status}) {
+      $c->notify(error => 'Middleware error ' . $json->{status});
+      return;
+    };
+  };
+
+  if ($failure) {
+    $c->notify(error => (
+      ($res->{code}    ? $res->{code} . ': ' : '') .
+      ($res->{message} ? $res->{message}     : 'Unknown error') .
+      ' (remote)'
+    ));
+  };
 };
 
 

@@ -61,13 +61,13 @@
 <p>For queries on specific layers without given foundries, KorAP provides default foundries, that can be overwritten by user configurations. The default foundries apply to the following layers:</p>
 
 <ul>
-  <li><strong>orth</strong>: opennlp </li>
-  <li><strong>lemma</strong>: opennlp </li>
-  <li><strong>pos</strong>: mate</li>
+  <li><strong>orth</strong>: opennlp</li>
+  <li><strong>lemma</strong>: tt</li>
+  <li><strong>pos</strong>: tt</li>
 </ul>
 
 <blockquote>
-  <p>In the Lucene backend, the <strong>orth</strong> layer can be bound to a specific foundry, as only one tokenization is supported.</p>
+  <p>In the Lucene backend, the <strong>orth</strong> layer can only be bound to a specific foundry, as only one tokenization is supported.</p>
 </blockquote>
 
 % end
