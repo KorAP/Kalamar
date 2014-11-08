@@ -74,7 +74,8 @@ sub register {
 		       1
 		     ));
 
-      my $query = $param{query} // scalar $c->param('q');
+      my $query = $param{query}   // scalar $c->param('q');
+      my $cutoff = $param{cutoff} // scalar $c->param('cutoff') // undef;
 
       return '' unless $query;
 
@@ -108,6 +109,7 @@ sub register {
       my %query = (q => $query);
       $query{ql} = scalar $c->param('ql') // 'poliqarp';
       $query{count} = $count if $count;
+      $query{cutoff} = 'true' if $cutoff;
 
       $url->query(\%query);
       my $cache_url = $url->to_string;
@@ -119,7 +121,9 @@ sub register {
       if (defined $total_results) {
 	$c->stash('search.totalResults' => $total_results);
 	$c->app->log->debug('Get total result from cache');
-	$url->query({cutoff => 'true'});
+
+	# Set cutoff unless already set
+	$url->query({cutoff => 'true'}) unless defined $cutoff;
       }
       else {
 	$c->stash('search.totalResults' => 0);
@@ -173,10 +177,10 @@ sub register {
 
 	if ($json->{totalResults} && $json->{totalResults} > -1) {
 	  $c->app->log->debug('Cache total result');
-	  $c->stash('search.totalResults' => $json->{totalResults});
 	  $c->chi->set('total-' . $cache_url => $json->{totalResults}, '30min');
 	};
 
+	$c->stash('search.totalResults' => $json->{totalResults});
 	if ($json->{warning}) {
 	  $c->notify(warn => $json->{warning});
 	};

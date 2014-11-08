@@ -17,6 +17,7 @@ new Hint({
       "ne_dewac_175m_600" : ["ne_dewac_175m_600=", "Named Entity"],
       "ne_hgc_175m_600" : ["ne_hgc_175m_600=", "Named Entity"]
     },
+    "corenlp/ne" : ["I-LOC","I-MISC","I-ORG","I-PER"],
     "corenlp/ne_dewac_175m_600" : ["I-LOC","I-MISC","I-ORG","I-PER"],
     "corenlp/ne_hgc_175m_600" : ["I-LOC","I-MISC","I-ORG","I-PER"],
     "cnx" : {
@@ -75,8 +76,12 @@ function closeTutorial (o) {
 function useQuery (o) {
   var q = o.getAttribute("data-query");
   var ql = o.getAttribute("data-query-language");
+  var qc = o.getAttribute("data-query-cutoff");
+  if (qc === null)
+    qc = 0;
   $("#ql-field").val(ql);
   $("#q-field").val(q);
+  $("#q-cutoff-field").val(qc);
   closeTutorial();
 };
 

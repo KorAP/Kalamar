@@ -50,7 +50,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
 <div id="top">
   <a href="<%= url_for 'index' %>"><h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1></a>
 
-%= form_for $search_route => begin
+%= form_for $search_route, autocomplete => 'off' => begin
   <div id="searchbar">
 %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => 'Find ...'
     <button type="submit"><i class="fa fa-search"></i></button>
@@ -63,7 +63,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
   <div class="select">
     %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2'], ['Annis' => 'annis'], ['CQL v1.2' => 'cql']], id => 'ql-field'
   </div>
-
+%= hidden_field 'cutoff' => 0, id => 'q-cutoff-field'
 
 <div id="button-right">
 % unless (current_route 'tutorial') {

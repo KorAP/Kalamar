@@ -8,15 +8,18 @@ sub register {
 
   $mojo->helper(
     korap_tut_query => sub {
-      my ($c, $ql, $q) = @_;
+      my ($c, $ql, $q, %param) = @_;
       my $onclick = 'top.useQuery(this)';
       if ($c->param('embedded')) {
 	$onclick = 'setTutorialPage(this);' . $onclick;
       };
       $q = xml_escape $q;
       b('<pre class="query tutorial" onclick="' . $onclick . '" ' .
-	  qq!data-query="$q" data-query-language="$ql"><code>! .
-	    $q . '</code></pre>');
+	  qq!data-query="$q" data-query-cutoff="! .
+	    ($param{cutoff} ? 1 : 0) .
+	      '"' .
+		qq! data-query-language="$ql"><code>! .
+		  $q . '</code></pre>');
     }
   );
 

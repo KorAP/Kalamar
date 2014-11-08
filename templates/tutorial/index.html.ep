@@ -43,10 +43,10 @@
 %= korap_tut_query cosmas2 => 'der /w5 Baum'
 
 <p><strong>Poliqarp+</strong>: Find all nominal phrases as annotated using Connexor, that contain an adverb as annotated by OpenNLP.</p>
-%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,[opennlp/p=ADV])'
+%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,[opennlp/p=ADV])', cutoff => 1
 
 <p><strong>Poliqarp+</strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Connexor and the lemma &quot;der&quot; annotated by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>. Highlight both terms of the sequence.</p>
-%= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=der]})'
+%= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=der]})', cutoff => 1
 
 <p><strong>Annis</strong>: Find all occurrences of the sequence of two tokens annotated as adverbs by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.</p>
 %= korap_tut_query annis => 'pos="ADV" & pos="ADV" & #1 . #2'
