@@ -77,11 +77,12 @@ function useQuery (o) {
   var q = o.getAttribute("data-query");
   var ql = o.getAttribute("data-query-language");
   var qc = o.getAttribute("data-query-cutoff");
-  if (qc === null)
-    qc = 0;
+  if (qc !== 0 && qc !== "0" && qc !== "off" && qc !== null)
+    $("#q-cutoff-field").prop('checked', true);
+
   $("#ql-field").val(ql);
   $("#q-field").val(q);
-  $("#q-cutoff-field").val(qc);
+
   closeTutorial();
 };
 

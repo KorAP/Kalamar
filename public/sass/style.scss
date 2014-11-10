@@ -183,6 +183,36 @@ http://cssdeck.com/labs/styling-select-box-with-css3
   }
 }
 
+/*
+http://stackoverflow.com/questions/4148499/how-to-style-checkbox-using-css
+*/
+
+#q-cutoff-field {
+  display: none;
+  + label span { 
+    border-radius: 4px;
+    display: inline-block;
+    background-color: white;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 12px;
+    padding: 0;
+    margin-right: .3em;
+    :hover {
+      border-color: white;
+    }
+  }
+  &:checked + label span { 
+    :after {
+      content:"\f00c";
+      color: $light-green;
+      font-family: FontAwesome; 
+    }
+  }
+}
+
 #q-field {
   border: 2px solid white;
   padding: 3px;

@@ -63,9 +63,11 @@ document.write('class="fa fa-external-link-square"></i></a>');
   <div class="select">
     %= select_field ql => [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2'], ['Annis' => 'annis'], ['CQL v1.2' => 'cql']], id => 'ql-field'
   </div>
-%= hidden_field 'cutoff' => 0, id => 'q-cutoff-field'
 
 <div id="button-right">
+% unless (param('q')) { param(cutoff => 1) };
+%= check_box cutoff => 1, id => 'q-cutoff-field'
+<label for="q-cutoff-field"><span></span>Quick</label>
 % unless (current_route 'tutorial') {
 <button type="button" title="Tutorial" onclick="openTutorial()"><i class="fa fa-graduation-cap"></i></button>
 % };
