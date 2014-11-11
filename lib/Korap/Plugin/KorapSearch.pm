@@ -1,7 +1,7 @@
 package Korap::Plugin::KorapSearch;
 use Mojo::Base 'Mojolicious::Plugin';
 use Scalar::Util qw/blessed/;
-use Mojo::JSON qw/decode_json/;
+use Mojo::JSON qw/decode_json true/;
 use Mojo::ByteStream 'b';
 
 # TODO: This will probably be an engine for M::P::Search
@@ -155,14 +155,6 @@ sub register {
 	my $json = $res->json;
 
 	# Reformat benchmark counter
-#	my $b_hit    = $json->{benchmarkHitCounter};
-#	my $b_search = $json->{benchmarkSearchResults};
-#	if ($b_hit && $b_hit =~ s/\s+(m)?s$//) {
-#	  $b_hit = sprintf("%.2f", $b_hit) . ($1 ? $1 : '') . 's';
-#	};
-#	if ($b_search && $b_search =~ s/\s+(m)?s$//) {
-#	  $b_search = sprintf("%.2f", $b_search) . ($1 ? $1 : '') . 's';
-#	};
 	my $benchmark = $json->{benchmark};
 	if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
 	  $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
@@ -171,6 +163,9 @@ sub register {
 	for ($c->stash) {
 	  $_->{'search.benchmark'}    = $benchmark;
 	  $_->{'search.itemsPerPage'} = $json->{itemsPerPage};
+	  $_->{'search.timeExceeded'} = (defined $json->{timeExceeded} &&
+	                                $json->{timeExceeded} eq true())
+	                                ? 1 : 0;
 	  $_->{'search.query'}        = $json->{request}->{query};
 	  $_->{'search.hits'}         = map_matches($json->{matches});
 	};
