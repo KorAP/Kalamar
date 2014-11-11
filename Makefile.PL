@@ -22,7 +22,7 @@ WriteMakefile(
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
     'Mojolicious::Plugin::Number::Commify' => '0.022',
-    'JSON::XS' => 0.0,
+#    'JSON::XS' => 0.0,
     'Mojolicious::Plugin::AssetPack' => 0.23,
     'JavaScript::Minifier::XS' => 0.09,
     'CSS::Minifier::XS' => 0.09,

@@ -1,5 +1,6 @@
 package Korap;
 use Mojo::Base 'Mojolicious';
+use Mojo::ByteStream 'b';
 
 our $VERSION = '0.07';
 

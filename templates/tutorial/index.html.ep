@@ -34,22 +34,30 @@
 <section id="tut-examples">
 
 <h3>Example Queries</h3>
-%# <p>This is a Tutorial to KorAP. It may be maintained separately (as a Wiki?) and has some nice features - like embedded example queries - just click on the queries below:</p>
+%# <p>This is a Tutorial to KorAP. For examples click on the queries below:</p>
 
 <p><strong>Poliqarp</strong>: Find all occurrences of the lemma &quot;baum&quot; as annotated by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.</p>
 %= korap_tut_query poliqarp => '[base=baum]'
 
+<p><strong>Poliqarp</strong>: Find all sequences of adjectives as annotated by Treetagger, that are repeated 3 to 5 times in a row.</p>
+%= korap_tut_query poliqarp => '[tt/p=ADJA]{3,5}'
+
 <p><strong>Cosmas-II</strong>: Find all occurrences of the words &quot;der&quot; and &quot;Baum&quot;, in case they are in a maximum distance of 5 tokens. The order is not relevant.</p>
 %= korap_tut_query cosmas2 => 'der /w5 Baum'
 
-<p><strong>Poliqarp+</strong>: Find all nominal phrases as annotated using Connexor, that contain an adverb as annotated by OpenNLP.</p>
-%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,[opennlp/p=ADV])', cutoff => 1
+<p><strong>Poliqarp+</strong>: Find all nominal phrases as annotated using Connexor, that contain an adverb as annotated by OpenNLP, that is annotated as something starting with an &quot;A&quot; in Treetagger.</p>
+%= korap_tut_query poliqarp => 'contains(<cnx/c=np>,{[opennlp/p=ADV & tt/p="A.*"]})', cutoff => 1
 
-<p><strong>Poliqarp+</strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Connexor and the lemma &quot;der&quot; annotated by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>. Highlight both terms of the sequence.</p>
-%= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=der]})', cutoff => 1
+<p><strong>Poliqarp+</strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Connexor and the lemma &quot;die&quot; annotated by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>. Highlight both terms of the sequence.</p>
+%= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=die]})', cutoff => 1
 
-<p><strong>Annis</strong>: Find all occurrences of the sequence of two tokens annotated as adverbs by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.</p>
-%= korap_tut_query annis => 'pos="ADV" & pos="ADV" & #1 . #2'
+
+%# <p><strong>Annis</strong>: Find all occurrences of the sequence of two tokens annotated as adverbs by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.</p>
+%# %= korap_tut_query annis => 'pos="ADV" & pos="ADV" & #1 . #2'
+
+
+<p><strong>CQL</strong>: Find all occurrences of the sequence &quot;der alte Mann&quot;.
+%= korap_tut_query cql => '"der alte Mann"'
 
 
 </section>

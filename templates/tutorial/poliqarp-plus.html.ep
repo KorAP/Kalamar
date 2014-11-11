@@ -101,7 +101,7 @@ For example to find all occurrences of plural words in the mate foundry, you can
     However, they work in case they are part of a <a href="#tut-syntagmatic-operators-sequence">sequence</a>.</p>
 </blockquote>
 
-<h4>Empty Segments</h4>
+<h4 id="empty-segments">Empty Segments</h4>
 
 <p>A special segment is the empty segment, that matches every word in the index.</p>
 
@@ -125,6 +125,7 @@ Span segments can be searched for using angular brackets instead of square brack
 %= korap_tut_query poliqarp => '<xip/c=INFC>'
 
 <p>Otherwise they can be treated in exactly the same way as simple or complex segments.</p>
+
 </section>
 
 
@@ -174,6 +175,9 @@ For example to search for the word &quot;alte&quot; preceded by &quot;der&quot; 
 
 %= korap_tut_query poliqarp => '[orth=der][][orth=Mann]'
 
+<p>You are also able to mix segments and spans in sequences, for example to search for the word &quot;Der&quot; at the beginning of a sentence (which can be interpreted as the first word after the end of a sentence).</p>
+
+%= korap_tut_query poliqarp => '<s>[orth=Der]'
 
 <h4>Groups</h4>
 
@@ -215,51 +219,75 @@ You already have seen that you can search for both sequences of
 
 <p>To search for a sequence of the lemma <code>der</code> followed by the lemma <code>baum</code> as annotated by the base foundry, but allowing an optional adjective as annotated by the TreeTagger foundry in between, you can search for:</p>
 
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]?[base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]?[base=Baum]'
 
 <p>This query is identical to the numbered quantification of:</p>
 
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]{,1}[base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]{,1}[base=Baum]'
 
 <p>To search for the same sequences but with unlimited adjectives as annotated by the TreeTagger foundry in between, you can use the Kleene Star:</p>
 
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]*[base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]*[base=Baum]'
 
 <p>And to search for this sequence but with at least one adjective in between, you can use the Kleene Plus (all queries are identical):</p>
 
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]+[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]{1,}[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]+[base=Baum]', cutoff => 1
+%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]{1,}[base=Baum]', cutoff => 1
+%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]', cutoff => 1
 
 <blockquote class="warning">
-  <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional. Keep in mind that optionality may be somehow <i>inherited</i>, for example when you search for <code>(junge|alte)?|tote</code>, one segment of the alternation is optional, which makes the whole query optional as well.</p>
+  <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated and not in a sequence (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional.</p>
+  <p>Keep in mind that optionality may be somehow <i>inherited</i>, for example when you search for <code>(junge|alte)?|tote</code>, one segment of the alternation is optional, which makes the whole query optional as well.</p>
 </blockquote>
 
-%= korap_tut_query poliqarp => '[base=der][][base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{2}[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{2,}[base=Baum]'
-%= korap_tut_query poliqarp => '[base=der][]{,3}[base=Baum]'
+<p>Repetition can also be used to express distances between segments by using <a href="#empty-segments">empty segments</a>.</p>
 
-%#= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]*[base=Baum]'
-%#= korap_tut_query poliqarp => '[base=der][tt/pos=ADJA]+[base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][][base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][]{2}[base=Baum]', cutoff => 1
+%= korap_tut_query poliqarp => '[base=die][]{2,}[base=Baum]', cutoff => 1
+%= korap_tut_query poliqarp => '[base=die][]{,3}[base=Baum]', cutoff => 1
+
+<p>Of course, Kleene operators can be used with empty segments as well.</p>
+
+%= korap_tut_query poliqarp => '[base=die][]?[base=Baum]'
+%= korap_tut_query poliqarp => '[base=die][]*[base=Baum]', cutoff => 1
+%= korap_tut_query poliqarp => '[base=die][]+[base=Baum]', cutoff => 1
 
 <h4>Position</h4>
 
-%#= korap_tut_query poliqarp => 'matches(<s>,[])'
-%# matches(<s>,[cnx/p=INTERJ]{2})
-<p>contains()</p>
-<p>startsWith()</p>
-<p>endsWith()</p>
+<p>Sequences as shown above can all be nested in further complex queries and treated as subqueries (see <a href="#tut-class-operators">class operators</a> on how to later access these subqueries directly).</p>
+<p>Positional operators compare two matches of subqueries and will match, in case a certain condition regarding the position of both is true.</p>
+<p>The <code>contains()</code> operation will match, when a second subquery matches inside the span of a first subquery.</p>
+
+%= korap_tut_query poliqarp => 'contains(<s>, [tt/p=KOUS])', cutoff => 1
+
+<p>The <code>startsWith()</code> operation will match, when a second subquery matches at the beginning of the span of a first subquery.</p>
+
+%= korap_tut_query poliqarp => 'startsWith(<s>, [tt/p=KOUS])', cutoff => 1
+
+<p>The <code>endsWith()</code> operation will match, when a second subquery matches at the end of the span of a first subquery.</p>
+
+%= korap_tut_query poliqarp => 'endsWith(<s>, [opennlp/p=NN])', cutoff => 1
+
+<p>The <code>matches()</code> operation will match, when a second subquery has the exact same span of a first subquery.</p>
+
+%= korap_tut_query poliqarp => 'matches(<s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
+
+<!--
 <p>overlaps()</p>
+-->
 
 <blockquote class="warning">
-  <p>Optional operands in position operators, like in <code>within(&lt;s&gt;,[orth=Baum]*)</code>, have to be mandatory at the moment and will be reformulated to occur at least once.</p>
+  <p>Positional operators are still experimental and may change in certain aspects in the future (although the behaviour defined is intended to be stable). There is also known incorrect behaviour which will be corrected in future versions.</p>
+  <p>Optional operands in position operators, like in <code>contains(&lt;s&gt;,[orth=Baum]*)</code>, have to be mandatory at the moment and will be reformulated to occur at least once.</p>
   <p>This behaviour may change in the future.</p>
 </blockquote>
 
+<!--
 <blockquote>
   <p>The KorAP implementation of Poliqarp also supports the postfix <code>within</code> operator, that works similar to the <code>contains()</code> operator, but is not nestable.</p>
 </blockquote>
+-->
 
 </section>
 <section id="tut-class-operators">

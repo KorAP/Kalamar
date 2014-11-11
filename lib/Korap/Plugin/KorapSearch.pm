@@ -163,9 +163,9 @@ sub register {
 	for ($c->stash) {
 	  $_->{'search.benchmark'}    = $benchmark;
 	  $_->{'search.itemsPerPage'} = $json->{itemsPerPage};
-	  $_->{'search.timeExceeded'} = (defined $json->{timeExceeded} &&
-	                                $json->{timeExceeded} eq true())
-	                                ? 1 : 0;
+	  $_->{'search.timeExceeded'} = ($json->{timeExceeded} &&
+					 $json->{timeExceeded}
+					   eq Mojo::JSON::true) ? 1 : 0;
 	  $_->{'search.query'}        = $json->{request}->{query};
 	  $_->{'search.hits'}         = map_matches($json->{matches});
 	};
