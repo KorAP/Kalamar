@@ -170,12 +170,15 @@ sub register {
 	  $_->{'search.hits'}         = map_matches($json->{matches});
 	};
 
-	if ($json->{totalResults} && $json->{totalResults} > -1) {
-	  $c->app->log->debug('Cache total result');
-	  $c->chi->set('total-' . $cache_url => $json->{totalResults}, '30min');
+	# Learn results
+	unless ($total_results) {
+	  if ($json->{totalResults} && $json->{totalResults} > -1) {
+	    $c->app->log->debug('Cache total result');
+	    $c->chi->set('total-' . $cache_url => $json->{totalResults}, '120min');
+	  };
+	  $c->stash('search.totalResults' => $json->{totalResults});
 	};
 
-	$c->stash('search.totalResults' => $json->{totalResults});
 	if ($json->{warning}) {
 	  $c->notify(warn => $json->{warning});
 	};

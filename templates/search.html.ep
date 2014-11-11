@@ -4,8 +4,8 @@
 %     unless (param 'snippet') {
 <div style="clear: both">
 %       my $url = url_with->query(['p' => '{page}']);
-%       my $pages = (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
-%       $pages = $pages < 0 ? 0 : $pages;
+%       my $pages;
+%       $pages = stash('search.totalResults') == -1 ? -1 : (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
   <div id="pagination"><%= pagination(stash('search.startPage'), $pages, $url) =%></div>
   <p class="found">Found
 % my $found = stash('search.totalResults');
