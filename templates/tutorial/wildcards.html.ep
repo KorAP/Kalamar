@@ -1,0 +1,18 @@
+% content main => begin
+
+<h2>KorAP-Tutorial: Wildcards</h2>
+
+<p><%= korap_tut_link_to 'Back to Index', '/tutorial' %></p>
+
+<p>The support for wildcard terms in KorAP may be backend dependend. Below you can find the description for the respective backends.</p>
+
+<section id="tut-lucene">
+<h3>Lucene</h3>
+
+<blockquote>
+  <p>Description still missing.</p>
+</blockquote>
+
+</section>
+
+% end
