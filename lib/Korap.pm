@@ -52,7 +52,7 @@ sub startup {
       '/css/media.css',
       '/css/font-awesome.min.css',
       '/css/highlight.css',
-      # '/sass/alertify.scss',
+      '/sass/alertify.scss',
       $self->notifications->styles
     )
   );

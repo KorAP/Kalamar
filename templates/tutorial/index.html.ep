@@ -37,7 +37,7 @@
 %# <p>This is a Tutorial to KorAP. For examples click on the queries below:</p>
 
 <p><strong>Poliqarp</strong>: Find all occurrences of the lemma &quot;baum&quot; as annotated by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.</p>
-%= korap_tut_query poliqarp => '[base=baum]'
+%= korap_tut_query poliqarp => '[base=Baum]'
 
 <p><strong>Poliqarp</strong>: Find all sequences of adjectives as annotated by Treetagger, that are repeated 3 to 5 times in a row.</p>
 %= korap_tut_query poliqarp => '[tt/p=ADJA]{3,5}'
