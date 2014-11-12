@@ -29,6 +29,20 @@ a {
   text-decoration: none;
 }
 
+#crab-bg {
+  top: 0;
+  background: {
+    image:url('/img/crab-bg.svg');
+    repeat: no-repeat;
+    size: 50%;
+    position: 50% 50%;
+  }
+  position: fixed;
+  height: 110%;
+  width: 175%;
+  z-index: -5000
+}
+
 #top {
   background-color: #7ba400;
   @include box-sizing-box();

@@ -3,6 +3,9 @@
 %= include 'partial/header'
   <body>
 
+%# Background-image
+<% unless (param('q')) { %><div id="crab-bg"></div><% } %>
+
 % my $location;
 % my $search_route;
 % unless (current_route 'tutorial') {
