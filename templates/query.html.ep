@@ -1,4 +1,5 @@
 % use JSON::XS;
+% use Mojo::JSON;
 
 % if (stash('search.query') && stash('test_port')) {
 %   my $action;
@@ -9,7 +10,8 @@
 <pre class="query serial<%== $action // '' %>">
   <span>JSON-LD Serialization for <%= param 'q' %> (<%= param 'ql' %>)</span>
   <code>
-<%= $json->encode(stash('search.query')) =%>
+%# Workaround to keep true, false, and null intact
+%= $json->encode($json->decode(Mojo::JSON::encode_json(stash('search.query'))))
   </code>
 </pre>
 %= javascript begin

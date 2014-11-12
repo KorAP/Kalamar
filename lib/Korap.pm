@@ -46,7 +46,7 @@ sub startup {
       '/sass/tutorial.scss',
       '/sass/hint.scss',
       '/sass/query.scss',
-      '/sass/table.scss',
+      '/sass/matchinfo.scss',
       '/sass/pagination.scss',
       '/sass/kwic-4.0.scss',
       '/css/media.css',
@@ -59,9 +59,12 @@ sub startup {
 
   $self->asset(
     'korap.js' => (
+#      '/js/d3.v3.min.js',
+#      '/js/dagre-d3.min.js',
       '/js/jquery-2.0.0.min.js',
       '/js/tutorialCookie.js',
       '/js/translateTable.js',
+#      '/js/translateTree.js',
       '/js/hint.js',
       '/js/highlight.pack.js',
       $self->notifications->scripts
@@ -112,9 +115,9 @@ sub startup {
   # Match data
   my $match = $doc->route('/:match_id');
   $match->route->to('info#about_match')->name('match');
-  my $match_layer = $match->route('/:layer');
-  $match_layer->route->to('info#about_match');
-  $match_layer->route('/:foundry')->to('info#about_match');
+#  my $match_foundry = $match->route('/:foundry');
+#  $match_foundry->route->to('info#about_match');
+#  $match_foundry->route('/:layer')->to('info#about_match');
 
   # Utilities
   # $r->get('/util/query')->to('search#query');

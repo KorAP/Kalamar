@@ -137,6 +137,10 @@ sub register {
 
       my $ua = Mojo::UserAgent->new;
 
+      # Set timeout to 2 minutes
+      # This may a bit too far for demo users
+      $ua->inactivity_timeout(120);
+
       # Blocking request
       # TODO: Make non-blocking
       my $tx = $ua->get($url);

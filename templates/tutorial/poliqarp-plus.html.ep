@@ -273,9 +273,9 @@ You already have seen that you can search for both sequences of
 
 %= korap_tut_query poliqarp => 'matches(<s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
 
-<!--
-<p>overlaps()</p>
--->
+<p>The <code>overlaps()</code> operation will match, when a second subquery has an overlapping span with the first subquery.</p>
+
+%= korap_tut_query poliqarp => 'overlaps([][tt/p=ADJA],{1:[tt/p=ADJA]}[])', cutoff => 1
 
 <blockquote class="warning">
   <p>Positional operators are still experimental and may change in certain aspects in the future (although the behaviour defined is intended to be stable). There is also known incorrect behaviour which will be corrected in future versions.</p>
@@ -317,9 +317,9 @@ You can think of <code>der</code> in this query as a positive look-behind zero-l
 
 %= korap_tut_query poliqarp => 'focus(der {[]} Mann)'
 
-<p>This will limit the match to all interesting terms in between &quot;der&quot; and &quot;Mann&quot;. Or you may want to search for all words following the sequence &quot;der alte und neue&quot;:</p>
+<p>This will limit the match to all interesting terms in between &quot;der&quot; and &quot;Mann&quot;. Or you may want to search for all words following the sequence &quot;der alte und&quot; immediately:</p>
 
-%= korap_tut_query poliqarp => 'focus(der alte und neue {[]})'
+%= korap_tut_query poliqarp => 'focus(der alte und {[]})'
 
 <!--
 <p><code>focus()</code> is especially useful if you are searching for matches in certain areas, for example in quotes using positional operators.

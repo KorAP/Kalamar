@@ -10,10 +10,13 @@ sub about_match {
 
   my $foundry = '*';
   my %query = (foundry => '*');
-  if ($c->stash('foundry')) {
-    $query{foundry} = $c->stash('foundry');
-    if ($c->stash('layer')) {
-      $query{layer} = $c->stash('layer');
+  if ($c->param('foundry')) {
+    $query{foundry} = $c->param('foundry');
+    if ($c->param('layer')) {
+      $query{layer} = $c->param('layer');
+    };
+    if ($c->param('spans')) {
+      $query{spans} = 'true';
     };
   };
 
@@ -24,7 +27,7 @@ sub about_match {
       )
     },
     html => sub {
-      my $match = $c->match_info($corpus_id, $doc_id, $match_id);
+      my $match = $c->match_info($corpus_id, $doc_id, $match_id, %query);
       if ($match->{error}) {
 	$c->notify(error => $match->{error});
 	return $c->render_exception('error');

@@ -195,6 +195,8 @@ function showTable (o) {
   var match = o.parentNode.parentNode;
   var table = $(match).children("div").children("div.tokenInfo").first();
 
+console.log(table);
+
   if (table.hasClass("active")) {
     table.removeClass("active");
     return;

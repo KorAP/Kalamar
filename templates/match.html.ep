@@ -8,6 +8,7 @@
   <div>
     <div class="snippet"><%== $match->{snippet} %></div>
     <div class="tokenInfo"></div>
+%#    <div class="treeInfo"></div>
   </div>
   <p>
 % if ($match->{title}) {
@@ -25,7 +26,7 @@
 
 % }
     <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
-%#    <li title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
+%#   <li onclick="showTree(this, 'xip', 'c')" title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
 %#    <li title="Remember"><i class="fa fa-star-o"></i></li>
   </ul>
 </li>

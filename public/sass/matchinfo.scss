@@ -1,17 +1,24 @@
 @charset "utf-8";
 
-ol > li:not(.active) .tokenInfo {
-  display: none;
+@import "colors";
+
+ol > li:not(.active) {
+  .tokenInfo, .treeInfo {
+    display: none;
+  }
 }
 
-.tokenInfo {
+.tokenInfo, .treeInfo {
   display: none;
-  background-color: #ffa500;
+  background-color: $dark-orange;
   margin-right: 26px;
   overflow: auto;
   &.active {
     display: block;
   }
+}
+
+.tokenInfo {
   table {
     font-size: 10pt;
     padding: 3pt 10pt; /* wie in ol > li.active p */
@@ -23,7 +30,7 @@ ol > li:not(.active) .tokenInfo {
       }
       > td {
 	text-align: center;
-	background-color: #f4eebb;
+	background-color: $light-orange;
       }
       /* header */
       > th{
@@ -32,7 +39,7 @@ ol > li:not(.active) .tokenInfo {
 	  text-shadow: none;
 	}
 	&[rowspan]:first-child {
-	  background-color: #f4eebb;
+	  background-color: $light-orange;
 	}
 	span.switchSort {
 	  cursor: pointer;
@@ -45,7 +52,7 @@ ol > li:not(.active) .tokenInfo {
       }
       &:first-child th {
 	text-align: center;
-	background-color: #ff8000;
+	background-color: $darker-orange;
 	/* first column header */
 	&:first-child {
 	  position: relative;
@@ -61,4 +68,40 @@ ol > li:not(.active) .tokenInfo {
       }
     }
   }
+}
+
+g.root > rect {
+  fill: none;
+  stroke-width: 5px;
+  stroke: $darker-orange;
+}
+
+g.middle > rect {
+  fill: $light-orange;
+  stroke: $darker-orange;
+  color: white;
+  stroke-width: 2px;
+  padding: 2px;
+}
+
+g.leaf > rect {
+  display: none;
+}
+
+svg {
+  background-color: $dark-orange;
+  overflow: hidden;
+}
+
+text {
+  font-family: verdana, tahoma, arial;
+  font-size: 9pt;
+  color: $dark-grey;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.edgePath path {
+  stroke: white;
+  stroke-width: 2px;
+  fill: none;
 }
