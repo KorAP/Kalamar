@@ -140,7 +140,7 @@ For example to search for all words with the surface form <code>laufe</code> (no
 <p>The ampersand combines multiple properties with a logical AND.
 Terms of the complex segment can be negated as introduced before.</p>
 
-%= korap_tut_query poliqarp => '[orth=laufe/i & base!=lauf]'
+%= korap_tut_query poliqarp => '[orth=laufe/i & base!=Lauf]'
 
 <p>The following query is therefore equivalent:</p>
 
