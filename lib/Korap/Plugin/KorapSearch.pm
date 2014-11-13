@@ -19,6 +19,12 @@ sub map_matches {
   ];
 };
 
+# Remove these attributes from stash after searching
+our @remove_from_stash =
+  qw/hits totalResults benchmark itemsPerPage error query/;
+
+
+# Register plugin
 sub register {
   my ($plugin, $mojo, $param) = @_;
   $param ||= {};
@@ -38,18 +44,23 @@ sub register {
     }
   );
 
+  # TODO: Create a hash and either make these stash values
+  # or return the hash in case of non-blocking requests
   $mojo->helper(
     search => sub {
       my $c = shift;
 
-      # Todo: If there is no callback, return the hits object!
+      # If there is no callback, return the JSON object
       my $cb = pop if ref $_[-1] && ref $_[-1] eq 'CODE';
 
       my %param = @_;
 
-      # Test envronment
+      # Test environment / Fixtures - set via config!
       if ($c->app->mode eq 'test') {
 	state $json = decode_json(join(' ', <DATA>));
+
+	return $json unless $cb;
+
 	$c->stash('search.count' => 10);
 	$c->stash('search.startPage' => 1);
 	$c->stash('search.totalResults' => 666);
@@ -89,12 +100,17 @@ sub register {
 
       my $url = Mojo::URL->new($api);
 
+      # Search in corpus
       if ($c->stash('corpus_id')) {
 	$url->path('corpus/' . $c->stash('corpus_id') . '/search');
       }
+
+      # search in collection
       elsif ($c->stash('collection_id')) {
 	$url->path('virtualcollection/' . $c->stash('collection_id') . '/search');
       }
+
+      # Just search
       else {
 	$url->path('search');
       };
@@ -107,7 +123,7 @@ sub register {
       #};
 
       my %query = (q => $query);
-      $query{ql} = scalar $c->param('ql') // 'poliqarp';
+      $query{ql} = $param{ql} // scalar $c->param('ql') // 'poliqarp';
       $query{count} = $count if $count;
       $query{cutoff} = 'true' if $cutoff;
 
@@ -117,37 +133,50 @@ sub register {
       $url->query({context => 'paragraph'});
 
       # Check cache for total results
-      my $total_results = $c->chi->get('total-' . $cache_url);
-      if (defined $total_results) {
+      my $total_results;
+      if (
+	# TODO: This should also be a query parameter
+	!$param{no_cache} &&
+	  defined ($total_results = $c->chi->get('total-' . $cache_url))) {
 	$c->stash('search.totalResults' => $total_results);
 	$c->app->log->debug('Get total result from cache');
 
 	# Set cutoff unless already set
 	$url->query({cutoff => 'true'}) unless defined $cutoff;
       }
+
+      # No cache
       else {
 	$c->stash('search.totalResults' => 0);
       };
 
       $url->query({page => $start_page});
 
+      # This may be incorrect
       $c->stash('search.itemsPerPage' => $count);
 
-      $c->stash('search.apirequest' => $url->to_string);
+      # Only set this when on test port
+      if ($c->stash('test_port')) {
+	$c->stash('search.apirequest' => $url->to_string);
+      };
 
       my $ua = Mojo::UserAgent->new;
 
       # Set timeout to 2 minutes
-      # This may a bit too far for demo users
       $ua->inactivity_timeout(120);
+
+      $c->app->log->debug('Search for ' . $url->to_string);
 
       # Blocking request
       # TODO: Make non-blocking
       my $tx = $ua->get($url);
 
       if (my $e = $tx->error) {
-	$c->notify(error => ($e->{code} ? $e->{code} . ': ' : '') .
-		     $e->{message} . ' (remote)');
+	$c->notify(
+	  error =>
+	    ($e->{code} ? $e->{code} . ': ' : '') .
+	      $e->{message} . ' (remote)'
+        );
 	return;
       };
 
@@ -157,6 +186,7 @@ sub register {
 	$c->stash('search.apiresponse' => $res->body);
 
 	my $json = $res->json;
+	return $json unless $cb;
 
 	# Reformat benchmark counter
 	my $benchmark = $json->{benchmark};
@@ -193,6 +223,7 @@ sub register {
 
       # Request failed
       else {
+	return unless $cb;
 	$plugin->_notify_on_error($c, 1, $tx->res);
       };
 
@@ -200,9 +231,10 @@ sub register {
       my $v = $cb->();
 
       # Delete useless stash keys
-      foreach (qw/hits totalResults benchmark itemsPerPage error query/) {
+      foreach (@remove_from_stash) {
 	delete $c->stash->{'search.' . $_};
       };
+
       return $v;
     }
   );

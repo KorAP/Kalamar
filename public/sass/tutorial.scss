@@ -48,3 +48,20 @@
   }
 }
 
+div.test {
+  display: block;
+  border-left: 10px solid $dark-green;
+  margin: 1em;
+  padding-left: 5px;
+  p {
+    color: black;
+    &.fail {
+      font-weight: bold;
+      color: red;
+    }
+    &.pass {
+      font-weight: bold;
+      color: green;
+    }
+  }
+}

@@ -4,7 +4,9 @@
   <body>
 
 %# Background-image
-<% unless (param('q')) { %><div id="crab-bg"></div><% } %>
+% if (!param('q') && current_route eq 'index') {
+<div id="crab-bg"></div>
+% };
 
 % my $location;
 % my $search_route;
