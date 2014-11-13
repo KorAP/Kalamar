@@ -135,7 +135,7 @@ Span segments can be searched for using angular brackets instead of square brack
 <p>A complex segment can have multiple properties a token has to fulfill.
 For example to search for all words with the surface form <code>laufe</code> (no matter if capitalized or not) that have the lemma <code>lauf</code> (and not, for example, <code>laufen</code>, which would indicate a verb or a gerund), you can search for:</p>
 
-%= korap_tut_query poliqarp => '[orth=laufe/i & base=lauf]'
+%= korap_tut_query poliqarp => '[orth=laufe/i & base=Lauf]'
 
 <p>The ampersand combines multiple properties with a logical AND.
 Terms of the complex segment can be negated as introduced before.</p>
@@ -144,7 +144,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
 <p>The following query is therefore equivalent:</p>
 
-%= korap_tut_query poliqarp => '[orth=laufe & !base=lauf]'
+%= korap_tut_query poliqarp => '[orth=laufe & !base=Lauf]'
 
 <p>Alternatives can be expressed by using the pipe symbol:</p>
 
