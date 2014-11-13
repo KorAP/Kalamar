@@ -51,6 +51,9 @@
 <p><strong>Poliqarp+</strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Connexor and the lemma &quot;die&quot; annotated by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>. Highlight both terms of the sequence.</p>
 %= korap_tut_query poliqarp => 'startswith(<s>, {1:[cnx/m=PRES]}{2:[base=die]})', cutoff => 1
 
+<p><strong>Poliqarp+</strong>: Find all sequences of an article, followed by three to four adjectives and a noun as annotated by the Treetagger foundry, that finish a sentence. Highlight all parts of the sequence.</p>
+%= korap_tut_query poliqarp => 'focus(3:endswith(<s>,{3:[tt/p=ART]{1:{2:[tt/p=ADJA]{3,4}}[tt/p=NN]}}))', cutoff => 1
+
 <p><strong>Annis</strong>: Find all occurrences of the sequence of two tokens annotated as adverbs by the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.</p>
 %= korap_tut_query annis => 'pos="ADV" & pos="ADV" & #1 . #2'
 
