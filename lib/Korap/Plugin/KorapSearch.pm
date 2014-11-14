@@ -214,6 +214,8 @@ sub register {
 	};
 
 	if ($json->{warning}) {
+	  # Temp
+	  $json->{warning} =~ s/;\s+null$//;
 	  $c->notify(warn => $json->{warning});
 	};
 
@@ -285,12 +287,16 @@ sub _notify_on_error {
 
   if ($json) {
     if ($json->{error}) {
+      # Temp
+      $json->{error} =~ s/;\s+null$//;
       $c->notify(error => $json->{error});
       return;
     }
 
     # New error messages
     elsif ($json->{errstr}) {
+      # Temp
+      $json->{errstr} =~ s/;\s+null$//;
       $c->notify(error => $json->{errstr});
       return;
     }
