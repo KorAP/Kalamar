@@ -206,9 +206,13 @@ var Hint = function (param) {
     if (that.active === -2)
       return;
     if (e.key === 'Down') {
+      e.stopPropagation();
+      e.preventDefault();
       return that.next();
     }
     else if (e.key === 'Up') {
+      e.stopPropagation();
+      e.preventDefault();
       return that.previous();
     }
     else if (e.key === 'Enter' && that.choose()) {
