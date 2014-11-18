@@ -6,6 +6,7 @@ our $VERSION = '0.07';
 
 # Start dev with
 # morbo -w lib -w templates -w public/sass -w public/js -w public/css script/korap
+# morbo -m test -w lib -w templates -w public/sass -w public/js -w public/css script/korap
 
 # Start the application and register all routes and plugins
 sub startup {

@@ -2,6 +2,21 @@
 
 @import "colors";
 
+#searchbar > i.show-hint {
+  z-index: 0;
+  position: absolute;
+  right: 65px;
+  top: 0;
+  font-size: 120%;
+  line-height: 120%;
+  padding: 3pt;
+  color: $dark-orange;
+  &:hover, &.active {
+    color: $light-green;
+    cursor: pointer;
+  }
+}
+
 #searchMirror {
   position: absolute;
   margin-top: 1px;
@@ -29,17 +44,26 @@
     box-shadow: $pagination-box-shadow;
     opacity: 0;
     padding: 0;
-    padding-top: 5px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     > li {
+      cursor: pointer;
       list-style-type: none;
       list-style-position: outside;
-      padding: 3pt 10pt;
+      padding: 3px 10pt;
       text-shadow: $light-shadow;
       white-space: normal;
       color: $light-green;
+      border: {
+        top: 5px solid transparent;
+	bottom: 5px solid transparent;
+      }
+      &:hover {
+        background-color: $dark-orange;
+        color: white;
+        text-shadow: none;
+      }
       > span {
         float: right;
         margin-left: 30pt;
@@ -53,6 +77,18 @@
         color: $dark-green;
         text-shadow: none;
       }
+      &:first-of-type:not(.no-more) {
+        border-top-color: $middle-grey;
+	&.active {
+	  border-top-color: $dark-orange;
+	}
+      }
+      &:last-of-type:not(.no-more) {
+        border-bottom-color: $middle-grey;
+	&.active {
+	  border-bottom-color: $dark-orange;
+	}
+      }     
     }
   }
 }

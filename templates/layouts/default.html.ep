@@ -62,6 +62,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
 %   if (stash('test_port')) {
     <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
 %   };
+    <i onclick="hint.popUp()" class="fa fa-arrow-circle-down show-hint"></i>
   </div>
   <% if ($location) { %><%== $location %><% } %>
   with
