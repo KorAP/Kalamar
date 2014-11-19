@@ -1,5 +1,11 @@
 "use strict";
 
+/*
+Todo:
+- limit the view based on prefix matches
+- highlight matching substrings
+*/
+
 // Don't let events bubble up
 Event.prototype.halt = function () {
   this.stopPropagation();
