@@ -15,68 +15,68 @@ Event.prototype.halt = function () {
 // http://www.nlpado.de/~sebastian/software/ner_german.shtml
 // http://www.cnts.ua.ac.be/conll2003/ner/
 var namedEntities = [
-  ["I-LOC",  "I-LOC",  "Location"],
-  ["I-MISC", "I-MISC", "Miscellaneous"],
-  ["I-ORG",  "I-ORG",  "Organization"],
-  ["I-PER",  "I-PER",  "Person"]
+  ["I-LOC",  "I-LOC ",  "Location"],
+  ["I-MISC", "I-MISC ", "Miscellaneous"],
+  ["I-ORG",  "I-ORG ",  "Organization"],
+  ["I-PER",  "I-PER ",  "Person"]
 ];
 
 // http://www.ids-mannheim.de/cosmas2/projekt/referenz/stts/morph.html
 // http://nachhalt.sfb632.uni-potsdam.de/owl-docu/stts.html
 var sttsArray = [
   // "$.", "$(", "$,"
-  ["ADJA","ADJA", "Attributive Adjective"],
-  ["ADJD","ADJD", "Predicative Adjective"],
-  ["ADV","ADV", "Adverb"],
-  ["APPO","APPO", "Postposition"],
-  ["APPR","APPR", "Preposition"],
-  ["APPRART","APPRART", "Preposition with Determiner"],
-  ["APZR","APZR","Right Circumposition"],
-  ["ART","ART", "Determiner"],
-  ["CARD","CARD", "Cardinal Number"],
-  ["FM","FM", "Foreign Material"],
-  ["ITJ","ITJ", "Interjection"],
-  ["KOKOM","KOKOM", "Comparison Particle"],
-  ["KON","KON", "Coordinating Conjuncion"],
-  ["KOUI","KOUI", "Subordinating Conjunction with 'zu'"],
-  ["KOUS","KOUS", "Subordinating Conjunction with Sentence"],
-  ["NE","NE", "Named Entity"],
-  ["NN","NN", "Normal Nomina"],
-  ["PAV", "PAV", "Pronominal Adverb"],
-  ["PDAT","PDAT","Attributive Demonstrative Pronoun"],
-  ["PDS","PDS", "Substitutive Demonstrative Pronoun"],
-  ["PIAT","PIAT", "Attributive Indefinite Pronoun without Determiner"],
-  ["PIDAT","PIDAT", "Attributive Indefinite Pronoun with Determiner"],
-  ["PIS","PIS", "Substitutive Indefinite Pronoun"],
-  ["PPER","PPER", "Personal Pronoun"],
-  ["PPOSAT","PPOSAT", "Attributive Possessive Pronoun"],
-  ["PPOSS","PPOSS", "Substitutive Possessive Pronoun"],
-  ["PRELAT","PRELAT", "Attributive Relative Pronoun"],
-  ["PRELS","PRELS", "Substitutive Relative Pronoun"],
-  ["PRF","PRF", "Reflexive Pronoun"],
-  ["PROAV","PROAV", "Pronominal Adverb"],
-  ["PTKA","PTKA","Particle with Adjective"],
-  ["PTKANT","PTKANT", "Answering Particle"],
-  ["PTKNEG","PTKNEG", "Negation Particle"],
-  ["PTKVZ","PTKVZ", "Separated Verbal Particle"],
-  ["PTKZU","PTKZU", "'zu' Particle"],
-  ["PWAT","PWAT", "Attributive Interrogative Pronoun"],
-  ["PWAV","PWAV", "Adverbial Interrogative Pronoun"],
-  ["PWS","PWS", "Substitutive Interrogative Pronoun"],
-  ["TRUNC","TRUNC","Truncated"],
-  ["VAFIN","VAFIN", "Auxiliary Finite Verb"],
-  ["VAINF","VAINF", "Auxiliary Infinite Verb"],
-  ["VAIMP","VAIMP", "Auxiliary Finite Imperative Verb"],
-  ["VAPP","VAPP", "Auxiliary Perfect Participle"],
-  ["VMFIN","VMFIN", "Modal Finite Verb"],
-  ["VMINF","VMINF", "Modal Infinite Verb"],
-  ["VMPP","VMPP", "Modal Perfect Participle"],
-  ["VVFIN","VVFIN","Finite Verb"],
-  ["VVIMP","VVIMP", "Finite Imperative Verb"],
-  ["VVINF","VVINF", "Infinite Verb"],
-  ["VVIZU","VVIZU", "Infinite Verb with 'zu'"],
-  ["VVPP","VVPP", "Perfect Participle"],
-  ["XY", "XY", "Non-Word"]
+  ["ADJA","ADJA ", "Attributive Adjective"],
+  ["ADJD","ADJD ", "Predicative Adjective"],
+  ["ADV","ADV ", "Adverb"],
+  ["APPO","APPO ", "Postposition"],
+  ["APPR","APPR ", "Preposition"],
+  ["APPRART","APPRART ", "Preposition with Determiner"],
+  ["APZR","APZR ","Right Circumposition"],
+  ["ART","ART ", "Determiner"],
+  ["CARD","CARD ", "Cardinal Number"],
+  ["FM","FM ", "Foreign Material"],
+  ["ITJ","ITJ ", "Interjection"],
+  ["KOKOM","KOKOM ", "Comparison Particle"],
+  ["KON","KON ", "Coordinating Conjuncion"],
+  ["KOUI","KOUI ", "Subordinating Conjunction with 'zu'"],
+  ["KOUS","KOUS ", "Subordinating Conjunction with Sentence"],
+  ["NE","NE ", "Named Entity"],
+  ["NN","NN ", "Normal Nomina"],
+  ["PAV", "PAV ", "Pronominal Adverb"],
+  ["PDAT","PDAT ","Attributive Demonstrative Pronoun"],
+  ["PDS","PDS ", "Substitutive Demonstrative Pronoun"],
+  ["PIAT","PIAT ", "Attributive Indefinite Pronoun without Determiner"],
+  ["PIDAT","PIDAT ", "Attributive Indefinite Pronoun with Determiner"],
+  ["PIS","PIS ", "Substitutive Indefinite Pronoun"],
+  ["PPER","PPER ", "Personal Pronoun"],
+  ["PPOSAT","PPOSAT ", "Attributive Possessive Pronoun"],
+  ["PPOSS","PPOSS ", "Substitutive Possessive Pronoun"],
+  ["PRELAT","PRELAT ", "Attributive Relative Pronoun"],
+  ["PRELS","PRELS ", "Substitutive Relative Pronoun"],
+  ["PRF","PRF ", "Reflexive Pronoun"],
+  ["PROAV","PROAV ", "Pronominal Adverb"],
+  ["PTKA","PTKA ","Particle with Adjective"],
+  ["PTKANT","PTKANT ", "Answering Particle"],
+  ["PTKNEG","PTKNEG ", "Negation Particle"],
+  ["PTKVZ","PTKVZ ", "Separated Verbal Particle"],
+  ["PTKZU","PTKZU ", "'zu' Particle"],
+  ["PWAT","PWAT ", "Attributive Interrogative Pronoun"],
+  ["PWAV","PWAV ", "Adverbial Interrogative Pronoun"],
+  ["PWS","PWS ", "Substitutive Interrogative Pronoun"],
+  ["TRUNC","TRUNC ","Truncated"],
+  ["VAFIN","VAFIN ", "Auxiliary Finite Verb"],
+  ["VAINF","VAINF ", "Auxiliary Infinite Verb"],
+  ["VAIMP","VAIMP ", "Auxiliary Finite Imperative Verb"],
+  ["VAPP","VAPP ", "Auxiliary Perfect Participle"],
+  ["VMFIN","VMFIN ", "Modal Finite Verb"],
+  ["VMINF","VMINF ", "Modal Infinite Verb"],
+  ["VMPP","VMPP ", "Modal Perfect Participle"],
+  ["VVFIN","VVFIN ","Finite Verb"],
+  ["VVIMP","VVIMP ", "Finite Imperative Verb"],
+  ["VVINF","VVINF ", "Infinite Verb"],
+  ["VVIZU","VVIZU ", "Infinite Verb with 'zu'"],
+  ["VVPP","VVPP ", "Perfect Participle"],
+  ["XY", "XY ", "Non-Word"]
 ];
 
 var mateSttsArray = sttsArray.slice(0);
@@ -110,50 +110,50 @@ var hintArray = {
     ["Syntax", "syn="]
   ],
   "cnx/c=" : [
-    ["np", "np", "Nominal Phrase"]
+    ["np", "np ", "Nominal Phrase"]
   ],
   // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/morph.html
   "cnx/m=" : [
-    ["Abbr","Abbr", "Nouns: Abbreviation"],
-    ["CMP","CMP", "Adjective: Comparative"],
-    ["IMP", "IMP", "Mood: Imperative"],
-    ["IND", "IND", "Mood: Indicative"],
-    ["INF", "INF", "Infinitive"],
-    ["ORD","ORD", "Numeral: Ordinal"],
-    ["PAST", "PAST", "Tense: past"],
-    ["PCP", "PCP", "Participle"],
-    ["PERF", "PERF", "Perfective Participle"],
-    ["PL","PL", "Nouns: Plural"],
-    ["PRES", "PRES", "Tense: present"],
-    ["PROG", "PROG", "Progressive Participle"],
-    ["Prop","Prop", "Nouns: Proper Noun"],
-    ["SUB", "SUB", "Mood: Subjunctive"],
-    ["SUP","SUP", "Adjective: Superlative"]
+    ["Abbr","Abbr ", "Nouns: Abbreviation"],
+    ["CMP","CMP ", "Adjective: Comparative"],
+    ["IMP", "IMP ", "Mood: Imperative"],
+    ["IND", "IND ", "Mood: Indicative"],
+    ["INF", "INF ", "Infinitive"],
+    ["ORD","ORD ", "Numeral: Ordinal"],
+    ["PAST", "PAST ", "Tense: past"],
+    ["PCP", "PCP ", "Participle"],
+    ["PERF", "PERF ", "Perfective Participle"],
+    ["PL","PL ", "Nouns: Plural"],
+    ["PRES", "PRES ", "Tense: present"],
+    ["PROG", "PROG ", "Progressive Participle"],
+    ["Prop","Prop ", "Nouns: Proper Noun"],
+    ["SUB", "SUB ", "Mood: Subjunctive"],
+    ["SUP","SUP ", "Adjective: Superlative"]
   ],
   // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/morph.html
   "cnx/p=" : [
-    ["A", "A", "Adjective"],
-    ["ADV", "ADV", "Adverb"],
-    ["CC", "CC", "Coordination Marker"],
-    ["CS", "CS", "Clause Marker"],
-    ["DET", "DET", "Determiner"],
-    ["INTERJ", "INTERJ", "Interjection"],
-    ["N", "N", "Noun"],
-    ["NUM", "NUM", "Numeral"],
-    ["PREP", "PREP", "Preposition"],
-    ["PRON", "PRON", "Pro-Nominal"],
-    ["V", "V", "Verb"]
+    ["A", "A ", "Adjective"],
+    ["ADV", "ADV ", "Adverb"],
+    ["CC", "CC ", "Coordination Marker"],
+    ["CS", "CS ", "Clause Marker"],
+    ["DET", "DET ", "Determiner"],
+    ["INTERJ", "INTERJ ", "Interjection"],
+    ["N", "N ", "Noun"],
+    ["NUM", "NUM ", "Numeral"],
+    ["PREP", "PREP ", "Preposition"],
+    ["PRON", "PRON ", "Pro-Nominal"],
+    ["V", "V ", "Verb"]
   ],
   // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/syntax.html
   "cnx/syn=" : [
-    ["@ADVL", "@ADVL", "Adverbial Head"],
-    ["@AUX", "@AUX", "Auxiliary Verb"],
-    ["@CC", "@CC", "Coordination"]
-    ["@MAIN", "@MAIN", "Main Verb"],
-    ["@NH", "@NH", "Nominal Head"],
-    ["@POSTMOD", "@POSTMOD", "Postmodifier"],
-    ["@PREMARK", "@PREMARK", "Preposed Marker"],
-    ["@PREMOD", "@POSTMOD", "Premodifier"]
+    ["@ADVL", "@ADVL ", "Adverbial Head"],
+    ["@AUX", "@AUX ", "Auxiliary Verb"],
+    ["@CC", "@CC ", "Coordination"]
+    ["@MAIN", "@MAIN ", "Main Verb"],
+    ["@NH", "@NH ", "Nominal Head"],
+    ["@POSTMOD", "@POSTMOD ", "Postmodifier"],
+    ["@PREMARK", "@PREMARK ", "Preposed Marker"],
+    ["@PREMOD", "@POSTMOD ", "Premodifier"]
   ],
   "opennlp/" : [
     ["Part-of-Speech", "p="]
@@ -189,44 +189,44 @@ var hintArray = {
     ["Number", "number:"],
     ["Person", "person:"],
     ["Tense","tense:"],
-    ["No type", "<no-type>"]
+    ["No type", "<no-type> "]
   ],
   "mate/m=case:" : [
-    ["acc", "acc", "Accusative"],
-    ["dat","dat", "Dative"],
-    ["gen", "gen","Genitive"],
-    ["nom","nom", "Nominative"],
-    ["*","*", "Undefined"]
+    ["acc", "acc ", "Accusative"],
+    ["dat","dat ", "Dative"],
+    ["gen", "gen ","Genitive"],
+    ["nom","nom ", "Nominative"],
+    ["*","* ", "Undefined"]
   ],
   "mate/m=degree:" : [
-    ["comp","comp", "Comparative"],
-    ["pos","pos", "Positive"],
-    ["sup","sup", "Superative"]
+    ["comp","comp ", "Comparative"],
+    ["pos","pos ", "Positive"],
+    ["sup","sup ", "Superative"]
   ],
   "mate/m=gender:" : [
-    ["fem", "fem", "Feminium"],
-    ["masc", "masc", "Masculinum"],
-    ["neut","neut", "Neuter"],
-    ["*","*","Undefined"]
+    ["fem", "fem ", "Feminium"],
+    ["masc", "masc ", "Masculinum"],
+    ["neut","neut ", "Neuter"],
+    ["*","* ","Undefined"]
   ],
   "mate/m=mood:" : [
-    ["imp","imp", "Imperative"],
-    ["ind","ind", "Indicative"],
-    ["subj","subj", "Subjunctive"]
+    ["imp","imp ", "Imperative"],
+    ["ind","ind ", "Indicative"],
+    ["subj","subj ", "Subjunctive"]
   ],
   "mate/m=number:" : [
-    ["pl","pl","Plural"],
-    ["sg","sg","Singular"],
-    ["*","*","Undefined"]
+    ["pl","pl ","Plural"],
+    ["sg","sg ","Singular"],
+    ["*","* ","Undefined"]
   ],
   "mate/m=person:" : [
-    ["1","1", "First Person"],
-    ["2","2", "Second Person"],
-    ["3","3", "Third Person"]
+    ["1","1 ", "First Person"],
+    ["2","2 ", "Second Person"],
+    ["3","3 ", "Third Person"]
   ],
   "mate/m=tense:" : [
-    ["past","past", "Past"],
-    ["pres","pres", "Present"]
+    ["past","past ", "Past"],
+    ["pres","pres ", "Present"]
   ]
 };
 
@@ -236,11 +236,11 @@ var hintArray = {
  */
 var PrefixAnalyzer = {
   _regex : new RegExp(
-    "(?:^|[^a-zA-Z0-9])" +    // Anchor
+    "(?:^|[^-a-zA-Z0-9])" +   // Anchor
     "((?:[-a-zA-Z0-9]+?)\/" + // Foundry
     "(?:" +
-    "(?:[^=:]+?)=" +          // Layer
-    "(?:(?:[^:]+?):)?" +      // Key
+    "(?:[-a-zA-Z0-9]+?)=" +   // Layer
+    "(?:(?:[^:=\/ ]+?):)?" +  // Key
     ")?" +
     ")$"),
   analyze : function (text) {
@@ -250,11 +250,13 @@ var PrefixAnalyzer = {
   }
 };
 
+
 /**
  * Event handling after a key pressed
  */
 function updateKey (that, e) {
   var menu = that.menu();
+
   switch (e.key) {
   case 'Esc':
     // Hide menu
@@ -394,12 +396,14 @@ var Hint = {
     this.update();
 
     // Fill this with the correct value
-    if (this.menu().show(this.analyzeContext()))
+    if (this.menu().show(this.analyzeContext())) {
       this.update(
         this._search.getBoundingClientRect().right
       );
-    else
+    }
+    else {
       this.menu().hide();
+    };
 
     this._search.focus();
   },
@@ -437,6 +441,9 @@ var Hint = {
       return "-";
     context = this._analyzer.analyze(context);
     if (context === undefined || context.length === 0)
+      return "-";
+
+    if (!hintArray[context])
       return "-";
 
     return context;
@@ -633,7 +640,7 @@ var Menu = {
 
       // Hints not found
       if (items === undefined)
-	return false;
+	return undefined;
 
       var i;
       for (i in items) {

@@ -52,9 +52,6 @@
       list-style-type: none;
       list-style-position: outside;
       padding: 3px 10pt;
-/*
-      text-shadow: $light-shadow;
-*/
       text-shadow: none;
       white-space: normal;
       color: $light-green;
@@ -66,6 +63,9 @@
         background-color: $dark-orange;
         color: white;
         text-shadow: none;
+	> span {
+	  color: white;
+	}
       }
       > span {
 	display: block;
