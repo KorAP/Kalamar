@@ -1,10 +1,11 @@
 "use strict";
 
 /*
-Todo:
-- limit the view based on prefix matches
-- highlight matching substrings
-*/
+ * Todo:
+ * - limit the view based on prefix matches
+ * - highlight matching substrings
+ * - http://www.cryer.co.uk/resources/javascript/script20_respond_to_keypress.htm
+ */
 
 // Don't let events bubble up
 Event.prototype.halt = function () {
@@ -236,10 +237,10 @@ var hintArray = {
  */
 var PrefixAnalyzer = {
   _regex : new RegExp(
-    "(?:^|[^-a-zA-Z0-9])" +   // Anchor
-    "((?:[-a-zA-Z0-9]+?)\/" + // Foundry
+    "(?:^|[^-_a-zA-Z0-9])" +   // Anchor
+    "((?:[-_a-zA-Z0-9]+?)\/" + // Foundry
     "(?:" +
-    "(?:[-a-zA-Z0-9]+?)=" +   // Layer
+    "(?:[-_a-zA-Z0-9]+?)=" +   // Layer
     "(?:(?:[^:=\/ ]+?):)?" +  // Key
     ")?" +
     ")$"),
@@ -250,19 +251,36 @@ var PrefixAnalyzer = {
   }
 };
 
+function codeFromEvent (e) {
+  if ((e.charCode) && (e.keyCode==0))
+    return e.charCode
+  return e.keyCode;
+};
 
-/**
- * Event handling after a key pressed
+
+/*
+ * Event handling after a key is down
+ * for arrows!
  */
-function updateKey (that, e) {
+function updateKeyDown (that, e) {
+  var code = codeFromEvent(e);
   var menu = that.menu();
 
-  switch (e.key) {
-  case 'Esc':
+  /*
+   * keyCodes:
+   * - Down  = 40
+   * - Esc   = 27
+   * - Up    = 38
+   * - Enter = 13
+   * - shift = 16
+   * for characters use e.key
+   */
+  switch (code) {
+  case 27: // 'Esc'
     // Hide menu
     menu.hide();
     break;
-  case 'Down':
+  case 40: // 'Down'
     e.halt(); // No event propagation
 
     // Menu is not active
@@ -276,20 +294,20 @@ function updateKey (that, e) {
     };
 
     break;
-  case "Up":
+  case 38: // "Up"
     if (!menu.active)
       break;
     e.halt(); // No event propagation
     that.removePrefix();
     menu.prev();
     break;
-  case "Enter":
+  case 13: // "Enter"
     if (!menu.active)
       break;
     e.halt(); // No event propagation
     that.insertText(menu.getActiveItem().getAction());
     that.removePrefix();
-
+    
     // Remove menu
     menu.hide();
 
@@ -302,40 +320,42 @@ function updateKey (that, e) {
         e.target.getBoundingClientRect().right
       );
     };
-
+    
     break;
   default:
     if (!menu.active)
-      break;
+      return;
 
-    // key stroke is not a character
-    if (e.key.length != 1) {
-
-      // Key stroke is not a text modifying key
-      if (e.key != 'Shift' &&
-          e.key != 'Up'    &&
-          e.key != 'Down'  &&
-          e.key != 'Enter' &&
-	  e.key != 'Alt'   &&
-	  e.key != 'AltGraph' &&
-	  e.key != 'CapsLock') {
-	that.insertPrefix();
-	menu.hide();
-      };
-      break;
+    // Surpress propagation in firefox
+    if (e.key !== undefined && e.key.length != 1) {
+      menu.hide();
     };
-
-    e.halt(); // No event propagation
-    
-    // Try to identify prefix
-    if (menu.skipToPrefix(e.key))
-      break;
-
-    // Prefix not found
-    that.insertPrefix();
-    menu.hide();
   };
 };
+
+/**
+ * Event handling after a key pressed
+ * for characters!
+ */
+function updateKeyPress (that, e) {
+  var character = String.fromCharCode(codeFromEvent(e));
+  var menu = that.menu();
+
+  if (!menu.active)
+    return;
+
+  e.halt(); // No event propagation
+    
+  // Try to identify prefix
+  if (menu.skipToPrefix(character))
+    return;
+
+  // Prefix not found
+  that.insertPrefix();
+  menu.hide();
+};
+
+
 
 // new hint object
 var Hint = {
@@ -369,9 +389,18 @@ var Hint = {
 
     // Add event listener for key pressed down
     this._search.addEventListener(
+      "keypress",
+      function (e) {
+	updateKeyPress(that, e)
+      },
+      false
+    );
+
+    // Add event listener for key pressed down
+    this._search.addEventListener(
       "keydown",
       function (e) {
-	updateKey(that, e)
+	updateKeyDown(that, e)
       },
       false
     );

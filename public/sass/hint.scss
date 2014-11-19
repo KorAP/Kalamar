@@ -9,8 +9,11 @@
   top: 0;
   font-size: 120%;
   line-height: 120%;
-  padding: 3pt;
+  margin-top: 1pt;
+  padding-top: 2pt;
+  padding-bottom: 1pt;
   color: $dark-orange;
+  background-color: white;
   &:hover, &.active {
     color: $light-green;
     cursor: pointer;
@@ -80,6 +83,9 @@
         background-color: $light-green;
         text-shadow: none;
         color: $dark-green;
+	&:hover {
+	  color: white;
+	}
       }
       &:first-of-type:not(.no-more) {
         border-top-color: $dark-orange;
