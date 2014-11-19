@@ -76,7 +76,10 @@
       }
       &.active {
 	background-color: $light-green;
+/*
 	text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+*/
+	text-shadow: none;
 	h3 {
 	  margin-bottom: 2pt;
 	  padding-bottom: 2pt;

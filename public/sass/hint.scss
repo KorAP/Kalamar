@@ -52,7 +52,10 @@
       list-style-type: none;
       list-style-position: outside;
       padding: 3px 10pt;
+/*
       text-shadow: $light-shadow;
+*/
+      text-shadow: none;
       white-space: normal;
       color: $light-green;
       border: {
@@ -65,29 +68,24 @@
         text-shadow: none;
       }
       > span {
-        float: right;
-        margin-left: 30pt;
-        text-align: right;
-        font-style: italic;
+	display: block;
+	color: $dark-green;
+        text-align: left;
+        font-style: normal;
+	font-size: 80%;
+	text-shadow: none;
       }
       /* like sidebar ul li.active */
       &.active {
         background-color: $light-green;
         text-shadow: none;
         color: $dark-green;
-        text-shadow: none;
       }
       &:first-of-type:not(.no-more) {
-        border-top-color: $middle-grey;
-	&.active {
-	  border-top-color: $dark-orange;
-	}
+        border-top-color: $dark-orange;
       }
       &:last-of-type:not(.no-more) {
-        border-bottom-color: $middle-grey;
-	&.active {
-	  border-bottom-color: $dark-orange;
-	}
+        border-bottom-color: $dark-orange;
       }     
     }
   }
