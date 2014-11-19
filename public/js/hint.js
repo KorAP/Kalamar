@@ -294,7 +294,7 @@ function updateKey (that, e) {
     // Fill this with the correct value
     // Todo: This is redundant with click function
     var show;
-    if ((show = that.analyzeContext()) !== "-") {
+    if ((show = that.analyzeContext()) != "-") {
       menu.show(show);
       menu.update(
         e.target.getBoundingClientRect().right
@@ -310,13 +310,13 @@ function updateKey (that, e) {
     if (e.key.length != 1) {
 
       // Key stroke is not a text modifying key
-      if (e.key !== 'Shift' &&
-          e.key !== 'Up'    &&
-          e.key !== 'Down'  &&
-          e.key !== 'Enter' &&
-	  e.key !== 'Alt'   &&
-	  e.key !== 'AltGraph' &&
-	  e.key !== 'CapsLock') {
+      if (e.key != 'Shift' &&
+          e.key != 'Up'    &&
+          e.key != 'Down'  &&
+          e.key != 'Enter' &&
+	  e.key != 'Alt'   &&
+	  e.key != 'AltGraph' &&
+	  e.key != 'CapsLock') {
 	that.insertPrefix();
 	menu.hide();
       };
@@ -399,7 +399,7 @@ var Hint = {
         this._search.getBoundingClientRect().right
       );
     else
-      this.hide();
+      this.menu().hide();
 
     this._search.focus();
   },
@@ -574,8 +574,8 @@ var Menu = {
     var good = -1;
     var test;
     for (; pos < this._items.length; pos++) {
-      if ((test = this.getItem(pos).getLCName().indexOf(this._prefix)) !== -1) {
-	if (test === 0) {
+      if ((test = this.getItem(pos).getLCName().indexOf(this._prefix)) != -1) {
+	if (test == 0) {
 	  found = true;
 	  break;
 	};
@@ -587,7 +587,7 @@ var Menu = {
     if (found)
       return this.skipToPos(pos);
     // At least infix
-    else if (good !== -1)
+    else if (good != -1)
       return this.skipToPos(good);
     // No
     return false;
@@ -622,7 +622,7 @@ var Menu = {
   },
   show : function (name) {
     // The element is already given
-    if (this._name !== name) {
+    if (this._name != name) {
 
       // Todo: store hints in hash
 
@@ -740,7 +740,7 @@ function chooseHint (e) {
 
   // Fill this with the correct value
   var show;
-  if ((show = hint.analyzeContext()) !== "-") {
+  if ((show = hint.analyzeContext()) != "-") {
     menu.show(show);
     menu.update(
       hint._search.getBoundingClientRect().right
