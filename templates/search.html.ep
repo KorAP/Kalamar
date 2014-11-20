@@ -24,7 +24,7 @@
 
 % if (stash('search.totalResults') != 0 && scalar @{stash('search.hits')}) {
 <div id="search">
-<ol class="left-aligned">
+<ol class="align-left">
 %=    search_hits begin
 %=      include 'match', match => $_
 %     end
@@ -37,15 +37,21 @@
 % content 'javascript' => begin
 %=   javascript begin
 
-$("#search > ol > li:not(.active)").on("click", function (e) {
-  $(this).addClass('active');
+var openLi = function (e) {
+  this.classList.add("active");
   e.stopPropagation();
-});
+};
 
-$("#search > ol > li:not(.active) > ul > li.close").on("click", function (e) {
-  $(this.parentNode.parentNode).removeClass('active');
+var closeLi = function (e) {
+  this.parentNode.parentNode.classList.remove("active");
   e.stopPropagation();
-});
+};
+
+var inactiveLi = document.querySelectorAll("#search > ol > li:not(.active)");
+for (var i = 0; i < inactiveLi.length; i++) {
+  inactiveLi[i].addEventListener("click", openLi, false);
+  inactiveLi[i].getElementsByClassName("close")[0].addEventListener("click", closeLi, false);
+};
 
 %   end
 % end

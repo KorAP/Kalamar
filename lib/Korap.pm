@@ -62,12 +62,13 @@ sub startup {
     'korap.js' => (
 #      '/js/d3.v3.min.js',
 #      '/js/dagre-d3.min.js',
-      '/js/jquery-2.0.0.min.js',
+#      '/js/translateTree.js',
+#      '/js/jquery-2.0.0.min.js',
       '/js/tutorialCookie.js',
       '/js/translateTable.js',
-#      '/js/translateTree.js',
       '/js/hint.js',
       '/js/highlight.pack.js',
+      '/js/ajax.js',
       $self->notifications->scripts
     )
   );
@@ -102,7 +103,6 @@ sub startup {
   $collection->to('info#about_collection');
   my $collection_id = $collection->bridge('/:collection_id');
   # stats
-  # $collection_id->;
   $collection_id->search;
 
   # Corpus data
@@ -116,9 +116,9 @@ sub startup {
   # Match data
   my $match = $doc->route('/:match_id');
   $match->route->to('info#about_match')->name('match');
-#  my $match_foundry = $match->route('/:foundry');
-#  $match_foundry->route->to('info#about_match');
-#  $match_foundry->route('/:layer')->to('info#about_match');
+  # my $match_foundry = $match->route('/:foundry');
+  # $match_foundry->route->to('info#about_match');
+  # $match_foundry->route('/:layer')->to('info#about_match');
 
   # Utilities
   # $r->get('/util/query')->to('search#query');

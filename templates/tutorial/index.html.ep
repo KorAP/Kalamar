@@ -1,3 +1,5 @@
+%# https://letsencrypt.org/howitworks/
+
 % content main => begin
 
 %# Store the id of an active section in the session, so the system is able to directly scroll to the relevant section
@@ -17,7 +19,7 @@
 <p>Links to Blog, FAQ, About, Contact ...</p>
 <ul>
   <li>Introduction to KorAP</li>
-  <li>How to use Poliqarp+ QL?</li>
+  <li>How to use Annis QL?</li>
   <li>How to use Cosmas-II QL?</li>
   <li>How to use CQL?</li>
   <li>API</li>

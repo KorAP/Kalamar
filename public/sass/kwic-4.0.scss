@@ -66,13 +66,13 @@ ol {
   }
 }
 
-ol.free-aligned > li:not(.active):not(:target) > div > div.snippet > span.left {
+ol.align-free > li:not(.active):not(:target) > div > div.snippet > span.left {
   display: inline-block;
   text-align: right;
   width: 50.046%;
 }
 
-ol.free-aligned > li:not(.active):not(:target) > div > div.snippet > span.separator {
+ol.align-free > li:not(.active):not(:target) > div > div.snippet > span.separator {
   width: 0px;
   height: 1em;
   margin-bottom: -2px;
@@ -83,17 +83,17 @@ ol.free-aligned > li:not(.active):not(:target) > div > div.snippet > span.separa
   margin-right: 2px;
 }
 
-ol.free-aligned > li > div > div.snippet > span.right {
+ol.align-free > li > div > div.snippet > span.right {
   text-align: left;
 }
 
-ol.left-aligned > li > div > div.snippet > span.context-left {
+ol.align-left > li > div > div.snippet > span.context-left {
   display: inline-block;
   text-align: right;
   width: 50.01%;
 }
 
-ol.right-aligned {
+ol.align-right {
   text-align: right;
   > li:not(.active):not(:target) > div > div.snippet > span.context-right {
     display: inline-block;

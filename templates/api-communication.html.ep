@@ -1,7 +1,7 @@
 % use JSON::XS;
 
 % if (stash('test_port') && stash('search.apirequest')) {
-<pre class="query api">
+<pre class="query api" onclick="this.classList.toggle('active')">
   <span>API Response for </span>
   <span style="font-size: 70%"><%= stash('search.apirequest') %></span>
   <code>
@@ -10,8 +10,5 @@
 </pre>
 %= javascript begin
 hljs.initHighlightingOnLoad();
-$("pre.query.api").on("click", function () {
-  $(this).toggleClass('active');
-});
 % end
 % };

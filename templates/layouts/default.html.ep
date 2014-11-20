@@ -3,7 +3,7 @@
 %= include 'partial/header'
   <body>
 
-%# Background-image
+%# -- Background crab
 % if (!param('q') && current_route eq 'index') {
 <div id="crab-bg"></div>
 % };
@@ -12,14 +12,6 @@
 % my $search_route;
 % unless (current_route 'tutorial') {
 <div id="tutorial">
-%#   my $tut_page = url_for(session('tutorial') || 'tutorial');
-%#  <a href="<%= $tut_page %>"
-%#     target="_blank"><i title="Open in new tab"
-%#                        class="fa fa-external-link-square"></i></a>
-%#
-%#  <a href="javascript:window.open(getTutorialPage())"
-%#     target="_blank"><i title="Open in new tab"
-%#                        class="fa fa-external-link-square"></i></a>
 %= javascript begin
 document.write('<a href="' + getTutorialPage().replace(/\?embedded=1/, '') + '" ');
 document.write('target="_blank"><i title="Open in new tab" ');
@@ -29,7 +21,6 @@ document.write('class="fa fa-external-link-square"></i></a>');
      title="close"
      class="fa fa-toggle-up"></i>
   <iframe src="about:blank"></iframe>
-%#          data-src="<%= $tut_page->query([embedded => 1]) %>"></iframe>
 </div>
 %   if (current_route eq 'match') {
 %     $search_route = url_for('search_corpus');
@@ -71,27 +62,38 @@ document.write('class="fa fa-external-link-square"></i></a>');
   </div>
 
 <div id="button-right">
+%#
+%# -- The cutoff checkbox
 % unless (param('q')) { param(cutoff => 1) };
 %= check_box cutoff => 1, id => 'q-cutoff-field'
 <label for="q-cutoff-field"><span></span>Quick</label>
+%#
+%# -- The tutorial button
 % unless (current_route 'tutorial') {
-<button type="button" title="Tutorial" onclick="openTutorial()"><i class="fa fa-graduation-cap"></i></button>
+<button type="button" title="Tutorial" onclick="openTutorial()">\
+<i class="fa fa-graduation-cap"></i>\
+</button>
 % };
-% if (param('q')) {
-<button type="button" title="Alignment" onclick="$('#search > ol').toggleClass('left-aligned right-aligned'); $(this).children('i').toggleClass('fa-align-right fa-align-left')"><i class="fa fa-align-right"></i></button>
+%#
+%# -- The Alignment button
+% if (param('q') && (stash('search.totalResults') // 0) != 0) {
+<button type="button" title="Alignment" onclick="toggleAlignment(this)">\
+<i class="fa fa-align-right"></i>\
+</button>
 % }
 </div>
-
+%#
 % end
-
 </div>
+
 
 %= content 'sidebar' => begin
 <div id="sidebar">
-%= include 'collections'
+  %= include 'collections'
   <i class="fa fa-bars"></i>
 </div>
 % end
+
 
 <main>
 %= content main => begin

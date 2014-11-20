@@ -3,36 +3,60 @@
 // Create new hint
 var hint = Object.create(Hint).init();
 
+// Add toggleClass method similar to jquery
+HTMLElement.prototype.toggleClass = function (c1, c2) {
+  var cl = this.classList;
+  if (cl.contains(c1)) {
+    cl.add(c2);
+    cl.remove(c1);
+  }
+  else {
+    cl.remove(c2);
+    cl.add(c1);
+  };
+};
+
 function openTutorial (o) {
-  var tut = $("#tutorial");
-  tut.addClass("active");
-  var iframe = tut.children("iframe");
-  iframe.attr("src", getTutorialPage());
+  var tut = document.getElementById("tutorial");
+  tut.classList.add("active")
+  var iframe = tut.getElementsByTagName("iframe")[0];
+  iframe.setAttribute("src", getTutorialPage());
 };
 
 function closeTutorial (o) {
-  $("#tutorial").removeClass("active");
+  document.getElementById("tutorial").classList.remove("active");
 };
 
 function useQuery (o) {
   var q = o.getAttribute("data-query");
   var ql = o.getAttribute("data-query-language");
   var qc = o.getAttribute("data-query-cutoff");
-  if (qc !== 0 && qc !== "0" && qc !== "off" && qc !== null)
-    $("#q-cutoff-field").prop('checked', true);
+  if (qc !== 0 && qc !== "0" && qc !== "off" && qc !== null) {
+    document.getElementById("q-cutoff-field").checked = true;
+  };
 
-  $("#ql-field").val(ql);
-  $("#q-field").val(q);
+  var qlf = document.getElementById("ql-field").options;
+  for (i in qlf)
+    if (qlf[i].value == ql) qlf[i].selected = true;
 
+  document.getElementById("q-field").value = q;
   closeTutorial();
 };
 
-$("#sidebar").on("click", function () {
-  $(this).toggleClass('active');
-});
+document.getElementById("sidebar").addEventListener("click",function(){
+  this.classList.toggle("active");
+},false);
 
-$("span.location").on("click", function () {
-  $("#sidebar").toggleClass('active');
-});
+%# document.getElementById("top")
+%#         .querySelectorAll("span.location")
+%#         .addEventListener("click",function() {
+%#   document.getElementById("sidebar").classList.toggle("active");
+%# }, false);
+
+function toggleAlignment (o) {
+  var ol = document.querySelector("#search > ol");
+  ol.toggleClass("align-left", "align-right");
+  o.firstChild.toggleClass("fa-align-right", "fa-align-left");
+}; 
 
 % end

@@ -5,6 +5,7 @@
  * - limit the view based on prefix matches
  * - highlight matching substrings
  * - http://www.cryer.co.uk/resources/javascript/script20_respond_to_keypress.htm
+ * - document.removeEventListener("click",arguments.callee,false);
  */
 
 // Don't let events bubble up
@@ -761,15 +762,16 @@ var Menu = {
 };
 
 function chooseHint (e) {
+/*
   var element = e.target;
   while (element.nodeName == "STRONG" || element.nodeName == "SPAN") {
     element = element.parentNode;
   };
-
   if (element === undefined || element.nodeName != "LI")
     return;
+*/
 
-  var action = element.getAttribute('data-action');
+  var action = this.getAttribute('data-action');
   hint.insertText(action);
   var menu = hint.menu();
   menu.hide();

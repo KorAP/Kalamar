@@ -193,18 +193,17 @@ function SnippetTable (snippet) {
 
 function showTable (o) {
   var match = o.parentNode.parentNode;
-  var table = $(match).children("div").children("div.tokenInfo").first();
+  var table = match.getElementsByClassName("tokenInfo")[0];
 
-console.log(table);
-
-  if (table.hasClass("active")) {
-    table.removeClass("active");
+  if (table.classList.contains("active")) {
+    table.classList.remove("active");
     return;
   }
-  else if (table.children("table").length > 0) {
-    table.addClass("active");
+  else if (table.getElementsByTagName("table").length > 0) {
+    table.classList.add("active");
     return;
   };
+
 
   var corpusID = match.getAttribute('data-corpus-id');
   var docID    = match.getAttribute('data-doc-id');
@@ -212,10 +211,10 @@ console.log(table);
   var url      = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
   var snippet;
 
-  jQuery.getJSON(url, function (res) {
+  Ajax.getJSON(url, function (res) {
     var snippet = new SnippetTable(res['snippet']);
-    table.addClass("active");
-    table.append(snippet.toTable());
+    table.classList.add("active");
+    table.appendChild(snippet.toTable());
   });
 };
 

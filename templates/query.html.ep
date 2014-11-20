@@ -7,7 +7,7 @@
 %     $action = ' active" style="cursor: default';
 %   };
 %   state $json = JSON::XS->new->allow_blessed->pretty->canonical(1);
-<pre class="query serial<%== $action // '' %>">
+<pre class="query serial<%== $action // '' %>" <% unless ($action) { %>onclick="this.classList.toggle('active')"<% } %>>
   <span>JSON-LD Serialization for <%= param 'q' %> (<%= param 'ql' %>)</span>
   <code>
 %# Workaround to keep true, false, and null intact
@@ -16,10 +16,5 @@
 </pre>
 %= javascript begin
 hljs.initHighlightingOnLoad();
-%   unless ($action) {
-$("pre.query.serial").on("click", function () {
-  $(this).toggleClass('active');
-});
-%   };
 % end
 % };
