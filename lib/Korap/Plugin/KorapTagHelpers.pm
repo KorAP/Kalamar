@@ -26,7 +26,7 @@ sub register {
 
       # Tutorial wasn't embedded - but opened for testing
       elsif ($c->param('testing') &&
-	       $c->stash('test_port') &&
+	       $c->korap_test_port &&
 		 $param{tests}) {
 
 	my $tests = $param{tests} // [];

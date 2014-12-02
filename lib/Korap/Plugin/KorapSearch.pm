@@ -156,7 +156,7 @@ sub register {
       $c->stash('search.itemsPerPage' => $count);
 
       # Only set this when on test port
-      if ($c->stash('test_port')) {
+      if ($c->korap_test_port) {
 	$c->stash('search.apirequest' => $url->to_string);
       };
 

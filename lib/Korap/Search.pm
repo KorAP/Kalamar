@@ -1,6 +1,9 @@
 package Korap::Search;
 use Mojo::Base 'Mojolicious::Controller';
 
+# Add X-Forwarded-For to user agent call everywhere
+
+
 # This action will render a template
 sub remote {
   my $c = shift;
@@ -10,11 +13,6 @@ sub remote {
   my $api = $c->config('KorAP')->{'api-0.1'};
 
   # Todo: Support query building directly
-
-  $c->stash(test_port => (
-    $c->req->url->to_abs->port == 6666 ||
-      $c->app->mode =~ m/^development|test$/) ? 1 : 0);
-
   if ((scalar $c->param('action') // '') eq 'inspect') {
     my $url = Mojo::URL->new($api)->path('search');
 

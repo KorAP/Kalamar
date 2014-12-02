@@ -90,7 +90,11 @@ function translateTree (snippet) {
 function showTree (o, foundry, layer) {
   var match = o.parentNode.parentNode;
 
+console.log("Match: " + match);
+
   var tree = d3.select(match).select("div > div.treeInfo");
+
+console.log("Tree: " + tree);
 
   if (tree.classed("active")) {
     tree.classed("active", false);
@@ -102,6 +106,8 @@ function showTree (o, foundry, layer) {
   };
 
   var corpusID = match.getAttribute('data-corpus-id');
+console.log(corpusID);
+
   var docID    = match.getAttribute('data-doc-id');
   var matchID  = match.getAttribute('data-match-id');
   var url      =
@@ -113,16 +119,38 @@ function showTree (o, foundry, layer) {
     '&layer=' + layer +
     '&spans=true';
 
+  var wrapper = new String("<span class=\"context-left\"></span><span class=\"match\"><span title=\"xip/c:MC\"><span title=\"xip/c:TOP\"><span title=\"xip/c:PP\"><span title=\"xip/c:PREP\">Mit</span> <span title=\"xip/c:NP\"><span title=\"xip/c:DET\">dieser</span> <span title=\"xip/c:NPA\"><span title=\"xip/c:NOUN\">Methode</span></span></span></span> <span title=\"xip/c:VERB\">ist</span> <span title=\"xip/c:NP\"><span title=\"xip/c:PRON\">es</span></span> <span title=\"xip/c:AP\"><span title=\"xip/c:ADV\">nun</span> <span title=\"xip/c:ADJ\">möglich</span></span> <span title=\"xip/c:ADV\">z. B.</span> <span title=\"xip/c:NPA\"><span title=\"xip/c:NP\"><span title=\"xip/c:NOUN\">Voice</span></span></span> (<span title=\"xip/c:INS\"><span title=\"xip/c:NPA\"><span title=\"xip/c:NP\"><span title=\"xip/c:NOUN\">Sprache</span></span></span></span>) <span title=\"xip/c:VERB\">bevorzugt</span> <span title=\"xip/c:PP\"><span title=\"xip/c:PREP\">in</span> <span title=\"xip/c:NP\"><span title=\"xip/c:PRON\">der</span></span> <span title=\"xip/c:NPA\"><span title=\"xip/c:NP\"><span title=\"xip/c:NOUN\">Bridge</span></span></span></span> <span title=\"xip/c:INFC\"><span title=\"xip/c:INS\"><span title=\"xip/c:VERB\">weiterzugeben</span></span></span></span></span></span><span class=\"context-right\"></span>");
+
+    var svg = tree.append("svg");
+    var svgGroup = svg.append("svg:g");
+
+  var treething = translateTree(wrapper);
+console.log(treething);  
+
+    var layout = renderer.run(treething, svgGroup);
+    // 10 pixel padding
+    var w = layout.graph().width;
+    var h = layout.graph().height;
+    svg.attr("width", w + 10);
+    svg.attr("height", h + 10);
+    svgGroup.attr("transform", "translate(5, 5)");
+    tree.classed("active", true);
+
+/*
+
   jQuery.getJSON(url, function (res) {
     var svg = tree.append("svg");
     var svgGroup = svg.append("svg:g");
     var treething = translateTree(res['snippet']);
-
     var layout = renderer.run(treething, svgGroup);
-
-    svg.attr("width", layout.graph().width + 40)
-      .attr("height", layout.graph().height + 40);
-
+    // 10 pixel padding
+    var w = layout.graph().width;
+    var h = layout.graph().height;
+    svg.attr("width", w + 10);
+    svg.attr("height", h + 10);
+    svgGroup.attr("transform", "translate(5, 5)");
     tree.classed("active", true);
   });
+
+*/
 };

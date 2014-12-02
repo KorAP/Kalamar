@@ -1,6 +1,5 @@
 % if (param 'q') {
 % content 'main' => begin
-%=  search begin
 %     unless (param 'snippet') {
 <div style="clear: both">
 %       my $url = url_with->query(['p' => '{page}']);
@@ -31,7 +30,6 @@
 </ol>
 </div>
 % };
-%   end
 % end
 
 % content 'javascript' => begin

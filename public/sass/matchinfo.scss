@@ -23,6 +23,11 @@ ol > li:not(.active) {
     font-size: 10pt;
     padding: 3pt 10pt; /* wie in ol > li.active p */
     /* All cells */
+    > tr:nth-child(odd) {
+      td {
+        background-color: lighten($dark-orange, 25%);
+      }
+    }
     > tr {
       > * {
 	padding: 1pt 6pt;

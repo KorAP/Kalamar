@@ -26,8 +26,9 @@ sub startup {
 	      TagHelpers::Pagination
 	      Notifications
 	      Number::Commify
-	      KorapSearch
+	      Search
 	      KorapInfo
+	      KorapHelpers
 	      KorapTagHelpers
 	     /) {
     # Oro::Account
@@ -35,7 +36,8 @@ sub startup {
     $self->plugin($_);
   };
 
-  $self->plugin(AssetPack => { minify => 1 });
+#  $self->plugin(AssetPack => { minify => 1 });
+  $self->plugin('AssetPack');
   $self->plugin('AssetPack::LibSass');
   $self->plugin('MailException' => $self->config('MailException'));
 
@@ -60,10 +62,11 @@ sub startup {
 
   $self->asset(
     'korap.js' => (
-#      '/js/d3.v3.min.js',
+      '/js/d3.v3.min.js',
 #      '/js/dagre-d3.min.js',
-#      '/js/translateTree.js',
-#      '/js/jquery-2.0.0.min.js',
+      '/js/dagre-d3.js',
+      '/js/translateTree.js',
+      '/js/jquery-2.0.0.min.js', # Temp
       '/js/tutorialCookie.js',
       '/js/translateTable.js',
       '/js/hint.js',
@@ -103,15 +106,28 @@ sub startup {
   $collection->to('info#about_collection');
   my $collection_id = $collection->bridge('/:collection_id');
   # stats
-  $collection_id->search;
+};
+
+
+1;
+
+
+__END__
+
+
+
+# No shortcut!
+
+#  $collection_id->search;
 
   # Corpus data
   my $corpus_res = $r->route('/corpus');
   my $corpus = $corpus_res->route('/:corpus_id');
+
   # Todo: Stats
-  $corpus->search->name('search_corpus');
-  my $doc = $corpus->route('/#doc_id');
-  $doc->search->name('search_document');
+#  $corpus->search->name('search_corpus');
+#  my $doc = $corpus->route('/#doc_id');
+#  $doc->search->name('search_document');
 
   # Match data
   my $match = $doc->route('/:match_id');
