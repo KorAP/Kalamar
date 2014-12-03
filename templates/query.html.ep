@@ -1,7 +1,7 @@
 % use JSON::XS;
 % use Mojo::JSON;
 
-% if (stash('search.query') && stash('test_port')) {
+% if (search->query_jsonld && stash('test_port')) {
 %   my $action;
 %   if (param('action') && param('action') eq 'inspect') {
 %     $action = ' active" style="cursor: default';
@@ -11,7 +11,7 @@
   <span>JSON-LD Serialization for <%= param 'q' %> (<%= param 'ql' %>)</span>
   <code>
 %# Workaround to keep true, false, and null intact
-%= $json->encode($json->decode(Mojo::JSON::encode_json(stash('search.query'))))
+%= $json->encode($json->decode(Mojo::JSON::encode_json(search->query_jsonld)))
   </code>
 </pre>
 %= javascript begin

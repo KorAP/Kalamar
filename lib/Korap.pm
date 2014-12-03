@@ -27,12 +27,9 @@ sub startup {
 	      Notifications
 	      Number::Commify
 	      Search
-	      KorapInfo
 	      KorapHelpers
 	      KorapTagHelpers
 	     /) {
-    # Oro::Account
-    # Oro::Account::ConfirmMail
     $self->plugin($_);
   };
 
@@ -62,10 +59,10 @@ sub startup {
 
   $self->asset(
     'korap.js' => (
-      '/js/d3.v3.min.js',
+#      '/js/d3.v3.min.js',
 #      '/js/dagre-d3.min.js',
-      '/js/dagre-d3.js',
-      '/js/translateTree.js',
+#      '/js/dagre-d3.js',
+#      '/js/translateTree.js',
       '/js/jquery-2.0.0.min.js', # Temp
       '/js/tutorialCookie.js',
       '/js/translateTable.js',
@@ -86,26 +83,17 @@ sub startup {
   # Routes
   my $r = $self->routes;
 
-  # User account management
-  #  $r->route('/login')->acct('login');
-  #  $r->route('/login/forgotten')->acct('forgotten');
-  #  $r->route('/login/remove')->acct('remove');
-  #  $r->route('/register')->acct('register');
-  #  $r->route('/logout')->acct('logout');
-  #  $r->route('/preferences')->acct('preferences');
-
   # Base search route
-  $r->get('/')->to('search#remote')->name('index');
+  $r->get('/')->to('search#query')->name('index');
+
+  # Get match information
+  my $corpus = $r->route('/corpus/:corpus_id');
+  my $doc    = $corpus->route('/#doc_id');
+  my $match = $doc->route('/:match_id')->to('search#match_info')->name('match');
 
   # Tutorial data
   $r->get('/tutorial')->to('tutorial#page', tutorial => 'index');
   $r->get('/tutorial/(*tutorial)')->to('tutorial#page')->name('tutorial');
-
-  # Collection data
-  my $collection = $r->bridge('/collection');
-  $collection->to('info#about_collection');
-  my $collection_id = $collection->bridge('/:collection_id');
-  # stats
 };
 
 
@@ -113,32 +101,3 @@ sub startup {
 
 
 __END__
-
-
-
-# No shortcut!
-
-#  $collection_id->search;
-
-  # Corpus data
-  my $corpus_res = $r->route('/corpus');
-  my $corpus = $corpus_res->route('/:corpus_id');
-
-  # Todo: Stats
-#  $corpus->search->name('search_corpus');
-#  my $doc = $corpus->route('/#doc_id');
-#  $doc->search->name('search_document');
-
-  # Match data
-  my $match = $doc->route('/:match_id');
-  $match->route->to('info#about_match')->name('match');
-  # my $match_foundry = $match->route('/:foundry');
-  # $match_foundry->route->to('info#about_match');
-  # $match_foundry->route('/:layer')->to('info#about_match');
-
-  # Utilities
-  # $r->get('/util/query')->to('search#query');
-};
-
-
-1;

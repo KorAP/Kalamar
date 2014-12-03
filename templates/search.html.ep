@@ -3,28 +3,27 @@
 %     unless (param 'snippet') {
 <div style="clear: both">
 %       my $url = url_with->query(['p' => '{page}']);
-%       my $pages;
-%       $pages = stash('search.totalResults') == -1 ? -1 : (stash('search.totalResults') / (stash('search.itemsPerPage') || 1));
-  <div id="pagination"><%= pagination(stash('search.startPage'), $pages, $url) =%></div>
+%       my $pages = search->total_pages;
+  <div id="pagination"><%= pagination(search->start_page, $pages, $url) =%></div>
   <p class="found">Found
-% my $found = stash('search.totalResults');
+% my $found = search->total_results;
 % if ($found == -1) {
 %   $found = 'unknown amount of';
-% } elsif (stash('search.timeExceeded')) {
+% } elsif (search->timeExceeded) {
 %   $found = 'more than ' . $found;
 % }; 
     <span id="total-results"><%= $found %> matches</span>
-    <% if (stash 'search.benchmark') { %> in <%= stash 'search.benchmark' %><% } %>
+    <% if (search->benchmark) { %> in <%= search->benchmark %><% } %>
   </p>
 </div>
 %= include 'query'
 %= include 'api-communication'
 %     };
 
-% if (stash('search.totalResults') != 0 && scalar @{stash('search.hits')}) {
+% if (search->total_results != 0 && search->results->size) {
 <div id="search">
 <ol class="align-left">
-%=    search_hits begin
+%=    search_results begin
 %=      include 'match', match => $_
 %     end
 </ol>

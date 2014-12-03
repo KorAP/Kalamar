@@ -10,7 +10,7 @@ id="<%= $match->{corpusID} %>-<%= $match->{docID} %>-<%= $match->{ID} %>"\
   <div>
     <div class="snippet"><%== $match->{snippet} %></div>
     <div class="tokenInfo"></div>
-    <div class="treeInfo"></div>
+%#    <div class="treeInfo"></div>
   </div>
 %#
 %# -- Reference string
@@ -31,7 +31,7 @@ id="<%= $match->{corpusID} %>-<%= $match->{docID} %>-<%= $match->{ID} %>"\
     <li class="open" title="Open in new tab"><a href="#<%= $match->{corpusID} %>-<%= $match->{docID} %>-<%= $match->{ID} %>" target="_blank"><i class="fa fa-external-link-square"></i></a></li>
 % };
     <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
-    <li onclick="showTree(this, 'xip', 'c')" title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
+%#    <li onclick="showTree(this, 'xip', 'c')" title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
 %#    <li title="Remember"><i class="fa fa-star-o"></i></li>
   </ul>
 </li>
