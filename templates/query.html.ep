@@ -1,7 +1,7 @@
 % use JSON::XS;
 % use Mojo::JSON;
 
-% if (search->query_jsonld && stash('test_port')) {
+% if (search->query_jsonld && korap_test_port()) {
 %   my $action;
 %   if (param('action') && param('action') eq 'inspect') {
 %     $action = ' active" style="cursor: default';
