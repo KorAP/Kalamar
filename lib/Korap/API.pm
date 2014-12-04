@@ -1,6 +1,6 @@
 package Korap::API;
 use Mojo::Base 'Mojolicious::Plugin';
-use Scalar::Util 'blessed';
+use Scalar::Util qw/blessed weaken/;
 use strict;
 use warnings;
 
@@ -91,6 +91,7 @@ sub search {
       $url => sub {
 	my $tx = pop;
 	$self->_process_response('matches', $index, $tx);
+	weaken $index;
 	return $cb->($index);
       });
   }
@@ -135,6 +136,7 @@ sub trace {
 
   # non-blocking
   if ($cb) {
+    weaken $index;
 
     # Trace non-blocking
     $ua->start(
@@ -188,6 +190,7 @@ sub match {
 
   # non-blocking
   if ($cb) {
+    weaken $index;
     $ua->get(
       $url => sub {
 	my $tx = pop;
@@ -242,6 +245,7 @@ sub resource {
   $ua->inactivity_timeout(30);
 
   if ($cb) {
+    weaken $index;
     $ua->get(
       $url => sub {
 	$self->_process_response('resource', $index, pop);

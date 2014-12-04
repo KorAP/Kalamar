@@ -8,7 +8,7 @@ id="<%= $match->{corpusID} %>-<%= $match->{docID} %>-<%= $match->{ID} %>"\
 %#
 %# -- Match information (snippet, morph table, tree information etc.)
   <div>
-    <div class="snippet"><%== $match->{snippet} %></div>
+    <div class="snippet<%= $match->{startMore} ? ' startMore' : '' %><%= $match->{endMore} ? ' endMore' : '' %>"><%== $match->{snippet} %></div>
     <div class="tokenInfo"></div>
 %#    <div class="treeInfo"></div>
   </div>

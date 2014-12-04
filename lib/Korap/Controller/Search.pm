@@ -84,7 +84,6 @@ sub match_info {
     # Callback for async search
     sub {
       my $index = shift;
-
       return $c->respond_to(
 
 	# Render json if requested

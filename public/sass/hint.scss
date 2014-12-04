@@ -23,12 +23,12 @@
 #searchMirror {
   position: absolute;
   margin-top: 1px;
-  white-space: nowrap;
+  white-space: pre-wrap;
   overflow: show;
   height: 0;
   > span {
     opacity: 0;
-    white-space: nowrap;
+    white-space: pre-wrap;
     overflow: hidden;
   }
   > ul {
