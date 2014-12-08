@@ -11,9 +11,12 @@
 %= notifications 'Alertify'
 
 %= javascript begin
-$("li,code,#sidebar").on("click", function () {
-  $(this).toggleClass('active');
-});
+var sidebar = document.getElementById("sidebar");
+if (sidebar !== null) {
+  sidebar.addEventListener("click",function(){
+    this.classList.toggle("active");
+  },false);
+};
 % end
 
   </body>

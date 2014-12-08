@@ -63,7 +63,6 @@ sub startup {
 #      '/js/dagre-d3.min.js',
 #      '/js/dagre-d3.js',
 #      '/js/translateTree.js',
-      '/js/jquery-2.0.0.min.js', # Temp
       '/js/tutorialCookie.js',
       '/js/translateTable.js',
       '/js/hint.js',
