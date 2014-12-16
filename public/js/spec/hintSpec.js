@@ -678,12 +678,13 @@ describe('KorAP.InputField', function () {
     expect(inputField.mirror.style.top.match(/^(\d+)px$/)[1]).toBeGreaterThan(20);
   });
 
+/*
   it('should be correctly triggerable', function () {
     // https://developer.mozilla.org/samples/domref/dispatchEvent.html
     var hint = KorAP.Hint.create({ "inputField" : input });
     emitKeyboardEvent(hint.inputField.element, "keypress", 20);
   });
-
+*/
 
 });
 

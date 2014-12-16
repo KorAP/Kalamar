@@ -39,7 +39,7 @@ var KorAP = KorAP || {};
   };
 
   // Default log message
-  KorAP.log = function (type, msg) {
+  KorAP.log = KorAP.log || function (type, msg) {
     console.log(type + ": " + msg);
   };
 
