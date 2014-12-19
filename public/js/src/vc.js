@@ -1,8 +1,7 @@
 var KorAP = KorAP || {};
 
-// Todo: Implement a working localization solution!
-// Todo: Refactor out the distinction between DocElement and Doc,
-//       DocGroupElement and DocGroup
+// TODO: Implement a working localization solution!
+// TODO: Support 'update' method to update elements on change
 
 /*
  * Error codes:
@@ -19,10 +18,6 @@ var KorAP = KorAP || {};
   813: "Collection type is not supported" (like 713)
 */
 
-
-/*
-  - TODO: Support 'update' method to update elements on change
-*/
 
 (function (KorAP) {
   "use strict";
@@ -54,10 +49,10 @@ var KorAP = KorAP || {};
       if (json !== undefined) {
 	// Root object
 	if (json['@type'] == 'korap:doc') {
-	  obj._root = KorAP.DocElement.create(undefined, json);
+	  obj._root = KorAP.Doc.create(undefined, json);
 	}
 	else if (json['@type'] == 'korap:docGroup') {
-	  obj._root = KorAP.DocGroupElement.create(undefined, json);
+	  obj._root = KorAP.DocGroup.create(undefined, json);
 	}
 	else {
 	  KorAP.log(813, "Collection type is not supported");
@@ -67,7 +62,7 @@ var KorAP = KorAP || {};
 
       else {
 	// Add unspecified object
-	obj._root = KorAP.UnspecifiedDocElement.create();
+	obj._root = KorAP.UnspecifiedDoc.create();
       };
 
       // Add root element to root node
@@ -90,6 +85,9 @@ var KorAP = KorAP || {};
     }
   };
 
+  /**
+   * Operators for criteria
+   */
   KorAP.Operators = {
     create : function (and, or, del) {
       var op = Object.create(KorAP.Operators);
@@ -170,11 +168,9 @@ var KorAP = KorAP || {};
   /**
    * Unspecified criterion
    */
-  KorAP.UnspecifiedDocElement = {
-    _obj : function () { return KorAP.UnspecifiedDocElement; },
-    _objType : 'UnspecifiedDocElement',
+  KorAP.UnspecifiedDoc = {
     create : function (parent) {
-      var obj = Object.create(KorAP.JsonLD).extend(KorAP.UnspecifiedDocElement);
+      var obj = Object.create(KorAP.JsonLD).upgradeTo(KorAP.UnspecifiedDoc);
       if (parent !== undefined)
 	obj._parent = parent;
       return obj;
@@ -189,12 +185,15 @@ var KorAP = KorAP || {};
   };
 
 
-  KorAP.DocElement = {
-    _obj : function () { return KorAP.DocElement; },
-    _objType : 'DocElement',
+  /**
+   * Virtual collection doc criterion.
+   */
+  KorAP.Doc = {
+    _ldType : "doc",
+    _obj : function () { return KorAP.Doc; },
 
     create : function (parent, json) {
-      var obj = KorAP.Doc.create().extend(KorAP.DocElement).fromJson(json);
+      var obj = Object(KorAP.JsonLD).create().upgradeTo(KorAP.Doc).fromJson(json);
       if (parent !== undefined)
 	obj._parent = parent;
       return obj;
@@ -233,10 +232,9 @@ var KorAP = KorAP || {};
       return e;
     },
 
-    // parent, element
     // Wrap a new operation around the doc element
     wrap : function (op) {
-      var group = KorAP.DocGroupElement.create(undefined);
+      var group = KorAP.DocGroup.create(undefined);
       group.appendOperand(this);
       group.appendOperand(null);
       this.parent(group);
@@ -249,246 +247,11 @@ var KorAP = KorAP || {};
       div.appendChild(this.element);
       return div;
 */
-    }
-  };
-
-  KorAP.DocGroupElement = {
-    _obj : function () { return KorAP.DocGroupElement; },
-    _objType : 'DocGroupElement',
-
-    create : function (parent, json) {
-      var obj = KorAP.DocGroup.create().extend(KorAP.DocGroupElement).fromJson(json);
-      if (parent !== undefined)
-	obj._parent = parent;
-      return obj;
     },
-    appendOperand : function (operand) {
-      switch (operand["@type"]) {
-      case undefined:
-	if (operand["objType"]) {
-	  if (operand.objType() === 'Doc') {
-	    operand = operand.upgrade(KorAP.DocElement);
-	  }
-	  else if (operand.objType() === 'DocGroup') {
-	    operand = operand.upgrade(KorAP.DocElementGroup);
-	  }
-	  else if (operand.objType() !== 'DocElement' &&
-		   operand.objType() !== 'DocElementGroup') {
-	    KorAP.log(812, "Operand not supported in document group");
-	    return;
-	  };
-	  this._operands.push(operand);
-	  return operand;
-	};
-
-	KorAP.log(701, "JSON-LD group has no @type attribute");
-	return;
-
-      case "korap:doc":
-	var doc = KorAP.DocElement.create().fromJson(operand);
-	if (doc === undefined)
-	  return;
-	this._operands.push(doc);
-	return doc;
-
-      case "korap:docGroup":
-	var docGroup = KorAP.DocGroupElement.create().fromJson(operand);
-	if (docGroup === undefined)
-	  return;
-	this._operands.push(docGroup);
-	return docGroup;
-
-      default:
-	KorAP.log(812, "Operand not supported in document group");
-	return;
-      };
-    },
-    element : function () {
-      if (this._element !== undefined)
-	return this._element;
-
-      this._element = document.createElement('div');
-      this._element.setAttribute('class', 'docGroup');
-      this._element.setAttribute('data-operation', this.operation());
-
-      for (var i in this.operands()) {
-	this._element.appendChild(
-	  this.getOperand(i).element()
-	);
-      };
-
-      return this._element;
-    },
-  };
-
-
-  // Abstract JsonLD object
-  KorAP.JsonLD = {
-    _obj : function () { return KorAP.JsonLD; },
-    _objType : 'JsonLD',
-    create : function () {
-      return Object.create(KorAP.JsonLD);
-    },
-
-    // Extend this object with another object
-    // Private data will be lost
-    extend : function (props) {
-      var jld = this._obj().create();
-      for (var prop in props) {
-	jld[prop] = props[prop];
-      };
-      return jld;
-    },
-
-    // Upgrade this object to another object
-    // Private data stays intact
-    upgrade : function (props) {
-      for (var prop in props) {
-	this[prop] = props[prop];
-      };
-      return this;
-    },
-    ldType : function (type) {
-      if (arguments.length === 1)
-	this._ldType = type;
-      return this._ldType;
-    },
-    objType : function () {
-      return this._objType;
-    },
-    parent : function (obj) {
-      if (arguments.length === 1)
-	this._parent = obj;
-      return this._parent;
-    }
-  };
-
-
-  KorAP.DocGroup = {
-    _ldType : "docGroup",
-    _obj : function () { return KorAP.DocGroup; },
-    _objType : 'DocGroup',
-    create : function (type) {
-      var docGroup = Object.create(KorAP.JsonLD).extend(KorAP.DocGroup);
-      if (type !== undefined)
-	docGroup.operation(type);
-      docGroup._operands = [];
-      return docGroup;
-    },
-
     // Deserialize from json
     fromJson : function (json) {
       if (json === undefined)
 	return this;
-
-      if (json["@type"] !== "korap:docGroup") {
-	KorAP.log(701, "JSON-LD group has no @type attribute");
-	return;
-      };
-
-      if (json["operation"] === undefined ||
-	  typeof json["operation"] !== 'string') {
-	KorAP.log(811, "Document group expects operation");
-	return;
-      };
-
-      var operation = json["operation"];
-
-      this.operation(operation.replace(/^operation:/,''));
-
-      if (json["operands"] === undefined ||
-	  !(json["operands"] instanceof Array)) {
-	KorAP.log(704, "Operation needs operand list")
-	return;
-      };
-
-      // Add all documents
-      for (var i in json["operands"]) {
-	var operand = json["operands"][i];
-	this.appendOperand(operand);
-      };
-    
-      return this;
-    },
-    operation : function (op) {
-      if (arguments.length === 1) {
-	if (KorAP._validGroupOpRE.test(op)) {
-	  this._op = op;
-	}
-	else {
-	  KorAP.log(810, "Unknown operation type");
-	  return;
-	};
-      };
-      return this._op || 'and';
-    },
-    operands : function () {
-      return this._operands;
-    },
-    appendOperand : function (operand) {
-      switch (operand["@type"]) {
-      case undefined:
-	if (operand["objType"] && (
-	  operand.objType() === 'Doc' ||
-	    operand.objType() === 'DocGroup')) {
-	  this._operands.push(operand);
-	  return operand;
-	};
-	KorAP.log(701, "JSON-LD group has no @type attribute");
-	return;
-
-      case "korap:doc":
-	var doc = KorAP.Doc.create().fromJson(operand);
-	if (doc === undefined)
-	  return;
-	this._operands.push(doc);
-	return doc;
-
-      case "korap:docGroup":
-	var docGroup = KorAP.DocGroup.create().fromJson(operand);
-	if (docGroup === undefined)
-	  return;
-	this._operands.push(docGroup);
-	return docGroup;
-
-      default:
-	KorAP.log(812, "Operand not supported in document group");
-	return;
-      };
-    },
-    getOperand : function (index) {
-      return this._operands[index];
-    },
-    toJson : function () {
-      var opArray = new Array();
-      for (var i in this._operands) {
-	opArray.push(this._operands[i].toJson());
-      };
-      return {
-	"@type"     : "korap:" + this.ldType(),
-	"operation" : "operation:" + this.operation(),
-	"operands"  : opArray
-      };
-    }
-  };
-
-  /**
-   * Virtual collection doc criterion.
-   */
-  KorAP.Doc = {
-    _ldType : "doc",
-    _obj : function () { return KorAP.Doc; },
-    _objType : 'Doc',
-    // Create new
-    create : function () {
-      return Object.create(KorAP.JsonLD).extend(KorAP.Doc);
-    },
-
-    // Deserialize from json
-    fromJson : function (json) {
-      if (json === undefined)
-	return this;
-      // return this.create();
 
       if (json["@type"] !== "korap:doc") {
 	KorAP.log(701, "JSON-LD group has no @type attribute");
@@ -620,4 +383,165 @@ var KorAP = KorAP || {};
       };
     }
   };
+
+  /**
+   * Virtual collection group criterion.
+   */
+  KorAP.DocGroup = {
+    _ldType : "docGroup",
+
+    create : function (parent, json) {
+      var obj = Object.create(KorAP.JsonLD).upgradeTo(KorAP.DocGroup);
+      obj._operands = [];
+      obj.fromJson(json);
+      if (parent !== undefined)
+	obj._parent = parent;
+      return obj;
+    },
+    appendOperand : function (operand) {
+      switch (operand["@type"]) {
+      case undefined:
+	if (operand["ldType"] !== undefined) {
+	  if (operand.ldType() !== 'doc' &&
+		   operand.ldType() !== 'docGroup') {
+	    KorAP.log(812, "Operand not supported in document group");
+	    return;
+	  };
+	  this._operands.push(operand);
+	  return operand;
+	};
+
+	KorAP.log(701, "JSON-LD group has no @type attribute");
+	return;
+
+      case "korap:doc":
+	var doc = KorAP.Doc.create().fromJson(operand);
+	if (doc === undefined)
+	  return;
+	this._operands.push(doc);
+	return doc;
+
+      case "korap:docGroup":
+	var docGroup = KorAP.DocGroup.create().fromJson(operand);
+	if (docGroup === undefined)
+	  return;
+	this._operands.push(docGroup);
+	return docGroup;
+
+      default:
+	KorAP.log(812, "Operand not supported in document group");
+	return;
+      };
+    },
+    element : function () {
+      if (this._element !== undefined)
+	return this._element;
+
+      this._element = document.createElement('div');
+      this._element.setAttribute('class', 'docGroup');
+      this._element.setAttribute('data-operation', this.operation());
+
+      for (var i in this.operands()) {
+	this._element.appendChild(
+	  this.getOperand(i).element()
+	);
+      };
+
+      return this._element;
+    },
+    operation : function (op) {
+      if (arguments.length === 1) {
+	if (KorAP._validGroupOpRE.test(op)) {
+	  this._op = op;
+	}
+	else {
+	  KorAP.log(810, "Unknown operation type");
+	  return;
+	};
+      };
+      return this._op || 'and';
+    },
+    operands : function () {
+      return this._operands;
+    },
+    getOperand : function (index) {
+      return this._operands[index];
+    },
+
+    // Deserialize from json
+    fromJson : function (json) {
+      if (json === undefined)
+	return this;
+
+      if (json["@type"] !== "korap:docGroup") {
+	KorAP.log(701, "JSON-LD group has no @type attribute");
+	return;
+      };
+
+      if (json["operation"] === undefined ||
+	  typeof json["operation"] !== 'string') {
+	KorAP.log(811, "Document group expects operation");
+	return;
+      };
+
+      var operation = json["operation"];
+
+      this.operation(operation.replace(/^operation:/,''));
+
+      if (json["operands"] === undefined ||
+	  !(json["operands"] instanceof Array)) {
+	KorAP.log(704, "Operation needs operand list")
+	return;
+      };
+
+      // Add all documents
+      for (var i in json["operands"]) {
+	var operand = json["operands"][i];
+	this.appendOperand(operand);
+      };
+    
+      return this;
+    },
+    toJson : function () {
+      var opArray = new Array();
+      for (var i in this._operands) {
+	opArray.push(this._operands[i].toJson());
+      };
+      return {
+	"@type"     : "korap:" + this.ldType(),
+	"operation" : "operation:" + this.operation(),
+	"operands"  : opArray
+      };
+    }
+  };
+
+
+  // Abstract JsonLD object
+  KorAP.JsonLD = {
+    create : function () {
+      return Object.create(KorAP.JsonLD);
+    },
+
+    /**
+     * Upgrade this object to another object
+     * while private data stays intact
+     */
+    upgradeTo : function (props) {
+      for (var prop in props) {
+	this[prop] = props[prop];
+      };
+      return this;
+    },
+    ldType : function (type) {
+      if (arguments.length === 1)
+	this._ldType = type;
+      return this._ldType;
+    },
+    parent : function (obj) {
+      if (arguments.length === 1)
+	this._parent = obj;
+      return this._parent;
+    }
+  };
+ 
 }(this.KorAP));

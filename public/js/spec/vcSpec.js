@@ -258,14 +258,15 @@ describe('KorAP.DocGroup', function () {
       ]
     });
 
-  it('should be initializable', function () {
 
+  it('should be initializable', function () {
     // Create empty group
     var docGroup = KorAP.DocGroup.create();
     expect(docGroup.operation()).toEqual('and');
 
     // Create empty group
-    docGroup = KorAP.DocGroup.create('or');
+    docGroup = KorAP.DocGroup.create();
+    docGroup.operation('or');
     expect(docGroup.operation()).toEqual('or');
   });
 
@@ -302,7 +303,8 @@ describe('KorAP.DocGroup', function () {
     expect(op2.matchop()).toEqual("eq");
 
     // Create empty group
-    var newGroup = docGroup.appendOperand(KorAP.DocGroup.create("or"));
+    var newGroup = docGroup.appendOperand(KorAP.DocGroup.create());
+    newGroup.operation('or');
     newGroup.appendOperand(docFactory.create());
     newGroup.appendOperand(docFactory.create({
       "type" : "type:regex",
@@ -373,9 +375,9 @@ describe('KorAP.DocGroup', function () {
   });
 });
 
-describe('KorAP.DocElement', function () {
+describe('KorAP.Doc element', function () {
   it('should be initializable', function () {
-    var docElement = KorAP.DocElement.create(undefined, {
+    var docElement = KorAP.Doc.create(undefined, {
       "@type" : "korap:doc",
       "key":"Titel",
       "value":"Baum",
@@ -401,10 +403,10 @@ describe('KorAP.DocElement', function () {
   });
 });
 
-describe('KorAP.DocGroupElement', function () {
+describe('KorAP.DocGroup element', function () {
   it('should be initializable', function () {
 
-    var docGroupElement = KorAP.DocGroupElement.create(undefined, {
+    var docGroup = KorAP.DocGroup.create(undefined, {
       "@type" : "korap:docGroup",
       "operation" : "operation:and",
       "operands" : [
@@ -425,8 +427,8 @@ describe('KorAP.DocGroupElement', function () {
       ]
     });
 
-    expect(docGroupElement.operation()).toEqual('and');
-    var e = docGroupElement.element();
+    expect(docGroup.operation()).toEqual('and');
+    var e = docGroup.element();
     expect(e.getAttribute('class')).toEqual('docGroup');
     expect(e.getAttribute('data-operation')).toEqual('and');
 
@@ -453,7 +455,7 @@ describe('KorAP.DocGroupElement', function () {
   });
 
   it('should be deserializable with nested groups', function () {
-    var docGroupElement = KorAP.DocGroupElement.create(undefined, {
+    var docGroup = KorAP.DocGroup.create(undefined, {
       "@type" : "korap:docGroup",
       "operation" : "operation:or",
       "operands" : [
@@ -487,8 +489,8 @@ describe('KorAP.DocGroupElement', function () {
       ]
     });
 
-    expect(docGroupElement.operation()).toEqual('or');
-    var e = docGroupElement.element();
+    expect(docGroup.operation()).toEqual('or');
+    var e = docGroup.element();
     expect(e.getAttribute('class')).toEqual('docGroup');
     expect(e.getAttribute('data-operation')).toEqual('or');
 
