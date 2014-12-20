@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+/*
+ sidebar: #496000
+ orange: #f4eebb
+*/
+
+body {
+  background-color: #7ba400;
+  color: white;
+  font-family: tahoma, verdana, arial;
+}
+
+.vc span + span {
+  margin-left: 5pt;
+}
+
+.vc .docGroup {
+  position: relative;
+  background-color: #7ba400;
+  color: white;
+  margin-left: 2em;
+  display: inline-block;
+  border-radius: 10px;
+  border-width: 0 3px 0 3px;
+  border-style: solid;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.vc .operators {
+  opacity: 0;
+  white-space: nowrap;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.vc .operators > span,
+.vc .docGroup::before {
+  font-size: 9pt;
+  line-height: 1.3em;
+}
+
+.vc .operators > span {
+  padding: 0 4px;
+  display: inline-block;
+}
+
+.vc .operators > span.and {
+  background-color: white;
+  color: #7ba400;
+}
+
+.vc .operators > span.or {
+  background-color: #ffa500;
+  color: white;
+}
+
+.vc .operators > span.delete {
+  background-color: red;
+  border-radius: inherit;
+  color: white;
+}
+
+.vc .docGroup[data-operation=and]::before,
+.vc .docGroup[data-operation=and] .operators {
+  background-color: white;
+}
+
+.vc .docGroup[data-operation=or] {
+  border-color: #ffa500;
+}
+
+.vc .docGroup[data-operation=or]::before,
+.vc .docGroup[data-operation=or] .operators {
+  border-color: #ffa500;
+  background-color: #ffa500;
+  color: white;
+}
+
+.vc .docGroup::before,
+.vc .operators {
+  color: #7ba400;
+  border-color: white;
+  text-align: center;
+  font-weight: bold;
+  border-style: solid;
+}
+
+.vc .docGroup::before,
+.vc .docGroup > .operators {
+  position: absolute;
+  display: block;
+  top: 10px;
+  vertical-align: middle;
+}
+
+
+
+.vc .docGroup::before {
+  width: 3em;
+  /* width */
+  left: -3em;
+  /* border sizes (own and reals) */
+  margin-left: -5px;
+  border-width: 2px 0 2px 2px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+
+.vc .docGroup[data-operation=and]::before {
+  content: "und";
+}
+
+.vc .docGroup[data-operation=or]::before {
+  content: "oder";
+}
+
+.vc .doc > .operators {
+  display: inline-block;
+  border-width: 2px 2px 2px 2px;
+  border-radius: 7px;
+}
+
+.vc .docGroup > .operators {
+  left: 3px;
+  border-width: 2px 2px 2px 0;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  margin-left: 100%;
+}
+
+.vc .docGroup:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+.vc .docGroup:hover > .operators,
+.vc .doc:hover > .operators {
+  opacity: 1;
+}

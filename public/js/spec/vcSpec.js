@@ -303,10 +303,10 @@ describe('KorAP.DocGroup', function () {
     expect(op2.matchop()).toEqual("eq");
 
     // Create empty group
-    var newGroup = docGroup.appendOperand(KorAP.DocGroup.create());
+    var newGroup = docGroup.append(KorAP.DocGroup.create());
     newGroup.operation('or');
-    newGroup.appendOperand(docFactory.create());
-    newGroup.appendOperand(docFactory.create({
+    newGroup.append(docFactory.create());
+    newGroup.append(docFactory.create({
       "type" : "type:regex",
       "key" : "title",
       "value" : "^e.+?$",
@@ -372,6 +372,44 @@ describe('KorAP.DocGroup', function () {
 	}
       ]
     }));
+  });
+});
+
+describe('KorAP.UnspecifiedDoc', function () {
+  it('should be initializable', function () {
+    var docElement = KorAP.UnspecifiedDoc.create().element();
+    expect(docElement.getAttribute('class')).toEqual('unspecified');
+    expect(docElement.firstChild.firstChild.data).toEqual('⋯');
+    expect(docElement.lastChild.getAttribute('class')).toEqual('operators');
+
+    // Not removable
+    expect(docElement.lastChild.children.length).toEqual(0);
+  });
+
+  it('should be removable, when no root', function () {
+    var docGroup = KorAP.DocGroup.create();
+    docGroup.operation('or');
+    expect(docGroup.operation()).toEqual('or');
+
+    docGroup.append({
+      "@type": 'korap:doc',
+      "key": 'pubDate',
+      "match": 'match:eq',
+      "value": '2014-12-05',
+      "type": 'type:date'      
+    });
+
+    expect(docGroup.element().getAttribute('class')).toEqual('docGroup');
+    expect(docGroup.element().children[0].getAttribute('class')).toEqual('doc');
+
+    // Add unspecified object
+    docGroup.append();
+    var unspec = docGroup.element().children[1];
+    expect(unspec.getAttribute('class')).toEqual('unspecified');
+
+    // Removable
+    expect(unspec.lastChild.children.length).toEqual(1);
+    expect(unspec.lastChild.children[0].getAttribute('class')).toEqual('delete');
   });
 });
 
@@ -494,6 +532,27 @@ describe('KorAP.DocGroup element', function () {
     expect(e.getAttribute('class')).toEqual('docGroup');
     expect(e.getAttribute('data-operation')).toEqual('or');
 
+    expect(e.children[0].getAttribute('class')).toEqual('doc');
+    var docop = e.children[0].lastChild;
+    expect(docop.getAttribute('class')).toEqual('operators');
+    expect(docop.children[0].getAttribute('class')).toEqual('and');
+    expect(docop.children[1].getAttribute('class')).toEqual('or');
+    expect(docop.children[2].getAttribute('class')).toEqual('delete');
+
+    expect(e.children[1].getAttribute('class')).toEqual('docGroup');
+    expect(e.children[1].getAttribute('data-operation')).toEqual('and');
+
+    // This and-operation can be "or"ed or "delete"d
+    var secop = e.children[1].children[2];
+    expect(secop.getAttribute('class')).toEqual('operators');
+    expect(secop.children[0].getAttribute('class')).toEqual('or');
+    expect(secop.children[1].getAttribute('class')).toEqual('delete');
+
+    // This or-operation can be "and"ed or "delete"d
+    expect(e.children[2].getAttribute('class')).toEqual('operators');
+    expect(e.lastChild.getAttribute('class')).toEqual('operators');
+    expect(e.lastChild.children[0].getAttribute('class')).toEqual('and');
+    expect(e.lastChild.children[1].getAttribute('class')).toEqual('delete');
 
   });
 });
@@ -502,7 +561,10 @@ describe('KorAP.VirtualCollection', function () {
   it('should be initializable', function () {
     var vc = KorAP.VirtualCollection.render();
     expect(vc.element().getAttribute('class')).toEqual('vc');
-    expect(vc.root().element().getAttribute('class')).toEqual('undefined');
+    expect(vc.root().element().getAttribute('class')).toEqual('unspecified');
+
+    // Not removable
+    expect(vc.root().element().lastChild.children.length).toEqual(0);
   });
 
   it('should be based on a doc', function () {
@@ -566,8 +628,50 @@ describe('KorAP.VirtualCollection', function () {
     expect(second.matchop()).toEqual('eq');
   });
 
-  xit('should be based on a nested docGroup', function () {
-  });
+  it('should be based on a nested docGroup', function () {
+    var vc = KorAP.VirtualCollection.render({
+      "@type" : "korap:docGroup",
+      "operation" : "operation:or",
+      "operands" : [
+	{
+	  "@type": 'korap:doc',
+	  "key" : 'author',
+	  "match": 'match:eq',
+	  "value": 'Max Birkendale',
+	  "type": 'type:string'
+	},
+	{
+	  "@type" : "korap:docGroup",
+	  "operation" : "operation:and",
+	  "operands" : [
+	    {
+	      "@type": 'korap:doc',
+	      "key": 'pubDate',
+	      "match": 'match:geq',
+	      "value": '2014-05-12',
+	      "type": 'type:date'
+	    },
+	    {
+	      "@type": 'korap:doc',
+	      "key": 'pubDate',
+	      "match": 'match:leq',
+	      "value": '2014-12-05',
+	      "type": 'type:date'
+	    }
+	  ]
+	}
+      ]
+    });
+    expect(vc.element().getAttribute('class')).toEqual('vc');
+    expect(vc.element().firstChild.getAttribute('class')).toEqual('docGroup');
+    expect(vc.element().firstChild.children[0].getAttribute('class')).toEqual('doc');
+    var dg = vc.element().firstChild.children[1];
+    expect(dg.getAttribute('class')).toEqual('docGroup');
+    expect(dg.children[0].getAttribute('class')).toEqual('doc');
+    expect(dg.children[1].getAttribute('class')).toEqual('doc');
+    expect(dg.children[2].getAttribute('class')).toEqual('operators');
+    expect(vc.element().firstChild.children[2].getAttribute('class')).toEqual('operators');
+  });    
 });
 
 describe('KorAP.Operators', function () {

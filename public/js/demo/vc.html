@@ -2,30 +2,13 @@
 <html>
   <head>
     <title>Virtual Collection demo</title>
+    <meta charset="utf-8" />
     <script src="../src/vc.js"></script>
-    <style>
-div {
-  padding: 2pt;
-  padding-left: 10pt;
-  border: 2px solid black;
-}
-
-span {
-  margin: 2pt;
-  padding: 2pt;
-  color: white;
-  background-color: green;
-}
-
-div.undefined {
-  background-color: red;
-  height: 12pt;
-  min-width: 100px;
-}
-    </style>
+    <link href="../../css/vc.css" rel="stylesheet" type="text/css"></link>
   </head>
   <body>
     <div id="vc"></div>
+
     <script>
     var json = {
       "@type":"korap:docGroup",
@@ -57,11 +40,8 @@ div.undefined {
         }
       ]
     };
-
-//      var vc = KorAP.VirtualCollection.render();
-      var vc = KorAP.VirtualCollection.render(json);
-      console.log(vc);
-      document.getElementById('vc').appendChild(vc.element());
+    var vc = KorAP.VirtualCollection.render(json);
+    document.getElementById('vc').appendChild(vc.element());
     </script>
   </body>
 </html>
