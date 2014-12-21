@@ -1,3 +1,8 @@
+0.09 2014-12-21
+        - Added new API module
+	- Fixed time_exceeded bug
+	- Fixed test_port bug for inspection button
+
 0.08 2014-11-19
         - Added new suggestion module
 

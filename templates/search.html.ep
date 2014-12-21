@@ -9,7 +9,7 @@
 % my $found = search->total_results;
 % if ($found == -1) {
 %   $found = 'unknown amount of';
-% } elsif (search->timeExceeded) {
+% } elsif (search->time_exceeded) {
 %   $found = 'more than ' . $found;
 % }; 
     <span id="total-results"><%= $found %> matches</span>
