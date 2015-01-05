@@ -29,6 +29,24 @@
               "key":"Veröffentlichungsort",
               "value":"hihi",
               "match":"match:eq"
+            },
+            {
+              "@type":"korap:docGroup",
+              "operation":"operation:or",
+              "operands":[
+                {
+                  "@type":"korap:doc",
+                  "key":"Titel",
+                  "value":"Baum",
+                  "match":"match:eq"
+                },
+                {
+                  "@type":"korap:doc",
+                  "key":"Veröffentlichungsort",
+                  "value":"hihi",
+                  "match":"match:eq"
+                }
+              ]
             }
           ]
         },

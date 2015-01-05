@@ -96,6 +96,20 @@ var KorAP = KorAP || {};
     }
   };
 
+  KorAP._or = function (e) {
+    var obj = this.parentNode.refTo;
+  };
+
+  KorAP._and = function (e) {
+    var obj = this.parentNode.refTo;
+  };
+
+  KorAP._delete = function (e) {
+    var obj = this.parentNode.refTo;
+    obj.parent().delOperand(obj);
+    // Todo: CLEAR ALL THE THINGS!
+  };
+
   /**
    * Operators for criteria
    */
@@ -115,6 +129,8 @@ var KorAP = KorAP || {};
 
       var op = this._element;
 
+      op.refTo = this.parent();
+
       // Remove everything underneath
       _removeChildren(op);
 
@@ -122,6 +138,7 @@ var KorAP = KorAP || {};
       if (this._and === true) {
 	var andE = document.createElement('span');
 	andE.setAttribute('class', 'and');
+	andE.addEventListener('click', KorAP._and, false);
 	andE.appendChild(document.createTextNode(KorAP.Locale.AND));
 	op.appendChild(andE);
       };
@@ -130,6 +147,7 @@ var KorAP = KorAP || {};
       if (this._or === true) {
 	var orE = document.createElement('span');
 	orE.setAttribute('class', 'or');
+	orE.addEventListener('click', KorAP._or, false);
 	orE.appendChild(document.createTextNode(KorAP.Locale.OR));
 	op.appendChild(orE);
       };
@@ -139,10 +157,18 @@ var KorAP = KorAP || {};
 	var delE = document.createElement('span');
 	delE.setAttribute('class', 'delete');
 	delE.appendChild(document.createTextNode(KorAP.Locale.DEL));
+	delE.addEventListener('click', KorAP._delete, false);
 	op.appendChild(delE);
       };
 
       return op;
+    },
+
+    // Be aware! This may be cyclic
+    parent : function (obj) {
+      if (arguments.length === 1)
+	this._parent = obj;
+      return this._parent;
     },
     element : function () {
 
@@ -207,7 +233,6 @@ var KorAP = KorAP || {};
       this._element.appendChild(
 	op.element()
       );
-
 
       return this.element();
     },
@@ -564,6 +589,21 @@ var KorAP = KorAP || {};
       return this._operands[index];
     },
 
+    // Delete operand from group
+    delOperand : function (obj) {
+      for (var i in this._operands) {
+	if (this._operands[i] === obj) {
+	  this._operands.splice(i,1);
+
+	  // Todo: Update has to check
+	  // that this may mean the group is empty etc.
+	  this.update();
+	  return true;
+	};
+      };
+      return false;
+    },
+
     // Deserialize from json
     fromJson : function (json) {
       if (json === undefined)
@@ -638,12 +678,15 @@ var KorAP = KorAP || {};
 	this._parent = obj;
       return this._parent;
     },
+
+    // Be aware! This may be cyclic
     operators : function (and, or, del) {
       if (arguments === 0)
 	return this._ops;
       this._ops = KorAP.Operators.create(
 	and, or, del
       );
+      this._ops.parent(this);
       return this._ops;
     },
     toJson : function () {

@@ -631,7 +631,46 @@ describe('KorAP.VirtualCollection', function () {
   it('should be based on a nested docGroup', function () {
     var vc = KorAP.VirtualCollection.render({
       "@type" : "korap:docGroup",
-      "operation" : "operation:or",
+      "operation" : "operation:and",
+      "operands" : [
+	{
+	  "@type": 'korap:doc',
+	  "key": 'pubDate',
+	  "match": 'match:geq',
+	  "value": '2014-05-12',
+	  "type": 'type:date'
+	},
+	{
+	  "@type": 'korap:doc',
+	  "key": 'pubDate',
+	  "match": 'match:leq',
+	  "value": '2014-12-05',
+	  "type": 'type:date'
+	},
+	{
+	  "@type": 'korap:doc',
+	  "key": 'foo',
+	  "match": 'match:eq',
+	  "value": 'bar',
+	  "type": 'type:string'
+	}
+      ]
+    });
+
+    var docGroup = vc.root();
+    var doc = docGroup.getOperand(1);
+    expect(doc.key()).toEqual("pubDate");
+    expect(docGroup.delOperand(doc)).toEqual(true);
+    doc = docGroup.getOperand(1);
+    expect(doc.key()).toEqual("foo");
+  });    
+
+  it('should be modifiable', function () {
+    var vc = KorAP.VirtualCollection.render();
+
+    var vc = KorAP.VirtualCollection.render({
+      "@type" : "korap:docGroup",
+      "operation" : "operation:and",
       "operands" : [
 	{
 	  "@type": 'korap:doc',
@@ -641,37 +680,19 @@ describe('KorAP.VirtualCollection', function () {
 	  "type": 'type:string'
 	},
 	{
-	  "@type" : "korap:docGroup",
-	  "operation" : "operation:and",
-	  "operands" : [
-	    {
-	      "@type": 'korap:doc',
-	      "key": 'pubDate',
-	      "match": 'match:geq',
-	      "value": '2014-05-12',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type": 'korap:doc',
-	      "key": 'pubDate',
-	      "match": 'match:leq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    }
-	  ]
+	  "@type": 'korap:doc',
+	  "key": 'pubDate',
+	  "match": 'match:eq',
+	  "value": '2014-12-05',
+	  "type": 'type:date'
 	}
       ]
     });
+
     expect(vc.element().getAttribute('class')).toEqual('vc');
-    expect(vc.element().firstChild.getAttribute('class')).toEqual('docGroup');
-    expect(vc.element().firstChild.children[0].getAttribute('class')).toEqual('doc');
-    var dg = vc.element().firstChild.children[1];
-    expect(dg.getAttribute('class')).toEqual('docGroup');
-    expect(dg.children[0].getAttribute('class')).toEqual('doc');
-    expect(dg.children[1].getAttribute('class')).toEqual('doc');
-    expect(dg.children[2].getAttribute('class')).toEqual('operators');
-    expect(vc.element().firstChild.children[2].getAttribute('class')).toEqual('operators');
-  });    
+    expect(vc.root().element().getAttribute('class')).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('and');
+  });
 });
 
 describe('KorAP.Operators', function () {

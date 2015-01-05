@@ -9,9 +9,10 @@ body {
   background-color: #7ba400;
   color: white;
   font-family: tahoma, verdana, arial;
+  font-size: 10pt;
 }
 
-.vc span + span {
+.vc .doc > span + span {
   margin-left: 5pt;
 }
 
@@ -19,13 +20,18 @@ body {
   position: relative;
   background-color: #7ba400;
   color: white;
-  margin-left: 2em;
   display: inline-block;
   border-radius: 10px;
-  border-width: 0 3px 0 3px;
   border-style: solid;
-  padding-left: 10px;
-  padding-right: 10px;
+
+  /* See margin-left in docGroup::before */
+  margin-left: 2.8em;
+  border-width: 0 3px 0 3px;
+  padding: .6em .5em;
+}
+
+.vc > .docGroup {
+  margin-left: 0;
 }
 
 .vc .operators {
@@ -36,13 +42,10 @@ body {
   line-height: 0;
 }
 
-.vc .operators > span,
-.vc .docGroup::before {
+.vc .operators > span {
+  cursor: pointer;
   font-size: 9pt;
   line-height: 1.3em;
-}
-
-.vc .operators > span {
   padding: 0 4px;
   display: inline-block;
 }
@@ -50,6 +53,12 @@ body {
 .vc .operators > span.and {
   background-color: white;
   color: #7ba400;
+}
+
+.vc .doc > .operators > span.and {
+  border-radius: inherit;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .vc .operators > span.or {
@@ -63,23 +72,101 @@ body {
   color: white;
 }
 
+.vc .doc > .operators > span.delete {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.vc .doc > .operators {
+  margin-left: 10px;
+}
+
+.vc .docGroup[data-operation=or] > .doc::before,
+.vc .docGroup[data-operation=or] > .docGroup::before {
+  content: "oder";
+}
+
+.vc .docGroup[data-operation=and] > .doc::before,
+.vc .docGroup[data-operation=and] > .docGroup::before {
+  content: "und";
+}
+
+.vc .docGroup[data-operation] > .doc:first-child::before,
+.vc .docGroup[data-operation] > .docGroup:first-child::before {
+  content: '';
+}
+
+.vc .docGroup[data-operation] > .doc::before,
+.vc .docGroup[data-operation] > .docGroup::before {
+  display: inline-block;
+  text-align: right;
+  width: 2.2em;
+}
+
+
+.vc .docGroup[data-operation] > .doc::before {
+  padding-right: 1.2em;
+}
+
+.vc .docGroup[data-operation] > .docGroup::before {
+  position: absolute;
+}
+
+.vc .docGroup[data-operation] > .doc::before {
+  margin-right: .1em;
+}
+
+.vc .docGroup > .docGroup::before {
+  margin-left: -3.4em;
+}
+
+/*
 .vc .docGroup[data-operation=and]::before,
 .vc .docGroup[data-operation=and] .operators {
   background-color: white;
+}
+*/
+
+.vc .docGroup[data-operation] > .doc::before,
+.vc .docGroup[data-operation] > .docGroup::before {
+  color: #496000;
 }
 
 .vc .docGroup[data-operation=or] {
   border-color: #ffa500;
 }
 
-.vc .docGroup[data-operation=or]::before,
-.vc .docGroup[data-operation=or] .operators {
+.vc .docGroup[data-operation=or] > .operators {
   border-color: #ffa500;
   background-color: #ffa500;
   color: white;
 }
 
-.vc .docGroup::before,
+.docGroup > .operators {
+  z-index: 30;
+}
+
+.docGroup .docGroup > .operators {
+  z-index: 31;
+}
+
+.docGroup .docGroup .docGroup > .operators {
+  z-index: 32;
+}
+
+.docGroup .docGroup .docGroup .docGroup > .operators {
+  z-index: 33;
+}
+
+.docGroup .docGroup .docGroup .docGroup .docGroup > .operators {
+  z-index: 34;
+}
+
+.vc .doc > span.key,
+.vc .doc > span.value {
+  font-weight: bold;
+}
+
 .vc .operators {
   color: #7ba400;
   border-color: white;
@@ -88,7 +175,6 @@ body {
   border-style: solid;
 }
 
-.vc .docGroup::before,
 .vc .docGroup > .operators {
   position: absolute;
   display: block;
@@ -96,29 +182,9 @@ body {
   vertical-align: middle;
 }
 
-
-
-.vc .docGroup::before {
-  width: 3em;
-  /* width */
-  left: -3em;
-  /* border sizes (own and reals) */
-  margin-left: -5px;
-  border-width: 2px 0 2px 2px;
-  border-top-left-radius: 7px;
-  border-bottom-left-radius: 7px;
-}
-
-.vc .docGroup[data-operation=and]::before {
-  content: "und";
-}
-
-.vc .docGroup[data-operation=or]::before {
-  content: "oder";
-}
-
 .vc .doc > .operators {
   display: inline-block;
+  border-color: #ffa500;
   border-width: 2px 2px 2px 2px;
   border-radius: 7px;
 }
@@ -129,6 +195,7 @@ body {
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
   margin-left: 100%;
+  padding: 0;
 }
 
 .vc .docGroup:hover {
