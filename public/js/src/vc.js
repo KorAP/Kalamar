@@ -170,6 +170,7 @@ var KorAP = KorAP || {};
 	this._parent = obj;
       return this._parent;
     },
+
     element : function () {
 
       // Return existing element
@@ -262,6 +263,7 @@ var KorAP = KorAP || {};
 	obj._parent = parent;
       return obj;
     },
+
     update : function () {
       if (this._element === undefined)
 	return this.element();
@@ -531,17 +533,26 @@ var KorAP = KorAP || {};
       };
     },
     update : function () {
+      if (this._operands.length == 1) {
+	if (this.parent() !== undefined) {
+	  return this.parent().replaceOperand(
+	    this,
+	    this.getOperand(0)
+	  );
+	};
+      };
+
       if (this._element === undefined)
-	return this.element();
+	return this;
 
-      var op = this._element;
-      op.setAttribute('data-operation', this.operation());
+      var group = this._element;
+      group.setAttribute('data-operation', this.operation());
 
-      _removeChildren(op);
+      _removeChildren(group);
 
       // Append operands
-      for (var i in this.operands()) {
-	op.appendChild(
+      for (var i in this._operands) {
+	group.appendChild(
 	  this.getOperand(i).element()
 	);
       };
@@ -553,11 +564,11 @@ var KorAP = KorAP || {};
 	true
       );
 
-      this._element.appendChild(
+      group.appendChild(
 	op.element()
       );
 
-      return op;
+      return this;
     },
     element : function () {
       if (this._element !== undefined)
@@ -589,19 +600,35 @@ var KorAP = KorAP || {};
       return this._operands[index];
     },
 
+    // Replace operand
+    replaceOperand : function (group, obj) {
+      for (var i in this._operands) {
+	if (this._operands[i] === group) {
+	  this._operands[i] = obj;
+	  group.destroy();
+	  return this.update();
+	}
+      };
+      return false;
+    },
+
     // Delete operand from group
     delOperand : function (obj) {
       for (var i in this._operands) {
 	if (this._operands[i] === obj) {
 	  this._operands.splice(i,1);
 
+	  // Destroy object for cyclic references
+	  obj.destroy();
+
 	  // Todo: Update has to check
 	  // that this may mean the group is empty etc.
-	  this.update();
-	  return true;
+	  return this.update();
 	};
       };
-      return false;
+
+      // Operand not found
+      return undefined;
     },
 
     // Deserialize from json
@@ -677,6 +704,26 @@ var KorAP = KorAP || {};
       if (arguments.length === 1)
 	this._parent = obj;
       return this._parent;
+    },
+
+    // Destroy object - especially for
+    // acyclic structures!
+    // I'm a paranoid chicken!
+    destroy : function () {
+      if (this._ops != undefined) {
+	this._ops._parent = undefined;
+	if (this._ops._element !== undefined)
+	  this._ops._element.refTo = undefined;
+	this._ops = undefined;
+      };
+      if (this._element !== undefined)
+	this._element = undefined;
+
+      // In case of a group, destroy all operands
+      if (this._operands !== undefined) {
+	for (var i in this._operands)
+	  this.getOperand(i).destroy();
+      };
     },
 
     // Be aware! This may be cyclic

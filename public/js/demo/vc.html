@@ -60,6 +60,14 @@
     };
     var vc = KorAP.VirtualCollection.render(json);
     document.getElementById('vc').appendChild(vc.element());
+
+    function showJSON() {
+      document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
+    };
+
     </script>
+
+    <p><a onclick="showJSON()" style="cursor:pointer">show JSON!</a></p>
+    <div id="json" style="background-color:white; color: black; padding: 1em; font-family: mono;"></div>
   </body>
 </html>
