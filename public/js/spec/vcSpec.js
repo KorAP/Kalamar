@@ -9,7 +9,10 @@ buildFactory = function (objClass, defaults) {
       for (var prop in overwrites) {
 	newObj[prop] = overwrites[prop];
       };
-      return objClass.create().fromJson(newObj);
+      if (objClass === KorAP.VirtualCollection)
+	return objClass.render(newObj);
+      else
+	return objClass.create().fromJson(newObj);
     }
   }
 };
@@ -172,7 +175,7 @@ describe('KorAP.Doc', function () {
     expect(doc).toBeUndefined();
   });
 
-  it('should be serializale', function () {
+  it('should be serializale to JSON', function () {
 
     // Empty doc
     var doc = KorAP.Doc.create();
@@ -228,6 +231,38 @@ describe('KorAP.Doc', function () {
       "match" : "match:eq",
       "key" : 'pubDate'
     }));
+  });
+
+  it('should be serializale to String', function () {
+
+    // Empty doc
+    var doc = KorAP.Doc.create();
+    expect(doc.toString()).toEqual("");
+
+    // Serialize string
+    doc = stringFactory.create();
+    expect(doc.toString()).toEqual('author = "Max Birkendale"');
+
+    // Serialize string with quotes
+    doc = stringFactory.create({ "value" : 'Max "Der Coole" Birkendate'});
+    expect(doc.toString()).toEqual('author = "Max \\"Der Coole\\" Birkendate"');
+
+    // Serialize regex
+    doc = regexFactory.create();
+    expect(doc.toString()).toEqual('title = /[^b]ee.+?/');
+
+    doc = regexFactory.create({
+      match: "match:ne"
+    });
+    expect(doc.toString()).toEqual('title != /[^b]ee.+?/');
+
+    doc = dateFactory.create();
+    expect(doc.toString()).toEqual('pubDate in 2014-11-05');
+
+    doc = dateFactory.create({
+      value : "2014"
+    });
+    expect(doc.toString()).toEqual('pubDate in 2014');
   });
 });
 
@@ -302,7 +337,7 @@ describe('KorAP.DocGroup', function () {
     expect(op2.value()).toEqual("2014-12-05");
     expect(op2.matchop()).toEqual("eq");
 
-    // Create empty group
+    // Append empty group
     var newGroup = docGroup.append(KorAP.DocGroup.create());
     newGroup.operation('or');
     newGroup.append(docFactory.create());
@@ -349,7 +384,7 @@ describe('KorAP.DocGroup', function () {
     expect(op5.matchop()).toEqual("ne");
   });
 
-  it('should be serializable', function () {
+  it('should be serializable to JSON', function () {
     var docGroup = docGroupFactory.create();
 
     expect(docGroup.toJson()).toEqual(jasmine.objectContaining({
@@ -372,6 +407,55 @@ describe('KorAP.DocGroup', function () {
 	}
       ]
     }));
+  });
+
+  it('should be serializable to String', function () {
+    var docGroup = docGroupFactory.create();
+    expect(docGroup.toString()).toEqual('author = "Max Birkendale" & pubDate in 2014-12-05');
+
+    docGroup = docGroupFactory.create({
+      "@type" : "korap:docGroup",
+      "operation" : "operation:or",
+      "operands" : [
+	{
+	  "@type": 'korap:doc',
+	  "key" : 'author',
+	  "match": 'match:eq',
+	  "value": 'Max Birkendale',
+	  "type": 'type:string'
+	},
+	{
+	  "@type" : "korap:docGroup",
+	  "operation" : "operation:and",
+	  "operands" : [
+	    {
+	      "@type": 'korap:doc',
+	      "key": 'pubDate',
+	      "match": 'match:geq',
+	      "value": '2014-05-12',
+	      "type": 'type:date'
+	    },
+	    {
+	      "@type": 'korap:doc',
+	      "key": 'pubDate',
+	      "match": 'match:leq',
+	      "value": '2014-12-05',
+	      "type": 'type:date'
+	    },
+	    {
+	      "@type": 'korap:doc',
+	      "key": 'foo',
+	      "match": 'match:ne',
+	      "value": '[a]?bar',
+	      "type": 'type:regex'
+	    }
+	  ]
+	}
+      ]
+    });
+    expect(docGroup.toString()).toEqual(
+      'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05 & foo != /[a]?bar/)'
+    );
   });
 });
 
@@ -399,11 +483,12 @@ describe('KorAP.UnspecifiedDoc', function () {
       "type": 'type:date'      
     });
 
+    // Add unspecified object
+    docGroup.append();
+
     expect(docGroup.element().getAttribute('class')).toEqual('docGroup');
     expect(docGroup.element().children[0].getAttribute('class')).toEqual('doc');
 
-    // Add unspecified object
-    docGroup.append();
     var unspec = docGroup.element().children[1];
     expect(unspec.getAttribute('class')).toEqual('unspecified');
 
@@ -558,6 +643,90 @@ describe('KorAP.DocGroup element', function () {
 });
 
 describe('KorAP.VirtualCollection', function () {
+
+  var simpleGroupFactory = buildFactory(KorAP.DocGroup, {
+    "@type" : "korap:docGroup",
+    "operation" : "operation:and",
+    "operands" : [
+      {
+	"@type": 'korap:doc',
+	"key" : 'author',
+	"match": 'match:eq',
+	"value": 'Max Birkendale',
+	"type": 'type:string'
+      },
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:eq',
+	"value": '2014-12-05',
+	"type": 'type:date'
+      }
+    ]
+  });
+
+  var nestedGroupFactory = buildFactory(KorAP.VirtualCollection, {
+    "@type" : "korap:docGroup",
+    "operation" : "operation:or",
+    "operands" : [
+      {
+	"@type": 'korap:doc',
+	"key" : 'author',
+	"match": 'match:eq',
+	"value": 'Max Birkendale',
+	"type": 'type:string'
+      },
+      {
+	"@type" : "korap:docGroup",
+	"operation" : "operation:and",
+	"operands" : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:geq',
+	    "value": '2014-05-12',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:leq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  }
+	]
+      }
+    ]
+  });
+
+  var flatGroupFactory = buildFactory(KorAP.VirtualCollection, {
+    "@type" : "korap:docGroup",
+    "operation" : "operation:and",
+    "operands" : [
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:geq',
+	"value": '2014-05-12',
+	"type": 'type:date'
+      },
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:leq',
+	"value": '2014-12-05',
+	"type": 'type:date'
+      },
+      {
+	"@type": 'korap:doc',
+	"key": 'foo',
+	"match": 'match:eq',
+	"value": 'bar',
+	"type": 'type:string'
+      }
+    ]
+  });
+  
   it('should be initializable', function () {
     var vc = KorAP.VirtualCollection.render();
     expect(vc.element().getAttribute('class')).toEqual('vc');
@@ -590,26 +759,7 @@ describe('KorAP.VirtualCollection', function () {
   });
 
   it('should be based on a docGroup', function () {
-    var vc = KorAP.VirtualCollection.render({
-      "@type" : "korap:docGroup",
-      "operation" : "operation:and",
-      "operands" : [
-	{
-	  "@type": 'korap:doc',
-	  "key" : 'author',
-	  "match": 'match:eq',
-	  "value": 'Max Birkendale',
-	  "type": 'type:string'
-	},
-	{
-	  "@type": 'korap:doc',
-	  "key": 'pubDate',
-	  "match": 'match:eq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	}
-      ]
-    });
+    var vc = KorAP.VirtualCollection.render(simpleGroupFactory.create().toJson());
 
     expect(vc.element().getAttribute('class')).toEqual('vc');
     expect(vc.root().element().getAttribute('class')).toEqual('docGroup');
@@ -630,39 +780,8 @@ describe('KorAP.VirtualCollection', function () {
 
 
   it('should be based on a nested docGroup', function () {
-    var vc = KorAP.VirtualCollection.render({
-      "@type" : "korap:docGroup",
-      "operation" : "operation:or",
-      "operands" : [
-	{
-	  "@type": 'korap:doc',
-	  "key" : 'author',
-	  "match": 'match:eq',
-	  "value": 'Max Birkendale',
-	  "type": 'type:string'
-	},
-	{
-	  "@type" : "korap:docGroup",
-	  "operation" : "operation:and",
-	  "operands" : [
-	    {
-	      "@type": 'korap:doc',
-	      "key": 'pubDate',
-	      "match": 'match:geq',
-	      "value": '2014-05-12',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type": 'korap:doc',
-	      "key": 'pubDate',
-	      "match": 'match:leq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    }
-	  ]
-	}
-      ]
-    });
+    var vc = nestedGroupFactory.create();
+
     expect(vc.element().getAttribute('class')).toEqual('vc');
     expect(vc.element().firstChild.getAttribute('class')).toEqual('docGroup');
     expect(vc.element().firstChild.children[0].getAttribute('class')).toEqual('doc');
@@ -674,53 +793,141 @@ describe('KorAP.VirtualCollection', function () {
     expect(vc.element().firstChild.children[2].getAttribute('class')).toEqual('operators');
   });    
 
-  it('should be modifiable by deletion', function () {
-    var vc = KorAP.VirtualCollection.render({
-      "@type" : "korap:docGroup",
-      "operation" : "operation:and",
-      "operands" : [
-	{
-	  "@type": 'korap:doc',
-	  "key": 'pubDate',
-	  "match": 'match:geq',
-	  "value": '2014-05-12',
-	  "type": 'type:date'
-	},
-	{
-	  "@type": 'korap:doc',
-	  "key": 'pubDate',
-	  "match": 'match:leq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	},
-	{
-	  "@type": 'korap:doc',
-	  "key": 'foo',
-	  "match": 'match:eq',
-	  "value": 'bar',
-	  "type": 'type:string'
-	}
-      ]
-    });
-
+  it('should be modifiable by deletion in flat docGroups', function () {
+    var vc = flatGroupFactory.create();
     var docGroup = vc.root();
+
+    expect(docGroup.element().getAttribute('class')).toEqual('docGroup');
+
     var doc = docGroup.getOperand(1);
     expect(doc.key()).toEqual("pubDate");
+    expect(doc.value()).toEqual("2014-12-05");
 
     // Remove operand 1
-    expect(docGroup.delOperand(doc)).not.toBeUndefined();
+    expect(docGroup.delOperand(doc).update()).not.toBeUndefined();
     expect(doc._element).toEqual(undefined);
 
     doc = docGroup.getOperand(1);
     expect(doc.key()).toEqual("foo");
 
     // Remove operand 1
-    expect(docGroup.delOperand(doc)).not.toBeUndefined();
+    expect(docGroup.delOperand(doc).update()).not.toBeUndefined();
     expect(doc._element).toEqual(undefined);
 
-    // Only one operand - but there shouldn't be a group anymore!
+    // Only one operand left ...
     expect(docGroup.getOperand(1)).toBeUndefined();
+    // ... but there shouldn't be a group anymore at all!
+    expect(docGroup.getOperand(0)).toBeUndefined();
+    
+    var obj = vc.root();
+    expect(obj.ldType()).toEqual("doc");
+    expect(obj.key()).toEqual("pubDate");
+    expect(obj.value()).toEqual("2014-05-12");
+
+    expect(obj.element().getAttribute('class')).toEqual('doc');
   }); 
+
+
+  it('should be modifiable by deletion in nested docGroups (root case)', function () {
+    var vc = nestedGroupFactory.create();
+
+    var docGroup = vc.root();
+    expect(docGroup.ldType()).toEqual("docGroup");
+    expect(docGroup.operation()).toEqual("or");
+
+    var doc = docGroup.getOperand(0);
+    expect(doc.key()).toEqual("author");
+    expect(doc.value()).toEqual("Max Birkendale");
+
+    docGroup = docGroup.getOperand(1);
+    expect(docGroup.operation()).toEqual("and");
+
+    doc = docGroup.getOperand(0);
+    expect(doc.key()).toEqual("pubDate");
+    expect(doc.matchop()).toEqual("geq");
+    expect(doc.value()).toEqual("2014-05-12");
+    expect(doc.type()).toEqual("date");
+
+    doc = docGroup.getOperand(1);
+    expect(doc.key()).toEqual("pubDate");
+    expect(doc.matchop()).toEqual("leq");
+    expect(doc.value()).toEqual("2014-12-05");
+    expect(doc.type()).toEqual("date");
+
+    // Remove first operand so everything becomes root
+    expect(
+      vc.root().delOperand(
+	vc.root().getOperand(0)
+      ).update().ldType()
+    ).toEqual("docGroup");
+    expect(vc.root().ldType()).toEqual("docGroup");
+    expect(vc.root().operation()).toEqual("and");
+  });
+
+  it('should be modifiable by deletion in nested docGroups (resolve group case)', function () {
+    var vc = nestedGroupFactory.create();
+
+    // Get nested group
+    var firstGroup = vc.root().getOperand(1);
+    firstGroup.append(simpleGroupFactory.create({ "operation" : "operation:or" }));
+    
+    // Structur is now:
+    // or(doc, and(doc, doc, or(doc, doc)))
+
+    // Get nested or in and
+    var orGroup = vc.root().getOperand(1).getOperand(2);
+    expect(orGroup.ldType()).toEqual("docGroup");
+    expect(orGroup.operation()).toEqual("or");
+
+    // Remove 
+    // Structur is now:
+    // or(doc, and(doc, doc, doc)))
+    expect(orGroup.delOperand(orGroup.getOperand(0)).update().operation()).toEqual("and");
+    expect(vc.root().getOperand(1).operands().length).toEqual(3);
+  });
+
+  it('should be modifiable by deletion in nested docGroups (identical group case)', function () {
+    var vc = nestedGroupFactory.create();
+
+    // Get nested group
+    var firstGroup = vc.root().getOperand(1);
+    firstGroup.append(simpleGroupFactory.create({ "operation" : "operation:or" }));
+    
+    // Structur is now:
+    // or(doc, and(doc, doc, or(doc, doc)))
+    expect(vc.toString()).toEqual(
+      'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05 & (author = "Max Birkendale" | pubDate in 2014-12-05))'
+    );
+
+    var andGroup = vc.root().getOperand(1);
+
+    // Get leading docs in and
+    var doc1 = andGroup.getOperand(0);
+    expect(doc1.ldType()).toEqual("doc");
+    expect(doc1.value()).toEqual("2014-05-12");
+    var doc2 = andGroup.getOperand(1);
+    expect(doc2.ldType()).toEqual("doc");
+    expect(doc2.value()).toEqual("2014-12-05");
+
+    // Remove 2
+    expect(andGroup.delOperand(doc2).update().operation()).toEqual("and");
+    // Structur is now:
+    // or(doc, and(doc, or(doc, doc)))
+
+    expect(vc.toString()).toEqual(
+      'author = "Max Birkendale" | (pubDate since 2014-05-12 & (author = "Max Birkendale" | pubDate in 2014-12-05))'
+    );
+
+
+    // Remove 1
+    expect(andGroup.delOperand(doc1).update().operation()).toEqual("or");
+    // Structur is now:
+    // or(doc, doc, doc)
+
+    expect(vc.toString()).toEqual(
+      'author = "Max Birkendale" | author = "Max Birkendale" | pubDate in 2014-12-05'
+    );
+  });
 });
 
 describe('KorAP.Operators', function () {

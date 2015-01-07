@@ -32,11 +32,13 @@ var KorAP = KorAP || {};
   KorAP._validDateMatchRE   = new RegExp("^[lg]?eq$");
   KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
   KorAP._validGroupOpRE     = new RegExp("^(?:and|or)$");
+  KorAP._quote              = new RegExp("([\"\\\\])", 'g');
 
-  var loc = (KorAP.Locale = KorAP.Locale || {} );
-  loc.AND = loc.AND || 'and';
-  loc.OR  = loc.OR  || 'or';
-  loc.DEL = loc.DEL || '×';
+  var loc   = (KorAP.Locale = KorAP.Locale || {} );
+  loc.AND   = loc.AND   || 'and';
+  loc.OR    = loc.OR    || 'or';
+  loc.DEL   = loc.DEL   || '×';
+  loc.EMPTY = loc.EMPTY || '⋯'
 
   function _bool (bool) {
     return (bool === undefined || bool === false) ? false : true;
@@ -50,7 +52,9 @@ var KorAP = KorAP || {};
   };
 
   KorAP.VirtualCollection = {
-    _root : undefined,
+    ldType : function () {
+      return null;
+    },
     create : function () {
       return Object.create(KorAP.VirtualCollection);
     },
@@ -60,10 +64,10 @@ var KorAP = KorAP || {};
       if (json !== undefined) {
 	// Root object
 	if (json['@type'] == 'korap:doc') {
-	  obj._root = KorAP.Doc.create(undefined, json);
+	  obj._root = KorAP.Doc.create(obj, json);
 	}
 	else if (json['@type'] == 'korap:docGroup') {
-	  obj._root = KorAP.DocGroup.create(undefined, json);
+	  obj._root = KorAP.DocGroup.create(obj, json);
 	}
 	else {
 	  KorAP.log(813, "Collection type is not supported");
@@ -73,7 +77,7 @@ var KorAP = KorAP || {};
 
       else {
 	// Add unspecified object
-	obj._root = KorAP.UnspecifiedDoc.create();
+	obj._root = KorAP.UnspecifiedDoc.create(obj);
       };
 
       // Add root element to root node
@@ -83,7 +87,9 @@ var KorAP = KorAP || {};
 
       return obj;
     },
-    root : function () {
+    root : function (obj) {
+      if (arguments.length === 1)
+	this._root = obj;
       return this._root;
     },
     element : function () {
@@ -93,6 +99,12 @@ var KorAP = KorAP || {};
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'vc');
       return this._element;
+    },
+    toJson : function () {
+      return this._root.toJson();
+    },
+    toString : function () {
+      return this._root.toString();
     }
   };
 
@@ -106,7 +118,7 @@ var KorAP = KorAP || {};
 
   KorAP._delete = function (e) {
     var obj = this.parentNode.refTo;
-    obj.parent().delOperand(obj);
+    obj.parent().delOperand(obj).update();
     // Todo: CLEAR ALL THE THINGS!
   };
 
@@ -220,7 +232,7 @@ var KorAP = KorAP || {};
       _removeChildren(this._element);
 
       var ellipsis = document.createElement('span');
-      ellipsis.appendChild(document.createTextNode('⋯'));
+      ellipsis.appendChild(document.createTextNode(loc.EMPTY));
       this._element.appendChild(ellipsis);
 
       // Set operators
@@ -228,7 +240,7 @@ var KorAP = KorAP || {};
 	false,
 	false,
 	// No delete object, if this is the root
-	this._parent !== undefined ? true : false
+	(this._parent !== undefined && this.parent().ldType() !== null) ? true : false
       );
 
       this._element.appendChild(
@@ -315,11 +327,11 @@ var KorAP = KorAP || {};
 
     // Wrap a new operation around the doc element
     wrap : function (op) {
+/*
       var group = KorAP.DocGroup.create(undefined);
       group.append(this);
       group.append(null);
       this.parent(group);
-/*
       var div = document.createElement('div');
       div.setAttribute('data-operation', op);
       var parent = this.element.parent;
@@ -462,6 +474,49 @@ var KorAP = KorAP || {};
 	"value" : this.value() || '',
 	"type"  : "type:" + this.type()
       };
+    },
+    toString : function () {
+      if (!this.matchop() || !this.key())
+	return "";
+
+      // Build doc string based on key
+      var string = this.key() + ' ';
+
+      // Add match operator
+      switch (this.matchop()) {
+      case "ne":
+	string += '!=';
+	break;
+      case "contains":
+	string += '~';
+	break;
+      case "geq":
+	string += 'since';
+	break;
+      case "leq":
+	string += 'until';
+	break;
+      default:
+	string += (this.type() == 'date') ? 'in' : '=';
+	break;
+      };
+
+      string += ' ';
+
+      // Add value
+      switch (this.type()) {
+      case "date":
+	return string + this.value();
+	break;
+      case "regex":
+	return string + '/' + this.value() + '/';
+	break;
+      case "string":
+	return string + '"' + this.value().replace(KorAP._quote, '\\$1') + '"';
+	break;
+      };
+
+      return "...";
     }
   };
 
@@ -487,7 +542,6 @@ var KorAP = KorAP || {};
 	// Be aware of cyclic structures!
 	operand = KorAP.UnspecifiedDoc.create(this);
 	this._operands.push(operand);
-	this.update();
 	return operand;
       };
 
@@ -502,7 +556,6 @@ var KorAP = KorAP || {};
 	  // Be aware of cyclic structures!
 	  operand.parent(this);
 	  this._operands.push(operand);
-	  this.update();
 	  return operand;
 	};
 
@@ -515,7 +568,6 @@ var KorAP = KorAP || {};
 	if (doc === undefined)
 	  return;
 	this._operands.push(doc);
-	this.update();
 	return doc;
 
       case "korap:docGroup":
@@ -524,7 +576,6 @@ var KorAP = KorAP || {};
 	if (docGroup === undefined)
 	  return;
 	this._operands.push(docGroup);
-	this.update();
 	return docGroup;
 
       default:
@@ -533,12 +584,25 @@ var KorAP = KorAP || {};
       };
     },
     update : function () {
-      if (this._operands.length == 1) {
-	if (this.parent() !== undefined) {
-	  return this.parent().replaceOperand(
+
+      // There is only one operand in group
+      if (this._operands.length === 1) {
+	var parent = this.parent();
+
+	// Parent is a group
+	if (parent.ldType() !== null) {
+	  return parent.replaceOperand(
 	    this,
 	    this.getOperand(0)
-	  );
+	  ).update();
+	}
+
+	// Parent is vc root
+	else {
+console.log("parent is vc");
+	  parent.root(this.getOperand(0));
+	  this.destroy();
+	  return parent.root();
 	};
       };
 
@@ -577,6 +641,7 @@ var KorAP = KorAP || {};
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'docGroup');
 
+      // Update the object - including optimization
       this.update();
 
       return this._element;
@@ -601,12 +666,30 @@ var KorAP = KorAP || {};
     },
 
     // Replace operand
-    replaceOperand : function (group, obj) {
+    replaceOperand : function (oldOp, newOp) {
       for (var i in this._operands) {
-	if (this._operands[i] === group) {
-	  this._operands[i] = obj;
-	  group.destroy();
-	  return this.update();
+	if (this._operands[i] === oldOp) {
+
+	  // Just insert a doc
+	  if (newOp.ldType() === "doc") {
+	    console.log("Insert doc in group");
+	    this._operands[i] = newOp;
+	  }
+	  // Insert a group of a different operation
+	  // (i.e. "and" in "or"/"or" in "and")
+	  else if (newOp.operation() != oldOp.operation()) {
+	    console.log("Insert group in group - no flatten");
+	    this._operands[i] = newOp;
+	  }
+
+	  // Flatten the group
+	  else {
+	    console.log("Insert group in group - flatten");
+	    for (var op in newOp.operands().reverse())
+	      this._operands.splice(i, 1, newOp.getOperand(op))
+	  };
+	  oldOp.destroy();
+	  return this;
 	}
       };
       return false;
@@ -623,7 +706,7 @@ var KorAP = KorAP || {};
 
 	  // Todo: Update has to check
 	  // that this may mean the group is empty etc.
-	  return this.update();
+	  return this;
 	};
       };
 
@@ -675,6 +758,13 @@ var KorAP = KorAP || {};
 	"operation" : "operation:" + this.operation(),
 	"operands"  : opArray
       };
+    },
+    toString : function () {
+      return this._operands.
+	map(function (op) {
+	  return op.ldType() === 'docGroup' ? '(' + op.toString() + ')' : op.toString()
+	}).
+	join(this.operation() === 'or' ? ' | ' : ' & ')
     }
   };
 
@@ -723,6 +813,7 @@ var KorAP = KorAP || {};
       if (this._operands !== undefined) {
 	for (var i in this._operands)
 	  this.getOperand(i).destroy();
+	this._operands = [];
       };
     },
 
