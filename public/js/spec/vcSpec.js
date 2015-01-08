@@ -831,6 +831,10 @@ describe('KorAP.VirtualCollection', function () {
   it('should be modifiable by deletion in nested docGroups (root case)', function () {
     var vc = nestedGroupFactory.create();
 
+    expect(vc.toString()).toEqual(
+      'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05)'
+    );
+
     var docGroup = vc.root();
     expect(docGroup.ldType()).toEqual("docGroup");
     expect(docGroup.operation()).toEqual("or");
@@ -860,8 +864,15 @@ describe('KorAP.VirtualCollection', function () {
 	vc.root().getOperand(0)
       ).update().ldType()
     ).toEqual("docGroup");
+
     expect(vc.root().ldType()).toEqual("docGroup");
     expect(vc.root().operation()).toEqual("and");
+    expect(vc.root().getOperand(0).ldType()).toEqual("doc");
+
+    expect(vc.toString()).toEqual(
+      'pubDate since 2014-05-12 & pubDate until 2014-12-05'
+    );
+
   });
 
   it('should be modifiable by deletion in nested docGroups (resolve group case)', function () {
@@ -891,12 +902,17 @@ describe('KorAP.VirtualCollection', function () {
 
     // Get nested group
     var firstGroup = vc.root().getOperand(1);
-    firstGroup.append(simpleGroupFactory.create({ "operation" : "operation:or" }));
+    firstGroup.append(simpleGroupFactory.create({
+      "operation" : "operation:or"
+    }));
+    var oldAuthor = firstGroup.getOperand(2).getOperand(0);
+    oldAuthor.key("title");
+    oldAuthor.value("Der Birnbaum");
     
     // Structur is now:
     // or(doc, and(doc, doc, or(doc, doc)))
     expect(vc.toString()).toEqual(
-      'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05 & (author = "Max Birkendale" | pubDate in 2014-12-05))'
+      'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05 & (title = "Der Birnbaum" | pubDate in 2014-12-05))'
     );
 
     var andGroup = vc.root().getOperand(1);
@@ -915,7 +931,7 @@ describe('KorAP.VirtualCollection', function () {
     // or(doc, and(doc, or(doc, doc)))
 
     expect(vc.toString()).toEqual(
-      'author = "Max Birkendale" | (pubDate since 2014-05-12 & (author = "Max Birkendale" | pubDate in 2014-12-05))'
+      'author = "Max Birkendale" | (pubDate since 2014-05-12 & (title = "Der Birnbaum" | pubDate in 2014-12-05))'
     );
 
 
@@ -925,7 +941,7 @@ describe('KorAP.VirtualCollection', function () {
     // or(doc, doc, doc)
 
     expect(vc.toString()).toEqual(
-      'author = "Max Birkendale" | author = "Max Birkendale" | pubDate in 2014-12-05'
+      'author = "Max Birkendale" | title = "Der Birnbaum" | pubDate in 2014-12-05'
     );
   });
 });

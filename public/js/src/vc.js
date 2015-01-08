@@ -80,16 +80,17 @@ var KorAP = KorAP || {};
 	obj._root = KorAP.UnspecifiedDoc.create(obj);
       };
 
-      // Add root element to root node
-      obj.element().appendChild(
-	obj._root.element()
-      );
+      // Init element and update
+      obj.update();
 
       return obj;
     },
     root : function (obj) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
+console.log("Set vc root to " + obj.toString());
 	this._root = obj;
+	this.update();
+      };
       return this._root;
     },
     element : function () {
@@ -98,6 +99,7 @@ var KorAP = KorAP || {};
 
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'vc');
+
       return this._element;
     },
     toJson : function () {
@@ -105,6 +107,13 @@ var KorAP = KorAP || {};
     },
     toString : function () {
       return this._root.toString();
+    },
+    update : function () {
+      var e = this.element();
+      if (e.firstChild !== null)
+	e.replaceChild(this._root.element(), e.firstChild);
+      else
+	e.appendChild(this._root.element());
     }
   };
 
@@ -585,22 +594,25 @@ var KorAP = KorAP || {};
     },
     update : function () {
 
+      console.log("Update");
+
       // There is only one operand in group
       if (this._operands.length === 1) {
 	var parent = this.parent();
+	var op = this.getOperand(0);
+
+	console.log("There is only one operand left in the group");
 
 	// Parent is a group
 	if (parent.ldType() !== null) {
-	  return parent.replaceOperand(
-	    this,
-	    this.getOperand(0)
-	  ).update();
+	  console.log("The group is not directly below root");
+	  return parent.replaceOperand(this, op).update();
 	}
 
 	// Parent is vc root
 	else {
-console.log("parent is vc");
-	  parent.root(this.getOperand(0));
+	  console.log("The group is directly below root");
+	  parent.root(op);
 	  this.destroy();
 	  return parent.root();
 	};
@@ -667,26 +679,28 @@ console.log("parent is vc");
 
     // Replace operand
     replaceOperand : function (oldOp, newOp) {
+
       for (var i in this._operands) {
 	if (this._operands[i] === oldOp) {
 
 	  // Just insert a doc
 	  if (newOp.ldType() === "doc") {
-	    console.log("Insert doc in group");
 	    this._operands[i] = newOp;
 	  }
 	  // Insert a group of a different operation
 	  // (i.e. "and" in "or"/"or" in "and")
-	  else if (newOp.operation() != oldOp.operation()) {
-	    console.log("Insert group in group - no flatten");
+	  else if (newOp.operation() != this.operation()) {
 	    this._operands[i] = newOp;
 	  }
 
 	  // Flatten the group
 	  else {
-	    console.log("Insert group in group - flatten");
+	    // Remove old group
+	    this._operands.splice(i, 1);
+
+	    // Inject new operands
 	    for (var op in newOp.operands().reverse())
-	      this._operands.splice(i, 1, newOp.getOperand(op))
+	      this._operands.splice(i, 0, newOp.getOperand(op))
 	  };
 	  oldOp.destroy();
 	  return this;
@@ -699,6 +713,9 @@ console.log("parent is vc");
     delOperand : function (obj) {
       for (var i in this._operands) {
 	if (this._operands[i] === obj) {
+
+	  console.log("Deleted operand " + i);
+
 	  this._operands.splice(i,1);
 
 	  // Destroy object for cyclic references
