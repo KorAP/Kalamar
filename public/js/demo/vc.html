@@ -5,6 +5,14 @@
     <meta charset="utf-8" />
     <script src="../src/vc.js"></script>
     <link href="../../css/vc.css" rel="stylesheet" type="text/css"></link>
+    <style type="text/css" rel="stylesheet">
+.info {
+  background-color:white;
+  color: black;
+  padding: 1em;
+  font-family: mono;
+}
+    </style>
   </head>
   <body>
     <div id="vc"></div>
@@ -65,9 +73,21 @@
       document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
     };
 
+    function showString() {
+      document.getElementById("string").innerHTML = vc.root().toString();
+    };
+
     </script>
 
+    <hr />
+
     <p><a onclick="showJSON()" style="cursor:pointer">show JSON!</a></p>
-    <div id="json" style="background-color:white; color: black; padding: 1em; font-family: mono;"></div>
+    <div id="json" class="info"></div>
+
+    <hr />
+
+    <p><a onclick="showString()" style="cursor:pointer">show String!</a></p>
+    <div id="string" class="info"></div>
+
   </body>
 </html>

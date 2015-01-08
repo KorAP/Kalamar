@@ -46,9 +46,8 @@ var KorAP = KorAP || {};
 
   function _removeChildren (node) {
     // Remove everything underneath
-    while (node.firstChild) {
+    while (node.firstChild)
       node.removeChild(node.firstChild);
-    };
   };
 
   KorAP.VirtualCollection = {
@@ -87,18 +86,35 @@ var KorAP = KorAP || {};
     },
     root : function (obj) {
       if (arguments.length === 1) {
-console.log("Set vc root to " + obj.toString());
+	var e = this.element();
+	if (e.firstChild !== null) {
+	  if (e.firstChild !== obj.element())
+	    e.replaceChild(obj.element(), e.firstChild);
+	}
+
+	// Append root element
+	else {
+	  e.appendChild(obj.element());
+	};
+
+	// Update parent child relations
 	this._root = obj;
+	obj.parent(this);
+
 	this.update();
       };
       return this._root;
     },
+
     element : function () {
       if (this._element !== undefined)
 	return this._element;
 
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'vc');
+
+      // Initialize root
+      this._element.appendChild(this._root.element());
 
       return this._element;
     },
@@ -109,11 +125,7 @@ console.log("Set vc root to " + obj.toString());
       return this._root.toString();
     },
     update : function () {
-      var e = this.element();
-      if (e.firstChild !== null)
-	e.replaceChild(this._root.element(), e.firstChild);
-      else
-	e.appendChild(this._root.element());
+      this._root.update();
     }
   };
 
@@ -128,7 +140,6 @@ console.log("Set vc root to " + obj.toString());
   KorAP._delete = function (e) {
     var obj = this.parentNode.refTo;
     obj.parent().delOperand(obj).update();
-    // Todo: CLEAR ALL THE THINGS!
   };
 
   /**
@@ -143,7 +154,6 @@ console.log("Set vc root to " + obj.toString());
       return op;
     },
     update : function () {
-
       // Init the element
       if (this._element === undefined)
 	return this.element();
@@ -160,7 +170,9 @@ console.log("Set vc root to " + obj.toString());
 	var andE = document.createElement('span');
 	andE.setAttribute('class', 'and');
 	andE.addEventListener('click', KorAP._and, false);
-	andE.appendChild(document.createTextNode(KorAP.Locale.AND));
+	andE.appendChild(
+	  document.createTextNode(KorAP.Locale.AND)
+	);
 	op.appendChild(andE);
       };
 
@@ -229,15 +241,19 @@ console.log("Set vc root to " + obj.toString());
   KorAP.UnspecifiedDoc = {
     _ldType : "doc",
     create : function (parent) {
-      var obj = Object.create(KorAP.JsonLD).upgradeTo(KorAP.UnspecifiedDoc);
+      var obj = Object.create(KorAP.JsonLD).
+	upgradeTo(KorAP.UnspecifiedDoc);
+
       if (parent !== undefined)
 	obj._parent = parent;
+
       return obj;
     },
     update : function () {
       if (this._element === undefined)
 	return this.element();
 
+      // Remove element content
       _removeChildren(this._element);
 
       var ellipsis = document.createElement('span');
@@ -249,7 +265,8 @@ console.log("Set vc root to " + obj.toString());
 	false,
 	false,
 	// No delete object, if this is the root
-	(this._parent !== undefined && this.parent().ldType() !== null) ? true : false
+	(this._parent !== undefined &&
+	 this.parent().ldType() !== null) ? true : false
       );
 
       this._element.appendChild(
@@ -279,9 +296,15 @@ console.log("Set vc root to " + obj.toString());
     _obj : function () { return KorAP.Doc; },
 
     create : function (parent, json) {
-      var obj = Object(KorAP.JsonLD).create().upgradeTo(KorAP.Doc).fromJson(json);
+      var obj = Object(KorAP.JsonLD).
+	create().
+	upgradeTo(KorAP.Doc).
+	fromJson(json);
+
       if (parent !== undefined)
 	obj._parent = parent;
+
+      obj._changed = true;
       return obj;
     },
 
@@ -289,36 +312,59 @@ console.log("Set vc root to " + obj.toString());
       if (this._element === undefined)
 	return this.element();
 
-      // Added key
-      var key = document.createElement('span');
-      key.setAttribute('class', 'key');
-      if (this.key())
-	key.appendChild(document.createTextNode(this.key()));
-
-      // Added match operator
-      var matchop = document.createElement('span');
-      matchop.setAttribute('data-type', this.type());
-      matchop.setAttribute('class', 'match');
-      matchop.appendChild(document.createTextNode(this.matchop()));
-
-      // Added match operator
-      var value = document.createElement('span');
-      value.setAttribute('data-type', this.type());
-      value.setAttribute('class', 'value');
-      if (this.value())
-	value.appendChild(document.createTextNode(this.value()));
-
+      // Get element
       var e = this._element;
 
-      // Add spans
-      e.appendChild(key);
-      e.appendChild(matchop);
-      e.appendChild(value);
+      // Check if there is a change
+      if (this._changed) {
 
-      // Set operators
-      var op = this.operators(true, true, true);
+	// Added key
+	var key = document.createElement('span');
+	key.setAttribute('class', 'key');
+	if (this.key())
+	  key.appendChild(document.createTextNode(this.key()));
 
-      e.appendChild(op.element());
+	// Added match operator
+	var matchop = document.createElement('span');
+	matchop.setAttribute('data-type', this.type());
+	matchop.setAttribute('class', 'match');
+	matchop.appendChild(
+	  document.createTextNode(this.matchop())
+	);
+
+	// Added match operator
+	var value = document.createElement('span');
+	value.setAttribute('data-type', this.type());
+	value.setAttribute('class', 'value');
+	if (this.value())
+	  value.appendChild(
+	    document.createTextNode(this.value())
+	  );
+
+	// Remove all element children
+	_removeChildren(e);
+
+	// Add spans
+	e.appendChild(key);
+	e.appendChild(matchop);
+	e.appendChild(value);
+
+	this._changed = false;
+      };
+
+      if (this._parent !== undefined) {
+	// Set operators
+	var op = this.operators(
+	  true,
+	  true,
+	  // No delete object, if this is the root
+	  (this._parent !== undefined &&
+	   this.parent().ldType() !== null) ? true : false
+	);
+
+	// Append new operators
+	e.appendChild(op.element());
+      };
 
       return e;
     },
@@ -453,23 +499,31 @@ console.log("Set vc root to " + obj.toString());
       return this;
     },
     key : function (value) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	this._key = value;
+	this._changed = true;
+      };
       return this._key;
     },
     matchop : function (match) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	this._matchop = match.replace(/^match:/, '');
+	this._changed = true;
+      };
       return this._matchop || "eq";
     },
     type : function (type) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	this._type = type;
+	this._changed = true;
+      };
       return this._type || "string";
     },
     value : function (value) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	this._value = value;
+	this._changed = true;
+      };
       return this._value;
     },
     toJson : function () {
@@ -593,27 +647,26 @@ console.log("Set vc root to " + obj.toString());
       };
     },
     update : function () {
-
-      console.log("Update");
-
       // There is only one operand in group
       if (this._operands.length === 1) {
 	var parent = this.parent();
 	var op = this.getOperand(0);
 
-	console.log("There is only one operand left in the group");
+	// This will prevent destruction of
+	// the operand
+	this._operands = [];
 
 	// Parent is a group
 	if (parent.ldType() !== null) {
-	  console.log("The group is not directly below root");
 	  return parent.replaceOperand(this, op).update();
 	}
 
-	// Parent is vc root
+	// Parent is vc
 	else {
-	  console.log("The group is directly below root");
-	  parent.root(op);
 	  this.destroy();
+	  // Cyclic madness
+	  parent.root(op);
+	  op.parent(parent);
 	  return parent.root();
 	};
       };
@@ -686,11 +739,13 @@ console.log("Set vc root to " + obj.toString());
 	  // Just insert a doc
 	  if (newOp.ldType() === "doc") {
 	    this._operands[i] = newOp;
+	    newOp.parent(this);
 	  }
 	  // Insert a group of a different operation
 	  // (i.e. "and" in "or"/"or" in "and")
 	  else if (newOp.operation() != this.operation()) {
 	    this._operands[i] = newOp;
+	    newOp.parent(this);
 	  }
 
 	  // Flatten the group
@@ -699,8 +754,13 @@ console.log("Set vc root to " + obj.toString());
 	    this._operands.splice(i, 1);
 
 	    // Inject new operands
-	    for (var op in newOp.operands().reverse())
-	      this._operands.splice(i, 0, newOp.getOperand(op))
+	    for (var op in newOp.operands().reverse()) {
+	      this._operands.splice(i, 0, newOp.getOperand(op));
+	      newOp.getOperand(0).parent(this);
+	    };
+	    // Prevent destruction of operands
+	    newOp._operands = [];
+	    newOp.destroy();
 	  };
 	  oldOp.destroy();
 	  return this;
@@ -714,15 +774,12 @@ console.log("Set vc root to " + obj.toString());
       for (var i in this._operands) {
 	if (this._operands[i] === obj) {
 
-	  console.log("Deleted operand " + i);
-
+	  // Delete identified operand
 	  this._operands.splice(i,1);
 
 	  // Destroy object for cyclic references
 	  obj.destroy();
 
-	  // Todo: Update has to check
-	  // that this may mean the group is empty etc.
 	  return this;
 	};
       };
@@ -788,6 +845,8 @@ console.log("Set vc root to " + obj.toString());
 
   // Abstract JsonLD object
   KorAP.JsonLD = {
+    _changed : false,
+
     create : function () {
       return Object.create(KorAP.JsonLD);
     },
@@ -802,14 +861,18 @@ console.log("Set vc root to " + obj.toString());
       };
       return this;
     },
+
     ldType : function (type) {
       if (arguments.length === 1)
 	this._ldType = type;
       return this._ldType;
     },
+
     parent : function (obj) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	this._parent = obj;
+	this._changed = true;
+      };
       return this._parent;
     },
 
@@ -844,11 +907,15 @@ console.log("Set vc root to " + obj.toString());
       this._ops.parent(this);
       return this._ops;
     },
+
     toJson : function () {
       return {
 	// Unspecified object
 	"@type" : "korap:" + this.ldType()
       };
+    },
+    toString : function () {
+      return loc.EMPTY;
     }
   };
  

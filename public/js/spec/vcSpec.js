@@ -461,12 +461,14 @@ describe('KorAP.DocGroup', function () {
 
 describe('KorAP.UnspecifiedDoc', function () {
   it('should be initializable', function () {
-    var docElement = KorAP.UnspecifiedDoc.create().element();
+    var doc = KorAP.UnspecifiedDoc.create();
+    var docElement = doc.element();
     expect(docElement.getAttribute('class')).toEqual('unspecified');
     expect(docElement.firstChild.firstChild.data).toEqual('⋯');
     expect(docElement.lastChild.getAttribute('class')).toEqual('operators');
+    expect(doc.toString()).toEqual('⋯');
 
-    // Not removable
+    // Only removable
     expect(docElement.lastChild.children.length).toEqual(0);
   });
 
@@ -872,7 +874,6 @@ describe('KorAP.VirtualCollection', function () {
     expect(vc.toString()).toEqual(
       'pubDate since 2014-05-12 & pubDate until 2014-12-05'
     );
-
   });
 
   it('should be modifiable by deletion in nested docGroups (resolve group case)', function () {
