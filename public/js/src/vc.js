@@ -50,12 +50,40 @@ var KorAP = KorAP || {};
       node.removeChild(node.firstChild);
   };
 
+
+  // Add 'or'-criterion
+  KorAP._or = function (e) {
+    var obj = this.parentNode.refTo;
+  };
+
+
+  // Add 'and'-criterion
+  KorAP._and = function (e) {
+    var obj = this.parentNode.refTo;
+  };
+
+  // Remove doc or docGroup
+  KorAP._delete = function (e) {
+    var obj = this.parentNode.refTo;
+    if (obj.parent().ldType() !== null)
+      obj.parent().delOperand(obj).update();
+    else
+      obj.parent().clean();
+  };
+
   KorAP.VirtualCollection = {
     ldType : function () {
       return null;
     },
     create : function () {
       return Object.create(KorAP.VirtualCollection);
+    },
+    clean : function () {
+      if (this._root.ldType() !== "non") {
+	this._root.destroy();
+	this.root(KorAP.UnspecifiedDoc.create(this));
+      };
+      return this;
     },
     render : function (json) {
       var obj = Object.create(KorAP.VirtualCollection);
@@ -127,19 +155,6 @@ var KorAP = KorAP || {};
     update : function () {
       this._root.update();
     }
-  };
-
-  KorAP._or = function (e) {
-    var obj = this.parentNode.refTo;
-  };
-
-  KorAP._and = function (e) {
-    var obj = this.parentNode.refTo;
-  };
-
-  KorAP._delete = function (e) {
-    var obj = this.parentNode.refTo;
-    obj.parent().delOperand(obj).update();
   };
 
   /**
@@ -239,7 +254,7 @@ var KorAP = KorAP || {};
    * Unspecified criterion
    */
   KorAP.UnspecifiedDoc = {
-    _ldType : "doc",
+    _ldType : "non",
     create : function (parent) {
       var obj = Object.create(KorAP.JsonLD).
 	upgradeTo(KorAP.UnspecifiedDoc);
@@ -250,6 +265,7 @@ var KorAP = KorAP || {};
       return obj;
     },
     update : function () {
+
       if (this._element === undefined)
 	return this.element();
 
@@ -357,9 +373,7 @@ var KorAP = KorAP || {};
 	var op = this.operators(
 	  true,
 	  true,
-	  // No delete object, if this is the root
-	  (this._parent !== undefined &&
-	   this.parent().ldType() !== null) ? true : false
+	  true
 	);
 
 	// Append new operators

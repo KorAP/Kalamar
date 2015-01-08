@@ -728,6 +728,55 @@ describe('KorAP.VirtualCollection', function () {
       }
     ]
   });
+
+  var demoFactory = buildFactory(KorAP.VirtualCollection, {
+    "@type":"korap:docGroup",
+    "operation":"operation:or",
+    "operands":[
+      {
+        "@type":"korap:docGroup",
+        "operation":"operation:and",
+        "operands":[
+          {
+            "@type":"korap:doc",
+            "key":"Titel",
+            "value":"Baum",
+            "match":"match:eq"
+          },
+          {
+            "@type":"korap:doc",
+            "key":"Veröffentlichungsort",
+            "value":"hihi",
+            "match":"match:eq"
+          },
+          {
+            "@type":"korap:docGroup",
+            "operation":"operation:or",
+            "operands":[
+              {
+                "@type":"korap:doc",
+                "key":"Titel",
+                "value":"Baum",
+                "match":"match:eq"
+              },
+              {
+                "@type":"korap:doc",
+                "key":"Veröffentlichungsort",
+                "value":"hihi",
+                "match":"match:eq"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "@type":"korap:doc",
+        "key":"Untertitel",
+        "value":"huhu",
+        "match":"match:eq"
+      }
+    ]
+  });
   
   it('should be initializable', function () {
     var vc = KorAP.VirtualCollection.render();
@@ -944,6 +993,30 @@ describe('KorAP.VirtualCollection', function () {
     expect(vc.toString()).toEqual(
       'author = "Max Birkendale" | title = "Der Birnbaum" | pubDate in 2014-12-05'
     );
+  });
+
+  it('should be reducible to unspecification', function () {
+    var vc = demoFactory.create();
+
+    expect(vc.toString()).toEqual(vc.root().toString());
+
+    expect(vc.toString()).toEqual('(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel = "huhu"');
+
+    expect(vc.root().element().lastChild.children[0].firstChild.nodeValue).toEqual('and');
+    expect(vc.root().element().lastChild.children[1].firstChild.nodeValue).toEqual('×');
+
+    expect(vc.root().delOperand(vc.root().getOperand(0)).update()).not.toBeUndefined();
+
+    expect(vc.toString()).toEqual('Untertitel = "huhu"');
+
+    expect(vc.root().element().lastChild.children[0].firstChild.nodeValue).toEqual('and');
+    expect(vc.root().element().lastChild.children[1].firstChild.nodeValue).toEqual('or');
+    expect(vc.root().element().lastChild.children[2].firstChild.nodeValue).toEqual('×');
+
+    // Clean everything
+    vc.clean();
+    expect(vc.toString()).toEqual('⋯');    
+
   });
 });
 
