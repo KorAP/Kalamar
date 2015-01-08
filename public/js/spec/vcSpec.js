@@ -237,32 +237,32 @@ describe('KorAP.Doc', function () {
 
     // Empty doc
     var doc = KorAP.Doc.create();
-    expect(doc.toString()).toEqual("");
+    expect(doc.toQuery()).toEqual("");
 
     // Serialize string
     doc = stringFactory.create();
-    expect(doc.toString()).toEqual('author = "Max Birkendale"');
+    expect(doc.toQuery()).toEqual('author = "Max Birkendale"');
 
     // Serialize string with quotes
     doc = stringFactory.create({ "value" : 'Max "Der Coole" Birkendate'});
-    expect(doc.toString()).toEqual('author = "Max \\"Der Coole\\" Birkendate"');
+    expect(doc.toQuery()).toEqual('author = "Max \\"Der Coole\\" Birkendate"');
 
     // Serialize regex
     doc = regexFactory.create();
-    expect(doc.toString()).toEqual('title = /[^b]ee.+?/');
+    expect(doc.toQuery()).toEqual('title = /[^b]ee.+?/');
 
     doc = regexFactory.create({
       match: "match:ne"
     });
-    expect(doc.toString()).toEqual('title != /[^b]ee.+?/');
+    expect(doc.toQuery()).toEqual('title != /[^b]ee.+?/');
 
     doc = dateFactory.create();
-    expect(doc.toString()).toEqual('pubDate in 2014-11-05');
+    expect(doc.toQuery()).toEqual('pubDate in 2014-11-05');
 
     doc = dateFactory.create({
       value : "2014"
     });
-    expect(doc.toString()).toEqual('pubDate in 2014');
+    expect(doc.toQuery()).toEqual('pubDate in 2014');
   });
 });
 
@@ -411,7 +411,7 @@ describe('KorAP.DocGroup', function () {
 
   it('should be serializable to String', function () {
     var docGroup = docGroupFactory.create();
-    expect(docGroup.toString()).toEqual('author = "Max Birkendale" & pubDate in 2014-12-05');
+    expect(docGroup.toQuery()).toEqual('author = "Max Birkendale" & pubDate in 2014-12-05');
 
     docGroup = docGroupFactory.create({
       "@type" : "korap:docGroup",
@@ -453,7 +453,7 @@ describe('KorAP.DocGroup', function () {
 	}
       ]
     });
-    expect(docGroup.toString()).toEqual(
+    expect(docGroup.toQuery()).toEqual(
       'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05 & foo != /[a]?bar/)'
     );
   });
@@ -463,10 +463,10 @@ describe('KorAP.UnspecifiedDoc', function () {
   it('should be initializable', function () {
     var doc = KorAP.UnspecifiedDoc.create();
     var docElement = doc.element();
-    expect(docElement.getAttribute('class')).toEqual('unspecified');
+    expect(docElement.getAttribute('class')).toEqual('doc unspecified');
     expect(docElement.firstChild.firstChild.data).toEqual('⋯');
     expect(docElement.lastChild.getAttribute('class')).toEqual('operators');
-    expect(doc.toString()).toEqual('⋯');
+    expect(doc.toQuery()).toEqual('⋯');
 
     // Only removable
     expect(docElement.lastChild.children.length).toEqual(0);
@@ -492,7 +492,7 @@ describe('KorAP.UnspecifiedDoc', function () {
     expect(docGroup.element().children[0].getAttribute('class')).toEqual('doc');
 
     var unspec = docGroup.element().children[1];
-    expect(unspec.getAttribute('class')).toEqual('unspecified');
+    expect(unspec.getAttribute('class')).toEqual('doc unspecified');
 
     // Removable
     expect(unspec.lastChild.children.length).toEqual(1);
@@ -781,7 +781,7 @@ describe('KorAP.VirtualCollection', function () {
   it('should be initializable', function () {
     var vc = KorAP.VirtualCollection.render();
     expect(vc.element().getAttribute('class')).toEqual('vc');
-    expect(vc.root().element().getAttribute('class')).toEqual('unspecified');
+    expect(vc.root().element().getAttribute('class')).toEqual('doc unspecified');
 
     // Not removable
     expect(vc.root().element().lastChild.children.length).toEqual(0);
@@ -882,7 +882,7 @@ describe('KorAP.VirtualCollection', function () {
   it('should be modifiable by deletion in nested docGroups (root case)', function () {
     var vc = nestedGroupFactory.create();
 
-    expect(vc.toString()).toEqual(
+    expect(vc.toQuery()).toEqual(
       'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05)'
     );
 
@@ -920,7 +920,7 @@ describe('KorAP.VirtualCollection', function () {
     expect(vc.root().operation()).toEqual("and");
     expect(vc.root().getOperand(0).ldType()).toEqual("doc");
 
-    expect(vc.toString()).toEqual(
+    expect(vc.toQuery()).toEqual(
       'pubDate since 2014-05-12 & pubDate until 2014-12-05'
     );
   });
@@ -961,7 +961,7 @@ describe('KorAP.VirtualCollection', function () {
     
     // Structur is now:
     // or(doc, and(doc, doc, or(doc, doc)))
-    expect(vc.toString()).toEqual(
+    expect(vc.toQuery()).toEqual(
       'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05 & (title = "Der Birnbaum" | pubDate in 2014-12-05))'
     );
 
@@ -980,8 +980,10 @@ describe('KorAP.VirtualCollection', function () {
     // Structur is now:
     // or(doc, and(doc, or(doc, doc)))
 
-    expect(vc.toString()).toEqual(
-      'author = "Max Birkendale" | (pubDate since 2014-05-12 & (title = "Der Birnbaum" | pubDate in 2014-12-05))'
+    expect(vc.toQuery()).toEqual(
+      'author = "Max Birkendale"' +
+	' | (pubDate since 2014-05-12 & ' +
+	'(title = "Der Birnbaum" | pubDate in 2014-12-05))'
     );
 
 
@@ -990,7 +992,7 @@ describe('KorAP.VirtualCollection', function () {
     // Structur is now:
     // or(doc, doc, doc)
 
-    expect(vc.toString()).toEqual(
+    expect(vc.toQuery()).toEqual(
       'author = "Max Birkendale" | title = "Der Birnbaum" | pubDate in 2014-12-05'
     );
   });
@@ -998,25 +1000,26 @@ describe('KorAP.VirtualCollection', function () {
   it('should be reducible to unspecification', function () {
     var vc = demoFactory.create();
 
-    expect(vc.toString()).toEqual(vc.root().toString());
+    expect(vc.toQuery()).toEqual(vc.root().toQuery());
 
-    expect(vc.toString()).toEqual('(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel = "huhu"');
+    expect(vc.toQuery()).toEqual(
+      '(Titel = "Baum" & Veröffentlichungsort = "hihi" & ' +
+	'(Titel = "Baum" | Veröffentlichungsort = "hihi")) ' +
+	'| Untertitel = "huhu"');
 
     expect(vc.root().element().lastChild.children[0].firstChild.nodeValue).toEqual('and');
     expect(vc.root().element().lastChild.children[1].firstChild.nodeValue).toEqual('×');
-
     expect(vc.root().delOperand(vc.root().getOperand(0)).update()).not.toBeUndefined();
+    expect(vc.toQuery()).toEqual('Untertitel = "huhu"');
 
-    expect(vc.toString()).toEqual('Untertitel = "huhu"');
-
-    expect(vc.root().element().lastChild.children[0].firstChild.nodeValue).toEqual('and');
-    expect(vc.root().element().lastChild.children[1].firstChild.nodeValue).toEqual('or');
-    expect(vc.root().element().lastChild.children[2].firstChild.nodeValue).toEqual('×');
+    var lc = vc.root().element().lastChild;
+    expect(lc.children[0].firstChild.nodeValue).toEqual('and');
+    expect(lc.children[1].firstChild.nodeValue).toEqual('or');
+    expect(lc.children[2].firstChild.nodeValue).toEqual('×');
 
     // Clean everything
     vc.clean();
-    expect(vc.toString()).toEqual('⋯');    
-
+    expect(vc.toQuery()).toEqual('⋯');
   });
 });
 

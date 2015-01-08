@@ -73,8 +73,8 @@
       document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
     };
 
-    function showString() {
-      document.getElementById("string").innerHTML = vc.root().toString();
+    function showQuery() {
+      document.getElementById("query").innerHTML = vc.root().toQuery();
     };
 
     </script>
@@ -86,8 +86,8 @@
 
     <hr />
 
-    <p><a onclick="showString()" style="cursor:pointer">show String!</a></p>
-    <div id="string" class="info"></div>
+    <p><a onclick="showQuery()" style="cursor:pointer">show Query!</a></p>
+    <div id="query" class="info"></div>
 
   </body>
 </html>

@@ -5,7 +5,7 @@ var KorAP = KorAP || {};
 // TODO: Implement "toQuery"
 
 /*
- * Error codes:
+  Error codes:
   701: "JSON-LD group has no @type attribute" 
   704: "Operation needs operand list"
   802: "Match type is not supported by value type"
@@ -40,9 +40,11 @@ var KorAP = KorAP || {};
   loc.DEL   = loc.DEL   || '×';
   loc.EMPTY = loc.EMPTY || '⋯'
 
+
   function _bool (bool) {
     return (bool === undefined || bool === false) ? false : true;
   };
+
 
   function _removeChildren (node) {
     // Remove everything underneath
@@ -60,7 +62,14 @@ var KorAP = KorAP || {};
   // Add 'and'-criterion
   KorAP._and = function (e) {
     var obj = this.parentNode.refTo;
+    if (obj.ldType() === 'docGroup') {
+      console.log('~~~~~~~~~');
+    }
+    else if (obj.ldType() === 'doc') {
+      obj.parent().newAfter(obj);
+    };
   };
+
 
   // Remove doc or docGroup
   KorAP._delete = function (e) {
@@ -71,13 +80,19 @@ var KorAP = KorAP || {};
       obj.parent().clean();
   };
 
+
+  /**
+   * Virtual Collection
+   */
   KorAP.VirtualCollection = {
     ldType : function () {
       return null;
     },
+
     create : function () {
       return Object.create(KorAP.VirtualCollection);
     },
+
     clean : function () {
       if (this._root.ldType() !== "non") {
 	this._root.destroy();
@@ -85,6 +100,7 @@ var KorAP = KorAP || {};
       };
       return this;
     },
+
     render : function (json) {
       var obj = Object.create(KorAP.VirtualCollection);
 
@@ -112,6 +128,7 @@ var KorAP = KorAP || {};
 
       return obj;
     },
+
     root : function (obj) {
       if (arguments.length === 1) {
 	var e = this.element();
@@ -146,16 +163,21 @@ var KorAP = KorAP || {};
 
       return this._element;
     },
+
+    update : function () {
+      this._root.update();
+      return this;
+    },
+
     toJson : function () {
       return this._root.toJson();
     },
-    toString : function () {
-      return this._root.toString();
-    },
-    update : function () {
-      this._root.update();
+
+    toQuery : function () {
+      return this._root.toQuery();
     }
   };
+
 
   /**
    * Operators for criteria
@@ -168,6 +190,7 @@ var KorAP = KorAP || {};
       op.del(del);
       return op;
     },
+
     update : function () {
       // Init the element
       if (this._element === undefined)
@@ -232,16 +255,19 @@ var KorAP = KorAP || {};
       this.update();
       return this._element;
     },
+
     and : function (bool) {
       if (arguments.length === 1)
 	this._and = _bool(bool);
       return this._and;
     },
+
     or : function (bool) {
       if (arguments.length === 1)
 	this._or = _bool(bool);
       return this._or;
     },
+
     del : function (bool) {
       if (arguments.length === 1)
 	this._del = _bool(bool);
@@ -264,6 +290,7 @@ var KorAP = KorAP || {};
 
       return obj;
     },
+
     update : function () {
 
       if (this._element === undefined)
@@ -291,13 +318,12 @@ var KorAP = KorAP || {};
 
       return this.element();
     },
+
     element : function () {
       if (this._element !== undefined)
 	return this._element;
-
       this._element = document.createElement('div');
-      this._element.setAttribute('class', 'unspecified');
-
+      this._element.setAttribute('class', 'doc unspecified');
       this.update();
       return this._element;
     }
@@ -305,7 +331,7 @@ var KorAP = KorAP || {};
 
 
   /**
-   * Virtual collection doc criterion.
+   * Document criterion
    */
   KorAP.Doc = {
     _ldType : "doc",
@@ -410,6 +436,7 @@ var KorAP = KorAP || {};
       return div;
 */
     },
+
     // Deserialize from json
     fromJson : function (json) {
       if (json === undefined)
@@ -512,6 +539,7 @@ var KorAP = KorAP || {};
 
       return this;
     },
+
     key : function (value) {
       if (arguments.length === 1) {
 	this._key = value;
@@ -519,6 +547,7 @@ var KorAP = KorAP || {};
       };
       return this._key;
     },
+
     matchop : function (match) {
       if (arguments.length === 1) {
 	this._matchop = match.replace(/^match:/, '');
@@ -526,6 +555,7 @@ var KorAP = KorAP || {};
       };
       return this._matchop || "eq";
     },
+
     type : function (type) {
       if (arguments.length === 1) {
 	this._type = type;
@@ -533,6 +563,7 @@ var KorAP = KorAP || {};
       };
       return this._type || "string";
     },
+
     value : function (value) {
       if (arguments.length === 1) {
 	this._value = value;
@@ -540,6 +571,7 @@ var KorAP = KorAP || {};
       };
       return this._value;
     },
+
     toJson : function () {
       if (!this.matchop() || !this.key())
 	return {};
@@ -552,7 +584,8 @@ var KorAP = KorAP || {};
 	"type"  : "type:" + this.type()
       };
     },
-    toString : function () {
+
+    toQuery : function () {
       if (!this.matchop() || !this.key())
 	return "";
 
@@ -593,12 +626,13 @@ var KorAP = KorAP || {};
 	break;
       };
 
-      return "...";
+      return "";
     }
   };
 
+
   /**
-   * Virtual collection group criterion.
+   * Document group criterion
    */
   KorAP.DocGroup = {
     _ldType : "docGroup",
@@ -611,6 +645,17 @@ var KorAP = KorAP || {};
 	obj._parent = parent;
       return obj;
     },
+
+    newAfter : function (obj) {
+      for (var i in this._operands) {
+	if (this._operands[i] === obj) {
+	  var operand = KorAP.UnspecifiedDoc.create(this);
+	  this._operands.splice(i + 1, 0, operand);
+	  return this.update();
+	};
+      };
+    },
+
     append : function (operand) {
 
       // Append unspecified object
@@ -660,6 +705,7 @@ var KorAP = KorAP || {};
 	return;
       };
     },
+
     update : function () {
       // There is only one operand in group
       if (this._operands.length === 1) {
@@ -713,6 +759,7 @@ var KorAP = KorAP || {};
 
       return this;
     },
+
     element : function () {
       if (this._element !== undefined)
 	return this._element;
@@ -725,6 +772,7 @@ var KorAP = KorAP || {};
 
       return this._element;
     },
+
     operation : function (op) {
       if (arguments.length === 1) {
 	if (KorAP._validGroupOpRE.test(op)) {
@@ -737,9 +785,11 @@ var KorAP = KorAP || {};
       };
       return this._op || 'and';
     },
+
     operands : function () {
       return this._operands;
     },
+
     getOperand : function (index) {
       return this._operands[index];
     },
@@ -836,6 +886,7 @@ var KorAP = KorAP || {};
     
       return this;
     },
+
     toJson : function () {
       var opArray = new Array();
       for (var i in this._operands) {
@@ -847,17 +898,21 @@ var KorAP = KorAP || {};
 	"operands"  : opArray
       };
     },
-    toString : function () {
+
+    toQuery : function () {
       return this._operands.
 	map(function (op) {
-	  return op.ldType() === 'docGroup' ? '(' + op.toString() + ')' : op.toString()
-	}).
-	join(this.operation() === 'or' ? ' | ' : ' & ')
+	  return (op.ldType() === 'docGroup') ?
+	    '(' + op.toQuery() + ')' :
+	    op.toQuery();
+	}).join(this.operation() === 'or' ? ' | ' : ' & ')
     }
   };
 
 
-  // Abstract JsonLD object
+  /**
+   * Abstract JsonLD criterion object
+   */
   KorAP.JsonLD = {
     _changed : false,
 
@@ -928,7 +983,8 @@ var KorAP = KorAP || {};
 	"@type" : "korap:" + this.ldType()
       };
     },
-    toString : function () {
+
+    toQuery : function () {
       return loc.EMPTY;
     }
   };
