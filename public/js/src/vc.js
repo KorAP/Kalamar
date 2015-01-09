@@ -53,31 +53,32 @@ var KorAP = KorAP || {};
   };
 
 
-  // Add 'or'-criterion
-  KorAP._or = function (e) {
-    var obj = this.parentNode.refTo;
-  };
-
-
-  // Add 'and'-criterion
-  KorAP._and = function (e) {
-    var obj = this.parentNode.refTo;
-    if (obj.ldType() === 'docGroup') {
+  // Add doc
+  KorAP._add = function (obj, type) {
+    var ref = obj.parentNode.refTo;
+    if (ref.ldType() === 'docGroup') {
       console.log('~~~~~~~~~');
     }
-    else if (obj.ldType() === 'doc') {
-      obj.parent().newAfter(obj);
+    else if (ref.ldType() === 'doc') {
+      var parent = ref.parent();
+// Todo: Check if parent is a group
+      if (parent.operation() === type) {
+	  parent.newAfter(ref);
+      }
+      else {
+	ref.wrap(type);
+      };
     };
   };
 
 
   // Remove doc or docGroup
   KorAP._delete = function (e) {
-    var obj = this.parentNode.refTo;
-    if (obj.parent().ldType() !== null)
-      obj.parent().delOperand(obj).update();
+    var ref = this.parentNode.refTo;
+    if (ref.parent().ldType() !== null)
+      ref.parent().delOperand(ref).update();
     else
-      obj.parent().clean();
+      ref.parent().clean();
   };
 
 
@@ -207,7 +208,7 @@ var KorAP = KorAP || {};
       if (this._and === true) {
 	var andE = document.createElement('span');
 	andE.setAttribute('class', 'and');
-	andE.addEventListener('click', KorAP._and, false);
+	andE.addEventListener('click', function () { return KorAP._add(this, 'and') }, false);
 	andE.appendChild(
 	  document.createTextNode(KorAP.Locale.AND)
 	);
@@ -218,7 +219,7 @@ var KorAP = KorAP || {};
       if (this._or === true) {
 	var orE = document.createElement('span');
 	orE.setAttribute('class', 'or');
-	orE.addEventListener('click', KorAP._or, false);
+	orE.addEventListener('click', function () { return KorAP._add(this, 'or') }, false);
 	orE.appendChild(document.createTextNode(KorAP.Locale.OR));
 	op.appendChild(orE);
       };
@@ -422,19 +423,12 @@ var KorAP = KorAP || {};
 
     // Wrap a new operation around the doc element
     wrap : function (op) {
-/*
-      var group = KorAP.DocGroup.create(undefined);
+      var parent = this.parent();
+      var group = KorAP.DocGroup.create(parent);
+      group.operation(op);
       group.append(this);
-      group.append(null);
-      this.parent(group);
-      var div = document.createElement('div');
-      div.setAttribute('data-operation', op);
-      var parent = this.element.parent;
-      parent.removeChild(this.element);
-      parent.appendChild(div);
-      div.appendChild(this.element);
-      return div;
-*/
+      group.append();
+      return parent.replaceOperand(this, group).update();
     },
 
     // Deserialize from json
@@ -796,7 +790,6 @@ var KorAP = KorAP || {};
 
     // Replace operand
     replaceOperand : function (oldOp, newOp) {
-
       for (var i in this._operands) {
 	if (this._operands[i] === oldOp) {
 
