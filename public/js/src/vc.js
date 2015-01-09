@@ -34,6 +34,7 @@ var KorAP = KorAP || {};
   KorAP._validGroupOpRE     = new RegExp("^(?:and|or)$");
   KorAP._quote              = new RegExp("([\"\\\\])", 'g');
 
+  // Localization values
   var loc   = (KorAP.Locale = KorAP.Locale || {} );
   loc.AND   = loc.AND   || 'and';
   loc.OR    = loc.OR    || 'or';
@@ -41,11 +42,13 @@ var KorAP = KorAP || {};
   loc.EMPTY = loc.EMPTY || '⋯'
 
 
+  // Utility for analysing boolean values
   function _bool (bool) {
-    return (bool === undefined || bool === false) ? false : true;
+    return (bool === undefined || bool === null || bool === false) ? false : true;
   };
 
 
+  // Utility for removing all children of a node
   function _removeChildren (node) {
     // Remove everything underneath
     while (node.firstChild)
@@ -72,8 +75,19 @@ var KorAP = KorAP || {};
   };
 
 
+  // Add doc with 'and' relation
+  KorAP._and = function () {
+    return KorAP._add(this, 'and');
+  };
+
+
+  // Add doc with 'or' relation
+  KorAP._or = function () {
+    return KorAP._add(this, 'or');
+  };
+
   // Remove doc or docGroup
-  KorAP._delete = function (e) {
+  KorAP._delete = function () {
     var ref = this.parentNode.refTo;
     if (ref.parent().ldType() !== null)
       ref.parent().delOperand(ref).update();
@@ -208,7 +222,7 @@ var KorAP = KorAP || {};
       if (this._and === true) {
 	var andE = document.createElement('span');
 	andE.setAttribute('class', 'and');
-	andE.addEventListener('click', function () { return KorAP._add(this, 'and') }, false);
+	andE.addEventListener('click', KorAP._and, false);
 	andE.appendChild(
 	  document.createTextNode(KorAP.Locale.AND)
 	);
@@ -219,7 +233,7 @@ var KorAP = KorAP || {};
       if (this._or === true) {
 	var orE = document.createElement('span');
 	orE.setAttribute('class', 'or');
-	orE.addEventListener('click', function () { return KorAP._add(this, 'or') }, false);
+	orE.addEventListener('click', KorAP._or, false);
 	orE.appendChild(document.createTextNode(KorAP.Locale.OR));
 	op.appendChild(orE);
       };
@@ -305,17 +319,17 @@ var KorAP = KorAP || {};
       this._element.appendChild(ellipsis);
 
       // Set operators
-      var op = this.operators(
-	false,
-	false,
-	// No delete object, if this is the root
-	(this._parent !== undefined &&
-	 this.parent().ldType() !== null) ? true : false
-      );
+      if (this._parent !== undefined && this.parent().ldType() !== null) {
+	var op = this.operators(
+	  false,
+	  false,
+	  true
+	);
 
-      this._element.appendChild(
-	op.element()
-      );
+	this._element.appendChild(
+	  op.element()
+	);
+      };
 
       return this.element();
     },
@@ -793,14 +807,11 @@ var KorAP = KorAP || {};
       for (var i in this._operands) {
 	if (this._operands[i] === oldOp) {
 
-	  // Just insert a doc
-	  if (newOp.ldType() === "doc") {
-	    this._operands[i] = newOp;
-	    newOp.parent(this);
-	  }
-	  // Insert a group of a different operation
-	  // (i.e. "and" in "or"/"or" in "and")
-	  else if (newOp.operation() != this.operation()) {
+	  // Just insert a doc or ...
+	  if (newOp.ldType() === "doc" ||
+	      // ... insert a group of a different operation
+	      // (i.e. "and" in "or"/"or" in "and")
+	      newOp.operation() != this.operation()) {
 	    this._operands[i] = newOp;
 	    newOp.parent(this);
 	  }
@@ -883,7 +894,8 @@ var KorAP = KorAP || {};
     toJson : function () {
       var opArray = new Array();
       for (var i in this._operands) {
-	opArray.push(this._operands[i].toJson());
+	if (this._operands[i].ldType() !== 'non')
+	  opArray.push(this._operands[i].toJson());
       };
       return {
 	"@type"     : "korap:" + this.ldType(),
@@ -892,13 +904,23 @@ var KorAP = KorAP || {};
       };
     },
 
-    toQuery : function () {
-      return this._operands.
-	map(function (op) {
+    toQuery : function (brackets) {
+      var list = this._operands
+	.filter(function (op) {
+	  return op.ldType() !== 'non';
+	})
+	.map(function (op) {
 	  return (op.ldType() === 'docGroup') ?
-	    '(' + op.toQuery() + ')' :
+	    op.toQuery(true) :
 	    op.toQuery();
-	}).join(this.operation() === 'or' ? ' | ' : ' & ')
+	});
+
+      if (list.length === 1)
+	return list.join('');
+      else {
+	var str = list.join(this.operation() === 'or' ? ' | ' : ' & ');
+	return brackets ? '(' + str + ')' : str;
+      };
     }
   };
 

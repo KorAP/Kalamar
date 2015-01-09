@@ -465,7 +465,7 @@ describe('KorAP.UnspecifiedDoc', function () {
     var docElement = doc.element();
     expect(docElement.getAttribute('class')).toEqual('doc unspecified');
     expect(docElement.firstChild.firstChild.data).toEqual('⋯');
-    expect(docElement.lastChild.getAttribute('class')).toEqual('operators');
+    expect(docElement.lastChild.lastChild.data).toEqual('⋯');
     expect(doc.toQuery()).toEqual('⋯');
 
     // Only removable
@@ -1060,3 +1060,372 @@ describe('KorAP.Operators', function () {
     expect(e.children[1].firstChild.data).toEqual('or');
   });
 });
+
+describe('KorAP._delete (event)', function () {
+  var complexVCFactory = buildFactory(KorAP.VirtualCollection,{
+    "@type": 'korap:docGroup',
+    'operation' : 'operation:and',
+    'operands' : [
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:eq',
+	"value": '2014-12-05',
+	"type": 'type:date'
+      },
+      {
+	"@type" : 'korap:docGroup',
+	'operation' : 'operation:or',
+	'operands' : [
+	  {
+	    '@type' : 'korap:doc',
+	    'key' : 'title',
+	    'value' : 'Hello World!'
+	  },
+	  {
+	    '@type' : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    ]
+  });
+
+  it('should clean on root docs', function () {
+    var vc = KorAP.VirtualCollection.render({
+      "@type": 'korap:doc',
+      "key": 'pubDate',
+      "match": 'match:eq',
+      "value": '2014-12-05',
+      "type": 'type:date'
+    });
+    expect(vc.root().toQuery()).toEqual('pubDate in 2014-12-05');
+    expect(vc.root().element().lastChild.getAttribute('class')).toEqual('operators');
+
+    // Clean with delete from root
+    expect(vc.root().element().lastChild.lastChild.getAttribute('class')).toEqual('delete');
+    KorAP._delete.bind(vc.root().element().lastChild.lastChild).apply();
+    expect(vc.root().toQuery()).toEqual('⋯');
+    expect(vc.root().element().lastChild.lastChild.data).toEqual('⋯');
+  });
+
+  it ('should remove on nested docs', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:and',
+	'operands' : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:eq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type" : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    );
+
+    // Delete with direct element access
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+    KorAP._delete.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('foo = "bar"');
+    expect(vc.root().ldType()).toEqual('doc');
+  });
+
+  it ('should clean on doc groups', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:and',
+	'operands' : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:eq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type" : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    );
+
+    // Cleanwith direct element access
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+    KorAP._delete.bind(vc.root().element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('⋯');
+    expect(vc.root().ldType()).toEqual('non');
+  });
+
+  it ('should remove on nested doc groups (case of ungrouping 1)', function () {
+    var vc = complexVCFactory.create();
+
+    // Delete with direct element access
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+    );
+
+    // Remove hello world:
+    KorAP._delete.bind(vc.root().getOperand(1).getOperand(0).element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+    expect(vc.root().ldType()).toEqual('docGroup');
+  });
+
+  it ('should remove on nested doc groups (case of ungrouping 2)', function () {
+    var vc = complexVCFactory.create();
+
+    // Delete with direct element access
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+    );
+
+    // Remove bar
+    KorAP._delete.bind(vc.root().getOperand(1).getOperand(1).element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & title = "Hello World!"');
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('and');
+  });
+
+  it ('should remove on nested doc groups (case of root changing)', function () {
+    var vc = complexVCFactory.create();
+
+    // Delete with direct element access
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+    );
+
+    // Remove bar
+    KorAP._delete.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('title = "Hello World!" | foo = "bar"');
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('or');
+  });
+
+  it ('should remove on nested doc groups (list flattening)', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:or',
+	'operands' : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:eq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type" : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  },
+	  {
+	    "@type": 'korap:docGroup',
+	    'operation' : 'operation:and',
+	    'operands' : [
+	      {
+		"@type": 'korap:doc',
+		"key": 'pubDate',
+		"match": 'match:eq',
+		"value": '2014-12-05',
+		"type": 'type:date'
+	      },
+	      {
+		"@type" : 'korap:docGroup',
+		'operation' : 'operation:or',
+		'operands' : [
+		  {
+		    '@type' : 'korap:doc',
+		    'key' : 'title',
+		    'value' : 'Hello World!'
+		  },
+		  {
+		    '@type' : 'korap:doc',
+		    'key' : 'yeah',
+		    'value' : 'juhu'
+		  }
+		]
+	      }
+	    ]
+	  }
+	]
+      }
+    );
+
+    // Delete with direct element access
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 | foo = "bar" | ' +
+	'(pubDate in 2014-12-05 & ' +
+	'(title = "Hello World!" | yeah = "juhu"))'
+    );
+
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('or');
+
+    // Operands and operators
+    expect(vc.element().firstChild.children.length).toEqual(4);
+    expect(vc.element().firstChild.lastChild.getAttribute('class')).toEqual('operators');
+
+    // Remove inner group and flatten
+    KorAP._delete.bind(
+      vc.root().getOperand(2).getOperand(0).element().lastChild.lastChild
+    ).apply();
+
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 | foo = "bar" | title = "Hello World!" | yeah = "juhu"'
+    );
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('or');
+
+    // Operands and operators
+    expect(vc.element().firstChild.children.length).toEqual(5);
+    expect(vc.element().firstChild.lastChild.getAttribute('class')).toEqual('operators');
+  });
+});
+
+describe('KorAP._add (event)', function () {
+  var complexVCFactory = buildFactory(KorAP.VirtualCollection,{
+    "@type": 'korap:docGroup',
+    'operation' : 'operation:and',
+    'operands' : [
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:eq',
+	"value": '2014-12-05',
+	"type": 'type:date'
+      },
+      {
+	"@type" : 'korap:docGroup',
+	'operation' : 'operation:or',
+	'operands' : [
+	  {
+	    '@type' : 'korap:doc',
+	    'key' : 'title',
+	    'value' : 'Hello World!'
+	  },
+	  {
+	    '@type' : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    ]
+  });
+
+  it ('should add new unspecified doc with "and"', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:and',
+	'operands' : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:eq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type" : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    );
+
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+
+    var fc = vc.element().firstChild;
+    expect(fc.getAttribute('data-operation')).toEqual('and');
+    expect(fc.children.length).toEqual(3);
+    expect(fc.lastChild.getAttribute('class')).toEqual('operators');
+    expect(fc.children[0].getAttribute('class')).toEqual('doc');
+    expect(fc.children[1].getAttribute('class')).toEqual('doc');
+
+    // add with 'and' in the middle
+    KorAP._and.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+
+    fc = vc.element().firstChild;
+    expect(fc.getAttribute('data-operation')).toEqual('and');
+    expect(fc.children.length).toEqual(4);
+    expect(fc.lastChild.getAttribute('class')).toEqual('operators');
+
+    expect(fc.children[0].getAttribute('class')).toEqual('doc');
+    expect(fc.children[1].getAttribute('class')).toEqual('doc unspecified');
+    expect(fc.children[2].getAttribute('class')).toEqual('doc');
+  });
+
+  it ('should add new unspecified doc with "or"', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:and',
+	'operands' : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:eq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type" : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    );
+
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+
+    var fc = vc.element().firstChild;
+    expect(fc.children.length).toEqual(3);
+    expect(fc.lastChild.getAttribute('class')).toEqual('operators');
+    expect(fc.children[0].getAttribute('class')).toEqual('doc');
+    expect(fc.children[1].getAttribute('class')).toEqual('doc');
+
+    // add with 'or' in the middle
+    KorAP._or.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+    fc = vc.element().firstChild;
+
+    expect(fc.getAttribute('data-operation')).toEqual('and');
+    expect(fc.children.length).toEqual(3);
+    expect(fc.children[0].getAttribute('class')).toEqual('docGroup');
+    expect(fc.children[0].getAttribute('data-operation')).toEqual('or');
+    expect(fc.children[1].getAttribute('class')).toEqual('doc');
+    expect(fc.children[2].getAttribute('class')).toEqual('operators');
+    expect(fc.lastChild.getAttribute('class')).toEqual('operators');
+
+    fc = vc.element().firstChild.firstChild;
+    expect(fc.children.length).toEqual(3);
+    expect(fc.children[0].getAttribute('class')).toEqual('doc');
+    expect(fc.children[1].getAttribute('class')).toEqual('doc unspecified');
+    expect(fc.children[2].getAttribute('class')).toEqual('operators');
+    expect(fc.lastChild.getAttribute('class')).toEqual('operators');
+  });
+
+  // Todo: wrap on root!!
+});
+
+/*
+ Todo: test event sequences:
+ - In a nested group with a 'doc' and a 'non', remove the 'doc',
+   so the 'non' needs to be flattened!
+*/
