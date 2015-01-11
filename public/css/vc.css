@@ -146,20 +146,49 @@ body {
   z-index: 30;
 }
 
-.docGroup .docGroup > .operators {
+.docGroup
+.docGroup > .operators {
   z-index: 31;
 }
 
-.docGroup .docGroup .docGroup > .operators {
+.docGroup
+.docGroup
+.docGroup > .operators {
   z-index: 32;
 }
 
-.docGroup .docGroup .docGroup .docGroup > .operators {
+.docGroup
+.docGroup
+.docGroup
+.docGroup > .operators {
   z-index: 33;
 }
 
-.docGroup .docGroup .docGroup .docGroup .docGroup > .operators {
+.docGroup
+.docGroup
+.docGroup
+.docGroup
+.docGroup > .operators {
   z-index: 34;
+}
+
+.docGroup
+.docGroup
+.docGroup
+.docGroup
+.docGroup
+.docGroup > .operators {
+  z-index: 35;
+}
+
+.docGroup
+.docGroup
+.docGroup
+.docGroup
+.docGroup
+.docGroup
+.docGroup > .operators {
+  z-index: 36;
 }
 
 .vc .doc > span.key,

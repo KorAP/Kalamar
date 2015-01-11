@@ -1421,7 +1421,57 @@ describe('KorAP._add (event)', function () {
     expect(fc.lastChild.getAttribute('class')).toEqual('operators');
   });
 
-  // Todo: wrap on root!!
+  it ('should wrap on group (case "and")', function () {
+    var vc = complexVCFactory.create();
+
+    // Wrap with direct element access
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+    );
+
+    // Add unspecified
+    KorAP._and.bind(vc.root().getOperand(1).element().lastChild.firstChild).apply();
+    expect(vc.toQuery()).toEqual(
+      'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+    );
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(1).ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(1).operation()).toEqual('and');
+/*
+    expect(vc.root().operation()).toEqual('and');
+*/
+  });
+
+/*
+  it ('should wrap on root', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:and',
+	'operands' : [
+	  {
+	    "@type": 'korap:doc',
+	    "key": 'pubDate',
+	    "match": 'match:eq',
+	    "value": '2014-12-05',
+	    "type": 'type:date'
+	  },
+	  {
+	    "@type" : 'korap:doc',
+	    'key' : 'foo',
+	    'value' : 'bar'
+	  }
+	]
+      }
+    );
+
+    // Delete with direct element access
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
+    KorAP._or.bind(vc.root().element().lastChild.lastChild).apply();
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('or');
+  });
+*/
 });
 
 /*

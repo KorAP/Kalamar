@@ -59,17 +59,28 @@ var KorAP = KorAP || {};
   // Add doc
   KorAP._add = function (obj, type) {
     var ref = obj.parentNode.refTo;
+    var parent = ref.parent();
     if (ref.ldType() === 'docGroup') {
-      console.log('~~~~~~~~~');
-    }
-    else if (ref.ldType() === 'doc') {
-      var parent = ref.parent();
-// Todo: Check if parent is a group
-      if (parent.operation() === type) {
-	  parent.newAfter(ref);
+
+      // Check that the action differs from the type
+      if (ref.operation() === type)
+	return;
+
+      if (parent.ldType() !== null) {
+	return parent.newAfter(ref);
       }
       else {
-	ref.wrap(type);
+	// The group is on root - wrap
+	return ref.wrapOnRoot();
+      };
+    }
+    else if (ref.ldType() === 'doc') {
+// Todo: Check if parent is a group
+      if (parent.operation() === type) {
+	return parent.newAfter(ref);
+      }
+      else {
+	return ref.wrap(type);
       };
     };
   };
@@ -148,8 +159,11 @@ var KorAP = KorAP || {};
       if (arguments.length === 1) {
 	var e = this.element();
 	if (e.firstChild !== null) {
-	  if (e.firstChild !== obj.element())
+	  console.log(e.firstChild);
+	  if (e.firstChild !== obj.element()) {
+console.log(e.firstChild);
 	    e.replaceChild(obj.element(), e.firstChild);
+	  };
 	}
 
 	// Append root element
@@ -712,6 +726,22 @@ var KorAP = KorAP || {};
 	KorAP.log(812, "Operand not supported in document group");
 	return;
       };
+    },
+
+    // Wrap a new operation around the root group element 
+    wrapOnRoot : function () {
+      var parent = this.parent();
+
+      var group = KorAP.DocGroup.create(parent);
+      group.operation(
+	this.operation() === 'and' ? 'or' : 'and'
+      );
+      group.append(this);
+      this.parent(group);
+      group.append();
+      group.element(); // Init (seems to be necessary)
+      parent.root(group);
+      return this.parent();
     },
 
     update : function () {
