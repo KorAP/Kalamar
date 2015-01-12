@@ -17,6 +17,68 @@ buildFactory = function (objClass, defaults) {
   }
 };
 
+function _andOn (obj) {
+  KorAP._and.bind(obj.element().lastChild.firstChild).apply();
+};
+
+function _orOn (obj) {
+  KorAP._or.bind(obj.element().lastChild.firstChild).apply();
+};
+
+function _delOn (obj) {
+  KorAP._delete.bind(obj.element().lastChild.firstChild).apply();
+};
+
+var demoFactory = buildFactory(KorAP.VirtualCollection, {
+  "@type":"korap:docGroup",
+  "operation":"operation:or",
+  "operands":[
+    {
+      "@type":"korap:docGroup",
+      "operation":"operation:and",
+      "operands":[
+        {
+          "@type":"korap:doc",
+          "key":"Titel",
+          "value":"Baum",
+          "match":"match:eq"
+        },
+        {
+          "@type":"korap:doc",
+          "key":"Veröffentlichungsort",
+          "value":"hihi",
+          "match":"match:eq"
+        },
+        {
+          "@type":"korap:docGroup",
+          "operation":"operation:or",
+          "operands":[
+            {
+              "@type":"korap:doc",
+              "key":"Titel",
+              "value":"Baum",
+              "match":"match:eq"
+            },
+            {
+              "@type":"korap:doc",
+              "key":"Veröffentlichungsort",
+              "value":"hihi",
+              "match":"match:eq"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@type":"korap:doc",
+      "key":"Untertitel",
+      "value":"huhu",
+      "match":"match:eq"
+    }
+  ]
+});
+
+
 describe('KorAP.Doc', function () {
 
   // Create example factories
@@ -728,55 +790,6 @@ describe('KorAP.VirtualCollection', function () {
       }
     ]
   });
-
-  var demoFactory = buildFactory(KorAP.VirtualCollection, {
-    "@type":"korap:docGroup",
-    "operation":"operation:or",
-    "operands":[
-      {
-        "@type":"korap:docGroup",
-        "operation":"operation:and",
-        "operands":[
-          {
-            "@type":"korap:doc",
-            "key":"Titel",
-            "value":"Baum",
-            "match":"match:eq"
-          },
-          {
-            "@type":"korap:doc",
-            "key":"Veröffentlichungsort",
-            "value":"hihi",
-            "match":"match:eq"
-          },
-          {
-            "@type":"korap:docGroup",
-            "operation":"operation:or",
-            "operands":[
-              {
-                "@type":"korap:doc",
-                "key":"Titel",
-                "value":"Baum",
-                "match":"match:eq"
-              },
-              {
-                "@type":"korap:doc",
-                "key":"Veröffentlichungsort",
-                "value":"hihi",
-                "match":"match:eq"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "@type":"korap:doc",
-        "key":"Untertitel",
-        "value":"huhu",
-        "match":"match:eq"
-      }
-    ]
-  });
   
   it('should be initializable', function () {
     var vc = KorAP.VirtualCollection.render();
@@ -1105,7 +1118,7 @@ describe('KorAP._delete (event)', function () {
 
     // Clean with delete from root
     expect(vc.root().element().lastChild.lastChild.getAttribute('class')).toEqual('delete');
-    KorAP._delete.bind(vc.root().element().lastChild.lastChild).apply();
+    _delOn(vc.root());
     expect(vc.root().toQuery()).toEqual('⋯');
     expect(vc.root().element().lastChild.lastChild.data).toEqual('⋯');
   });
@@ -1134,7 +1147,8 @@ describe('KorAP._delete (event)', function () {
 
     // Delete with direct element access
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
-    KorAP._delete.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    _delOn(vc.root().getOperand(0));
+
     expect(vc.toQuery()).toEqual('foo = "bar"');
     expect(vc.root().ldType()).toEqual('doc');
   });
@@ -1163,7 +1177,7 @@ describe('KorAP._delete (event)', function () {
 
     // Cleanwith direct element access
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
-    KorAP._delete.bind(vc.root().element().lastChild.lastChild).apply();
+    _delOn(vc.root());
     expect(vc.toQuery()).toEqual('⋯');
     expect(vc.root().ldType()).toEqual('non');
   });
@@ -1177,7 +1191,7 @@ describe('KorAP._delete (event)', function () {
     );
 
     // Remove hello world:
-    KorAP._delete.bind(vc.root().getOperand(1).getOperand(0).element().lastChild.lastChild).apply();
+    _delOn(vc.root().getOperand(1).getOperand(0));
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
     expect(vc.root().ldType()).toEqual('docGroup');
   });
@@ -1191,7 +1205,7 @@ describe('KorAP._delete (event)', function () {
     );
 
     // Remove bar
-    KorAP._delete.bind(vc.root().getOperand(1).getOperand(1).element().lastChild.lastChild).apply();
+    _delOn(vc.root().getOperand(1).getOperand(1));
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & title = "Hello World!"');
     expect(vc.root().ldType()).toEqual('docGroup');
     expect(vc.root().operation()).toEqual('and');
@@ -1206,7 +1220,7 @@ describe('KorAP._delete (event)', function () {
     );
 
     // Remove bar
-    KorAP._delete.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    _delOn(vc.root().getOperand(0));
     expect(vc.toQuery()).toEqual('title = "Hello World!" | foo = "bar"');
     expect(vc.root().ldType()).toEqual('docGroup');
     expect(vc.root().operation()).toEqual('or');
@@ -1278,9 +1292,7 @@ describe('KorAP._delete (event)', function () {
     expect(vc.element().firstChild.lastChild.getAttribute('class')).toEqual('operators');
 
     // Remove inner group and flatten
-    KorAP._delete.bind(
-      vc.root().getOperand(2).getOperand(0).element().lastChild.lastChild
-    ).apply();
+    _delOn(vc.root().getOperand(2).getOperand(0));
 
     expect(vc.toQuery()).toEqual(
       'pubDate in 2014-12-05 | foo = "bar" | title = "Hello World!" | yeah = "juhu"'
@@ -1357,7 +1369,7 @@ describe('KorAP._add (event)', function () {
     expect(fc.children[1].getAttribute('class')).toEqual('doc');
 
     // add with 'and' in the middle
-    KorAP._and.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    _andOn(vc.root().getOperand(0));
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
 
     fc = vc.element().firstChild;
@@ -1401,7 +1413,7 @@ describe('KorAP._add (event)', function () {
     expect(fc.children[1].getAttribute('class')).toEqual('doc');
 
     // add with 'or' in the middle
-    KorAP._or.bind(vc.root().getOperand(0).element().lastChild.lastChild).apply();
+    _orOn(vc.root().getOperand(0));
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
     fc = vc.element().firstChild;
 
@@ -1421,7 +1433,103 @@ describe('KorAP._add (event)', function () {
     expect(fc.lastChild.getAttribute('class')).toEqual('operators');
   });
 
-  it ('should wrap on group (case "and")', function () {
+  it ('should add new unspecified doc with "and" before group', function () {
+    var vc = demoFactory.create();
+
+    // Wrap with direct element access
+    expect(vc.toQuery()).toEqual(
+      '(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel = "huhu"'
+    );
+
+    expect(vc.root().getOperand(0).ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(0).operation()).toEqual('and');
+    expect(vc.root().getOperand(0).operands().length).toEqual(3);
+
+    // Add unspecified on the second doc
+    var secDoc = vc.root().getOperand(0).getOperand(1);
+    expect(secDoc.value()).toEqual('hihi');
+
+    // Add
+    _andOn(secDoc);
+
+    var fo = vc.root().getOperand(0);
+
+    expect(fo.ldType()).toEqual('docGroup');
+    expect(fo.operation()).toEqual('and');
+    expect(fo.operands().length).toEqual(4);
+
+    expect(fo.getOperand(0).ldType()).toEqual('doc');
+    expect(fo.getOperand(1).ldType()).toEqual('doc');
+    expect(fo.getOperand(2).ldType()).toEqual('non');
+    expect(fo.getOperand(3).ldType()).toEqual('docGroup');
+  });
+
+
+  it ('should remove a doc with an unspecified doc in a nested group', function () {
+    var vc = demoFactory.create();
+
+    // Wrap with direct element access
+    expect(vc.toQuery()).toEqual(
+      '(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel = "huhu"'
+    );
+
+    var fo = vc.root().getOperand(0).getOperand(0);
+    expect(fo.key()).toEqual('Titel');
+    expect(fo.value()).toEqual('Baum');
+
+    // Add unspecified on the root group
+    _orOn(fo);
+
+    fo = vc.root().getOperand(0).getOperand(0);
+
+    expect(fo.operation()).toEqual('or');
+    expect(fo.getOperand(0).ldType()).toEqual('doc');
+    expect(fo.getOperand(1).ldType()).toEqual('non');
+
+    // Delete document
+    _delOn(fo.getOperand(0));
+
+    // The operand is now non
+    expect(vc.root().getOperand(0).getOperand(0).ldType()).toEqual('non');
+    expect(vc.root().getOperand(0).getOperand(1).ldType()).toEqual('doc');
+    expect(vc.root().getOperand(0).getOperand(2).ldType()).toEqual('docGroup');
+  });
+
+  it ('should remove an unspecified doc with an doc in a nested group', function () {
+    var vc = demoFactory.create();
+
+    // Wrap with direct element access
+    expect(vc.toQuery()).toEqual(
+      '(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel = "huhu"'
+    );
+
+    var fo = vc.root().getOperand(0).getOperand(0);
+    expect(fo.key()).toEqual('Titel');
+    expect(fo.value()).toEqual('Baum');
+
+    // Add unspecified on the root group
+    _orOn(fo);
+
+    fo = vc.root().getOperand(0).getOperand(0);
+
+    expect(fo.operation()).toEqual('or');
+    expect(fo.getOperand(0).ldType()).toEqual('doc');
+    expect(fo.getOperand(1).ldType()).toEqual('non');
+
+    // Delete unspecified doc
+    _delOn(fo.getOperand(1));
+
+    // The operand is now non
+    fo = vc.root().getOperand(0);
+    expect(fo.getOperand(0).ldType()).toEqual('doc');
+    expect(fo.getOperand(0).key()).toEqual('Titel');
+    expect(fo.getOperand(0).value()).toEqual('Baum');
+    expect(fo.getOperand(1).ldType()).toEqual('doc');
+    expect(fo.getOperand(2).ldType()).toEqual('docGroup');
+  });
+
+
+  it ('should add on parent group (case "and")', function () {
     var vc = complexVCFactory.create();
 
     // Wrap with direct element access
@@ -1429,20 +1537,41 @@ describe('KorAP._add (event)', function () {
       'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
     );
 
-    // Add unspecified
-    KorAP._and.bind(vc.root().getOperand(1).element().lastChild.firstChild).apply();
+    expect(vc.root().operands().length).toEqual(2);
+
+    // Add unspecified on the root group
+    _andOn(vc.root().getOperand(1));
     expect(vc.toQuery()).toEqual(
       'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
     );
+
     expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operands().length).toEqual(3);
+    expect(vc.root().getOperand(0).ldType()).toEqual('doc');
     expect(vc.root().getOperand(1).ldType()).toEqual('docGroup');
-    expect(vc.root().getOperand(1).operation()).toEqual('and');
-/*
-    expect(vc.root().operation()).toEqual('and');
-*/
+    expect(vc.root().getOperand(1).operation()).toEqual('or');
+    expect(vc.root().getOperand(2).ldType()).toEqual('non');
+
+    // Add another unspecified on the root group
+    _andOn(vc.root().getOperand(1));
+
+    expect(vc.root().operands().length).toEqual(4);
+    expect(vc.root().getOperand(0).ldType()).toEqual('doc');
+    expect(vc.root().getOperand(1).ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(2).ldType()).toEqual('non');
+    expect(vc.root().getOperand(3).ldType()).toEqual('non');
+
+    // Add another unspecified after the first doc
+    _andOn(vc.root().getOperand(0));
+
+    expect(vc.root().operands().length).toEqual(5);
+    expect(vc.root().getOperand(0).ldType()).toEqual('doc');
+    expect(vc.root().getOperand(1).ldType()).toEqual('non');
+    expect(vc.root().getOperand(2).ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(3).ldType()).toEqual('non');
+    expect(vc.root().getOperand(4).ldType()).toEqual('non');
   });
 
-/*
   it ('should wrap on root', function () {
     var vc = KorAP.VirtualCollection.render(
       {
@@ -1465,17 +1594,58 @@ describe('KorAP._add (event)', function () {
       }
     );
 
-    // Delete with direct element access
+    // Wrap on root
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
-    KorAP._or.bind(vc.root().element().lastChild.lastChild).apply();
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('and');
+    _orOn(vc.root());
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('or');
+
+    expect(vc.root().getOperand(0).ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(0).operation()).toEqual('and');
+  });
+
+  it ('should add on root (case "and")', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:eq',
+	"value": '2014-12-05',
+	"type": 'type:date'
+      }
+    );
+
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05');
+    expect(vc.root().ldType()).toEqual('doc');
+    expect(vc.root().key()).toEqual('pubDate');
+    expect(vc.root().value()).toEqual('2014-12-05');
+
+    // Wrap on root
+    _andOn(vc.root());
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('and');
+  });
+
+  it ('should add on root (case "or")', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:doc',
+	"key": 'pubDate',
+	"match": 'match:eq',
+	"value": '2014-12-05',
+	"type": 'type:date'
+      }
+    );
+
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05');
+    expect(vc.root().key()).toEqual('pubDate');
+    expect(vc.root().value()).toEqual('2014-12-05');
+
+    // Wrap on root
+    _orOn(vc.root());
     expect(vc.root().ldType()).toEqual('docGroup');
     expect(vc.root().operation()).toEqual('or');
   });
-*/
 });
-
-/*
- Todo: test event sequences:
- - In a nested group with a 'doc' and a 'non', remove the 'doc',
-   so the 'non' needs to be flattened!
-*/

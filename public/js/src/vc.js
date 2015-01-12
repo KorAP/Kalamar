@@ -1,8 +1,9 @@
 var KorAP = KorAP || {};
 
 // TODO: Implement a working localization solution!
-// TODO: Support 'update' method to update elements on change
-// TODO: Implement "toQuery"
+// TODO: Remove "and" or "or" in case it's followed
+//       by an unspecified document
+// TODO: Add 'or' or 'and' on root
 
 /*
   Error codes:
@@ -56,10 +57,11 @@ var KorAP = KorAP || {};
   };
 
 
-  // Add doc
+  // Add new unspecified document
   KorAP._add = function (obj, type) {
     var ref = obj.parentNode.refTo;
     var parent = ref.parent();
+
     if (ref.ldType() === 'docGroup') {
 
       // Check that the action differs from the type
@@ -75,8 +77,11 @@ var KorAP = KorAP || {};
       };
     }
     else if (ref.ldType() === 'doc') {
-// Todo: Check if parent is a group
-      if (parent.operation() === type) {
+
+      if (parent.ldType() === null) {
+	return ref.wrapOnRoot(type);
+      }
+      else if (parent.operation() === type) {
 	return parent.newAfter(ref);
       }
       else {
@@ -97,13 +102,16 @@ var KorAP = KorAP || {};
     return KorAP._add(this, 'or');
   };
 
+
   // Remove doc or docGroup
   KorAP._delete = function () {
     var ref = this.parentNode.refTo;
-    if (ref.parent().ldType() !== null)
-      ref.parent().delOperand(ref).update();
-    else
+    if (ref.parent().ldType() !== null) {
+      return ref.parent().delOperand(ref).update();
+    }
+    else {
       ref.parent().clean();
+    };
   };
 
 
@@ -159,9 +167,7 @@ var KorAP = KorAP || {};
       if (arguments.length === 1) {
 	var e = this.element();
 	if (e.firstChild !== null) {
-	  console.log(e.firstChild);
 	  if (e.firstChild !== obj.element()) {
-console.log(e.firstChild);
 	    e.replaceChild(obj.element(), e.firstChild);
 	  };
 	}
@@ -669,7 +675,7 @@ console.log(e.firstChild);
     },
 
     newAfter : function (obj) {
-      for (var i in this._operands) {
+      for (var i = 0; i < this._operands.length; i++) {
 	if (this._operands[i] === obj) {
 	  var operand = KorAP.UnspecifiedDoc.create(this);
 	  this._operands.splice(i + 1, 0, operand);
@@ -728,25 +734,11 @@ console.log(e.firstChild);
       };
     },
 
-    // Wrap a new operation around the root group element 
-    wrapOnRoot : function () {
-      var parent = this.parent();
-
-      var group = KorAP.DocGroup.create(parent);
-      group.operation(
-	this.operation() === 'and' ? 'or' : 'and'
-      );
-      group.append(this);
-      this.parent(group);
-      group.append();
-      group.element(); // Init (seems to be necessary)
-      parent.root(group);
-      return this.parent();
-    },
-
     update : function () {
       // There is only one operand in group
+
       if (this._operands.length === 1) {
+
 	var parent = this.parent();
 	var op = this.getOperand(0);
 
@@ -755,9 +747,8 @@ console.log(e.firstChild);
 	this._operands = [];
 
 	// Parent is a group
-	if (parent.ldType() !== null) {
+	if (parent.ldType() !== null)
 	  return parent.replaceOperand(this, op).update();
-	}
 
 	// Parent is vc
 	else {
@@ -778,7 +769,7 @@ console.log(e.firstChild);
       _removeChildren(group);
 
       // Append operands
-      for (var i in this._operands) {
+      for (var i = 0; i < this._operands.length; i++) {
 	group.appendChild(
 	  this.getOperand(i).element()
 	);
@@ -834,11 +825,13 @@ console.log(e.firstChild);
 
     // Replace operand
     replaceOperand : function (oldOp, newOp) {
-      for (var i in this._operands) {
+
+      for (var i = 0; i < this._operands.length; i++) {
 	if (this._operands[i] === oldOp) {
 
 	  // Just insert a doc or ...
 	  if (newOp.ldType() === "doc" ||
+	      newOp.ldType() === "non" ||
 	      // ... insert a group of a different operation
 	      // (i.e. "and" in "or"/"or" in "and")
 	      newOp.operation() != this.operation()) {
@@ -869,7 +862,7 @@ console.log(e.firstChild);
 
     // Delete operand from group
     delOperand : function (obj) {
-      for (var i in this._operands) {
+      for (var i = 0; i < this._operands.length; i++) {
 	if (this._operands[i] === obj) {
 
 	  // Delete identified operand
@@ -923,7 +916,7 @@ console.log(e.firstChild);
 
     toJson : function () {
       var opArray = new Array();
-      for (var i in this._operands) {
+      for (var i = 0; i < this._operands.length; i++) {
 	if (this._operands[i].ldType() !== 'non')
 	  opArray.push(this._operands[i].toJson());
       };
@@ -1005,10 +998,29 @@ console.log(e.firstChild);
 
       // In case of a group, destroy all operands
       if (this._operands !== undefined) {
-	for (var i in this._operands)
+      for (var i = 0; i < this._operands.length; i++)
 	  this.getOperand(i).destroy();
 	this._operands = [];
       };
+    },
+
+    // Wrap a new operation around the root group element 
+    wrapOnRoot : function (op) {
+      var parent = this.parent();
+
+      var group = KorAP.DocGroup.create(parent);
+      if (arguments.length === 1)
+	group.operation(op);
+      else
+	group.operation(
+	  this.operation() === 'and' ? 'or' : 'and'
+	);
+      group.append(this);
+      this.parent(group);
+      group.append();
+      group.element(); // Init (seems to be necessary)
+      parent.root(group);
+      return this.parent();
     },
 
     // Be aware! This may be cyclic
