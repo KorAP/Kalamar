@@ -30,6 +30,10 @@ body {
   padding: .6em .5em;
 }
 
+.vc .docGroup .docGroup {
+  display: block;
+}
+
 .vc > .docGroup {
   margin-left: 0;
 }

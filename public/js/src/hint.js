@@ -31,7 +31,7 @@ var KorAP = KorAP || {};
   "use strict";
 
   // Don't let events bubble up
-  if (Event.halt !== undefined) {
+  if (Event.halt === undefined) {
     Event.prototype.halt = function () {
       this.stopPropagation();
       this.preventDefault();

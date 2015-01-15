@@ -1,3 +1,9 @@
+/*
+Todo: In demoSpec: Create "and" on the last element of the top "or"-Group
+
+*/
+
+
 // Helper method for building factories
 buildFactory = function (objClass, defaults) {
   return {
@@ -1636,6 +1642,58 @@ describe('KorAP._add (event)', function () {
 	"match": 'match:eq',
 	"value": '2014-12-05',
 	"type": 'type:date'
+      }
+    );
+
+    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05');
+    expect(vc.root().key()).toEqual('pubDate');
+    expect(vc.root().value()).toEqual('2014-12-05');
+
+    // Wrap on root
+    _orOn(vc.root());
+    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.root().operation()).toEqual('or');
+  });
+
+  it ('should support multiple sub groups per group', function () {
+    var vc = KorAP.VirtualCollection.render(
+      {
+	"@type": 'korap:docGroup',
+	'operation' : 'operation:or',
+	'operands' : [
+	  {
+	    "@type": 'korap:docGroup',
+	    'operation' : 'operation:and',
+	    'operands' : [
+	      {
+		"@type": 'korap:doc',
+		"key": 'title',
+		"value": 't1',
+	      },
+	      {
+		"@type" : 'korap:doc',
+		'key' : 'title',
+		'value' : 't2'
+	      }
+	    ]
+	  },
+	  {
+	    "@type": 'korap:docGroup',
+	    'operation' : 'operation:and',
+	    'operands' : [
+	      {
+		"@type": 'korap:doc',
+		"key": 'title',
+		"value": 't3',
+	      },
+	      {
+		"@type" : 'korap:doc',
+		'key' : 'title',
+		'value' : 't4'
+	      }
+	    ]
+	  }
+	]
       }
     );
 
