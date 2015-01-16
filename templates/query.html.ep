@@ -8,7 +8,7 @@
 %   };
 %   state $json = JSON::XS->new->allow_blessed->pretty->canonical(1);
 <pre class="query serial<%== $action // '' %>" <% unless ($action) { %>onclick="this.classList.toggle('active')"<% } %>>
-  <span>JSON-LD Serialization for <%= param 'q' %> (<%= param 'ql' %>)</span>
+  <span>JSON-LD Serialization for &quot;<%= param 'q' %>&quot;<% if (param('ql')) { %> (<%= param 'ql' %>)<% } %></span>
   <code>
 %# Workaround to keep true, false, and null intact
 %= $json->encode($json->decode(Mojo::JSON::encode_json(search->query_jsonld)))

@@ -1,5 +1,6 @@
 package Korap::Plugin::KorapTagHelpers;
 use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::JSON 'decode_json';
 use Mojo::JSON::Pointer;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/xml_escape/;
@@ -25,86 +26,91 @@ sub register {
       }
 
       # Tutorial wasn't embedded - but opened for testing
-      elsif ($c->param('testing') &&
-	       $c->korap_test_port &&
-		 $param{tests}) {
+ #     elsif ($c->param('testing') &&
+#	       $c->korap_test_port &&
+#		 $param{tests}) {
+#
+# Currently disabled
 
-	my $tests = $param{tests} // [];
-	my $json = $c->search(
-	  query => $q,
-	  ql => $ql,
-	  cutoff => 'true',
-	  no_cache => 1
-	);
-
-	# There is a response
-	if ($json) {
-	  my $json_pointer = Mojo::JSON::Pointer->new($json);
-	  foreach my $test (@$tests) {
-	    my ($type, $path, @rest) = @$test;
-
-	    # Check for equality
-	    if ($type eq 'is') {
-	      my $found = $json_pointer->get($path);
-	      if ($found && $found eq $rest[0]) {
-		$pass++;
-	      }
-	      else {
-		my $result = $path . q! isn't ! . shift @rest;
-		$result .= ' but was ' . $found if $found;
-		$result .= '; ' . join('; ', @rest);
-		push(@report, $result);
-		$fail++;
-	      };
-	    }
-
-	    # Check for inequality
-	    elsif ($type eq 'isnt') {
-	      if ($json_pointer->get($path) ne $rest[0]) {
-		$pass++;
-	      }
-	      else {
-		push(@report, $path . q! is ! . join('; ', @rest));
-		$fail++;
-	      };
-	    }
-
-	    # Check for existence
-	    elsif ($type eq 'ok') {
-	      if ($json_pointer->contains($path)) {
-		$pass++;
-	      }
-	      else {
-		push(@report, $path . q! doesn't exist; ! . join('; ', @rest));
-		$fail++;
-	      };
-	    }
-
-	    # Check for inexistence
-	    elsif ($type eq 'not_ok') {
-	      unless ($json_pointer->contains($path)) {
-		$pass++;
-	      }
-	      else {
-		push(@report, $path . q! doesn't exist; ! . join('; ', @rest));
-		$fail++;
-	      };
-	    };
-	  };
-	}
-	else {
-	  # There may be notifications here!
-	  $fail++ foreach @$tests;
-	};
-
-	# Emit hook to possible subscribers
-	# This is used for self-testing
-	# $plugin->emit_hook(korap_tut_query => (
-	#   query_language => $ql,
-	#   query => $q,
-	#   %param
-	# ));
-      };
+#	my $tests = $param{tests} // [];
+#	my $index = $c->search(
+#	  query => $q,
+#	  ql => $ql,
+#	  cutoff => 'true',
+#	  no_cache => 1
+#	);
+#
+#	# Get the raw results
+#	my $json = decode_json($index->api_response);
+#
+#	# There is a response
+#	if ($json) {
+#	  my $json_pointer = Mojo::JSON::Pointer->new($json);
+#	  foreach my $test (@$tests) {
+#	    my ($type, $path, @rest) = @$test;
+#
+#	    # Check for equality
+#	    if ($type eq 'is') {
+#	      my $found = $json_pointer->get($path);
+#	      if ($found && $found eq $rest[0]) {
+#		$pass++;
+#	      }
+#	      else {
+#		my $result = $path . q! isn't ! . shift @rest;
+#		$result .= ' but was ' . $found if $found;
+#		$result .= '; ' . join('; ', @rest);
+#		push(@report, $result);
+#		$fail++;
+#	      };
+#	    }
+#
+#	    # Check for inequality
+#	    elsif ($type eq 'isnt') {
+#	      if ($json_pointer->get($path) ne $rest[0]) {
+#		$pass++;
+#	      }
+#	      else {
+#		push(@report, $path . q! is ! . join('; ', @rest));
+#		$fail++;
+#	      };
+#	    }
+#
+#	    # Check for existence
+#	    elsif ($type eq 'ok') {
+#	      if ($json_pointer->contains($path)) {
+#		$pass++;
+#	      }
+#	      else {
+#		push(@report, $path . q! doesn't exist; ! . join('; ', @rest));
+#		$fail++;
+#	      };
+#	    }
+#
+#	    # Check for inexistence
+#	    elsif ($type eq 'not_ok') {
+#	      unless ($json_pointer->contains($path)) {
+#		$pass++;
+#	      }
+#	      else {
+#		push(@report, $path . q! doesn't exist; ! . join('; ', @rest));
+#		$fail++;
+#	      };
+#	    };
+#	  };
+#	}
+#	else {
+#	  # There may be notifications here!
+#	  $fail++ foreach @$tests;
+#	};
+#
+#	# Emit hook to possible subscribers
+#	# This is used for self-testing
+#	# $plugin->emit_hook(korap_tut_query => (
+#	#   query_language => $ql,
+#	#   query => $q,
+#	#   %param
+#	# ));
+ #     };
 
       # Escape query for html embedding
       $q = xml_escape $q;

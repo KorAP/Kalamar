@@ -97,10 +97,10 @@ document.write('class="fa fa-external-link-square"></i></a>');
 
 <main>
 %= content main => begin
-  <p>This is the alternative KorAP Frontend.</p>
+  <p>This is an alternative KorAP Frontend.</p>
   <p>The primary goal is to serve as a testbed for the query serialization and for different flavours of user interfaces.</p>
   <p>Search capabilities are limited to the demo user.</p>
-  <p>Currently the frontend only supports recent versions of Mozilla Firefox.</p>
+  <p>Currently the frontend is only tested for recent versions of Mozilla Firefox.</p>
 % end
 </main>
 

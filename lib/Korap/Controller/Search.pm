@@ -39,7 +39,7 @@ sub query {
       $c->search(
 	cutoff => scalar $c->param('cutoff'),
 	count => scalar $c->param('count'),
-	start_page => scalar $c->param('page'),
+	start_page => scalar $c->param('p'),
 	cb => $delay->begin,
 	%param
       ) if $query;

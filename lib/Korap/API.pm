@@ -98,7 +98,8 @@ sub search {
   # Search blocking
   else {
     my $tx = $ua->get($url);
-    return $self->_process_response('matches', $index, $tx);
+    $self->_process_response('matches', $index, $tx);
+    return $index;
   };
 };
 
