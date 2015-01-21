@@ -44,7 +44,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
 % };
 
 <div id="top">
-  <a href="<%= url_for 'index' %>"><h1><span>KorAP- Korpusanalyseplattform der nächsten Generation</span></h1></a>
+  <a href="<%= url_for 'index' %>"><h1><span>KorAP - Korpusanalyseplattform der nächsten Generation</span></h1></a>
 
 %= form_for $search_route, autocomplete => 'off', begin
   <div id="searchbar">
@@ -97,10 +97,9 @@ document.write('class="fa fa-external-link-square"></i></a>');
 
 <main>
 %= content main => begin
-  <p>This is an alternative KorAP Frontend.</p>
-  <p>The primary goal is to serve as a testbed for the query serialization and for different flavours of user interfaces.</p>
-  <p>Search capabilities are limited to the demo user.</p>
-  <p>Currently the frontend is only tested for recent versions of Mozilla Firefox.</p>
+  <p>KorAP is a Corpus Analysis Platform, serving textual data provided by the <a href="http://www.ids-mannheim.de">Institute for German Language</a>.</p>
+  <p>For information how to search in KorAP, have a look at the <%= link_to 'tutorial', 'tutorial' %>.</p>
+  <p style="font-style: italic">Currently the scope of searching is limited to public users - for access to restricted corpora, please visit the <a href="http://korap.ids-mannheim.de/app">first frontend</a>.</p>
 % end
 </main>
 
