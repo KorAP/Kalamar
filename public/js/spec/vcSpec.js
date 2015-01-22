@@ -534,7 +534,7 @@ describe('KorAP.UnspecifiedDoc', function () {
     expect(docElement.getAttribute('class')).toEqual('doc unspecified');
     expect(docElement.firstChild.firstChild.data).toEqual('⋯');
     expect(docElement.lastChild.lastChild.data).toEqual('⋯');
-    expect(doc.toQuery()).toEqual('⋯');
+    expect(doc.toQuery()).toEqual('');
 
     // Only removable
     expect(docElement.lastChild.children.length).toEqual(0);
@@ -565,6 +565,79 @@ describe('KorAP.UnspecifiedDoc', function () {
     // Removable
     expect(unspec.lastChild.children.length).toEqual(1);
     expect(unspec.lastChild.children[0].getAttribute('class')).toEqual('delete');
+  });
+
+  it('should be replaceable by a doc', function () {
+    var doc = KorAP.UnspecifiedDoc.create();
+    expect(doc.ldType()).toEqual("non");
+    // No parent, therefor not updateable
+    expect(doc.key("baum")).toBeNull();
+
+    var docGroup = KorAP.DocGroup.create();
+    docGroup.operation('or');
+    expect(docGroup.operation()).toEqual('or');
+
+    docGroup.append({
+      "@type": 'korap:doc',
+      "key": 'pubDate',
+      "match": 'match:eq',
+      "value": '2014-12-05',
+      "type": 'type:date'      
+    });
+
+    expect(docGroup.toQuery()).toEqual("pubDate in 2014-12-05");
+    docGroup.append();
+
+    expect(docGroup.getOperand(0).ldType()).toEqual("doc");
+    expect(docGroup.getOperand(1).ldType()).toEqual("non");
+
+    var op = docGroup.getOperand(1).element().lastChild;
+    expect(op.getAttribute('class')).toEqual('operators');
+    expect(op.children[0].getAttribute('class')).toEqual('delete');
+    expect(op.children.length).toEqual(1);
+
+    // Replace unspecified doc
+    expect(docGroup.getOperand(1).key("name")).not.toBeNull();
+    expect(docGroup.getOperand(1).ldType()).toEqual("doc");
+    expect(docGroup.getOperand(1).key()).toEqual("name");
+    expect(docGroup.getOperand(1).value()).toEqual("");
+
+    op = docGroup.getOperand(1).element().lastChild;
+    expect(op.getAttribute('class')).toEqual('operators');
+    expect(op.children[0].getAttribute('class')).toEqual('and');
+    expect(op.children[1].getAttribute('class')).toEqual('or');
+    expect(op.children[2].getAttribute('class')).toEqual('delete');
+    expect(op.children.length).toEqual(3);
+
+    docGroup.getOperand(1).value("Pachelbel");
+    expect(docGroup.getOperand(1).value()).toEqual("Pachelbel");
+    expect(docGroup.getOperand(1).type()).toEqual("string");
+    expect(docGroup.getOperand(1).matchop()).toEqual("eq");
+
+    // Specified!
+    expect(docGroup.toQuery()).toEqual('pubDate in 2014-12-05 | name = "Pachelbel"');
+  });
+
+  it('should be replaceable on root', function () {
+    var vc = KorAP.VirtualCollection.render();
+    expect(vc.toQuery()).toEqual("");
+
+    expect(vc.root().ldType()).toEqual("non");
+
+    // No operators on root
+    op = vc.root().element().lastChild;
+    expect(op.lastChild.textContent).toEqual('⋯');
+
+    // Replace
+    expect(vc.root().key("baum")).not.toBeNull();
+    expect(vc.root().ldType()).toEqual("doc");
+
+    op = vc.root().element().lastChild;
+    expect(op.getAttribute('class')).toEqual('operators');
+    expect(op.children[0].getAttribute('class')).toEqual('and');
+    expect(op.children[1].getAttribute('class')).toEqual('or');
+    expect(op.children[2].getAttribute('class')).toEqual('delete');
+    expect(op.children.length).toEqual(3);
   });
 });
 
@@ -1038,7 +1111,7 @@ describe('KorAP.VirtualCollection', function () {
 
     // Clean everything
     vc.clean();
-    expect(vc.toQuery()).toEqual('⋯');
+    expect(vc.toQuery()).toEqual('');
   });
 });
 
@@ -1125,7 +1198,7 @@ describe('KorAP._delete (event)', function () {
     // Clean with delete from root
     expect(vc.root().element().lastChild.lastChild.getAttribute('class')).toEqual('delete');
     _delOn(vc.root());
-    expect(vc.root().toQuery()).toEqual('⋯');
+    expect(vc.root().toQuery()).toEqual('');
     expect(vc.root().element().lastChild.lastChild.data).toEqual('⋯');
   });
 
@@ -1184,7 +1257,7 @@ describe('KorAP._delete (event)', function () {
     // Cleanwith direct element access
     expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
     _delOn(vc.root());
-    expect(vc.toQuery()).toEqual('⋯');
+    expect(vc.toQuery()).toEqual('');
     expect(vc.root().ldType()).toEqual('non');
   });
 
@@ -1696,14 +1769,18 @@ describe('KorAP._add (event)', function () {
 	]
       }
     );
-
-    expect(vc.toQuery()).toEqual('pubDate in 2014-12-05');
-    expect(vc.root().key()).toEqual('pubDate');
-    expect(vc.root().value()).toEqual('2014-12-05');
-
-    // Wrap on root
-    _orOn(vc.root());
-    expect(vc.root().ldType()).toEqual('docGroup');
+    expect(vc.toQuery()).toEqual(
+      '(title = "t1" & title = "t2") | (title = "t3" & title = "t4")'
+    );
     expect(vc.root().operation()).toEqual('or');
+    expect(vc.root().getOperand(0).toQuery()).toEqual('title = "t1" & title = "t2"');
+    expect(vc.root().getOperand(1).toQuery()).toEqual('title = "t3" & title = "t4"');
+
+    _andOn(vc.root());
+
+    expect(vc.root().operation()).toEqual('and');
+    expect(vc.root().getOperand(0).ldType()).toEqual('docGroup');
+    expect(vc.root().getOperand(1).ldType()).toEqual('non');
   });
 });
+

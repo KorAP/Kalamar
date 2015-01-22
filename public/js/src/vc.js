@@ -60,6 +60,7 @@ var KorAP = KorAP || {};
   // Add new unspecified document
   KorAP._add = function (obj, type) {
     var ref = obj.parentNode.refTo;
+    console.log("DEBUG: " + type + " on " + ref.toQuery());
     var parent = ref.parent();
 
     if (ref.ldType() === 'docGroup') {
@@ -106,6 +107,7 @@ var KorAP = KorAP || {};
   // Remove doc or docGroup
   KorAP._delete = function () {
     var ref = this.parentNode.refTo;
+console.log("DEBUG: delete " + ref.toQuery());
     if (ref.parent().ldType() !== null) {
       return ref.parent().delOperand(ref).update();
     }
@@ -326,6 +328,34 @@ var KorAP = KorAP || {};
       return obj;
     },
 
+    // Set key - replace
+    key : function (v) {
+
+      // Not replaceable
+      if (this._parent === undefined)
+	return null;
+
+      // Set JSON-LD type
+      var newDoc = KorAP.Doc.create(this._parent, {
+	"@type" : "korap:doc",
+	"value" : "",
+	"key"   : v
+      });
+
+      // Unspecified document on root
+      if (this._parent.ldType() === null) {
+	this._parent.root(newDoc);
+	this.destroy();
+      }
+
+      // Unspecified document in group
+      else {
+	this._parent.replaceOperand(this, newDoc);
+      };
+      this._parent.update();
+      return newDoc;
+    },
+
     update : function () {
 
       if (this._element === undefined)
@@ -361,7 +391,9 @@ var KorAP = KorAP || {};
       this._element.setAttribute('class', 'doc unspecified');
       this.update();
       return this._element;
-    }
+    },
+
+    
   };
 
 
@@ -370,7 +402,7 @@ var KorAP = KorAP || {};
    */
   KorAP.Doc = {
     _ldType : "doc",
-    _obj : function () { return KorAP.Doc; },
+    _obj : function () { return KorAP.Doc },
 
     create : function (parent, json) {
       var obj = Object(KorAP.JsonLD).
@@ -572,6 +604,7 @@ var KorAP = KorAP || {};
       if (arguments.length === 1) {
 	this._key = value;
 	this._changed = true;
+	return this;
       };
       return this._key;
     },
@@ -580,6 +613,7 @@ var KorAP = KorAP || {};
       if (arguments.length === 1) {
 	this._matchop = match.replace(/^match:/, '');
 	this._changed = true;
+	return this;
       };
       return this._matchop || "eq";
     },
@@ -588,6 +622,7 @@ var KorAP = KorAP || {};
       if (arguments.length === 1) {
 	this._type = type;
 	this._changed = true;
+	return this;
       };
       return this._type || "string";
     },
@@ -596,6 +631,7 @@ var KorAP = KorAP || {};
       if (arguments.length === 1) {
 	this._value = value;
 	this._changed = true;
+	return this;
       };
       return this._value;
     },
@@ -1042,7 +1078,7 @@ var KorAP = KorAP || {};
     },
 
     toQuery : function () {
-      return loc.EMPTY;
+      return '';
     }
   };
  
