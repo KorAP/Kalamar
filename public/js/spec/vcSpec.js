@@ -1,6 +1,5 @@
 /*
 Todo: In demoSpec: Create "and" on the last element of the top "or"-Group
-
 */
 
 
@@ -1113,6 +1112,63 @@ describe('KorAP.VirtualCollection', function () {
     vc.clean();
     expect(vc.toQuery()).toEqual('');
   });
+
+  it('should flatten on import', function () {
+    var vc = KorAP.VirtualCollection.create().render({
+      "@type":"korap:docGroup",
+      "operation":"operation:or",
+      "operands":[
+	{
+	  "@type":"korap:docGroup",
+	  "operation":"operation:or",
+	  "operands":[
+            {
+              "@type":"korap:doc",
+              "key":"Titel",
+              "value":"Baum",
+              "match":"match:eq"
+            },
+            {
+              "@type":"korap:doc",
+              "key":"Veröffentlichungsort",
+              "value":"hihi",
+              "match":"match:eq"
+            },
+            {
+              "@type":"korap:docGroup",
+              "operation":"operation:or",
+              "operands":[
+		{
+		  "@type":"korap:doc",
+		  "key":"Titel",
+		  "value":"Baum",
+		  "match":"match:eq"
+		},
+		{
+		  "@type":"korap:doc",
+		  "key":"Veröffentlichungsort",
+		  "value":"hihi",
+		  "match":"match:eq"
+		}
+              ]
+            }
+	  ]
+	},
+	{
+	  "@type":"korap:doc",
+	  "key":"Untertitel",
+	  "value":"huhu",
+	  "match":"match:eq"
+	}
+      ]
+    });
+
+    expect(vc.toQuery()).toEqual(
+      'Titel = "Baum" | Veröffentlichungsort = "hihi" | Untertitel = "huhu"'
+    );
+
+
+  });
 });
 
 describe('KorAP.Operators', function () {
@@ -1784,3 +1840,51 @@ describe('KorAP._add (event)', function () {
   });
 });
 
+describe('KorAP.Rewrite', function () {
+
+  it('should be initializable', function () {
+    var rewrite = KorAP.Rewrite.create({
+      "@type" : "korap:rewrite",
+      "operation" : "operation:modification",
+      "src" : "querySerializer",
+      "scope" : "tree"
+    });
+    expect(rewrite.toString()).toEqual('Modification of "tree" by "querySerializer"');
+  });
+
+  it('should be deserialized by docs', function () {
+    var doc = KorAP.Doc.create(undefined,
+      {
+        "@type":"korap:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq"
+      });
+
+    expect(doc.element().classList.contains('doc')).toBeTruthy();
+    expect(doc.element().classList.contains('rewritten')).toBe(false);
+
+    doc = KorAP.Doc.create(undefined,
+      {
+        "@type":"korap:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq",
+	"rewrites" : [
+	  {
+	    "@type" : "korap:rewrite",
+	    "operation" : "operation:modification",
+	    "src" : "querySerializer",
+	    "scope" : "tree"
+	  }
+	]
+      });
+
+    expect(doc.element().classList.contains('doc')).toBeTruthy();
+    expect(doc.element().classList.contains('rewritten')).toBeTruthy();
+  });
+/*
+  it('should be deserialized by docGroups', function () {
+  });
+*/
+});

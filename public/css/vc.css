@@ -30,6 +30,25 @@ body {
   padding: .6em .5em;
 }
 
+.vc .rewritten .rewrite {
+  color: red;
+  font-weight: bold;
+  background-color: yellow;
+  width: 1.5em;
+  height: 1.2em;
+  margin-left: 2px;
+  border-radius: 8pt;
+  display: inline-block;
+}
+
+.vc .rewritten .rewrite span {
+  display: none;
+}
+
+.vc .rewritten .rewrite:hover span {
+  display: block;
+}
+
 .vc .docGroup .docGroup {
   display: block;
 }
@@ -232,7 +251,7 @@ body {
 }
 
 .vc .docGroup:hover {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.05);
 }
 
 .vc .docGroup:hover > .operators,

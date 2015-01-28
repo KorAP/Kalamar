@@ -1,11 +1,16 @@
+/**
+ * Create virtual collections with a visual user interface.
+ *
+ * @author Nils Diewald
+ */
+
 var KorAP = KorAP || {};
 
-// TODO: Implement a working localization solution!
-// TODO: Remove "and" or "or" in case it's followed
-//       by an unspecified document
-// TODO: Add 'or' or 'and' on root
-
 /*
+  TODO: Implement a working localization solution!
+  TODO: Disable "and" or "or" in case it's followed
+        by an unspecified document
+
   Error codes:
   701: "JSON-LD group has no @type attribute" 
   704: "Operation needs operand list"
@@ -18,6 +23,8 @@ var KorAP = KorAP || {};
   811: "Document group expects operation" (like 703) 
   812: "Operand not supported in document group" (like 744)
   813: "Collection type is not supported" (like 713)
+  814: "Unknown rewrite operation"
+  815: "Rewrite expects source"
 */
 
 (function (KorAP) {
@@ -28,11 +35,12 @@ var KorAP = KorAP || {};
     console.log(type + ": " + msg);
   };
 
-  KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains)$");
+  KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains|excludes)$");
   KorAP._validRegexMatchRE  = new RegExp("^(?:eq|ne)$");
   KorAP._validDateMatchRE   = new RegExp("^[lg]?eq$");
   KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
   KorAP._validGroupOpRE     = new RegExp("^(?:and|or)$");
+  KorAP._validRewriteOpRE   = new RegExp("^(?:injec|modifica)tion$");
   KorAP._quote              = new RegExp("([\"\\\\])", 'g');
 
   // Localization values
@@ -60,7 +68,6 @@ var KorAP = KorAP || {};
   // Add new unspecified document
   KorAP._add = function (obj, type) {
     var ref = obj.parentNode.refTo;
-    console.log("DEBUG: " + type + " on " + ref.toQuery());
     var parent = ref.parent();
 
     if (ref.ldType() === 'docGroup') {
@@ -107,7 +114,6 @@ var KorAP = KorAP || {};
   // Remove doc or docGroup
   KorAP._delete = function () {
     var ref = this.parentNode.refTo;
-console.log("DEBUG: delete " + ref.toQuery());
     if (ref.parent().ldType() !== null) {
       return ref.parent().delOperand(ref).update();
     }
@@ -413,7 +419,7 @@ console.log("DEBUG: delete " + ref.toQuery());
       if (parent !== undefined)
 	obj._parent = parent;
 
-      obj._changed = true;
+      obj.__changed = true;
       return obj;
     },
 
@@ -425,7 +431,12 @@ console.log("DEBUG: delete " + ref.toQuery());
       var e = this._element;
 
       // Check if there is a change
-      if (this._changed) {
+      if (this.__changed) {
+
+	// Was rewritten
+	if (this.rewrites() !== undefined) {
+	  e.classList.add("rewritten");
+	};
 
 	// Added key
 	var key = document.createElement('span');
@@ -458,7 +469,11 @@ console.log("DEBUG: delete " + ref.toQuery());
 	e.appendChild(matchop);
 	e.appendChild(value);
 
-	this._changed = false;
+	this.__changed = false;
+      };
+
+      if (this._rewrites !== undefined) {
+	e.appendChild(this._rewrites.element());
       };
 
       if (this._parent !== undefined) {
@@ -502,7 +517,7 @@ console.log("DEBUG: delete " + ref.toQuery());
       if (json === undefined)
 	return this;
 
-      if (json["@type"] !== "korap:doc") {
+      if (json["@type"] === undefined) {
 	KorAP.log(701, "JSON-LD group has no @type attribute");
 	return;
       };
@@ -595,15 +610,20 @@ console.log("DEBUG: delete " + ref.toQuery());
 	  KorAP.log(804, "Unknown value type");
 	  return;
 	};
+
       };
 
+      if (json["rewrites"] !== undefined) {
+	this._rewrites = KorAP.RewriteList.create(json["rewrites"]);
+      };
+	
       return this;
     },
 
     key : function (value) {
       if (arguments.length === 1) {
 	this._key = value;
-	this._changed = true;
+	this._changed();
 	return this;
       };
       return this._key;
@@ -612,7 +632,7 @@ console.log("DEBUG: delete " + ref.toQuery());
     matchop : function (match) {
       if (arguments.length === 1) {
 	this._matchop = match.replace(/^match:/, '');
-	this._changed = true;
+	this._changed();
 	return this;
       };
       return this._matchop || "eq";
@@ -621,7 +641,7 @@ console.log("DEBUG: delete " + ref.toQuery());
     type : function (type) {
       if (arguments.length === 1) {
 	this._type = type;
-	this._changed = true;
+	this._changed();
 	return this;
       };
       return this._type || "string";
@@ -630,10 +650,25 @@ console.log("DEBUG: delete " + ref.toQuery());
     value : function (value) {
       if (arguments.length === 1) {
 	this._value = value;
-	this._changed = true;
+	this._changed();
 	return this;
       };
       return this._value;
+    },
+
+    rewrites : function () {
+      return this._rewrites;
+    },
+
+    _changed : function () {
+      this.__changed = true;
+
+      if (this._rewrites === undefined)
+	return;
+      delete this["_rewrites"];
+      if (this._element === undefined)
+	return;
+      this._element.classList.remove("rewritten");
     },
 
     toJson : function () {
@@ -663,6 +698,9 @@ console.log("DEBUG: delete " + ref.toQuery());
 	break;
       case "contains":
 	string += '~';
+	break;
+      case "excludes":
+	string += '!~';
 	break;
       case "geq":
 	string += 'since';
@@ -720,6 +758,23 @@ console.log("DEBUG: delete " + ref.toQuery());
       };
     },
 
+    // The doc is already set in the group
+    _duplicate : function (operand) {
+      if (operand.ldType() !== 'doc')
+	return null;
+
+      for (var i = 0; i < this._operands.length; i++) {
+	var op = this.getOperand(i);
+	if (op.ldType() === 'doc'
+	    && operand.key() === op.key()
+	    && operand.matchop() === op.matchop()
+	    && operand.value() === op.value()) {
+	  return op;
+	};
+      };
+      return null;
+    },
+
     append : function (operand) {
 
       // Append unspecified object
@@ -732,7 +787,9 @@ console.log("DEBUG: delete " + ref.toQuery());
       };
 
       switch (operand["@type"]) {
+
       case undefined:
+	// No @type defined
 	if (operand["ldType"] !== undefined) {
 	  if (operand.ldType() !== 'doc' &&
 	      operand.ldType() !== 'docGroup') {
@@ -741,8 +798,13 @@ console.log("DEBUG: delete " + ref.toQuery());
 	  };
 	  // Be aware of cyclic structures!
 	  operand.parent(this);
-	  this._operands.push(operand);
-	  return operand;
+
+	  var dupl = this._duplicate(operand);
+	  if (dupl === null) {
+	    this._operands.push(operand);
+	    return operand;
+	  };
+	  return dupl;
 	};
 
 	KorAP.log(701, "JSON-LD group has no @type attribute");
@@ -753,14 +815,33 @@ console.log("DEBUG: delete " + ref.toQuery());
 	var doc = KorAP.Doc.create(this, operand);
 	if (doc === undefined)
 	  return;
-	this._operands.push(doc);
-	return doc;
+	var dupl = this._duplicate(doc);
+	if (dupl === null) {
+	  this._operands.push(doc);
+	  return doc;
+	};
+	return dupl;
 
       case "korap:docGroup":
 	// Be aware of cyclic structures!
 	var docGroup = KorAP.DocGroup.create(this, operand);
 	if (docGroup === undefined)
 	  return;
+
+	// Flatten group
+	if (docGroup.operation() === this.operation()) {
+	  for (var op in docGroup.operands()) {
+	    op = docGroup.getOperand(op);
+	    var dupl = this._duplicate(op);
+	    if (dupl === null) {
+	      this._operands.push(op);
+	      op.parent(this);
+	    };
+	  };
+	  docGroup._operands = [];
+	  docGroup.destroy();
+	  return this;
+	};
 	this._operands.push(docGroup);
 	return docGroup;
 
@@ -875,15 +956,16 @@ console.log("DEBUG: delete " + ref.toQuery());
 	    newOp.parent(this);
 	  }
 
-	  // Flatten the group
+	  // Flatten group
 	  else {
 	    // Remove old group
 	    this._operands.splice(i, 1);
 
 	    // Inject new operands
 	    for (var op in newOp.operands().reverse()) {
-	      this._operands.splice(i, 0, newOp.getOperand(op));
-	      newOp.getOperand(0).parent(this);
+	      op = newOp.getOperand(op);
+	      this._operands.splice(i, 0, op);
+	      op.parent(this);
 	    };
 	    // Prevent destruction of operands
 	    newOp._operands = [];
@@ -920,7 +1002,7 @@ console.log("DEBUG: delete " + ref.toQuery());
       if (json === undefined)
 	return this;
 
-      if (json["@type"] !== "korap:docGroup") {
+      if (json["@type"] === undefined) {
 	KorAP.log(701, "JSON-LD group has no @type attribute");
 	return;
       };
@@ -984,11 +1066,157 @@ console.log("DEBUG: delete " + ref.toQuery());
   };
 
 
+  KorAP.RewriteList = {
+    // Construction method
+    create : function (json) {
+      var obj = Object(KorAP.JsonLD).
+	create().
+	upgradeTo(KorAP.RewriteList).
+	fromJson(json);
+      return obj;
+    },
+    fromJson : function (json) {
+      this._list = new Array();
+      for (var i = 0; i < json.length; i++) {
+	this._list.push(
+	  KorAP.Rewrite.create(json[i])
+	);
+      };
+      return this;
+    },
+    element : function () {
+      if (this._element !== undefined)
+	return this._element;
+
+      this._element = document.createElement('div');
+      this._element.setAttribute('class', 'rewrite');
+      for (var x in this._list) {
+	var rewrite = this._list[x];
+	var span = document.createElement('span');
+
+	// Set class attribute
+	span.setAttribute('class', rewrite.operation());
+
+	// Append source information
+	span.appendChild(document.createTextNode(rewrite.src()));
+
+	// Append scope information
+	if (rewrite.scope() !== undefined) {
+	  span.appendChild(
+	    document.createTextNode(
+	      ': ' + rewrite.scope()
+	    )
+	  );
+	};
+	this._element.appendChild(span);
+      };
+      return this._element;
+    }
+  };
+
+
+  /**
+   * Implementation of rewrite objects.
+   */
+  KorAP.Rewrite = {
+
+    // Construction method
+    create : function (json) {
+      var obj = Object(KorAP.JsonLD).
+	create().
+	upgradeTo(KorAP.Rewrite).
+	fromJson(json);
+      return obj;
+    },
+
+    // Get or set source
+    src : function (string) {
+      if (arguments.length === 1)
+	this._src = string;
+      return this._src;
+    },
+    
+    // Get or set operation
+    operation : function (op) {
+      if (arguments.length === 1) {
+	if (KorAP._validRewriteOpRE.test(op)) {
+	  this._op = op;
+	}
+	else {
+	  KorAP.log(814, "Unknown rewrite operation");
+	  return;
+	};
+      };
+      return this._op || 'injection';
+    },
+
+    // Get or set scope
+    scope : function (attr) {
+      if (arguments.length === 1)
+	this._scope = attr;
+      return this._scope;
+    },
+
+    // Serialize from Json
+    fromJson : function (json) {
+      if (json === undefined)
+	return this;
+
+      // Missing @type
+      if (json["@type"] === undefined) {
+	KorAP.log(701, "JSON-LD group has no @type attribute");
+	return;
+      };
+
+      // Missing source
+      if (json["src"] === undefined ||
+	 typeof json["src"] !== 'string') {
+	KorAP.log(815, "Rewrite expects source");
+	return;
+      };
+
+      // Set source
+      this.src(json["src"]);
+
+      // Set operation
+      if (json["operation"] !== undefined) {
+	var operation = json["operation"];
+	this.operation(operation.replace(/^operation:/,''));
+      };
+
+      // Set scope
+      if (json["scope"] !== undefined &&
+	  typeof json["scope"] === 'string')
+	this.scope(json["scope"]);
+
+      return this;
+    },
+
+    toString : function () {
+      var str = '';
+      var op = this.operation();
+      str += op.charAt(0).toUpperCase() + op.slice(1);
+      str += ' of ' + (
+	this._scope === null ?
+	  'object' :
+	  '"' +
+	  this.scope().replace(KorAP._quote, '\\$1') +
+	  '"'
+      );
+      str += ' by ' +
+	'"' +
+	this.src().replace(KorAP._quote, '\\$1') +
+	'"';
+      return str;
+    }
+  };
+
+
   /**
    * Abstract JsonLD criterion object
    */
   KorAP.JsonLD = {
-    _changed : false,
+    __changed : false,
 
     create : function () {
       return Object.create(KorAP.JsonLD);
@@ -1014,14 +1242,14 @@ console.log("DEBUG: delete " + ref.toQuery());
     parent : function (obj) {
       if (arguments.length === 1) {
 	this._parent = obj;
-	this._changed = true;
+	this.__changed = true;
       };
       return this._parent;
     },
 
     // Destroy object - especially for
     // acyclic structures!
-    // I'm a paranoid chicken!
+    // I'm paranoid!
     destroy : function () {
       if (this._ops != undefined) {
 	this._ops._parent = undefined;

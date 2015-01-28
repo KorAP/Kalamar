@@ -49,6 +49,88 @@ KorAP.ComplexMenuItem = {
   }
 };
 
+KorAP.OwnMenu = {
+  create : function (params) {
+    return Object.create(KorAP.Menu)
+      .upgradeTo(KorAP.OwnMenu)
+      ._init(KorAP.OwnMenuItem, params);
+  }
+};
+
+
+// Support for hint
+KorAP.HintMenu = {
+  create : function (context, params) {
+    var obj = Object.create(KorAP.Menu)
+      .upgradeTo(KorAP.HintMenu)
+      ._init(KorAP.HintMenuItem, params);
+    obj._context = context;
+    return obj;
+  }
+};
+
+KorAP.HintMenuItem = {
+  create : function (params) {
+   return Object.create(KorAP.MenuItem)
+      .upgradeTo(KorAP.HintMenuItem)
+      ._init(params);
+  },
+  content : function (content) {
+    if (arguments.length === 1) {
+      this._content = content;
+    };
+    return this._content;
+  },
+  _init : function (params) {
+    if (params[0] === undefined || params[1] === undefined)
+      throw new Error("Missing parameters");
+
+    this._name   = params[0];
+    this._action = params[1];
+    this._lcField = ' ' + this._name.toLowerCase();
+
+    if (params.length > 2) {
+      this._desc = params[2];
+      this._lcField += " " + this._desc.toLowerCase();
+    };
+
+    return this;
+  },
+  name : function () {
+    return this._name;
+  },
+  action : function () {
+    return this._action;
+  },
+  desc : function () {
+    return this._desc;
+  },
+  element : function () {
+    // already defined
+    if (this._element !== undefined)
+      return this._element;
+
+    // Create list item
+    var li = document.createElement("li");
+    li.setAttribute("data-action", this._action);
+
+    // Create title
+    var name =  document.createElement("strong");
+    name.appendChild(document.createTextNode(this._name));
+    
+    li.appendChild(name);
+
+    // Create description
+    if (this._desc !== undefined) {
+      var desc = document.createElement("span");
+      desc.appendChild(document.createTextNode(this._desc));
+      li.appendChild(desc);
+    };
+    return this._element = li;
+  }
+};
+
+
 
 describe('KorAP.MenuItem', function () {
   it('should be initializable', function () {
@@ -219,36 +301,29 @@ describe('KorAP.MenuItem', function () {
     menuItem.lowlight();
     expect(menuItem.element().innerHTML).toEqual(plain);
   });
-
-});
-
-
-/*
-
-describe('KorAP.MenuItem', function () {
-
 });
 
 
 describe('KorAP.Menu', function () {
-
-  var list = [
-    ["Constituency", "c=", "Example 1"],
-    ["Lemma", "l="],
-    ["Morphology", "m=", "Example 2"],
-    ["Part-of-Speech", "p="],
-    ["Syntax", "syn="]
-  ];
-
-
   it('should be initializable', function () {
+    var list = [
+      ["Constituency"],
+      ["Lemma"],
+      ["Morphology"],
+      ["Part-of-Speech"],
+      ["Syntax"]
+    ];
 
-    var menu = KorAP.Menu.create("cnx/", list);
-    expect(menu.context).toEqual('cnx/');
-    expect(menu.element.nodeName).toEqual('UL');
-    expect(menu.element.style.opacity).toEqual("0");
+    var menu = KorAP.OwnMenu.create(list);
+    expect(menu.itemClass()).toEqual(KorAP.OwnMenuItem);
+    expect(menu.element().nodeName).toEqual('UL');
+    expect(menu.element().style.opacity).toEqual("0");
+    expect(menu.limit()).toEqual(8);
 
-    KorAP.limit = 8;
+    menu.limit(9);
+    expect(menu.limit()).toEqual(9);
+
+    menu.limit(8);
 
     // view
     menu.show();
@@ -256,109 +331,155 @@ describe('KorAP.Menu', function () {
     // First element in list
     expect(menu.item(0).active()).toBe(true);
     expect(menu.item(0).noMore()).toBe(true);
-    
+
     // Middle element in list
     expect(menu.item(2).active()).toBe(false);
     expect(menu.item(2).noMore()).toBe(false);
 
     // Last element in list
-    expect(menu.item(menu.length - 1).active()).toBe(false);
-    expect(menu.item(menu.length - 1).noMore()).toBe(true);
+    expect(menu.item(menu.length() - 1).active()).toBe(false);
+    expect(menu.item(menu.length() - 1).noMore()).toBe(true);
   });
 
   it('should be visible', function () {
-    var menu = KorAP.Menu.create("cnx/", list);
+    var list = [
+      ["Constituency", "c=", "Example 1"],
+      ["Lemma", "l="],
+      ["Morphology", "m=", "Example 2"],
+      ["Part-of-Speech", "p="],
+      ["Syntax", "syn="]
+    ];
+    var menu = KorAP.HintMenu.create("cnx/", list);
     expect(menu.delete()).toBe(undefined);
-
-    KorAP.limit = 3;
+    menu.limit(3);
 
     expect(menu.show()).toBe(undefined);
-    expect(menu.element.firstChild.innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
-    expect(menu.element.childNodes[1].getAttribute("data-action")).toEqual("l=");
-    expect(menu.element.childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
-    expect(menu.element.childNodes[3]).toBe(undefined);
+    expect(menu.element().firstChild.innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[1].getAttribute("data-action")).toEqual("l=");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     // Check boundaries
-    expect(menu.element.childNodes[0].classList.contains("no-more")).toBe(true);
-    expect(menu.element.childNodes[1].classList.contains("no-more")).toBe(false);
-    expect(menu.element.childNodes[2].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[0].classList.contains("no-more")).toBe(true);
+    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[2].classList.contains("no-more")).toBe(false);
   });
-
 
   it('should be filterable', function () {
-    var menu = KorAP.Menu.create("cnx/", list);
+    var list = [
+      ["Constituency", "c=", "Example 1"],
+      ["Lemma", "l="],
+      ["Morphology", "m=", "Example 2"],
+      ["Part-of-Speech", "p="],
+      ["Syntax", "syn="]
+    ];
 
-    KorAP.limit = 3;
-
-    expect(menu.show("o")).toBe(undefined);
-    expect(menu.element.childNodes[0].innerHTML).toEqual("<strong>C<em>o</em>nstituency</strong><span>Example 1</span>");
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>M<em>o</em>rphology</strong><span>Example 2</span>");
-    expect(menu.element.childNodes[2].innerHTML).toEqual("<strong>Part-<em>o</em>f-Speech</strong>");
-    expect(menu.element.childNodes[3]).toBe(undefined);
-
-    // Check boundaries
-    expect(menu.element.childNodes[0].classList.contains("no-more")).toBe(true);
-    expect(menu.element.childNodes[1].classList.contains("no-more")).toBe(false);
-    expect(menu.element.childNodes[2].classList.contains("no-more")).toBe(true);
-
-
-    KorAP.limit = 2;
+    var menu = KorAP.HintMenu.create("cnx/", list);
+    menu.limit(3);
 
     expect(menu.show("o")).toBe(undefined);
-    expect(menu.element.childNodes[0].innerHTML).toEqual("<strong>C<em>o</em>nstituency</strong><span>Example 1</span>");
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>M<em>o</em>rphology</strong><span>Example 2</span>");
-    expect(menu.element.childNodes[2]).toBe(undefined);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     // Check boundaries
-    expect(menu.element.childNodes[0].classList.contains("no-more")).toBe(true);
-    expect(menu.element.childNodes[1].classList.contains("no-more")).toBe(false);
-    expect(menu.element.childNodes[2]).toBe(undefined);
+    expect(menu.element().childNodes[0].classList.contains("no-more")).toBe(true);
+    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[2].classList.contains("no-more")).toBe(true);
+
+    menu.limit(2);
+
+    expect(menu.show("o")).toBe(undefined);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2]).toBe(undefined);
+
+    // Check boundaries
+    expect(menu.element().childNodes[0].classList.contains("no-more")).toBe(true);
+    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[2]).toBe(undefined);
+
+    expect(menu.show("e")).toBe(undefined);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
+    expect(menu.element().childNodes[2]).toBe(undefined);
+
+    menu.limit(5);
+
+    expect(menu.show("a")).toBe(undefined);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Ex<mark>a</mark>mple 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemm<mark>a</mark></strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Ex<mark>a</mark>mple 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>P<mark>a</mark>rt-of-Speech</strong>");
+    expect(menu.element().childNodes[4].innerHTML).toEqual("<strong>Synt<mark>a</mark>x</strong>");
+    expect(menu.element().childNodes[5]).toBe(undefined);
+
   });
 
+
   it('should be nextable', function () {
-    var menu = KorAP.Menu.create("cnx/", list);
+    var list = [
+      ["Constituency", "c=", "Example 1"],
+      ["Lemma", "l="],
+      ["Morphology", "m=", "Example 2"],
+      ["Part-of-Speech", "p="],
+      ["Syntax", "syn="]
+    ];
 
-    KorAP.limit = 3;
+    var menu = KorAP.HintMenu.create("cnx/", list);
+
+    // Show only 3 items
+    menu.limit(3);
+
     expect(menu.show()).toBe(undefined);
-
-    expect(menu.element.childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element.childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element.childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     // Activate next (1)
     menu.next();
-    expect(menu.element.childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(true);
-    expect(menu.element.childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element.childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     // Activate next (2)
     menu.next();
-    expect(menu.element.childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element.childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element.childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     // Activate next (3)
     menu.next();
-    expect(menu.element.childNodes[0].innerHTML).toEqual("<strong>Lemma</strong>");
+//    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element.childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+//    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element.childNodes[2].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
+//    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element.childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[3]).toBe(undefined);
+  });
+});
+
+
+/*
+describe('KorAP.Menu', function () {
+
+
 
     // Activate next (4)
     menu.next();

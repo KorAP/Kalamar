@@ -52,7 +52,14 @@
                   "@type":"korap:doc",
                   "key":"Veröffentlichungsort",
                   "value":"hihi",
-                  "match":"match:eq"
+                  "match":"match:eq",
+                  "rewrites" : [
+                    {
+                      "@type": "korap:rewrite",
+                      "src" : "policy",
+                      "operation" : "operation:injection",
+                    }
+                  ]
                 }
               ]
             }

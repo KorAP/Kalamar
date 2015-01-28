@@ -564,6 +564,9 @@ var KorAP = KorAP || {};
       this.item(this._list[this._list.length - 1]).noMore(bool);
     },
     _initList : function () {
+
+console.log("..." + this._items.length);
+
       if (this._list === undefined)
 	this._list = [];
       else if (this._list.length != 0) {
@@ -573,7 +576,7 @@ var KorAP = KorAP || {};
 
       this._offset = 0;
 
-      if (this.prefix.length <= 0) {
+      if (this.prefix().length <= 0) {
 	for (var i = 0; i < this._items.length; i++)
 	  this._list.push(i);
 	return true;
