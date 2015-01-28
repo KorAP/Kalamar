@@ -66,7 +66,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
 %# -- The cutoff checkbox
 % unless (param('q')) { param(cutoff => 1) };
 %= check_box cutoff => 1, id => 'q-cutoff-field'
-<label for="q-cutoff-field"><span></span>Quick</label>
+<label for="q-cutoff-field"><span></span>Glimpse</label>
 %#
 %# -- The tutorial button
 % unless (current_route 'tutorial') {
@@ -76,7 +76,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
 % };
 %#
 %# -- The Alignment button
-% if (param('q') && (stash('search.totalResults') // 0) != 0) {
+% if (param('q') && (search->total_results // 0) != 0) {
 <button type="button" title="Alignment" onclick="toggleAlignment(this)">\
 <i class="fa fa-align-right"></i>\
 </button>
@@ -99,7 +99,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
 %= content main => begin
   <p>KorAP is a Corpus Analysis Platform, serving textual data provided by the <a href="http://www.ids-mannheim.de">Institute for German Language</a>.</p>
   <p>For information how to search in KorAP, have a look at the <%= link_to 'tutorial', 'tutorial' %>.</p>
-  <p style="font-style: italic">Currently the scope of searching is limited to public users - for access to restricted corpora, please visit the <a href="http://korap.ids-mannheim.de/app">first frontend</a>.</p>
+  <p>Currently the scope of searching is limited to public users - for access to restricted corpora, please visit the <a href="http://korap.ids-mannheim.de/app">first frontend</a>.</p>
 % end
 </main>
 
