@@ -2,7 +2,7 @@ package Korap;
 use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 # Start dev with
 # morbo -w lib -w templates -w public/sass -w public/js -w public/css script/korap

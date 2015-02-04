@@ -1,3 +1,6 @@
+0.12 2015-01-28
+        - Fixed alignment bug.
+
 0.11 2014-01-16
         - Fixed paging bug with the async api.
         - Disabled Testing feature in tutorial.

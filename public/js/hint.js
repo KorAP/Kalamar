@@ -89,12 +89,12 @@ mateSttsArray.push(
 
 var hintArray = {
   "-" : [
-    ["Connexor",   "cnx/"],
-    ["CoreNLP",    "corenlp/"],
-    ["Mate",       "mate/"],
-    ["OpenNLP",    "opennlp/"],
-    ["TreeTagger", "tt/"],
-    ["Xerox Parser", "xip/"]
+    ["Connexor",   "cnx/",     "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
+    ["CoreNLP",    "corenlp/", "Named Entities"],
+    ["Mate",       "mate/",     "Lemma, Morphology, Part-of-Speech"],
+    ["OpenNLP",    "opennlp/", "Part-of-Speech"],
+    ["TreeTagger", "tt/",      "Lemma, Part-of-Speech"],
+    ["Xerox Parser", "xip/",   "Constituency, Lemma, Part-of-Speech"]
   ],
   "corenlp/" : [
     ["Named Entity", "ne=" , "Combined"],

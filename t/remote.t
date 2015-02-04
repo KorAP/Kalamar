@@ -14,6 +14,7 @@ $t->get_ok('/')
 $t->get_ok('/?q=test')
   ->text_is('pre.query.serial span', 'JSON-LD Serialization for "test"')
   ->text_like('#total-results', qr/\d+ matches$/)
+  ->element_exists('[title=Alignment]')
   ->text_is('#pagination a[rel=self] span', 1)
 ;
 

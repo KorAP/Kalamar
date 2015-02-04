@@ -11,6 +11,17 @@
 // - Add help option that opens the tutorial, e.g. to the foundry
 // - http://en.wikipedia.org/wiki/JSDoc
 
+// The last entry types (foundry, foundry/layer) is remembered and chosen by default
+
+// Show the context at the top as breadcrumbs
+// Highlight the context in the query (probably)
+// Support backspace for removing the last prefix
+
+/*
+Alternative: Use right arrow for temporary context switch and arrow back
+for temporary context removal
+*/
+
 /**
  * The KorAP namespace for project related scripts
  * @namespace
