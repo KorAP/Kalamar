@@ -48,13 +48,17 @@ ol {
       }
     }
     > div {
-      > div.snippet > span {
-        white-space: no-wrap !important;
-        > span {
+      > div.snippet {
+        > span,
+        > mark {
           white-space: no-wrap !important;
+          > span {
+            white-space: no-wrap !important;
+          }
+          color: #666;
         }
-        color: #666;
-        &.match {
+        > mark,
+	> span.match {
           font-weight: bold;
           text-shadow: $kwic-match-shadow;
           color: $kwic-match-color;
@@ -103,25 +107,33 @@ ol.align-right {
 }
 
 /* Highlights */
-em, em.level-0 {
+mark > mark,
+em,
+.level-0 {
   border-bottom-width: 2px;
   border-bottom-style: solid;
   padding-bottom: 0px;
   font-style: normal;
 }
 
-em > em, em.level-1 {
+mark > mark > mark,
+em > em,
+.level-1 {
   padding-bottom: 3px;
 }
 
-em > em > em, em.level-2 {
+mark > mark > mark > mark,
+em > em > em,
+.level-2 {
   padding-bottom: 6px;
 }
 
 li {
+  &:not(.active) mark > mark > mark > mark,
   &:not(.active) em > em > em {
     line-height: 180%;
   }
+  &.active mark > mark > mark > mark,
   &.active em > em > em {
     line-height: 250%;
   }
