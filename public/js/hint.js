@@ -531,6 +531,7 @@ var Menu = {
     this._element = document.createElement("ul");
 
     // Add onclick event
+    // Todo: Probably better do this for each <li />
     this._element.addEventListener("click", chooseHint, false);
 
     this._element.style.opacity = 0;
@@ -762,16 +763,16 @@ var Menu = {
 };
 
 function chooseHint (e) {
-/*
   var element = e.target;
   while (element.nodeName == "STRONG" || element.nodeName == "SPAN") {
     element = element.parentNode;
   };
   if (element === undefined || element.nodeName != "LI")
     return;
-*/
 
-  var action = this.getAttribute('data-action');
+  // console.log(this.getAttribute('data-action'));
+
+  var action = element.getAttribute('data-action');
   hint.insertText(action);
   var menu = hint.menu();
   menu.hide();

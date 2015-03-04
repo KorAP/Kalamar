@@ -2,6 +2,7 @@
         - Project name is now "Kalamar"
 	- Removed Mr Crabs - introduced Karl
 	- Support semantic markup for KWIC
+	- Fixed Click-bug in hint-menu
 
 0.12 2015-01-28
         - Fixed alignment bug
