@@ -1,10 +1,15 @@
+0.13 2015-03-04
+        - Project name is now "Kalamar"
+	- Removed Mr Crabs - introduced Karl
+	- Support semantic markup for KWIC
+
 0.12 2015-01-28
-        - Fixed alignment bug.
+        - Fixed alignment bug
 
 0.11 2014-01-16
-        - Fixed paging bug with the async api.
-        - Disabled Testing feature in tutorial.
-	- Improved test suite.
+        - Fixed paging bug with the async api
+        - Disabled Testing feature in tutorial
+	- Improved test suite
 
 0.10 2014-12-21
 	- Fixed time_exceeded bug

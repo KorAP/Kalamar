@@ -29,11 +29,10 @@ a {
   text-decoration: none;
 }
 
-/*
-#crab-bg {
+#kalamar-bg {
   top: 0;
   background: {
-    image:url('/img/crab-bg.svg');
+    image:url('/img/korap-bg-kalamar.svg');
     repeat: no-repeat;
     size: 50%;
     position: 50% 50%;
@@ -43,7 +42,6 @@ a {
   width: 175%;
   z-index: -5000
 }
-*/
 
 #top {
   background-color: #7ba400;
@@ -306,8 +304,8 @@ h1 {
   background: {
     repeat: no-repeat;
     position: center center;
-    size: 65%;
-    image: url('/img/korap-logo-solo.svg');
+    size: 72%;
+    image: url('/img/korap-logo-kalamar.svg');
   }
   span {
     margin-left: -3000px;

@@ -5,7 +5,7 @@
 
 %# -- Background crab
 % if (!param('q') && current_route eq 'index') {
-<div id="crab-bg"></div>
+<div id="kalamar-bg"></div>
 % };
 
 % my $location;
