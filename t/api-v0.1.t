@@ -85,7 +85,7 @@ $t->get_ok($url->clone->path('search')->query({ q => 'contains(<s>, [orth=Test])
 my $tx = $t->ua->build_tx('TRACE', $url->clone->path('search')->query({ q => 'contains(<s>, [orth=Test])', ql => 'poliqarp'}));
 $tx = $t->ua->start($tx);
 
-#{"@context":"http://ids-mannheim.de/ns/KorAP/json-ld/v0.1/context.jsonld","query":{"@type":"korap:group","operation":"operation:position","frame":"frame:contains","operands":[{"@type":"korap:span","key":"s"},{"@type":"korap:token","wrap":{"@type":"korap:term","layer":"orth","key":"Test","match":"match:eq"}}]},"collections":[{"@type":"korap:meta-filter","@value":{"@type":"korap:term","@field":"korap:field#corpusID","@value":"WPD"}}],"meta":{}}
+#{"@context":"http://ids-mannheim.de/ns/korap/json-ld/v0.1/context.jsonld","query":{"@type":"korap:group","operation":"operation:position","frame":"frame:contains","operands":[{"@type":"korap:span","key":"s"},{"@type":"korap:token","wrap":{"@type":"korap:term","layer":"orth","key":"Test","match":"match:eq"}}]},"collections":[{"@type":"korap:meta-filter","@value":{"@type":"korap:term","@field":"korap:field#corpusID","@value":"WPD"}}],"meta":{}}
 $t->tx($tx)
   ->json_is('/@context', 'http://ids-mannheim.de/ns/KorAP/json-ld/v0.2/context.jsonld')
   ->json_is('/query/@type', 'korap:group')

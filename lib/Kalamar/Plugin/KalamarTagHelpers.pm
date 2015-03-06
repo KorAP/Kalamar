@@ -1,4 +1,4 @@
-package Korap::Plugin::KorapTagHelpers;
+package Kalamar::Plugin::KalamarTagHelpers;
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::JSON 'decode_json';
 use Mojo::JSON::Pointer;
@@ -10,7 +10,7 @@ sub register {
 
   # Create helper for queries in the tutorial
   $mojo->helper(
-    korap_tut_query => sub {
+    kalamar_tut_query => sub {
       my ($c, $ql, $q, %param) = @_;
       my $onclick = 'top.useQuery(this)';
 
@@ -27,7 +27,7 @@ sub register {
 
       # Tutorial wasn't embedded - but opened for testing
  #     elsif ($c->param('testing') &&
-#	       $c->korap_test_port &&
+#	       $c->kalamar_test_port &&
 #		 $param{tests}) {
 #
 # Currently disabled
@@ -105,7 +105,7 @@ sub register {
 #
 #	# Emit hook to possible subscribers
 #	# This is used for self-testing
-#	# $plugin->emit_hook(korap_tut_query => (
+#	# $plugin->emit_hook(kalamar_tut_query => (
 #	#   query_language => $ql,
 #	#   query => $q,
 #	#   %param
@@ -142,7 +142,7 @@ sub register {
   # Create links in the tutorial that make sure the current position is preserved,
   # in case the tutorial was opened embedded
   $mojo->helper(
-    korap_tut_link_to => sub {
+    kalamar_tut_link_to => sub {
       my $c = shift;
       my $title = shift;
       my $link = shift;

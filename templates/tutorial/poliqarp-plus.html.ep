@@ -2,7 +2,7 @@
 
 <h2>KorAP-Tutorial: Poliqarp+</h2>
 
-<p><%= korap_tut_link_to 'Back to Index', '/tutorial' %></p>
+<p><%= kalamar_tut_link_to 'Back to Index', '/tutorial' %></p>
 
 <p>The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
 
@@ -12,15 +12,15 @@
 <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
 %# footnote: In the polish national corpus, Poliqarp can join multiple segments when identifying a single word.
 
-%= korap_tut_query poliqarp => 'Baum'
+%= kalamar_tut_query poliqarp => 'Baum'
 
 <p>Sequences of simple segments are expressed using a space delimiter:</p>
 
-%= korap_tut_query poliqarp => 'der Baum'
+%= kalamar_tut_query poliqarp => 'der Baum'
 
 <p>Simple segments always refer to the surface form of a word. To search for surface forms without case sensitivity, you can use the <code>/i</code> flag.</p>
 
-%= korap_tut_query poliqarp => 'laufen/i'
+%= kalamar_tut_query poliqarp => 'laufen/i'
 
 <p>The query above will find all occurrences of <code>laufen</code> irrespective of the capitalization of letters, so <code>wir laufen</code> will be find as well as <code>das Laufen</code> and even <code>&quot;GEH LAUFEN!&quot;</code>.
 </section>
@@ -28,21 +28,21 @@
 <section id="tut-regexp">
   <h3>Regular Expressions</h3>
 
-<p>Segments can also be queried using <%= korap_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %> - by surrounding the segment with double quotes.</p>
+<p>Segments can also be queried using <%= kalamar_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %> - by surrounding the segment with double quotes.</p>
 
-%= korap_tut_query poliqarp => '"l(au|ie)fen"'
+%= kalamar_tut_query poliqarp => '"l(au|ie)fen"'
 
 <p>Regular expression segments will always match the whole segment, meaning the above query will find words starting with <code>l</code> and ending with <code>n</code>. To support subqueries, you can use the <code>/x</code> flag.
 
-%= korap_tut_query poliqarp => '"l(au|ie)fen"/x', cutoff => 1
+%= kalamar_tut_query poliqarp => '"l(au|ie)fen"/x', cutoff => 1
 
 <p>The <code>/x</code> will search for all segments that contain a sequence of characters the regular expression matches. That means the above query is equivalent to:</p>
 
-%= korap_tut_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
+%= kalamar_tut_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
 
 <p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
 
-%= korap_tut_query poliqarp => 'trenn/xi', cutoff => 1
+%= kalamar_tut_query poliqarp => 'trenn/xi', cutoff => 1
 
 <p>The above query will find all occurrences of segments including the string <code>trenn</code> case insensitive, like &quot;Trennung&quot;, &quot;unzertrennlich&quot;, or &quot;Wettrennen&quot;.</p>
 
@@ -52,7 +52,7 @@
 
 <p>You can again apply the <code>/i</code> flag to search case insensitive.</p>
 
-%= korap_tut_query poliqarp => '"l(au|ie)fen"/xi', cutoff => 1
+%= kalamar_tut_query poliqarp => '"l(au|ie)fen"/xi', cutoff => 1
 
 </section>
 
@@ -65,36 +65,36 @@
 
 %# There are more special keys in Poliqarp, but KorAP doesn't provide them.
 
-%= korap_tut_query poliqarp => '[orth=Baum]'
+%= kalamar_tut_query poliqarp => '[orth=Baum]'
 
 <p>The query is thus equivalent to:</p>
 
-%= korap_tut_query poliqarp => 'Baum'
+%= kalamar_tut_query poliqarp => 'Baum'
 
 <p>Complex segments expect simple expressions as values, meaning that the following expression is valid as well:</p>
 
-%= korap_tut_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
 
-<p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.
+<p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= kalamar_tut_link_to 'default foundry', '/tutorial/foundries' %>.
 The following query finds all occurrences of segments annotated as the lemma <code>Baum</code> by the default foundry.</p>
 
-%= korap_tut_query poliqarp => '[base=Baum]'
+%= kalamar_tut_query poliqarp => '[base=Baum]'
 
-<p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= korap_tut_link_to 'default foundry', '/tutorial/foundries' %>.
+<p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= kalamar_tut_link_to 'default foundry', '/tutorial/foundries' %>.
 The following query finds all attributive adjectives:</p>
 
-%= korap_tut_query poliqarp => '[pos=ADJA]'
+%= kalamar_tut_query poliqarp => '[pos=ADJA]'
 
 <p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation.
 For example to find all occurrences of plural words in the mate foundry, you can search using the following query:</p>
 
-%= korap_tut_query poliqarp => '[mate/m=number:pl]'
+%= kalamar_tut_query poliqarp => '[mate/m=number:pl]'
 
 <h4>Negation</h4>
 <p>Negation of terms in complex expressions can be expressed by prepending the equal sign with an exclamation mark or by prepending the expression with one.</p>
 
-%= korap_tut_query poliqarp => '[pos!=ADJA]'
-%= korap_tut_query poliqarp => '[!pos=ADJA]'
+%= kalamar_tut_query poliqarp => '[pos!=ADJA]'
+%= kalamar_tut_query poliqarp => '[!pos=ADJA]'
 
 <blockquote class="warning">
   <p>Beware: Negated complex segments can't be searched solely in the Lucene index.
@@ -105,7 +105,7 @@ For example to find all occurrences of plural words in the mate foundry, you can
 
 <p>A special segment is the empty segment, that matches every word in the index.</p>
 
-%= korap_tut_query poliqarp => '[]'
+%= kalamar_tut_query poliqarp => '[]'
 
 <p>Empty segments are useful to express distances of words by using <a href="tut-syntagmatic-operators-repetitions">repetitions</a>.</p>
 
@@ -122,7 +122,7 @@ For example to find all occurrences of plural words in the mate foundry, you can
 <p>Not all segments are bound to words - some are bound to concepts spanning multiple words, for example noun phrases, sentences, or paragraphs.
 Span segments can be searched for using angular brackets instead of square brackets.</p>
 
-%= korap_tut_query poliqarp => '<xip/c=INFC>'
+%= kalamar_tut_query poliqarp => '<xip/c=INFC>'
 
 <p>Otherwise they can be treated in exactly the same way as simple or complex segments.</p>
 
@@ -135,25 +135,25 @@ Span segments can be searched for using angular brackets instead of square brack
 <p>A complex segment can have multiple properties a token has to fulfill.
 For example to search for all words with the surface form <code>laufe</code> (no matter if capitalized or not) that have the lemma <code>lauf</code> (and not, for example, <code>laufen</code>, which would indicate a verb or a gerund), you can search for:</p>
 
-%= korap_tut_query poliqarp => '[orth=laufe/i & base=Lauf]'
+%= kalamar_tut_query poliqarp => '[orth=laufe/i & base=Lauf]'
 
 <p>The ampersand combines multiple properties with a logical AND.
 Terms of the complex segment can be negated as introduced before.</p>
 
-%= korap_tut_query poliqarp => '[orth=laufe/i & base!=Lauf]'
+%= kalamar_tut_query poliqarp => '[orth=laufe/i & base!=Lauf]'
 
 <p>The following query is therefore equivalent:</p>
 
-%= korap_tut_query poliqarp => '[orth=laufe & !base=Lauf]'
+%= kalamar_tut_query poliqarp => '[orth=laufe & !base=Lauf]'
 
 <p>Alternatives can be expressed by using the pipe symbol:</p>
 
-%= korap_tut_query poliqarp => '[base=laufen | base=gehen]'
+%= kalamar_tut_query poliqarp => '[base=laufen | base=gehen]'
 
 <p>All these sub expressions can be grouped using round brackets to form
 complex boolean expressions:</p>
 
-%= korap_tut_query poliqarp => '[(base=laufen | base=gehen) & tt/pos=VVFIN]'
+%= kalamar_tut_query poliqarp => '[(base=laufen | base=gehen) & tt/pos=VVFIN]'
 </section>
 
 
@@ -165,19 +165,19 @@ complex boolean expressions:</p>
 <p>Sequences can be used to search for segments in order.
 For example to search for the word &quot;alte&quot; preceded by &quot;der&quot; and followed by &quot;Mann&quot;, you can simple search for the sequence of simple expressions separated by whitespaces.</p>
 
-%= korap_tut_query poliqarp => 'der alte Mann'
+%= kalamar_tut_query poliqarp => 'der alte Mann'
 
 <p>However, you can obviously search using complex segments as well:</p>
 
-%= korap_tut_query poliqarp => '[orth=der][orth=alte][orth=Mann]'
+%= kalamar_tut_query poliqarp => '[orth=der][orth=alte][orth=Mann]'
 
 <p>Now you may see the benefit of the empty segment to search for words you don't know:</p>
 
-%= korap_tut_query poliqarp => '[orth=der][][orth=Mann]'
+%= kalamar_tut_query poliqarp => '[orth=der][][orth=Mann]'
 
 <p>You are also able to mix segments and spans in sequences, for example to search for the word &quot;Der&quot; at the beginning of a sentence (which can be interpreted as the first word after the end of a sentence).</p>
 
-%= korap_tut_query poliqarp => '<s>[orth=Der]'
+%= kalamar_tut_query poliqarp => '<s>[orth=Der]'
 
 <h4>Groups</h4>
 
@@ -188,52 +188,52 @@ similar to the paradigmatic operator.
 You already have seen that you can search for both sequences of
 <code>der alte Mann</code> and <code>der junge Mann</code> by typing in:</p>
 
-%= korap_tut_query poliqarp => 'der [orth=alte | orth=junge] Mann'
+%= kalamar_tut_query poliqarp => 'der [orth=alte | orth=junge] Mann'
 
 <p>However, this formulation has problems in case you want to search for alternations of sequences rather than terms. If you want to search for both sequences of <code>dem jungen Mann</code> and <code>der alte Mann</code> you can use syntagmatic alternations and groups:</p>
 
-%= korap_tut_query poliqarp => '(dem jungen | der alte) Mann'
+%= kalamar_tut_query poliqarp => '(dem jungen | der alte) Mann'
 
 <p>The pipe symbol works the same way as with the paradigmatic alternation, but supports sequences of different length as operands. The above query for <code>der alte Mann</code> and <code>der junge Mann</code> can therefor be reformulated as:</p>
 
-%= korap_tut_query poliqarp => 'der (junge | alte) Mann'
+%= kalamar_tut_query poliqarp => 'der (junge | alte) Mann'
 
 <h4 id="tut-syntagmatic-operators-repetitions">Repetition</h4>
 
-<p>Repetitions in Poliqarp are realized as in <%= korap_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %>, by giving quantifieres in curly brackets.</p>
+<p>Repetitions in Poliqarp are realized as in <%= kalamar_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %>, by giving quantifieres in curly brackets.</p>
 <p>To search for a sequence of three occurrences of <code>der</code>, you can formulate your query in any of the following ways - they will have the same results:</p>
 
-%= korap_tut_query poliqarp => 'der der der'
-%= korap_tut_query poliqarp => 'der{3}'
-%= korap_tut_query poliqarp => '[orth=der]{3}'
+%= kalamar_tut_query poliqarp => 'der der der'
+%= kalamar_tut_query poliqarp => 'der{3}'
+%= kalamar_tut_query poliqarp => '[orth=der]{3}'
 
 <p>In difference to regular expressions, the repetition operation won't refer to the match but to the pattern given. So the following query will give you a sequence of three words having the term <code>der</code> as a substring - but the words don't have to be identical. The following query for example will match a sequence of three words all starting with <code>la</code>.</p>
 
-%= korap_tut_query poliqarp => '"la.*?"/i{3}'
+%= kalamar_tut_query poliqarp => '"la.*?"/i{3}'
 
 <p>The same is true for annotations. The following query will find a sequence of 3 to 4 adjectives as annotated by the TreeTagger foundry, that is preceded by the lemma <code>ein</code> as annotated by the default foundry and followed by a noun as annotated by the XIP foundry. The adjectives do not have to be identical though.</p>
 
-%= korap_tut_query poliqarp => '[base=ein][tt/p=ADJA]{3,4}[xip/p=NOUN]'
+%= kalamar_tut_query poliqarp => '[base=ein][tt/p=ADJA]{3,4}[xip/p=NOUN]'
 
 <p>In addition to numbered quantities, it is also possible to pass repetition information as Kleene operators <code>?</code>, <code>+</code>, and <code>+</code>.</p>
 
 <p>To search for a sequence of the lemma <code>der</code> followed by the lemma <code>baum</code> as annotated by the base foundry, but allowing an optional adjective as annotated by the TreeTagger foundry in between, you can search for:</p>
 
-%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]?[base=Baum]'
+%= kalamar_tut_query poliqarp => '[base=die][tt/pos=ADJA]?[base=Baum]'
 
 <p>This query is identical to the numbered quantification of:</p>
 
-%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]{,1}[base=Baum]'
+%= kalamar_tut_query poliqarp => '[base=die][tt/pos=ADJA]{,1}[base=Baum]'
 
 <p>To search for the same sequences but with unlimited adjectives as annotated by the TreeTagger foundry in between, you can use the Kleene Star:</p>
 
-%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]*[base=Baum]'
+%= kalamar_tut_query poliqarp => '[base=die][tt/pos=ADJA]*[base=Baum]'
 
 <p>And to search for this sequence but with at least one adjective in between, you can use the Kleene Plus (all queries are identical):</p>
 
-%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]+[base=Baum]', cutoff => 1
-%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA]{1,}[base=Baum]', cutoff => 1
-%= korap_tut_query poliqarp => '[base=die][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][tt/pos=ADJA]+[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][tt/pos=ADJA]{1,}[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]', cutoff => 1
 
 <blockquote class="warning">
   <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated and not in a sequence (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional.</p>
@@ -242,16 +242,16 @@ You already have seen that you can search for both sequences of
 
 <p>Repetition can also be used to express distances between segments by using <a href="#empty-segments">empty segments</a>.</p>
 
-%= korap_tut_query poliqarp => '[base=die][][base=Baum]'
-%= korap_tut_query poliqarp => '[base=die][]{2}[base=Baum]', cutoff => 1
-%= korap_tut_query poliqarp => '[base=die][]{2,}[base=Baum]', cutoff => 1
-%= korap_tut_query poliqarp => '[base=die][]{,3}[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][][base=Baum]'
+%= kalamar_tut_query poliqarp => '[base=die][]{2}[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][]{2,}[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][]{,3}[base=Baum]', cutoff => 1
 
 <p>Of course, Kleene operators can be used with empty segments as well.</p>
 
-%= korap_tut_query poliqarp => '[base=die][]?[base=Baum]'
-%= korap_tut_query poliqarp => '[base=die][]*[base=Baum]', cutoff => 1
-%= korap_tut_query poliqarp => '[base=die][]+[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][]?[base=Baum]'
+%= kalamar_tut_query poliqarp => '[base=die][]*[base=Baum]', cutoff => 1
+%= kalamar_tut_query poliqarp => '[base=die][]+[base=Baum]', cutoff => 1
 
 <h4>Position</h4>
 
@@ -259,23 +259,23 @@ You already have seen that you can search for both sequences of
 <p>Positional operators compare two matches of subqueries and will match, in case a certain condition regarding the position of both is true.</p>
 <p>The <code>contains()</code> operation will match, when a second subquery matches inside the span of a first subquery.</p>
 
-%= korap_tut_query poliqarp => 'contains(<s>, [tt/p=KOUS])', cutoff => 1
+%= kalamar_tut_query poliqarp => 'contains(<s>, [tt/p=KOUS])', cutoff => 1
 
 <p>The <code>startsWith()</code> operation will match, when a second subquery matches at the beginning of the span of a first subquery.</p>
 
-%= korap_tut_query poliqarp => 'startsWith(<s>, [tt/p=KOUS])', cutoff => 1
+%= kalamar_tut_query poliqarp => 'startsWith(<s>, [tt/p=KOUS])', cutoff => 1
 
 <p>The <code>endsWith()</code> operation will match, when a second subquery matches at the end of the span of a first subquery.</p>
 
-%= korap_tut_query poliqarp => 'endsWith(<s>, [opennlp/p=NN])', cutoff => 1
+%= kalamar_tut_query poliqarp => 'endsWith(<s>, [opennlp/p=NN])', cutoff => 1
 
 <p>The <code>matches()</code> operation will match, when a second subquery has the exact same span of a first subquery.</p>
 
-%= korap_tut_query poliqarp => 'matches(<s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
+%= kalamar_tut_query poliqarp => 'matches(<s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
 
 <p>The <code>overlaps()</code> operation will match, when a second subquery has an overlapping span with the first subquery.</p>
 
-%= korap_tut_query poliqarp => 'overlaps([][tt/p=ADJA],{1:[tt/p=ADJA]}[])', cutoff => 1
+%= kalamar_tut_query poliqarp => 'overlaps([][tt/p=ADJA],{1:[tt/p=ADJA]}[])', cutoff => 1
 
 <blockquote class="warning">
   <p>Positional operators are still experimental and may change in certain aspects in the future (although the behaviour defined is intended to be stable). There is also known incorrect behaviour which will be corrected in future versions.</p>
@@ -298,9 +298,9 @@ You already have seen that you can search for both sequences of
 Classes can be used to refer to sub matches in a query, similar to captures in regular expressions.
 In Poliqarp+ classes have multiple purposes, with highlighting being the most intuitive one:</p>
 
-%= korap_tut_query poliqarp => 'der {1:{2:[]} Mann}'
+%= kalamar_tut_query poliqarp => 'der {1:{2:[]} Mann}'
 
-%#= korap_tut_query poliqarp => 'der {1:{2:[]{1,4}} {3:Baum}} {4:[]}'
+%#= kalamar_tut_query poliqarp => 'der {1:{2:[]{1,4}} {3:Baum}} {4:[]}'
 
 <p>In KorAP classes can be defined from 1 to 128. In case a class number is dismissed, the class defaults to the class number 1: <code>{...}</code> is equal to <code>{1:...}</code>.</p>
 
@@ -308,24 +308,24 @@ In Poliqarp+ classes have multiple purposes, with highlighting being the most in
 
 <p>Based on classes, matches may be modified. The <code>focus()</code> operator restricts the span of a match to the boundary of a certain class.</p>
 
-%= korap_tut_query poliqarp => 'focus(der {Baum})'
+%= kalamar_tut_query poliqarp => 'focus(der {Baum})'
 
 <p>The query above will search for the sequence <code>der Baum</code> but the match will be limited to <code>Baum</code>.
 You can think of <code>der</code> in this query as a positive look-behind zero-length assertion in regular expressions.</p>
 
 <p>But focus is way more useful if you are searching for matches without knowing the surface form. For example, to find all terms between the words &quot;der&quot; and &quot;Mann&quot; you can search:</p>
 
-%= korap_tut_query poliqarp => 'focus(der {[]} Mann)'
+%= kalamar_tut_query poliqarp => 'focus(der {[]} Mann)'
 
 <p>This will limit the match to all interesting terms in between &quot;der&quot; and &quot;Mann&quot;. Or you may want to search for all words following the sequence &quot;der alte und&quot; immediately:</p>
 
-%= korap_tut_query poliqarp => 'focus(der alte und {[]})'
+%= kalamar_tut_query poliqarp => 'focus(der alte und {[]})'
 
 <!--
 <p><code>focus()</code> is especially useful if you are searching for matches in certain areas, for example in quotes using positional operators.
 While not being interested in the whole quote as a match, you can focus on what's really relevant to you.</p>
 
-%= korap_tut_query poliqarp => 'focus(1:contains(er []{,10} sagte, 1{Baum}))'
+%= kalamar_tut_query poliqarp => 'focus(1:contains(er []{,10} sagte, 1{Baum}))'
 -->
 
 <p>In case a class number is dismissed, the focus operator defaults to the class number 1: <code>focus(...)</code> is equal to <code>focus(1: ...)</code>.</p>

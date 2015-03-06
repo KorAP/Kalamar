@@ -1,21 +1,23 @@
-package Korap;
+package Kalamar;
 use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
 
 our $VERSION = '0.13';
 
-# Start dev with
-# morbo -w lib -w templates -w public/sass -w public/js -w public/css script/korap
-# morbo -m test -w lib -w templates -w public/sass -w public/js -w public/css script/korap
-
 # Start the application and register all routes and plugins
 sub startup {
   my $self = shift;
 
-  $self->defaults(layout => 'default');
+  # Set default totle
+  $self->defaults(
+    layout => 'default',
+    title => 'KorAP - Korpusanalyseplattform der nächsten Generation'
+  );
 
   # Set secret for signed cookies
-  $self->secrets(['fmhsfjgfchgsdbfgshfxztsbt32477eb45veu4vubrghfgghbtv']);
+  $self->secrets([
+    b($self->home . '/kalamar.secret')->slurp->split("\n")
+  ]);
 
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
@@ -27,20 +29,21 @@ sub startup {
 	      Notifications
 	      Number::Commify
 	      Search
-	      KorapHelpers
-	      KorapTagHelpers
-	     /) {
+	      KalamarHelpers
+	      KalamarTagHelpers/) {
     $self->plugin($_);
   };
 
-#  $self->plugin(AssetPack => { minify => 1 });
+  # $self->plugin(AssetPack => { minify => 1 });
   $self->plugin('AssetPack');
   $self->plugin('AssetPack::LibSass');
   $self->plugin('MailException' => $self->config('MailException'));
 
   # Add assets for AssetPack
   $self->asset(
-    'korap.css' => (
+    'kalamar.css' => (
+
+      # Sass files
       '/sass/style.scss',
       '/sass/sidebar.scss',
       '/sass/tutorial.scss',
@@ -49,16 +52,18 @@ sub startup {
       '/sass/matchinfo.scss',
       '/sass/pagination.scss',
       '/sass/kwic-4.0.scss',
+      '/sass/alertify.scss',
+
+      # CSS files
       '/css/media.css',
       '/css/font-awesome.min.css',
       '/css/highlight.css',
-      '/sass/alertify.scss',
       $self->notifications->styles
     )
   );
 
   $self->asset(
-    'korap.js' => (
+    'kalamar.js' => (
 #      '/js/d3.v3.min.js',
 #      '/js/dagre-d3.min.js',
 #      '/js/dagre-d3.js',
@@ -72,12 +77,12 @@ sub startup {
     )
   );
 
-  $self->helper(
-    date_format => sub {
-      my ($c, $date) = @_;
-      return $date;
-    }
-  );
+  # $self->helper(
+  #   date_format => sub {
+  #     my ($c, $date) = @_;
+  #     return $date;
+  #   }
+  # );
 
   # Routes
   my $r = $self->routes;
@@ -88,7 +93,9 @@ sub startup {
   # Get match information
   my $corpus = $r->route('/corpus/:corpus_id');
   my $doc    = $corpus->route('/#doc_id');
-  my $match = $doc->route('/:match_id')->to('search#match_info')->name('match');
+  my $match = $doc->route('/:match_id')
+    ->to('search#match_info')
+      ->name('match');
 
   # Tutorial data
   $r->get('/tutorial')->to('tutorial#page', tutorial => 'index');

@@ -1,5 +1,11 @@
 var KorAP = KorAP || {};
 
+/**
+ * Create scrollable drop-down menus.
+ *
+ * @author Nils Diewald
+ */
+
 (function (KorAP) {
   "use strict";
 
@@ -25,39 +31,63 @@ var KorAP = KorAP || {};
       return Object.create(KorAP.Menu)._init(params);
     },
 
+    focus : function () {
+      this._element.focus();
+    },
+
+    // Initialize list
     _init : function (itemClass, params) {
       // this._element.addEventListener("click", chooseHint, false);
       this._itemClass = itemClass;
       this._element = document.createElement("ul");
       this._element.style.opacity = 0;
 
+/*
+      this._listener = document.createElement('input');
+      this._listener.setAttribute('type', 'text');
+//      this._listener.style.display = "none";
+*/
+      this._element.addEventListener(
+	"keydown",
+	function (e) {
+          console.log('+++');
+	},
+	false
+      );
+
       this.active = false;
       this._items = new Array();
       var i;
+
+      // Initialize item list based on parameters
       for (i in params) {
 	var obj = itemClass.create(params[i]);
-	this._items.push(
-	  obj
-	);
+	this._items.push(obj);
       };
       this._limit    = KorAP.menuLimit;
       this._position = 0;  // position in the active list
       this._active   = -1; // active item in the item list
-
       this._reset();
       return this;
     },
 
+    /**
+     * Get the instantiated HTML element
+     */
     element : function () {
       return this._element;
     },
 
+    /**
+     * Get the creator object for items
+     */
     itemClass : function () {
       return this._itemClass;
     },
 
     /**
-     * Get and set numerical value for limit
+     * Get and set numerical value for limit,
+     * i.e. the number of items visible.
      */
     limit : function (limit) {
       if (arguments.length === 1)
@@ -69,7 +99,7 @@ var KorAP = KorAP || {};
      * Upgrade this object to another object,
      * while private data stays intact.
      *
-     * @param {Object] An object with properties.
+     * @param {Object} An object with properties.
      */
     upgradeTo : function (props) {
       for (var prop in props) {
@@ -78,6 +108,7 @@ var KorAP = KorAP || {};
       return this;
     },
 
+    // Reset chosen item and prefix
     _reset : function () {
       this._offset = 0;
       this._pos    = 0;
@@ -96,30 +127,30 @@ var KorAP = KorAP || {};
       if (!this._initList())
 	return;
 
-      // show based on offset
+      // show based on initial offset
       this._showItems(0);
 
       // Set the first element to active
+      // Todo: Or the last element chosen
       this.liveItem(0).active(true);
 
       this._position = 0;
       this._active = this._list[0];
 
+      this._element.style.opacity = 1;
+
       // Add classes for rolling menus
       this._boundary(true);
     },
 
-    /**
-     * Get a specific item from the complete list
-     *
-     * @param {number} index of the list item
-     */
-    item : function (index) {
-      return this._items[index]
+    hide : function () {
+      this._element.style.opacity = 0;
     },
 
+    // Initialize the list
     _initList : function () {
 
+      // Create a new list
       if (this._list === undefined) {
 	this._list = [];
       }
@@ -131,20 +162,27 @@ var KorAP = KorAP || {};
       // Offset is initially zero
       this._offset = 0;
 
+      // There is no prefix set
       if (this.prefix().length <= 0) {
 	for (var i = 0; i < this._items.length; i++)
 	  this._list.push(i);
 	return true;
       };
 
+      // There is a prefix set, so filter the list
       var pos;
       var paddedPrefix = " " + this.prefix();
 
+      // Iterate over all items and choose preferred matching items
+      // i.e. the matching happens at the word start
       for (pos = 0; pos < this._items.length; pos++) {
 	if ((this.item(pos).lcField().indexOf(paddedPrefix)) >= 0)
 	  this._list.push(pos);
       };
 
+      // The list is empty - so lower your expectations
+      // Iterate over all items and choose matching items
+      // i.e. the matching happens anywhere in the word
       if (this._list.length == 0) {
 	for (pos = 0; pos < this._items.length; pos++) {
 	  if ((this.item(pos).lcField().indexOf(this.prefix())) >= 0)
@@ -152,7 +190,7 @@ var KorAP = KorAP || {};
 	};
       };
 
-      // Filter was successful
+      // Filter was successful - yeah!
       return this._list.length > 0 ? true : false;
     },
 
@@ -164,12 +202,13 @@ var KorAP = KorAP || {};
 
     /**
      * Get the prefix for filtering,
-     * e.g. &quot;ve"&quot; for &quot;verb&quot;
+     * e.g. &quot;ve&quot; for &quot;verb&quot;
      */
     prefix : function () {
       return this._prefix || '';
     },
 
+    // Append Items that should be shown
     _showItems : function (offset) {
       this.delete();
 
@@ -194,12 +233,16 @@ var KorAP = KorAP || {};
      */
     delete : function () {
       var child;
+
+      // Iterate over all visible items
       for (var i = 0; i <= this.limit(); i++) {
 
+	// there is a visible element - unhighlight!
 	if (child = this.shownItem(i))
 	  child.lowlight();
       };
 
+      // Remove all children
       while (child = this._element.firstChild)
 	this._element.removeChild(child);
     },
@@ -218,10 +261,38 @@ var KorAP = KorAP || {};
     },
 
 
+    // Prepend item to the shown list based on index
+    _prepend : function (i) {
+      var item = this.item(i);
+
+      // Highlight based on prefix
+      if (this.prefix().length > 0)
+	item.highlight(this.prefix());
+
+      var e = this.element();
+      // Append element
+      e.insertBefore(
+	item.element(),
+	e.firstChild
+      );
+    },
+
+
+    /**
+     * Get a specific item from the complete list
+     *
+     * @param {number} index of the list item
+     */
+    item : function (index) {
+      return this._items[index]
+    },
+
+
     /**
      * Get a specific item from the filtered list
      *
      * @param {number} index of the list item
+     *        in the filtered list
      */
     liveItem : function (index) {
       if (this._list === undefined)
@@ -231,15 +302,12 @@ var KorAP = KorAP || {};
       return this._items[this._list[index]];
     },
 
-    length : function () {
-      return this._items.length;
-    },
-
 
     /**
      * Get a specific item from the visible list
      *
      * @param {number} index of the list item
+     *        in the visible list
      */
     shownItem : function (index) {
       if (index >= this.limit())
@@ -248,8 +316,16 @@ var KorAP = KorAP || {};
     },
 
 
-    /*
-     * Make the next item in the menu active
+    /**
+     * Get the length of the full list
+     */
+    length : function () {
+      return this._items.length;
+    },
+
+
+    /**
+     * Make the next item in the filtered menu active
      */
     next : function () {
       // No active element set
@@ -270,7 +346,7 @@ var KorAP = KorAP || {};
       }
 
       // The next element is outside the view - roll down
-      else if (this._position >= (this.limit + this._offset)) {
+      else if (this._position >= (this.limit() + this._offset)) {
 	this._removeFirst();
 	this._offset++;
 	this._append(this._list[this._position]);
@@ -282,8 +358,8 @@ var KorAP = KorAP || {};
     /*
      * Make the previous item in the menu active
      */
-/*
     prev : function () {
+      // No active element set
       if (this._position == -1)
 	return;
 
@@ -294,9 +370,9 @@ var KorAP = KorAP || {};
 
       // The previous element is undefined - roll to bottom
       if (newItem === undefined) {
-	this._position = this.liveLength - 1;
+	this._offset = this.liveLength() - this.limit();
+	this._position = this.liveLength() - 1;
 	newItem = this.liveItem(this._position);
-	this._offset = this.liveLength - this.limit;
 	this._showItems(this._offset);
       }
 
@@ -306,83 +382,31 @@ var KorAP = KorAP || {};
 	this._offset--;
 	this._prepend(this._list[this._position]);
       };
+
       newItem.active(true);
     },
-*/
 
 
-    /**
-     * Get the context of the menue,
-     * e.g. &quot;tt/&quot; for the tree tagger menu
-     */
-/*
-    get context () {
-      return this._context;
-    },
-*/
-/*
-    get liveLength () {
-      if (this._list === undefined)
-	this._initList();
-      return this._list.length;
-    },
-*/
-/*
-    chooseHint : function (e) {
-      var element = e.target;
-      while (element.nodeName == "STRONG" || element.nodeName == "SPAN")
-	element = element.parentNode;
-
-      if (element === undefined || element.nodeName != "LI")
-	return;
-
-      var action = element.getAttribute('data-action');
-      hint.insertText(action);
-      var menu = hint.menu();
-      menu.hide();
-
-      // Fill this with the correct value
-      var show;
-      if ((show = hint.analyzeContext()) != "-") {
-	menu.show(show);
-	menu.update(
-	  hint._search.getBoundingClientRect().right
-	);
-      };
-
-      hint._search.focus();
-    },
-
+    // Remove the HTML node from the first item
     _removeFirst : function () {
       this.item(this._list[this._offset]).lowlight();
       this._element.removeChild(this._element.firstChild);
     },
 
+
+    // Remove the HTML node from the last item
     _removeLast : function () {
-      this.item(this._list[this._offset + this.limit - 1]).lowlight();
+      this.item(this._list[this._offset + this.limit() - 1]).lowlight();
       this._element.removeChild(this._element.lastChild);
     },
 
-
-    // Prepend item to the shown list based on index
-    _prepend : function (i) {
-      var item = this.item(i);
-
-      // Highlight based on prefix
-      if (this.prefix.length > 0)
-	item.highlight(this.prefix);
-
-      // Append element
-      this.element.insertBefore(
-	item.element,
-	this.element.firstChild
-      );
-    },
-*/
-
+    // Length of the filtered list
+    liveLength : function () {
+      if (this._list === undefined)
+	this._initList();
+      return this._list.length;
+    }
   };
-
-
 
 
   /**
@@ -584,5 +608,11 @@ var KorAP = KorAP || {};
       return this;
     },
   };
+
+/*
+  KorAP._updateKey : function (e) {
+    var code = this._codeFromEvent(e)    
+  };
+*/
 
 }(this.KorAP));

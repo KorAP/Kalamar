@@ -5,9 +5,9 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-  VERSION_FROM => 'lib/Korap.pm',
-  ABSTRACT     => 'Test Frontend for the KorAP API',
-  NAME         => 'Korap',
+  VERSION_FROM => 'lib/Kalamar.pm',
+  ABSTRACT     => 'Mojolicious based Frontend for KorAP',
+  NAME         => 'Kalamar',
   AUTHOR       => 'Nils Diewald',
   BUILD_REQUIRES => {
     'Test::More' => 0

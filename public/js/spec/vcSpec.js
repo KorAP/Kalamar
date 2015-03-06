@@ -35,37 +35,37 @@ function _delOn (obj) {
 };
 
 var demoFactory = buildFactory(KorAP.VirtualCollection, {
-  "@type":"korap:docGroup",
+  "@type":"koral:docGroup",
   "operation":"operation:or",
   "operands":[
     {
-      "@type":"korap:docGroup",
+      "@type":"koral:docGroup",
       "operation":"operation:and",
       "operands":[
         {
-          "@type":"korap:doc",
+          "@type":"koral:doc",
           "key":"Titel",
           "value":"Baum",
           "match":"match:eq"
         },
         {
-          "@type":"korap:doc",
+          "@type":"koral:doc",
           "key":"Veröffentlichungsort",
           "value":"hihi",
           "match":"match:eq"
         },
         {
-          "@type":"korap:docGroup",
+          "@type":"koral:docGroup",
           "operation":"operation:or",
           "operands":[
             {
-              "@type":"korap:doc",
+              "@type":"koral:doc",
               "key":"Titel",
               "value":"Baum",
               "match":"match:eq"
             },
             {
-              "@type":"korap:doc",
+              "@type":"koral:doc",
               "key":"Veröffentlichungsort",
               "value":"hihi",
               "match":"match:eq"
@@ -75,7 +75,7 @@ var demoFactory = buildFactory(KorAP.VirtualCollection, {
       ]
     },
     {
-      "@type":"korap:doc",
+      "@type":"koral:doc",
       "key":"Untertitel",
       "value":"huhu",
       "match":"match:eq"
@@ -90,7 +90,7 @@ describe('KorAP.Doc', function () {
   var stringFactory = buildFactory(KorAP.Doc, {
     "key"   : "author",
     "value" : "Max Birkendale",
-    "@type" : "korap:doc"
+    "@type" : "koral:doc"
   });
 
   // Create example factories
@@ -99,7 +99,7 @@ describe('KorAP.Doc', function () {
     "type"  : "type:date",
     "match" : "match:eq",
     "value" : "2014-11-05",
-    "@type" : "korap:doc"
+    "@type" : "koral:doc"
   });
 
   // Create example factories
@@ -107,7 +107,7 @@ describe('KorAP.Doc', function () {
     "key"   : "title",
     "type"  : "type:regex",
     "value" : "[^b]ee.+?",
-    "@type" : "korap:doc"
+    "@type" : "koral:doc"
   });
 
   it('should be initializable', function () {
@@ -251,7 +251,7 @@ describe('KorAP.Doc', function () {
     // Serialize string
     doc = stringFactory.create();
     expect(doc.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "type" : "type:string",
       "key" : "author",
       "value" : "Max Birkendale",
@@ -261,7 +261,7 @@ describe('KorAP.Doc', function () {
     // Serialize regex
     doc = regexFactory.create();
     expect(doc.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "type" : "type:regex",
       "value" : "[^b]ee.+?",
       "match" : "match:eq",
@@ -272,7 +272,7 @@ describe('KorAP.Doc', function () {
       match: "match:ne"
     });
     expect(doc.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "type" : "type:regex",
       "value" : "[^b]ee.+?",
       "match" : "match:ne",
@@ -281,7 +281,7 @@ describe('KorAP.Doc', function () {
 
     doc = dateFactory.create();
     expect(doc.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "type" : "type:date",
       "value" : "2014-11-05",
       "match" : "match:eq",
@@ -292,7 +292,7 @@ describe('KorAP.Doc', function () {
       value : "2014"
     });
     expect(doc.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "type" : "type:date",
       "value" : "2014",
       "match" : "match:eq",
@@ -339,7 +339,7 @@ describe('KorAP.DocGroup', function () {
   var docFactory = buildFactory(
     KorAP.Doc,
     {
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "match":"match:eq",
       "key" : "author",
       "value" : "Max Birkendale"
@@ -348,7 +348,7 @@ describe('KorAP.DocGroup', function () {
 
   var docGroupFactory = buildFactory(
     KorAP.DocGroup, {
-      "@type" : "korap:docGroup",
+      "@type" : "koral:docGroup",
       "operation" : "operation:and",
       "operands" : [
 	docFactory.create().toJson(),
@@ -455,18 +455,18 @@ describe('KorAP.DocGroup', function () {
     var docGroup = docGroupFactory.create();
 
     expect(docGroup.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:docGroup",
+      "@type" : "koral:docGroup",
       "operation" : "operation:and",
       "operands" : [
 	{
-	  "@type": 'korap:doc',
+	  "@type": 'koral:doc',
 	  "key" : 'author',
 	  "match": 'match:eq',
 	  "value": 'Max Birkendale',
 	  "type": 'type:string'
 	},
 	{
-	  "@type": 'korap:doc',
+	  "@type": 'koral:doc',
 	  "key": 'pubDate',
 	  "match": 'match:eq',
 	  "value": '2014-12-05',
@@ -481,36 +481,36 @@ describe('KorAP.DocGroup', function () {
     expect(docGroup.toQuery()).toEqual('author = "Max Birkendale" & pubDate in 2014-12-05');
 
     docGroup = docGroupFactory.create({
-      "@type" : "korap:docGroup",
+      "@type" : "koral:docGroup",
       "operation" : "operation:or",
       "operands" : [
 	{
-	  "@type": 'korap:doc',
+	  "@type": 'koral:doc',
 	  "key" : 'author',
 	  "match": 'match:eq',
 	  "value": 'Max Birkendale',
 	  "type": 'type:string'
 	},
 	{
-	  "@type" : "korap:docGroup",
+	  "@type" : "koral:docGroup",
 	  "operation" : "operation:and",
 	  "operands" : [
 	    {
-	      "@type": 'korap:doc',
+	      "@type": 'koral:doc',
 	      "key": 'pubDate',
 	      "match": 'match:geq',
 	      "value": '2014-05-12',
 	      "type": 'type:date'
 	    },
 	    {
-	      "@type": 'korap:doc',
+	      "@type": 'koral:doc',
 	      "key": 'pubDate',
 	      "match": 'match:leq',
 	      "value": '2014-12-05',
 	      "type": 'type:date'
 	    },
 	    {
-	      "@type": 'korap:doc',
+	      "@type": 'koral:doc',
 	      "key": 'foo',
 	      "match": 'match:ne',
 	      "value": '[a]?bar',
@@ -545,7 +545,7 @@ describe('KorAP.UnspecifiedDoc', function () {
     expect(docGroup.operation()).toEqual('or');
 
     docGroup.append({
-      "@type": 'korap:doc',
+      "@type": 'koral:doc',
       "key": 'pubDate',
       "match": 'match:eq',
       "value": '2014-12-05',
@@ -577,7 +577,7 @@ describe('KorAP.UnspecifiedDoc', function () {
     expect(docGroup.operation()).toEqual('or');
 
     docGroup.append({
-      "@type": 'korap:doc',
+      "@type": 'koral:doc',
       "key": 'pubDate',
       "match": 'match:eq',
       "value": '2014-12-05',
@@ -643,7 +643,7 @@ describe('KorAP.UnspecifiedDoc', function () {
 describe('KorAP.Doc element', function () {
   it('should be initializable', function () {
     var docElement = KorAP.Doc.create(undefined, {
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "key":"Titel",
       "value":"Baum",
       "match":"match:eq"
@@ -660,7 +660,7 @@ describe('KorAP.Doc element', function () {
     expect(docE.children[2].getAttribute('data-type')).toEqual('string');
 
     expect(docElement.toJson()).toEqual(jasmine.objectContaining({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "key":"Titel",
       "value":"Baum",
       "match":"match:eq"
@@ -672,18 +672,18 @@ describe('KorAP.DocGroup element', function () {
   it('should be initializable', function () {
 
     var docGroup = KorAP.DocGroup.create(undefined, {
-      "@type" : "korap:docGroup",
+      "@type" : "koral:docGroup",
       "operation" : "operation:and",
       "operands" : [
 	{
-	  "@type": 'korap:doc',
+	  "@type": 'koral:doc',
 	  "key" : 'author',
 	  "match": 'match:eq',
 	  "value": 'Max Birkendale',
 	  "type": 'type:string'
 	},
 	{
-	  "@type": 'korap:doc',
+	  "@type": 'koral:doc',
 	  "key": 'pubDate',
 	  "match": 'match:eq',
 	  "value": '2014-12-05',
@@ -721,29 +721,29 @@ describe('KorAP.DocGroup element', function () {
 
   it('should be deserializable with nested groups', function () {
     var docGroup = KorAP.DocGroup.create(undefined, {
-      "@type" : "korap:docGroup",
+      "@type" : "koral:docGroup",
       "operation" : "operation:or",
       "operands" : [
 	{
-	  "@type": 'korap:doc',
+	  "@type": 'koral:doc',
 	  "key" : 'author',
 	  "match": 'match:eq',
 	  "value": 'Max Birkendale',
 	  "type": 'type:string'
 	},
 	{
-	  "@type" : "korap:docGroup",
+	  "@type" : "koral:docGroup",
 	  "operation" : "operation:and",
 	  "operands" : [
 	    {
-	      "@type": 'korap:doc',
+	      "@type": 'koral:doc',
 	      "key": 'pubDate',
 	      "match": 'match:geq',
 	      "value": '2014-05-12',
 	      "type": 'type:date'
 	    },
 	    {
-	      "@type": 'korap:doc',
+	      "@type": 'koral:doc',
 	      "key": 'pubDate',
 	      "match": 'match:leq',
 	      "value": '2014-12-05',
@@ -787,18 +787,18 @@ describe('KorAP.DocGroup element', function () {
 describe('KorAP.VirtualCollection', function () {
 
   var simpleGroupFactory = buildFactory(KorAP.DocGroup, {
-    "@type" : "korap:docGroup",
+    "@type" : "koral:docGroup",
     "operation" : "operation:and",
     "operands" : [
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key" : 'author',
 	"match": 'match:eq',
 	"value": 'Max Birkendale',
 	"type": 'type:string'
       },
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:eq',
 	"value": '2014-12-05',
@@ -808,29 +808,29 @@ describe('KorAP.VirtualCollection', function () {
   });
 
   var nestedGroupFactory = buildFactory(KorAP.VirtualCollection, {
-    "@type" : "korap:docGroup",
+    "@type" : "koral:docGroup",
     "operation" : "operation:or",
     "operands" : [
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key" : 'author',
 	"match": 'match:eq',
 	"value": 'Max Birkendale',
 	"type": 'type:string'
       },
       {
-	"@type" : "korap:docGroup",
+	"@type" : "koral:docGroup",
 	"operation" : "operation:and",
 	"operands" : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:geq',
 	    "value": '2014-05-12',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:leq',
 	    "value": '2014-12-05',
@@ -842,25 +842,25 @@ describe('KorAP.VirtualCollection', function () {
   });
 
   var flatGroupFactory = buildFactory(KorAP.VirtualCollection, {
-    "@type" : "korap:docGroup",
+    "@type" : "koral:docGroup",
     "operation" : "operation:and",
     "operands" : [
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:geq',
 	"value": '2014-05-12',
 	"type": 'type:date'
       },
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:leq',
 	"value": '2014-12-05',
 	"type": 'type:date'
       },
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'foo',
 	"match": 'match:eq',
 	"value": 'bar',
@@ -880,7 +880,7 @@ describe('KorAP.VirtualCollection', function () {
 
   it('should be based on a doc', function () {
     var vc = KorAP.VirtualCollection.render({
-      "@type" : "korap:doc",
+      "@type" : "koral:doc",
       "key":"Titel",
       "value":"Baum",
       "match":"match:eq"
@@ -1115,37 +1115,37 @@ describe('KorAP.VirtualCollection', function () {
 
   it('should flatten on import', function () {
     var vc = KorAP.VirtualCollection.create().render({
-      "@type":"korap:docGroup",
+      "@type":"koral:docGroup",
       "operation":"operation:or",
       "operands":[
 	{
-	  "@type":"korap:docGroup",
+	  "@type":"koral:docGroup",
 	  "operation":"operation:or",
 	  "operands":[
             {
-              "@type":"korap:doc",
+              "@type":"koral:doc",
               "key":"Titel",
               "value":"Baum",
               "match":"match:eq"
             },
             {
-              "@type":"korap:doc",
+              "@type":"koral:doc",
               "key":"Veröffentlichungsort",
               "value":"hihi",
               "match":"match:eq"
             },
             {
-              "@type":"korap:docGroup",
+              "@type":"koral:docGroup",
               "operation":"operation:or",
               "operands":[
 		{
-		  "@type":"korap:doc",
+		  "@type":"koral:doc",
 		  "key":"Titel",
 		  "value":"Baum",
 		  "match":"match:eq"
 		},
 		{
-		  "@type":"korap:doc",
+		  "@type":"koral:doc",
 		  "key":"Veröffentlichungsort",
 		  "value":"hihi",
 		  "match":"match:eq"
@@ -1155,7 +1155,7 @@ describe('KorAP.VirtualCollection', function () {
 	  ]
 	},
 	{
-	  "@type":"korap:doc",
+	  "@type":"koral:doc",
 	  "key":"Untertitel",
 	  "value":"huhu",
 	  "match":"match:eq"
@@ -1211,27 +1211,27 @@ describe('KorAP.Operators', function () {
 
 describe('KorAP._delete (event)', function () {
   var complexVCFactory = buildFactory(KorAP.VirtualCollection,{
-    "@type": 'korap:docGroup',
+    "@type": 'koral:docGroup',
     'operation' : 'operation:and',
     'operands' : [
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:eq',
 	"value": '2014-12-05',
 	"type": 'type:date'
       },
       {
-	"@type" : 'korap:docGroup',
+	"@type" : 'koral:docGroup',
 	'operation' : 'operation:or',
 	'operands' : [
 	  {
-	    '@type' : 'korap:doc',
+	    '@type' : 'koral:doc',
 	    'key' : 'title',
 	    'value' : 'Hello World!'
 	  },
 	  {
-	    '@type' : 'korap:doc',
+	    '@type' : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1242,7 +1242,7 @@ describe('KorAP._delete (event)', function () {
 
   it('should clean on root docs', function () {
     var vc = KorAP.VirtualCollection.render({
-      "@type": 'korap:doc',
+      "@type": 'koral:doc',
       "key": 'pubDate',
       "match": 'match:eq',
       "value": '2014-12-05',
@@ -1261,18 +1261,18 @@ describe('KorAP._delete (event)', function () {
   it ('should remove on nested docs', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:and',
 	'operands' : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:eq',
 	    "value": '2014-12-05',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type" : 'korap:doc',
+	    "@type" : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1291,18 +1291,18 @@ describe('KorAP._delete (event)', function () {
   it ('should clean on doc groups', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:and',
 	'operands' : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:eq',
 	    "value": '2014-12-05',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type" : 'korap:doc',
+	    "@type" : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1364,43 +1364,43 @@ describe('KorAP._delete (event)', function () {
   it ('should remove on nested doc groups (list flattening)', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:or',
 	'operands' : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:eq',
 	    "value": '2014-12-05',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type" : 'korap:doc',
+	    "@type" : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  },
 	  {
-	    "@type": 'korap:docGroup',
+	    "@type": 'koral:docGroup',
 	    'operation' : 'operation:and',
 	    'operands' : [
 	      {
-		"@type": 'korap:doc',
+		"@type": 'koral:doc',
 		"key": 'pubDate',
 		"match": 'match:eq',
 		"value": '2014-12-05',
 		"type": 'type:date'
 	      },
 	      {
-		"@type" : 'korap:docGroup',
+		"@type" : 'koral:docGroup',
 		'operation' : 'operation:or',
 		'operands' : [
 		  {
-		    '@type' : 'korap:doc',
+		    '@type' : 'koral:doc',
 		    'key' : 'title',
 		    'value' : 'Hello World!'
 		  },
 		  {
-		    '@type' : 'korap:doc',
+		    '@type' : 'koral:doc',
 		    'key' : 'yeah',
 		    'value' : 'juhu'
 		  }
@@ -1443,27 +1443,27 @@ describe('KorAP._delete (event)', function () {
 
 describe('KorAP._add (event)', function () {
   var complexVCFactory = buildFactory(KorAP.VirtualCollection,{
-    "@type": 'korap:docGroup',
+    "@type": 'koral:docGroup',
     'operation' : 'operation:and',
     'operands' : [
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:eq',
 	"value": '2014-12-05',
 	"type": 'type:date'
       },
       {
-	"@type" : 'korap:docGroup',
+	"@type" : 'koral:docGroup',
 	'operation' : 'operation:or',
 	'operands' : [
 	  {
-	    '@type' : 'korap:doc',
+	    '@type' : 'koral:doc',
 	    'key' : 'title',
 	    'value' : 'Hello World!'
 	  },
 	  {
-	    '@type' : 'korap:doc',
+	    '@type' : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1475,18 +1475,18 @@ describe('KorAP._add (event)', function () {
   it ('should add new unspecified doc with "and"', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:and',
 	'operands' : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:eq',
 	    "value": '2014-12-05',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type" : 'korap:doc',
+	    "@type" : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1520,18 +1520,18 @@ describe('KorAP._add (event)', function () {
   it ('should add new unspecified doc with "or"', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:and',
 	'operands' : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:eq',
 	    "value": '2014-12-05',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type" : 'korap:doc',
+	    "@type" : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1710,18 +1710,18 @@ describe('KorAP._add (event)', function () {
   it ('should wrap on root', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:and',
 	'operands' : [
 	  {
-	    "@type": 'korap:doc',
+	    "@type": 'koral:doc',
 	    "key": 'pubDate',
 	    "match": 'match:eq',
 	    "value": '2014-12-05',
 	    "type": 'type:date'
 	  },
 	  {
-	    "@type" : 'korap:doc',
+	    "@type" : 'koral:doc',
 	    'key' : 'foo',
 	    'value' : 'bar'
 	  }
@@ -1744,7 +1744,7 @@ describe('KorAP._add (event)', function () {
   it ('should add on root (case "and")', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:eq',
 	"value": '2014-12-05',
@@ -1766,7 +1766,7 @@ describe('KorAP._add (event)', function () {
   it ('should add on root (case "or")', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:doc',
+	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:eq',
 	"value": '2014-12-05',
@@ -1787,36 +1787,36 @@ describe('KorAP._add (event)', function () {
   it ('should support multiple sub groups per group', function () {
     var vc = KorAP.VirtualCollection.render(
       {
-	"@type": 'korap:docGroup',
+	"@type": 'koral:docGroup',
 	'operation' : 'operation:or',
 	'operands' : [
 	  {
-	    "@type": 'korap:docGroup',
+	    "@type": 'koral:docGroup',
 	    'operation' : 'operation:and',
 	    'operands' : [
 	      {
-		"@type": 'korap:doc',
+		"@type": 'koral:doc',
 		"key": 'title',
 		"value": 't1',
 	      },
 	      {
-		"@type" : 'korap:doc',
+		"@type" : 'koral:doc',
 		'key' : 'title',
 		'value' : 't2'
 	      }
 	    ]
 	  },
 	  {
-	    "@type": 'korap:docGroup',
+	    "@type": 'koral:docGroup',
 	    'operation' : 'operation:and',
 	    'operands' : [
 	      {
-		"@type": 'korap:doc',
+		"@type": 'koral:doc',
 		"key": 'title',
 		"value": 't3',
 	      },
 	      {
-		"@type" : 'korap:doc',
+		"@type" : 'koral:doc',
 		'key' : 'title',
 		'value' : 't4'
 	      }
@@ -1844,7 +1844,7 @@ describe('KorAP.Rewrite', function () {
 
   it('should be initializable', function () {
     var rewrite = KorAP.Rewrite.create({
-      "@type" : "korap:rewrite",
+      "@type" : "koral:rewrite",
       "operation" : "operation:modification",
       "src" : "querySerializer",
       "scope" : "tree"
@@ -1855,7 +1855,7 @@ describe('KorAP.Rewrite', function () {
   it('should be deserialized by docs', function () {
     var doc = KorAP.Doc.create(undefined,
       {
-        "@type":"korap:doc",
+        "@type":"koral:doc",
         "key":"Titel",
         "value":"Baum",
         "match":"match:eq"
@@ -1866,13 +1866,13 @@ describe('KorAP.Rewrite', function () {
 
     doc = KorAP.Doc.create(undefined,
       {
-        "@type":"korap:doc",
+        "@type":"koral:doc",
         "key":"Titel",
         "value":"Baum",
         "match":"match:eq",
 	"rewrites" : [
 	  {
-	    "@type" : "korap:rewrite",
+	    "@type" : "koral:rewrite",
 	    "operation" : "operation:modification",
 	    "src" : "querySerializer",
 	    "scope" : "tree"
@@ -1888,3 +1888,11 @@ describe('KorAP.Rewrite', function () {
   });
 */
 });
+/*
+describe('KorAP.DocKey', function () {
+  it('should be initializable', function () {
+    var docKey = KorAP.DocKey.create();
+    expect(docKey.toString()).toEqual('...');
+  });
+});
+*/

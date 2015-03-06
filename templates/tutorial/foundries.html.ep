@@ -2,7 +2,7 @@
 
 <h2>KorAP-Tutorial: Foundries and Layers</h2>
 
-<p><%= korap_tut_link_to 'Back to Index', '/tutorial' %></p>
+<p><%= kalamar_tut_link_to 'Back to Index', '/tutorial' %></p>
 
 <p>KorAP provides access to multiple levels of annotations originating from multiple resources, so called <i>foundries</i>.</p>
 

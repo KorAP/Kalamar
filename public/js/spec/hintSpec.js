@@ -705,4 +705,81 @@ describe('KorAP.Hint', function () {
     var hint = KorAP.Hint.create();
   });
 });
+
+
+describe('KorAP.ContextAnalyzer', function () {
+
+  it('should be initializable', function () {
+    var analyzer = KorAP.ContextAnalyzer.create(")");
+    expect(analyzer).toBe(undefined);
+
+    analyzer = KorAP.ContextAnalyzer.create(".+?");
+    expect(analyzer).not.toBe(undefined);
+
+  });
+
+  it('should check correctly', function () {
+    analyzer = KorAP.ContextAnalyzer.create(KorAP.context);
+    expect(analyzer.test("cnx/]cnx/c=")).toEqual("cnx/c=");
+    expect(analyzer.test("cnx/c=")).toEqual("cnx/c=");
+    expect(analyzer.test("cnx/c=np mate/m=mood:")).toEqual("mate/m=mood:");
+    expect(analyzer.test("impcnx/")).toEqual("impcnx/");
+    expect(analyzer.test("cnx/c=npcnx/")).toEqual("npcnx/");
+    expect(analyzer.test("mate/m=degree:pos corenlp/ne_dewac_175m_600="))
+      .toEqual("corenlp/ne_dewac_175m_600=");
+  });
+});
+
+describe('KorAP.InputField', function () {
+  var input;
+
+  beforeAll(function () {
+    input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("value", "abcdefghijklmno");
+    input.style.position = 'absolute';
+    input.style.top  = "20px";
+    input.style.left = "30px";
+    input.focus();
+    input.selectionStart = 5;
+  });
+
+  afterAll(function () {
+    document.getElementsByTagName("body")[0].removeChild(input);
+    document.getElementsByTagName("body")[0].removeChild(
+      document.getElementById("searchMirror")
+    );
+  });
+
+  it('should be initializable', function () {
+    // Supports: context, searchField
+    var inputField = KorAP.InputField.create(input);
+    expect(inputField._element).not.toBe(undefined);
+  });
+
+  it('should have text', function () {
+    var inputField = KorAP.InputField.create(input);
+
+    expect(inputField.value).toEqual("abcdefghijklmno");
+    expect(inputField.element.selectionStart).toEqual(5);
+    expect(inputField.split()[0]).toEqual("abcde");
+    expect(inputField.split()[1]).toEqual("fghijklmno");
+
+    inputField.insert("xyz");
+    expect(inputField.split()[0]).toEqual("abcdexyz");
+    expect(inputField.split()[1]).toEqual("fghijklmno");
+
+  });
+
+  it('should be correctly positioned', function () {
+    var inputField = KorAP.InputField.create(input);
+    document.getElementsByTagName("body")[0].appendChild(input);
+    inputField.reposition();
+    expect(inputField.mirror.style.left).toEqual("30px");
+    expect(inputField.mirror.style.top.match(/^(\d+)px$/)[1]).toBeGreaterThan(20);
+  });
+});
+
+
+
 */

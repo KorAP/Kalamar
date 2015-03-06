@@ -6,7 +6,7 @@ use Test::Mojo;
 use Mojo::URL;
 use Benchmark qw/:hireswallclock/;
 
-my $t = Test::Mojo->new('Korap');
+my $t = Test::Mojo->new('Kalamar');
 
 $t->app->routes->get('/searchtest')->to(
   cb => sub {

@@ -50,7 +50,7 @@ document.write('class="fa fa-external-link-square"></i></a>');
   <div id="searchbar">
 %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => 'Find ...'
     <button type="submit"><i class="fa fa-search"></i></button>
-%   if (korap_test_port()) {
+%   if (kalamar_test_port()) {
     <button type="submit" name="action" value="inspect"><i class="fa fa-code"></i></button>
 %   };
     <i onclick="hint.popUp()" class="fa fa-arrow-circle-down show-hint"></i>

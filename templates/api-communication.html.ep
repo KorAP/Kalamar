@@ -1,6 +1,6 @@
 % use JSON::XS;
 
-% if (korap_test_port() && search->api_request) {
+% if (kalamar_test_port() && search->api_request) {
 <pre class="query api" onclick="this.classList.toggle('active')">
   <span>API Response for </span>
   <span style="font-size: 70%"><%= search->api_request %></span>

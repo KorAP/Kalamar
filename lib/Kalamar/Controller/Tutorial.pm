@@ -1,4 +1,4 @@
-package Korap::Controller::Tutorial;
+package Kalamar::Controller::Tutorial;
 use Mojo::Base 'Mojolicious::Controller';
 
 # Todo: Set title as defaults

@@ -31,23 +31,28 @@ body {
 }
 
 .vc .rewritten .rewrite {
-  color: red;
-  font-weight: bold;
-  background-color: yellow;
-  width: 1.5em;
-  height: 1.2em;
-  margin-left: 2px;
-  border-radius: 8pt;
+  margin-left: 4pt;
   display: inline-block;
+  color: #ffa500;
+}
+
+.vc .rewritten .rewrite:after {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  content: "\f040"; // "\f14b";
+  text-decoration: underline;
 }
 
 .vc .rewritten .rewrite span {
   display: none;
 }
 
+/*
 .vc .rewritten .rewrite:hover span {
   display: block;
 }
+*/
 
 .vc .docGroup .docGroup {
   display: block;

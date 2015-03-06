@@ -1,4 +1,4 @@
-package Korap::Controller::Search;
+package Kalamar::Controller::Search;
 use Mojo::Base 'Mojolicious::Controller';
 
 # Add X-Forwarded-For to user agent call everywhere

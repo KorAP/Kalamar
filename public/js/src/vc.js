@@ -3,8 +3,12 @@
  *
  * @author Nils Diewald
  */
-
+/*
+ * Replaces a previous version written by Mengfei Zhou
+ */
 var KorAP = KorAP || {};
+
+// Requires menu.js
 
 /*
   TODO: Implement a working localization solution!
@@ -49,7 +53,6 @@ var KorAP = KorAP || {};
   loc.OR    = loc.OR    || 'or';
   loc.DEL   = loc.DEL   || '×';
   loc.EMPTY = loc.EMPTY || '⋯'
-
 
   // Utility for analysing boolean values
   function _bool (bool) {
@@ -148,10 +151,10 @@ var KorAP = KorAP || {};
 
       if (json !== undefined) {
 	// Root object
-	if (json['@type'] == 'korap:doc') {
+	if (json['@type'] == 'koral:doc') {
 	  obj._root = KorAP.Doc.create(obj, json);
 	}
-	else if (json['@type'] == 'korap:docGroup') {
+	else if (json['@type'] == 'koral:docGroup') {
 	  obj._root = KorAP.DocGroup.create(obj, json);
 	}
 	else {
@@ -343,7 +346,7 @@ var KorAP = KorAP || {};
 
       // Set JSON-LD type
       var newDoc = KorAP.Doc.create(this._parent, {
-	"@type" : "korap:doc",
+	"@type" : "koral:doc",
 	"value" : "",
 	"key"   : v
       });
@@ -373,6 +376,9 @@ var KorAP = KorAP || {};
       var ellipsis = document.createElement('span');
       ellipsis.appendChild(document.createTextNode(loc.EMPTY));
       this._element.appendChild(ellipsis);
+
+      // Set ref - TODO: Cleanup!
+      this._element.refTo = this;
 
       // Set operators
       if (this._parent !== undefined && this.parent().ldType() !== null) {
@@ -430,6 +436,9 @@ var KorAP = KorAP || {};
       // Get element
       var e = this._element;
 
+      // Set ref - TODO: Cleanup!
+      e.refTo = this;
+
       // Check if there is a change
       if (this.__changed) {
 
@@ -441,6 +450,10 @@ var KorAP = KorAP || {};
 	// Added key
 	var key = document.createElement('span');
 	key.setAttribute('class', 'key');
+
+	// Change key
+	key.addEventListener('click', KorAP._changeKey, false);
+
 	if (this.key())
 	  key.appendChild(document.createTextNode(this.key()));
 
@@ -676,7 +689,7 @@ var KorAP = KorAP || {};
 	return {};
       
       return {
-	"@type" : "korap:" + this.ldType(),
+	"@type" : "koral:" + this.ldType(),
 	"key"   : this.key(),
 	"match" : "match:" + this.matchop(),
 	"value" : this.value() || '',
@@ -810,7 +823,7 @@ var KorAP = KorAP || {};
 	KorAP.log(701, "JSON-LD group has no @type attribute");
 	return;
 
-      case "korap:doc":
+      case "koral:doc":
 	// Be aware of cyclic structures!
 	var doc = KorAP.Doc.create(this, operand);
 	if (doc === undefined)
@@ -822,7 +835,7 @@ var KorAP = KorAP || {};
 	};
 	return dupl;
 
-      case "korap:docGroup":
+      case "koral:docGroup":
 	// Be aware of cyclic structures!
 	var docGroup = KorAP.DocGroup.create(this, operand);
 	if (docGroup === undefined)
@@ -1039,7 +1052,7 @@ var KorAP = KorAP || {};
 	  opArray.push(this._operands[i].toJson());
       };
       return {
-	"@type"     : "korap:" + this.ldType(),
+	"@type"     : "koral:" + this.ldType(),
 	"operation" : "operation:" + this.operation(),
 	"operands"  : opArray
       };
@@ -1301,12 +1314,72 @@ var KorAP = KorAP || {};
     toJson : function () {
       return {
 	// Unspecified object
-	"@type" : "korap:" + this.ldType()
+	"@type" : "koral:" + this.ldType()
       };
     },
 
     toQuery : function () {
       return '';
+    }
+  };
+
+
+  /**
+   * Criterion in a KorAP.Doc
+   */
+  KorAP._changeKey = function () {
+    var doc = this.parentNode.refTo;
+    console.log(doc.type());
+    // key, matchop, type, value
+  };
+  
+
+  // Field menu
+  KorAP.FieldMenu = {
+    create : function (params) {
+      return Object.create(KorAP.Menu)
+	.upgradeTo(KorAP.FieldMenu)
+	._init(KorAP.FieldMenuItem, params)
+    }
+  };
+
+
+  // Field menu item
+  KorAP.FieldMenuItem = {
+    create : function (params) {
+      return Object.create(KorAP.MenuItem)
+	.upgradeTo(KorAP.FieldMenuItem)
+	._init(params);
+    },
+    _init : function (params) {
+      if (params[0] === undefined)
+	throw new Error("Missing parameters");
+
+      this._name  = params[0];
+      this._value = params[1];
+      this._type  = params[2];
+
+      this._lcField = ' ' + this._name.toLowerCase();
+
+      return this;
+    },
+    name : function () {
+      return this._name;
+    },
+    type : function () {
+      return this._type;
+    },
+    element : function () {
+      // already defined
+      if (this._element !== undefined)
+	return this._element;
+
+      // Create list item
+      var li = document.createElement("li");
+      li.setAttribute("data-type", this._type);
+      li.setAttribute("data-value", this._value);
+      li.appendChild(document.createTextNode(this._name));
+      return this._element = li;
     }
   };
  

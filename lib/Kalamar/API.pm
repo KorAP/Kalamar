@@ -1,4 +1,4 @@
-package Korap::API;
+package Kalamar::API;
 use Mojo::Base 'Mojolicious::Plugin';
 use Scalar::Util qw/blessed weaken/;
 use strict;
