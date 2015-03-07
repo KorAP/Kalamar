@@ -361,7 +361,7 @@ describe('KorAP.Menu', function () {
     expect(menu.delete()).toBe(undefined);
     menu.limit(3);
 
-    expect(menu.show()).toBe(undefined);
+    expect(menu.show()).toBe(true);
     expect(menu.element().firstChild.innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
 
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
@@ -379,7 +379,7 @@ describe('KorAP.Menu', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
     menu.limit(3);
 
-    expect(menu.show("o")).toBe(undefined);
+    expect(menu.show("o")).toBe(true);
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
     expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
@@ -392,7 +392,7 @@ describe('KorAP.Menu', function () {
 
     menu.limit(2);
 
-    expect(menu.show("o")).toBe(undefined);
+    expect(menu.show("o")).toBe(true);
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
     expect(menu.element().childNodes[2]).toBe(undefined);
@@ -402,14 +402,14 @@ describe('KorAP.Menu', function () {
     expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
     expect(menu.element().childNodes[2]).toBe(undefined);
 
-    expect(menu.show("e")).toBe(undefined);
+    expect(menu.show("e")).toBe(true);
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
     expect(menu.element().childNodes[2]).toBe(undefined);
 
     menu.limit(5);
 
-    expect(menu.show("a")).toBe(undefined);
+    expect(menu.show("a")).toBe(true);
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Ex<mark>a</mark>mple 1</span>");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemm<mark>a</mark></strong>");
     expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Ex<mark>a</mark>mple 2</span>");
@@ -426,7 +426,7 @@ describe('KorAP.Menu', function () {
     // Show only 3 items
     menu.limit(3);
 
-    expect(menu.show()).toBe(undefined);
+    expect(menu.show()).toBe(true);
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
@@ -502,7 +502,7 @@ describe('KorAP.Menu', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
 
     menu.limit(3);
-    expect(menu.show()).toBe(undefined);
+    expect(menu.show()).toBe(true);
 
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
@@ -591,7 +591,7 @@ describe('KorAP.Menu', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
     menu.limit(2);
 
-    expect(menu.show("o")).toBe(undefined);
+    expect(menu.show("o")).toBe(true);
 
     expect(menu.shownItem(0).name()).toEqual("Constituency");
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
@@ -637,7 +637,7 @@ describe('KorAP.Menu', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
 
     menu.limit(2);
-    expect(menu.show("ex")).toBe(undefined);
+    expect(menu.show("ex")).toBe(true);
 
     expect(menu.shownItem(0).name()).toEqual("Constituency");
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
@@ -671,7 +671,7 @@ describe('KorAP.Menu', function () {
     menu.limit(5);
 
     // Change show
-    expect(menu.show("e")).toBe(undefined);
+    expect(menu.show("e")).toBe(true);
 
     expect(menu.shownItem(0).name()).toEqual("Constituency");
     expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");

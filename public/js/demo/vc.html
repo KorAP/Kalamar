@@ -17,7 +17,7 @@
   </head>
   <body>
     <div id="vc"></div>
-    <div id="menu"></div>
+    <div id="menu" class="vc"></div>
 
     <script>
     var json = {
@@ -92,9 +92,10 @@
     var menu = KorAP.FieldMenu.create([
       ['Titel', 'title', 'string'],
       ['Untertitel', 'subTitle', 'string'],
-      ['Veröffentlichungsdatum', 'pubDate', 'date']
+      ['Veröffentlichungsdatum', 'pubDate', 'date'],
+      ['Autor', 'author', 'string']
     ]);
-    menu.limit(4);
+    menu.limit(3);
     menu.show();
 
     document.getElementById('menu').appendChild(menu.element());

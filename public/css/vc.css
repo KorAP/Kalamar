@@ -263,3 +263,14 @@ body {
 .vc .doc:hover > .operators {
   opacity: 1;
 }
+
+.vc ul > li.active {
+  background-color: rgba(255,255,255,.3);
+}
+
+.vc ul > li mark {
+  text-decoration: underline;
+  background-color: transparent;
+  color: white;
+  font-weight: bold; /* #496000; */
+}

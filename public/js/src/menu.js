@@ -9,6 +9,12 @@ var KorAP = KorAP || {};
 (function (KorAP) {
   "use strict";
 
+  // Don't let events bubble up
+  Event.prototype.halt = function () {
+    this.stopPropagation();
+    this.preventDefault();
+  };
+
   // Default maximum number of menu items
   KorAP.menuLimit = 8;
 
@@ -35,22 +41,101 @@ var KorAP = KorAP || {};
       this._element.focus();
     },
 
+    // mouse wheel treatment
+    _mousewheel : function (e) {
+      var delta = 0;
+      if (e.wheelDelta) {
+	delta = event.wheelDelta / 120; 
+      }
+      else if (e.detail) {
+	delta = - e.detail / 3;
+      };
+      if (delta < 0) {
+	this.next();
+      }
+      else {
+	this.prev();
+      };
+      e.halt();
+    },
+
+    // Arrow key and prefix treatment
+    _keydown : function (e) {
+      var code = _codeFromEvent(e);
+
+      /*
+       * keyCodes:
+       * - Down  = 40
+       * - Esc   = 27
+       * - Up    = 38
+       * - Enter = 13
+       * - shift = 16
+       * for characters use e.key
+       */
+
+      switch (code) {
+      case 27: // 'Esc'
+	e.halt();
+	this.hide();
+	break;
+      case 40: // 'Down'
+	e.halt();
+	this.next();
+	break;
+      case 38: // 'Up'
+	e.halt();
+	this.prev();
+	break;
+      case 13: // 'Enter'
+	console.log('hide');
+	e.halt();
+	this.hide();
+	break;
+      case 8: // 'Backspace'
+	var p = this.prefix();
+	if (p.length > 1) {
+	  p = p.substring(0, p.length - 1)
+	  this.show(p);
+	}
+	else {
+	  this.show();
+	};
+	e.halt();
+	break;
+      default:
+	if (e.key !== undefined && e.key.length != 1)
+	  return;
+
+	// Add prefix
+	if (!this.show(this.prefix() + e.key))
+	  this.hide();
+      };
+    },
+
     // Initialize list
     _init : function (itemClass, params) {
       // this._element.addEventListener("click", chooseHint, false);
+      var that = this;
       this._itemClass = itemClass;
-      this._element = document.createElement("ul");
-      this._element.style.opacity = 0;
+      var e =this._element = document.createElement("ul");
+      e.style.opacity = 0;
+      e.style.outline = 0;
+      e.setAttribute('tabindex', 0);
 
-/*
-      this._listener = document.createElement('input');
-      this._listener.setAttribute('type', 'text');
-//      this._listener.style.display = "none";
-*/
-      this._element.addEventListener(
+      // Arrow keys
+      e.addEventListener(
 	"keydown",
-	function (e) {
-          console.log('+++');
+	function (ev) {
+	  that._keydown(ev)
+	},
+	false
+      );
+
+      // Mousewheel
+      e.addEventListener(
+	'DOMMouseScroll',
+	function (ev) {
+	  that._mousewheel(ev)
 	},
 	false
       );
@@ -125,7 +210,7 @@ var KorAP = KorAP || {};
 
       // Initialize the list
       if (!this._initList())
-	return;
+	return false;
 
       // show based on initial offset
       this._showItems(0);
@@ -141,10 +226,17 @@ var KorAP = KorAP || {};
 
       // Add classes for rolling menus
       this._boundary(true);
+      return true;
     },
 
     hide : function () {
+      this.active = false;
+      this.delete();
       this._element.style.opacity = 0;
+
+/*
+      this._element.blur();
+*/
     },
 
     // Initialize the list
@@ -238,8 +330,10 @@ var KorAP = KorAP || {};
       for (var i = 0; i <= this.limit(); i++) {
 
 	// there is a visible element - unhighlight!
-	if (child = this.shownItem(i))
+	if (child = this.shownItem(i)) {
 	  child.lowlight();
+	  child.active(false);
+	};
       };
 
       // Remove all children
@@ -609,10 +703,10 @@ var KorAP = KorAP || {};
     },
   };
 
-/*
-  KorAP._updateKey : function (e) {
-    var code = this._codeFromEvent(e)    
+  function _codeFromEvent (e) {
+    if ((e.charCode) && (e.keyCode==0))
+      return e.charCode
+    return e.keyCode;
   };
-*/
 
 }(this.KorAP));
