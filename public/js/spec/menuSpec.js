@@ -928,19 +928,21 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(0).name()).toEqual("Titel");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
     expect(menu.shownItem(0).active()).toBe(false);
+
     expect(menu.shownItem(1).name()).toEqual("Untertitel");
     expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2)).toBe(undefined);
   });
 
-  xit('should be navigatable with a prefix (2)', function () {
+  it('should be navigatable with a prefix (2)', function () {
     var menu = KorAP.HintMenu.create("cnx/", demolist);
     menu.limit(3);
     expect(menu.show()).toBe(true);
     expect(menu.prefix()).toEqual("");
     menu.prefix('el');
     expect(menu.show()).toBe(true);
+
 
     expect(menu.prefix()).toEqual("el");
     expect(menu._prefix.active()).toEqual(false);
@@ -955,16 +957,17 @@ describe('KorAP.Menu', function () {
     // Backward
     menu.prev();
     expect(menu._prefix.active()).toEqual(true);
+
     expect(menu.shownItem(0).name()).toEqual("Titel");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
     expect(menu.shownItem(0).active()).toBe(false);
+
     expect(menu.shownItem(1).name()).toEqual("Untertitel");
     expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Backward
-/*
     menu.prev();
     expect(menu._prefix.active()).toEqual(false);
     expect(menu.shownItem(0).name()).toEqual("Titel");
@@ -974,7 +977,6 @@ describe('KorAP.Menu', function () {
     expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2)).toBe(undefined);
-*/
   });
 
   xit('should be page downable');

@@ -503,6 +503,7 @@ var KorAP = KorAP || {};
      * Make the previous item in the menu active
      */
     prev : function () {
+
       // No active element set
       if (this._position == -1)
 	return;
@@ -510,8 +511,11 @@ var KorAP = KorAP || {};
       var newItem;
 
       // Set new live item
-      var oldItem = this.liveItem(this._position--);
-      oldItem.active(false);
+      if (!this._prefix.active()) {
+	var oldItem = this.liveItem(this._position--);
+	oldItem.active(false);
+      };
+
       newItem = this.liveItem(this._position);
 
       // The previous element is undefined - roll to bottom
@@ -520,9 +524,14 @@ var KorAP = KorAP || {};
 	// Activate prefix
 	var prefix = this._prefix;
 	this._offset = this.liveLength() - this.limit();
+
+	// Normalize offset
+	this._offset = this._offset < 0 ? 0 : this._offset;
+
 	this._position = this.liveLength() - 1;
 
 	if (prefix.isSet() && !prefix.active()) {
+
 	  this._position++;
 	  prefix.active(true);
 	  return;
