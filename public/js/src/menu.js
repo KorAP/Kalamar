@@ -44,102 +44,114 @@ var KorAP = KorAP || {};
     // mouse wheel treatment
     _mousewheel : function (e) {
       var delta = 0;
-      if (e.wheelDelta) {
-	delta = event.wheelDelta / 120; 
-      }
-      else if (e.detail) {
-	delta = - e.detail / 3;
-      };
-      if (delta < 0) {
+
+      delta = e.deltaY / 120;
+      if (delta > 0)
 	this.next();
-      }
-      else {
+      else if (delta < 0)
 	this.prev();
-      };
       e.halt();
     },
 
     // Arrow key and prefix treatment
-    _keydown : function (e) {
+    _keypress : function (e) {
       var code = _codeFromEvent(e);
-
-      /*
-       * keyCodes:
-       * - Down  = 40
-       * - Esc   = 27
-       * - Up    = 38
-       * - Enter = 13
-       * - shift = 16
-       * for characters use e.key
-       */
 
       switch (code) {
       case 27: // 'Esc'
 	e.halt();
 	this.hide();
 	break;
-      case 40: // 'Down'
-	e.halt();
-	this.next();
-	break;
+
       case 38: // 'Up'
 	e.halt();
 	this.prev();
 	break;
-      case 13: // 'Enter'
-	console.log('hide');
+      case 33: // 'Page up'
 	e.halt();
-	this.hide();
+	this.prev();
+	break;
+      case 40: // 'Down'
+	e.halt();
+	this.next();
+	break;
+      case 34: // 'Page down'
+	e.halt();
+	this.next();
+	break;
+      case 39: // 'Right'
+	var item = this.liveItem(this._position);
+	if (item["further"] !== undefined) {
+	  item["further"].bind(item).apply();
+	  e.halt();
+	};
+	break;
+      case 13: // 'Enter'
+
+	// Click on prefix
+	if (this._prefix.active())
+	  this._prefix.onclick();
+
+	// Click on item
+	else
+	  this.liveItem(this._position).onclick();
+	e.halt();
 	break;
       case 8: // 'Backspace'
-	var p = this.prefix();
-	if (p.length > 1) {
-	  p = p.substring(0, p.length - 1)
-	  this.show(p);
-	}
-	else {
-	  this.show();
-	};
+	this._prefix.backspace();
+	this.show();
 	e.halt();
 	break;
       default:
-	if (e.key !== undefined && e.key.length != 1)
+	if (e.key !== undefined &&
+	    e.key.length != 1)
 	  return;
 
 	// Add prefix
-	if (!this.show(this.prefix() + e.key))
-	  this.hide();
+	this._prefix.add(e.key.toLowerCase());
+
+	if (!this.show()) {
+	  this.prefix('').show();
+	};
       };
     },
 
     // Initialize list
-    _init : function (itemClass, params) {
-      // this._element.addEventListener("click", chooseHint, false);
+    _init : function (itemClass, prefixClass, params) {
       var that = this;
       this._itemClass = itemClass;
-      var e =this._element = document.createElement("ul");
+
+      if (prefixClass !== undefined)
+	this._prefix = prefixClass.create();
+      else
+	this._prefix = KorAP.MenuPrefix.create();
+
+      var e = document.createElement("ul");
       e.style.opacity = 0;
       e.style.outline = 0;
       e.setAttribute('tabindex', 0);
+      e.setAttribute('class', 'menu');
+      e.appendChild(this._prefix.element());
 
       // Arrow keys
       e.addEventListener(
-	"keydown",
+	'keypress',
 	function (ev) {
-	  that._keydown(ev)
+	  that._keypress(ev)
 	},
 	false
       );
 
       // Mousewheel
       e.addEventListener(
-	'DOMMouseScroll',
+	'wheel',
 	function (ev) {
 	  that._mousewheel(ev)
 	},
 	false
       );
 
+      this._element = e;
       this.active = false;
       this._items = new Array();
       var i;
@@ -175,8 +187,10 @@ var KorAP = KorAP || {};
      * i.e. the number of items visible.
      */
     limit : function (limit) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	this._limit = limit;
+	return this;
+      };
       return this._limit;
     },
 
@@ -197,7 +211,7 @@ var KorAP = KorAP || {};
     _reset : function () {
       this._offset = 0;
       this._pos    = 0;
-      this._prefix = undefined;
+      this._prefix.value('');
     },
 
     /**
@@ -205,9 +219,7 @@ var KorAP = KorAP || {};
      *
      * @param {string} Prefix for filtering the list
      */
-    show : function (prefix) {
-      this._prefix = prefix;
-
+    show : function () {
       // Initialize the list
       if (!this._initList())
 	return false;
@@ -219,9 +231,8 @@ var KorAP = KorAP || {};
       // Todo: Or the last element chosen
       this.liveItem(0).active(true);
 
-      this._position = 0;
       this._active = this._list[0];
-
+      this._position = 0;
       this._element.style.opacity = 1;
 
       // Add classes for rolling menus
@@ -256,8 +267,13 @@ var KorAP = KorAP || {};
 
       // There is no prefix set
       if (this.prefix().length <= 0) {
-	for (var i = 0; i < this._items.length; i++)
+	var i = 0;
+	for (; i < this._items.length; i++)
 	  this._list.push(i);
+	while (this._items[++i] !== undefined) {
+	  this._items[i].lowlight();
+	  console.log(this._item);
+	};
 	return true;
       };
 
@@ -296,8 +312,12 @@ var KorAP = KorAP || {};
      * Get the prefix for filtering,
      * e.g. &quot;ve&quot; for &quot;verb&quot;
      */
-    prefix : function () {
-      return this._prefix || '';
+    prefix : function (pref) {
+      if (arguments.length === 1) {
+	this._prefix.value(pref);
+	return this;
+      };
+      return this._prefix.value();
     },
 
     // Append Items that should be shown
@@ -326,19 +346,32 @@ var KorAP = KorAP || {};
     delete : function () {
       var child;
 
+      /*
       // Iterate over all visible items
       for (var i = 0; i <= this.limit(); i++) {
 
-	// there is a visible element - unhighlight!
+	// there is a visible element
+	// unhighlight!
 	if (child = this.shownItem(i)) {
 	  child.lowlight();
 	  child.active(false);
 	};
       };
+      */
+
+      for (var i in this._list) {
+	var item = this._items[this._list[i]];
+	item.lowlight();
+	item.active(false);	
+      };
 
       // Remove all children
-      while (child = this._element.firstChild)
-	this._element.removeChild(child);
+      var children = this._element.childNodes;
+      for (var i = children.length - 1; i >= 1; i--) {
+	this._element.removeChild(
+	  children[i]
+	);
+      };
     },
 
 
@@ -367,7 +400,7 @@ var KorAP = KorAP || {};
       // Append element
       e.insertBefore(
 	item.element(),
-	e.firstChild
+	e.children[1]
       );
     },
 
@@ -422,21 +455,36 @@ var KorAP = KorAP || {};
      * Make the next item in the filtered menu active
      */
     next : function () {
+
       // No active element set
-      if (this._position == -1)
+      if (this._position === -1)
 	return;
+
+      var newItem;
 
       // Set new live item
       var oldItem = this.liveItem(this._position++);
       oldItem.active(false);
-      var newItem = this.liveItem(this._position);
+      newItem = this.liveItem(this._position);
 
-      // The next element is undefined - roll to top
+      // The next element is undefined - roll to top or to prefix
       if (newItem === undefined) {
-	this._offset = 0;
-	this._position = 0;
-	newItem = this.liveItem(0);
-	this._showItems(0);
+
+	// Activate prefix
+	var prefix = this._prefix;
+
+	// Mark prefix
+	if (prefix.isSet() && !prefix.active()) {
+	  this._position--;
+	  prefix.active(true);
+	  return;
+	}
+	else {
+	  this._offset = 0;
+	  this._position = 0;
+	  newItem = this.liveItem(0);
+	  this._showItems(0);
+	};
       }
 
       // The next element is outside the view - roll down
@@ -445,6 +493,8 @@ var KorAP = KorAP || {};
 	this._offset++;
 	this._append(this._list[this._position]);
       };
+
+      this._prefix.active(false);
       newItem.active(true);
     },
 
@@ -457,17 +507,30 @@ var KorAP = KorAP || {};
       if (this._position == -1)
 	return;
 
+      var newItem;
+
       // Set new live item
       var oldItem = this.liveItem(this._position--);
       oldItem.active(false);
-      var newItem = this.liveItem(this._position);
+      newItem = this.liveItem(this._position);
 
       // The previous element is undefined - roll to bottom
       if (newItem === undefined) {
+
+	// Activate prefix
+	var prefix = this._prefix;
 	this._offset = this.liveLength() - this.limit();
 	this._position = this.liveLength() - 1;
-	newItem = this.liveItem(this._position);
-	this._showItems(this._offset);
+
+	if (prefix.isSet() && !prefix.active()) {
+	  this._position++;
+	  prefix.active(true);
+	  return;
+	}
+	else {
+	  newItem = this.liveItem(this._position);
+	  this._showItems(this._offset);
+	};
       }
 
       // The previous element is outside the view - roll up
@@ -477,14 +540,23 @@ var KorAP = KorAP || {};
 	this._prepend(this._list[this._position]);
       };
 
+      this._prefix.active(false);
       newItem.active(true);
+    },
+
+
+    // Length of the filtered list
+    liveLength : function () {
+      if (this._list === undefined)
+	this._initList();
+      return this._list.length;
     },
 
 
     // Remove the HTML node from the first item
     _removeFirst : function () {
       this.item(this._list[this._offset]).lowlight();
-      this._element.removeChild(this._element.firstChild);
+      this._element.removeChild(this._element.children[1]);
     },
 
 
@@ -492,13 +564,6 @@ var KorAP = KorAP || {};
     _removeLast : function () {
       this.item(this._list[this._offset + this.limit() - 1]).lowlight();
       this._element.removeChild(this._element.lastChild);
-    },
-
-    // Length of the filtered list
-    liveLength : function () {
-      if (this._list === undefined)
-	this._initList();
-      return this._list.length;
     }
   };
 
@@ -532,6 +597,7 @@ var KorAP = KorAP || {};
       };
       return this;
     },
+
 
     content : function (content) {
       if (arguments.length === 1)
@@ -593,7 +659,8 @@ var KorAP = KorAP || {};
       var li = document.createElement("li");
 
       // Connect action
-      li["action"] = this._action;
+      if (this.onclick !== undefined)
+	li["onclick"] = this.onclick.bind(this);
 
       // Append template
       li.appendChild(this.content());
@@ -703,10 +770,89 @@ var KorAP = KorAP || {};
     },
   };
 
+  KorAP.MenuPrefix = {
+    create : function (params) {
+      return Object.create(KorAP.MenuPrefix)._init();
+    },
+    _init : function () {
+      this._string = '';
+
+      // Add prefix span
+      this._element = document.createElement('span');
+      this._element.classList.add('pref');
+      return this;
+    },
+    _update : function () {
+      this._element.innerHTML
+      = this._string;
+    },
+
+    /**
+     * Upgrade this object to another object,
+     * while private data stays intact.
+     *
+     * @param {Object} An object with properties.
+     */
+    upgradeTo : function (props) {
+      for (var prop in props) {
+	this[prop] = props[prop];
+      };
+      return this;
+    },
+
+    active : function (bool) {
+      var cl = this.element().classList;
+      if (bool === undefined)
+	return cl.contains("active");
+      else if (bool)
+	cl.add("active");
+      else
+	cl.remove("active");
+    },
+    element : function () {
+      return this._element;
+    },
+    isSet : function () {
+      return this._string.length > 0 ?
+	true : false;
+    },
+    value : function (string) {
+      if (arguments.length === 1) {
+	this._string = string;
+	this._update();
+      };
+      return this._string;
+    },
+    add : function (string) {
+      this._string += string;
+      this._update();
+    },
+    onclick : function () {},
+    backspace : function () {
+      if (this._string.length > 1) {
+	this._string = this._string.substring(
+	  0, this._string.length - 1
+	);
+      }
+      else {
+	this._string = '';
+      };
+
+      this._update();
+    }
+  };
+
   function _codeFromEvent (e) {
-    if ((e.charCode) && (e.keyCode==0))
+    if (e.charCode && (e.keyCode == 0))
       return e.charCode
     return e.keyCode;
   };
 
 }(this.KorAP));
+
+/**
+ * MenuItems may define:
+ *
+ * onclick: action happen on click and enter.
+ * further: action happen on right arrow
+ */

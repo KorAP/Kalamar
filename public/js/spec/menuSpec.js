@@ -26,7 +26,7 @@ KorAP.OwnMenu = {
   create : function (params) {
     return Object.create(KorAP.Menu)
       .upgradeTo(KorAP.OwnMenu)
-      ._init(KorAP.OwnMenuItem, params);
+      ._init(KorAP.OwnMenuItem, undefined, params);
   }
 };
 
@@ -99,7 +99,7 @@ KorAP.HintMenu = {
   create : function (context, params) {
     var obj = Object.create(KorAP.Menu)
       .upgradeTo(KorAP.HintMenu)
-      ._init(KorAP.HintMenuItem, params);
+      ._init(KorAP.HintMenuItem, undefined, params);
     obj._context = context;
     return obj;
   }
@@ -320,6 +320,14 @@ describe('KorAP.Menu', function () {
     ["Syntax", "syn="]
   ];
 
+  var demolist = [
+    ['Titel', 'title'],
+    ['Untertitel', 'subTitle'],
+    ['Veröffentlichungsdatum', 'pubDate'],
+    ['Länge', 'length'],
+    ['Autor', 'author']
+  ];
+
   it('should be initializable', function () {
     var list = [
       ["Constituency"],
@@ -362,61 +370,62 @@ describe('KorAP.Menu', function () {
     menu.limit(3);
 
     expect(menu.show()).toBe(true);
-    expect(menu.element().firstChild.innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
 
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
-    expect(menu.element().childNodes[1].getAttribute("data-action")).toEqual("l=");
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].getAttribute("data-action")).toEqual("l=");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Check boundaries
-    expect(menu.element().childNodes[0].classList.contains("no-more")).toBe(true);
-    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(true);
     expect(menu.element().childNodes[2].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[3].classList.contains("no-more")).toBe(false);
   });
 
   it('should be filterable', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
     menu.limit(3);
-
-    expect(menu.show("o")).toBe(true);
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.prefix("o").show()).toBe(true);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("o");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Check boundaries
-    expect(menu.element().childNodes[0].classList.contains("no-more")).toBe(true);
-    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
-    expect(menu.element().childNodes[2].classList.contains("no-more")).toBe(true);
+    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(true);
+    expect(menu.element().childNodes[2].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[3].classList.contains("no-more")).toBe(true);
 
     menu.limit(2);
 
-    expect(menu.show("o")).toBe(true);
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
-    expect(menu.element().childNodes[2]).toBe(undefined);
+    expect(menu.prefix("o").show()).toBe(true);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("o");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     // Check boundaries
-    expect(menu.element().childNodes[0].classList.contains("no-more")).toBe(true);
-    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(false);
-    expect(menu.element().childNodes[2]).toBe(undefined);
+    expect(menu.element().childNodes[1].classList.contains("no-more")).toBe(true);
+    expect(menu.element().childNodes[2].classList.contains("no-more")).toBe(false);
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
-    expect(menu.show("e")).toBe(true);
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
-    expect(menu.element().childNodes[2]).toBe(undefined);
+    expect(menu.prefix("e").show()).toBe(true);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("e");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
+    expect(menu.element().childNodes[3]).toBe(undefined);
 
     menu.limit(5);
-
-    expect(menu.show("a")).toBe(true);
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Ex<mark>a</mark>mple 1</span>");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemm<mark>a</mark></strong>");
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Ex<mark>a</mark>mple 2</span>");
-    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>P<mark>a</mark>rt-of-Speech</strong>");
-    expect(menu.element().childNodes[4].innerHTML).toEqual("<strong>Synt<mark>a</mark>x</strong>");
-    expect(menu.element().childNodes[5]).toBe(undefined);
-
+    expect(menu.prefix("a").show()).toBe(true);
+    expect(menu.element().childNodes[0].innerHTML).toEqual("a");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Ex<mark>a</mark>mple 1</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemm<mark>a</mark></strong>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Ex<mark>a</mark>mple 2</span>");
+    expect(menu.element().childNodes[4].innerHTML).toEqual("<strong>P<mark>a</mark>rt-of-Speech</strong>");
+    expect(menu.element().childNodes[5].innerHTML).toEqual("<strong>Synt<mark>a</mark>x</strong>");
+    expect(menu.element().childNodes[6]).toBe(undefined);
   });
 
 
@@ -425,112 +434,109 @@ describe('KorAP.Menu', function () {
 
     // Show only 3 items
     menu.limit(3);
-
     expect(menu.show()).toBe(true);
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate next (1)
     menu.next();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(true);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate next (2)
     menu.next();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate next (3)
     // scroll!
     menu.next();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Lemma</strong>");
-
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate next (4)
     menu.next();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Syntax</strong>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Syntax</strong>");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate next (5) - ROLL
     menu.next();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Active next (6)
     menu.next();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(true);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
   });
 
   it('should be prevable', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
-
     menu.limit(3);
     expect(menu.show()).toBe(true);
 
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Lemma</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Lemma</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate prev (1) - roll to bottom
     menu.prev();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
     expect(menu.shownItem(1).active()).toBe(false);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Syntax</strong>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Syntax</strong>");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate prev (2)
     menu.prev();
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span>Example 2</span>");
     expect(menu.shownItem(0).active()).toBe(false);
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-of-Speech</strong>");
     expect(menu.shownItem(1).active()).toBe(true);
-    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Syntax</strong>");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Syntax</strong>");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate prev (3)
     menu.prev();
@@ -540,7 +546,7 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2).name()).toEqual("Syntax");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate prev (4)
     menu.prev();
@@ -550,7 +556,7 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2).name()).toEqual("Part-of-Speech");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate prev (5)
     menu.prev();
@@ -560,7 +566,7 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2).name()).toEqual("Morphology");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate next (1)
     menu.next();
@@ -570,7 +576,7 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2).name()).toEqual("Morphology");
     expect(menu.shownItem(2).active()).toBe(false);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
 
     // Activate prev (6)
     menu.prev();
@@ -583,7 +589,7 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2).name()).toEqual("Syntax");
     expect(menu.shownItem(2).active()).toBe(true);
-    expect(menu.element().childNodes[3]).toBe(undefined);
+    expect(menu.element().childNodes[4]).toBe(undefined);
   });
 
 
@@ -591,43 +597,51 @@ describe('KorAP.Menu', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
     menu.limit(2);
 
-    expect(menu.show("o")).toBe(true);
-
+    expect(menu.prefix("o").show()).toBe(true);
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Next (1)
     menu.next();
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Next (2)
     menu.next();
     expect(menu.shownItem(0).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
     expect(menu.shownItem(0).active()).toBe(false);
     expect(menu.shownItem(1).name()).toEqual("Part-of-Speech");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2)).toBe(undefined);
 
-    // Next (3)
+    // Next (3) - to prefix
+    menu.next();
+    expect(menu.shownItem(0).name()).toEqual("Morphology");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Part-of-Speech");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Part-<mark>o</mark>f-Speech</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
     menu.next();
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>C<mark>o</mark>nstituency</strong><span>Example 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy</strong><span>Example 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
   });
@@ -637,33 +651,36 @@ describe('KorAP.Menu', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
 
     menu.limit(2);
-    expect(menu.show("ex")).toBe(true);
+    expect(menu.prefix("ex").show()).toBe(true);
 
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>Ex</mark>ample 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>Ex</mark>ample 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Next (1)
     menu.next();
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>Ex</mark>ample 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>Ex</mark>ample 2</span>");
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Next (2)
     menu.next();
+
+    expect(menu.prefix()).toEqual('ex');
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
-    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constituency</strong><span><mark>Ex</mark>ample 1</span>");
+    expect(menu.shownItem(0).active()).toBe(false);
+
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>Ex</mark>ample 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>Ex</mark>ample 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
 
@@ -671,34 +688,295 @@ describe('KorAP.Menu', function () {
     menu.limit(5);
 
     // Change show
-    expect(menu.show("e")).toBe(true);
+    expect(menu.prefix("e").show()).toBe(true);
 
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Next (1)
     menu.next();
+    expect(menu._prefix.active()).toBe(false);
+    expect(menu.prefix()).toEqual('e');
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
     expect(menu.shownItem(0).active()).toBe(false);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
     expect(menu.shownItem(1).active()).toBe(true);
     expect(menu.shownItem(2)).toBe(undefined);
 
     // Next (2)
     menu.next();
+    expect(menu._prefix.active()).toBe(true);
     expect(menu.shownItem(0).name()).toEqual("Constituency");
-    expect(menu.element().childNodes[0].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Morphology");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+    // Next (3)
+    menu.next();
+    expect(menu._prefix.active()).toBe(false);
+    expect(menu.shownItem(0).name()).toEqual("Constituency");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
     expect(menu.shownItem(1).name()).toEqual("Morphology");
-    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Morphology</strong><span><mark>E</mark>xampl<mark>e</mark> 2</span>");
     expect(menu.shownItem(1).active()).toBe(false);
     expect(menu.shownItem(2)).toBe(undefined);
   });
+
+
+  it('shouldn\'t be viewable with failing prefix', function () {
+    var menu = KorAP.HintMenu.create("cnx/", list);
+    menu.limit(2);
+    expect(menu.prefix("exit").show()).toBe(false);    
+  });
+
+  it('should be navigatable with prefix', function () {
+    var menu = KorAP.HintMenu.create("cnx/", demolist);
+    menu.limit(3);
+
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("");
+
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Titel</strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(2).active()).toBe(false);
+    expect(menu.shownItem(3)).toBe(undefined);
+
+    menu._prefix.add('a');
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("a");
+    expect(menu.shownItem(0).name()).toEqual("Autor");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong><mark>A</mark>utor</strong>");
+
+    menu._prefix.add('u');
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("au");
+    expect(menu.shownItem(0).name()).toEqual("Autor");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong><mark>Au</mark>tor</strong>");
+
+    menu._prefix.backspace();
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("a");
+    expect(menu.shownItem(0).name()).toEqual("Autor");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong><mark>A</mark>utor</strong>");
+
+    menu._prefix.backspace();
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Titel</strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(2).active()).toBe(false);
+    expect(menu.shownItem(3)).toBe(undefined);
+
+    // Forward
+    menu._prefix.backspace();
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Titel</strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(2).active()).toBe(false);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Titel</strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(1).active()).toBe(true);
+    expect(menu.shownItem(2).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(2).active()).toBe(false);
+    expect(menu.shownItem(3)).toBe(undefined);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Titel</strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(2).active()).toBe(true);
+    expect(menu.shownItem(3)).toBe(undefined);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Länge");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Länge</strong>");
+    expect(menu.shownItem(2).active()).toBe(true);
+    expect(menu.shownItem(3)).toBe(undefined);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Länge");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Länge</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Autor");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Autor</strong>");
+    expect(menu.shownItem(2).active()).toBe(true);
+    expect(menu.shownItem(3)).toBe(undefined);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("");
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Titel</strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertitel</strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2).name()).toEqual("Veröffentlichungsdatum");
+    expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Veröffentlichungsdatum</strong>");
+    expect(menu.shownItem(2).active()).toBe(false);
+
+  });
+
+
+  it('should be navigatable with a prefix (1)', function () {
+    var menu = KorAP.HintMenu.create("cnx/", demolist);
+    menu.limit(3);
+
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("");
+
+    menu.prefix('el');
+    expect(menu.show()).toBe(true);
+
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(true);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(true);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+
+    // Backward
+    menu.prev();
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(true);
+    expect(menu.shownItem(2)).toBe(undefined);
+  });
+
+  xit('should be navigatable with a prefix (2)', function () {
+    var menu = KorAP.HintMenu.create("cnx/", demolist);
+    menu.limit(3);
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("");
+    menu.prefix('el');
+    expect(menu.show()).toBe(true);
+
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+    // Backward
+    menu.prev();
+    expect(menu._prefix.active()).toEqual(true);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+    // Backward
+/*
+    menu.prev();
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(true);
+    expect(menu.shownItem(2)).toBe(undefined);
+*/
+  });
+
+  xit('should be page downable');
+  xit('should be page upable');
 });
