@@ -1,7 +1,8 @@
 @charset "utf-8";
 
 /*
- sidebar: #496000
+ dark-green: #496000
+ green: #7ba400
  orange: #f4eebb
 */
 
@@ -262,15 +263,4 @@ body {
 .vc .docGroup:hover > .operators,
 .vc .doc:hover > .operators {
   opacity: 1;
-}
-
-.vc ul > li.active {
-  background-color: rgba(255,255,255,.3);
-}
-
-.vc ul > li mark {
-  text-decoration: underline;
-  background-color: transparent;
-  color: white;
-  font-weight: bold; /* #496000; */
 }
