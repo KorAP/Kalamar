@@ -19,6 +19,14 @@ sub startup {
     b($self->home . '/kalamar.secret')->slurp->split("\n")
   ]);
 
+  $self->hook(before_dispatch => sub {
+      my $c = shift;
+      my $host = $c->req->headers->header('X-Forwarded-Host');
+      if ($host && $host eq 'korap.ids-mannheim.de') {
+	$c->req->url->base->path('/kalamar/');
+      };
+  }) if $self->mode eq 'production';
+
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
