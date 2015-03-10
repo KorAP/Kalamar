@@ -225,6 +225,15 @@ body {
   font-weight: bold;
 }
 
+.vc .doc > span.key {
+  position: relative;
+}
+
+.vc .doc > span.key > ul {
+  margin: 0;
+  margin-left: 3.3em;
+}
+
 .vc .operators {
   color: #7ba400;
   border-color: white;

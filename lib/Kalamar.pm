@@ -11,7 +11,7 @@ sub startup {
   # Set default totle
   $self->defaults(
     layout => 'default',
-    title => 'KorAP - Korpusanalyseplattform der nächsten Generation'
+    title => 'KorAP - Corpus Analysis Platform'
   );
 
   # Set secret for signed cookies

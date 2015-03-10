@@ -6,6 +6,7 @@
     <script src="../src/menu.js"></script>
     <script src="../src/vc.js"></script>
     <link href="../../css/vc.css" rel="stylesheet" type="text/css"></link>
+    <link href="../../css/menu.css" rel="stylesheet" type="text/css"></link>
     <style type="text/css" rel="stylesheet">
 .info {
   background-color:white;
@@ -88,20 +89,6 @@
     function showQuery() {
       document.getElementById("query").innerHTML = vc.root().toQuery();
     };
-
-    var menu = KorAP.FieldMenu.create([
-      ['Titel', 'title', 'string'],
-      ['Untertitel', 'subTitle', 'string'],
-      ['Veröffentlichungsdatum', 'pubDate', 'date'],
-      ['Autor', 'author', 'string']
-    ]);
-    menu.limit(3);
-    menu.show();
-
-    document.getElementById('menu').appendChild(menu.element());
-
-    menu.focus();
-
 
     </script>
 

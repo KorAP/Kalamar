@@ -1329,17 +1329,19 @@ var KorAP = KorAP || {};
    */
   KorAP._changeKey = function () {
     var doc = this.parentNode.refTo;
-    console.log(doc.type());
+    var key = doc.element().firstChild;
+    key.appendChild(KorAP.FieldChooser.element());
+    KorAP.FieldChooser.show();
+    KorAP.FieldChooser.focus();
     // key, matchop, type, value
   };
   
-
   // Field menu
   KorAP.FieldMenu = {
     create : function (params) {
       return Object.create(KorAP.Menu)
 	.upgradeTo(KorAP.FieldMenu)
-	._init(KorAP.FieldMenuItem, params)
+	._init(KorAP.FieldMenuItem, undefined, params)
     }
   };
 
@@ -1382,5 +1384,13 @@ var KorAP = KorAP || {};
       return this._element = li;
     }
   };
+
+  KorAP.FieldChooser = KorAP.FieldMenu.create([
+    ['Titel', 'title', 'string'],
+    ['Untertitel', 'subTitle', 'string'],
+    ['Veröffentlichungsdatum', 'pubDate', 'date'],
+    ['Autor', 'author', 'string']
+  ]);
+  KorAP.FieldChooser.limit(5);
  
 }(this.KorAP));

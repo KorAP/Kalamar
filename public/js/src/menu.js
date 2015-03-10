@@ -10,9 +10,12 @@ var KorAP = KorAP || {};
   "use strict";
 
   // Don't let events bubble up
-  Event.prototype.halt = function () {
-    this.stopPropagation();
-    this.preventDefault();
+  if (Event.halt === undefined) {
+    // Don't let events bubble up
+    Event.prototype.halt = function () {
+      this.stopPropagation();
+      this.preventDefault();
+    };
   };
 
   // Default maximum number of menu items

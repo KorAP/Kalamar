@@ -1,9 +1,10 @@
-0.13 2015-03-04
+0.13 2015-03-10
         - Project name is now "Kalamar"
 	- Removed Mr Crabs - introduced Karl
 	- Support semantic markup for KWIC
 	- Fixed Click-bug in hint-menu
 	- Renamed "KorAP" classes to "Kalamar"
+	- Support proxy
 
 0.12 2015-01-28
         - Fixed alignment bug
