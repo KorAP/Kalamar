@@ -279,7 +279,7 @@ sub _process_response {
   if (my $res = $tx->success) {
 
     # Set api response for debugging
-    $index->api_response($res->body) if $c->korap_test_port;
+    $index->api_response($res->body) if $c->kalamar_test_port;
 
     # Json failure
     my $json;

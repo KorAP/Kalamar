@@ -85,12 +85,12 @@ sub startup {
     )
   );
 
-  # $self->helper(
-  #   date_format => sub {
-  #     my ($c, $date) = @_;
-  #     return $date;
-  #   }
-  # );
+  $self->helper(
+    date_format => sub {
+      my ($c, $date) = @_;
+      return $date;
+    }
+  );
 
   # Routes
   my $r = $self->routes;
