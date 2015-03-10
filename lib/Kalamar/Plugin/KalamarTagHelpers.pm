@@ -146,7 +146,8 @@ sub register {
       my $c = shift;
       my $title = shift;
       my $link = shift;
-      my $url = Mojo::URL->new($link);
+      my $host = $c->req->headers->header('X-Forwarded-Host');
+      my $url = $c->url_for($link);
 
       # Link is part of the embedded tutorial
       if ($c->param('embedded')) {

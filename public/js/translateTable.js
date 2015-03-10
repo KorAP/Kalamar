@@ -208,7 +208,11 @@ function showTable (o) {
   var corpusID = match.getAttribute('data-corpus-id');
   var docID    = match.getAttribute('data-doc-id');
   var matchID  = match.getAttribute('data-match-id');
-  var url      = '/corpus/' + corpusID + '/' + docID + '/' + matchID;
+  var url = '';;
+  if (document.location.pathname.indexOf('kalamar') >= 0) {
+    url = '/kalamar';
+  };
+  url += '/corpus/' + corpusID + '/' + docID + '/' + matchID;
   var snippet;
 
   Ajax.getJSON(url, function (res) {

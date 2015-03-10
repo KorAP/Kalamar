@@ -28,7 +28,12 @@ function getTutorialPage() {
     c_start = c_value.indexOf(pc + "=");
   
   if (c_start == -1) {
-    c_value = '/tutorial?embedded=1';
+    if (document.location.pathname.indexOf('kalamar') >= 0) {
+      c_value = '/kalamar/tutorial?embedded=1';
+    }
+    else {
+	c_value = '/tutorial?embedded=1';
+    };
   }
   else {
     c_start = c_value.indexOf("=", c_start) + 1;

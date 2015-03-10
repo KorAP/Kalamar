@@ -32,7 +32,7 @@ a {
 #kalamar-bg {
   top: 0;
   background: {
-    image:url('/img/korap-bg-kalamar.svg');
+    image:url('#{$basepath}/img/korap-bg-kalamar.svg');
     repeat: no-repeat;
     size: 50%;
     position: 50% 50%;
@@ -305,7 +305,7 @@ h1 {
     repeat: no-repeat;
     position: center center;
     size: 72%;
-    image: url('/img/korap-logo-kalamar.svg');
+    image: url('#{$basepath}/img/korap-logo-kalamar.svg');
   }
   span {
     margin-left: -3000px;

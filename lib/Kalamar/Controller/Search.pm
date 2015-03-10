@@ -7,8 +7,6 @@ use Mojo::Base 'Mojolicious::Controller';
 # Query the KorAP backends and render a template
 sub query {
   my $c = shift;
-  $c->layout('default');
-  $c->title('KorAP');
 
   my $query = $c->param('q');
 

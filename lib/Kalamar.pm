@@ -63,8 +63,8 @@ sub startup {
       '/sass/alertify.scss',
 
       # CSS files
-      '/css/media.css',
       '/css/font-awesome.min.css',
+      '/css/media.css',
       '/css/highlight.css',
       $self->notifications->styles
     )
