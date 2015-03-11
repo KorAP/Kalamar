@@ -32,13 +32,13 @@
             {
               "@type":"koral:doc",
               "key":"Titel",
-              "value":"Baum",
+              "value":"Der Birnbaum",
               "match":"match:eq"
             },
             {
               "@type":"koral:doc",
               "key":"Veröffentlichungsort",
-              "value":"hihi",
+              "value":"Mannheim",
               "match":"match:eq"
             },
             {
@@ -47,14 +47,14 @@
               "operands":[
                 {
                   "@type":"koral:doc",
-                  "key":"Titel",
-                  "value":"Baum",
+                  "key":"Untertitel",
+                  "value":"Aufzucht und Pflege",
                   "match":"match:eq"
                 },
                 {
                   "@type":"koral:doc",
-                  "key":"Veröffentlichungsort",
-                  "value":"hihi",
+                  "key":"Untertitel",
+                  "value":"Gedichte",
                   "match":"match:eq",
                   "rewrites" : [
                     {
@@ -70,9 +70,10 @@
         },
         {
           "@type":"koral:doc",
-          "key":"Untertitel",
-          "value":"huhu",
-          "match":"match:eq"
+          "key":"Veröffentlichungsdatum",
+          "type":"type:date",
+          "value":"2015-03-05",
+          "match":"match:geq"
         }
       ]
     };
