@@ -83,6 +83,9 @@ var KorAP = KorAP || {};
 	this.next();
 	break;
       case 39: // 'Right'
+	if (this._prefix.active())
+	  break;
+
 	var item = this.liveItem(this._position);
 	if (item["further"] !== undefined) {
 	  item["further"].bind(item).apply();
@@ -223,6 +226,7 @@ var KorAP = KorAP || {};
      * @param {string} Prefix for filtering the list
      */
     show : function () {
+
       // Initialize the list
       if (!this._initList())
 	return false;
@@ -233,6 +237,7 @@ var KorAP = KorAP || {};
       // Set the first element to active
       // Todo: Or the last element chosen
       this.liveItem(0).active(true);
+      this._prefix.active(false);
 
       this._active = this._list[0];
       this._position = 0;
@@ -466,8 +471,13 @@ var KorAP = KorAP || {};
       var newItem;
 
       // Set new live item
-      var oldItem = this.liveItem(this._position++);
-      oldItem.active(false);
+      if (!this._prefix.active()) {
+	var oldItem = this.liveItem(this._position);
+	oldItem.active(false);
+      };
+
+      this._position++;
+
       newItem = this.liveItem(this._position);
 
       // The next element is undefined - roll to top or to prefix
@@ -501,6 +511,42 @@ var KorAP = KorAP || {};
       newItem.active(true);
     },
 
+    /*
+     * Page down to the first item on the next page
+     */
+    /*
+    nextPage : function () {
+
+      // Prefix is active
+      if (this._prefix.active()) {
+	this._prefix.active(false);
+      }
+
+      // Last item is chosen
+      else if (this._position >= this.limit() + this._offset) {
+
+	this._position = this.limit() + this._offset - 1;
+	newItem = this.liveItem(this._position);
+	var oldItem = this.liveItem(this._position--);
+	oldItem.active(false);
+      }
+
+      // Last item of page is chosen
+      else if (0) {
+
+      // Jump to last item
+      else {
+	var oldItem = this.liveItem(this._position);
+	oldItem.active(false);
+
+	this._position = this.limit() + this._offset - 1;
+	newItem = this.liveItem(this._position);
+      };
+
+      newItem.active(true);
+    },
+	*/
+
 
     /*
      * Make the previous item in the menu active
@@ -508,8 +554,10 @@ var KorAP = KorAP || {};
     prev : function () {
 
       // No active element set
-      if (this._position == -1)
+      if (this._position === -1) {
 	return;
+	// TODO: Choose last item
+      };
 
       var newItem;
 
@@ -534,7 +582,6 @@ var KorAP = KorAP || {};
 	this._position = this.liveLength() - 1;
 
 	if (prefix.isSet() && !prefix.active()) {
-
 	  this._position++;
 	  prefix.active(true);
 	  return;
@@ -792,6 +839,10 @@ var KorAP = KorAP || {};
       // Add prefix span
       this._element = document.createElement('span');
       this._element.classList.add('pref');
+      // Connect action
+      if (this.onclick !== undefined)
+	this._element["onclick"] = this.onclick.bind(this);
+
       return this;
     },
     _update : function () {

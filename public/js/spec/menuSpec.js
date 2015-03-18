@@ -328,6 +328,18 @@ describe('KorAP.Menu', function () {
     ['Autor', 'author']
   ];
 
+  var demolonglist = [
+    ['Titel', 'title'],
+    ['Untertitel', 'subTitle'],
+    ['Veröffentlichungsdatum', 'pubDate'],
+    ['Länge', 'length'],
+    ['Autor', 'author'],
+    ['Genre', 'genre'],
+    ['corpusID', 'corpusID'],
+    ['docID', 'docID'],
+    ['textID', 'textID'],
+  ];
+
   it('should be initializable', function () {
     var list = [
       ["Constituency"],
@@ -689,7 +701,7 @@ describe('KorAP.Menu', function () {
 
     // Change show
     expect(menu.prefix("e").show()).toBe(true);
-
+    expect(menu._prefix.active()).toBe(false);
     expect(menu.shownItem(0).name()).toEqual("Constituency");
     expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Constitu<mark>e</mark>ncy</strong><span><mark>E</mark>xampl<mark>e</mark> 1</span>");
     expect(menu.shownItem(0).active()).toBe(true);
@@ -935,6 +947,7 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(2)).toBe(undefined);
   });
 
+
   it('should be navigatable with a prefix (2)', function () {
     var menu = KorAP.HintMenu.create("cnx/", demolist);
     menu.limit(3);
@@ -942,7 +955,6 @@ describe('KorAP.Menu', function () {
     expect(menu.prefix()).toEqual("");
     menu.prefix('el');
     expect(menu.show()).toBe(true);
-
 
     expect(menu.prefix()).toEqual("el");
     expect(menu._prefix.active()).toEqual(false);
@@ -979,6 +991,52 @@ describe('KorAP.Menu', function () {
     expect(menu.shownItem(2)).toBe(undefined);
   });
 
-  xit('should be page downable');
+  it('should be navigatable with a prefix (3)', function () {
+    var menu = KorAP.HintMenu.create("cnx/", demolist);
+    menu.limit(3);
+    expect(menu.show()).toBe(true);
+    expect(menu.prefix()).toEqual("");
+    menu.prefix('el');
+    expect(menu.show()).toBe(true);
+
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+    // Backward
+    menu.prev();
+    expect(menu._prefix.active()).toEqual(true);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(false);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+
+    // Forward
+    menu.next();
+    expect(menu.prefix()).toEqual("el");
+    expect(menu._prefix.active()).toEqual(false);
+    expect(menu.shownItem(0).name()).toEqual("Titel");
+    expect(menu.element().childNodes[1].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
+    expect(menu.shownItem(0).active()).toBe(true);
+    expect(menu.shownItem(1).name()).toEqual("Untertitel");
+    expect(menu.element().childNodes[2].innerHTML).toEqual("<strong>Untertit<mark>el</mark></strong>");
+    expect(menu.shownItem(1).active()).toBe(false);
+    expect(menu.shownItem(2)).toBe(undefined);
+
+  });
+
+  it('should be page downable', function () {
+    
+  });
   xit('should be page upable');
 });
