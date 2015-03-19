@@ -1,0 +1,86 @@
+div.matchinfo {
+  position: relative;
+  width: 100%;
+  height: auto;
+  font-size: 10pt;
+}
+
+div.matchinfo div.matchtable {
+  z-index: 20;
+  margin-left: 122pt;
+  overflow-x: scroll;
+  overflow-y: visible;
+  width: auto;
+}
+
+div.matchtable table {
+  border-spacing: 2pt;
+  border-collapse: separate;
+}
+
+div.matchtable th {
+  color: white;
+}
+
+div.matchtable thead th {
+  background-color: #ff8000;
+}
+
+div.matchtable tbody th {
+  text-overflow: ellipsis;
+}
+
+div.matchtable tr > th:nth-of-type(1),
+div.matchtable tr > th:nth-of-type(2) {
+  position: absolute;
+  z-index: 80;
+  vertical-align: middle;
+  border-top: 2pt solid #ffa500;
+  margin-top: -2pt; /* minus the border*/
+  left: 0;
+  width: 60pt;
+  padding: 0 !important;
+}
+
+div.matchtable tr > th:nth-of-type(2) {
+  left: 62pt;
+}
+
+div.matchtable thead tr:nth-of-type(1) > th:nth-of-type(1),
+div.matchtable thead tr:nth-of-type(1) > th:nth-of-type(2) {
+  background-color: #ff8000;
+  height: 100%;
+}
+
+tbody tr:focus {
+  outline: none;
+}
+
+div.matchtable tbody tr:focus {
+  outline: 4px solid #7ba400;
+  -moz-outline-radius: 4px;
+  outline-radius: 4px;
+}
+
+div.matchtable tbody tr:focus td {
+  background-color: #7ba400;
+  color: white;
+  border-color: white;
+}
+
+div.matchtable tr > * {
+  padding: 0pt 6pt;
+  margin: 0;
+  line-height: 150%;
+}
+
+div.matchtable tr > td {
+  background-color: #ffd080;
+  white-space: nowrap;
+  vertical-align: top;
+  text-align: center;
+}
+
+div.matchtable tr:nth-child(odd) > td {
+  background-color: #f4eebb;
+}

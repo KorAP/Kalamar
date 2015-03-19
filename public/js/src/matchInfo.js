@@ -19,6 +19,7 @@ var KorAP = KorAP || {};
 
   // API requests
   KorAP.API = KorAP.API || {};
+  // TODO: Make this async
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () { return {} };
 
   KorAP.MatchInfo = {
@@ -81,6 +82,9 @@ var KorAP = KorAP || {};
     },
 
 
+    /**
+     * Get table object.
+     */
     getTable : function (tokens) {
       var focus = [];
 
@@ -119,7 +123,7 @@ var KorAP = KorAP || {};
 
       // Get snippet from match info
       if (matchResponse["snippet"] !== undefined) {
-	this._table = KorAP.InfoTable.create(matchResponse["snippet"]);
+	this._table = KorAP.MatchTable.create(matchResponse["snippet"]);
 	return this._table;
       };
 
@@ -129,7 +133,7 @@ var KorAP = KorAP || {};
     /*
     // Parse snippet for table visualization
     getTree : function (foundry, layer) {
-    },
+    }
     */
   };
 
@@ -189,9 +193,9 @@ var KorAP = KorAP || {};
   };
 
 
-  KorAP.InfoTable = {
+  KorAP.MatchTable = {
     create : function (snippet) {
-      return Object.create(KorAP.InfoTable)._init(snippet);
+      return Object.create(KorAP.MatchTable)._init(snippet);
     },
     _init : function (snippet) {
       // Create html for traversal
@@ -201,14 +205,11 @@ var KorAP = KorAP || {};
       this._pos = 0;
       this._token = [];
       this._info = [];
-      this._foundry = [];
-      this._layer = [];
+      this._foundry = {};
+      this._layer = {};
 
       // Parse the snippet
       this._parse(html.childNodes);      
-
-      this._layer = undefined;
-      this._foundry = undefined;
 
       html.innerHTML = '';
       return this;
@@ -275,12 +276,12 @@ var KorAP = KorAP || {};
 	    found[foundry + "/" + layer].push(RegExp.$3);
 
 	    // Set foundry
-	    if (!this._foundry[foundry])
+	    if (this._foundry[foundry] === undefined)
 	      this._foundry[foundry] = {};
 	    this._foundry[foundry][layer] = 1;
 
 	    // Set layer
-	    if (!this._layer[layer])
+	    if (this._layer[layer] === undefined)
 	      this._layer[layer] = {};
 	    this._layer[layer][foundry] = 1;
 	  };
@@ -290,7 +291,8 @@ var KorAP = KorAP || {};
 	    this._parse(c.childNodes);
 	}
 
-	// Leaf node - store string on position and go to next string
+	// Leaf node
+	// store string on position and go to next string
 	else if (c.nodeType === 3) {
 	  if (c.nodeValue.match(/[a-z0-9]/i))
 	    this._token[this._pos++] = c.nodeValue;
@@ -300,13 +302,75 @@ var KorAP = KorAP || {};
       delete this._info[this._pos];
     },
     element : function () {
-      var ce = document.createElement;
       // First the legend table
-      /*
-      var table = ce('table');
-      var row = ce('tr');
-      table.appendChild(tr);
-      */      
+      var d = document;
+      var table = d.createElement('table');
+      var tr = table.appendChild(d.createElement('thead'))
+	.appendChild(
+	  d.createElement('tr')
+	);
+
+      var addCell = function (type, name) {
+	var c = this.appendChild(d.createElement(type))
+	if (name === undefined)
+	  return c;
+
+	if (name instanceof Array) {
+	  for (var n = 0; n < name.length; n++) {
+	    c.appendChild(d.createTextNode(name[n]));
+	    if (n !== name.length - 1) {
+	      c.appendChild(d.createElement('br'));
+	    };
+	  };
+	}
+	else {
+	  c.appendChild(d.createTextNode(name));
+	};
+      };
+
+      tr.addCell = addCell;
+
+      // Add header information
+      tr.addCell('th', 'Foundry');
+      tr.addCell('th', 'Layer');
+
+      // Add tokens
+      for (var i in this._token) {
+	tr.addCell('th', this.getToken(i));
+      };
+
+      var tbody = table.appendChild(
+	d.createElement('tbody')
+      );
+
+      var foundryList = Object.keys(this._foundry).sort();
+
+      for (var f = 0; f < foundryList.length; f++) {
+	var foundry = foundryList[f];
+	var layerList =
+	  Object.keys(this._foundry[foundry]).sort();
+
+	for (var l = 0; l < layerList.length; l++) {
+	  var layer = layerList[l];
+	  tr = tbody.appendChild(
+	    d.createElement('tr')
+	  );
+	  tr.setAttribute('tabindex', 0);
+	  tr.addCell = addCell;
+
+	  tr.addCell('th', foundry);
+	  tr.addCell('th', layer);
+
+	  for (var v = 0; v < this.length(); v++) {
+	    tr.addCell(
+	      'td',
+	      this.getValue(v, foundry, layer) 
+	    );
+	  };
+	};
+      };
+
+      return table;
     }
   };
 
@@ -314,6 +378,6 @@ var KorAP = KorAP || {};
   /*
     KorAP.InfoFoundryLayer = {};
     KorAP.InfoTree = {};
-    KorAP.InfoTable = {};
+    KorAP.MatchTable = {};
   */
 }(this.KorAP));

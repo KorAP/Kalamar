@@ -1,3 +1,67 @@
+var available = [
+  'base/s=spans',
+  'corenlp/c=spans',
+  'corenlp/ne=tokens',
+  'corenlp/p=tokens',
+  'corenlp/s=spans',
+  'glemm/l=tokens',
+  'mate/l=tokens',
+  'mate/m=tokens',
+  'mate/p=tokens',
+  'opennlp/p=tokens',
+  'opennlp/s=spans',
+  'tt/l=tokens',
+  'tt/p=tokens',
+  'tt/s=spans'
+];
+
+var match = {
+  'corpusID' : 'WPD',
+  'docID' : 'UUU',
+  'textID' : '01912',
+  'pos' : 'p121-122'
+};
+
+var snippet = "<span title=\"cnx/l:meist\">" +
+  "  <span title=\"cnx/p:ADV\">" +
+  "    <span title=\"cnx/syn:@PREMOD\">" +
+  "      <span title=\"mate/l:meist\">" +
+  "        <span title=\"mate/p:ADV\">" +
+  "          <span title=\"opennlp/p:ADV\">meist</span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span title=\"cnx/l:deutlich\">" +
+  "  <span title=\"cnx/p:A\">" +
+  "    <span title=\"cnx/syn:@PREMOD\">" +
+  "      <span title=\"mate/l:deutlich\">" +
+  "        <span title=\"mate/m:degree:pos\">" +
+  "          <span title=\"mate/p:ADJD\">" +
+  "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span title=\"cnx/l:fähig\">" +
+  "  <span title=\"cnx/l:leistung\">" +
+  "    <span title=\"cnx/p:A\">" +
+  "      <span title=\"cnx/syn:@NH\">" +
+  "        <span title=\"mate/l:leistungsfähig\">" +
+  "          <span title=\"mate/m:degree:comp\">" +
+  "            <span title=\"mate/p:ADJD\">" +
+  "              <span title=\"opennlp/p:ADJD\">leistungsfähiger</span>" +
+  "            </span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>";
+
 describe('KorAP.InfoLayer', function () {
   it('should be initializable', function () {
     expect(
@@ -37,71 +101,6 @@ describe('KorAP.Match', function () {
 });
 
 describe('KorAP.MatchInfo', function () {
-  var available = [
-    'base/s=spans',
-    'corenlp/c=spans',
-    'corenlp/ne=tokens',
-    'corenlp/p=tokens',
-    'corenlp/s=spans',
-    'glemm/l=tokens',
-    'mate/l=tokens',
-    'mate/m=tokens',
-    'mate/p=tokens',
-    'opennlp/p=tokens',
-    'opennlp/s=spans',
-    'tt/l=tokens',
-    'tt/p=tokens',
-    'tt/s=spans'
-  ];
-
-  var match = {
-    'corpusID' : 'WPD',
-    'docID' : 'UUU',
-    'textID' : '01912',
-    'pos' : 'p121-122'
-  };
-
-  var snippet = "<span title=\"cnx/l:meist\">" +
-    "  <span title=\"cnx/p:ADV\">" +
-    "    <span title=\"cnx/syn:@PREMOD\">" +
-    "      <span title=\"mate/l:meist\">" +
-    "        <span title=\"mate/p:ADV\">" +
-    "          <span title=\"opennlp/p:ADV\">meist</span>" +
-    "        </span>" +
-    "      </span>" +
-    "    </span>" +
-    "  </span>" +
-    "</span>" +
-    "<span title=\"cnx/l:deutlich\">" +
-    "  <span title=\"cnx/p:A\">" +
-    "    <span title=\"cnx/syn:@PREMOD\">" +
-    "      <span title=\"mate/l:deutlich\">" +
-    "        <span title=\"mate/m:degree:pos\">" +
-    "          <span title=\"mate/p:ADJD\">" +
-    "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
-    "          </span>" +
-    "        </span>" +
-    "      </span>" +
-    "    </span>" +
-    "  </span>" +
-    "</span>" +
-    "<span title=\"cnx/l:fähig\">" +
-    "  <span title=\"cnx/l:leistung\">" +
-    "    <span title=\"cnx/p:A\">" +
-    "      <span title=\"cnx/syn:@NH\">" +
-    "        <span title=\"mate/l:leistungsfähig\">" +
-    "          <span title=\"mate/m:degree:comp\">" +
-    "            <span title=\"mate/p:ADJD\">" +
-    "              <span title=\"opennlp/p:ADJD\">leistungsfähiger</span>" +
-    "            </span>" +
-    "          </span>" +
-    "        </span>" +
-    "      </span>" +
-    "    </span>" +
-    "  </span>" +
-    "</span>";
-
-
   it('should be initializable', function () {
     expect(function() {
       KorAP.MatchInfo.create()
@@ -168,7 +167,33 @@ describe('KorAP.MatchInfo', function () {
     expect(table.getValue(2, "cnx", "l")[0]).toBe("fähig");
     expect(table.getValue(2, "cnx", "l")[1]).toBe("leistung");
   });
+});
 
+describe('KorAP.MatchTable', function () {
+  it('should be rendered', function () {
+    var info = KorAP.MatchInfo.create(match, available);
+
+    // Override getMatchInfo API call
+    KorAP.API.getMatchInfo = function() {
+      return { "snippet": snippet };
+    };
+
+    var table = info.getTable();
+
+    var e = table.element();
+
+    expect(e.nodeName).toBe('TABLE');
+    expect(e.children[0].nodeName).toBe('THEAD');
+    var tr = e.children[0].children[0];
+    expect(tr.nodeName).toBe('TR');
+    expect(tr.children[0].nodeName).toBe('TH');
+
+    expect(tr.children[0].firstChild.nodeValue).toBe('Foundry');
+    expect(tr.children[1].firstChild.nodeValue).toBe('Layer');
+    expect(tr.children[2].firstChild.nodeValue).toBe('meist');
+    expect(tr.children[3].firstChild.nodeValue).toBe('deutlich');
+    expect(tr.children[4].firstChild.nodeValue).toBe('leistungsfähiger');
+  });
 });
 
 // table = view.toTable();

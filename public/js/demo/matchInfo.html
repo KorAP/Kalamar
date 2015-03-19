@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MatchInfo demo</title>
+    <meta charset="utf-8" />
+    <script src="../src/matchInfo.js"></script>
+    <link type="text/css" rel="stylesheet"
+	  href="../../css/matchinfo.css"></link>
+    <style type="text/css" rel="stylesheet">
+
+body {
+  background-color: #ffa500;
+  font-family: tahoma, verdana, arial;
+}
+
+    </style>
+  </head>
+  <body>
+
+    <div class="matchinfo">
+      <div class="matchtable"></div>
+    </div>
+
+    <script>
+var snippet = "<span title=\"cnx/l:meist\">" +
+  "  <span title=\"cnx/p:ADV\">" +
+  "    <span title=\"cnx/syn:@PREMOD\">" +
+  "      <span title=\"mate/l:meist\">" +
+  "        <span title=\"mate/p:ADV\">" +
+  "          <span title=\"opennlp/p:ADV\">meist</span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span title=\"cnx/l:deutlich\">" +
+  "  <span title=\"cnx/p:A\">" +
+  "    <span title=\"cnx/syn:@PREMOD\">" +
+  "      <span title=\"mate/l:deutlich\">" +
+  "        <span title=\"mate/m:degree:pos\">" +
+  "          <span title=\"mate/p:ADJD\">" +
+  "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span title=\"cnx/l:fähig\">" +
+  "  <span title=\"cnx/l:leistung\">" +
+  "    <span title=\"cnx/p:A\">" +
+  "      <span title=\"cnx/syn:@NH\">" +
+  "        <span title=\"mate/l:leistungsfähig\">" +
+  "          <span title=\"mate/m:degree:comp\">" +
+  "            <span title=\"mate/p:ADJD\">" +
+  "              <span title=\"opennlp/p:ADJD\">leistungsfähiger</span>" +
+  "            </span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>";
+
+      // Override getMatchInfo API call
+      KorAP.API.getMatchInfo = function() {
+        return { "snippet": snippet };
+      };
+
+var info = KorAP.MatchInfo.create({
+  'corpusID' : 'WPD',
+  'docID' : 'UUU',
+  'textID' : '01912',
+  'pos' : 'p121-122'
+},
+[
+  'base/s=spans',
+  'corenlp/c=spans',
+  'corenlp/ne=tokens',
+  'corenlp/p=tokens',
+  'corenlp/s=spans',
+  'glemm/l=tokens',
+  'mate/l=tokens',
+  'mate/m=tokens',
+  'mate/p=tokens',
+  'opennlp/p=tokens',
+  'opennlp/s=spans',
+  'tt/l=tokens',
+  'tt/p=tokens',
+  'tt/s=spans'
+]);
+      var t = info.getTable();
+      document.getElementsByClassName('matchtable')[0]
+        .appendChild(t.element());
+    </script>
+
+
+
+    <div class="matchinfo">
+      <div class="matchtable">
+	<table>
+	  <thead>
+            <tr>
+	      <th>Foundry</th>
+	      <th>Layer</th>
+	      <th>Ich</th>
+	      <th>Du</th>
+	      <th>Er</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr tabindex="0">
+	      <th>Hallo</th>
+	      <th>X</th>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	    </tr>
+	    <tr tabindex="0">
+	      <th>geht</th>
+	      <th>y</th>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	    </tr>
+	    <tr tabindex="0">
+	      <th>es</th>
+	      <th>z</th>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	  <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	  <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  </body>
+</html>
