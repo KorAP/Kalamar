@@ -62,6 +62,63 @@ var snippet = "<span title=\"cnx/l:meist\">" +
   "  </span>" +
   "</span>";
 
+var treeSnippet =
+  "<span class=\"context-left\"></span>" +
+  "<span class=\"match\">" +
+  "  <span title=\"xip/c:MC\">" +
+  "    <span title=\"xip/c:TOP\">" +
+  "      <span title=\"xip/c:PP\">" +
+  "        <span title=\"xip/c:PREP\">Mit</span>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:DET\">dieser</span>" +
+  "          <span title=\"xip/c:NPA\">" +
+  "            <span title=\"xip/c:NOUN\">Methode</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:VERB\">ist</span>" +
+  "      <span title=\"xip/c:NP\">" +
+  "        <span title=\"xip/c:PRON\">es</span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:AP\">" +
+  "        <span title=\"xip/c:ADV\">nun</span>" +
+  "        <span title=\"xip/c:ADJ\">möglich</span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:ADV\">z. B.</span>" +
+  "      <span title=\"xip/c:NPA\">" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:NOUN\">Voice</span>" +
+  "        </span>" +
+  "      </span>" + "(" +
+  "      <span title=\"xip/c:INS\">" +
+  "        <span title=\"xip/c:NPA\">" +
+  "          <span title=\"xip/c:NP\">" +
+  "            <span title=\"xip/c:NOUN\">Sprache</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" + ")" +
+  "      <span title=\"xip/c:VERB\">bevorzugt</span>" +
+  "      <span title=\"xip/c:PP\">" +
+  "        <span title=\"xip/c:PREP\">in</span>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:PRON\">der</span>" +
+  "        </span>" +
+  "        <span title=\"xip/c:NPA\">" +
+  "          <span title=\"xip/c:NP\">" +
+  "            <span title=\"xip/c:NOUN\">Bridge</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:INFC\">" +
+  "        <span title=\"xip/c:INS\">" +
+  "          <span title=\"xip/c:VERB\">weiterzugeben</span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span class=\"context-right\"></span>";
+
 describe('KorAP.InfoLayer', function () {
   it('should be initializable', function () {
     expect(
@@ -148,7 +205,7 @@ describe('KorAP.MatchInfo', function () {
     expect(info.getTable('base/s')).not.toBeTruthy();
 
     // Override getMatchInfo API call
-    KorAP.API.getMatchInfo = function() {
+    KorAP.API.getMatchInfo = function () {
       return { "snippet": snippet };
     };
 
@@ -167,6 +224,23 @@ describe('KorAP.MatchInfo', function () {
     expect(table.getValue(2, "cnx", "l")[0]).toBe("fähig");
     expect(table.getValue(2, "cnx", "l")[1]).toBe("leistung");
   });
+
+
+  it('should parse into a tree', function () {
+    var info = KorAP.MatchInfo.create(match, available);
+
+    // Override getMatchInfo API call
+    KorAP.API.getMatchInfo = function () {
+      return { "snippet": treeSnippet };
+    };
+
+    var tree = info.getTree();
+    expect(tree).toBeTruthy();
+    expect(tree.nodes()).toEqual(49);
+
+    console.log(tree.element());
+
+  });
 });
 
 describe('KorAP.MatchTable', function () {
@@ -179,7 +253,6 @@ describe('KorAP.MatchTable', function () {
     };
 
     var table = info.getTable();
-
     var e = table.element();
 
     expect(e.nodeName).toBe('TABLE');
@@ -193,6 +266,43 @@ describe('KorAP.MatchTable', function () {
     expect(tr.children[2].firstChild.nodeValue).toBe('meist');
     expect(tr.children[3].firstChild.nodeValue).toBe('deutlich');
     expect(tr.children[4].firstChild.nodeValue).toBe('leistungsfähiger');
+
+    // first row
+    tr = e.children[1].children[0];
+    expect(tr.nodeName).toBe('TR');
+    expect(tr.getAttribute('tabindex')).toEqual('0');
+    expect(tr.children[0].nodeName).toBe('TH');
+    expect(tr.children[0].firstChild.nodeValue).toEqual('cnx');
+    expect(tr.children[1].firstChild.nodeValue).toEqual('l');
+    expect(tr.children[2].firstChild.nodeValue).toEqual('meist');
+    expect(tr.children[3].firstChild.nodeValue).toEqual('deutlich');
+    expect(tr.children[4].firstChild.nodeValue).toEqual('fähig');
+    expect(tr.children[4].lastChild.nodeValue).toEqual('leistung');
+
+    // second row
+    tr = e.children[1].children[1];
+    expect(tr.nodeName).toBe('TR');
+    expect(tr.getAttribute('tabindex')).toEqual('0');
+    expect(tr.children[0].nodeName).toBe('TH');
+    expect(tr.children[0].firstChild.nodeValue).toEqual('cnx');
+    expect(tr.children[1].firstChild.nodeValue).toEqual('p');
+    expect(tr.children[2].firstChild.nodeValue).toEqual('ADV');
+    expect(tr.children[3].firstChild.nodeValue).toEqual('A');
+    expect(tr.children[4].firstChild.nodeValue).toEqual('A');
+  });
+});
+
+xdescribe('KorAP.MatchTree', function () {
+  it('should be rendered', function () {
+    var info = KorAP.MatchInfo.create(match, available);
+
+    // Override getMatchInfo API call
+    KorAP.API.getMatchInfo = function() {
+      return { "snippet": treeSnippet };
+    };
+
+    var tree = info.getTree();
+    tree.element();
   });
 });
 
@@ -201,3 +311,4 @@ describe('KorAP.MatchTable', function () {
 // table.element();
 // tree = view.toTree();
 // tree.element();
+

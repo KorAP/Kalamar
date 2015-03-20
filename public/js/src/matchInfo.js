@@ -1,5 +1,5 @@
 /**
- * Make annotations visible.
+ * Visualize annotations.
  *
  * @author Nils Diewald
  */
@@ -13,8 +13,13 @@ var KorAP = KorAP || {};
 (function (KorAP) {
   "use strict";
 
+  // Default log message
+  KorAP.log = KorAP.log || function (type, msg) {
+    console.log(type + ": " + msg);
+  };
+
   KorAP._AvailableRE = new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
-  KorAP._TermRE = new RegExp("^([^\/]+?)(?:\/([^:]+?))?:(.+?)$");
+  KorAP._TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
   KorAP._matchTerms  = ["corpusID", "docID", "textID"];
 
   // API requests
@@ -116,9 +121,10 @@ var KorAP = KorAP || {};
 	return;
 
       // Get info (may be cached)
+      // TODO: Async
       var matchResponse = KorAP.API.getMatchInfo(
 	this._match,
-	{ 'spans' : true, 'layer' : focus }
+	{ 'spans' : false, 'layer' : focus }
       );
 
       // Get snippet from match info
@@ -128,13 +134,32 @@ var KorAP = KorAP || {};
       };
 
       return null;
-    }
+    },
 
-    /*
     // Parse snippet for table visualization
     getTree : function (foundry, layer) {
+      var focus = [];
+
+      // TODO: Async
+      var matchResponse = KorAP.API.getMatchInfo(
+	this._match, {
+	  'spans' : true,
+	  'foundry' : foundry,
+	  'layer' : layer
+	}
+      );
+
+      // TODO: Support and cache multiple trees
+
+      // Get snippet from match info
+      if (matchResponse["snippet"] !== undefined) {
+	this._tree = KorAP.MatchTree.create(matchResponse["snippet"]);
+	return this._tree;
+      };
+
+      return null;
+ 
     }
-    */
   };
 
   KorAP.Match = {
@@ -301,15 +326,21 @@ var KorAP = KorAP || {};
 
       delete this._info[this._pos];
     },
+
+
+    /**
+     * Get HTML table view of annotations.
+     */
     element : function () {
       // First the legend table
       var d = document;
       var table = d.createElement('table');
-      var tr = table.appendChild(d.createElement('thead'))
-	.appendChild(
-	  d.createElement('tr')
-	);
 
+      // Single row in head
+      var tr = table.appendChild(d.createElement('thead'))
+	.appendChild(d.createElement('tr'));
+
+      // Add cell to row
       var addCell = function (type, name) {
 	var c = this.appendChild(d.createElement(type))
 	if (name === undefined)
@@ -374,10 +405,136 @@ var KorAP = KorAP || {};
     }
   };
 
-  
-  /*
-    KorAP.InfoFoundryLayer = {};
-    KorAP.InfoTree = {};
-    KorAP.MatchTable = {};
-  */
+  /**
+   * Visualize span annotations as a tree.
+   */
+  // http://java-hackers.com/p/paralin/meteor-dagre-d3
+  KorAP.MatchTree = {
+
+    create : function (snippet) {
+      return Object.create(KorAP.MatchTree)._init(snippet);
+    },
+
+    nodes : function () {
+      return this._next;
+    },
+
+    _init : function (snippet) {
+      this._next = new Number(0);
+
+      // Create html for traversal
+      var html = document.createElement("div");
+      html.innerHTML = snippet;
+      this._graph = new dagreD3.Digraph();
+
+      // This is a new root
+      this._graph.addNode(
+	this._next++,
+	{ "nodeclass" : "root" }
+      );
+
+      // Parse nodes from root
+      this._parse(0, html.childNodes);
+
+      // Root node has only one child - remove
+      if (Object.keys(this._graph._outEdges[0]).length === 1)
+	  this._graph.delNode(0);
+
+      // Initialize d3 renderer for dagre
+      this._renderer = new dagreD3.Renderer();
+      /*
+      var oldDrawNodes = this._renderer.drawNodes();
+      this._renderer.drawNodes(
+	function (graph, root) {
+	  var svgNodes = oldDrawNodes(graph, root);
+	  svgNodes.each(
+	    function (u) {
+	      d3.select(this).classed(graph.node(u).nodeClass, true);
+	    }
+	  );
+	}
+      );
+*/
+      // Disable pan and zoom
+      this._renderer.zoom(false);
+
+      html = undefined;
+      return this;
+    },
+
+    // Remove foundry and layer for labels
+    _clean : function (title) {
+      return title.replace(KorAP._TermRE, RegExp.$1);
+    },
+
+    // Parse the snippet
+    _parse : function (parent, children) {
+      for (var i in children) {
+	var c = children[i];
+
+	// Element node
+	if (c.nodeType == 1) {
+
+	  // Get title from html
+	  if (c.getAttribute("title")) {
+	    var title = this._clean(c.getAttribute("title"));
+
+	    // Add child node
+	    var id = this._next++;
+
+	    this._graph.addNode(id, {
+	      "nodeclass" : "middle",
+	      "label" : title
+	    });
+	    this._graph.addEdge(null, parent, id);
+
+	    // Check for next level
+	    if (c.hasChildNodes())
+	      this._parse(id, c.childNodes);
+	  }
+
+	  // Step further
+	  else if (c.hasChildNodes())
+	    this._parse(parent, c.childNodes);
+	}
+
+	// Text node
+	else if (c.nodeType == 3)
+
+	  if (c.nodeValue.match(/[-a-z0-9]/i)) {
+
+	    // Add child node
+	    var id = this._next++;
+	    this._graph.addNode(id, {
+	      "nodeclass" : "leaf",
+	      "label" : c.nodeValue
+	    });
+
+	    this._graph.addEdge(null, parent, id);
+	  };
+      };
+      return this;
+    },
+
+    element : function () {
+      this._element = document.createElement('div');
+      var svg = document.createElement('svg');
+      this._element.appendChild(svg);
+      var svgGroup = svg.appendChild(document.createElement('svg:g'));
+
+      svgGroup = d3.select(svgGroup);
+
+      console.log(svgGroup);
+      var layout = this._renderer.run(this._graph, svgGroup);
+/*
+      var w = layout.graph().width;
+      var h = layout.graph().height;
+      this._element.setAttribute("width", w + 10);
+      this._element.setAttribute("height", h + 10);
+      svgGroup.attr("transform", "translate(5, 5)");
+*/
+      return this._element;
+    }
+  };
+
 }(this.KorAP));
