@@ -3,23 +3,30 @@
   <head>
     <title>MatchInfo demo</title>
     <meta charset="utf-8" />
+    <script src="../lib/dagre/dagre.min.js"></script>
+    <script src="../src/menu.js"></script>
     <script src="../src/matchInfo.js"></script>
-    <link type="text/css" rel="stylesheet"
-	  href="../../css/matchinfo.css"></link>
+    <link type="text/css" rel="stylesheet" href="../../css/font-awesome.min.css"></link>
+    <link type="text/css" rel="stylesheet" href="../../css/matchinfo.css"></link>
+    <link type="text/css" rel="stylesheet" href="../../css/menu.css"></link>
     <style type="text/css" rel="stylesheet">
 
 body {
   background-color: #ffa500;
+}
+
+body, text {
   font-family: tahoma, verdana, arial;
+  color: #444;
+}
+
+text {
+  fill: #444;
 }
 
     </style>
   </head>
   <body>
-
-    <div class="matchinfo">
-      <div class="matchtable"></div>
-    </div>
 
     <script>
 var snippet = "<span title=\"cnx/l:meist\">" +
@@ -62,18 +69,64 @@ var snippet = "<span title=\"cnx/l:meist\">" +
   "  </span>" +
   "</span>";
 
-      // Override getMatchInfo API call
-      KorAP.API.getMatchInfo = function() {
-        return { "snippet": snippet };
-      };
+var treeSnippet =
+  "<span class=\"context-left\"></span>" +
+  "<span class=\"match\">" +
+  "  <span title=\"xip/c:MC\">" +
+  "    <span title=\"xip/c:TOP\">" +
+  "      <span title=\"xip/c:PP\">" +
+  "        <span title=\"xip/c:PREP\">Mit</span>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:DET\">dieser</span>" +
+  "          <span title=\"xip/c:NPA\">" +
+  "            <span title=\"xip/c:NOUN\">Methode</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:VERB\">ist</span>" +
+  "      <span title=\"xip/c:NP\">" +
+  "        <span title=\"xip/c:PRON\">es</span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:AP\">" +
+  "        <span title=\"xip/c:ADV\">nun</span>" +
+  "        <span title=\"xip/c:ADJ\">möglich</span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:ADV\">z. B.</span>" +
+  "      <span title=\"xip/c:NPA\">" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:NOUN\">Voice</span>" +
+  "        </span>" +
+  "      </span>" + "(" +
+  "      <span title=\"xip/c:INS\">" +
+  "        <span title=\"xip/c:NPA\">" +
+  "          <span title=\"xip/c:NP\">" +
+  "            <span title=\"xip/c:NOUN\">Sprache</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" + ")" +
+  "      <span title=\"xip/c:VERB\">bevorzugt</span>" +
+  "      <span title=\"xip/c:PP\">" +
+  "        <span title=\"xip/c:PREP\">in</span>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:PRON\">der</span>" +
+  "        </span>" +
+  "        <span title=\"xip/c:NPA\">" +
+  "          <span title=\"xip/c:NP\">" +
+  "            <span title=\"xip/c:NOUN\">Bridge</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:INFC\">" +
+  "        <span title=\"xip/c:INS\">" +
+  "          <span title=\"xip/c:VERB\">weiterzugeben</span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span class=\"context-right\"></span>";
 
-var info = KorAP.MatchInfo.create({
-  'corpusID' : 'WPD',
-  'docID' : 'UUU',
-  'textID' : '01912',
-  'pos' : 'p121-122'
-},
-[
+var available =[
   'base/s=spans',
   'corenlp/c=spans',
   'corenlp/ne=tokens',
@@ -88,14 +141,49 @@ var info = KorAP.MatchInfo.create({
   'tt/l=tokens',
   'tt/p=tokens',
   'tt/s=spans'
-]);
-      var t = info.getTable();
-      document.getElementsByClassName('matchtable')[0]
-        .appendChild(t.element());
+];
+
+var match = {
+  'corpusID' : 'WPD',
+  'docID' : 'UUU',
+  'textID' : '01912',
+  'pos' : 'p121-122'
+};
+
+// Parse and show the table
+// Override getMatchInfo API call
+KorAP.API.getMatchInfo = function(match, callObj) {
+  if (callObj["spans"] !== undefined && callObj["spans"] === true) {
+    return { "snippet": treeSnippet };
+  }
+  else {
+    return { "snippet": snippet };
+  }
+};
+
+var e = KorAP.MatchInfo.create(match, available).element();
+document.getElementsByTagName('body')[0].appendChild(e);
+
+/*
+var t = KorAP.MatchInfo.create(match, available).getTable();
+document.getElementsByClassName('matchtable')[0]
+.appendChild(t.element());
+
+// parse and show the tree
+KorAP.API.getMatchInfo = function() {
+  return { "snippet": treeSnippet };
+};
+
+var tree = KorAP.MatchInfo.create(match, available).getTree();
+document.getElementsByClassName('matchtree')[0]
+.getElementsByTagName('div')[0]
+.appendChild(tree.element());
+
+tree.center();
+*/
     </script>
 
-
-
+    <!--
     <div class="matchinfo">
       <div class="matchtable">
 	<table>
@@ -127,13 +215,14 @@ var info = KorAP.MatchInfo.create({
 	      <th>es</th>
 	      <th>z</th>
 	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
-	  <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
-	  <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
-	</tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	      <td>ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ<br />ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU VWX YZ</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+    </div>
+    -->
 
   </body>
 </html>

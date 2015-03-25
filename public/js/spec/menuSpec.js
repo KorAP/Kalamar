@@ -154,6 +154,11 @@ describe('KorAP.MenuItem', function () {
     expect(mi.lcField()).toEqual(' baum');
   });
 
+  it('shouldn\'t have a reference to the menu', function () {
+    var menuItem = KorAP.OwnMenuItem.create(['Test']);
+    expect(menuItem.menu()).toBe(undefined);
+  });
+
   it('should be activatable and deactivateable by class', function () {
     var menuItem = KorAP.OwnMenuItem.create(['Test']);
 
@@ -375,6 +380,15 @@ describe('KorAP.Menu', function () {
     expect(menu.item(menu.length() - 1).active()).toBe(false);
     expect(menu.item(menu.length() - 1).noMore()).toBe(true);
   });
+
+  it('should have a reference to the menu', function () {
+    var menu = KorAP.HintMenu.create("cnx/", list);
+    expect(menu.item(0).menu()).toEqual(menu);
+
+    menu = KorAP.HintMenu.create("cnx/", list);
+    expect(menu.element().menu).toEqual(menu);
+  });
+
 
   it('should be visible', function () {
     var menu = KorAP.HintMenu.create("cnx/", list);
@@ -1035,8 +1049,6 @@ describe('KorAP.Menu', function () {
 
   });
 
-  it('should be page downable', function () {
-    
-  });
+  xit('should be page downable');
   xit('should be page upable');
 });

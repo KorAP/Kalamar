@@ -237,9 +237,6 @@ describe('KorAP.MatchInfo', function () {
     var tree = info.getTree();
     expect(tree).toBeTruthy();
     expect(tree.nodes()).toEqual(49);
-
-    console.log(tree.element());
-
   });
 });
 
@@ -292,7 +289,7 @@ describe('KorAP.MatchTable', function () {
   });
 });
 
-xdescribe('KorAP.MatchTree', function () {
+describe('KorAP.MatchTree', function () {
   it('should be rendered', function () {
     var info = KorAP.MatchInfo.create(match, available);
 
@@ -302,7 +299,34 @@ xdescribe('KorAP.MatchTree', function () {
     };
 
     var tree = info.getTree();
-    tree.element();
+
+    var e = tree.element();
+    expect(e.nodeName).toEqual('svg');
+    expect(e.getElementsByTagName('g').length).toEqual(48);
+  });
+});
+
+describe('KorAP.MatchTreeItem', function () {
+  it('should be initializable', function () {
+    var mi = KorAP.MatchTreeItem.create(['cnx/c', 'cnx', 'c'])
+    expect(mi.element().firstChild.nodeValue).toEqual('cnx/c');
+    expect(mi.lcField()).toEqual(' cnx/c');
+    expect(mi.foundry()).toEqual('cnx');
+    expect(mi.layer()).toEqual('c');
+  });
+});
+
+describe('KorAP.MatchTreeMenu', function () {
+  it('should be initializable', function () {
+    var menu = KorAP.MatchTreeMenu.create([
+      ['cnx/c', 'cnx', 'c'],
+      ['xip/c', 'xip', 'c']
+    ]);
+
+    expect(menu.itemClass()).toEqual(KorAP.MatchTreeItem);
+    expect(menu.element().nodeName).toEqual('UL');
+    expect(menu.element().style.opacity).toEqual("0");
+    expect(menu.limit()).toEqual(6);
   });
 });
 

@@ -14,6 +14,8 @@ var KorAP = KorAP || {};
   TODO: Implement a working localization solution!
   TODO: Disable "and" or "or" in case it's followed
         by an unspecified document
+  TODO: Implement "persistance"-Option,
+        injecting the current creation date stamp
 
   Error codes:
   701: "JSON-LD group has no @type attribute" 

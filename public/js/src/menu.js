@@ -40,6 +40,21 @@ var KorAP = KorAP || {};
       return Object.create(KorAP.Menu)._init(params);
     },
 
+    /**
+     * Destroy this menu
+     * (in case you don't trust the
+     * mark and sweep GC)!
+     */
+    destroy : function () {
+      if (this._element != undefined)
+	delete this._element["menu"]; 
+
+      for (var i = 0; i < this._items.length; i++) {
+	delete this._items[i]["_menu"];
+      };
+      
+    },
+
     focus : function () {
       this._element.focus();
     },
@@ -96,11 +111,11 @@ var KorAP = KorAP || {};
 
 	// Click on prefix
 	if (this._prefix.active())
-	  this._prefix.onclick();
+	  this._prefix.onclick(e);
 
 	// Click on item
 	else
-	  this.liveItem(this._position).onclick();
+	  this.liveItem(this._position).onclick(e);
 	e.halt();
 	break;
       case 8: // 'Backspace'
@@ -139,6 +154,9 @@ var KorAP = KorAP || {};
       e.setAttribute('class', 'menu');
       e.appendChild(this._prefix.element());
 
+      // This has to be cleaned up later on
+      e["menu"] = this;
+
       // Arrow keys
       e.addEventListener(
 	'keypress',
@@ -165,6 +183,10 @@ var KorAP = KorAP || {};
       // Initialize item list based on parameters
       for (i in params) {
 	var obj = itemClass.create(params[i]);
+
+	// This may become circular
+	obj["_menu"] = this;
+
 	this._items.push(obj);
       };
       this._limit    = KorAP.menuLimit;
@@ -252,10 +274,7 @@ var KorAP = KorAP || {};
       this.active = false;
       this.delete();
       this._element.style.opacity = 0;
-
-/*
-      this._element.blur();
-*/
+      /* this._element.blur(); */
     },
 
     // Initialize the list
@@ -827,6 +846,13 @@ var KorAP = KorAP || {};
 
       return this;
     },
+
+    /**
+     * Return menu list.
+     */
+    menu : function () {
+      return this._menu;
+    }
   };
 
   KorAP.MenuPrefix = {
@@ -890,7 +916,7 @@ var KorAP = KorAP || {};
       this._string += string;
       this._update();
     },
-    onclick : function () {},
+    onclick : function (e) {},
     backspace : function () {
       if (this._string.length > 1) {
 	this._string = this._string.substring(

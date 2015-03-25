@@ -3,20 +3,27 @@
  *
  * @author Nils Diewald
  */
+// require menu.js
 /*
-  - Scroll with a static left legend.
-  - Highlight (at least mark as bold) the match
-  - Scroll to match vertically per default
+ * - Scroll with a static left legend.
+ * - Highlight (at least mark as bold) the match
+ * - Scroll to match vertically per default
  */
 var KorAP = KorAP || {};
 
 (function (KorAP) {
   "use strict";
 
+  var svgXmlns = "http://www.w3.org/2000/svg";
+
   // Default log message
   KorAP.log = KorAP.log || function (type, msg) {
     console.log(type + ": " + msg);
   };
+
+  // Localization values
+  var loc   = (KorAP.Locale = KorAP.Locale || {} );
+  loc.ADDTREE = loc.ADDTREE || 'Add tree view';
 
   KorAP._AvailableRE = new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
   KorAP._TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
@@ -24,6 +31,7 @@ var KorAP = KorAP || {};
 
   // API requests
   KorAP.API = KorAP.API || {};
+
   // TODO: Make this async
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () { return {} };
 
@@ -39,6 +47,19 @@ var KorAP = KorAP || {};
 	throw new Error("Missing parameters");
 
       return Object.create(KorAP.MatchInfo)._init(match, available);
+    },
+
+    /**
+     * Destroy this match information view.
+     */
+    destroy : function () {
+
+      // Remove circular reference
+      if (this._treeMenu !== undefined)
+	delete this._treeMenu["info"];
+
+      this._treeMenu.destroy();
+      this._treeMenu = undefined;
     },
 
     _init : function (match, available) {
@@ -153,12 +174,124 @@ var KorAP = KorAP || {};
 
       // Get snippet from match info
       if (matchResponse["snippet"] !== undefined) {
-	this._tree = KorAP.MatchTree.create(matchResponse["snippet"]);
-	return this._tree;
+	// Todo: This should be cached somehow
+	return KorAP.MatchTree.create(matchResponse["snippet"]);
       };
 
       return null;
- 
+    },
+
+    /**
+     * Add a new tree view to the list
+     */
+    addTree : function (foundry, layer) {
+      var treeObj = this.getTree(foundry, layer);
+
+      // Something went wrong - probably log!!!
+      if (treeObj === null)
+	return;
+
+      var matchtree = document.createElement('div');
+      matchtree.classList.add('matchtree');
+
+      var h6 = matchtree.appendChild(document.createElement('h6'));
+      h6.appendChild(document.createElement('span'))
+	.appendChild(document.createTextNode(foundry));
+      h6.appendChild(document.createElement('span'))
+	.appendChild(document.createTextNode(layer));
+
+      var tree = matchtree.appendChild(
+	document.createElement('div')
+      );
+      tree.appendChild(treeObj.element());
+      this._element.insertBefore(matchtree, this._element.lastChild);
+
+      var close = tree.appendChild(document.createElement('em'));
+      close.addEventListener(
+	'click', function (e) {
+	  matchtree.parentNode.removeChild(matchtree);
+	  e.halt();
+	}
+      );
+
+      // Reposition the view to the center
+      // (This may in a future release be a reposition
+      // to move the root into the center or the actual
+      // match)
+      treeObj.center();
+    },
+
+    /**
+     * Create match information view.
+     */
+    element : function () {
+      if (this._element !== undefined)
+	return this._element;
+
+      // Create info table
+      var info = document.createElement('div');
+      info.classList.add('matchinfo');
+
+      // Append default table
+      var matchtable = document.createElement('div');
+      matchtable.classList.add('matchtable');
+      matchtable.appendChild(this.getTable().element());
+      info.appendChild(matchtable);
+
+      var spanLayers = this.getSpans().sort(
+	function (a, b) {
+	  if (a.foundry < b.foundry) {
+	    return -1;
+	  }
+	  else if (a.foundry > b.foundry) {
+	    return 1;
+	  }
+	  else if (a.layer < b.layer) {
+	    return -1;
+	  }
+	  else if (a.layer > b.layer) {
+	    return 1;
+	  };
+	  return 0;
+	});
+
+      var menuList = [];
+
+      // Show tree views
+      for (var i = 0; i < spanLayers.length; i++) {
+	var span = spanLayers[i];
+	
+	// Add foundry/layer to menu list
+	menuList.push([
+	  span.foundry + '/' + span.layer,
+	  span.foundry,
+	  span.layer
+	]);
+      };
+
+      // Create tree menu
+      var treemenu = this.treeMenu(menuList);
+      var span = info.appendChild(document.createElement('p'));
+      span.appendChild(document.createTextNode(loc.ADDTREE));
+
+      var treeElement = treemenu.element();
+      span.appendChild(treeElement);
+
+      span.addEventListener('click', function (e) {
+	treemenu.show('');
+	treemenu.focus();
+      });
+      
+      this._element = info;
+
+      return info;
+    },
+
+    treeMenu : function (list) {
+      if (this._treeMenu !== undefined)
+	return this._treeMenu;
+
+      return this._treeMenu = KorAP.MatchTreeMenu.create(this, list);
     }
   };
 
@@ -332,6 +465,9 @@ var KorAP = KorAP || {};
      * Get HTML table view of annotations.
      */
     element : function () {
+      if (this._element !== undefined)
+	return this._element;
+
       // First the legend table
       var d = document;
       var table = d.createElement('table');
@@ -401,14 +537,14 @@ var KorAP = KorAP || {};
 	};
       };
 
-      return table;
+      return this._element = table;
     }
   };
 
+
   /**
-   * Visualize span annotations as a tree.
+   * Visualize span annotations as a tree using Dagre.
    */
-  // http://java-hackers.com/p/paralin/meteor-dagre-d3
   KorAP.MatchTree = {
 
     create : function (snippet) {
@@ -419,44 +555,47 @@ var KorAP = KorAP || {};
       return this._next;
     },
 
+    _addNode : function (id, obj) {
+      obj["width"] = 55;
+      obj["height"] = 20;
+      this._graph.setNode(id, obj)
+    },
+
+    _addEdge : function (src, target) {
+      this._graph.setEdge(src, target);
+    },
+
     _init : function (snippet) {
       this._next = new Number(0);
 
       // Create html for traversal
       var html = document.createElement("div");
       html.innerHTML = snippet;
-      this._graph = new dagreD3.Digraph();
+      var g = new dagre.graphlib.Graph({
+	"directed" : true	
+      });
+      g.setGraph({
+	"nodesep" : 35,
+	"ranksep" : 15,
+	"marginx" : 40,
+	"marginy" : 10
+      });
+      g.setDefaultEdgeLabel({});
+
+      this._graph = g;
 
       // This is a new root
-      this._graph.addNode(
+      this._addNode(
 	this._next++,
-	{ "nodeclass" : "root" }
+	{ "class" : "root" }
       );
 
       // Parse nodes from root
       this._parse(0, html.childNodes);
 
       // Root node has only one child - remove
-      if (Object.keys(this._graph._outEdges[0]).length === 1)
-	  this._graph.delNode(0);
-
-      // Initialize d3 renderer for dagre
-      this._renderer = new dagreD3.Renderer();
-      /*
-      var oldDrawNodes = this._renderer.drawNodes();
-      this._renderer.drawNodes(
-	function (graph, root) {
-	  var svgNodes = oldDrawNodes(graph, root);
-	  svgNodes.each(
-	    function (u) {
-	      d3.select(this).classed(graph.node(u).nodeClass, true);
-	    }
-	  );
-	}
-      );
-*/
-      // Disable pan and zoom
-      this._renderer.zoom(false);
+      if (g.outEdges(0).length === 1)
+	g.removeNode(0);
 
       html = undefined;
       return this;
@@ -464,7 +603,7 @@ var KorAP = KorAP || {};
 
     // Remove foundry and layer for labels
     _clean : function (title) {
-      return title.replace(KorAP._TermRE, RegExp.$1);
+      return title.replace(KorAP._TermRE, "$3");
     },
 
     // Parse the snippet
@@ -482,11 +621,11 @@ var KorAP = KorAP || {};
 	    // Add child node
 	    var id = this._next++;
 
-	    this._graph.addNode(id, {
-	      "nodeclass" : "middle",
+	    this._addNode(id, {
+	      "class" : "middle",
 	      "label" : title
 	    });
-	    this._graph.addEdge(null, parent, id);
+	    this._addEdge(parent, id);
 
 	    // Check for next level
 	    if (c.hasChildNodes())
@@ -505,36 +644,180 @@ var KorAP = KorAP || {};
 
 	    // Add child node
 	    var id = this._next++;
-	    this._graph.addNode(id, {
-	      "nodeclass" : "leaf",
+	    this._addNode(id, {
+	      "class" : "leaf",
 	      "label" : c.nodeValue
 	    });
 
-	    this._graph.addEdge(null, parent, id);
+	    this._addEdge(parent, id);
 	  };
       };
       return this;
     },
 
+    /**
+     * Center the viewport of the canvas
+     */
+    center : function () {
+      if (this._element === undefined)
+	return;
+
+      var treeDiv = this._element.parentNode;
+
+      var cWidth = parseFloat(window.getComputedStyle(this._element).width);
+      var treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
+      // Reposition:
+      if (cWidth > treeWidth) {
+	var scrollValue = (cWidth - treeWidth) / 2;
+	treeDiv.scrollLeft = scrollValue;
+      };
+    },
+
+    // Get element
     element : function () {
-      this._element = document.createElement('div');
-      var svg = document.createElement('svg');
-      this._element.appendChild(svg);
-      var svgGroup = svg.appendChild(document.createElement('svg:g'));
+      if (this._element !== undefined)
+	return this._element;
 
-      svgGroup = d3.select(svgGroup);
+      var g = this._graph;
 
-      console.log(svgGroup);
-      var layout = this._renderer.run(this._graph, svgGroup);
-/*
-      var w = layout.graph().width;
-      var h = layout.graph().height;
-      this._element.setAttribute("width", w + 10);
-      this._element.setAttribute("height", h + 10);
-      svgGroup.attr("transform", "translate(5, 5)");
-*/
+      dagre.layout(g);
+
+      var canvas = document.createElementNS(svgXmlns, 'svg');
+      this._element = canvas;
+
+      canvas.setAttribute('height', g.graph().height);
+      canvas.setAttribute('width', g.graph().width);
+
+      // Create edges
+      g.edges().forEach(
+	function (e) {
+	  var src = g.node(e.v);
+	  var target = g.node(e.w);
+	  var p = document.createElementNS(svgXmlns, 'path');
+	  p.setAttributeNS(null, "d", _line(src, target));
+	  p.classList.add('edge');
+	  canvas.appendChild(p);
+	});
+
+      // Create nodes
+      g.nodes().forEach(
+	function (v) {
+	  v = g.node(v);
+	  var group = document.createElementNS(svgXmlns, 'g');
+	  group.classList.add(v.class);
+
+	  // Add node box
+	  var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
+	  rect.setAttributeNS(null, 'x', v.x - v.width / 2);
+	  rect.setAttributeNS(null, 'y', v.y - v.height / 2);
+	  rect.setAttributeNS(null, 'width', v.width);
+	  rect.setAttributeNS(null, 'height', v.height);
+	  rect.setAttributeNS(null, 'rx', 5);
+	  rect.setAttributeNS(null, 'ry', 5);
+
+	  // Add label
+	  var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
+	  text.setAttributeNS(null, 'x', v.x - v.width / 2);
+	  text.setAttributeNS(null, 'y', v.y - v.height / 2);
+	  text.setAttributeNS(
+	    null,
+	    'transform',
+	    'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
+	  );
+	  var tspan = document.createElementNS(svgXmlns, 'tspan');
+	  tspan.appendChild(document.createTextNode(v.label));
+	  text.appendChild(tspan);
+	  canvas.appendChild(group);
+	}
+      );
+
       return this._element;
     }
+  };
+
+  /**
+   * Menu item for tree view choice.
+   */
+  KorAP.MatchTreeItem = {
+    create : function (params) {
+      return Object.create(KorAP.MenuItem)
+	.upgradeTo(KorAP.MatchTreeItem)._init(params);
+    },
+    content : function (content) {
+      if (arguments.length === 1) {
+	this._content = content;
+      };
+      return this._content;
+    },
+
+    // The foundry attribute
+    foundry : function () {
+      return this._foundry;
+    },
+
+    // The layer attribute
+    layer : function () {
+      return this._layer;
+    },
+
+    // enter or click
+    onclick : function (e) {
+      var menu = this.menu();
+      menu.hide();
+      e.halt();
+      menu.info().addTree(this._foundry, this._layer);
+    },
+    
+    _init : function (params) {
+      if (params[0] === undefined)
+	throw new Error("Missing parameters");
+
+      this._name    = params[0];
+      this._foundry = params[1];
+      this._layer   = params[2];
+      this._content = document.createTextNode(this._name);
+      this._lcField = ' ' + this.content().textContent.toLowerCase();
+      return this;
+    }
+  };
+
+
+  /**
+   * Menu to choose from for tree views.
+   */
+  KorAP.MatchTreeMenu = {
+    create : function (info, params) {
+      var obj = Object.create(KorAP.Menu)
+	.upgradeTo(KorAP.MatchTreeMenu)
+	._init(KorAP.MatchTreeItem, undefined, params);
+      obj.limit(6);
+      obj._info = info;
+
+      // This is only domspecific
+      obj.element().addEventListener('blur', function (e) {
+	this.menu.hide();
+      });
+
+      return obj;
+    },
+    info :function () {
+      return this._info;
+    }
+  };
+
+
+  // Create path for node connections 
+  function _line (src, target) {
+    var x1 = src.x,
+        y1 = src.y,
+        x2 = target.x,
+        y2 = target.y - target.height / 2;
+
+    // c 0,0 -10,0
+    return 'M ' + x1 + ',' + y1 + ' ' + 
+      'C ' + x1 + ',' + y1 + ' ' + 
+      x2 + ',' + (y2 - (y2 - y1) / 2)  + ' ' + 
+      x2 + ',' + y2;
   };
 
 }(this.KorAP));
