@@ -1,0 +1,97 @@
+@charset "utf-8";
+@import "colors";
+
+
+/**
+ * Menu list - used nearly everywhere
+ */
+ul.menu {
+  position: absolute;
+  margin: 0;
+  text-indent: 0;
+  list-style-type: none;
+  list-style-position: outside;
+  padding-left: 0;
+  padding-bottom: 3px;
+  background-color: $pagination-bg;
+}
+
+ul.menu,
+ul.menu > span.pref:not(:empty) {
+  box-sizing: border-box;
+  text-shadow: none;
+  font-weight: normal;
+  // Pagination border?
+  border: 2px solid $middle-green;
+  box-shadow: $pagination-box-shadow;
+  z-index: 16;
+  border-radius: $standard-border-radius;
+}
+
+ul.menu > li,
+ul.menu > span.pref:not(:empty) {
+  cursor: pointer;
+  padding: 3px 10px;
+  white-space: normal;
+}
+
+ul.menu > li,
+ul.menu > span.pref:not(.active) {
+  background-color: $pagination-bg;
+  color: $light-green
+}
+
+/**
+ * List items
+ */
+ul.menu {
+  > li {
+    &:first-of-type {
+      border-top: 3px solid transparent;
+      &:not(.no-more) {
+	border-top-color: $dark-orange;
+      }
+    }
+    &:last-of-type {
+      border-bottom: 3px solid transparent;
+      &:not(.no-more) {
+	border-bottom-color: $dark-orange;
+      }
+    }
+    mark {
+      text-decoration: underline;
+      background-color: transparent;
+      color: inherit;
+      font-weight: bold;
+    }
+  }
+  > *.active {
+    background-color: $light-green;
+    color: $dark-green;
+  }
+  > li:hover,
+  > span.pref:hover {
+    background-color: $dark-orange;
+    color: $nearly-white;
+  }
+}
+
+
+/**
+ * Default prefix view
+ */
+ul.menu > span.pref:not(:empty) {
+  position: absolute;
+  min-width: 5px;
+/*
+  border-bottom-right-radius: 10px;
+*/
+  font-size: 80%;
+  left: 0;
+  bottom: 0;
+  display: block;
+  margin-bottom: -2.1em;
+  padding: 2px 6px;
+  margin-left: -2px;
+  border-radius: $standard-border-radius;
+}

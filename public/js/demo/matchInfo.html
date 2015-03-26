@@ -7,8 +7,7 @@
     <script src="../src/menu.js"></script>
     <script src="../src/matchInfo.js"></script>
     <link type="text/css" rel="stylesheet" href="../../css/font-awesome.min.css"></link>
-    <link type="text/css" rel="stylesheet" href="../../css/matchinfo.css"></link>
-    <link type="text/css" rel="stylesheet" href="../../css/menu.css"></link>
+    <link type="text/css" rel="stylesheet" href="../../css/build/kalamar.css"></link>
     <style type="text/css" rel="stylesheet">
 
 body {
@@ -161,8 +160,12 @@ KorAP.API.getMatchInfo = function(match, callObj) {
   }
 };
 
-var e = KorAP.MatchInfo.create(match, available).element();
-document.getElementsByTagName('body')[0].appendChild(e);
+var e = KorAP.MatchInfo.create(match, available);
+
+document.getElementsByTagName('body')[0].appendChild(e.element());
+
+
+e.addTree('cnx', 'c');
 
 /*
 var t = KorAP.MatchInfo.create(match, available).getTable();

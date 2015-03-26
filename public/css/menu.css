@@ -1,29 +1,5 @@
 /* List view */
 
-ul.menu {
-  position: absolute;
-  text-indent: 0;
-  list-style-type: none;
-  list-style-position: outside;
-  padding-left: 0;
-  padding-bottom: 3px;
-  background-color: #ddd; /* $pagination-bg */
-}
-
-ul.menu,
-ul.menu > span.pref:not(:empty) {
-  text-shadow: none;
-/*
-  background-color: #7ba400;
-*/
-  font-weight: normal;
-  border: 2px solid #688704; /* $middle-green */
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.2); /* $pagination-box-shadow */
-  z-index: 16;
-  border-bottom-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-}
-
 /*
   .hint {
     max-width: 23em;
@@ -34,54 +10,6 @@ ul.menu > span.pref:not(:empty) {
   }
 */
 
-ul.menu > li,
-ul.menu > span.pref:not(:empty) {
-  cursor: pointer;
-  padding: 3px 8pt;
-  white-space: normal;
-}
-
-ul.menu > li,
-ul.menu > span.pref:not(.active) {
-  background-color: #ddd; /* $pagination-bg */
-  color: #7ba400; /* $light-green */
-}
-
-ul.menu > li:first-of-type {
-  border-top: 3px solid transparent;
-}
-
-ul.menu > li:last-of-type {
-  border-bottom: 3px solid transparent;
-}
-
-ul.menu > li:first-of-type:not(.no-more) {
-  border-top-color: #ffa500; /* $dark-orange */
-}
-
-ul.menu > li:last-of-type:not(.no-more) {
-  border-bottom-color: #ffa500; /* $dark-orange */
-}
-
-ul.menu > li mark {
-  text-decoration: underline;
-  background-color: transparent;
-  color: inherit;
-  font-weight: bold; /* #496000; */
-}
-
-ul.menu > span.pref:not(:empty) {
-  position: absolute;
-  min-width: 2px;
-  border-bottom-right-radius: 10px;
-  left: 0;
-  bottom: 0;
-  display: block;
-  margin-bottom: -2.1em;
-  padding: .1em .3em;
-  margin-left: -2px;
-  border-radius: 6px;
-}
 
 /*
   border: 2px solid white;
@@ -95,17 +23,6 @@ ul.menu > span.pref:not(:empty) {
     border-bottom: 5px solid transparent;
   }
 */
-ul.menu > *.active {
-  background-color: #7ba400; /* $light-green; */
-  color: #496000; /* $dark-green; */
-}
 
-ul.menu > li:hover,
-ul.menu > span.pref:hover {
-/*
-  background-color: rgba(255,255,255,.25);
-  color: #496000;
-*/
-  background-color: #ffa500; /* $dark-orange; */
-  color: white;
-}
+
+

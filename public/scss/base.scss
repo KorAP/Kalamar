@@ -1,0 +1,8 @@
+@charset "utf-8";
+@import "colors";
+
+body, html, select {
+  color: $dark-grey;
+  font-family: verdana, tahoma, arial;
+  margin: 0;
+}
