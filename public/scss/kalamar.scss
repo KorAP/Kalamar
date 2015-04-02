@@ -1,8 +1,14 @@
 @charset "utf-8";
 
-@import "colors";    // Color varia
+// Global variables and mixins
+@import "fonts";      // Font families
 
-@import "base";       // Base values
+@import "base";       // Base styles
+@import "logos";      // Logo images
+@import "header";     // Top
+@import "searchbar";  // The search bar
 @import "menu";       // Menu list
-@import "matchinfo";  // Match table and tree
 @import "pagination"; // Pagination
+@import "resultinfo"; // Information on results
+@import "matchinfo";  // Match table and tree
+@import "kwic";       // Kwic view information

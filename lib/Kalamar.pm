@@ -2,7 +2,7 @@ package Kalamar;
 use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 # Start the application and register all routes and plugins
 sub startup {

@@ -19,7 +19,8 @@ var match = {
   'corpusID' : 'WPD',
   'docID' : 'UUU',
   'textID' : '01912',
-  'pos' : 'p121-122'
+  'matchID' : 'p121-122',
+  'available' : available
 };
 
 var snippet = "<span title=\"cnx/l:meist\">" +
@@ -119,7 +120,28 @@ var treeSnippet =
   "</span>" +
   "<span class=\"context-right\"></span>";
 
+
+function matchElementFactory () {
+  var me = document.createElement('li');
+
+  me.setAttribute(
+    'data-available-info',
+    'base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens' +
+      ' corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens' +
+      ' mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens' +
+      ' tt/p=tokens tt/s=spans');
+
+  me.setAttribute('data-corpus-id', 'WPD');
+  me.setAttribute('data-doc-id', 'FFF');
+  me.setAttribute('data-text-id', '01460');
+  me.setAttribute('data-match-id', 'p119-120');
+  me.innerHTML = '<div><div class="snippet">check</div></div><p class="ref">me</p>';
+  return me;
+};
+
+
 describe('KorAP.InfoLayer', function () {
+
   it('should be initializable', function () {
     expect(
       function() { KorAP.InfoLayer.create() }
@@ -143,37 +165,34 @@ describe('KorAP.InfoLayer', function () {
   });
 });
 
+
 describe('KorAP.Match', function () {
   var match = {
-    'corpusID' : 'WPD',
-    'docID' : 'UUU',
-    'textID' : '01912',
-    'pos' : 'p121-122'
+    'corpusID'  : 'WPD',
+    'docID'     : 'UUU',
+    'textID'    : '01912',
+    'matchID'   : 'p121-122',
+    'available' : available
   };
 
-  it('should be initializable', function () {
-    var mInfo = KorAP.Match.create(match);
-    expect(mInfo.corpusID).toEqual("WPD");
-  });
-});
-
-describe('KorAP.MatchInfo', function () {
-  it('should be initializable', function () {
+  it('should be initializable by Object', function () {
     expect(function() {
-      KorAP.MatchInfo.create()
+      KorAP.Match.create()
     }).toThrow(new Error('Missing parameters'));
 
-    expect(function() {
-      KorAP.MatchInfo.create(available)
-    }).toThrow(new Error('Missing parameters'));
+    expect(KorAP.Match.create(match)).toBeTruthy();
 
-    expect(KorAP.MatchInfo.create(match, available)).toBeTruthy();
+    var m = KorAP.Match.create(match);
+    expect(m.corpusID).toEqual("WPD");
+    expect(m.docID).toEqual("UUU");
+    expect(m.textID).toEqual("01912");
+    expect(m.matchID).toEqual("p121-122");
 
     // /corpus/WPD/UUU.01912/p121-122/matchInfo?spans=false&foundry=*
-    var info = KorAP.MatchInfo.create(match, available);
+    var m = KorAP.Match.create(match);
 
     // Spans:
-    var spans = info.getSpans();
+    var spans = m.getSpans();
     expect(spans[0].foundry).toEqual("base");
     expect(spans[0].layer).toEqual("s");
 
@@ -187,7 +206,7 @@ describe('KorAP.MatchInfo', function () {
     expect(spans[spans.length-1].layer).toEqual("s");
 
     // Tokens:
-    var tokens = info.getTokens();
+    var tokens = m.getTokens();
     expect(tokens[0].foundry).toEqual("corenlp");
     expect(tokens[0].layer).toEqual("ne");
 
@@ -199,8 +218,72 @@ describe('KorAP.MatchInfo', function () {
   });
 
 
+  it('should be initializable by Node', function () {
+    var m = KorAP.Match.create(matchElementFactory());
+    expect(m.corpusID).toEqual("WPD");
+    expect(m.docID).toEqual("FFF");
+    expect(m.textID).toEqual("01460");
+    expect(m.matchID).toEqual("p119-120");
+
+    // Spans:
+    var spans = m.getSpans();
+    expect(spans[0].foundry).toEqual("base");
+    expect(spans[0].layer).toEqual("s");
+
+    expect(spans[1].foundry).toEqual("corenlp");
+    expect(spans[1].layer).toEqual("c");
+
+    expect(spans[2].foundry).toEqual("corenlp");
+    expect(spans[2].layer).toEqual("s");
+
+    expect(spans[spans.length-1].foundry).toEqual("tt");
+    expect(spans[spans.length-1].layer).toEqual("s");
+
+    // Tokens:
+    var tokens = m.getTokens();
+    expect(tokens[0].foundry).toEqual("corenlp");
+    expect(tokens[0].layer).toEqual("ne");
+
+    expect(tokens[1].foundry).toEqual("corenlp");
+    expect(tokens[1].layer).toEqual("p");
+
+    expect(tokens[tokens.length-1].foundry).toEqual("tt");
+    expect(tokens[tokens.length-1].layer).toEqual("p");
+
+  });
+
+  it('should react to gui actions', function () {
+    var e = matchElementFactory();
+
+    expect(e.classList.contains('active')).toBe(false);
+    expect(e["_match"]).toBe(undefined);
+
+    var m = KorAP.Match.create(e);
+
+    expect(e.classList.contains('active')).toBe(false);
+    expect(e["_match"]).not.toBe(undefined);
+
+    // Open the match
+    m.open();
+
+    expect(e.classList.contains('active')).toBe(true);
+    expect(e["_match"]).not.toBe(undefined);
+
+    // Close the match
+    m.close();
+    expect(e.classList.contains('active')).toBe(false);
+    expect(e["_match"]).not.toBe(undefined);
+
+  });
+});
+
+
+describe('KorAP.MatchInfo', function () {
   it('should parse into a table', function () {
-    var info = KorAP.MatchInfo.create(match, available);
+
+    var m = KorAP.Match.create(match);
+    var info = m.info();
+    expect(m._info).toEqual(info);
 
     expect(info.getTable('base/s')).not.toBeTruthy();
 
@@ -226,8 +309,51 @@ describe('KorAP.MatchInfo', function () {
   });
 
 
+  it('should parse into a table view', function () {
+    var matchElement = matchElementFactory();
+    expect(matchElement.tagName).toEqual('LI');
+
+    // Match
+    expect(matchElement.children[0].tagName).toEqual('DIV');
+
+    // snippet
+    expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+    expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+    expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+    // reference
+    expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
+    expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+
+    // not yet
+    expect(matchElement.children[0].children[1]).toBe(undefined);
+
+    var info = KorAP.Match.create(matchElement).info();
+
+    // Match
+    expect(matchElement.children[0].tagName).toEqual('DIV');
+
+    // snippet
+    expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+    expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+    expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+    // reference
+    expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
+    expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+
+    // now
+    var infotable = matchElement.children[0].children[1];
+    expect(infotable.tagName).toEqual('DIV');
+    expect(infotable.classList.contains('matchinfo')).toBeTruthy();
+
+    expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
+    expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+  });
+
+
   it('should parse into a tree', function () {
-    var info = KorAP.MatchInfo.create(match, available);
+    var info = KorAP.Match.create(match).info();
 
     // Override getMatchInfo API call
     KorAP.API.getMatchInfo = function () {
@@ -238,11 +364,65 @@ describe('KorAP.MatchInfo', function () {
     expect(tree).toBeTruthy();
     expect(tree.nodes()).toEqual(49);
   });
+
+
+  it('should parse into a tree view', function () {
+    var matchElement = matchElementFactory();
+    expect(matchElement.tagName).toEqual('LI');
+
+    var info = KorAP.Match.create(matchElement).info();
+
+    // Match
+    expect(matchElement.children[0].tagName).toEqual('DIV');
+
+    // snippet
+    expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+    expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+    expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+    // reference
+    expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
+    expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+
+    // now
+    var infotable = matchElement.children[0].children[1];
+    expect(infotable.tagName).toEqual('DIV');
+    expect(infotable.classList.contains('matchinfo')).toBeTruthy();
+    expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
+    expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+
+    // Override getMatchInfo API call
+    KorAP.API.getMatchInfo = function () {
+      return { "snippet": treeSnippet };
+    };
+
+    info.addTree('mate', 'beebop');
+
+    // With added tree
+    var infotable = matchElement.children[0].children[1];
+    expect(infotable.tagName).toEqual('DIV');
+    expect(infotable.classList.contains('matchinfo')).toBeTruthy();
+    expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
+    expect(infotable.children[1].classList.contains('addtree')).toBe(false);
+
+    var tree = infotable.children[1];
+    expect(tree.tagName).toEqual('DIV');
+    expect(tree.classList.contains('matchtree')).toBeTruthy();
+    expect(tree.children[0].tagName).toEqual('H6');
+    expect(tree.children[0].children[0].tagName).toEqual('SPAN');
+    expect(tree.children[0].children[0].firstChild.nodeValue).toEqual('mate');
+    expect(tree.children[0].children[1].tagName).toEqual('SPAN');
+    expect(tree.children[0].children[1].firstChild.nodeValue).toEqual('beebop');
+
+    expect(tree.children[1].tagName).toEqual('DIV');
+    
+  });
 });
+
 
 describe('KorAP.MatchTable', function () {
   it('should be rendered', function () {
-    var info = KorAP.MatchInfo.create(match, available);
+    var info = KorAP.Match.create(match).info();
 
     // Override getMatchInfo API call
     KorAP.API.getMatchInfo = function() {
@@ -291,7 +471,7 @@ describe('KorAP.MatchTable', function () {
 
 describe('KorAP.MatchTree', function () {
   it('should be rendered', function () {
-    var info = KorAP.MatchInfo.create(match, available);
+    var info = KorAP.Match.create(match).info();
 
     // Override getMatchInfo API call
     KorAP.API.getMatchInfo = function() {
@@ -306,6 +486,7 @@ describe('KorAP.MatchTree', function () {
   });
 });
 
+
 describe('KorAP.MatchTreeItem', function () {
   it('should be initializable', function () {
     var mi = KorAP.MatchTreeItem.create(['cnx/c', 'cnx', 'c'])
@@ -316,9 +497,10 @@ describe('KorAP.MatchTreeItem', function () {
   });
 });
 
+
 describe('KorAP.MatchTreeMenu', function () {
   it('should be initializable', function () {
-    var menu = KorAP.MatchTreeMenu.create([
+    var menu = KorAP.MatchTreeMenu.create(undefined, [
       ['cnx/c', 'cnx', 'c'],
       ['xip/c', 'xip', 'c']
     ]);
@@ -327,6 +509,8 @@ describe('KorAP.MatchTreeMenu', function () {
     expect(menu.element().nodeName).toEqual('UL');
     expect(menu.element().style.opacity).toEqual("0");
     expect(menu.limit()).toEqual(6);
+    menu.show();
+    expect(menu.item(0).active()).toBe(true);
   });
 });
 

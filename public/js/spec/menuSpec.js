@@ -1051,4 +1051,7 @@ describe('KorAP.Menu', function () {
 
   xit('should be page downable');
   xit('should be page upable');
+
+  xit('should scroll to a chosen value')
+  xit('should highlight a chosen value')
 });

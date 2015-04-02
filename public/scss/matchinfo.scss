@@ -1,9 +1,16 @@
 @charset "utf-8";
-@import "colors";
+@import "util";
 
 $left-width: 176px;
 $border-size: 2px;
 $left-distance: $left-width + ($border-size * 2);
+
+@mixin cell-info {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 1px 6px;
+  margin: 0px;
+}
 
 /**
  * Table view
@@ -20,32 +27,44 @@ $left-distance: $left-width + ($border-size * 2);
 div.matchinfo {
   position: relative;
   width: 100%;
+  padding-top: $border-size;
+  background-color: $dark-orange;
   height: auto;
   font-size: 10pt;
-  > p {
+  text-align: left;
+  > p.addtree {
     position: relative;
-    background-color: $darker-orange;
-    box-sizing: border-box;
-    color: $nearly-white;
+    @include choose-item;
+    border: {
+      width: $border-size;
+      style: solid;
+      radius: $standard-border-radius;
+    }
+
     font-size: inherit;
-    margin: $border-size 0 0 0 !important;
-    font-weight: bold;
+    margin: $border-size $border-size 0 $border-size !important;
     width: $left-width;
-    text-align: left !important;
+    text-align: center;
     cursor: pointer;
-    padding-left: $border-size * 2 !important;
+    padding: 0 !important;
+
+    &:hover {
+      cursor:pointer;
+      @include choose-hover;
+    }
+
     *.menu {
       border-top-right-radius: 8px;
       position: absolute;
-      top: 0;
-      left: $left-distance;
+      width: $left-width;
+      left: 0;
+      bottom: 0;
+      text-align: left;
+      margin: -1* $border-size;
       margin-top: 0;
       > li:first-of-type {
 	border-top-right-radius: 5px;
       }
-    }
-    &:before {
-      content: '+ '; // FontAwesome
     }
   }
 }
@@ -53,6 +72,7 @@ div.matchinfo {
 div.matchtable {
   z-index: 20;
   margin-left: $left-distance - ($border-size / 2);
+  margin-right: $right-match-distance;
   padding: 0;
   overflow-x: auto;
   overflow-y: visible;
@@ -72,9 +92,6 @@ div.matchtable {
     }
   }
   tbody {
-    th {
-      text-overflow: ellipsis;
-    }
     > tr:nth-of-type(1) > th {
       border-top-color: transparent;
     }
@@ -113,14 +130,12 @@ div.matchtable {
       left: ($left-width / 2) + $border-size;
     }
     > * {
-      box-sizing: border-box;
-      padding: 1px 6px;
-      margin: 0px;
+      @include cell-info;
       border: ($border-size / 2) solid $dark-orange;
     }
   }
   tr > td {
-    background-color: $nearly-white;
+    background-color: $middle-orange; // $nearly-white;
     white-space: nowrap;
     vertical-align: top;
     text-align: center;
@@ -147,12 +162,12 @@ div.matchtree {
     display: inline;
     font-size: inherit;
     color: $nearly-white;
-    text-align: center;
     margin: 0;
     padding: 0 !important;
     float: left;
     > span {
       @include matchinfo-head;
+      @include cell-info;
       display: inline-block;
       margin: 0;
       &:nth-of-type(2) {
@@ -163,28 +178,28 @@ div.matchtree {
   > div {
     overflow-x: auto;
     margin: $border-size;
-    box-sizing: border-box;
     margin-left: $left-distance;
-    background-color: $nearly-white; // $light-orange;
+    margin-right: $right-match-distance;
+
+    background-color: $light-orange; // $nearly-white; // $light-orange;
     > em {
-      background-color: $dark-orange;
-      display: block;
-      width: 1.5em;
-      height: 1.5em;
-      line-height: 1.2em;
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      border-radius: 5px;
-      border: $border-size solid $darker-orange;
-      cursor: pointer;
-      text-align: center;
       color: $nearly-white;
+      cursor: pointer;
+      display: block;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: $right-match-distance;
+      border-width: 0;
+      z-index: 8;
+      text-decoration:none;
+      text-align: center;
       font-weight: bold;
       font-style: normal;
-      &:after {
-	// FontAwesome
-	content: 'x';
+
+      &::after {
+	font-family: 'FontAwesome';
+	content: '\f00d';
       }
     }
   }
@@ -203,7 +218,7 @@ path.edge {
 g.middle > rect {
   stroke: $darker-orange;
   stroke-width: 2px;
-  fill: $light-orange; // $nearly-white;
+  fill: $middle-orange;
 }
 
 g.leaf > rect {

@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MatchInfo demo</title>
+    <title>Match demo</title>
     <meta charset="utf-8" />
     <script src="../lib/dagre/dagre.min.js"></script>
     <script src="../src/menu.js"></script>
-    <script src="../src/matchInfo.js"></script>
-    <link type="text/css" rel="stylesheet" href="../../css/font-awesome.min.css"></link>
-    <link type="text/css" rel="stylesheet" href="../../css/build/kalamar.css"></link>
-    <style type="text/css" rel="stylesheet">
+    <script src="../src/match.js"></script>
+    <link type="text/css"
+	  rel="stylesheet"
+	  href="../../css/font-awesome.min.css"></link>
+    <link type="text/css"
+	  rel="stylesheet"
+	  href="../../css/build/kalamar.css"></link>
+    <style type="text/css"
+	   rel="stylesheet">
 
 body {
   background-color: #ffa500;
@@ -146,7 +151,8 @@ var match = {
   'corpusID' : 'WPD',
   'docID' : 'UUU',
   'textID' : '01912',
-  'pos' : 'p121-122'
+  'pos' : 'p121-122',
+  'available' : available
 };
 
 // Parse and show the table
@@ -160,12 +166,13 @@ KorAP.API.getMatchInfo = function(match, callObj) {
   }
 };
 
-var e = KorAP.MatchInfo.create(match, available);
+var e = KorAP.Match.create(match).open();
 
 document.getElementsByTagName('body')[0].appendChild(e.element());
 
-
 e.addTree('cnx', 'c');
+
+
 
 /*
 var t = KorAP.MatchInfo.create(match, available).getTable();

@@ -1,35 +1,31 @@
 @charset "utf-8";
-@import "colors";
+@import "util";
 
+$border-size: 2px;
 
 /**
  * Menu list - used nearly everywhere
  */
-ul.menu {
-  position: absolute;
-  margin: 0;
-  text-indent: 0;
-  list-style-type: none;
-  list-style-position: outside;
-  padding-left: 0;
-  padding-bottom: 3px;
-  background-color: $pagination-bg;
-}
-
 ul.menu,
 ul.menu > span.pref:not(:empty) {
   box-sizing: border-box;
   text-shadow: none;
   font-weight: normal;
   // Pagination border?
-  border: 2px solid $middle-green;
-  box-shadow: $pagination-box-shadow;
-  z-index: 16;
-  border-radius: $standard-border-radius;
+
+  z-index: 7000;
 }
 
 ul.menu > li,
 ul.menu > span.pref:not(:empty) {
+  box-shadow: $choose-box-shadow;
+  border: {
+    width: $border-size;
+    bottom-width: 0px;
+    top-width: 0px;
+    style: solid;
+  }
+  @include choose-item;
   cursor: pointer;
   padding: 3px 10px;
   white-space: normal;
@@ -37,25 +33,50 @@ ul.menu > span.pref:not(:empty) {
 
 ul.menu > li,
 ul.menu > span.pref:not(.active) {
-  background-color: $pagination-bg;
-  color: $light-green
+  @include choose-item;
 }
 
-/**
- * List items
- */
 ul.menu {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+  list-style-type: none;
+  list-style-position: outside;
+
+  /**
+   * List items
+   */
   > li {
+    padding-right: 1.6em;
+
     &:first-of-type {
-      border-top: 3px solid transparent;
-      &:not(.no-more) {
-	border-top-color: $dark-orange;
+      border-top: {
+	width: $border-size;
+	left-radius: $standard-border-radius;
+	right-radius: $standard-border-radius;
+      }
+      &:not(.no-more):before {
+	position: absolute;
+	font-family: "FontAwesome";
+	content: '\f0de';
+	right: .5em;
+	top: .4em;
       }
     }
     &:last-of-type {
-      border-bottom: 3px solid transparent;
-      &:not(.no-more) {
-	border-bottom-color: $dark-orange;
+      border-bottom: {
+	width: $border-size;
+	left-radius: $standard-border-radius;
+	right-radius: $standard-border-radius;
+      }
+
+      &:not(.no-more):before {
+	position: absolute;
+	font-family: "FontAwesome";
+	content: '\f0dd';
+	right: .5em;
+	bottom: .4em;
       }
     }
     mark {
@@ -65,33 +86,32 @@ ul.menu {
       font-weight: bold;
     }
   }
-  > *.active {
-    background-color: $light-green;
-    color: $dark-green;
+  > li.active,
+  > span.pref.active {
+    @include choose-active;
   }
   > li:hover,
   > span.pref:hover {
-    background-color: $dark-orange;
-    color: $nearly-white;
+    @include choose-hover;
+  }
+
+  /**
+   * Default prefix view
+   */
+  > span.pref:not(:empty) {
+    position: absolute;
+    min-width: 5px;
+    font-size: 80%;
+    left: 0;
+    bottom: 0;
+    display: block;
+    margin-bottom: -2.1em;
+    padding: 2px 6px;
+    border: {
+      radius: $standard-border-radius;
+      width: $border-size;
+    }
   }
 }
 
 
-/**
- * Default prefix view
- */
-ul.menu > span.pref:not(:empty) {
-  position: absolute;
-  min-width: 5px;
-/*
-  border-bottom-right-radius: 10px;
-*/
-  font-size: 80%;
-  left: 0;
-  bottom: 0;
-  display: block;
-  margin-bottom: -2.1em;
-  padding: 2px 6px;
-  margin-left: -2px;
-  border-radius: $standard-border-radius;
-}

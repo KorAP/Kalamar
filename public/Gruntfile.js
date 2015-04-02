@@ -3,6 +3,8 @@
 /*
  * http://gruntjs.com/getting-started
  *
+ * Todo: Move all source files outside the public folder!
+
  * TODO: Use https://www.npmjs.com/package/grunt-contrib-compress
  * for assets.
  * http://yui.github.io/yuidoc/
@@ -11,6 +13,7 @@
  * RequireJS
  * http://addyosmani.com/writing-modular-js/
  * http://qnundrum.com/question/393866
+ *
  */
 
 module.exports = function(grunt) {
@@ -21,7 +24,7 @@ module.exports = function(grunt) {
 	src : [
 	  'js/lib/dagre/dagre.min.js',
 	  'js/src/menu.js',
-	  'js/src/matchInfo.js',
+	  'js/src/match.js',
 	  'js/src/hint.js',
 	  'js/src/vc.js'
 	],
@@ -39,7 +42,7 @@ module.exports = function(grunt) {
 	files: [{
 	  expand: true,
 	  cwd: 'img/',
-	  src: ['**/*.{png,gif,jpg,svg}'],
+	  src: ['*.{png,gif,jpg,svg}'],
 	  dest: 'img/build/'
 	}]
       }
@@ -52,6 +55,19 @@ module.exports = function(grunt) {
         files: {
           'css/build/kalamar.css': 'scss/kalamar.scss'
         }
+      }
+    },
+    jasmine: {
+      pivotal: {
+	src: [
+	  'js/src/menu.js',
+	  'js/src/match.js',
+	  'js/src/match.js',
+	  'js/src/vc.js'
+	],
+	options: {
+	  specs: 'js/spec/*Spec.js'
+	}
       }
     },
     watch: {
@@ -68,7 +84,7 @@ module.exports = function(grunt) {
       },
 */
       css: {
-	files: ['scss/{colors,base,matchinfo,menu,pagination,kalamar}.scss'],
+	files: ['scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,pagination,logos,alertify,kalamar}.scss'],
 	tasks: ['sass'],
 	options: {
 	  spawn: false
@@ -82,6 +98,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.registerTask('css', ['sass']);
   grunt.registerTask('default', ['concat', 'uglify', 'imagemin', 'sass']);
 };

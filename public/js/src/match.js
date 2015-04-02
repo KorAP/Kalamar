@@ -1,11 +1,11 @@
 /**
- * Visualize annotations.
+ * Get information on matches,
+ * generate annotation tables and trees.
  *
  * @author Nils Diewald
  */
-// require menu.js
+// require menu.js, dagre
 /*
- * - Scroll with a static left legend.
  * - Highlight (at least mark as bold) the match
  * - Scroll to match vertically per default
  */
@@ -23,11 +23,13 @@ var KorAP = KorAP || {};
 
   // Localization values
   var loc   = (KorAP.Locale = KorAP.Locale || {} );
-  loc.ADDTREE = loc.ADDTREE || 'Add tree view';
+  loc.ADDTREE  = loc.ADDTREE  || 'Add tree view';
+  loc.SHOWINFO = loc.SHOWINFO || 'Show information';
+  loc.CLOSE    = loc.CLOSE    || 'Close';
 
   KorAP._AvailableRE = new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
-  KorAP._TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
-  KorAP._matchTerms  = ["corpusID", "docID", "textID"];
+  KorAP._TermRE      = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
+  KorAP._matchTerms  = ['corpusID', 'docID', 'textID', 'matchID', 'available'];
 
   // API requests
   KorAP.API = KorAP.API || {};
@@ -35,42 +37,75 @@ var KorAP = KorAP || {};
   // TODO: Make this async
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () { return {} };
 
-  KorAP.MatchInfo = {
+
+  /**
+   * Match object
+   */
+  KorAP.Match = {
 
     /**
      * Create a new annotation object.
      * Expects an array of available foundry/layer=type terms.
      * Supported types are 'spans', 'tokens' and 'rels'.
      */
-    create : function (match, available) {
-      if (arguments.length < 2)
-	throw new Error("Missing parameters");
-
-      return Object.create(KorAP.MatchInfo)._init(match, available);
+    create : function (match) {
+      return Object.create(KorAP.Match)._init(match);
     },
 
     /**
-     * Destroy this match information view.
+     * Initialize match.
      */
-    destroy : function () {
+    _init : function (match) {
+      this._element = null;
 
-      // Remove circular reference
-      if (this._treeMenu !== undefined)
-	delete this._treeMenu["info"];
+      // No match defined
+      if (arguments.length < 1 ||
+	  match === null ||
+	  match === undefined) {
+	throw new Error('Missing parameters');
+      }
 
-      this._treeMenu.destroy();
-      this._treeMenu = undefined;
-    },
+      // Match defined as a node
+      else if (match instanceof Node) {
+	this._element  = match;
 
-    _init : function (match, available) {
-      this._match = KorAP.Match.create(match);
+	// Circular reference !!
+	match["_match"] = this;
+
+	this.corpusID  = match.getAttribute('data-corpus-id'),
+	this.docID     = match.getAttribute('data-doc-id'),
+	this.textID    = match.getAttribute('data-text-id'),
+	this.matchID   = match.getAttribute('data-match-id')
+
+	// List of available annotations
+	this.available = match.getAttribute('data-available-info').split(' ');
+      }
+
+      // Match as an object
+      else {
+
+	// Iterate over allowed match terms
+	for (var i in KorAP._matchTerms) {
+	  var term = KorAP._matchTerms[i];
+	  if (match[term] !== undefined) {
+	    this[term] = match[term];
+	  }
+	  else {
+	    this[term] = undefined;
+	  }
+	};
+      };
+
       this._available = {
 	tokens : [],
-	spans : [],
-	rels : []
+	spans  : [],
+	rels   : []
       };
-      for (var i = 0; i < available.length; i++) {
-	var term = available[i];
+
+      // Iterate over info layers
+      for (var i = 0; i < this.available.length; i++) {
+	var term = this.available[i];
+
 	// Create info layer objects
 	try {
 	  var layer = KorAP.InfoLayer.create(term);
@@ -80,6 +115,7 @@ var KorAP = KorAP || {};
 	  continue;
 	};
       };
+
       return this;
     },
 
@@ -107,16 +143,160 @@ var KorAP = KorAP || {};
       return this._available.rels;
     },
 
+    /**
+     * Open match
+     */
+    open : function () {
+
+      // Add actions unless it's already activated
+      var element = this._element;
+
+      // There is an element to open
+      if (this._element === undefined || this._element === null)
+	return false;
+
+      // The element is already opened
+      if (element.classList.contains('active'))
+	return false;
+      
+      // Add active class to element
+      element.classList.add('active');
+
+      // Create action buttons
+      var ul = document.createElement('ul');
+      ul.classList.add('action', 'right');
+      element.appendChild(ul);
+
+      // Use localization
+      var loc = KorAP.Locale;
+
+      // Add close button
+      var close = document.createElement('li');
+      close.appendChild(document.createElement('span'))
+	.appendChild(document.createTextNode(loc.CLOSE));
+      close.classList.add('close');
+      close.setAttribute('title', loc.CLOSE);
+
+      // Add info button
+      var info = document.createElement('li');
+      info.appendChild(document.createElement('span'))
+	.appendChild(document.createTextNode(loc.SHOWINFO));
+      info.classList.add('info');
+      info.setAttribute('title', loc.SHOWINFO);
+
+      var that = this;
+
+      // Close match
+      close.addEventListener('click', function (e) {
+	e.halt();
+	that.close()
+      });
+
+      // Add information, unless it already exists
+      info.addEventListener('click', function (e) {
+	e.halt();
+	that.info();
+      });
+
+      ul.appendChild(close);
+      ul.appendChild(info);
+
+      return true;
+    },
+
 
     /**
-     * Get table object.
+     * Close info view
+     */
+    close : function () {
+      this._element.classList.remove('active');
+
+/*
+      if (this._info !== undefined) {
+	this._info.destroy();
+      };
+*/
+    },
+
+
+
+    /**
+     * Get and open associated match info.
+     */
+    info : function () {
+
+      // Create match info
+      if (this._info === undefined)
+	this._info = KorAP.MatchInfo.create(this);
+
+      // There is an element to append
+      if (this._element === undefined ||
+	  this._element === null)
+	return this._info;
+
+      // Info is already activated
+      if (this._info._elemet !== undefined)
+	return this._info;
+
+      // Append element to match
+      this._element.children[0].appendChild(
+	this._info.element()
+      );
+
+      return this._info;
+    },
+
+
+    /**
+     * Get match element.
+     */
+    element : function () {
+
+      // May be null
+      return this._element;
+    }
+  };
+
+
+
+  /**
+   * Information about a match.
+   */
+  KorAP.MatchInfo = {
+
+    /**
+     * Create new object
+     */
+    create : function (match) {
+      return Object.create(KorAP.MatchInfo)._init(match);
+    },
+
+    /**
+     * Initialize object
+     */
+    _init : function (match) {
+      this._match = match;
+      return this;
+    },
+
+
+    /**
+     * Get match object
+     */
+    match : function () {
+      return this._match;
+    },
+
+
+    /**
+     * Retrieve and parse snippet for table representation
      */
     getTable : function (tokens) {
       var focus = [];
 
       // Get all tokens
       if (tokens === undefined) {
-	focus = this.getTokens();
+	focus = this._match.getTokens();
       } 
 
       // Get only some tokens
@@ -154,10 +334,15 @@ var KorAP = KorAP || {};
 	return this._table;
       };
 
+      // Todo: Store the table as a hash of the focus
+
       return null;
     },
 
-    // Parse snippet for table visualization
+
+    /**
+     * Retrieve and parse snippet for tree representation
+     */
     getTree : function (foundry, layer) {
       var focus = [];
 
@@ -180,6 +365,23 @@ var KorAP = KorAP || {};
 
       return null;
     },
+
+    /**
+     * Destroy this match information view.
+     */
+    destroy : function () {
+
+      // Remove circular reference
+      if (this._treeMenu !== undefined)
+	delete this._treeMenu["info"];
+
+      this._treeMenu.destroy();
+      this._treeMenu = undefined;
+      this._match = undefined;
+
+      // Element destroy
+    },
+
 
     /**
      * Add a new tree view to the list
@@ -225,6 +427,7 @@ var KorAP = KorAP || {};
      * Create match information view.
      */
     element : function () {
+
       if (this._element !== undefined)
 	return this._element;
 
@@ -238,7 +441,8 @@ var KorAP = KorAP || {};
       matchtable.appendChild(this.getTable().element());
       info.appendChild(matchtable);
 
-      var spanLayers = this.getSpans().sort(
+      // Get spans
+      var spanLayers = this._match.getSpans().sort(
 	function (a, b) {
 	  if (a.foundry < b.foundry) {
 	    return -1;
@@ -272,6 +476,7 @@ var KorAP = KorAP || {};
       // Create tree menu
       var treemenu = this.treeMenu(menuList);
       var span = info.appendChild(document.createElement('p'));
+      span.classList.add('addtree');
       span.appendChild(document.createTextNode(loc.ADDTREE));
 
       var treeElement = treemenu.element();
@@ -285,8 +490,15 @@ var KorAP = KorAP || {};
       this._element = info;
 
       return info;
+
     },
 
+
+    /**
+     * Get tree menu.
+     * There is only one menu rendered
+     * - no matter how many trees exist
+     */
     treeMenu : function (list) {
       if (this._treeMenu !== undefined)
 	return this._treeMenu;
@@ -295,23 +507,7 @@ var KorAP = KorAP || {};
     }
   };
 
-  KorAP.Match = {
-    create : function (match) {
-      return Object.create(KorAP.Match)._init(match);
-    },
-    _init : function (match) {
-      for (var i in KorAP._matchTerms) {
-	var term = KorAP._matchTerms[i];
-	if (match[term] !== undefined) {
-	  this[term] = match[term];
-	}
-	else {
-	  this[term] = undefined;
-	}
-      };
-      return this;
-    },
-  };
+
 
   /**
    *
@@ -765,7 +961,8 @@ var KorAP = KorAP || {};
       var menu = this.menu();
       menu.hide();
       e.halt();
-      menu.info().addTree(this._foundry, this._layer);
+      if (menu.info() !== undefined)
+	menu.info().addTree(this._foundry, this._layer);
     },
     
     _init : function (params) {
@@ -791,6 +988,7 @@ var KorAP = KorAP || {};
 	.upgradeTo(KorAP.MatchTreeMenu)
 	._init(KorAP.MatchTreeItem, undefined, params);
       obj.limit(6);
+
       obj._info = info;
 
       // This is only domspecific

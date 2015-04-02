@@ -3,6 +3,7 @@
 %= asset 'kalamar.css'
 %= asset 'kalamar.js'
 
+  <link rel="shortcut icon" href="/kalamar/favicon.ico" type="image/x-icon" /> 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=false, user-scalable=no" />
 </head>

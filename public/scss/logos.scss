@@ -1,0 +1,106 @@
+@charset "utf-8";
+@import "util";
+
+.logo {
+  &::after {
+    content: "" !important;
+  }
+  > * {
+    background: {
+      repeat: no-repeat;
+      size: 90%;
+      position: 50% 50%;
+    }
+    > span {
+      margin-left: -3000px;
+    }
+  }
+}
+
+/**
+ * Background image for the front page
+ */
+#kalamar-bg {
+  position: fixed;
+  height: 110%;
+  width: 175%;
+  top: 0;
+  z-index: -5000;
+  background: {
+    image:url('#{$img-path}/korap-bg-kalamar.svg');
+    size: 50%;
+    repeat: no-repeat;
+    position: 50% 50%;
+  }
+}
+
+/**
+ * Logo table of the front page
+ */
+#logos {
+  position: relative;
+  text-align: right;
+  font-size: 85%;
+  right: 0;
+  width: 100%;
+  margin-left: $standard-margin;
+  padding-left: 60%;
+  > div {
+    border-top: 26px solid $dark-orange;
+    padding-right: 2em;
+  }
+  p {
+    text-align: left;
+    display: inline-block;
+  }
+}
+
+
+/**
+ * Logo: Institute for German Language
+ */
+#ids-logo {
+  display: block;
+  width: (910 / 60) + em;
+  height: (176 / 60) + em;
+  background: {
+    image:url('#{$img-path}/ids-institute-for-german-language.svg');
+  }
+}
+
+/**
+ * Logo: Member of the Leibniz Association
+ */
+#leibniz-logo {
+  display: block;
+  width: (199 / 20) + em;
+  height: (130 / 20) + em;
+  background: {
+    image:url('#{$img-path}/member-of-the-leibniz-association.svg');
+  }
+}
+
+/**
+ * Logo: KorAP
+ */
+h1 {
+  position: absolute;
+  margin-left:15px;
+  margin: 0;
+  left: 0;
+  top: 0;
+  width: 7.8em;
+  height: 2.4em;
+  z-index: 999;
+  background: {
+    size: 72%;
+    image: url('#{$img-path}/korap-logo-kalamar.svg');
+  }
+}
+
+/*
+#leibniz-logo, #ids-logo {
+  height: (130 / 20) + em;
+}
+
+*/
