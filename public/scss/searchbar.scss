@@ -4,6 +4,9 @@
 $border-size: 2px;
 $right-distance: 30px;
 
+/**
+ * Input field
+ */
 #q-field {
   @include box-sizing-box();
   outline: none;
@@ -12,7 +15,12 @@ $right-distance: 30px;
   padding: 2px;
   width: 100%;
   margin: 0;
+  margin-bottom: 3px;
   display: block;
+}
+
+header > form {
+  min-height: 2.7em;
 }
 
 #searchbar {

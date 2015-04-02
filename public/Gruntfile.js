@@ -84,7 +84,7 @@ module.exports = function(grunt) {
       },
 */
       css: {
-	files: ['scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,pagination,logos,alertify,kalamar}.scss'],
+	files: ['scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,kalamar}.scss'],
 	tasks: ['sass'],
 	options: {
 	  spawn: false

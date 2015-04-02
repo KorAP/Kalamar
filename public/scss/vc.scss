@@ -1,0 +1,253 @@
+@charset "utf-8";
+@import "util";
+
+$left-padding: 28pt; // 2.8em;
+$border-size: 4px;
+
+.vc {
+  background-color: $light-green;
+
+  .docGroup {
+    position: relative;
+    display: inline-block;
+    color: $nearly-white;
+
+    margin-left: $left-padding; // 2.8em
+
+    // .6em .5em
+    border-width: 0 $border-size;
+
+    padding: {
+      top: 10pt;
+      bottom: 2pt;
+      left: 0pt;
+      right: 6pt;
+    }
+/*
+
+    background-color: yellow;
+*/
+    border: {
+      radius: $standard-border-radius * 2;
+      style: solid;
+    }
+
+    .docGroup {
+      display: block;
+    }
+
+    > .operators {
+      position: absolute;
+      display: block;
+      top: 10px;
+      vertical-align: middle;
+      left: 3px;
+      border-width: 2px 2px 2px 0;
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
+      margin-left: 100%;
+      padding: 0;
+    }
+
+    &:hover {
+      background-color: rgba(255,255,255,.05);
+    }
+
+    &[data-operation=or] {
+      border-color: $dark-orange;
+      > .doc::before,
+      > .docGroup::before {
+	content: "oder";
+      }
+      > .operators {
+	border-color: $dark-orange;
+	background-color: $dark-orange;
+	color: $nearly-white;
+      }
+    }
+
+    &[data-operation=and] {
+      > .doc::before,
+      > .docGroup::before {
+	content: "und";
+      }
+    }
+
+    &[data-operation] {
+      > .doc:first-child::before,
+      > .docGroup:first-child::before {
+	content: '';
+      }
+      > .doc::before,
+      > .docGroup::before {
+	display: inline-block;
+	text-align: right;
+//	width: 2.2em;
+	width: $left-padding;
+	color: $dark-green;
+      }
+      > .doc::before {
+	padding-right: 1.2em;
+	margin-right: .1em;
+      }
+      > .docGroup::before {
+	position: absolute;
+      }
+    }
+  }
+
+  .doc {
+    > span + span {
+      margin-left: 5pt;
+    }
+    > span.key,
+    > span.value {
+      font-weight: bold;
+    }
+    > .operators {
+      display: inline-block;
+      border-color: $dark-orange;
+      border-width: 2px 2px 2px 2px;
+      border-radius: 7px;
+
+      margin-left: 10px;
+      > span {
+	&.and {
+	  border: {
+	    radius: inherit;
+	    top-right-radius: 0;
+	    bottom-right-radius: 0;
+	  }
+	  &.delete {
+	    border: {
+	      top-left-radius: 0;
+	      bottom-left-radius: 0;
+	    }
+	  }
+	}
+      }
+    }
+    > span.key {
+      position: relative;
+      > ul {
+	margin: 0;
+	margin-left: 3.3em;
+      }
+    }
+  }
+
+  .rewritten {
+    .rewrite {
+      margin-left: 4pt;
+      display: inline-block;
+      color: $dark-orange;
+      &::after {
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	content: "\f040"; // "\f14b";
+	text-decoration: underline;
+      }
+      span {
+	display: none;
+      }
+    }
+  }
+
+  .operators {
+    opacity: 0;
+    white-space: nowrap;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    color: $light-green;
+    border-color: $nearly-white;
+    text-align: center;
+    font-weight: bold;
+    border-style: solid;
+
+    > span {
+      cursor: pointer;
+      font-size: 9pt;
+      line-height: 1.3em;
+      padding: 0 4px;
+      display: inline-block;
+      &.and {
+	background-color: $nearly-white;
+	color: $light-green;
+      }
+      &.or {
+	background-color: $dark-orange;
+	color: $nearly-white;
+      }
+      &.delete {
+	background-color: red;
+	border-radius: inherit;
+	color: $nearly-white;
+      }
+    }
+  }
+
+  > .docGroup {
+    margin-left: 0;
+  }
+
+
+  .docGroup > .docGroup::before {
+    background-color: red;
+    margin-left: -1 * $left-padding; // -3.4em;
+  }
+
+  .doc, .docGroup {
+    &:hover > .operators {
+      opacity: 1;
+    }
+  }
+
+}
+
+
+/*
+.vc .docGroup[data-operation=and]::before,
+.vc .docGroup[data-operation=and] .operators {
+  background-color: white;
+}
+*/
+
+$dg-index : 30;
+
+.docGroup {
+  > .operators {
+    z-index: $dg-index;
+  }
+  .docGroup {
+    > .operators {
+      z-index: $dg-index + 1;
+    }
+    .docGroup {
+      > .operators {
+	z-index: $dg-index + 2;
+      }
+      .docGroup {
+	> .operators {
+	  z-index: $dg-index + 3;
+	}
+	.docGroup {
+	  > .operators {
+	    z-index: $dg-index + 4;
+	  }
+	  .docGroup {
+	    > .operators {
+	      z-index: $dg-index + 5;
+	    }
+	    .docGroup {
+	      > .operators {
+		z-index: $dg-index + 6;
+	      }
+	    }
+	  }
+	}
+      }
+    }
+  }
+}

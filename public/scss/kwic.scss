@@ -40,13 +40,17 @@ $border-size: 2px;
 	&:nth-of-type(even) {
           background-color: $kwic-line-even;
 	}
-      }
-      > div {
-	> div.snippet {
+	.matchinfo {
+	  display: none;
+	}
+	> div > div.snippet {
 	  text-overflow: ellipsis;
 	  text-indent: 0;
 	  text-shadow: $light-shadow;
-
+	}
+      }
+      > div {
+	> div.snippet {
           > span,
           > mark {
             white-space: no-wrap !important;

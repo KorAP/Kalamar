@@ -52,7 +52,7 @@ var KorAP = KorAP || {};
       for (var i = 0; i < this._items.length; i++) {
 	delete this._items[i]["_menu"];
       };
-      
+      delete this._prefix['_menu'];
     },
 
     focus : function () {
@@ -147,11 +147,13 @@ var KorAP = KorAP || {};
       else
 	this._prefix = KorAP.MenuPrefix.create();
 
+      this._prefix._menu = this;
+
       var e = document.createElement("ul");
       e.style.opacity = 0;
       e.style.outline = 0;
       e.setAttribute('tabindex', 0);
-      e.setAttribute('class', 'menu');
+      e.classList.add('menu');
       e.appendChild(this._prefix.element());
 
       // This has to be cleaned up later on
@@ -274,8 +276,12 @@ var KorAP = KorAP || {};
       this.active = false;
       this.delete();
       this._element.style.opacity = 0;
+      this.onHide();
       /* this._element.blur(); */
     },
+
+    // To be override
+    onHide : function () {},
 
     // Initialize the list
     _initList : function () {
@@ -676,7 +682,6 @@ var KorAP = KorAP || {};
       return this;
     },
 
-
     content : function (content) {
       if (arguments.length === 1)
 	this._content = document.createTextNode(content);
@@ -737,8 +742,9 @@ var KorAP = KorAP || {};
       var li = document.createElement("li");
 
       // Connect action
-      if (this.onclick !== undefined)
+      if (this["onclick"] !== undefined) {
 	li["onclick"] = this.onclick.bind(this);
+      };
 
       // Append template
       li.appendChild(this.content());
@@ -866,7 +872,8 @@ var KorAP = KorAP || {};
       this._element = document.createElement('span');
       this._element.classList.add('pref');
       // Connect action
-      if (this.onclick !== undefined)
+
+      if (this["onclick"] !== undefined)
 	this._element["onclick"] = this.onclick.bind(this);
 
       return this;
@@ -898,13 +905,16 @@ var KorAP = KorAP || {};
       else
 	cl.remove("active");
     },
+
     element : function () {
       return this._element;
     },
+
     isSet : function () {
       return this._string.length > 0 ?
 	true : false;
     },
+
     value : function (string) {
       if (arguments.length === 1) {
 	this._string = string;
@@ -912,11 +922,14 @@ var KorAP = KorAP || {};
       };
       return this._string;
     },
+
     add : function (string) {
       this._string += string;
       this._update();
     },
-    onclick : function (e) {},
+
+    onclick : function () {},
+
     backspace : function () {
       if (this._string.length > 1) {
 	this._string = this._string.substring(
@@ -928,6 +941,13 @@ var KorAP = KorAP || {};
       };
 
       this._update();
+    },
+
+    /**
+     * Return menu list.
+     */
+    menu : function () {
+      return this._menu;
     }
   };
 

@@ -329,6 +329,7 @@ describe('KorAP.MatchInfo', function () {
     expect(matchElement.children[0].children[1]).toBe(undefined);
 
     var info = KorAP.Match.create(matchElement).info();
+    info.toggle();
 
     // Match
     expect(matchElement.children[0].tagName).toEqual('DIV');
@@ -371,6 +372,7 @@ describe('KorAP.MatchInfo', function () {
     expect(matchElement.tagName).toEqual('LI');
 
     var info = KorAP.Match.create(matchElement).info();
+    info.toggle();
 
     // Match
     expect(matchElement.children[0].tagName).toEqual('DIV');

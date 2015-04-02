@@ -4,6 +4,7 @@
     <title>Match demo</title>
     <meta charset="utf-8" />
     <script src="../lib/dagre/dagre.min.js"></script>
+    <script src="../src/util.js"></script>
     <script src="../src/menu.js"></script>
     <script src="../src/match.js"></script>
     <link type="text/css"
@@ -31,6 +32,21 @@ text {
     </style>
   </head>
   <body>
+    <div id="search">
+      <ol class="align-left">
+	<li data-corpus-id="WPD"
+	    data-doc-id="WWW"
+	    data-text-id="03313"
+	    data-match-id="p102-103"
+	    data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"
+	    id="WPD-WWW.03313-p102-103">
+	  <div>
+	    <div class="snippet startMore endMore"><span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><span class="match">test</span><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
+	  </div>
+	  <p class="ref"><strong>Wertparameter</strong> by Hubi,Zwobot,4; published on 2005-03-28 as WWW.03313 (WPD)</p>
+	</li>
+      </ol>
+    </div>
 
     <script>
 var snippet = "<span title=\"cnx/l:meist\">" +
@@ -130,31 +146,6 @@ var treeSnippet =
   "</span>" +
   "<span class=\"context-right\"></span>";
 
-var available =[
-  'base/s=spans',
-  'corenlp/c=spans',
-  'corenlp/ne=tokens',
-  'corenlp/p=tokens',
-  'corenlp/s=spans',
-  'glemm/l=tokens',
-  'mate/l=tokens',
-  'mate/m=tokens',
-  'mate/p=tokens',
-  'opennlp/p=tokens',
-  'opennlp/s=spans',
-  'tt/l=tokens',
-  'tt/p=tokens',
-  'tt/s=spans'
-];
-
-var match = {
-  'corpusID' : 'WPD',
-  'docID' : 'UUU',
-  'textID' : '01912',
-  'pos' : 'p121-122',
-  'available' : available
-};
-
 // Parse and show the table
 // Override getMatchInfo API call
 KorAP.API.getMatchInfo = function(match, callObj) {
@@ -166,31 +157,7 @@ KorAP.API.getMatchInfo = function(match, callObj) {
   }
 };
 
-var e = KorAP.Match.create(match).open();
-
-document.getElementsByTagName('body')[0].appendChild(e.element());
-
-e.addTree('cnx', 'c');
-
-
-
-/*
-var t = KorAP.MatchInfo.create(match, available).getTable();
-document.getElementsByClassName('matchtable')[0]
-.appendChild(t.element());
-
-// parse and show the tree
-KorAP.API.getMatchInfo = function() {
-  return { "snippet": treeSnippet };
-};
-
-var tree = KorAP.MatchInfo.create(match, available).getTree();
-document.getElementsByClassName('matchtree')[0]
-.getElementsByTagName('div')[0]
-.appendChild(tree.element());
-
-tree.center();
-*/
+KorAP.init();
     </script>
 
     <!--

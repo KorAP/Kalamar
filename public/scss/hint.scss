@@ -1,0 +1,69 @@
+@charset "utf-8";
+@import "util";
+
+$border-size: 2px;
+
+ul.menu.hint {
+  text-align:left;
+//  margin-left: -1 * $border-size;
+  max-width: 23em !important;
+  min-width: 7em;
+
+  > li:first-of-type {
+    border-top: {
+      width: 1px;
+      left-radius: 0;
+      right-radius: 0;
+    }
+  }
+  span.desc {
+    display: block;
+    font-size: 75%;
+  }
+}
+
+#searchMirror {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: pre-wrap;
+  overflow: show;
+  height: 0;
+  > span {
+    display: block;
+    opacity: 0;
+    white-space: pre-wrap;
+    overflow: hidden;
+  }
+  // Todo: Besser nur, wenn im Focus
+  > div {
+    cursor: pointer;
+    transition: left 0.3s ease 0s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding: 0;
+    border-top: 5px solid $dark-orange;
+
+    height: 10px;
+    width: 1.2em;
+
+    &:hover {
+/*
+      border: {
+	width: $border-size;
+	style: solid;
+	radius: $standard-border-radius;
+	top: {
+	  left-radius: 0;
+	  right-radius: 0;
+	  width: 0px;
+	}
+      }
+      @include choose-hover;
+*/
+      border-top: 10px solid $dark-orange;
+    }
+  }
+}

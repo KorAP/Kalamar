@@ -195,7 +195,7 @@ var KorAP = KorAP || {};
       // Add information, unless it already exists
       info.addEventListener('click', function (e) {
 	e.halt();
-	that.info();
+	that.info().toggle();
       });
 
       ul.appendChild(close);
@@ -203,7 +203,6 @@ var KorAP = KorAP || {};
 
       return true;
     },
-
 
     /**
      * Close info view
@@ -217,7 +216,6 @@ var KorAP = KorAP || {};
       };
 */
     },
-
 
 
     /**
@@ -235,13 +233,8 @@ var KorAP = KorAP || {};
 	return this._info;
 
       // Info is already activated
-      if (this._info._elemet !== undefined)
+      if (this._info._element !== undefined)
 	return this._info;
-
-      // Append element to match
-      this._element.children[0].appendChild(
-	this._info.element()
-      );
 
       return this._info;
     },
@@ -276,15 +269,33 @@ var KorAP = KorAP || {};
      */
     _init : function (match) {
       this._match = match;
+      this.opened = false;
       return this;
     },
-
 
     /**
      * Get match object
      */
     match : function () {
       return this._match;
+    },
+
+    toggle : function () {
+      if (this.opened == true) {
+	this._match.element().children[0].removeChild(
+	  this.element()
+	);
+	this.opened = false;
+      }
+      else {
+	// Append element to match
+	this._match.element().children[0].appendChild(
+	  this.element()
+	);
+	this.opened = true;
+      };
+
+      return this.opened;
     },
 
 
