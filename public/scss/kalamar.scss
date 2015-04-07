@@ -13,4 +13,9 @@
 @import "resultinfo"; // Information on results
 @import "matchinfo";  // Match table and tree
 @import "kwic";       // Kwic view information
-@import "vc";       // Kwic view information
+@import "vc";         // Virtual collection builder
+@import "tutorial";   // Embedded and non-embedded tutorial
+@import "query";      // View query
+@import "sidebar";    // Navigation on the left side
+
+@import "media";      // Media queries

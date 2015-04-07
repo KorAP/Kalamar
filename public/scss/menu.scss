@@ -56,27 +56,12 @@ ul.menu {
 	left-radius: $standard-border-radius;
 	right-radius: $standard-border-radius;
       }
-      &:not(.no-more):before {
-	position: absolute;
-	font-family: "FontAwesome";
-	content: '\f0de';
-	right: .5em;
-	top: .4em;
-      }
     }
     &:last-of-type {
       border-bottom: {
 	width: $border-size;
 	left-radius: $standard-border-radius;
 	right-radius: $standard-border-radius;
-      }
-
-      &:not(.no-more):before {
-	position: absolute;
-	font-family: "FontAwesome";
-	content: '\f0dd';
-	right: .5em;
-	bottom: .4em;
       }
     }
     mark {
@@ -114,4 +99,42 @@ ul.menu {
   }
 }
 
+/**
+ * Rolling menu
+ */
+ul.menu.roll {
+  > li:first-of-type {
+    &:not(.no-more):before {
+      position: absolute;
+      font-family: "FontAwesome";
+      content: '\f0de';
+      right: .5em;
+      top: .4em;
+    }
+  }
+  > li:last-of-type {
+    &:not(.no-more):before {
+      position: absolute;
+      font-family: "FontAwesome";
+      content: '\f0dd';
+      right: .5em;
+      bottom: .4em;
+    }
+  }
+}
 
+
+/**
+ * Sorting menu
+ */
+ul.menu.sort {
+  position: relative;
+  display: inline-block;
+  > li::before {
+    content: '';
+  }
+  > li.active:hover {
+    @include choose-remove;
+  }
+
+}

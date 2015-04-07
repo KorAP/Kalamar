@@ -95,6 +95,46 @@ var treeSnippet =
   "</span>" +
   "<span class=\"context-right\"></span>";
 
+var treeSnippet2 =
+  "<span class=\"context-left\"><\/span>"+
+  "<span class=\"match\">"+
+  "<span title=\"xip\/c:NPA\">"+
+  "<span title=\"xip\/c:NP\">"+
+  "<span title=\"xip\/c:NOUN\">HDTV<\/span>"+
+  "<\/span>"+
+  "<\/span> "+
+  "<span title=\"xip\/c:NPA\">" +
+  "<span title=\"xip\/c:NP\">"+
+  "<span title=\"xip\/c:NOUN\">Samples<\/span>"+
+  "<\/span>"+
+  "<\/span> "+
+  "<span title=\"xip\/c:ADV\">from<\/span> "+
+  "<span title=\"xip\/c:NPA\">"+
+  "<span title=\"xip\/c:NP\">"+
+  "<span title=\"xip\/c:NOUN\">European<\/span>"+
+  "<\/span>"+
+  "<\/span> ("+
+  "<span title=\"xip\/c:INS\">"+
+  "<span title=\"xip\/c:NPA\">"+
+  "<span title=\"xip\/c:NP\">"+
+  "<span title=\"xip\/c:NOUN\">and<\/span>"+
+  "<\/span>"+
+  "<\/span> "+
+  "<span title=\"xip\/c:ADV\">other<\/span>"+
+  "<\/span>) "+
+  "<span title=\"xip\/c:ADV\">broadcasters<\/span> "+
+  "<span title=\"xip\/c:NPA\">"+
+  "<span title=\"xip\/c:NP\">"+
+  "<span title=\"xip\/c:NOUN\">and<\/span>"+
+  "<\/span>"+
+  "<\/span> "+
+  "<span title=\"xip\/c:VERB\">test<\/span> "+
+  "<span title=\"xip\/c:ADV\">transmissions<\/span> "+
+  "<span title=\"xip\/c:PREP\">in<\/span> "+
+  "<span title=\"xip\/c:NOUN\">Europe<\/span>"+
+  "<\/span>"+
+  "<span class=\"context-right\"><\/span>";
+
 var menuContent = [
     ['cnx/c', 'cnx', 'c'],
     ['mate/c', 'mate', 'c'],
@@ -379,12 +419,12 @@ KorAP.hintArray = {
 
 // Parse and show the table
 // Override getMatchInfo API call
-KorAP.API.getMatchInfo = function(match, callObj) {
+KorAP.API.getMatchInfo = function(match, callObj, cb) {
   if (callObj["spans"] !== undefined && callObj["spans"] === true) {
-    return { "snippet": treeSnippet };
+    cb({ "snippet": treeSnippet2 });
   }
   else {
-    return { "snippet": snippet };
+    cb({ "snippet": snippet });
   }
 };
 
@@ -392,19 +432,19 @@ KorAP.API.getMatchInfo = function(match, callObj) {
 /**
  * Do some things at the beginning.
  */
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
 
   // Decorate actions
-  KorAP.init();
+  var init = KorAP.init();
 
   var menu = KorAP.MatchTreeMenu.create(
     undefined,
     menuContent
   );
 
-  var vc = KorAP.VirtualCollection.render(vcExample);
-  document.getElementById('vc').appendChild(vc.element());
+  // document.getElementById('vc-choose').click();
 
+//  init.tutorial.show();
 
   // Don't hide!!!
   menu.hide = function () {};
@@ -412,4 +452,4 @@ window.onload = function () {
   menu.limit(3);
   menu.show();
   menu.focus();
-};
+});

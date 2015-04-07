@@ -36,6 +36,7 @@ var KorAP = KorAP || {};
    * Initialize user interface elements
    */
   KorAP.init = function () {
+    var obj = Object.create(KorAP.init);
 
     /**
      * Add actions to match entries
@@ -81,9 +82,43 @@ var KorAP = KorAP || {};
     };
 
     /**
-     * Init hint helper
+     * Init vc
      */
-    KorAP.Hint.create();
+    var input = document.getElementById('vc');
+    if (input) {
+      input.style.display = 'none';
+      var vcname = document.createElement('span');
+      vcname.setAttribute('id', 'vc-choose');
+      vcname.appendChild(
+	document.createTextNode(
+	  document.getElementById('vc-name').value
+	)
+      );
+      input.parentNode.insertBefore(vcname, input);
+      
+      vcname.onclick = function () {
+	var vc = KorAP.VirtualCollection.render(vcExample);
+	var view = document.getElementById('vc-view');
+	view.appendChild(vc.element());
+      };
+    };
+
+    /**
+     * Init Tutorial view
+     */
+    obj.tutorial = KorAP.Tutorial.create(
+      document.getElementById('view-tutorial')
+    );
+
+    /**
+     * Init hint helper
+     * has to be final because of
+     * reposition
+     */
+// Todo: Pass an element, so this works with
+// tutorial pages as well!
+    obj.hint = KorAP.Hint.create();
+    return obj;
   };
 
 }(this.KorAP));

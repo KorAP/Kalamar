@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Tutorial demo</title>
+    <link type="text/css" rel="stylesheet" href="../../css/build/kalamar.css" />
+    <script src="../src/session.js"></script>
+    <script src="../src/tutorial.js"></script>
+  </head>
+  <body class="embedded">
+    <div id="sidebar" tabindex="0" class="active">
+      <h2>Tutorial</h2>
+      <nav>
+	<ul>
+	  <li>About ...
+	    <ul>
+	      <li>Kalamar</li>
+	      <li>Koral</li>
+	      <li>Kustvakt</li>
+	      <li>Krill</li>
+	      <!-- <li>Karang</li> -->
+	    </ul>
+	  </li>
+	  <li>Query Languages
+	    <ul>
+	      <li>Cosmas II</li>
+	      <li>Poliqarp</li>
+	      <li>Annis QL</li>
+	      <li>CQL</li>
+	      <li>RegExp</li>
+	    </ul>
+	  </li>
+	  <li>Data
+	    <ul>
+	      <li>Corpora
+		<ul>
+		  <li>DeReKo</li>
+		</ul>
+	      </li>
+	      <li>Annotations
+		<ul>
+		  <li>Connexor</li>
+		  <li>Mate</li>
+		  <li>TreeTagger</li>
+		</ul>
+	      </li>
+	    </ul>
+	  </li>
+	  <li>API
+	    <ul>
+	      <li>KoralQuery</li>
+	      <li>Search API</li>
+	      <li>Match Information API</li>
+	      <li>User API</li>
+	    </ul>
+	  </li>
+	</ul>
+      </nav>
+    </div>
+    <main class="tutorial">
+      <h2>KorAP-Tutorial</h2>
+      <section id="tut-intro">
+	<h3>Frontend Features</h3>
+	<p>This frontend ...</p>
+      </section>
+
+      <section id="tut-examples">
+	<h3>Example Queries</h3>
+	<p><strong>Poliqarp</strong>: Find all occurrences of the lemma &quot;baum&quot; as annotated by the <a href="#">default foundry</a>.</p>
+	<pre class="query tutorial" data-query="[base=Baum]" data-query-language="poliqarp"><code>[base=Baum]</code></pre>
+      </section>
+
+      <section id="tut-caveats">
+	<h3>Caveats</h3>
+	<p>Memcheck is not perfect; it occasionally produces false positives, and there are mechanisms for suppressing these (see Suppressing errors in the Valgrind User Manual). However, it is typically right 99% of the time, so you should be wary of ignoring its error messages. After all, you wouldn’t ignore warning messages produced by a compiler, right?</p>
+	<p>The suppression mechanism is also useful if Memcheck is reporting errors in library code that you cannot change. The default suppression set hides a lot of these, but you may come across more. Memcheck cannot detect every memory error your program has. For example, it can’t detect out-of-range reads or writes to arrays that are allocated statically or on the stack. But it should detect many errors that could crash your program (eg. cause a segmentation fault).</p>
+	<p>Try to make your program so clean that Memcheck reports no errors. Once you achieve this state, it is much easier to see when changes to the program cause Memcheck to report new errors. Experience from several years of Memcheck use shows that it is possible to make even huge programs run Memcheck-clean. For example, large parts of KDE, OpenOffice.org and Firefox are Memcheck-clean, or very close to it.</p>
+      </section>
+      <section id="tut-more-information">
+	<h3>More information</h3>
+	<p>Please consult the Valgrind FAQ and the Valgrind User Manual, which have much more information. Note that the other tools in the Valgrind distribution can be invoked with the <code>--tool</code> option.</p>
+      </section>
+      <section id="tut-overview">
+	<h3>An Overview of Valgrind</h3>
+	  <p>Valgrind is an instrumentation framework for building dynamic analysis tools. It comes with a set of tools each of which performs some kind of debugging, profiling, or similar task that helps you improve your programs. Valgrind’s architecture is modular, so new tools can be created easily and without disturbing the existing structure.</p>
+	  <p>A number of useful tools are supplied as standard.</p>
+	  <ol>
+	    <li><strong>Memcheck</strong> is a memory error detector. It helps you make your programs, particularly those written in C and C++, more correct.</li>
+	    <li><strong>Cachegrind</strong> is a cache and branch-prediction profiler. It helps you make your programs run faster.</li>
+	    <li><strong>Callgrind</strong> is a call-graph generating cache profiler. It has some overlap with Cachegrind, but also gathers some information that Cachegrind does not.</li>
+	    <li><strong>Helgrind</strong> is a thread error detector. It helps you make your multi-threaded programs more correct.</li>
+	    <li><strong>DRD</strong> is also a thread error detector. It is similar to Helgrind but uses different analysis techniques and so may find different problems.</li>
+	    <li><strong>Massif</strong> is a heap profiler. It helps you make your programs use less memory.</li>
+	    <li><strong>DHAT</strong> is a different kind of heap profiler. It helps you understand issues of block lifetimes, block utilisation, and layout inefficiencies.</li>
+	    <li><strong>SGcheck</strong> is an experimental tool that can detect overruns of stack and global arrays. Its functionality is complementary to that of Memcheck: SGcheck finds problems that Memcheck can’t, and vice versa.</li>
+	    <li><strong>BBV</strong> is an experimental SimPoint basic block vector generator. It is useful to people doing computer architecture research and development.</li>
+	  </ol>
+	  <p>There are also a couple of minor tools that aren’t useful to most users: Lackey is an example tool that illustrates some instrumentation basics; and Nulgrind is the minimal Valgrind tool that does no analysis or instrumentation, and is only useful for testing purposes. Valgrind is closely tied to details of the CPU and operating system, and to a lesser extent, the compiler and basic C libraries. Nonetheless, it supports a number of widely-used platforms, listed in full at <a href="http://www.valgrind.org/">valgrind.org</a>.</p>
+	  <p>Valgrind is built via the standard Unix ./configure, make, make install process; full details are given in the README file in the distribution.</p>
+      </section>
+    </main>
+  </body>
+</html>

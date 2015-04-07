@@ -26,7 +26,11 @@ module.exports = function(grunt) {
 	  'js/src/menu.js',
 	  'js/src/match.js',
 	  'js/src/hint.js',
-	  'js/src/vc.js'
+	  'js/src/vc.js',
+	  'js/src/api.js',
+	  'js/src/session.js',
+	  'js/src/tutorial.js',
+	  'js/src/util.js'
 	],
 	dest: 'js/build/kalamar.js'
       }
@@ -84,7 +88,7 @@ module.exports = function(grunt) {
       },
 */
       css: {
-	files: ['scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,kalamar}.scss'],
+	files: ['scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,media,kalamar,tutorial,query,sidebar}.scss'],
 	tasks: ['sass'],
 	options: {
 	  spawn: false

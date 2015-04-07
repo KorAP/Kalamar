@@ -4,13 +4,19 @@
     <title>CSS demo</title>
     <meta charset="utf-8" />
     <script src="../lib/dagre/dagre.min.js"></script>
-    <script src="../src/util.js"></script>
+    <script src="../src/api.js"></script>
     <script src="../src/hint.js"></script>
     <script src="../src/match.js"></script>
     <script src="../src/menu.js"></script>
     <script src="../src/vc.js"></script>
+    <script src="../src/session.js"></script>
+    <script src="../src/tutorial.js"></script>
+    <script src="../src/util.js"></script>
     <script src="./all.js"></script>
     <link type="text/css" rel="stylesheet" href="../../css/build/kalamar.css" />
+    <script>
+      KorAP.URL = 'http://localhost:3000';
+    </script>
   </head>
   <body>
     <div id="kalamar-bg"></div>
@@ -28,8 +34,9 @@
 	  <i class="fa fa-arrow-circle-down show-hint" onclick="hint.popUp()"></i>
 -->
 	</div>
-	<div id="vc"></div>
-	in Wikipedia
+	<div id="vc-view"></div>
+	in <input type="hidden" id="vc-name" name="vc-name" value="Wikipedia" />
+	<input type="text" name="vc" id="vc" value="corpusID = Wikipedia" />
 	with <span class="select">
 <!-- Change this to js-menu -->
 	  <select name="ql" id="ql-field">
@@ -48,11 +55,16 @@
 	  <label for="q-cutoff-field"><span></span>Glimpse</label>
 
 	  <!-- Todo: open tutorial - like openTutorial() -->
-	  <a href="/about" title="Tutorial" class="tutorial"><span>Tutorial</span></a>
-
+	  <a href="about.html" title="Tutorial" class="tutorial" id="view-tutorial"><span>Tutorial</span></a>
 	</div>
       </form>
     </header>
+
+    <div id="sidebar" tabindex="0">
+      <h2>Tutorial</h2>
+      <p>Hui</p>
+    </div>
+
     <main>
       <div class="resultinfo">
 	<div id="pagination">
@@ -73,10 +85,10 @@
 	      data-doc-id="WWW"
 	      data-text-id="03313"
 	      data-match-id="p102-103"
-	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"
+	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
 	      id="WPD-WWW.03313-p102-103">
 	    <div>
-	      <div class="snippet startMore endMore"><span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><span class="match">test</span><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
+	      <div class="snippet startMore endMore"><span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><mark><mark class="class-2 level-1">Dies </mark><mark class="class-1 level-0"><mark class="class-2 level-1"><mark class="class-3 level-2">ist</mark> ein</mark> Test</mark></mark><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
 	      <!-- only inject via javascript! -->
 	    </div>
 	    <p class="ref"><strong>Wertparameter</strong> by Hubi,Zwobot,4; published on 2005-03-28 as WWW.03313 (WPD)</p>
@@ -93,7 +105,7 @@
 	      data-doc-id="FFF"
 	      data-text-id="01460"
 	      data-match-id="p119-120"
-	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"
+	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
 	      id="WPD-FFF.01460-p119-120">
 	    <div>
 	      <div class="snippet startMore endMore"><span class="context-left">Der Fehler unterläuft häufig bei der direkten Übersetzung aus dem Englischen, wenn im originalen Ausdruck die beiden Wortteile verschiedene Wörter sind und sich das Adjektiv wahlweise auf das erste oder zweite Wort bezieht. Ein Beispiel ist multiples Testproblem für multiple </span><span class="match">test</span><span class="context-right"> problem.</span></div>
@@ -111,7 +123,7 @@
 	      data-doc-id="HHH"
 	      data-text-id="06056"
 	      data-match-id="p2564-2565"
-	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"
+	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
 	      id="WPD-HHH.06056-p2564-2565">
 	    <div>
 	      <div class="snippet startMore endMore"><span class="context-left">HDTV Samples from European (and other) broadcasters and </span><span class="match">test</span><span class="context-right"> transmissions in Europe</span></div>

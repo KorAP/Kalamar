@@ -140,6 +140,15 @@ function matchElementFactory () {
 };
 
 
+// Override getMatchInfo API call
+KorAP.API.getMatchInfo = function (x, param, cb) {
+  if (param['spans'] === undefined || param['spans'] === false)
+    cb({ "snippet": snippet });
+  else
+    cb({ "snippet": treeSnippet });
+};
+
+
 describe('KorAP.InfoLayer', function () {
 
   it('should be initializable', function () {
@@ -279,33 +288,52 @@ describe('KorAP.Match', function () {
 
 
 describe('KorAP.MatchInfo', function () {
-  it('should parse into a table', function () {
 
-    var m = KorAP.Match.create(match);
-    var info = m.info();
+  var m = KorAP.Match.create(match);
+  var info = m.info();
+
+  it('should contain a valid info', function () {
     expect(m._info).toEqual(info);
+  });
 
-    expect(info.getTable('base/s')).not.toBeTruthy();
+  var table1, table2;
 
-    // Override getMatchInfo API call
-    KorAP.API.getMatchInfo = function () {
-      return { "snippet": snippet };
-    };
+  // Async preparation
+  it('should fail to load a table async', function (done) {
+    expect(info).toBeTruthy();
 
-    var table = info.getTable();
-    expect(table).toBeTruthy();
+    info.getTable([], function (tablen) {
+      table1 = tablen;
+      done();
+    });
+  });
 
-    expect(table.length()).toBe(3);
+  it('should\'nt be parsable (async)', function () {
+    expect(table1).not.toBeTruthy();
+  });
 
-    expect(table.getToken(0)).toBe("meist");
-    expect(table.getToken(1)).toBe("deutlich");
-    expect(table.getToken(2)).toBe("leistungsfähiger");
+  it('should load a working table async', function(done) {
+    expect(info).toBeTruthy();
+    info.getTable(undefined, function (tablem) {
+      table2 = tablem;
+      done();
+    });
+  });
+  
+  it('should parse into a table (async)', function () {
+    expect(table2).toBeTruthy();
 
-    expect(table.getValue(0, "cnx", "p")[0]).toBe("ADV");
-    expect(table.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
+    expect(table2.length()).toBe(3);
 
-    expect(table.getValue(2, "cnx", "l")[0]).toBe("fähig");
-    expect(table.getValue(2, "cnx", "l")[1]).toBe("leistung");
+    expect(table2.getToken(0)).toBe("meist");
+    expect(table2.getToken(1)).toBe("deutlich");
+    expect(table2.getToken(2)).toBe("leistungsfähiger");
+
+    expect(table2.getValue(0, "cnx", "p")[0]).toBe("ADV");
+    expect(table2.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
+
+    expect(table2.getValue(2, "cnx", "l")[0]).toBe("fähig");
+    expect(table2.getValue(2, "cnx", "l")[1]).toBe("leistung");
   });
 
 
@@ -352,26 +380,28 @@ describe('KorAP.MatchInfo', function () {
     expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
   });
 
-
-  it('should parse into a tree', function () {
+  var tree;
+  it('should parse into a tree (async) 1', function (done) {
     var info = KorAP.Match.create(match).info();
+    expect(info).toBeTruthy();
+    info.getTree(undefined, undefined, function (treem) {
+      tree = treem;
+      done();
+    });
+  });
 
-    // Override getMatchInfo API call
-    KorAP.API.getMatchInfo = function () {
-      return { "snippet": treeSnippet };
-    };
-
-    var tree = info.getTree();
+  it('should parse into a tree (async) 2', function () {
     expect(tree).toBeTruthy();
     expect(tree.nodes()).toEqual(49);
   });
 
 
+  var info, matchElement;
   it('should parse into a tree view', function () {
-    var matchElement = matchElementFactory();
+    matchElement = matchElementFactory();
     expect(matchElement.tagName).toEqual('LI');
 
-    var info = KorAP.Match.create(matchElement).info();
+    info = KorAP.Match.create(matchElement).info();
     info.toggle();
 
     // Match
@@ -392,14 +422,16 @@ describe('KorAP.MatchInfo', function () {
     expect(infotable.classList.contains('matchinfo')).toBeTruthy();
     expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
     expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+  });
 
-    // Override getMatchInfo API call
-    KorAP.API.getMatchInfo = function () {
-      return { "snippet": treeSnippet };
-    };
+  it('should add a tree view async 1', function (done) {
+    expect(info).toBeTruthy();
+    info.addTree('mate', 'beebop', function () {
+      done();
+    });
+  });
 
-    info.addTree('mate', 'beebop');
-
+  it('should add a tree view async 2', function () {
     // With added tree
     var infotable = matchElement.children[0].children[1];
     expect(infotable.tagName).toEqual('DIV');
@@ -417,21 +449,23 @@ describe('KorAP.MatchInfo', function () {
     expect(tree.children[0].children[1].firstChild.nodeValue).toEqual('beebop');
 
     expect(tree.children[1].tagName).toEqual('DIV');
-    
   });
 });
 
 
 describe('KorAP.MatchTable', function () {
-  it('should be rendered', function () {
+
+  var table;
+  it('should be retrieved async', function (done) {
     var info = KorAP.Match.create(match).info();
+    expect(info).toBeTruthy();
+    info.getTable(undefined, function (x) {
+      table = x;
+      done();
+    });
+  });
 
-    // Override getMatchInfo API call
-    KorAP.API.getMatchInfo = function() {
-      return { "snippet": snippet };
-    };
-
-    var table = info.getTable();
+  it('should be rendered async', function () {
     var e = table.element();
 
     expect(e.nodeName).toBe('TABLE');
@@ -472,16 +506,18 @@ describe('KorAP.MatchTable', function () {
 });
 
 describe('KorAP.MatchTree', function () {
-  it('should be rendered', function () {
+  var tree;
+
+  it('should be rendered async 1', function (done) {
     var info = KorAP.Match.create(match).info();
+    expect(info).toBeTruthy();
+    info.getTree(undefined, undefined, function (y) {
+      tree = y;
+      done();
+    });
+  });
 
-    // Override getMatchInfo API call
-    KorAP.API.getMatchInfo = function() {
-      return { "snippet": treeSnippet };
-    };
-
-    var tree = info.getTree();
-
+  it('should be rendered async 2', function () {
     var e = tree.element();
     expect(e.nodeName).toEqual('svg');
     expect(e.getElementsByTagName('g').length).toEqual(48);

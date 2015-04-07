@@ -389,7 +389,7 @@ describe('KorAP.HintMenu', function () {
 
   it('should be initializable', function () {
 
-    var menu = KorAP.HintMenu.create("cnx/", list);
+    var menu = KorAP.HintMenu.create(null, "cnx/", list);
     expect(menu.context()).toEqual('cnx/');
     expect(menu.element().nodeName).toEqual('UL');
     expect(menu.element().style.opacity).toEqual("0");

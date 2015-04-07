@@ -2,11 +2,11 @@
 @import "util";
 
 $left-padding: 28pt; // 2.8em;
-$border-size: 4px;
+$border-size: 2px;
 
 .vc {
   background-color: $light-green;
-
+  margin-top: 10px;
   .docGroup {
     position: relative;
     display: inline-block;
@@ -15,7 +15,7 @@ $border-size: 4px;
     margin-left: $left-padding; // 2.8em
 
     // .6em .5em
-    border-width: 0 $border-size;
+    border-width: 0 (2 * $border-size);
 
     padding: {
       top: 10pt;
@@ -23,10 +23,7 @@ $border-size: 4px;
       left: 0pt;
       right: 6pt;
     }
-/*
 
-    background-color: yellow;
-*/
     border: {
       radius: $standard-border-radius * 2;
       style: solid;

@@ -85,13 +85,13 @@
  */
 h1 {
   position: absolute;
-  margin-left:15px;
   margin: 0;
+  margin-left:15px;
   left: 0;
   top: 0;
   width: 7.8em;
   height: 2.4em;
-  z-index: 999;
+  z-index: 7200;
   background: {
     size: 72%;
     image: url('#{$img-path}/korap-logo-kalamar.svg');

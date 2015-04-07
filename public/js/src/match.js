@@ -35,8 +35,10 @@ var KorAP = KorAP || {};
   KorAP.API = KorAP.API || {};
 
   // TODO: Make this async
-  KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () { return {} };
-
+  KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
+    KorAP.log(0, 'KorAP.API.getMatchInfo() not implemented')
+    return {};
+  };
 
   /**
    * Match object
@@ -302,7 +304,7 @@ var KorAP = KorAP || {};
     /**
      * Retrieve and parse snippet for table representation
      */
-    getTable : function (tokens) {
+    getTable : function (tokens, cb) {
       var focus = [];
 
       // Get all tokens
@@ -330,51 +332,56 @@ var KorAP = KorAP || {};
 
       // No tokens chosen
       if (focus.length == 0)
-	return;
+	cb(null);
 
       // Get info (may be cached)
       // TODO: Async
-      var matchResponse = KorAP.API.getMatchInfo(
+      KorAP.API.getMatchInfo(
 	this._match,
-	{ 'spans' : false, 'layer' : focus }
+	{ 'spans' : false, 'layer' : focus },
+
+	// Callback for retrieval
+	function (matchResponse) {
+	  // Get snippet from match info
+	  if (matchResponse["snippet"] !== undefined) {
+	    this._table = KorAP.MatchTable.create(matchResponse["snippet"]);
+	    cb(this._table);
+	  };
+	}.bind(this)
       );
 
-      // Get snippet from match info
-      if (matchResponse["snippet"] !== undefined) {
-	this._table = KorAP.MatchTable.create(matchResponse["snippet"]);
-	return this._table;
-      };
-
+/*
       // Todo: Store the table as a hash of the focus
-
       return null;
+*/
     },
 
 
     /**
      * Retrieve and parse snippet for tree representation
      */
-    getTree : function (foundry, layer) {
+    getTree : function (foundry, layer, cb) {
       var focus = [];
 
-      // TODO: Async
-      var matchResponse = KorAP.API.getMatchInfo(
+      // TODO: Support and cache multiple trees
+
+      KorAP.API.getMatchInfo(
 	this._match, {
 	  'spans' : true,
 	  'foundry' : foundry,
 	  'layer' : layer
-	}
+	},
+	function (matchResponse) {
+	  // Get snippet from match info
+	  if (matchResponse["snippet"] !== undefined) {
+	    // Todo: This should be cached somehow
+	    cb(KorAP.MatchTree.create(matchResponse["snippet"]));
+	  }
+	  else {
+	    cb(null);
+	  };
+	}.bind(this)
       );
-
-      // TODO: Support and cache multiple trees
-
-      // Get snippet from match info
-      if (matchResponse["snippet"] !== undefined) {
-	// Todo: This should be cached somehow
-	return KorAP.MatchTree.create(matchResponse["snippet"]);
-      };
-
-      return null;
     },
 
     /**
@@ -397,13 +404,7 @@ var KorAP = KorAP || {};
     /**
      * Add a new tree view to the list
      */
-    addTree : function (foundry, layer) {
-      var treeObj = this.getTree(foundry, layer);
-
-      // Something went wrong - probably log!!!
-      if (treeObj === null)
-	return;
-
+    addTree : function (foundry, layer, cb) {
       var matchtree = document.createElement('div');
       matchtree.classList.add('matchtree');
 
@@ -416,7 +417,7 @@ var KorAP = KorAP || {};
       var tree = matchtree.appendChild(
 	document.createElement('div')
       );
-      tree.appendChild(treeObj.element());
+
       this._element.insertBefore(matchtree, this._element.lastChild);
 
       var close = tree.appendChild(document.createElement('em'));
@@ -427,11 +428,24 @@ var KorAP = KorAP || {};
 	}
       );
 
-      // Reposition the view to the center
-      // (This may in a future release be a reposition
-      // to move the root into the center or the actual
-      // match)
-      treeObj.center();
+      // Get tree data async
+      this.getTree(foundry, layer, function (treeObj) {
+	// Something went wrong - probably log!!!
+	if (treeObj === null) {
+	  tree.appendChild(document.createTextNode('No data available.'));
+	}
+	else {
+	  tree.appendChild(treeObj.element());
+	  // Reposition the view to the center
+	  // (This may in a future release be a reposition
+	  // to move the root into the center or the actual
+	  // match)
+	  treeObj.center();
+	}
+
+	if (cb !== undefined)
+	  cb(treeObj);
+      });
     },
 
     /**
@@ -449,8 +463,14 @@ var KorAP = KorAP || {};
       // Append default table
       var matchtable = document.createElement('div');
       matchtable.classList.add('matchtable');
-      matchtable.appendChild(this.getTable().element());
       info.appendChild(matchtable);
+
+      // Create the table asynchronous
+      this.getTable(undefined, function (table) {
+	if (table !== null) {
+	  matchtable.appendChild(table.element());
+	};
+      });
 
       // Get spans
       var spanLayers = this._match.getSpans().sort(
@@ -917,23 +937,33 @@ var KorAP = KorAP || {};
 	  var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
 	  rect.setAttributeNS(null, 'x', v.x - v.width / 2);
 	  rect.setAttributeNS(null, 'y', v.y - v.height / 2);
-	  rect.setAttributeNS(null, 'width', v.width);
-	  rect.setAttributeNS(null, 'height', v.height);
 	  rect.setAttributeNS(null, 'rx', 5);
 	  rect.setAttributeNS(null, 'ry', 5);
+	  rect.setAttributeNS(null, 'width', v.width);
+	  rect.setAttributeNS(null, 'height', v.height);
+
+	  if (v.class === 'root' && v.label === undefined) {
+	    rect.setAttributeNS(null, 'width', v.height);
+	    rect.setAttributeNS(null, 'x', v.x - v.height / 2);
+	    rect.setAttributeNS(null, 'class', 'empty');
+	  };
 
 	  // Add label
-	  var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
-	  text.setAttributeNS(null, 'x', v.x - v.width / 2);
-	  text.setAttributeNS(null, 'y', v.y - v.height / 2);
-	  text.setAttributeNS(
-	    null,
-	    'transform',
-	    'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
-	  );
-	  var tspan = document.createElementNS(svgXmlns, 'tspan');
-	  tspan.appendChild(document.createTextNode(v.label));
-	  text.appendChild(tspan);
+	  if (v.label !== undefined) {
+	    var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
+	    text.setAttributeNS(null, 'x', v.x - v.width / 2);
+	    text.setAttributeNS(null, 'y', v.y - v.height / 2);
+	    text.setAttributeNS(
+	      null,
+	      'transform',
+	      'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
+	    );
+
+	    var tspan = document.createElementNS(svgXmlns, 'tspan');
+	    tspan.appendChild(document.createTextNode(v.label));
+	    text.appendChild(tspan);
+	  };
+
 	  canvas.appendChild(group);
 	}
       );

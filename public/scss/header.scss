@@ -4,6 +4,7 @@
 header {
   position: relative;
   background-color: $light-green;
+//  background-color: $ids-grey-1;
   @include box-sizing-box();
   padding: 8px;
   padding-bottom: 0;
@@ -19,9 +20,8 @@ header {
     padding: 0;
     outline: none;
   }
-  span.select, span.location {
+  span.select, #vc-choose { /* Formally vc.location */
     cursor: pointer;
-    font-weight: bold;
     line-height: 1.8em;
     border: {
       width: 0;
@@ -35,16 +35,20 @@ header {
       border-color: $dark-green;
     }
     &::after {
-      content: "\f0dd";
       pointer-events: none;
       font-family: FontAwesome;
       text-align: center;
       background-color: $light-green;
     }
   }
+  span.select::after {
+    content: "\f0dd";
+  }
+
   form {
+    padding-left: $logo-left-distance;
+    min-height: 2.7em;
     display: block;
-    padding-left: 230px;
     margin: 0px;
     position: relative;
   }

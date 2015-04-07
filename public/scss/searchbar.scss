@@ -8,24 +8,21 @@ $right-distance: 30px;
  * Input field
  */
 #q-field {
-  @include box-sizing-box();
-  outline: none;
-  font-size: 11pt;
-  border: $border-size solid $nearly-white;
-  padding: 2px;
   width: 100%;
   margin: 0;
   margin-bottom: 3px;
   display: block;
 }
 
-header > form {
-  min-height: 2.7em;
+header input {
+  outline: none;
+  font-size: 11pt;
+  border: $border-size solid $nearly-white;
+  padding: 2px;
 }
 
 #searchbar {
   position: relative;
-  @include box-sizing-box();
   width: 100%;
   padding-right: 60px;
   button[type=submit] {
@@ -99,7 +96,7 @@ header > form {
       border-color: $nearly-white;
     }
 */
-      &:after {
+      &::after {
 	font-family: "FontAwesome"; 
 	content: '\f096';
       }

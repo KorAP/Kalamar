@@ -1,0 +1,24 @@
+@import "util";
+@charset "utf-8";
+
+
+pre.query {
+  overflow-x: hidden; 
+  cursor: pointer;
+  padding: .5em;
+  @include choose-item;
+  position:relative;
+  border: {
+    width: 2px;
+    style: solid;
+    radius: $standard-border-radius;
+  }
+  box-shadow: $choose-box-shadow;
+  
+  &:hover {
+    @include choose-hover;
+  }
+  &:active {
+    @include choose-active;
+  }
+}

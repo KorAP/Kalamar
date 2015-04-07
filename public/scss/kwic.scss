@@ -106,56 +106,12 @@ $border-size: 2px;
     > li {
       ul.action {
 	display: none;
-	> li {
-	  cursor: pointer;
-	  color: white;
-	  text-decoration: none;
-	}
       }
 
-      
       /* active actions */
       &.active, &:target {
 	ul.action {
-	  background-color: $dark-orange;
-	  font-size: 12pt;
-	  color: white;
-	  text: {
-	    shadow: none;
-	    indent: 0;
-	  }
-	  margin: 0;
-	  padding: 0;
-	  z-index: 5;
-
 	  display: block;
-	  list-style: {
-            type: none;
-            position: inline;
-	  }
-	  &.right {
-            position: absolute;
-	    width: $right-match-distance;
-            float: right;
-            text-align: center;
-            padding: 0pt 3pt;
-            height: 100%;
-            right: 0;
-            top: 0;
-	    li {
-	      > span {
-		@include blind;
-	      }
-	      &.close::after {
-		font-family: "FontAwesome";
-		content: "\f00d";
-	      }
-	      &.info::after {
-		font-family: "FontAwesome";
-		content: "\f05a";
-	      }
-	    }
-	  }
 	}
       }
       &:not(.active):not(:target) p.ref {
@@ -171,6 +127,51 @@ $border-size: 2px;
 	width: 100%;
 	bottom: 0;
 	z-index: 30;
+      }
+    }
+  }
+}
+
+ul.action {
+  background-color: $dark-orange;
+  font-size: 12pt;
+  color: white;
+  text: {
+    shadow: none;
+    indent: 0;
+  }
+  margin: 0;
+  padding: 0;
+  z-index: 5;
+  
+  list-style: {
+    type: none;
+    position: inline;
+  }
+  &.right {
+    position: absolute;
+    width: $right-match-distance;
+    float: right;
+    text-align: center;
+    padding: 0pt 3pt;
+    height: 100%;
+    right: 0;
+    top: 0;
+    li {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+
+      > span {
+	@include blind;
+      }
+      &.close::after {
+	font-family: "FontAwesome";
+	content: "\f00d";
+      }
+      &.info::after {
+	font-family: "FontAwesome";
+	content: "\f05a";
       }
     }
   }
@@ -217,6 +218,11 @@ ol.align-right {
 /**
  * Highlights
  */
+mark {
+  background-color: inherit;
+  color: inherit;
+}
+
 mark > mark,
 em,
 .level-0 {

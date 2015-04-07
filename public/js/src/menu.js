@@ -154,6 +154,7 @@ var KorAP = KorAP || {};
       e.style.outline = 0;
       e.setAttribute('tabindex', 0);
       e.classList.add('menu');
+      e.classList.add('roll');
       e.appendChild(this._prefix.element());
 
       // This has to be cleaned up later on

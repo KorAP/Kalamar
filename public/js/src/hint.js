@@ -52,7 +52,7 @@ var KorAP = KorAP || {};
 
       // Update position of the mirror
       var that = this;
-      window.resize = function () {
+      window.onresize = function () {
 	that.reposition();
       };
 
@@ -310,6 +310,7 @@ var KorAP = KorAP || {};
       var inputFieldElement = this._inputField.element();
 
       var that = this;
+
 
       // Add event listener for key pressed down
       inputFieldElement.addEventListener(
