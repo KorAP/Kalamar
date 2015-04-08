@@ -1,0 +1,278 @@
+@charset "utf-8";
+@import "util";
+
+$border-size: 2px;
+
+#search {
+  position: relative;
+  margin-bottom: 44px;
+  overflow: visible;
+
+  &.match {
+    margin-top: 14pt;
+  }
+
+  ol {
+    width: auto;
+    overflow-x: hidden;
+    overflow-y: visible;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    border: 1px solid $kwic-border;
+    font-size: 10pt;
+    > li {
+      border: {
+	style: solid;
+	color: $dark-orange;
+	width: 0;
+      }
+      &:not(.active):not(:target) {
+	width: 99999%;
+	margin-left: -49999.5%;
+	background-color: $kwic-line-noneven;
+	overflow-x: hidden;
+	overflow-y: visible;
+	white-space: no-wrap;
+	cursor: pointer;
+	padding: 5pt 0 6pt 0;
+	&:nth-of-type(even) {
+          background-color: $kwic-line-even;
+	}
+	.matchinfo {
+	  display: none;
+	}
+	> div > div.snippet {
+	  text-overflow: ellipsis;
+	  text-indent: 0;
+	  text-shadow: $light-shadow;
+	}
+      }
+      > div {
+	> div.snippet {
+          > span,
+          > mark {
+            white-space: no-wrap !important;
+            > span {
+              white-space: no-wrap !important;
+            }
+            color: #666;
+          }
+          > mark,
+	  > span.match {
+            font-weight: bold;
+            /* text-shadow: $kwic-match-shadow; */
+            color: $kwic-match-color;
+            padding-left: 4pt;
+            padding-right: 2pt;
+          }
+	}
+      }
+    }
+
+    /* active view */
+    > li.active,
+    > li:target {
+      text-align: left;
+      width: auto;
+      cursor: normal;
+      white-space: wrap;
+      height: auto;
+      border-width: 2px;
+      background-color: $light-orange;
+      position: relative;
+      > div {
+	min-height: 42pt;
+	> div.snippet {
+	  margin: 5pt 10pt;
+	  margin-right: 3em;
+	  > span {
+            line-height: 1.4em;
+            width: auto;
+            &.context-left {
+              margin-left: 0;
+              display: inline;
+              overflow: visible;
+              text-align: left;
+              width: auto;
+            }
+	  }
+	}
+      }
+    }
+
+    /* Actions */
+    > li {
+      ul.action {
+	display: none;
+      }
+
+      /* active actions */
+      &.active, &:target {
+	ul.action {
+	  display: block;
+	}
+      }
+      &:not(.active):not(:target) p.ref {
+	display: none;
+      }
+      &.active p.ref,
+      &:target p.ref {
+	background-color: $dark-orange;
+	color: white;
+	padding: 3pt 10pt;
+	padding-right: $right-match-distance;
+	margin: 0pt;
+	width: 100%;
+	bottom: 0;
+	z-index: 30;
+      }
+    }
+  }
+}
+
+ul.action {
+  background-color: $dark-orange;
+  font-size: 12pt;
+  color: white;
+  text: {
+    shadow: none;
+    indent: 0;
+  }
+  margin: 0;
+  padding: 0;
+  z-index: 5;
+  
+  list-style: {
+    type: none;
+    position: inline;
+  }
+  &.right {
+    position: absolute;
+    width: $right-match-distance;
+    float: right;
+    text-align: center;
+    padding: 0pt 3pt;
+    height: 100%;
+    right: 0;
+    top: 0;
+    li {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+
+      > span {
+	@include blind;
+      }
+      &.close::after {
+	font-family: "FontAwesome";
+	content: "\f00d";
+      }
+      &.info::after {
+	font-family: "FontAwesome";
+	content: "\f05a";
+      }
+    }
+  }
+}
+
+/*
+ol.align-free > li:not(.active):not(:target) > div > div.snippet > span.left {
+  display: inline-block;
+  text-align: right;
+  width: 50.046%;
+}
+
+ol.align-free > li:not(.active):not(:target) > div > div.snippet > span.separator {
+  width: 0px;
+  height: 1em;
+  margin-bottom: -2px;
+  display: inline-block;
+  line-height: 100%;
+  border: 1px solid #009EE0;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+ol.align-free > li > div > div.snippet > span.right {
+  text-align: left;
+}
+*/
+
+ol.align-left > li > div > div.snippet > span.context-left {
+  display: inline-block;
+  text-align: right;
+  width: 50.01%;
+}
+
+ol.align-right {
+  text-align: right;
+  > li:not(.active):not(:target) > div > div.snippet > span.context-right {
+    display: inline-block;
+    text-align: left;
+    width: 49.915%;
+  }
+}
+
+/**
+ * Highlights
+ */
+mark {
+  background-color: inherit;
+  color: inherit;
+}
+
+mark > mark,
+em,
+.level-0 {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  padding-bottom: 0px;
+  font-style: normal;
+}
+
+mark > mark > mark,
+em > em,
+.level-1 {
+  padding-bottom: 3px;
+}
+
+mark > mark > mark > mark,
+em > em > em,
+.level-2 {
+  padding-bottom: 6px;
+}
+
+li {
+  &:not(.active) mark > mark > mark > mark,
+  &:not(.active) em > em > em {
+    line-height: 180%;
+  }
+  &.active mark > mark > mark > mark,
+  &.active em > em > em {
+    line-height: 250%;
+  }
+}
+
+.class-1 { border-color: $kwic-highlight-1; }
+.class-2 { border-color: $kwic-highlight-2; }
+.class-3 { border-color: $kwic-highlight-3; }
+.class-4 { border-color: $kwic-highlight-4; }
+
+/*
+span.more:before {
+  content: "…";
+  padding-left: 2pt;
+  padding-right: 2pt;
+}
+*/
+
+div.snippet.startMore:before,
+div.snippet.endMore:after {
+  content: "…";
+  padding-left: 2pt;
+  padding-right: 2pt;
+}
+
+

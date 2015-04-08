@@ -1,0 +1,89 @@
+@charset "utf-8";
+@import "util";
+
+header {
+  position: relative;
+  background-color: $light-green;
+//  background-color: $ids-grey-1;
+  @include box-sizing-box();
+  padding: 8px;
+  padding-bottom: 0;
+  font-size: 10pt;
+  color: $nearly-white;
+  // text-shadow: none;
+  button {
+    color: $light-green;
+    background-color: transparent;
+    border-width: 0;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    outline: none;
+  }
+  span.select, #vc-choose { /* Formally vc.location */
+    cursor: pointer;
+    line-height: 1.8em;
+    border: {
+      width: 0;
+      bottom-width: 3px;
+      style: solid;
+      color: transparent;
+    }
+    display: inline-block;
+    &:hover {
+      color: $dark-green;
+      border-color: $dark-green;
+    }
+    &::after {
+      pointer-events: none;
+      font-family: FontAwesome;
+      text-align: center;
+      background-color: $light-green;
+    }
+  }
+  span.select::after {
+    content: "\f0dd";
+  }
+
+  form {
+    padding-left: $logo-left-distance;
+    min-height: 2.7em;
+    display: block;
+    margin: 0px;
+    position: relative;
+  }
+}
+
+
+/**
+ * Temporary hack for language chooser
+ * http://cssdeck.com/labs/styling-select-box-with-css3
+ */
+#ql-field {
+  cursor: pointer;
+  margin: 0;
+  outline: none;
+  border: none;
+  display: inline-block;
+  position: relative;
+  color: white;
+  background-color: $light-green;
+  border-width: 0;
+  border-radius: 0;
+  @include no-appearance;
+  &:checked {
+    outline: none;
+  }
+  > option {
+    padding: 0pt 2pt;
+    outline: none;
+  }
+}
+
+/**
+ * funny hack for firefox
+ */
+#ql-field:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}

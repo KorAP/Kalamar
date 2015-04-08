@@ -1,0 +1,114 @@
+@charset "utf-8";
+@import "util";
+
+$border-size : 2px;
+
+/**
+ * The pagination view
+ */
+/*
+<div id="pagination">
+  <a rel="prev"><span><i class="fa fa-caret-left"></i></span></a>
+  <a rel="self"><span>1</span></a>
+  <a href="#p=2"><span>2</span></a>
+  <a href="#3"><span>3</span></a>
+  <span><i class="fa fa-ellipsis-h"></i></span>
+  <a href="#67"><span>67</span></a>
+  <a rel="next" href="#2"><span><i class="fa fa-caret-right"></i></span></a>
+</div>
+*/
+#pagination {
+  /**
+   * Always in fixed position.
+   * This may need to be overwritten in case multiple
+   * paginations have to be activated.
+   */
+  font-size: 0;
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  z-index: 400;
+  padding: 0;
+  height: auto;
+  line-height: 0;
+
+  > a {
+    margin: 0;
+    font-size: 10pt;
+    padding: 0;
+
+    > span {
+      box-shadow: $choose-box-shadow;
+      @include standard-text-padding;
+      @include choose-item;
+      display: inline-block;
+      line-height: 2em;
+      text-align: center;
+      border: {
+	top-width: $border-size;
+	bottom-width:  $border-size;
+	top-style: solid;
+	bottom-style: solid;
+      }
+    }
+
+    &:not(:link):not([rel=self]) span {
+      color: $choose-blind-color;
+    }
+
+    &.ellipsis > span {
+      > span {
+	@include blind;
+      }
+      &::after {
+	font-family: 'FontAwesome';
+	content: '\f141';
+      }
+    }
+
+    &[rel=self] > span {
+      @include choose-active;
+      border {
+	left-width: $border-size;
+	right-width: $border-size;
+	left-style: solid;
+	right-style: solid;
+      }
+    }
+
+    &[rel=prev] > span {
+      border: {
+	top-left-radius: $standard-border-radius;
+	bottom-left-radius: $standard-border-radius;
+	left-width: $border-size;
+	left-style: solid;
+      }
+      > span {
+	@include blind;
+      }
+      &::after {
+	font-family: 'FontAwesome';
+	content: '\f0d9';
+      }
+    }
+
+    &[rel=next] > span {
+      border: {
+	top-right-radius: $standard-border-radius;
+	bottom-right-radius: $standard-border-radius;
+	right-width: $border-size;
+	right-style: solid;
+      }
+      > span {
+	@include blind;
+      }
+      &::after {
+	font-family: 'FontAwesome';
+	content: '\f0da';
+      }
+    }
+    &:link:hover span {
+      @include choose-hover;
+    }
+  }
+}

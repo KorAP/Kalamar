@@ -1,0 +1,118 @@
+@charset "utf-8";
+@import "util";
+
+$standard-margin: 4px;
+
+@media (orientation: portrait), (max-width: 42.5em) {
+  body, #search ol, header, header input {
+    font-size: 9pt;
+  }
+  header form {
+    padding-left: 0px;
+    padding-top: 33px;
+  }
+  .vc {
+    font-size: 9pt;
+  }
+  h1 {
+    margin-left: 10px;
+    width: 130px;
+    height: 40px;
+    background-size: 100%;
+    background-position: 50% 0;
+    z-index: 300;
+  }
+
+  #searchbar {
+    padding-right: 30px;
+    input {
+      font-size: 9pt;
+    }
+    button[type=submit] {
+      right: 0;
+    }
+  }
+
+  .level-1 {
+    padding-bottom: 2px;
+  }
+
+  .level-2 {
+    padding-bottom: 4px;
+  }
+
+  main {
+    margin-left: $standard-margin;
+    margin-right: $standard-margin;
+  }
+
+  #search ol {
+    > li:target, > li.active {
+      > div > div.snippet {
+	margin: 2px 2em 2px 4px;
+      }
+    }
+    > li:not(:target):not(.active) {
+      padding: 3pt 0 3pt 0;
+    }
+  }
+
+  div.matchinfo {
+    font-size: 9pt;
+  }
+
+  div.matchtable tr > * {
+    padding: 1pt 3pt;
+  }
+
+  div.matchtree {
+    h6 {
+      display: block;
+      float: none;
+    }
+    > div {
+      margin-left: 2px;
+    }
+  }
+
+  div.resultinfo p.found,
+  #pagination > a {
+    font-size: 9pt;
+  }
+
+  #logos {
+    margin-left: 0;
+    margin-right: 0;
+
+    > div {
+      border-top-width: 14px;
+    }
+  }
+
+/*
+
+  #sidebar {
+    padding-top: 22px;
+  }
+  #tutorial {
+    border-radius: 0;
+    border-width: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    padding: 0;
+  }
+  #tutorial iframe {
+    border-radius: 0;
+  }
+  #sidebar:not(.active) > i.fa-bars {
+    font-size: 12pt;
+    width: 10pt;
+    height: 11pt;
+  }
+  pre.query {
+    font-size: 9.5pt;
+  }
+*/
+}

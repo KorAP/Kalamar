@@ -1,0 +1,150 @@
+/**
+ * Official IDS colors
+ */
+$ids-orange-1: rgb(246, 168,   0);
+$ids-orange-2: rgb(242, 148,   0);
+$ids-grey-1:   rgb(135, 136, 138);
+$ids-grey-2:   rgb(217, 218, 219);
+$ids-blue-1:   rgb(  0, 158, 224); // Pragmatik
+$ids-blue-2:   rgb(188, 228, 247); // Pragmatik
+$ids-green-1:  rgb( 99, 111,   7); // Grammatik
+$ids-green-2:  rgb(227, 232, 163); // Grammatik
+$ids-pink-1:   rgb(193,   0,  43); // Lexik
+$ids-pink-2:   rgb(250, 243, 222); // Lexik
+
+/**
+ * Orange Colors
+ */
+$light-orange:   #f4eebb; // #ffe56a;
+$middle-orange:  #ffd080;
+$dark-orange:    $ids-orange-1; // #ffa500;
+$darker-orange:  #ff8000;
+$darkest-orange: darken($dark-orange, 20%);
+// $light-orange-2: #f4eebb;, #ffd080;
+// Yellow: #fff48d
+
+/**
+ * Green Colors
+ */
+$dark-green:    $ids-green-1; // #496000;
+$middle-green:  lighten($ids-green-1, 5%); // $ids-green-1; // #688704;
+$light-green:   lighten($ids-green-1, 13%); // #7ba400;
+
+/**
+ * Blue Colors
+ */
+$light-blue:     $ids-blue-2; // #cfe6f4;
+$dark-blue:      $ids-blue-1; // #73b2f4;
+$darkest-blue:   darken($dark-blue, 40%);
+
+
+/*
+ * Grey
+ */
+$middle-grey:  $ids-grey-1; // #999;
+$light-grey:   $ids-grey-2; // #ddd;
+// $dark-grey:    darken($light-grey, 55%); // #555;
+$dark-grey:    darken($middle-grey, 15%); // #555;
+// $nearly-white: #f5f5f5;
+$nearly-white: #fff;
+
+$middle-red: #c1002b;
+$light-red: lighten($middle-red, 40%);
+$dark-red: darken($middle-red, 40%);
+
+$dark-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+$light-shadow: 1px 1px rgba(255,255,255,0.5);
+
+$total-results: $light-green;
+
+/**
+ * KWIC colors
+ */
+$kwic-border:       $middle-grey;
+$kwic-line-noneven: $light-grey;
+$kwic-line-even:    $nearly-white;
+$kwic-match-color:  $dark-grey;
+$kwic-match-shadow: $light-shadow;
+
+$kwic-highlight-1:  $middle-red;
+$kwic-highlight-2:  $dark-blue;   // #009ee0;
+$kwic-highlight-3:  $dark-orange; // #f29400;
+$kwic-highlight-4:  $light-green;
+
+$choose-bg:     $light-grey;
+$choose-border-color: $middle-grey;
+$choose-border: 2px solid $choose-border-color;
+$choose-color:  $dark-grey;
+$choose-blind-color:  $middle-grey;
+$choose-box-shadow: 2px 2px 2px  rgba(0,0,0,0.2);
+$standard-border-radius: 6px;
+$item-padding: 3pt 6pt;
+
+/**
+ * Path information
+ */
+$img-path: '../../img/build';
+$font-path: '../../font';
+
+/**
+ * Margins
+ */
+$standard-margin: 30px;
+$right-match-distance: 20px;
+$logo-left-distance: 230px;
+
+@mixin blind {
+  position: absolute;
+  margin-left: -3000px;
+}
+
+@mixin choose-item {
+  color: $choose-color;
+  background-color: $choose-bg;
+  border-color: $choose-border-color;
+  text-shadow: $light-shadow;
+}
+
+@mixin choose-hover {
+  color: $nearly-white;
+  text-shadow: none;
+  background-color: $dark-orange;
+  border-color: $darker-orange;
+}
+
+@mixin choose-active {
+  color: $dark-green;
+  text-shadow: none;
+  background-color: $light-green;
+  border-color: $dark-green;
+}
+
+@mixin choose-remove {
+  color: $nearly-white;
+  text-shadow: none;
+  background-color: $middle-red;
+  border-color: $dark-red;
+}
+
+@mixin color-transition {
+  transition: color 0.3s ease 0s;
+}
+
+@mixin standard-text-padding {
+  padding-left: .4em;
+  padding-right: .4em;
+}
+
+@mixin box-sizing-box() {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+
+// https://css-tricks.com/almanac/properties/a/appearance/
+@mixin no-appearance {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}

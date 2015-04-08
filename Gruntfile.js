@@ -1,10 +1,8 @@
-/**
- */
 /*
  * http://gruntjs.com/getting-started
  *
  * Todo: Move all source files outside the public folder!
-
+ *
  * TODO: Use https://www.npmjs.com/package/grunt-contrib-compress
  * for assets.
  * http://yui.github.io/yuidoc/
@@ -13,41 +11,39 @@
  * RequireJS
  * http://addyosmani.com/writing-modular-js/
  * http://qnundrum.com/question/393866
- *
  */
-
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       dist: {
 	src : [
-	  'js/lib/dagre/dagre.min.js',
-	  'js/src/menu.js',
-	  'js/src/match.js',
-	  'js/src/hint.js',
-	  'js/src/vc.js',
-	  'js/src/api.js',
-	  'js/src/session.js',
-	  'js/src/tutorial.js',
-	  'js/src/util.js'
+	  'dev/js/lib/dagre/dagre.min.js',
+	  'dev/js/src/menu.js',
+	  'dev/js/src/match.js',
+	  'dev/js/src/hint.js',
+	  'dev/js/src/vc.js',
+	  'dev/js/src/api.js',
+	  'dev/js/src/session.js',
+	  'dev/js/src/tutorial.js',
+	  'dev/js/src/util.js'
 	],
-	dest: 'js/build/kalamar.js'
+	dest: 'dev/js/build/kalamar.js'
       }
     },
     uglify : {
       build : {
-	src: 'js/build/kalamar.js',
-	dest: 'js/build/kalamar.min.js'
+	src: 'dev/js/build/kalamar.js',
+	dest: 'public/js/kalamar-<%= pkg.version %>.js'
       }
     },
     imagemin: {
       dynamic: {
 	files: [{
 	  expand: true,
-	  cwd: 'img/',
+	  cwd: 'dev/img/',
 	  src: ['*.{png,gif,jpg,svg}'],
-	  dest: 'img/build/'
+	  dest: 'public/img/'
 	}]
       }
     },
@@ -57,20 +53,20 @@ module.exports = function(grunt) {
           style: 'compressed'
         },
         files: {
-          'css/build/kalamar.css': 'scss/kalamar.scss'
+          'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss'
         }
       }
     },
     jasmine: {
       pivotal: {
 	src: [
-	  'js/src/menu.js',
-	  'js/src/match.js',
-	  'js/src/match.js',
-	  'js/src/vc.js'
+	  'dev/js/src/menu.js',
+	  'dev/js/src/match.js',
+	  'dev/js/src/match.js',
+	  'dev/js/src/vc.js'
 	],
 	options: {
-	  specs: 'js/spec/*Spec.js'
+	  specs: 'dev/js/spec/*Spec.js'
 	}
       }
     },
@@ -88,7 +84,7 @@ module.exports = function(grunt) {
       },
 */
       css: {
-	files: ['scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,media,kalamar,tutorial,query,sidebar}.scss'],
+	files: ['dev/scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,media,kalamar,tutorial,query,sidebar}.scss'],
 	tasks: ['sass'],
 	options: {
 	  spawn: false

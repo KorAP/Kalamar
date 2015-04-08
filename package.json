@@ -1,6 +1,6 @@
 {
-  "name": "kalamar-static",
-  "version": "0.14.0",
+  "name": "kalamar",
+  "version": "0.14.1",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "^0.5.1",

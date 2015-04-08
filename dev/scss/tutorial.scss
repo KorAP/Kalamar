@@ -1,0 +1,132 @@
+@charset "utf-8";
+@import "util";
+
+$border-size: 2px;
+
+#tutorial {
+  position: fixed;
+  z-index: 9999;
+  top:    5%;
+  bottom: 5%;
+  left:   2%;
+  right:  2%;
+  padding-right: $right-match-distance;
+/*
+  padding: 0;
+  margin: 0;
+*/
+  background-color: $nearly-white;
+  ul.action {
+    background-color: $middle-grey;
+    display: block;
+  }
+  border: {
+    width: 2 * $border-size;
+//    color: $dark-orange;
+    color: $dark-grey;
+    style: solid;
+    radius: $standard-border-radius;
+  }
+  box-shadow: $choose-box-shadow;
+  iframe {
+    border-width: 0;
+    width: 100%;
+    // Hack for a Firefox bug
+    min-height: 100.1%;
+    background: {
+      image:url('#{$img-path}/korap-bg-kalamar.svg');
+      repeat: no-repeat;
+      position: center center;
+      size: 20%;
+    }
+  }
+}
+
+body.embedded {
+  background-color: $nearly-white;
+  #sidebar {
+/*
+    border-right: {
+      width: $border-size;
+      style: solid;
+    }
+*/
+    padding-top: 0;
+    // @include choose-item;
+    background-color: $middle-grey;
+    > div {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      // margin-right: -1 * $border-size;
+    }
+  }
+}
+
+main.tutorial {
+  margin-left: $logo-left-distance + 15px;
+}
+
+/*
+#tutorial {
+  iframe {
+    width: 100%;
+    min-height: 100%;
+    border: {
+      width: 0;
+      radius: 10px;
+    }
+    background: {
+      image:url('#{$basepath}/img/korap-bg-kalamar.svg');
+      size: 10%;
+      repeat: no-repeat;
+      position: center center;
+      color: white;
+    }
+  }
+
+  display: block;
+  background-color: $dark-green;
+  border-radius: 15px;
+  &:not(.active) {
+    display: none;
+  }
+  &.active {
+    display: block;
+  }
+  > i,
+  > a > i {
+    font-size: 20pt;
+    color: $dark-green;
+    position: absolute;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 100;
+    top: 10pt;
+    right: 20pt;
+    cursor: pointer;
+  }
+  > a > i {
+    right: 40pt;
+  }
+}
+
+div.test {
+  display: block;
+  border-left: 10px solid $dark-green;
+  margin: 1em;
+  padding-left: 5px;
+  p {
+    color: black;
+    &.fail {
+      font-weight: bold;
+      color: red;
+    }
+    &.pass {
+      font-weight: bold;
+      color: green;
+    }
+  }
+}
+*/

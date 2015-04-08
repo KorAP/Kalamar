@@ -1,12 +1,17 @@
 package Kalamar;
 use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
+use Mojo::JSON 'decode_json';
 
-our $VERSION = '0.14';
+our $VERSION;
 
 # Start the application and register all routes and plugins
 sub startup {
   my $self = shift;
+
+  # Set version based on package file
+  my $pkg = b($self->home . '/package.json')->slurp;
+  $Kalamar::VERSION = decode_json($pkg)->{version};
 
   # Set default totle
   $self->defaults(
@@ -19,13 +24,14 @@ sub startup {
     b($self->home . '/kalamar.secret')->slurp->split("\n")
   ]);
 
-  $self->hook(before_dispatch => sub {
+  $self->hook(
+    before_dispatch => sub {
       my $c = shift;
       my $host = $c->req->headers->header('X-Forwarded-Host');
       if ($host && $host eq 'korap.ids-mannheim.de') {
 	$c->req->url->base->path('/kalamar/');
       };
-  }) if $self->mode eq 'production';
+    }) if $self->mode eq 'production';
 
   $self->hook(before_dispatch => sub {
       my $c = shift;
@@ -35,7 +41,6 @@ sub startup {
       $h->header( 'Access-Control-Max-Age' => 3600 );
       $h->header( 'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With' );
     });
-
 
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');

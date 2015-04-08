@@ -1,6 +1,9 @@
+% my $res = stash('search.resource');
+% if (ref($res) eq 'ARRAY') {
+
 <h2>Virtual Collections</h2>
 <ul>
-% foreach my $vc (@{stash('search.resource') // []}) {
+% foreach my $vc (@$res) {
   <li class="active" title="<%= $vc->{description} // '' %>"><h3><%= $vc->{name} %></h3>
 % my $stats = $vc->{statistics};
     <dl class="info">
@@ -12,6 +15,9 @@
   </li>
 % };
 </ul>
+% }
+
+
 % if (kalamar_test_port()) {
 <p style="font-size: 9pt; padding-left: 1em">Index port: <%= $c->url_for($c->config('Kalamar')->{'api-0.1'})->port %></p>
 % };
