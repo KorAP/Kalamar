@@ -71,11 +71,32 @@ module.exports = function(grunt) {
 	}
       }
     },
+    // see https://github.com/gruntjs/grunt-contrib-copy/issues/64
     copy : {
-      src: 'dev/font/**',
-      dest: 'public/font/',
-      nonull: true,
-      timestamp: true
+      options: {
+	process:false
+      },
+      main: {
+	files:[
+	  {
+	    expand: true,
+	    cwd: 'dev/font/',
+	    src: '**',
+	    dest: 'public/font/',
+	    filter: 'isFile',
+	    nonull: true,
+	    timestamp: true
+	  },
+	  {
+	    expand: true,
+	    cwd: 'dev/img/',
+	    src: 'favicon.ico',
+	    dest: 'public/',
+	    nonull:true,
+	    timestamp:true
+	  }
+	]
+      }
     },
     watch: {
 /*
