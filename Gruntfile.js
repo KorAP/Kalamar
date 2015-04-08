@@ -53,7 +53,8 @@ module.exports = function(grunt) {
           style: 'compressed'
         },
         files: {
-          'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss'
+          'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss',
+          'dev/css/kalamar.css' : 'dev/scss/kalamar.scss'
         }
       }
     },
@@ -69,6 +70,12 @@ module.exports = function(grunt) {
 	  specs: 'dev/js/spec/*Spec.js'
 	}
       }
+    },
+    copy : {
+      src: 'dev/font/**',
+      dest: 'public/font/',
+      nonull: true,
+      timestamp: true
     },
     watch: {
 /*
@@ -99,6 +106,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.registerTask('css', ['sass']);
-  grunt.registerTask('default', ['concat', 'uglify', 'imagemin', 'sass']);
+  grunt.registerTask(
+    'default',
+    ['copy', 'concat', 'uglify', 'imagemin', 'sass']
+  );
 };
