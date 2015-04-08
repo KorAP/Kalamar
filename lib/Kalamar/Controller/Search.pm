@@ -61,9 +61,9 @@ sub match_info {
   my $foundry = '*';
   my %query = (foundry => '*');
   if ($c->param('foundry')) {
-    $query{foundry} = $c->param('foundry');
+    $query{foundry} = scalar $c->param('foundry');
     if ($c->param('layer')) {
-      $query{layer} = $c->param('layer');
+      $query{layer} = scalar $c->param('layer');
     };
     if ($c->param('spans')) {
       $query{spans} = 'true';

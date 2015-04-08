@@ -1,4 +1,5 @@
 %# ID, title, corpusID, author, pubDate, textClass
+% my $match = stash('match') || {}; 
 <li data-corpus-id="<%= $match->{corpusID} %>" \
 data-doc-id="<%= $match->{docID} %>" \
 data-match-id="<%= $match->{ID} %>" \

@@ -26,6 +26,7 @@
   width: 175%;
   top: 0;
   z-index: -5000;
+  opacity: .1;
   background: {
     image:url('#{$img-path}/korap-bg-kalamar.svg');
     size: 50%;
@@ -64,7 +65,7 @@
   width: (910 / 60) + em;
   height: (176 / 60) + em;
   background: {
-    image:url('#{$img-path}/ids-institute-for-german-language.svg');
+    image:url('#{$img-path}/ids-institute-for-the-german-language.svg');
   }
 }
 

@@ -27,6 +27,16 @@ sub startup {
       };
   }) if $self->mode eq 'production';
 
+  $self->hook(before_dispatch => sub {
+      my $c = shift;
+      my $h = $c->res->headers;
+      $h->header( 'Access-Control-Allow-Origin' => '*' );
+      $h->header( 'Access-Control-Allow-Methods' => 'GET, PUT, POST, DELETE, OPTIONS' );
+      $h->header( 'Access-Control-Max-Age' => 3600 );
+      $h->header( 'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With' );
+    });
+
+
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 

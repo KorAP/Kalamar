@@ -3,20 +3,7 @@
   <head>
     <title>CSS demo</title>
     <meta charset="utf-8" />
-    <script src="../lib/dagre/dagre.min.js"></script>
-    <script src="../src/api.js"></script>
-    <script src="../src/hint.js"></script>
-    <script src="../src/match.js"></script>
-    <script src="../src/menu.js"></script>
-    <script src="../src/vc.js"></script>
-    <script src="../src/session.js"></script>
-    <script src="../src/tutorial.js"></script>
-    <script src="../src/util.js"></script>
-    <script src="./all.js"></script>
     <link type="text/css" rel="stylesheet" href="../../css/build/kalamar.css" />
-    <script>
-      KorAP.URL = 'http://localhost:3000';
-    </script>
   </head>
   <body>
     <div id="kalamar-bg"></div>
@@ -30,15 +17,13 @@
 		 id="q-field"
 		 autofocus="autofocus" />
 	  <button type="submit"><span>Go</span></button>
-<!--
-	  <i class="fa fa-arrow-circle-down show-hint" onclick="hint.popUp()"></i>
--->
+	  <!-- <i class="fa fa-arrow-circle-down show-hint" onclick="hint.popUp()"></i> -->
 	</div>
 	<div id="vc-view"></div>
 	in <input type="hidden" id="vc-name" name="vc-name" value="Wikipedia" />
 	<input type="text" name="vc" id="vc" value="corpusID = Wikipedia" />
 	with <span class="select">
-<!-- Change this to js-menu -->
+	  <!-- Change this to js-menu -->
 	  <select name="ql" id="ql-field">
 	    <option value="poliqarp">Poliqarp</option>
 	    <option value="cosmas2">Cosmas II</option>
@@ -145,15 +130,27 @@
 
 	<p><strong>New to KorAP?</strong> Please check out our <a href="#">tutorial</a>!</p>
 
-	<p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Institute for German Language</a> and funded by the <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
+	<p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Institute for the German Language</a> and funded by the <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
       </div>
       <div id="logos">
 	<div>
-	  <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Developed at the Institute for German Language (IDS)</span></p></a>
-	  <a href="http://www.leibniz-gemeinschaft.de/" class="logo"><p id="leibniz-logo"><span>Funded by the Leibniz Association</span></p></a>
+	  <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Developed at the Institute for the German Language (IDS)</span></p></a>
+	  <a href="http://www.leibniz-gemeinschaft.de/" class="logo"><p id="leibniz-logo"><span>Member of the Leibniz Association</span></p></a>
 	</div>
       </div>
-
     </main>
+    <script src="../lib/dagre/dagre.min.js"></script>
+    <script src="../src/api.js"></script>
+    <script src="../src/hint.js"></script>
+    <script src="../src/match.js"></script>
+    <script src="../src/menu.js"></script>
+    <script src="../src/vc.js"></script>
+    <script src="../src/session.js"></script>
+    <script src="../src/tutorial.js"></script>
+    <script src="../src/util.js"></script>
+    <script>
+      KorAP.URL = 'http://localhost:3000';
+    </script>
+    <script src="./all.js"></script>
   </body>
 </html>

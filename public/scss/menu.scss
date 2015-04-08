@@ -27,7 +27,7 @@ ul.menu > span.pref:not(:empty) {
   }
   @include choose-item;
   cursor: pointer;
-  padding: 3px 10px;
+  padding: $item-padding;
   white-space: normal;
 }
 

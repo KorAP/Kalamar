@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // document.getElementById('vc-choose').click();
 
-//  init.tutorial.show();
+  // init.tutorial.show();
 
   // Don't hide!!!
   menu.hide = function () {};

@@ -4,7 +4,7 @@
     <style type="text/css">
 path { stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:4 }
 .logoinit { fill:#fff; stroke:#636f07; stroke-width:4 }
-.logoend { fill:#636f07; fill-opacity:1; stroke:#8e9f0a; stroke-width:2; }
+.logoend { fill:#636f07; fill-opacity:1; stroke:#9bad0b; stroke-width:2; }
 #karl-fill { fill:#ffffff; }
 #karl { fill:#636f07; stroke:none; }
 #karl-arm { fill:#636f07; stroke:none; }
