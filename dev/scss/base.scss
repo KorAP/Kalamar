@@ -25,8 +25,8 @@ body {
 
 a {
   &[href^="http://"]:after {
-    font-family: "FontAwesome";
-    content: " \f08e";
+    font-family: FontAwesome;
+    content: " " + $fa-extlink;
     font-size: 75%;
   }
   &:link {

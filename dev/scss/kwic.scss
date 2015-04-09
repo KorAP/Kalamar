@@ -167,11 +167,11 @@ ul.action {
       }
       &.close::after {
 	font-family: "FontAwesome";
-	content: "\f00d";
+	content: $fa-close;
       }
       &.info::after {
 	font-family: "FontAwesome";
-	content: "\f05a";
+	content: $fa-info;
       }
     }
   }

@@ -40,7 +40,7 @@ header input {
     }
     &::after {
       font-family: "FontAwesome";
-      content: "\f002";
+      content: $fa-search;
     }
     border: {
       width: $border-size;

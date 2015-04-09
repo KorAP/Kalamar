@@ -1,16 +1,19 @@
+/**
+ * Grunt build file for Kalamar.
+ * Create assets (based on files in /dev) running
+ *   $ grunt
+ * in the current folder.
+ *
+ * @author Nils Diewald
+ */
 /*
- * http://gruntjs.com/getting-started
- *
- * Todo: Move all source files outside the public folder!
- *
  * TODO: Use https://www.npmjs.com/package/grunt-contrib-compress
- * for assets.
- * http://yui.github.io/yuidoc/
- * use it with https://www.npmjs.com/package/grunt-contrib-yuidoc
- *
- * RequireJS
- * http://addyosmani.com/writing-modular-js/
- * http://qnundrum.com/question/393866
+ *   for assets.
+ *   http://yui.github.io/yuidoc/
+ * TODO: Use https://www.npmjs.com/package/grunt-contrib-yuidoc
+ * TODO: Use RequireJS
+ *   http://addyosmani.com/writing-modular-js/
+ *   http://qnundrum.com/question/393866
  */
 module.exports = function(grunt) {
   grunt.initConfig({
@@ -26,7 +29,7 @@ module.exports = function(grunt) {
 	  'dev/js/src/api.js',
 	  'dev/js/src/session.js',
 	  'dev/js/src/tutorial.js',
-	  'dev/js/src/util.js'
+	  'dev/js/src/init.js'
 	],
 	dest: 'dev/js/build/kalamar.js'
       }
@@ -72,6 +75,7 @@ module.exports = function(grunt) {
       }
     },
     // see https://github.com/gruntjs/grunt-contrib-copy/issues/64
+    // for copying binary files
     copy : {
       options: {
 	process:false
@@ -99,18 +103,6 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-/*
-      options: {
-	livereload: true
-      },
-      scripts: {
-        files: ['js/*.js'],
-        tasks: ['concat', 'uglify'],
-        options: {
-          spawn: false
-        },
-      },
-*/
       css: {
 	files: ['dev/scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,media,kalamar,tutorial,query,sidebar}.scss'],
 	tasks: ['sass'],
@@ -118,7 +110,7 @@ module.exports = function(grunt) {
 	  spawn: false
 	}
       }
-    }    
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');

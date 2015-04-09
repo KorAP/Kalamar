@@ -107,7 +107,7 @@ ul.menu.roll {
     &:not(.no-more):before {
       position: absolute;
       font-family: "FontAwesome";
-      content: '\f0de';
+      content: $fa-up;
       right: .5em;
       top: .4em;
     }
@@ -116,7 +116,7 @@ ul.menu.roll {
     &:not(.no-more):before {
       position: absolute;
       font-family: "FontAwesome";
-      content: '\f0dd';
+      content: $fa-down;
       right: .5em;
       bottom: .4em;
     }

@@ -42,7 +42,7 @@ header {
     }
   }
   span.select::after {
-    content: "\f0dd";
+    content: $fa-down;
   }
 
   form {

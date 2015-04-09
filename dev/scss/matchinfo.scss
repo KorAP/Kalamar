@@ -199,7 +199,7 @@ div.matchtree {
 
       &::after {
 	font-family: 'FontAwesome';
-	content: '\f00d';
+	content: $fa-close;
       }
     }
   }

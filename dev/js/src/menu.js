@@ -6,6 +6,9 @@ var KorAP = KorAP || {};
  * @author Nils Diewald
  */
 
+/*
+  * TODO: space is not a valid prefix!
+ */
 (function (KorAP) {
   "use strict";
 
@@ -306,7 +309,7 @@ var KorAP = KorAP || {};
 	  this._list.push(i);
 	while (this._items[++i] !== undefined) {
 	  this._items[i].lowlight();
-	  console.log(this._item);
+	  // console.log(this._item);
 	};
 	return true;
       };

@@ -437,19 +437,24 @@ document.addEventListener('DOMContentLoaded', function () {
   // Decorate actions
   var init = KorAP.init();
 
-  var menu = KorAP.MatchTreeMenu.create(
-    undefined,
-    menuContent
-  );
-
   // document.getElementById('vc-choose').click();
 
   // init.tutorial.show();
 
-  // Don't hide!!!
+/*
+
+  KorAP.HintMenu.hide = function () {};
+  init.hint.show();
+
+
+  var menu = KorAP.MatchTreeMenu.create(
+    undefined,
+    menuContent
+  );
   menu.hide = function () {};
   document.getElementById('menu').appendChild(menu.element());
   menu.limit(3);
   menu.show();
   menu.focus();
+*/
 });

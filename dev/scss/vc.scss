@@ -54,7 +54,7 @@ $border-size: 2px;
       border-color: $dark-orange;
       > .doc::before,
       > .docGroup::before {
-	content: "oder";
+	content: "or";
       }
       > .operators {
 	border-color: $dark-orange;
@@ -66,7 +66,7 @@ $border-size: 2px;
     &[data-operation=and] {
       > .doc::before,
       > .docGroup::before {
-	content: "und";
+	content: "and";
       }
     }
 
@@ -142,7 +142,7 @@ $border-size: 2px;
 	font-family: FontAwesome;
 	font-style: normal;
 	font-weight: normal;
-	content: "\f040"; // "\f14b";
+	content: $fa-rewrite;
 	text-decoration: underline;
       }
       span {
