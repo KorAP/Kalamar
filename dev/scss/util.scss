@@ -141,6 +141,9 @@ $logo-left-distance: 230px;
   box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
+@mixin light-noise {
+  background-image:url('#{$img-path}/noise.png');
+}
 
 // https://css-tricks.com/almanac/properties/a/appearance/
 @mixin no-appearance {

@@ -366,12 +366,6 @@ updateKeyPress : function (e) {
 	.upgradeTo(KorAP.HintMenuItem)
 	._init(params);
     },
-    content : function (content) {
-      if (arguments.length === 1) {
-	this._content = content;
-      };
-      return this._content;
-    },
     _init : function (params) {
       if (params[0] === undefined ||
 	  params[1] === undefined)
@@ -387,6 +381,12 @@ updateKeyPress : function (e) {
       };
 
       return this;
+    },
+    content : function (content) {
+      if (arguments.length === 1) {
+	this._content = content;
+      };
+      return this._content;
     },
     onclick : function () {
       var m = this.menu();

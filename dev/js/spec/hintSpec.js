@@ -29,18 +29,24 @@ describe('KorAP.InputField', function () {
 
   beforeEach(function () {
     input = document.createElement("input");
-    input.setAttribute("type", "text");
+    input.setAttribute('type', "text");
     input.setAttribute("value", "abcdefghijklmno");
     input.style.position = 'absolute';
+    document.getElementsByTagName('body')[0].appendChild(input);
     input.style.top  = "20px";
     input.style.left = "30px";
     input.focus();
     input.selectionStart = 5;
   });
 
+  afterEach(function () {
+    document.getElementsByTagName("body")[0].removeChild(
+      input
+    );    
+  });
+
   afterAll(function () {
     try {
-      // document.getElementsByTagName("body")[0].removeChild(input);
       document.getElementsByTagName("body")[0].removeChild(
 	document.getElementById("searchMirror")
       );
@@ -60,6 +66,7 @@ describe('KorAP.InputField', function () {
 
     expect(inputField.value()).toEqual("abcdefghijklmno");
 
+    expect(input.selectionStart).toEqual(5);
     expect(inputField.element().selectionStart).toEqual(5);
     expect(inputField.split()[0]).toEqual("abcde");
     expect(inputField.split()[1]).toEqual("fghijklmno");
@@ -75,7 +82,8 @@ describe('KorAP.InputField', function () {
     var inputField = KorAP.InputField.create(input);
     document.getElementsByTagName("body")[0].appendChild(input);
     inputField.reposition();
-    expect(inputField.mirror().style.left).toEqual("30px");
+    expect(input.style.left).toEqual("30px");
+    expect(inputField.mirror().style.left.match(/^(\d+)px$/)[1]).toBeGreaterThan(29);
     expect(inputField.mirror().style.top.match(/^(\d+)px$/)[1]).toBeGreaterThan(20);
   });
 
@@ -153,225 +161,215 @@ describe('KorAP.Hint', function () {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-xdescribe('KorAP.MenuItem', function () {
+describe('KorAP.HintMenuItem', function () {
   it('should be initializable', function () {
-
     expect(
-      function() { KorAP.MenuItem.create([]) }
+      function() { KorAP.HintMenuItem.create([]) }
     ).toThrow(new Error("Missing parameters"));
 
     expect(
-      function() { KorAP.MenuItem.create(['CoreNLP']) }
+      function() { KorAP.HintMenuItem.create(['CoreNLP']) }
     ).toThrow(new Error("Missing parameters"));
 
-    var menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.name).toEqual('CoreNLP');
-    expect(menuItem.action).toEqual('corenlp/');
-    expect(menuItem.desc).toBeUndefined();
-    expect(menuItem.lcfield).toEqual(' corenlp');
+    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
+    expect(menuItem.name()).toEqual('CoreNLP');
+    expect(menuItem.action()).toEqual('corenlp/');
+    expect(menuItem.desc()).toBeUndefined();
 
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'It\'s funny']);
-    expect(menuItem.name).toEqual('CoreNLP');
-    expect(menuItem.action).toEqual('corenlp/');
-    expect(menuItem.desc).not.toBeUndefined();
-    expect(menuItem.desc).toEqual('It\'s funny');
-    expect(menuItem.lcfield).toEqual(' corenlp it\'s funny');
+    menuItem = KorAP.HintMenuItem.create(
+      ['CoreNLP', 'corenlp/', 'It\'s funny']
+    );
+    expect(menuItem.name()).toEqual('CoreNLP');
+    expect(menuItem.action()).toEqual('corenlp/');
+    expect(menuItem.desc()).not.toBeUndefined();
+    expect(menuItem.desc()).toEqual('It\'s funny');
   });
 
   it('should have an element', function () {
-    var menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.element).not.toBe(undefined);
-    expect(menuItem.element.nodeName).toEqual("LI");
-    expect(menuItem.element.getAttribute("data-action")).toEqual("corenlp/");
+    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
+    expect(menuItem.element()).not.toBe(undefined);
+    expect(menuItem.element().nodeName).toEqual("LI");
 
-    var title = menuItem.element.firstChild;
-    expect(title.nodeName).toEqual("STRONG");
+    var title = menuItem.element().firstChild;
+    expect(title.nodeName).toEqual("SPAN");
     expect(title.firstChild.nodeType).toEqual(3);
     expect(title.firstChild.nodeValue).toEqual("CoreNLP");
+    expect(menuItem.element().childNodes[0]).not.toBe(undefined);
+    expect(menuItem.element().childNodes[1]).toBe(undefined);
 
-    expect(menuItem.element.childNodes[0]).not.toBe(undefined);
-    expect(menuItem.element.childNodes[1]).toBe(undefined);
+    menuItem = KorAP.HintMenuItem.create(
+      ['CoreNLP', 'corenlp/', 'my DescRiption']
+    );
+    expect(menuItem.element()).not.toBe(undefined);
+    expect(menuItem.element().nodeName).toEqual("LI");
 
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'my DescRiption']);
-    expect(menuItem.element).not.toBe(undefined);
-    expect(menuItem.element.nodeName).toEqual("LI");
-    expect(menuItem.element.getAttribute("data-action")).toEqual("corenlp/");
-
-    title = menuItem.element.firstChild;
-    expect(title.nodeName).toEqual("STRONG");
+    title = menuItem.element().firstChild;
+    expect(title.nodeName).toEqual("SPAN");
     expect(title.firstChild.nodeType).toEqual(3); // TextNode
     expect(title.firstChild.nodeValue).toEqual("CoreNLP");
 
-    expect(menuItem.element.childNodes[0]).not.toBe(undefined);
-    expect(menuItem.element.childNodes[1]).not.toBe(undefined);
+    expect(menuItem.element().childNodes[0]).not.toBe(undefined);
+    expect(menuItem.element().childNodes[1]).not.toBe(undefined);
 
-    var desc = menuItem.element.lastChild;
+    var desc = menuItem.element().lastChild;
     expect(desc.nodeName).toEqual("SPAN");
     expect(desc.firstChild.nodeType).toEqual(3); // TextNode
     expect(desc.firstChild.nodeValue).toEqual("my DescRiption");
-
-    expect(menuItem.lcfield).toEqual(' corenlp my description');
   });
 
+
   it('should be activatable and deactivateable by class', function () {
-    var menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     expect(menuItem.active()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toBe(null);
+    expect(menuItem.element().getAttribute("class")).toBe(null);
     menuItem.active(true);
     expect(menuItem.active()).toBe(true);
-    expect(menuItem.element.getAttribute("class")).toEqual("active");
+    expect(menuItem.element().getAttribute("class")).toEqual("active");
     menuItem.active(false); // Is active
     expect(menuItem.active()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toEqual("");
+    expect(menuItem.element().getAttribute("class")).toEqual("");
     menuItem.active(true);
     expect(menuItem.active()).toBe(true);
-    expect(menuItem.element.getAttribute("class")).toEqual("active");
+    expect(menuItem.element().getAttribute("class")).toEqual("active");
 
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     expect(menuItem.active()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toBe(null);
+    expect(menuItem.element().getAttribute("class")).toBe(null);
     menuItem.active(false); // Is not active
     expect(menuItem.active()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toBe(null);
+    expect(menuItem.element().getAttribute("class")).toBe(null);
   });
 
   it('should be set to boundary', function () {
-    var menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     expect(menuItem.active()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toBe(null);
+    expect(menuItem.element().getAttribute("class")).toBe(null);
 
     // Set active
     menuItem.active(true);
     expect(menuItem.active()).toBe(true);
     expect(menuItem.noMore()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toEqual("active");
+    expect(menuItem.element().getAttribute("class")).toEqual("active");
 
     // Set no more
     menuItem.noMore(true);
     expect(menuItem.active()).toBe(true);
     expect(menuItem.noMore()).toBe(true);
-    expect(menuItem.element.getAttribute("class")).toEqual("active no-more");
+    expect(menuItem.element().getAttribute("class")).toEqual("active no-more");
 
     // No no more
     menuItem.noMore(false);
     expect(menuItem.active()).toBe(true);
     expect(menuItem.noMore()).toBe(false);
-    expect(menuItem.element.getAttribute("class")).toEqual("active");
-
+    expect(menuItem.element().getAttribute("class")).toEqual("active");
 
     // Set no more, deactivate
     menuItem.noMore(true);
     menuItem.active(false);
     expect(menuItem.active()).toBe(false);
     expect(menuItem.noMore()).toBe(true);
-    expect(menuItem.element.getAttribute("class")).toEqual("no-more");
+    expect(menuItem.element().getAttribute("class")).toEqual("no-more");
 
     // Set active
     menuItem.active(true);
     expect(menuItem.active()).toBe(true);
     expect(menuItem.noMore()).toBe(true);
-    expect(menuItem.element.getAttribute("class")).toEqual("no-more active");
+    expect(menuItem.element().getAttribute("class")).toEqual("no-more active");
   });
 
-
-  it('should be highlightable', function () {
+  xit('should be highlightable', function () {
     // Highlight in the middle
-    var menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     menuItem.highlight("ren");
-    expect(menuItem.element.innerHTML).toEqual("<strong>Co<em>reN</em>LP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>Co<mark>reN</mark>LP</span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
 
     // Starting highlight
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     menuItem.highlight("cor");
-    expect(menuItem.element.innerHTML).toEqual("<strong><em>Cor</em>eNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span><mark>Cor</mark>eNLP</span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+/*
 
     // Starting highlight - short
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     menuItem.highlight("c");
-    expect(menuItem.element.innerHTML).toEqual("<strong><em>C</em>oreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span><mark>C</mark>oreNLP</span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
 
     // Highlight at the end
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     menuItem.highlight("nlp");
-    expect(menuItem.element.innerHTML).toEqual("<strong>Core<em>NLP</em></strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>Core<mark>NLP</mark></span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
 
     // Highlight at the end - short
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     menuItem.highlight("p");
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNL<em>P</em></strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNL<mark>P</mark></span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
 
     // No highlight
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
     menuItem.highlight("xp");
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
 
     // Highlight in the middle - first
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
     menuItem.highlight("ren");
-    expect(menuItem.element.innerHTML).toEqual("<strong>Co<em>reN</em>LP</strong><span>This is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual("<span>Co<mark>reN</mark>LP</span><span class=\"desc\">This is my Example</span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Example</span>');
 
     // Highlight in the middle - second
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
     menuItem.highlight("ampl");
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Ex<em>ampl</em>e</span>");
+    expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Ex<mark>ampl</mark>e</span>');
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Example</span>');
 
     // Highlight in the middle - both
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+
     menuItem.highlight("e");
-    expect(menuItem.element.innerHTML).toEqual("<strong>Cor<em>e</em>NLP</strong><span>This is my <em>E</em>xample</span>");
+    expect(menuItem.element().innerHTML).toEqual('<span>Cor<mark>e</mark>NLP</span><span class="desc">This is my <mark>E</mark>xampl<mark>e</mark></span>');
+
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Example</span>");
 
     // Highlight in the end - second
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
     menuItem.highlight("le");
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Examp<em>le</em></span>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Examp<mark>le</mark></span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Example</span>");
 
     // Highlight at the beginning - second
-    menuItem = KorAP.MenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
     menuItem.highlight("this");
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span><em>This</em> is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span><mark>This</mark> is my Example</span>");
 
     menuItem.lowlight();
-    expect(menuItem.element.innerHTML).toEqual("<strong>CoreNLP</strong><span>This is my Example</span>");
+    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Example</span>");
+*/
   });
 });
 

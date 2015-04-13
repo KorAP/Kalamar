@@ -4,6 +4,7 @@
 header {
   position: relative;
   background-color: $light-green;
+  @include light-noise;
 //  background-color: $ids-grey-1;
   @include box-sizing-box();
   padding: 8px;

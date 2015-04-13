@@ -20,7 +20,7 @@ $left-distance: $left-width + ($border-size * 2);
  */
 @mixin matchinfo-head {
   border-width: 0px;
-  border-top: $border-size solid #ff8000;
+  border-top: $border-size solid $darker-orange; // #ff8000;
   width: $left-width / 2;
 }
 
@@ -28,7 +28,7 @@ div.matchinfo {
   position: relative;
   width: 100%;
   padding-top: $border-size;
-  background-color: $dark-orange;
+//  background-color: $dark-orange;
   height: auto;
   font-size: 10pt;
   text-align: left;

@@ -80,13 +80,28 @@ $border-size: 2px;
       white-space: wrap;
       height: auto;
       border-width: 2px;
-      background-color: $light-orange;
+      background-color: $dark-orange;
+      @include light-noise;
       position: relative;
       > div {
 	min-height: 42pt;
 	> div.snippet {
-	  margin: 5pt 10pt;
-	  margin-right: 3em;
+	  background-color: $light-orange;
+	  > * {
+	    background-color: transparent;
+	  }
+	  padding: {
+	    top: 0;
+	    right: 0;
+	    bottom: 5pt;
+	    left: 5pt;
+	  };
+	  margin: {
+	    top: 0;
+	    right: $right-match-distance; // 3em;
+	    bottom: 0;
+	    left: 0; // 5pt margin-top
+	  }
 	  > span {
             line-height: 1.4em;
             width: auto;
@@ -119,7 +134,7 @@ $border-size: 2px;
       }
       &.active p.ref,
       &:target p.ref {
-	background-color: $dark-orange;
+//	background-color: $dark-orange;
 	color: white;
 	padding: 3pt 10pt;
 	padding-right: $right-match-distance;
@@ -133,7 +148,7 @@ $border-size: 2px;
 }
 
 ul.action {
-  background-color: $dark-orange;
+//  background-color: $dark-orange;
   font-size: 12pt;
   color: white;
   text: {

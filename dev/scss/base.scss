@@ -15,7 +15,13 @@ g > text {
   @include box-sizing-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  position: relative;
+  min-height: 100%;
   font-size: 12pt;
 }
 
@@ -32,13 +38,13 @@ a {
   &:link {
     color: $dark-orange;
     text-decoration: none;
-  }
-  &:link:hover:hover {
-    color: $light-green; // $darkest-orange;
-    @include color-transition;
-  }
-  &:active, &:visited {
-    color: $darkest-orange;
+    &:hover {
+      color: $light-green; // $darkest-orange;
+      @include color-transition;
+    }
+    &:active, &:visited {
+      color: $darkest-orange;
+    }
   }
 }
 

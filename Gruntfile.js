@@ -104,7 +104,7 @@ module.exports = function(grunt) {
     },
     watch: {
       css: {
-	files: ['dev/scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,media,kalamar,tutorial,query,sidebar}.scss'],
+	files: ['dev/scss/{util,fonts,base,header,searchbar,matchinfo,resultinfo,kwic,menu,hint,pagination,logos,alertify,vc,media,kalamar,tutorial,query,sidebar,footer}.scss'],
 	tasks: ['sass'],
 	options: {
 	  spawn: false
