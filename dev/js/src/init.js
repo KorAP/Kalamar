@@ -1,42 +1,17 @@
-/**
- * These are utility functions for the frontend
- */
-
-// Add toggleClass method similar to jquery
-HTMLElement.prototype.toggleClass = function (c1, c2) {
-  var cl = this.classList;
-  if (cl.contains(c1)) {
-    cl.add(c2);
-    cl.remove(c1);
-  }
-  else {
-    cl.remove(c2);
-    cl.add(c1);
-  };
-};
-
-
-// Don't let events bubble up
-if (Event.halt === undefined) {
-  // Don't let events bubble up
-  Event.prototype.halt = function () {
-    this.stopPropagation();
-    this.preventDefault();
-  };
-};
-
-var KorAP = KorAP || {};
-
-
-(function (KorAP) {
-  "use strict";
-
-
-  /**
-   * Initialize user interface elements
-   */
-  KorAP.init = function () {
-    var obj = Object.create(KorAP.init);
+define([
+  'match',
+  'hint',
+  'vc',
+  'tutorial',
+  'lib/domReady',
+  'util'
+], function (matchClass,
+	     hintClass,
+	     vcClass,
+	     tutClass,
+	     domReady) {
+  domReady(function (event) {
+    var obj = {};
 
     /**
      * Add actions to match entries
@@ -49,12 +24,12 @@ var KorAP = KorAP || {};
       inactiveLi[i].addEventListener('click', function (e) {
 	if (this._match !== undefined)
 	  this._match.open();
-	else
-	  KorAP.Match.create(this).open();
+	else {
+	  matchClass.create(this).open();
+	};
 	e.halt();
       });
     };
-
 
     /**
      * Toggle the alignment (left <=> right)
@@ -97,28 +72,29 @@ var KorAP = KorAP || {};
       input.parentNode.insertBefore(vcname, input);
       
       vcname.onclick = function () {
-	var vc = KorAP.VirtualCollection.render(vcExample);
+	var vc = vcClass.render(vcExample);
 	var view = document.getElementById('vc-view');
 	view.appendChild(vc.element());
       };
     };
 
+  
     /**
      * Init Tutorial view
      */
-    obj.tutorial = KorAP.Tutorial.create(
+    obj.tutorial = tutClass.create(
       document.getElementById('view-tutorial')
     );
 
+  
     /**
      * Init hint helper
      * has to be final because of
      * reposition
      */
-// Todo: Pass an element, so this works with
-// tutorial pages as well!
-    obj.hint = KorAP.Hint.create();
+    // Todo: Pass an element, so this works with
+    // tutorial pages as well!
+    obj.hint = hintClass.create();
     return obj;
-  };
-
-}(this.KorAP));
+  });
+});

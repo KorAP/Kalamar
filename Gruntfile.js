@@ -18,6 +18,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    /*
     concat: {
       dist: {
 	src : [
@@ -38,6 +39,23 @@ module.exports = function(grunt) {
       build : {
 	src: 'dev/js/build/kalamar.js',
 	dest: 'public/js/kalamar-<%= pkg.version %>.js'
+      }
+    },
+    */
+    requirejs: {
+      compile: {
+	options: {
+	  // optimize: "uglify",
+	  baseUrl: 'dev/js/src',
+	  paths : {
+	    'lib': '../lib'
+	  },
+	  wrap:true,
+	  include : ['init'],
+	  insertRequire: ['init'],
+	  name: 'lib/almond',
+	  out: 'public/js/kalamar-<%= pkg.version %>.js'
+	}
       }
     },
     imagemin: {
@@ -120,9 +138,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
+
+  grunt.registerTask('default', ['requirejs']);
+
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
-    ['copy', 'concat', 'uglify', 'imagemin', 'sass']
+    ['copy', 'requirejs', 'imagemin', 'sass']
   );
 };

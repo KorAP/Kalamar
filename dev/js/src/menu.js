@@ -1,35 +1,35 @@
-var KorAP = KorAP || {};
-
 /**
  * Create scrollable drop-down menus.
  *
  * @author Nils Diewald
  */
-
 /*
-  * TODO: space is not a valid prefix!
+ * TODO: space is not a valid prefix!
  */
-(function (KorAP) {
-  "use strict";
+define([
+  'menu/item',
+  'menu/prefix',
+  'util'
+], function (defaultItemClass,
+	     defaultPrefixClass) {
 
-  // Don't let events bubble up
-  if (Event.halt === undefined) {
-    // Don't let events bubble up
-    Event.prototype.halt = function () {
-      this.stopPropagation();
-      this.preventDefault();
-    };
+  // Todo: This may not be necessary
+  // Default maximum number of menu items
+  var menuLimit = 8;
+
+  function _codeFromEvent (e) {
+    if (e.charCode && (e.keyCode == 0))
+      return e.charCode
+    return e.keyCode;
   };
 
-  // Default maximum number of menu items
-  KorAP.menuLimit = 8;
 
   /**
    * List of items for drop down menu (complete).
    * Only a sublist of the menu is filtered (live).
    * Only a sublist of the filtered menu is visible (shown).
    */
-  KorAP.Menu = {
+  return {
     /**
      * Create new Menu based on the action prefix
      * and a list of menu items.
@@ -40,7 +40,7 @@ var KorAP = KorAP || {};
      * @param {Array.<Array.<string>>} List of menu items
      */
     create : function (params) {
-      return Object.create(KorAP.Menu)._init(params);
+      return Object.create(this)._init(params);
     },
 
     /**
@@ -143,12 +143,12 @@ var KorAP = KorAP || {};
     // Initialize list
     _init : function (itemClass, prefixClass, params) {
       var that = this;
-      this._itemClass = itemClass;
+      this._itemClass = itemClass || defaultItemClass;
 
       if (prefixClass !== undefined)
 	this._prefix = prefixClass.create();
       else
-	this._prefix = KorAP.MenuPrefix.create();
+	this._prefix = defaultPrefixClass.create();
 
       this._prefix._menu = this;
 
@@ -188,14 +188,14 @@ var KorAP = KorAP || {};
 
       // Initialize item list based on parameters
       for (i in params) {
-	var obj = itemClass.create(params[i]);
+	var obj = this._itemClass.create(params[i]);
 
 	// This may become circular
 	obj["_menu"] = this;
 
 	this._items.push(obj);
       };
-      this._limit    = KorAP.menuLimit;
+      this._limit    = menuLimit;
       this._position = 0;  // position in the active list
       this._active   = -1; // active item in the item list
       this._reset();
@@ -654,318 +654,4 @@ var KorAP = KorAP || {};
       this._element.removeChild(this._element.lastChild);
     }
   };
-
-
-  /**
-   * Item in the Dropdown menu
-   */
-  KorAP.MenuItem = {
-
-    /**
-     * Create a new MenuItem object.
-     *
-     * @constructor
-     * @this {MenuItem}
-     * @param {Array.<string>} An array object of name, action and
-     *   optionally a description
-     */
-    create : function (params) {
-      return Object.create(KorAP.MenuItem)._init(params);
-    },
-
-    /**
-     * Upgrade this object to another object,
-     * while private data stays intact.
-     *
-     * @param {Object] An object with properties.
-     */
-    upgradeTo : function (props) {
-      for (var prop in props) {
-	this[prop] = props[prop];
-      };
-      return this;
-    },
-
-    content : function (content) {
-      if (arguments.length === 1)
-	this._content = document.createTextNode(content);
-      return this._content;
-    },
-
-    lcField : function () {
-      return this._lcField;
-    },
-
-    action : function (action) {
-      if (arguments.length === 1)
-	this._action = action;
-      return this._action;
-    },
-
-    /**
-     * Check or set if the item is active
-     *
-     * @param {boolean|null} State of activity
-     */
-    active : function (bool) {
-      var cl = this.element().classList;
-      if (bool === undefined)
-	return cl.contains("active");
-      else if (bool)
-	cl.add("active");
-      else
-	cl.remove("active");
-    },
-
-    /**
-     * Check or set if the item is
-     * at the boundary of the menu
-     * list
-     *
-     * @param {boolean|null} State of activity
-     */
-    noMore : function (bool) {
-      var cl = this.element().classList;
-      if (bool === undefined)
-	return cl.contains("no-more");
-      else if (bool)
-	cl.add("no-more");
-      else
-	cl.remove("no-more");
-    },
-
-    /**
-     * Get the document element of the menu item
-     */
-    element : function () {
-      // already defined
-      if (this._element !== undefined)
-	return this._element;
-
-      // Create list item
-      var li = document.createElement("li");
-
-      // Connect action
-      if (this["onclick"] !== undefined) {
-	li["onclick"] = this.onclick.bind(this);
-      };
-
-      // Append template
-      li.appendChild(this.content());
-
-      return this._element = li;
-    },
-
-    /**
-     * Highlight parts of the item
-     *
-     * @param {string} Prefix string for highlights
-     */
-    highlight : function (prefix) {
-      var children = this.element().childNodes;
-      for (var i = children.length -1; i >= 0; i--) {
-	this._highlight(children[i], prefix);
-      };
-    },
-
-    // Highlight a certain substring of the menu item
-    _highlight : function (elem, prefix) {
-
-      if (elem.nodeType === 3) {
-
-	var text   = elem.nodeValue;
-	var textlc = text.toLowerCase();
-	var pos    = textlc.indexOf(prefix);
-	if (pos >= 0) {
-
-	  // First element
-	  if (pos > 0) {
-	    elem.parentNode.insertBefore(
-	      document.createTextNode(text.substr(0, pos)),
-	      elem
-	    );
-	  };
-
-	  // Second element
-	  var hl = document.createElement("mark");
-	  hl.appendChild(
-	    document.createTextNode(text.substr(pos, prefix.length))
-	  );
-	  elem.parentNode.insertBefore(hl, elem);
-
-	  // Third element
-	  var third = text.substr(pos + prefix.length);
-	  if (third.length > 0) {
-	    var thirdE = document.createTextNode(third);
-	    elem.parentNode.insertBefore(
-	      thirdE,
-	      elem
-	    );
-	    this._highlight(thirdE, prefix);
-	  };
-
-	  var p = elem.parentNode;
-	  p.removeChild(elem);
-	};
-      }
-      else {
-	var children = elem.childNodes;
-	for (var i = children.length -1; i >= 0; i--) {
-	  this._highlight(children[i], prefix);
-	};
-      };
-    },
-
-
-    /**
-     * Remove highlight of the menu item
-     */
-    lowlight : function () {
-      var e = this.element();
-
-      var marks = e.getElementsByTagName("mark");
-      for (var i = marks.length - 1; i >= 0; i--) {
-	// Create text node clone
-	var x = document.createTextNode(
-	  marks[i].firstChild.nodeValue
-	);
-
-	// Replace with content
-	marks[i].parentNode.replaceChild(
-	  x,
-	  marks[i]
-	);
-      };
-
-      // Remove consecutive textnodes
-      e.normalize();
-    },
-
-    // Initialize menu item
-    _init : function (params) {
-
-      if (params[0] === undefined)
-	throw new Error("Missing parameters");
-
-      this.content(params[0]);
-
-      if (params.length === 2)
-	this._action = params[1];
-
-      this._lcField = ' ' + this.content().textContent.toLowerCase();
-
-      return this;
-    },
-
-    /**
-     * Return menu list.
-     */
-    menu : function () {
-      return this._menu;
-    }
-  };
-
-  KorAP.MenuPrefix = {
-    create : function (params) {
-      return Object.create(KorAP.MenuPrefix)._init();
-    },
-    _init : function () {
-      this._string = '';
-
-      // Add prefix span
-      this._element = document.createElement('span');
-      this._element.classList.add('pref');
-      // Connect action
-
-      if (this["onclick"] !== undefined)
-	this._element["onclick"] = this.onclick.bind(this);
-
-      return this;
-    },
-    _update : function () {
-      this._element.innerHTML
-      = this._string;
-    },
-
-    /**
-     * Upgrade this object to another object,
-     * while private data stays intact.
-     *
-     * @param {Object} An object with properties.
-     */
-    upgradeTo : function (props) {
-      for (var prop in props) {
-	this[prop] = props[prop];
-      };
-      return this;
-    },
-
-    active : function (bool) {
-      var cl = this.element().classList;
-      if (bool === undefined)
-	return cl.contains("active");
-      else if (bool)
-	cl.add("active");
-      else
-	cl.remove("active");
-    },
-
-    element : function () {
-      return this._element;
-    },
-
-    isSet : function () {
-      return this._string.length > 0 ?
-	true : false;
-    },
-
-    value : function (string) {
-      if (arguments.length === 1) {
-	this._string = string;
-	this._update();
-      };
-      return this._string;
-    },
-
-    add : function (string) {
-      this._string += string;
-      this._update();
-    },
-
-    onclick : function () {},
-
-    backspace : function () {
-      if (this._string.length > 1) {
-	this._string = this._string.substring(
-	  0, this._string.length - 1
-	);
-      }
-      else {
-	this._string = '';
-      };
-
-      this._update();
-    },
-
-    /**
-     * Return menu list.
-     */
-    menu : function () {
-      return this._menu;
-    }
-  };
-
-  function _codeFromEvent (e) {
-    if (e.charCode && (e.keyCode == 0))
-      return e.charCode
-    return e.keyCode;
-  };
-
-}(this.KorAP));
-
-/**
- * MenuItems may define:
- *
- * onclick: action happen on click and enter.
- * further: action happen on right arrow
- */
+});

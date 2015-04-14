@@ -3,8 +3,7 @@
   <head>
     <title>Virtual Collection demo</title>
     <meta charset="utf-8" />
-    <script src="../js/src/menu.js"></script>
-    <script src="../js/src/vc.js"></script>
+    <script data-main="vcdemo.js" src="../js/lib/require.js" async="async"></script>
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
     <style type="text/css" rel="stylesheet">
 
@@ -27,79 +26,6 @@ body {
   <body>
     <div id="vc"></div>
     <div id="menu" class="vc"></div>
-
-    <script>
-    var json = {
-      "@type":"koral:docGroup",
-      "operation":"operation:or",
-      "operands":[
-        {
-          "@type":"koral:docGroup",
-          "operation":"operation:and",
-          "operands":[
-            {
-              "@type":"koral:doc",
-              "key":"Titel",
-              "value":"Der Birnbaum",
-              "match":"match:eq"
-            },
-            {
-              "@type":"koral:doc",
-              "key":"Veröffentlichungsort",
-              "value":"Mannheim",
-              "match":"match:eq"
-            },
-            {
-              "@type":"koral:docGroup",
-              "operation":"operation:or",
-              "operands":[
-                {
-                  "@type":"koral:doc",
-                  "key":"Untertitel",
-                  "value":"Aufzucht und Pflege",
-                  "match":"match:eq"
-                },
-                {
-                  "@type":"koral:doc",
-                  "key":"Untertitel",
-                  "value":"Gedichte",
-                  "match":"match:eq",
-                  "rewrites" : [
-                    {
-                      "@type": "koral:rewrite",
-                      "src" : "policy",
-                      "operation" : "operation:injection",
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "@type":"koral:doc",
-          "key":"Veröffentlichungsdatum",
-          "type":"type:date",
-          "value":"2015-03-05",
-          "match":"match:geq"
-        }
-      ]
-    };
-    KorAP.Locale.AND = 'und';
-    KorAP.Locale.OR  = 'oder';
-
-    var vc = KorAP.VirtualCollection.render(json);
-    document.getElementById('vc').appendChild(vc.element());
-
-    function showJSON() {
-      document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
-    };
-
-    function showQuery() {
-      document.getElementById("query").innerHTML = vc.root().toQuery();
-    };
-
-    </script>
 
     <hr />
 

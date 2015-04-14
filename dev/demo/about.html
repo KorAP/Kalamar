@@ -1,10 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Tutorial demo</title>
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
-    <script src="../js/src/session.js"></script>
-    <script src="../js/src/tutorial.js"></script>
+    <script data-main="all.js" src="../js/lib/require.js" async="async"></script>
   </head>
   <body class="embedded">
     <div id="sidebar" tabindex="0" class="active">
@@ -14,13 +13,14 @@
 -->
 	<nav>
 	  <ul>
-	    <li><a href="/doc/korap">KorAP</a>
+	    <li><a href="/doc/korap" class="active">KorAP</a>
 	      <ul>
-		<li><a href="/doc/kalamar" class="active">Kalamar</a></li>
-		<li><a href="/doc/koral">Koral</a></li>
+		<!-- Versionsnummer -->
+		<li><a href="/doc/kalamar">Kalamar</a></li>
 		<li><a href="/doc/kustvakt">Kustvakt</a></li>
+		<li><a href="/doc/koral">Koral</a></li>
 		<li><a href="/doc/krill">Krill</a></li>
-		<!-- <li>Karang</li> -->
+		<li><a href="/doc/karang">Karang</a></li>
 	      </ul>
 	    </li>
 	    <li><a href="/doc/ql">Query Languages</a>
@@ -58,12 +58,19 @@
 	      </ul>
 -->
 	    </li>
+	    <li><a href="/doc/faq">FAQ</a>
 	  </ul>
 	</nav>
       </div>
     </div>
     <main class="tutorial">
-      <h2>KorAP-Tutorial</h2>
+      <h2>KorAP</h2>
+
+      <object data="../img/korap-overview.svg#korap"
+	      type="image/svg+xml"
+	      alt="KorAP-Overview"
+	      id="overview"></object>
+
       <section id="tut-intro">
 	<h3>Frontend Features</h3>
 	<p>This frontend ...</p>

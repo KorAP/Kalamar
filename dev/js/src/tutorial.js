@@ -2,31 +2,30 @@
  * Open and close a tutorial page.
  * The current page is stored and retrieved in a session cookie.
  */
-// Requires session.js
-var KorAP = KorAP || {};
-
 // Todo: add query mechanism!
 
-(function (KorAP) {
+define(['session', 'util'], function (sessionClass) {
   "use strict";
 
   // Localization values
-  var loc   = (KorAP.Locale = KorAP.Locale || {} );
+  var loc   = KorAP.Locale;
   loc.CLOSE = loc.CLOSE || 'Close';
 
-  KorAP.Tutorial = {
-
+  return {
     /**
      * Create new tutorial object.
      * Accepts an element to bind the tutorial window to.
      */
     create : function (obj) {
-      return Object.create(KorAP.Tutorial)._init(obj);
+      if (!obj)
+	return null;
+      return Object.create(this)._init(obj);
     },
 
     // Initialize Tutorial object
     _init : function (obj) {
-      this._session = KorAP.Session.create();
+
+      this._session = sessionClass.create();
       this._show = obj;
       this.start = obj.getAttribute('href');
       obj.removeAttribute('href');
@@ -58,9 +57,6 @@ var KorAP = KorAP || {};
 	var ul = document.createElement('ul');
 	ul.classList.add('action', 'right');
 
-	// Use localization
-	var loc = KorAP.Locale;
-
 	// Add close button
 	var close = document.createElement('li');
 	close.appendChild(document.createElement('span'))
@@ -80,7 +76,7 @@ var KorAP = KorAP || {};
 	  info.classList.add('info');
 	  info.setAttribute('title', loc.SHOWINFO);
 	*/
-
+	
 	ul.appendChild(close);
 
 	element.appendChild(ul);
@@ -129,5 +125,5 @@ var KorAP = KorAP || {};
     getPage : function () {
       this._session.get('tutpage');
     },
-  }
-}(this.KorAP));
+  };
+});

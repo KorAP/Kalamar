@@ -1,21 +1,12 @@
-var KorAP = KorAP || {};
-
-(function (KorAP) {
-  "use strict";
-
-  // Default log message
-  KorAP.log = KorAP.log || function (type, msg) {
-    console.log(type + ": " + msg);
-  };
-
-  KorAP.URL = KorAP.URL || 'http://korap.ids-mannheim.de/kalamar';
-
+define(['util'], function () {
   // TODO: https://github.com/honza/140medley/blob/master/140medley.js
   // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
   // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
   // r.addEventListener("progress", updateProgress, false);
   // http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
   // http://stackoverflow.com/questions/6112744/load-javascript-on-demand
+
+  KorAP.URL = KorAP.URL || 'http://korap.ids-mannheim.de/kalamar';
 
   KorAP.API = {
     getMatchInfo : function (match, param, cb) {
@@ -44,14 +35,11 @@ var KorAP = KorAP || {};
 
       this.getJSON(url, cb);
     },
+
     getJSON : function (url, onload) {
       var req = new XMLHttpRequest();
 
-      console.log('Request url: ' + url);
-
       req.open("GET", url, true);
-
-
       req.setRequestHeader("Accept", "application/json");
       req.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
       req.onreadystatechange = function () {
@@ -62,7 +50,7 @@ var KorAP = KorAP || {};
 	  2 - headers received
 	  3 - loading (responseText has partial data)
 	  4 - done
-	 */
+	*/
 	if (this.readyState == 4) {
 	  if (this.status === 200)
 	    onload(JSON.parse(this.responseText));
@@ -76,5 +64,4 @@ var KorAP = KorAP || {};
       req.send();
     }
   };
-
-}(this.KorAP));
+});

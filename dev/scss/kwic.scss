@@ -81,7 +81,7 @@ $border-size: 2px;
       height: auto;
       border-width: 2px;
       background-color: $dark-orange;
-      @include light-noise;
+//      @include light-noise;
       position: relative;
       > div {
 	min-height: 42pt;

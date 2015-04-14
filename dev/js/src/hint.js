@@ -3,23 +3,20 @@
  *
  * @author Nils Diewald
  */
-
-// requires menu.js
-
-var KorAP = KorAP || {};
-
-(function (KorAP) {
+define([
+  'hint/input',
+  'hint/menu',
+  'hint/contextanalyzer',
+  'util'
+], function (inputClass, 
+	     menuClass, 
+	     analyzerClass) {
   "use strict";
-
-  // Default log message
-  KorAP.log = KorAP.log || function (type, msg) {
-    console.log(type + ": " + msg);
-  };
 
   /**
    * @define {regex} Regular expression for context
    */
-  KorAP.context =
+  KorAP.context = KorAP.context ||
     "(?:^|[^-_a-zA-Z0-9])" +   // Anchor
     "((?:[-_a-zA-Z0-9]+?)\/" + // Foundry
     "(?:" +
@@ -27,10 +24,18 @@ var KorAP = KorAP || {};
     "(?:(?:[^:=\/ ]+?):)?" +   // Key
     ")?" +
     ")$";
-
-  // Initialize hint array
   KorAP.hintArray = KorAP.hintArray || {};
 
+  /**
+   * Return keycode based on event
+   */
+  function _codeFromEvent (e) {
+    if ((e.charCode) && (e.keyCode==0))
+      return e.charCode
+    return e.keyCode;
+  };
+
+  // Initialize hint array
 
   /**
    * KorAP.Hint.create({
@@ -38,16 +43,20 @@ var KorAP = KorAP || {};
    *   context : context regex
    * });
    */
-  KorAP.Hint = {
+  return {
 
     // Some variables
     // _firstTry : true,
     active : false,
 
+    /**
+     * Create new hint helper.
+     */
     create : function (param) {
-      return Object.create(KorAP.Hint)._init(param);
+      return Object.create(this)._init(param);
     },
 
+    // Initialize hint helper
     _init : function (param) {
       param = param || {};
 
@@ -55,9 +64,11 @@ var KorAP = KorAP || {};
       this._menu = {};
 
       // Get input field
-      this._inputField = KorAP.InputField.create(
-	param["inputField"] || document.getElementById("q-field")
-      );
+      var qfield = param["inputField"] || document.getElementById("q-field");
+      if (!qfield)
+	return null;
+
+      this._inputField = inputClass.create(qfield);
 
       var inputFieldElement = this._inputField.element();
 
@@ -83,7 +94,7 @@ var KorAP = KorAP || {};
       );
 
       // Set Analyzer for context
-      this._analyzer = KorAP.ContextAnalyzer.create(
+      this._analyzer = analyzerClass.create(
 	param["context"] || KorAP.context
       );
       return this;
@@ -124,10 +135,9 @@ updateKeyPress : function (e) {
 	  return;
 
 	// Create matching hint menu
-	this._menu[action] = KorAP.HintMenu.create(
+	this._menu[action] = menuClass.create(
 	  this, action, KorAP.hintArray[action]
 	);
-
       };
 
       // Return matching hint menu
@@ -189,278 +199,4 @@ updateKeyPress : function (e) {
       };
     }
   };
-
-
-  // Input field for queries
-  KorAP.InputField = {
-    create : function (element) {
-      return Object.create(KorAP.InputField)._init(element);
-    },
-
-    _init : function (element) {
-      this._element = element;
-
-      // Create mirror for searchField
-      if ((this._mirror = document.getElementById("searchMirror")) === null) {
-	this._mirror = document.createElement("div");
-	this._mirror.setAttribute("id", "searchMirror");
-	this._mirror.appendChild(document.createElement("span"));
-	this._container = this._mirror.appendChild(document.createElement("div"));
-	this._mirror.style.height = "0px";
-	document.getElementsByTagName("body")[0].appendChild(this._mirror);
-      };
-
-      // Update position of the mirror
-      var that = this;
-      var repos = function () {
-	that.reposition();
-      };
-      window.addEventListener('resize', repos);
-      this._element.addEventListener('onfocus', repos);
-      that.reposition();
-
-      return this;
-    },
-
-    rightPos : function () {
-      var box = this._mirror.firstChild.getBoundingClientRect();
-      return box.right - box.left;
-    },
-
-    mirror : function () {
-      return this._mirror;
-    },
-
-    container : function () {
-      return this._container;
-    },
-
-    element : function () {
-      return this._element;
-    },
-
-    value : function () {
-      return this._element.value;
-    },
-
-    update : function () {
-      this._mirror.firstChild.textContent = this.split()[0];
-      this._container.style.left = this.rightPos() + 'px';
-    },
-
-    insert : function (text) {
-      var splittedText = this.split();
-      var s = this._element;
-      s.value = splittedText[0] + text + splittedText[1];
-      s.selectionStart = (splittedText[0] + text).length;
-      s.selectionEnd = s.selectionStart;
-      this._mirror.firstChild.textContent = splittedText[0] + text;
-    },
-
-    // Return two substrings, splitted at current cursor position
-    split : function () {
-      var s = this._element;
-      var value = s.value;
-      var start = s.selectionStart;
-      return new Array(
-	value.substring(0, start),
-	value.substring(start, value.length)
-      );
-    },
-
-    // Position the input mirror directly below the input box
-    reposition : function () {
-      var inputClientRect = this._element.getBoundingClientRect();
-      var inputStyle = window.getComputedStyle(this._element, null);
-
-      var bodyClientRect = 
-	document.getElementsByTagName('body')[0].getBoundingClientRect();
-
-      // Reset position
-      var mirrorStyle = this._mirror.style;
-      mirrorStyle.left = inputClientRect.left + "px";
-      mirrorStyle.top  = (inputClientRect.bottom - bodyClientRect.top) + "px";
-      mirrorStyle.width = inputStyle.getPropertyValue("width");
-
-      // These may be relevant in case of media depending css
-      mirrorStyle.paddingLeft     = inputStyle.getPropertyValue("padding-left");
-      mirrorStyle.marginLeft      = inputStyle.getPropertyValue("margin-left");
-      mirrorStyle.borderLeftWidth = inputStyle.getPropertyValue("border-left-width");
-      mirrorStyle.borderLeftStyle = inputStyle.getPropertyValue("border-left-style");
-      mirrorStyle.fontSize        = inputStyle.getPropertyValue("font-size");
-      mirrorStyle.fontFamily      = inputStyle.getPropertyValue("font-family");
-    },
-    context : function () {
-      return this.split()[0];
-    }
-  };
-
-
-  /**
-   * Regex object for checking the context of the hint
-   */
-  KorAP.ContextAnalyzer = {
-    create : function (regex) {
-      return Object.create(KorAP.ContextAnalyzer)._init(regex);
-    },
-    _init : function (regex) {
-      try {
-	this._regex = new RegExp(regex);
-      }
-      catch (e) {
-	KorAP.log(0, e);
-	return;
-      };
-      return this;
-    },
-    test : function (text) {
-      if (!this._regex.exec(text))
-	return;
-      return RegExp.$1;
-    }
-  };
-
-
-  /**
-   * Hint menu
-   */
-  KorAP.HintMenu = {
-    create : function (hint, context, params) {
-      var obj = Object.create(KorAP.Menu)
-	.upgradeTo(KorAP.HintMenu)
-	._init(KorAP.HintMenuItem, KorAP.HintMenuPrefix, params);
-      obj._context = context;
-      obj._element.classList.add('hint');
-      obj._hint = hint;
-
-      // This is only domspecific
-      obj.element().addEventListener('blur', function (e) {
-	this.menu.hide();
-      });
-
-      // Focus on input field on hide
-      obj.onHide = function () {
-	var input = this._hint.inputField();
-	input.container().classList.remove('active');
-	input.element().focus();
-      };
-
-      return obj;
-    },
-    // Todo: Is this necessary?
-    context : function () {
-      return this._context;
-    },
-    hint : function () {
-      return this._hint;
-    }
-  };
-
-
-  /**
-   * Hint menu item based on MenuItem
-   */
-  KorAP.HintMenuItem = {
-    create : function (params) {
-      return Object.create(KorAP.MenuItem)
-	.upgradeTo(KorAP.HintMenuItem)
-	._init(params);
-    },
-    _init : function (params) {
-      if (params[0] === undefined ||
-	  params[1] === undefined)
-	throw new Error("Missing parameters");
-      
-      this._name   = params[0];
-      this._action = params[1];
-      this._lcField = ' ' + this._name.toLowerCase();
-      
-      if (params.length > 2) {
-	this._desc = params[2];
-	this._lcField += " " + this._desc.toLowerCase();
-      };
-
-      return this;
-    },
-    content : function (content) {
-      if (arguments.length === 1) {
-	this._content = content;
-      };
-      return this._content;
-    },
-    onclick : function () {
-      var m = this.menu();
-      var h = m.hint();
-      m.hide();
-
-      // Update input field
-      var input = h.inputField();
-      input.insert(this._action);
-      input.update();
-
-      h.active = false;
-      h.show(true);
-    },
-    name : function () {
-      return this._name;
-    },
-    action : function () {
-      return this._action;
-    },
-    desc : function () {
-      return this._desc;
-    },
-    element : function () {
-      // already defined
-      if (this._element !== undefined)
-	return this._element;
-
-      // Create list item
-      var li = document.createElement("li");
-
-      if (this.onclick !== undefined) {
-	li["onclick"] = this.onclick.bind(this);
-      };
-
-      // Create title
-      var name =  document.createElement("span");
-      name.appendChild(document.createTextNode(this._name));
-      
-      li.appendChild(name);
-
-      // Create description
-      if (this._desc !== undefined) {
-	var desc = document.createElement("span");
-	desc.classList.add('desc');
-	desc.appendChild(document.createTextNode(this._desc));
-	li.appendChild(desc);
-      };
-      return this._element = li;
-    }
-  };
-
-  KorAP.HintMenuPrefix = {
-    create : function (params) {
-      return Object.create(KorAP.MenuPrefix).upgradeTo(KorAP.HintMenuPrefix)._init(params);
-    },
-    onclick : function () {
-      var m = this.menu();
-      var h = m.hint();
-      m.hide();
-
-      h.inputField().insert(this.value());
-      h.active = false;
-    }
-  };
-
-
-  /**
-   * Return keycode based on event
-   */
-  function _codeFromEvent (e) {
-    if ((e.charCode) && (e.keyCode==0))
-      return e.charCode
-    return e.keyCode;
-  };
-
-}(this.KorAP));
+});

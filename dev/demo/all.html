@@ -1,14 +1,19 @@
  <!DOCTYPE html>
 <html>
   <head>
-    <title>CSS demo</title>
+    <title>Complete Demo</title>
     <meta charset="utf-8" />
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+    <script data-main="all.js" src="../js/lib/require.js" async="async"></script>
   </head>
   <body>
     <div id="kalamar-bg"></div>
     <header>
       <a href="/" class="logo"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
+
+      <a href="#">Feedback</a>
+      <a href="#">Login</a>
+
       <form autocomplete="off" action="/kalamar">
 	<div id="searchbar">
 	  <input type="search"
@@ -46,8 +51,12 @@
     </header>
 
     <div id="sidebar" tabindex="0">
-      <h2>Tutorial</h2>
-      <p>Hui</p>
+      <h2>Einstellungen</h2>
+      <p>Anzahl Treffer pro Seite</p>
+      <p>Kontext:</p>
+      <p>200 Zeichen/Token - 200 Zeichen/Token</p>
+      <p>1 Satz 1 Paragraph</p>
+      <a>Deutsch|Englisch</a>
     </div>
 
     <main>
@@ -142,20 +151,13 @@
 
     <footer>
       <a href="/doc/KorAP">About</a>
+      <a href="http://korap.ids-mannheim.de/">About</a>
+      <a href="#">V 0.14</a>
     </footer>
 
-    <script src="../js/lib/dagre/dagre.min.js"></script>
-    <script src="../js/src/api.js"></script>
-    <script src="../js/src/hint.js"></script>
-    <script src="../js/src/match.js"></script>
-    <script src="../js/src/menu.js"></script>
-    <script src="../js/src/vc.js"></script>
-    <script src="../js/src/session.js"></script>
-    <script src="../js/src/tutorial.js"></script>
-    <script src="../js/src/init.js"></script>
     <script>
+      var KorAP = KorAP || {};
       KorAP.URL = 'http://localhost:3000';
     </script>
-    <script src="./all.js"></script>
   </body>
 </html>
