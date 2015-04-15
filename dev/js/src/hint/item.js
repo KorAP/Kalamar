@@ -8,6 +8,7 @@ define(['menu/item'], function (itemClass) {
 	.upgradeTo(this)
 	._init(params);
     },
+
     _init : function (params) {
       if (params[0] === undefined ||
 	  params[1] === undefined)
@@ -32,7 +33,7 @@ define(['menu/item'], function (itemClass) {
       return this._content;
     },
     
-    onclick : function () {
+    onclick : function (e) {
       var m = this.menu();
       var h = m.hint();
       m.hide();
@@ -43,8 +44,12 @@ define(['menu/item'], function (itemClass) {
       input.update();
 
       h.active = false;
+
+      e.halt();
+
       h.show(true);
     },
+
     name : function () {
       return this._name;
     },

@@ -1,5 +1,6 @@
 /**
  * Hint menu for Kalamar.
+ * Based on menu object.
  *
  * @author Nils Diewald
  */
@@ -76,7 +77,7 @@ define([
 
       // Add event listener for key pressed down
       inputFieldElement.addEventListener(
-	"keypress", function (e) {
+	"keydown", function (e) {
 	  var code = _codeFromEvent(e);
 	  if (code === 40) {
 	    that.show(false);
@@ -85,13 +86,20 @@ define([
 	}, false
       );
 
-      // Move infobox 
-      inputFieldElement.addEventListener(
-	"keyup", function (e) {
-	  var input = that._inputField;
-	  input.update();
-	}
-      );
+      this._inputField.container().addEventListener('click', function (e) {
+	if (!this.classList.contains('active')) {
+	  that.show(false);
+	};
+      });
+
+      var _up = function (e) {
+	var input = that._inputField;
+	input.update();
+      };
+
+      // Move infobox
+      inputFieldElement.addEventListener("keyup", _up);
+      inputFieldElement.addEventListener("click", _up);
 
       // Set Analyzer for context
       this._analyzer = analyzerClass.create(
@@ -103,25 +111,6 @@ define([
     inputField : function () {
       return this._inputField;
     },
-
-    /**
-     * A new update by keypress
-     */
-    /*
-updateKeyPress : function (e) {
-      if (!this._active)
-	return;
-
-      var character = String.fromCharCode(_codeFromEvent(e));
-
-      e.halt(); // No event propagation
-
-      // Only relevant for key down
-      console.log("TODO: filter view");
-    },
-    */
-
-    // updateKeyDown : function (e) {},
 
     /**
      * Return hint menu and probably init based on an action
@@ -187,13 +176,6 @@ updateKeyPress : function (e) {
 	c.appendChild(menu.element());
 	menu.show('');
 	menu.focus();
-// Update bounding box
-/*
-      }
-      else if (!ifContext) {
-	//	this.hide();
-      };
-*/
       // Focus on input field
       // this.inputField.element.focus();
       };

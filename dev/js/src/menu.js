@@ -75,7 +75,7 @@ define([
     },
 
     // Arrow key and prefix treatment
-    _keypress : function (e) {
+    _keydown : function (e) {
       var code = _codeFromEvent(e);
 
       switch (code) {
@@ -126,17 +126,19 @@ define([
 	this.show();
 	e.halt();
 	break;
-      default:
-	if (e.key !== undefined &&
-	    e.key.length != 1)
-	  return;
+      };
+    },
 
-	// Add prefix
-	this._prefix.add(e.key.toLowerCase());
+    // Add characters to prefix
+    _keypress : function (e) {
+      var c = String.fromCharCode(_codeFromEvent(e)).toLowerCase();
 
-	if (!this.show()) {
-	  this.prefix('').show();
-	};
+      // Add prefix
+      this._prefix.add(c);
+
+      if (!this.show()) {
+	this.prefix('').show();
+	e.halt();
       };
     },
 
@@ -164,6 +166,15 @@ define([
       e["menu"] = this;
 
       // Arrow keys
+      e.addEventListener(
+	'keydown',
+	function (ev) {
+	  that._keydown(ev)
+	},
+	false
+      );
+
+      // Strings
       e.addEventListener(
 	'keypress',
 	function (ev) {
