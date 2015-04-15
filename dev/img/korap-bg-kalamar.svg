@@ -10,12 +10,12 @@
   stroke:none;
 }
 .kalamar-shade {
-  fill: #9bad0b;
+  fill:rgb(217, 218, 219); /* #9bad0b; */
   fill-opacity:1;
   stroke:none
 }
 .kalamar-contour {
-  fill:#636f07;
+  fill: rgb(135, 136, 138); /* #636f07; */
   stroke:none;
 }
     </style>

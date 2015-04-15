@@ -45,14 +45,6 @@ define([
   // KorAP._validGroupOpRE     = new RegExp("^(?:and|or)$");
   // KorAP._quote              = new RegExp("([\"\\\\])", 'g');
 
-  // Localization values
-  var loc   = (KorAP.Locale = KorAP.Locale || {} );
-  /*
-    loc.AND   = loc.AND   || 'and';
-    loc.OR    = loc.OR    || 'or';
-    loc.DEL   = loc.DEL   || '×';
-    loc.EMPTY = loc.EMPTY || '⋯'
-  */
 
   /**
    * Virtual Collection
@@ -93,7 +85,7 @@ define([
 
       else {
 	// Add unspecified object
-	obj._root = KorAP.UnspecifiedDoc.create(obj);
+	obj._root = unspecDocClass.create(obj);
       };
 
       // Init element and update

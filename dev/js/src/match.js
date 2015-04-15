@@ -9,11 +9,9 @@
  * - Scroll to match vertically per default
  */
 define([
-  'match/infolayer',
   'match/info',
   'util'
-], function (infoLayerClass,
-	     infoClass) {
+], function (infoClass) {
 
   // Localization values
   var loc   = KorAP.Locale;
@@ -21,8 +19,6 @@ define([
   loc.SHOWINFO = loc.SHOWINFO || 'Show information';
   loc.CLOSE    = loc.CLOSE    || 'Close';
   
-  // KorAP._AvailableRE = new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
-  // KorAP._TermRE      = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
   var _matchTerms  = ['corpusID', 'docID', 'textID', 'matchID', 'available'];
 
   /**
@@ -38,6 +34,7 @@ define([
     create : function (match) {
       return Object.create(this)._init(match);
     },
+
 
     /**
      * Initialize match.
@@ -74,16 +71,11 @@ define([
 	// Iterate over allowed match terms
 	for (var i in _matchTerms) {
 	  var term = _matchTerms[i];
-	  if (match[term] !== undefined) {
-	    this[term] = match[term];
-	  }
-	  else {
-	    this[term] = undefined;
-	  }
+	  this[term] = match[term] !== undefined ? match[term] : undefined;
 	};
       };
       
-      this._available = {
+      this._avail = {
 	tokens : [],
 	spans  : [],
 	rels   : []
@@ -95,8 +87,8 @@ define([
 
 	// Create info layer objects
 	try {
-	  var layer = infoLayerClass.create(term);
-	  this._available[layer.type].push(layer);
+	  var layer = require('match/infolayer').create(term);
+	  this._avail[layer.type].push(layer);
 	}
 	catch (e) {
 	  continue;
@@ -111,7 +103,7 @@ define([
      * Return a list of parseable tree annotations.
      */
     getSpans : function () {
-      return this._available.spans;
+      return this._avail.spans;
     },
 
 
@@ -119,7 +111,7 @@ define([
      * Return a list of parseable token annotations.
      */
     getTokens : function () {
-      return this._available.tokens;
+      return this._avail.tokens;
     },
 
 
@@ -127,8 +119,9 @@ define([
      * Return a list of parseable relation annotations.
      */
     getRels : function () {
-      return this._available.rels;
+      return this._avail.rels;
     },
+
 
     /**
      * Open match
@@ -149,13 +142,18 @@ define([
       // Add active class to element
       element.classList.add('active');
 
+      // Already there
+      if (element.classList.contains('action'))
+	return true;
+
       // Create action buttons
       var ul = document.createElement('ul');
       ul.classList.add('action', 'right');
-      element.appendChild(ul);
 
-      // Use localization
-      var loc = KorAP.Locale;
+      element.appendChild(ul);
+      element.classList.add('action');
+
+      // Todo: Open in new frame
 
       // Add close button
       var close = document.createElement('li');
@@ -191,17 +189,16 @@ define([
       return true;
     },
 
+
     /**
      * Close info view
      */
     close : function () {
       this._element.classList.remove('active');
-
-/*
-      if (this._info !== undefined) {
-	this._info.destroy();
-      };
-*/
+      /* if (this._info !== undefined) {
+       *   this._info.destroy();
+       * };
+       */
     },
 
 
@@ -218,7 +215,7 @@ define([
       if (this._element === undefined ||
 	  this._element === null)
 	return this._info;
-
+      
       // Info is already activated
       if (this._info._element !== undefined)
 	return this._info;
@@ -226,14 +223,12 @@ define([
       return this._info;
     },
 
-
+    
     /**
      * Get match element.
      */
     element : function () {
-
-      // May be null
-      return this._element;
+      return this._element; // May be null
     }
   };
 });

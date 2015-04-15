@@ -4,16 +4,15 @@
     <title>Complete Demo</title>
     <meta charset="utf-8" />
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
-    <script data-main="alldemo.js" src="../js/lib/require.js" async="async"></script>
+    <script src="../../public/js/kalamar-0.14.1.js" async="async"></script>
   </head>
   <body>
     <div id="kalamar-bg"></div>
     <header>
       <a href="/" class="logo"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
 
-      <div class="button top">
-	<a href="#" class="login"><span>Login</span></a>
-      </div>
+      <a href="#">Feedback</a>
+      <a href="#">Login</a>
 
       <form autocomplete="off" action="/kalamar">
 	<div id="searchbar">
@@ -37,7 +36,7 @@
 	    <option value="cql">CQL v1.2</option>
 	  </select>
 	</span>
-	<div class="button right">
+	<div id="button-right">
 	  <input type="checkbox"
 		 value="1"
 		 name="cutoff"
@@ -46,20 +45,19 @@
 	  <label for="q-cutoff-field"><span></span>Glimpse</label>
 
 	  <!-- Todo: open tutorial - like openTutorial() -->
-	  <a href="doc/faq" class="question"><span>Question</span></a>
 	  <a href="about.html" title="Tutorial" class="tutorial" id="view-tutorial"><span>Tutorial</span></a>
 	</div>
       </form>
     </header>
 
-    <aside tabindex="0">
+    <div id="sidebar" tabindex="0">
       <h2>Einstellungen</h2>
       <p>Anzahl Treffer pro Seite</p>
       <p>Kontext:</p>
       <p>200 Zeichen/Token - 200 Zeichen/Token</p>
       <p>1 Satz 1 Paragraph</p>
       <a>Deutsch|Englisch</a>
-    </aside>
+    </div>
 
     <main>
       <div class="resultinfo">
@@ -89,6 +87,13 @@
 	    </div>
 	    <p class="ref"><strong>Wertparameter</strong> by Hubi,Zwobot,4; published on 2005-03-28 as WWW.03313 (WPD)</p>
 	    <!-- only inject via javascript! -->
+	    <!--
+	    <ul class="action right">
+	      <li class="close" title="Close"><a href="#">Close hit<i class="fa fa-toggle-up"></i></a></li>
+	      <li class="open" title="Open in new tab"><a href="#WPD-WWW.03313-p102-103" target="_blank"><i class="fa fa-external-link-square"></i></a></li>
+	      <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
+	    </ul>
+-->
 	  </li>
 	  <li data-corpus-id="WPD"
 	      data-doc-id="FFF"
@@ -101,6 +106,11 @@
 	      <div class="tokenInfo"></div>
 	    </div>
 	    <p class="ref"><strong>Fehlbezogenes Adjektiv</strong> by Joni2,Peterlustig,BWBot; published on 2005-03-28 as FFF.01460 (WPD)</p>
+	    <ul class="action right">
+	      <li class="close" title="Close"><a href="#"><i class="fa fa-toggle-up"></i></a></li>
+	      <li class="open" title="Open in new tab"><a href="#WPD-FFF.01460-p119-120" target="_blank"><i class="fa fa-external-link-square"></i></a></li>
+	      <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
+	    </ul>
 	  </li>
 
 	  <li data-corpus-id="WPD"
@@ -114,6 +124,11 @@
 	      <div class="tokenInfo"></div>
 	    </div>
 	    <p class="ref"><strong>High Definition Television</strong> by ArtMechanic,TheK,Andreas -horn- Hornig; published on 2005-03-28 as HHH.06056 (WPD)</p>
+	    <ul class="action right">
+	      <li class="close" title="Close"><a href="#"><i class="fa fa-toggle-up"></i></a></li>
+	      <li class="open" title="Open in new tab"><a href="#WPD-HHH.06056-p2564-2565" target="_blank"><i class="fa fa-external-link-square"></i></a></li>
+	      <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
+	    </ul>
 	  </li>
       </div>
       <div id="menu"></div>

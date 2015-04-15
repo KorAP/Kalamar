@@ -15,7 +15,7 @@ sub startup {
 
   # Set default totle
   $self->defaults(
-    layout => 'default',
+    layout => 'main',
     title => 'KorAP - Corpus Analysis Platform'
   );
 
@@ -123,6 +123,13 @@ sub startup {
   # Tutorial data
   $r->get('/tutorial')->to('tutorial#page', tutorial => 'index');
   $r->get('/tutorial/(*tutorial)')->to('tutorial#page')->name('tutorial');
+
+  $r->get('/doc/korap')->to(
+    cb => sub {
+      return shift->render(template => 'doc/korap');
+    });
+
+  # Todo: The FAQ-Page has a contact form for new questions
 };
 
 

@@ -50,19 +50,19 @@ define(['util'], function () {
 
 
   // Add doc with 'and' relation
-  var _and = function () {
+  KorAP._and = function () {
     return _add(this, 'and');
   };
 
 
   // Add doc with 'or' relation
-  var _or = function () {
+  KorAP._or = function () {
     return _add(this, 'or');
   };
 
 
   // Remove doc or docGroup
-  var _delete = function () {
+  KorAP._delete = function () {
     var ref = this.parentNode.refTo;
     if (ref.parent().ldType() !== null) {
       return ref.parent().delOperand(ref).update();
@@ -98,7 +98,7 @@ define(['util'], function () {
       if (this._and === true) {
 	var andE = document.createElement('span');
 	andE.setAttribute('class', 'and');
-	andE.addEventListener('click', _and, false);
+	andE.addEventListener('click', KorAP._and, false);
 	andE.appendChild(
 	  document.createTextNode(loc.AND)
 	);
@@ -109,7 +109,7 @@ define(['util'], function () {
       if (this._or === true) {
 	var orE = document.createElement('span');
 	orE.setAttribute('class', 'or');
-	orE.addEventListener('click', _or, false);
+	orE.addEventListener('click', KorAP._or, false);
 	orE.appendChild(document.createTextNode(loc.OR));
 	op.appendChild(orE);
       };
@@ -119,7 +119,7 @@ define(['util'], function () {
 	var delE = document.createElement('span');
 	delE.setAttribute('class', 'delete');
 	delE.appendChild(document.createTextNode(loc.DEL));
-	delE.addEventListener('click', _delete, false);
+	delE.addEventListener('click', KorAP._delete, false);
 	op.appendChild(delE);
       };
 

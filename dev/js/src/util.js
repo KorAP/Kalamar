@@ -10,6 +10,11 @@ if (Event.halt === undefined) {
   };
 };
 
+var _quoteRE = new RegExp("([\"\\\\])", 'g');
+String.prototype.quote = function () {
+  return this.replace(_quoteRE, '\\$1');
+};
+
 // Add toggleClass method similar to jquery
 HTMLElement.prototype.toggleClass = function (c1, c2) {
   var cl = this.classList;

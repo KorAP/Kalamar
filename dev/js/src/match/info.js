@@ -1,7 +1,16 @@
   /**
    * Information about a match.
    */
-define(['match/infolayer','match/table','match/tree', 'match/treemenu', 'util'], function (infoLayerClass, matchTableClass, matchTreeClass, matchTreeMenuClass) {
+define([
+  'match/infolayer',
+  'match/table',
+  'match/tree',
+  'match/treemenu',
+  'util'
+], function (infoLayerClass,
+	     matchTableClass,
+	     matchTreeClass,
+	     matchTreeMenuClass) {
 
   // TODO: Make this async
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {

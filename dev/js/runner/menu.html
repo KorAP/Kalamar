@@ -5,11 +5,27 @@
   <title>Spec Runner for Menu Helper</title>
   <link rel="shortcut icon" type="image/png" href="../lib/jasmine-2.1.1/jasmine_favicon.png">
   <link rel="stylesheet" href="../lib/jasmine-2.1.1/jasmine.css">
+  <script src="../lib/require.js"></script>
   <script src="../lib/jasmine-2.1.1/jasmine.js"></script>
   <script src="../lib/jasmine-2.1.1/jasmine-html.js"></script>
   <script src="../lib/jasmine-2.1.1/boot.js"></script>
-  <script src="../src/menu.js"></script>
-  <script src="../spec/menuSpec.js"></script>
+  <script>
+    require.config({
+      baseUrl: "../src",
+      paths: {
+        "lib" : "../lib",
+        "spec" : "../spec"
+      }
+    });
+    require([
+      'lib/domReady!',
+      'spec/menuSpec'
+    ],
+    function () {
+      if (jsApiReporter.finished === true)
+        jasmine.getEnv().execute();
+    });
+  </script>
 </head>
 <body>
 </body>

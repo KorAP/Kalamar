@@ -52,6 +52,54 @@ header {
     margin: 0px;
     position: relative;
   }
+
+  .button {
+    &.right {
+      float: right;
+      display: inline-block;
+    }
+    &.top {
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 0;
+      margin-right: 0;
+      width: 22px;
+      background-color: $dark-green;
+      text-align: center;
+      height: 100%;
+    }
+    color: $nearly-white;
+    line-height: 2em;
+    margin-right: $right-distance;
+    > a {
+      color: $nearly-white;
+      cursor:pointer;
+      position: relative;
+      font-size: 120%;
+      > span {
+	@include blind;
+      }
+    }
+    > a::after {
+      font-family: 'FontAwesome';
+    }
+    > a.tutorial::after {
+      content: $fa-tutorial;
+    }
+    > a.align.left::after {
+      content: $fa-left-align;
+    }
+    > a.align.right::after {
+      content: $fa-right-align;
+    }
+    > a.question::after {
+      content: $fa-question;
+    }
+    > a.login::after {
+      content: $fa-login;
+    }
+  }
 }
 
 

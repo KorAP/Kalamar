@@ -90,8 +90,10 @@ $font-path: '../font';
  * Margins
  */
 $standard-margin: 30px;
+$right-distance: 30px;
 $right-match-distance: 20px;
 $logo-left-distance: 230px;
+
 
 @mixin blind {
   position: absolute;
@@ -156,14 +158,20 @@ $logo-left-distance: 230px;
 /**
  * Font Awesome symbols
  */
-$fa-bars:     "\f0c9";
-$fa-extlink:  "\f08e";
-$fa-up:       "\f0d8";
-$fa-down:     "\f0d7";
-$fa-close:    "\f00d";
-$fa-info:     "\f05a";
-$fa-elipsis:  "\f141";
-$fa-previous: "\f0d9";
-$fa-next:     "\f0da";
-$fa-search:   "\f002";
-$fa-rewrite:  "\f040"; // "\f14b"
+$fa-bars:        "\f0c9";
+$fa-extlink:     "\f08e";
+$fa-up:          "\f0d8";
+$fa-down:        "\f0d7";
+$fa-close:       "\f00d";
+$fa-info:        "\f05a";
+$fa-elipsis:     "\f141";
+$fa-previous:    "\f0d9";
+$fa-next:        "\f0da";
+$fa-search:      "\f002";
+$fa-rewrite:     "\f040"; // "\f14b"
+$fa-login:       "\f090";
+$fa-logout:      "\f08b";
+$fa-tutorial:    "\f19d";
+$fa-left-align:  "\f036";
+$fa-right-align: "\f038";
+$fa-question:    "\f128"; // "\f059";

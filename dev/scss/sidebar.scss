@@ -3,7 +3,7 @@
 
 $border-size: 2px;
 
-#sidebar {
+aside {
   // box-shadow: 2px 2px 5px darken($dark-green, 15%);
   // box-shadow: $choose-box-shadow;
   outline: none;
@@ -122,7 +122,7 @@ $border-size: 2px;
 }
 
 
-#sidebar:not(:focus):not(.active) {
+aside:not(:focus):not(.active) {
   margin-left: -1 * ($logo-left-distance - 15px);
 //  box-shadow: none;
 /*

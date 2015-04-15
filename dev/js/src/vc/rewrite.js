@@ -4,7 +4,6 @@
 define(['vc/jsonld', 'util'], function (jsonldClass) {
 
   var _validRewriteOpRE   = new RegExp("^(?:injec|modifica)tion$");
-  var _quote              = new RegExp("([\"\\\\])", 'g');
 
   return {
     // Construction method
@@ -87,12 +86,12 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
 	this._scope === null ?
 	  'object' :
 	  '"' +
-	  this.scope().replace(_quote, '\\$1') +
+	  this.scope().quote() +
 	  '"'
       );
       str += ' by ' +
 	'"' +
-	this.src().replace(_quote, '\\$1') +
+	this.src().quote() +
 	'"';
       return str;
     }

@@ -133,7 +133,7 @@ define([
     // Wrap a new operation around the doc element
     wrap : function (op) {
       var parent = this.parent();
-      var group = KorAP.DocGroup.create(parent);
+      var group = require('vc/docgroup').create(parent);
       group.operation(op);
       group.append(this);
       group.append();
@@ -353,7 +353,7 @@ define([
 	return string + '/' + this.value() + '/';
 	break;
       case "string":
-	return string + '"' + this.value().replace(KorAP._quote, '\\$1') + '"';
+	return string + '"' + this.value().quote() + '"';
 	break;
       };
 

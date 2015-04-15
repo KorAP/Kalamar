@@ -2,7 +2,6 @@
 @import "util";
 
 $border-size: 2px;
-$right-distance: 30px;
 
 /**
  * Input field
@@ -106,34 +105,5 @@ header input {
     &:after {
       content:"\f046";
     }
-  }
-}
-
-#button-right {
-  display: inline-block;
-  float: right;
-  color: $nearly-white;
-  line-height: 2em;
-  margin-right: $right-distance;
-  > a {
-    color: $nearly-white;
-    cursor:pointer;
-    position: relative;
-    font-size: 120%;
-    > span {
-      @include blind;
-    }
-  }
-  > a::after {
-    font-family: 'FontAwesome';
-  }
-  > a.tutorial::after {
-    content: '\f19d';
-  }
-  > a.align.left::after {
-    content: '\f036';
-  }
-  > a.align.right::after {
-    content: '\f038';
   }
 }

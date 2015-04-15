@@ -5,7 +5,6 @@ function emitKeyboardEvent (element, type, keyCode) {
   var keyboardEvent = document.createEvent("KeyboardEvent");
   var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ?
     "initKeyboardEvent" : "initKeyEvent";
-
   keyboardEvent[initMethod](
     type, 
     true, // bubbles
@@ -19,394 +18,393 @@ function emitKeyboardEvent (element, type, keyCode) {
     0 // charCodeArgs : unsigned long the Unicode character
       // associated with the depressed key, else 0
   );
-
   element.dispatchEvent(keyboardEvent);
 };
 
 
-describe('KorAP.InputField', function () {
-  var input;
+define(['hint'], function () {
 
-  beforeEach(function () {
-    input = document.createElement("input");
-    input.setAttribute('type', "text");
-    input.setAttribute("value", "abcdefghijklmno");
-    input.style.position = 'absolute';
-    document.getElementsByTagName('body')[0].appendChild(input);
-    input.style.top  = "20px";
-    input.style.left = "30px";
-    input.focus();
-    input.selectionStart = 5;
-  });
+  var hintClass =     require("hint");
+  var inputClass =    require("hint/input");
+  var contextClass =  require("hint/contextanalyzer");
+  var menuClass =     require("hint/menu");
+  var menuItemClass = require("hint/item");
 
-  afterEach(function () {
-    document.getElementsByTagName("body")[0].removeChild(
-      input
-    );    
-  });
+  describe('KorAP.InputField', function () {
+    var input;
 
-  afterAll(function () {
-    try {
-      document.getElementsByTagName("body")[0].removeChild(
-	document.getElementById("searchMirror")
-      );
-    }
-    catch (e) {};
-  });
-
-  it('should be initializable', function () {
-    // Supports: context, searchField
-    var inputField = KorAP.InputField.create(input);
-    expect(inputField._element).not.toBe(undefined);
-  });
-
-  it('should have text', function () {
-    expect(input.value).toEqual('abcdefghijklmno');
-    var inputField = KorAP.InputField.create(input);
-
-    expect(inputField.value()).toEqual("abcdefghijklmno");
-
-    expect(input.selectionStart).toEqual(5);
-    expect(inputField.element().selectionStart).toEqual(5);
-    expect(inputField.split()[0]).toEqual("abcde");
-    expect(inputField.split()[1]).toEqual("fghijklmno");
-
-    inputField.insert("xyz");
-    expect(inputField.value()).toEqual('abcdexyzfghijklmno');
-    expect(inputField.split()[0]).toEqual("abcdexyz");
-    expect(inputField.split()[1]).toEqual("fghijklmno");
-  });
-
-  it('should be correctly positioned', function () {
-    expect(input.value).toEqual('abcdefghijklmno');
-    var inputField = KorAP.InputField.create(input);
-    document.getElementsByTagName("body")[0].appendChild(input);
-    inputField.reposition();
-    expect(input.style.left).toEqual("30px");
-    expect(inputField.mirror().style.left.match(/^(\d+)px$/)[1]).toBeGreaterThan(29);
-    expect(inputField.mirror().style.top.match(/^(\d+)px$/)[1]).toBeGreaterThan(20);
-  });
-
-  it('should have a correct context', function () {
-    expect(input.value).toEqual('abcdefghijklmno');
-    var inputField = KorAP.InputField.create(input);
-
-    expect(inputField.value()).toEqual("abcdefghijklmno");
-
-    expect(inputField.element().selectionStart).toEqual(5);
-    expect(inputField.split()[0]).toEqual("abcde");
-    expect(inputField.context()).toEqual("abcde");
-  });
-
-/*
-  it('should be correctly triggerable', function () {
-    // https://developer.mozilla.org/samples/domref/dispatchEvent.html
-    var hint = KorAP.Hint.create({ "inputField" : input });
-    emitKeyboardEvent(hint.inputField.element, "keypress", 20);
-  });
-*/
-});
-
-
-describe('KorAP.ContextAnalyzer', function () {
-  it('should be initializable', function () {
-    var analyzer = KorAP.ContextAnalyzer.create(")");
-    expect(analyzer).toBe(undefined);
-
-    analyzer = KorAP.ContextAnalyzer.create(".+?");
-    expect(analyzer).not.toBe(undefined);
-
-  });
-
-  it('should check correctly', function () {
-    analyzer = KorAP.ContextAnalyzer.create(KorAP.context);
-    expect(analyzer.test("cnx/]cnx/c=")).toEqual("cnx/c=");
-    expect(analyzer.test("cnx/c=")).toEqual("cnx/c=");
-    expect(analyzer.test("cnx/c=np mate/m=mood:")).toEqual("mate/m=mood:");
-    expect(analyzer.test("impcnx/")).toEqual("impcnx/");
-    expect(analyzer.test("cnx/c=npcnx/")).toEqual("npcnx/");
-    expect(analyzer.test("mate/m=degree:pos corenlp/ne_dewac_175m_600="))
-      .toEqual("corenlp/ne_dewac_175m_600=");
-  });
-});
-
-
-describe('KorAP.Hint', function () {
-  KorAP.hintArray = {
-    "corenlp/" : [
-      ["Named Entity", "ne=" , "Combined"],
-      ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
-      ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
-    ]
-  };
-
-  beforeEach(function () {
-    input = document.createElement("input");
-    input.setAttribute("type", "text");
-    input.setAttribute("value", "abcdefghijklmno");
-    input.style.position = 'absolute';
-    input.style.top  = "20px";
-    input.style.left = "30px";
-    input.focus();
-    input.selectionStart = 5;
-  });
-
-  it('should be initializable', function () {
-    // Supports: context, searchField
-    var hint = KorAP.Hint.create({
-      inputField : input
+    beforeEach(function () {
+      input = document.createElement("input");
+      input.setAttribute('type', "text");
+      input.setAttribute("value", "abcdefghijklmno");
+      input.style.position = 'absolute';
+      document.getElementsByTagName('body')[0].appendChild(input);
+      input.style.top  = "20px";
+      input.style.left = "30px";
+      input.focus();
+      input.selectionStart = 5;
     });
 
-    expect(hint).toBeTruthy();
-  });
-});
+    afterEach(function () {
+      document.getElementsByTagName("body")[0].removeChild(
+	input
+      );    
+    });
 
-describe('KorAP.HintMenuItem', function () {
-  it('should be initializable', function () {
-    expect(
-      function() { KorAP.HintMenuItem.create([]) }
-    ).toThrow(new Error("Missing parameters"));
+    afterAll(function () {
+      try {
+	document.getElementsByTagName("body")[0].removeChild(
+	  document.getElementById("searchMirror")
+	);
+      }
+      catch (e) {};
+    });
 
-    expect(
-      function() { KorAP.HintMenuItem.create(['CoreNLP']) }
-    ).toThrow(new Error("Missing parameters"));
+    it('should be initializable', function () {
+      // Supports: context, searchField
+      var inputField = inputClass.create(input);
+      expect(inputField._element).not.toBe(undefined);
+    });
 
-    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.name()).toEqual('CoreNLP');
-    expect(menuItem.action()).toEqual('corenlp/');
-    expect(menuItem.desc()).toBeUndefined();
+    it('should have text', function () {
+      expect(input.value).toEqual('abcdefghijklmno');
+      var inputField = inputClass.create(input);
 
-    menuItem = KorAP.HintMenuItem.create(
-      ['CoreNLP', 'corenlp/', 'It\'s funny']
-    );
-    expect(menuItem.name()).toEqual('CoreNLP');
-    expect(menuItem.action()).toEqual('corenlp/');
-    expect(menuItem.desc()).not.toBeUndefined();
-    expect(menuItem.desc()).toEqual('It\'s funny');
-  });
+      expect(inputField.value()).toEqual("abcdefghijklmno");
 
-  it('should have an element', function () {
-    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.element()).not.toBe(undefined);
-    expect(menuItem.element().nodeName).toEqual("LI");
+      expect(input.selectionStart).toEqual(5);
+      expect(inputField.element().selectionStart).toEqual(5);
+      expect(inputField.split()[0]).toEqual("abcde");
+      expect(inputField.split()[1]).toEqual("fghijklmno");
 
-    var title = menuItem.element().firstChild;
-    expect(title.nodeName).toEqual("SPAN");
-    expect(title.firstChild.nodeType).toEqual(3);
-    expect(title.firstChild.nodeValue).toEqual("CoreNLP");
-    expect(menuItem.element().childNodes[0]).not.toBe(undefined);
-    expect(menuItem.element().childNodes[1]).toBe(undefined);
+      inputField.insert("xyz");
+      expect(inputField.value()).toEqual('abcdexyzfghijklmno');
+      expect(inputField.split()[0]).toEqual("abcdexyz");
+      expect(inputField.split()[1]).toEqual("fghijklmno");
+    });
 
-    menuItem = KorAP.HintMenuItem.create(
-      ['CoreNLP', 'corenlp/', 'my DescRiption']
-    );
-    expect(menuItem.element()).not.toBe(undefined);
-    expect(menuItem.element().nodeName).toEqual("LI");
+    it('should be correctly positioned', function () {
+      expect(input.value).toEqual('abcdefghijklmno');
+      var inputField = inputClass.create(input);
+      document.getElementsByTagName("body")[0].appendChild(input);
+      inputField.reposition();
+      expect(input.style.left).toEqual("30px");
+      expect(inputField.mirror().style.left.match(/^(\d+)px$/)[1]).toBeGreaterThan(29);
+      expect(inputField.mirror().style.top.match(/^(\d+)px$/)[1]).toBeGreaterThan(20);
+    });
 
-    title = menuItem.element().firstChild;
-    expect(title.nodeName).toEqual("SPAN");
-    expect(title.firstChild.nodeType).toEqual(3); // TextNode
-    expect(title.firstChild.nodeValue).toEqual("CoreNLP");
+    it('should have a correct context', function () {
+      expect(input.value).toEqual('abcdefghijklmno');
+      var inputField = inputClass.create(input);
+      expect(inputField.value()).toEqual("abcdefghijklmno");
+      expect(inputField.element().selectionStart).toEqual(5);
+      expect(inputField.split()[0]).toEqual("abcde");
+      expect(inputField.context()).toEqual("abcde");
+    });
 
-    expect(menuItem.element().childNodes[0]).not.toBe(undefined);
-    expect(menuItem.element().childNodes[1]).not.toBe(undefined);
-
-    var desc = menuItem.element().lastChild;
-    expect(desc.nodeName).toEqual("SPAN");
-    expect(desc.firstChild.nodeType).toEqual(3); // TextNode
-    expect(desc.firstChild.nodeValue).toEqual("my DescRiption");
-  });
-
-
-  it('should be activatable and deactivateable by class', function () {
-    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.active()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toBe(null);
-    menuItem.active(true);
-    expect(menuItem.active()).toBe(true);
-    expect(menuItem.element().getAttribute("class")).toEqual("active");
-    menuItem.active(false); // Is active
-    expect(menuItem.active()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toEqual("");
-    menuItem.active(true);
-    expect(menuItem.active()).toBe(true);
-    expect(menuItem.element().getAttribute("class")).toEqual("active");
-
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.active()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toBe(null);
-    menuItem.active(false); // Is not active
-    expect(menuItem.active()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toBe(null);
+    /*
+      it('should be correctly triggerable', function () {
+      // https://developer.mozilla.org/samples/domref/dispatchEvent.html
+      var hint = KorAP.Hint.create({ "inputField" : input });
+      emitKeyboardEvent(hint.inputField.element, "keypress", 20);
+      });
+    */
   });
 
-  it('should be set to boundary', function () {
-    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    expect(menuItem.active()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toBe(null);
 
-    // Set active
-    menuItem.active(true);
-    expect(menuItem.active()).toBe(true);
-    expect(menuItem.noMore()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toEqual("active");
+  describe('KorAP.ContextAnalyzer', function () {
+    it('should be initializable', function () {
+      var analyzer = contextClass.create(")");
+      expect(analyzer).toBe(undefined);
+      analyzer = contextClass.create(".+?");
+      expect(analyzer).not.toBe(undefined);
+    });
 
-    // Set no more
-    menuItem.noMore(true);
-    expect(menuItem.active()).toBe(true);
-    expect(menuItem.noMore()).toBe(true);
-    expect(menuItem.element().getAttribute("class")).toEqual("active no-more");
-
-    // No no more
-    menuItem.noMore(false);
-    expect(menuItem.active()).toBe(true);
-    expect(menuItem.noMore()).toBe(false);
-    expect(menuItem.element().getAttribute("class")).toEqual("active");
-
-    // Set no more, deactivate
-    menuItem.noMore(true);
-    menuItem.active(false);
-    expect(menuItem.active()).toBe(false);
-    expect(menuItem.noMore()).toBe(true);
-    expect(menuItem.element().getAttribute("class")).toEqual("no-more");
-
-    // Set active
-    menuItem.active(true);
-    expect(menuItem.active()).toBe(true);
-    expect(menuItem.noMore()).toBe(true);
-    expect(menuItem.element().getAttribute("class")).toEqual("no-more active");
+    it('should check correctly', function () {
+      analyzer = contextClass.create(KorAP.context);
+      expect(analyzer.test("cnx/]cnx/c=")).toEqual("cnx/c=");
+      expect(analyzer.test("cnx/c=")).toEqual("cnx/c=");
+      expect(analyzer.test("cnx/c=np mate/m=mood:")).toEqual("mate/m=mood:");
+      expect(analyzer.test("impcnx/")).toEqual("impcnx/");
+      expect(analyzer.test("cnx/c=npcnx/")).toEqual("npcnx/");
+      expect(analyzer.test("mate/m=degree:pos corenlp/ne_dewac_175m_600="))
+	.toEqual("corenlp/ne_dewac_175m_600=");
+    });
   });
 
-  xit('should be highlightable', function () {
-    // Highlight in the middle
-    var menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    menuItem.highlight("ren");
-    expect(menuItem.element().innerHTML).toEqual("<span>Co<mark>reN</mark>LP</span>");
 
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+  describe('KorAP.Hint', function () {
+    KorAP.hintArray = {
+      "corenlp/" : [
+	["Named Entity", "ne=" , "Combined"],
+	["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
+	["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
+      ]
+    };
 
-    // Starting highlight
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    menuItem.highlight("cor");
-    expect(menuItem.element().innerHTML).toEqual("<span><mark>Cor</mark>eNLP</span>");
+    beforeEach(function () {
+      input = document.createElement("input");
+      input.setAttribute("type", "text");
+      input.setAttribute("value", "abcdefghijklmno");
+      input.style.position = 'absolute';
+      input.style.top  = "20px";
+      input.style.left = "30px";
+      input.focus();
+      input.selectionStart = 5;
+    });
 
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
-/*
+    it('should be initializable', function () {
+      // Supports: context, searchField
+      var hint = hintClass.create({
+	inputField : input
+      });
 
-    // Starting highlight - short
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    menuItem.highlight("c");
-    expect(menuItem.element().innerHTML).toEqual("<span><mark>C</mark>oreNLP</span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
-
-    // Highlight at the end
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    menuItem.highlight("nlp");
-    expect(menuItem.element().innerHTML).toEqual("<span>Core<mark>NLP</mark></span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
-
-    // Highlight at the end - short
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    menuItem.highlight("p");
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNL<mark>P</mark></span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
-
-    // No highlight
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/']);
-    menuItem.highlight("xp");
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
-
-
-    // Highlight in the middle - first
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
-    menuItem.highlight("ren");
-    expect(menuItem.element().innerHTML).toEqual("<span>Co<mark>reN</mark>LP</span><span class=\"desc\">This is my Example</span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Example</span>');
-
-    // Highlight in the middle - second
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
-    menuItem.highlight("ampl");
-    expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Ex<mark>ampl</mark>e</span>');
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Example</span>');
-
-    // Highlight in the middle - both
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
-
-    menuItem.highlight("e");
-    expect(menuItem.element().innerHTML).toEqual('<span>Cor<mark>e</mark>NLP</span><span class="desc">This is my <mark>E</mark>xampl<mark>e</mark></span>');
-
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Example</span>");
-
-    // Highlight in the end - second
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
-    menuItem.highlight("le");
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Examp<mark>le</mark></span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Example</span>");
-
-    // Highlight at the beginning - second
-    menuItem = KorAP.HintMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
-    menuItem.highlight("this");
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span><mark>This</mark> is my Example</span>");
-
-    menuItem.lowlight();
-    expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span>This is my Example</span>");
-*/
+      expect(hint).toBeTruthy();
+    });
   });
-});
+
+  describe('KorAP.HintMenuItem', function () {
+    it('should be initializable', function () {
+      expect(
+	function() { menuItemClass.create([]) }
+      ).toThrow(new Error("Missing parameters"));
+
+      expect(
+	function() { menuItemClass.create(['CoreNLP']) }
+      ).toThrow(new Error("Missing parameters"));
+
+      var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      expect(menuItem.name()).toEqual('CoreNLP');
+      expect(menuItem.action()).toEqual('corenlp/');
+      expect(menuItem.desc()).toBeUndefined();
+
+      menuItem = menuItemClass.create(
+	['CoreNLP', 'corenlp/', 'It\'s funny']
+      );
+      expect(menuItem.name()).toEqual('CoreNLP');
+      expect(menuItem.action()).toEqual('corenlp/');
+      expect(menuItem.desc()).not.toBeUndefined();
+      expect(menuItem.desc()).toEqual('It\'s funny');
+    });
+
+    it('should have an element', function () {
+      var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      expect(menuItem.element()).not.toBe(undefined);
+      expect(menuItem.element().nodeName).toEqual("LI");
+
+      var title = menuItem.element().firstChild;
+      expect(title.nodeName).toEqual("SPAN");
+      expect(title.firstChild.nodeType).toEqual(3);
+      expect(title.firstChild.nodeValue).toEqual("CoreNLP");
+      expect(menuItem.element().childNodes[0]).not.toBe(undefined);
+      expect(menuItem.element().childNodes[1]).toBe(undefined);
+
+      menuItem = menuItemClass.create(
+	['CoreNLP', 'corenlp/', 'my DescRiption']
+      );
+      expect(menuItem.element()).not.toBe(undefined);
+      expect(menuItem.element().nodeName).toEqual("LI");
+
+      title = menuItem.element().firstChild;
+      expect(title.nodeName).toEqual("SPAN");
+      expect(title.firstChild.nodeType).toEqual(3); // TextNode
+      expect(title.firstChild.nodeValue).toEqual("CoreNLP");
+
+      expect(menuItem.element().childNodes[0]).not.toBe(undefined);
+      expect(menuItem.element().childNodes[1]).not.toBe(undefined);
+
+      var desc = menuItem.element().lastChild;
+      expect(desc.nodeName).toEqual("SPAN");
+      expect(desc.firstChild.nodeType).toEqual(3); // TextNode
+      expect(desc.firstChild.nodeValue).toEqual("my DescRiption");
+    });
 
 
-describe('KorAP.HintMenu', function () {
+    it('should be activatable and deactivateable by class', function () {
+      var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      expect(menuItem.active()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toBe(null);
+      menuItem.active(true);
+      expect(menuItem.active()).toBe(true);
+      expect(menuItem.element().getAttribute("class")).toEqual("active");
+      menuItem.active(false); // Is active
+      expect(menuItem.active()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toEqual("");
+      menuItem.active(true);
+      expect(menuItem.active()).toBe(true);
+      expect(menuItem.element().getAttribute("class")).toEqual("active");
 
-  var list = [
-    ["Constituency", "c=", "Example 1"],
-    ["Lemma", "l="],
-    ["Morphology", "m=", "Example 2"],
-    ["Part-of-Speech", "p="],
-    ["Syntax", "syn="]
-  ];
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      expect(menuItem.active()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toBe(null);
+      menuItem.active(false); // Is not active
+      expect(menuItem.active()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toBe(null);
+    });
 
+    it('should be set to boundary', function () {
+      var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      expect(menuItem.active()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toBe(null);
 
-  it('should be initializable', function () {
+      // Set active
+      menuItem.active(true);
+      expect(menuItem.active()).toBe(true);
+      expect(menuItem.noMore()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toEqual("active");
 
-    var menu = KorAP.HintMenu.create(null, "cnx/", list);
-    expect(menu.context()).toEqual('cnx/');
-    expect(menu.element().nodeName).toEqual('UL');
-    expect(menu.element().style.opacity).toEqual("0");
+      // Set no more
+      menuItem.noMore(true);
+      expect(menuItem.active()).toBe(true);
+      expect(menuItem.noMore()).toBe(true);
+      expect(menuItem.element().getAttribute("class")).toEqual("active no-more");
 
-    menu.limit(8);
+      // No no more
+      menuItem.noMore(false);
+      expect(menuItem.active()).toBe(true);
+      expect(menuItem.noMore()).toBe(false);
+      expect(menuItem.element().getAttribute("class")).toEqual("active");
 
-    // view
-    menu.show();
+      // Set no more, deactivate
+      menuItem.noMore(true);
+      menuItem.active(false);
+      expect(menuItem.active()).toBe(false);
+      expect(menuItem.noMore()).toBe(true);
+      expect(menuItem.element().getAttribute("class")).toEqual("no-more");
 
-    // First element in list
-    expect(menu.item(0).active()).toBe(true);
-    expect(menu.item(0).noMore()).toBe(true);
-    
-    // Middle element in list
-    expect(menu.item(2).active()).toBe(false);
-    expect(menu.item(2).noMore()).toBe(false);
+      // Set active
+      menuItem.active(true);
+      expect(menuItem.active()).toBe(true);
+      expect(menuItem.noMore()).toBe(true);
+      expect(menuItem.element().getAttribute("class")).toEqual("no-more active");
+    });
 
-    // Last element in list
-    expect(menu.item(menu.length() - 1).active()).toBe(false);
-    expect(menu.item(menu.length() - 1).noMore()).toBe(true);
+    it('should be highlightable', function () {
+      // Highlight in the middle
+      var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      menuItem.highlight("ren");
+      expect(menuItem.element().innerHTML).toEqual("<span>Co<mark>reN</mark>LP</span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      // Starting highlight
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      menuItem.highlight("cor");
+      expect(menuItem.element().innerHTML).toEqual("<span><mark>Cor</mark>eNLP</span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      // Starting highlight - short
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      menuItem.highlight("c");
+      expect(menuItem.element().innerHTML).toEqual("<span><mark>C</mark>oreNLP</span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      // Highlight at the end
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      menuItem.highlight("nlp");
+      expect(menuItem.element().innerHTML).toEqual("<span>Core<mark>NLP</mark></span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      // Highlight at the end - short
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      menuItem.highlight("p");
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNL<mark>P</mark></span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      // No highlight
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
+      menuItem.highlight("xp");
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span>");
+
+      // Highlight in the middle - first
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+
+      menuItem.highlight("ren");
+      expect(menuItem.element().innerHTML).toEqual("<span>Co<mark>reN</mark>LP</span><span class=\"desc\">This is my Example</span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Example</span>');
+
+      // Highlight in the middle - second
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+      menuItem.highlight("ampl");
+      expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Ex<mark>ampl</mark>e</span>');
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual('<span>CoreNLP</span><span class="desc">This is my Example</span>');
+
+      // Highlight in the middle - both
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+
+      menuItem.highlight("e");
+      expect(menuItem.element().innerHTML).toEqual('<span>Cor<mark>e</mark>NLP</span><span class="desc">This is my <mark>E</mark>xampl<mark>e</mark></span>');
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\">This is my Example</span>");
+
+      // Highlight in the end - second
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+      menuItem.highlight("le");
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\">This is my Examp<mark>le</mark></span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\">This is my Example</span>");
+
+      // Highlight at the beginning - second
+      menuItem = menuItemClass.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+      menuItem.highlight("this");
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\"><mark>This</mark> is my Example</span>");
+
+      menuItem.lowlight();
+      expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\">This is my Example</span>");
+    });
+  });
+
+  describe('KorAP.HintMenu', function () {
+
+    var list = [
+      ["Constituency", "c=", "Example 1"],
+      ["Lemma", "l="],
+      ["Morphology", "m=", "Example 2"],
+      ["Part-of-Speech", "p="],
+      ["Syntax", "syn="]
+    ];
+
+    it('should be initializable', function () {
+
+      var menu = menuClass.create(null, "cnx/", list);
+      expect(menu.context()).toEqual('cnx/');
+      expect(menu.element().nodeName).toEqual('UL');
+      expect(menu.element().style.opacity).toEqual("0");
+
+      menu.limit(8);
+
+      // view
+      menu.show();
+
+      // First element in list
+      expect(menu.item(0).active()).toBe(true);
+      expect(menu.item(0).noMore()).toBe(true);
+      
+      // Middle element in list
+      expect(menu.item(2).active()).toBe(false);
+      expect(menu.item(2).noMore()).toBe(false);
+
+      // Last element in list
+      expect(menu.item(menu.length() - 1).active()).toBe(false);
+      expect(menu.item(menu.length() - 1).noMore()).toBe(true);
+    });
   });
 });
