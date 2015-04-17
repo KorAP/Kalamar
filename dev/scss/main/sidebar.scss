@@ -68,6 +68,20 @@ aside {
       > a {
 	padding: $item-padding;
       }
+
+      li.folded {
+	&.active ul {
+	  display: block;
+	}
+	ul {
+	  display: none;
+	}
+      }
+
+      &.active > a:link {
+	@include choose-active;
+      }
+
       > a:link {
 	@include choose-item;
 	border-right: {
@@ -83,9 +97,6 @@ aside {
 	  // color: inherit;
 	  transition: none;
 	  @include choose-hover;
-	}
-	&.active, &:active {
-	  @include choose-active;
 	}
       }
       h3 {

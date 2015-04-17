@@ -1,0 +1,5 @@
+% layout 'main', title => 'KorAP: Regular Expressions';
+
+<h2>Regular Expressions</h2>
+
+%= doc_uc

@@ -1,0 +1,9 @@
+% layout 'main', title => 'KorAP: Karang';
+
+<h2>Karang</h2>
+
+%= korap_overview 'karang'
+
+<p><strong>Main developer:</strong> Piotr Pęzik</p>
+
+<p>Karang is a Neo4j based search backend for KorAP.</p>

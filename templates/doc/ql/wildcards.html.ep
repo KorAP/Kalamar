@@ -1,0 +1,5 @@
+% layout 'main', title => 'KorAP: Wildcards';
+
+<h2>Wildcards</h2>
+
+%= doc_uc

@@ -119,7 +119,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   grunt.registerTask('default', ['requirejs']);
-
+  grunt.registerTask('img', ['imagemin','copy']);
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',

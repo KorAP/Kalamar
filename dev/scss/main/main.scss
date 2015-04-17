@@ -8,5 +8,74 @@
 @import "sidebar";    // Navigation on the left side
 @import "tutorial";   // Embedded and non-embedded tutorial
 @import "alertify";
-@import "alertify/alertify.core.css";
-@import "alertify/alertify.default.css";
+
+div.intro {
+  width: 70%;
+  min-width: 600px;
+}
+
+
+main {
+  margin: {
+    left: $standard-margin; 
+    right: $standard-margin; // Todo: -16px
+  }
+  padding-bottom: 20pt;
+  &.embedded {
+    margin: {
+      left: 14px;
+      right: 14px;
+    }
+  }
+  p {
+    text-align: justify;
+    hyphens: auto;
+  }
+
+/*
+  > section > p, > p {
+    a {
+      border-radius: 6px;
+      padding: 0 .3em;
+      background-color: $choose-bg;
+      text-shadow: light-shadow;
+      color: $light-green;
+      &:hover {
+        color: $dark-green;
+	text-shadow: none;
+	background-color: $light-green;
+      }
+    }
+  }
+*/
+}
+
+blockquote {
+  border-radius: $standard-border-radius;
+  padding: 2pt 5pt 2pt 20pt;
+  margin: 0;
+  border-left: 5px solid $ids-blue-1;
+  background-color: $ids-blue-2;
+  color: $ids-blue-1;
+}
+
+/*
+blockquote {
+  border-radius: 12px;
+  margin: 0;
+  text-indent: 0;
+  padding: 1em;
+  border-left: {
+    color: $dark-grey;
+    style: solid;
+    width: 1em;
+  }
+  background-color: $light-grey;
+  &.warning {
+    border-left-color: $dark-orange;
+  }
+  &.exception {
+    border-left-color: red;
+  }
+}
+*/

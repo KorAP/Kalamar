@@ -5,9 +5,11 @@ footer {
   position: absolute;
   background-color: $dark-grey;
   bottom: 0;
+  font-size: 70%;
   width: 100%;
-  text-align: center;
+  text-align: right;
   a:link {
+    margin: 0 .5em;
     color: $light-grey;
     &:hover {
       color: $nearly-white;

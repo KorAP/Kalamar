@@ -25,12 +25,10 @@ body {
   font-size: 12pt;
 }
 
-.intro p {
-  text-shadow: $light-shadow
-}
 
 a {
-  &[href^="http://"]:after {
+  &[href^="http://"]:after,
+  &[href^="https://"]:after {
     font-family: FontAwesome;
     content: " " + $fa-extlink;
     font-size: 75%;
@@ -46,63 +44,4 @@ a {
       color: $darkest-orange;
     }
   }
-}
-
-main {
-  margin: {
-    left: $standard-margin; 
-    right: $standard-margin; // Todo: -16px
-  }
-  &.embedded {
-    margin: {
-      left: 14px;
-      right: 14px;
-    }
-  }
-  p {
-    text-align: justify;
-    hyphens: auto;
-  }
-
-/*
-  > section > p, > p {
-    a {
-      border-radius: 6px;
-      padding: 0 .3em;
-      background-color: $choose-bg;
-      text-shadow: light-shadow;
-      color: $light-green;
-      &:hover {
-        color: $dark-green;
-	text-shadow: none;
-	background-color: $light-green;
-      }
-    }
-  }
-*/
-}
-/*
-blockquote {
-  border-radius: 12px;
-  margin: 0;
-  text-indent: 0;
-  padding: 1em;
-  border-left: {
-    color: $dark-grey;
-    style: solid;
-    width: 1em;
-  }
-  background-color: $light-grey;
-  &.warning {
-    border-left-color: $dark-orange;
-  }
-  &.exception {
-    border-left-color: red;
-  }
-}
-*/
-
-div.intro {
-  width: 70%;
-  min-width: 600px;
 }

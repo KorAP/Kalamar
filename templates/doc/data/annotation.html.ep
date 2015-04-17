@@ -1,0 +1,108 @@
+% layout 'main', title => 'KorAP: Annotations';
+
+<h2>Annotations</h2>
+
+<p>KorAP provides access to multiple levels of annotations originating from multiple resources, so called <em>foundries</em>.</p>
+
+<section id="base">
+  <h3>Base Foundry</h3>
+  <p>The base foundry is available for all corpora and acts as a common ground for document structure annotation. It supports two types of spans: <code>&lt;s&gt;</code> for sentences and <code>&lt;p&gt;</code> for paragraphs - this will likely change in the next index version. These spans lack prefix information!</p>
+  %= kalamar_tut_query poliqarp => '<s>', cutoff => 1
+</section>
+
+
+<section id="cnx">
+  <h3>Connexor (<code>cnx</code>)</h3>
+  <p>Connexor annotations provide the following layer for the <code>cnx</code> prefix:</p>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>All lemmas are written in lower case. Composita are split, e.g. the token &quot;Leitfähigkeit&quot; is matched by the lemmas &quot;leit&quot; and &quot;fähigkeit&quot; - not by the lemma &quot;leitfähigkeit&quot;</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Part-of-speech information is written in capital letters and is based on STTS</dd>
+    <dt><abbr data-type="token" title="Syntactical information">syn</abbr></dt>
+    <dd>Includes token based information like <code>@PREMOD</code>, <code>@NH</code>, <code>@MAIN</code> ...</dd>
+    <dt><abbr data-type="token" title="Morphosyntactical information">m</abbr></dt>
+    <dd>Includes information about tense (<code>PRES</code> ...), mode (<code>IND</code>), number (<code>PL</code> ...) etc.</dd>
+    <dt><abbr data-type="span" title="Phrases">c</abbr></dt>
+    <dd>Only nominal phrases are available and all nominal phrases are written in lower case (<code>np</code>)</dd>
+  </dl>
+  %= kalamar_tut_query poliqarp => '[cnx/p=CC]', cutoff => 1
+</section>
+
+
+<section id="corenlp">
+  <h3>CoreNLP (<code>corenlp</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Named Entity">ne_hgc_175m_600</abbr></dt>
+    <dd>Contains named entities like <code>I-PER</code>, <code>I-ORG</code> etc.</dd>
+    <dt><abbr data-type="token" title="Named Entity">ne_dewac_175_175m_600</abbr></dt>
+    <dd>See above</dd>
+  </dl>
+  %= kalamar_tut_query poliqarp => '[corenlp/ne_dewac_175m_600=I-ORG]', cutoff => 1
+</section>
+
+
+<section id="tt">
+  <h3>TreeTagger (<code>tt</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>All non-noun lemmas are written in lower case, nouns are written upper case. Composita stay intact (e.g. <code>Normalbedingung</code>)</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>All part-of-speech information is written in capital letters and is based on STTS</dd>
+  </dl>
+  %= kalamar_tut_query poliqarp => '[tt/p=ADV]', cutoff => 1
+</section>
+
+
+<section>
+  <h3>Mate (<code>mate</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>All lemmas are written in lower case. Composita stay intact (e.g. <code>buchstabenbezeichnung</code>)</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>All part-of-speech information is written in capital letters and is based on STTS</dd>
+    <dt><abbr data-type="token" title="Morphosyntactical information">m</abbr></dt>
+    <dd>Includes information about tense (<code>tense:pres</code> ...), mode (<code>mood:ind</code>), number (<code>number:pl</code> ...), gender (<code>gender:masc</code> ...) etc.</dd>
+  </dl>
+  %= kalamar_tut_query poliqarp => '[mate/m=gender:fem]', cutoff => 1
+</section>
+
+
+<section id="opennlp">
+  <h3>OpenNLP (<code>opennlp</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>All part-of-speech information is written in capital letters and is based on STTS</dd>
+  </dl>
+  %= kalamar_tut_query poliqarp => '[opennlp/p=PDAT]', cutoff => 1
+</section>
+
+
+<section id="xip">
+  <h3>Xerox Incremental Parser (<code>xip</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>All non-noun lemmas are written in lower case, nouns are written upper case. Composita are split, e.g. the token <code>Leitfähigkeit</code> is matched by the lemmas <code>leiten</code> and <code>Fähigkeit</code> - and by a merged and pretty useless <code>leitenfähigkeit</code> (This is going to change)</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>All part-of-spech information is written in capital letters and is based on STTS</dd>
+    <dt><abbr data-type="span" title="Phrases">c</abbr></dt>
+    <dd>Some phrases to create sentences, all upper case (<code>NP</code>, <code>NPA</code>, <code>NOUN</code>, <code>VERB</code>, <code>PREP</code>, <code>AP</code> ...)</dd>      
+  </dl>
+  %= kalamar_tut_query poliqarp => '[xip/p=ADJ]', cutoff => 1
+  %= kalamar_tut_query poliqarp => '<xip/c=VERB>', cutoff => 1
+</section>
+
+<section id="default-foundries">
+  <h3>Default Foundries</h3>
+  <p>For queries on specific layers without given foundries, KorAP provides default foundries, that can be overwritten by user configurations. The default foundries apply to the following layers:</p>
+
+  <ul>
+    <li><strong>orth</strong>: <code>opennlp</code></li>
+    <li><strong>lemma</strong>: <code>tt</code></li>
+    <li><strong>pos</strong>: <code>tt</code></li>
+  </ul>
+
+  <blockquote>
+    <p>In the Lucene backend, the <code>orth</code> layer can only be bound to a specific foundry, as only one tokenization is supported.</p>
+  </blockquote>
+</section>

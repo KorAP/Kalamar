@@ -69,6 +69,32 @@ main.tutorial {
   margin-left: $logo-left-distance + 15px;
 }
 
+dl {
+  margin: 0;
+  padding-bottom: 2em;
+  dt {
+    font-weight: bold;
+    abbr {
+      border-width: 0;
+      &[data-type=token]::after {
+	color: $ids-blue-1;
+      }
+      &[data-type=span]::after {
+	color: $ids-pink-1;
+      }
+      &::after {
+	content: ' (' attr(title) ')';
+	vertical-align: bottom;
+	font-style: italic;
+	font-weight: normal;
+	font-size: 80%;
+      }
+    }
+  }
+}
+
+
+
 /*
 #tutorial {
   iframe {

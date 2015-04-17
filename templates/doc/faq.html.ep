@@ -1,0 +1,5 @@
+% layout 'main', title => 'KorAP: F.A.Q.';
+
+<h2>Frequently Asked Questions</h2>
+
+%= doc_uc

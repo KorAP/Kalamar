@@ -8,6 +8,24 @@ use Mojo::Util qw/xml_escape/;
 sub register {
   my ($plugin, $mojo) = @_;
 
+
+  $mojo->helper(
+    korap_overview => sub {
+      my $c = shift;
+      my $scope = shift;
+      my $base = $c->stash('doc_base') ? '?' . $c->stash('doc_base') : '';
+
+      return $c->tag('object',
+	data => $c->url_for('/img/korap-overview.svg' . $base . '#' . $scope),
+	type => 'image/svg+xml',
+	alt  => $c->loc('korap_overview'),
+	id   => 'overview'
+      );
+    }
+  );
+
+
+
   # Create helper for queries in the tutorial
   $mojo->helper(
     kalamar_tut_query => sub {
@@ -135,6 +153,22 @@ sub register {
 		qq! data-query-language="$ql"><code>! .
 		  $q .
 		    '</code></pre>' . $msg);
+    }
+  );
+
+  $mojo->helper(
+    doc_link_to => sub {
+      my $c = shift;
+      my $title = shift;
+      my $page = pop;
+      my $scope = shift;
+      return $c->link_to($title, $c->url_with('doc', scope => $scope, page => $page));
+    }
+  );
+
+  $mojo->helper(
+    doc_uc => sub {
+      return shift->tag('p', 'Under Construction!')
     }
   );
 
