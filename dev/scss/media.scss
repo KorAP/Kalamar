@@ -89,11 +89,15 @@ $standard-margin: 4px;
     }
   }
 
-/*
-
-  #sidebar {
-    padding-top: 22px;
+  div.intro {
+    width: 100%;
   }
+
+  aside ul {
+    font-size: 9pt;
+    line-height: 1em;
+  }
+
   #tutorial {
     border-radius: 0;
     border-width: 0;
@@ -102,9 +106,19 @@ $standard-margin: 4px;
     bottom: 0;
     top: 0;
     padding: 0;
+    iframe {
+      border-radius: 0;
+    }
   }
-  #tutorial iframe {
-    border-radius: 0;
+
+  main.tutorial {
+    margin-right: 30px;
+  }
+
+/*
+
+  #sidebar {
+    padding-top: 22px;
   }
   #sidebar:not(.active) > i.fa-bars {
     font-size: 12pt;

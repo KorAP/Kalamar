@@ -13,11 +13,55 @@ sub startup {
   my $pkg = b($self->home . '/package.json')->slurp;
   $Kalamar::VERSION = decode_json($pkg)->{version};
 
+  # Load documentation navigation
+  my $navi = b($self->home . '/templates/doc/_nav.json')->slurp;
+
+  # Add additional plugin path
+  push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
+
+  # Load plugins
+  foreach (qw/Config
+	      Localize
+	      Notifications
+	      DocNavi
+	      KalamarTagHelpers/) {
+    $self->plugin($_);
+  };
+
+  $self->config(navi => decode_json($navi));
+
+  $self->plugin('MailException' => $self->config('MailException'));
+
+  # Establish routes
+  my $r = $self->routes;
+
+  $r->get('/')->to(
+    cb => sub {
+      return shift->render(template => 'intro');
+    });
+
+  # Base query page
+  $r->get('/')->to('search#query')->name('index');
+
+
+  # Documentation
+  $r->get('/doc')->to('documentation#page', page => 'korap');
+  $r->get('/doc/:page')->to('documentation#page', scope => undef);
+  $r->get('/doc/*scope/:page')->to('documentation#page')->name('doc');
+};
+
+
+1;
+
+
+__END__
+
+
   # Set default totle
-  $self->defaults(
-    layout => 'main',
-    title => 'KorAP - Corpus Analysis Platform'
-  );
+#  $self->defaults(
+#    layout => 'main',
+#    title => 'KorAP - Corpus Analysis Platform'
+#  );
 
   # Set secret for signed cookies
   $self->secrets([
@@ -42,25 +86,20 @@ sub startup {
       $h->header( 'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With' );
     });
 
-  # Add additional plugin path
-  push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
   # Load plugins
-  foreach (qw/Config
-	      CHI
+  foreach (qw/CHI
 	      TagHelpers::Pagination
-	      Notifications
 	      Number::Commify
 	      Search
 	      KalamarHelpers
-	      KalamarTagHelpers/) {
+	      /) {
     $self->plugin($_);
   };
 
   # $self->plugin(AssetPack => { minify => 1 });
   $self->plugin('AssetPack');
   $self->plugin('AssetPack::LibSass');
-  $self->plugin('MailException' => $self->config('MailException'));
 
   # Add assets for AssetPack
   $self->asset(
@@ -107,8 +146,6 @@ sub startup {
     }
   );
 
-  # Routes
-  my $r = $self->routes;
 
   # Base search route
   $r->get('/')->to('search#query')->name('index');
@@ -124,10 +161,6 @@ sub startup {
   $r->get('/tutorial')->to('tutorial#page', tutorial => 'index');
   $r->get('/tutorial/(*tutorial)')->to('tutorial#page')->name('tutorial');
 
-  $r->get('/doc/korap')->to(
-    cb => sub {
-      return shift->render(template => 'doc/korap');
-    });
 
   # Todo: The FAQ-Page has a contact form for new questions
 };

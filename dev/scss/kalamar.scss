@@ -1,23 +1,9 @@
 @charset "utf-8";
 
 // Global variables and mixins
-@import "fonts";      // Font families
-
-@import "base";       // Base styles
-@import "logos";      // Logo images
-@import "header";     // Top
-@import "footer";     // Bottom
-@import "searchbar";  // The search bar
-@import "menu";       // Menu list
-@import "hint";       // Hint specific menu list
-@import "pagination"; // Pagination
-@import "resultinfo"; // Information on results
-@import "matchinfo";  // Match table and tree
-@import "kwic";       // Kwic view information
-@import "vc";         // Virtual collection builder
-@import "tutorial";   // Embedded and non-embedded tutorial
-@import "query";      // View query
-@import "sidebar";    // Navigation on the left side
-@import "highlight";  // Navigation on the left side
-
-@import "media";      // Media queries
+@import "fonts";         // Font families
+@import "base";          // Base styles
+@import "main/main";     // Main frame styles
+@import "header/header"; // Top frame styles
+@import "footer/footer"; // Bottom frame styles
+@import "media";         // Media queries

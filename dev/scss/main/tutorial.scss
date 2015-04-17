@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "util";
+@import "../util";
 
 $border-size: 2px;
 
@@ -52,7 +52,7 @@ body.embedded {
     }
 */
     padding-top: 0;
-    // @include choose-item;
+    @include choose-item;
     background-color: $middle-grey;
     > div {
       position: relative;

@@ -1,6 +1,6 @@
 {
   "name": "kalamar",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "User Frontend for KorAP",
   "devDependencies": {
     "grunt": "~0.4.5",

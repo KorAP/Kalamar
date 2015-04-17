@@ -3,12 +3,25 @@ use Mojo::Base 'Mojolicious::Controller';
 
 # Add X-Forwarded-For to user agent call everywhere
 
-
-# Query the KorAP backends and render a template
 sub query {
   my $c = shift;
 
   my $query = $c->param('q');
+
+  # No query
+  unless ($query) {
+    return $c->render(template => 'index');
+  }
+};
+
+
+1;
+
+
+__END__
+
+# Query the KorAP backends and render a template
+sub query {
 
   # Base parameters for remote access
   my %param = (

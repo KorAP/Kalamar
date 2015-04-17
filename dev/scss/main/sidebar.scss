@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "util";
+@import "../util";
 
 $border-size: 2px;
 
@@ -66,20 +66,21 @@ aside {
     li {
       padding: 0;
       > a {
-	@include choose-item;
 	padding: $item-padding;
-
+      }
+      > a:link {
+	@include choose-item;
 	border-right: {
 	  width: $border-size;
 	  style: solid;
 	}
 
 	display: block;
-	&:link, &:visited {
+	&:visited {
 	  color: inherited;
 	}
 	&:hover {
-	  color: inherit;
+	  // color: inherit;
 	  transition: none;
 	  @include choose-hover;
 	}

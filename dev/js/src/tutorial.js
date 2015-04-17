@@ -2,8 +2,9 @@
  * Open and close a tutorial page.
  * The current page is stored and retrieved in a session cookie.
  */
-// Todo: add query mechanism!
-
+// TODO: Add query mechanism!
+// TODO: Highlight current section:
+//       http://stackoverflow.com/questions/24887258/highlight-navigation-link-as-i-scroll-down-the-page
 define(['session', 'util'], function (sessionClass) {
   "use strict";
 
@@ -52,7 +53,10 @@ define(['session', 'util'], function (sessionClass) {
 
       if (this._iframe === null) {
 	this._iframe = document.createElement('iframe');
-	this._iframe.setAttribute('src', this.getPage() || this.start);
+	this._iframe.setAttribute(
+	  'src',
+	  (this.getPage() || this.start) + '?embedded=true'
+	);
 
 	var ul = document.createElement('ul');
 	ul.classList.add('action', 'right');

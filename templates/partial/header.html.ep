@@ -1,9 +1,38 @@
-<head>
-  <title><%= title %></title>
-%= asset 'kalamar.css'
-%= asset 'kalamar.js'
-
-  <link rel="shortcut icon" href="/kalamar/favicon.ico" type="image/x-icon" /> 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=false, user-scalable=no" />
-</head>
+<header>
+  <a href="/" class="logo" title="<%= title %>"><h1><span><%= title %></span></h1></a>
+  <div class="button top">
+    <a href="#" class="login" title="<%= loc 'login' %>"><span><%= loc 'login' %></span></a>
+  </div>
+  <form autocomplete="off" action="/kalamar">
+    <div id="searchbar">
+      <input placeholder="<%= loc 'searchplaceholder' %>" name="q" id="q-field" autofocus="autofocus" type="search" />
+      <button type="submit" title="<%= loc 'go' %>"><span><%= loc 'go' %></span></button>
+    </div>
+    <div id="vc-view"></div>
+    <%= loc 'in' %> <input type="hidden" id="vc-name" name="vc-name" value="Wikipedia" />
+    <input type="text" name="vc" id="vc" value="corpusID = Wikipedia" />
+    <%= loc 'with' %> <span class="select">
+      <select name="ql" id="ql-field">
+	<option value="poliqarp">Poliqarp</option>
+	<option value="cosmas2">Cosmas II</option>
+	<option value="annis">Annis</option>
+	<option value="cql">CQL v1.2</option>
+      </select>
+    </span>
+    <div class="button right">
+      % param(cutoff => 1) unless param 'q';
+      %= check_box cutoff => 1, id => 'q-cutoff-field', class => 'checkbox'
+      <label for="q-cutoff-field"><span></span><%= loc('glimpse') %></label>
+      % unless (current_route 'tutorial') {
+      <a href="/doc/faq"
+	 title="<%= loc 'faq' %>"
+	 class="question"
+	 id="view-faq"><span><%= loc 'faq' %></span></a>
+      % };
+      <a href="/doc"
+	 title="<%= loc 'tutorial' %>"
+	 class="tutorial"
+	 id="view-tutorial"><span><%= loc 'tutorial' %></span></a>
+    </div>
+  </form>
+</header>

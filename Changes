@@ -1,5 +1,6 @@
-0.14 2015-04-02
+0.14 2015-04-15
         - Redesign of JS and Sass assets
+	- Introduced RequireJS
 
 0.13 2015-03-10
         - Project name is now "Kalamar"

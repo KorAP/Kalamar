@@ -7,12 +7,12 @@ body, html, select, g > text {
   margin: 0;
 }
 
-g > text {
-  fill: $dark-grey;
-}
-
 * {
   @include box-sizing-box;
+}
+
+g > text {
+  fill: $dark-grey;
 }
 
 html {
@@ -63,6 +63,7 @@ main {
     text-align: justify;
     hyphens: auto;
   }
+
 /*
   > section > p, > p {
     a {

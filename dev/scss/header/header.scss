@@ -1,5 +1,9 @@
 @charset "utf-8";
-@import "util";
+@import "../util";
+@import "hint";       // Hint specific menu list
+@import "menu";       // Menu list
+@import "searchbar";  // The search bar
+@import "vc";         // Virtual collection builder
 
 header {
   position: relative;
