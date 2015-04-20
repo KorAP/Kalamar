@@ -1,99 +1,104 @@
 @charset "utf-8";
 @import "../util";
 
-$left-padding: 28pt; // 2.8em;
+$left-padding: 4em; // 32pt; // 2.8em;
 $border-size: 2px;
+$bracket-size: .4em; // 4pt;
 
+/**
+ * Virtual Collection Builder
+ */
 .vc {
-  background-color: $light-green;
-  margin-top: 10px;
+  margin-top: 4pt;
+
+  /**
+   * Rules for all docGroups
+   */
   .docGroup {
     position: relative;
     display: inline-block;
+    margin-left: $left-padding; // 28pt
+
+    .docGroup { display: block; }
+
     color: $nearly-white;
-
-    margin-left: $left-padding; // 2.8em
-
-    // .6em .5em
-    border-width: 0 (2 * $border-size);
-
-    padding: {
-      top: 10pt;
-      bottom: 2pt;
-      left: 0pt;
-      right: 6pt;
-    }
-
+    padding: 4pt 2pt 4pt 0pt;
     border: {
       radius: $standard-border-radius * 2;
       style: solid;
+      width: 0 $bracket-size; // .6em .5em
     }
 
-    .docGroup {
-      display: block;
+    // Whiten on hover 
+    &:hover {
+      background-color: rgba(255,255,255,.06);
     }
 
+    &[data-operation] {
+      > .doc:first-child::before,
+      > .docGroup:first-child::before {
+	content: none;
+      }
+      > .doc::before,
+      > .docGroup::before {
+	display: inline-block;
+	position: absolute;
+	text-align: right;
+	width: $left-padding;
+	margin-left: -1 * ($left-padding + .5em); // -28pt
+	color: $dark-green;
+      }
+      > .docGroup::before {
+	margin-left: -1 * ($left-padding + .5em) + (-1 * $bracket-size);
+      }
+    }
+
+    // Or operation
+    &[data-operation=or] {
+      border-color: $dark-orange;
+      > .doc::before,
+      > .docGroup::before {
+	// This will be overruled by JS!
+	content: "or";
+      }
+    }
+
+    // And operation
+    &[data-operation=and] {
+      > .doc::before,
+      > .docGroup::before {
+	// This will be overruled by JS!
+	content: "and";
+      }
+    }
+
+
+    /**
+     * All operators on groups
+     */
     > .operators {
       position: absolute;
       display: block;
       top: 10px;
       vertical-align: middle;
       left: 3px;
-      border-width: 2px 2px 2px 0;
-      border-top-right-radius: 7px;
-      border-bottom-right-radius: 7px;
+      > span:first-child {
+	border: {
+	  top-left-radius: 0;
+	  bottom-left-radius: 0;
+	}
+      }
       margin-left: 100%;
       padding: 0;
     }
-
-    &:hover {
-      background-color: rgba(255,255,255,.05);
-    }
-
-    &[data-operation=or] {
-      border-color: $dark-orange;
-      > .doc::before,
-      > .docGroup::before {
-	content: "or";
-      }
-      > .operators {
-	border-color: $dark-orange;
-	background-color: $dark-orange;
-	color: $nearly-white;
-      }
-    }
-
-    &[data-operation=and] {
-      > .doc::before,
-      > .docGroup::before {
-	content: "and";
-      }
-    }
-
-    &[data-operation] {
-      > .doc:first-child::before,
-      > .docGroup:first-child::before {
-	content: '';
-      }
-      > .doc::before,
-      > .docGroup::before {
-	display: inline-block;
-	text-align: right;
-//	width: 2.2em;
-	width: $left-padding;
-	color: $dark-green;
-      }
-      > .doc::before {
-	padding-right: 1.2em;
-	margin-right: .1em;
-      }
-      > .docGroup::before {
-	position: absolute;
-      }
-    }
   }
 
+
+  /**
+   * All document rules
+   */
   .doc {
+    padding-left: $left-padding;
     > span + span {
       margin-left: 5pt;
     }
@@ -101,28 +106,13 @@ $border-size: 2px;
     > span.value {
       font-weight: bold;
     }
+
+    /**
+     * All operators on docs
+     */
     > .operators {
       display: inline-block;
-      border-color: $dark-orange;
-      border-width: 2px 2px 2px 2px;
-      border-radius: 7px;
-
       margin-left: 10px;
-      > span {
-	&.and {
-	  border: {
-	    radius: inherit;
-	    top-right-radius: 0;
-	    bottom-right-radius: 0;
-	  }
-	  &.delete {
-	    border: {
-	      top-left-radius: 0;
-	      bottom-left-radius: 0;
-	    }
-	  }
-	}
-      }
     }
     > span.key {
       position: relative;
@@ -139,9 +129,11 @@ $border-size: 2px;
       display: inline-block;
       color: $dark-orange;
       &::after {
-	font-family: FontAwesome;
-	font-style: normal;
-	font-weight: normal;
+	font: {
+	  family: FontAwesome;
+	  style: normal;
+	  weight: normal;
+	}
 	content: $fa-rewrite;
 	text-decoration: underline;
       }
@@ -151,48 +143,49 @@ $border-size: 2px;
     }
   }
 
+  /**
+   * All operators
+   */
   .operators {
     opacity: 0;
     white-space: nowrap;
     padding: 0;
     font-size: 0;
     line-height: 0;
-    color: $light-green;
-    border-color: $nearly-white;
     text-align: center;
-    font-weight: bold;
-    border-style: solid;
 
     > span {
+      box-shadow: $choose-box-shadow;
       cursor: pointer;
       font-size: 9pt;
-      line-height: 1.3em;
+      line-height: 1.5em;
       padding: 0 4px;
       display: inline-block;
-      &.and {
-	background-color: $nearly-white;
-	color: $light-green;
+      @include choose-item;
+      border-style: solid;
+      border-width: $border-size 0;
+      &:hover {
+	@include choose-hover;
       }
-      &.or {
-	background-color: $dark-orange;
-	color: $nearly-white;
+      &:first-child {
+	border: {
+	  left-width: $border-size;
+	  top-left-radius: $standard-border-radius;
+	  bottom-left-radius: $standard-border-radius;
+	}
       }
-      &.delete {
-	background-color: red;
-	border-radius: inherit;
-	color: $nearly-white;
+      &:last-child {
+	border: {
+	  right-width: $border-size;
+	  top-right-radius: $standard-border-radius;
+	  bottom-right-radius: $standard-border-radius;
+	}
       }
     }
   }
 
   > .docGroup {
     margin-left: 0;
-  }
-
-
-  .docGroup > .docGroup::before {
-    background-color: red;
-    margin-left: -1 * $left-padding; // -3.4em;
   }
 
   .doc, .docGroup {
@@ -204,15 +197,10 @@ $border-size: 2px;
 }
 
 
-/*
-.vc .docGroup[data-operation=and]::before,
-.vc .docGroup[data-operation=and] .operators {
-  background-color: white;
-}
-*/
-
+/**
+ * The z-index cascade for groups.
+ */
 $dg-index : 30;
-
 .docGroup {
   > .operators {
     z-index: $dg-index;

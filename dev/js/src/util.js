@@ -41,6 +41,21 @@ define(function () {
   KorAP.API = KorAP.API || {};
   KorAP.Locale = KorAP.Locale || {};
 
+  var loc = KorAP.Locale;
+  loc.OR  = loc.OR  || 'or';
+  loc.AND = loc.AND || 'and';
+
+  // Add new stylesheet object lazily to document
+  KorAP.newStyleSheet = function () {
+    if (KorAP._sheet === undefined) {
+      var sElem = document.createElement('style');
+      document.head.appendChild(sElem);
+      KorAP._sheet = sElem.sheet;
+    };
+    return KorAP._sheet;
+  };
+
+
   // Default log message
   KorAP.log = KorAP.log || function (type, msg) {
     console.log(type + ": " + msg);

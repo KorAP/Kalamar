@@ -38,13 +38,13 @@ define([
 ], function (unspecDocClass, docClass, docGroupClass) {
   "use strict";
 
+  // ???
   KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains|excludes)$");
-  // KorAP._validRegexMatchRE  = new RegExp("^(?:eq|ne)$");
   KorAP._validDateMatchRE   = new RegExp("^[lg]?eq$");
   KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
-  // KorAP._validGroupOpRE     = new RegExp("^(?:and|or)$");
-  // KorAP._quote              = new RegExp("([\"\\\\])", 'g');
+  KorAP._overrideStyles     = false;
 
+  var loc = KorAP.Locale;
 
   /**
    * Virtual Collection
@@ -54,8 +54,36 @@ define([
       return null;
     },
 
+    _init : function () {
+      if (!KorAP._overrideStyles) {
+	var sheet = KorAP.newStyleSheet();
+
+	// Add css rule for OR operations
+	sheet.insertRule(
+	  '.vc .docGroup[data-operation=or] > .doc::before,' +
+	  '.vc .docGroup[data-operation=or] > .docGroup::before ' +
+	    '{ content: "' + loc.OR + '" }',
+	  0
+	);
+
+	// Add css rule for AND operations
+	sheet.insertRule(
+	  '.vc .docGroup[data-operation=and] > .doc::before,' +
+	  '.vc .docGroup[data-operation=and] > .docGroup::before ' +
+	    '{ content: "' + loc.AND + '" }',
+	  1
+	);
+
+	console.log(sheet);
+
+	KorAP._overrideStyles = true;
+      };
+
+      return this;
+    },
+
     create : function () {
-      return Object.create(this);
+      return Object.create(this)._init();
     },
 
     clean : function () {
@@ -67,7 +95,7 @@ define([
     },
 
     render : function (json) {
-      var obj = Object.create(this);
+      var obj = Object.create(this)._init();
 
       if (json !== undefined) {
 	// Root object

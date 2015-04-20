@@ -4,8 +4,6 @@
 define(['util'], function () {
 
   var loc = KorAP.Locale;
-  loc.AND   = loc.AND   || 'and';
-  loc.OR    = loc.OR    || 'or';
   loc.DEL   = loc.DEL   || '×';
 
 

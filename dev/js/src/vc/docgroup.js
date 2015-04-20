@@ -12,6 +12,8 @@ define([
 
   var _validGroupOpRE = new RegExp("^(?:and|or)$");
 
+  var loc = KorAP.Locale;
+
   var docGroupClass = {
     _ldType : "docGroup",
 
