@@ -47,6 +47,8 @@ $bracket-size: .4em; // 4pt;
 	width: $left-padding;
 	margin-left: -1 * ($left-padding + .5em); // -28pt
 	color: $dark-green;
+	line-height: 1.5em;
+	border-top: $border-size solid transparent;
       }
       > .docGroup::before {
 	margin-left: -1 * ($left-padding + .5em) + (-1 * $bracket-size);
@@ -141,6 +143,10 @@ $bracket-size: .4em; // 4pt;
 	display: none;
       }
     }
+  }
+
+  .unspecified > span {
+    cursor: pointer;
   }
 
   /**

@@ -20,6 +20,15 @@ define(['menu/item'], function (itemClass) {
       return this;
     },
 
+    onclick : function (e) {
+      this.menu().release(
+	this._name,
+	this._value,
+	this._type
+      );
+      e.halt();
+    },
+
     name : function () {
       return this._name;
     },
@@ -37,6 +46,10 @@ define(['menu/item'], function (itemClass) {
       var li = document.createElement("li");
       li.setAttribute("data-type", this._type);
       li.setAttribute("data-value", this._value);
+
+      // Connect action
+      li["onclick"] = this.onclick.bind(this);
+
       li.appendChild(document.createTextNode(this._name));
       return this._element = li;
     }

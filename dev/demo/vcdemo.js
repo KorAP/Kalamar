@@ -62,20 +62,26 @@ var json = {
   ]
 };
 
-function showJSON() {
-  document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
-};
-
-function showQuery() {
-  document.getElementById("query").innerHTML = vc.root().toQuery();
-};
-
 require(['vc','lib/domReady'], function (vcClass, domReady) {
   KorAP.Locale.AND = 'und';
   KorAP.Locale.OR  = 'oder';
 
   domReady(function() {
-    var vc = vcClass.render(json);
+    var vc = vcClass.render(json, [
+      ['Titel', 'title', 'string'],
+      ['Untertitel', 'subTitle', 'string'],
+      ['Veröffentlichungsdatum', 'pubDate', 'date'],
+      ['Autor', 'author', 'string']
+    ]);
     document.getElementById('vc').appendChild(vc.element());
+
+    KorAP.showJSON = function () {
+      document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
+    };
+
+    KorAP.showQuery = function () {
+      document.getElementById("query").innerHTML = vc.root().toQuery();
+    };
+
   });
 });

@@ -4,14 +4,13 @@
  * @author Nils Diewald
  */
 /*
- * Replaces a previous version written by Mengfei Zhou
+ * This replaces a previous version written by Mengfei Zhou
  */
 
 /*
-  TODO: Implement a working localization solution!
   TODO: Disable "and" or "or" in case it's followed
         by an unspecified document
-  TODO: Implement "persistance"-Option,
+  TODO: Implement "persistence"-Option,
         injecting the current creation date stamp
 
   Error codes:
@@ -28,14 +27,23 @@
   813: "Collection type is not supported" (like 713)
   814: "Unknown rewrite operation"
   815: "Rewrite expects source"
+
+  Localization strings:
+  KorAP.Locale = {
+    EMPTY : '...',
+    AND : 'and',
+    OR : 'or',
+    DELETE : 'x'
+  }
 */
 
 define([
   'vc/unspecified',
   'vc/doc',
   'vc/docgroup',
+  'vc/menu',
   'util'
-], function (unspecDocClass, docClass, docGroupClass) {
+], function (unspecDocClass, docClass, docGroupClass, menuClass) {
   "use strict";
 
   // ???
@@ -46,15 +54,24 @@ define([
 
   var loc = KorAP.Locale;
 
+  KorAP._vcKeyMenu = undefined;
+
   /**
    * Virtual Collection
    */
   return {
+
+    /**
+     * The JSON-LD type of the virtual collection
+     */
     ldType : function () {
       return null;
     },
 
-    _init : function () {
+    // Initialize virtual collection
+    _init : function (keyList) {
+
+      // Inject localized css styles
       if (!KorAP._overrideStyles) {
 	var sheet = KorAP.newStyleSheet();
 
@@ -74,16 +91,21 @@ define([
 	  1
 	);
 
-	console.log(sheet);
-
 	KorAP._overrideStyles = true;
+
+	// Create key menu
+	KorAP._vcKeyMenu = menuClass.create(keyList);
+	KorAP._vcKeyMenu.limit(5);
       };
 
       return this;
     },
 
-    create : function () {
-      return Object.create(this)._init();
+    /**
+     * Create a new virtual collection.
+     */
+    create : function (keyList) {
+      return Object.create(this)._init(keyList);
     },
 
     clean : function () {
@@ -94,17 +116,23 @@ define([
       return this;
     },
 
-    render : function (json) {
-      var obj = Object.create(this)._init();
+    /**
+     * Create and render a new virtual collection
+     * based on a KoralQuery collection document 
+     */
+    render : function (json, keyList) {
+      var obj = Object.create(this)._init(keyList);
 
       if (json !== undefined) {
-	// Root object
+	// Parse root document
 	if (json['@type'] == 'koral:doc') {
 	  obj._root = docClass.create(obj, json);
 	}
+	// parse root group
 	else if (json['@type'] == 'koral:docGroup') {
 	  obj._root = docGroupClass.create(obj, json);
 	}
+	// Unknown collection type
 	else {
 	  KorAP.log(813, "Collection type is not supported");
 	  return;
@@ -122,6 +150,10 @@ define([
       return obj;
     },
 
+    /**
+     * Get or set the root object of the
+     * virtual collection.
+     */
     root : function (obj) {
       if (arguments.length === 1) {
 	var e = this.element();
@@ -145,6 +177,9 @@ define([
       return this._root;
     },
 
+    /**
+     * Get the element associated with the virtual collection
+     */
     element : function () {
       if (this._element !== undefined)
 	return this._element;
@@ -158,15 +193,28 @@ define([
       return this._element;
     },
 
+
+    /**
+     * Update the whole object based on the underlying
+     * data structure
+     */
     update : function () {
       this._root.update();
       return this;
     },
 
+
+    /**
+     * Get the generated json string
+     */
     toJson : function () {
       return this._root.toJson();
     },
 
+
+    /**
+     * Get the generated query string
+     */
     toQuery : function () {
       return this._root.toQuery();
     }

@@ -2,20 +2,10 @@
  * Document criterion
  */
 
-/**
- * Criterion in a KorAP.Doc
- */
-function _changeKey () {
-  var doc = this.parentNode.refTo;
-  var key = doc.element().firstChild;
-  key.appendChild(fieldMenu.element());
-  fieldMenu.show();
-  fieldMenu.focus();
-  // key, matchop, type, value
-};
-
 define([
-  'vc/jsonld', 'vc/menu', 'vc/rewritelist'], function (jsonldClass, menuClass, rewriteListClass) {
+  'vc/jsonld', 'vc/rewritelist'], function (jsonldClass, rewriteListClass) {
+
+/*
   var fieldMenu = menuClass.create([
     ['Titel', 'title', 'string'],
     ['Untertitel', 'subTitle', 'string'],
@@ -24,8 +14,21 @@ define([
   ]);
 
   fieldMenu.limit(5);
+*/
 
   _validRegexMatchRE  = new RegExp("^(?:eq|ne)$");
+
+    /**
+     * Criterion in a KorAP.Doc
+     */
+    function _changeKey () {
+      var doc = this.parentNode.refTo;
+      var key = doc.element().firstChild;
+      key.appendChild(fieldMenu.element());
+      fieldMenu.show();
+      fieldMenu.focus();
+      // key, matchop, type, value
+    };
 
   return {
     _ldType : "doc",

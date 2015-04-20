@@ -1,13 +1,26 @@
 /**
- * Unspecified criterion
+ * An unspecified criterion in a virtual collection.
+ * Inherits everything from jsonld
  */
-define(['vc/jsonld', 'vc/doc', 'util'], function (jsonldClass, docClass) {
+define([
+  'vc/jsonld',
+  'vc/doc',
+  'util'
+], function (jsonldClass, docClass) {
 
+  // Localize empty string
   var loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
 
   return {
+
+    // The ld-type
     _ldType : "non",
+
+    /**
+     * Create new unspecified criterion
+     * with a link to the parent object
+     */
     create : function (parent) {
       var obj = Object.create(jsonldClass).
 	upgradeTo(this);
@@ -18,7 +31,9 @@ define(['vc/jsonld', 'vc/doc', 'util'], function (jsonldClass, docClass) {
       return obj;
     },
 
-    // Set key - replace
+    /**
+     * Set the key; this will spawn a new doc
+     */
     key : function (v) {
 
       // Not replaceable
@@ -46,6 +61,10 @@ define(['vc/jsonld', 'vc/doc', 'util'], function (jsonldClass, docClass) {
       return newDoc;
     },
 
+
+    /**
+     * Update the element
+     */
     update : function () {
 
       if (this._element === undefined)
@@ -56,6 +75,10 @@ define(['vc/jsonld', 'vc/doc', 'util'], function (jsonldClass, docClass) {
 
       var ellipsis = document.createElement('span');
       ellipsis.appendChild(document.createTextNode(loc.EMPTY));
+
+      // Click on empty criterion
+      ellipsis.addEventListener('click', this.onclick.bind(this));
+
       this._element.appendChild(ellipsis);
 
       // Set ref - TODO: Cleanup!
@@ -77,6 +100,10 @@ define(['vc/jsonld', 'vc/doc', 'util'], function (jsonldClass, docClass) {
       return this.element();
     },
 
+
+    /**
+     * Get the associated element
+     */
     element : function () {
       if (this._element !== undefined)
 	return this._element;
@@ -85,5 +112,30 @@ define(['vc/jsonld', 'vc/doc', 'util'], function (jsonldClass, docClass) {
       this.update();
       return this._element;
     },
+
+    /**
+     * Click on the unspecified object
+     */
+    onclick : function () {
+      var menu = KorAP._vcKeyMenu;
+
+      // Add keyelement at the correct position
+      this._element.insertBefore(
+	menu.element(),	
+	this._element.firstChild
+      );
+
+      var that = this;
+
+      // Set released method
+      menu.released(function (name, value, type) {
+	that.key(name);
+	// + ' # ' + type);
+	this.hide();
+      });
+
+      menu.show();
+      menu.focus();
+    }
   };
 });
