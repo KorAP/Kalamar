@@ -11,9 +11,7 @@
  *   for assets.
  *   http://yui.github.io/yuidoc/
  * TODO: Use https://www.npmjs.com/package/grunt-contrib-yuidoc
- * TODO: Use RequireJS
- *   http://addyosmani.com/writing-modular-js/
- *   http://qnundrum.com/question/393866
+ * TODO: Implement a LaTeX generator for a pdf of the dokumentation 
  */
 module.exports = function(grunt) {
   grunt.initConfig({
@@ -101,7 +99,9 @@ module.exports = function(grunt) {
 	files: ['dev/scss/{util,base,fonts,kalamar,media}.scss',
 		'dev/scss/footer/footer.scss',
 		'dev/scss/header/{header,hint,menu,searchbar,vc}.scss',
-		'dev/scss/main/{alertify,highlight,kwic,logos,main,matchinfo,pagination,query,resultinfo,sidebar,tutorial}.scss'
+		'dev/scss/main/{alertify,highlight,kwic,logos,' +
+		'main,matchinfo,pagination,query,'+
+		'resultinfo,sidebar,tutorial}.scss'
 	       ],
 	tasks: ['sass'],
 	options: {

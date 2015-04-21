@@ -117,9 +117,11 @@ define([
      * Click on the unspecified object
      */
     onclick : function () {
+
+      // Get the key menu
       var menu = KorAP._vcKeyMenu;
 
-      // Add keyelement at the correct position
+      // Add key menu element at the correct position
       this._element.insertBefore(
 	menu.element(),	
 	this._element.firstChild
@@ -128,9 +130,9 @@ define([
       var that = this;
 
       // Set released method
-      menu.released(function (name, value, type) {
-	that.key(name);
-	// + ' # ' + type);
+      menu.released(function (key, type) {
+	// Set chosen key and type - will return a doc
+	that.key(key).type(type).update();
 	this.hide();
       });
 

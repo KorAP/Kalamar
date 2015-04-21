@@ -15,13 +15,13 @@ var json = {
       "operands":[
         {
           "@type":"koral:doc",
-          "key":"Titel",
+          "key":"title",
           "value":"Der Birnbaum",
           "match":"match:eq"
         },
         {
           "@type":"koral:doc",
-          "key":"Veröffentlichungsort",
+          "key":"pubPlace",
           "value":"Mannheim",
           "match":"match:eq"
         },
@@ -31,13 +31,13 @@ var json = {
           "operands":[
             {
               "@type":"koral:doc",
-              "key":"Untertitel",
+              "key":"subTitle",
               "value":"Aufzucht und Pflege",
               "match":"match:eq"
             },
             {
               "@type":"koral:doc",
-              "key":"Untertitel",
+              "key":"subTitle",
               "value":"Gedichte",
               "match":"match:eq",
               "rewrites" : [
@@ -54,7 +54,7 @@ var json = {
     },
     {
       "@type":"koral:doc",
-      "key":"Veröffentlichungsdatum",
+      "key":"pubDate",
       "type":"type:date",
       "value":"2015-03-05",
       "match":"match:geq"
@@ -63,22 +63,34 @@ var json = {
 };
 
 require(['vc','lib/domReady'], function (vcClass, domReady) {
-  KorAP.Locale.AND = 'und';
-  KorAP.Locale.OR  = 'oder';
+
+  var loc = KorAP.Locale;
+
+  loc.AND = 'und';
+  loc.OR  = 'oder';
+  loc.VC_subTitle = 'Untertitel';
+  loc.VC_title = 'Titel';
+  loc.VC_pubDate = 'Veröffentlichungsdatum';
+  loc.VC_pubPlace = 'Veröffentlichungsort';
 
   domReady(function() {
+
+    // Create a new virtual collection by passing a based json object and
+    // field menu information
     var vc = vcClass.render(json, [
-      ['Titel', 'title', 'string'],
-      ['Untertitel', 'subTitle', 'string'],
-      ['Veröffentlichungsdatum', 'pubDate', 'date'],
-      ['Autor', 'author', 'string']
+      ['title', 'string'],
+      ['subTitle', 'string'],
+      ['pubDate', 'date'],
+      ['author', 'string']
     ]);
     document.getElementById('vc').appendChild(vc.element());
 
+    // show the current JSON serialization
     KorAP.showJSON = function () {
       document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
     };
 
+    // show the current query serialization
     KorAP.showQuery = function () {
       document.getElementById("query").innerHTML = vc.root().toQuery();
     };

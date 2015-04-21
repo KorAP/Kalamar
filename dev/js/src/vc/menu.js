@@ -1,4 +1,6 @@
-// Field menu
+/**
+ * Menu showing all key fields.
+ */
 define(['menu', 'vc/item'], function (menuClass, itemClass) {
   return {
     create : function (params) {
@@ -6,12 +8,20 @@ define(['menu', 'vc/item'], function (menuClass, itemClass) {
 	.upgradeTo(this)
 	._init(itemClass, undefined, params)
     },
+
+    /**
+     * Register callback for click event.
+     */
     released : function (cb) {
       this._cb = cb;
     },
-    release : function (name, value, type) {
+
+    /**
+     * A click event was released
+     */
+    release : function (key, type) {
       if (this._cb !== undefined)
-	this._cb(name, value, type);
+	this._cb(key, type);
     }
   };
 });

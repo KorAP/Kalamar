@@ -1,5 +1,9 @@
 /**
  * Create virtual collections with a visual user interface.
+ * This resembles the collection type objects of a KoralQuery
+ * "collection" object.
+ *
+ * KoralQuery v0.3 is expected.
  *
  * @author Nils Diewald
  */
@@ -35,6 +39,7 @@
     OR : 'or',
     DELETE : 'x'
   }
+  and various field names with the prefix 'VC_'
 */
 
 define([
@@ -95,7 +100,28 @@ define([
 
 	// Create key menu
 	KorAP._vcKeyMenu = menuClass.create(keyList);
-	KorAP._vcKeyMenu.limit(5);
+	KorAP._vcKeyMenu.limit(6);
+
+	// Create match menus ....
+	KorAP._vcMatchopMenu = {
+	  'string' : menuClass.create([
+	    ['eq', null],
+	    ['ne', null],
+	    ['contains', null],
+	    ['excludes', null]
+	  ]),
+	  'date' : menuClass.create([
+	    ['eq', null],
+	    ['geq', null],
+	    ['leq', null]
+	  ]),
+	  'regex' : menuClass.create([
+	    ['eq', null],
+	    ['ne', null],
+	    ['contains', null],
+	    ['excludes', null]
+	  ])
+	};
       };
 
       return this;
