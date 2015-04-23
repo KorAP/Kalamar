@@ -224,13 +224,13 @@ var vcExample = {
       "operands":[
         {
           "@type":"koral:doc",
-          "key":"Titel",
+          "key":"title",
           "value":"Der Birnbaum",
           "match":"match:eq"
         },
         {
           "@type":"koral:doc",
-          "key":"Veröffentlichungsort",
+          "key":"pubPlace",
           "value":"Mannheim",
           "match":"match:eq"
         },
@@ -240,13 +240,13 @@ var vcExample = {
           "operands":[
             {
               "@type":"koral:doc",
-              "key":"Untertitel",
+              "key":"subTitle",
               "value":"Aufzucht und Pflege",
               "match":"match:eq"
             },
             {
               "@type":"koral:doc",
-              "key":"Untertitel",
+              "key":"subTitle",
               "value":"Gedichte",
               "match":"match:eq",
               "rewrites" : [
@@ -263,7 +263,7 @@ var vcExample = {
     },
     {
       "@type":"koral:doc",
-      "key":"Veröffentlichungsdatum",
+      "key":"pubDate",
       "type":"type:date",
       "value":"2015-03-05",
       "match":"match:geq"
@@ -427,6 +427,9 @@ requirejs.config({
 require(['init'], function (init) {
 
   KorAP.hintArray = hintArray;
+
+  // Set current virtual collection
+  KorAP.currentVC = vcExample;
 
   // Parse and show the table
   // Override getMatchInfo API call

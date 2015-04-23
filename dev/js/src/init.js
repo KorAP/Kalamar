@@ -70,11 +70,37 @@ define([
 	)
       );
       input.parentNode.insertBefore(vcname, input);
-      
+
+      /**
+       * Toggle the Virtual Collection builder
+       */
+      var vc;
       vcname.onclick = function () {
-	var vc = vcClass.render(vcExample);
 	var view = document.getElementById('vc-view');
-	view.appendChild(vc.element());
+
+	// The vc is visible
+	if (this.classList.contains('active')) {
+	  view.removeChild(vc.element());
+	  this.classList.remove('active');
+	}
+
+	// The vc is not visible
+	else {
+	  // The vc is not rendered yet
+	  if (vc === undefined) {
+	    vc = vcClass.create([
+	      ['title', 'string'],
+	      ['subTitle', 'string'],
+	      ['pubDate', 'date'],
+	      ['author', 'string']
+	    ]);
+
+	    if (KorAP.currentVC !== undefined)
+	      vc.fromJson(KorAP.currentVC);
+	  };
+	  view.appendChild(vc.element());
+	  this.classList.add('active');
+	};
       };
     };
 

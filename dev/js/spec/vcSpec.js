@@ -21,10 +21,7 @@ define(['vc'], function () {
 	for (var prop in overwrites) {
 	  newObj[prop] = overwrites[prop];
 	};
-	if (objClass === vcClass)
-	  return objClass.render(newObj);
-	else
-	  return objClass.create().fromJson(newObj);
+	return objClass.create().fromJson(newObj);
       }
     }
   };
@@ -625,7 +622,7 @@ define(['vc'], function () {
     });
 
     it('should be replaceable on root', function () {
-      var vc = vcClass.render();
+      var vc = vcClass.create();
       expect(vc.toQuery()).toEqual("");
 
       expect(vc.root().ldType()).toEqual("non");
@@ -874,7 +871,7 @@ define(['vc'], function () {
     });
     
     it('should be initializable', function () {
-      var vc = vcClass.render();
+      var vc = vcClass.create();
       expect(vc.element().getAttribute('class')).toEqual('vc');
       expect(vc.root().element().getAttribute('class')).toEqual('doc unspecified');
 
@@ -883,7 +880,7 @@ define(['vc'], function () {
     });
 
     it('should be based on a doc', function () {
-      var vc = vcClass.render({
+      var vc = vcClass.create().fromJson({
 	"@type" : "koral:doc",
 	"key":"Titel",
 	"value":"Baum",
@@ -905,7 +902,7 @@ define(['vc'], function () {
     });
 
     it('should be based on a docGroup', function () {
-      var vc = vcClass.render(simpleGroupFactory.create().toJson());
+      var vc = vcClass.create().fromJson(simpleGroupFactory.create().toJson());
 
       expect(vc.element().getAttribute('class')).toEqual('vc');
       expect(vc.root().element().getAttribute('class')).toEqual('docGroup');
@@ -1122,7 +1119,7 @@ define(['vc'], function () {
     });
 
     it('should flatten on import', function () {
-      var vc = vcClass.create().render({
+      var vc = vcClass.create().fromJson({
 	"@type":"koral:docGroup",
 	"operation":"operation:or",
 	"operands":[
@@ -1247,7 +1244,7 @@ define(['vc'], function () {
     });
 
     it('should clean on root docs', function () {
-      var vc = vcClass.render({
+      var vc = vcClass.create().fromJson({
 	"@type": 'koral:doc',
 	"key": 'pubDate',
 	"match": 'match:eq',
@@ -1265,7 +1262,7 @@ define(['vc'], function () {
     });
 
     it('should remove on nested docs', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:and',
@@ -1295,7 +1292,7 @@ define(['vc'], function () {
     });
 
     it('should clean on doc groups', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:and',
@@ -1369,7 +1366,7 @@ define(['vc'], function () {
     });
 
     it('should remove on nested doc groups (list flattening)', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:or',
@@ -1480,7 +1477,7 @@ define(['vc'], function () {
     });
 
     it('should add new unspecified doc with "and"', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:and',
@@ -1525,7 +1522,7 @@ define(['vc'], function () {
     });
 
     it('should add new unspecified doc with "or"', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:and',
@@ -1724,7 +1721,7 @@ define(['vc'], function () {
     });
 
     it('should wrap on root', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:and',
@@ -1758,7 +1755,7 @@ define(['vc'], function () {
     });
 
     it('should add on root (case "and")', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:doc',
 	  "key": 'pubDate',
@@ -1780,7 +1777,7 @@ define(['vc'], function () {
     });
 
     it('should add on root (case "or")', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:doc',
 	  "key": 'pubDate',
@@ -1801,7 +1798,7 @@ define(['vc'], function () {
     });
 
     it('should support multiple sub groups per group', function () {
-      var vc = vcClass.render(
+      var vc = vcClass.create().fromJson(
 	{
 	  "@type": 'koral:docGroup',
 	  'operation' : 'operation:or',
@@ -1857,8 +1854,9 @@ define(['vc'], function () {
     });
   });
 
-  describe('KorAP.Rewrite', function () {
 
+
+  describe('KorAP.Rewrite', function () {
     it('should be initializable', function () {
       var rewrite = rewriteClass.create({
 	"@type" : "koral:rewrite",
@@ -1902,10 +1900,41 @@ define(['vc'], function () {
       expect(doc.element().classList.contains('doc')).toBeTruthy();
       expect(doc.element().classList.contains('rewritten')).toBeTruthy();
     });
-    /*
-      it('should be deserialized by docGroups', function () {
-      });
-    */
+
+    xit('should be deserialized by docGroups', function () {
+      var docGroup = docGroupClass.create(
+	undefined,
+	{
+	  "@type" : "koral:docGroup",
+	  "operation" : "operation:or",
+	  "operands" : [
+	    {
+	      "@type" : "doc",
+	      "key" : "pubDate",
+	      "type" : "type:date",
+	      "value" : "2014-12-05"
+	    },
+	    {
+	      "@type" : "doc",
+	      "key" : "pubDate",
+	      "type" : "type:date",
+	      "value" : "2014-12-06"
+	    }
+	  ],
+	  "rewrites" : [
+	    {
+	      "@type" : "koral:rewrite",
+	      "operation" : "operation:modification",
+	      "src" : "querySerializer",
+	      "scope" : "tree"
+	    }
+	  ]
+	}
+      );
+
+      expect(doc.element().classList.contains('docgroup')).toBeTruthy();
+      expect(doc.element().classList.contains('rewritten')).toBe(false);
+    });
   });
   /*
     describe('KorAP.DocKey', function () {

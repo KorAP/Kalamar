@@ -335,10 +335,13 @@ define([
       if (arguments.length === 1) {
 	var m = match.replace(/^match:/, '');
 	if (
-	  (
-	    (this._type === 'string' || this._type === 'regex') &&
-	      KorAP._validStringMatchRE.test(m)
-	  ) ||
+	  (this._type === undefined)
+	    ||
+	    (
+	      (this._type === 'string' || this._type === 'regex') &&
+		KorAP._validStringMatchRE.test(m)
+	    )
+	    ||
 	    (this._type === 'date' && KorAP._validDateMatchRE.test(m))
 	) {
 	  this._matchop = m;

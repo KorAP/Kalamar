@@ -131,32 +131,25 @@ define([
      * Create a new virtual collection.
      */
     create : function (keyList) {
-      return Object.create(this)._init(keyList);
-    },
-
-    clean : function () {
-      if (this._root.ldType() !== "non") {
-	this._root.destroy();
-	this.root(unspecDocClass.create(this));
-      };
-      return this;
+      var obj = Object.create(this)._init(keyList);
+      obj._root = unspecDocClass.create(obj);
+      return obj;
     },
 
     /**
      * Create and render a new virtual collection
      * based on a KoralQuery collection document 
      */
-    render : function (json, keyList) {
-      var obj = Object.create(this)._init(keyList);
+    fromJson : function (json) {
 
       if (json !== undefined) {
 	// Parse root document
 	if (json['@type'] == 'koral:doc') {
-	  obj._root = docClass.create(obj, json);
+	  this._root = docClass.create(this, json);
 	}
 	// parse root group
 	else if (json['@type'] == 'koral:docGroup') {
-	  obj._root = docGroupClass.create(obj, json);
+	  this._root = docGroupClass.create(this, json);
 	}
 	// Unknown collection type
 	else {
@@ -167,13 +160,21 @@ define([
 
       else {
 	// Add unspecified object
-	obj._root = unspecDocClass.create(obj);
+	this._root = unspecDocClass.create(this);
       };
 
       // Init element and update
-      obj.update();
+      this.update();
 
-      return obj;
+      return this;
+    },
+
+    clean : function () {
+      if (this._root.ldType() !== "non") {
+	this._root.destroy();
+	this.root(unspecDocClass.create(this));
+      };
+      return this;
     },
 
     /**

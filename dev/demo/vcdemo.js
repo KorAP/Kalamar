@@ -77,12 +77,12 @@ require(['vc','lib/domReady'], function (vcClass, domReady) {
 
     // Create a new virtual collection by passing a based json object and
     // field menu information
-    var vc = vcClass.render(json, [
+    var vc = vcClass.create([
       ['title', 'string'],
       ['subTitle', 'string'],
       ['pubDate', 'date'],
       ['author', 'string']
-    ]);
+    ]).fromJson(json);
     document.getElementById('vc').appendChild(vc.element());
 
     // show the current JSON serialization
