@@ -1,0 +1,73 @@
+@charset "utf-8";
+@import "../util";
+
+div.datepicker {
+  display: inline-block;
+  padding: 4pt;
+  box-shadow: $choose-box-shadow;
+  border: {
+    width: 2px;
+    style: solid;
+    radius: $standard-border-radius;
+  }
+  > div {
+    font-size: 120%;
+    width: 45%;
+  }
+  > div.year {
+    float: right;
+  }
+  
+  @include choose-item;
+  > div > span {
+    display: inline-block;
+    &:first-child::before {
+      cursor: pointer;
+      font-family: 'FontAwesome';
+      content: $fa-previous;
+      width: 10%;
+    }
+    &:last-child::after {
+      cursor: pointer;
+      font-family: 'FontAwesome';
+      content: $fa-next;
+      width: 10%;
+    }
+    &:nth-child(2) {
+      display: inline-block;
+      width: 80%;
+      text-align: center;
+    }
+  }
+  table {
+    border-collapse: separate;
+    border-spacing: 1px;
+  }
+  td {
+    @include standard-text-padding;
+    text-align: center;
+    border: {
+      style: solid;
+      width: 1px;
+    }
+    &:not(.out) {
+      cursor: pointer;
+      @include choose-item;
+      background-color: $nearly-white;
+      &.today {
+	background-color: $light-blue;
+	color: $dark-blue;
+	text-shadow: none;
+      }
+      &.selected {
+	@include choose-active;
+      }
+      &:hover {
+	@include choose-hover;
+      }
+    }
+    &.out {
+      border-color: transparent;
+    }
+  }
+}

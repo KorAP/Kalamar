@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 	src: [
 	  'dev/js/src/menu.js',
 	  'dev/js/src/match.js',
-	  'dev/js/src/match.js',
+	  'dev/js/src/hint.js',
 	  'dev/js/src/vc.js'
 	],
 	options: {
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
       css: {
 	files: ['dev/scss/{util,base,fonts,kalamar,media}.scss',
 		'dev/scss/footer/footer.scss',
-		'dev/scss/header/{header,hint,menu,searchbar,vc}.scss',
+		'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',
 		'dev/scss/main/{alertify,highlight,kwic,logos,' +
 		'main,matchinfo,pagination,query,'+
 		'resultinfo,sidebar,tutorial}.scss'

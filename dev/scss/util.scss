@@ -38,8 +38,8 @@ $dark-blue:      $ids-blue-1; // #73b2f4;
 $darkest-blue:   darken($dark-blue, 40%);
 
 
-/*
- * Grey
+/**
+ * Grey Colors
  */
 $middle-grey:  $ids-grey-1; // #999;
 $light-grey:   $ids-grey-2; // #ddd;
@@ -112,6 +112,13 @@ $logo-left-distance: 230px;
   text-shadow: none;
   background-color: $dark-orange;
   border-color: $darker-orange;
+}
+
+@mixin choose-inactive {
+  color: lighten($choose-color, 20%);
+  background-color: lighten($choose-bg, 20%);
+  border-color: transparent;
+  text-shadow: none;
 }
 
 @mixin choose-active {
