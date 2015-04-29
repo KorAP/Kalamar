@@ -97,13 +97,13 @@ header input {
 */
       &::after {
 	font-family: "FontAwesome"; 
-	content: '\f096';
+	content: $fa-check;
       }
     }
   }
   &:checked + label span { 
     &:after {
-      content:"\f046";
+      content: $fa-checked;
     }
   }
 }

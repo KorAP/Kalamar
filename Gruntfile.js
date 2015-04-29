@@ -90,6 +90,15 @@ module.exports = function(grunt) {
 	    dest: 'public/',
 	    nonull:true,
 	    timestamp:true
+	  },
+	  // Needs to overwrite the prepared svg as it corrupts the embedded js
+	  {
+	    expand: true,
+	    cwd: 'dev/img/',
+	    src: 'korap-overview.svg',
+	    dest: 'public/img/',
+	    nonull:true,
+	    timestamp:true
 	  }
 	]
       }
@@ -123,6 +132,6 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
-    ['copy', 'requirejs', 'imagemin', 'sass']
+    ['requirejs', 'imagemin', 'copy', 'sass']
   );
 };

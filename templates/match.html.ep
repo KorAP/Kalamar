@@ -1,38 +1,23 @@
-%# ID, title, corpusID, author, pubDate, textClass
 % my $match = stash('match') || {}; 
-<li data-corpus-id="<%= $match->{corpusID} %>" \
-data-doc-id="<%= $match->{docID} %>" \
-data-match-id="<%= $match->{ID} %>" \
-id="<%= $match->{corpusID} %>-<%= $match->{docID} %>-<%= $match->{ID} %>"\
-<% if (current_route eq 'match') { %> class="active"<% } =%>
->
-%#
-%# -- Match information (snippet, morph table, tree information etc.)
+% my $id = $match->{corpusID} . '-' . $match->{docID} . '-' . $match->{ID};
+<li data-corpus-id="<%= $match->{corpusID} %>"
+    data-doc-id="<%= $match->{docID} %>"
+    data-text-id="hmmm"
+    data-match-id="<%= $match->{ID} %>"
+    %# TODO: This needs to be retrieved per match 
+    data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
+    id="<%= $id %>"\
+<% if (current_route eq 'match') { %> class="active"<% } =%>>
   <div>
+%# --- Snippet
     <div class="snippet<%= $match->{startMore} ? ' startMore' : '' %><%= $match->{endMore} ? ' endMore' : '' %>"><%== $match->{snippet} %></div>
-    <div class="tokenInfo"></div>
-%#    <div class="treeInfo"></div>
   </div>
-%#
 %# -- Reference string
-  <p>\
-% if ($match->{title}) {
-<strong><%= $match->{title} %></strong>\
-% };
-<%= $match->{author} ? ' by ' . $match->{author}  : '' %><% if ($match->{title} || $match->{author}) { %>;<% } =%>
- published on <%= date_format $match->{pubDate} %>\
- as <%= $match->{docID} %> (<%= $match->{corpusID} %>)\
+  <p class="ref">\
+<% if ($match->{title}) { %><strong><%= $match->{title} %></strong><% }; %>\
+<%= $match->{author} ? ' ' . loc('by') . ' ' . $match->{author}  : '' %>\
+<% if ($match->{title} || $match->{author}) { %>;<% } =%> \
+<%= loc('pubOn') %> <%= $match->{pubDate} %> \
+(<%= $id %>)\
 </p>
-%#
-%# -- Action buttons
-  <ul class="action right">
-% if (current_route ne 'match') {
-    <li class="close" title="Close"><a href="#"><i class="fa fa-toggle-up"></i></a></li>
-%#  <li class="open" title="Open in new tab"><%= link_to 'match', { corpus_id => $match->{corpusID}, doc_id => $match->{docID}, match_id => $match->{ID} }, target => '_blank', begin %><i class="fa fa-external-link-square"></i><% end %></li>
-    <li class="open" title="Open in new tab"><a href="#<%= $match->{corpusID} %>-<%= $match->{docID} %>-<%= $match->{ID} %>" target="_blank"><i class="fa fa-external-link-square"></i></a></li>
-% };
-    <li onclick="showTable(this)" title="Annotations"><i class="fa fa-info-circle"></i></li>
-%#    <li onclick="showTree(this, 'xip', 'c')" title="Tree Visualizations"><i class="fa fa-sitemap"></i></li>
-%#    <li title="Remember"><i class="fa fa-star-o"></i></li>
-  </ul>
 </li>

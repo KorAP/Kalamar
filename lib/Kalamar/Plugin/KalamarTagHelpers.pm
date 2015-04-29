@@ -8,21 +8,99 @@ use Mojo::Util qw/xml_escape/;
 sub register {
   my ($plugin, $mojo) = @_;
 
-
+  # Embed the korap architecture image
   $mojo->helper(
     korap_overview => sub {
       my $c = shift;
       my $scope = shift;
-      my $base = $c->stash('doc_base') ? '?' . $c->stash('doc_base') : '';
+
+      my $url = $c->url_with('/img/korap-overview.svg');
+
+      # If there is a different base - append this as a base
+      $url->query([base => $c->stash('doc_base') // '/']);
+
+      $url->fragment($scope);
 
       return $c->tag('object',
-	data => $c->url_for('/img/korap-overview.svg' . $base . '#' . $scope),
+	data => $url,
 	type => 'image/svg+xml',
 	alt  => $c->loc('korap_overview'),
 	id   => 'overview'
       );
     }
   );
+
+
+
+  $mojo->helper(
+    doc_link_to => sub {
+      my $c = shift;
+      my $title = shift;
+      my $page = pop;
+      my $scope = shift;
+      return $c->link_to($title, $c->url_with('doc', scope => $scope, page => $page));
+    }
+  );
+
+  $mojo->helper(
+    doc_uc => sub {
+      return shift->tag('p', 'Under Construction!')
+    }
+  );
+
+
+  # Create helper for queries in the tutorial
+  $mojo->helper(
+    kalamar_tut_query => sub {
+      my ($c, $ql, $q, %param) = @_;
+
+      # Escape query for html embedding
+      $q = xml_escape $q;
+
+      # Return tag
+      b('<pre class="query tutorial" ' .
+	  qq!data-query="$q" data-query-cutoff="! .
+	    ($param{cutoff} ? 1 : 0) .
+	      '"' .
+		qq! data-query-language="$ql">! .
+		  '<code>' . $q . '</code>' .
+		    '</pre>'
+		);
+    }
+  );
+
+
+  # Create links in the tutorial that make sure the current position is preserved,
+  # in case the tutorial was opened embedded
+  $mojo->helper(
+    kalamar_tut_link_to => sub {
+      my $c = shift;
+      my $title = shift;
+      my $link = shift;
+      my $host = $c->req->headers->header('X-Forwarded-Host');
+      my $url = $c->url_for($link);
+
+      # Link is part of the embedded tutorial
+      if ($c->param('embedded')) {
+	$url->query({ embedded => 1 });
+	return $c->link_to(
+	  $title,
+	  $url,
+	  onclick => qq!setTutorialPage("$url")!
+	);
+      };
+
+      # Build link
+      return $c->link_to($title, $url);
+    }
+  );
+};
+
+1;
+
+
+__END__
+
 
 
 
@@ -155,48 +233,3 @@ sub register {
 		    '</code></pre>' . $msg);
     }
   );
-
-  $mojo->helper(
-    doc_link_to => sub {
-      my $c = shift;
-      my $title = shift;
-      my $page = pop;
-      my $scope = shift;
-      return $c->link_to($title, $c->url_with('doc', scope => $scope, page => $page));
-    }
-  );
-
-  $mojo->helper(
-    doc_uc => sub {
-      return shift->tag('p', 'Under Construction!')
-    }
-  );
-
-
-  # Create links in the tutorial that make sure the current position is preserved,
-  # in case the tutorial was opened embedded
-  $mojo->helper(
-    kalamar_tut_link_to => sub {
-      my $c = shift;
-      my $title = shift;
-      my $link = shift;
-      my $host = $c->req->headers->header('X-Forwarded-Host');
-      my $url = $c->url_for($link);
-
-      # Link is part of the embedded tutorial
-      if ($c->param('embedded')) {
-	$url->query({ embedded => 1 });
-	return $c->link_to(
-	  $title,
-	  $url,
-	  onclick => qq!setTutorialPage("$url")!
-	);
-      };
-
-      # Build link
-      return $c->link_to($title, $url);
-    }
-  );
-};
-
-1;

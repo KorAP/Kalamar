@@ -108,11 +108,21 @@ define([
     /**
      * Init Tutorial view
      */
-    obj.tutorial = tutClass.create(
-      document.getElementById('view-tutorial')
-    );
+    if (document.getElementById('view-tutorial')) {
+      window.tutorial = tutClass.create(
+	document.getElementById('view-tutorial')
+      );
+      obj.tutorial = window.tutorial;
+    }
 
-  
+    // Tutorial is in parent
+    else if (window.parent) {
+      obj.tutorial = window.parent.tutorial;
+    };
+
+    // Initialize queries for document
+    obj.tutorial.initQueries(document);
+
     /**
      * Init hint helper
      * has to be final because of

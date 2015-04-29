@@ -37,7 +37,7 @@ a {
     color: $dark-orange;
     text-decoration: none;
     &:hover {
-      color: $light-green; // $darkest-orange;
+      color: $darkest-orange;
       @include color-transition;
     }
     &:active, &:visited {

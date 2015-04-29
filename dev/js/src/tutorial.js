@@ -27,24 +27,63 @@ define(['session', 'util'], function (sessionClass) {
     _init : function (obj) {
 
       this._session = sessionClass.create();
-      this._show = obj;
-      this.start = obj.getAttribute('href');
-      obj.removeAttribute('href');
-      var that = this;
-      obj.onclick = function () {
-	that.show();
+
+      if (obj) {
+	this._show = obj;
+	this.start = obj.getAttribute('href');
+	obj.removeAttribute('href');
+	var that = this;
+	obj.onclick = function () {
+	  that.show();
+	};
+
+	// Injects a tutorial div to the body
+	var div = document.createElement('div');
+	div.setAttribute('id', 'tutorial');
+	div.style.display = 'none';
+	document.getElementsByTagName('body')[0].appendChild(div);
+	this._iframe = null;
+	this._element = div;
+
+	// Some fields
+	this._ql     = document.getElementById("ql-field");
+	this._q      = document.getElementById("q-field")
+	this._cutoff = document.getElementById("q-cutoff-field");
       };
 
-      // Injects a tutorial div to the body
-      var div = document.createElement('div');
-      div.setAttribute('id', 'tutorial');
-      div.style.display = 'none';
-      document.getElementsByTagName('body')[0].appendChild(div);
-      this._iframe = null;
-
-      this._element = div;
       return this;
     },
+
+    useQuery : function (e) {
+      var q  = e.getAttribute("data-query");
+      var ql = e.getAttribute("data-query-language");
+      var qc = e.getAttribute("data-query-cutoff");
+      if (qc !== 0 && qc !== "0" && qc !== "off" && qc !== null) {
+	this._cutoff.checked = true;
+      };
+
+      var qlf = this._ql.options;
+      for (var i in qlf) {
+	if (qlf[i].value == ql) {
+	  qlf[i].selected = true;
+	};
+      };
+
+      this._q.value = q;
+      this.setPage(e);
+      this.hide();
+    },
+
+    initQueries : function (d) {
+      var qs = d.querySelectorAll('pre.query.tutorial');
+      var that = this;
+      for (var i = 0; i < qs.length; i++) {
+	qs[i].onclick = function (e) {
+	  that.useQuery(this,e);
+	};
+      };
+    },
+
 
     show : function () {
       var element = this._element;
@@ -94,7 +133,7 @@ define(['session', 'util'], function (sessionClass) {
      * Close tutorial window.
      */
     hide : function () {
-      this._element.display.style = 'none';
+      this._element.style.display = 'none';
     },
 
     /**
@@ -105,7 +144,7 @@ define(['session', 'util'], function (sessionClass) {
       var page = obj;
       if (typeof page != 'string') {
 	page = window.location.pathname + window.location.search;
-	for (i = 1; i < 5; i++) {
+	for (var i = 1; i < 5; i++) {
 	  if (obj.nodeName === 'SECTION') {
 	    if (obj.hasAttribute('id'))
 	      page += '#' + obj.getAttribute('id');
@@ -128,6 +167,7 @@ define(['session', 'util'], function (sessionClass) {
      */
     getPage : function () {
       this._session.get('tutpage');
-    },
+    }
   };
 });
+

@@ -4,7 +4,7 @@
 
 <p>The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
 
-<section id="tut-segments">
+<section id="segments">
   <h3>Simple Segments</h3>
 
   <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
@@ -22,7 +22,7 @@
 
   <p>The query above will find all occurrences of <code>laufen</code> irrespective of the capitalization of letters, so <code>wir laufen</code> will be find as well as <code>das Laufen</code> and even <code>&quot;GEH LAUFEN!&quot;</code>.
 
-  <h4 id="tut-regexp">Regular Expressions</h4>
+  <h4 id="regexp">Regular Expressions</h4>
 
   <p>Segments can also be queried using <%= kalamar_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %> - by surrounding the segment with double quotes.</p>
 
@@ -51,7 +51,7 @@
   %= kalamar_tut_query poliqarp => '"l(au|ie)fen"/xi', cutoff => 1
 </section>
 
-<section id="tut-complex">
+<section id="complex">
   <h3>Complex Segments</h3>
 
   <p>Complex segments are expressed in square brackets and contain additional information on the resource of the term under scrutiny by providing key/value pairs, separated by an equal-sign.</p>
@@ -109,7 +109,7 @@
   </blockquote>
 </section>
 
-<section id="tut-spans">
+<section id="spans">
   <h3>Span Segments</h3>
 
   <p>Not all segments are bound to words - some are bound to concepts spanning multiple words, for example noun phrases, sentences, or paragraphs.
@@ -120,7 +120,7 @@ Span segments can be searched for using angular brackets instead of square brack
     <p>Otherwise they can be treated in exactly the same way as simple or complex segments.</p>
 </section>
 
-<section id="tut-paradigmatic-operators">
+<section id="paradigmatic-operators">
   <h3>Paradigmatic Operators</h3>
 
   <p>A complex segment can have multiple properties a token has to fulfill. For example to search for all words with the surface form <code>laufe</code> (no matter if capitalized or not) that have the lemma <code>lauf</code> (and not, for example, <code>laufen</code>, which would indicate a verb or a gerund), you can search for:</p>
@@ -145,10 +145,10 @@ Terms of the complex segment can be negated as introduced before.</p>
   %= kalamar_tut_query poliqarp => '[(base=laufen | base=gehen) & tt/pos=VVFIN]'
 </section>
 
-<section id="tut-syntagmatic-operators">
+<section id="syntagmatic-operators">
   <h3>Syntagmatic Operators</h3>
 
-  <h4 id="tut-syntagmatic-operators-sequence">Sequences</h4>
+  <h4 id="syntagmatic-operators-sequence">Sequences</h4>
 
   <p>Sequences can be used to search for segments in order. For example to search for the word &quot;alte&quot; preceded by &quot;der&quot; and followed by &quot;Mann&quot;, you can simple search for the sequence of simple expressions separated by whitespaces.</p>
 
@@ -184,7 +184,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= kalamar_tut_query poliqarp => 'der (junge | alte) Mann'
 
-  <h4 id="tut-syntagmatic-operators-repetitions">Repetition</h4>
+  <h4 id="syntagmatic-operators-repetitions">Repetition</h4>
 
   <p>Repetitions in Poliqarp are realized as in <%= kalamar_tut_link_to 'regular expressions', '/tutorial/regular-expressions' %>, by giving quantifieres in curly brackets.</p>
   <p>To search for a sequence of three occurrences of <code>der</code>, you can formulate your query in any of the following ways - they will have the same results:</p>
@@ -277,7 +277,7 @@ Terms of the complex segment can be negated as introduced before.</p>
       
 </section>
 
-<section id="tut-class-operators">
+<section id="class-operators">
   <h3>Class Operators</h3>
 
   <p>Classes are used to group sub matches by surrounding curly brackets and a class number <code>{1:...}</code>. Classes can be used to refer to sub matches in a query, similar to captures in regular expressions. In Poliqarp+ classes have multiple purposes, with highlighting being the most intuitive one:</p>

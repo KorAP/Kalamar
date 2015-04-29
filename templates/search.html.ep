@@ -1,55 +1,27 @@
-% if (param 'q') {
-% content 'main' => begin
-%     unless (param 'snippet') {
-<div style="clear: both">
-%       my $url = url_with->query(['p' => '{page}']);
-%       my $pages = search->total_pages;
-  <div id="pagination"><%= pagination(search->start_page, $pages, $url) =%></div>
-  <p class="found">Found
+% layout 'main';
+
+<div class="resultinfo">
+%#  <div id="pagination"><%= pagination(search->start_page, $pages, $url) =%></div>
+
 % my $found = search->total_results;
-% if ($found == -1) {
-%   $found = 'unknown amount of';
-% } elsif (search->time_exceeded) {
-%   $found = 'more than ' . $found;
-% }; 
-    <span id="total-results"><%= $found %> matches</span>
-    <% if (search->benchmark) { %> in <%= search->benchmark %><% } %>
-  </p>
+% if ($found != -1) {
+%   my $found_text = $found;
+%   if (search->time_exceeded) {
+%     $found_text = '> ' . $found;
+%   };
+  <p class="found"><span id="total-results"><%= $found_text %></span> <%= loc('matchCount', found => $found) %></p>
+% } else {
+  <p></p>
+% };
+%#   <% if (search->benchmark) { %> in <%= search->benchmark %><% } %>
 </div>
-%= include 'query'
-%= include 'api-communication'
-%     };
 
 % if (search->total_results != 0 && search->results->size) {
 <div id="search">
-<ol class="align-left">
-%=    search_results begin
-%=      include 'match', match => $_
-%     end
-</ol>
-</div>
-% };
-% end
-
-% content 'javascript' => begin
-%=   javascript begin
-
-var openLi = function (e) {
-  this.classList.add("active");
-  e.stopPropagation();
-};
-
-var closeLi = function (e) {
-  this.parentNode.parentNode.classList.remove("active");
-  e.stopPropagation();
-};
-
-var inactiveLi = document.querySelectorAll("#search > ol > li:not(.active)");
-for (var i = 0; i < inactiveLi.length; i++) {
-  inactiveLi[i].addEventListener("click", openLi, false);
-  inactiveLi[i].getElementsByClassName("close")[0].addEventListener("click", closeLi, false);
-};
-
+  <ol class="align-left">
+%=  search_results begin
+%=    include 'match', match => $_
 %   end
-% end
-% };
+  </ol>
+</div>
+% }

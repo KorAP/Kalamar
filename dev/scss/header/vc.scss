@@ -249,3 +249,17 @@ $dg-index : 30;
     }
   }
 }
+
+
+#vc-choose {
+  &::after {
+    content: $fa-down;
+    padding: {
+      left: 2pt;
+      right: 4pt;
+    }
+  }
+  &.active::after {
+    content: $fa-up;
+  }
+}

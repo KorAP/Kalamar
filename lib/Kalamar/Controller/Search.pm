@@ -1,8 +1,8 @@
 package Kalamar::Controller::Search;
 use Mojo::Base 'Mojolicious::Controller';
 
-# Add X-Forwarded-For to user agent call everywhere
 
+# Query the KorAP backends and render a template
 sub query {
   my $c = shift;
 
@@ -10,18 +10,8 @@ sub query {
 
   # No query
   unless ($query) {
-    return $c->render(template => 'index');
-  }
-};
-
-
-1;
-
-
-__END__
-
-# Query the KorAP backends and render a template
-sub query {
+    return $c->render(template => 'intro');
+  };
 
   # Base parameters for remote access
   my %param = (
@@ -29,6 +19,7 @@ sub query {
     query => $query,
   );
 
+  # May be not relevant
   my $inspect = (scalar $c->param('action') // '') eq 'inspect' ? 1 : 0;
 
   # Just check the serialization non-blocking
@@ -41,30 +32,50 @@ sub query {
     return;
   };
 
+  # Choose the snippet based on the parameter
   my $template = scalar $c->param('snippet') ? 'snippet' : 'search';
 
   # Search non-blocking
   $c->delay(
     sub {
       my $delay = shift;
+
+      # Search with a callback (async)
       $c->search(
-	cutoff => scalar $c->param('cutoff'),
-	count => scalar $c->param('count'),
+	cutoff     => scalar $c->param('cutoff'),
+	count      => scalar $c->param('count'),
 	start_page => scalar $c->param('p'),
-	cb => $delay->begin,
+	cb         => $delay->begin,
 	%param
       ) if $query;
 
+      # Search resource (async)
       $c->search->resource(
 	type => 'collection',
 	$delay->begin
       );
     },
+
+    # Collected search
     sub {
+
+
+
+      # Render to the template
       return $c->render(template => $template);
     }
   );
 };
+
+
+1;
+
+
+__END__
+
+
+
+
 
 
 # Get informations about a match
@@ -121,3 +132,14 @@ sub match_info {
 
 
 __END__
+
+
+# Todo: Add X-Forwarded-For to user agent call everywhere
+  $self->hook(before_dispatch => sub {
+      my $c = shift;
+      my $h = $c->res->headers;
+      $h->header( 'Access-Control-Allow-Origin' => '*' );
+      $h->header( 'Access-Control-Allow-Methods' => 'GET, PUT, POST, DELETE, OPTIONS' );
+      $h->header( 'Access-Control-Max-Age' => 3600 );
+      $h->header( 'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With' );
+    });

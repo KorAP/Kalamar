@@ -13,36 +13,41 @@ sub startup {
   my $pkg = b($self->home . '/package.json')->slurp;
   $Kalamar::VERSION = decode_json($pkg)->{version};
 
-  # Load documentation navigation
-  my $navi = b($self->home . '/templates/doc/_nav.json')->slurp;
-
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
+  # Set secrets for signed cookies
+  $self->secrets([
+    b($self->home . '/kalamar.secret')->slurp->split("\n")
+  ]);
+
   # Load plugins
-  foreach (qw/Config
-	      Localize
-	      Notifications
-	      DocNavi
-	      KalamarTagHelpers/) {
+  foreach (
+    'Config',                 # Configuration framework
+    'Localize',               # Localization framework
+    'Notifications',          # Client notifications
+    'Search',                 # Abstract Search framework
+    'CHI',                    # Global caching mechanism
+    'TagHelpers::Pagination', # Pagination widget
+    'DocNavi',                # Navigation for documentation
+    'KalamarHelpers',         # Specific Helpers for Kalamar
+    'KalamarTagHelpers'       # Specific Taghelpers for Kalamar
+  ) {
     $self->plugin($_);
   };
 
-  $self->config(navi => decode_json($navi));
-
+  # Configure mail exception
   $self->plugin('MailException' => $self->config('MailException'));
+
+  # Configure documentation navigation
+  my $navi = b($self->home . '/templates/doc/_nav.json')->slurp;
+  $self->config(navi => decode_json($navi));
 
   # Establish routes
   my $r = $self->routes;
 
-  $r->get('/')->to(
-    cb => sub {
-      return shift->render(template => 'intro');
-    });
-
   # Base query page
   $r->get('/')->to('search#query')->name('index');
-
 
   # Documentation
   $r->get('/doc')->to('documentation#page', page => 'korap');
@@ -63,10 +68,6 @@ __END__
 #    title => 'KorAP - Corpus Analysis Platform'
 #  );
 
-  # Set secret for signed cookies
-  $self->secrets([
-    b($self->home . '/kalamar.secret')->slurp->split("\n")
-  ]);
 
   $self->hook(
     before_dispatch => sub {
@@ -77,22 +78,11 @@ __END__
       };
     }) if $self->mode eq 'production';
 
-  $self->hook(before_dispatch => sub {
-      my $c = shift;
-      my $h = $c->res->headers;
-      $h->header( 'Access-Control-Allow-Origin' => '*' );
-      $h->header( 'Access-Control-Allow-Methods' => 'GET, PUT, POST, DELETE, OPTIONS' );
-      $h->header( 'Access-Control-Max-Age' => 3600 );
-      $h->header( 'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With' );
-    });
 
 
   # Load plugins
-  foreach (qw/CHI
-	      TagHelpers::Pagination
+  foreach (qw/
 	      Number::Commify
-	      Search
-	      KalamarHelpers
 	      /) {
     $self->plugin($_);
   };
