@@ -29,6 +29,11 @@ define(['util'], function () {
       return this;
     },
 
+    set : function (year, month, day) {
+      this.select(year, month, day);
+      console.dir(this._selected);
+    },
+
     select : function (year, month, day) {
       if (arguments.length >= 1) {
 	this._selected = {'year' : year};
@@ -47,8 +52,8 @@ define(['util'], function () {
       picker.classList.add('datepicker');
       this._showYear = year;
       this._showMonth = month;
-      picker.appendChild(this._yearHelper());
       picker.appendChild(this._monthHelper());
+      picker.appendChild(this._yearHelper());
       picker.appendChild(this._dayHelper());
       return picker;
     },
@@ -104,6 +109,10 @@ define(['util'], function () {
       this._yElement = year.appendChild(d.createElement('span'));
       this._yElement.appendChild(document.createTextNode(this._showYear));
 
+      this._yElement.onclick = function () {
+	this.set(this._showYear);
+      }.bind(this);
+
       // Increment year
       year.appendChild(d.createElement('span'))
 	.onclick = this.incrYear.bind(this);
@@ -127,6 +136,9 @@ define(['util'], function () {
       this._mElement.appendChild(
 	document.createTextNode(loc.MONTH[this._showMonth-1])
       );
+      this._mElement.onclick = function () {
+	this.set(this._showYear, this._showMonth);
+      }.bind(this);
       
       // Increment month
       month.appendChild(d.createElement('span'))
@@ -159,6 +171,14 @@ define(['util'], function () {
       var showDate = new Date(this._showYear, this._showMonth - 1, 1, 0, 0, 0, 0);
       var date     = new Date(this._showYear, this._showMonth - 1, 1, 0, 0, 0, 0);
       var today    = new Date();
+      var that = this;
+      var click = function () {
+	that.set(
+	  that._showYear,
+	  that._showMonth,
+	  parseInt(this.firstChild.data)
+	);
+      };
 
       // Skip back to the previous monday (may be in the last month)
       date.setDate(date.getDate() - ((date.getDay() + 6) % 7));
@@ -176,8 +196,12 @@ define(['util'], function () {
 	  var td = tr.appendChild(d.createElement('td'));
 
 	  // Not part of the current month
-	  if (date.getMonth() !== showDate.getMonth())
+	  if (date.getMonth() !== showDate.getMonth()) {
 	    td.classList.add('out');
+	  }
+	  else {
+	    td.onclick = click;
+	  };
 	  
 	  // This is the current day
 	  if (date.getDate()     === today.getDate() &&

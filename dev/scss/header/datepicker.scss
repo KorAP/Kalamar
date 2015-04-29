@@ -1,12 +1,14 @@
 @charset "utf-8";
 @import "../util";
 
+$border-size: 2px;
+
 div.datepicker {
   display: inline-block;
   padding: 4pt;
   box-shadow: $choose-box-shadow;
   border: {
-    width: 2px;
+    width: $border-size;
     style: solid;
     radius: $standard-border-radius;
   }
@@ -14,29 +16,47 @@ div.datepicker {
     font-size: 120%;
     width: 45%;
   }
-  > div.year {
+  > div.month {
     float: right;
   }
   
   @include choose-item;
   > div > span {
     display: inline-block;
+    &:first-child,
+    &:last-child {
+      width: 15%;
+      &::before {
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	font-family: 'FontAwesome';
+	min-width: 14px;
+      }
+    }
     &:first-child::before {
-      cursor: pointer;
-      font-family: 'FontAwesome';
       content: $fa-previous;
-      width: 10%;
     }
-    &:last-child::after {
-      cursor: pointer;
-      font-family: 'FontAwesome';
+    &:last-child::before {
       content: $fa-next;
-      width: 10%;
     }
+    overflow: hidden;
+    white-space: nowrap;
     &:nth-child(2) {
+      cursor: pointer;
       display: inline-block;
-      width: 80%;
+      width: 70%;
       text-align: center;
+      text-overflow: ellipsis;
+      border: {
+	radius: $standard-border-radius;
+	style: solid;
+	width: $border-size;
+	color: transparent;
+      }
+      &:hover {
+	@include choose-hover;
+      }
     }
   }
   table {
