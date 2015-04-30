@@ -1,4 +1,4 @@
-var KorAP = KorAP || {};
+window.KorAP = window.KorAP || {};
 
 // TODO: Make this part of util!
 // Don't let events bubble up

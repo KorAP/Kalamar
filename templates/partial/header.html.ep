@@ -2,13 +2,13 @@
   <a href="/"
      class="logo"
      title="<%= title %>"><h1><span><%= title %></span></h1></a>
-<!--
   <div class="button top">
+<!--
     <a href="#"
        class="login"
        title="<%= loc 'login' %>"><span><%= loc 'login' %></span></a>
-  </div>
 -->
+  </div>
   <form autocomplete="off" action="<%= url_for 'index' %>">
     <div id="searchbar">
       %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder')

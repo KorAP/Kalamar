@@ -17,9 +17,11 @@ sub startup {
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
   # Set secrets for signed cookies
-  $self->secrets([
-    b($self->home . '/kalamar.secret')->slurp->split("\n")
-  ]);
+  if (-e (my $secret = $self->home . '/kalamar.secret')) {
+    $self->secrets([
+      b($secret)->slurp->split("\n")
+    ]);
+  };
 
   # Load plugins
   foreach (
