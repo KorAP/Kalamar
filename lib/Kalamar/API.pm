@@ -1,4 +1,4 @@
-package Kalamar::API;
+#package Kalamar::API;
 use Mojo::Base 'Mojolicious::Plugin';
 use Scalar::Util qw/blessed weaken/;
 use strict;
@@ -78,7 +78,7 @@ sub search {
   $index->api_request($url->to_string);
 
   # Create new user agent and set timeout to 2 minutes
-  my $ua = $c->ua; # Mojo::UserAgent->new;
+  my $ua = $c->ua;
   $ua->inactivity_timeout(120);
 
   # Debugging
@@ -95,6 +95,7 @@ sub search {
 	return $cb->($index);
       });
   }
+
   # Search blocking
   else {
     my $tx = $ua->get($url);
@@ -169,6 +170,9 @@ sub match {
 
   my $url = Mojo::URL->new($index->api);
 
+  # Legacy: In old versions, doc_id contained text_id
+  $param{doc_id} .= '.' . $param{text_id} if $param{text_id};
+
   # Use hash slice to create path
   $url->path(join('/', 'corpus', @param{qw/corpus_id doc_id match_id/}, 'matchInfo'));
 
@@ -208,7 +212,7 @@ sub match {
 };
 
 
-# Trace query serialization
+# Get resource information
 sub resource {
   my $self = shift;
   my $index = shift;
@@ -225,14 +229,16 @@ sub resource {
   my $type = $param{type} // 'collection';
   $type = 'virtualcollection' if $type eq 'collection';
 
+  # Create resource URL
   my $url = Mojo::URL->new($index->api)->path($type);
 
+  # Debugging
   $c->app->log->debug('Get resource info on '. $url);
 
   # Check for cached information
   if (my $json = $c->chi->get($url->to_string)) {
 
-    # TODO: That's unfortunate, as it prohibits multiple resources
+    # TODO: That's unfortunate, as it prohibits caching of multiple resources
     $c->app->log->debug('Get resource info from cache');
     $c->stash('search.resource' => $json);
     return $cb->($index) if $cb;
@@ -245,6 +251,7 @@ sub resource {
   my $ua = $c->ua; # Mojo::UserAgent->new;
   $ua->inactivity_timeout(30);
 
+  # Get resource information async
   if ($cb) {
     weaken $index;
     $ua->get(
@@ -253,6 +260,8 @@ sub resource {
 	return $cb->($index);
       })
   }
+
+  # Get resource information blocking
   else {
     my $tx = $ua->get($url);
     $self->_process_response('resource', $index, $tx);
@@ -321,6 +330,7 @@ sub _process_response {
 };
 
 
+# Handle match results
 sub _process_response_matches {
   my ($self, $index, $json) = @_;
 
@@ -364,12 +374,14 @@ sub _process_response_match {
 };
 
 
-# Process query serialization response
+# Process trace response
 sub _process_response_trace {
   my ($self, $index, $json) = @_;
   $index->query_jsonld($json);
 };
 
+
+# Process resource response
 sub _process_response_resource {
   my ($self, $index, $json) = @_;
   my $c = $index->controller;
@@ -381,7 +393,7 @@ sub _process_response_resource {
 };
 
 
-# Parse the error messages
+# Parse error messages and forward them to the user
 sub _notify_on_error {
   my ($self, $c, $failure, $res) = @_;
   my $json = $res;
@@ -440,10 +452,16 @@ sub _map_match {
   my $x = shift or return;
   $x->{ID} =~ s/^match\-[^!]+![^-]+-//;
   $x->{docID} =~ s/^[^_]+_//;
+
+  # Legacy: In old versions the text_id was part of the doc_id
+  unless ($x->{textID}) {
+    ($x->{docID}, $x->{textID}) = split '.', $x->{docID};
+  };
   $x;
 };
 
 
+# Build query url
 sub _query_url {
   my ($index, %param) = @_;
 

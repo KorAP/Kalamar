@@ -5,6 +5,8 @@ $border-size: 2px;
 
 div.datepicker {
   display: inline-block;
+  position: absolute;
+  font-size: 80%;
   padding: 4pt;
   box-shadow: $choose-box-shadow;
   border: {

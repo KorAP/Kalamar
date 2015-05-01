@@ -2,7 +2,7 @@
 % my $id = $match->{corpusID} . '-' . $match->{docID} . '-' . $match->{ID};
 <li data-corpus-id="<%= $match->{corpusID} %>"
     data-doc-id="<%= $match->{docID} %>"
-    data-text-id="hmmm"
+    data-text-id="<%= $match->{textID} %>"
     data-match-id="<%= $match->{ID} %>"
     %# TODO: This needs to be retrieved per match 
     data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"

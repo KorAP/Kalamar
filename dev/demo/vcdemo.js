@@ -83,6 +83,7 @@ require(['vc','lib/domReady'], function (vcClass, domReady) {
       ['pubDate', 'date'],
       ['author', 'string']
     ]).fromJson(json);
+
     document.getElementById('vc').appendChild(vc.element());
 
     // show the current JSON serialization

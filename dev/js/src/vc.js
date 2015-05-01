@@ -47,8 +47,9 @@ define([
   'vc/doc',
   'vc/docgroup',
   'vc/menu',
+  'datepicker',
   'util'
-], function (unspecDocClass, docClass, docGroupClass, menuClass) {
+], function (unspecDocClass, docClass, docGroupClass, menuClass, dpClass) {
   "use strict";
 
   // ???
@@ -60,6 +61,7 @@ define([
   var loc = KorAP.Locale;
 
   KorAP._vcKeyMenu = undefined;
+  KorAP._vcDatePicker = dpClass.create();
 
   /**
    * Virtual Collection

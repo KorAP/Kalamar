@@ -31,7 +31,14 @@ define(['util'], function () {
 
     set : function (year, month, day) {
       this.select(year, month, day);
-      console.dir(this._selected);
+      if (this._click !== undefined)
+	this._click(this._selected);
+      else 
+	console.dir(this._selected);
+    },
+
+    onclick : function (cb) {
+      this._click = cb;
     },
 
     select : function (year, month, day) {
@@ -48,14 +55,18 @@ define(['util'], function () {
     },
 
     show : function (year, month) {
-      var picker = d.createElement('div');
-      picker.classList.add('datepicker');
-      this._showYear = year;
-      this._showMonth = month;
-      picker.appendChild(this._monthHelper());
-      picker.appendChild(this._yearHelper());
-      picker.appendChild(this._dayHelper());
-      return picker;
+      this._element = d.createElement('div');
+      this._element.classList.add('datepicker');
+      this._showYear = year ? year : (this._selected['year'] ? this._selected['year'] : 2012);
+      this._showMonth = month ? month : (this._selected['month'] ? this._selected['month'] : 2);
+      this._element.appendChild(this._monthHelper());
+      this._element.appendChild(this._yearHelper());
+      this._element.appendChild(this._dayHelper());
+      return this._element;
+    },
+
+    element : function () {
+      return this._element;
     },
 
     incrYear : function () {
@@ -211,7 +222,7 @@ define(['util'], function () {
 	  };
 
 	  // This is the day selected
-	  if (s['day']) {
+	  if (s && s['day']) {
 	    if (date.getDate()     === s['day'] &&
 		date.getMonth()    === s['month']-1 &&
 		date.getFullYear() === s['year']) {

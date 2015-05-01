@@ -59,8 +59,6 @@ sub query {
     # Collected search
     sub {
 
-
-
       # Render to the template
       return $c->render(template => $template);
     }
@@ -99,6 +97,7 @@ sub match_info {
   # Use the API for fetching matching information non-blocking
   $c->search->match(
     corpus_id => $c->stash('corpus_id'),
+    text_id   => $c->stash('text_id'),
     doc_id    => $c->stash('doc_id'),
     match_id  => $c->stash('match_id'),
     %query,

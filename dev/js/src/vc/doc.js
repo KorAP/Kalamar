@@ -418,8 +418,49 @@ define([
     // Click on the match operator, show me the menu
     _changeValue : function (e) {
       // TODO: Just kidding - this is temporary!
-      this.value(window.prompt('Enter new value'));
-      this.update();
+
+      if (this.type() === 'date') {
+	var dp = KorAP._vcDatePicker;
+
+	var v = this.value();
+	if (v !== undefined) {
+	  var d = v.split('-');
+	  dp.select(parseInt(d[0]), parseInt(d[1]), parseInt(d[2]));
+	};
+
+	var that = this;
+	dp.onclick(function (selected) {
+
+	  // There are values selected
+	  if (selected['year']) {
+	    var v = selected['year'];
+	    if (selected['month']) {
+	      v += '-';
+	      v += selected['month'] < 10 ? '0' + selected['month'] : selected['month'];
+	      if (selected['day'])
+		v += '-';
+		v += selected['day'] < 10 ? '0' + selected['day'] : selected['day'];
+	    };
+	    that.value(v);
+	    that.update();
+	    return;
+	  };
+
+	  // Remove datepicker
+	  that._element.removeChild(
+	    dp.element()
+	  );
+	});
+
+	this._element.insertBefore(
+	  dp.show(),
+	  this._valueE
+	);
+      }
+      else {
+	this.value(window.prompt('Enter new value'));
+	this.update();
+      };
     },
 
 
