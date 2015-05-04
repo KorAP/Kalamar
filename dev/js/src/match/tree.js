@@ -9,7 +9,7 @@ define(['lib/dagre'], function (dagre) {
   var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
 
   // Node size
-  var WIDTH  = 55, HEIGHT = 20;
+  var WIDTH  = 55, HEIGHT = 20, LINEHEIGHT = 14;
 
   // Create path for node connections 
   function _line (src, target) {
@@ -179,8 +179,7 @@ define(['lib/dagre'], function (dagre) {
       var canvas = document.createElementNS(svgXmlns, 'svg');
       this._element = canvas;
 
-      canvas.setAttribute('height', g.graph().height);
-      canvas.setAttribute('width', g.graph().width);
+      var height = g.graph().height;
 
       // Create edges
       g.edges().forEach(
@@ -218,22 +217,52 @@ define(['lib/dagre'], function (dagre) {
 	  // Add label
 	  if (v.label !== undefined) {
 	    var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
-	    text.setAttribute('x', v.x - v.width / 2);
-	    text.setAttribute('y', v.y - v.height / 2);
+	    var y = v.y - v.height / 2;
+	    text.setAttribute('y', y);
 	    text.setAttribute(
 	      'transform',
 	      'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
 	    );
 
-	    var tspan = document.createElementNS(svgXmlns, 'tspan');
-	    tspan.appendChild(document.createTextNode(v.label));
-	    text.appendChild(tspan);
-	  };
+	    if (v.class === "leaf") {
+	      text.setAttribute('title', v.label);
 
+	      var labelPart = v.label.split(" ");
+	      var n = 0;
+	      for (var i = 0; i < labelPart.length; i++) {
+		if (labelPart[i].length === 0)
+		  continue;
+
+		var tspan = document.createElementNS(svgXmlns, 'tspan');
+		tspan.appendChild(document.createTextNode(labelPart[i]));
+		if (n !== 0)
+		  tspan.setAttribute('dy', LINEHEIGHT + 'pt');
+		else
+		  n = 1;
+		tspan.setAttribute('x', v.x - v.width / 2);
+		y += LINEHEIGHT;
+		text.appendChild(tspan);
+	      };
+
+	      y += LINEHEIGHT;
+
+	      // The text is below the canvas - readjust the height!
+	      if (y > height)
+		height = y;
+	    }
+	    else {
+	      var tspan = document.createElementNS(svgXmlns, 'tspan');
+	      tspan.appendChild(document.createTextNode(v.label));
+	      tspan.setAttribute('x', v.x - v.width / 2);
+	      text.appendChild(tspan);
+	    };
+	  };
 	  canvas.appendChild(group);
 	}
       );
 
+      canvas.setAttribute('width', g.graph().width);
+      canvas.setAttribute('height', height);
       return this._element;
     }
   };

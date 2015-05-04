@@ -489,6 +489,9 @@ define([
     _changed : function () {
       this.__changed = true;
       
+      if (this._parent) {
+      };
+
       if (this._rewrites === undefined)
 	return;
 

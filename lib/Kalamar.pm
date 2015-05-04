@@ -23,6 +23,9 @@ sub startup {
     $self->secrets([
       b($secret)->slurp->split("\n")
     ]);
+  }
+  else {
+    $self->log->warn('Please create a kalamar.secret file');
   };
 
   # Load plugins

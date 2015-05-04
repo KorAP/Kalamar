@@ -1,11 +1,12 @@
 % my $match = stash('match') || {}; 
-% my $id = $match->{corpusID} . '-' . $match->{docID} . '-' . $match->{ID};
+% my $id = $match->{corpusID} . '-' . $match->{docID} . '.' . $match->{textID} . '#' . $match->{ID};
 <li data-corpus-id="<%= $match->{corpusID} %>"
     data-doc-id="<%= $match->{docID} %>"
     data-text-id="<%= $match->{textID} %>"
     data-match-id="<%= $match->{ID} %>"
     %# TODO: This needs to be retrieved per match 
-    data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
+%#    data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
+    data-available-info="cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans"
     id="<%= $id %>"\
 <% if (current_route eq 'match') { %> class="active"<% } =%>>
   <div>

@@ -90,12 +90,7 @@ $border-size: 2px;
 	  > * {
 	    background-color: transparent;
 	  }
-	  padding: {
-	    top: 0;
-	    right: 0;
-	    bottom: 5pt;
-	    left: 5pt;
-	  };
+	  padding: 2pt 0 5pt 5pt;
 	  margin: {
 	    top: 0;
 	    right: $right-match-distance; // 3em;

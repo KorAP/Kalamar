@@ -13,7 +13,8 @@ define([
 	     vcClass,
 	     tutClass,
 	     domReady,
-	     hintArray) {
+	     hintArray,
+	     alertifyClass) {
   domReady(function (event) {
     var obj = {};
 
@@ -130,7 +131,8 @@ define([
     };
 
     // Initialize queries for document
-    obj.tutorial.initQueries(document);
+    if (obj.tutorial)
+      obj.tutorial.initQueries(document);
 
     /**
      * Init hint helper
@@ -148,10 +150,10 @@ define([
     KorAP.log = function (type, msg) {
 
       // Use alertify to log errors
-      alertify.log(
+      alertifyClass.log(
 	(type === 0 ? '' : type + ': ') +
 	  msg,
-	'warn',
+	'error',
 	5000
       );
     };

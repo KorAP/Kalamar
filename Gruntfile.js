@@ -27,9 +27,9 @@ module.exports = function(grunt) {
 
 	  // TODO: add language versions
 	  wrap:true,
-	  include : ['app/en'],
-	  insertRequire: ['app/en'],
+	  // dir : 'public/js',
 	  name: 'lib/almond',
+	  include : ['app/en'],
 	  out: 'public/js/kalamar-<%= pkg.version %>-en.js'
 	}
       }

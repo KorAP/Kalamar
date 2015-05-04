@@ -33,7 +33,7 @@ aside {
     position: absolute;
     right: 0;
     bottom: 0;
-    margin-right: -30px;
+    margin-right: -1 * ($standard-margin / 2);
     background-color: $dark-green;
     font-family: FontAwesome;
     content: $fa-bars;
@@ -135,7 +135,7 @@ aside {
 
 
 aside:not(:focus):not(.active) {
-  margin-left: -1 * ($logo-left-distance - 15px);
+  margin-left: -1 * ($logo-left-distance - ($standard-margin / 2));
 //  box-shadow: none;
 /*
   overflow-y: hidden;

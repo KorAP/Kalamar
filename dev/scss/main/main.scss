@@ -18,7 +18,7 @@ div.intro {
 main {
   margin: {
     left: $standard-margin; 
-    right: $standard-margin; // Todo: -16px
+    right: ($standard-margin / 2);
   }
   padding-bottom: 20pt;
   &.embedded {

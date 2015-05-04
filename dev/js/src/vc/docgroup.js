@@ -1,6 +1,9 @@
 /**
  * Document group criterion
  */
+/*
+ * TODO: Let the UPDATE event bubble up through parents!
+ */
 define([
   'vc/jsonld',
   'vc/unspecified',

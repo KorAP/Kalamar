@@ -90,9 +90,9 @@ $font-path: '../font';
 /**
  * Margins
  */
-$standard-margin: 30px;
-$right-distance: 30px;
-$right-match-distance: 20px;
+$standard-margin: 40px;
+$right-distance: 40px;
+$right-match-distance: $standard-margin / 2;
 $logo-left-distance: 230px;
 
 

@@ -455,7 +455,7 @@ sub _map_match {
 
   # Legacy: In old versions the text_id was part of the doc_id
   unless ($x->{textID}) {
-    ($x->{docID}, $x->{textID}) = split '.', $x->{docID};
+    ($x->{docID}, $x->{textID}) = split '\.', $x->{docID};
   };
   $x;
 };
