@@ -54,6 +54,10 @@ define(['session', 'util'], function (sessionClass) {
       return this;
     },
 
+
+    /**
+     * Initialize a search with a defined query.
+     */
     useQuery : function (e) {
       var q  = e.getAttribute("data-query");
       var ql = e.getAttribute("data-query-language");
@@ -74,6 +78,10 @@ define(['session', 'util'], function (sessionClass) {
       this.hide();
     },
 
+
+    /**
+     * Decorate a page with query event handler.
+     */
     initQueries : function (d) {
       var qs = d.querySelectorAll('pre.query.tutorial');
       var that = this;
@@ -85,6 +93,9 @@ define(['session', 'util'], function (sessionClass) {
     },
 
 
+    /**
+     * Show the tutorial page embedded.
+     */
     show : function () {
       var element = this._element;
       if (element.style.display === 'block')

@@ -1,7 +1,13 @@
 define({
-  create : function (params) {
+
+  /**
+   * Create new prefix object.
+   */
+  create : function () {
     return Object.create(this)._init();
   },
+
+  // Initialize prefix object
   _init : function () {
     this._string = '';
 
@@ -15,8 +21,9 @@ define({
     
     return this;
   },
+
   _update : function () {
-    this._element.innerHTML
+    return this._element.innerHTML
       = this._string;
   },
 
@@ -33,6 +40,10 @@ define({
     return this;
   },
 
+
+  /**
+   * Get or set the activity status of the prefix.
+   */
   active : function (bool) {
     var cl = this.element().classList;
     if (bool === undefined)
@@ -43,31 +54,57 @@ define({
       cl.remove("active");
   },
 
-  element : function () {
-    return this._element;
-  },
-
+  /**
+   * Check, if a prefix is given or not.
+   */
   isSet : function () {
     return this._string.length > 0 ?
       true : false;
   },
 
+  /**
+   * Get or set the prefix string.
+   */
   value : function (string) {
     if (arguments.length === 1) {
       this._string = string;
-      this._update();
+      return this._update();
     };
     return this._string;
   },
-  
+
+
+  /**
+   * Add string to prefix.
+   */
   add : function (string) {
     this._string += string;
-    this._update();
+    return this._update();
   },
 
+
+  /**
+   * Clear prefix
+   */
+  clear : function () {
+    this._string = '';
+    return this._update();
+  },
+
+
+  /**
+   * Action method.
+   * Expected to be overridden.
+   */
   onclick : function () {},
 
-  backspace : function () {
+
+  /**
+   * Remove the last character of the string
+   */
+  chop : function () {
+
+    // Prefix is long enough for backspace
     if (this._string.length > 1) {
       this._string = this._string.substring(
 	0, this._string.length - 1
@@ -77,8 +114,17 @@ define({
       this._string = '';
     };
     
-    this._update();
+    return this._update();
   },
+
+
+  /**
+   * Get the associated dom element.
+   */
+  element : function () {
+    return this._element;
+  },
+
 
   /**
    * Return menu list.

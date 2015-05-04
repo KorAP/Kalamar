@@ -74,13 +74,13 @@ define(['hint'], function () {
 
       expect(input.selectionStart).toEqual(5);
       expect(inputField.element().selectionStart).toEqual(5);
-      expect(inputField.split()[0]).toEqual("abcde");
-      expect(inputField.split()[1]).toEqual("fghijklmno");
+      expect(inputField._split()[0]).toEqual("abcde");
+      expect(inputField._split()[1]).toEqual("fghijklmno");
 
       inputField.insert("xyz");
       expect(inputField.value()).toEqual('abcdexyzfghijklmno');
-      expect(inputField.split()[0]).toEqual("abcdexyz");
-      expect(inputField.split()[1]).toEqual("fghijklmno");
+      expect(inputField._split()[0]).toEqual("abcdexyz");
+      expect(inputField._split()[1]).toEqual("fghijklmno");
     });
 
     it('should be correctly positioned', function () {
@@ -98,7 +98,7 @@ define(['hint'], function () {
       var inputField = inputClass.create(input);
       expect(inputField.value()).toEqual("abcdefghijklmno");
       expect(inputField.element().selectionStart).toEqual(5);
-      expect(inputField.split()[0]).toEqual("abcde");
+      expect(inputField._split()[0]).toEqual("abcde");
       expect(inputField.context()).toEqual("abcde");
     });
 
@@ -385,7 +385,6 @@ define(['hint'], function () {
     it('should be initializable', function () {
 
       var menu = menuClass.create(null, "cnx/", list);
-      expect(menu.context()).toEqual('cnx/');
       expect(menu.element().nodeName).toEqual('UL');
       expect(menu.element().style.opacity).toEqual("0");
 

@@ -1,7 +1,8 @@
 define(['menu'], function () {
 
   var menuItemClass = require('menu/item');
-  var menuClass = require('menu');
+  var prefixClass   = require('menu/prefix');
+  var menuClass     = require('menu');
 
   // The OwnMenu item
   KorAP.OwnMenuItem = {
@@ -800,13 +801,13 @@ define(['menu'], function () {
       expect(menu.shownItem(0).name()).toEqual("Autor");
       expect(menu.element().childNodes[1].innerHTML).toEqual("<strong><mark>Au</mark>tor</strong>");
 
-      menu._prefix.backspace();
+      menu._prefix.chop();
       expect(menu.show()).toBe(true);
       expect(menu.prefix()).toEqual("a");
       expect(menu.shownItem(0).name()).toEqual("Autor");
       expect(menu.element().childNodes[1].innerHTML).toEqual("<strong><mark>A</mark>utor</strong>");
 
-      menu._prefix.backspace();
+      menu._prefix.chop();
       expect(menu.show()).toBe(true);
       expect(menu.prefix()).toEqual("");
       expect(menu.shownItem(0).name()).toEqual("Titel");
@@ -821,7 +822,7 @@ define(['menu'], function () {
       expect(menu.shownItem(3)).toBe(undefined);
 
       // Forward
-      menu._prefix.backspace();
+      menu._prefix.chop();
       expect(menu.show()).toBe(true);
       expect(menu.prefix()).toEqual("");
       expect(menu.shownItem(0).name()).toEqual("Titel");
@@ -1054,7 +1055,78 @@ define(['menu'], function () {
     xit('should be page downable');
     xit('should be page upable');
 
-    xit('should scroll to a chosen value')
-    xit('should highlight a chosen value')
+    xit('should scroll to a chosen value');
+    xit('should highlight a chosen value');
+  });
+
+  describe('KorAP.Prefix', function () {
+    it('should be initializable', function () {
+      var p = prefixClass.create();
+      expect(p.element().classList.contains('pref')).toBeTruthy();
+      expect(p.isSet()).not.toBeTruthy();
+
+/*
+      expect(mi.lcField()).toEqual(' baum');
+*/
+      
+    });
+
+    it('should be modifiable', function () {
+      var p = prefixClass.create();
+      expect(p.value()).toEqual('');
+      expect(p.element().firstChild).toBeNull();
+
+      // Set string
+      expect(p.value('Test')).toEqual('Test');
+      expect(p.value()).toEqual('Test');
+      expect(p.element().firstChild.nodeValue).toEqual('Test');
+
+      // Add string
+      expect(p.add('ified')).toEqual('Testified');
+      expect(p.value()).toEqual('Testified');
+      expect(p.element().firstChild.nodeValue).toEqual('Testified');
+
+      // Clear string
+      p.clear();
+      expect(p.value()).toEqual('');
+      expect(p.element().firstChild).toBeNull();
+
+      // Set string
+      expect(p.value('Test')).toEqual('Test');
+      expect(p.value()).toEqual('Test');
+      expect(p.element().firstChild.nodeValue).toEqual('Test');
+
+      expect(p.chop()).toEqual('Tes');
+      expect(p.value()).toEqual('Tes');
+      expect(p.element().firstChild.nodeValue).toEqual('Tes');
+
+      expect(p.chop()).toEqual('Te');
+      expect(p.value()).toEqual('Te');
+      expect(p.element().firstChild.nodeValue).toEqual('Te');
+
+      expect(p.chop()).toEqual('T');
+      expect(p.value()).toEqual('T');
+      expect(p.element().firstChild.nodeValue).toEqual('T');
+
+      expect(p.chop()).toEqual('');
+      expect(p.value()).toEqual('');
+      expect(p.element().firstChild).toBeNull();
+    });
+
+    it('should be activatable', function () {
+      var p = prefixClass.create();
+      expect(p.value()).toEqual('');
+      expect(p.element().firstChild).toBeNull();
+
+      expect(p.value('Test')).toEqual('Test');
+      expect(p.element().firstChild.nodeValue).toEqual('Test');
+
+      expect(p.active()).not.toBeTruthy();
+      expect(p.element().classList.contains('active')).not.toBeTruthy();
+
+      p.active(true);
+      expect(p.active()).toBeTruthy();
+      expect(p.element().classList.contains('active')).toBeTruthy();
+    });
   });
 });

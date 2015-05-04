@@ -24,11 +24,13 @@ module.exports = function(grunt) {
 	  paths : {
 	    'lib': '../lib'
 	  },
+
+	  // TODO: add language versions
 	  wrap:true,
-	  include : ['app'],
-	  insertRequire: ['app'],
+	  include : ['app/en'],
+	  insertRequire: ['app/en'],
 	  name: 'lib/almond',
-	  out: 'public/js/kalamar-<%= pkg.version %>.js'
+	  out: 'public/js/kalamar-<%= pkg.version %>-en.js'
 	}
       }
     },

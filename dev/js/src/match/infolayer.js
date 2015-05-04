@@ -1,16 +1,26 @@
 /**
- *
- * Alternatively pass a string as <tt>base/s=span</tt>
- *
- * @param foundry
+ * Object representing information
+ * about a match's layer annotation.
  */
 define(function () {
-  var _AvailableRE = new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
+  var _AvailableRE =
+    new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
 
   return {
+    /**
+     * Create new match information
+     * object for one layer.
+     *
+     * Alternatively pass a string as
+     * <tt>base/s=span</tt>
+     *
+     * @param foundry
+     */
     create : function (foundry, layer, type) {
       return Object.create(this)._init(foundry, layer, type);
     },
+
+    // Initialize Layer 
     _init : function (foundry, layer, type) {
       if (foundry === undefined)
 	throw new Error("Missing parameters");

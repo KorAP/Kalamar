@@ -250,6 +250,10 @@ $dg-index : 30;
   }
 }
 
+#vc {
+  line-height: 1em;
+  border-radius: $standard-border-radius;
+}
 
 #vc-choose {
   &::after {

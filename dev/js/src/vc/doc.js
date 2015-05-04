@@ -10,10 +10,10 @@ define([
 
     /*
       var fieldMenu = menuClass.create([
-      ['Titel', 'title', 'string'],
-      ['Untertitel', 'subTitle', 'string'],
-      ['Veröffentlichungsdatum', 'pubDate', 'date'],
-      ['Autor', 'author', 'string']
+        ['Titel', 'title', 'string'],
+        ['Untertitel', 'subTitle', 'string'],
+        ['Veröffentlichungsdatum', 'pubDate', 'date'],
+        ['Autor', 'author', 'string']
       ]);
       
       fieldMenu.limit(5);
@@ -417,29 +417,37 @@ define([
 
     // Click on the match operator, show me the menu
     _changeValue : function (e) {
-      // TODO: Just kidding - this is temporary!
 
+      // Show datepicker
       if (this.type() === 'date') {
 	var dp = KorAP._vcDatePicker;
 
 	var v = this.value();
 	if (v !== undefined) {
-	  var d = v.split('-');
-	  dp.select(parseInt(d[0]), parseInt(d[1]), parseInt(d[2]));
+
+	  var d = v.split('-', 3);
+	  d[0] = parseInt(d[0]);
+	  if (d[1]) d[1] = parseInt(d[1]);
+	  if (d[2]) d[2] = parseInt(d[2]);
+
+	  // Select values
+	  dp.select(d[0], d[1], d[2]);
 	};
 
 	var that = this;
+
 	dp.onclick(function (selected) {
 
 	  // There are values selected
 	  if (selected['year']) {
-	    var v = selected['year'];
+	    var v = '' + selected['year'];
 	    if (selected['month']) {
 	      v += '-';
 	      v += selected['month'] < 10 ? '0' + selected['month'] : selected['month'];
-	      if (selected['day'])
+	      if (selected['day']) {
 		v += '-';
 		v += selected['day'] < 10 ? '0' + selected['day'] : selected['day'];
+	      };
 	    };
 	    that.value(v);
 	    that.update();
@@ -452,12 +460,22 @@ define([
 	  );
 	});
 
+	// Get element of the date picker
+	var dpElem = dp.show();
+
 	this._element.insertBefore(
-	  dp.show(),
+	  dpElem,
 	  this._valueE
 	);
+
+	dpElem.focus();
+	dpElem.addEventListener('blur', function (e) {
+	  // Remove datepicker
+	  that._element.removeChild(this);
+	});
       }
       else {
+	// TODO: Just kidding - this is temporary!
 	this.value(window.prompt('Enter new value'));
 	this.update();
       };

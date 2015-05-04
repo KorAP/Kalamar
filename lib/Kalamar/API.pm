@@ -1,4 +1,4 @@
-#package Kalamar::API;
+package Kalamar::API;
 use Mojo::Base 'Mojolicious::Plugin';
 use Scalar::Util qw/blessed weaken/;
 use strict;
@@ -6,10 +6,10 @@ use warnings;
 
 # KorAP Search engine for Mojolicious::Plugin::Search
 
-# Todo: Add fixtures
-# Todo: Support search in corpus and virtualcollection
-# Todo: Support caching everywhere!
-# Todo: Correct use of stash info everywhere!
+# TODO: Add fixtures
+# TODO: Support search in corpus and virtualcollection
+# TODO: Support caching everywhere!
+# TODO: Correct use of stash info everywhere!
 
 # Register the plugin
 sub register {

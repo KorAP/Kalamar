@@ -93,9 +93,19 @@ $standard-margin: 4px;
     width: 100%;
   }
 
-  aside ul {
-    font-size: 9pt;
-    line-height: 1em;
+  aside {
+    &:not(:focus):not(.active) {
+      margin-left: -1 * $logo-left-distance;
+      &::after {
+	font-size: 12pt;
+	width: 10pt;
+	height: 11pt;
+      }
+    }
+    ul {
+      font-size: 9pt;
+      line-height: 1em;
+    }
   }
 
   #tutorial {
@@ -116,15 +126,6 @@ $standard-margin: 4px;
   }
 
 /*
-
-  #sidebar {
-    padding-top: 22px;
-  }
-  #sidebar:not(.active) > i.fa-bars {
-    font-size: 12pt;
-    width: 10pt;
-    height: 11pt;
-  }
   pre.query {
     font-size: 9.5pt;
   }

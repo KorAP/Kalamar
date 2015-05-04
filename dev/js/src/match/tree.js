@@ -1,11 +1,15 @@
 /**
- * Visualize span annotations as a tree using Dagre.
+ * Visualize span annotations as a tree
+ * using Dagre.
  */
 define(['lib/dagre'], function (dagre) {
   "use strict";
 
   var svgXmlns = "http://www.w3.org/2000/svg";
   var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
+
+  // Node size
+  var WIDTH  = 55, HEIGHT = 20;
 
   // Create path for node connections 
   function _line (src, target) {
@@ -22,24 +26,18 @@ define(['lib/dagre'], function (dagre) {
   };
 
   return {
+
+    /**
+     * Create new tree visualization based
+     * on a match snippet.
+     */
     create : function (snippet) {
-      return Object.create(this)._init(snippet);
+      return Object.create(this).
+	_init(snippet);
     },
 
-    nodes : function () {
-      return this._next;
-    },
 
-    _addNode : function (id, obj) {
-      obj["width"] = 55;
-      obj["height"] = 20;
-      this._graph.setNode(id, obj)
-    },
-    
-    _addEdge : function (src, target) {
-      this._graph.setEdge(src, target);
-    },
-    
+    // Initialize the tree based on a snippet.
     _init : function (snippet) {
       this._next = new Number(0);
 
@@ -76,6 +74,25 @@ define(['lib/dagre'], function (dagre) {
       return this;
     },
 
+    /**
+     * The number of nodes in the tree.
+     */
+    nodes : function () {
+      return this._next;
+    },
+
+    // Add new node to graph
+    _addNode : function (id, obj) {
+      obj["width"]  = WIDTH;
+      obj["height"] = HEIGHT;
+      this._graph.setNode(id, obj)
+    },
+    
+    // Add new edge to graph
+    _addEdge : function (src, target) {
+      this._graph.setEdge(src, target);
+    },
+    
     // Remove foundry and layer for labels
     _clean : function (title) {
       return title.replace(_TermRE, "$3");
@@ -148,7 +165,9 @@ define(['lib/dagre'], function (dagre) {
       };
     },
 
-    // Get element
+    /**
+     * Get the dom element of the tree view.
+     */
     element : function () {
       if (this._element !== undefined)
 	return this._element;
@@ -183,26 +202,25 @@ define(['lib/dagre'], function (dagre) {
 
 	  // Add node box
 	  var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
-	  rect.setAttributeNS(null, 'x', v.x - v.width / 2);
-	  rect.setAttributeNS(null, 'y', v.y - v.height / 2);
-	  rect.setAttributeNS(null, 'rx', 5);
-	  rect.setAttributeNS(null, 'ry', 5);
-	  rect.setAttributeNS(null, 'width', v.width);
-	  rect.setAttributeNS(null, 'height', v.height);
+	  rect.setAttribute('x', v.x - v.width / 2);
+	  rect.setAttribute('y', v.y - v.height / 2);
+	  rect.setAttribute('rx', 5);
+	  rect.setAttribute('ry', 5);
+	  rect.setAttribute('width', v.width);
+	  rect.setAttribute('height', v.height);
 
 	  if (v.class === 'root' && v.label === undefined) {
-	    rect.setAttributeNS(null, 'width', v.height);
-	    rect.setAttributeNS(null, 'x', v.x - v.height / 2);
-	    rect.setAttributeNS(null, 'class', 'empty');
+	    rect.setAttribute('width', v.height);
+	    rect.setAttribute('x', v.x - v.height / 2);
+	    rect.setAttribute('class', 'empty');
 	  };
 
 	  // Add label
 	  if (v.label !== undefined) {
 	    var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
-	    text.setAttributeNS(null, 'x', v.x - v.width / 2);
-	    text.setAttributeNS(null, 'y', v.y - v.height / 2);
-	    text.setAttributeNS(
-	      null,
+	    text.setAttribute('x', v.x - v.width / 2);
+	    text.setAttribute('y', v.y - v.height / 2);
+	    text.setAttribute(
 	      'transform',
 	      'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
 	    );

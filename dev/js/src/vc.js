@@ -138,6 +138,7 @@ define([
       return obj;
     },
 
+
     /**
      * Create and render a new virtual collection
      * based on a KoralQuery collection document 
@@ -171,6 +172,10 @@ define([
       return this;
     },
 
+
+    /**
+     * Clean the virtual document to uspecified doc.
+     */
     clean : function () {
       if (this._root.ldType() !== "non") {
 	this._root.destroy();
@@ -178,6 +183,7 @@ define([
       };
       return this;
     },
+
 
     /**
      * Get or set the root object of the
@@ -206,6 +212,7 @@ define([
       return this._root;
     },
 
+    
     /**
      * Get the element associated with the virtual collection
      */

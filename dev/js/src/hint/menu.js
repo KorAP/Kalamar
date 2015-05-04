@@ -3,6 +3,10 @@
  */
 define(['menu', 'hint/item', 'hint/prefix'], function (menuClass, itemClass, prefixClass) {
   return {
+
+    /**
+     * Create new hint helper menu.
+     */
     create : function (hint, context, params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(this)
@@ -25,10 +29,11 @@ define(['menu', 'hint/item', 'hint/prefix'], function (menuClass, itemClass, pre
 
       return obj;
     },
-    // Todo: Is this necessary?
-    context : function () {
-      return this._context;
-    },
+
+    /**
+     * The hint helper object,
+     * the menu is attached to.
+     */ 
     hint : function () {
       return this._hint;
     }

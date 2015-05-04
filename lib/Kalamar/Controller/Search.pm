@@ -66,17 +66,8 @@ sub query {
 };
 
 
-1;
 
-
-__END__
-
-
-
-
-
-
-# Get informations about a match
+# Get information about a match
 sub match_info {
   my $c = shift;
 
@@ -97,8 +88,8 @@ sub match_info {
   # Use the API for fetching matching information non-blocking
   $c->search->match(
     corpus_id => $c->stash('corpus_id'),
-    text_id   => $c->stash('text_id'),
     doc_id    => $c->stash('doc_id'),
+    text_id   => $c->stash('text_id'),
     match_id  => $c->stash('match_id'),
     %query,
 
@@ -127,18 +118,98 @@ sub match_info {
   );
 };
 
+
 1;
 
 
 __END__
 
+=pod
 
-# Todo: Add X-Forwarded-For to user agent call everywhere
-  $self->hook(before_dispatch => sub {
-      my $c = shift;
-      my $h = $c->res->headers;
-      $h->header( 'Access-Control-Allow-Origin' => '*' );
-      $h->header( 'Access-Control-Allow-Methods' => 'GET, PUT, POST, DELETE, OPTIONS' );
-      $h->header( 'Access-Control-Max-Age' => 3600 );
-      $h->header( 'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With' );
-    });
+=encoding utf8
+
+=head1 NAME
+
+Kalamar::Controller::Search
+
+
+=head1 DESCRIPTION
+
+L<Kalamar::Controller::Search> is the controller class for
+search related endpoints in Kalamar.
+
+
+=head1 METHODS
+
+L<Kalamar::Controller::Search> inherits all methods from
+L<Mojolicious::Controller> and implements the following new ones.
+
+=head2 search
+
+Action for all documentation pages.
+
+=head3 q
+
+Query parameter
+
+=head3 ql
+
+Query language
+
+=head3 action
+
+May be C<inspect>.
+
+=head3 snippet
+
+=head3 cutoff
+
+=head3 count
+
+=head3 p
+
+Number of page
+
+
+=head2 match
+
+/:corpus_id/:doc_id/:text_id/:match_id
+
+=head3 foundry
+
+=head3 layer
+
+=head3 spans
+
+true or false
+
+=head3 corpus_id
+
+
+stash value
+
+=head3 doc_id
+
+=head3 text_id
+
+=head3 match_id
+
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Author: L<Nils Diewald|http://nils-diewald.de/>
+
+Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
+Corpus Analysis Platform at the Institute for German Language
+(L<IDS|http://ids-mannheim.de/>),
+funded by the
+L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
+and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
+funded by the Federal Ministry of Education and Research
+(L<BMBF|http://www.bmbf.de/en/>).
+
+Kalamar is free software published under the
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+
+=cut

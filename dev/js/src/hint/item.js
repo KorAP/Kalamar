@@ -3,12 +3,17 @@
  */
 define(['menu/item'], function (itemClass) {
   return {
+
+    /**
+     * Create new menu item object.
+     */
     create : function (params) {
       return Object.create(itemClass)
 	.upgradeTo(this)
 	._init(params);
     },
 
+    // Initialize menu item object
     _init : function (params) {
       if (params[0] === undefined ||
 	  params[1] === undefined)
@@ -26,13 +31,20 @@ define(['menu/item'], function (itemClass) {
       return this;
     },
 
+    /**
+     * Get or set the content of the item.
+     */
     content : function (content) {
       if (arguments.length === 1) {
 	this._content = content;
       };
       return this._content;
     },
-    
+
+    /**
+     * Override the click action
+     * of the menu item.
+     */
     onclick : function (e) {
       var m = this.menu();
       var h = m.hint();
@@ -50,15 +62,32 @@ define(['menu/item'], function (itemClass) {
       h.show(true);
     },
 
+    /**
+     * The name of the menu entry.
+     */
     name : function () {
       return this._name;
     },
+
+    /**
+     * The action (the string inserted on click)
+     * of the menu item.
+     */
     action : function () {
       return this._action;
     },
+
+    /**
+     * The description of the menu item.
+     */
     desc : function () {
       return this._desc;
     },
+
+    /**
+     * The associated dom element of the
+     * menu item.
+     */
     element : function () {
       // already defined
       if (this._element !== undefined)

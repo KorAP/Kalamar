@@ -1,10 +1,21 @@
+/**
+ * Table representation of morphological
+ * annotations of a match.
+ */
 define(function () {
   var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
   
   return {
+
+    /**
+     * Create new table view for a match
+     * based on a snippet string.
+     */
     create : function (snippet) {
       return Object.create(this)._init(snippet);
     },
+
+    // Initialize table based on snippet
     _init : function (snippet) {
       // Create html for traversal
       var html = document.createElement("div");
@@ -23,27 +34,49 @@ define(function () {
       return this;
     },
     
+
+    /**
+     * Length of the table (columns),
+     * aka the number of tokens
+     * in the snippet.
+     */
     length : function () {
       return this._pos;
     },
 
+    /**
+     * Get the token in the snippet
+     * At a given position.
+     *
+     * @param pos
+     */
     getToken : function (pos) {
       if (pos === undefined)
 	return this._token;
       return this._token[pos];
     },
-    
+
+    /**
+     * Get the annotation of a token
+     * in the snippet based on the position,
+     * the foundry, and the layer.
+     *
+     * @param pos
+     * @param foundry
+     * @param layer
+     */
     getValue : function (pos, foundry, layer) {
       return this._info[pos][foundry + '/' + layer]
     },
     
-    getLayerPerFoundry : function (foundry) {
-      return this._foundry[foundry]
-    },
-    
-    getFoundryPerLayer : function (layer) {
-      return this._layer[layer];
-    },
+    /*
+      getLayerPerFoundry : function (foundry) {
+        return this._foundry[foundry]
+      },
+      getFoundryPerLayer : function (layer) {
+        return this._layer[layer];
+      },
+    */
 
     // Parse the snippet
     _parse : function (children) {

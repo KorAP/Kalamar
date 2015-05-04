@@ -1,10 +1,11 @@
 /**
- * Create scrollable drop-down menus.
+ * Scrollable drop-down menus with view filter.
  *
  * @author Nils Diewald
  */
 /*
  * TODO: space is not a valid prefix!
+ * TODO: Prefix should be case sensitive!
  */
 define([
   'menu/item',
@@ -13,7 +14,6 @@ define([
 ], function (defaultItemClass,
 	     defaultPrefixClass) {
 
-  // Todo: This may not be necessary
   // Default maximum number of menu items
   var menuLimit = 8;
 
@@ -58,9 +58,14 @@ define([
       delete this._prefix['_menu'];
     },
 
+
+    /**
+     * Focus on this menu.
+     */
     focus : function () {
       this._element.focus();
     },
+
 
     // mouse wheel treatment
     _mousewheel : function (e) {
@@ -73,6 +78,7 @@ define([
 	this.prev();
       e.halt();
     },
+
 
     // Arrow key and prefix treatment
     _keydown : function (e) {
@@ -122,7 +128,7 @@ define([
 	e.halt();
 	break;
       case 8: // 'Backspace'
-	this._prefix.backspace();
+	this._prefix.chop();
 	this.show();
 	e.halt();
 	break;
@@ -214,22 +220,23 @@ define([
     },
 
     /**
-     * Get the instantiated HTML element
+     * Get the associated dom element.
      */
     element : function () {
       return this._element;
     },
 
+
     /**
-     * Get the creator object for items
+     * Get the creator class for items
      */
     itemClass : function () {
       return this._itemClass;
     },
 
     /**
-     * Get and set numerical value for limit,
-     * i.e. the number of items visible.
+     * Get and set the numerical value
+     * for the maximum number of items visible.
      */
     limit : function (limit) {
       if (arguments.length === 1) {
@@ -238,6 +245,7 @@ define([
       };
       return this._limit;
     },
+
 
     /**
      * Upgrade this object to another object,
@@ -252,12 +260,14 @@ define([
       return this;
     },
 
+
     // Reset chosen item and prefix
     _reset : function () {
       this._offset = 0;
       this._pos    = 0;
       this._prefix.value('');
     },
+
 
     /**
      * Filter the list and make it visible
@@ -287,15 +297,23 @@ define([
       return true;
     },
 
+
+    /**
+     * Hide the menu and call the onHide callback.
+     */
     hide : function () {
       this.active = false;
       this.delete();
       this._element.style.opacity = 0;
+      this._prefix.clear();
       this.onHide();
       /* this._element.blur(); */
     },
 
-    // To be override
+    /**
+     * Function released when the menu hides.
+     * This method is expected to be overridden.
+     */
     onHide : function () {},
 
     // Initialize the list
@@ -356,6 +374,7 @@ define([
       this.item(this._list[this._list.length - 1]).noMore(bool);
     },
 
+
     /**
      * Get the prefix for filtering,
      * e.g. &quot;ve&quot; for &quot;verb&quot;
@@ -367,6 +386,7 @@ define([
       };
       return this._prefix.value();
     },
+
 
     // Append Items that should be shown
     _showItems : function (offset) {
@@ -644,7 +664,9 @@ define([
     },
 
 
-    // Length of the filtered list
+    /**
+     * Length of the filtered item list.
+     */
     liveLength : function () {
       if (this._list === undefined)
 	this._initList();

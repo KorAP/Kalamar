@@ -34,16 +34,28 @@ define({
     return this;
   },
 
+
+  /**
+   * Get or set the content of the meun item.
+   */
   content : function (content) {
     if (arguments.length === 1)
       this._content = document.createTextNode(content);
     return this._content;
   },
 
+  /**
+   * Get the lower cased field of the item
+   * (used for analyses).
+   */
   lcField : function () {
     return this._lcField;
   },
 
+
+  /**
+   * Get or set the information for action of this item. 
+   */
   action : function (action) {
     if (arguments.length === 1)
       this._action = action;

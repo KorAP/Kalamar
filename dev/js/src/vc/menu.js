@@ -4,9 +4,17 @@
 define(['menu', 'vc/item'], function (menuClass, itemClass) {
   return {
     create : function (params) {
-      return Object.create(menuClass)
+      var obj = Object.create(menuClass)
 	.upgradeTo(this)
-	._init(itemClass, undefined, params)
+	._init(itemClass, undefined, params);
+      obj.limit(6);
+
+      // This is only domspecific
+      obj.element().addEventListener('blur', function (e) {
+	this.menu.hide();
+      });
+
+      return obj;
     },
 
     /**

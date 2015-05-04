@@ -5,6 +5,16 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
   "use strict";
 
   return {
+
+    /**
+     * Create new menu object.
+     * Pass the match information object
+     * and the item parameters.
+     *
+     * @param info The match info object
+     * @param params The match menu items
+     *   as an array of arrays.
+     */
     create : function (info, params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(this)
@@ -19,6 +29,10 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
       
       return obj;
     },
+
+    /**
+     * The match information object of the menu.
+     */
     info :function () {
       return this._info;
     }

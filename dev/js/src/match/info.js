@@ -12,7 +12,7 @@ define([
 	     matchTreeClass,
 	     matchTreeMenuClass) {
 
-  // TODO: Make this async
+  // Override 
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
     KorAP.log(0, 'KorAP.API.getMatchInfo() not implemented')
     return {};
@@ -20,10 +20,11 @@ define([
 
   var loc = KorAP.Locale;
 
-  /**
-   * Create new object
-   */
   return {
+
+    /**
+     * Create new match object
+     */
     create : function (match) {
       return Object.create(this)._init(match);
     },
@@ -44,6 +45,11 @@ define([
       return this._match;
     },
 
+
+    /**
+     * Open the information view,
+     * if closed, otherwise close.
+     */
     toggle : function () {
       if (this.opened == true) {
 	this._match.element().children[0].removeChild(
@@ -64,7 +70,8 @@ define([
 
 
     /**
-     * Retrieve and parse snippet for table representation
+     * Retrieve and parse snippet for table
+     * representation
      */
     getTable : function (tokens, cb) {
       var focus = [];

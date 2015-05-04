@@ -3,6 +3,7 @@ requirejs.config({
 });
 
 require(['menu','menu/item', 'menu/prefix'], function (menuClass, itemClass, prefixClass) {
+
   var OwnMenuItemClass = {
     create : function (params) {
       return Object.create(itemClass).upgradeTo(this)._init(params);

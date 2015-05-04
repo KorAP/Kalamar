@@ -1,16 +1,19 @@
 /**
- * Date picker for the
+ * Simple Date picker for the
  * Virtual Collection builder.
+ *
+ * @author Nils Diewald
  */
 define(['util'], function () {
   "use strict";
 
+  /*
+   * Localizations
+   */
   var loc = KorAP.Locale;
-
   loc.WDAY = loc.WDAY || [
     'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'
   ];
-
   loc.MONTH = loc.MONTH || [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
@@ -20,27 +23,24 @@ define(['util'], function () {
 
   var d = document;
 
+  // The datepicker class
   return {
+
+    /**
+     * Create a new datepicker view.
+     */
     create : function () {
       return Object.create(this)._init();
     },
 
+    // Init datepicker
     _init : function () {
       return this;
     },
 
-    set : function (year, month, day) {
-      this.select(year, month, day);
-      if (this._click !== undefined)
-	this._click(this._selected);
-      else 
-	console.dir(this._selected);
-    },
-
-    onclick : function (cb) {
-      this._click = cb;
-    },
-
+    /**
+     * Get or select a specific date.
+     */
     select : function (year, month, day) {
       if (arguments.length >= 1) {
 	this._selected = {'year' : year};
@@ -54,21 +54,73 @@ define(['util'], function () {
       return this._selected;
     },
 
+
+    /**
+     * Select a specific date and
+     * init the accompanied action.
+     */
+    set : function (year, month, day) {
+      this.select(year, month, day);
+      if (this._click !== undefined)
+	this._click(this._selected);
+      else 
+	console.dir(this._selected);
+    },
+
+
+    /**
+     * Set the action for clicking as a callback.
+     * The callback will retrieve a an object with
+     * an optional year attribute,
+     * an optional month attribute,
+     * and an optional day attribute
+     */
+    onclick : function (cb) {
+      this._click = cb;
+    },
+
+    /**
+     * Show the datepicker.
+     * Will either show the selected year/month
+     * or the current date.
+     * Will return the element for appending to the dom.
+     */
     show : function (year, month) {
-      this._element = d.createElement('div');
-      this._element.classList.add('datepicker');
-      this._showYear = year ? year : (this._selected['year'] ? this._selected['year'] : 2012);
-      this._showMonth = month ? month : (this._selected['month'] ? this._selected['month'] : 2);
+      var e = this._element = d.createElement('div');
+      e.setAttribute('tabindex', 0);
+      e.style.outline = 0;
+      e.classList.add('datepicker');
+
+      var today = new Date();
+
+      // Show year
+      this._showYear = year ? year :
+	(this._selected['year'] ? this._selected['year'] :
+	 today.getYear());
+
+      // Show month
+      this._showMonth = month ? month :
+	(this._selected['month'] ? this._selected['month'] :
+	 (today.getMonth() + 1));
+
+      // Append all helpers
       this._element.appendChild(this._monthHelper());
       this._element.appendChild(this._yearHelper());
       this._element.appendChild(this._dayHelper());
       return this._element;
     },
 
+    /**
+     * Get the HTML element associated with the datepicker.
+     */
     element : function () {
       return this._element;
     },
 
+
+    /**
+     * Increment the year.
+     */
     incrYear : function () {
       this._showYear++;
       this._updateYear();
@@ -77,6 +129,9 @@ define(['util'], function () {
       return;
     },
 
+    /**
+     * Decrement the year.
+     */
     decrYear : function () {
       this._showYear--;
       this._updateYear();
@@ -85,6 +140,9 @@ define(['util'], function () {
       return;
     },
 
+    /**
+     * Increment the month.
+     */
     incrMonth : function () {
       this._showMonth++;
       if (this._showMonth > 12) {
@@ -97,6 +155,9 @@ define(['util'], function () {
       };
     },
 
+    /**
+     * Decrement the month.
+     */
     decrMonth : function () {
       this._showMonth--;
       if (this._showMonth < 1) {
@@ -109,6 +170,8 @@ define(['util'], function () {
       };
     },
 
+
+    // Create the year helper element.
     _yearHelper : function () {
       var year = d.createElement('div');
       year.classList.add('year');
@@ -123,6 +186,7 @@ define(['util'], function () {
       this._yElement.onclick = function () {
 	this.set(this._showYear);
       }.bind(this);
+      this._selectYear();
 
       // Increment year
       year.appendChild(d.createElement('span'))
@@ -131,10 +195,23 @@ define(['util'], function () {
       return year;
     },
 
+    // Update the year helper view.
     _updateYear : function () {
       this._yElement.firstChild.data = this._showYear;
+      this._selectYear();
     },
 
+
+    // Check if the viewed year is current
+    _selectYear : function () {
+      if (this._showYear === this.select()['year'])
+	this._yElement.classList.add('selected');
+      else
+	this._yElement.classList.remove('selected');
+    },
+
+
+    // Create the month helper element.
     _monthHelper : function () {
       var month = d.createElement('div');
       month.classList.add('month');
@@ -150,6 +227,8 @@ define(['util'], function () {
       this._mElement.onclick = function () {
 	this.set(this._showYear, this._showMonth);
       }.bind(this);
+
+      this._selectMonth();
       
       // Increment month
       month.appendChild(d.createElement('span'))
@@ -158,13 +237,28 @@ define(['util'], function () {
       return month;
     },
 
+    // Update the month helper view.
     _updateMonth : function () {
       this._mElement.firstChild.data = loc.MONTH[this._showMonth-1];
+      this._selectMonth();
     },
 
+
+    // Check if the viewed month is current
+    _selectMonth : function () {
+      if (this._showYear === this.select()['year'] &&
+	  this._showMonth === this.select()['month'])
+	this._mElement.classList.add('selected');
+      else
+	this._mElement.classList.remove('selected');
+    },
+
+
+    // Create the day (calendar) helper element.
     _dayHelper : function () {
       var table = d.createElement('table');
 
+      // Localized day view
       var tr = table.appendChild(d.createElement('thead'))
 	.appendChild(d.createElement('tr'));
       for (var i = 0; i < 7; i++) {
@@ -179,10 +273,29 @@ define(['util'], function () {
     },
 
     _dayBody : function () {
-      var showDate = new Date(this._showYear, this._showMonth - 1, 1, 0, 0, 0, 0);
-      var date     = new Date(this._showYear, this._showMonth - 1, 1, 0, 0, 0, 0);
-      var today    = new Date();
+      var showDate = new Date(
+	this._showYear,
+	this._showMonth - 1,
+	1,
+	0,
+	0,
+	0,
+	0
+      );
+      var date = new Date(
+	this._showYear,
+	this._showMonth - 1,
+	1,
+	0,
+	0,
+	0,
+	0
+      );
+      var today = new Date();
       var that = this;
+
+      // What happens, in case someone clicks
+      // on a date
       var click = function () {
 	that.set(
 	  that._showYear,
@@ -245,6 +358,7 @@ define(['util'], function () {
       return tb;
     },
 
+    // Update the calendar view
     _updateDay : function () {
       var newBody = this._dayBody();
       this._dBElement.parentNode.replaceChild(

@@ -4,14 +4,36 @@ define([
   'vc',
   'tutorial',
   'lib/domReady',
+  'hint/array',
+  'lib/alertify',
+  'api',
   'util'
 ], function (matchClass,
 	     hintClass,
 	     vcClass,
 	     tutClass,
-	     domReady) {
+	     domReady,
+	     hintArray) {
   domReady(function (event) {
     var obj = {};
+
+    /**
+     * Replace Virtual Collection field
+     */
+    var vcname;
+    var input = document.getElementById('vc');
+    if (input) {
+      input.style.display = 'none';
+      vcname = document.createElement('span');
+      vcname.setAttribute('id', 'vc-choose');
+      vcname.appendChild(
+	document.createTextNode(
+	  document.getElementById('vc-name').value
+	)
+      );
+      input.parentNode.insertBefore(vcname, input);
+    };
+
 
     /**
      * Add actions to match entries
@@ -31,6 +53,7 @@ define([
       });
     };
 
+
     /**
      * Toggle the alignment (left <=> right)
      */
@@ -41,8 +64,7 @@ define([
 	toggle.setAttribute('title', 'toggle Alignment');
 	// Todo: Reuse old alignment from cookie!
 	var cl = toggle.classList;
-	cl.add('align');
-	cl.add('right');
+	cl.add('align', 'right');
 	toggle.addEventListener(
 	  'click',
 	  function (e) {
@@ -56,24 +78,11 @@ define([
       };
     };
 
-    /**
-     * Init vc
-     */
-    var input = document.getElementById('vc');
-    if (input) {
-      input.style.display = 'none';
-      var vcname = document.createElement('span');
-      vcname.setAttribute('id', 'vc-choose');
-      vcname.appendChild(
-	document.createTextNode(
-	  document.getElementById('vc-name').value
-	)
-      );
-      input.parentNode.insertBefore(vcname, input);
 
-      /**
-       * Toggle the Virtual Collection builder
-       */
+    /**
+     * Toggle the Virtual Collection builder
+     */
+    if (vcname) {
       var vc;
       vcname.onclick = function () {
 	var view = document.getElementById('vc-view');
@@ -131,6 +140,22 @@ define([
     // Todo: Pass an element, so this works with
     // tutorial pages as well!
     obj.hint = hintClass.create();
+
+    // Set hint array for hint helper
+    KorAP.hintArray = hintArray;
+
+    // Override KorAP.log
+    KorAP.log = function (type, msg) {
+
+      // Use alertify to log errors
+      alertify.log(
+	(type === 0 ? '' : type + ': ') +
+	  msg,
+	'warn',
+	5000
+      );
+    };
+
     return obj;
   });
 });
