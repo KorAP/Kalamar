@@ -9,6 +9,7 @@ define(['vc'], function () {
   var unspecifiedClass = require('vc/unspecified');
   var operatorsClass =   require('vc/operators');
   var rewriteClass =     require('vc/rewrite');
+  var stringValClass =   require('vc/stringval');
 
   // Helper method for building factories
   buildFactory = function (objClass, defaults) {
@@ -1943,5 +1944,19 @@ define(['vc'], function () {
     expect(docKey.toString()).toEqual('...');
     });
     });
+
+      expect(
+	function() { menuItemClass.create([]) }
+      ).toThrow(new Error("Missing parameters"));
+
+
   */
+
+  describe('KorAP.stringValue', function () {
+    it('should be initializable', function () {
+      var sv = stringValClass.create();
+      expect(sv.regex()).toBe(false);
+      expect(sv.value()).toBe('');
+    });
+  });
 });

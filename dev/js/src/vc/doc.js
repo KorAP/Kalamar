@@ -5,8 +5,9 @@
 define([
   'vc/jsonld',
   'vc/rewritelist',
+  'vc/stringval',
   'util'
-], function (jsonldClass, rewriteListClass) {
+], function (jsonldClass, rewriteListClass, stringValClass) {
 
     /*
       var fieldMenu = menuClass.create([
