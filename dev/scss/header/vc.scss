@@ -102,12 +102,19 @@ $bracket-size: .4em; // 4pt;
   .doc {
     padding-left: $left-padding;
     > span + span,
-    > span + .menu + span{
+    > span + div + span {
       margin-left: 5pt;
     }
+
     > span.key,
     > span.value {
       font-weight: bold;
+      &[data-type=regex] {
+	font-style: italic;
+	&::after, &::before {
+	  content: '/';
+	}
+      }
     }
 
     /**
@@ -243,6 +250,10 @@ $bracket-size: .4em; // 4pt;
       }
     }
     &.regex {
+      > input {
+	font-style: italic;
+      }
+
       > div {
 	@include choose-active;
       }

@@ -119,10 +119,25 @@ define({
     if (this.value() !== undefined)
       this._input.value = this.value();
 
-    this._input.addEventListener(
+    // Add regex button
+    var re = e.appendChild(
+      document.createElement('div')
+    );
+    re.addEventListener(
+      'click',
+      function (e) {
+	this.toggleRegex();
+	e.halt();
+      }.bind(this),
+      true
+    );
+    re.appendChild(document.createTextNode('RE'));
+
+    e.addEventListener(
       'blur',
-      function () {
+      function (e) {
 	this.store(this.value(), this.regex());
+	e.halt();
       }.bind(this)
     );
 
@@ -136,16 +151,6 @@ define({
 	};
       }.bind(this)
     );
-
-    // Add regex button
-    var re = e.appendChild(
-      document.createElement('div')
-    );
-    re.addEventListener('click', function (e) {
-      this.toggleRegex();
-      e.halt();
-    }.bind(this));
-    re.appendChild(document.createTextNode('RE'));
 
     // Add store button
     /*
