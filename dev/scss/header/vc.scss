@@ -207,6 +207,47 @@ $bracket-size: .4em; // 4pt;
   .menu {
     display: inline-block;
   }
+
+  div.value {
+    position: absolute;
+    display: inline-block;
+    @include choose-item;
+    box-shadow: $choose-box-shadow;
+    padding: 4pt;
+    margin-top: -2pt;
+    border: {
+      width: $border-size;
+      style: solid;
+      radius: $standard-border-radius;
+    }
+    input {
+      border-width: 0;
+    }
+    > div {
+      padding: 2pt;
+      cursor: pointer;
+      font: {
+	size: 80%;
+	style: italic;
+      }
+      display: inline-block;
+      @include choose-item;
+      border: {
+	width: $border-size;
+	style: solid;
+	radius: $standard-border-radius;
+      }
+
+      &:hover {
+	@include choose-hover;
+      }
+    }
+    &.regex {
+      > div {
+	@include choose-active;
+      }
+    }
+  }
 }
 
 

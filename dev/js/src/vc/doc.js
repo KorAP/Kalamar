@@ -418,12 +418,12 @@ define([
 
     // Click on the match operator, show me the menu
     _changeValue : function (e) {
+      var v = this.value();
+      var that = this;
 
       // Show datepicker
       if (this.type() === 'date') {
 	var dp = KorAP._vcDatePicker;
-
-	var v = this.value();
 	if (v !== undefined) {
 
 	  var d = v.split('-', 3);
@@ -435,8 +435,7 @@ define([
 	  dp.select(d[0], d[1], d[2]);
 	};
 
-	var that = this;
-
+	// Todo: change this
 	dp.onclick(function (selected) {
 
 	  // There are values selected
@@ -476,9 +475,31 @@ define([
 	});
       }
       else {
-	// TODO: Just kidding - this is temporary!
-	this.value(window.prompt('Enter new value'));
-	this.update();
+	var regex = this.type() === 'regex' ? true : false;
+	var str = stringValClass.create(this.value(), regex);
+	var strElem = str.element();
+
+
+	str.store = function (value, regex) {
+	  that.value(value);
+	  if (regex === true)
+	    that.type('regex');
+	  else
+	    that.type('string');
+
+	  that._element.removeChild(
+	    this._element
+	  );
+	  that.update();
+	};
+
+	// Insert element
+	this._element.insertBefore(
+	  strElem,
+	  this._valueE
+	);
+
+	str.focus();
       };
     },
 

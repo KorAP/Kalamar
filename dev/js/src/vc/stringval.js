@@ -2,18 +2,24 @@
  * Add string values to the virtual collection
  */
 define({
+
+  /**
+   * Create new string value helper.
+   */
   create : function () {
     var regex = false;
     var value = '';
     if (arguments.length == 2) {
       regex = arguments[1];
     };
-    if (arguments.length > 1) {
+    if (arguments.length >= 1) {
       value = arguments[0];
     };
     return Object.create(this)._init(value, regex);
   },
   
+
+  // Initialize the string value
   _init : function (value, regex) {
     this.element();
     this.value(value);
@@ -21,6 +27,12 @@ define({
     return this;
   },
 
+
+  /**
+   * Get or set the regex boolean value.
+   *
+   * @param bool Either true or false
+   */
   regex : function (bool) {
     if (arguments.length === 1) {
       if (bool) {
@@ -34,6 +46,11 @@ define({
     return this._regex;
   },
 
+
+  /**
+   * Toggle the regex, make it either true,
+   * if it is false, or make it false, if it is true.
+   */
   toggleRegex : function () {
     if (this._regex === false)
       this.regex(true);
@@ -41,6 +58,9 @@ define({
       this.regex(false);
   },
   
+  /**
+   * Get or set the string value.
+   */
   value : function (val) {
     if (arguments.length === 1) {
       this._value = val;
@@ -48,44 +68,93 @@ define({
     };
     return this._value;
   },
-  
+
+
+  // Update dom element
   _update : function () {
-    this._input.firstChild.data = this._value;
+    this._input.value = this._value;
     if (this._regex) {
       this._element.classList.add('regex');
     }
     else {
-      this._element.classList.add('regex');
+      this._element.classList.remove('regex');
     };
   },
   
+
+  /**
+   * Store the string value.
+   * This method should be overwritten.
+   * The method receives the the value and the regex.
+   */
+  store : function (v,r) {},
+
+
+  focus : function () {
+    this._element.children[0].focus();
+  },
+
+  /**
+   * Get the associated dom element.
+   */
   element : function () {
     if (this._element !== undefined)
       return this._element;
 
+    // Create element
     this._element = document.createElement('div');
-    var cl = this._element.classList;
-    cl.add('vc-value');
-    if (this.regex())
+    var e = this._element;
+    e.setAttribute('tabindex', 0);
+    e.style.outline = 0;
+
+    var cl = e.classList;
+    cl.add('value');
+    if (this.regex() === true)
       cl.add('regex');
     
-    this._input = this._element.appendChild(
+    // Add input field
+    this._input = e.appendChild(
       document.createElement('input')
     );
-    this._input.appendChild(
-      document.createTextNode(this.value())
-    );
-    
-    this._element.appendChild(
-      document.createElement('div')
-    ).addEventListener('click', function (e) {
-      this.toggleRegex();
-    }.bind(this));
-    
-    var go = this._element.appendChild(
-      document.createElement('span')
+    if (this.value() !== undefined)
+      this._input.value = this.value();
+
+    this._input.addEventListener(
+      'blur',
+      function () {
+	this.store(this.value(), this.regex());
+      }.bind(this)
     );
 
-    return this._element;
+    this._input.addEventListener(
+      'keypress',
+      function (e) {
+	if (e.keyCode == 13) {
+	  this.value(this._input.value);
+	  this.store(this.value(), this.regex());
+          return false;
+	};
+      }.bind(this)
+    );
+
+    // Add regex button
+    var re = e.appendChild(
+      document.createElement('div')
+    );
+    re.addEventListener('click', function (e) {
+      this.toggleRegex();
+      e.halt();
+    }.bind(this));
+    re.appendChild(document.createTextNode('RE'));
+
+    // Add store button
+    /*
+    e.appendChild(
+      document.createElement('div')
+    ).addEventListener('click', function () {
+      this.store(this.value(), this.regex());
+    }.bind(this));
+    */
+    return e;
   }
 });

@@ -1957,6 +1957,69 @@ define(['vc'], function () {
       var sv = stringValClass.create();
       expect(sv.regex()).toBe(false);
       expect(sv.value()).toBe('');
+
+      sv = stringValClass.create('Baum');
+      expect(sv.regex()).toBe(false);
+      expect(sv.value()).toBe('Baum');
+
+      sv = stringValClass.create('Baum', false);
+      expect(sv.regex()).toBe(false);
+      expect(sv.value()).toBe('Baum');
+
+      sv = stringValClass.create('Baum', true);
+      expect(sv.regex()).toBe(true);
+      expect(sv.value()).toBe('Baum');
+    });
+
+    it('should be modifiable', function () {
+      var sv = stringValClass.create();
+      expect(sv.regex()).toBe(false);
+      expect(sv.value()).toBe('');
+
+      expect(sv.value('Baum')).toBe('Baum');
+      expect(sv.value()).toBe('Baum');
+
+      expect(sv.regex(true)).toBe(true);
+      expect(sv.regex()).toBe(true);
+    });
+
+    it('should have a toggleble regex value', function () {
+      var sv = stringValClass.create();
+      expect(sv.regex()).toBe(false);
+
+      sv.toggleRegex();
+      expect(sv.regex()).toBe(true);
+
+      sv.toggleRegex();
+      expect(sv.regex()).toBe(false);
+    });
+
+    it('should have an element', function () {
+      var sv = stringValClass.create('der');
+      expect(sv.element().nodeName).toBe('DIV');
+      expect(sv.element().firstChild.nodeName).toBe('INPUT');
+      expect(sv.element().firstChild.value).toBe('der');
+    });
+
+    it('should have a classed element', function () {
+      var sv = stringValClass.create();
+      console.log(sv.element());
+      expect(sv.element().classList.contains('regex')).toBe(false);
+      expect(sv.regex()).toBe(false);
+      sv.toggleRegex();
+      expect(sv.element().classList.contains('regex')).toBe(true);
+    });
+
+    it('should be storable', function () {
+      var sv = stringValClass.create();
+      var count = 1;
+      sv.store = function (value, regex) {
+	expect(regex).toBe(true);
+	expect(value).toBe('tree');
+      };
+      sv.regex(true);
+      sv.value('tree');
+      sv.element().lastChild.click();
     });
   });
 });
