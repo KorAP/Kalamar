@@ -104,7 +104,6 @@ define([
 	cb(null);
 
       // Get info (may be cached)
-      // TODO: Async
       KorAP.API.getMatchInfo(
 	this._match,
 	{ 'spans' : false, 'layer' : focus },
@@ -195,9 +194,15 @@ define([
 	}
       );
 
+      tree.classList.add('loading');
+
       // Get tree data async
       this.getTree(foundry, layer, function (treeObj) {
+
+	tree.classList.remove('loading');
+
 	// Something went wrong - probably log!!!
+
 	if (treeObj === null) {
 	  tree.appendChild(document.createTextNode('No data available.'));
 	}
@@ -208,10 +213,11 @@ define([
 	  // to move the root into the center or the actual
 	  // match)
 	  treeObj.center();
-	}
+	};
 	
 	if (cb !== undefined)
 	  cb(treeObj);
+
       });
     },
     
@@ -229,12 +235,13 @@ define([
 
       // Append default table
       var matchtable = document.createElement('div');
-      matchtable.classList.add('matchtable');
+      matchtable.classList.add('matchtable', 'loading');
       info.appendChild(matchtable);
 
       // Create the table asynchronous
       this.getTable(undefined, function (table) {
 	if (table !== null) {
+	  matchtable.classList.remove('loading');
 	  matchtable.appendChild(table.element());
 	};
       });

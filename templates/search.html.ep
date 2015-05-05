@@ -1,4 +1,4 @@
-% layout 'main';
+% layout 'main', title => loc('searchtitle', q => search->query, ql => search->query_language);
 
 <div class="resultinfo">
 %#  <div id="pagination"><%= pagination(search->start_page, $pages, $url) =%></div>
