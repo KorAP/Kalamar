@@ -17,3 +17,16 @@ div.resultinfo {
   font-weight: bold;
 }
 
+#no-results {
+  margin: 0 auto;
+  text-align: center;
+  code {
+    &::before {
+      content : open-quote;
+    }
+    &::after {
+      content : close-quote;
+    }
+    font-weight: bold;
+  }
+}

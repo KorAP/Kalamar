@@ -44,7 +44,8 @@
   font-size: 85%;
   right: 0;
   width: 100%;
-  margin-left: $standard-margin;
+  margin-left: ($standard-margin / 2);
+
   padding-left: 60%;
   > div {
     border-top: 26px solid $dark-orange;
@@ -103,10 +104,3 @@ h1 {
   text-align: center;
   width: 100%;
 }
-
-/*
-#leibniz-logo, #ids-logo {
-  height: (130 / 20) + em;
-}
-
-*/

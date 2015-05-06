@@ -36,7 +36,6 @@ sub startup {
     'Search',                 # Abstract Search framework
     'CHI',                    # Global caching mechanism
     'TagHelpers::Pagination', # Pagination widget
-    'Number::Commify',        # Localize numbers
     'KalamarHelpers'          # Specific Helpers for Kalamar
 
   ) {
@@ -74,3 +73,11 @@ sub startup {
 
 
 __END__
+
+=pod
+
+To get started, you'll need npm. Then you can install and run grunt:
+
+sudo npm install -g grunt-cli
+npm install
+grunt

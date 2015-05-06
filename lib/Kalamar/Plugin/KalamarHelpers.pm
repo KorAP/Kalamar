@@ -32,6 +32,8 @@ sub register {
   );
 
   # Documentation link
+  # TODO: Support opener mechanism, so the link will open the embedded
+  # documentation in case it's not there.
   $mojo->helper(
     doc_link_to => sub {
       my $c = shift;
@@ -50,6 +52,24 @@ sub register {
   $mojo->helper(
     doc_uc => sub {
       return shift->tag('p', 'Under Construction!')
+    }
+  );
+
+  $mojo->helper(
+    doc_opener => sub {
+      my $c = shift;
+      my $cb = pop;
+      my $page = pop;
+      my $scope = shift;
+      my $url;
+      if ($page) {
+	$url = $c->url_for('doc', page => $page, scope => $scope);
+	$url->path->canonicalize;
+      }
+      else {
+	$url = $c->url_for('doc_start');
+      };
+      return $c->link_to($cb->($c), $url);
     }
   );
 
@@ -180,6 +200,14 @@ sub register {
       $c->stash('kalamar.test_port' => 0);
       return 0;
     });
+
+  # Create links in the tutorial that make sure the current position is preserved,
+  # in case the tutorial was opened embedded
+  $mojo->helper(
+    kalamar_tut_link_to => sub {
+      return '[TODO]';
+    }
+  );
 };
 
 

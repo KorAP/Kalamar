@@ -19,15 +19,11 @@ WriteMakefile(
     'Mojolicious::Plugin::Notifications' => 0.04,
     'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,
+    'Cache::FastMmap' => 0,
 
     # Currently only on GitHub
     'Mojolicious::Plugin::Search' => 0.04,
-    'Cache::FastMmap' => 0,
-    'Mojolicious::Plugin::Number::Commify' => '0.022',
-    'Mojolicious::Plugin::AssetPack' => 0.23,
-    'JavaScript::Minifier::XS' => 0.09,
-    'CSS::Minifier::XS' => 0.09,
-    'CSS::Sass' => '0.8.1'
+    'Mojolicious::Plugin::Localize' => 0.08
   },
   test => {
     TESTS => 't/*.t'

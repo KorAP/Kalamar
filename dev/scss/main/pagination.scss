@@ -25,8 +25,8 @@ $border-size : 2px;
    */
   font-size: 0;
   position: fixed;
-  right: 20px;
-  bottom: 24px;
+  right: ($standard-margin / 4);
+  bottom: ($standard-margin / 2);
   z-index: 400;
   padding: 0;
   height: auto;

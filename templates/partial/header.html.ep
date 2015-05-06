@@ -1,7 +1,6 @@
 <header>
   <a href="/"
-     class="logo"
-     title="<%= title %>"><h1><span><%= title %></span></h1></a>
+     class="logo"><h1><span><%= title() // loc('korap_desc') %></span></h1></a>
   <div class="button top">
 <!--
     <a href="#"

@@ -5,7 +5,7 @@ $border-size: 2px;
 
 #search {
   position: relative;
-  margin-bottom: 44px;
+  margin-bottom: 30px;
   overflow: visible;
 
   &.match {
@@ -84,7 +84,7 @@ $border-size: 2px;
 //      @include light-noise;
       position: relative;
       > div {
-	min-height: 42pt;
+	min-height: 20pt;
 	> div.snippet {
 	  background-color: $light-orange;
 	  > * {
