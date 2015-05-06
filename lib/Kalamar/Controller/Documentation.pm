@@ -8,8 +8,6 @@ sub page {
     $c->stash(embedded => 1);
   };
 
-  $c->stash(doc_base => 'http://localhost:3000/');
-
   my @path = ('doc');
 
   # There is a scope defined

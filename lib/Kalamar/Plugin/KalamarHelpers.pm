@@ -17,7 +17,6 @@ sub register {
       my $url = $c->url_with('/img/korap-overview.svg');
 
       # If there is a different base - append this as a base
-      # $url->query([base => $c->stash('doc_base') // '/']);
       $url->query([base => $c->url_for('doc_start')->to_abs // '/']);
 
       $url->fragment($scope);

@@ -4,8 +4,6 @@
 $border-size: 2px;
 
 aside {
-  // box-shadow: 2px 2px 5px darken($dark-green, 15%);
-  // box-shadow: $choose-box-shadow;
   outline: none;
   display: block;
   background-color: $dark-green;
@@ -17,7 +15,6 @@ aside {
   left: 0;
   height: 100%;
   padding-top: 80px;
-  transition: all .3s ease-in-out;
   > div {
     overflow-y: auto;
     overflow-x: visible;
@@ -133,25 +130,26 @@ aside {
   }
 }
 
+aside:focus {
+  transition: all .3s ease-in-out;
+}
 
-aside:not(:focus):not(.active) {
+aside.off, aside:not(:focus):not(.active) {
   margin-left: -1 * ($logo-left-distance - ($standard-margin / 2));
-//  box-shadow: none;
-/*
-  overflow-y: hidden;
-  overflow-x: visible;
-*/
   &::after {
     opacity: 1;
   }
   > * {
     opacity: 0;
-    // TODO
     transition: {
       property: opacity;
       duration: .3s;
     }
   }
+}
+
+aside.off::after {
+  display:none;
 }
 
 /*
