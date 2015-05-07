@@ -16,6 +16,23 @@ define([
 	     domReady,
 	     hintArray,
 	     alertifyClass) {
+
+  // Set hint array for hint helper
+  KorAP.hintArray = hintArray;
+
+  // Override KorAP.log
+  window.alertify = alertifyClass;
+  KorAP.log = function (type, msg) {
+
+    // Use alertify to log errors
+    alertifyClass.log(
+      (type === 0 ? '' : type + ': ') +
+	msg,
+      'error',
+      5000
+    );
+  };
+
   domReady(function (event) {
     var obj = {};
 
@@ -146,21 +163,6 @@ define([
     // Todo: Pass an element, so this works with
     // tutorial pages as well!
     obj.hint = hintClass.create();
-
-    // Set hint array for hint helper
-    KorAP.hintArray = hintArray;
-
-    // Override KorAP.log
-    KorAP.log = function (type, msg) {
-
-      // Use alertify to log errors
-      alertifyClass.log(
-	(type === 0 ? '' : type + ': ') +
-	  msg,
-	'error',
-	5000
-      );
-    };
 
     return obj;
   });

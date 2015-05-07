@@ -18,6 +18,16 @@ sub startup {
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
+  # korap.ids-mannheim.de specific
+  $self->hook(
+    before_dispatch => sub {
+      my $c = shift;
+      my $host = $c->req->headers->header('X-Forwarded-Host');
+      if ($host && $host eq 'korap.ids-mannheim.de') {
+	$c->req->url->base->path('/kalamar/');
+      };
+    }) if $self->mode eq 'production';
+
   # Set secrets for signed cookies
   if (-e (my $secret = $self->home . '/kalamar.secret')) {
     $self->secrets([
@@ -80,8 +90,14 @@ __END__
 
 =pod
 
-To get started, you'll need npm. Then you can install and run grunt:
+The static files are generated using Grunt.
+To get started with Grunt, you need NodeJS > 0.8 ..., you'll need npm. Then you can install and run grunt:
 
 sudo npm install -g grunt-cli
 npm install
 grunt
+
+
+Some perl modules are not on github yet, so you need to install them from github using cpanm:
+
+  cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git

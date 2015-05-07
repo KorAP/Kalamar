@@ -1,0 +1,6 @@
+% my $msg = $exception->message // '500: Internal Server Error';
+% layout 'main', title => 'KorAP: ' . $msg;
+
+<p id="no-results"><%= $msg  %></p>
+
+% notify('error' => $msg);

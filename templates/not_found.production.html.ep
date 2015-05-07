@@ -1,0 +1,6 @@
+% my $msg = '404: Page not found';
+% layout 'main', title => 'KorAP: ' . $msg;
+
+<p id="no-results"><%= $msg %></p>
+
+% notify('warn' => $msg);

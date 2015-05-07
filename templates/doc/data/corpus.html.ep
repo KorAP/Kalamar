@@ -1,0 +1,5 @@
+% layout 'main', title => 'KorAP: Corpora';
+
+<h2>Corpora</h2>
+
+%= doc_uc
