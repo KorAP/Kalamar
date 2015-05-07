@@ -63,6 +63,7 @@ $border-size : 2px;
       &::after {
 	font-family: 'FontAwesome';
 	content: $fa-elipsis;
+	line-height: 1em;
       }
     }
 
@@ -89,6 +90,7 @@ $border-size : 2px;
       &::after {
 	font-family: 'FontAwesome';
 	content: $fa-previous;
+	line-height: 1em;
       }
     }
 
@@ -105,6 +107,7 @@ $border-size : 2px;
       &::after {
 	font-family: 'FontAwesome';
 	content: $fa-next;
+	line-height: 1em;
       }
     }
     &:link:hover span {

@@ -105,7 +105,7 @@
 
   <blockquote class="warning">
     <p>Beware: Empty segments can't be searched solely in the Lucene index.
-      However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus'#syntagmatic-operators-sequence' %>.</p>
+      However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
   </blockquote>
 </section>
 

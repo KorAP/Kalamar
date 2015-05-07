@@ -10,7 +10,7 @@
   </div>
   <form autocomplete="off" action="<%= url_for 'index' %>">
     <div id="searchbar">
-      %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder')
+      %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder'), spellcheck => 'false', autocomplete => 'off', autocorrect => 'off', autocapitalize => 'off'
       <button type="submit" title="<%= loc 'go' %>"><span><%= loc 'go' %></span></button>
     </div>
     <!-- Search in the following virtual collection -->

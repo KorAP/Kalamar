@@ -45,9 +45,9 @@ a {
       color: $darkest-orange;
       @include color-transition;
     }
-    &:active, &:visited {
-      color: $darkest-orange;
-    }
+  }
+  &:visited {
+    color: $darkest-orange;
   }
 }
 
