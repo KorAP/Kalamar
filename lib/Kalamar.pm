@@ -25,6 +25,7 @@ sub startup {
       my $host = $c->req->headers->header('X-Forwarded-Host');
       if ($host && $host eq 'korap.ids-mannheim.de') {
 	$c->req->url->base->path('/kalamar/');
+	$c->stash(prefix => '/kalamar');
       };
     }) if $self->mode eq 'production';
 
