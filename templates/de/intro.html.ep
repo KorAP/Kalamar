@@ -1,0 +1,20 @@
+% layout 'main';
+<div class="intro">
+  <p><strong>KorAP</strong> ist eine neue Korpusanalyseplattform, optimiert für große, mehrfach annotierte Korpora und komplexe Suchmechanismen. Dabei versucht KorAP unabhängig von spezifischen Forschungsfragen zu sein.</p>
+
+  <p>Dies ist die neue Webschnittstelle von KorAP, <strong>Kalamar</strong>. Kalamar bietet derzeit nur Zugriff auf freie Korpora - für vollständigen Zugriff auf alle Korpora, verwenden Sie bitte die <a href="http://korap.ids-mannheim.de/app">erste Webschnittstelle</a>.
+
+  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <%= doc_opener 'ql', begin %>Einführung<% end %>!</p>
+
+  <p>KorAP wird am <a href="http://www.ids-mannheim.de">Institut für Deutsche Sprache</a> in Mannheim entwickelt, Mitglied der <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Gemeinschaft</a>. Die einzelnen Module werden als Open Source auf <a href="http://github.com/KorAP">GitHub</a> veröffentlicht.</p>
+
+</div>
+
+<!-- form -->
+
+<div id="logos">
+  <div>
+    <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Entwickelt am Institut für Deutsche Sprache (IDS)</span></p></a>
+    <a href="http://www.leibniz-gemeinschaft.de/" class="logo"><p id="leibniz-logo"><span>Mitglied der Leibniz Gemeinschaft</span></p></a>
+  </div>
+</div>
