@@ -7,7 +7,7 @@
 <section id="base">
   <h3>Base Foundry</h3>
   <p>The base foundry is available for all corpora and acts as a common ground for document structure annotation. It supports two types of spans: <code>&lt;s&gt;</code> for sentences and <code>&lt;p&gt;</code> for paragraphs - this will likely change in the next index version. These spans lack prefix information!</p>
-  %= kalamar_tut_query poliqarp => '<s>', cutoff => 1
+  %= doc_query poliqarp => '<s>', cutoff => 1
 </section>
 
 
@@ -26,7 +26,7 @@
     <dt><abbr data-type="span" title="Phrases">c</abbr></dt>
     <dd>Only nominal phrases are available and all nominal phrases are written in lower case (<code>np</code>)</dd>
   </dl>
-  %= kalamar_tut_query poliqarp => '[cnx/p=CC]', cutoff => 1
+  %= doc_query poliqarp => '[cnx/p=CC]', cutoff => 1
 </section>
 
 
@@ -38,7 +38,7 @@
     <dt><abbr data-type="token" title="Named Entity">ne_dewac_175_175m_600</abbr></dt>
     <dd>See above</dd>
   </dl>
-  %= kalamar_tut_query poliqarp => '[corenlp/ne_dewac_175m_600=I-ORG]', cutoff => 1
+  %= doc_query poliqarp => '[corenlp/ne_dewac_175m_600=I-ORG]', cutoff => 1
 </section>
 
 
@@ -50,7 +50,7 @@
     <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
     <dd>All part-of-speech information is written in capital letters and is based on STTS</dd>
   </dl>
-  %= kalamar_tut_query poliqarp => '[tt/p=ADV]', cutoff => 1
+  %= doc_query poliqarp => '[tt/p=ADV]', cutoff => 1
 </section>
 
 
@@ -64,7 +64,7 @@
     <dt><abbr data-type="token" title="Morphosyntactical information">m</abbr></dt>
     <dd>Includes information about tense (<code>tense:pres</code> ...), mode (<code>mood:ind</code>), number (<code>number:pl</code> ...), gender (<code>gender:masc</code> ...) etc.</dd>
   </dl>
-  %= kalamar_tut_query poliqarp => '[mate/m=gender:fem]', cutoff => 1
+  %= doc_query poliqarp => '[mate/m=gender:fem]', cutoff => 1
 </section>
 
 
@@ -74,7 +74,7 @@
     <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
     <dd>All part-of-speech information is written in capital letters and is based on STTS</dd>
   </dl>
-  %= kalamar_tut_query poliqarp => '[opennlp/p=PDAT]', cutoff => 1
+  %= doc_query poliqarp => '[opennlp/p=PDAT]', cutoff => 1
 </section>
 
 
@@ -88,8 +88,8 @@
     <dt><abbr data-type="span" title="Phrases">c</abbr></dt>
     <dd>Some phrases to create sentences, all upper case (<code>NP</code>, <code>NPA</code>, <code>NOUN</code>, <code>VERB</code>, <code>PREP</code>, <code>AP</code> ...)</dd>      
   </dl>
-  %= kalamar_tut_query poliqarp => '[xip/p=ADJ]', cutoff => 1
-  %= kalamar_tut_query poliqarp => '<xip/c=VERB>', cutoff => 1
+  %= doc_query poliqarp => '[xip/p=ADJ]', cutoff => 1
+  %= doc_query poliqarp => '<xip/c=VERB>', cutoff => 1
 </section>
 
 <section id="default-foundries">

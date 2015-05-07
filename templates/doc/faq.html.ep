@@ -6,13 +6,13 @@
 
 <section>
   <h3>Where is the source code?</h3>
-  <hp>Parts of KorAP are already available on <a href="https://github.com/KorAP">GitHub</a>, and we will publish more components in the future.</p>
+  <hp>Parts of KorAP are already available on <%= doc_ext_link_to 'GitHub', 'https://github.com/KorAP' %>, and we will publish more components in the future.</p>
 </section>
 
 <section>
   <h3>Why can’t I create an account?</h3>
   <blockquote>
-    <p>This question refers to the <a href="http://korap.ids-mannheim.de/app">first frontend</a>. The second frontend has no user management yet.</p>
+    <p>This question refers to the <%= doc_ext_link_to 'first frontend', 'http://korap.ids-mannheim.de/app' %>. The second frontend has no user management yet.</p>
   </blockquote>
   <p>If you already have a COSMAS II account, you should be able to log in using those credentials. Other users may need to wait a bit longer. For the time being, access to KorAP will be restricted to connections from inside the IDS only.</p>
   <p>And if you think something else is wrong with your login - <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'Something is wrong with my login', begin %>please let us know<% end %>.</p>
@@ -31,7 +31,7 @@
 <section>
   <h3>How do I know which tagset to use for collocation analysis properties?</h3>
   <blockquote>
-    <p>This question refers to the <a href="http://korap.ids-mannheim.de/app">first frontend</a>. The second frontend has no collocation analysis module yet.</p>
+    <p>This question refers to the <%= doc_ext_link_to 'first frontend', 'http://korap.ids-mannheim.de/app' %>. The second frontend has no collocation analysis module yet.</p>
   </blockquote>
   <p>In the current implementation, the Neo4J engine uses the TreeTagger foundry as default. 
     Thus, the respective tags come from the STTS tagset.</p>
@@ -40,10 +40,10 @@
 <section>
   <h3>How do I use the collocation search view?</h3>
   <blockquote>
-    <p>This question refers to the <a href="http://korap.ids-mannheim.de/app">first frontend</a>. The second frontend has no collocation analysis module yet.</p>
+    <p>This question refers to the <%= doc_ext_link_to 'first frontend', 'http://korap.ids-mannheim.de/app' %>. The second frontend has no collocation analysis module yet.</p>
   </blockquote>
   <p>The collocation search view uses collocation properties to find collocates in the context of the specified query. This property can be of either a POS or a lemma. The operator assigns this property either an inclusive and exclusive state (i.e. negation) or can specify that the selected property is a regular expression. You can assign multiple properties per queries.</p>
-  <p>For more information on this topic, see our <a href="http://youtu.be/hiKHw50Hq9k">tutorial video</a>.</p>
+  <p>For more information on this topic, see our <%= doc_ext_link_to 'tutorial video', 'http://youtu.be/hiKHw50Hq9k' %>.</p>
 </section>
 
 <section>

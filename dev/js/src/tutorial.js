@@ -78,7 +78,6 @@ define(['session', 'util'], function (sessionClass) {
       this.hide();
     },
 
-
     /**
      * Decorate a page with query event handler.
      */
@@ -90,6 +89,20 @@ define(['session', 'util'], function (sessionClass) {
 	  that.useQuery(this,e);
 	};
       };
+    },
+
+    /**
+     * Decorate a page with documentation links
+     */
+    initDocLinks : function (d) {
+      var dl = d.getElementsByClassName('doc-link');
+      var that = this;
+      for (var i = 0; i < dl.length; i++) {
+	dl[i].onclick = function (e) {
+	  that.setPage(this.getAttribute('href'));
+	  return true;
+	};
+      };      
     },
 
 

@@ -135,6 +135,9 @@ define([
     if (obj.tutorial)
       obj.tutorial.initQueries(document);
 
+    // Initialize documentation links
+    obj.tutorial.initDocLinks(document);
+
     /**
      * Init hint helper
      * has to be final because of

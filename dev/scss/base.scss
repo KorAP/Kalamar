@@ -27,10 +27,15 @@ body {
 
 
 a {
-  &[href^="http://"]:after,
-  &[href^="https://"]:after {
+  &[href^="http://"]::after,
+  &[href^="https://"]::after {
     font-family: FontAwesome;
     content: " " + $fa-extlink;
+    font-size: 75%;
+  }
+  &.doc-link::after {
+    font-family: FontAwesome;
+    content: " " + $fa-tutorial;
     font-size: 75%;
   }
   &:link {
