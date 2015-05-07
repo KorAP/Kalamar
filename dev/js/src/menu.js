@@ -4,6 +4,7 @@
  * @author Nils Diewald
  */
 /*
+ * TODO: First item shouldn't be automatically highlighted!
  * TODO: space is not a valid prefix!
  * TODO: Prefix should be case sensitive!
  */
@@ -215,6 +216,7 @@ define([
       this._limit    = menuLimit;
       this._position = 0;  // position in the active list
       this._active   = -1; // active item in the item list
+      this._firstActive = false; // Show the first item active always?
       this._reset();
       return this;
     },
@@ -285,7 +287,9 @@ define([
 
       // Set the first element to active
       // Todo: Or the last element chosen
-      this.liveItem(0).active(true);
+      if (this._firstActive)
+	this.liveItem(0).active(true);
+
       this._prefix.active(false);
 
       this._active = this._list[0];

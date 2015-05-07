@@ -49,9 +49,11 @@ require(['menu','menu/item', 'menu/prefix'], function (menuClass, itemClass, pre
 
   var OwnMenu = {
     create : function (params) {
-      return Object.create(menuClass)
+      var obj = Object.create(menuClass)
       .upgradeTo(this)
       ._init(OwnMenuItemClass, OwnPrefixClass, params);
+      obj._firstActive = true;
+      return obj;
     }
   };
 

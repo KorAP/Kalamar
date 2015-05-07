@@ -15,6 +15,9 @@ define(['menu', 'hint/item', 'hint/prefix'], function (menuClass, itemClass, pre
       obj._element.classList.add('hint');
       obj._hint = hint;
 
+      // Make the top item always active
+      obj._firstActive = true;
+
       // This is only domspecific
       obj.element().addEventListener('blur', function (e) {
 	this.menu.hide();
