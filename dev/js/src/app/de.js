@@ -1,4 +1,4 @@
-define(['init'], function () {
+require(['init'], function () {
   var loc = KorAP.Locale;
   loc.OR = 'oder';
   loc.AND = 'und';

@@ -13,27 +13,30 @@
  * TODO: Use https://www.npmjs.com/package/grunt-contrib-yuidoc
  * TODO: Implement a LaTeX generator for a pdf of the dokumentation 
  */
+
+// Generate requireJS files for l10n
+var reqTasks = [];
+for (var i in {'en' : 0, 'de' : 1}) {
+  reqTasks.push({
+    options: {
+      // optimize: "uglify",
+      baseUrl: 'dev/js/src',
+      paths : {
+	'lib': '../lib'
+      },
+      wrap:true,
+      // dir : 'public/js',
+      name: 'lib/almond',
+      include : ['app/' + i],
+      out: 'public/js/kalamar-<%= pkg.version %>-' + i + '.js'
+    }
+  })
+};
+
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    requirejs: {
-      compile: {
-	options: {
-	  // optimize: "uglify",
-	  baseUrl: 'dev/js/src',
-	  paths : {
-	    'lib': '../lib'
-	  },
-
-	  // TODO: add language versions
-	  wrap:true,
-	  // dir : 'public/js',
-	  name: 'lib/almond',
-	  include : ['app/en'],
-	  out: 'public/js/kalamar-<%= pkg.version %>-en.js'
-	}
-      }
-    },
+    requirejs: reqTasks,
     imagemin: {
       dynamic: {
 	files: [{

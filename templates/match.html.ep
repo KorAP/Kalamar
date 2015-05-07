@@ -19,5 +19,6 @@
 <% if ($match->{title} || $match->{author}) { %>;<% } %> \
 <%= loc('pubOn') %> <%= $match->{pubDate} %> \
 (<%= $id %>)\
+%# Add textClass
 </p>
 </li>
