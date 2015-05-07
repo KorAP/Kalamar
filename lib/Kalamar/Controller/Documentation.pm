@@ -32,6 +32,15 @@ sub page {
 };
 
 
+# Contact us
+sub contact {
+  my $c = shift;
+  $c->render(
+    template => $c->loc('contact', 'doc/contact')
+  );
+};
+
+
 1;
 
 

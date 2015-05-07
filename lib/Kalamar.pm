@@ -30,14 +30,14 @@ sub startup {
 
   # Load plugins
   foreach (
-    'Config',                 # Configuration framework
-    'Localize',               # Localization framework
-    'Notifications',          # Client notifications
-    'Search',                 # Abstract Search framework
-    'CHI',                    # Global caching mechanism
-    'TagHelpers::Pagination', # Pagination widget
-    'KalamarHelpers'          # Specific Helpers for Kalamar
-
+    'Config',                    # Configuration framework
+    'Localize',                  # Localization framework
+    'Notifications',             # Client notifications
+    'Search',                    # Abstract Search framework
+    'CHI',                       # Global caching mechanism
+    'TagHelpers::Pagination',    # Pagination widget
+    'TagHelpers::MailToChiffre', # Obfuscate email addresses
+    'KalamarHelpers'             # Specific Helpers for Kalamar
   ) {
     $self->plugin($_);
   };
@@ -59,6 +59,10 @@ sub startup {
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:page')->to('documentation#page', scope => undef);
   $r->get('/doc/*scope/:page')->to('documentation#page')->name('doc');
+
+  # Contact route
+  $r->get('/contact')->to('documentation#contact');
+  $r->get('/contact')->mail_to_chiffre('documentation#contact');
 
   # Match route
   my $corpus = $r->route('/corpus/:corpus_id');

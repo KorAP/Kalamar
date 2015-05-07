@@ -8,12 +8,12 @@
 
 <h2>Query Languages</h2>
 
-<section id="tut-intro">
+<section id="intro">
   <h3>Frontend Features</h3>
   <p>This frontend differs to the <%= link_to 'official frontend', 'http://korap.ids-mannheim.de/app/', target => '_blank' %> by providing a serialization view, an integrated tutorial, a comparison view for morphological annotations, and an autocompletion for closed annotations (type in <%= kalamar_tut_link_to 'foundry prefixes', '/tutorial/foundries' %> like <code>cnx/</code>).</p>
 </section>
 
-<section id="tut-examples">
+<section id="examples">
   <h3>Example Queries</h3>
 
   %# Tests:

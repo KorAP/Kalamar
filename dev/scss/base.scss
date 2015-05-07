@@ -45,3 +45,16 @@ a {
     }
   }
 }
+
+// MailToChiffre
+a[onclick$='return PArok(this,false)'] {
+  direction:rtl;
+  unicode-bidi:bidi-override;
+  text-align:left
+}
+a[onclick$='return PArok(this,false)']>span:nth-child(1n+2){
+  display:none
+}
+a[onclick$='return PArok(this,false)']>span:nth-child(1)::after{
+  content:'@'
+}

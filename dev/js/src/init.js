@@ -7,6 +7,7 @@ define([
   'hint/array',
   'lib/alertify',
   'api',
+  'mailToChiffre',
   'util'
 ], function (matchClass,
 	     hintClass,
