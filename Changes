@@ -1,6 +1,12 @@
+0.15 2015-05-07
+        - Cleanup for GitHub release
+
 0.14 2015-04-15
         - Redesign of JS and Sass assets
 	- Introduced RequireJS
+	- Introduced VC
+	- Improved tutorial
+	- Localized client files
 
 0.13 2015-03-10
         - Project name is now "Kalamar"
