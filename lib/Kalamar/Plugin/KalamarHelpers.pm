@@ -16,8 +16,13 @@ sub register {
 
       my $url = $c->url_with('/img/korap-overview.svg');
 
+      my $base = $c->url_for('index');
+      if ($base->path->parts->[0]) {
+	$base->path->trailing_slash(1);
+      };
+
       # If there is a different base - append this as a base
-      $url->query([base => $c->url_for('index')->to_abs // '/']);
+      $url->query([base => $base->to_abs // '/']);
 
       $url->fragment($scope);
 
