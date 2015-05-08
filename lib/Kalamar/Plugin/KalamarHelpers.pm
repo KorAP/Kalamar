@@ -22,7 +22,7 @@ sub register {
       };
 
       # If there is a different base - append this as a base
-      $url->query([base => $base->to_abs // '/']);
+      $url->query([base => $base // '/']);
 
       $url->fragment($scope);
 
