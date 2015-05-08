@@ -35,10 +35,7 @@
 	 id="view-faq"><span><%= loc 'faq' %></span></a>
       % };
 -->
-      <a href="/doc"
-	 title="<%= loc 'tutorial' %>"
-	 class="tutorial"
-	 id="view-tutorial"><span><%= loc 'tutorial' %></span></a>
+      <%= link_to 'doc_start', title => loc('tutorial'), class => "tutorial", id => "view-tutorial", begin %><span><%= loc 'tutorial' %></span><% end %>
     </div>
   </form>
 </header>
