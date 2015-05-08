@@ -1,6 +1,5 @@
 <header>
-  <a href="/"
-     class="logo"><h1><span><%= title() // loc('korap_desc') %></span></h1></a>
+  <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span></h1><% end %>
   <div class="button top">
 <!--
     <a href="#"
