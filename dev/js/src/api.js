@@ -6,7 +6,7 @@ define(['util'], function () {
   // http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
   // http://stackoverflow.com/questions/6112744/load-javascript-on-demand
 
-  KorAP.URL = KorAP.URL || 'http://korap.ids-mannheim.de/kalamar';
+  KorAP.URL = KorAP.URL !== undefined ? KorAP.URL : 'http://korap.ids-mannheim.de/kalamar';
 
   KorAP.API = KorAP.API || {};
 

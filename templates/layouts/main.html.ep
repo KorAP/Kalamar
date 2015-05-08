@@ -37,7 +37,7 @@
 <script src="<%= (stash('prefix') // '') . '/js/' . loc('jsFile', 'kalamar-' . $Kalamar::VERSION . '-en.js') %>"></script>
 %= javascript begin  
   window.KorAP = window.KorAP || {};
-  % my $api = url_for('index')->to_abs;
+  % my $api = url_for('index');
   % $api =~ s!/$!!;
   KorAP.URL = '<%== $api %>';
 % end
