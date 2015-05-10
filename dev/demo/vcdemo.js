@@ -40,6 +40,7 @@ var json = {
               "key":"subTitle",
               "value":"Gedichte",
               "match":"match:eq",
+/*
               "rewrites" : [
                 {
                   "@type": "koral:rewrite",
@@ -47,6 +48,7 @@ var json = {
                   "operation" : "operation:injection",
                 }
               ]
+*/
             }
           ]
         }
@@ -62,16 +64,18 @@ var json = {
   ]
 };
 
-require(['vc','lib/domReady'], function (vcClass, domReady) {
+require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass, domReady) {
 
   var loc = KorAP.Locale;
 
+/*
   loc.AND = 'und';
   loc.OR  = 'oder';
   loc.VC_subTitle = 'Untertitel';
   loc.VC_title = 'Titel';
   loc.VC_pubDate = 'Veröffentlichungsdatum';
   loc.VC_pubPlace = 'Veröffentlichungsort';
+*/
 
   domReady(function() {
 
@@ -88,13 +92,14 @@ require(['vc','lib/domReady'], function (vcClass, domReady) {
 
     // show the current JSON serialization
     KorAP.showJSON = function () {
-      document.getElementById("json").innerHTML = JSON.stringify(vc.root().toJson());
+      var json = document.getElementById("json");
+      json.innerHTML = JSON.stringify(vc.root().toJson(), null, '  ');
+      hljs.highlightBlock(json);
     };
 
     // show the current query serialization
     KorAP.showQuery = function () {
       document.getElementById("query").innerHTML = vc.root().toQuery();
     };
-
   });
 });

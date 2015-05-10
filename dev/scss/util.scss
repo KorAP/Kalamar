@@ -1,4 +1,9 @@
 /**
+ * Some variables and mixins for Kalamar,
+ * other Sass styles will use.
+ */
+
+/**
  * Official IDS colors
  */
 $ids-orange-1: rgb(246, 168,   0);
@@ -34,29 +39,31 @@ $lightest-green: lighten($ids-green-1, 26%);
 /**
  * Blue Colors
  */
-$light-blue:     $ids-blue-2; // #cfe6f4;
-$dark-blue:      $ids-blue-1; // #73b2f4;
+$light-blue:     $ids-blue-2;
+$dark-blue:      $ids-blue-1;
 $darkest-blue:   darken($dark-blue, 40%);
-
 
 /**
  * Grey Colors
  */
 $middle-grey:  $ids-grey-1; // #999;
 $light-grey:   $ids-grey-2; // #ddd;
-// $dark-grey:    darken($light-grey, 55%); // #555;
-$dark-grey:    darken($middle-grey, 15%); // #555;
-// $nearly-white: #f5f5f5;
-$nearly-white: #fff;
+$dark-grey:    darken($middle-grey, 15%);
+$nearly-white: #fefefe;
 
+/**
+ * Red Colors (no IDS relation)
+ */
 $middle-red: #c1002b;
 $light-red: lighten($middle-red, 40%);
 $dark-red: darken($middle-red, 40%);
 
+
+/**
+ * Basic shadows
+ */
 $dark-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 $light-shadow: 1px 1px rgba(255,255,255,0.5);
-
-$total-results: $light-green;
 
 /**
  * KWIC colors
@@ -81,26 +88,35 @@ $choose-box-shadow: 2px 2px 2px  rgba(0,0,0,0.2);
 $standard-border-radius: 6px;
 $item-padding: 3pt 6pt;
 
+$total-results: $light-green;
+
 /**
- * Path information
+ * Path information - relative to css!
  */
-$img-path: '../img';
+$img-path:  '../img';
 $font-path: '../font';
 
 /**
  * Margins
  */
 $standard-margin: 40px;
-$right-distance: 40px;
+$right-distance: $standard-margin;
 $right-match-distance: $standard-margin / 2;
 $logo-left-distance: 230px;
 
-
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
 @mixin blind {
   position: absolute;
   margin-left: -3000px;
 }
 
+
+/**
+ * Chooseable items (default)
+ */
 @mixin choose-item {
   color: $choose-color;
   background-color: $choose-bg;
@@ -108,6 +124,9 @@ $logo-left-distance: 230px;
   text-shadow: $light-shadow;
 }
 
+/**
+ * Chooseable items (mouse over)
+ */
 @mixin choose-hover {
   color: $nearly-white;
   text-shadow: none;
@@ -115,6 +134,9 @@ $logo-left-distance: 230px;
   border-color: $darker-orange;
 }
 
+/**
+ * Chooseable items (not available)
+ */
 @mixin choose-inactive {
   color: lighten($choose-color, 20%);
   background-color: lighten($choose-bg, 20%);
@@ -122,6 +144,9 @@ $logo-left-distance: 230px;
   text-shadow: none;
 }
 
+/**
+ * Chooseable items (active)
+ */
 @mixin choose-active {
   color: $dark-green;
   text-shadow: none;
@@ -129,6 +154,9 @@ $logo-left-distance: 230px;
   border-color: $dark-green;
 }
 
+/**
+ * Chooseable items (action: remove something)
+ */
 @mixin choose-remove {
   color: $nearly-white;
   text-shadow: none;
@@ -136,25 +164,41 @@ $logo-left-distance: 230px;
   border-color: $dark-red;
 }
 
+/**
+ * Mixin for basic color transition
+ */
 @mixin color-transition {
   transition: color 0.3s ease 0s;
 }
 
+/**
+ * Mixing for basic text padding
+ */
 @mixin standard-text-padding {
   padding-left: .4em;
   padding-right: .4em;
 }
 
+
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ */
 @mixin box-sizing-box() {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
+/**
+ * Noisy background (probably not necessary)
+ */
 @mixin light-noise {
   background-image:url('#{$img-path}/noise.png');
 }
 
+/**
+ * Mixin for no-appearance rules
+ */
 // https://css-tricks.com/almanac/properties/a/appearance/
 @mixin no-appearance {
   -webkit-appearance:none;
@@ -164,7 +208,7 @@ $logo-left-distance: 230px;
 
 
 /**
- * Font Awesome symbols
+ * Font Awesome symbol table
  */
 $fa-bars:        "\f0c9";
 $fa-extlink:     "\f08e";
@@ -176,12 +220,12 @@ $fa-elipsis:     "\f141";
 $fa-previous:    "\f0d9";
 $fa-next:        "\f0da";
 $fa-search:      "\f002";
-$fa-rewrite:     "\f040"; // "\f14b"
+$fa-rewrite:     "\f040";
 $fa-login:       "\f090";
 $fa-logout:      "\f08b";
 $fa-tutorial:    "\f19d";
 $fa-left-align:  "\f036";
 $fa-right-align: "\f038";
-$fa-question:    "\f128"; // "\f059";
+$fa-question:    "\f128";
 $fa-checked:     "\f046";
 $fa-check:       "\f096";

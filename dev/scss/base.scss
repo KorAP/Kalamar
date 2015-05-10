@@ -1,7 +1,14 @@
 @charset "utf-8";
 @import "util";
 
-body, html, select, g > text {
+/**
+ * Basic global CSS rules for Kalamar
+ */
+
+body,
+html,
+select,
+g > text {
   color: $dark-grey;
   font-family: verdana, tahoma, arial;
   margin: 0;
@@ -27,17 +34,6 @@ body {
 
 
 a {
-  &[href^="http://"]::after,
-  &[href^="https://"]::after {
-    font-family: FontAwesome;
-    content: " " + $fa-extlink;
-    font-size: 75%;
-  }
-  &.doc-link::after {
-    font-family: FontAwesome;
-    content: " " + $fa-tutorial;
-    font-size: 75%;
-  }
   &:link {
     color: $dark-orange;
     text-decoration: none;
@@ -46,20 +42,39 @@ a {
       @include color-transition;
     }
   }
+
+  // Visited links
   &:visited {
     color: $darkest-orange;
   }
+
+  // External links
+  &[href^="http://"]::after,
+  &[href^="https://"]::after {
+    font-family: FontAwesome;
+    content: " " + $fa-extlink;
+    font-size: 75%;
+  }
+
+  // Link to documentation
+  &.doc-link::after {
+    font-family: FontAwesome;
+    content: " " + $fa-tutorial;
+    font-size: 75%;
+  }
 }
 
-// MailToChiffre
+// Styles for Mojolicious::Plugin::TagHelpers::MailToChiffre
 a[onclick$='return PArok(this,false)'] {
   direction:rtl;
   unicode-bidi:bidi-override;
-  text-align:left
-}
-a[onclick$='return PArok(this,false)']>span:nth-child(1n+2){
-  display:none
-}
-a[onclick$='return PArok(this,false)']>span:nth-child(1)::after{
-  content:'@'
+  text-align:left;
+  & > span {
+    &:nth-child(1n+2){
+      display:none
+    }
+    &:nth-child(1)::after{
+      content:'@'
+    }
+  }
 }

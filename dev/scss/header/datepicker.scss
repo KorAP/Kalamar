@@ -1,15 +1,24 @@
 @charset "utf-8";
 @import "../util";
 
+/**
+ * Rules for the datepicker widget
+ * (used in the Virtual Collection creator)
+ * in Kalamar.
+ */
+
 $border-size: 2px;
 
 div.datepicker {
   display: inline-block;
   position: absolute;
   z-index: 8000;
+
   font-size: 80%;
   padding: 4pt;
+  @include choose-item;
   box-shadow: $choose-box-shadow;
+
   border: {
     width: $border-size;
     style: solid;
@@ -18,57 +27,58 @@ div.datepicker {
   > div {
     font-size: 120%;
     width: 45%;
-  }
-  > div.month {
-    float: right;
-  }
+    &.month {
+      float: right;
+    }
 
-  @include choose-item;
-  > div > span {
-    display: inline-block;
-    &:first-child,
-    &:last-child {
-      width: 15%;
-      &::before {
-	display: inline-block;
-	text-align: center;
-	cursor: pointer;
-	font-family: 'FontAwesome';
-	min-width: 14px;
-      }
-    }
-    &:first-child::before {
-      content: $fa-previous;
-    }
-    &:last-child::before {
-      content: $fa-next;
-    }
-    overflow: hidden;
-    white-space: nowrap;
-    &:nth-child(2) {
-      cursor: pointer;
+    > span {
       display: inline-block;
-      width: 70%;
-      text-align: center;
-      text-overflow: ellipsis;
-      border: {
-	radius: $standard-border-radius;
-	style: solid;
-	width: $border-size;
-	color: transparent;
+      &:first-child,
+      &:last-child {
+	width: 15%;
+	&::before {
+	  display: inline-block;
+	  text-align: center;
+	  cursor: pointer;
+	  font-family: 'FontAwesome';
+	  min-width: 14px;
+	}
       }
-      &:hover {
-	@include choose-hover;
+      &:first-child::before {
+	content: $fa-previous;
       }
-      &.selected {
-	@include choose-active;
+      &:last-child::before {
+	content: $fa-next;
+      }
+      overflow: hidden;
+      white-space: nowrap;
+      &:nth-child(2) {
+	cursor: pointer;
+	display: inline-block;
+	width: 70%;
+	text-align: center;
+	text-overflow: ellipsis;
+	border: {
+	  radius: $standard-border-radius;
+	  style: solid;
+	  width: $border-size;
+	  color: transparent;
+	}
+	&:hover {
+	  @include choose-hover;
+	}
+	&.selected {
+	  @include choose-active;
+	}
       }
     }
   }
+  
   table {
     border-collapse: separate;
     border-spacing: 1px;
   }
+
   td {
     @include standard-text-padding;
     text-align: center;

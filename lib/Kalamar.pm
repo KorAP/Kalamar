@@ -102,3 +102,8 @@ grunt
 Some perl modules are not on github yet, so you need to install them from github using cpanm:
 
   cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+
+
+=head2 LICENSE
+
+Highlight.js is released under the BSD License.

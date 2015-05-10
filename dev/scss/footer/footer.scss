@@ -1,6 +1,9 @@
 @charset "utf-8";
 @import "../util";
 
+/**
+ * Rules for the footer section of Kalamar
+ */
 footer {
   position: absolute;
   background-color: $dark-grey;
@@ -11,11 +14,12 @@ footer {
   a:link {
     margin: 0 .5em;
     color: $light-grey;
-    &:hover {
-      color: $nearly-white;
-    }
-    &:active, &:visited {
-      color: $dark-grey;
-    }
+  }
+  &:hover {
+    color: $nearly-white;
+  }
+  &:active,
+  &:visited {
+    color: $dark-grey;
   }
 }

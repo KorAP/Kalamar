@@ -1,25 +1,40 @@
 @charset "utf-8";
 @import "util";
 
+/**
+ * Media rules for different screen sizes.
+ * This will override some basic rules.
+ */
+
 $standard-margin: 4px;
 
 @media (orientation: portrait), (max-width: 42.5em) {
-  body, #search ol, header, header input {
+  body,
+  #search ol,
+  header,
+  header input,
+  div.resultinfo p.found,
+  #pagination > a {
     font-size: 9pt;
   }
+
   header form {
-    padding-left: 0px;
+    padding-left: 0;
     padding-top: 33px;
   }
+
   .vc {
     font-size: 9pt;
   }
+
   h1 {
     margin-left: 10px;
     width: 130px;
     height: 40px;
-    background-size: 100%;
-    background-position: 50% 0;
+    background: {
+      size: 100%;
+      position: 50% 0;
+    }
     z-index: 300;
   }
 
@@ -75,11 +90,6 @@ $standard-margin: 4px;
     }
   }
 
-  div.resultinfo p.found,
-  #pagination > a {
-    font-size: 9pt;
-  }
-
   #logos {
     margin-left: 0;
     margin-right: 0;
@@ -124,10 +134,4 @@ $standard-margin: 4px;
   main.tutorial {
     margin-right: 30px;
   }
-
-/*
-  pre.query {
-    font-size: 9.5pt;
-  }
-*/
 }

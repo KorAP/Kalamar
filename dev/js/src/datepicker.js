@@ -35,6 +35,7 @@ define(['util'], function () {
 
     // Init datepicker
     _init : function () {
+      this._selected = [];
       return this;
     },
 
@@ -96,7 +97,7 @@ define(['util'], function () {
       // Show year
       this._showYear = year ? year :
 	(this._selected['year'] ? this._selected['year'] :
-	 today.getYear());
+	 today.getYear() + 1900);
 
       // Show month
       this._showMonth = month ? month :
