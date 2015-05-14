@@ -192,6 +192,7 @@ define([
     root : function (obj) {
       if (arguments.length === 1) {
 	var e = this.element();
+
 	if (e.firstChild !== null) {
 	  if (e.firstChild !== obj.element()) {
 	    e.replaceChild(obj.element(), e.firstChild);
@@ -225,7 +226,7 @@ define([
 
       // Initialize root
       this._element.appendChild(this._root.element());
-
+      
       return this._element;
     },
 
@@ -239,6 +240,42 @@ define([
       return this;
     },
 
+    /**
+     * Make the vc persistant by injecting the current timestamp
+     * as a creation date limit criterion.
+     */
+    makePersistant : function () {
+//      this.root().wrapOnRoot('and');
+      var todayStr = KorAP._vcDatePicker.today();
+      var doc = docClass.create();
+      var root = this.root();
+
+      if (root.ldType() === 'docGroup' &&
+	  root.operation === 'and') {
+	root.append(cond);
+      }
+      else {
+	root.wrapOnRoot('and');
+	root.append(doc);
+      };
+
+      doc.key("creationDate");
+      doc.type("date");
+      doc.matchop("leq");
+      doc.value(todayStr);
+
+/*
+ {
+	"@type" : "koral:doc",
+	"key" : "creationDate",
+	"type" : "type:date",
+	"match" : "match:leq",
+	"value" : todayStr
+      }
+      this.root().append(cond);
+*/
+      this.update();
+    },
 
     /**
      * Get the generated json string

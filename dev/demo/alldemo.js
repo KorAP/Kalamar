@@ -416,6 +416,114 @@ var hintArray = {
   ]
 };
 
+var queryExample = {"wrap":{"layer":"orth","match":"match:eq","foundry":"opennlp","key":"Baum","@type":"korap:term"},"@type":"korap:token"};
+
+queryExample = {
+  "@context" : "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+  "collection" : {
+    "@type" : "koral:doc",
+    "key" : "pubDate",
+    "value" : "2005-05-25",
+    "type" : "type:date",
+    "match" : "match:geq" 
+  },
+  "query" : {}
+};
+
+queryExample = {
+   "@type" : "koral:docGroup",
+   "operation" : "operation:and",
+   "operands" : [{
+      "@type":"koral:doc",
+      "key":"title",
+      "match":"match:eq",
+      "value":"Der Birnbaum",
+      "type":"type:string"
+    },{
+      "@type":"koral:doc",
+      "key":"pubPlace",
+      "match":"match:eq",
+      "value":"Mannheim",
+      "type":"type:string"
+    }
+   ]
+ };
+
+queryExample = {
+  "@context" : "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+  "collection" : {},
+  "query" : {
+    "@type":"koral:group",
+    "operation" : "operation:sequence",
+    "operands" : [
+      {
+      "@type" : "koral:token",
+      "wrap" : {
+        "@type" : "koral:termGroup",
+        "relation" : "relation:and",
+        "operands" : [ {
+          "@type" : "koral:term",
+          "foundry" : "tt",
+          "key" : "ADJA",
+          "layer" : "pos",
+          "match" : "match:eq"
+      	},
+		       {
+			 "@type" : "koral:term",
+          "foundry" : "cnx",
+          "key" : "@PREMOD",
+          "layer" : "syn",
+          "match" : "match:eq"
+		       } ]
+    }
+      },
+      {
+      "@type" : "koral:token",
+      "wrap" : {
+        "@type" : "koral:term",
+        "key" : "octopus",
+        "layer" : "lemma",
+        "match" : "match:eq"
+      }
+    } ]
+  }
+};
+
+
+queryExample = {
+  "@context" : "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+  "collection" : {
+    "@type" : "koral:doc",
+    "key" : "pubDate",
+    "value" : "2005-05-25",
+    "type" : "type:date",
+    "match" : "match:geq" 
+  },
+  "query" : {
+    "@type" : "koral:token",
+    "wrap" : {
+      "@type" : "koral:term",
+      "key" : "octopus",
+      "layer" : "lemma",
+      "match" : "match:eq"
+    }
+  }
+};
+
+queryExample = {
+  "@type":"koral:doc",
+  "key":"subTitle",
+  "value":"Gedichte",
+  "match":"match:eq",
+  "rewrites" : [
+    {
+      "@type": "koral:rewrite",
+      "src" : "policy",
+      "operation" : "operation:injection",
+    }
+  ]
+};
+
 
 requirejs.config({
   baseUrl: '../js/src',
@@ -423,6 +531,8 @@ requirejs.config({
     'lib': '../lib'
   }
 });
+
+// KorAP.currentQuery = queryExample;
 
 require(['init'], function (init) {
 

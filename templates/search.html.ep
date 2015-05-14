@@ -27,3 +27,5 @@
 % } else {
 <p id="no-results"><%== loc 'noMatches', q => search->query %></p>
 % }
+
+%= include 'query'

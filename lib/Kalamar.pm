@@ -29,6 +29,15 @@ sub startup {
       };
     }) if $self->mode eq 'production';
 
+  # Cache static assets
+  $self->hook(
+    after_static => sub {
+      my $res = shift->res;
+      if ($res->code) {
+	$res->headers->cache_control('public, max-age=172800');
+      };
+    });
+
   # Set secrets for signed cookies
   if (-e (my $secret = $self->home . '/kalamar.secret')) {
     $self->secrets([

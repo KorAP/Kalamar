@@ -2,6 +2,8 @@
 @import "../util";
 
 $border-size: 2px;
+$right-padding: 60px;
+
 
 /**
  * Input field
@@ -23,7 +25,7 @@ header input {
 #searchbar {
   position: relative;
   width: 100%;
-  padding-right: 60px;
+  padding-right: $right-padding;
   button[type=submit] {
     position: absolute;
     font-weight: normal;
@@ -71,6 +73,21 @@ header input {
     right: 0;
   }
 }
+
+#koralquery {
+  margin-top: 10px;
+  margin-right: 40px;
+  border: {
+    radius: $standard-border-radius;
+    color: $dark-green;
+    style: solid;
+    width: $border-size;
+  }
+  white-space: pre;
+  background-color: $nearly-white;
+  color: $dark-grey;
+}
+
 
 /**
  * Checkbox styling

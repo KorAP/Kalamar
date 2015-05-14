@@ -118,6 +118,18 @@ define(['util'], function () {
       return this._element;
     },
 
+    /**
+     * Get the current date in string format.
+     */
+    today : function () {
+      var today = new Date();
+      var str = today.getYear() + 1900;
+      var m = today.getMonth() + 1;
+      var d = today.getDate();
+      str += '-' + (m < 10 ? '0' + m : m);
+      str += '-' + (d < 10 ? '0' + d : d);
+      return str;
+    },
 
     /**
      * Increment the year.

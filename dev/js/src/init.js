@@ -8,6 +8,7 @@ define([
   'lib/alertify',
   'api',
   'mailToChiffre',
+  'lib/highlight/highlight.pack',
   'util'
 ], function (matchClass,
 	     hintClass,
@@ -154,6 +155,15 @@ define([
 
     // Initialize documentation links
     obj.tutorial.initDocLinks(document);
+
+    if (KorAP.currentQuery !== undefined) {
+      var sb = document.getElementById('searchbar');
+      var kq = document.createElement('div');
+      kq.setAttribute('id', 'koralquery');
+      sb.parentNode.insertBefore(kq, sb.nextSibling);
+      kq.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
+      hljs.highlightBlock(kq);
+    };
 
     /**
      * Init hint helper

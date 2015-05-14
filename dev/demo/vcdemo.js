@@ -101,5 +101,10 @@ require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass
     KorAP.showQuery = function () {
       document.getElementById("query").innerHTML = vc.root().toQuery();
     };
+
+    // make the current vc persistant
+    KorAP.makeVCPersistant = function () {
+      vc.makePersistant();
+    };
   });
 });
