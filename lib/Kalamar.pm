@@ -18,7 +18,7 @@ sub startup {
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
-  # korap.ids-mannheim.de specific
+  # korap.ids-mannheim.de specific path prefixing
   $self->hook(
     before_dispatch => sub {
       my $c = shift;
@@ -30,6 +30,7 @@ sub startup {
     }) if $self->mode eq 'production';
 
   # Cache static assets
+  # (not necessary, as long as shipped by nginx or Apache)
   $self->hook(
     after_static => sub {
       my $res = shift->res;
@@ -40,9 +41,9 @@ sub startup {
 
   # Set secrets for signed cookies
   if (-e (my $secret = $self->home . '/kalamar.secret')) {
-    $self->secrets([
-      b($secret)->slurp->split("\n")
-    ]);
+
+    # Load file and split lines for multiple secrets
+    $self->secrets([b($secret)->slurp->split("\n")]);
   }
   else {
     $self->log->warn('Please create a kalamar.secret file');
@@ -55,9 +56,10 @@ sub startup {
     'Notifications',             # Client notifications
     'Search',                    # Abstract Search framework
     'CHI',                       # Global caching mechanism
+    'MailException'              # Alert via Email on exception
     'TagHelpers::Pagination',    # Pagination widget
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
-    'KalamarHelpers'             # Specific Helpers for Kalamar
+    'KalamarHelpers',            # Specific Helpers for Kalamar
   ) {
     $self->plugin($_);
   };
@@ -72,10 +74,10 @@ sub startup {
   # Establish routes
   my $r = $self->routes;
 
-  # Base query page
+  # Base query route
   $r->get('/')->to('search#query')->name('index');
 
-  # Documentation
+  # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:page')->to('documentation#page', scope => undef);
   $r->get('/doc/*scope/:page')->to('documentation#page')->name('doc');

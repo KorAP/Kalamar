@@ -39,6 +39,7 @@ define(['util'], function () {
       return this;
     },
 
+
     /**
      * Get or select a specific date.
      */
@@ -80,6 +81,7 @@ define(['util'], function () {
       this._click = cb;
     },
 
+
     /**
      * Show the datepicker.
      * Will either show the selected year/month
@@ -111,12 +113,14 @@ define(['util'], function () {
       return this._element;
     },
 
+
     /**
      * Get the HTML element associated with the datepicker.
      */
     element : function () {
       return this._element;
     },
+
 
     /**
      * Get the current date in string format.
@@ -131,27 +135,36 @@ define(['util'], function () {
       return str;
     },
 
+
     /**
      * Increment the year.
      */
     incrYear : function () {
-      this._showYear++;
-      this._updateYear();
-      this._updateMonth();
-      this._updateDay();
+      if (this._showYear < 9999) {
+	this._showYear++;
+	this._updateYear();
+	this._updateMonth();
+	this._updateDay();
+	return this;
+      };
       return;
     },
+
 
     /**
      * Decrement the year.
      */
     decrYear : function () {
-      this._showYear--;
-      this._updateYear();
-      this._updateMonth();
-      this._updateDay();
+      if (this._showYear > 0) {
+	this._showYear--;
+	this._updateYear();
+	this._updateMonth();
+	this._updateDay();
+	return this;
+      };
       return;
     },
+
 
     /**
      * Increment the month.
@@ -166,7 +179,9 @@ define(['util'], function () {
 	this._updateMonth();
 	this._updateDay();
       };
+      return this;
     },
+
 
     /**
      * Decrement the month.
@@ -181,6 +196,8 @@ define(['util'], function () {
 	this._updateMonth();
 	this._updateDay();
       };
+
+      return this;
     },
 
 

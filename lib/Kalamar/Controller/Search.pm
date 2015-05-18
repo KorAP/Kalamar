@@ -66,11 +66,12 @@ sub query {
 };
 
 
-
 # Get information about a match
+# Note: This is called 'match_info' as 'match' is reserved
 sub match_info {
   my $c = shift;
 
+  # Old API foundry/layer usage
   my $foundry = '*';
   my %query = (foundry => '*');
   if ($c->param('foundry')) {
@@ -83,6 +84,7 @@ sub match_info {
     };
   };
 
+  # Async
   $c->render_later;
 
   # Use the API for fetching matching information non-blocking
@@ -136,7 +138,8 @@ Kalamar::Controller::Search
 =head1 DESCRIPTION
 
 L<Kalamar::Controller::Search> is the controller class for
-search related endpoints in Kalamar.
+search related endpoints in Kalamar. Actions are released when routes
+match.
 
 
 =head1 METHODS
@@ -144,38 +147,84 @@ search related endpoints in Kalamar.
 L<Kalamar::Controller::Search> inherits all methods from
 L<Mojolicious::Controller> and implements the following new ones.
 
-=head2 search
+=head2 query
 
-Action for all documentation pages.
+  GET /?q=Baum&ql=poliqarp
+
+Action for all queries to the system. Returns C<HTML> only for the moment.
+
+The following parameters are supported.
+
 
 =head3 q
 
-Query parameter
+The query string. This may any query written in a supported query language.
 
 =head3 ql
 
-Query language
+The query language. This may be any query language supported by the system,
+written as the API expects the string.
 
 =head3 action
 
-May be C<inspect>.
+May be C<inspect>. In that case, the serialized request is mirrored instead of
+processed.
+
+B<This switch is experimental and may change without warnings!>
+
 
 =head3 snippet
 
+If set, the query is returned in the snippet view template.
+
+B<This parameter is experimental and may change without warnings!>
+
+
 =head3 cutoff
+
+If set, the query will be cut off after the matches.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
 
 =head3 count
 
+If set, the query will be only return the given number of matches,
+in case the API supports it. Will fallback to the default number of matches defined
+by the API or the backend.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+
 =head3 p
 
-Number of page
+If set, the query will page to the given number of pages in the result set.
+Will default to 1.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
 
 
 =head2 match
 
-/:corpus_id/:doc_id/:text_id/:match_id
+  /:corpus_id/:doc_id/:text_id/:match_id?foundry=*
+
+Returns information to a match either as a C<JSON> or an C<HTML> document.
+The path defines the concrete match, by corpus identifier, document identifier,
+text identifier (all information as given by DeReKo), and match identifier
+(essentially the position of the match in the document, including highlight information).
+
+The following parameters are supported.
+
 
 =head3 foundry
+
+Expects a foundry definition for retrieved information.
+If not given, returns all annotations for the match.
+If given, returns only given layer information for the defined foundry.
+
+B<This parameter is experimental and may change without warnings!>
+
 
 =head3 layer
 
@@ -201,13 +250,13 @@ Copyright (C) 2015, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
-Corpus Analysis Platform at the Institute for German Language
-(L<IDS|http://ids-mannheim.de/>),
-funded by the
+Corpus Analysis Platform at the
+L<Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+member of the
 L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
 and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
-funded by the Federal Ministry of Education and Research
-(L<BMBF|http://www.bmbf.de/en/>).
+funded by the
+L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
 
 Kalamar is free software published under the
 L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
