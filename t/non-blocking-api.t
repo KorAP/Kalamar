@@ -1,7 +1,6 @@
-
 use Mojo::Base -strict;
 use lib '../lib', 'lib';
-use Test::More;
+use Test::More skip_all => 'No remote tests';
 use Test::Mojo;
 use Mojo::URL;
 use Benchmark qw/:hireswallclock/;
@@ -82,7 +81,7 @@ $t->app->routes->get('/traceasync')->to(
 my $matchtemplate = <<'MATCHTEMPLATE';
 <p id="api"><%= search->api %></p>
 <p id="api_request"><%= search->api_request %></p>
-<p id="search-result"><%= search->results->first->{docID} %></p>
+<p id="search-result"><%= search->results->first->{docID} . '.' . search->results->first->{textID} %></p>
 MATCHTEMPLATE
 
 
@@ -92,6 +91,7 @@ $t->app->routes->get('/matchinfo')->to(
     $c->search->match(
       corpus_id => $c->param('corpus_id'),
       doc_id    => $c->param('doc_id'),
+      text_id   => $c->param('text_id'),
       match_id  => $c->param('match_id'),
       foundry => '*',
       sub {
@@ -163,11 +163,11 @@ $t->get_ok('/collectioninfo')
   ->status_is(200)
   ->text_is('#search-resource', 'Wikipedia');
 
-
 # http://10.0.10.14:6666/corpus/WPD/WWW.04738/p265-266
 $t->get_ok(Mojo::URL->new('/matchinfo')->query({
   corpus_id => 'WPD',
-  doc_id => 'WWW.04738',
+  doc_id => 'WWW',
+  text_id => '04738',
   match_id => 'p265-266'
 }))
   ->status_is(200)

@@ -12,7 +12,7 @@ WriteMakefile(
   BUILD_REQUIRES => {
     'Test::More' => 0
   },
-  LICENSE      => 'artistic_2',
+  LICENSE      => 'bsd_2',
   PREREQ_PM => {
     'Mojolicious' => '5.00',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.05,

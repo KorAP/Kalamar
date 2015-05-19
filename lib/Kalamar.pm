@@ -3,7 +3,8 @@ use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
 use Mojo::JSON 'decode_json';
 
-our $VERSION;
+# Sync with package.json
+our $VERSION = '0.15.0';
 
 # TODO: The FAQ-Page has a contact form for new questions
 
@@ -12,8 +13,8 @@ sub startup {
   my $self = shift;
 
   # Set version based on package file
-  my $pkg = b($self->home . '/package.json')->slurp;
-  $Kalamar::VERSION = decode_json($pkg)->{version};
+  # my $pkg = b($self->home . '/package.json')->slurp;
+  # $Kalamar::VERSION = decode_json($pkg)->{version};
 
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
@@ -28,6 +29,7 @@ sub startup {
 	$c->stash(prefix => '/kalamar');
       };
     }) if $self->mode eq 'production';
+
 
   # Cache static assets
   # (not necessary, as long as shipped by nginx or Apache)
@@ -56,7 +58,7 @@ sub startup {
     'Notifications',             # Client notifications
     'Search',                    # Abstract Search framework
     'CHI',                       # Global caching mechanism
-    'MailException'              # Alert via Email on exception
+    'MailException',              # Alert via Email on exception
     'TagHelpers::Pagination',    # Pagination widget
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
@@ -115,6 +117,39 @@ Some perl modules are not on github yet, so you need to install them from github
   cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
 
 
-=head2 LICENSE
+  perl Makefile.PL
+  make test
 
-Highlight.js is released under the BSD License.
+  morbo script/kalamar
+
+
+=head1 COPYRIGHT AND LICENSE
+
+=head2 Bundled Software
+
+C<ALERTIFY.js> is released under the terms of the MIT License.
+C<Almond> is released under the terms of the BSD License.
+C<dagre> is released under the terms of the MIT License.
+C<Highlight.js> is released under the terms of the BSD License.
+C<Jasmine> is released under the terms of the MIT License.
+C<RequireJS> is released under the terms of the BSD License.
+
+
+=head2 Original Software
+
+Copyright (C) 2015, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Author: L<Nils Diewald|http://nils-diewald.de/>
+
+Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
+Corpus Analysis Platform at the
+L<Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+member of the
+L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
+and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
+funded by the
+L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
+
+Kalamar is free software published under the
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+
+=cut
