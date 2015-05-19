@@ -1985,13 +1985,21 @@ define(['vc'], function () {
 
     it('should have a toggleble regex value', function () {
       var sv = stringValClass.create();
+
+      expect(sv.element().firstChild.value).toBe('');
+      sv.element().firstChild.value = 'der'
+      expect(sv.element().firstChild.value).toBe('der');
+
       expect(sv.regex()).toBe(false);
 
       sv.toggleRegex();
+      expect(sv.element().firstChild.value).toBe('der');
       expect(sv.regex()).toBe(true);
+      sv.element().firstChild.value = 'derbe'
 
       sv.toggleRegex();
       expect(sv.regex()).toBe(false);
+      expect(sv.element().firstChild.value).toBe('derbe');
     });
 
     it('should have an element', function () {

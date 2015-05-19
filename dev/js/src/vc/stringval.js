@@ -64,6 +64,7 @@ define({
   value : function (val) {
     if (arguments.length === 1) {
       this._value = val;
+      this._input.value = val;
       this._update();
     };
     return this._value;
@@ -72,7 +73,8 @@ define({
 
   // Update dom element
   _update : function () {
-    this._input.value = this._value;
+    this._value = this._input.value;
+
     if (this._regex) {
       this._element.classList.add('regex');
     }
