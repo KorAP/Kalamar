@@ -78,7 +78,7 @@ define([
      * Toggle the alignment (left <=> right)
      */
     if (i > 0) {
-      var br = document.getElementById('button-right');
+      var br = document.querySelector('div.button.right');
       if (br !== null) {
 	var toggle = document.createElement('a');
 	toggle.setAttribute('title', 'toggle Alignment');
@@ -156,6 +156,7 @@ define([
     // Initialize documentation links
     obj.tutorial.initDocLinks(document);
 
+/*
     if (KorAP.currentQuery !== undefined) {
       var sb = document.getElementById('searchbar');
       var kq = document.createElement('div');
@@ -164,6 +165,7 @@ define([
       kq.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
       hljs.highlightBlock(kq);
     };
+*/
 
     /**
      * Init hint helper
