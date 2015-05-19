@@ -68,15 +68,40 @@ L<Mojolicious::Controller> and implements the following new ones.
 
 =head2 page
 
-Action for all documentation pages. The following stash parameters are supported:
+  /doc/*scope/:page
 
-=head3 doc_base
+Action for all documentation pages.
+The following query parameters are supported:
 
-=head3 scope
+=over 2
 
-=head3 page
+=item embedded
 
-=head3 embedded
+A boolean value, indicating if the documentation is embedded in the
+user interface or on a separated website.
+
+=back
+
+The following path parameters are supported:
+
+=over 2
+
+=item B<scope>
+
+A top level directory entry for documentation data (like C<KorAP> or C<Query Languages>).
+
+=item B<page>
+
+The requested page in the scope.
+
+=back
+
+
+=head2 contact
+
+Action for a contact page. Doesn't do anything more meaningful at the moment but
+will probably contain a form field for feedback in the future.
+
 
 =head1 COPYRIGHT AND LICENSE
 

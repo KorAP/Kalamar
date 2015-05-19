@@ -497,15 +497,118 @@ __END__
 
 =pod
 
-Additionally supported query parameters:
-- query_language
-- cutoff
-- no_cache
+=encoding utf8
 
-Additional index attributes:
-- api
-- time_exceeded
-- api_request
-- api_response
-- benchmark
-- query_jsonld
+=head1 NAME
+
+Kalamar::API
+
+=head1 DESCRIPTION
+
+L<Kalamar::API> is a search engine class for L<Mojolicious::Plugin::Search>
+that uses the KorAP Web API.
+
+B<The Web API as well as L<Mojolicious::Plugin::Search> are not stable yet,
+so this class is expected to change in the near future. Do not rely on its API!>
+
+
+=head1 METHODS
+
+L<Kalamar::API> inherits all methods from L<Mojolicious::Plugin> and
+implements the following new ones.
+
+
+=head2 register
+
+See L<Mojolicious::Plugin::Search> for registering search engines.
+In addition to the mentioned query parameters, the following parameters are supported:
+
+
+=over 2
+
+=item B<query_language>
+
+One of the supported query languages, like C<poliqarp> or C<annis>.
+
+
+=item B<cutoff>
+
+Cut off results following the current page (i.e. don't count the number of results).
+
+
+=item B<no_cache>
+
+Do not cache search results. Defaults to C<0>.
+
+
+=back
+
+In addition to the mentioned index attributes, the following attributes are supported:
+
+
+=item B<api>
+
+The API address.
+
+
+=item B<time_exceeded>
+
+Report on time outs, that may mean, not all results were retrieved.
+
+
+=item B<api_request>
+
+Report the whole API request.
+
+
+=item B<api_response>
+
+Report the whole API response (a KoralQuery object).
+
+
+=item B<benchmarks>
+
+Report on processing time for benchmarking.
+
+
+=item B<query_jsonld>
+
+The KoralQuery realization of the C<query> object.
+
+=back
+
+=head2 search
+
+Search the index.
+
+=head2 trace
+
+Trace query serializations.
+
+=head2 match
+
+Get match information.
+
+=head2 resource
+
+Get resource information.
+
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Author: L<Nils Diewald|http://nils-diewald.de/>
+
+Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
+Corpus Analysis Platform at the
+L<Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+member of the
+L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
+and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
+funded by the
+L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
+
+Kalamar is free software published under the
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+
+=cut
