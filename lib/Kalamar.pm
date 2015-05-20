@@ -104,23 +104,52 @@ __END__
 
 =pod
 
-The static files are generated using Grunt.
-To get started with Grunt, you need NodeJS > 0.8 ..., you'll need npm. Then you can install and run grunt:
+=encoding utf8
 
-sudo npm install -g grunt-cli
-npm install
-grunt
+=head1 NAME
 
-
-Some perl modules are not on github yet, so you need to install them from github using cpanm:
-
-  cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+Kalamar
 
 
-  perl Makefile.PL
-  make test
+=head1 DESCRIPTION
 
-  morbo script/kalamar
+L<Kalamar> is a L<Mojolicious|http://mojolicio.us/> based user interface
+frontend for the L<KorAP Corpus Analysis Platform|http://korap.ids-mannheim.de/>.
+
+=head1 INSTALLATION
+
+=head2 Generate Static Asset Files
+
+To generate the static asset files (scripts, styles, images ...),
+you need NodeJS E<gt> 0.8 and Grunt. To install Grunt, just run
+
+  $ sudo npm install -g grunt-cli
+  $ npm install
+  $ grunt
+
+
+=head2 Start Server
+
+Kalamar uses the L<Mojolicious|http://mojolicio.us/> framework,
+that expects a Perl version of at least 5.10.1.
+The recommended environment is based on L<Perlbrew|http://perlbrew.pl/>
+with L<App::cpanminus>.
+
+Some perl modules are not on CPAN yet,
+so you need to install them from GitHub.
+The easiest way to do this is running
+
+  $ cpanm git://github.com/Akron/Mojolicious-Plugin-Search.git
+  $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+  $ cpanm --installdeps .
+  $ perl Makefile.PL
+  $ make test
+
+Kalamar can be deployed like all
+L<Mojolicious apps|http://mojolicio.us/perldoc/Mojolicious/Guides/Cookbook#DEPLOYMENT>.
+The easiest way is to start the built-in server:
+
+  $ perl script/kalamar deamon
 
 
 =head1 COPYRIGHT AND LICENSE
