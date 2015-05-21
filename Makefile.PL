@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
   VERSION_FROM => 'lib/Kalamar.pm',
-  ABSTRACT     => 'Mojolicious based Frontend for KorAP',
+  ABSTRACT     => 'Mojolicious-based Frontend for KorAP',
   NAME         => 'Kalamar',
   AUTHOR       => 'Nils Diewald',
   BUILD_REQUIRES => {

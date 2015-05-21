@@ -1,6 +1,6 @@
 {
   "name": "Kalamar",
-  "description": "Mojolicious based Frontend for KorAP",
+  "description": "Mojolicious-based Frontend for KorAP",
   "version": "0.15.0",
   "repository" : {
     "type": "git",
