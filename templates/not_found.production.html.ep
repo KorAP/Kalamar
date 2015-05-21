@@ -1,5 +1,4 @@
-% my $msg = '404: Page not found';
-% layout 'main', title => 'KorAP: ' . $msg;
+% layout 'main', title => 'KorAP: ' . loc('notFound');
 
 <p id="no-results"><%= $msg %></p>
 

@@ -16,6 +16,8 @@
         by an unspecified document
   TODO: Implement "persistence"-Option,
         injecting the current creation date stamp
+  TODO: Implement vec-Type for document-id vectors
+        like docID in [1,2,3,4 ...]
 
   Error codes:
   701: "JSON-LD group has no @type attribute" 

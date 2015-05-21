@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 	files: [{
 	  expand: true,
 	  cwd: 'dev/img/',
-	  src: ['*.{png,gif,jpg,svg}'],
+	  src: ['*.{png,gif,jpg}'],
 	  dest: 'public/img/'
 	}]
       }
@@ -89,19 +89,20 @@ module.exports = function(grunt) {
 	    timestamp: true
 	  },
 	  {
-	    expand: true,
+	    expand: false,
 	    cwd: 'dev/img/',
 	    src: 'favicon.ico',
 	    dest: 'public/',
+	    filter: 'isFile',
 	    nonull:true,
 	    timestamp:true
 	  },
-	  // Needs to overwrite the prepared svg as it corrupts the embedded js
 	  {
 	    expand: true,
 	    cwd: 'dev/img/',
-	    src: 'korap-overview.svg',
+	    src: '*.svg',
 	    dest: 'public/img/',
+	    filter: 'isFile',
 	    nonull:true,
 	    timestamp:true
 	  }
