@@ -22,7 +22,7 @@ WriteMakefile(
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
 
-    # Currently only on GitHub
+    # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Search' => 0.04,
     'Mojolicious::Plugin::Localize' => 0.08
   },

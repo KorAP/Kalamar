@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 	    timestamp: true
 	  },
 	  {
-	    expand: false,
+	    expand: true,
 	    cwd: 'dev/img/',
 	    src: 'favicon.ico',
 	    dest: 'public/',

@@ -74,7 +74,8 @@ sub register {
   # Documentation alert - Under Construction!
   $mojo->helper(
     doc_uc => sub {
-      return shift->tag('p', 'Under Construction!')
+      my $c = shift;
+      return $c->tag('p', $c->loc('underConstruction'));
     }
   );
 
@@ -231,3 +232,100 @@ sub register {
 
 __END__
 
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Kalamar::Plugin::KalamarHelpers
+
+
+=head1 DESCRIPTION
+
+L<Kalamar::Plugin::KalamarHelpers> makes Kalamar specific
+helpers for Mojolicious available.
+
+
+=head1 HELPERS
+
+=head2 doc_link_to
+
+  %# In templates
+  %= doc_link_to 'Kalamar', 'korap', 'kalamar'
+
+Create a link to the documentation. Accepts a name, a scope, and a page.
+
+
+=head2 doc_ext_link_to
+
+  %# In templates
+  %= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Koral"
+
+Creates a link to an external page, that will be opened in the top frame,
+in case it's in an embedded frame (used in the tutorial).
+
+=head2 doc_uc
+
+  %# In templates
+  %= doc_uc
+
+Generates an C<Under Construction> notification.
+
+
+=head2 doc_opener
+
+Currently not used.
+
+
+=head2 doc_navi
+
+Returns an HTML representation of the documentation navigation,
+based on active navigation items.
+
+
+=head2 doc_query
+
+  %# In templates
+  %= doc_query poliqarp => 'Baum'
+
+Creates an interactive query view for documentation purposes.
+
+
+=head2 kalamar_test_port
+
+  # In controllers
+  if ($c->kalamar_test_port) {
+    $c->app->log->debug('Kalamar runs on test port');
+  };
+
+Returns a C<true> value in case Kalamar runs on test port C<6666>.
+
+
+=head2 korap_overview
+
+  %# In templates
+  %= korap_overview 'kalamar'
+
+Returns a modified and relatified overview svg image to be embedded
+as an object in templates.
+
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Author: L<Nils Diewald|http://nils-diewald.de/>
+
+Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
+Corpus Analysis Platform at the
+L<Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+member of the
+L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
+and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
+funded by the
+L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
+
+Kalamar is free software published under the
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+
+=cut

@@ -1,4 +1,0 @@
-% content main => begin
-<p class="found">&nbsp;</p>
-%= include 'query'
-% end

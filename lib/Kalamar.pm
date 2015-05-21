@@ -164,12 +164,18 @@ Kalamar will then be available at C<localhost:3000> in your browser.
 
 =head2 Bundled Software
 
-C<ALERTIFY.js> is released under the terms of the MIT License.
-C<Almond> is released under the terms of the BSD License.
-C<dagre> is released under the terms of the MIT License.
-C<Highlight.js> is released under the terms of the BSD License.
-C<Jasmine> is released under the terms of the MIT License.
-C<RequireJS> is released under the terms of the BSD License.
+L<ALERTIFY.js|https://fabien-d.github.io/alertify.js/> is released under the terms of the MIT License.
+L<Almond|https://github.com/jrburke/almond> is released under the terms of the BSD License.
+L<dagre|https://highlightjs.org/> is released under the terms
+of the MIT License.
+L<Highlight.js|https://highlightjs.org/> is released under the terms
+of the BSD License.
+L<Jasmine|https://jasmine.github.io/> is released under the terms
+of the MIT License.
+L<RequireJS|http://requirejs.org/> is released under the terms
+of the BSD License.
+L<Font Awesome|http://fontawesome.io> by Dave Gandy
+is released under the terms of the L<SIL OFL 1.1|http://scripts.sil.org/OFL>.
 
 
 =head2 Original Software

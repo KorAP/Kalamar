@@ -1,7 +1,0 @@
-% content main => begin
-<div id="search" class="match">
-  <ol class="left-aligned">
-%= include 'match'
-  </ol>
-</div>
-% end
