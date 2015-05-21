@@ -1,5 +1,6 @@
-0.15 2015-05-07
+0.15 2015-05-21
         - Cleanup for GitHub release
+	- First realease on GitHub.
 
 0.14 2015-04-15
         - Redesign of JS and Sass assets
