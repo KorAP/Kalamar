@@ -15,7 +15,7 @@ To fetch the latest version of Kalamar ...
 
 ```
 $ git clone https://github.com/KorAP/Kalamar
-$ cd Krill
+$ cd Kalamar
 ```
 
 ### Generate Static Asset Files
@@ -64,6 +64,8 @@ $ perl script/kalamar daemon
 
 Kalamar will then be available at *localhost:3000* in your browser.
 
+**! By default, Kalamar tries to connect to the KorAP API at the IDS. You may not have access to this server!**
+
 
 ## COPYRIGHT AND LICENSE
 
@@ -89,7 +91,7 @@ is released under the terms of the
 
 ### Original Software
 
-Copyright (C) 2015, [IDS Mannheim](http://www.ids-mannheim.de/)
+Copyright (C) 2015, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](http://nils-diewald.de/)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)

@@ -59,7 +59,6 @@ sub startup {
     'Notifications',             # Client notifications
     'Search',                    # Abstract Search framework
     'CHI',                       # Global caching mechanism
-    'MailException',             # Alert via Email on exceptions
     'TagHelpers::Pagination',    # Pagination widget
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
