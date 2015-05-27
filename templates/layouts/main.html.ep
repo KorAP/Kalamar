@@ -4,7 +4,7 @@
     <title><%= title() // loc('korap_desc') %></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=false, user-scalable=no" />
-    <link href="<%= stash 'prefix' %>/img/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+    <link href="<%= stash 'prefix' %>/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
     <link href="<%= stash 'prefix' %>/css/kalamar-<%= $Kalamar::VERSION %>.css" type="text/css" rel="stylesheet" />
     %= javascript begin  
   window.KorAP = window.KorAP || {};
