@@ -43,7 +43,7 @@ This will probably need administration rights.
 
 ```
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-Search.git
-$ cpanm --force git://github.com/Akron/Mojolicious-Plugin-Localize.git
+$ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
 ```
 
 Then install the dependencies as always and run the test suite.
