@@ -4,7 +4,7 @@
 
   <p>Dies ist die neue Webschnittstelle von KorAP, <strong>Kalamar</strong>. Kalamar bietet derzeit nur Zugriff auf freie Korpora - für vollständigen Zugriff auf alle Korpora, verwenden Sie bitte die <a href="http://korap.ids-mannheim.de/app">erste Webschnittstelle</a>.
 
-  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <%= doc_opener 'ql', begin %>Einführung<% end %>!</p>
+  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <%= doc_opener 'korap', begin %>Einführung<% end %>!</p>
 
   <p>KorAP wird am <a href="http://www.ids-mannheim.de">Institut für Deutsche Sprache</a> in Mannheim entwickelt, Mitglied der <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Gemeinschaft</a>. Die einzelnen Module werden als Open Source auf <a href="http://github.com/KorAP">GitHub</a> veröffentlicht.</p>
 

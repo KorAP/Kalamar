@@ -1,6 +1,5 @@
 window.KorAP = window.KorAP || {};
 
-// TODO: Make this part of util!
 // Don't let events bubble up
 if (Event.halt === undefined) {
   // Don't let events bubble up
