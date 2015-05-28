@@ -25,15 +25,7 @@
     <div class="button right">
       % param(cutoff => 1) unless param 'q';
       %= check_box cutoff => 1, id => 'q-cutoff-field', class => 'checkbox'
-      <label for="q-cutoff-field"><span></span><%= loc('glimpse') %></label>
-<!--
-      % unless (current_route 'tutorial') {
-      <a href="/doc/faq"
-	 title="<%= loc 'faq' %>"
-	 class="question"
-	 id="view-faq"><span><%= loc 'faq' %></span></a>
-      % };
--->
+      <label for="q-cutoff-field" title="<%= loc('glimpse_desc') %>"><span></span><%= loc('glimpse') %></label>
       <%= link_to 'doc_start', title => loc('tutorial'), class => "tutorial", id => "view-tutorial", begin %><span><%= loc 'tutorial' %></span><% end %>
     </div>
   </form>
