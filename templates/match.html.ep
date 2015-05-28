@@ -9,6 +9,7 @@
     id="<%= $id %>"\
 <% if (current_route eq 'match') { %> class="active"<% } =%>>
   <div>
+    <div class="flag"></div>
 %# --- Snippet
     <div class="snippet<%= $match->{startMore} ? ' startMore' : '' %><%= $match->{endMore} ? ' endMore' : '' %>"><%== $match->{snippet} %></div>
   </div>

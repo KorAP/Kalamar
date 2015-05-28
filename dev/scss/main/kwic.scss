@@ -145,12 +145,12 @@ $border-size: 2px;
     > li.marked:not(.active):not(:target) {
       div.flag {
 	position: absolute;
-	background-color: $dark-orange;
 	top: 0;
 	width: 11px;
 	height: 100%;
 	margin-left: 50%;
-	border-right: 1px solid $light-orange;
+	background-color: $dark-orange;
+	border-right: 1px solid $darkest-orange;
       }
     }
   }
