@@ -15,11 +15,10 @@ footer {
     margin: 0 .5em;
     color: $light-grey;
   }
-  &:hover {
-    color: $nearly-white;
+  a:visited {
+    color: $light-grey;
   }
-  &:active,
-  &:visited {
-    color: $dark-grey;
+  a:hover {
+    color: $nearly-white;
   }
 }

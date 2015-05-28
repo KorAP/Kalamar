@@ -12,6 +12,11 @@
 div.intro {
   width: 70%;
   min-width: 600px;
+
+  // Visited links
+  a:visited {
+    color: $darkest-orange
+  }
 }
 
 

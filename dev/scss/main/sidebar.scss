@@ -64,6 +64,10 @@ aside {
       padding: 0;
       > a {
 	padding: $item-padding;
+	&:visited {
+	  @include choose-item;
+	}
+
       }
 
       li.folded {
@@ -87,10 +91,6 @@ aside {
 	}
 
 	display: block;
-	&:visited {
-	  @include choose-item;
-	  // color: inherited;
-	}
 	&:hover {
 	  // color: inherit;
 	  transition: none;

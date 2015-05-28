@@ -43,11 +43,6 @@ a {
     }
   }
 
-  // Visited links
-  &:visited {
-    color: $darkest-orange;
-  }
-
   // External links
   &[href^="http://"]::after,
   &[href^="https://"]::after {
