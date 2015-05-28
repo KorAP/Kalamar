@@ -54,7 +54,7 @@
 </section>
 
 
-<section>
+<section id="mate">
   <h3>Mate (<code>mate</code>)</h3>
   <dl>
     <dt><abbr data-type="token" title="Lemma">l</abbr></dt>

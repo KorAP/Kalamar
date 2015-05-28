@@ -23,6 +23,7 @@ $border-size: 2px;
     border: 1px solid $kwic-border;
     font-size: 10pt;
     > li {
+      position: relative;
       border: {
 	style: solid;
 	color: $dark-orange;
@@ -43,10 +44,12 @@ $border-size: 2px;
 	.matchinfo {
 	  display: none;
 	}
-	> div > div.snippet {
-	  text-overflow: ellipsis;
-	  text-indent: 0;
-	  text-shadow: $light-shadow;
+	> div {
+	  > div.snippet {
+	    text-overflow: ellipsis;
+	    text-indent: 0;
+	    text-shadow: $light-shadow;
+	  }
 	}
       }
       > div {
@@ -127,20 +130,32 @@ $border-size: 2px;
       &:not(.active):not(:target) p.ref {
 	display: none;
       }
-      &.active p.ref,
-      &:target p.ref {
-//	background-color: $dark-orange;
-	color: white;
-	padding: 3pt 10pt;
-	padding-right: $right-match-distance;
-	margin: 0pt;
-	width: 100%;
-	bottom: 0;
-	z-index: 30;
+      &.active, &:target {
+	p.ref {
+	  color: white;
+	  padding: 3pt 10pt;
+	  padding-right: $right-match-distance;
+	  margin: 0pt;
+	  width: 100%;
+	  bottom: 0;
+	  z-index: 30;
+	}
+      }
+    }
+    > li.marked:not(.active):not(:target) {
+      div.flag {
+	position: absolute;
+	background-color: $dark-orange;
+	top: 0;
+	width: 11px;
+	height: 100%;
+	margin-left: 50%;
+	border-right: 1px solid $light-orange;
       }
     }
   }
 }
+
 
 ul.action {
 //  background-color: $dark-orange;

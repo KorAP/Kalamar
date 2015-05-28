@@ -5,6 +5,7 @@ fixtures.txt
 sandbox
 Sandbox
 node_modules
+cache/data
 public
 .sass-cache
 dev/css
