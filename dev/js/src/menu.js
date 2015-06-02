@@ -112,10 +112,12 @@ define([
 	  break;
 
 	var item = this.liveItem(this._position);
+
 	if (item["further"] !== undefined) {
 	  item["further"].bind(item).apply();
-	  e.halt();
 	};
+
+	e.halt();
 	break;
       case 13: // 'Enter'
 

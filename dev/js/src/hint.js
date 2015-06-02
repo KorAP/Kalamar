@@ -158,16 +158,6 @@ define([
       if (this.active)
 	return;
 
-      // Initialize the menus position
-      /*
-      if (this._firstTry) {
-	this._inputField.reposition();
-	this._firstTry = false;
-      };
-      */
-
-      // update
-
       // Get the menu
       var menu;
       if (menu = this.contextMenu(ifContext)) {
