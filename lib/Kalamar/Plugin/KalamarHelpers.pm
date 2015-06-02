@@ -326,6 +326,6 @@ funded by the
 L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
 
 Kalamar is free software published under the
-L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
 
 =cut

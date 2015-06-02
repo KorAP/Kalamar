@@ -75,7 +75,7 @@ The following query parameters are supported:
 
 =over 2
 
-=item embedded
+=item B<embedded>
 
 A boolean value, indicating if the documentation is embedded in the
 user interface or on a separated website.
@@ -118,6 +118,6 @@ funded by the Federal Ministry of Education and Research
 (L<BMBF|http://www.bmbf.de/en/>).
 
 Kalamar is free software published under the
-L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
 
 =cut

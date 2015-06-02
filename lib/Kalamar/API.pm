@@ -545,6 +545,7 @@ Do not cache search results. Defaults to C<0>.
 
 In addition to the mentioned index attributes, the following attributes are supported:
 
+=over 2
 
 =item B<api>
 
@@ -609,6 +610,6 @@ funded by the
 L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
 
 Kalamar is free software published under the
-L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
 
 =cut
