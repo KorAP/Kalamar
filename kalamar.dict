@@ -1,0 +1,85 @@
+# Based on Mojolicious::Plugin::Number::Commify
+my $THOUSAND_SEP_RE = qr/(
+  ^[-+]?           # beginning of number.
+  \d+?             # first digits before first comma
+  (?=              # followed by, (but not included in the match) :
+    (?>(?:\d{3})+) # some positive multiple of three digits.
+    (?!\d)         # an *exact* multiple, not x * 3 + 1 or whatever.
+  )|               # or:
+  \G\d{3}          # after the last group, get three digits
+  (?=\d)           # but they have to have more digits after them.
+)/x;
+
+{
+  _ => sub { $_->locale },
+  de => {
+    numf => sub {
+      shift;
+      my %val = @_;
+      my $num = $val{number} or return 0;
+      $num =~ s/$THOUSAND_SEP_RE/$1\./g;
+      return $num;
+    },
+    about => 'Über KorAP',
+    login => 'Anmelden',
+    searchtitle => 'KorAP: Finde "<%== $q %>" (<%= $ql %>)',
+    searchplaceholder => 'Finde ...',
+    go => 'Los!',
+    in => 'in',
+    by => 'von',
+    with => 'mit',
+    glimpse => {
+      -short => 'Stichprobe',
+      desc => 'Zeige nur die ersten Treffer in beliebiger Reihenfolge'
+    },
+    faq => 'Häufige Fragen',
+    tutorial => 'Einführung',
+    pubOn => 'veröffentlicht am',
+    matchCount => 'Treffer',
+    noMatches => 'Es wurden keine Treffer für <code><%= stash("q") %></code> gefunden.',
+    notFound => '404 - Seite nicht gefunden',
+    jsFile => 'kalamar-<%= $Kalamar::VERSION %>-de.js',
+    underConstruction => 'In Vorbereitung!',
+    korap => {
+      -short => 'KorAP',
+      desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
+      overview => 'KorAP - Übersicht',
+    },
+    template => {
+      intro => 'de/intro'
+    }
+  },
+  -en => {
+    numf => sub {
+      shift;
+      my %val = @_;
+      my $num = $val{number} or return 0;
+      $num =~ s/$THOUSAND_SEP_RE/$1\,/g;
+      return $num;
+    },
+    about => 'About KorAP',
+    login => 'Login',
+    go => 'Go!',
+    searchtitle => 'KorAP: Find "<%== $q %>" (<%= $ql %>)',
+    searchplaceholder => 'Find ...',
+    in => 'in',
+    by => 'by',
+    with => 'with',
+    pubOn => 'published on',
+    matchCount => '<%= num($found, "match", "matches") %>',
+    noMatches => 'There were no matches for <code><%= stash("q") %></code>.',
+    notFound => '404 - Page not found',
+    glimpse => {
+      -short => 'Sample',
+      desc => 'Just show the first matches in arbitrary order'
+    },
+    faq => 'F.A.Q.',
+    underConstruction => 'Under Construction!',
+    tutorial => 'Tutorial',
+    korap => {
+      -short => 'KorAP',
+      desc => 'KorAP - Corpus Analysis Platform',
+      overview => 'KorAP - Overview'
+    }
+  }
+};

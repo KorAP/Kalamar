@@ -97,6 +97,9 @@ sub startup {
   my $text   = $doc->get('/:text_id');
   my $match  = $text->get('/:match_id');
   $match->to('search#match_info')->name('match');
+
+  # Default user is called 'korap'
+  # $r->route('/user/:user/:collection')
 };
 
 
