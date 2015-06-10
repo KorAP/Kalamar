@@ -1,5 +1,3 @@
-window.KorAP = window.KorAP || {};
-
 // Don't let events bubble up
 if (Event.halt === undefined) {
   // Don't let events bubble up
@@ -38,7 +36,6 @@ function _removeChildren (node) {
 
 define(function () {
   KorAP.API = KorAP.API || {};
-  KorAP.Locale = KorAP.Locale || {};
 
   var loc = KorAP.Locale;
   loc.OR  = loc.OR  || 'or';
