@@ -13,11 +13,10 @@
       <button type="submit" title="<%= loc 'go' %>"><span><%= loc 'go' %></span></button>
     </div>
     <!-- Search in the following virtual collection -->
-    <!--
     <div id="vc-view"></div>
-    <%= loc 'in' %> <input type="hidden" id="vc-name" name="vc-name" value="Wikipedia" />
-    <input type="text" name="vc" id="vc" value="corpusID = Wikipedia" />
-    -->
+    <%= loc 'in' %> <input type="hidden" id="vc-name" name="vc-name" value="<%= stash('vc-name') %>" />
+    <input type="text" name="vc" id="vc" value="<%= stash 'vc-query' %>" />
+
     <%= loc 'with' %>
     <span class="select">
       %= select_field 'ql', [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2'], ['Annis' => 'annis'], ['CQL v1.2' => 'cql']], id => 'ql-field'

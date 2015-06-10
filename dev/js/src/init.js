@@ -21,6 +21,10 @@ define([
   // Set hint array for hint helper
   KorAP.hintArray = hintArray;
 
+  // Localization values
+  var loc = KorAP.Locale;
+  loc.VC_allCorpora = loc.VC_allCorpora  || 'all Corpora';
+
   // Override KorAP.log
   window.alertify = alertifyClass;
   KorAP.log = function (type, msg) {
@@ -48,7 +52,7 @@ define([
       vcname.setAttribute('id', 'vc-choose');
       vcname.appendChild(
 	document.createTextNode(
-	  document.getElementById('vc-name').value
+	  document.getElementById('vc-name').value || loc.VC_allCorpora
 	)
       );
       input.parentNode.insertBefore(vcname, input);

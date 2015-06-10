@@ -9,6 +9,7 @@ require(['init'], function () {
   loc.VC_title = 'Titel';
   loc.VC_pubDate = 'Veröffentlichungsdatum';
   loc.VC_pubPlace = 'Veröffentlichungsort';
+  loc.VC_allCorpora = 'allen Korpora';
 
   // Date picker:
   loc.WDAY = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];

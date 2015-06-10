@@ -25,7 +25,8 @@ sub register {
 			 _api_cache
 			 api_response
 			 benchmark
-			 query_jsonld/]);
+			 query_jsonld
+			 collection_jsonld/]);
   $index_class->attr(no_cache => 0);
 };
 
@@ -351,6 +352,63 @@ sub _process_response_matches {
   # Set result values
   $index->items_per_page($json->{itemsPerPage});
   $index->query_jsonld($json->{request}->{query});
+
+  # Temporary
+  # $json->{request}->{collection}
+  $index->collection_jsonld({
+    '@type' => "koral:docGroup",
+    "operation" => "operation:or",
+    "operands" => [
+      {
+	'@type' => "koral:docGroup",
+	"operation" => "operation:and",
+	"operands" => [
+	  {
+	    '@type' => "koral:doc",
+	    "key" => "title",
+	    "match" => "match:eq",
+	    "value" => "Der Birnbaum",
+	    "type" => "type:string"
+	  },
+	  {
+	    '@type' => "koral:doc",
+	    "key" => "pubPlace",
+	    "match" => "match:eq",
+	    "value" => "Mannheim",
+	    "type" => "type:string"
+	  },
+	  {
+	    '@type' => "koral:docGroup",
+	    "operation" => "operation:or",
+	    "operands" => [
+	      {
+		'@type' => "koral:doc",
+		"key" => "subTitle",
+		"match" => "match:eq",
+		"value" => "Aufzucht oder Pflege",
+		"type" => "type:string"
+	      },
+	      {
+		'@type' => "koral:doc",
+		"key" => "subTitle",
+		"match" => "match:eq",
+		"value" => "Gedichte",
+		"type" => "type:string"
+	      }
+	    ]
+	  }
+	]
+      },
+      {
+	'@type' => "koral:doc",
+	"key" => "pubDate",
+	"match" => "match:geq",
+	"value" => "2015-03-05",
+	"type" => "type:date"
+      }
+    ]
+  });
+
   $index->results(_map_matches($json->{matches}));
 
   # Total results not set by stash
