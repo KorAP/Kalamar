@@ -564,7 +564,7 @@ define(['match'], function () {
       expect(menu.element().style.opacity).toEqual("0");
       expect(menu.limit()).toEqual(6);
       menu.show();
-      expect(menu.item(0).active()).toBe(true);
+      expect(menu.item(0).active()).toBe(false);
     });
   });
 

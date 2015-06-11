@@ -351,11 +351,18 @@ sub _process_response_matches {
 
   # Set result values
   $index->items_per_page($json->{itemsPerPage});
-  $index->query_jsonld($json->{request}->{query});
 
-  # Temporary
-  # $json->{request}->{collection}
-  $index->collection_jsonld({
+  # Bouncing query
+  if ($json->{query}) {
+    $index->query_jsonld($json->{query});
+  }
+  # Legacy
+  elsif ($json->{request}->{query}) {
+    $index->query_jsonld($json->{request}->{query});
+  };
+
+  # Temporary:
+  my $collection_query = {
     '@type' => "koral:docGroup",
     "operation" => "operation:or",
     "operands" => [
@@ -407,7 +414,18 @@ sub _process_response_matches {
 	"type" => "type:date"
       }
     ]
-  });
+  };
+
+
+  # Bouncing collection query
+  if ($json->{collection}) {
+    $index->collection_jsonld($json->{collection});
+  }
+
+  # Legacy
+  elsif ($json->{request}->{collection}) {
+    $index->collection_jsonld($json->{request}->{collection});
+  };
 
   $index->results(_map_matches($json->{matches}));
 

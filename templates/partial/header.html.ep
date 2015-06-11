@@ -7,15 +7,17 @@
        title="<%= loc 'login' %>"><span><%= loc 'login' %></span></a>
 -->
   </div>
-  <form autocomplete="off" action="<%= url_for 'index' %>">
+  <form autocomplete="off" action="<%= url_for 'index' %>" id="searchform">
     <div id="searchbar">
       %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder'), spellcheck => 'false', autocomplete => 'off', autocorrect => 'off', autocapitalize => 'off'
       <button type="submit" title="<%= loc 'go' %>"><span><%= loc 'go' %></span></button>
     </div>
+
     <!-- Search in the following virtual collection -->
     <div id="vc-view"></div>
-    <%= loc 'in' %> <input type="hidden" id="vc-name" name="vc-name" value="<%= stash('vc-name') %>" />
-    <input type="text" name="vc" id="vc" value="<%= stash 'vc-query' %>" />
+    <%= loc 'in' %>
+    %= hidden_field 'vc-name' => stash('vc-name'), id => 'vc-name' 
+    %= text_field 'collection', id => 'collection'
 
     <%= loc 'with' %>
     <span class="select">

@@ -360,6 +360,7 @@ define(['menu'], function () {
       ];
 
       var menu = KorAP.OwnMenu.create(list);
+      menu._firstActive = true;
       expect(menu.itemClass()).toEqual(KorAP.OwnMenuItem);
       expect(menu.element().nodeName).toEqual('UL');
       expect(menu.element().style.opacity).toEqual("0");
@@ -462,6 +463,7 @@ define(['menu'], function () {
 
     it('should be nextable', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
+      menu._firstActive = true;
 
       // Show only 3 items
       menu.limit(3);
@@ -538,6 +540,7 @@ define(['menu'], function () {
 
     it('should be prevable', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
+      menu._firstActive = true;
       menu.limit(3);
       expect(menu.show()).toBe(true);
 
@@ -626,6 +629,7 @@ define(['menu'], function () {
 
     it('should be navigatable and filterable (prefix = "o")', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
+      menu._firstActive = true;
       menu.limit(2);
 
       expect(menu.prefix("o").show()).toBe(true);
@@ -680,6 +684,7 @@ define(['menu'], function () {
 
     it('should be navigatable and filterable (prefix = "ex", "e")', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
+      menu._firstActive = true;
 
       menu.limit(2);
       expect(menu.prefix("ex").show()).toBe(true);
@@ -773,6 +778,8 @@ define(['menu'], function () {
 
     it('should be navigatable with prefix', function () {
       var menu = KorAP.HintMenu.create("cnx/", demolist);
+      menu._firstActive = true;
+
       menu.limit(3);
 
       expect(menu.show()).toBe(true);
@@ -908,6 +915,8 @@ define(['menu'], function () {
 
     it('should be navigatable with a prefix (1)', function () {
       var menu = KorAP.HintMenu.create("cnx/", demolist);
+      menu._firstActive = true;
+
       menu.limit(3);
 
       expect(menu.show()).toBe(true);
@@ -967,6 +976,8 @@ define(['menu'], function () {
 
     it('should be navigatable with a prefix (2)', function () {
       var menu = KorAP.HintMenu.create("cnx/", demolist);
+      menu._firstActive = true;
+
       menu.limit(3);
       expect(menu.show()).toBe(true);
       expect(menu.prefix()).toEqual("");
@@ -1010,6 +1021,7 @@ define(['menu'], function () {
 
     it('should be navigatable with a prefix (3)', function () {
       var menu = KorAP.HintMenu.create("cnx/", demolist);
+      menu._firstActive = true;
       menu.limit(3);
       expect(menu.show()).toBe(true);
       expect(menu.prefix()).toEqual("");

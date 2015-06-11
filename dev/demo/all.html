@@ -15,7 +15,7 @@
 	<a href="#" class="login"><span>Login</span></a>
       </div>
 
-      <form autocomplete="off" action="/kalamar">
+      <form autocomplete="off" action="/kalamar" id="searchform">
 	<div id="searchbar">
 	  <input type="search"
 		 placeholder="Find ..."
@@ -25,9 +25,12 @@
 	  <button type="submit"><span>Go</span></button>
 	  <!-- <i class="fa fa-arrow-circle-down show-hint" onclick="hint.popUp()"></i> -->
 	</div>
-	<div id="vc-view"></div>
-	in <input type="hidden" id="vc-name" name="vc-name" value="Wikipedia" />
-	<input type="text" name="vc" id="vc" value="corpusID = Wikipedia" />
+
+        <!-- Search in the following virtual collection -->
+        <div id="vc-view"></div>
+        in
+        <input id="vc-name" name="vc-name" type="hidden" value>
+        <input id="collection" name="collection" type="text" value="">
 	with <span class="select">
 	  <!-- Change this to js-menu -->
 	  <select name="ql" id="ql-field">

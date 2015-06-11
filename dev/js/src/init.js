@@ -46,7 +46,7 @@ define([
      * Replace Virtual Collection field
      */
     var vcname;
-    var input = document.getElementById('vc');
+    var input = document.getElementById('collection');
     if (input) {
       input.style.display = 'none';
       vcname = document.createElement('span');
@@ -122,18 +122,8 @@ define([
 
 	// The vc is not visible
 	else {
-	  // The vc is not rendered yet
-	  if (vc === undefined) {
-	    vc = vcClass.create([
-	      ['title', 'string'],
-	      ['subTitle', 'string'],
-	      ['pubDate', 'date'],
-	      ['author', 'string']
-	    ]);
-
-	    if (KorAP.currentVC !== undefined)
-	      vc.fromJson(KorAP.currentVC);
-	  };
+	  if (vc === undefined)
+	    vc = _getCurrentVC(vcClass);
 	  view.appendChild(vc.element());
 	  this.classList.add('active');
 	};
@@ -175,6 +165,20 @@ define([
 */
 
     /**
+     * Add VC creation on submission.
+     */
+    var form = document.getElementById('searchform');
+    if (form !== undefined) {
+      form.addEventListener('submit', function (e) {
+	if (vc === undefined)
+	  vc = _getCurrentVC(vcClass);
+
+	if (vc !== undefined)
+	  input.value = vc.toQuery();
+      });
+    };
+
+    /**
      * Init hint helper
      * has to be final because of
      * reposition
@@ -186,3 +190,18 @@ define([
     return obj;
   });
 });
+
+// Render Virtual collection
+function _getCurrentVC (vcClass) {
+  var vc = vcClass.create([
+    ['title', 'string'],
+    ['subTitle', 'string'],
+    ['pubDate', 'date'],
+    ['author', 'string']
+  ]);
+  if (KorAP.currentVC !== undefined)
+    vc.fromJson(KorAP.currentVC);
+
+  return vc;
+};
+
