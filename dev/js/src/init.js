@@ -23,7 +23,8 @@ define([
 
   // Localization values
   var loc = KorAP.Locale;
-  loc.VC_allCorpora = loc.VC_allCorpora  || 'all Corpora';
+  loc.VC_allCorpora    = loc.VC_allCorpora  || 'all Corpora';
+  loc.VC_oneCollection = loc.VC_oneCollection  || 'one Collection';
 
   // Override KorAP.log
   window.alertify = alertifyClass;
@@ -50,9 +51,11 @@ define([
       input.style.display = 'none';
       vcname = document.createElement('span');
       vcname.setAttribute('id', 'vc-choose');
+
       vcname.appendChild(
 	document.createTextNode(
-	  document.getElementById('vc-name').value || loc.VC_allCorpora
+	  document.getElementById('vc-name').value ||
+	  (KorAP.currentVC !== undefined) ? loc.VC_oneCollection : loc.VC_allCorpora
 	)
       );
       input.parentNode.insertBefore(vcname, input);
