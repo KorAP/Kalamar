@@ -74,21 +74,6 @@ header input {
   }
 }
 
-#koralquery {
-  margin-top: 10px;
-  margin-right: 40px;
-  border: {
-    radius: $standard-border-radius;
-    color: $dark-green;
-    style: solid;
-    width: $border-size;
-  }
-  white-space: pre;
-  background-color: $nearly-white;
-  color: $dark-grey;
-}
-
-
 /**
  * Checkbox styling
  * http://stackoverflow.com/questions/4148499/how-to-style-checkbox-using-css

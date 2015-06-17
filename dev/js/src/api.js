@@ -10,6 +10,9 @@ define(['util'], function () {
 
   KorAP.API = KorAP.API || {};
 
+  /**
+   * Retrieve information about a match
+   */
   KorAP.API.getMatchInfo = function (match, param, cb) {
 
     // match is a KorAP.Match object
@@ -38,6 +41,16 @@ define(['util'], function () {
     KorAP.API.getJSON(url, cb);
   };
 
+  /**
+   * Retrieve information about collections
+   */
+  KorAP.API.getCollections = function (cb) {
+    KorAP.API.getJSON(KorAP.URL + '/collection', cb);
+  };
+
+  /**
+   * General method to retrieve JSON information
+   */
   KorAP.API.getJSON = function (url, onload) {
     var req = new XMLHttpRequest();
 

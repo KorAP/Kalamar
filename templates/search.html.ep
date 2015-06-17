@@ -24,16 +24,16 @@ KorAP.currentVC = <%== encode_json search->collection_jsonld %>;
 % };
 
 
-% if (search->total_results != 0 && search->results->size) {
 <div id="search">
+% if (search->total_results != 0 && search->results->size) {
   <ol class="align-left">
 %=  search_results begin
 %=    include 'match', match => $_
 %   end
   </ol>
-</div>
 % } else {
 <p id="no-results"><%== loc 'noMatches', q => search->query %></p>
 % }
+</div>
 
 %= include 'query'

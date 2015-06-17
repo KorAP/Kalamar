@@ -427,6 +427,9 @@ sub _process_response_matches {
     $index->collection_jsonld($json->{request}->{collection});
   };
 
+  # Temp
+  $index->collection_jsonld($collection_query);
+
   $index->results(_map_matches($json->{matches}));
 
   # Total results not set by stash

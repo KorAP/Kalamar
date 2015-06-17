@@ -532,7 +532,7 @@ requirejs.config({
   }
 });
 
-// KorAP.currentQuery = queryExample;
+KorAP.currentQuery = queryExample;
 
 require(['app/en', 'init'], function (lang, init) {
   KorAP.hintArray = hintArray;

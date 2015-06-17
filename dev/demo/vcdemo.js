@@ -64,6 +64,35 @@ var json = {
   ]
 };
 
+var collections = [
+  {
+    "statistics":{
+      "paragraphs":2034752,
+      "documents":196510,
+      "tokens":51545081,
+      "sentences":4116282
+    },
+    "query":[
+      {
+	"@value":{
+	  "@field":"korap:field#corpusID",
+	  "@value":"WPD",
+	  "@type":"korap:term"
+	},
+	"@type":"korap:meta-filter"
+      }
+    ],
+    "name":"Wikipedia",
+    "path":"Wikipedia",
+    "description":"Die freie Enzyklopädie",
+    "shared":false,
+    "managed":true,
+    "created":"2015-04-01T23:04:32.000+02:00",
+    "foundries":"",
+    "id":"ZGU0ZTllNTFkYzc3M2VhZmViYzdkYWE2ODI5NDc3NTk4NGQ1YThhOTMwOTNhOWYxNWMwN2M3Y2YyZmE3N2RlNQ=="
+  }
+];
+
 require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass, domReady) {
 
   var loc = KorAP.Locale;

@@ -153,16 +153,19 @@ define([
     // Initialize documentation links
     obj.tutorial.initDocLinks(document);
 
-/*
+    // There is a currentQuery
     if (KorAP.currentQuery !== undefined) {
-      var sb = document.getElementById('searchbar');
       var kq = document.createElement('div');
       kq.setAttribute('id', 'koralquery');
-      sb.parentNode.insertBefore(kq, sb.nextSibling);
-      kq.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
-      hljs.highlightBlock(kq);
+
+      var kqInner = document.createElement('div');
+      kq.appendChild(kqInner);
+      kqInner.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
+      hljs.highlightBlock(kqInner);
+
+      var sb = document.getElementById('search');
+      sb.insertBefore(kq, sb.firstChild);
     };
-*/
 
     /**
      * Add VC creation on submission.
@@ -192,12 +195,14 @@ define([
 });
 
 // Render Virtual collection
+// TODO:: Use currentQuery!!!
 function _getCurrentVC (vcClass) {
   var vc = vcClass.create([
     ['title', 'string'],
     ['subTitle', 'string'],
     ['pubDate', 'date'],
-    ['author', 'string']
+    ['author', 'string'],
+    ['corpusID', 'string']
   ]);
   if (KorAP.currentVC !== undefined)
     vc.fromJson(KorAP.currentVC);
