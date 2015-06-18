@@ -10,6 +10,8 @@ use warnings;
 # TODO: Support search in corpus and virtualcollection
 # TODO: Support caching everywhere!
 # TODO: Correct use of stash info everywhere!
+# TODO: Alot is now underneath "meta"
+
 
 # Register the plugin
 sub register {
