@@ -5,5 +5,5 @@
 % end
 
 <pre>
-%== Mojo::JSON::encode_json(search->api_response)
+%== search->api_response
 </pre>
