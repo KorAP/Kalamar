@@ -23,19 +23,29 @@ define([
 
   // Override KorAP.log
   window.alertify = alertifyClass;
-  KorAP.log = function (type, msg) {
+  KorAP.log = function (code, msg) {
 
     // Use alertify to log errors
     alertifyClass.log(
-      (type === 0 ? '' : type + ': ') +
+      (code === 0 ? '' : code + ': ') +
 	msg,
       'error',
-      5000
+      10000
     );
   };
 
   domReady(function (event) {
     var obj = {};
+
+    /**
+     * Release notifications
+     */
+    if (KorAP.Notifications !== undefined) {
+      var n = KorAP.Notifications;
+      for (var i = 0; i < n.length; i++) {
+	alertifyClass.log(n[i][1], n[i][0], 10000);
+      };
+    };
 
     /**
      * Replace Virtual Collection field

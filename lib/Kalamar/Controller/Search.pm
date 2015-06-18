@@ -50,10 +50,10 @@ sub query {
       ) if $query;
 
       # Search resource (async)
-      $c->search->resource(
-	type => 'collection',
-	$delay->begin
-      );
+      # $c->search->resource(
+      #   type => 'collection',
+      #   $delay->begin
+      # );
     },
 
     # Collected search

@@ -40,6 +40,6 @@
       <%= doc_link_to 'V '. $Kalamar::VERSION, 'korap', 'kalamar' %>
     </footer>
     % };
-%= notifications 'Alertify', -no_include
+%= notifications 'Kalamar::Plugin::Notifications'
   </body>
 </html>
