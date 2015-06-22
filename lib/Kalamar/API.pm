@@ -28,6 +28,7 @@ sub register {
 			 api_response
 			 benchmark
 			 query_jsonld
+			 collection
 			 collection_jsonld/]);
   $index_class->attr(no_cache => 0);
 };
@@ -55,6 +56,8 @@ sub search {
 
   # Cache based on URL
   $index->_api_cache('total-' . $url->to_string);
+  # TODO: Make this user dependent for collections!!!!
+
   my %param = @_;
 
   # Set context based on parameter
@@ -290,15 +293,15 @@ sub _process_response {
   # Response was fine
   if (my $res = $tx->success) {
 
-    # Set api response for debugging
-    $index->api_response($res->body); # if $c->kalamar_test_port;
-
     # Json failure
     my $json;
     unless ($json = $res->json) {
       $c->notify(error => 'JSON response is invalid');
       return;
     };
+
+    # Set api response as jsonld
+    $index->api_response($json);
 
     # expected response for matches
     if ($type eq 'matches') {
@@ -332,8 +335,11 @@ sub _process_response {
 sub _process_response_matches {
   my ($self, $index, $json) = @_;
 
+  # Process meta
+  my $meta = $json->{meta};
+
   # Reformat benchmark counter
-  my $benchmark = $json->{benchmark};
+  my $benchmark = $meta->{benchmark};
   if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
     $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
   };
@@ -342,77 +348,23 @@ sub _process_response_matches {
   $index->benchmark($benchmark);
 
   # Set time exceeded
-  if ($json->{timeExceeded} && $json->{timeExceeded} eq Mojo::JSON::true) {
+  if ($meta->{timeExceeded} && $meta->{timeExceeded} eq Mojo::JSON::true) {
     $index->time_exceeded(1);
   };
 
   # Set result values
-  $index->items_per_page($json->{itemsPerPage});
+  $index->items_per_page($meta->{itemsPerPage});
+
 
   # Bouncing query
-  if ($json->{query}) {
-    $index->query_jsonld($json->{query});
-  }
+#  if ($json->{query}) {
+#    $index->query_jsonld($json->{query});
+#  };
+
   # Legacy
-  elsif ($json->{request}->{query}) {
-    $index->query_jsonld($json->{request}->{query});
-  };
-
-  # Temporary:
-  my $collection_query = {
-    '@type' => "koral:docGroup",
-    "operation" => "operation:or",
-    "operands" => [
-      {
-	'@type' => "koral:docGroup",
-	"operation" => "operation:and",
-	"operands" => [
-	  {
-	    '@type' => "koral:doc",
-	    "key" => "title",
-	    "match" => "match:eq",
-	    "value" => "Der Birnbaum",
-	    "type" => "type:string"
-	  },
-	  {
-	    '@type' => "koral:doc",
-	    "key" => "pubPlace",
-	    "match" => "match:eq",
-	    "value" => "Mannheim",
-	    "type" => "type:string"
-	  },
-	  {
-	    '@type' => "koral:docGroup",
-	    "operation" => "operation:or",
-	    "operands" => [
-	      {
-		'@type' => "koral:doc",
-		"key" => "subTitle",
-		"match" => "match:eq",
-		"value" => "Aufzucht oder Pflege",
-		"type" => "type:string"
-	      },
-	      {
-		'@type' => "koral:doc",
-		"key" => "subTitle",
-		"match" => "match:eq",
-		"value" => "Gedichte",
-		"type" => "type:string"
-	      }
-	    ]
-	  }
-	]
-      },
-      {
-	'@type' => "koral:doc",
-	"key" => "pubDate",
-	"match" => "match:geq",
-	"value" => "2015-03-05",
-	"type" => "type:date"
-      }
-    ]
-  };
-
+  # elsif ($json->{request}->{query}) {
+  #   $index->query_jsonld($json->{request}->{query});
+  # };
 
   # Bouncing collection query
   if ($json->{collection}) {
@@ -420,24 +372,21 @@ sub _process_response_matches {
   }
 
   # Legacy
-  elsif ($json->{request}->{collection}) {
-    $index->collection_jsonld($json->{request}->{collection});
-  };
-
-  # Temp
-  $index->collection_jsonld($collection_query);
+  # elsif ($json->{request}->{collection}) {
+  #  $index->collection_jsonld($json->{request}->{collection});
+  # };
 
   $index->results(_map_matches($json->{matches}));
 
   # Total results not set by stash
   if ($index->total_results == -1) {
 
-    if ($json->{totalResults} && $json->{totalResults} > -1) {
+    if ($meta->{totalResults} && $meta->{totalResults} > -1) {
       my $c = $index->controller;
 
       $c->app->log->debug('Cache total result');
-      $c->chi->set($index->_api_cache => $json->{totalResults}, '120min');
-      $index->total_results($json->{totalResults});
+      $c->chi->set($index->_api_cache => $meta->{totalResults}, '120min');
+      $index->total_results($meta->{totalResults});
     };
   };
 };
@@ -483,7 +432,10 @@ sub _notify_on_error {
 
   # Check json response error message
   if ($json) {
+
+    # Legacy, but still in use by Kustvakt
     if ($json->{error}) {
+
       # Temp
       $json->{error} =~ s/;\s+null$//;
       $c->notify(error => $json->{error});
@@ -581,6 +533,9 @@ sub _query_url {
   # Set cutoff from param
   $index->cutoff(delete $param{cutoff});
 
+  # Set collection from param
+  $index->collection(delete $param{collection});
+
   # Set query language
   $index->query_language(delete $param{query_language} // 'poliqarp');
 
@@ -593,9 +548,9 @@ sub _query_url {
   $query{ql}     = $index->query_language;
   $query{page}   = $index->start_page if $index->start_page;
   $query{count}  = $index->items_per_page if $index->items_per_page;
+  $query{cq}     = $index->collection if $index->collection;
   $query{cutoff} = 'true' if $index->cutoff;
 
-  # Todo: support corpus and collection
   # Create query url
   my $url = Mojo::URL->new($index->api);
   $url->query(\%query);
@@ -726,3 +681,58 @@ Kalamar is free software published under the
 L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
 
 =cut
+
+  # Temporary:
+  my $collection_query = {
+    '@type' => "koral:docGroup",
+    "operation" => "operation:or",
+    "operands" => [
+      {
+	'@type' => "koral:docGroup",
+	"operation" => "operation:and",
+	"operands" => [
+	  {
+	    '@type' => "koral:doc",
+	    "key" => "title",
+	    "match" => "match:eq",
+	    "value" => "Der Birnbaum",
+	    "type" => "type:string"
+	  },
+	  {
+	    '@type' => "koral:doc",
+	    "key" => "pubPlace",
+	    "match" => "match:eq",
+	    "value" => "Mannheim",
+	    "type" => "type:string"
+	  },
+	  {
+	    '@type' => "koral:docGroup",
+	    "operation" => "operation:or",
+	    "operands" => [
+	      {
+		'@type' => "koral:doc",
+		"key" => "subTitle",
+		"match" => "match:eq",
+		"value" => "Aufzucht oder Pflege",
+		"type" => "type:string"
+	      },
+	      {
+		'@type' => "koral:doc",
+		"key" => "subTitle",
+		"match" => "match:eq",
+		"value" => "Gedichte",
+		"type" => "type:string"
+	      }
+	    ]
+	  }
+	]
+      },
+      {
+	'@type' => "koral:doc",
+	"key" => "pubDate",
+	"match" => "match:geq",
+	"value" => "2015-03-05",
+	"type" => "type:date"
+      }
+    ]
+  };

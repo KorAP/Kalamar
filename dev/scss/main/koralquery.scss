@@ -8,6 +8,8 @@ $border-size: 2px;
   white-space: pre;
   background-color: $dark-orange;
   > div {
+    overflow-x: auto;
+    font-size: 85%;
     background-color: $nearly-white;
     margin: {
       top: 2pt;

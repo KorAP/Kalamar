@@ -5,10 +5,13 @@ define(function () {
   // EMPTY, DELETE
 
   // Virtual collection:
+  /*
   loc.VC_subTitle = 'Untertitel';
   loc.VC_title = 'Titel';
   loc.VC_pubDate = 'Veröffentlichungsdatum';
   loc.VC_pubPlace = 'Veröffentlichungsort';
+  */
+
   loc.VC_allCorpora = 'allen Korpora';
   loc.VC_oneCollection = 'einer Kollektion';
 

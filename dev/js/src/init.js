@@ -5,6 +5,7 @@ define([
   'tutorial',
   'lib/domReady',
   'hint/array',
+  'vc/array',
   'lib/alertify',
   'api',
   'mailToChiffre',
@@ -16,6 +17,7 @@ define([
 	     tutClass,
 	     domReady,
 	     hintArray,
+	     vcArray,
 	     alertifyClass) {
 
   // Set hint array for hint helper
@@ -62,12 +64,17 @@ define([
       vcname = document.createElement('span');
       vcname.setAttribute('id', 'vc-choose');
 
+      var currentVC = loc.VC_allCorpora;
+      if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
+	currentVC = loc.VC_oneCollection;
+      };
+
       vcname.appendChild(
 	document.createTextNode(
-	  document.getElementById('vc-name').value ||
-	  (KorAP.currentVC !== undefined) ? loc.VC_oneCollection : loc.VC_allCorpora
+	  document.getElementById('vc-name').value || currentVC
 	)
       );
+
       input.parentNode.insertBefore(vcname, input);
     };
 
@@ -133,7 +140,7 @@ define([
 	// The vc is not visible
 	else {
 	  if (vc === undefined)
-	    vc = _getCurrentVC(vcClass);
+	    vc = _getCurrentVC(vcClass, vcArray);
 	  view.appendChild(vc.element());
 	  this.classList.add('active');
 	};
@@ -164,18 +171,20 @@ define([
     obj.tutorial.initDocLinks(document);
 
     // There is a currentQuery
-    if (KorAP.currentQuery !== undefined) {
+    /*
+    if (KorAP.koralQuery !== undefined) {
       var kq = document.createElement('div');
       kq.setAttribute('id', 'koralquery');
 
       var kqInner = document.createElement('div');
       kq.appendChild(kqInner);
-      kqInner.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
+      kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
       hljs.highlightBlock(kqInner);
 
       var sb = document.getElementById('search');
       sb.insertBefore(kq, sb.firstChild);
     };
+    */
 
     /**
      * Add VC creation on submission.
@@ -184,7 +193,7 @@ define([
     if (form !== undefined) {
       form.addEventListener('submit', function (e) {
 	if (vc === undefined)
-	  vc = _getCurrentVC(vcClass);
+	  vc = _getCurrentVC(vcClass, vcArray);
 
 	if (vc !== undefined)
 	  input.value = vc.toQuery();
@@ -205,18 +214,11 @@ define([
 });
 
 // Render Virtual collection
-// TODO:: Use currentQuery!!!
-function _getCurrentVC (vcClass) {
-  var vc = vcClass.create([
-    ['title', 'string'],
-    ['subTitle', 'string'],
-    ['pubDate', 'date'],
-    ['author', 'string'],
-    ['corpusID', 'string']
-  ]);
-  if (KorAP.currentVC !== undefined)
-    vc.fromJson(KorAP.currentVC);
-
+function _getCurrentVC (vcClass, vcArray) {
+  var vc = vcClass.create(vcArray);
+  if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
+    vc.fromJson(KorAP.koralQuery["collection"]);
+  };
   return vc;
 };
 

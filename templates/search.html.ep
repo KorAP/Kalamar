@@ -1,5 +1,4 @@
 % layout 'main', title => loc('searchtitle', q => search->query, ql => search->query_language);
-% use Mojo::JSON 'encode_json';
 
 <div class="resultinfo">
   <div id="pagination"><%= pagination(search->start_page, search->total_pages, url_with->query(['p' => '{page}'])) =%></div>
@@ -17,12 +16,7 @@
 % };
 </div>
 
-% if (search->collection_jsonld) {
-%=  javascript begin
-KorAP.currentVC = <%== encode_json search->collection_jsonld %>;
-%   end
-% };
-
+%= include 'query'
 
 <div id="search">
 % if (search->total_results != 0 && search->results->size) {
@@ -35,5 +29,3 @@ KorAP.currentVC = <%== encode_json search->collection_jsonld %>;
 <p id="no-results"><%== loc 'noMatches', q => search->query %></p>
 % }
 </div>
-
-%= include 'query'

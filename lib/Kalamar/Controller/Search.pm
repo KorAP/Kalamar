@@ -17,6 +17,7 @@ sub query {
   my %param = (
     query_language => scalar $c->param('ql'),
     query => $query,
+    collection => scalar $c->param('collection')
   );
 
   # May be not relevant

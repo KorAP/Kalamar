@@ -1,5 +1,7 @@
 0.16 2015-06-18
         - Update to new KoralQuery API.
+	  WARNING! This version is no longer compatible
+	  with old responses of Krill.
 	- Introduced new notifications engine.
 
 0.15 2015-05-21
