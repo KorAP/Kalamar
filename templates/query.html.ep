@@ -3,3 +3,7 @@
 %= javascript begin
  KorAP.currentQuery = <%== Mojo::JSON::encode_json(search->query_jsonld) %>;
 % end
+
+<pre>
+%== search->api_response
+</pre>

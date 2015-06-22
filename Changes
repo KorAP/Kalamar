@@ -1,3 +1,7 @@
+0.16 2015-06-18
+        - Update to new KoralQuery API.
+	- Introduced new notifications engine.
+
 0.15 2015-05-21
         - Cleanup for GitHub release
 	- First realease on GitHub.

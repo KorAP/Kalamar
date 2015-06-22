@@ -10,6 +10,8 @@ use warnings;
 # TODO: Support search in corpus and virtualcollection
 # TODO: Support caching everywhere!
 # TODO: Correct use of stash info everywhere!
+# TODO: Alot is now underneath "meta"
+
 
 # Register the plugin
 sub register {
@@ -280,7 +282,7 @@ sub _process_response {
     $c->notify(
       error =>
 	($e->{code} ? $e->{code} . ': ' : '') .
-	  $e->{message} . ' (remote)'
+	  $e->{message} . ' for ' . $type . ' (remote)'
 	);
     return;
   };
@@ -289,7 +291,7 @@ sub _process_response {
   if (my $res = $tx->success) {
 
     # Set api response for debugging
-    $index->api_response($res->body) if $c->kalamar_test_port;
+    $index->api_response($res->body); # if $c->kalamar_test_port;
 
     # Json failure
     my $json;
@@ -314,12 +316,7 @@ sub _process_response {
 
     return 1 if ref $json ne 'HASH';
 
-    # Add warnings (Legacy)
-    if ($json->{warning}) {
-      $json->{warning} =~ s/;\s+null$//;
-      $c->notify(warn => $json->{warning});
-    };
-
+    $self->_notify_on_warnings($c, $json);
     $self->_notify_on_error($c, 0, $json);
   }
 
@@ -484,7 +481,7 @@ sub _notify_on_error {
     $json = $res->json if blessed $res ne 'Mojo::JSON';
   };
 
-  # Chec json response error message
+  # Check json response error message
   if ($json) {
     if ($json->{error}) {
       # Temp
@@ -501,6 +498,18 @@ sub _notify_on_error {
       return;
     }
 
+    elsif ($json->{errors}) {
+      my $errors = $json->{errors};
+      # TODO: Check for ref!
+      foreach (@$errors) {
+	$c->notify(
+	  error =>
+	    ($_->[0] ? $_->[0] . ': ' : '') .
+	      $_->[1]
+	  );
+      };
+    }
+
     # policy service error messages
     elsif ($json->{status}) {
       $c->notify(error => 'Middleware error ' . $json->{status});
@@ -515,6 +524,31 @@ sub _notify_on_error {
       ($res->{message} ? $res->{message}     : 'Unknown error') .
       ' (remote)'
     ));
+  };
+};
+
+
+sub _notify_on_warnings {
+  my ($self, $c, $json) = @_;
+
+  # Add warnings (Legacy)
+  if ($json->{warning}) {
+    $json->{warning} =~ s/;\s+null$//;
+    $c->notify(warn => $json->{warning});
+  }
+
+  # Add warnings
+  elsif ($json->{warnings}) {
+
+    my $warnings = $json->{warnings};
+    # TODO: Check for ref!
+    foreach (@$warnings) {
+      $c->notify(
+	warn =>
+	  ($_->[0] ? $_->[0] . ': ' : '') .
+	    $_->[1]
+	  );
+    };
   };
 };
 
