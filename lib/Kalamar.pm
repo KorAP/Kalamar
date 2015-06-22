@@ -82,6 +82,10 @@ sub startup {
   # Base query route
   $r->get('/')->to('search#query')->name('index');
 
+  # Collection route
+  $r->get('/collection')->to('Search#collections')->name('collections');
+  $r->get('/collection/:id')->to('Search#collection')->name('collection');
+
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:page')->to('documentation#page', scope => undef);

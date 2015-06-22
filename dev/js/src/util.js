@@ -37,6 +37,7 @@ function _removeChildren (node) {
 
 
 define(function () {
+  // Todo: That's double now!
   KorAP.API = KorAP.API || {};
   KorAP.Locale = KorAP.Locale || {};
 

@@ -21,6 +21,11 @@ define([
   // Set hint array for hint helper
   KorAP.hintArray = hintArray;
 
+  // Localization values
+  var loc = KorAP.Locale;
+  loc.VC_allCorpora    = loc.VC_allCorpora  || 'all Corpora';
+  loc.VC_oneCollection = loc.VC_oneCollection  || 'one Collection';
+
   // Override KorAP.log
   window.alertify = alertifyClass;
   KorAP.log = function (type, msg) {
@@ -41,14 +46,16 @@ define([
      * Replace Virtual Collection field
      */
     var vcname;
-    var input = document.getElementById('vc');
+    var input = document.getElementById('collection');
     if (input) {
       input.style.display = 'none';
       vcname = document.createElement('span');
       vcname.setAttribute('id', 'vc-choose');
+
       vcname.appendChild(
 	document.createTextNode(
-	  document.getElementById('vc-name').value
+	  document.getElementById('vc-name').value ||
+	  (KorAP.currentVC !== undefined) ? loc.VC_oneCollection : loc.VC_allCorpora
 	)
       );
       input.parentNode.insertBefore(vcname, input);
@@ -115,18 +122,8 @@ define([
 
 	// The vc is not visible
 	else {
-	  // The vc is not rendered yet
-	  if (vc === undefined) {
-	    vc = vcClass.create([
-	      ['title', 'string'],
-	      ['subTitle', 'string'],
-	      ['pubDate', 'date'],
-	      ['author', 'string']
-	    ]);
-
-	    if (KorAP.currentVC !== undefined)
-	      vc.fromJson(KorAP.currentVC);
-	  };
+	  if (vc === undefined)
+	    vc = _getCurrentVC(vcClass);
 	  view.appendChild(vc.element());
 	  this.classList.add('active');
 	};
@@ -156,16 +153,33 @@ define([
     // Initialize documentation links
     obj.tutorial.initDocLinks(document);
 
-/*
+    // There is a currentQuery
     if (KorAP.currentQuery !== undefined) {
-      var sb = document.getElementById('searchbar');
       var kq = document.createElement('div');
       kq.setAttribute('id', 'koralquery');
-      sb.parentNode.insertBefore(kq, sb.nextSibling);
-      kq.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
-      hljs.highlightBlock(kq);
+
+      var kqInner = document.createElement('div');
+      kq.appendChild(kqInner);
+      kqInner.innerHTML = JSON.stringify(KorAP.currentQuery, null, '  ');
+      hljs.highlightBlock(kqInner);
+
+      var sb = document.getElementById('search');
+      sb.insertBefore(kq, sb.firstChild);
     };
-*/
+
+    /**
+     * Add VC creation on submission.
+     */
+    var form = document.getElementById('searchform');
+    if (form !== undefined) {
+      form.addEventListener('submit', function (e) {
+	if (vc === undefined)
+	  vc = _getCurrentVC(vcClass);
+
+	if (vc !== undefined)
+	  input.value = vc.toQuery();
+      });
+    };
 
     /**
      * Init hint helper
@@ -179,3 +193,20 @@ define([
     return obj;
   });
 });
+
+// Render Virtual collection
+// TODO:: Use currentQuery!!!
+function _getCurrentVC (vcClass) {
+  var vc = vcClass.create([
+    ['title', 'string'],
+    ['subTitle', 'string'],
+    ['pubDate', 'date'],
+    ['author', 'string'],
+    ['corpusID', 'string']
+  ]);
+  if (KorAP.currentVC !== undefined)
+    vc.fromJson(KorAP.currentVC);
+
+  return vc;
+};
+

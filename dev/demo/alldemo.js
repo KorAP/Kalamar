@@ -532,10 +532,9 @@ requirejs.config({
   }
 });
 
-// KorAP.currentQuery = queryExample;
+KorAP.currentQuery = queryExample;
 
-require(['init'], function (init) {
-
+require(['app/en', 'init'], function (lang, init) {
   KorAP.hintArray = hintArray;
 
   // Set current virtual collection

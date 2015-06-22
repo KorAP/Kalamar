@@ -218,10 +218,11 @@ $bracket-size: .4em; // 4pt;
   div.value {
     position: absolute;
     display: inline-block;
+    z-index: 8000;
     @include choose-item;
     box-shadow: $choose-box-shadow;
     padding: 4pt;
-    margin-top: -2pt;
+    margin-top: -6pt;
     border: {
       width: $border-size;
       style: solid;
@@ -302,7 +303,7 @@ $dg-index : 30;
   }
 }
 
-#vc {
+#collection {
   line-height: 1em;
   border-radius: $standard-border-radius;
 }

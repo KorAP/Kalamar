@@ -50,10 +50,10 @@ sub query {
       ) if $query;
 
       # Search resource (async)
-      $c->search->resource(
-	type => 'collection',
-	$delay->begin
-      );
+      # $c->search->resource(
+      #   type => 'collection',
+      #   $delay->begin
+      # );
     },
 
     # Collected search
@@ -120,6 +120,23 @@ sub match_info {
   );
 };
 
+
+# Get information about collections
+sub collections {
+  my $c = shift;
+
+  # Async
+  $c->render_later;
+
+  # Get resource (for all)
+  $c->search->resource(
+    type => 'collection',
+    sub {
+      my $notes = $c->notifications(json => $c->stash('search.resource'));
+      return $c->render(json => $notes);
+    }
+  );
+};
 
 1;
 
