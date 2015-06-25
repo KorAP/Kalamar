@@ -1,11 +1,15 @@
-% my $match = stash('match') || {}; 
-% my $id = $match->{corpusID} . '-' . $match->{docID} . '.' . $match->{textID} . '#' . $match->{ID};
+% use Mojo::JSON qw/encode_json/;
+% my $match = stash('match') || {};
+% my %match_data = %$match;
+% delete @match_data{qw/snippet startMore endMore field/};
+% my $id = $match->{textSigle} . '#' . $match->{matchID};
 <li data-corpus-id="<%= $match->{corpusID} %>"
     data-doc-id="<%= $match->{docID} %>"
     data-text-id="<%= $match->{textID} %>"
-    data-match-id="<%= $match->{ID} %>"
+    data-match-id="<%= $match->{matchID} %>"
     %# TODO: This needs to be retrieved per match 
-    data-available-info="cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans"
+    data-available-info="<%= $match->{layerInfos} // $match->{layerInfo} // 'cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans' %>"
+    data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
     id="<%= $id %>"\
 <% if (current_route eq 'match') { %> class="active"<% } =%>>
   <div>
@@ -17,9 +21,8 @@
   <p class="ref">\
 <% if ($match->{title}) { %><strong><%= $match->{title} %></strong><% }; %>\
 <%= $match->{author} ? ' ' . loc('by') . ' ' . $match->{author}  : '' %>\
-<% if ($match->{title} || $match->{author}) { %>;<% } %> \
-<%= loc('pubOn') %> <%= $match->{pubDate} %> \
-(<%= $id %>)\
-%# Add textClass
+% if ($match->{pubDate}) {
+ (<time datetime="<%= $match->{pubDate} %>"><%= $match->{pubDate} %></time>)\
+% };
 </p>
 </li>

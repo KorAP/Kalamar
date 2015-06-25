@@ -61,6 +61,7 @@ sub search {
   my %param = @_;
 
   # Set context based on parameter
+  # base/s:p
   $url->query({ context => $param{'context'} // 'paragraph' });
 
   # Set path to search
@@ -515,13 +516,20 @@ sub _map_matches {
 # Cleanup single match
 sub _map_match {
   my $x = shift or return;
-  $x->{ID} =~ s/^match\-[^!]+![^-]+-//;
-  $x->{docID} =~ s/^[^_]+_//;
+  $x->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^-]+-//;
 
+  (
+    $x->{corpusID},
+    $x->{docID},
+    $x->{textID}
+  ) = ($x->{textSigle} =~ /^([^_]+?)_+([^\.]+?)\.(.+?)$/);
+
+  # $x->{docID} =~ s/^[^_]+_//;
   # Legacy: In old versions the text_id was part of the doc_id
-  unless ($x->{textID}) {
-    ($x->{docID}, $x->{textID}) = split '\.', $x->{docID};
-  };
+  #  unless ($x->{textID}) {
+  #    ($x->{docID}, $x->{textID}) = split '\.', $x->{docID};
+  #  };
+
   $x;
 };
 

@@ -10,8 +10,9 @@
  */
 define([
   'match/info',
+  'match/reference',
   'util'
-], function (infoClass) {
+], function (infoClass, refClass) {
 
   // Localization values
   var loc   = KorAP.Locale;
