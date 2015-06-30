@@ -16,7 +16,10 @@
     <!-- Search in the following virtual collection -->
     <div id="vc-view"></div>
     <%= loc 'in' %>
-    %= hidden_field 'vc-name' => stash('vc-name'), id => 'vc-name' 
+    %# TODO: Create 'align' parameter
+    %# TODO: Create 'show' parameter with comma separated list
+    %= hidden_field 'cs' => stash('cs'), id => 'collection-show'
+    %= hidden_field 'collection-name' => stash('collection-name'), id => 'collection-name' 
     %= text_field 'collection', id => 'collection'
 
     <%= loc 'with' %>

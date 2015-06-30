@@ -27,6 +27,8 @@ define([
   var loc = KorAP.Locale;
   loc.VC_allCorpora    = loc.VC_allCorpora  || 'all Corpora';
   loc.VC_oneCollection = loc.VC_oneCollection  || 'one Collection';
+  loc.TOGGLE_ALIGN = loc.TOGGLE_ALIGN  || 'toggle Alignment';
+  loc.SHOW_KQ = loc.SHOW_KQ  || 'show KoralQuery';
 
   // Override KorAP.log
   window.alertify = alertifyClass;
@@ -71,7 +73,7 @@ define([
 
       vcname.appendChild(
 	document.createTextNode(
-	  document.getElementById('vc-name').value || currentVC
+	  document.getElementById('collection-name').value || currentVC
 	)
       );
 
@@ -97,29 +99,68 @@ define([
       });
     };
 
+    var result = document.getElementById('resultinfo');
+    var resultButton;
+    if (result != null) {
+      resultButton = result.appendChild(document.createElement('div'));
+      resultButton.classList.add('result', 'button'); 
+    };
+
+    // There is a koralQuery
+    if (KorAP.koralQuery !== undefined && resultButton !== null) {
+      var kq;
+      
+      var toggle = document.createElement('a');
+      toggle.setAttribute('title', loc.SHOW_KQ)
+      toggle.classList.add('show-kq', 'button');
+      toggle.appendChild(document.createElement('span'))
+	.appendChild(document.createTextNode(loc.SHOW_KQ));
+      resultButton.appendChild(toggle);
+
+      if (toggle !== undefined) {
+      
+	// Show koralquery
+	toggle.addEventListener(
+	  'click', function () {
+	    if (kq === undefined) {
+	      kq = document.createElement('div');
+	      kq.setAttribute('id', 'koralquery');
+	      kq.style.display = 'none';
+	      var kqInner = document.createElement('div');
+	      kq.appendChild(kqInner);
+	      kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
+	      hljs.highlightBlock(kqInner);
+	      var sb = document.getElementById('search');
+	      sb.insertBefore(kq, sb.firstChild);
+	    };
+
+	    kq.style.display = (kq.style.display === 'none') ? 'block' : 'none';
+	  }
+	);
+      };
+    };
+
 
     /**
      * Toggle the alignment (left <=> right)
      */
-    if (i > 0) {
-      var br = document.querySelector('div.button.right');
-      if (br !== null) {
-	var toggle = document.createElement('a');
-	toggle.setAttribute('title', 'toggle Alignment');
-	// Todo: Reuse old alignment from cookie!
-	var cl = toggle.classList;
-	cl.add('align', 'right');
-	toggle.addEventListener(
-	  'click',
-	  function (e) {
-	    var ol = document.querySelector('#search > ol');
-	    ol.toggleClass("align-left", "align-right");
-	    this.toggleClass("left", "right");
-	  });
-	toggle.appendChild(document.createElement('span'))
-	  .appendChild(document.createTextNode('Alignment'));
-	br.appendChild(toggle);
-      };
+    // querySelector('div.button.right');
+    if (i > 0 && resultButton !== null) {
+      var toggle = document.createElement('a');
+      toggle.setAttribute('title', loc.TOGGLE_ALIGN);
+      // Todo: Reuse old alignment from query
+      var cl = toggle.classList;
+      cl.add('align', 'right', 'button');
+      toggle.addEventListener(
+	'click',
+	function (e) {
+	  var ol = document.querySelector('#search > ol');
+	  ol.toggleClass("align-left", "align-right");
+	  this.toggleClass("left", "right");
+	});
+      toggle.appendChild(document.createElement('span'))
+	.appendChild(document.createTextNode(loc.TOGGLE_ALIGN));
+      resultButton.appendChild(toggle);
     };
 
 
@@ -127,14 +168,16 @@ define([
      * Toggle the Virtual Collection builder
      */
     if (vcname) {
+      var collectionShow = document.getElementById('collection-show');
       var vc;
-      vcname.onclick = function () {
+      var vcclick = function () {
 	var view = document.getElementById('vc-view');
 
 	// The vc is visible
 	if (this.classList.contains('active')) {
 	  view.removeChild(vc.element());
 	  this.classList.remove('active');
+	  delete collectionShow['value'];
 	}
 
 	// The vc is not visible
@@ -143,7 +186,12 @@ define([
 	    vc = _getCurrentVC(vcClass, vcArray);
 	  view.appendChild(vc.element());
 	  this.classList.add('active');
+	  collectionShow.value = 'true';
 	};
+      };
+      vcname.onclick = vcclick;
+      if (collectionShow.value === 'true') {
+	vcclick.apply();
       };
     };
 
@@ -170,21 +218,6 @@ define([
     // Initialize documentation links
     obj.tutorial.initDocLinks(document);
 
-    // There is a currentQuery
-    /*
-    if (KorAP.koralQuery !== undefined) {
-      var kq = document.createElement('div');
-      kq.setAttribute('id', 'koralquery');
-
-      var kqInner = document.createElement('div');
-      kq.appendChild(kqInner);
-      kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
-      hljs.highlightBlock(kqInner);
-
-      var sb = document.getElementById('search');
-      sb.insertBefore(kq, sb.firstChild);
-    };
-    */
 
     /**
      * Add VC creation on submission.

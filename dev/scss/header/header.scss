@@ -92,12 +92,6 @@ header {
     > a.tutorial::after {
       content: $fa-tutorial;
     }
-    > a.align.left::after {
-      content: $fa-left-align;
-    }
-    > a.align.right::after {
-      content: $fa-right-align;
-    }
     > a.question::after {
       content: $fa-question;
     }

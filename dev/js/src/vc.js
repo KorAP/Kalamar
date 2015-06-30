@@ -110,9 +110,12 @@ define([
 	KorAP._vcMatchopMenu = {
 	  'string' : menuClass.create([
 	    ['eq', null],
-	    ['ne', null],
+	    ['ne', null]
+/*
+  ,
 	    ['contains', null],
 	    ['excludes', null]
+*/
 	  ]),
 	  'date' : menuClass.create([
 	    ['eq', null],
@@ -121,9 +124,9 @@ define([
 	  ]),
 	  'regex' : menuClass.create([
 	    ['eq', null],
-	    ['ne', null],
+	    ['ne', null]/*,
 	    ['contains', null],
-	    ['excludes', null]
+	    ['excludes', null]*/
 	  ])
 	};
       };

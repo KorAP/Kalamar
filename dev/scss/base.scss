@@ -34,7 +34,7 @@ body {
 
 
 a {
-  &:link {
+  &:link, &.button {
     color: $dark-orange;
     text-decoration: none;
     &:hover {

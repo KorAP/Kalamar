@@ -28,4 +28,7 @@ define(function () {
   loc.ADDTREE  = 'Baumansicht hinzufügen';
   loc.SHOWINFO = 'Informationen';
   loc.CLOSE    = 'Schließen';
+
+  loc.TOGGLE_ALIGN = 'tausche Textausrichtung';
+  loc.SHOW_KQ      = 'zeige KoralQuery';
 });

@@ -4,6 +4,12 @@
     <title>Complete Demo</title>
     <meta charset="utf-8" />
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+    <script>//<![CDATA[
+
+  window.KorAP = window.KorAP || {};
+  KorAP.URL = '';
+
+    //]]></script>
     <script data-main="alldemo.js" src="../js/lib/require.js" async="async"></script>
   </head>
   <body>
@@ -29,7 +35,8 @@
         <!-- Search in the following virtual collection -->
         <div id="vc-view"></div>
         in
-        <input id="vc-name" name="vc-name" type="hidden" value>
+        <input id="collection-show" name="cs" type="hidden">
+        <input id="collection-name" name="collection-name" type="hidden">
         <input id="collection" name="collection" type="text" value="">
 	with <span class="select">
 	  <!-- Change this to js-menu -->
@@ -65,7 +72,7 @@
     </aside>
 
     <main>
-      <div class="resultinfo">
+      <div id="resultinfo">
 	<div id="pagination">
 	  <a rel="prev"><span><span>&lt;</span></span></a>
 	  <a rel="self"><span>1</span></a>
@@ -77,6 +84,10 @@
 	</div>
 	<p class="found">Found <span id="total-results">unknown amount of matches</span> in 59.93ms</p>
       </div>
+
+      <script>
+	KorAP.koralQuery = {"matches":["..."],"query":{"wrap":{"layer":"orth","match":"match:eq","foundry":"opennlp","key":"Goethe","@type":"koral:term"},"@type":"koral:token"},"meta":{"serialQuery":"tokens:s:Goethe","startIndex":0,"version":"unknown","itemsPerPage":25,"context":"p","benchmark":"0.103553092 s","totalResults":-1}};
+      </script>
 
       <div id="search">
 	<ol class="align-left">

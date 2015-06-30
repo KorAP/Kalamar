@@ -1,14 +1,39 @@
 @charset "utf-8";
 @import "../util";
 
-div.resultinfo {
+#resultinfo {
   clear: both;
+  text-align: right;
 
+  font-size: 10pt;
   p.found {
-    font-size: 10pt;
+    display: inline;
     padding: 0;
     margin: 0;
     text-align: right;
+  }
+  div.result.button {
+    display: inline-block;
+    > a {
+      cursor:pointer;
+      position: relative;
+      margin: 0 2pt;
+      > span {
+	@include blind;
+      }
+    }
+    > a::after {
+      font-family: 'FontAwesome';
+    }
+    > a.align.left::after {
+      content: $fa-left-align;
+    }
+    > a.align.right::after {
+      content: $fa-right-align;
+    }
+    > a.show-kq::after {
+      content: $fa-code;
+    }
   }
 }
 

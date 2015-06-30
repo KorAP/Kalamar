@@ -62,7 +62,7 @@ sub search {
 
   # Set context based on parameter
   # base/s:p
-  $url->query({ context => $param{'context'} // 'paragraph' });
+  $url->query({ context => $param{'context'} // 'base/s:p' }); # 'paragraph'
 
   # Set path to search
   $url->path('search');
