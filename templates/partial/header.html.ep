@@ -17,14 +17,12 @@
     <div id="vc-view"></div>
     <%= loc 'in' %>
     %# TODO: Create 'align' parameter
-    %# TODO: Create 'show' parameter with comma separated list
-    %= hidden_field 'cs' => stash('cs'), id => 'collection-show'
-    %= hidden_field 'collection-name' => stash('collection-name'), id => 'collection-name' 
+    %= hidden_field 'collection-name' => param('collection-name'), id => 'collection-name' 
     %= text_field 'collection', id => 'collection'
 
     <%= loc 'with' %>
     <span class="select">
-      %= select_field 'ql', [[Poliqarp => 'poliqarp'], ['Cosmas II' => 'cosmas2'], ['Annis' => 'annis'], ['CQL v1.2' => 'cql']], id => 'ql-field'
+      %= select_field 'ql', [[loc('QL_poliqarp') => 'poliqarp'], [loc('QL_cosmas2') => 'cosmas2'], [loc('QL_annis') => 'annis'], [loc('QL_cql') => 'cql']], id => 'ql-field'
     </span>
     <div class="button right">
       % param(cutoff => 1) unless param 'q';

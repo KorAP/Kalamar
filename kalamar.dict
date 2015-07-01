@@ -22,7 +22,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     about => 'Über KorAP',
     login => 'Anmelden',
-    searchtitle => 'KorAP: Finde "<%== $q %>" (<%= $ql %>)',
+    searchtitle => 'KorAP: Finde »<%== $q %>« <% if (param("collection-name")) { %>in <%== param("collection-name") %><% } %> mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
     searchplaceholder => 'Finde ...',
     go => 'Los!',
     in => 'in',
@@ -60,7 +60,7 @@ my $THOUSAND_SEP_RE = qr/(
     about => 'About KorAP',
     login => 'Login',
     go => 'Go!',
-    searchtitle => 'KorAP: Find "<%== $q %>" (<%= $ql %>)',
+    searchtitle => 'KorAP: Find »<%== $q %>« <% if (param("collection-name")) { %>in <%== param("collection-name") %><% } %> with <%== loc("QL_". $ql, "unknown query language") %>)',
     searchplaceholder => 'Find ...',
     in => 'in',
     by => 'by',
@@ -80,6 +80,12 @@ my $THOUSAND_SEP_RE = qr/(
       -short => 'KorAP',
       desc => 'KorAP - Corpus Analysis Platform',
       overview => 'KorAP - Overview'
+    },
+    QL => {
+      poliqarp => 'Poliqarp',
+      cosmas2 => 'Cosmas II',
+      annis => 'Annis QL',
+      cql => 'CQL v1.2'
     }
   }
 };

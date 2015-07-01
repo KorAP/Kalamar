@@ -7,6 +7,7 @@ define([
   'hint/array',
   'vc/array',
   'lib/alertify',
+  'session',
   'api',
   'mailToChiffre',
   'lib/highlight/highlight.pack',
@@ -18,17 +19,18 @@ define([
 	     domReady,
 	     hintArray,
 	     vcArray,
-	     alertifyClass) {
+	     alertifyClass,
+	     sessionClass) {
 
   // Set hint array for hint helper
   KorAP.hintArray = hintArray;
 
   // Localization values
   var loc = KorAP.Locale;
-  loc.VC_allCorpora    = loc.VC_allCorpora  || 'all Corpora';
-  loc.VC_oneCollection = loc.VC_oneCollection  || 'one Collection';
-  loc.TOGGLE_ALIGN = loc.TOGGLE_ALIGN  || 'toggle Alignment';
-  loc.SHOW_KQ = loc.SHOW_KQ  || 'show KoralQuery';
+  loc.VC_allCorpora    = loc.VC_allCorpora    || 'all Corpora';
+  loc.VC_oneCollection = loc.VC_oneCollection || 'one Collection';
+  loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle Alignment';
+  loc.SHOW_KQ          = loc.SHOW_KQ          || 'show KoralQuery';
 
   // Override KorAP.log
   window.alertify = alertifyClass;
@@ -45,6 +47,10 @@ define([
 
   domReady(function (event) {
     var obj = {};
+    var session = sessionClass.create('KalamarJS');
+
+    // What should be visible?
+    var show = session.get('show') || {};
 
     /**
      * Release notifications
@@ -107,37 +113,50 @@ define([
     };
 
     // There is a koralQuery
-    if (KorAP.koralQuery !== undefined && resultButton !== null) {
-      var kq;
-      
-      var toggle = document.createElement('a');
-      toggle.setAttribute('title', loc.SHOW_KQ)
-      toggle.classList.add('show-kq', 'button');
-      toggle.appendChild(document.createElement('span'))
-	.appendChild(document.createTextNode(loc.SHOW_KQ));
-      resultButton.appendChild(toggle);
+    if (KorAP.koralQuery !== undefined) {
 
-      if (toggle !== undefined) {
-      
-	// Show koralquery
-	toggle.addEventListener(
-	  'click', function () {
-	    if (kq === undefined) {
-	      kq = document.createElement('div');
-	      kq.setAttribute('id', 'koralquery');
-	      kq.style.display = 'none';
-	      var kqInner = document.createElement('div');
-	      kq.appendChild(kqInner);
-	      kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
-	      hljs.highlightBlock(kqInner);
-	      var sb = document.getElementById('search');
-	      sb.insertBefore(kq, sb.firstChild);
-	    };
+      if (resultButton !== null) {
+	var kq;
+      	var toggle = document.createElement('a');
+	toggle.setAttribute('title', loc.SHOW_KQ)
+	toggle.classList.add('show-kq', 'button');
+	toggle.appendChild(document.createElement('span'))
+	  .appendChild(document.createTextNode(loc.SHOW_KQ));
+	resultButton.appendChild(toggle);
 
-	    kq.style.display = (kq.style.display === 'none') ? 'block' : 'none';
+	var showKQ = function () {
+	  if (kq === undefined) {
+	    kq = document.createElement('div');
+	    kq.setAttribute('id', 'koralquery');
+	    kq.style.display = 'none';
+	    var kqInner = document.createElement('div');
+	    kq.appendChild(kqInner);
+	    kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
+	    hljs.highlightBlock(kqInner);
+	    var sb = document.getElementById('search');
+	    sb.insertBefore(kq, sb.firstChild);
+	  };
+
+	  if (kq.style.display === 'none') {
+	    kq.style.display = 'block';
+	    show['kq'] = true;
 	  }
-	);
+	  else {
+	    kq.style.display = 'none';
+	    delete show['kq'];
+	  };
+	};
+
+	if (toggle !== undefined) {
+      
+	  // Show koralquery
+	  toggle.addEventListener('click', showKQ);
+	};
       };
+
+      // Session has KQ visibility stored
+      if (show["kq"])
+	showKQ.apply();
     };
 
 
@@ -168,16 +187,15 @@ define([
      * Toggle the Virtual Collection builder
      */
     if (vcname) {
-      var collectionShow = document.getElementById('collection-show');
       var vc;
       var vcclick = function () {
 	var view = document.getElementById('vc-view');
 
 	// The vc is visible
-	if (this.classList.contains('active')) {
+	if (vcname.classList.contains('active')) {
 	  view.removeChild(vc.element());
-	  this.classList.remove('active');
-	  delete collectionShow['value'];
+	  vcname.classList.remove('active');
+	  delete show['collection'];
 	}
 
 	// The vc is not visible
@@ -185,12 +203,12 @@ define([
 	  if (vc === undefined)
 	    vc = _getCurrentVC(vcClass, vcArray);
 	  view.appendChild(vc.element());
-	  this.classList.add('active');
-	  collectionShow.value = 'true';
+	  vcname.classList.add('active');
+	  show['collection'] = true;
 	};
       };
       vcname.onclick = vcclick;
-      if (collectionShow.value === 'true') {
+      if (show['collection']) {
 	vcclick.apply();
       };
     };
@@ -201,7 +219,8 @@ define([
      */
     if (document.getElementById('view-tutorial')) {
       window.tutorial = tutClass.create(
-	document.getElementById('view-tutorial')
+	document.getElementById('view-tutorial'),
+	session
       );
       obj.tutorial = window.tutorial;
     }
@@ -225,11 +244,30 @@ define([
     var form = document.getElementById('searchform');
     if (form !== undefined) {
       form.addEventListener('submit', function (e) {
-	if (vc === undefined)
-	  vc = _getCurrentVC(vcClass, vcArray);
+	var qf = document.getElementById('q-field');
 
-	if (vc !== undefined)
+	// No query was defined
+	if (qf.value === undefined || qf.value === '') {
+	  qf.focus();
+	  e.halt();
+	  KorAP.log(700, "No query given");
+	  return;
+	};
+
+	// Store session information
+	session.set("show", show);
+
+	// Set Virtual collection 
+	if (vc === undefined) {
+	  vc = _getCurrentVC(vcClass, vcArray);
+	};
+
+	if (vc !== undefined) {
 	  input.value = vc.toQuery();
+	}
+	else {
+	  delete input['value'];
+	};
       });
     };
 

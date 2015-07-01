@@ -17,16 +17,22 @@ define(['session', 'util'], function (sessionClass) {
      * Create new tutorial object.
      * Accepts an element to bind the tutorial window to.
      */
-    create : function (obj) {
+    create : function (obj,session) {
       if (!obj)
 	return null;
-      return Object.create(this)._init(obj);
+      return Object.create(this)._init(obj,session);
     },
 
     // Initialize Tutorial object
-    _init : function (obj) {
+    _init : function (obj, session) {
 
-      this._session = sessionClass.create();
+      if (session === undefined) {
+	this._session = sessionClass.create();
+      }
+      else {
+	this._session = session;
+      };
+    
 
       if (obj) {
 	this._show = obj;
