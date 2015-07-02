@@ -61,6 +61,10 @@ $standard-margin: 4px;
     margin-right: $standard-margin;
   }
 
+  header .button {
+    margin-right: $standard-margin;    
+  }
+
   #search ol {
     > li:target, > li.active {
       > div > div.snippet {

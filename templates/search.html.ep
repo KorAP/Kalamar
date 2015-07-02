@@ -1,9 +1,9 @@
 % layout 'main', title => loc('searchtitle', q => search->query, ql => search->query_language);
 
-<div id="resultinfo">
+<div id="resultinfo" <% if (search->results->size) { %> class="found"<%} %>>
   <div id="pagination"><%= pagination(search->start_page, search->total_pages, url_with->query(['p' => '{page}'])) =%></div>
-  <p class="found">\
 % my $found = search->total_results;
+  <p class="found">\
 % if ($found != -1) {
 %   my $found_text = loc('numf', number => $found);
 %   if (search->time_exceeded) {
@@ -11,6 +11,8 @@
 %   };
 <span id="total-results"><%= $found_text %></span> <%= loc('matchCount', found => $found) %>\
 %# <% if (search->benchmark) { %> (~ <%= search->benchmark %>)<% } %>
+% } elsif (search->start_index == 0 && search->results->size == 0) {
+<span id="total-results">0</span> <%= loc('matchCount', found => $found) %>\
 % };
 </p>
 </div>
@@ -24,7 +26,7 @@
 %=    include 'match', match => $_
 %   end
   </ol>
-% } else {
+% } elsif (search->results->size == 0) {
 <p id="no-results"><%== loc 'noMatches', q => search->query %></p>
 % }
 </div>

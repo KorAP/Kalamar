@@ -1,6 +1,8 @@
 @charset "utf-8";
 @import "../util";
 
+$border-size : 1px;
+
 #resultinfo {
   clear: both;
   text-align: right;
@@ -12,14 +14,48 @@
     margin: 0;
     text-align: right;
   }
-  div.result.button {
+
+  div.result {
     display: inline-block;
+    margin: 2pt 0 0 2pt;
     > a {
+      display: inline-block;
       cursor:pointer;
       position: relative;
-      margin: 0 2pt;
       > span {
 	@include blind;
+      }
+      box-shadow: $choose-box-shadow;
+      @include standard-text-padding;
+      padding-top: 1pt;
+      padding-bottom: 1pt;
+      
+      @include choose-item;
+      border: {
+	top-width: $border-size;
+	bottom-width:  $border-size;
+	top-style: solid;
+	bottom-style: solid;
+      }
+      &:hover {
+	@include choose-hover;
+      }
+    }
+
+    > a:last-child {
+      border: {
+	top-right-radius: $standard-border-radius;
+	bottom-right-radius: $standard-border-radius;
+	right-width: $border-size;
+	right-style: solid;
+      }
+    }
+    > a:first-child {
+      border: {
+	top-left-radius: $standard-border-radius;
+	bottom-left-radius: $standard-border-radius;
+	left-width: $border-size;
+	left-style: solid;
       }
     }
     > a::after {
@@ -37,11 +73,28 @@
   }
 }
 
+#resultinfo.found {
+  position: relative;
+  z-index: 20;
+  margin-bottom: 0px;
+  div.result > a {
+    margin-bottom: 0;
+    border-bottom-width: 0;
+    box-shadow: none;
+    &:first-child {
+      border-bottom-left-radius: 0;
+    }
+    &:last-child {
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
 #total-results {
   color: $total-results;
   font-weight: bold;
 }
-
+/*
 #no-results {
   margin: 0 auto;
   text-align: center;
@@ -55,3 +108,5 @@
     font-weight: bold;
   }
 }
+
+*/
