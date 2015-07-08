@@ -173,7 +173,9 @@ define(['session', 'util'], function (sessionClass) {
     setPage : function (obj) {
       var page = obj;
       if (typeof page != 'string') {
-	page = window.location.pathname + window.location.search;
+	var l = this._iframe !== null ? window.frames[0].location : window.location;
+	page = l.pathname + l.search;
+
 	for (var i = 1; i < 5; i++) {
 	  if (obj.nodeName === 'SECTION') {
 	    if (obj.hasAttribute('id'))
@@ -196,7 +198,7 @@ define(['session', 'util'], function (sessionClass) {
      * Get the current tutorial URL
      */
     getPage : function () {
-      this._session.get('tutpage');
+      return this._session.get('tutpage');
     }
   };
 });

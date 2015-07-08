@@ -1,0 +1,9 @@
+// Make cursor helper
+body.helper, body.helper a {
+  cursor: help !important;
+}
+
+// Make hover links visible
+body.helper *[data-helper]:hover {
+  text-shadow: 0 0 5px $dark-orange !important;
+}

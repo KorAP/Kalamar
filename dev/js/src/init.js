@@ -242,7 +242,7 @@ define([
      * Add VC creation on submission.
      */
     var form = document.getElementById('searchform');
-    if (form !== undefined) {
+    if (form !== null) {
       form.addEventListener('submit', function (e) {
 	var qf = document.getElementById('q-field');
 
