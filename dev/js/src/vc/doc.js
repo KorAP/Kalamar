@@ -557,6 +557,9 @@ define([
       case "excludes":
 	string += '!~';
 	break;
+      case "containsnot":
+	string += '!~';
+	break;
       case "geq":
 	string += 'since';
 	break;

@@ -15,10 +15,10 @@
   <body>
     <div id="kalamar-bg"></div>
     <header>
-      <a href="/" class="logo"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
+      <a href="/" class="logo" tabindex="-1"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
 
       <div class="button top">
-	<a href="#" class="login"><span>Login</span></a>
+	<a href="#" class="login" tabindex="-1"><span>Login</span></a>
       </div>
 
       <form autocomplete="off" action="/kalamar" id="searchform">
@@ -56,7 +56,7 @@
 	  <label for="q-cutoff-field"><span></span>Glimpse</label>
 
 	  <!-- Todo: open tutorial - like openTutorial() -->
-	  <a href="doc/faq" class="question"><span>Question</span></a>
+	  <a href="doc/faq" tabindex="-1" class="question"><span>Question</span></a>
 	  <a href="tutorial.html" title="Tutorial" class="tutorial" id="view-tutorial"><span>Tutorial</span></a>
 	</div>
       </form>
@@ -76,11 +76,11 @@
 	<div id="pagination">
 	  <a rel="prev"><span><span>&lt;</span></span></a>
 	  <a rel="self"><span>1</span></a>
-	  <a href="#2"><span>2</span></a>
-	  <a href="#3"><span>3</span></a>
+	  <a href="#2" tabindex="4"><span>2</span></a>
+	  <a href="#3" tabindex="4"><span>3</span></a>
 	  <a class="ellipsis"><span><span>...</span></span></a>
-	  <a href="#52230"><span>52230</span></a>
-	  <a rel="next" href="#2"><span><span>&gt;</span></span></a>
+	  <a href="#52230" tabindex="4"><span>52230</span></a>
+	  <a rel="next" href="#2" tabindex="4"><span><span>&gt;</span></span></a>
 	</div>
 	<p class="found">Found <span id="total-results">unknown amount of matches</span> in 59.93ms</p>
       </div>
@@ -90,14 +90,15 @@
       </script>
 
       <div id="search">
-	<ol class="align-left">
+	<ol class="align-left" tabindex="-8">
 	  <li data-corpus-id="WPD"
 	      data-doc-id="WWW"
 	      data-text-id="03313"
 	      data-match-id="p102-103"
 	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
 	      id="WPD-WWW.03313-p102-103"
-	      class="marked">
+	      class="marked"
+	      tabindex="6">
 	    <div>
 	      <div class="flag"></div>
 	      <div class="snippet startMore endMore"><span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><mark><mark class="class-2 level-1">Dies </mark><mark class="class-1 level-0"><mark class="class-2 level-1"><mark class="class-3 level-2">ist</mark> ein</mark> Test</mark></mark><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
@@ -111,7 +112,8 @@
 	      data-text-id="01460"
 	      data-match-id="p119-120"
 	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
-	      id="WPD-FFF.01460-p119-120">
+	      id="WPD-FFF.01460-p119-120"
+	      tabindex="6">
 	    <div>
 	      <div class="snippet startMore endMore"><span class="context-left">Der Fehler unterläuft häufig bei der direkten Übersetzung aus dem Englischen, wenn im originalen Ausdruck die beiden Wortteile verschiedene Wörter sind und sich das Adjektiv wahlweise auf das erste oder zweite Wort bezieht. Ein Beispiel ist multiples Testproblem für multiple </span><span class="match">test</span><span class="context-right"> problem.</span></div>
 	      <div class="tokenInfo"></div>
@@ -125,7 +127,8 @@
 	      data-match-id="p2564-2565"
 	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
 	      id="WPD-HHH.06056-p2564-2565"
-	      class="marked">
+	      class="marked"
+	      tabindex="6">
 	    <div>
 	      <div class="flag"></div>
 	      <div class="snippet startMore endMore"><span class="context-left">HDTV Samples from European (and other) broadcasters and </span><span class="match">test</span><span class="context-right"> transmissions in Europe</span></div>

@@ -3,6 +3,12 @@
 
 $border-size: 2px;
 
+/*
+*:focus {
+  background-color: red !important;
+}
+*/
+
 #search {
   position: relative;
   margin-bottom: 30px;
@@ -23,6 +29,19 @@ $border-size: 2px;
     border: 1px solid $kwic-border;
     font-size: 10pt;
     > li {
+      &:focus:not(.active) {
+	background-color: $dark-orange !important;
+	&:not(:target) div.flag {
+	  border-right-color: $nearly-white;
+	}
+	> div > div.snippet {
+	  color: $nearly-white;
+	  text-shadow: none !important;
+	  .class-3 {
+	    border-color: $nearly-white;
+	  }
+	}
+      }
       position: relative;
       border: {
 	style: solid;
@@ -60,13 +79,13 @@ $border-size: 2px;
             > span {
               white-space: no-wrap !important;
             }
-            color: #666;
+            // color: #666;
           }
           > mark,
 	  > span.match {
             font-weight: bold;
             /* text-shadow: $kwic-match-shadow; */
-            color: $kwic-match-color;
+            // color: $kwic-match-color;
             padding-left: 4pt;
             padding-right: 2pt;
           }

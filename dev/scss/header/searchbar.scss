@@ -48,8 +48,11 @@ header input {
       style: solid;
       color: $nearly-white;
     }
-    &:hover {
+    &:hover, &:focus {
       @include choose-hover;
+    }
+    &::-moz-focus-inner {
+      border: none;
     }
     &:active {
       @include choose-active;

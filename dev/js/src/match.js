@@ -190,6 +190,14 @@ define([
       return true;
     },
 
+    // Todo: Test toggle
+    toggle : function () {
+      if (this._element.classList.contains('active'))
+	this.close();
+      else
+	this.open();
+    },
+
 
     /**
      * Close info view

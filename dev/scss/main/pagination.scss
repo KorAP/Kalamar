@@ -110,8 +110,12 @@ $border-size : 2px;
 	line-height: 1em;
       }
     }
-    &:link:hover span {
-      @include choose-hover;
+    &:link:hover,
+    &:link:focus {
+      outline: none;
+      span {
+	@include choose-hover;
+      }
     }
   }
 }

@@ -55,7 +55,7 @@ define([
   "use strict";
 
   // ???
-  KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains|excludes)$");
+  KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains(?:not)?|excludes)$");
   KorAP._validDateMatchRE   = new RegExp("^[lg]?eq$");
   KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
   KorAP._overrideStyles     = false;
@@ -112,7 +112,7 @@ define([
 	    ['eq', null],
 	    ['ne', null],
 	    ['contains', null],
-	    ['excludes', null]
+	    ['containsnot', null]
 	  ]),
 	  'date' : menuClass.create([
 	    ['eq', null],
@@ -123,7 +123,7 @@ define([
 	    ['eq', null],
 	    ['ne', null],
 	    ['contains', null],
-	    ['excludes', null]
+	    ['containsnot', null]
 	  ])
 	};
       };

@@ -30,11 +30,6 @@ define([
   /**
    * Return keycode based on event
    */
-  function _codeFromEvent (e) {
-    if ((e.charCode) && (e.keyCode==0))
-      return e.charCode
-    return e.keyCode;
-  };
 
   // Initialize hint array
 

@@ -94,6 +94,7 @@ define([
       '#search > ol > li:not(.active)'
     );
     var i = 0;
+
     for (i = 0; i < inactiveLi.length; i++) {
       inactiveLi[i].addEventListener('click', function (e) {
 	if (this._match !== undefined)
@@ -102,6 +103,20 @@ define([
 	  matchClass.create(this).open();
 	};
 	e.halt();
+      });
+      inactiveLi[i].addEventListener('keydown', function (e) {
+	var code = _codeFromEvent(e);
+	
+	switch (code) {
+	case 32:
+	  if (this._match !== undefined)
+	    this._match.toggle();
+	  else {
+	    matchClass.create(this).open();
+	  };
+	  e.halt();
+	  break;
+	};
       });
     };
 
@@ -292,4 +307,3 @@ function _getCurrentVC (vcClass, vcArray) {
   };
   return vc;
 };
-

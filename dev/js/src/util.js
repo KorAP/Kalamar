@@ -35,6 +35,14 @@ function _removeChildren (node) {
     node.removeChild(node.firstChild);
 };
 
+// Utility to get either the charCode
+// or the keyCode of an event
+function _codeFromEvent (e) {
+  if ((e.charCode) && (e.keyCode==0))
+    return e.charCode
+  return e.keyCode;
+};
+
 
 define(function () {
   // Todo: That's double now!
