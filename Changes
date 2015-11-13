@@ -1,3 +1,7 @@
+0.17 2015-11-13
+        - Support a larger template cache.
+	- Minor style adjustments.
+
 0.16 2015-06-18
         - Update to new KoralQuery API.
 	  WARNING! This version is no longer compatible

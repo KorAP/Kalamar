@@ -4,7 +4,7 @@ use Mojo::ByteStream 'b';
 use Mojo::JSON 'decode_json';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
@@ -21,6 +21,9 @@ sub startup {
   # This may introduce a SemVer patch number
   my $pkg = b($self->home . '/package.json')->slurp;
   $Kalamar::VERSION = decode_json($pkg)->{version};
+
+  # Lift maximum template cache
+  $self->renderer->cache->max_keys(200);
 
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');

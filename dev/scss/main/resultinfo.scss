@@ -6,7 +6,9 @@ $border-size : 1px;
 #resultinfo {
   clear: both;
   text-align: right;
-
+  line-height: 1.5em;
+  min-height: 1.5em;
+  margin-top:.4em;
   font-size: 10pt;
   p.found {
     display: inline;
@@ -16,19 +18,20 @@ $border-size : 1px;
   }
 
   div.result {
+    vertical-align: bottom;
     display: inline-block;
-    margin: 2pt 0 0 2pt;
+    line-height: 1.3em;
     > a {
       display: inline-block;
-      cursor:pointer;
+      cursor: pointer;
       position: relative;
       > span {
 	@include blind;
       }
       box-shadow: $choose-box-shadow;
       @include standard-text-padding;
-      padding-top: 1pt;
-      padding-bottom: 1pt;
+      // padding-top: 1pt;
+      // padding-bottom: 3pt;
       
       @include choose-item;
       border: {
@@ -41,7 +44,6 @@ $border-size : 1px;
 	@include choose-hover;
       }
     }
-
     > a:last-child {
       border: {
 	top-right-radius: $standard-border-radius;
@@ -94,19 +96,12 @@ $border-size : 1px;
   color: $total-results;
   font-weight: bold;
 }
-/*
+
 #no-results {
   margin: 0 auto;
   text-align: center;
   code {
-    &::before {
-      content : open-quote;
-    }
-    &::after {
-      content : close-quote;
-    }
     font-weight: bold;
   }
 }
 
-*/

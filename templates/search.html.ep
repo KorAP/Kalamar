@@ -27,6 +27,6 @@
 %   end
   </ol>
 % } elsif (search->results->size == 0) {
-<p id="no-results"><%== loc 'noMatches', q => search->query %></p>
+<p id="no-results"><%== loc 'noMatches', q => search->query, ql => search->query_language %></p>
 % }
 </div>
