@@ -71,6 +71,7 @@ require(['menu','menu/item', 'menu/prefix'], function (menuClass, itemClass, pre
 
   document.getElementById('menu').appendChild(menu.element());
 
+  menu._active = 2;
   menu.limit(3);
   menu.show('');
   menu.focus();

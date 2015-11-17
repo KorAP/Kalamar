@@ -203,6 +203,7 @@ define([
 
       this._element = e;
       this.active = false;
+      // this.selected = undefined;
       this._items = new Array();
       var i;
 
@@ -292,11 +293,18 @@ define([
       if (this._firstActive)
 	this.liveItem(0).active(true);
 
+      this._position = 0;
+
       this._prefix.active(false);
 
-      this._active = this._list[0];
-      this._position = 0;
       this._element.style.opacity = 1;
+
+      // Iterate to the active item
+      if (this._active !== -1 && !this._prefix.isSet()) {
+	while (this._list[this._position] < this._active) {
+	  this.next();
+	};
+      };
 
       // Add classes for rolling menus
       this._boundary(true);

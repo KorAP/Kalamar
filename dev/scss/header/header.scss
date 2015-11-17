@@ -39,6 +39,9 @@ header {
       color: $dark-green;
       border-color: $dark-green;
     }
+    &.active {
+      border-color: $dark-orange;
+    }
     &::after {
       pointer-events: none;
       font-family: FontAwesome;

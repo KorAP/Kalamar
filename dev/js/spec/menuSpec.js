@@ -776,6 +776,7 @@ define(['menu'], function () {
       expect(menu.prefix("exit").show()).toBe(false);    
     });
 
+
     it('should be navigatable with prefix', function () {
       var menu = KorAP.HintMenu.create("cnx/", demolist);
       menu._firstActive = true;
@@ -1067,7 +1068,12 @@ define(['menu'], function () {
     xit('should be page downable');
     xit('should be page upable');
 
-    xit('should scroll to a chosen value');
+    it('should scroll to a chosen value', function () {
+      var menu = KorAP.OwnMenu.create(demolist);
+      menu.limit(3);
+      this._active = 5;
+    });
+
     xit('should highlight a chosen value');
   });
 
