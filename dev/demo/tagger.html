@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tagger demo</title>
+    <meta charset="utf-8" />
+    <script data-main="taggerdemo.js" src="../js/lib/require.js" async="async"></script>
+    <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+    <style type="text/css" rel="stylesheet">
+.info {
+  background-color: #ddd;
+  color: black;
+  padding: 1em;
+  font-family: mono;
+}
+body {
+  margin: 0;
+  background-color: #ddd;
+}
+span.close::after {
+  content: 'x'
+}
+
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="tagger" id="tagger"></div>
+    </main>
+  </body>
+</html>
+

@@ -1,0 +1,55 @@
+@charset "utf-8";
+@import "../util";
+
+$border-size: 1px;
+
+.tagger {
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 100%;
+
+  // The tag list
+  > div  {
+    display: table-cell;
+    font-size: inherit;
+    white-space: nowrap;
+    width: 0;
+
+    // The tag
+    > span {
+      display: inline-block;
+      white-space: nowrap;
+      background-color: $dark-orange;
+      padding: 0 4px;
+      color: rgba(0,0,0,0.3);
+      margin-right: 2px;
+      box-shadow: $choose-box-shadow;
+      border: $choose-border;
+      border-radius: $standard-border-radius;
+
+      > span {
+	cursor: pointer;
+	&::after {
+	  font-size: 70%;
+	  vertical-align: top;
+	  margin-left: 2px;
+	  color: rgba(0,0,0,0.2);
+	  font-family: 'FontAwesome';
+	  content: $fa-close;
+	}
+      }
+    }
+  }
+
+  // The tag input field
+  input[type=text] {
+    display: table-cell;
+    width: 100%;
+    border: none;
+    background-color: $light-grey;
+    font-size: inherit;
+  }
+}
+
+
