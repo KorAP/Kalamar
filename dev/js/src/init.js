@@ -8,6 +8,7 @@ define([
   'vc/array',
   'lib/alertify',
   'session',
+  'tagger',
   'api',
   'mailToChiffre',
   'lib/highlight/highlight.pack',
@@ -20,7 +21,8 @@ define([
 	     hintArray,
 	     vcArray,
 	     alertifyClass,
-	     sessionClass) {
+	     sessionClass,
+	     tagger) {
 
   // Set hint array for hint helper
   KorAP.hintArray = hintArray;

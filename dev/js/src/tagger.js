@@ -1,10 +1,11 @@
-define([], function () {
+define(['palette'], function (p) {
 
   // "use strict";
 
   return {
     create : function (elem) {
       var obj = Object.create(this);
+      obj._nr = 0;
       obj._elem = elem;
       elem.appendChild(
 	document.createElement('div')
@@ -25,8 +26,12 @@ define([], function () {
 
       obj._cat = [];
     },
+
     addTag : function (name) {
       this._cat.push(name);
+
+      this._nr++;
+
       var cat = document.createElement('span');
       cat.appendChild(
 	document.createTextNode(name)
@@ -34,6 +39,9 @@ define([], function () {
       cat.appendChild(
 	document.createElement('span')
       ).setAttribute('class','close');
+
+      cat.style.backgroundColor = p.getC(this._nr);
+
       this._elem.firstChild.appendChild(cat);
     }
   };

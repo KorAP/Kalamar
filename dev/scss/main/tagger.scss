@@ -2,6 +2,7 @@
 @import "../util";
 
 $border-size: 1px;
+$tagcolor: rgba(0,0,0,0.5);
 
 .tagger {
   display: table;
@@ -18,23 +19,30 @@ $border-size: 1px;
 
     // The tag
     > span {
+      font-size: 80%;
       display: inline-block;
       white-space: nowrap;
       background-color: $dark-orange;
-      padding: 0 4px;
-      color: rgba(0,0,0,0.3);
+      padding: 2px 6px;
+      color: $tagcolor;
+      text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
       margin-right: 2px;
       box-shadow: $choose-box-shadow;
-      border: $choose-border;
-      border-radius: $standard-border-radius;
-
+      cursor: pointer;
+      border: {
+	width: $border-size;
+	style:solid;
+	color: rgba(0,0,0,0.3);
+	radius: $standard-border-radius;
+      }
       > span {
-	cursor: pointer;
+	cursor: crosshair;
 	&::after {
 	  font-size: 70%;
 	  vertical-align: top;
-	  margin-left: 2px;
-	  color: rgba(0,0,0,0.2);
+	  padding-left: 3px;
+	  color: $tagcolor;
+	  text-shadow: none;
 	  font-family: 'FontAwesome';
 	  content: $fa-close;
 	}
