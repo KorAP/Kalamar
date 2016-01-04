@@ -5,9 +5,10 @@
  */
 
 // Global variables and mixins
-@import "fonts";         // Font families
-@import "base";          // Base styles
-@import "main/main";     // Main frame styles
-@import "header/header"; // Top frame styles
-@import "footer/footer"; // Bottom frame styles
-@import "media";         // Media queries
+@import "fonts";           // Font families
+@import "base";            // Base styles
+@import "main/main";       // Main frame styles
+@import "header/header";   // Top frame styles
+@import "footer/footer";   // Bottom frame styles
+@import "sidebar/sidebar"; // Left frame styles
+@import "media";           // Media queries

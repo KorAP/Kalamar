@@ -2,9 +2,11 @@
 @import "../util";
 
 $border-size: 2px;
+$right-padding: 60px;
 
 aside {
   outline: none;
+  font-size: 10pt;
   display: block;
   background-color: $dark-green;
   position: fixed;
@@ -40,7 +42,7 @@ aside {
     padding: 6pt;
     border-top-right-radius: $standard-border-radius;
   }
-  h2 {
+  h2, legend {
     font: {
       size: 100%;
       weight: bold;
@@ -128,6 +130,31 @@ aside {
   }
   nav > ul > li > a {
     font-weight: bold;
+  }
+
+  fieldset {
+    position: relative;
+    border-width: 0;
+    input[type=text], input[type=password] {
+      @include input-field;
+      width: 100%;
+    }
+    > form > div {
+      position: relative;
+      width: 100%;
+      margin-top: 4px;
+      padding-right: $button-width
+    }
+
+    button {
+      position: absolute;
+      // height: 100%;
+      top: 0;
+      right: 0;
+      &::after {
+	content: $fa-login;
+      }
+    }
   }
 }
 

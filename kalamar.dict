@@ -28,6 +28,8 @@ my $THOUSAND_SEP_RE = qr/(
     go => 'Los!',
     in => 'in',
     by => 'von',
+    pwd => 'Passwort',
+    email => 'Email',
     with => 'mit',
     glimpse => {
       -short => 'Stichprobe',
@@ -67,6 +69,8 @@ my $THOUSAND_SEP_RE = qr/(
     searchplaceholder => 'Find ...',
     in => 'in',
     by => 'by',
+    pwd => 'Password',
+    email => 'Email',
     with => 'with',
     pubOn => 'published on',
     matchCount => '<%= num($found, "match", "matches") %>',

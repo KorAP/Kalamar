@@ -11,7 +11,7 @@ header {
   background-color: $light-green;
 //  @include light-noise;
   @include box-sizing-box();
-  padding: 8px;
+  padding: $base-padding;
   padding-bottom: 0;
   font-size: 10pt;
   color: $nearly-white;
@@ -76,6 +76,10 @@ header {
       background-color: $dark-green;
       text-align: center;
       height: 100%;
+      z-index: 20;
+      > a:hover {
+	color: $nearly-white
+      }
     }
     color: $nearly-white;
     line-height: 2em;
