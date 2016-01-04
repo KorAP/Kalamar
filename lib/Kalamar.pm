@@ -105,6 +105,9 @@ sub startup {
   my $match  = $text->get('/:match_id');
   $match->to('search#match_info')->name('match');
 
+  $r->post('/login')->to('User#login');
+  $r->post('/logout')->to('User#logout');
+
   # Default user is called 'korap'
   # $r->route('/user/:user/:collection')
 };
