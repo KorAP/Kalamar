@@ -1,4 +1,8 @@
 % layout 'main';
+
+% stash(sidebar_active => 1);
+
+
 <div class="intro">
   <p><strong>KorAP</strong> is a new Corpus Analysis Platform, suited for large, multiple annotated corpora and complex search queries independent of particular research questions.</p>
   <p>This is the new frontend for KorAP, <strong>Kalamar</strong>, with currently no access to restricted corpora. For full access, please visit the <a href="http://korap.ids-mannheim.de/app">first frontend</a>. <noscript>Kalamar expects activated JavaScript for some features.</noscript></p>

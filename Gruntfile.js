@@ -115,6 +115,7 @@ module.exports = function(grunt) {
       css: {
 	      files: ['dev/scss/{util,base,fonts,kalamar,media}.scss',
 		            'dev/scss/footer/footer.scss',
+		            'dev/scss/sidebar/sidebar.scss',
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',
 		            'dev/scss/main/{alertify,koralquery,highlight,kwic,kwic-new,logos,tagger,' +
 		            'main,matchinfo,pagination,query,'+

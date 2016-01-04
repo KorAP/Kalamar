@@ -19,7 +19,9 @@
       <a href="/" class="logo" tabindex="-1"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
 
       <div class="button top">
+<!--
 	<a href="#" class="login" tabindex="-1"><span>Login</span></a>
+-->
       </div>
 
       <form autocomplete="off" action="/kalamar" id="searchform">
@@ -63,13 +65,24 @@
       </form>
     </header>
 
-    <aside tabindex="0">
+    <aside tabindex="0" class="active">
+      <div>
+	<fieldset>
+	  <form>
+	    <legend><span>Login</span></legend>
+ 	    <input type="text" name="handle_or_email" placeholder="Benutzername" />
+	    <div>
+	      <input type="password" name="pwd" placeholder="Passwort" />
+	      <button type="submit"><span>Go</span></button>
+	    </div>
+	</form>
+	</fieldset>
+      </div>
+
+<!--
       <h2>Einstellungen</h2>
-      <p>Anzahl Treffer pro Seite</p>
-      <p>Kontext:</p>
-      <p>200 Zeichen/Token - 200 Zeichen/Token</p>
-      <p>1 Satz 1 Paragraph</p>
       <a>Deutsch|Englisch</a>
+-->
     </aside>
 
     <main>

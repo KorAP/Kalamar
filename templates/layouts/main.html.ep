@@ -23,6 +23,21 @@
       %= include 'partial/header'
     % }
 
+% if (1) { # user not logged in
+% content_for 'sidebar', begin
+<fieldset>
+  <form>
+    <legend><span><%= loc 'login' %></span></legend>
+    <input type="text" name="handle_or_email" placeholder="<%= loc 'email' %>" />
+    <div>
+      <input type="password" name="pwd" placeholder="<%= loc 'pwd' %>" />
+      <button type="submit"><span><%= loc 'go' %></span></button>
+    </div>
+  </form>
+</fieldset>
+% end
+% }
+
     % my $aside = content_for('sidebar');
     <aside tabindex="0" class="<% unless (length($aside) > 0) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
       <div>

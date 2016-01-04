@@ -16,10 +16,7 @@ $right-padding: 60px;
 }
 
 header input {
-  outline: none;
-  font-size: 11pt;
-  border: $border-size solid $nearly-white;
-  padding: 2px;
+  @include input-field;
 }
 
 #searchbar {
@@ -28,52 +25,10 @@ header input {
   padding-right: $right-padding;
   button[type=submit] {
     position: absolute;
-    font-weight: normal;
-    @include choose-item;
-    padding: 0;
-    height: 100%;
-    top: 0;
     right: $right-distance;
-    width: 30px;
-    cursor:pointer;
-    > span:nth-of-type(1) {
-      @include blind;
-    }
     &::after {
-      font-family: "FontAwesome";
       content: $fa-search;
     }
-    border: {
-      width: $border-size;
-      style: solid;
-      color: $nearly-white;
-    }
-    &:hover, &:focus {
-      @include choose-hover;
-    }
-    &::-moz-focus-inner {
-      border: none;
-    }
-    &:active {
-      @include choose-active;
-    }
-
-    /**
-     * This is just for styling the last button,
-     * in case there are more than one buttons.
-     */
-    &:last-of-type {
-      @include box-sizing-box();
-      border: {
-	right-width: $border-size;
-	right-style: solid;
-	top-right-radius: $standard-border-radius;
-	bottom-right-radius: $standard-border-radius;
-      }
-    }
-  }
-  button + button {
-    right: 0;
   }
 }
 

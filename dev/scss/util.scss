@@ -89,6 +89,8 @@ $choose-blind-color:  $middle-grey;
 $choose-box-shadow: 2px 2px 2px  rgba(0,0,0,0.2);
 $standard-border-radius: 6px;
 $item-padding: 3pt 6pt;
+$button-width: 30px;
+$base-padding: 8px;
 
 $total-results: $light-green;
 
@@ -171,6 +173,14 @@ $logo-left-distance: 230px;
  */
 @mixin color-transition {
   transition: color 0.3s ease 0s;
+}
+
+@mixin input-field {
+  outline: none;
+  font-size: 11pt;
+  border: $border-size solid $nearly-white;
+  padding: 2px;
+  margin: 0;
 }
 
 /**
