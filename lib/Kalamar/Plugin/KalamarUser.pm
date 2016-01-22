@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::ByteStream 'b';
 
 has 'api';
+has 'ua';
 
 sub register {
   my ($plugin, $mojo, $param) = @_;
@@ -14,6 +15,7 @@ sub register {
 
   # Set API!
   $plugin->api($param->{api}) or return;
+  $plugin->ua(Mojo::UserAgent->new);
 
   # Get the user token necessary for authorization
   $mojo->helper(
@@ -36,7 +38,7 @@ sub register {
       my $c = shift;
       my ($user, $pwd) = @_;
 
-      return if index($user, ':') >= 0;
+      return if (index($user, ':') >= 0);
 
       my $url = Mojo::URL->new($plugin->api)->path('auth/apiToken');
       my $tx = $c->ua->get($url => {
@@ -75,7 +77,7 @@ sub register {
       my $c = shift;
       my $param = shift;
 
-      return unless $param =~ m/^details$/;
+      return unless $param =~ m/^details|settings$/;
 
       # The user may be logged in
       my $auth = ($c->stash('auth') || $c->session('auth')) or return;
@@ -90,7 +92,18 @@ sub register {
       my $value = $chi->get($user . '_' . $param);
 
       unless ($value) {
-	$value = $plugin->get_authorized($auth, 'user/' . $param) or return;
+
+	my $tx = $plugin->build_authorized_tx($auth, 'GET', 'user/' . $param);
+	$tx = $plugin->ua->start($tx);
+	unless ($value = $tx->success) {
+#	  warn $tx->code;
+	  return;
+	}
+#	else {
+#	  warn $c->dumper($value->json);
+#	};
+	$value = $value->json;
+
 	$chi->set($user . '_' . $param => $value);
       };
 
@@ -118,21 +131,25 @@ sub register {
   );
 };
 
-
-# Issue an authorized request
-sub get_authorized {
+sub build_authorized_tx {
   my $plugin = shift;
 
-  my ($auth, $path) = @_;
+  my $ua = $plugin->ua;
+  my ($auth, $method, $path, @values) = @_;
+
+  my $header;
+  if (@values && ref $values[0] eq 'HASH') {
+    $header = shift @values;
+  }
+  else {
+    $header = {};
+  };
+
   my $url = Mojo::URL->new($plugin->api)->path($path);
 
-  # Get authorized
-  # TODO: REUSE USERAGENT
-  my $tx = Mojo::UserAgent->new->get($url => {
-    Authorization => $auth
-  });
+  $header->{Authorization} = $auth;
 
-  return $tx->success ? $tx->success->json : undef;
+  return $ua->build_tx($method, $url => $header => @values);
 };
 
 
@@ -140,3 +157,11 @@ sub get_authorized {
 
 
 __END__
+
+# Failure
+entity {
+  "errors":[
+    [204,"authentication token is expired","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MSIsImlzcyI6Imh0dHA6IiwiZXhwIjoxNDUyOTY2NzAxOTYxfQ.W_rJjJ8i82Srw7MiSPRGeIBLE-rMPmSPK9BA7Dt_7Yc"]
+  ]
+}
+

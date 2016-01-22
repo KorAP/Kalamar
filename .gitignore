@@ -24,5 +24,6 @@ t/kalamar_user_client.t
 *.db
 *.old
 .*
+t/kalamar_user_client.t
 !.gitignore
 npm-debug.log
