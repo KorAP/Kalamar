@@ -71,153 +71,244 @@ var sttsArray = [
   ["XY", "XY ", "Non-Word"]
 ];
 
+// http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html
+// http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/knoten.html
+var negraNodes = [
+  ["AA", "AA", "superlative phrase with 'am'"],
+  ["AP","AP", "adjektive phrase"],
+  ["AVP","AVP", "adverbial phrase"],
+  ["CAP","CAP", "coordinated adjektive phrase"],
+  ["CAVP","CAVP", "coordinated adverbial phrase"],
+  ["CAC","CAC", "coordinated adposition"],
+  ["CCP","CCP", "coordinated complementiser"],
+  ["CH","CH", "chunk"],
+  ["CNP","CNP", "coordinated noun phrase"],
+  ["CO","CO", "coordination"],
+  ["CPP","CPP", "coordinated adpositional phrase"],
+  ["CS","CS", "coordinated sentence"],
+  ["CVP","CVP", "coordinated verb phrase (non-finite)"],
+  ["CVZ","CVZ", "coordinated zu-marked infinitive"],
+  ["DL","DL", "discourse level constituent"],
+  ["ISU","ISU", "idiosyncratis unit"],
+  ["MPN","MPN", "multi-word proper noun"],
+  ["MTA","MTA", "multi-token adjective"],
+  ["NM","NM", "multi-token number"],
+  ["NP","NP", "noun phrase"],
+  ["PP","PP", "adpositional phrase"],
+  ["QL","QL", "quasi-languag"],
+  ["ROOT","ROOT", "root node"],
+  ["S","S", "sentence"],
+  ["VP","VP", "verb phrase (non-finite)"],
+  ["VZ","VZ", "zu-marked infinitive"]
+];
+
+// http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/kanten.html
+var negraEdges = [
+  ["AC","AC","adpositional case marker"],
+  ["ADC","ADC","adjective component"],
+  ["AMS","AMS","measure argument of adj"],
+  ["APP","APP","apposition"],
+  ["AVC","AVC","adverbial phrase component"],
+  ["CC","CC","comparative complement"],
+  ["CD","CD","coordinating conjunction"],
+  ["CJ","CJ","conjunct"],
+  ["CM","CM","comparative concjunction"],
+  ["CP","CP","complementizer"],
+  ["DA","DA","dative"],
+  ["DH","DH","discourse-level head"],
+  ["DM","DM","discourse marker"],
+  ["GL","GL","prenominal genitive"],
+  ["GR","GR","postnominal genitive"],
+  ["HD","HD","head"],
+  ["JU","JU","junctor"],
+  ["MC","MC","comitative"],
+  ["MI","MI","instrumental"],
+  ["ML","ML","locative"],
+  ["MNR","MNR","postnominal modifier"],
+  ["MO","MO","modifier"],
+  ["MR","MR","rhetorical modifier"],
+  ["MW","MW","way (directional modifier)"],
+  ["NG","NG","negation"],
+  ["NK","NK","noun kernel modifier"],
+  ["NMC","NMC","numerical component"], 
+  ["OA","OA","accusative object"],
+  ["OA2","OA2","second accusative object"], 
+  ["OC","OC","clausal object"],
+  ["OG","OG","genitive object"], 
+  ["PD","PD","predicate"],
+  ["PG","PG","pseudo-genitive"],
+  ["PH","PH","placeholder"],
+  ["PM","PM","morphological particle"],
+  ["PNC","PNC","proper noun component"], 
+  ["RC","RC","relative clause"],
+  ["RE","RE","repeated element"],
+  ["RS","RS","reported speech"],
+  ["SB","SB","subject"],
+  ["SBP","SBP","passivised subject (PP)"], 
+  ["SP","SP","subject or predicate"],
+  ["SVP","SVP","separable verb prefix"],
+  ["UC","UC","(idiosyncratic) unit component"], 
+  ["VO","VO","vocative"]
+];
+
 var mateSttsArray = sttsArray.slice(0);
 mateSttsArray.push(
   ["<root-POS>","<root-POS>","Root Part of Speech"]
 );
 
+define(function () {
+  var obj = {
+    "-" : [
+      ["Connexor",   "cnx/",     "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
+      ["CoreNLP",    "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
+      ["Mate",       "mate/",    "Lemma, Morphology, Part-of-Speech"],
+      ["OpenNLP",    "opennlp/", "Part-of-Speech"],
+      ["TreeTagger", "tt/",      "Lemma, Part-of-Speech"],
+      ["Xerox Parser", "xip/",   "Constituency, Lemma, Part-of-Speech"]
+    ],
+    "corenlp/" : [
+      ["Constituency", "c="],
+      ["Named Entity", "ne=" , "Combined"],
+      ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
+      ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"],
+      ["Part-of-Speech", "p="]
+    ],
+    "corenlp/ne=" : namedEntities,
+    "corenlp/ne_dewac_175m_600=" : namedEntities,
+    "corenlp/ne_hgc_175m_600=" : namedEntities,
+    "corenlp/p=" : sttsArray,
+    "corenlp/c=" : negraNodes,
+    "cnx/" : [
+      ["Constituency", "c="],
+      ["Lemma", "l="],
+      ["Morphology", "m="],
+      ["Part-of-Speech", "p="],
+      ["Syntax", "syn="]
+    ],
+    "cnx/c=" : [
+      ["np", "np ", "Nominal Phrase"]
+    ],
+    // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/morph.html
+    "cnx/m=" : [
+      ["Abbr","Abbr ", "Nouns: Abbreviation"],
+      ["CMP","CMP ", "Adjective: Comparative"],
+      ["IMP", "IMP ", "Mood: Imperative"],
+      ["IND", "IND ", "Mood: Indicative"],
+      ["INF", "INF ", "Infinitive"],
+      ["ORD","ORD ", "Numeral: Ordinal"],
+      ["PAST", "PAST ", "Tense: past"],
+      ["PCP", "PCP ", "Participle"],
+      ["PERF", "PERF ", "Perfective Participle"],
+      ["PL","PL ", "Nouns: Plural"],
+      ["PRES", "PRES ", "Tense: present"],
+      ["PROG", "PROG ", "Progressive Participle"],
+      ["Prop","Prop ", "Nouns: Proper Noun"],
+      ["SUB", "SUB ", "Mood: Subjunctive"],
+      ["SUP","SUP ", "Adjective: Superlative"]
+    ],
+    // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/morph.html
+    "cnx/p=" : [
+      ["A", "A ", "Adjective"],
+      ["ADV", "ADV ", "Adverb"],
+      ["CC", "CC ", "Coordination Marker"],
+      ["CS", "CS ", "Clause Marker"],
+      ["DET", "DET ", "Determiner"],
+      ["INTERJ", "INTERJ ", "Interjection"],
+      ["N", "N ", "Noun"],
+      ["NUM", "NUM ", "Numeral"],
+      ["PREP", "PREP ", "Preposition"],
+      ["PRON", "PRON ", "Pro-Nominal"],
+      ["V", "V ", "Verb"]
+    ],
+    // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/syntax.html
+    "cnx/syn=" : [
+      ["@ADVL", "@ADVL ", "Adverbial Head"],
+      ["@AUX", "@AUX ", "Auxiliary Verb"],
+      ["@CC", "@CC ", "Coordination"]
+      ["@MAIN", "@MAIN ", "Main Verb"],
+      ["@NH", "@NH ", "Nominal Head"],
+      ["@POSTMOD", "@POSTMOD ", "Postmodifier"],
+      ["@PREMARK", "@PREMARK ", "Preposed Marker"],
+      ["@PREMOD", "@POSTMOD ", "Premodifier"]
+    ],
+    "opennlp/" : [
+      ["Part-of-Speech", "p="]
+    ],
+    "opennlp/p=" : sttsArray,
+    "xip/" : [
+      ["Constituency", "c="],
+      // Inactive: ["Dependency", "d="],
+      ["Lemma", "l="],
+      ["Part-of-Speech", "p="],
+    ],
+    // "xip/c=" : [],
+    // Inactive: "xip/d=" : [],
+    // "xip/p=" : [],
+    "tt/" : [
+      ["Lemma", "l="],
+      ["Part-of-Speech", "p="]
+    ],
+    "tt/p=" : sttsArray,
+    "mate/" : [
+      // Inactive: "d" : ["d=", "Dependency"],
+      ["Lemma", "l="],
+      ["Morphology", "m="],
+      ["Part-of-Speech", "p="]
+    ],
+    // Inactive: mate/d=
+    "mate/p=" : mateSttsArray,
+    "mate/m=" : [
+      ["Case", "case:"],
+      ["Degree", "degree:"],
+      ["Gender", "gender:"],
+      ["Mood", "mood:"],
+      ["Number", "number:"],
+      ["Person", "person:"],
+      ["Tense","tense:"],
+      ["No type", "<no-type> "]
+    ],
+    "mate/m=case:" : [
+      ["acc", "acc ", "Accusative"],
+      ["dat","dat ", "Dative"],
+      ["gen", "gen ","Genitive"],
+      ["nom","nom ", "Nominative"],
+      ["*","* ", "Undefined"]
+    ],
+    "mate/m=degree:" : [
+      ["comp","comp ", "Comparative"],
+      ["pos","pos ", "Positive"],
+      ["sup","sup ", "Superative"]
+    ],
+    "mate/m=gender:" : [
+      ["fem", "fem ", "Feminium"],
+      ["masc", "masc ", "Masculinum"],
+      ["neut","neut ", "Neuter"],
+      ["*","* ","Undefined"]
+    ],
+    "mate/m=mood:" : [
+      ["imp","imp ", "Imperative"],
+      ["ind","ind ", "Indicative"],
+      ["subj","subj ", "Subjunctive"]
+    ],
+    "mate/m=number:" : [
+      ["pl","pl ","Plural"],
+      ["sg","sg ","Singular"],
+      ["*","* ","Undefined"]
+    ],
+    "mate/m=person:" : [
+      ["1","1 ", "First Person"],
+      ["2","2 ", "Second Person"],
+      ["3","3 ", "Third Person"]
+    ],
+    "mate/m=tense:" : [
+      ["past","past ", "Past"],
+      ["pres","pres ", "Present"]
+    ]
+  };
 
-define({
-  "-" : [
-    ["Connexor",   "cnx/",     "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
-    ["CoreNLP",    "corenlp/", "Named Entities"],
-    ["Mate",       "mate/",     "Lemma, Morphology, Part-of-Speech"],
-    ["OpenNLP",    "opennlp/", "Part-of-Speech"],
-    ["TreeTagger", "tt/",      "Lemma, Part-of-Speech"],
-    ["Xerox Parser", "xip/",   "Constituency, Lemma, Part-of-Speech"]
-  ],
-  "corenlp/" : [
-    ["Named Entity", "ne=" , "Combined"],
-    ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
-    ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
-  ],
-  "corenlp/ne=" : namedEntities,
-  "corenlp/ne_dewac_175m_600=" : namedEntities,
-  "corenlp/ne_hgc_175m_600=" : namedEntities,
-  "cnx/" : [
-    ["Constituency", "c="],
-    ["Lemma", "l="],
-    ["Morphology", "m="],
-    ["Part-of-Speech", "p="],
-    ["Syntax", "syn="]
-  ],
-  "cnx/c=" : [
-    ["np", "np ", "Nominal Phrase"]
-  ],
-  // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/morph.html
-  "cnx/m=" : [
-    ["Abbr","Abbr ", "Nouns: Abbreviation"],
-    ["CMP","CMP ", "Adjective: Comparative"],
-    ["IMP", "IMP ", "Mood: Imperative"],
-    ["IND", "IND ", "Mood: Indicative"],
-    ["INF", "INF ", "Infinitive"],
-    ["ORD","ORD ", "Numeral: Ordinal"],
-    ["PAST", "PAST ", "Tense: past"],
-    ["PCP", "PCP ", "Participle"],
-    ["PERF", "PERF ", "Perfective Participle"],
-    ["PL","PL ", "Nouns: Plural"],
-    ["PRES", "PRES ", "Tense: present"],
-    ["PROG", "PROG ", "Progressive Participle"],
-    ["Prop","Prop ", "Nouns: Proper Noun"],
-    ["SUB", "SUB ", "Mood: Subjunctive"],
-    ["SUP","SUP ", "Adjective: Superlative"]
-  ],
-  // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/morph.html
-  "cnx/p=" : [
-    ["A", "A ", "Adjective"],
-    ["ADV", "ADV ", "Adverb"],
-    ["CC", "CC ", "Coordination Marker"],
-    ["CS", "CS ", "Clause Marker"],
-    ["DET", "DET ", "Determiner"],
-    ["INTERJ", "INTERJ ", "Interjection"],
-    ["N", "N ", "Noun"],
-    ["NUM", "NUM ", "Numeral"],
-    ["PREP", "PREP ", "Preposition"],
-    ["PRON", "PRON ", "Pro-Nominal"],
-    ["V", "V ", "Verb"]
-  ],
-  // http://www.ids-mannheim.de/cosmas2/projekt/referenz/connexor/syntax.html
-  "cnx/syn=" : [
-    ["@ADVL", "@ADVL ", "Adverbial Head"],
-    ["@AUX", "@AUX ", "Auxiliary Verb"],
-    ["@CC", "@CC ", "Coordination"]
-    ["@MAIN", "@MAIN ", "Main Verb"],
-    ["@NH", "@NH ", "Nominal Head"],
-    ["@POSTMOD", "@POSTMOD ", "Postmodifier"],
-    ["@PREMARK", "@PREMARK ", "Preposed Marker"],
-    ["@PREMOD", "@POSTMOD ", "Premodifier"]
-  ],
-  "opennlp/" : [
-    ["Part-of-Speech", "p="]
-  ],
-  "opennlp/p=" : sttsArray,
-  "xip/" : [
-    ["Constituency", "c="],
-    // Inactive: ["Dependency", "d="],
-    ["Lemma", "l="],
-    ["Part-of-Speech", "p="],
-  ],
-  // "xip/c=" : [],
-  // Inactive: "xip/d=" : [],
-  // "xip/p=" : [],
-  "tt/" : [
-    ["Lemma", "l="],
-    ["Part-of-Speech", "p="]
-  ],
-  "tt/p=" : sttsArray,
-  "mate/" : [
-    // Inactive: "d" : ["d=", "Dependency"],
-    ["Lemma", "l="],
-    ["Morphology", "m="],
-    ["Part-of-Speech", "p="]
-  ],
-  // Inactive: mate/d=
-  "mate/p=" : mateSttsArray,
-  "mate/m=" : [
-    ["Case", "case:"],
-    ["Degree", "degree:"],
-    ["Gender", "gender:"],
-    ["Mood", "mood:"],
-    ["Number", "number:"],
-    ["Person", "person:"],
-    ["Tense","tense:"],
-    ["No type", "<no-type> "]
-  ],
-  "mate/m=case:" : [
-    ["acc", "acc ", "Accusative"],
-    ["dat","dat ", "Dative"],
-    ["gen", "gen ","Genitive"],
-    ["nom","nom ", "Nominative"],
-    ["*","* ", "Undefined"]
-  ],
-  "mate/m=degree:" : [
-    ["comp","comp ", "Comparative"],
-    ["pos","pos ", "Positive"],
-    ["sup","sup ", "Superative"]
-  ],
-  "mate/m=gender:" : [
-    ["fem", "fem ", "Feminium"],
-    ["masc", "masc ", "Masculinum"],
-    ["neut","neut ", "Neuter"],
-    ["*","* ","Undefined"]
-  ],
-  "mate/m=mood:" : [
-    ["imp","imp ", "Imperative"],
-    ["ind","ind ", "Indicative"],
-    ["subj","subj ", "Subjunctive"]
-  ],
-  "mate/m=number:" : [
-    ["pl","pl ","Plural"],
-    ["sg","sg ","Singular"],
-    ["*","* ","Undefined"]
-  ],
-  "mate/m=person:" : [
-    ["1","1 ", "First Person"],
-    ["2","2 ", "Second Person"],
-    ["3","3 ", "Third Person"]
-  ],
-  "mate/m=tense:" : [
-    ["past","past ", "Past"],
-    ["pres","pres ", "Present"]
-  ]
+  for (var i in negraNodes) {
+    obj["corenlp/c=" + negraNodes[i][0] + '-'] = negraEdges;
+  };
+
+  return obj;
 });

@@ -129,6 +129,10 @@ define(['hint'], function () {
       expect(analyzer.test("cnx/c=npcnx/")).toEqual("npcnx/");
       expect(analyzer.test("mate/m=degree:pos corenlp/ne_dewac_175m_600="))
 	.toEqual("corenlp/ne_dewac_175m_600=");
+      expect(analyzer.test("corenlp/")).toEqual("corenlp/");
+      expect(analyzer.test("corenlp/c=")).toEqual("corenlp/c=");
+      expect(analyzer.test("corenlp/c=PP-")).toEqual("corenlp/c=PP-");
+      expect(analyzer.test("corenlp/c=XY-")).toEqual("corenlp/c=XY-");
     });
   });
 
