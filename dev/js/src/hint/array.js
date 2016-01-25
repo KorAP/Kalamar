@@ -57,8 +57,8 @@ var sttsArray = [
   ["PWS","PWS ", "Substitutive Interrogative Pronoun"],
   ["TRUNC","TRUNC ","Truncated"],
   ["VAFIN","VAFIN ", "Auxiliary Finite Verb"],
-  ["VAINF","VAINF ", "Auxiliary Infinite Verb"],
   ["VAIMP","VAIMP ", "Auxiliary Finite Imperative Verb"],
+  ["VAINF","VAINF ", "Auxiliary Infinite Verb"],
   ["VAPP","VAPP ", "Auxiliary Perfect Participle"],
   ["VMFIN","VMFIN ", "Modal Finite Verb"],
   ["VMINF","VMINF ", "Modal Infinite Verb"],
@@ -70,6 +70,7 @@ var sttsArray = [
   ["VVPP","VVPP ", "Perfect Participle"],
   ["XY", "XY ", "Non-Word"]
 ];
+
 
 // http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html
 // http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/knoten.html
@@ -156,15 +157,24 @@ mateSttsArray.push(
   ["<root-POS>","<root-POS>","Root Part of Speech"]
 );
 
+var sgbSttsArray = sttsArray.slice(0);
+sgbSttsArray.splice(17,0, ["NNE", "NNE", "Normal Nomina with Named Entity"]);
+sgbSttsArray.push(
+  ["_KOMMA", "_KOMMA", "Comma"],
+  ["_SONST", "_SONST", "Intrasentential Punctuation Mark"],
+  ["_ENDE", "_ENDE", "Punctuation Mark at the end of the Sentence"]
+);
+
 define(function () {
   var obj = {
     "-" : [
-      ["Connexor",   "cnx/",     "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
-      ["CoreNLP",    "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
-      ["Mate",       "mate/",    "Lemma, Morphology, Part-of-Speech"],
-      ["OpenNLP",    "opennlp/", "Part-of-Speech"],
-      ["TreeTagger", "tt/",      "Lemma, Part-of-Speech"],
-      ["Xerox Parser", "xip/",   "Constituency, Lemma, Part-of-Speech"]
+      ["Connexor", "cnx/", "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
+      ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
+      ["Mate", "mate/", "Lemma, Morphology, Part-of-Speech"],
+      ["OpenNLP", "opennlp/", "Part-of-Speech"],
+      ["Schreibgebrauch", "sgbr/", "Lemma, Lemma Variants, Part-of-Speech"],
+      ["TreeTagger", "tt/", "Lemma, Part-of-Speech"],
+      ["Xerox Parser", "xip/", "Constituency, Lemma, Part-of-Speech"]
     ],
     "corenlp/" : [
       ["Constituency", "c="],
@@ -235,6 +245,12 @@ define(function () {
       ["Part-of-Speech", "p="]
     ],
     "opennlp/p=" : sttsArray,
+    "sgbr/" : [
+      ["Lemma", "l="],
+      ["Lemma Variants", "lv="],
+      ["Part-of-Speech", "p="]
+    ],
+    "sgbr/p=" : sgbSttsArray,
     "xip/" : [
       ["Constituency", "c="],
       // Inactive: ["Dependency", "d="],

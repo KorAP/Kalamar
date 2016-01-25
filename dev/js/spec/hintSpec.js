@@ -133,6 +133,9 @@ define(['hint'], function () {
       expect(analyzer.test("corenlp/c=")).toEqual("corenlp/c=");
       expect(analyzer.test("corenlp/c=PP-")).toEqual("corenlp/c=PP-");
       expect(analyzer.test("corenlp/c=XY-")).toEqual("corenlp/c=XY-");
+      expect(analyzer.test("sgbr/l=")).toEqual("sgbr/l=");
+      expect(analyzer.test("sgbr/lv=")).toEqual("sgbr/lv=");
+      expect(analyzer.test("sgbr/p=")).toEqual("sgbr/p=");
     });
   });
 
