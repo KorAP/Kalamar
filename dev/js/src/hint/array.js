@@ -159,11 +159,32 @@ mateSttsArray.push(
 
 var sgbSttsArray = sttsArray.slice(0);
 sgbSttsArray.splice(17,0, ["NNE", "NNE", "Normal Nomina with Named Entity"]);
+/* As KorAP currently doesn't support these tags, they are not part of the set
 sgbSttsArray.push(
   ["_KOMMA", "_KOMMA", "Comma"],
   ["_SONST", "_SONST", "Intrasentential Punctuation Mark"],
   ["_ENDE", "_ENDE", "Punctuation Mark at the end of the Sentence"]
 );
+*/
+/*
+"ADR", // Adressierung ???
+"ADVART", "Adverb with Article"
+"AW", // Aktionswort ???
+"AWIND", // Aktionswort-Indikator ???
+"EMOASC", "Emoticon ('ASCII' type)",
+"EMOIMG", "Emoticon (\'image' type )",
+"ERRAW", // falsch abgetrennter Wortteil ???
+"ERRTOK", "Tokenisation Error"
+"HST", "Hashtag"
+"KOUSPPER", "Subordinating Conjunction (with Sentence) with Personal Pronoun"
+"ONO", // Onomatopoetikon ???
+"PPERPPER", "Personal Pronoun with Personal Pronoun"
+"URL", "Uniform Resource Locator"
+"VAPPER", "Auxiliary Finite Verb with Personal Pronoun"
+"VMPPER", "Modal Fintite Verb with Personal Pronoun"
+"VVPPER", "Finite Verb with Personal Pronoun"
+*/
+
 
 define(function () {
   var obj = {
