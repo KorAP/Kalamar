@@ -13,6 +13,13 @@ sub register {
     $param = { %$param, %$config_param };
   };
 
+  # Load 'notifications' plugin
+  unless (exists $mojo->renderer->helpers->{notify}) {
+    $mojo->plugin(Notifications => {
+      HTML => 1
+    });
+  };
+
   # Set API!
   $plugin->api($param->{api}) or return;
   $plugin->ua(Mojo::UserAgent->new);
@@ -63,6 +70,14 @@ sub register {
 	# Set cache
 	$c->chi('user')->set($auth => $user);
 	return 1;
+      }
+
+      elsif (my $e = $tx->error) {
+	$c->notify(
+	  error =>
+	    ($e->{code} ? $e->{code} . ': ' : '') .
+	      $e->{message} . ' for Login (remote)'
+	    );
       };
 
       $mojo->log->debug(qq!Login fail: "$user"!);
