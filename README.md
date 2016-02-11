@@ -54,6 +54,12 @@ $ perl Makefile.PL
 $ make test
 ```
 
+or
+
+```
+$ cpanm .
+```
+
 Kalamar can be deployed like all
 [Mojolicious apps](http://mojolicio.us/perldoc/Mojolicious/Guides/Cookbook#DEPLOYMENT).
 The easiest way is to start the built-in server:

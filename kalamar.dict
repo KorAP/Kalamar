@@ -22,7 +22,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     about => 'Über KorAP',
     login => 'Anmelden',
-    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in <%== param("collection-name") %><% } %> mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
+    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in »<%== param("collection-name") %>«<% } elsif (param("collection")) { %>im definierten Korpus<% } %> mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
     searchtitle => 'KorAP: Finde <%== loc("searchjob") %>',
     searchplaceholder => 'Finde ...',
     go => 'Los!',
@@ -51,6 +51,7 @@ my $THOUSAND_SEP_RE = qr/(
     }
   },
   -en => {
+    jsFile => 'kalamar-<%= $Kalamar::VERSION %>-en.js',
     numf => sub {
       shift;
       my %val = @_;
@@ -61,7 +62,7 @@ my $THOUSAND_SEP_RE = qr/(
     about => 'About KorAP',
     login => 'Login',
     go => 'Go!',
-    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in <%== param("collection-name") %><% } %> with <%== loc("QL_". $ql, "unknown query language") %>',
+    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in »<%== param("collection-name") %>«<% } elsif (param("collection")) { %>in the defined corpus<% } %> with <%== loc("QL_". $ql, "unknown query language") %>',
     searchtitle => 'KorAP: Find <%== loc("searchjob") %>',
     searchplaceholder => 'Find ...',
     in => 'in',
