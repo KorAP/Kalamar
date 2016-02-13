@@ -67,8 +67,15 @@ define(['util'], function () {
 	4 - done
       */
       if (this.readyState == 4) {
-	if (this.status === 200)
-	  onload(JSON.parse(this.responseText));
+	if (this.status === 200) {
+	  var json = JSON.parse(this.responseText);
+	  if (json["errors"] !== null) {
+	    for (var i in json["errors"]) {
+	      KorAP.log(json["errors"][i][0], json["errors"][i][1]);
+	    };
+	  };
+	  onload(json);
+	}
 	else
 	  KorAP.log(this.status, this.statusText);
       }

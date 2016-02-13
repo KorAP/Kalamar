@@ -517,7 +517,7 @@ sub _map_matches {
 # Cleanup single match
 sub _map_match {
   my $x = shift or return;
-  $x->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^-]+-//;
+  $x->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\.[^-]+?-//;
 
   (
     $x->{corpusID},
@@ -533,7 +533,6 @@ sub _map_match {
 
   $x;
 };
-
 
 # Build query url
 sub _query_url {

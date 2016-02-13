@@ -135,6 +135,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['requirejs']);
   grunt.registerTask('img', ['imagemin','copy']);
+  grunt.registerTask('js', ['requirejs']);
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
