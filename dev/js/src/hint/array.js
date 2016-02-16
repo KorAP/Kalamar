@@ -157,34 +157,37 @@ mateSttsArray.push(
   ["<root-POS>","<root-POS>","Root Part of Speech"]
 );
 
-var sgbSttsArray = sttsArray.slice(0);
-sgbSttsArray.splice(17,0, ["NNE", "NNE", "Normal Nomina with Named Entity"]);
-/* As KorAP currently doesn't support these tags, they are not part of the set
-sgbSttsArray.push(
-  ["_KOMMA", "_KOMMA", "Comma"],
-  ["_SONST", "_SONST", "Intrasentential Punctuation Mark"],
-  ["_ENDE", "_ENDE", "Punctuation Mark at the end of the Sentence"]
-);
-*/
-/*
-"ADR", // Adressierung ???
-"ADVART", "Adverb with Article"
-"AW", // Aktionswort ???
-"AWIND", // Aktionswort-Indikator ???
-"EMOASC", "Emoticon ('ASCII' type)",
-"EMOIMG", "Emoticon (\'image' type )",
-"ERRAW", // falsch abgetrennter Wortteil ???
-"ERRTOK", "Tokenisation Error"
-"HST", "Hashtag"
-"KOUSPPER", "Subordinating Conjunction (with Sentence) with Personal Pronoun"
-"ONO", // Onomatopoetikon ???
-"PPERPPER", "Personal Pronoun with Personal Pronoun"
-"URL", "Uniform Resource Locator"
-"VAPPER", "Auxiliary Finite Verb with Personal Pronoun"
-"VMPPER", "Modal Fintite Verb with Personal Pronoun"
-"VVPPER", "Finite Verb with Personal Pronoun"
-*/
+var sgbrSttsArray = sttsArray.slice(0);
 
+// Push specific information for Schreibgebrauch
+sgbrSttsArray.push(
+  ["NNE", "NNE", "Normal Nomina with Named Entity"],
+  ["ADVART","ADVART",   "Adverb with Article"],
+  ["EMOASC","EMOASC",   "ASCII emoticon"],
+  ["EMOIMG","EMOIMG",   "Graphic emoticon"],
+  ["ERRTOK","ERRTOK",   "Tokenisation Error"],
+  ["HST",     "HST",      "Hashtag"],
+  ["KOUSPPER","KOUSPPER", "Subordinating Conjunction (with Sentence) with Personal Pronoun"],
+  ["ONO",     "ONO",      "Onomatopoeia"],
+  ["PPERPPER","PPERPPER", "Personal Pronoun with Personal Pronoun"],
+  ["URL",     "URL",      "Uniform Resource Locator"],
+  ["VAPPER",  "VAPPER",   "Finite Auxiliary Verb with Personal Pronoun"],
+  ["VMPPER",  "VMPPER",   "Fintite Modal Verb with Personal Pronoun"],
+  ["VVPPER",  "VVPPER",   "Finite Full Verb with Personal Pronoun"],
+  ["AW", "AW", "Interaction Word"],
+  ["ADR", "ADR", "Addressing Term"],
+  ["AWIND", "AWIND", "Punctuation Indicating Addressing Term"],
+  ["ERRAW","ERRAW", "Part of Erroneously Separated Compound"]
+  /*
+    As KorAP currently doesn't support these tags, they could also be ommited
+    ["_KOMMA", "_KOMMA", "Comma"],
+    ["_SONST", "_SONST", "Intrasentential Punctuation Mark"],
+    ["_ENDE", "_ENDE", "Punctuation Mark at the end of the Sentence"]
+  */
+);
+
+// Sort by tag
+sgbrSttsArray.sort(function (a,b) { return a[0].localeCompare(b[0]) });
 
 define(function () {
   var obj = {
@@ -271,7 +274,7 @@ define(function () {
       ["Lemma Variants", "lv="],
       ["Part-of-Speech", "p="]
     ],
-    "sgbr/p=" : sgbSttsArray,
+    "sgbr/p=" : sgbrSttsArray,
     "xip/" : [
       ["Constituency", "c="],
       // Inactive: ["Dependency", "d="],
