@@ -24,5 +24,6 @@
 % if ($match->{pubDate}) {
  (<time datetime="<%= $match->{pubDate} %>"><%= $match->{pubDate} %></time>)\
 % };
+  <span class="sigle">[<%= $match->{corpusID} %>/<%= $match->{docID} %>/<%= $match->{textID} %>]</span> \
 </p>
 </li>

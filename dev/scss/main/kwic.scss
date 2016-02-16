@@ -150,14 +150,21 @@ $border-size: 2px;
 	display: none;
       }
       &.active, &:target {
+	overflow: hidden;
 	p.ref {
 	  color: white;
-	  padding: 3pt 10pt;
+	  padding: 3pt 10pt 3pt 3pt;
 	  padding-right: $right-match-distance;
 	  margin: 0pt;
 	  width: 100%;
 	  bottom: 0;
 	  z-index: 30;
+	  > span.sigle {
+	    font-size: 75%;
+	    vertical-align: top;
+	    color: $light-orange;
+	    float: right;
+	  }
 	}
       }
     }
