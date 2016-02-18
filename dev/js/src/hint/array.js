@@ -1,3 +1,4 @@
+/*
 var menuContent = [
   ['cnx/c', 'cnx', 'c'],
   ['mate/c', 'mate', 'c'],
@@ -5,6 +6,7 @@ var menuContent = [
   ['xip/c', 'xip', 'c'],
   ['tt/c', 'tt', 'c']
 ];
+*/
 
 var namedEntities = [
   ["I-LOC",  "I-LOC ",  "Location"],
@@ -192,13 +194,20 @@ sgbrSttsArray.sort(function (a,b) { return a[0].localeCompare(b[0]) });
 define(function () {
   var obj = {
     "-" : [
+      ["Base Annotation", "base/s=", "Structure"],
       ["Connexor", "cnx/", "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
       ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
+      ["DeReKo", "dereko/s=", "Structure"],
       ["Mate", "mate/", "Lemma, Morphology, Part-of-Speech"],
       ["OpenNLP", "opennlp/", "Part-of-Speech"],
       ["Schreibgebrauch", "sgbr/", "Lemma, Lemma Variants, Part-of-Speech"],
       ["TreeTagger", "tt/", "Lemma, Part-of-Speech"],
       ["Xerox Parser", "xip/", "Constituency, Lemma, Part-of-Speech"]
+    ],
+    "base/s=" : [
+      ["s", "s", "Sentence"],
+      ["p", "p", "Paragraph"],
+      ["t", "t", "Text"]
     ],
     "corenlp/" : [
       ["Constituency", "c="],

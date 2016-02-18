@@ -164,7 +164,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <p>You are also able to mix segments and spans in sequences, for example to search for the word &quot;Der&quot; at the beginning of a sentence (which can be interpreted as the first word after the end of a sentence).</p>
 
-  %= doc_query poliqarp => '<s>[orth=Der]'
+  %= doc_query poliqarp => '<base/s=s>[orth=Der]'
 
   <h4>Groups</h4>
 
@@ -245,19 +245,19 @@ Terms of the complex segment can be negated as introduced before.</p>
   <p>Positional operators compare two matches of subqueries and will match, in case a certain condition regarding the position of both is true.</p>
   <p>The <code>contains()</code> operation will match, when a second subquery matches inside the span of a first subquery.</p>
 
-  %= doc_query poliqarp => 'contains(<s>, [tt/p=KOUS])', cutoff => 1
+  %= doc_query poliqarp => 'contains(<base/s=s>, [tt/p=KOUS])', cutoff => 1
 
   <p>The <code>startsWith()</code> operation will match, when a second subquery matches at the beginning of the span of a first subquery.</p>
 
-  %= doc_query poliqarp => 'startsWith(<s>, [tt/p=KOUS])', cutoff => 1
+  %= doc_query poliqarp => 'startsWith(<base/s=s>, [tt/p=KOUS])', cutoff => 1
 
   <p>The <code>endsWith()</code> operation will match, when a second subquery matches at the end of the span of a first subquery.</p>
 
-  %= doc_query poliqarp => 'endsWith(<s>, [opennlp/p=NN])', cutoff => 1
+  %= doc_query poliqarp => 'endsWith(<base/s=s>, [opennlp/p=NN])', cutoff => 1
 
   <p>The <code>matches()</code> operation will match, when a second subquery has the exact same span of a first subquery.</p>
 
-  %= doc_query poliqarp => 'matches(<s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
+  %= doc_query poliqarp => 'matches(<base/s=s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
 
   <p>The <code>overlaps()</code> operation will match, when a second subquery has an overlapping span with the first subquery.</p>
 
