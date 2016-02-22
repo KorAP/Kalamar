@@ -24,7 +24,7 @@ define(function () {
     // ['pages', 'string'],        // stored
     ['pubDate', 'date'],           // int
     // ['publisher', 'string'],    // stored
-    ['pubPlace', 'date'],          // string
+    ['pubPlace', 'string'],        // string
     // ['reference', 'string'],    // stored
     ['subTitle', 'string'],        // text
     ['textClass', 'string'],       // keyword
