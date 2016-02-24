@@ -222,7 +222,7 @@ Terms of the complex segment can be negated as introduced before.</p>
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]', cutoff => 1
 
   <blockquote class="warning">
-    <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated and not in a sequence (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional.</p>
+    <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated and not as part of a sequence (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional.</p>
     <p>Keep in mind that optionality may be somehow <i>inherited</i>, for example when you search for <code>(junge|alte)?|tote</code>, one segment of the alternation is optional, which makes the whole query optional as well.</p>
   </blockquote>
 
