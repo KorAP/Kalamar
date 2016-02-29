@@ -54,10 +54,29 @@ sub startup {
     $self->log->warn('Please create a kalamar.secret file');
   };
 
+  # Configuration framework
+  $self->plugin('Config' => {
+    default => {
+      Localize => {
+	resources => ['kalamar.dict']
+      },
+    },
+    'TagHelpers-Pagination' => {
+      prev      => '<span><span>&lt;</span></span>',
+      next      => '<span><span>&lt;</span></span>',
+      ellipsis  => '<a class="ellipsis"><span><span>...</span></span></a>',
+      separator => '',
+      current   => '<span>{current}</span>',
+      page      => '<span>{page}</span>'
+    },
+    Notifications => {
+      'Kalamar::Plugin::Notifications' => 1,
+      JSON => 1
+    }
+  });
 
   # Load plugins
   foreach (
-    'Config',                    # Configuration framework
     'Localize',                  # Localization framework
     'Notifications',             # Client notifications
     'Search',                    # Abstract Search framework

@@ -1,6 +1,7 @@
-0.18 2015-02-13
+0.18 2016-02-29
         - Support for dashes in identifiers.
 	- Minor changes to the layout.
+	- Simplified configuration file.
 
 0.17 2015-11-13
         - Support a larger template cache.
