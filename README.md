@@ -50,6 +50,7 @@ Then install the dependencies as always and run the test suite.
 There is no need to install Kalamar on your system.
 
 ```
+$ cpanm --installdeps .
 $ perl Makefile.PL
 $ make test
 ```
