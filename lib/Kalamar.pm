@@ -68,22 +68,22 @@ sub startup {
       separator => '',
       current   => '<span>{current}</span>',
       page      => '<span>{page}</span>'
-    },
-    Notifications => {
-      'Kalamar::Plugin::Notifications' => 1,
-      JSON => 1
     }
+  });
+
+  $self->plugin(Notifications => {
+    'Kalamar::Plugin::Notifications' => 1,
+    JSON => 1
   });
 
   # Load plugins
   foreach (
     'Localize',                  # Localization framework
-    'Notifications',             # Client notifications
     'Search',                    # Abstract Search framework
     'CHI',                       # Global caching mechanism
     'TagHelpers::Pagination',    # Pagination widget
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
-    'KalamarHelpers',            # Specific Helpers for Kalamar
+    'KalamarHelpers'             # Specific Helpers for Kalamar
   ) {
     $self->plugin($_);
   };

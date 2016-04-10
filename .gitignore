@@ -7,6 +7,7 @@ Sandbox
 node_modules
 cache/data
 public
+script/hypnotoad.pid
 .sass-cache
 dev/css
 log
