@@ -55,33 +55,33 @@ sub startup {
   };
 
   # Configuration framework
-  $self->plugin('Config' => {
-    default => {
-      Localize => {
-	resources => ['kalamar.dict']
-      },
-    },
-    'TagHelpers-Pagination' => {
-      prev      => '<span><span>&lt;</span></span>',
-      next      => '<span><span>&lt;</span></span>',
-      ellipsis  => '<a class="ellipsis"><span><span>...</span></span></a>',
-      separator => '',
-      current   => '<span>{current}</span>',
-      page      => '<span>{page}</span>'
-    }
-  });
+  $self->plugin('Config');
 
+  # Client notifications
   $self->plugin(Notifications => {
     'Kalamar::Plugin::Notifications' => 1,
     JSON => 1
   });
 
+  # Localization framework
+  $self->plugin(Localize => {
+    resources => ['kalamar.dict']
+  });
+
+  # Pagination widget
+  $self->plugin('TagHelpers::Pagination' => {
+    prev      => '<span><span>&lt;</span></span>',
+    next      => '<span><span>&lt;</span></span>',
+    ellipsis  => '<a class="ellipsis"><span><span>...</span></span></a>',
+    separator => '',
+    current   => '<span>{current}</span>',
+    page      => '<span>{page}</span>'
+  });
+
   # Load plugins
   foreach (
-    'Localize',                  # Localization framework
     'Search',                    # Abstract Search framework
     'CHI',                       # Global caching mechanism
-    'TagHelpers::Pagination',    # Pagination widget
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers'             # Specific Helpers for Kalamar
   ) {
