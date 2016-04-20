@@ -1,3 +1,6 @@
+0.19 2016-04-20
+        - Improved datepicker to enter date strings.
+
 0.18 2016-02-29
         - Support for dashes in identifiers.
 	- Minor changes to the layout.

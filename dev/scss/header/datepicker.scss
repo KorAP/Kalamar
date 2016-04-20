@@ -79,6 +79,17 @@ div.datepicker {
     border-spacing: 1px;
   }
 
+  input {
+    @include standard-text-padding;
+    border: {
+      style: solid;
+      width: 1px;
+    }
+    @include choose-item;
+    background-color: $nearly-white;
+    width: 100%;
+  }
+
   td {
     @include standard-text-padding;
     text-align: center;

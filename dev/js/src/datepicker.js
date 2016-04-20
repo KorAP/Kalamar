@@ -99,9 +99,6 @@ define(['util'], function () {
      */
     show : function (year, month) {
 
-      // Create text view
-      this.showText();
-
       var e = this._element = d.createElement('div');
       e.setAttribute('tabindex', 0);
       e.style.outline = 0;
@@ -123,64 +120,40 @@ define(['util'], function () {
       this._element.appendChild(this._monthHelper());
       this._element.appendChild(this._yearHelper());
       this._element.appendChild(this._dayHelper());
-      this._element.appendChild(this._closer());
+      this._element.appendChild(this._stringHelper());
 
       return this._element;
     },
 
-    showText : function () {
+    _stringHelper : function () {
 
       // Create element
-      this._elementText = document.createElement('div');
-      var et = this._elementText;
-      et.setAttribute('tabindex', 0);
-      et.style.outline = 0;
-      et.classList.add('value');
-
       // Add input field
-      this._input = et.appendChild(
-	document.createElement('input')
-      );
-      this._input.value = this.toString();
+      var input = document.createElement('input');
+      input.value = this.toString();
+      input.setAttribute('tabindex', 0);
 
-      // Add toggle button
-      var datepicker = et.appendChild(
-	document.createElement('div')
-      );
-
-      datepicker.onclick =
-	this.viewCalendar.bind(this);
-
-      datepicker.appendChild(
-	document.createTextNode('x')
-      );
-
-      // Check for enter
-      this._input.addEventListener(
-	'keypress',
+      input.addEventListener(
+	'keyup',
 	function (e) {
 	  if (e.keyCode == 13) {
-	    this.fromString(this._input.value);
-	    this.store();
+	    if (this.fromString(input.value))
+	      this.store();
+
 	    e.halt();
             return false;
+	  }
+	  else {
+	    if (this.fromString(input.value)) {
+	      this._updateYear();
+	      this._updateMonth();
+	      this._updateDay();
+	    };
 	  };
 	}.bind(this)
       );
 
-      /*
-      var that = this;
-      et.addEventListener(
-	'blur',
-	function (e) {
-	  that.fromString(input.value);
-
-	  // Better: Hide!
-	  this.parentNode.removeChild(this);
-	  e.halt();
-	}
-      );
-      */
+      return input;
     },
 
     /**
@@ -189,35 +162,6 @@ define(['util'], function () {
     element : function () {
       return this._element;
     },
-
-    elementText : function () {
-      return this._elementText;
-    },
-
-    viewText : function () {
-
-      // Replace calendar view with text view
-      this._element.parentNode.replaceChild(
-	this._elementText,
-	this._element
-      );
-    },
-
-    viewCalendar : function () {
-      // Update calendar
-      this.fromString(this._input.value);
-
-      this._updateYear();
-      this._updateMonth();
-      this._updateDay();
-
-      // Replace calendar view with text view
-      this._elementText.parentNode.replaceChild(
-	this._element,
-	this._elementText
-      );
-    },
-
 
     /**
      * Get the current date in string format.
@@ -383,6 +327,9 @@ define(['util'], function () {
 
     // Update the month helper view.
     _updateMonth : function () {
+      if (this._showMonth === undefined || this._showMonth > 12)
+	this._showMonth = 1;
+
       this._mElement.firstChild.data = loc.MONTH[this._showMonth-1];
       this._selectMonth();
     },
@@ -414,15 +361,6 @@ define(['util'], function () {
 
       table.appendChild(this._dBElement);
       return table;
-    },
-
-    // Create the day (calendar) helper element.
-    _closer : function () {
-      var closer = d.createElement('span');
-      closer.classList.add('closer');
-      closer.appendChild(d.createTextNode('x'));
-      closer.onclick = this.viewText.bind(this);
-      return closer;
     },
 
     _dayBody : function () {
@@ -522,16 +460,20 @@ define(['util'], function () {
     },
 
     fromString : function (v) {
-      if (v !== undefined) {
+      if (v === undefined)
+	return false;
 
-	var d = v.split('-', 3);
-	d[0] = parseInt(d[0]);
-	if (d[1]) d[1] = parseInt(d[1]);
-	if (d[2]) d[2] = parseInt(d[2]);
+      if (!KorAP._validDateRE.test(v))
+	return false;
 
-	// Select values
-	this.select(d[0], d[1], d[2]);
-      };
+      var d = v.split('-', 3);
+      d[0] = parseInt(d[0]);
+      if (d[1]) d[1] = parseInt(d[1]);
+      if (d[2]) d[2] = parseInt(d[2]);
+
+      // Select values
+      this.select(d[0], d[1], d[2]);
+      return true;
     }
   };
 });

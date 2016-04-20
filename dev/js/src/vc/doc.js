@@ -451,10 +451,15 @@ define([
 	);
 
 	dpElem.focus();
+	/*
 	dpElem.addEventListener('blur', function (e) {
+	  e.halt();
+
 	  // Remove datepicker
+	  // TODO: If focus is not set to string input
 	  that._element.removeChild(this);
 	});
+	*/
       }
       else {
 	var regex = this.type() === 'regex' ? true : false;
