@@ -46,13 +46,19 @@ define(['util'], function () {
     select : function (year, month, day) {
       if (arguments.length >= 1) {
 	this._selected = {'year' : year};
+	this._showYear = year;
 	if (arguments.length >= 2) {
 	  this._selected['month'] = month;
-	  if (arguments.length >= 3)
+	  this._showMonth = month;
+	  if (arguments.length >= 3) {
 	    this._selected['day'] = day;
+	    this._showDay = day;
+	  };
 	};
+
 	return this;
       };
+
       return this._selected;
     },
 
@@ -63,12 +69,15 @@ define(['util'], function () {
      */
     set : function (year, month, day) {
       this.select(year, month, day);
+      this.store();
+    },
+
+    store : function () {
       if (this._click !== undefined)
 	this._click(this._selected);
       else 
 	console.dir(this._selected);
     },
-
 
     /**
      * Set the action for clicking as a callback.
@@ -81,7 +90,7 @@ define(['util'], function () {
       this._click = cb;
     },
 
-
+    
     /**
      * Show the datepicker.
      * Will either show the selected year/month
@@ -89,6 +98,10 @@ define(['util'], function () {
      * Will return the element for appending to the dom.
      */
     show : function (year, month) {
+
+      // Create text view
+      this.showText();
+
       var e = this._element = d.createElement('div');
       e.setAttribute('tabindex', 0);
       e.style.outline = 0;
@@ -97,7 +110,7 @@ define(['util'], function () {
       var today = new Date();
 
       // Show year
-      this._showYear = year ? year :
+      this._showYear = (year !== undefined) ? year :
 	(this._selected['year'] ? this._selected['year'] :
 	 today.getYear() + 1900);
 
@@ -110,15 +123,99 @@ define(['util'], function () {
       this._element.appendChild(this._monthHelper());
       this._element.appendChild(this._yearHelper());
       this._element.appendChild(this._dayHelper());
+      this._element.appendChild(this._closer());
+
       return this._element;
     },
 
+    showText : function () {
+
+      // Create element
+      this._elementText = document.createElement('div');
+      var et = this._elementText;
+      et.setAttribute('tabindex', 0);
+      et.style.outline = 0;
+      et.classList.add('value');
+
+      // Add input field
+      this._input = et.appendChild(
+	document.createElement('input')
+      );
+      this._input.value = this.toString();
+
+      // Add toggle button
+      var datepicker = et.appendChild(
+	document.createElement('div')
+      );
+
+      datepicker.onclick =
+	this.viewCalendar.bind(this);
+
+      datepicker.appendChild(
+	document.createTextNode('x')
+      );
+
+      // Check for enter
+      this._input.addEventListener(
+	'keypress',
+	function (e) {
+	  if (e.keyCode == 13) {
+	    this.fromString(this._input.value);
+	    this.store();
+	    e.halt();
+            return false;
+	  };
+	}.bind(this)
+      );
+
+      /*
+      var that = this;
+      et.addEventListener(
+	'blur',
+	function (e) {
+	  that.fromString(input.value);
+
+	  // Better: Hide!
+	  this.parentNode.removeChild(this);
+	  e.halt();
+	}
+      );
+      */
+    },
 
     /**
      * Get the HTML element associated with the datepicker.
      */
     element : function () {
       return this._element;
+    },
+
+    elementText : function () {
+      return this._elementText;
+    },
+
+    viewText : function () {
+
+      // Replace calendar view with text view
+      this._element.parentNode.replaceChild(
+	this._elementText,
+	this._element
+      );
+    },
+
+    viewCalendar : function () {
+      // Update calendar
+      this.fromString(this._input.value);
+
+      this._updateYear();
+      this._updateMonth();
+      this._updateDay();
+
+      // Replace calendar view with text view
+      this._elementText.parentNode.replaceChild(
+	this._element,
+	this._elementText
+      );
     },
 
 
@@ -135,6 +232,23 @@ define(['util'], function () {
       return str;
     },
 
+    toString : function () {
+      // There are values selected
+      var v = '';
+      var s = this._selected;
+      if (s['year']) {
+	v += s['year'];
+	if (s['month']) {
+	  v += '-';
+	  v += s['month'] < 10 ? '0' + s['month'] : s['month'];
+	  if (s['day']) {
+	    v += '-';
+	    v += s['day'] < 10 ? '0' + s['day'] : s['day'];
+	  };
+	};
+      };
+      return v;
+    },
 
     /**
      * Increment the year.
@@ -302,6 +416,15 @@ define(['util'], function () {
       return table;
     },
 
+    // Create the day (calendar) helper element.
+    _closer : function () {
+      var closer = d.createElement('span');
+      closer.classList.add('closer');
+      closer.appendChild(d.createTextNode('x'));
+      closer.onclick = this.viewText.bind(this);
+      return closer;
+    },
+
     _dayBody : function () {
       var showDate = new Date(
 	this._showYear,
@@ -396,6 +519,19 @@ define(['util'], function () {
 	this._dBElement
       );
       this._dBElement = newBody;
+    },
+
+    fromString : function (v) {
+      if (v !== undefined) {
+
+	var d = v.split('-', 3);
+	d[0] = parseInt(d[0]);
+	if (d[1]) d[1] = parseInt(d[1]);
+	if (d[2]) d[2] = parseInt(d[2]);
+
+	// Select values
+	this.select(d[0], d[1], d[2]);
+      };
     }
   };
 });

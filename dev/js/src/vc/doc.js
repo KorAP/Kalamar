@@ -424,32 +424,14 @@ define([
       // Show datepicker
       if (this.type() === 'date') {
 	var dp = KorAP._vcDatePicker;
-	if (v !== undefined) {
-
-	  var d = v.split('-', 3);
-	  d[0] = parseInt(d[0]);
-	  if (d[1]) d[1] = parseInt(d[1]);
-	  if (d[2]) d[2] = parseInt(d[2]);
-
-	  // Select values
-	  dp.select(d[0], d[1], d[2]);
-	};
+	dp.fromString(v)
 
 	// Todo: change this
 	dp.onclick(function (selected) {
 
 	  // There are values selected
 	  if (selected['year']) {
-	    var v = '' + selected['year'];
-	    if (selected['month']) {
-	      v += '-';
-	      v += selected['month'] < 10 ? '0' + selected['month'] : selected['month'];
-	      if (selected['day']) {
-		v += '-';
-		v += selected['day'] < 10 ? '0' + selected['day'] : selected['day'];
-	      };
-	    };
-	    that.value(v);
+	    that.value(this.toString());
 	    that.update();
 	    return;
 	  };

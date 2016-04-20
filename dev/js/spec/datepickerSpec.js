@@ -46,7 +46,7 @@ define(['datepicker'], function (dpClass) {
       expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('February');
 
       // Max value
-      var e = dp.show(9998, 2);
+      e = dp.show(9998, 2);
       expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('9998');
       expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('February');
 
@@ -59,7 +59,7 @@ define(['datepicker'], function (dpClass) {
       expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('February');
 
       // Min value
-      var e = dp.show(2, 2);
+      e = dp.show(2, 2);
       expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2');
       expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('February');
 
@@ -78,7 +78,69 @@ define(['datepicker'], function (dpClass) {
 
     it('should have modifyable month', function () {
       var dp = dpClass.create();
-      var e = dp.show(2013, 6);
+      var e = dp.show(2012, 9);
+
+      expect(e.nodeName).toEqual('DIV');
+      expect(e.classList.contains('datepicker')).toBeTruthy();
+
+      expect(e.getAttribute('tabindex')).toEqual('0');
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2012');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('September');
+
+      dp.incrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2012');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('October');
+
+      dp.incrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2012');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('November');
+
+      dp.incrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2012');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('December');
+
+      dp.incrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2013');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('January');
+
+      dp.decrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2012');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('December');
+
+      // Max value
+      e = dp.show(9999, 12);
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('9999');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('December');
+
+      dp.incrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('9999');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('December');
+
+      // Min value
+      e = dp.show(1, 2);
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('1');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('February');
+
+      dp.decrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('1');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('January');
+
+      dp.decrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('0');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('December');
+
+      e = dp.show(0, 2);
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('0');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('February');
+
+      dp.decrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('0');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('January');
+
+      dp.decrMonth();
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('0');
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('January');
+
     });
   });
 });
