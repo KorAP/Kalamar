@@ -11,9 +11,11 @@
 define([
   'menu/item',
   'menu/prefix',
+  'menu/lengthField',
   'util'
 ], function (defaultItemClass,
-	     defaultPrefixClass) {
+	     defaultPrefixClass,
+	     lengthFieldClass) {
 
   // Default maximum number of menu items
   var menuLimit = 8;
@@ -156,12 +158,19 @@ define([
       var that = this;
       this._itemClass = itemClass || defaultItemClass;
 
-      if (prefixClass !== undefined)
+      // Add prefix object
+      if (prefixClass !== undefined) {
 	this._prefix = prefixClass.create();
-      else
+      }
+      else {
 	this._prefix = defaultPrefixClass.create();
-
+      };
       this._prefix._menu = this;
+
+      // Add lengthField object
+      this._lengthField = lengthFieldClass.create();
+      this._lengthField._menu = this;
+
 
       var e = document.createElement("ul");
       e.style.opacity = 0;
@@ -170,6 +179,7 @@ define([
       e.classList.add('menu');
       e.classList.add('roll');
       e.appendChild(this._prefix.element());
+      e.appendChild(this._lengthField.element());
 
       // This has to be cleaned up later on
       e["menu"] = this;
@@ -213,9 +223,10 @@ define([
 
 	// This may become circular
 	obj["_menu"] = this;
-
+	this._lengthField.add(params[i][0]);
 	this._items.push(obj);
       };
+
       this._limit    = menuLimit;
       this._position = 0;  // position in the active list
       this._active   = -1; // active item in the item list
@@ -352,7 +363,6 @@ define([
 	  this._list.push(i);
 	while (this._items[++i] !== undefined) {
 	  this._items[i].lowlight();
-	  // console.log(this._item);
 	};
 	return true;
       };
@@ -401,6 +411,12 @@ define([
       return this._prefix.value();
     },
 
+    /**
+     * Get the lengthField object.
+     */
+    lengthField : function () {
+      return this._lengthField;
+    },
 
     // Append Items that should be shown
     _showItems : function (offset) {
@@ -449,7 +465,8 @@ define([
 
       // Remove all children
       var children = this._element.childNodes;
-      for (var i = children.length - 1; i >= 1; i--) {
+      // Leave the prefix and lengthField
+      for (var i = children.length - 1; i >= 2; i--) {
 	this._element.removeChild(
 	  children[i]
 	);
@@ -479,10 +496,10 @@ define([
 	item.highlight(this.prefix());
 
       var e = this.element();
-      // Append element
+      // Append element after lengthFiled/prefix
       e.insertBefore(
 	item.element(),
-	e.children[1]
+	e.children[2]
       );
     },
 
@@ -691,7 +708,8 @@ define([
     // Remove the HTML node from the first item
     _removeFirst : function () {
       this.item(this._list[this._offset]).lowlight();
-      this._element.removeChild(this._element.children[1]);
+      // leave lengthField/prefix
+      this._element.removeChild(this._element.children[2]);
     },
 
 

@@ -31,6 +31,22 @@ ul.menu > span.pref:not(:empty) {
   white-space: normal;
 }
 
+ul.menu div.lengthField {
+  border: {
+    color: transparent;
+    width: $border-size;
+  }
+  padding: $item-padding;
+  padding-top: 0;
+  padding-bottom: 0;
+  span {
+    display: block;
+    line-height: 0;
+    color: transparent;
+  }
+  background-color: blue;
+}
+
 ul.menu > li,
 ul.menu > span.pref:not(.active) {
   @include choose-item;
@@ -47,8 +63,10 @@ ul.menu {
   /**
    * List items
    */
-  > li {
+  > li, div.lengthField {
     padding-right: 1.6em;
+  }
+  > li {
 
     &:first-of-type {
       border-top: {

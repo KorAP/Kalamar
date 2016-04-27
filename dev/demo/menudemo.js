@@ -60,6 +60,7 @@ require(['menu','menu/item', 'menu/prefix'], function (menuClass, itemClass, pre
   var menu = OwnMenu.create([
     ['Titel', 'title', 'string'],
     ['Untertitel', 'subTitle', 'string'],
+    ['Beschreibung', 'desc', 'string'],
     ['Veröffentlichungsdatum', 'pubDate', 'date'],
     ['Länge', 'length', 'integer'],
     ['Autor', 'author', 'string'],
