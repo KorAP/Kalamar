@@ -18,7 +18,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
     create : function (info, params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(this)
-	._init(itemClass, undefined, params);
+	._init(itemClass, undefined, undefined, params);
       obj.limit(6);
       obj._info = info;
 

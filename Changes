@@ -1,5 +1,7 @@
-0.19 2016-04-20
+0.19 2016-04-28
         - Improved datepicker to enter date strings.
+	- Improved menus to have fixed length depending
+	  on entry list.
 
 0.18 2016-02-29
         - Support for dashes in identifiers.

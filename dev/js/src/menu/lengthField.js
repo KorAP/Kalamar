@@ -15,11 +15,16 @@ define({
   },
 
   /**
-   * Add string to lengthField.
+   * Upgrade this object to another object,
+   * while private data stays intact.
+   *
+   * @param {Object} An object with properties.
    */
-  add : function (string) {
-    this._element.appendChild(document.createElement('span'))
-      .appendChild(document.createTextNode(string + '-'));
+  upgradeTo : function (props) {
+    for (var prop in props) {
+      this[prop] = props[prop];
+    };
+    return this;
   },
 
   /**
@@ -27,5 +32,13 @@ define({
    */
   element : function () {
     return this._element;
+  },
+
+  /**
+   * Add string to lengthField.
+   */
+  add : function (param) {
+    this._element.appendChild(document.createElement('span'))
+      .appendChild(document.createTextNode(param[0] + '--'));
   }
 });

@@ -1,7 +1,10 @@
 /**
  * Hint menu
  */
-define(['menu', 'hint/item', 'hint/prefix'], function (menuClass, itemClass, prefixClass) {
+define(['menu',
+	'hint/item',
+	'hint/prefix',
+	'hint/lengthField'], function (menuClass, itemClass, prefixClass, lengthFieldClass) {
   return {
 
     /**
@@ -10,7 +13,7 @@ define(['menu', 'hint/item', 'hint/prefix'], function (menuClass, itemClass, pre
     create : function (hint, context, params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(this)
-	._init(itemClass, prefixClass, params);
+	._init(itemClass, prefixClass, lengthFieldClass, params);
       obj._context = context;
       obj._element.classList.add('hint');
       obj._hint = hint;

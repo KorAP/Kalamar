@@ -7,7 +7,7 @@ define(['vc/menu', 'api'], function (menuClass, itemClass) {
     create : function (params) {
       return Object.create(menuClass)
 	.upgradeTo(this)
-	._init(itemClass, undefined, params);
+	._init(itemClass, undefined, undefined, params);
     },
 
     /**

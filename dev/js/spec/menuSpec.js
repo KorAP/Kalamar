@@ -2,9 +2,9 @@ define(['menu'], function () {
 
   var menuItemClass    = require('menu/item');
   var prefixClass      = require('menu/prefix');
-  var menuClass        = require('menu');
   var lengthFieldClass = require('menu/lengthField');
-
+  var menuClass        = require('menu');
+ 
   // The OwnMenu item
   KorAP.OwnMenuItem = {
     create : function (params) {
@@ -32,7 +32,7 @@ define(['menu'], function () {
     create : function (params) {
       return Object.create(menuClass)
 	.upgradeTo(KorAP.OwnMenu)
-	._init(KorAP.OwnMenuItem, undefined, params);
+	._init(KorAP.OwnMenuItem, undefined, undefined, params);
     }
   };
 
@@ -106,7 +106,7 @@ define(['menu'], function () {
     create : function (context, params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(KorAP.HintMenu)
-	._init(KorAP.HintMenuItem, undefined, params);
+	._init(KorAP.HintMenuItem, undefined, undefined, params);
       obj._context = context;
       return obj;
     }
@@ -1158,14 +1158,14 @@ define(['menu'], function () {
 
     it('should be extensible', function () {
       var l = lengthFieldClass.create();
-      l.add('Baum');
+      l.add(['Baum']);
       expect(l.element().children.length).toEqual(1);
       expect(l.element().children[0].nodeName).toEqual('SPAN');
-      expect(l.element().children[0].textContent).toEqual('Baum-');
-      l.add('Fragezeichen');
+      expect(l.element().children[0].textContent).toEqual('Baum--');
+      l.add(['Fragezeichen']);
       expect(l.element().children.length).toEqual(2);
       expect(l.element().children[1].nodeName).toEqual('SPAN');
-      expect(l.element().children[1].textContent).toEqual('Fragezeichen-');
+      expect(l.element().children[1].textContent).toEqual('Fragezeichen--');
     });
 
     it('should be correctly initializable', function () {

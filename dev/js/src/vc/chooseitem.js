@@ -82,7 +82,7 @@ define(['menu/item', 'util'], function (itemClass) {
       // Connect action
       li["onclick"] = this.onclick.bind(this);
 
-      li.ap   pendChild(document.createTextNode(this._name));
+      li.appendChild(document.createTextNode(this._name));
       return this._element = li;
     }
   }

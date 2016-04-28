@@ -15,7 +15,7 @@ define([
   'util'
 ], function (defaultItemClass,
 	     defaultPrefixClass,
-	     lengthFieldClass) {
+	     defaultLengthFieldClass) {
 
   // Default maximum number of menu items
   var menuLimit = 8;
@@ -154,7 +154,7 @@ define([
     },
 
     // Initialize list
-    _init : function (itemClass, prefixClass, params) {
+    _init : function (itemClass, prefixClass, lengthFieldClass, params) {
       var that = this;
       this._itemClass = itemClass || defaultItemClass;
 
@@ -168,7 +168,12 @@ define([
       this._prefix._menu = this;
 
       // Add lengthField object
-      this._lengthField = lengthFieldClass.create();
+      if (lengthFieldClass !== undefined) {
+	this._lengthField = lengthFieldClass.create();
+      }
+      else {
+	this._lengthField = defaultLengthFieldClass.create();
+      };
       this._lengthField._menu = this;
 
 
@@ -223,7 +228,7 @@ define([
 
 	// This may become circular
 	obj["_menu"] = this;
-	this._lengthField.add(params[i][0]);
+	this._lengthField.add(params[i]);
 	this._items.push(obj);
       };
 

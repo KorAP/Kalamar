@@ -2,12 +2,14 @@ requirejs.config({
   baseUrl: '../js/src'
 });
 
-require(['menu','menu/item', 'menu/prefix'], function (menuClass, itemClass, prefixClass) {
+require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuClass, itemClass, prefixClass, lengthFieldClass) {
 
   var OwnMenuItemClass = {
+
     create : function (params) {
       return Object.create(itemClass).upgradeTo(this)._init(params);
     },
+
     content : function (content) {
       if (arguments.length === 1) {
         this._content = content;
@@ -51,7 +53,7 @@ require(['menu','menu/item', 'menu/prefix'], function (menuClass, itemClass, pre
     create : function (params) {
       var obj = Object.create(menuClass)
       .upgradeTo(this)
-      ._init(OwnMenuItemClass, OwnPrefixClass, params);
+      ._init(OwnMenuItemClass, OwnPrefixClass, lengthFieldClass, params);
       obj._firstActive = true;
       return obj;
     }
