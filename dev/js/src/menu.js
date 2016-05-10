@@ -12,10 +12,12 @@ define([
   'menu/item',
   'menu/prefix',
   'menu/lengthField',
+  'menu/slider',
   'util'
 ], function (defaultItemClass,
 	     defaultPrefixClass,
-	     defaultLengthFieldClass) {
+	     defaultLengthFieldClass,
+	     sliderClass) {
 
   // Default maximum number of menu items
   var menuLimit = 8;
@@ -176,6 +178,8 @@ define([
       };
       this._lengthField._menu = this;
 
+      // Initialize the slider
+      this._slider = sliderClass.create();
 
       var e = document.createElement("ul");
       e.style.opacity = 0;
@@ -185,6 +189,7 @@ define([
       e.classList.add('roll');
       e.appendChild(this._prefix.element());
       e.appendChild(this._lengthField.element());
+      e.appendChild(this._slider.element());
 
       // This has to be cleaned up later on
       e["menu"] = this;
@@ -220,7 +225,7 @@ define([
       this.active = false;
       // this.selected = undefined;
       this._items = new Array();
-      var i;
+      var i = 0;
 
       // Initialize item list based on parameters
       for (i in params) {
@@ -233,6 +238,9 @@ define([
       };
 
       this._limit    = menuLimit;
+      this._slider.length(i);
+      this._slider.limit(this._limit);
+
       this._position = 0;  // position in the active list
       this._active   = -1; // active item in the item list
       this._firstActive = false; // Show the first item active always?
@@ -262,6 +270,7 @@ define([
     limit : function (limit) {
       if (arguments.length === 1) {
 	this._limit = limit;
+	this._slider.limit(limit);
 	return this;
       };
       return this._limit;
@@ -314,6 +323,8 @@ define([
       this._prefix.active(false);
 
       this._element.style.opacity = 1;
+
+      this._slider.show();
 
       // Iterate to the active item
       if (this._active !== -1 && !this._prefix.isSet()) {
@@ -471,7 +482,7 @@ define([
       // Remove all children
       var children = this._element.childNodes;
       // Leave the prefix and lengthField
-      for (var i = children.length - 1; i >= 2; i--) {
+      for (var i = children.length - 1; i >= 3; i--) {
 	this._element.removeChild(
 	  children[i]
 	);
@@ -501,10 +512,10 @@ define([
 	item.highlight(this.prefix());
 
       var e = this.element();
-      // Append element after lengthFiled/prefix
+      // Append element after lengthField/prefix/slider
       e.insertBefore(
 	item.element(),
-	e.children[2]
+	e.children[3]
       );
     },
 
@@ -713,8 +724,8 @@ define([
     // Remove the HTML node from the first item
     _removeFirst : function () {
       this.item(this._list[this._offset]).lowlight();
-      // leave lengthField/prefix
-      this._element.removeChild(this._element.children[2]);
+      // leave lengthField/prefix/slider
+      this._element.removeChild(this._element.children[3]);
     },
 
 
