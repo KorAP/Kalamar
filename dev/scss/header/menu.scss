@@ -70,26 +70,35 @@ ul.menu {
     background-color: transparent;
     width: 12px;
     height: 100%;
-    opacity: 0;
+//    opacity: 0;
 
     > span {
       position: absolute;
+      @include choose-active;
       display: block;
-      right: 0px;
+      right: 1px;
       width: 6px;
       cursor: pointer;
-      background-color: $light-grey;
-      border-radius: 3px;
       z-index: 600;
+      border-radius: 4px;
+      &:hover {
+	@include choose-hover;
+      }
     }
 
     > div {
+      box-shadow: $choose-box-shadow;
       position: absolute;
-      right: 1px;
-      width: 4px;
-      background-color: $dark-grey;
+      right: 0;
+      border: {
+	width: 1px;
+	style: solid;
+      }
+      width: 8px;
+      @include choose-item;
+      // background-color: -grey;
       height: 100%;
-      border-radius: 2px;
+      border-radius: 4px;
     }
   }
 

@@ -10,6 +10,8 @@ define({
   // Initialize prefix object
   _init : function () {
 
+    this._offset = 0;
+
     this._element = document.createElement('div');
     this._element.setAttribute('class', 'ruler');
 
@@ -34,16 +36,31 @@ define({
     return this;
   },
 
+  _initSize : function () {
+    this._height = ((this._limit / this._length) * 100);
+    this._step = (100 - this._height) / (this._length - this._limit);
+  },
+
   show : function (i) {
-    this._slider.style.height = ((this._limit / this._length) * 100) + '%';
+    this._slider.style.height = this._height + '%';
   },
 
   length : function (i) {
     this._length = i;
+    this._initSize();
   },
 
   limit : function (i) {
     this._limit = i;
+    this._initSize();
+  },
+
+  offset : function (off) {
+    if (off === undefined)
+      return this._offset;
+
+    this._offset = off;
+    this._slider.style.top = (this._step * off) + '%';
   },
 
   element : function () {

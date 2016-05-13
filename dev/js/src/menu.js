@@ -115,7 +115,7 @@ define([
 	if (this._prefix.active())
 	  break;
 
-	var item = this.liveItem(this._position);
+	var item = this.liveItem(this.position);
 
 	if (item["further"] !== undefined) {
 	  item["further"].bind(item).apply();
@@ -131,7 +131,7 @@ define([
 
 	// Click on item
 	else
-	  this.liveItem(this._position).onclick(e);
+	  this.liveItem(this.position).onclick(e);
 	e.halt();
 	break;
       case 8: // 'Backspace'
@@ -238,11 +238,11 @@ define([
       };
 
       this._limit    = menuLimit;
-      this._slider.length(i);
+      this._slider.length(this.liveLength());
       this._slider.limit(this._limit);
 
-      this._position = 0;  // position in the active list
-      this._active   = -1; // active item in the item list
+      this.position = 0;  // position in the active list
+      this._active  = -1; // active item in the item list
       this._firstActive = false; // Show the first item active always?
       this._reset();
       return this;
@@ -255,6 +255,9 @@ define([
       return this._element;
     },
 
+    slider : function () {
+      return this._slider;
+    },
 
     /**
      * Get the creator class for items
@@ -318,7 +321,7 @@ define([
       if (this._firstActive)
 	this.liveItem(0).active(true);
 
-      this._position = 0;
+      this.position = 0;
 
       this._prefix.active(false);
 
@@ -328,7 +331,7 @@ define([
 
       // Iterate to the active item
       if (this._active !== -1 && !this._prefix.isSet()) {
-	while (this._list[this._position] < this._active) {
+	while (this._list[this.position] < this._active) {
 	  this.next();
 	};
       };
@@ -500,6 +503,8 @@ define([
 
       // Append element
       this.element().appendChild(item.element());
+
+      this._slider.offset(this._offset);
     },
 
 
@@ -517,6 +522,8 @@ define([
 	item.element(),
 	e.children[3]
       );
+
+      this._slider.offset(this._offset);
     },
 
 
@@ -572,20 +579,20 @@ define([
     next : function () {
 
       // No active element set
-      if (this._position === -1)
+      if (this.position === -1)
 	return;
 
       var newItem;
 
       // Set new live item
       if (!this._prefix.active()) {
-	var oldItem = this.liveItem(this._position);
+	var oldItem = this.liveItem(this.position);
 	oldItem.active(false);
       };
 
-      this._position++;
+      this.position++;
 
-      newItem = this.liveItem(this._position);
+      newItem = this.liveItem(this.position);
 
       // The next element is undefined - roll to top or to prefix
       if (newItem === undefined) {
@@ -595,23 +602,23 @@ define([
 
 	// Mark prefix
 	if (prefix.isSet() && !prefix.active()) {
-	  this._position--;
+	  this.position--;
 	  prefix.active(true);
 	  return;
 	}
 	else {
 	  this._offset = 0;
-	  this._position = 0;
+	  this.position = 0;
 	  newItem = this.liveItem(0);
 	  this._showItems(0);
 	};
       }
 
       // The next element is outside the view - roll down
-      else if (this._position >= (this.limit() + this._offset)) {
+      else if (this.position >= (this.limit() + this._offset)) {
 	this._removeFirst();
 	this._offset++;
-	this._append(this._list[this._position]);
+	this._append(this._list[this.position]);
       };
 
       this._prefix.active(false);
@@ -630,11 +637,11 @@ define([
       }
 
       // Last item is chosen
-      else if (this._position >= this.limit() + this._offset) {
+      else if (this.position >= this.limit() + this._offset) {
 
-	this._position = this.limit() + this._offset - 1;
-	newItem = this.liveItem(this._position);
-	var oldItem = this.liveItem(this._position--);
+	this.position = this.limit() + this._offset - 1;
+	newItem = this.liveItem(this.position);
+	var oldItem = this.liveItem(this.position--);
 	oldItem.active(false);
       }
 
@@ -643,11 +650,11 @@ define([
 
       // Jump to last item
       else {
-	var oldItem = this.liveItem(this._position);
+	var oldItem = this.liveItem(this.position);
 	oldItem.active(false);
 
-	this._position = this.limit() + this._offset - 1;
-	newItem = this.liveItem(this._position);
+	this.position = this.limit() + this._offset - 1;
+	newItem = this.liveItem(this.position);
       };
 
       newItem.active(true);
@@ -661,7 +668,7 @@ define([
     prev : function () {
 
       // No active element set
-      if (this._position === -1) {
+      if (this.position === -1) {
 	return;
 	// TODO: Choose last item
       };
@@ -670,11 +677,11 @@ define([
 
       // Set new live item
       if (!this._prefix.active()) {
-	var oldItem = this.liveItem(this._position--);
+	var oldItem = this.liveItem(this.position--);
 	oldItem.active(false);
       };
 
-      newItem = this.liveItem(this._position);
+      newItem = this.liveItem(this.position);
 
       // The previous element is undefined - roll to bottom
       if (newItem === undefined) {
@@ -686,24 +693,24 @@ define([
 	// Normalize offset
 	this._offset = this._offset < 0 ? 0 : this._offset;
 
-	this._position = this.liveLength() - 1;
+	this.position = this.liveLength() - 1;
 
 	if (prefix.isSet() && !prefix.active()) {
-	  this._position++;
+	  this.position++;
 	  prefix.active(true);
 	  return;
 	}
 	else {
-	  newItem = this.liveItem(this._position);
+	  newItem = this.liveItem(this.position);
 	  this._showItems(this._offset);
 	};
       }
 
       // The previous element is outside the view - roll up
-      else if (this._position < this._offset) {
+      else if (this.position < this._offset) {
 	this._removeLast();
 	this._offset--;
-	this._prepend(this._list[this._position]);
+	this._prepend(this._list[this.position]);
       };
 
       this._prefix.active(false);
