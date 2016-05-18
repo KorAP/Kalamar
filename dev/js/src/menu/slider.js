@@ -19,7 +19,7 @@ define({
   },
 
   _mouseup : function (e) {
-    this._slider.classList.remove('active');
+    this._element.classList.remove('active');
     window.removeEventListener('mousemove', this._event.mov);
     window.removeEventListener('mouseup', this._event.up);
   },
@@ -34,7 +34,7 @@ define({
     this._rulerHeight  = this._element.clientHeight; // offsetHeight?
     this._sliderHeight = this._slider.clientHeight;  // offsetHeight?
 
-    this._slider.classList.add('active');
+    this._element.classList.add('active');
 
     window.addEventListener('mousemove', ev.mov);
     window.addEventListener('mouseup', ev.up);

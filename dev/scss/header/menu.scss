@@ -51,7 +51,8 @@ ul.menu > span.pref:not(.active) {
   @include choose-item;
 }
 
-ul.menu:hover > div.ruler {
+ul.menu:hover > div.ruler,
+ul.menu > div.ruler.active {
   opacity: 1;
 }
 
@@ -81,9 +82,10 @@ ul.menu {
       cursor: pointer;
       z-index: 600;
       border-radius: 4px;
-      &:hover, &.active {
-	@include choose-hover;
-      }
+    }
+
+    &.active > span {
+      @include choose-hover;
     }
 
     > div {
