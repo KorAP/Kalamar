@@ -8,29 +8,18 @@ define({
   },
 
   _mousemove : function (e) {
-
-    var offset = parseInt(
-      (
-	(e.clientY - this._event.init)
-	  / this._rulerHeight
-      ) * this._screens
-    );
-
-    this.offset(offset);
-
+    var relativePos = e.clientY - this._event.init;
+    var currentPos = 0;
+    var diffHeight = (this._rulerHeight - this._sliderHeight);
+    var relativeOffset = ((relativePos + currentPos) / diffHeight);
+    this.offset(parseInt(relativeOffset * this._screens));
     e.halt();
-    /*
-      isTouch?e.touches[0]:e
-      ,offset = horizontal?client.clientX - lastClient.clientX:client.clientY - lastClient.clientY
-      ,barPos = Math.min(Math.max(orgBarPos + offset,0),dir.viewportSize-dir.barSize)
-      ;
-      //
-      inst.viewport[getScroll(horizontal)] = (barPos/dir.viewportSize)*dir.viewportScrollSize;
-    */
+
+    // Support touch!
   },
 
   _mouseup : function (e) {
-    
+    this._slider.classList.remove('active');
     window.removeEventListener('mousemove', this._event.mov);
     window.removeEventListener('mouseup', this._event.up);
   },
@@ -38,11 +27,14 @@ define({
   _mousedown : function (e) {
     // Bind drag handler
     var ev = this._event;
-    ev.init = e.clientY;
+    ev.init = e.clientY - (this._step * this._offset);
     ev.mov = this._mousemove.bind(this);
     ev.up = this._mouseup.bind(this);
 
-    this._rulerHeight = this._element.clientHeight; // offsetHeight?
+    this._rulerHeight  = this._element.clientHeight; // offsetHeight?
+    this._sliderHeight = this._slider.clientHeight;  // offsetHeight?
+
+    this._slider.classList.add('active');
 
     window.addEventListener('mousemove', ev.mov);
     window.addEventListener('mouseup', ev.up);

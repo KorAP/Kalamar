@@ -70,7 +70,7 @@ ul.menu {
     background-color: transparent;
     width: 12px;
     height: 100%;
-//    opacity: 0;
+    opacity: 0;
 
     > span {
       position: absolute;
@@ -81,7 +81,7 @@ ul.menu {
       cursor: pointer;
       z-index: 600;
       border-radius: 4px;
-      &:hover {
+      &:hover, &.active {
 	@include choose-hover;
       }
     }
