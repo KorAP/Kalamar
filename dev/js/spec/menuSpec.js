@@ -1,9 +1,5 @@
-define(['menu'], function () {
-
-  var menuItemClass    = require('menu/item');
-  var prefixClass      = require('menu/prefix');
-  var lengthFieldClass = require('menu/lengthField');
-  var menuClass        = require('menu');
+define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
+       function (menuClass, menuItemClass, prefixClass, lengthFieldClass) {
  
   // The OwnMenu item
   KorAP.OwnMenuItem = {
@@ -1066,10 +1062,59 @@ define(['menu'], function () {
 
     });
 
+    it('should show screens by offset', function () {
+      var menu = KorAP.HintMenu.create('cnx/', demolist);
+      menu.limit(3);
+      expect(menu.show()).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      menu.next();
+
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      menu.next();
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(true);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
+
+/*
+      menu.screen(0);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(true);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(3)).toBe(undefined);
+*/
+
+console.log('VVVVVVVVVVVVVVVVV');
+      menu.screen(1);
+      expect(menu.shownItem(0)).not.toBeUndefined();
+      expect(menu.shownItem(1)).not.toBeUndefined();
+      expect(menu.shownItem(2)).not.toBeUndefined();
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      expect(menu.shownItem(0).active()).toBe(true);
+console.log('AAAAAAAAAAAAAAAAA');
+/*
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+*/
+    });
+
+
     xit('should be page downable');
     xit('should be page upable');
 
-    it('should scroll to a chosen value', function () {
+    xit('should scroll to a chosen value', function () {
       var menu = KorAP.OwnMenu.create(demolist);
       menu.limit(3);
       this._active = 5;
@@ -1077,6 +1122,9 @@ define(['menu'], function () {
 
     xit('should highlight a chosen value');
   });
+
+
+
 
   describe('KorAP.Prefix', function () {
     it('should be initializable', function () {

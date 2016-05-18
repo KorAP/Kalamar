@@ -74,7 +74,7 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuC
 
   document.getElementById('menu').appendChild(menu.element());
 
-  menu._active = 2;
+  menu._active = 3;
   menu.limit(3);
   menu.show('');
   menu.focus();

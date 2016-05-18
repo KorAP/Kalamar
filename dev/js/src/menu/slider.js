@@ -3,16 +3,20 @@ define({
   /**
    * Create new prefix object.
    */
-  create : function () {
-    return Object.create(this)._init();
+  create : function (menu) {
+    return Object.create(this)._init(menu);
   },
 
   _mousemove : function (e) {
     var relativePos = e.clientY - this._event.init;
-    var currentPos = 0;
     var diffHeight = (this._rulerHeight - this._sliderHeight);
-    var relativeOffset = ((relativePos + currentPos) / diffHeight);
-    this.offset(parseInt(relativeOffset * this._screens));
+    var relativeOffset = (relativePos / diffHeight);
+
+    var off = this.offset(parseInt(relativeOffset * this._screens));
+    if (off !== undefined) {
+      this._menu.screen(off);
+    };
+
     e.halt();
 
     // Support touch!
@@ -43,7 +47,9 @@ define({
   },
 
   // Initialize prefix object
-  _init : function () {
+  _init : function (menu) {
+
+    this._menu = menu;
 
     this._offset = 0;
     this._event = {};
@@ -55,10 +61,15 @@ define({
       document.createElement('span')
     );
 
+    this._element.appendChild(document.createElement('div'))
+    // Do not mark the menu on mousedown
+    .addEventListener('mousedown', function (e) {
+      e.halt()
+    });
+
     // TODO: Support touch!
     this._slider.addEventListener('mousedown', this._mousedown.bind(this), false);
 
-    this._element.appendChild(document.createElement('div'));
     return this;
   },
 
@@ -83,14 +94,15 @@ define({
   },
 
   offset : function (off) {
-    if (off === undefined)
+    if (arguments.length === 0)
       return this._offset;
 
     if (off === this._offset || off > this._screens || off < 0)
-      return;
+      return undefined;
 
     this._offset = off;
     this._slider.style.top = (this._step * off) + '%';
+    return off;
   },
 
   element : function () {

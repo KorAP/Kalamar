@@ -54,6 +54,10 @@ define([
      * mark and sweep GC)!
      */
     destroy : function () {
+      this._prefix._menu = undefined;
+      this._lengthField._menu = undefined;
+      this._slider._menu = undefined;
+
       if (this._element != undefined)
 	delete this._element["menu"]; 
 
@@ -155,6 +159,16 @@ define([
       };
     },
 
+    /**
+     * Show screen X
+     */
+    screen : function (nr) {
+      if (this._offset === nr)
+	return;
+
+      this._showItems(nr);
+    },
+
     // Initialize list
     _init : function (itemClass, prefixClass, lengthFieldClass, params) {
       var that = this;
@@ -179,7 +193,7 @@ define([
       this._lengthField._menu = this;
 
       // Initialize the slider
-      this._slider = sliderClass.create();
+      this._slider = sliderClass.create(this);
 
       var e = document.createElement("ul");
       e.style.opacity = 0;
@@ -318,10 +332,14 @@ define([
 
       // Set the first element to active
       // Todo: Or the last element chosen
-      if (this._firstActive)
+      if (this._firstActive) {
 	this.liveItem(0).active(true);
-
-      this.position = 0;
+	this.position = 0;
+	this._active = 0;
+      }
+      else {
+	this.position = -1;
+      }
 
       this._prefix.active(false);
 
@@ -438,21 +456,33 @@ define([
     },
 
     // Append Items that should be shown
-    _showItems : function (offset) {
+    _showItems : function (off) {
+
       this.delete();
 
       // Use list
       var shown = 0;
       var i;
       for (i in this._list) {
-
 	// Don't show - it's before offset
-	if (shown++ < offset)
+	if (shown++ < off)
 	  continue;
 
-	this._append(this._list[i]);
+	var itemNr = this._list[i];
+	var item = this.item(itemNr);
+	this._append(itemNr);
 
-	if (shown >= (this.limit() + this._offset))
+	/*
+	this._items[this._list[i]].active();
+	console.dir([i, this._active]);
+	if (this._active === i) {
+console.log('True!')
+	  this._items[this._list[i]].active(true);
+	};
+	*/
+
+	// this._offset))
+	if (shown >= (this.limit() + off))
 	  break;
       };
     },
@@ -579,18 +609,18 @@ define([
     next : function () {
 
       // No active element set
-      if (this.position === -1)
-	return;
-
       var newItem;
 
-      // Set new live item
-      if (!this._prefix.active()) {
-	var oldItem = this.liveItem(this.position);
-	oldItem.active(false);
+      if (this.position !== -1) {
+	// Set new live item
+	if (!this._prefix.active()) {
+	  var oldItem = this.liveItem(this.position);
+	  oldItem.active(false);
+	};
       };
 
       this.position++;
+      this._active = this.position;
 
       newItem = this.liveItem(this.position);
 
@@ -604,12 +634,14 @@ define([
 	if (prefix.isSet() && !prefix.active()) {
 	  this.position--;
 	  prefix.active(true);
+	  this._active = -1;
 	  return;
 	}
 	else {
 	  this._offset = 0;
 	  this.position = 0;
 	  newItem = this.liveItem(0);
+	  this._active = 0;
 	  this._showItems(0);
 	};
       }

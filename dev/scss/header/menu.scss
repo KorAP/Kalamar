@@ -72,14 +72,13 @@ ul.menu {
     width: 12px;
     height: 100%;
     opacity: 0;
-
+    cursor: pointer;
     > span {
       position: absolute;
       @include choose-active;
       display: block;
       right: 1px;
       width: 6px;
-      cursor: pointer;
       z-index: 600;
       border-radius: 4px;
     }
