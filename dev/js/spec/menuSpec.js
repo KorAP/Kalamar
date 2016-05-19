@@ -1087,13 +1087,13 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(0).lcField()).toEqual(' titel');
       expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
 
-/*
       menu.screen(0);
       expect(menu.shownItem(0).active()).toBe(false);
       expect(menu.shownItem(1).active()).toBe(true);
       expect(menu.shownItem(2).active()).toBe(false);
       expect(menu.shownItem(3)).toBe(undefined);
-*/
+
+/*
 
 console.log('VVVVVVVVVVVVVVVVV');
       menu.screen(1);
@@ -1102,9 +1102,11 @@ console.log('VVVVVVVVVVVVVVVVV');
       expect(menu.shownItem(2)).not.toBeUndefined();
       expect(menu.shownItem(3)).toBe(undefined);
 
+
+console.log(menu.element().innerHTML);
+console.log(menu.shownItem(0)._element.outerHTML);
+
       expect(menu.shownItem(0).active()).toBe(true);
-console.log('AAAAAAAAAAAAAAAAA');
-/*
       expect(menu.shownItem(1).active()).toBe(false);
       expect(menu.shownItem(2).active()).toBe(false);
 */

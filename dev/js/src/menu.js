@@ -166,6 +166,7 @@ define([
       if (this._offset === nr)
 	return;
 
+      this.delete();
       this._showItems(nr);
     },
 
@@ -328,6 +329,8 @@ define([
 	return false;
 
       // show based on initial offset
+      this.unmark();
+      this.delete();
       this._showItems(0);
 
       // Set the first element to active
@@ -337,6 +340,7 @@ define([
 	this.position = 0;
 	this._active = 0;
       }
+
       else {
 	this.position = -1;
       }
@@ -365,6 +369,7 @@ define([
      */
     hide : function () {
       this.active = false;
+      this.unmark();
       this.delete();
       this._element.style.opacity = 0;
       this._prefix.clear();
@@ -458,8 +463,6 @@ define([
     // Append Items that should be shown
     _showItems : function (off) {
 
-      this.delete();
-
       // Use list
       var shown = 0;
       var i;
@@ -472,14 +475,8 @@ define([
 	var item = this.item(itemNr);
 	this._append(itemNr);
 
-	/*
-	this._items[this._list[i]].active();
-	console.dir([i, this._active]);
-	if (this._active === i) {
-console.log('True!')
-	  this._items[this._list[i]].active(true);
-	};
-	*/
+	if (i === this.position)
+	  item.active(true);
 
 	// this._offset))
 	if (shown >= (this.limit() + off))
@@ -506,12 +503,6 @@ console.log('True!')
       };
       */
 
-      for (var i in this._list) {
-	var item = this._items[this._list[i]];
-	item.lowlight();
-	item.active(false);	
-      };
-
       // Remove all children
       var children = this._element.childNodes;
       // Leave the prefix and lengthField
@@ -522,6 +513,14 @@ console.log('True!')
       };
     },
 
+    // Unmark all items
+    unmark : function () {
+      for (var i in this._list) {
+	var item = this._items[this._list[i]];
+	item.lowlight();
+	item.active(false);	
+      };
+    },
 
     // Append item to the shown list based on index
     _append : function (i) {
@@ -642,6 +641,8 @@ console.log('True!')
 	  this.position = 0;
 	  newItem = this.liveItem(0);
 	  this._active = 0;
+	  this.unmark();
+	  this.delete();
 	  this._showItems(0);
 	};
       }
@@ -734,6 +735,8 @@ console.log('True!')
 	}
 	else {
 	  newItem = this.liveItem(this.position);
+	  this.unmark();
+	  this.delete();
 	  this._showItems(this._offset);
 	};
       }
