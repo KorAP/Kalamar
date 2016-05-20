@@ -395,7 +395,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
     it('should be visible', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
-      expect(menu.delete()).toBe(undefined);
+      expect(menu.unshow()).toBe(undefined);
       menu.limit(3);
 
       expect(menu.show()).toBe(true);
@@ -1071,12 +1071,14 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(1).active()).toBe(false);
       expect(menu.shownItem(2).active()).toBe(false);
 
+      // Highlight the first entry
       menu.next();
 
       expect(menu.shownItem(0).active()).toBe(true);
       expect(menu.shownItem(1).active()).toBe(false);
       expect(menu.shownItem(2).active()).toBe(false);
 
+      // Highlight the second entry
       menu.next();
 
       expect(menu.shownItem(0).active()).toBe(false);
@@ -1087,29 +1089,36 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(0).lcField()).toEqual(' titel');
       expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
 
+      // Move to first screen
       menu.screen(0);
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
       expect(menu.shownItem(0).active()).toBe(false);
       expect(menu.shownItem(1).active()).toBe(true);
       expect(menu.shownItem(2).active()).toBe(false);
       expect(menu.shownItem(3)).toBe(undefined);
 
-/*
-
-console.log('VVVVVVVVVVVVVVVVV');
+      // Move to second screen
       menu.screen(1);
-      expect(menu.shownItem(0)).not.toBeUndefined();
-      expect(menu.shownItem(1)).not.toBeUndefined();
-      expect(menu.shownItem(2)).not.toBeUndefined();
-      expect(menu.shownItem(3)).toBe(undefined);
-
-
-console.log(menu.element().innerHTML);
-console.log(menu.shownItem(0)._element.outerHTML);
-
+      expect(menu.shownItem(0).lcField()).toEqual(' untertitel');
       expect(menu.shownItem(0).active()).toBe(true);
       expect(menu.shownItem(1).active()).toBe(false);
       expect(menu.shownItem(2).active()).toBe(false);
-*/
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      menu.screen(2);
+      expect(menu.shownItem(0).lcField()).toEqual(' veröffentlichungsdatum');
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      menu.screen(1);
+      expect(menu.shownItem(0).lcField()).toEqual(' untertitel');
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(3)).toBe(undefined);
     });
 
 
