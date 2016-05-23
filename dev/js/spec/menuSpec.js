@@ -1404,6 +1404,91 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.slider().offset()).toEqual(2);
       expect(menu.shownItem(0).active()).toBe(false);
       expect(menu.shownItem(0).lcField()).toEqual(' morphology');
+
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      // When the active cursor moves again - scroll to viewport
+      // cursor is before viewport
+      menu.next();
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(0).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      menu.next();
+      menu.next();
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' morphology');
+      expect(menu.shownItem(2).active()).toBe(true);
+      expect(menu.shownItem(2).lcField()).toEqual(' part-of-speech');
+
+      menu.slider().movetoRel(0);
+      expect(menu.slider().offset()).toEqual(0);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' constituency');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' morphology');
+
+      // cursor is after viewport
+      menu.next();
+      expect(menu.slider().offset()).toEqual(2);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' morphology');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' part-of-speech');
+      expect(menu.shownItem(2).active()).toBe(true);
+      expect(menu.shownItem(2).lcField()).toEqual(' syntax');
+
+      menu.slider().movetoRel(0);
+      expect(menu.slider().offset()).toEqual(0);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' constituency');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' morphology');
+
+      menu.prev();
+      expect(menu.slider().offset()).toEqual(2);
+      expect(menu.shownItem(0).lcField()).toEqual(' morphology');
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' part-of-speech');
+      expect(menu.shownItem(1).active()).toBe(true);
+      expect(menu.shownItem(2).lcField()).toEqual(' syntax');
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      menu.prev();
+      menu.prev();
+      expect(menu.slider().offset()).toEqual(1);
+      expect(menu.shownItem(0).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(1).lcField()).toEqual(' morphology');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' part-of-speech');
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      menu.slider().movetoRel(100);
+      expect(menu.slider().offset()).toEqual(2);
+      expect(menu.shownItem(0).lcField()).toEqual(' morphology');
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' part-of-speech');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' syntax');
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      menu.prev();
+      expect(menu.slider().offset()).toEqual(0);
+      expect(menu.shownItem(0).lcField()).toEqual(' constituency');
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(1).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' morphology');
+      expect(menu.shownItem(2).active()).toBe(false);
     });
   });
 });

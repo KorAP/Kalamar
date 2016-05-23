@@ -9,9 +9,11 @@
  * TODO: What is _pos and what is position?
  * TODO: What is the difference between position
  *       and _active?
- * TODO: if the prefix is not found, it should be visible and active!
- * TODO: Bug: The slider vanishes, if the prefix wasn't found in the demo
- *       (example: type "elt")
+ * TODO: next and prev should use an optimized version of _screen
+ * TODO: On next and prev the viewport should move
+ *       to the active item.
+ * TODO: pageUp and pageDown should use _screen
+ * TODO: Ignore keys with function key combinations (other than shift)
  */
 define([
   'menu/item',
@@ -307,15 +309,12 @@ define([
 
     // Add characters to prefix
     _keypress : function (e) {
+      e.halt();
       var c = String.fromCharCode(_codeFromEvent(e)).toLowerCase();
 
       // Add prefix
       this._prefix.add(c);
-
-      if (!this.show()) {
-	this.prefix('').show();
-	e.halt();
-      };
+      this.show();
     },
 
     /**
@@ -325,6 +324,28 @@ define([
     screen : function (nr) {
       if (this._offset === nr)
 	return;
+
+      // OPTIMIZE!!!
+
+      // TODO: This is just an optimization of screen
+      /*
+	if (this.position >= (this.limit() + this._offset) {
+	  this._removeFirst();
+	  this._offset++;
+	  this._append(this._list[this.position]);
+	  this._slider.offset(this._offset);
+	}
+	else if (this.position < this._offset) {
+
+	this._removeLast();
+	this._offset--;
+	this._prepend(this._list[this.position]);
+	// set the slider to the new offset
+	this._slider.offset(this._offset);
+      }
+      */
+
+
       this.unshow();
       this._offset = nr;
       this._showItems(nr);
@@ -624,12 +645,15 @@ define([
 	};
       }
 
-      // The next element is outside the view - roll down
+      // The next element is after the viewport - roll down
       else if (this.position >= (this.limit() + this._offset)) {
-	this._removeFirst();
-	this._offset++;
-	this._append(this._list[this.position]);
-	this._slider.offset(this._offset);
+
+	this.screen(this.position - this.limit() + 1);
+      }
+
+      // The next element is before the viewport - roll up
+      else if (this.position <= this._offset) {
+	this.screen(this.position);
       };
 
       this._prefix.active(false);
@@ -682,13 +706,14 @@ define([
 	};
       }
 
-      // The previous element is outside the view - roll up
+      // The previous element is before the view - roll up
       else if (this.position < this._offset) {
-	this._removeLast();
-	this._offset--;
-	this._prepend(this._list[this.position]);
-	// set the slider to the new offset
-	this._slider.offset(this._offset);
+	this.screen(this.position);
+      }
+
+      // The previous element is after the view - roll down
+      else if (this.position >= (this.limit() + this._offset)) {
+	this.screen(this.position - this.limit() + 2);
       };
 
       this._prefix.active(false);
