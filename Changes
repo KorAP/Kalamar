@@ -1,3 +1,9 @@
+0.20 2016-05-23
+	- Improved menu using sliders.
+	- Improved menu to make prefixes chooseable,
+	  even if list can't be filtered.
+	- Fixed choosable prefixes in hint menu.
+
 0.19 2016-04-28
         - Improved datepicker to enter date strings.
 	- Improved menus to have fixed length depending

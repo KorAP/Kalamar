@@ -162,7 +162,7 @@ define([
 	var c = this._inputField.container();
 	c.classList.add('active');
 	c.appendChild(menu.element());
-	menu.show('');
+	menu.show();
 	menu.focus();
       // Focus on input field
       // this.inputField.element.focus();

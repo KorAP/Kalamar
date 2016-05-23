@@ -288,7 +288,7 @@ define([
       span.appendChild(treeElement);
 
       span.addEventListener('click', function (e) {
-	treemenu.show('');
+	treemenu.show();
 	treemenu.focus();
       });
       

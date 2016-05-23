@@ -376,6 +376,7 @@ define(['hint'], function () {
 
       menuItem.lowlight();
       expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\">This is my Example</span>");
+
     });
   });
 
@@ -390,7 +391,6 @@ define(['hint'], function () {
     ];
 
     it('should be initializable', function () {
-
       var menu = menuClass.create(null, "cnx/", list);
       expect(menu.element().nodeName).toEqual('UL');
       expect(menu.element().style.opacity).toEqual("0");
@@ -399,6 +399,7 @@ define(['hint'], function () {
 
       // view
       menu.show();
+      expect(menu.prefix()).toBe('');
 
       // First element in list
       expect(menu.item(0).active()).toBe(true);
@@ -411,6 +412,18 @@ define(['hint'], function () {
       // Last element in list
       expect(menu.item(menu.length() - 1).active()).toBe(false);
       expect(menu.item(menu.length() - 1).noMore()).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBeTruthy();
+      expect(menu.shownItem(0).lcField()).toEqual(' constituency example 1');
+      expect(menu.shownItem(1).lcField()).toEqual(' lemma');
+      expect(menu.shownItem(2).lcField()).toEqual(' morphology example 2');
+
+      menu.next();
+      expect(menu.shownItem(1).active()).toBeTruthy();
+
+      menu.next();
+      expect(menu.shownItem(2).active()).toBeTruthy();
+
     });
   });
 });

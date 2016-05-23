@@ -14,10 +14,11 @@ define(['menu/prefix'], function (prefixClass) {
      */
     onclick : function () {
       var m = this.menu();
+      var value = this.value();
       var h = m.hint();
       m.hide();
 
-      h.inputField().insert(this.value());
+      h.inputField().insert(value);
       h.active = false;
     }
   };

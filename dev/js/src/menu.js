@@ -7,6 +7,11 @@
  * TODO: space is not a valid prefix!
  * TODO: Prefix should be case sensitive!
  * TODO: What is _pos and what is position?
+ * TODO: What is the difference between position
+ *       and _active?
+ * TODO: if the prefix is not found, it should be visible and active!
+ * TODO: Bug: The slider vanishes, if the prefix wasn't found in the demo
+ *       (example: type "elt")
  */
 define([
   'menu/item',
@@ -192,6 +197,8 @@ define([
 	};
       };
 
+      this._slider.length(this._list.length);
+
       // Filter was successful - yeah!
       return this._list.length > 0 ? true : false;
     },
@@ -372,38 +379,71 @@ define([
      *
      * @param {string} Prefix for filtering the list
      */
-    show : function () {
-
-      // Initialize the list
-      if (!this._initList())
-	return false;
+    show : function (active) {
 
       // show menu based on initial offset
       this._unmark();      // Unmark everything that was marked before
       this.unshow();      // Delete everything that is shown
-      this._showItems(0); // Show new item list
+
+      // Initialize the list
+      if (!this._initList()) {
+	// The prefix is not active
+	this._prefix.active(true);
+
+	// finally show the element
+	this._element.style.opacity = 1;
+
+	return true;
+      };
+
+      var offset = 0;
 
       // Set the first element to active
       // Todo: Or the last element chosen
-      if (this._firstActive) {
-	this.liveItem(0).active(true);
+      if (arguments.length === 1) {
+
+	// Normalize active value
+	if (active < 0)
+	  active = 0;
+	else if (active > this.length())
+	  active = this.length();
+
+	if (active > this._limit) {
+	  offset = active;
+	  if (offset > (this.length() - this._limit)) {
+	      offset = this.length() - this._limit;
+	  };
+	};
+
+	this.position = active;
+	this._active = active;
+      }
+
+      else if (this._firstActive) {
 	this.position = 0;
 	this._active = 0;
       }
 
       else {
 	this.position = -1;
-      }
+      };
+
+      this._offset = offset;
+      this._showItems(offset); // Show new item list
+
+      // Make chosen value active
+      if (this.position !== -1) {
+	this.shownItem(this.position).active(true);
+      };
 
       // The prefix is not active
       this._prefix.active(false);
-
 
       // finally show the element
       this._element.style.opacity = 1;
 
       // Show the slider
-      this._slider.show();
+      //this._slider.show();
 
       // Iterate to the active item
       if (this._active !== -1 && !this._prefix.isSet()) {

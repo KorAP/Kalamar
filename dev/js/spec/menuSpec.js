@@ -767,10 +767,12 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
     });
 
 
-    it('shouldn\'t be viewable with failing prefix', function () {
+    it('should choose prefix with failing prefix', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
       menu.limit(2);
-      expect(menu.prefix("exit").show()).toBe(false);    
+      expect(menu.prefix("exit").show()).toBe(true);
+      expect(menu.shownItem(0)).toBeUndefined();
+      expect(menu._prefix.active()).toBe(true);
     });
 
 
@@ -1121,17 +1123,50 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(3)).toBe(undefined);
     });
 
+    it('should show screens by offset when prefixed', function () {
+      var menu = KorAP.HintMenu.create('cnx/', demolist);
+      menu.limit(3);
+      expect(menu.prefix("e").show()).toBe(true);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+
+      expect(menu.shownItem(0).element().innerHTML).toEqual('<strong>Tit<mark>e</mark>l</strong>');
+      menu.screen(1);
+      expect(menu.shownItem(0).element().innerHTML).toEqual('<strong>Unt<mark>e</mark>rtit<mark>e</mark>l</strong>');
+    });
+
 
     xit('should be page downable');
     xit('should be page upable');
 
-    xit('should scroll to a chosen value', function () {
+    it('should scroll to a chosen value', function () {
       var menu = KorAP.OwnMenu.create(demolist);
       menu.limit(3);
-      this._active = 5;
+
+      // Choose value 1
+      expect(menu.show(1)).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(1).active()).toBe(true);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      // Choose value 2
+      expect(menu.show(2)).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(true);
+      expect(menu.shownItem(3)).toBe(undefined);
+
     });
 
     xit('should highlight a chosen value');
+
+    xit('should move the viewport to active, if active is not in the viewport');
   });
 
 
@@ -1243,7 +1278,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
   });
 
   describe('KorAP.Slider', function () {
-    it('should be correctly initializable', function () {
+    it('should correctly be initializable', function () {
       var list = [
 	["Constituency"],
 	["Lemma"],
@@ -1264,6 +1299,23 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(2).active()).toBe(false);
       expect(menu.slider().offset()).toEqual(0);
       expect(menu.position).toEqual(0);
+    });
+
+    it('should correctly move on arrow keys', function () {
+      var list = [
+	["Constituency"],
+	["Lemma"],
+	["Morphology"],
+	["Part-of-Speech"],
+	["Syntax"]
+      ];
+
+      var menu = KorAP.OwnMenu.create(list);
+
+      menu._firstActive = true;
+      menu.limit(3);
+
+      expect(menu.show()).toBe(true);
 
       menu.next();
       expect(menu.shownItem(0).active()).toBe(false);
@@ -1301,7 +1353,57 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.position).toEqual(0);
 
       expect(menu.slider()._slider.style.height).toEqual('60%');
+    });
 
+    it('should correctly move the list on mousemove', function () {
+      var list = [
+	["Constituency"],
+	["Lemma"],
+	["Morphology"],
+	["Part-of-Speech"],
+	["Syntax"]
+      ];
+
+      var menu = KorAP.OwnMenu.create(list);
+
+      menu._firstActive = true;
+      menu.limit(3);
+
+      expect(menu.show()).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.slider().offset()).toEqual(0);
+
+      // This will normally be done on 
+      menu.slider()._rulerHeight = 100;
+      menu.slider()._sliderHeight = 40;
+      expect(menu.slider().length()).toEqual(5);
+
+      menu.slider().movetoRel(10);
+      expect(menu.slider().offset()).toEqual(0);
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(0).lcField()).toEqual(' constituency');
+      menu.slider().movetoRel(24);
+      expect(menu.slider().offset()).toEqual(0);
+      menu.slider().movetoRel(25);
+      expect(menu.slider().offset()).toEqual(0);
+
+      menu.slider().movetoRel(30);
+      expect(menu.slider().offset()).toEqual(1);
+      menu.slider().movetoRel(59);
+      expect(menu.slider().offset()).toEqual(1);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' lemma');
+
+      // Everything > 60 is offset 2
+      menu.slider().movetoRel(60);
+      expect(menu.slider().offset()).toEqual(2);
+      menu.slider().movetoRel(180);
+      expect(menu.slider().offset()).toEqual(2);
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' morphology');
     });
   });
 });

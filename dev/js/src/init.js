@@ -123,7 +123,7 @@ define([
     };
 
     var result = document.getElementById('resultinfo');
-    var resultButton;
+    var resultButton = null;
     if (result != null) {
       resultButton = result.appendChild(document.createElement('div'));
       resultButton.classList.add('result', 'button'); 
@@ -248,11 +248,12 @@ define([
     };
 
     // Initialize queries for document
-    if (obj.tutorial)
+    if (obj.tutorial) {
       obj.tutorial.initQueries(document);
 
-    // Initialize documentation links
-    obj.tutorial.initDocLinks(document);
+      // Initialize documentation links
+      obj.tutorial.initDocLinks(document);
+    };
 
 
     /**

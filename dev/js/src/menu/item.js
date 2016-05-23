@@ -122,10 +122,50 @@ define({
    * @param {string} Prefix string for highlights
    */
   highlight : function (prefix) {
+
+    // The prefix already matches
+    if (this._prefix === prefix)
+      return;
+
+    // There is a prefix but it doesn't match
+    if (this._prefix !== null) {
+      this.lowlight();
+    }
+
     var children = this.element().childNodes;
     for (var i = children.length -1; i >= 0; i--) {
       this._highlight(children[i], prefix);
     };
+
+    this._prefix = prefix;
+  },
+
+  /**
+   * Remove highlight of the menu item
+   */
+  lowlight : function () {
+    if (this._prefix === null)
+      return;
+
+    var e = this.element();
+    
+    var marks = e.getElementsByTagName("mark");
+    for (var i = marks.length - 1; i >= 0; i--) {
+      // Create text node clone
+      var x = document.createTextNode(
+	marks[i].firstChild.nodeValue
+      );
+      
+      // Replace with content
+      marks[i].parentNode.replaceChild(
+	x,
+	marks[i]
+      );
+    };
+
+    // Remove consecutive textnodes
+    e.normalize();
+    this._prefix = null;
   },
 
   // Highlight a certain substring of the menu item
@@ -176,30 +216,6 @@ define({
     };
   },
 
-  /**
-   * Remove highlight of the menu item
-   */
-  lowlight : function () {
-    var e = this.element();
-    
-    var marks = e.getElementsByTagName("mark");
-    for (var i = marks.length - 1; i >= 0; i--) {
-      // Create text node clone
-      var x = document.createTextNode(
-	marks[i].firstChild.nodeValue
-      );
-      
-      // Replace with content
-      marks[i].parentNode.replaceChild(
-	x,
-	marks[i]
-      );
-    };
-
-    // Remove consecutive textnodes
-    e.normalize();
-  },
-
   // Initialize menu item
   _init : function (params) {
     
@@ -212,6 +228,7 @@ define({
       this._action = params[1];
 
     this._lcField = ' ' + this.content().textContent.toLowerCase();
+    this._highlight = null;
 
     return this;
   },

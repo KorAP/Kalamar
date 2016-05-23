@@ -67,9 +67,9 @@ ul.menu {
   > div.ruler {
     position: absolute;
     right: 0px;
-    margin-right: -12px;
+    margin-right: -14px;
     background-color: transparent;
-    width: 12px;
+    width: 14px;
     height: 100%;
     opacity: 0;
     cursor: pointer;
@@ -77,25 +77,27 @@ ul.menu {
       position: absolute;
       @include choose-active;
       display: block;
-      right: 1px;
-      width: 6px;
+      right: 0;
+      width: 10px;
       z-index: 600;
-      border-radius: 4px;
+      border: {
+	radius: 4px;
+	width: 2px;
+	style: solid;
+      }
     }
-
     &.active > span {
       @include choose-hover;
     }
-
     > div {
       box-shadow: $choose-box-shadow;
       position: absolute;
       right: 0;
       border: {
-	width: 1px;
+	width: 2px;
 	style: solid;
       }
-      width: 8px;
+      width: 10px;
       @include choose-item;
       // background-color: -grey;
       height: 100%;

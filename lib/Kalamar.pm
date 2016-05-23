@@ -4,7 +4,7 @@ use Mojo::ByteStream 'b';
 use Mojo::JSON 'decode_json';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
@@ -152,7 +152,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2016, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
