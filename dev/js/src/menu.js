@@ -326,8 +326,8 @@ define([
       if (nr < 0) {
 	nr = 0
       }
-      else if (nr > (this.length() - this.limit())) {
-	nr = (this.length() - this.limit());
+      else if (nr > (this.liveLength() - this.limit())) {
+	nr = (this.liveLength() - this.limit());
       };
 
       if (this._offset === nr)
@@ -411,11 +411,12 @@ define([
     show : function (active) {
 
       // show menu based on initial offset
-      this._unmark();      // Unmark everything that was marked before
+      this._unmark();     // Unmark everything that was marked before
       this.unshow();      // Delete everything that is shown
 
       // Initialize the list
       if (!this._initList()) {
+
 	// The prefix is not active
 	this._prefix.active(true);
 
@@ -435,14 +436,14 @@ define([
 	if (active < 0) {
 	  active = 0;
 	}
-	else if (active > this.length()) {
-	  active = this.length() - 1;
+	else if (active > this.liveLength()) {
+	  active = this.liveLength() - 1;
 	};
 
 	if (active > this._limit) {
 	  offset = active;
-	  if (offset > (this.length() - this._limit)) {
-	      offset = this.length() - this._limit;
+	  if (offset > (this.liveLength() - this._limit)) {
+	      offset = this.liveLength() - this._limit;
 	  };
 	};
 

@@ -1172,6 +1172,41 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(2).active()).toBe(false);
     });
 
+    it('should be page downable with prefix', function () {
+      var menu = KorAP.OwnMenu.create(demolonglist);
+      menu.limit(3);
+
+      expect(menu.prefix('e').show(0)).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' veröffentlichungsdatum');
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      menu.pageDown();
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' länge');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' genre');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' textid');
+
+      // Doesn't matter
+      menu.pageDown();
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' länge');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' genre');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' textid');
+    });
+
+
     it('should be page upable', function () {
       var menu = KorAP.OwnMenu.create(demolonglist);
       menu.limit(3);
@@ -1208,6 +1243,41 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(2).active()).toBe(false);
     });
 
+    it('should be page upable with prefix', function () {
+      var menu = KorAP.OwnMenu.create(demolonglist);
+      menu.limit(3);
+
+      // Choose the final value
+      expect(menu.prefix("e").show(1000)).toBe(true);
+
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(0).lcField()).toEqual(' länge');
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' genre');
+      expect(menu.shownItem(2).active()).toBe(true);
+      expect(menu.shownItem(2).lcField()).toEqual(' textid');
+      expect(menu.shownItem(3)).toBe(undefined);
+
+      menu.pageUp();
+
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' veröffentlichungsdatum');
+
+      // Doesn't matter
+      menu.pageUp();
+
+      expect(menu.shownItem(0).lcField()).toEqual(' titel');
+      expect(menu.shownItem(0).active()).toBe(false);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(1).lcField()).toEqual(' untertitel');
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(2).lcField()).toEqual(' veröffentlichungsdatum');
+    });
+
     it('should scroll to a chosen value', function () {
       var menu = KorAP.OwnMenu.create(demolist);
       menu.limit(3);
@@ -1232,8 +1302,6 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
     });
 
-    xit('should be page upable with prefix');
-    xit('should be page downable with prefix');
     xit('should highlight a chosen value');
     xit('should move the viewport to active, if active is not in the viewport');
   });
