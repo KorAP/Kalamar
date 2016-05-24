@@ -53,6 +53,7 @@ ul.menu > span.pref:not(.active) {
 
 ul.menu:hover > div.ruler,
 ul.menu > div.ruler.active {
+  transition: opacity .1s ease;
   opacity: 1;
 }
 
@@ -73,6 +74,8 @@ ul.menu {
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    transition: opacity .5s ease 1s;
+
     > span {
       position: absolute;
       @include choose-active;

@@ -27,6 +27,22 @@ define({
     this._initSize();
   },
 
+  active : function (bool) {
+    if (arguments.length === 1) {
+      if (bool) {
+	if (!this._active) {
+	  this._element.classList.add('active');
+	  this._active = true;
+	};
+      }
+      else if (this._active) {
+	this._element.classList.remove('active');
+	this._active = false;
+      }
+    };
+    return this._active;
+  },
+
   movetoRel : function (relativePos) {
     var diffHeight = (this._rulerHeight - this._sliderHeight);
     var relativeOffset = (relativePos / diffHeight);
@@ -62,6 +78,7 @@ define({
 
     this._offset = off;
     this._slider.style.top = (this._step * off) + '%';
+
     return off;
   },
 
@@ -76,6 +93,7 @@ define({
 
     this._offset = 0;
     this._event = {};
+    this._active = false;
 
     this._element = document.createElement('div');
     this._element.setAttribute('class', 'ruler');
@@ -126,7 +144,7 @@ define({
   },
 
   _mouseup : function (e) {
-    this._element.classList.remove('active');
+    this.active(false);
     window.removeEventListener('mousemove', this._event.mov);
     window.removeEventListener('mouseup', this._event.up);
     this._menu.focus();
@@ -142,7 +160,7 @@ define({
     // TODO: This may not be necessary all the time
     this._initClientHeight();
 
-    this._element.classList.add('active');
+    this.active(true);
 
     window.addEventListener('mousemove', ev.mov);
     window.addEventListener('mouseup', ev.up);

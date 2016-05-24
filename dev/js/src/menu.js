@@ -5,13 +5,9 @@
  */
 /*
  * TODO: space is not a valid prefix!
- * TODO: Prefix should be case sensitive!
  * TODO: What is _pos and what is position?
  * TODO: What is the difference between position
  *       and _active?
- * TODO: next and prev should use an optimized version of _screen
- * TODO: On next and prev the viewport should move
- *       to the active item.
  * TODO: Ignore keys with function key combinations (other than shift)
  * TODO: Show the slider briefly on move (whenever screen is called).
  */
@@ -57,7 +53,7 @@ define([
 
     // Initialize list
     _init : function (itemClass, prefixClass, lengthFieldClass, params) {
-      var that = this;
+
       this._itemClass = itemClass || defaultItemClass;
 
       // Add prefix object
@@ -98,27 +94,21 @@ define([
       // Arrow keys
       e.addEventListener(
 	'keydown',
-	function (ev) {
-	  that._keydown(ev)
-	},
+	this._keydown.bind(this),
 	false
       );
 
       // Strings
       e.addEventListener(
 	'keypress',
-	function (ev) {
-	  that._keypress(ev)
-	},
+	this._keypress.bind(this),
 	false
       );
 
       // Mousewheel
       e.addEventListener(
 	'wheel',
-	function (ev) {
-	  that._mousewheel(ev)
-	},
+	this._mousewheel.bind(this),
 	false
       );
 
@@ -311,7 +301,7 @@ define([
     // Add characters to prefix
     _keypress : function (e) {
       e.halt();
-      var c = String.fromCharCode(_codeFromEvent(e)); // .toLowerCase();
+      var c = String.fromCharCode(_codeFromEvent(e));
 
       // Add prefix
       this._prefix.add(c);
@@ -333,29 +323,6 @@ define([
       if (this._offset === nr)
 	return;
 
-      // OPTIMIZE!!!
-
-      // TODO: This is just an optimization of screen
-      /*
-	if (this.position >= (this.limit() + this._offset) {
-	  this._removeFirst();
-	  this._offset++;
-	  this._append(this._list[this.position]);
-	  this._slider.offset(this._offset);
-	}
-	else if (this.position < this._offset) {
-
-	this._removeLast();
-	this._offset--;
-	this._prepend(this._list[this.position]);
-	// set the slider to the new offset
-	this._slider.offset(this._offset);
-      }
-      */
-
-
-      this.unshow();
-      this._offset = nr;
       this._showItems(nr);
     },
 
@@ -412,7 +379,7 @@ define([
 
       // show menu based on initial offset
       this._unmark();     // Unmark everything that was marked before
-      this.unshow();      // Delete everything that is shown
+      this.removeItems();
 
       // Initialize the list
       if (!this._initList()) {
@@ -498,7 +465,7 @@ define([
     hide : function () {
       this.active = false;
       this._unmark();
-      this.unshow();
+      this.removeItems();
       this._element.style.opacity = 0;
       this._prefix.clear();
       this.onHide();
@@ -542,7 +509,7 @@ define([
     /**
      * Delete all visible items from the menu element
      */
-    unshow : function () {
+    removeItems : function () {
       var child;
 
       // Remove all children
@@ -646,19 +613,15 @@ define([
 	  return;
 	}
 	else {
-	  this._offset = 0;
 	  this.position = 0;
 	  newItem = this.liveItem(0);
 	  this._active = 0;
-	  this._unmark();
-	  this.unshow();
 	  this._showItems(0);
 	};
       }
 
       // The next element is after the viewport - roll down
       else if (this.position >= (this.limit() + this._offset)) {
-
 	this.screen(this.position - this.limit() + 1);
       }
 
@@ -697,23 +660,25 @@ define([
 
 	// Activate prefix
 	var prefix = this._prefix;
-	this._offset = this.liveLength() - this.limit();
+	var offset =  this.liveLength() - this.limit();
+	// this._offset = this.liveLength() - this.limit();
 
 	// Normalize offset
-	this._offset = this._offset < 0 ? 0 : this._offset;
+	// this._offset = this._offset < 0 ? 0 : this._offset;
+	offset = offset < 0 ? 0 : offset;
 
 	this.position = this.liveLength() - 1;
 
 	if (prefix.isSet() && !prefix.active()) {
 	  this.position++;
 	  prefix.active(true);
+	  this._offset = offset;
 	  return;
 	}
 	else {
 	  newItem = this.liveItem(this.position);
 	  this._unmark();
-	  this.unshow();
-	  this._showItems(this._offset);
+	  this._showItems(offset);
 	};
       }
 
@@ -775,24 +740,44 @@ define([
     // Append Items that should be shown
     _showItems : function (off) {
 
-      // Use list
-      var shown = 0;
-      var i;
+      // optimization: scroll down one step
+      if (this._offset === (off - 1)) {
+	this._offset = off;
+	this._removeFirst();
+	var pos = this._offset + this.limit() - 1;
+	this._append(this._list[pos]);
+      }
 
-      for (i in this._list) {
+      // optimization: scroll up one step
+      else if (this._offset === (off + 1)) {
+	this._offset = off;
+	this._removeLast();
+	this._prepend(this._list[this._offset]);
+      }
+      else {
+	this._offset = off;
 
-	// Don't show - it's before offset
-	shown++;
-	if (shown <= off)
-	  continue;
+	// Remove all items
+	this.removeItems();
 
-	var itemNr = this._list[i];
-	var item = this.item(itemNr);
-	this._append(itemNr);
+	// Use list
+	var shown = 0;
+	var i;
 
-	// this._offset))
-	if (shown >= (this.limit() + off))
-	  break;
+	for (i in this._list) {
+
+	  // Don't show - it's before offset
+	  shown++;
+	  if (shown <= off)
+	    continue;
+
+	  var itemNr = this._list[i];
+	  var item = this.item(itemNr);
+	  this._append(itemNr);
+
+	  if (shown >= (this.limit() + off))
+	    break;
+	};
       };
 
       // set the slider to the new offset
@@ -805,8 +790,10 @@ define([
       var item = this.item(i);
 
       // Highlight based on prefix
-      if (this.prefix().length > 0)
+      if (this.prefix().length > 0) {
 	item.highlight(this.prefix().toLowerCase());
+      };
+
 
       // Append element
       this.element().appendChild(item.element());
@@ -818,8 +805,9 @@ define([
       var item = this.item(i);
 
       // Highlight based on prefix
-      if (this.prefix().length > 0)
+      if (this.prefix().length > 0) {
 	item.highlight(this.prefix().toLowerCase());
+      };
 
       var e = this.element();
       // Append element after lengthField/prefix/slider
@@ -832,7 +820,7 @@ define([
 
     // Remove the HTML node from the first item
     _removeFirst : function () {
-      this.item(this._list[this._offset]).lowlight();
+      // this.item(this._list[this._offset]).lowlight();
       // leave lengthField/prefix/slider
       this._element.removeChild(this._element.children[3]);
     },
@@ -840,7 +828,7 @@ define([
 
     // Remove the HTML node from the last item
     _removeLast : function () {
-      this.item(this._list[this._offset + this.limit() - 1]).lowlight();
+      // this.item(this._list[this._offset + this.limit() - 1]).lowlight();
       this._element.removeChild(this._element.lastChild);
     }
   };

@@ -395,7 +395,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
     it('should be visible', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
-      expect(menu.unshow()).toBe(undefined);
+      expect(menu.removeItems()).toBe(undefined);
       menu.limit(3);
 
       expect(menu.show()).toBe(true);
@@ -767,10 +767,22 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
     });
 
 
-    it('should choose prefix with failing prefix', function () {
+    it('should choose prefix with failing prefix (1)', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
       menu.limit(2);
       expect(menu.prefix("exit").show()).toBe(true);
+      expect(menu.element().querySelector('li')).toBe(null);
+      expect(menu.shownItem(0)).toBeUndefined();
+      expect(menu._prefix.active()).toBe(true);
+    });
+
+
+    it('should choose prefix with failing prefix (2)', function () {
+      var menu = KorAP.HintMenu.create("cnx/", list);
+      menu.limit(2);
+      expect(menu.show()).toBe(true);
+      expect(menu.prefix("exit").show()).toBe(true);
+      expect(menu.element().querySelector('li')).toBe(null);
       expect(menu.shownItem(0)).toBeUndefined();
       expect(menu._prefix.active()).toBe(true);
     });
