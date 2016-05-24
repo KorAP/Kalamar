@@ -14,6 +14,7 @@
  *       to the active item.
  * TODO: pageUp and pageDown should use _screen
  * TODO: Ignore keys with function key combinations (other than shift)
+ * TODO: Show the slider briefly on move (whenever screen is called).
  */
 define([
   'menu/item',
@@ -266,7 +267,7 @@ define([
 	break;
       case 33: // 'Page up'
 	e.halt();
-	this.prev();
+	this.pageUp();
 	break;
       case 40: // 'Down'
 	e.halt();
@@ -274,7 +275,7 @@ define([
 	break;
       case 34: // 'Page down'
 	e.halt();
-	this.next();
+	this.pageDown();
 	break;
       case 39: // 'Right'
 	if (this._prefix.active())
@@ -322,6 +323,13 @@ define([
      * in the viewport.
      */
     screen : function (nr) {
+      if (nr < 0) {
+	nr = 0
+      }
+      else if (nr > (this.length() - this.limit())) {
+	nr = (this.length() - this.limit());
+      };
+
       if (this._offset === nr)
 	return;
 
@@ -424,10 +432,12 @@ define([
       if (arguments.length === 1) {
 
 	// Normalize active value
-	if (active < 0)
+	if (active < 0) {
 	  active = 0;
-	else if (active > this.length())
-	  active = this.length();
+	}
+	else if (active > this.length()) {
+	  active = this.length() - 1;
+	};
 
 	if (active > this._limit) {
 	  offset = active;
@@ -454,7 +464,7 @@ define([
 
       // Make chosen value active
       if (this.position !== -1) {
-	this.shownItem(this.position).active(true);
+	this.liveItem(this.position).active(true);
       };
 
       // The prefix is not active
@@ -720,6 +730,21 @@ define([
       newItem.active(true);
     },
 
+    /**
+     * Move the page up by limit!
+     */
+    pageUp : function () {
+      this.screen(this._offset - this.limit());
+    },
+
+
+    /**
+     * Move the page down by limit!
+     */
+    pageDown : function () {
+      this.screen(this._offset + this.limit());
+    },
+
 
     // Unmark all items
     _unmark : function () {
@@ -819,40 +844,3 @@ define([
     }
   };
 });
-
-
-    /*
-     * Page down to the first item on the next page
-     */
-    /*
-    nextPage : function () {
-
-      // Prefix is active
-      if (this._prefix.active()) {
-	this._prefix.active(false);
-      }
-
-      // Last item is chosen
-      else if (this.position >= this.limit() + this._offset) {
-
-	this.position = this.limit() + this._offset - 1;
-	newItem = this.liveItem(this.position);
-	var oldItem = this.liveItem(this.position--);
-	oldItem.active(false);
-      }
-
-      // Last item of page is chosen
-      else if (0) {
-
-      // Jump to last item
-      else {
-	var oldItem = this.liveItem(this.position);
-	oldItem.active(false);
-
-	this.position = this.limit() + this._offset - 1;
-	newItem = this.liveItem(this.position);
-      };
-
-      newItem.active(true);
-    },
-	*/
