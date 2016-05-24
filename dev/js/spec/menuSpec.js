@@ -922,10 +922,11 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.show()).toBe(true);
       expect(menu.prefix()).toEqual("");
 
-      menu.prefix('el');
+      // Add prefix in uppercase - but check in lowercase
+      menu.prefix('El');
       expect(menu.show()).toBe(true);
 
-      expect(menu.prefix()).toEqual("el");
+      expect(menu.prefix()).toEqual("El");
       expect(menu._prefix.active()).toEqual(false);
       expect(menu.shownItem(0).name()).toEqual("Titel");
       expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
@@ -937,7 +938,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
       // Forward
       menu.next();
-      expect(menu.prefix()).toEqual("el");
+      expect(menu.prefix()).toEqual("El");
       expect(menu._prefix.active()).toEqual(false);
       expect(menu.shownItem(0).name()).toEqual("Titel");
       expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
@@ -949,7 +950,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
       // Forward
       menu.next();
-      expect(menu.prefix()).toEqual("el");
+      expect(menu.prefix()).toEqual("El");
       expect(menu._prefix.active()).toEqual(true);
       expect(menu.shownItem(0).name()).toEqual("Titel");
       expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");
@@ -961,7 +962,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
       // Backward
       menu.prev();
-      expect(menu.prefix()).toEqual("el");
+      expect(menu.prefix()).toEqual("El");
       expect(menu._prefix.active()).toEqual(false);
       expect(menu.shownItem(0).name()).toEqual("Titel");
       expect(menu.element().childNodes[3].innerHTML).toEqual("<strong>Tit<mark>el</mark></strong>");

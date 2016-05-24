@@ -12,7 +12,6 @@
  * TODO: next and prev should use an optimized version of _screen
  * TODO: On next and prev the viewport should move
  *       to the active item.
- * TODO: pageUp and pageDown should use _screen
  * TODO: Ignore keys with function key combinations (other than shift)
  * TODO: Show the slider briefly on move (whenever screen is called).
  */
@@ -181,21 +180,22 @@ define([
        * There is a prefix set, so filter the list!
        */
       var pos;
-      var paddedPrefix = " " + this.prefix();
+      var prefix = " " + this.prefix().toLowerCase();
 
       // Iterate over all items and choose preferred matching items
       // i.e. the matching happens at the word start
       for (pos = 0; pos < this._items.length; pos++) {
-	if ((this.item(pos).lcField().indexOf(paddedPrefix)) >= 0)
+	if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
 	  this._list.push(pos);
       };
 
       // The list is empty - so lower your expectations
       // Iterate over all items and choose matching items
       // i.e. the matching happens anywhere in the word
+      prefix = prefix.substring(1);
       if (this._list.length == 0) {
 	for (pos = 0; pos < this._items.length; pos++) {
-	  if ((this.item(pos).lcField().indexOf(this.prefix())) >= 0)
+	  if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
 	    this._list.push(pos);
 	};
       };
@@ -311,7 +311,7 @@ define([
     // Add characters to prefix
     _keypress : function (e) {
       e.halt();
-      var c = String.fromCharCode(_codeFromEvent(e)).toLowerCase();
+      var c = String.fromCharCode(_codeFromEvent(e)); // .toLowerCase();
 
       // Add prefix
       this._prefix.add(c);
@@ -761,7 +761,7 @@ define([
     _reset : function () {
       this._offset = 0;
       this._pos    = 0;
-      this._prefix.value('');
+      this._prefix.clear();
     },
 
 
@@ -806,7 +806,7 @@ define([
 
       // Highlight based on prefix
       if (this.prefix().length > 0)
-	item.highlight(this.prefix());
+	item.highlight(this.prefix().toLowerCase());
 
       // Append element
       this.element().appendChild(item.element());
@@ -819,7 +819,7 @@ define([
 
       // Highlight based on prefix
       if (this.prefix().length > 0)
-	item.highlight(this.prefix());
+	item.highlight(this.prefix().toLowerCase());
 
       var e = this.element();
       // Append element after lengthField/prefix/slider
