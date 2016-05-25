@@ -787,6 +787,25 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu._prefix.active()).toBe(true);
     });
 
+    it('should ignore navigation with failing prefix', function () {
+      var menu = KorAP.HintMenu.create("cnx/", list);
+      menu.limit(2);
+      expect(menu.show()).toBe(true);
+
+      menu.next();
+
+      expect(menu.prefix("exit").show()).toBe(true);
+      expect(menu.element().querySelector('li')).toBe(null);
+      expect(menu.shownItem(0)).toBeUndefined();
+      expect(menu._prefix.active()).toBe(true);
+
+      menu.next();
+      expect(menu._prefix.active()).toBe(true);
+
+      menu.prev();
+      expect(menu._prefix.active()).toBe(true);
+
+    });
 
     it('should be navigatable with prefix', function () {
       var menu = KorAP.HintMenu.create("cnx/", demolist);

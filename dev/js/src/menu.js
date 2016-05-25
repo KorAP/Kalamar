@@ -7,7 +7,6 @@
  * TODO: space is not a valid prefix!
  * TODO: Show the slider briefly on move (whenever screen is called).
  * TODO: Optimize scrolling to active item.
- * TODO: Handle arrow keys correctly when list is empty.
  */
 define([
   'menu/item',
@@ -584,6 +583,10 @@ define([
 	};
       };
 
+      // No list
+      if (this.liveLength() === 0)
+	return;
+
       this.position++;
 
       newItem = this.liveItem(this.position);
@@ -628,9 +631,13 @@ define([
 
       // No active element set
       if (this.position === -1) {
-	return;
 	// TODO: Choose last item
+	return;
       };
+
+      // No list
+      if (this.liveLength() === 0)
+	return;
 
       var newItem;
 
