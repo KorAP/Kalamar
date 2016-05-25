@@ -5,11 +5,9 @@
  */
 /*
  * TODO: space is not a valid prefix!
- * TODO: What is _pos and what is position?
- * TODO: What is the difference between position
- *       and _active?
  * TODO: Ignore keys with function key combinations (other than shift)
  * TODO: Show the slider briefly on move (whenever screen is called).
+ * TODO: Optimize scrolling to active item.
  */
 define([
   'menu/item',
@@ -132,8 +130,6 @@ define([
       this._slider.length(this.liveLength());
       this._slider.limit(this._limit);
 
-      this.position = 0;  // position in the active list
-      this._active  = -1; // active item in the item list
       this._firstActive = false; // Show the first item active always?
       this._reset();
       return this;
@@ -158,10 +154,13 @@ define([
       if (this.prefix().length <= 0) {
 
 	// add all items to the list and lowlight
-	for (var i = 0; i < this._items.length; i++) {
+	var i = 0;
+	for (; i < this._items.length; i++) {
 	  this._list.push(i);
 	  this._items[i].lowlight();
 	};
+
+	this._slider.length(i);
 
 	return true;
       };
@@ -371,7 +370,8 @@ define([
 
 
     /**
-     * Filter the list and make it visible
+     * Filter the list and make it visible.
+     * This is always called once the prefix changes.
      *
      * @param {string} Prefix for filtering the list
      */
@@ -415,12 +415,10 @@ define([
 	};
 
 	this.position = active;
-	this._active = active;
       }
 
       else if (this._firstActive) {
 	this.position = 0;
-	this._active = 0;
       }
 
       else {
@@ -445,8 +443,11 @@ define([
       //this._slider.show();
 
       // Iterate to the active item
-      if (this._active !== -1 && !this._prefix.isSet()) {
-	while (this._list[this.position] < this._active) {
+      if (this.position !== -1 && !this._prefix.isSet()) {
+
+	// TODO: OPTIMIZE
+
+	while (this._list[this.position] < this.position) {
 
 	  // TODO. Improve this by moving using screen!
 	  this.next();
@@ -595,7 +596,6 @@ define([
       };
 
       this.position++;
-      this._active = this.position;
 
       newItem = this.liveItem(this.position);
 
@@ -609,13 +609,11 @@ define([
 	if (prefix.isSet() && !prefix.active()) {
 	  this.position--;
 	  prefix.active(true);
-	  this._active = -1;
 	  return;
 	}
 	else {
 	  this.position = 0;
 	  newItem = this.liveItem(0);
-	  this._active = 0;
 	  this._showItems(0);
 	};
       }
@@ -725,7 +723,7 @@ define([
     // Reset chosen item and prefix
     _reset : function () {
       this._offset = 0;
-      this._pos    = 0;
+      this.position = 0;
       this._prefix.clear();
     },
 

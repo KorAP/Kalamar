@@ -1428,6 +1428,19 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
   });
 
   describe('KorAP.Slider', function () {
+
+    var demolonglist = [
+      ['Titel', 'title'],
+      ['Untertitel', 'subTitle'],
+      ['Veröffentlichungsdatum', 'pubDate'],
+      ['Länge', 'length'],
+      ['Autor', 'author'],
+      ['Genre', 'genre'],
+      ['corpusID', 'corpusID'],
+      ['docID', 'docID'],
+      ['textID', 'textID'],
+    ];
+
     it('should correctly be initializable', function () {
       var list = [
 	["Constituency"],
@@ -1504,6 +1517,29 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
       expect(menu.slider()._slider.style.height).toEqual('60%');
     });
+
+    it('should correctly resize on prefixing', function () {
+      var menu = KorAP.OwnMenu.create(demolonglist);
+      menu._firstActive = true;
+      menu.limit(3);
+
+      expect(menu.show()).toBe(true);
+      expect(menu.slider().offset()).toEqual(0);
+      expect(menu.slider().length()).toEqual(9);
+
+      expect(menu.prefix("e").show()).toBe(true);
+      expect(menu.slider().length()).toEqual(6);
+
+      expect(menu.prefix("el").show()).toBe(true);
+      expect(menu.slider().length()).toEqual(2);
+
+      expect(menu.prefix("e").show()).toBe(true);
+      expect(menu.slider().length()).toEqual(6);
+
+      expect(menu.prefix("").show()).toBe(true);
+      expect(menu.slider().length()).toEqual(9);
+    });
+
 
     it('should correctly move the list on mousemove', function () {
       var list = [
