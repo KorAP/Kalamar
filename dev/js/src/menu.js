@@ -7,6 +7,7 @@
  * TODO: space is not a valid prefix!
  * TODO: Show the slider briefly on move (whenever screen is called).
  * TODO: Ignore alt+ and strg+ key strokes.
+ * TODO: Should scroll to a chosen value after prefixing, if the chosen value is live
  */
 define([
   'menu/item',
@@ -409,7 +410,8 @@ define([
 	  active = this.liveLength() - 1;
 	};
 
-	if (active > this._limit) {
+	// Item is outside the first viewport
+	if (active >= this._limit) {
 	  offset = active;
 	  if (offset > (this.liveLength() - this._limit)) {
 	      offset = this.liveLength() - this._limit;

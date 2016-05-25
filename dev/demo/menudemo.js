@@ -4,12 +4,15 @@ requirejs.config({
 
 require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuClass, itemClass, prefixClass, lengthFieldClass) {
 
+  /**
+   * Create own menu item class.
+   */
   var OwnMenuItemClass = {
-
     create : function (params) {
       return Object.create(itemClass).upgradeTo(this)._init(params);
     },
 
+    // content function
     content : function (content) {
       if (arguments.length === 1) {
         this._content = content;
@@ -26,6 +29,8 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuC
     further : function () {
       console.log("Further: " + this._name);
     },
+
+    // initialize item
     _init : function (params) {
       if (params[0] === undefined)
 	throw new Error("Missing parameters");
@@ -33,11 +38,13 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuC
       this._name = params[0];
       this._content = document.createTextNode(this._name);
       this._lcField = ' ' + this.content().textContent.toLowerCase();
-      
       return this;
     }
   };
 
+  /**
+   * Create own prefix class.
+   */
   var OwnPrefixClass = {
     create : function () {
       return Object.create(prefixClass)
@@ -49,6 +56,9 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuC
     }
   };
 
+  /**
+   * Create own menu class.
+   */
   var OwnMenu = {
     create : function (params) {
       var obj = Object.create(menuClass)
@@ -74,7 +84,6 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuC
 
   document.getElementById('menu').appendChild(menu.element());
 
-  menu.limit(3);
-  menu.show(0); // Make this a 3
+  menu.limit(3).show(3);
   menu.focus();
 });

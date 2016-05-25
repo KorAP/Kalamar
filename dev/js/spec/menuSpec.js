@@ -1327,7 +1327,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(2).lcField()).toEqual(' veröffentlichungsdatum');
     });
 
-    it('should scroll to a chosen value', function () {
+    it('should scroll to a chosen value (1)', function () {
       var menu = KorAP.OwnMenu.create(demolist);
       menu.limit(3);
 
@@ -1348,15 +1348,22 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(1).active()).toBe(false);
       expect(menu.shownItem(2).active()).toBe(true);
       expect(menu.shownItem(3)).toBe(undefined);
-
     });
 
-    xit('should highlight a chosen value');
-    xit('should move the viewport to active, if active is not in the viewport');
+    it('should scroll to a chosen value (2)', function () {
+      var menu = KorAP.OwnMenu.create(demolonglist);
+
+      // Choose value 3
+      expect(menu.limit(3).show(3)).toBe(true);
+      expect(menu.shownItem(0).lcField()).toEqual(' länge');
+      expect(menu.shownItem(0).active()).toBe(true);
+      expect(menu.shownItem(1).active()).toBe(false);
+      expect(menu.shownItem(2).active()).toBe(false);
+      expect(menu.shownItem(3)).toBe(undefined);
+    });
+
+    xit('should scroll to a chosen value after prefixing, if the chosen value is live');
   });
-
-
-
 
   describe('KorAP.Prefix', function () {
     it('should be initializable', function () {
