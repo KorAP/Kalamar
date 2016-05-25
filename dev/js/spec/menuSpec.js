@@ -535,6 +535,15 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.element().childNodes[6]).toBe(undefined);
     });
 
+    it('should be nextable without active field', function () {
+      var menu = KorAP.HintMenu.create("cnx/", list);
+      menu.limit(3);
+      expect(menu.show()).toBe(true);
+      menu.next();
+      expect(menu.shownItem(0).active()).toEqual(true);
+    });
+
+
     it('should be prevable', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);
       menu._firstActive = true;
@@ -623,6 +632,14 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.element().childNodes[6]).toBe(undefined);
     });
 
+    it('should be prevable without active field', function () {
+      var menu = KorAP.HintMenu.create("cnx/", list);
+      menu.limit(3);
+      expect(menu.show()).toBe(true);
+      menu.prev();
+      expect(menu.shownItem(2).active()).toEqual(true);
+      expect(menu.shownItem(2).lcField()).toEqual(' syntax');
+    });
 
     it('should be navigatable and filterable (prefix = "o")', function () {
       var menu = KorAP.HintMenu.create("cnx/", list);

@@ -6,7 +6,7 @@
 /*
  * TODO: space is not a valid prefix!
  * TODO: Show the slider briefly on move (whenever screen is called).
- * TODO: Optimize scrolling to active item.
+ * TODO: Ignore alt+ and strg+ key strokes.
  */
 define([
   'menu/item',
@@ -75,46 +75,45 @@ define([
       this._slider = sliderClass.create(this);
 
       // Create the element
-      var e = document.createElement("ul");
-      e.style.opacity = 0;
-      e.style.outline = 0;
-      e.setAttribute('tabindex', 0);
-      e.classList.add('menu');
-      e.classList.add('roll');
-      e.appendChild(this._prefix.element());
-      e.appendChild(this._lengthField.element());
-      e.appendChild(this._slider.element());
+      var el = document.createElement("ul");
+      with (el) {
+	style.opacity = 0;
+	style.outline = 0;
+	setAttribute('tabindex', 0);
+	classList.add('menu', 'roll');
+	appendChild(this._prefix.element());
+	appendChild(this._lengthField.element());
+	appendChild(this._slider.element());
+      };
 
       // This has to be cleaned up later on
-      e["menu"] = this;
+      el["menu"] = this;
 
       // Arrow keys
-      e.addEventListener(
+      el.addEventListener(
 	'keydown',
 	this._keydown.bind(this),
 	false
       );
 
       // Strings
-      e.addEventListener(
+      el.addEventListener(
 	'keypress',
 	this._keypress.bind(this),
 	false
       );
 
       // Mousewheel
-      e.addEventListener(
+      el.addEventListener(
 	'wheel',
 	this._mousewheel.bind(this),
 	false
       );
+      this._element = el;
 
-      this._element = e;
-      this.active = false;
-      // this.selected = undefined;
       this._items = new Array();
-      var i = 0;
 
+      var i = 0;
       // Initialize item list based on parameters
       for (i in params) {
 	var obj = this._itemClass.create(params[i]);
@@ -125,12 +124,14 @@ define([
 	this._items.push(obj);
       };
 
-      this._limit    = menuLimit;
-      this._slider.length(this.liveLength());
-      this._slider.limit(this._limit);
+      this._limit = menuLimit;
+      this._slider.length(this.liveLength())
+	.limit(this._limit)
+	.reInit();
 
       this._firstActive = false; // Show the first item active always?
-      this._reset();
+      this.offset = 0;
+      this.position = 0;
       return this;
     },
 
@@ -147,7 +148,7 @@ define([
       };
 
       // Offset is initially zero
-      this._offset = 0;
+      this.offset = 0;
 
       // There is no prefix set
       if (this.prefix().length <= 0) {
@@ -159,7 +160,7 @@ define([
 	  this._items[i].lowlight();
 	};
 
-	this._slider.length(i);
+	this._slider.length(i).reInit();;
 
 	return true;
       };
@@ -188,7 +189,7 @@ define([
 	};
       };
 
-      this._slider.length(this._list.length);
+      this._slider.length(this._list.length).reInit();
 
       // Filter was successful - yeah!
       return this._list.length > 0 ? true : false;
@@ -320,7 +321,7 @@ define([
 	nr = (this.liveLength() - this.limit());
       };
 
-      if (this._offset === nr)
+      if (this.offset === nr)
 	return;
 
       this._showItems(nr);
@@ -348,7 +349,7 @@ define([
       if (arguments.length === 1) {
 	if (this._limit !== limit) {
 	  this._limit = limit;
-	  this._slider.limit(limit);
+	  this._slider.limit(limit).reInit();
 	};
 	return this;
       };
@@ -428,7 +429,7 @@ define([
 	this.position = -1;
       };
 
-      this._offset = offset;
+      this.offset = offset;
       this._showItems(offset); // Show new item list
 
       // Make chosen value active
@@ -452,8 +453,6 @@ define([
      * Hide the menu and call the onHide callback.
      */
     hide : function () {
-      this.active = false;
-      this._unmark();
       this.removeItems();
       this._element.style.opacity = 0;
       this._prefix.clear();
@@ -545,12 +544,12 @@ define([
     shownItem : function (index) {
       if (index >= this.limit())
 	return;
-      return this.liveItem(this._offset + index);
+      return this.liveItem(this.offset + index);
     },
 
 
     /**
-     * Get the length of the full list
+     * Get the length of the full item list
      */
     length : function () {
       return this._items.length;
@@ -572,24 +571,18 @@ define([
      */
     next : function () {
 
-      // No active element set
-      var newItem;
-
-      if (this.position !== -1) {
-	// Set new live item
-	if (!this._prefix.active()) {
-	  var oldItem = this.liveItem(this.position);
-	  oldItem.active(false);
-	};
-      };
-
       // No list
       if (this.liveLength() === 0)
 	return;
 
-      this.position++;
+      // Deactivate old item
+      if (this.position !== -1 && !this._prefix.active()) {
+	this.liveItem(this.position).active(false);
+      };
 
-      newItem = this.liveItem(this.position);
+      // Get new active item
+      this.position++;
+      var newItem = this.liveItem(this.position);
 
       // The next element is undefined - roll to top or to prefix
       if (newItem === undefined) {
@@ -597,26 +590,29 @@ define([
 	// Activate prefix
 	var prefix = this._prefix;
 
-	// Mark prefix
+	// Prefix is set and not active - choose!
 	if (prefix.isSet() && !prefix.active()) {
 	  this.position--;
 	  prefix.active(true);
 	  return;
 	}
+
+	// Choose first item
 	else {
-	  this.position = 0;
 	  newItem = this.liveItem(0);
+	  // choose first item
+	  this.position = 0;
 	  this._showItems(0);
 	};
       }
 
       // The next element is after the viewport - roll down
-      else if (this.position >= (this.limit() + this._offset)) {
+      else if (this.position >= (this.limit() + this.offset)) {
 	this.screen(this.position - this.limit() + 1);
       }
 
       // The next element is before the viewport - roll up
-      else if (this.position <= this._offset) {
+      else if (this.position <= this.offset) {
 	this.screen(this.position);
       };
 
@@ -629,25 +625,26 @@ define([
      */
     prev : function () {
 
-      // No active element set
-      if (this.position === -1) {
-	// TODO: Choose last item
-	return;
-      };
-
       // No list
       if (this.liveLength() === 0)
 	return;
 
-      var newItem;
-
-      // Set new live item
+      // Deactivate old item
       if (!this._prefix.active()) {
-	var oldItem = this.liveItem(this.position--);
-	oldItem.active(false);
+
+	// No active element set
+	if (this.position === -1) {
+	  this.position = this.liveLength();
+	}
+
+	// No active element set
+	else {
+	  this.liveItem(this.position--).active(false);
+	};
       };
 
-      newItem = this.liveItem(this.position);
+      // Get new active item
+      var newItem = this.liveItem(this.position);
 
       // The previous element is undefined - roll to bottom
       if (newItem === undefined) {
@@ -655,34 +652,35 @@ define([
 	// Activate prefix
 	var prefix = this._prefix;
 	var offset =  this.liveLength() - this.limit();
-	// this._offset = this.liveLength() - this.limit();
 
 	// Normalize offset
-	// this._offset = this._offset < 0 ? 0 : this._offset;
 	offset = offset < 0 ? 0 : offset;
 
+	// Choose the last item
 	this.position = this.liveLength() - 1;
 
+	// Prefix is set and not active - choose!
 	if (prefix.isSet() && !prefix.active()) {
 	  this.position++;
 	  prefix.active(true);
-	  this._offset = offset;
+	  this.offset = offset;
 	  return;
 	}
+
+	// Choose last item
 	else {
 	  newItem = this.liveItem(this.position);
-	  this._unmark();
 	  this._showItems(offset);
 	};
       }
 
       // The previous element is before the view - roll up
-      else if (this.position < this._offset) {
+      else if (this.position < this.offset) {
 	this.screen(this.position);
       }
 
       // The previous element is after the view - roll down
-      else if (this.position >= (this.limit() + this._offset)) {
+      else if (this.position >= (this.limit() + this.offset)) {
 	this.screen(this.position - this.limit() + 2);
       };
 
@@ -694,7 +692,7 @@ define([
      * Move the page up by limit!
      */
     pageUp : function () {
-      this.screen(this._offset - this.limit());
+      this.screen(this.offset - this.limit());
     },
 
 
@@ -702,7 +700,7 @@ define([
      * Move the page down by limit!
      */
     pageDown : function () {
-      this.screen(this._offset + this.limit());
+      this.screen(this.offset + this.limit());
     },
 
 
@@ -715,15 +713,6 @@ define([
       };
     },
 
-
-    // Reset chosen item and prefix
-    _reset : function () {
-      this._offset = 0;
-      this.position = 0;
-      this._prefix.clear();
-    },
-
-
     // Set boundary for viewport
     _boundary : function (bool) {
       this.item(this._list[0]).noMore(bool);
@@ -735,21 +724,27 @@ define([
     _showItems : function (off) {
 
       // optimization: scroll down one step
-      if (this._offset === (off - 1)) {
-	this._offset = off;
-	this._removeFirst();
-	var pos = this._offset + this.limit() - 1;
+      if (this.offset === (off - 1)) {
+	this.offset = off;
+
+	// Remove the HTML node from the first item
+	// leave lengthField/prefix/slider
+	this._element.removeChild(this._element.children[3]);
+	var pos = this.offset + this.limit() - 1;
 	this._append(this._list[pos]);
       }
 
       // optimization: scroll up one step
-      else if (this._offset === (off + 1)) {
-	this._offset = off;
-	this._removeLast();
-	this._prepend(this._list[this._offset]);
+      else if (this.offset === (off + 1)) {
+	this.offset = off;
+
+	// Remove the HTML node from the last item
+	this._element.removeChild(this._element.lastChild);
+
+	this._prepend(this._list[this.offset]);
       }
       else {
-	this._offset = off;
+	this.offset = off;
 
 	// Remove all items
 	this.removeItems();
@@ -775,7 +770,7 @@ define([
       };
 
       // set the slider to the new offset
-      this._slider.offset(this._offset);
+      this._slider.offset(this.offset);
     },
 
 
@@ -804,26 +799,12 @@ define([
       };
 
       var e = this.element();
+
       // Append element after lengthField/prefix/slider
       e.insertBefore(
 	item.element(),
 	e.children[3]
       );
-    },
-
-
-    // Remove the HTML node from the first item
-    _removeFirst : function () {
-      // this.item(this._list[this._offset]).lowlight();
-      // leave lengthField/prefix/slider
-      this._element.removeChild(this._element.children[3]);
-    },
-
-
-    // Remove the HTML node from the last item
-    _removeLast : function () {
-      // this.item(this._list[this._offset + this.limit() - 1]).lowlight();
-      this._element.removeChild(this._element.lastChild);
     }
   };
 });
