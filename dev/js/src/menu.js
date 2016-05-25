@@ -5,9 +5,9 @@
  */
 /*
  * TODO: space is not a valid prefix!
- * TODO: Ignore keys with function key combinations (other than shift)
  * TODO: Show the slider briefly on move (whenever screen is called).
  * TODO: Optimize scrolling to active item.
+ * TODO: Handle arrow keys correctly when list is empty.
  */
 define([
   'menu/item',
@@ -299,12 +299,14 @@ define([
 
     // Add characters to prefix
     _keypress : function (e) {
-      e.halt();
-      var c = String.fromCharCode(_codeFromEvent(e));
+      if (e.charCode !== 0) {
+	e.halt();
+	var c = String.fromCharCode(_codeFromEvent(e));
 
-      // Add prefix
-      this._prefix.add(c);
-      this.show();
+	// Add prefix
+	this._prefix.add(c);
+	this.show();
+      };
     },
 
     /**
@@ -395,8 +397,8 @@ define([
 
       var offset = 0;
 
-      // Set the first element to active
-      // Todo: Or the last element chosen
+
+      // Set a chosen value to active and move the viewport
       if (arguments.length === 1) {
 
 	// Normalize active value
@@ -417,10 +419,12 @@ define([
 	this.position = active;
       }
 
+      // Choose the first item
       else if (this._firstActive) {
 	this.position = 0;
       }
 
+      // Choose no item
       else {
 	this.position = -1;
       };
@@ -438,21 +442,6 @@ define([
 
       // finally show the element
       this._element.style.opacity = 1;
-
-      // Show the slider
-      //this._slider.show();
-
-      // Iterate to the active item
-      if (this.position !== -1 && !this._prefix.isSet()) {
-
-	// TODO: OPTIMIZE
-
-	while (this._list[this.position] < this.position) {
-
-	  // TODO. Improve this by moving using screen!
-	  this.next();
-	};
-      };
 
       // Add classes for rolling menus
       this._boundary(true);
