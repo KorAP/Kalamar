@@ -7,16 +7,16 @@ function emitKeyboardEvent (element, type, keyCode) {
     "initKeyboardEvent" : "initKeyEvent";
   keyboardEvent[initMethod](
     type, 
-    true, // bubbles
-    true, // cancelable
-    window, // viewArg: should be window
-    false, // ctrlKeyArg
-    false, // altKeyArg
-    false, // shiftKeyArg
-    false, // metaKeyArg
+    true,    // bubbles
+    true,    // cancelable
+    window,  // viewArg: should be window
+    false,   // ctrlKeyArg
+    false,   // altKeyArg
+    false,   // shiftKeyArg
+    false,   // metaKeyArg
     keyCode, // keyCodeArg : unsigned long the virtual key code, else 0
-    0 // charCodeArgs : unsigned long the Unicode character
-      // associated with the depressed key, else 0
+    0        // charCodeArgs : unsigned long the Unicode character
+             // associated with the depressed key, else 0
   );
   element.dispatchEvent(keyboardEvent);
 };

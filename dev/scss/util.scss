@@ -182,6 +182,7 @@ $logo-left-distance: 230px;
 
 /**
  * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
  */
 @mixin box-sizing-box() {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */

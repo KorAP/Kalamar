@@ -1,4 +1,8 @@
 // Input field for queries
+/*
+ * TODO: Support allert for query problems.
+ */
+
 define({
 
   /**
@@ -7,38 +11,7 @@ define({
   create : function (element) {
     return Object.create(this)._init(element);
   },
-  
-  // Initialize new input field
-  _init : function (element) {
-    this._element = element;
 
-    // Create mirror for searchField
-    if ((this._mirror = document.getElementById("searchMirror")) === null) {
-      this._mirror = document.createElement("div");
-      this._mirror.setAttribute("id", "searchMirror");
-      this._mirror.appendChild(document.createElement("span"));
-      this._container = this._mirror.appendChild(document.createElement("div"));
-      this._mirror.style.height = "0px";
-      document.getElementsByTagName("body")[0].appendChild(this._mirror);
-    };
-
-    // Update position of the mirror
-    var that = this;
-    var repos = function () {
-      that.reposition();
-    };
-    window.addEventListener('resize', repos);
-    this._element.addEventListener('onfocus', repos);
-    that.reposition();
-
-    return this;
-  },
-
-  // Get the right position
-  _rightPos : function () {
-    var box = this._mirror.firstChild.getBoundingClientRect();
-    return box.right - box.left;
-  },
 
   /**
    * Get the mirrored input field.
@@ -50,8 +23,9 @@ define({
 
   /**
    * Get the container element.
-   * This contains the mirror and
-   * the hint helper.
+   * This contains the hint helper / menus
+   * and probably an
+   * error message.
    */
   container : function () {
     return this._container;
@@ -65,6 +39,7 @@ define({
   element : function () {
     return this._element;
   },
+
 
   /**
    * Get the value of the input field
@@ -81,7 +56,9 @@ define({
   update : function () {
     this._mirror.firstChild.textContent = this._split()[0];
     this._container.style.left = this._rightPos() + 'px';
+    return this;
   },
+
 
   /**
    * Insert text into the mirror.
@@ -94,9 +71,21 @@ define({
     s.value = splittedText[0] + text + splittedText[1];
     s.selectionStart = (splittedText[0] + text).length;
     s.selectionEnd = s.selectionStart;
+
+    // Maybe update?
     this._mirror.firstChild.textContent = splittedText[0] + text;
+    return this;
   },
-  
+
+  /**
+   * Move hinthelper to given character position
+   */
+  moveto : function (charpos) {
+    this._element.selectionStart = charpos;
+    this._element.selectionEnd = charpos;
+    this._element.focus();
+    return this.update();
+  },
 
   /**
    * Reposition the input mirror directly
@@ -124,6 +113,7 @@ define({
     mirrorStyle.fontFamily      = inputStyle.getPropertyValue("font-family");
   },
 
+
   /**
    * Get the context, which is the input
    * field's value bounded to the
@@ -133,14 +123,49 @@ define({
     return this._split()[0];
   },
 
+  
+  // Initialize new input field
+  _init : function (element) {
+    this._element = element;
+
+    // Create mirror for searchField
+    // This is important for positioning
+    if ((this._mirror = document.getElementById("searchMirror")) === null) {
+      this._mirror = document.createElement("div");
+      this._mirror.setAttribute("id", "searchMirror");
+      this._mirror.appendChild(document.createElement("span"));
+      this._container = this._mirror.appendChild(document.createElement("div"));
+      this._mirror.style.height = "0px";
+      document.getElementsByTagName("body")[0].appendChild(this._mirror);
+    };
+
+    // Update position of the mirror
+    window.addEventListener('resize', this.reposition.bind(this));
+    this._element.addEventListener('onfocus', this.reposition.bind(this));
+    this.reposition();
+    return this;
+  },
+
+  // Get the right position
+  _rightPos : function () {
+    var box = this._mirror.firstChild.getBoundingClientRect();
+    return box.right - box.left;
+  },
+
+
   /*
    * Return two substrings,
-   * splitted at the current cursor position.
+   * splitted at a given position
+   * or at the current cursor position.
    */
-  _split : function () {
+  _split : function (start) {
     var s = this._element;
     var value = s.value;
-    var start = s.selectionStart;
+
+    // Get start from cursor position
+    if (arguments.length === 0)
+      start = s.selectionStart;
+
     return new Array(
       value.substring(0, start),
       value.substring(start, value.length)

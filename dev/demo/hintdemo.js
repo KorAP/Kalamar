@@ -5,9 +5,16 @@ requirejs.config({
   }
 });
 
+var hint = undefined;
+
 require(['hint','hint/array','lib/domReady'], function (hintClass, hintArray, domReady) {
   KorAP.hintArray = hintArray;
   domReady(function() {
-    hintClass.create();
+    hint = hintClass.create();
   });
 });
+
+function demoAlert (pos, msg) {
+  if (hint !== undefined)
+    hint.charAlert(pos, msg);
+}

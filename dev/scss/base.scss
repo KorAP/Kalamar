@@ -18,6 +18,17 @@ g > text {
   @include box-sizing-box;
 }
 
+/*
+html {
+//  @include box-sizing-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+*/
+
 g > text {
   fill: $dark-grey;
 }

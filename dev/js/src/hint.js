@@ -4,6 +4,12 @@
  *
  * @author Nils Diewald
  */
+/*
+ * TODO: List can be shown when prefix is like 'base/s=pcorenlp/'
+ * TODO: Sometimes the drop-down box down vanish when list is shown
+ * TODO: Create should expect an input text field
+ * TODO: Embed only one single menu (not multiple)
+ */
 define([
   'hint/input',
   'hint/menu',
@@ -24,7 +30,7 @@ define([
     "(?:[-_a-zA-Z0-9]+?)=" +   // Layer
     "(?:"+
     "(?:[^:=\/ ]+?):|" +       // Key
-    "(?:[^-=\/ ]+?)-" +       // Node
+    "(?:[^-=\/ ]+?)-" +        // Node
     ")?" +
     ")?" +
     ")$";
@@ -106,8 +112,25 @@ define([
       return this;
     },
 
+
+    /**
+     * Return the input field attached to the hint helper.
+     */
     inputField : function () {
       return this._inputField;
+    },
+
+
+    /**
+     * Altert at a specific character position.
+     */
+    charAlert : function (charPos, msg) {
+      this._inputField.moveto(charPos);
+      var c = this._inputField.container();
+      c.classList.add('active');
+      var error = c.appendChild(document.createElement('div'));
+      error.classList.add('alert', 'hint');
+      error.appendChild(document.createTextNode(msg));
     },
 
     /**
@@ -148,7 +171,9 @@ define([
 
 
     /**
-     * Show the menu
+     * Show the menu.
+     * Currently this means that multiple menus may be loaded
+     * but not shown.
      */
     show : function (ifContext) {
 
@@ -164,8 +189,8 @@ define([
 	c.appendChild(menu.element());
 	menu.show();
 	menu.focus();
-      // Focus on input field
-      // this.inputField.element.focus();
+	// Focus on input field
+	// this.inputField.element.focus();
       };
     }
   };
