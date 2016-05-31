@@ -28,9 +28,7 @@ define(['menu',
 
       // Focus on input field on hide
       obj.onHide = function () {
-	var input = this._hint.inputField();
-	input.container().classList.remove('active');
-	input.element().focus();
+	this._hint.unshow();
       };
 
       return obj;

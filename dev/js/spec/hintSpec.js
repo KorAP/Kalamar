@@ -53,9 +53,10 @@ define(['hint'], function () {
 
     afterAll(function () {
       try {
-	document.getElementsByTagName("body")[0].removeChild(
-	  document.getElementById("searchMirror")
-	);
+	var mirrors = document.querySelectorAll(".hint.mirror");
+	for (var i in mirrors) {
+	  mirrors[i].parentNode.removeChild(mirrors[i])
+	};
       }
       catch (e) {};
     });
@@ -167,6 +168,34 @@ define(['hint'], function () {
       });
 
       expect(hint).toBeTruthy();
+    });
+
+    it('should alert at char pos', function () {
+      var hint = hintClass.create({
+	inputField : input
+      });
+
+      expect(hint.active()).toBeFalsy();
+
+      expect(hint.alert(4, 'That does not work!')).toBeTruthy();
+
+      expect(hint.active()).toBeTruthy();
+
+      var container = hint.inputField().container();
+      expect(container.firstChild.classList.contains('hint')).toBe(true);
+      expect(container.firstChild.classList.contains('alert')).toBe(true);
+      expect(container.firstChild.textContent).toEqual('That does not work!');
+      expect(hint.inputField().mirrorValue()).toEqual('abcd');
+
+      expect(hint.alert(4, 'That does not work!')).toBeFalsy();
+
+      // Update - meaning: hide alert
+      hint.update();
+
+      expect(hint.alert().active).toBeFalsy();
+
+      expect(hint.active()).toBeFalsy();
+
     });
   });
 

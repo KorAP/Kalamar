@@ -16,5 +16,5 @@ require(['hint','hint/array','lib/domReady'], function (hintClass, hintArray, do
 
 function demoAlert (pos, msg) {
   if (hint !== undefined)
-    hint.charAlert(pos, msg);
+    hint.alert(pos, msg);
 }

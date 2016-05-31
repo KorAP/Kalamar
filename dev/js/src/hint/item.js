@@ -54,8 +54,6 @@ define(['menu/item'], function (itemClass) {
       var input = h.inputField();
       input.insert(this._action).update();
 
-      h.active = false;
-
       e.halt();
 
       h.show(true);

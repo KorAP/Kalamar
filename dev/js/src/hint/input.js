@@ -49,6 +49,13 @@ define({
     return this._element.value;
   },
 
+  /**
+   * Get the value of the input field mirror.
+   */
+  mirrorValue : function () {
+    return this._mirror.firstChild.textContent;
+  },
+
 
   /**
    * Update the mirror content.
@@ -130,14 +137,14 @@ define({
 
     // Create mirror for searchField
     // This is important for positioning
-    if ((this._mirror = document.getElementById("searchMirror")) === null) {
+    // if ((this._mirror = document.getElementById("searchMirror")) === null) {
       this._mirror = document.createElement("div");
-      this._mirror.setAttribute("id", "searchMirror");
+      this._mirror.classList.add('hint', 'mirror');
       this._mirror.appendChild(document.createElement("span"));
       this._container = this._mirror.appendChild(document.createElement("div"));
       this._mirror.style.height = "0px";
       document.getElementsByTagName("body")[0].appendChild(this._mirror);
-    };
+//    };
 
     // Update position of the mirror
     window.addEventListener('resize', this.reposition.bind(this));

@@ -178,6 +178,17 @@ define([
 	};
       };
 
+      if (KorAP.koralQuery["errors"]) {
+	var errors = KorAP.koralQuery["errors"];
+	for (var i in errors) {
+	  if (errors[i][0] === 302) {
+	    obj.hint = hintClass.create();
+	    obj.hint.alert(errors[i][2], errors[i][1]);
+	    break;
+	  }
+	}
+      };
+
       // Session has KQ visibility stored
       if (show["kq"])
 	showKQ.apply();
@@ -303,7 +314,8 @@ define([
      */
     // Todo: Pass an element, so this works with
     // tutorial pages as well!
-    obj.hint = hintClass.create();
+    if (obj.hint === undefined)
+      obj.hint = hintClass.create();
 
     return obj;
   });
