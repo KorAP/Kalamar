@@ -6,7 +6,7 @@ define(['menu', 'vc/item'], function (menuClass, itemClass) {
     create : function (params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(this)
-	._init(itemClass, undefined, undefined, params);
+	._init(params, {itemClass : itemClass});
       obj.limit(6);
 
       // This is only domspecific

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Benchmark Runner for Kalamar</title>
+  <script src="../lib/lodash.js" async="async"></script>
+  <script src="../lib/platform.js" async="async"></script>
+  <script src="../lib/benchmark.js"></script>
+  <script src="../lib/require.js"></script>
+</head>
+<body>
+  <textarea style="width: 100%; height: 200px">
+    (Comparation ndiewald)
+Menu#creation x 594 ops/sec ±9.90% (11 runs sampled)
+Menu#next x 21,517 ops/sec ±11.64% (14 runs sampled)
+Menu#prev x 15,666 ops/sec ±9.61% (11 runs sampled)
+Menu#paging x 5,005 ops/sec ±1.59% (13 runs sampled)
+Menu#prefix x 952 ops/sec ±14.86% (13 runs sampled)
+  </textarea>
+</body>
+  <script>
+    require.config({
+      baseUrl: "../src",
+      paths: {
+        "lib" : "../lib",
+        "bench" : "../bench"
+      }
+    });
+
+    require([
+    'lib/domReady!',
+    'menu',
+    'bench/benchmark'
+    ],function (undefined, menuClass, benchObj) {
+      console.log("start");
+      benchObj.menuSuite(menuClass).run();
+      console.log("end");
+    });
+
+  </script>
+
+
+</html>

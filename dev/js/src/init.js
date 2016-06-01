@@ -1,3 +1,15 @@
+/*
+ * TODO: Create lazy loading of objects including
+ * - obj.hint()
+ * - obj.alertify()
+ * - obj.session()
+ * - obj.tutorial()
+ * - obj.vc() // toggle
+ * - obj.matchCreate() (using webpack)
+ * - obj.koral() (show result, parse for errors ...)
+ * - obj.alignment() // toggle
+ */
+
 define([
   'match',
   'hint',
@@ -104,6 +116,7 @@ define([
 	if (this._match !== undefined)
 	  this._match.open();
 	else {
+	  // lazyLoad
 	  matchClass.create(this).open();
 	};
 	e.halt();
@@ -116,6 +129,7 @@ define([
 	  if (this._match !== undefined)
 	    this._match.toggle();
 	  else {
+	    // lazyLoad
 	    matchClass.create(this).open();
 	  };
 	  e.halt();

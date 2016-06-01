@@ -41,23 +41,30 @@ define([
      * Create new Menu based on the action prefix
      * and a list of menu items.
      *
+     *
+     * Accepts an associative array containg the elements
+     * itemClass, prefixClass, lengthFieldClass
+     *
      * @this {Menu}
      * @constructor
      * @param {string} Context prefix
      * @param {Array.<Array.<string>>} List of menu items
      */
-    create : function (params) {
-      return Object.create(this)._init(params);
+    create : function (list, params) {
+      return Object.create(this)._init(list, params);
     },
 
     // Initialize list
-    _init : function (itemClass, prefixClass, lengthFieldClass, params) {
+    _init : function (list, params) {
 
-      this._itemClass = itemClass || defaultItemClass;
+      if (params === undefined)
+	params = {};
+
+      this._itemClass = params["itemClass"] || defaultItemClass;
 
       // Add prefix object
-      if (prefixClass !== undefined) {
-	this._prefix = prefixClass.create();
+      if (params["prefixClass"] !== undefined) {
+	this._prefix = params["prefixClass"].create();
       }
       else {
 	this._prefix = defaultPrefixClass.create();
@@ -65,8 +72,8 @@ define([
       this._prefix._menu = this;
 
       // Add lengthField object
-      if (lengthFieldClass !== undefined) {
-	this._lengthField = lengthFieldClass.create();
+      if (params["lengthFieldClass"] !== undefined) {
+	this._lengthField = params["lengthFieldClass"].create();
       }
       else {
 	this._lengthField = defaultLengthFieldClass.create();
@@ -116,12 +123,12 @@ define([
 
       var i = 0;
       // Initialize item list based on parameters
-      for (i in params) {
-	var obj = this._itemClass.create(params[i]);
+      for (i in list) {
+	var obj = this._itemClass.create(list[i]);
 
 	// This may become circular
 	obj["_menu"] = this;
-	this._lengthField.add(params[i]);
+	this._lengthField.add(list[i]);
 	this._items.push(obj);
       };
 
@@ -405,7 +412,7 @@ define([
 	if (active < 0) {
 	  active = 0;
 	}
-	else if (active > this.liveLength()) {
+	else if (active >= this.liveLength()) {
 	  active = this.liveLength() - 1;
 	};
 

@@ -1,6 +1,8 @@
 /**
  * Visualize span annotations as a tree
  * using Dagre.
+ *
+ * This should be lazy loaded!
  */
 define(['lib/dagre'], function (dagre) {
   "use strict";

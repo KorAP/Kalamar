@@ -97,6 +97,12 @@ is released under the terms of the BSD License.
 by Dave Gandy
 is released under the terms of the
 [SIL OFL 1.1](http://scripts.sil.org/OFL).
+[Benchmark.js](https://benchmarkjs.com/)
+is released under the terms of the MIT License.
+[lodash](https://lodash.com/)
+is released under the terms of the MIT License.
+[Platform.js](https://mths.be/platform/)
+is released under the terms of the MIT License.
 
 
 ### Original Software

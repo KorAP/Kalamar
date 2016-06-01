@@ -170,7 +170,6 @@ define({
 
   // Highlight a certain substring of the menu item
   _highlight : function (elem, prefix) {
-    
     if (elem.nodeType === 3) {
       
       var text   = elem.nodeValue;
@@ -228,7 +227,7 @@ define({
       this._action = params[1];
 
     this._lcField = ' ' + this.content().textContent.toLowerCase();
-    this._highlight = null;
+    this._prefix = null;
 
     return this;
   },

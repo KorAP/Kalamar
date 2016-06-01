@@ -25,10 +25,10 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
   // The OwnMenu
   KorAP.OwnMenu = {
-    create : function (params) {
+    create : function (list) {
       return Object.create(menuClass)
 	.upgradeTo(KorAP.OwnMenu)
-	._init(KorAP.OwnMenuItem, undefined, undefined, params);
+	._init(list, { itemClass : KorAP.OwnMenuItem });
     }
   };
 
@@ -99,10 +99,10 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
 
   // HintMenu
   KorAP.HintMenu = {
-    create : function (context, params) {
+    create : function (context, list) {
       var obj = Object.create(menuClass)
 	.upgradeTo(KorAP.HintMenu)
-	._init(KorAP.HintMenuItem, undefined, undefined, params);
+	._init(list, {itemClass : KorAP.HintMenuItem});
       obj._context = context;
       return obj;
     }
@@ -1719,5 +1719,35 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       expect(menu.shownItem(2).lcField()).toEqual(' morphology');
       expect(menu.shownItem(2).active()).toBe(false);
     });
+  });
+
+  describe('KorAP.MenuBenchmark', function () {
+    var menu = menuClass.create([
+      ['Titel', 'title'],
+      ['Untertitel', 'subTitle'],
+      ['Veröffentlichungsdatum', 'pubDate'],
+      ['Länge', 'length'],
+      ['Autor', 'author']
+    ]);
+
+    menu.limit(3).show();
+
+    // Some actions
+    menu.next();
+    menu.next();
+    menu.prev();
+    menu.prev();
+    menu.prev();
+    
+    menu.pageDown();
+    menu.pageUp();
+
+    // There is no fourth item in the list!
+    menu.prefix('e').show(4);
+    menu.next();
+    menu.next();
+    menu.prev();
+    menu.prev();
+    menu.prev();
   });
 });

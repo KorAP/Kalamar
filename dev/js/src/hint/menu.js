@@ -13,7 +13,11 @@ define(['menu',
     create : function (hint, context, params) {
       var obj = Object.create(menuClass)
 	.upgradeTo(this)
-	._init(itemClass, prefixClass, lengthFieldClass, params);
+	._init(params, {
+	  itemClass : itemClass,
+	  prefixClass : prefixClass,
+	  lengthFieldClass : lengthFieldClass
+	});
       obj._context = context;
       obj._element.classList.add('hint');
       obj._hint = hint;

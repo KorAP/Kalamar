@@ -60,10 +60,14 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu'], f
    * Create own menu class.
    */
   var OwnMenu = {
-    create : function (params) {
+    create : function (list) {
       var obj = Object.create(menuClass)
       .upgradeTo(this)
-      ._init(OwnMenuItemClass, OwnPrefixClass, lengthFieldClass, params);
+      ._init(list, {
+	itemClass : OwnMenuItemClass,
+	prefixClass : OwnPrefixClass,
+	lengthFieldClass : lengthFieldClass
+      });
       obj._firstActive = true;
       return obj;
     }

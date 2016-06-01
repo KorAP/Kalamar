@@ -213,7 +213,6 @@ mateSttsArray.push(
   ["<root-POS>","<root-POS>","Root Part of Speech"]
 );
 
-
 var vcExample = {
   "@type":"koral:docGroup",
   "operation":"operation:or",
