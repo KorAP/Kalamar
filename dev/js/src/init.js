@@ -63,6 +63,7 @@ define([
 
   domReady(function (event) {
     var obj = {};
+
     var session = sessionClass.create('KalamarJS');
 
     // What should be visible?

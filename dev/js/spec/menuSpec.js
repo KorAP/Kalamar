@@ -1608,10 +1608,12 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       // This will normally be done on 
       menu.slider()._rulerHeight = 100;
       menu.slider()._sliderHeight = 40;
+      menu.slider()._event.initOffset = 0;
       expect(menu.slider().length()).toEqual(5);
 
       menu.slider().movetoRel(10);
       expect(menu.slider().offset()).toEqual(0);
+
       expect(menu.shownItem(0).active()).toBe(true);
       expect(menu.shownItem(0).lcField()).toEqual(' constituency');
       menu.slider().movetoRel(24);

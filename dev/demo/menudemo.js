@@ -2,7 +2,7 @@ requirejs.config({
   baseUrl: '../js/src'
 });
 
-require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu'], function (menuClass, itemClass, prefixClass, lengthFieldClass, selectMenuClass) {
+require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu', 'hint/item', 'hint/lengthField'], function (menuClass, itemClass, prefixClass, lengthFieldClass, selectMenuClass, hintItemClass, hintLengthField) {
 
   /**
    * Create own menu item class.
@@ -86,10 +86,70 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu'], f
     ['textID', 'textID', 'string']
   ]);
 
+  var largeMenu = menuClass.create([
+    // http://www.ids-mannheim.de/cosmas2/projekt/referenz/stts/morph.html
+    // http://nachhalt.sfb632.uni-potsdam.de/owl-docu/stts.html
+    // "$.", "$(", "$,"
+    ["ADJA","ADJA ", "Attributive Adjective"],
+    ["ADJD","ADJD ", "Predicative Adjective"],
+    ["ADV","ADV ", "Adverb"],
+    ["APPO","APPO ", "Postposition"],
+    ["APPR","APPR ", "Preposition"],
+    ["APPRART","APPRART ", "Preposition with Determiner"],
+    ["APZR","APZR ","Right Circumposition"],
+    ["ART","ART ", "Determiner"],
+    ["CARD","CARD ", "Cardinal Number"],
+    ["FM","FM ", "Foreign Material"],
+    ["ITJ","ITJ ", "Interjection"],
+    ["KOKOM","KOKOM ", "Comparison Particle"],
+    ["KON","KON ", "Coordinating Conjuncion"],
+    ["KOUI","KOUI ", "Subordinating Conjunction with 'zu'"],
+    ["KOUS","KOUS ", "Subordinating Conjunction with Sentence"],
+    ["NE","NE ", "Named Entity"],
+    ["NN","NN ", "Normal Nomina"],
+    ["PAV", "PAV ", "Pronominal Adverb"],
+    ["PDAT","PDAT ","Attributive Demonstrative Pronoun"],
+    ["PDS","PDS ", "Substitutive Demonstrative Pronoun"],
+    ["PIAT","PIAT ", "Attributive Indefinite Pronoun without Determiner"],
+    ["PIDAT","PIDAT ", "Attributive Indefinite Pronoun with Determiner"],
+    ["PIS","PIS ", "Substitutive Indefinite Pronoun"],
+    ["PPER","PPER ", "Personal Pronoun"],
+    ["PPOSAT","PPOSAT ", "Attributive Possessive Pronoun"],
+    ["PPOSS","PPOSS ", "Substitutive Possessive Pronoun"],
+    ["PRELAT","PRELAT ", "Attributive Relative Pronoun"],
+    ["PRELS","PRELS ", "Substitutive Relative Pronoun"],
+    ["PRF","PRF ", "Reflexive Pronoun"],
+    ["PROAV","PROAV ", "Pronominal Adverb"],
+    ["PTKA","PTKA ","Particle with Adjective"],
+    ["PTKANT","PTKANT ", "Answering Particle"],
+    ["PTKNEG","PTKNEG ", "Negation Particle"],
+    ["PTKVZ","PTKVZ ", "Separated Verbal Particle"],
+    ["PTKZU","PTKZU ", "'zu' Particle"],
+    ["PWAT","PWAT ", "Attributive Interrogative Pronoun"],
+    ["PWAV","PWAV ", "Adverbial Interrogative Pronoun"],
+    ["PWS","PWS ", "Substitutive Interrogative Pronoun"],
+    ["TRUNC","TRUNC ","Truncated"],
+    ["VAFIN","VAFIN ", "Auxiliary Finite Verb"],
+    ["VAIMP","VAIMP ", "Auxiliary Finite Imperative Verb"],
+    ["VAINF","VAINF ", "Auxiliary Infinite Verb"],
+    ["VAPP","VAPP ", "Auxiliary Perfect Participle"],
+    ["VMFIN","VMFIN ", "Modal Finite Verb"],
+    ["VMINF","VMINF ", "Modal Infinite Verb"],
+    ["VMPP","VMPP ", "Modal Perfect Participle"],
+    ["VVFIN","VVFIN ","Finite Verb"],
+    ["VVIMP","VVIMP ", "Finite Imperative Verb"],
+    ["VVINF","VVINF ", "Infinite Verb"],
+    ["VVIZU","VVIZU ", "Infinite Verb with 'zu'"],
+    ["VVPP","VVPP ", "Perfect Participle"],
+    ["XY", "XY ", "Non-Word"]
+  ], { 'itemClass' : hintItemClass, 'lengthField' : hintLengthField });
+
   document.getElementById('menu').appendChild(menu.element());
+  document.getElementById('largemenu').appendChild(largeMenu.element());
 
   menu.limit(3).show(3);
   menu.focus();
 
   selectMenuClass.create(document.getElementById('choose-ql')).limit(5); // .show();
+  largeMenu.limit(8).show(3);
 });

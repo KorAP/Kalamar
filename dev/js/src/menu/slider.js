@@ -73,10 +73,16 @@ define({
    * @param {number} relative position
    */
   movetoRel : function (relativePos) {
+
+    // This is important to find the correct percentage!
     var diffHeight = (this._rulerHeight - this._sliderHeight);
     var relativeOffset = (relativePos / diffHeight);
 
-    var off = this.offset(parseInt(relativeOffset * this._screens));
+    // Offset is a value 0 to this._screens
+    var off = this.offset(
+      parseInt(relativeOffset * this._screens) + this._event.initOffset
+    );
+
     if (off !== undefined) {
       this._menu.screen(off);
     };
@@ -206,7 +212,12 @@ define({
   _mousedown : function (e) {
     // Bind drag handler
     var ev = this._event;
-    ev.init = e.clientY - (this._step * this._offset);
+
+    // _step * _offset is the distance of the ruler to the top
+    ev.init = e.clientY;
+    ev.initOffset = this._offset;
+    // By substracting that, it is like initializing to the first point
+
     ev.mov  = this._mousemove.bind(this);
     ev.up   = this._mouseup.bind(this);
 

@@ -31,6 +31,11 @@ ul.menu > span.pref:not(:empty) {
   white-space: normal;
 }
 
+ul.menu span.desc {
+  display: block;
+  font-size: 75%;
+}
+
 ul.menu div.lengthField {
   border: {
     color: transparent;

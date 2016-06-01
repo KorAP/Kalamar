@@ -22,6 +22,8 @@ define(['menu/item'], function (itemClass) {
       this._name   = params[0];
       this._action = params[1];
       this._lcField = ' ' + this._name.toLowerCase();
+
+      console.log('!!!!');
       
       if (params.length > 2) {
 	this._desc = params[2];
