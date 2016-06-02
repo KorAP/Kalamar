@@ -8,7 +8,9 @@
  * TODO: Show the slider briefly on move (whenever screen is called).
  * TODO: Ignore alt+ and strg+ key strokes.
  * TODO: Should scroll to a chosen value after prefixing, if the chosen value is live
- * Add a "title" to a menu that is not scrollable.
+ * TODO: Add a "title" to a menu that is not scrollable.
+ * TODO: Make the menu responsive by showing less items on smaller screens
+ *       or anytime items would be outside the screen.
  */
 define([
   'menu/item',
