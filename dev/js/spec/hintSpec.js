@@ -137,6 +137,8 @@ define(['hint'], function () {
       expect(analyzer.test("sgbr/l=")).toEqual("sgbr/l=");
       expect(analyzer.test("sgbr/lv=")).toEqual("sgbr/lv=");
       expect(analyzer.test("sgbr/p=")).toEqual("sgbr/p=");
+      expect(analyzer.test("")).toEqual(undefined);
+      expect(analyzer.test("abcdecnx/")).toEqual("abcdecnx/");
     });
   });
 
@@ -195,7 +197,44 @@ define(['hint'], function () {
       expect(hint.alert().active).toBeFalsy();
 
       expect(hint.active()).toBeFalsy();
+    });
 
+    it('should view main menu on default', function () {
+      var hint = hintClass.create({
+	inputField : input
+      });
+
+      expect(hint.active()).toBeFalsy();
+
+      hint.inputField().insert('der Baum corenlp/');
+      expect(hint.inputField().container().getElementsByTagName('div').length).toBe(1);
+      expect(hint.inputField().container().getElementsByTagName('ul').length).toBe(0);
+
+      // show with context
+      hint.unshow();
+      hint.show(true);
+
+      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
+      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+
+      hint.inputField().insert(' hhhh');
+      // show with context
+      hint.unshow();
+      hint.show(true);
+
+      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
+      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+
+      hint.unshow();
+      hint.inputField().insert(' aaaa/');
+
+      // show with context
+      hint.show(true);
+
+      console.log(hint.inputField().container().outerHTML);
+
+      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
+      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
     });
   });
 
@@ -410,7 +449,6 @@ define(['hint'], function () {
   });
 
   describe('KorAP.HintMenu', function () {
-
     var list = [
       ["Constituency", "c=", "Example 1"],
       ["Lemma", "l="],
@@ -452,7 +490,6 @@ define(['hint'], function () {
 
       menu.next();
       expect(menu.shownItem(2).active()).toBeTruthy();
-
     });
   });
 });

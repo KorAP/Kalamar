@@ -87,7 +87,6 @@ define([
       // create alert
       c.appendChild(this._alert.element());
 
-
       var that = this;
 
       this._inputField.container().addEventListener('click', function (e) {
@@ -167,7 +166,6 @@ define([
      * Return hint menu and probably init based on an action
      */
     menu : function (action) {
-
       if (this._menu[action] === undefined) {
 
 	// No matching hint menu
@@ -189,10 +187,12 @@ define([
      */
     contextMenu : function (ifContext) {
       var context = this._inputField.context();
+
       if (context === undefined || context.length == 0)
 	return ifContext ? undefined : this.menu("-");
 
       context = this._analyzer.test(context);
+
       if (context === undefined || context.length == 0)
 	return ifContext ? undefined : this.menu("-");
 
