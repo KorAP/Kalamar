@@ -28,7 +28,7 @@ div.alert.hint {
   background-color: rgba(254,26,0,.9); // from alertify
   color: $nearly-white;
   padding: $item-padding;
-  margin-top: 5px;
+  margin-top: 8px;
   box-shadow: $choose-box-shadow;
   border: {
     radius: $standard-border-radius;
@@ -44,12 +44,12 @@ div.hint.alert::before {
   position: absolute;
   content: "";
   display: block;
-  top: -8px;
-  left: 0px;
+  top: -12px;
+  left: 0;
   width: 0;
   white-space: normal; 
   border: {
-    width: 0 8px 8px 0;
+    width: 0 8px 12px 0;
     style: solid;
     color: rgba(254,26,0,.9) transparent; // from alertify
   }
