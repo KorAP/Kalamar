@@ -11,6 +11,8 @@
  * TODO: Add a "title" to a menu that is not scrollable.
  * TODO: Make the menu responsive by showing less items on smaller screens
  *       or anytime items would be outside the screen.
+ * TODO: Add a .match() method to items for scrolling and probably for prefixing.
+ * TODO: Add static header (for title, sortation fields, but also for menu points like "fragments" and "history".
  */
 define([
   'menu/item',

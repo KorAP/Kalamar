@@ -7,6 +7,7 @@
 /*
  * - Highlight (at least mark as bold) the match
  * - Scroll to match vertically per default
+ * - A click on a table field and a tree node should at the field description to the fragments list.
  */
 define([
   'match/info',

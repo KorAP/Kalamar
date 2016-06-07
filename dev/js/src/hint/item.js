@@ -22,8 +22,6 @@ define(['menu/item'], function (itemClass) {
       this._name   = params[0];
       this._action = params[1];
       this._lcField = ' ' + this._name.toLowerCase();
-
-      console.log('!!!!');
       
       if (params.length > 2) {
 	this._desc = params[2];
@@ -50,7 +48,7 @@ define(['menu/item'], function (itemClass) {
     onclick : function (e) {
       var m = this.menu();
       var h = m.hint();
-      m.hide();
+      // m.hide();
 
       // Update input field
       var input = h.inputField();
@@ -58,6 +56,7 @@ define(['menu/item'], function (itemClass) {
 
       e.halt();
 
+      // show alt
       h.show(true);
     },
 

@@ -9,6 +9,11 @@
  * TODO: Sometimes the drop-down box down vanish when list is shown
  * TODO: Create should expect an input text field
  * TODO: Embed only one single menu (not multiple)
+ *       By holding the current menu in _active
+ * TODO: show() should accept a context field (especially for no-context fields,
+ *       like fragments)
+ * TODO: Improve context analyzer from hint!
+ * TODO: Marked annotations should be addable to "fragments"
  */
 define([
   'hint/input',
@@ -70,7 +75,7 @@ define([
       // Holds all menus per prefix context
       this._menu   = {};
       this._alert  = alertClass.create();
-      this._active = false;
+      this._active = null;
 
       // Get input field
       var qfield = param["inputField"] || document.getElementById("q-field");
@@ -146,19 +151,19 @@ define([
       // Set container to active (aka hide the hint helper button)
 
       this._alert.show(msg);
-      this.active(true);
+      this.active(this._alert);
       return true;
     },
 
     _unshowAlert : function () {
-      this._alert.unshow();
-      this.active(false);
+      this._alert.hide();
+      this.active(null);
     },
 
     update : function () {
       this._inputField.update();
-      if (this._alert.unshow())
-	this.active(false);
+      if (this._alert.hide())
+	this.active(null);
     },
 
 
@@ -186,29 +191,32 @@ define([
      * Get the correct menu based on the context
      */
     contextMenu : function (ifContext) {
+
+      // Get context (aka left text)
       var context = this._inputField.context();
 
-      if (context === undefined || context.length == 0)
+      if (context === undefined || context.length === 0)
 	return ifContext ? undefined : this.menu("-");
 
+      // Get context (aka left text matching regex)
       context = this._analyzer.test(context);
 
       if (context === undefined || context.length == 0)
 	return ifContext ? undefined : this.menu("-");
 
-      return this.menu(context);
+      return this.menu(context) || this.menu('-');
     },
 
-    active : function (bool) {
+    active : function (obj) {
       if (arguments.length === 1) {
 	var c = this._inputField.container();
-	if (bool && !this._active) {
+	if (obj !== null) {
 	  c.classList.add('active');
-	  this._active = true;
+	  this._active = obj;
 	}
 	else {
 	  c.classList.remove('active');
-	  this._active = false;
+	  this._active = null;
 	}
       };
       return this._active;
@@ -219,23 +227,43 @@ define([
      * Show the menu.
      * Currently this means that multiple menus may be loaded
      * but not shown.
+     *
+     * @param {boolean} Boolean value to indicate if context
+     *        is necessary (true) or if the main context should
+     *        be shown if context fails.
+     *        
      */
     show : function (ifContext) {
 
+      var c = this._inputField.container();
+
       // Menu is already active
-      if (this.active()) {
+      if (this.active() !== null) {
+
+	// This does not work for alert currently!
+	if (this._active._type !== 'alert') {
+	  c.removeChild(this._active.element());
+	};
+
+	// This may already be hidden!
+	this._active.hide();
+	this.active(null);
 
 	// Alert is not active
-	if (!this._alert.unshow())
+	/*
+	  if (!this._alert.unshow())
 	  return;
+	*/
       };
 
       // Get the menu
       var menu;
       if (menu = this.contextMenu(ifContext)) {
-	var c = this._inputField.container();
-	this.active(true);
-	// c.classList.add('active');
+
+// TODO: Remove old element!
+
+	this.active(menu);
+
 	c.appendChild(menu.element());
 	menu.show();
 	menu.focus();
@@ -244,8 +272,16 @@ define([
       };
     },
 
+    // Show an object in the containerField
+    // This will hide all other objects
+    // Accepts menus as well as alerts
+    show2 : function (obj) {},
+
+    // This will get the context of the field
+    getContext : function () {},
+
     unshow : function () {
-      this.active(false);
+      this.active(null);
       this.inputField().element().focus();
     }
   };

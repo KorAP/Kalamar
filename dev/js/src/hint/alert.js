@@ -8,6 +8,7 @@ define(function () {
       return Object.create(this)._init(msg);
     },
     _init : function (msg) {
+      this._type = 'alert';
       this.active = false;
       this._element = document.createElement('div');
       this._element.style.opacity = 0;
@@ -20,7 +21,7 @@ define(function () {
       this._element.style.opacity = 1;
     },
 
-    unshow : function () {
+    hide : function () {
       if (!this.active)
 	return false;
       this._element.style.opacity = 0;

@@ -145,6 +145,10 @@ define(['hint'], function () {
 
   describe('KorAP.Hint', function () {
     KorAP.hintArray = {
+      "-" : [
+	["Base Annotation", "base/s=", "Structure"],
+	["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"]
+      ],
       "corenlp/" : [
 	["Named Entity", "ne=" , "Combined"],
 	["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
@@ -212,18 +216,30 @@ define(['hint'], function () {
 
       // show with context
       hint.unshow();
-      hint.show(true);
+      hint.show(false);
+
+      console.log('1: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+      console.log(hint.inputField().container().innerHTML);
 
       expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(3);
 
+      hint.unshow();
       hint.inputField().insert(' hhhh');
       // show with context
-      hint.unshow();
-      hint.show(true);
+      hint.show(false);
+
+      console.log('2: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+      console.log(hint.inputField().container().innerHTML);
 
       expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(2);
+
+/*
+
+
 
       hint.unshow();
       hint.inputField().insert(' aaaa/');
@@ -235,7 +251,10 @@ define(['hint'], function () {
 
       expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+*/
     });
+
+    xit('should remove all menus on escape');
   });
 
   describe('KorAP.HintMenuItem', function () {
