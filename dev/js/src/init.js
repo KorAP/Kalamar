@@ -9,6 +9,7 @@ define([
   'lib/alertify',
   'session',
   'tagger',
+  'selectMenu',
   'api',
   'mailToChiffre',
   'lib/highlight/highlight.pack',
@@ -22,7 +23,8 @@ define([
 	     vcArray,
 	     alertifyClass,
 	     sessionClass,
-	     tagger) {
+	     tagger,
+	     selectMenuClass) {
 
   // Set hint array for hint helper
   KorAP.hintArray = hintArray;
@@ -73,6 +75,7 @@ define([
       input.style.display = 'none';
       vcname = document.createElement('span');
       vcname.setAttribute('id', 'vc-choose');
+      vcname.classList.add('select');
 
       var currentVC = loc.VC_allCorpora;
       if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
@@ -87,7 +90,6 @@ define([
 
       input.parentNode.insertBefore(vcname, input);
     };
-
 
     /**
      * Add actions to match entries
@@ -121,6 +123,11 @@ define([
 	};
       });
     };
+
+    // Replace QL select menus with KorAP menus
+    selectMenuClass.create(
+      document.getElementById('ql-field').parentNode
+    ).limit(5);
 
     var result = document.getElementById('resultinfo');
     var resultButton = null;

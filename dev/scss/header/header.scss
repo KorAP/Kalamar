@@ -25,7 +25,7 @@ header {
     padding: 0;
     outline: none;
   }
-  span.select, #vc-choose { /* Formally vc.location */
+  span.select { /* , #vc-choose, Formally vc.location */
     cursor: pointer;
     line-height: 1.8em;
     border: {
@@ -49,8 +49,17 @@ header {
       background-color: $light-green;
     }
   }
-  span.select::after {
-    content: $fa-down;
+  span.select {
+    &::after {
+      content: $fa-down;
+      padding: {
+	left: 4pt;
+	right: 4pt;
+      }
+    }
+    &.active::after {
+      content: $fa-up;
+    }
   }
 
   form {

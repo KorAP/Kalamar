@@ -165,6 +165,13 @@ ul.menu {
   }
 }
 
+ul.menu {
+  opacity: 0;
+}
+ul.menu.visible {
+  opacity: 1;
+}
+
 /**
  * Rolling menu
  */
@@ -202,5 +209,21 @@ ul.menu.sort {
   > li.active:hover {
     @include choose-remove;
   }
+}
 
+/**
+ * select menu
+ */
+span.menu.select {
+  > span {
+    z-index: 100;
+  }
+  > ul.menu.roll {
+    display: none;
+    z-index: -100;
+    &.visible {
+      display: block;
+      z-index: 200;
+    }
+  }
 }

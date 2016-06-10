@@ -2,7 +2,7 @@ requirejs.config({
   baseUrl: '../js/src'
 });
 
-require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuClass, itemClass, prefixClass, lengthFieldClass) {
+require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu'], function (menuClass, itemClass, prefixClass, lengthFieldClass, selectMenuClass) {
 
   /**
    * Create own menu item class.
@@ -86,4 +86,6 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField'], function (menuC
 
   menu.limit(3).show(3);
   menu.focus();
+
+  selectMenuClass.create(document.getElementById('choose-ql')).limit(5); // .show();
 });

@@ -78,7 +78,6 @@ define([
       // Create the element
       var el = document.createElement("ul");
       with (el) {
-	style.opacity = 0;
 	style.outline = 0;
 	setAttribute('tabindex', 0);
 	classList.add('menu', 'roll');
@@ -391,13 +390,12 @@ define([
 	this._prefix.active(true);
 
 	// finally show the element
-	this._element.style.opacity = 1;
+	this._element.classList.add('visible');
 
 	return true;
       };
 
       var offset = 0;
-
 
       // Set a chosen value to active and move the viewport
       if (arguments.length === 1) {
@@ -443,10 +441,11 @@ define([
       this._prefix.active(false);
 
       // finally show the element
-      this._element.style.opacity = 1;
+      this._element.classList.add('visible');
 
       // Add classes for rolling menus
       this._boundary(true);
+
       return true;
     },
 
@@ -456,9 +455,10 @@ define([
      */
     hide : function () {
       this.removeItems();
-      this._element.style.opacity = 0;
       this._prefix.clear();
       this.onHide();
+      this._element.classList.remove('visible');
+
       /* this._element.blur(); */
     },
 
