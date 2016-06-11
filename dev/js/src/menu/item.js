@@ -218,8 +218,9 @@ define({
   // Initialize menu item
   _init : function (params) {
     
-    if (params[0] === undefined)
+    if (params[0] === undefined) {
       throw new Error("Missing parameters");
+    };
 
     this.content(params[0]);
     

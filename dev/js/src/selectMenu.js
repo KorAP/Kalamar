@@ -1,6 +1,6 @@
 define(
-  ['menu', 'selectMenu/item', 'menu/prefix', 'menu/lengthField'],
-  function (menuClass, selectMenuItemClass, prefixClass, lengthFieldClass) {
+  ['menu', 'selectMenu/item'],
+  function (menuClass, selectMenuItemClass) {
 
     return {
       create : function (element) {
@@ -27,7 +27,9 @@ define(
 
 	// Create object with list
 	var obj = Object.create(menuClass).upgradeTo(this)
-	  ._init(selectMenuItemClass, prefixClass, lengthFieldClass, list);
+	  ._init(list, {
+	    itemClass : selectMenuItemClass
+	  });
 
 	obj._container = element;
 	obj._select = select;
