@@ -360,7 +360,7 @@ define(['menu', 'menu/item', 'menu/prefix', 'menu/lengthField'],
       menu._firstActive = true;
       expect(menu.itemClass()).toEqual(KorAP.OwnMenuItem);
       expect(menu.element().nodeName).toEqual('UL');
-      expect(menu.element().style.opacity).toEqual("0");
+      expect(menu.element().classList.contains('visible')).toBeFalsy();
       expect(menu.limit()).toEqual(8);
 
       menu.limit(9);

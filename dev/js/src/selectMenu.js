@@ -40,9 +40,7 @@ define(
 	obj._title.appendChild(document.createTextNode(''));
 	obj._container.appendChild(obj.element());
 
-
 	obj._container.addEventListener('click', obj.showSelected.bind(obj));
-
 
 	// Add index information to each item
 	for (i in obj._items) {

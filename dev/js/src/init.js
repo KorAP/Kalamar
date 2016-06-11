@@ -196,10 +196,18 @@ define([
       if (KorAP.koralQuery["errors"]) {
 	var errors = KorAP.koralQuery["errors"];
 	for (var i in errors) {
-	  if (errors[i][0] === 302) {
+
+	  // Malformed query
+	  if (errors[i][0] === 302 && errors[i][2]) {
 	    obj.hint = hintClass.create();
 	    obj.hint.alert(errors[i][2], errors[i][1]);
 	    break;
+	  }
+
+	  // no query
+	  else if (errors[i][0] === 301) {
+	    obj.hint = hintClass.create();
+	    obj.hint.alert(0, errors[i][1]);	    
 	  }
 	}
       };

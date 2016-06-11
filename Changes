@@ -4,6 +4,7 @@
   - Added alert to hint helper.
 	- Improved menu creation.
 	- Introduced benchmark system.
+	- select elements are now improved menus.
 
 0.20 2016-05-25
 	- Improved menu using sliders.
