@@ -26,14 +26,18 @@
 % if (1) { # user not logged in
 % content_for 'sidebar', begin
 <fieldset>
-  <form>
+  %= form_for 'login', begin
     <legend><span><%= loc 'login' %></span></legend>
     <input type="text" name="handle_or_email" placeholder="<%= loc 'email' %>" />
     <div>
       <input type="password" name="pwd" placeholder="<%= loc 'pwd' %>" />
       <button type="submit"><span><%= loc 'go' %></span></button>
     </div>
-  </form>
+  % end
+  <ul>
+    <li><%= link_to loc('register') => 'register' %></li>
+    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
+  </ul>
 </fieldset>
 % end
 % }

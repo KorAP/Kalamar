@@ -53,7 +53,7 @@ aside {
     margin: 0;
   }
 
-  ul {
+  ul.nav {
     list-style-type: none;
 /*
     background-color: $light-green;
@@ -135,15 +135,34 @@ aside {
   fieldset {
     position: relative;
     border-width: 0;
+    legend {
+      display: none;
+    }
+
     input[type=text], input[type=password] {
       @include input-field;
       width: 100%;
     }
+
     > form > div {
       position: relative;
       width: 100%;
       margin-top: 4px;
       padding-right: $button-width
+    }
+
+    ul {
+      display: block;
+      font-size: 80%;
+      text-align: right;
+      > li {
+	display: inline;
+	&:first-child::after {
+	  content: ' | ';
+	}
+      }
+      padding: 0;
+      margin-top: 0;
     }
 
     button {
