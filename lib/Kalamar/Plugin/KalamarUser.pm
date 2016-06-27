@@ -54,6 +54,7 @@ sub register {
 
       # Login successful
       if (my $res = $tx->success) {
+
 	my $jwt = $res->json;
 
 	my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
@@ -92,6 +93,7 @@ sub register {
       my $c = shift;
       my $param = shift;
 
+      # 'info' is useless!
       return unless $param =~ m/^details|settings$/;
 
       # The user may be logged in
@@ -110,14 +112,16 @@ sub register {
 
 	my $tx = $plugin->build_authorized_tx($auth, 'GET', 'user/' . $param);
 	$tx = $plugin->ua->start($tx);
+
 	unless ($value = $tx->success) {
-#	  warn $tx->code;
 	  return;
 	}
 #	else {
 #	  warn $c->dumper($value->json);
 #	};
-	$value = $value->json;
+	if ($value) {
+	  $value = $value->json;
+	};
 
 	$chi->set($user . '_' . $param => $value);
       };
@@ -127,6 +131,42 @@ sub register {
     }
   );
 
+  $mojo->helper(
+    'user.set' => sub {
+      my $c = shift;
+      my $param = shift;
+
+      # 'info' is useless!
+      return unless $param =~ m/^details|settings$/;
+
+      my $json_obj = shift;
+
+      # The user may be logged in
+      my $auth = ($c->stash('auth') || $c->session('auth')) or return;
+
+      # Get namespaced cache
+      my $chi = $c->chi('user');
+
+      # Get user and check, if the user is real
+      my $user = $chi->get($auth);
+
+      # Build a JSON transaction object
+      my $tx = $plugin->build_authorized_tx(
+	$auth, 'POST', 'user/' . $param, json => $json_obj
+      );
+
+      # Start
+      $tx = $plugin->ua->start($tx);
+
+      my $res = $tx->success or return;
+
+      # Kill all caches!!
+      $chi->remove($user . '_' . $param);
+
+      # Return value
+      return $res->json;
+    }
+  );
 
   # Logout
   $mojo->helper(
@@ -161,6 +201,7 @@ sub build_authorized_tx {
   };
 
   my $url = Mojo::URL->new($plugin->api)->path($path);
+
 
   $header->{Authorization} = $auth;
 

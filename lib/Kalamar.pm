@@ -87,7 +87,8 @@ sub startup {
     'Search',                    # Abstract Search framework
     'CHI',                       # Global caching mechanism
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
-    'KalamarHelpers'             # Specific Helpers for Kalamar
+    'KalamarHelpers',            # Specific Helpers for Kalamar
+    'KalamarUser'                # Specific Helpers for Kalamar
   ) {
     $self->plugin($_);
   };
@@ -109,6 +110,7 @@ sub startup {
   $r->get('/')->to('search#query')->name('index');
 
   # Collection route
+  # TODO: Probably rename to /corpus
   $r->get('/collection')->to('Search#collections')->name('collections');
   $r->get('/collection/:id')->to('Search#collection')->name('collection');
 
@@ -128,8 +130,12 @@ sub startup {
   my $match  = $text->get('/:match_id');
   $match->to('search#match_info')->name('match');
 
-  $r->post('/login')->to('User#login');
-  $r->post('/logout')->to('User#logout');
+  # User Management
+  $r->any('/user')->to(controller => 'User');
+  $r->post('/login')->to(action => 'login')->name('login');
+  $r->get('/logout')->to(action => 'logout')->name('logout');
+  $r->any('/register')->to(action => 'register')->name('register');
+  $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
 
   # Default user is called 'korap'
   # $r->route('/user/:user/:collection')

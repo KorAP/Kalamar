@@ -106,7 +106,7 @@ sub register {
       my $scope = shift;
 
       # Create unordered list
-      my $html = "<ul>\n";
+      my $html = '<ul class="nav">'."\n";
 
       # Embed all link tags
       foreach (@$items) {
