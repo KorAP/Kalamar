@@ -2,11 +2,11 @@
 % my $match = stash('match') || {};
 % my %match_data = %$match;
 % delete @match_data{qw/snippet startMore endMore field/};
-% my $id = $match->{textSigle} . '#' . $match->{matchID};
-<li data-corpus-id="<%= $match->{corpusID} %>"
-    data-doc-id="<%= $match->{docID} %>"
-    data-text-id="<%= $match->{textID} %>"
-    data-match-id="<%= $match->{matchID} %>"
+% my $text_sigle = $match->{textSigle} // join('/', $match->{corpusID}, $match->{docID}, $match->{textID});
+% my $id = $text_sigle . '#' . $match->{matchID};
+<li data-match-id="<%= $match->{matchID} %>"
+    data-text-sigle="<%= $text_sigle %>"
+
     %# TODO: This needs to be retrieved per match 
     data-available-info="<%= $match->{layerInfos} // $match->{layerInfo} // 'cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans' %>"
     data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
@@ -24,6 +24,6 @@
 % if ($match->{pubDate}) {
  (<time datetime="<%= $match->{pubDate} %>"><%= $match->{pubDate} %></time>)\
 % };
-  <span class="sigle">[<%= $match->{corpusID} %>/<%= $match->{docID} %>/<%= $match->{textID} %>]</span> \
+  <span class="sigle">[<%= $text_sigle %>]</span> \
 </p>
 </li>

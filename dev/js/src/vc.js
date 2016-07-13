@@ -14,6 +14,8 @@
 /*
   TODO: Disable "and" or "or" in case it's followed
         by an unspecified document
+  TODO: Add "and"-method to root to add further constraints based on match-
+        input (like clicking on a pubDate timestamp in a match)
   TODO: Implement "persistence"-Option,
         injecting the current creation date stamp
   TODO: Implement vec-Type for document-id vectors

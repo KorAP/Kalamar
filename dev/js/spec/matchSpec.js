@@ -23,6 +23,7 @@ var match = {
   'docID' : 'UUU',
   'textID' : '01912',
   'matchID' : 'p121-122',
+  'textSigle' : 'WPD/UUU/01912',
   'available' : available
 };
 
@@ -137,6 +138,7 @@ function matchElementFactory () {
   me.setAttribute('data-corpus-id', 'WPD');
   me.setAttribute('data-doc-id', 'FFF');
   me.setAttribute('data-text-id', '01460');
+  me.setAttribute('data-text-sigle', 'WPD/FFF/01460');
   me.setAttribute('data-match-id', 'p119-120');
   me.innerHTML = '<div><div class="snippet">check</div></div><p class="ref">me</p>';
   return me;
@@ -187,6 +189,7 @@ define(['match'], function () {
       'docID'     : 'UUU',
       'textID'    : '01912',
       'matchID'   : 'p121-122',
+      'textSigle' : 'WPD/UUU/01912',
       'available' : available
     };
 
@@ -200,9 +203,7 @@ define(['match'], function () {
       expect(matchClass.create(match)).toBeTruthy();
 
       var m = matchClass.create(match);
-      expect(m.corpusID).toEqual("WPD");
-      expect(m.docID).toEqual("UUU");
-      expect(m.textID).toEqual("01912");
+      expect(m.textSigle).toEqual("WPD/UUU/01912");
       expect(m.matchID).toEqual("p121-122");
 
       // /corpus/WPD/UUU.01912/p121-122/matchInfo?spans=false&foundry=*
@@ -237,9 +238,7 @@ define(['match'], function () {
 
     it('should be initializable by Node', function () {
       var m = matchClass.create(matchElementFactory());
-      expect(m.corpusID).toEqual("WPD");
-      expect(m.docID).toEqual("FFF");
-      expect(m.textID).toEqual("01460");
+      expect(m.textSigle).toEqual("WPD/FFF/01460");
       expect(m.matchID).toEqual("p119-120");
 
       // Spans:

@@ -20,7 +20,8 @@ define([
   loc.SHOWINFO = loc.SHOWINFO || 'Show information';
   loc.CLOSE    = loc.CLOSE    || 'Close';
   
-  var _matchTerms  = ['corpusID', 'docID', 'textID', 'matchID', 'available'];
+  // 'corpusID', 'docID', 'textID'
+  var _matchTerms  = ['textSigle', 'matchID', 'available'];
 
   /**
    * Match object
@@ -57,10 +58,23 @@ define([
 	// Circular reference !!
 	match["_match"] = this;
 
+/*
 	this.corpusID  = match.getAttribute('data-corpus-id'),
 	this.docID     = match.getAttribute('data-doc-id'),
 	this.textID    = match.getAttribute('data-text-id'),
-	this.matchID   = match.getAttribute('data-match-id')
+*/
+	if (match.hasAttribute('data-text-sigle')) {
+	  this.textSigle = match.getAttribute('data-text-sigle')
+	}
+	else {
+	  this.textSigle = match.getAttribute('data-corpus-id') +
+	    '/' +
+	    match.getAttribute('data-doc-id') +
+	    '/' +
+	    match.getAttribute('data-text-id');
+	};
+
+	this.matchID   = match.getAttribute('data-match-id');
 
 	// List of available annotations
 	this.available = match.getAttribute('data-available-info').split(' ');

@@ -18,9 +18,12 @@ define(['util'], function () {
     // match is a KorAP.Match object
     var url = KorAP.URL;
     url += '/corpus';
+/*
     url += '/' + match.corpusID;
     url += '/' + match.docID;
     url += '/' + match.textID;
+*/
+    url += '/' + match.textSigle;
     url += '/' + match.matchID;
 
     // { spans: true, layer:x, foundry : y}

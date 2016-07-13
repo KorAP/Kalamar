@@ -4,7 +4,7 @@ use Mojo::ByteStream 'b';
 use Mojo::JSON 'decode_json';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
