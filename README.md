@@ -21,8 +21,11 @@ $ cd Kalamar
 ### Generate Static Asset Files
 
 To generate the static asset files (scripts, styles, images ...),
-you need NodeJS > 0.8. This will probably need administration
-rights.
+you need NodeJS > 0.8 and npm.
+For processing Sass, you will need Ruby with
+the sass gem in addition.
+This will probably need administration
+rights. 
 
 ```
 $ npm install
