@@ -67,7 +67,8 @@ module.exports = function(grunt) {
 	  'dev/js/src/vc.js'
 	],
 	options: {
-	  specs: 'dev/js/spec/*Spec.js'
+	  specs: 'dev/js/spec/*Spec.js',
+	  vendor: ['dev/js/lib/require.js']
 	}
       }
     },
