@@ -82,13 +82,15 @@ var treeSnippet =
   "        </span>" +
   "      </span>" +
   "      <span title=\"xip/c:VERB\">ist</span>" +
-  "      <span title=\"xip/c:NP\">" +
-  "        <span title=\"xip/c:PRON\">es</span>" +
-  "      </span>" +
-  "      <span title=\"xip/c:AP\">" +
-  "        <span title=\"xip/c:ADV\">nun</span>" +
-  "        <span title=\"xip/c:ADJ\">möglich</span>" +
-  "      </span>" +
+  "      <mark>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:PRON\">es</span>" +
+  "        </span>" +  
+  "        <span title=\"xip/c:AP\">" +
+  "          <span title=\"xip/c:ADV\">nun</span>" +
+  "          <span title=\"xip/c:ADJ\">möglich</span>" +
+  "        </span>" +
+  "      </mark>" +
   "      <span title=\"xip/c:ADV\">z. B.</span>" +
   "      <span title=\"xip/c:NPA\">" +
   "        <span title=\"xip/c:NP\">" +
@@ -393,8 +395,8 @@ define(['match'], function () {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
       info.getTree(undefined, undefined, function (treem) {
-	tree = treem;
-	done();
+	      tree = treem;
+	      done();
       });
     });
 
@@ -403,9 +405,9 @@ define(['match'], function () {
       expect(tree.nodes()).toEqual(49);
     });
 
-
-    var info, matchElement;
-    it('should parse into a tree view', function () {
+    var matchElement, info;
+    // var info, matchElement;
+    it('should parse into a tree view', function () {      
       matchElement = matchElementFactory();
       expect(matchElement.tagName).toEqual('LI');
 
@@ -435,7 +437,7 @@ define(['match'], function () {
     it('should add a tree view async 1', function (done) {
       expect(info).toBeTruthy();
       info.addTree('mate', 'beebop', function () {
-	done();
+	      done();
       });
     });
 

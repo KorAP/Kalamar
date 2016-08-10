@@ -241,16 +241,33 @@ g.middle rect {
   fill: $middle-orange;
 }
 
+g.middle.mark {
+  rect {
+    fill: $darker-orange;
+  }
+  > text {
+    fill: $light-orange;
+    > tspan {
+      stroke: $light-orange;
+    }
+  }
+}
+
+
+g.leaf.mark text > tspan {
+  font-weight: bold;
+}
+
 g.leaf > rect {
   display: none;
 }
 
-g > text {
+g > text > tspan {
   text-anchor: middle;
   font-size: 9pt;
 }
 
-g.leaf > text {
+g.leaf > text > tspan {
   font-size: 10pt;
   overflow: visible;
 }

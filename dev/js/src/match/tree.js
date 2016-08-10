@@ -59,12 +59,12 @@ define(['lib/dagre'], function (dagre) {
       
       // This is a new root
       this._addNode(
-	this._next++,
-	{ "class" : "root" }
+	      this._next++,
+	      { "class" : "root" }
       );
       
       // Parse nodes from root
-      this._parse(0, html.childNodes);
+      this._parse(0, html.childNodes, undefined);
 
       // Root node has only one child - remove
       if (g.outEdges(0).length === 1)
@@ -86,6 +86,7 @@ define(['lib/dagre'], function (dagre) {
       obj["width"]  = WIDTH;
       obj["height"] = HEIGHT;
       this._graph.setNode(id, obj)
+      return obj;
     },
     
     // Add new edge to graph
@@ -99,50 +100,62 @@ define(['lib/dagre'], function (dagre) {
     },
 
     // Parse the snippet
-    _parse : function (parent, children) {
+    _parse : function (parent, children, mark) {
       for (var i in children) {
-	var c = children[i];
+	      var c = children[i];
 
-	// Element node
-	if (c.nodeType == 1) {
+	      // Element node
+	      if (c.nodeType == 1) {
 
-	  // Get title from html
-	  if (c.getAttribute("title")) {
-	    var title = this._clean(c.getAttribute("title"));
+	        // Get title from html
+	        if (c.getAttribute("title")) {
+	          var title = this._clean(c.getAttribute("title"));
 
-	    // Add child node
-	    var id = this._next++;
+	          // Add child node
+	          var id = this._next++;
 
-	    this._addNode(id, {
-	      "class" : "middle",
-	      "label" : title
-	    });
-	    this._addEdge(parent, id);
+	          var obj = this._addNode(id, {
+	            "class" : "middle",
+	            "label" : title
+	          });
+            
+            if (mark !== undefined) {
+              obj.class += ' mark';
+            };
+            
+	          this._addEdge(parent, id);
 
-	    // Check for next level
-	    if (c.hasChildNodes())
-	      this._parse(id, c.childNodes);
-	  }
+	          // Check for next level
+	          if (c.hasChildNodes())
+	            this._parse(id, c.childNodes, mark);
+	        }
 
-	  // Step further
-	  else if (c.hasChildNodes())
-	    this._parse(parent, c.childNodes);
-	}
+	        // Step further
+	        else if (c.hasChildNodes()) {
 
-	// Text node
-	else if (c.nodeType == 3)
+            if (c.tagName === 'MARK') {
+	            this._parse(parent, c.childNodes, true);
+            }
+            else {
+	            this._parse(parent, c.childNodes, mark);
+            };
+          };
+	      }
 
-	  if (c.nodeValue.match(/[-a-z0-9]/i)) {
+	      // Text node
+	      else if (c.nodeType == 3)
 
-	    // Add child node
-	    var id = this._next++;
-	    this._addNode(id, {
-	      "class" : "leaf",
-	      "label" : c.nodeValue
-	    });
+	        if (c.nodeValue.match(/[-a-z0-9]/i)) {
 
-	    this._addEdge(parent, id);
-	  };
+	          // Add child node
+	          var id = this._next++;
+	          this._addNode(id, {
+	            "class" : "leaf",
+	            "label" : c.nodeValue
+	          });
+
+	          this._addEdge(parent, id);
+	        };
       };
       return this;
     },
@@ -197,7 +210,7 @@ define(['lib/dagre'], function (dagre) {
 	function (v) {
 	  v = g.node(v);
 	  var group = document.createElementNS(svgXmlns, 'g');
-	  group.classList.add(v.class);
+	  group.setAttribute('class', v.class);
 
 	  // Add node box
 	  var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
