@@ -11,7 +11,7 @@ define(['menu/item'], function (itemClass) {
      */
     create : function (params) {
       return Object.create(itemClass)
-	.upgradeTo(this)._init(params);
+	      .upgradeTo(this)._init(params);
     },
 
     /**

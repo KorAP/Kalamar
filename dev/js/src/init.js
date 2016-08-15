@@ -140,9 +140,12 @@ define([
     };
 
     // Replace QL select menus with KorAP menus
-    selectMenuClass.create(
-      document.getElementById('ql-field').parentNode
-    ).limit(5);
+    var qlField = document.getElementById('ql-field');
+    if (qlField !== null) {
+      selectMenuClass.create(
+        document.getElementById('ql-field').parentNode
+      ).limit(5);
+    };
 
     var result = document.getElementById('resultinfo');
     var resultButton = null;

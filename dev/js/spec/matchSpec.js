@@ -556,15 +556,16 @@ define(['match'], function () {
 
     it('should be initializable', function () {
       var menu = matchTreeMenu.create(undefined, [
-	['cnx/c', 'cnx', 'c'],
-	['xip/c', 'xip', 'c']
+	      ['cnx/c', 'cnx', 'c'],
+	      ['xip/c', 'xip', 'c']
       ]);
 
       expect(menu.itemClass()).toEqual(matchTreeItem);
       expect(menu.element().nodeName).toEqual('UL');
-      expect(menu.element().style.opacity).toEqual("0");
+      expect(menu.element().classList.contains('visible')).toBeFalsy();
       expect(menu.limit()).toEqual(6);
       menu.show();
+      expect(menu.element().classList.contains('visible')).toBeTruthy();
       expect(menu.item(0).active()).toBe(false);
     });
   });
