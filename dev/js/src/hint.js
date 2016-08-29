@@ -80,7 +80,7 @@ define([
       // Get input field
       var qfield = param["inputField"] || document.getElementById("q-field");
       if (!qfield)
-	return null;
+        return null;
 
       // Create input field
       this._inputField = inputClass.create(qfield);
@@ -95,31 +95,31 @@ define([
       var that = this;
 
       this._inputField.container().addEventListener('click', function (e) {
-	if (!this.classList.contains('active')) {
-	  that.show(false);
-	};
+	      if (!this.classList.contains('active')) {
+	        that.show(false);
+	      };
       });
 
       var _down = function (e) {
-	var code = _codeFromEvent(e);
-	if (code === 40) {
-	  this.show(false);
-	  e.halt();
-	};
+	      var code = _codeFromEvent(e);
+	      if (code === 40) {
+	        this.show(false);
+	        e.halt();
+	      };
       };
-
+      
       // Move infobox
       inputFieldElement.addEventListener("keyup", this.update.bind(this));
       inputFieldElement.addEventListener("click", this.update.bind(this));
 
       // Add event listener for key pressed down
       inputFieldElement.addEventListener(
-	"keydown", _down.bind(this), false
+	      "keydown", _down.bind(this), false
       );
 
       // Set Analyzer for context
       this._analyzer = analyzerClass.create(
-	param["context"] || KorAP.context
+	      param["context"] || KorAP.context
       );
       return this;
     },
@@ -139,11 +139,11 @@ define([
     alert : function (charPos, msg) {
 
       if (arguments.length === 0)
-	return this._alert;
+	      return this._alert;
 
       // Do not alert if already alerted!
       if (this._alert.active)
-	return false;
+	      return false;
 
       // Move to the correct position
       this._inputField.moveto(charPos);
@@ -154,7 +154,7 @@ define([
       this.active(this._alert);
       return true;
     },
-
+    
     _unshowAlert : function () {
       this._alert.hide();
       this.active(null);
@@ -163,7 +163,7 @@ define([
     update : function () {
       this._inputField.update();
       if (this._alert.hide())
-	this.active(null);
+	      this.active(null);
     },
 
 
@@ -173,14 +173,14 @@ define([
     menu : function (action) {
       if (this._menu[action] === undefined) {
 
-	// No matching hint menu
-	if (KorAP.hintArray[action] === undefined)
-	  return;
+	      // No matching hint menu
+	      if (KorAP.hintArray[action] === undefined)
+	        return;
 
-	// Create matching hint menu
-	this._menu[action] = menuClass.create(
-	  this, action, KorAP.hintArray[action]
-	);
+	      // Create matching hint menu
+	      this._menu[action] = menuClass.create(
+	        this, action, KorAP.hintArray[action]
+	      );
       };
 
       // Return matching hint menu
@@ -196,29 +196,43 @@ define([
       var context = this._inputField.context();
 
       if (context === undefined || context.length === 0)
-	return ifContext ? undefined : this.menu("-");
+	      return ifContext ? undefined : this.menu("-");
 
       // Get context (aka left text matching regex)
       context = this._analyzer.test(context);
 
       if (context === undefined || context.length == 0)
-	return ifContext ? undefined : this.menu("-");
+	      return ifContext ? undefined : this.menu("-");
 
       return this.menu(context) || this.menu('-');
     },
 
+    /**
+     * Activate a certain menu.
+     * If a menu is passed, the menu will be activated.
+     * If null is passed, the active menu will be deactivated.
+     * If nothing is passed, returns the active menu.
+     */
     active : function (obj) {
+
+      // A menu or null was passed
       if (arguments.length === 1) {
-	var c = this._inputField.container();
-	if (obj !== null) {
-	  c.classList.add('active');
-	  this._active = obj;
-	}
-	else {
-	  c.classList.remove('active');
-	  this._active = null;
-	}
+	      var c = this._inputField.container();
+
+        // Make the menu active
+	      if (obj !== null) {
+	        c.classList.add('active');
+	        this._active = obj;
+	      }
+
+        // Make the menu inactive
+	      else {
+	        c.classList.remove('active');
+	        this._active = null;
+	      }
       };
+
+      // Return
       return this._active;
     },
 
@@ -240,46 +254,52 @@ define([
       // Menu is already active
       if (this.active() !== null) {
 
-	// This does not work for alert currently!
-	if (this._active._type !== 'alert') {
-	  c.removeChild(this._active.element());
-	};
+	      // This does not work for alert currently!
+	      if (this._active._type !== 'alert') {
+	        c.removeChild(this._active.element());
+	      };
 
-	// This may already be hidden!
-	this._active.hide();
-	this.active(null);
+	      // This may already be hidden!
+	      this._active.hide();
+	      this.active(null);
 
-	// Alert is not active
-	/*
-	  if (!this._alert.unshow())
-	  return;
-	*/
+	      // Alert is not active
+	      /*
+	        if (!this._alert.unshow())
+	        return;
+	      */
       };
 
       // Get the menu
       var menu;
       if (menu = this.contextMenu(ifContext)) {
 
-// TODO: Remove old element!
+        // TODO: Remove old element!
+        
+	      this.active(menu);
 
-	this.active(menu);
-
-	c.appendChild(menu.element());
-	menu.show();
-	menu.focus();
-	// Focus on input field
-	// this.inputField.element.focus();
+	      c.appendChild(menu.element());
+	      menu.show();
+	      menu.focus();
+	      // Focus on input field
+	      // this.inputField.element.focus();
       };
     },
-
+    
     // Show an object in the containerField
     // This will hide all other objects
     // Accepts menus as well as alerts
-    show2 : function (obj) {},
+    show2 : function (obj) {
+      var c = this._inputField.container();
+
+    },
 
     // This will get the context of the field
     getContext : function () {},
 
+    /**
+     * Deactivate the current menu and focus on the input field.
+     */
     unshow : function () {
       this.active(null);
       this.inputField().element().focus();

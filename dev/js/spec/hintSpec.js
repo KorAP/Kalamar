@@ -23,7 +23,6 @@ function emitKeyboardEvent (element, type, keyCode) {
 
 
 define(['hint'], function () {
-
   var hintClass =     require("hint");
   var inputClass =    require("hint/input");
   var contextClass =  require("hint/contextanalyzer");
@@ -205,24 +204,37 @@ define(['hint'], function () {
 
     it('should view main menu on default', function () {
       var hint = hintClass.create({
-	inputField : input
+	      inputField : input
       });
 
       expect(hint.active()).toBeFalsy();
 
       hint.inputField().insert('der Baum corenlp/');
-      expect(hint.inputField().container().getElementsByTagName('div').length).toBe(1);
-      expect(hint.inputField().container().getElementsByTagName('ul').length).toBe(0);
 
-      // show with context
-      hint.unshow();
+      var cont = hint.inputField().container();
+      
+      expect(cont.getElementsByTagName('div').length).toBe(1);
+      expect(cont.getElementsByTagName('ul').length).toBe(0);
+      expect(cont.firstChild).toEqual(cont.firstChild);
+      
+      // Show menu, if a relevant context exists
+      // There is a menu for corenlp/
       hint.show(false);
+
+      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(3);
+
+      // Hide the menu and focus on the input
+      hint.unshow();
 
       console.log('1: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
       console.log(hint.inputField().container().innerHTML);
 
+      /*
+
+
+
       expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
-      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
       expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(3);
 
       hint.unshow();
@@ -237,7 +249,11 @@ define(['hint'], function () {
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
       expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(2);
 
-/*
+
+      
+
+
+
 
 
 
