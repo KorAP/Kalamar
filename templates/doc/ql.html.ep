@@ -10,7 +10,7 @@
 
 <section id="intro">
   <h3>Frontend Features</h3>
-  <p>This frontend differs to the <%= doc_ext_link_to 'official frontend', 'http://korap.ids-mannheim.de/app/', target => '_blank' %> by providing a serialization view, an integrated tutorial, a comparison view for morphological annotations, and an autocompletion for closed annotations (type in <%= doc_link_to 'foundry prefixes', 'data', 'annotation' %> like <code>cnx/</code>).</p>
+  <p>This frontend differs to the <%= doc_ext_link_to 'official frontend', 'http://korap.ids-mannheim.de/app/', target => '_blank', rel => 'noopener noreferrer' %> by providing a serialization view, an integrated tutorial, a comparison view for morphological annotations, and an autocompletion for closed annotations (type in <%= doc_link_to 'foundry prefixes', 'data', 'annotation' %> like <code>cnx/</code>).</p>
 </section>
 
 <section id="examples">
