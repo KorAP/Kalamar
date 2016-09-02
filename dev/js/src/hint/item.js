@@ -9,23 +9,23 @@ define(['menu/item'], function (itemClass) {
      */
     create : function (params) {
       return Object.create(itemClass)
-	.upgradeTo(this)
-	._init(params);
+	      .upgradeTo(this)
+	      ._init(params);
     },
 
     // Initialize menu item object
     _init : function (params) {
       if (params[0] === undefined ||
-	  params[1] === undefined)
-	throw new Error("Missing parameters");
+	        params[1] === undefined)
+	      throw new Error("Missing parameters");
       
       this._name   = params[0];
       this._action = params[1];
       this._lcField = ' ' + this._name.toLowerCase();
       
       if (params.length > 2) {
-	this._desc = params[2];
-	this._lcField += " " + this._desc.toLowerCase();
+	      this._desc = params[2];
+	      this._lcField += " " + this._desc.toLowerCase();
       };
 
       return this;
@@ -36,7 +36,7 @@ define(['menu/item'], function (itemClass) {
      */
     content : function (content) {
       if (arguments.length === 1) {
-	this._content = content;
+	      this._content = content;
       };
       return this._content;
     },
@@ -89,13 +89,13 @@ define(['menu/item'], function (itemClass) {
     element : function () {
       // already defined
       if (this._element !== undefined)
-	return this._element;
+	      return this._element;
 
       // Create list item
       var li = document.createElement("li");
 
       if (this.onclick !== undefined) {
-	li["onclick"] = this.onclick.bind(this);
+	      li["onclick"] = this.onclick.bind(this);
       };
 
       // Create title
@@ -106,10 +106,10 @@ define(['menu/item'], function (itemClass) {
 
       // Create description
       if (this._desc !== undefined) {
-	var desc = document.createElement("span");
-	desc.classList.add('desc');
-	desc.appendChild(document.createTextNode(this._desc));
-	li.appendChild(desc);
+	      var desc = document.createElement("span");
+	      desc.classList.add('desc');
+	      desc.appendChild(document.createTextNode(this._desc));
+	      li.appendChild(desc);
       };
       return this._element = li;
     }

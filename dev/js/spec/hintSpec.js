@@ -223,39 +223,23 @@ define(['hint'], function () {
 
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
       expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(3);
-
+      
       // Hide the menu and focus on the input
       hint.unshow();
-
-      console.log('1: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-      console.log(hint.inputField().container().innerHTML);
-
-      /*
-
-
-
-      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
-      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(3);
+      
+      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(1);
+      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(0);
 
       hint.unshow();
+
       hint.inputField().insert(' hhhh');
+
       // show with context
       hint.show(false);
-
-      console.log('2: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-      console.log(hint.inputField().container().innerHTML);
-
+      
       expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
       expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(2);
-
-
-      
-
-
-
-
-
 
       hint.unshow();
       hint.inputField().insert(' aaaa/');
@@ -263,16 +247,15 @@ define(['hint'], function () {
       // show with context
       hint.show(true);
 
-      console.log(hint.inputField().container().outerHTML);
-
       expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
-*/
     });
-
+    
     xit('should remove all menus on escape');
   });
 
+
+  
   describe('KorAP.HintMenuItem', function () {
     it('should be initializable', function () {
       expect(
@@ -495,7 +478,7 @@ define(['hint'], function () {
     it('should be initializable', function () {
       var menu = menuClass.create(null, "cnx/", list);
       expect(menu.element().nodeName).toEqual('UL');
-      expect(menu.element().style.opacity).toEqual("0");
+      // expect(menu.element().style.opacity).toEqual("0");
 
       menu.limit(8);
 

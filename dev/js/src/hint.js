@@ -5,6 +5,7 @@
  * @author Nils Diewald
  */
 /*
+ * TODO: Check for cnx/syn=
  * TODO: List can be shown when prefix is like 'base/s=pcorenlp/'
  * TODO: Sometimes the drop-down box down vanish when list is shown
  * TODO: Create should expect an input text field
@@ -195,8 +196,9 @@ define([
       // Get context (aka left text)
       var context = this._inputField.context();
 
-      if (context === undefined || context.length === 0)
-	      return ifContext ? undefined : this.menu("-");
+      if (context === undefined || context.length === 0) {
+	      return ifContext ? false : this.menu("-");
+      };
 
       // Get context (aka left text matching regex)
       context = this._analyzer.test(context);
@@ -239,8 +241,7 @@ define([
 
     /**
      * Show the menu.
-     * Currently this means that multiple menus may be loaded
-     * but not shown.
+     * Remove all old menus.
      *
      * @param {boolean} Boolean value to indicate if context
      *        is necessary (true) or if the main context should
@@ -260,7 +261,7 @@ define([
 	      };
 
 	      // This may already be hidden!
-	      this._active.hide();
+	      // this._active.hide();
 	      this.active(null);
 
 	      // Alert is not active
@@ -283,26 +284,40 @@ define([
 	      menu.focus();
 	      // Focus on input field
 	      // this.inputField.element.focus();
+      }
+      else {
+        this._inputField.element().focus();
       };
     },
     
-    // Show an object in the containerField
-    // This will hide all other objects
-    // Accepts menus as well as alerts
-    show2 : function (obj) {
-      var c = this._inputField.container();
-
-    },
-
     // This will get the context of the field
     getContext : function () {},
 
     /**
      * Deactivate the current menu and focus on the input field.
      */
-    unshow : function () {
+    unshow_old : function () {
       this.active(null);
       this.inputField().element().focus();
+    },
+
+    /**
+     * Deactivate the current menu and focus on the input field.
+     */
+    unshow : function () {
+      var c = this._inputField.container();
+
+      if (this.active() !== null) {
+        var act = this.active();
+        
+        // This does not work for alert currently!
+	      if (act._type !== 'alert') {
+	        c.removeChild(this._active.element());
+	      };
+        // this._active.hide();
+        this.active(null);
+      };
+      this._inputField.element().focus();
     }
   };
 });
