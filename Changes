@@ -1,10 +1,11 @@
-0.21 2016-07-04
+0.21 2016-09-05
 	- Use textSigle for API communication instead of
 	  {corpus,doc,text}ID.
   - Added alert to hint helper.
 	- Improved menu creation.
 	- Introduced benchmark system.
 	- select elements are now improved menus.
+  - Hint menu do not append menus anymore.
 
 0.20 2016-05-25
 	- Improved menu using sliders.
