@@ -192,21 +192,22 @@ define([
      * Get the correct menu based on the context
      */
     contextMenu : function (ifContext) {
-
+      
       // Get context (aka left text)
       var context = this._inputField.context();
 
       if (context === undefined || context.length === 0) {
-	      return ifContext ? false : this.menu("-");
+        return ifContext ? undefined : this.menu("-");
       };
 
       // Get context (aka left text matching regex)
       context = this._analyzer.test(context);
 
-      if (context === undefined || context.length == 0)
+      if (context === undefined || context.length == 0) {
 	      return ifContext ? undefined : this.menu("-");
+      };
 
-      return this.menu(context) || this.menu('-');
+      return this.menu(context) || (ifContext ? undefined : this.menu('-'));
     },
 
     /**
@@ -250,35 +251,15 @@ define([
      */
     show : function (ifContext) {
 
-      var c = this._inputField.container();
-
-      // Menu is already active
-      if (this.active() !== null) {
-
-	      // This does not work for alert currently!
-	      if (this._active._type !== 'alert') {
-	        c.removeChild(this._active.element());
-	      };
-
-	      // This may already be hidden!
-	      // this._active.hide();
-	      this.active(null);
-
-	      // Alert is not active
-	      /*
-	        if (!this._alert.unshow())
-	        return;
-	      */
-      };
-
+      // Remove the active object
+      this._unshow();
+      
       // Get the menu
       var menu;
       if (menu = this.contextMenu(ifContext)) {
-
-        // TODO: Remove old element!
-        
 	      this.active(menu);
 
+        var c = this._inputField.container();
 	      c.appendChild(menu.element());
 	      menu.show();
 	      menu.focus();
@@ -305,19 +286,28 @@ define([
      * Deactivate the current menu and focus on the input field.
      */
     unshow : function () {
-      var c = this._inputField.container();
+      this._unshow();
+      this._inputField.element().focus();
+    },
 
+    
+    _unshow : function () {
       if (this.active() !== null) {
-        var act = this.active();
+        // var act = this.active();
         
         // This does not work for alert currently!
-	      if (act._type !== 'alert') {
+	      //if (act._type !== 'alert') {
+        if (!this._alert.active) {
+          var c = this._inputField.container();
 	        c.removeChild(this._active.element());
-	      };
+	      }
+        else {
+          this._unshowAlert();
+        };
+        
         // this._active.hide();
         this.active(null);
       };
-      this._inputField.element().focus();
     }
   };
 });

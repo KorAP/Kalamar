@@ -46,16 +46,16 @@ define(['hint'], function () {
 
     afterEach(function () {
       document.getElementsByTagName("body")[0].removeChild(
-	input
+  input
       );    
     });
 
     afterAll(function () {
       try {
-	var mirrors = document.querySelectorAll(".hint.mirror");
-	for (var i in mirrors) {
-	  mirrors[i].parentNode.removeChild(mirrors[i])
-	};
+  var mirrors = document.querySelectorAll(".hint.mirror");
+  for (var i in mirrors) {
+    mirrors[i].parentNode.removeChild(mirrors[i])
+  };
       }
       catch (e) {};
     });
@@ -128,7 +128,7 @@ define(['hint'], function () {
       expect(analyzer.test("impcnx/")).toEqual("impcnx/");
       expect(analyzer.test("cnx/c=npcnx/")).toEqual("npcnx/");
       expect(analyzer.test("mate/m=degree:pos corenlp/ne_dewac_175m_600="))
-	.toEqual("corenlp/ne_dewac_175m_600=");
+  .toEqual("corenlp/ne_dewac_175m_600=");
       expect(analyzer.test("corenlp/")).toEqual("corenlp/");
       expect(analyzer.test("corenlp/c=")).toEqual("corenlp/c=");
       expect(analyzer.test("corenlp/c=PP-")).toEqual("corenlp/c=PP-");
@@ -145,13 +145,13 @@ define(['hint'], function () {
   describe('KorAP.Hint', function () {
     KorAP.hintArray = {
       "-" : [
-	["Base Annotation", "base/s=", "Structure"],
-	["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"]
+  ["Base Annotation", "base/s=", "Structure"],
+  ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"]
       ],
       "corenlp/" : [
-	["Named Entity", "ne=" , "Combined"],
-	["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
-	["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
+  ["Named Entity", "ne=" , "Combined"],
+  ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
+  ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
       ]
     };
 
@@ -169,15 +169,16 @@ define(['hint'], function () {
     it('should be initializable', function () {
       // Supports: context, searchField
       var hint = hintClass.create({
-	inputField : input
+  inputField : input
       });
 
       expect(hint).toBeTruthy();
     });
 
+    
     it('should alert at char pos', function () {
       var hint = hintClass.create({
-	inputField : input
+        inputField : input
       });
 
       expect(hint.active()).toBeFalsy();
@@ -198,13 +199,38 @@ define(['hint'], function () {
       hint.update();
 
       expect(hint.alert().active).toBeFalsy();
-
       expect(hint.active()).toBeFalsy();
+
+      // Show again
+      expect(hint.alert(5, 'That does not work!')).toBeTruthy();
+      expect(hint.inputField().mirrorValue()).toEqual('abcde');
+      expect(hint.alert().active).toBeTruthy();
+      expect(hint.active()).toBeTruthy();
+
+      // Show menu, hide alert!
+      hint.show(false);
+      expect(hint.active()).toBeTruthy();
+      expect(hint.inputField().mirrorValue()).toEqual('abcde');
+      expect(hint.alert().active).toBeFalsy();
+
+            // Show again
+      expect(hint.alert(5, 'That does not work!')).toBeTruthy();
+      expect(hint.inputField().mirrorValue()).toEqual('abcde');
+      expect(hint.alert().active).toBeTruthy();
+      expect(hint.active()).toBeTruthy();
+
+      // Show menu, hide alert!
+      hint.show(false);
+      expect(hint.active()).toBeTruthy();
+      expect(hint.inputField().mirrorValue()).toEqual('abcde');
+      expect(hint.alert().active).toBeFalsy();
     });
 
+
+    
     it('should view main menu on default', function () {
       var hint = hintClass.create({
-	      inputField : input
+        inputField : input
       });
 
       expect(hint.active()).toBeFalsy();
@@ -247,23 +273,45 @@ define(['hint'], function () {
       // show with context
       hint.show(true);
 
-      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
-      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
+      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(1);
+      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(0);
+    });
+
+    it('should not view main menu if context is mandatory', function () {
+      var hint = hintClass.create({
+        inputField : input
+      });
+
+      expect(hint.active()).toBeFalsy();
+
+      // Fine
+      hint.inputField().insert('der Baum corenlp/');
+      hint.show(true);
+      expect(hint.active()).toBeTruthy();
+
+      // Not analyzable
+      hint.inputField().insert('jhgjughjfhgnhfcvgnhj');
+      hint.show(true);
+      expect(hint.active()).toBeFalsy();
+
+      // Not available
+      hint.inputField().insert('jhgjughjfhgnhfcvgnhj/');
+      hint.show(true);
+      expect(hint.active()).toBeFalsy();
     });
     
     xit('should remove all menus on escape');
   });
 
-
   
   describe('KorAP.HintMenuItem', function () {
     it('should be initializable', function () {
       expect(
-	function() { menuItemClass.create([]) }
+  function() { menuItemClass.create([]) }
       ).toThrow(new Error("Missing parameters"));
 
       expect(
-	function() { menuItemClass.create(['CoreNLP']) }
+  function() { menuItemClass.create(['CoreNLP']) }
       ).toThrow(new Error("Missing parameters"));
 
       var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
@@ -272,7 +320,7 @@ define(['hint'], function () {
       expect(menuItem.desc()).toBeUndefined();
 
       menuItem = menuItemClass.create(
-	['CoreNLP', 'corenlp/', 'It\'s funny']
+  ['CoreNLP', 'corenlp/', 'It\'s funny']
       );
       expect(menuItem.name()).toEqual('CoreNLP');
       expect(menuItem.action()).toEqual('corenlp/');
@@ -293,7 +341,7 @@ define(['hint'], function () {
       expect(menuItem.element().childNodes[1]).toBe(undefined);
 
       menuItem = menuItemClass.create(
-	['CoreNLP', 'corenlp/', 'my DescRiption']
+  ['CoreNLP', 'corenlp/', 'my DescRiption']
       );
       expect(menuItem.element()).not.toBe(undefined);
       expect(menuItem.element().nodeName).toEqual("LI");
