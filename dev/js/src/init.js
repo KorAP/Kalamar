@@ -27,16 +27,16 @@ define([
   'lib/highlight/highlight.pack',
   'util'
 ], function (matchClass,
-	     hintClass,
-	     vcClass,
-	     tutClass,
-	     domReady,
-	     hintArray,
-	     vcArray,
-	     alertifyClass,
-	     sessionClass,
-	     tagger,
-	     selectMenuClass) {
+             hintClass,
+             vcClass,
+             tutClass,
+             domReady,
+             hintArray,
+             vcArray,
+             alertifyClass,
+             sessionClass,
+             tagger,
+             selectMenuClass) {
 
   // Set hint array for hint helper
   KorAP.hintArray = hintArray;
@@ -55,7 +55,7 @@ define([
     // Use alertify to log errors
     alertifyClass.log(
       (code === 0 ? '' : code + ': ') +
-	msg,
+        msg,
       'error',
       10000
     );
@@ -75,7 +75,7 @@ define([
     if (KorAP.Notifications !== undefined) {
       var n = KorAP.Notifications;
       for (var i = 0; i < n.length; i++) {
-	alertifyClass.log(n[i][1], n[i][0], 10000);
+        alertifyClass.log(n[i][1], n[i][0], 10000);
       };
     };
 
@@ -92,13 +92,13 @@ define([
 
       var currentVC = loc.VC_allCorpora;
       if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
-	currentVC = loc.VC_oneCollection;
+        currentVC = loc.VC_oneCollection;
       };
 
       vcname.appendChild(
-	document.createTextNode(
-	  document.getElementById('collection-name').value || currentVC
-	)
+        document.createTextNode(
+          document.getElementById('collection-name').value || currentVC
+        )
       );
 
       input.parentNode.insertBefore(vcname, input);
@@ -114,28 +114,28 @@ define([
 
     for (i = 0; i < inactiveLi.length; i++) {
       inactiveLi[i].addEventListener('click', function (e) {
-	if (this._match !== undefined)
-	  this._match.open();
-	else {
-	  // lazyLoad
-	  matchClass.create(this).open();
-	};
-	e.halt();
+        if (this._match !== undefined)
+          this._match.open();
+        else {
+          // lazyLoad
+          matchClass.create(this).open();
+        };
+        e.halt();
       });
       inactiveLi[i].addEventListener('keydown', function (e) {
-	var code = _codeFromEvent(e);
-	
-	switch (code) {
-	case 32:
-	  if (this._match !== undefined)
-	    this._match.toggle();
-	  else {
-	    // lazyLoad
-	    matchClass.create(this).open();
-	  };
-	  e.halt();
-	  break;
-	};
+        var code = _codeFromEvent(e);
+        
+        switch (code) {
+        case 32:
+          if (this._match !== undefined)
+            this._match.toggle();
+          else {
+            // lazyLoad
+            matchClass.create(this).open();
+          };
+          e.halt();
+          break;
+        };
       });
     };
 
@@ -158,66 +158,66 @@ define([
     if (KorAP.koralQuery !== undefined) {
 
       if (resultButton !== null) {
-	var kq;
-      	var toggle = document.createElement('a');
-	toggle.setAttribute('title', loc.SHOW_KQ)
-	toggle.classList.add('show-kq', 'button');
-	toggle.appendChild(document.createElement('span'))
-	  .appendChild(document.createTextNode(loc.SHOW_KQ));
-	resultButton.appendChild(toggle);
+        var kq;
+        var toggle = document.createElement('a');
+        toggle.setAttribute('title', loc.SHOW_KQ)
+        toggle.classList.add('show-kq', 'button');
+        toggle.appendChild(document.createElement('span'))
+          .appendChild(document.createTextNode(loc.SHOW_KQ));
+        resultButton.appendChild(toggle);
 
-	var showKQ = function () {
-	  if (kq === undefined) {
-	    kq = document.createElement('div');
-	    kq.setAttribute('id', 'koralquery');
-	    kq.style.display = 'none';
-	    var kqInner = document.createElement('div');
-	    kq.appendChild(kqInner);
-	    kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
-	    hljs.highlightBlock(kqInner);
-	    var sb = document.getElementById('search');
-	    sb.insertBefore(kq, sb.firstChild);
-	  };
+        var showKQ = function () {
+          if (kq === undefined) {
+            kq = document.createElement('div');
+            kq.setAttribute('id', 'koralquery');
+            kq.style.display = 'none';
+            var kqInner = document.createElement('div');
+            kq.appendChild(kqInner);
+            kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
+            hljs.highlightBlock(kqInner);
+            var sb = document.getElementById('search');
+            sb.insertBefore(kq, sb.firstChild);
+          };
 
-	  if (kq.style.display === 'none') {
-	    kq.style.display = 'block';
-	    show['kq'] = true;
-	  }
-	  else {
-	    kq.style.display = 'none';
-	    delete show['kq'];
-	  };
-	};
+          if (kq.style.display === 'none') {
+            kq.style.display = 'block';
+            show['kq'] = true;
+          }
+          else {
+            kq.style.display = 'none';
+            delete show['kq'];
+          };
+        };
 
-	if (toggle !== undefined) {
-      
-	  // Show koralquery
-	  toggle.addEventListener('click', showKQ);
-	};
+        if (toggle !== undefined) {
+          
+          // Show koralquery
+          toggle.addEventListener('click', showKQ);
+        };
       };
 
       if (KorAP.koralQuery["errors"]) {
-	var errors = KorAP.koralQuery["errors"];
-	for (var i in errors) {
+        var errors = KorAP.koralQuery["errors"];
+        for (var i in errors) {
 
-	  // Malformed query
-	  if (errors[i][0] === 302 && errors[i][2]) {
-	    obj.hint = hintClass.create();
-	    obj.hint.alert(errors[i][2], errors[i][1]);
-	    break;
-	  }
+          // Malformed query
+          if (errors[i][0] === 302 && errors[i][2]) {
+            obj.hint = hintClass.create();
+            obj.hint.alert(errors[i][2], errors[i][1]);
+            break;
+          }
 
-	  // no query
-	  else if (errors[i][0] === 301) {
-	    obj.hint = hintClass.create();
-	    obj.hint.alert(0, errors[i][1]);	    
-	  }
-	}
+          // no query
+          else if (errors[i][0] === 301) {
+            obj.hint = hintClass.create();
+            obj.hint.alert(0, errors[i][1]);      
+          }
+        }
       };
 
       // Session has KQ visibility stored
       if (show["kq"])
-	showKQ.apply();
+        showKQ.apply();
     };
 
 
@@ -232,14 +232,14 @@ define([
       var cl = toggle.classList;
       cl.add('align', 'right', 'button');
       toggle.addEventListener(
-	'click',
-	function (e) {
-	  var ol = document.querySelector('#search > ol');
-	  ol.toggleClass("align-left", "align-right");
-	  this.toggleClass("left", "right");
-	});
+        'click',
+        function (e) {
+          var ol = document.querySelector('#search > ol');
+          ol.toggleClass("align-left", "align-right");
+          this.toggleClass("left", "right");
+        });
       toggle.appendChild(document.createElement('span'))
-	.appendChild(document.createTextNode(loc.TOGGLE_ALIGN));
+        .appendChild(document.createTextNode(loc.TOGGLE_ALIGN));
       resultButton.appendChild(toggle);
     };
 
@@ -250,38 +250,38 @@ define([
     if (vcname) {
       var vc;
       var vcclick = function () {
-	var view = document.getElementById('vc-view');
+        var view = document.getElementById('vc-view');
 
-	// The vc is visible
-	if (vcname.classList.contains('active')) {
-	  view.removeChild(vc.element());
-	  vcname.classList.remove('active');
-	  delete show['collection'];
-	}
+        // The vc is visible
+        if (vcname.classList.contains('active')) {
+          view.removeChild(vc.element());
+          vcname.classList.remove('active');
+          delete show['collection'];
+        }
 
-	// The vc is not visible
-	else {
-	  if (vc === undefined)
-	    vc = _getCurrentVC(vcClass, vcArray);
-	  view.appendChild(vc.element());
-	  vcname.classList.add('active');
-	  show['collection'] = true;
-	};
+        // The vc is not visible
+        else {
+          if (vc === undefined)
+            vc = _getCurrentVC(vcClass, vcArray);
+          view.appendChild(vc.element());
+          vcname.classList.add('active');
+          show['collection'] = true;
+        };
       };
       vcname.onclick = vcclick;
       if (show['collection']) {
-	vcclick.apply();
+        vcclick.apply();
       };
     };
 
-  
+    
     /**
      * Init Tutorial view
      */
     if (document.getElementById('view-tutorial')) {
       window.tutorial = tutClass.create(
-	document.getElementById('view-tutorial'),
-	session
+        document.getElementById('view-tutorial'),
+        session
       );
       obj.tutorial = window.tutorial;
     }
@@ -306,30 +306,30 @@ define([
     var form = document.getElementById('searchform');
     if (form !== null) {
       form.addEventListener('submit', function (e) {
-	var qf = document.getElementById('q-field');
+        var qf = document.getElementById('q-field');
 
-	// No query was defined
-	if (qf.value === undefined || qf.value === '') {
-	  qf.focus();
-	  e.halt();
-	  KorAP.log(700, "No query given");
-	  return;
-	};
+        // No query was defined
+        if (qf.value === undefined || qf.value === '') {
+          qf.focus();
+          e.halt();
+          KorAP.log(700, "No query given");
+          return;
+        };
 
-	// Store session information
-	session.set("show", show);
+        // Store session information
+        session.set("show", show);
 
-	// Set Virtual collection 
-	if (vc === undefined) {
-	  vc = _getCurrentVC(vcClass, vcArray);
-	};
+        // Set Virtual collection 
+        if (vc === undefined) {
+          vc = _getCurrentVC(vcClass, vcArray);
+        };
 
-	if (vc !== undefined) {
-	  input.value = vc.toQuery();
-	}
-	else {
-	  delete input['value'];
-	};
+        if (vc !== undefined) {
+          input.value = vc.toQuery();
+        }
+        else {
+          delete input['value'];
+        };
       });
     };
 

@@ -23,7 +23,18 @@ define(['util'], function () {
     url += '/' + match.docID;
     url += '/' + match.textID;
 */
-    url += '/' + match.textSigle;
+
+    var legacySigle = new RegExp('^([^_]+)_([^\.]+)\.(.+?)$');
+
+    // This is for legacy support
+    var legacy = legacySigle.exec(match.textSigle);
+    if (legacy[0]) {
+      url += '/' + legacy[1] + '/' + legacy[2] + '/' + legacy[3];
+    }
+    else {
+      url += '/' + match.textSigle;
+    }
+    
     url += '/' + match.matchID;
 
     // { spans: true, layer:x, foundry : y}
