@@ -80,16 +80,16 @@ Kalamar will then be available at ```localhost:3000``` in your browser.
 ### Localization
 
 To create a localized version of Kalamar, start the ```localize``` command
-with the default locale ```en``` followed by the target locale, e.g. ```pl``` for polish.
+with the target locale as its argument, e.g. ```pl``` for polish.
 
 ```
-$ perl script/kalamar localize en pl
+$ perl script/kalamar localize pl
 ```
 
 The newly defined dictionary file can then be added to the resource definition
 of the ```Localize``` plugin.
 
-Currently the JavaScript translations are separated and stored in ```dev/js/src/app```.
+Currently the JavaScript translations are separated and stored in ```dev/js/src/loc```.
 
 
 ## COPYRIGHT AND LICENSE
