@@ -1,58 +1,59 @@
-0.21 2016-09-08
-	- Use textSigle for API communication instead of
-	  {corpus,doc,text}ID.
-  - Added alert to hint helper.
-	- Improved menu creation.
-	- Introduced benchmark system.
-	- select elements are now improved menus.
-  - Hint menu do not append menus anymore.
-  - Updated dependency for bugfixed Localize.
+0.21 2016-09-12
+        - Use textSigle for API communication instead of
+          {corpus,doc,text}ID.
+        - Added alert to hint helper.
+        - Improved menu creation.
+        - Introduced benchmark system.
+        - select elements are now improved menus.
+        - Hint menu do not append menus anymore.
+        - Updated dependency for bugfixed Localize.
+        - Improved readme for localization generation.
 
 0.20 2016-05-25
-	- Improved menu using sliders.
-	- Improved menu to make prefixes chooseable,
-	  even if list can't be filtered.
-	- Improve pageup/pagedown behaviour in menus.
-	- Fixed multiple bugs in menu.
+        - Improved menu using sliders.
+        - Improved menu to make prefixes chooseable,
+          even if list can't be filtered.
+          - Improve pageup/pagedown behaviour in menus.
+          - Fixed multiple bugs in menu.
 
 0.19 2016-04-28
         - Improved datepicker to enter date strings.
-	- Improved menus to have fixed length depending
-	  on entry list.
+        - Improved menus to have fixed length depending
+          on entry list.
 
 0.18 2016-02-29
         - Support for dashes in identifiers.
-	- Minor changes to the layout.
-	- Simplified configuration file.
+        - Minor changes to the layout.
+        - Simplified configuration file.
 
 0.17 2015-11-13
         - Support a larger template cache.
-	- Minor style adjustments.
+        - Minor style adjustments.
 
 0.16 2015-06-18
         - Update to new KoralQuery API.
-	  WARNING! This version is no longer compatible
-	  with old responses of Krill.
-	- Introduced new notifications engine.
+          WARNING! This version is no longer compatible
+          with old responses of Krill.
+        - Introduced new notifications engine.
 
 0.15 2015-05-21
         - Cleanup for GitHub release
-	- First realease on GitHub.
+        - First realease on GitHub.
 
 0.14 2015-04-15
         - Redesign of JS and Sass assets
-	- Introduced RequireJS
-	- Introduced VC
-	- Improved tutorial
-	- Localized client files
+        - Introduced RequireJS
+        - Introduced VC
+        - Improved tutorial
+        - Localized client files
 
 0.13 2015-03-10
         - Project name is now "Kalamar"
-	- Removed Mr Crabs - introduced Karl
-	- Support semantic markup for KWIC
-	- Fixed Click-bug in hint-menu
-	- Renamed "KorAP" classes to "Kalamar"
-	- Support proxy
+        - Removed Mr Crabs - introduced Karl
+        - Support semantic markup for KWIC
+        - Fixed Click-bug in hint-menu
+        - Renamed "KorAP" classes to "Kalamar"
+        - Support proxy
 
 0.12 2015-01-28
         - Fixed alignment bug
@@ -60,11 +61,11 @@
 0.11 2014-01-16
         - Fixed paging bug with the async api
         - Disabled Testing feature in tutorial
-	- Improved test suite
+        - Improved test suite
 
 0.10 2014-12-21
-	- Fixed time_exceeded bug
-	- Fixed test_port bug for inspection button
+        - Fixed time_exceeded bug
+        - Fixed test_port bug for inspection button
 
 0.09 2014-12-03
         - Added new API module
@@ -77,18 +78,18 @@
 
 0.06 2014-09-22
         - Updated certain Notifications and AssetPack plugins
-	- Updated pagination plugin
+  - Updated pagination plugin
 
 0.05 2014-07-15
         - Improved tutorial support
-	- Added Exception mail system
+        - Added Exception mail system
 
 0.04 2014-07-08
         - Fixed template view
-   	- Preliminary match view
-	- Switched to asset pipeline wth sass
-	- Added syntax highlighting to JSON
-	- Update to Api 0.1
+        - Preliminary match view
+        - Switched to asset pipeline wth sass
+        - Added syntax highlighting to JSON
+        - Update to Api 0.1
 
 0.03 2014-06-20
         - Added preliminary autocompletion support (freetime project)
@@ -100,4 +101,4 @@
         - Simplifications:
           Notifications plugin is at
           https://github.com/Akron/Mojolicious-Plugin-Notifications
-	  All other plugins can be found at CPAN
+          All other plugins can be found at CPAN

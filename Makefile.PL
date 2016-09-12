@@ -24,7 +24,7 @@ WriteMakefile(
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Search' => 0.04,
-    'Mojolicious::Plugin::Localize' => 0.14
+    'Mojolicious::Plugin::Localize' => 0.15
   },
   test => {
     TESTS => 't/*.t'

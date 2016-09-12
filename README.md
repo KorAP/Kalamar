@@ -72,9 +72,24 @@ The easiest way is to start the built-in server:
 $ perl script/kalamar daemon
 ```
 
-Kalamar will then be available at *localhost:3000* in your browser.
+Kalamar will then be available at ```localhost:3000``` in your browser.
 
 **! By default, Kalamar tries to connect to the KorAP API at the IDS. You may not have access to this server!**
+
+
+### Localization
+
+To create a localized version of Kalamar, start the ```localize``` command
+with the target locale as its argument, e.g. ```pl``` for polish.
+
+```
+$ perl script/kalamar localize pl
+```
+
+The newly defined dictionary file can then be added to the resource definition
+of the ```Localize``` plugin.
+
+Currently the JavaScript translations are separated and stored in ```dev/js/src/app```.
 
 
 ## COPYRIGHT AND LICENSE
