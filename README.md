@@ -15,7 +15,6 @@ To fetch the latest version of Kalamar ...
 
 ```
 $ git clone https://github.com/KorAP/Kalamar
-$ cd Kalamar
 ```
 
 ### Generate Static Asset Files
@@ -28,6 +27,8 @@ This will probably need administration
 rights. 
 
 ```
+$ cd Kalamar
+$ npm install -g grunt-cli
 $ npm install
 $ grunt
 ```
@@ -52,15 +53,10 @@ $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
 Then install the dependencies as always and run the test suite.
 
 ```
+$ cd Kalamar
 $ cpanm --installdeps .
 $ perl Makefile.PL
 $ make test
-```
-
-If you want to install Kalamar (which is not necessary), run
-
-```
-$ cpanm .
 ```
 
 Kalamar can be deployed like all
