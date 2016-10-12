@@ -73,7 +73,8 @@ $ perl script/kalamar daemon
 
 Kalamar will then be available at ```localhost:3000``` in your browser.
 
-**! By default, Kalamar tries to connect to the KorAP API at the IDS. You may not have access to this server!**
+By default, Kalamar tries to connect to ```localhost:9999```.
+You may change that endpoint to the KorAP API provider in ```kalamar.conf```.
 
 
 ### Localization
