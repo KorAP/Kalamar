@@ -21,9 +21,9 @@ $ cd Kalamar
 ### Generate Static Asset Files
 
 To generate the static asset files (scripts, styles, images ...),
-you need NodeJS > 0.8 and npm.
+you need NodeJS > 0.8 and npm (maybe bundled with your version of NodeJS).
 For processing Sass, you will need Ruby with
-the sass gem in addition.
+the ```sass``` gem in addition.
 This will probably need administration
 rights. 
 
@@ -50,7 +50,6 @@ $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
 ```
 
 Then install the dependencies as always and run the test suite.
-There is no need to install Kalamar on your system.
 
 ```
 $ cpanm --installdeps .
@@ -58,7 +57,7 @@ $ perl Makefile.PL
 $ make test
 ```
 
-or
+If you want to install Kalamar (which is not necessary), run
 
 ```
 $ cpanm .

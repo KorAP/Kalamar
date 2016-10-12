@@ -69,7 +69,7 @@ my $THOUSAND_SEP_RE = qr/(
     by => 'by',
     with => 'with',
     pubOn => 'published on',
-    matchCount => '<%= num($found, "match", "matches") %>',
+    matchCount => '<%= quant($found, "match", "matches") %>',
     noMatches => 'There were no matches found for <%== loc("searchjob") %>.',
     notFound => '404 - Page not found',
     glimpse => {
