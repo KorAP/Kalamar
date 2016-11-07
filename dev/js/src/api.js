@@ -28,7 +28,7 @@ define(['util'], function () {
 
     // This is for legacy support
     var legacy = legacySigle.exec(match.textSigle);
-    if (legacy[0]) {
+    if (legacy !== null && legacy[0]) {
       url += '/' + legacy[1] + '/' + legacy[2] + '/' + legacy[3];
     }
     else {

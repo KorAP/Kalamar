@@ -36,7 +36,7 @@ define(
 	          ._init(list, {
 	            itemClass : selectMenuItemClass
 	          });
-
+        
 	      obj._container = element;
 	      obj._select = select;
 	      obj._select.style.display = 'none';
@@ -67,7 +67,6 @@ define(
 	        this.showTitle();
 	      }.bind(obj));
 
-        // Show the title
 	      obj.showTitle();
 	      return obj;
       },
@@ -81,7 +80,7 @@ define(
 	        this._select.selectedIndex = index;
 	      };
 
-	      return this._selected || 0;
+	      return this._selected || this._select.selectedIndex || 0;
       },
 
       /**

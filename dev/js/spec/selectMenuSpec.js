@@ -54,6 +54,27 @@ define(
         // TODO: Improve lcfield!!!!!!
 	      expect(menu.shownItem(0).lcField()).toEqual(' poliqarp');
       });
+
+      it('should first show the selected value', function () {
+	      var div = document.createElement('div');
+	      var element = div.appendChild(document.createElement('select'));
+	      for (i in list) {
+	        var opt = element.appendChild(document.createElement('option'));
+	        opt.setAttribute('value', list[i].value);
+	        opt.appendChild(document.createTextNode(list[i].content));
+	      };
+
+        expect(element.selectedIndex).toEqual(0);
+
+        // Select annis
+        element.children[2].selected = true;
+
+        expect(element.selectedIndex).toEqual(2);
+        
+	      var menu = selectMenuClass.create(div);
+        menu.show(3);
+        expect(menu._title.textContent).toEqual('Annis');
+      });
     });
   }
 );

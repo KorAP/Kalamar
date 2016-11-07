@@ -111,6 +111,7 @@ require(['init'], function () {
 //  var treeSnippet = "<span class=\"context-left\"><\/span><span class=\"match\">In diesem <span title=\"cnx\/c:np\">Sinne<\/span> schrieb <span title=\"cnx\/c:np\">Brunschwicg<\/span>:&quot;In <span title=\"cnx\/c:np\">Euklids<\/span> <span title=\"cnx\/c:np\">Elementen<\/span> <span title=\"cnx\/c:np\">spiegel<\/span> sich die <span title=\"cnx\/c:np\">Resultate<\/span> der <span title=\"cnx\/c:np\">Arbeit von Generationen vor Aristoteles<\/span> wider, nicht nur die <span title=\"cnx\/c:np\">technische Arbeit<\/span> der <span title=\"cnx\/c:np\">Entdecklung<\/span>, sondern auch die <span title=\"cnx\/c:np\">methodologische Arbeit<\/span> der <span title=\"cnx\/c:np\">Verbindung<\/span> und des <span title=\"cnx\/c:np\">Beweises<\/span>, die, in der <span title=\"cnx\/c:np\">Schule<\/span> des <span title=\"cnx\/c:np\">Phythagoras<\/span> begonnen, ihre <span title=\"cnx\/c:np\">Vollendung in den Schulen von Eudoxos von Cnidus<\/span> und <span title=\"cnx\/c:np\">Platon<\/span> gefunden hat&quot;(5<\/span><span class=\"context-right\"><\/span>";
 
   KorAP.API.getMatchInfo = function(match, callObj, cb) {
+    console.dir(callObj);
     if (callObj["spans"] !== undefined && callObj["spans"] === true) {
       return cb({ "snippet": treeSnippet });
     }

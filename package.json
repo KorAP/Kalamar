@@ -1,6 +1,7 @@
 {
   "name": "Kalamar",
   "description": "Mojolicious-based Frontend for KorAP",
+  "license" : "BSD-2-Clause",
   "version": "0.21.0",
   "repository" : {
     "type": "git",
