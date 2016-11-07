@@ -1,4 +1,4 @@
-0.21 2016-09-12
+0.21 2016-11-07
         - Use textSigle for API communication instead of
           {corpus,doc,text}ID.
         - Added alert to hint helper.
@@ -8,6 +8,10 @@
         - Hint menu do not append menus anymore.
         - Updated dependency for bugfixed Localize.
         - Improved readme for localization generation.
+        - Fixed select menus to show selected item on
+          initialization.
+        - Improved compatibility for new text sigles.
+        - Fixed alert to not be correctly hidden.
 
 0.20 2016-05-25
         - Improved menu using sliders.

@@ -25,7 +25,8 @@ ul.menu.hint {
 
 div.alert.hint {
   position: absolute;
-  background-color: rgba(254,26,0,.9); // from alertify
+//  background-color: rgba(254,26,0,.9); // from alertify
+  background-color: rgb(254,26,0); // from alertify
   color: $nearly-white;
   padding: $item-padding;
   margin-top: 8px;
@@ -51,7 +52,7 @@ div.hint.alert::before {
   border: {
     width: 0 8px 12px 0;
     style: solid;
-    color: rgba(254,26,0,.9) transparent; // from alertify
+    color: rgb(254,26,0) transparent; // from alertify
   }
 }
 

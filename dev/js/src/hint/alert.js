@@ -11,20 +11,20 @@ define(function () {
       this._type = 'alert';
       this.active = false;
       this._element = document.createElement('div');
-      this._element.style.opacity = 0;
+      this._element.style.display = 'none';
       this._element.classList.add('alert', 'hint');
       return this;
     },
     show : function (msg) {
       this._element.textContent = msg;
       this.active = true;
-      this._element.style.opacity = 1;
+      this._element.style.display = 'block';
     },
 
     hide : function () {
       if (!this.active)
-	return false;
-      this._element.style.opacity = 0;
+	      return false;
+      this._element.style.display = 'none';
       this.active = false;
       return true;
     },

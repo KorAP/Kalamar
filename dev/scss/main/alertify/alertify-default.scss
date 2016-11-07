@@ -65,7 +65,8 @@
 
 .alertify-log {
   background: #1F1F1F;
-  background: rgba(0,0,0,.9);
+//  background: rgba(0,0,0,.9);
+  background: rgb(0,0,0);
   padding: 15px;
   border-radius: 4px;
   color: #FFF;
@@ -73,9 +74,11 @@
 }
 .alertify-log-error {
   background: #FE1A00;
-  background: rgba(254,26,0,.9);
+  //  background: rgba(254,26,0,.9);
+    background: rgb(254,26,0);
 }
 .alertify-log-success {
   background: #5CB811;
-  background: rgba(92,184,17,.9);
+//  background: rgba(92,184,17,.9);
+  background: rgb(92,184,17);
 }
