@@ -146,6 +146,22 @@ function matchElementFactory () {
   return me;
 };
 
+function matchElementReal () {
+  var me = document.createElement('em');
+  me.innerHTML =
+    '<li data-match-id="p85183-85184"' +
+    ' data-text-sigle="GOE/AGI/00000"' +
+    ' data-available-info="base/s=spans corenlp/c=spans corenlp/p=tokens corenlp/s=spans dereko/s=spans malt/d=rels opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"' +
+    ' data-info="{&quot;UID&quot;:0,&quot;author&quot;:&quot;Goethe, Johann Wolfgang von&quot;,&quot;corpusID&quot;:null,&quot;corpusSigle&quot;:&quot;GOE&quot;,&quot;docID&quot;:null,&quot;docSigle&quot;:&quot;GOE\/AGI&quot;,&quot;layerInfos&quot;:&quot;base\/s=spans corenlp\/c=spans corenlp\/p=tokens corenlp\/s=spans dereko\/s=spans malt\/d=rels opennlp\/p=tokens opennlp\/s=spans tt\/l=tokens tt\/p=tokens tt\/s=spans&quot;,&quot;matchID&quot;:&quot;match-GOE\/AGI\/00000-p85183-85184&quot;,&quot;pubDate&quot;:&quot;1982&quot;,&quot;pubPlace&quot;:&quot;München&quot;,&quot;subTitle&quot;:&quot;Auch ich in Arkadien!&quot;,&quot;textID&quot;:null,&quot;textSigle&quot;:&quot;GOE\/AGI\/00000&quot;,&quot;title&quot;:&quot;Italienische Reise&quot;}"' +
+    ' id="GOE/AGI/00000#p85183-85184">' +
+    '<div>' + 
+    '<div class="flag"></div>' +
+    '<div class="snippet startMore endMore"><span class="context-left"><span class="more"></span>keine großen Flächen, aber sanft gegeneinander laufende Berg- und Hügelrücken, durchgängig mit Weizen und Gerste bestellt, die eine ununterbrochene Masse von Fruchtbarkeit dem Auge darbieten. der diesen Pflanzen geeignete Boden wird so genutzt und so geschont, daß man nirgends einen </span><span class="match"><mark>Baum</mark></span><span class="context-right"> sieht, ja, alle die kleinen Ortschaften und Wohnungen liegen auf Rücken der Hügel, wo eine hinstreichende Reihe Kalkfelsen den Boden ohnehin unbrauchbar macht. dort wohnen die Weiber das ganze Jahr, mit Spinnen und Weben beschäftigt, die Männer hingegen bringen zur<span class="more"></span></span></div>' +
+    '</div>' +
+    '<p class="ref"><strong>Italienische Reise</strong> von Goethe, Johann Wolfgang von (<time datetime="1982">1982</time>)  <span class="sigle">[GOE/AGI/00000]</span> </p>' +
+    '</li>';
+  return me.firstChild;
+};
 
 define(['match'], function () {
 
@@ -238,7 +254,7 @@ define(['match'], function () {
     });
 
 
-    it('should be initializable by Node', function () {
+    it('should be initializable by Node 1', function () {
       var m = matchClass.create(matchElementFactory());
       expect(m.textSigle).toEqual("WPD/FFF/01460");
       expect(m.matchID).toEqual("p119-120");
@@ -270,6 +286,14 @@ define(['match'], function () {
 
     });
 
+    it('should be initializable by Node 2', function () {
+      var ele = matchElementReal();
+      var m = matchClass.create(ele);
+      expect(m.textSigle).toEqual("GOE/AGI/00000");
+      expect(m.matchID).toEqual("p85183-85184");
+    });
+
+    
     it('should react to gui actions', function () {
       var e = matchElementFactory();
 
