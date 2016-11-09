@@ -133,21 +133,22 @@ define([
       
       // TODO: Support and cache multiple trees
       KorAP.API.getMatchInfo(
-	this._match, {
-	  'spans' : true,
-	  'foundry' : foundry,
-	  'layer' : layer
-	},
-	function (matchResponse) {
-	  // Get snippet from match info
-	  if (matchResponse["snippet"] !== undefined) {
-	    // Todo: This should be cached somehow
-	    cb(matchTreeClass.create(matchResponse["snippet"]));
-	  }
-	  else {
-	    cb(null);
-	  };
-	}.bind(this)
+	      this._match, {
+	        'spans' : true,
+	        'foundry' : foundry,
+	        'layer' : layer
+	      },
+	      function (matchResponse) {
+	        // Get snippet from match info
+	        if (matchResponse["snippet"] !== undefined) {
+	          // Todo: This should be cached somehow
+
+	          cb(matchTreeClass.create(matchResponse["snippet"]));
+	        }
+	        else {
+	          cb(null);
+	        };
+	      }.bind(this)
       );
     },
 
@@ -181,17 +182,21 @@ define([
 	.appendChild(document.createTextNode(layer));
       
       var tree = matchtree.appendChild(
-	document.createElement('div')
+	      document.createElement('div')
       );
       
       this._element.insertBefore(matchtree, this._element.lastChild);
 
-      var close = tree.appendChild(document.createElement('em'));
+      var actions = tree.appendChild(document.createElement('ul'));
+      actions.classList.add('action', 'image');
+      var close = actions.appendChild(document.createElement('li'));
+      close.className = 'close';
+      close.appendChild(document.createElement('span'));
       close.addEventListener(
-	'click', function (e) {
-	  matchtree.parentNode.removeChild(matchtree);
-	  e.halt();
-	}
+	      'click', function (e) {
+	        matchtree.parentNode.removeChild(matchtree);
+	        e.halt();
+	      }
       );
 
       tree.classList.add('loading');
@@ -199,25 +204,44 @@ define([
       // Get tree data async
       this.getTree(foundry, layer, function (treeObj) {
 
-	tree.classList.remove('loading');
+	      tree.classList.remove('loading');
 
-	// Something went wrong - probably log!!!
+	      // Something went wrong - probably log!!!
 
-	if (treeObj === null) {
-	  tree.appendChild(document.createTextNode('No data available.'));
-	}
-	else {
-	  tree.appendChild(treeObj.element());
-	  // Reposition the view to the center
-	  // (This may in a future release be a reposition
-	  // to move the root into the center or the actual
-	  // match)
-	  treeObj.center();
-	};
+	      if (treeObj === null) {
+	        tree.appendChild(document.createTextNode('No data available.'));
+	      }
+	      else {
+	        tree.appendChild(treeObj.element());
+	        // Reposition the view to the center
+	        // (This may in a future release be a reposition
+	        // to move the root into the center or the actual
+	        // match)
+
+          var dl = document.createElement('li');
+          dl.className = 'download';
+          dl.addEventListener(
+	          'click', function (e) {
+
+              var a = document.createElement('a');
+              a.setAttribute('href-lang', 'image/svg+xml');
+              a.setAttribute('href', 'data:image/svg+xml;base64,'+treeObj.toBase64());
+              a.setAttribute('download', 'tree.svg');
+              a.target = '_blank';
+
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a)
+
+              e.halt();
+	          }
+          );
+          actions.appendChild(dl);
+          treeObj.center();
+	      };
 	
-	if (cb !== undefined)
-	  cb(treeObj);
-
+	      if (cb !== undefined)
+	        cb(treeObj);
       });
     },
     
@@ -227,7 +251,7 @@ define([
     element : function () {
       
       if (this._element !== undefined)
-	return this._element;
+	      return this._element;
       
       // Create info table
       var info = document.createElement('div');

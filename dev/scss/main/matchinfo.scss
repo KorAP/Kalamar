@@ -187,24 +187,40 @@ div.matchtree {
     margin-right: $right-match-distance;
 
     background-color: $light-orange; // $nearly-white; // $light-orange;
-    > em {
-      color: $nearly-white;
-      cursor: pointer;
+    > ul.action.image {
       display: block;
       position: absolute;
       right: 0px;
       top: 0px;
+      z-index: 20;
+      /*
+      margin: 0;
+      padding: 0;
+     */
       width: $right-match-distance;
-      border-width: 0;
-      z-index: 8;
-      text-decoration:none;
-      text-align: center;
-      font-weight: bold;
-      font-style: normal;
+      li {
+        cursor: pointer;
+        color: $nearly-white;
+        text-decoration: none;
+        > span {
+          @include blind;
+        }
+        border-width: 0;
+        // z-index: 8;
+        text-decoration:none;
+        text-align: center;
+        font-weight: bold;
+        font-style: normal;
 
-      &::after {
-	font-family: 'FontAwesome';
-	content: $fa-close;
+        &.download::after {
+	        font-family: 'FontAwesome';
+	        content: $fa-download;
+        }
+
+        &.close::after {
+	        font-family: 'FontAwesome';
+	        content: $fa-close;
+        }
       }
     }
   }

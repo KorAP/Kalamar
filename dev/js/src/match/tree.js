@@ -35,25 +35,25 @@ define(['lib/dagre'], function (dagre) {
      */
     create : function (snippet) {
       return Object.create(this).
-	_init(snippet);
+       _init(snippet);
     },
 
 
     // Initialize the tree based on a snippet.
     _init : function (snippet) {
       this._next = new Number(0);
-
+      
       // Create html for traversal
       var html = document.createElement("div");
       html.innerHTML = snippet;
       var g = new dagre.graphlib.Graph({
-	"directed" : true	
+       "directed" : true 
       });
       g.setGraph({
-	"nodesep" : 35,
-	"ranksep" : 15,
-	"marginx" : 40,
-	"marginy" : 10
+       "nodesep" : 35,
+       "ranksep" : 15,
+       "marginx" : 40,
+       "marginy" : 10
       });
       g.setDefaultEdgeLabel({});
 
@@ -61,8 +61,8 @@ define(['lib/dagre'], function (dagre) {
       
       // This is a new root
       this._addNode(
-	      this._next++,
-	      { "class" : "root" }
+       this._next++,
+       { "class" : "root" }
       );
       
       // Parse nodes from root
@@ -70,7 +70,7 @@ define(['lib/dagre'], function (dagre) {
 
       // Root node has only one child - remove
       if (g.outEdges(0).length === 1)
-	g.removeNode(0);
+       g.removeNode(0);
 
       html = undefined;
       return this;
@@ -104,60 +104,60 @@ define(['lib/dagre'], function (dagre) {
     // Parse the snippet
     _parse : function (parent, children, mark) {
       for (var i in children) {
-	      var c = children[i];
+       var c = children[i];
 
-	      // Element node
-	      if (c.nodeType == 1) {
+       // Element node
+       if (c.nodeType == 1) {
 
-	        // Get title from html
-	        if (c.getAttribute("title")) {
-	          var title = this._clean(c.getAttribute("title"));
+         // Get title from html
+         if (c.getAttribute("title")) {
+           var title = this._clean(c.getAttribute("title"));
 
-	          // Add child node
-	          var id = this._next++;
+           // Add child node
+           var id = this._next++;
 
-	          var obj = this._addNode(id, {
-	            "class" : "middle",
-	            "label" : title
-	          });
+           var obj = this._addNode(id, {
+             "class" : "middle",
+             "label" : title
+           });
             
             if (mark !== undefined) {
               obj.class += ' mark';
             };
             
-	          this._addEdge(parent, id);
+           this._addEdge(parent, id);
 
-	          // Check for next level
-	          if (c.hasChildNodes())
-	            this._parse(id, c.childNodes, mark);
-	        }
+           // Check for next level
+           if (c.hasChildNodes())
+             this._parse(id, c.childNodes, mark);
+         }
 
-	        // Step further
-	        else if (c.hasChildNodes()) {
+         // Step further
+         else if (c.hasChildNodes()) {
 
             if (c.tagName === 'MARK') {
-	            this._parse(parent, c.childNodes, true);
+             this._parse(parent, c.childNodes, true);
             }
             else {
-	            this._parse(parent, c.childNodes, mark);
+             this._parse(parent, c.childNodes, mark);
             };
           };
-	      }
+       }
 
-	      // Text node
-	      else if (c.nodeType == 3)
+       // Text node
+       else if (c.nodeType == 3)
 
-	        if (c.nodeValue.match(/[-a-z0-9]/i)) {
+         if (c.nodeValue.match(/[-a-z0-9]/i)) {
 
-	          // Add child node
-	          var id = this._next++;
-	          this._addNode(id, {
-	            "class" : "leaf",
-	            "label" : c.nodeValue
-	          });
+           // Add child node
+           var id = this._next++;
+           this._addNode(id, {
+             "class" : "leaf",
+             "label" : c.nodeValue
+           });
 
-	          this._addEdge(parent, id);
-	        };
+           this._addEdge(parent, id);
+         };
       };
       return this;
     },
@@ -167,7 +167,7 @@ define(['lib/dagre'], function (dagre) {
      */
     center : function () {
       if (this._element === undefined)
-	return;
+       return;
 
       var treeDiv = this._element.parentNode;
 
@@ -175,22 +175,27 @@ define(['lib/dagre'], function (dagre) {
       var treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
       // Reposition:
       if (cWidth > treeWidth) {
-	var scrollValue = (cWidth - treeWidth) / 2;
-	treeDiv.scrollLeft = scrollValue;
+       var scrollValue = (cWidth - treeWidth) / 2;
+       treeDiv.scrollLeft = scrollValue;
       };
     },
 
+
+    toBase64 : function () {
+      return btoa(unescape(encodeURIComponent(this.element().outerHTML)));
+    },
+    
     /**
      * Get the dom element of the tree view.
      */
     element : function () {
       if (this._element !== undefined)
-	return this._element;
+       return this._element;
 
       var g = this._graph;
 
       dagre.layout(g);
-
+      
       var canvas = document.createElementNS(svgXmlns, 'svg');
       this._element = canvas;
 
@@ -198,82 +203,82 @@ define(['lib/dagre'], function (dagre) {
 
       // Create edges
       g.edges().forEach(
-	function (e) {
-	  var src = g.node(e.v);
-	  var target = g.node(e.w);
-	  var p = document.createElementNS(svgXmlns, 'path');
-	  p.setAttributeNS(null, "d", _line(src, target));
-	  p.classList.add('edge');
-	  canvas.appendChild(p);
-	});
+        function (e) {
+          var src = g.node(e.v);
+          var target = g.node(e.w);
+          var p = document.createElementNS(svgXmlns, 'path');
+          p.setAttributeNS(null, "d", _line(src, target));
+          p.classList.add('edge');
+          canvas.appendChild(p);
+        });
 
       // Create nodes
       g.nodes().forEach(
-	function (v) {
-	  v = g.node(v);
-	  var group = document.createElementNS(svgXmlns, 'g');
-	  group.setAttribute('class', v.class);
+        function (v) {
+          v = g.node(v);
+          var group = document.createElementNS(svgXmlns, 'g');
+          group.setAttribute('class', v.class);
+          
+          // Add node box
+          var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
+          rect.setAttribute('x', v.x - v.width / 2);
+          rect.setAttribute('y', v.y - v.height / 2);
+          rect.setAttribute('rx', 5);
+          rect.setAttribute('ry', 5);
+          rect.setAttribute('width', v.width);
+          rect.setAttribute('height', v.height);
 
-	  // Add node box
-	  var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
-	  rect.setAttribute('x', v.x - v.width / 2);
-	  rect.setAttribute('y', v.y - v.height / 2);
-	  rect.setAttribute('rx', 5);
-	  rect.setAttribute('ry', 5);
-	  rect.setAttribute('width', v.width);
-	  rect.setAttribute('height', v.height);
+          if (v.class === 'root' && v.label === undefined) {
+            rect.setAttribute('width', v.height);
+            rect.setAttribute('x', v.x - v.height / 2);
+            rect.setAttribute('class', 'empty');
+          };
 
-	  if (v.class === 'root' && v.label === undefined) {
-	    rect.setAttribute('width', v.height);
-	    rect.setAttribute('x', v.x - v.height / 2);
-	    rect.setAttribute('class', 'empty');
-	  };
+          // Add label
+          if (v.label !== undefined) {
+            var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
+            var y = v.y - v.height / 2;
+            text.setAttribute('y', y);
+            text.setAttribute(
+              'transform',
+              'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
+            );
+            
+            if (v.class === "leaf") {
+              text.setAttribute('title', v.label);
 
-	  // Add label
-	  if (v.label !== undefined) {
-	    var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
-	    var y = v.y - v.height / 2;
-	    text.setAttribute('y', y);
-	    text.setAttribute(
-	      'transform',
-	      'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
-	    );
+              var labelPart = v.label.split(" ");
+              var n = 0;
+              for (var i = 0; i < labelPart.length; i++) {
+                if (labelPart[i].length === 0)
+                  continue;
 
-	    if (v.class === "leaf") {
-	      text.setAttribute('title', v.label);
+                var tspan = document.createElementNS(svgXmlns, 'tspan');
+                tspan.appendChild(document.createTextNode(labelPart[i]));
+                if (n !== 0)
+                  tspan.setAttribute('dy', LINEHEIGHT + 'pt');
+                else
+                  n = 1;
+                tspan.setAttribute('x', v.x - v.width / 2);
+                y += LINEHEIGHT;
+                text.appendChild(tspan);
+              };
 
-	      var labelPart = v.label.split(" ");
-	      var n = 0;
-	      for (var i = 0; i < labelPart.length; i++) {
-		if (labelPart[i].length === 0)
-		  continue;
+              y += LINEHEIGHT;
 
-		var tspan = document.createElementNS(svgXmlns, 'tspan');
-		tspan.appendChild(document.createTextNode(labelPart[i]));
-		if (n !== 0)
-		  tspan.setAttribute('dy', LINEHEIGHT + 'pt');
-		else
-		  n = 1;
-		tspan.setAttribute('x', v.x - v.width / 2);
-		y += LINEHEIGHT;
-		text.appendChild(tspan);
-	      };
-
-	      y += LINEHEIGHT;
-
-	      // The text is below the canvas - readjust the height!
-	      if (y > height)
-		height = y;
-	    }
-	    else {
-	      var tspan = document.createElementNS(svgXmlns, 'tspan');
-	      tspan.appendChild(document.createTextNode(v.label));
-	      tspan.setAttribute('x', v.x - v.width / 2);
-	      text.appendChild(tspan);
-	    };
-	  };
-	  canvas.appendChild(group);
-	}
+              // The text is below the canvas - readjust the height!
+              if (y > height)
+                height = y;
+            }
+            else {
+              var tspan = document.createElementNS(svgXmlns, 'tspan');
+              tspan.appendChild(document.createTextNode(v.label));
+              tspan.setAttribute('x', v.x - v.width / 2);
+              text.appendChild(tspan);
+            };
+          };
+          canvas.appendChild(group);
+        }
       );
 
       canvas.setAttribute('width', g.graph().width);

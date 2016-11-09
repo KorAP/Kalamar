@@ -119,6 +119,4 @@ require(['init'], function () {
       return cb({ "snippet": snippet });
     }
   };
-
-
 });
