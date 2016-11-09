@@ -182,7 +182,24 @@ define(['lib/dagre'], function (dagre) {
 
 
     toBase64 : function () {
-      return btoa(unescape(encodeURIComponent(this.element().outerHTML)));
+
+      // First clone element
+      var svgWrapper = document.createElement('div')
+      svgWrapper.innerHTML = this.element().outerHTML;
+      var svg = svgWrapper.firstChild;
+
+      var style = document.createElementNS(svgXmlns, 'style');
+      svg.getElementsByTagName('defs')[0].appendChild(style);
+
+      style.innerHTML = 
+	      'path.edge '  +            '{ stroke: black; stroke-width: 2pt; fill: none; }' +
+        'g.root rect.empty,' +
+        'g.middle rect' +          '{ stroke: black; stroke-width: 2pt; fill: #bbb; }' +
+        'g.leaf > rect ' +         '{ display: none }' +
+        'g > text > tspan ' +      '{ text-anchor: middle; font-size: 9pt }' +
+        'g.leaf > text > tspan ' + '{ font-size: 10pt; overflow: visible; }';
+      
+      return btoa(unescape(encodeURIComponent(svg.outerHTML)));
     },
     
     /**
@@ -199,6 +216,8 @@ define(['lib/dagre'], function (dagre) {
       var canvas = document.createElementNS(svgXmlns, 'svg');
       this._element = canvas;
 
+      canvas.appendChild(document.createElementNS(svgXmlns, 'defs'));
+      
       var height = g.graph().height;
 
       // Create edges
