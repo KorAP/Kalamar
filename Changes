@@ -1,4 +1,4 @@
-0.21 2016-11-07
+0.21 2016-11-10
         - Use textSigle for API communication instead of
           {corpus,doc,text}ID.
         - Added alert to hint helper.
@@ -12,6 +12,9 @@
           initialization.
         - Improved compatibility for new text sigles.
         - Fixed alert to not be correctly hidden.
+        - Added download of tree visualizations.
+        - Do not show multiple identical annotations
+          in table view.
 
 0.20 2016-05-25
         - Improved menu using sliders.

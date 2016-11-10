@@ -31,8 +31,10 @@ var snippet = "<span title=\"cnx/l:meist\">" +
   "  <span title=\"cnx/p:ADV\">" +
   "    <span title=\"cnx/syn:@PREMOD\">" +
   "      <span title=\"mate/l:meist\">" +
-  "        <span title=\"mate/p:ADV\">" +
-  "          <span title=\"opennlp/p:ADV\">meist</span>" +
+  "        <span title=\"mate/l:meist\">" +
+  "          <span title=\"mate/p:ADV\">" +
+  "            <span title=\"opennlp/p:ADV\">meist</span>" +
+  "          </span>" +
   "        </span>" +
   "      </span>" +
   "    </span>" +
@@ -338,8 +340,8 @@ define(['match'], function () {
       expect(info).toBeTruthy();
 
       info.getTable([], function (tablen) {
-	table1 = tablen;
-	done();
+	      table1 = tablen;
+	      done();
       });
     });
 
@@ -350,8 +352,8 @@ define(['match'], function () {
     it('should load a working table async', function(done) {
       expect(info).toBeTruthy();
       info.getTable(undefined, function (tablem) {
-	table2 = tablem;
-	done();
+	      table2 = tablem;
+	      done();
       });
     });
     
@@ -366,9 +368,13 @@ define(['match'], function () {
 
       expect(table2.getValue(0, "cnx", "p")[0]).toBe("ADV");
       expect(table2.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
+      expect(table2.getValue(0, "mate", "l")[0]).toBe("meist");
+      expect(table2.getValue(0, "mate", "l")[1]).toBeUndefined();
 
       expect(table2.getValue(2, "cnx", "l")[0]).toBe("fähig");
       expect(table2.getValue(2, "cnx", "l")[1]).toBe("leistung");
+
+      
     });
 
     it('should parse into a table view', function () {
