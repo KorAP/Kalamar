@@ -114,7 +114,6 @@ define([
       return this;
     },
 
-
     /**
      * Return a list of parseable tree annotations.
      */
@@ -203,6 +202,15 @@ define([
       ul.appendChild(info);
 
       return true;
+    },
+
+    
+    /**
+     * Return a list of meta data.
+     */
+    showMeta : function () {
+      this.metaInfo = this._element.getAttribute('data-info');
+      console.log(JSON.parse(metaInfo));
     },
 
     // Todo: Test toggle
