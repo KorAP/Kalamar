@@ -86,7 +86,10 @@
       </div>
 
       <script>
-	KorAP.koralQuery = {"matches":["..."],"errors":[[302,"Parantheses\/brackets unbalanced.","20"]],"query":{"wrap":{"layer":"orth","match":"match:eq","foundry":"opennlp","key":"Goethe","@type":"koral:term"},"@type":"koral:token"},"meta":{"serialQuery":"tokens:s:Goethe","startIndex":0,"version":"unknown","itemsPerPage":25,"context":"p","benchmark":"0.103553092 s","totalResults":-1}};
+        /*
+	      KorAP.koralQuery = {"matches":["..."],"errors":[[302,"Parantheses\/brackets unbalanced.","20"]],"query":{"wrap":{"layer":"orth","match":"match:eq","foundry":"opennlp","key":"Goethe","@type":"koral:term"},"@type":"koral:token"},"meta":{"serialQuery":"tokens:s:Goethe","startIndex":0,"version":"unknown","itemsPerPage":25,"context":"p","benchmark":"0.103553092 s","totalResults":-1}};
+        */
+        KorAP.koralQuery = {"matches":["..."],"query":{"wrap":{"layer":"orth","match":"match:eq","foundry":"opennlp","key":"Goethe","@type":"koral:term"},"@type":"koral:token"},"meta":{"serialQuery":"tokens:s:Goethe","startIndex":0,"version":"unknown","itemsPerPage":25,"context":"p","benchmark":"0.103553092 s","totalResults":-1}};
       </script>
 
       <div id="search">
@@ -99,9 +102,12 @@
 	      id="WPD-WWW.03313-p102-103"
 	      class="marked"
 	      tabindex="6">
-	    <div>
-	      <div class="flag"></div>
-	      <div class="snippet startMore endMore"><span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><mark><mark class="class-2 level-1">Dies </mark><mark class="class-1 level-0"><mark class="class-2 level-1"><mark class="class-3 level-2">ist</mark> ein</mark> Test</mark></mark><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
+	    <div class="left-col">WPD/WWW/03313</div>
+      <div class="main-col">
+	      <!-- <div class="flag"></div> -->
+        <div>
+	        <div class="snippet startMore endMore"><span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><mark><mark class="class-2 level-1">Dies </mark><mark class="class-1 level-0"><mark class="class-2 level-1"><mark class="class-3 level-2">ist</mark> ein</mark> Test</mark></mark><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
+        </div>
 	      <!-- only inject via javascript! -->
 	    </div>
 	    <p class="ref"><strong>Wertparameter</strong> by Hubi,Zwobot,4; published on 2005-03-28 as WWW.03313 (WPD)</p>
@@ -114,11 +120,14 @@
 	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans"
 	      id="WPD-FFF.01460-p119-120"
 	      tabindex="6">
-	    <div>
-	      <div class="snippet startMore endMore"><span class="context-left">Der Fehler unterläuft häufig bei der direkten Übersetzung aus dem Englischen, wenn im originalen Ausdruck die beiden Wortteile verschiedene Wörter sind und sich das Adjektiv wahlweise auf das erste oder zweite Wort bezieht. Ein Beispiel ist multiples Testproblem für multiple </span><span class="match">test</span><span class="context-right"> problem.</span></div>
-	      <div class="tokenInfo"></div>
-	    </div>
-	    <p class="ref"><strong>Fehlbezogenes Adjektiv</strong> by Joni2,Peterlustig,BWBot; published on 2005-03-28 as FFF.01460 (WPD)</p>
+	    <div class="left-col"></div>
+      <div class="main-col">
+        <div>
+	        <div class="snippet startMore endMore"><span class="context-left">Der Fehler unterläuft häufig bei der direkten Übersetzung aus dem Englischen, wenn im originalen Ausdruck die beiden Wortteile verschiedene Wörter sind und sich das Adjektiv wahlweise auf das erste oder zweite Wort bezieht. Ein Beispiel ist multiples Testproblem für multiple </span><span class="match">test</span><span class="context-right"> problem.</span></div>
+	        <div class="tokenInfo"></div>
+	      </div>
+	      <p class="ref"><strong>Fehlbezogenes Adjektiv</strong> by Joni2,Peterlustig,BWBot; published on 2005-03-28 as FFF.01460 (WPD)</p>
+      </div>
 	  </li>
 
 	  <li data-corpus-id="WPD"
@@ -129,11 +138,14 @@
 	      id="WPD-HHH.06056-p2564-2565"
 	      class="marked"
 	      tabindex="6">
-	    <div>
-	      <div class="flag"></div>
-	      <div class="snippet startMore endMore"><span class="context-left">HDTV Samples from European (and other) broadcasters and </span><span class="match">test</span><span class="context-right"> transmissions in Europe</span></div>
+	    <div class="left-col">hhh</div>
+      <div class="main-col">
+        <div>
+	        <div class="flag"></div>
+	        <div class="snippet startMore endMore"><span class="context-left">HDTV Samples from European (and other) broadcasters and </span><span class="match">test</span><span class="context-right"> transmissions in Europe</span></div>
 	      <div class="tokenInfo"></div>
-	    </div>
+	      </div>
+      </div>
 	    <p class="ref"><strong>High Definition Television</strong> by ArtMechanic,TheK,Andreas -horn- Hornig; published on 2005-03-28 as HHH.06056 (WPD)</p>
 	  </li>
       </div>
@@ -167,8 +179,10 @@
     </script>
     <script>//<![CDATA[
 KorAP.Notifications = [];
+/*
 KorAP.Notifications.push(["warn","767: Case insensitivity is currently not supported for this layer"]);
 KorAP.Notifications.push(["error","404: Not Found (remote)"]);
+*/
 //]]>
     </script>
   </body>

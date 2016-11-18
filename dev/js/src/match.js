@@ -210,7 +210,24 @@ define([
      */
     showMeta : function () {
       this.metaInfo = this._element.getAttribute('data-info');
-      console.log(JSON.parse(metaInfo));
+      if (metaInfo)
+        metaInfo = JSON.parse(metaInfo);
+      if (metaInfo) {
+
+        // TODO: Meta fields should be separated
+        for (i in metaInfo) {
+          if (i !== "UID" &&
+              i !== "corpusID" &&
+              i !== "docID" &&
+              i !== "textID" &&
+              i !== "corpusSigle" &&
+              i !== "docSigle" &&
+              i !== "textSigle" &&
+              i !== "layerInfos") {
+            console.log(i);
+          };
+        };
+      };
     },
 
     // Todo: Test toggle

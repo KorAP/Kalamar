@@ -30,67 +30,76 @@ $border-size: 2px;
     font-size: 10pt;
     > li {
       &:focus:not(.active) {
-	background-color: $dark-orange !important;
-	&:not(:target) div.flag {
-	  border-right-color: $nearly-white;
-	}
-	> div > div.snippet {
-	  color: $nearly-white;
-	  text-shadow: none !important;
-	  .class-3 {
-	    border-color: $nearly-white;
-	  }
-	}
+	      background-color: $dark-orange !important;
+	      &:not(:target) div.flag {
+	        border-right-color: $nearly-white;
+	      }
+	      div.snippet {
+	        color: $nearly-white;
+	        text-shadow: none !important;
+	        .class-3 {
+	          border-color: $nearly-white;
+	        }
+	      }
       }
-      position: relative;
       border: {
-	style: solid;
-	color: $dark-orange;
-	width: 0;
+	      style: solid;
+	      color: $dark-orange;
+	      width: 0;
       }
-      &:not(.active):not(:target) {
-	width: 99999%;
-	margin-left: -49999.5%;
-	background-color: $kwic-line-noneven;
-	overflow-x: hidden;
-	overflow-y: visible;
-	white-space: no-wrap;
-	cursor: pointer;
-	padding: 5pt 0 6pt 0;
-	&:nth-of-type(even) {
+      div.main-col, div.left-col {
+        position: relative;
+      }
+	    &:not(.active):not(:target) {
+        &:nth-of-type(even) div.main-col {
           background-color: $kwic-line-even;
-	}
-	.matchinfo {
-	  display: none;
-	}
-	> div {
-	  > div.snippet {
-	    text-overflow: ellipsis;
-	    text-indent: 0;
-	    text-shadow: $light-shadow;
-	  }
-	}
+	      }
+        div.left-col {
+          z-index: 5;
+          display: table-cell;
+          background-color: green;
+        }
+        div.main-col {
+          display: table-cell;
+          z-index: 4;
+          > div {
+           	width: 99999%;
+	          margin-left: -49999.5%;
+	          background-color: $kwic-line-noneven;
+	          overflow-x: hidden;
+	          overflow-y: visible;
+	          white-space: no-wrap;
+	          cursor: pointer;
+	          padding: 5pt 0 6pt 0;
+	          .matchinfo {
+	            display: none;
+	          }
+	          div.snippet {
+	            text-overflow: ellipsis;
+	            text-indent: 0;
+	            text-shadow: $light-shadow;
+	          }
+          }
+        }
       }
-      > div {
-	> div.snippet {
-          > span,
-          > mark {
+	    div.snippet {
+        > span,
+        > mark {
+          white-space: no-wrap !important;
+          > span {
             white-space: no-wrap !important;
-            > span {
-              white-space: no-wrap !important;
             }
-            // color: #666;
-          }
-          > mark,
-	  > span.match {
-            font-weight: bold;
+          // color: #666;
+        }
+        > mark,
+	      > span.match {
+          font-weight: bold;
             /* text-shadow: $kwic-match-shadow; */
-            // color: $kwic-match-color;
-            padding-left: 4pt;
-            padding-right: 2pt;
-          }
-	}
-      }
+          // color: $kwic-match-color;
+          padding-left: 4pt;
+          padding-right: 2pt;
+        }
+	    }
     }
 
     /* active view */
@@ -103,23 +112,23 @@ $border-size: 2px;
       height: auto;
       border-width: 2px;
       background-color: $dark-orange;
-//      @include light-noise;
+      //      @include light-noise;
       position: relative;
       > div {
-	min-height: 20pt;
-	> div.snippet {
-	  background-color: $light-orange;
-	  > * {
-	    background-color: transparent;
-	  }
-	  padding: 2pt 0 5pt 5pt;
-	  margin: {
-	    top: 0;
-	    right: $right-match-distance; // 3em;
-	    bottom: 0;
-	    left: 0; // 5pt margin-top
-	  }
-	  > span {
+	      min-height: 20pt;
+	      div.snippet {
+	        background-color: $light-orange;
+	        > * {
+	          background-color: transparent;
+	        }
+	        padding: 2pt 0 5pt 5pt;
+	        margin: {
+	          top: 0;
+	          right: $right-match-distance; // 3em;
+	          bottom: 0;
+	          left: 0; // 5pt margin-top
+	        }
+	        > span {
             line-height: 1.4em;
             width: auto;
             &.context-left {
@@ -129,54 +138,55 @@ $border-size: 2px;
               text-align: left;
               width: auto;
             }
-	  }
-	}
+	        }
+	      }
       }
     }
 
     /* Actions */
     > li {
       ul.action {
-	display: none;
+	      display: none;
       }
 
       /* active actions */
       &.active, &:target {
-	ul.action {
-	  display: block;
-	}
-      }
+	                ul.action {
+	                  display: block;
+	                }
+                }
       &:not(.active):not(:target) p.ref {
-	display: none;
+	      display: none;
       }
-      &.active, &:target {
-	overflow: hidden;
-	p.ref {
-	  color: white;
-	  padding: 3pt 10pt 3pt 3pt;
-	  padding-right: $right-match-distance;
-	  margin: 0pt;
-	  width: 100%;
-	  bottom: 0;
-	  z-index: 30;
-	  > span.sigle {
-	    font-size: 75%;
-	    vertical-align: top;
-	    color: $light-orange;
-	    float: right;
-	  }
-	}
+      &.active,
+      &:target {
+	      overflow: hidden;
+	      p.ref {
+	        color: white;
+	        padding: 3pt 10pt 3pt 3pt;
+	        padding-right: $right-match-distance;
+	        margin: 0pt;
+	        width: 100%;
+	        bottom: 0;
+	        z-index: 30;
+	        > span.sigle {
+	          font-size: 75%;
+	          vertical-align: top;
+	          color: $light-orange;
+	          float: right;
+	        }
+	      }
       }
     }
     > li.marked:not(.active):not(:target) {
       div.flag {
-	position: absolute;
-	top: 0;
-	width: 11px;
-	height: 100%;
-	margin-left: 50%;
-	background-color: $dark-orange;
-	border-right: 1px solid $darkest-orange;
+	      position: absolute;
+	      top: 0;
+	      width: 11px;
+	      height: 100%;
+	      margin-left: 50%;
+	      background-color: $dark-orange;
+	      border-right: 1px solid $darkest-orange;
       }
     }
   }
@@ -184,7 +194,7 @@ $border-size: 2px;
 
 
 ul.action {
-//  background-color: $dark-orange;
+  //  background-color: $dark-orange;
   font-size: 12pt;
   color: white;
   text: {
@@ -214,15 +224,15 @@ ul.action {
       text-decoration: none;
 
       > span {
-	@include blind;
+	      @include blind;
       }
       &.close::after {
-	font-family: "FontAwesome";
-	content: $fa-close;
+	      font-family: "FontAwesome";
+	      content: $fa-close;
       }
       &.info::after {
-	font-family: "FontAwesome";
-	content: $fa-info;
+	      font-family: "FontAwesome";
+	      content: $fa-info;
       }
     }
   }
@@ -251,7 +261,7 @@ ol.align-free > li > div > div.snippet > span.right {
 }
 */
 
-ol.align-left > li > div > div.snippet > span.context-left {
+ol.align-left > li div.snippet > span.context-left {
   display: inline-block;
   text-align: right;
   width: 50.01%;
@@ -259,7 +269,7 @@ ol.align-left > li > div > div.snippet > span.context-left {
 
 ol.align-right {
   text-align: right;
-  > li:not(.active):not(:target) > div > div.snippet > span.context-right {
+  > li:not(.active):not(:target) div.snippet > span.context-right {
     display: inline-block;
     text-align: left;
     width: 49.915%;
