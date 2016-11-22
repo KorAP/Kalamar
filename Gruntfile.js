@@ -22,7 +22,7 @@ for (var i in {'en' : 0, 'de' : 1}) {
       // optimize: "uglify",
       baseUrl: 'dev/js/src',
       paths : {
-	'lib': '../lib'
+	      'lib': '../lib'
       },
       wrap:true,
       // dir : 'public/js',
@@ -39,12 +39,12 @@ module.exports = function(grunt) {
     requirejs: reqTasks,
     imagemin: {
       dynamic: {
-	files: [{
-	  expand: true,
-	  cwd: 'dev/img/',
-	  src: ['*.{png,gif,jpg}'],
-	  dest: 'public/img/'
-	}]
+	      files: [{
+	        expand: true,
+	        cwd: 'dev/img/',
+	        src: ['*.{png,gif,jpg}'],
+	        dest: 'public/img/'
+	      }]
       }
     },
     sass: {
@@ -54,75 +54,76 @@ module.exports = function(grunt) {
         },
         files: {
           'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss',
-          'dev/css/kalamar.css' : 'dev/scss/kalamar.scss'
+          'dev/css/kalamar.css' : 'dev/scss/kalamar.scss',
+          'dev/css/kwic.css' : 'dev/scss/main/kwic-new.scss'
         }
       }
     },
     jasmine: {
       pivotal: {
-	src: [
-	  'dev/js/src/menu.js',
-	  'dev/js/src/match.js',
-	  'dev/js/src/hint.js',
-	  'dev/js/src/vc.js'
-	],
-	options: {
-	  specs: 'dev/js/spec/*Spec.js',
-	  vendor: ['dev/js/lib/require.js']
-	}
+	      src: [
+	        'dev/js/src/menu.js',
+	        'dev/js/src/match.js',
+	        'dev/js/src/hint.js',
+	        'dev/js/src/vc.js'
+	      ],
+	      options: {
+	        specs: 'dev/js/spec/*Spec.js',
+	        vendor: ['dev/js/lib/require.js']
+	      }
       }
     },
     // see https://github.com/gruntjs/grunt-contrib-copy/issues/64
     // for copying binary files
     copy : {
       options: {
-	process:false
+	      process:false
       },
       main: {
-	files:[
-	  {
-	    expand: true,
-	    cwd: 'dev/font/',
-	    src: '**',
-	    dest: 'public/font/',
-	    filter: 'isFile',
-	    nonull: true,
-	    timestamp: true
-	  },
-	  {
-	    expand: true,
-	    cwd: 'dev/img/',
-	    src: 'favicon.ico',
-	    dest: 'public/',
-	    filter: 'isFile',
-	    nonull:true,
-	    timestamp:true
-	  },
-	  {
-	    expand: true,
-	    cwd: 'dev/img/',
-	    src: '*.svg',
-	    dest: 'public/img/',
-	    filter: 'isFile',
-	    nonull:true,
-	    timestamp:true
-	  }
-	]
+	      files:[
+	        {
+	          expand: true,
+	          cwd: 'dev/font/',
+	          src: '**',
+	          dest: 'public/font/',
+	          filter: 'isFile',
+	          nonull: true,
+	          timestamp: true
+	        },
+	        {
+	          expand: true,
+	          cwd: 'dev/img/',
+	          src: 'favicon.ico',
+	          dest: 'public/',
+	          filter: 'isFile',
+	          nonull:true,
+	          timestamp:true
+	        },
+	        {
+	          expand: true,
+	          cwd: 'dev/img/',
+	          src: '*.svg',
+	          dest: 'public/img/',
+	          filter: 'isFile',
+	          nonull:true,
+	          timestamp:true
+	        }
+	      ]
       }
     },
     watch: {
       css: {
-	files: ['dev/scss/{util,base,fonts,kalamar,media}.scss',
-		'dev/scss/footer/footer.scss',
-		'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',
-		'dev/scss/main/{alertify,koralquery,highlight,kwic,logos,tagger,' +
-		'main,matchinfo,pagination,query,'+
-		'resultinfo,sidebar,tutorial}.scss'
-	       ],
-	tasks: ['sass'],
-	options: {
-	  spawn: false
-	}
+	      files: ['dev/scss/{util,base,fonts,kalamar,media}.scss',
+		            'dev/scss/footer/footer.scss',
+		            'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',
+		            'dev/scss/main/{alertify,koralquery,highlight,kwic,kwic-new,logos,tagger,' +
+		            'main,matchinfo,pagination,query,'+
+		            'resultinfo,sidebar,tutorial}.scss'
+	             ],
+	      tasks: ['sass'],
+	      options: {
+	        spawn: false
+	      }
       }
     }
   });

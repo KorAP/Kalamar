@@ -1,0 +1,304 @@
+@charset "utf-8";
+@import "../util";
+
+$border-size: 2px;
+
+#search {
+  position: relative;
+  margin-bottom: 30px;
+  overflow: visible;
+  &.match {
+    marg-top: 14pt;
+  }
+}
+
+#search > ol {
+  overflow-x: hidden;
+  overflow-y: visible;
+  width: auto;
+  border: 1px solid black;
+  text-indent: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid $kwic-border;
+  font-size: 10pt;
+
+  > li {
+    display: table-row;
+    table-layout: auto;
+    div.meta {
+      position: relative;
+      display: table-cell;
+      width: init;
+      z-index: 5;
+      overflow-y: visible;
+      background-color: green;
+    }
+  }
+}
+
+#search > ol > li {
+  border: {
+    style: solid;
+    color: $dark-orange;
+    width: 0;
+  }
+}
+
+#search {
+  div.meta, div.match-main {
+    position: relative;
+  }
+  /*
+	    &:not(.active):not(:target) {
+        &:nth-of-type(even) div.main-col {
+ */
+  div.match-main {
+    display: table-cell;
+    z-index: 4;
+    > div.match-wrap {
+      width: 99999%;
+	    margin-left: -49999.5%;
+	    background-color: $kwic-line-noneven;
+	    overflow-x: hidden;
+	    overflow-y: visible;
+	    white-space: no-wrap;
+	    cursor: pointer;
+    }
+  }
+}
+
+#search ol li:nth-of-type(even) div.match-main div.match-wrap {
+  background-color: $kwic-line-even;
+}
+
+
+div.snippet {
+	text-overflow: ellipsis;
+	text-indent: 0;
+	text-shadow: $light-shadow;
+  > span, mark {
+	  padding: 5pt 0 6pt 0;
+    white-space: no-wrap !important;
+    > span {
+      white-space: no-wrap !important;
+    }
+  }
+  > mark, > span.match {
+    font-weight: bold;
+    padding-left: 4pt;
+    padding-right: 2pt;
+  }
+}
+
+
+
+#search div.matchinfo {
+  display: none;
+}
+
+/*
+#search ol > li:focus:not(.active) {
+	      background-color: $dark-orange !important;
+	      &:not(:target) div.flag {
+	        border-right-color: $nearly-white;
+	      }
+	      div.snippet {
+	        color: $nearly-white;
+	        text-shadow: none !important;
+	        .class-3 {
+	          border-color: $nearly-white;
+	        }
+	      }
+      }
+*/
+
+#search div.match-main {
+  position: relative;
+  z-index: 4;
+  > div.match-wrap {
+    margin-left: -49999.5%;
+    width: 99999%;
+    overflow-x: hidden;
+    overflow-y: visible;
+    position: relative;
+    box-sizing: border-box;
+  }
+}
+
+div.snippet.startMore:before,
+div.snippet.endMore:after {
+  content: "…";
+  padding-left: 2pt;
+  padding-right: 2pt;
+}
+
+/**
+ * flag
+ */
+div.snippet div.flag {
+  position: absolute;
+  height: 100%;
+  margin-left: 50%;
+  width: 11px;
+  background-color: $dark-orange;
+  border-right-color: $nearly-white;
+  border-right: 1px solid $darkest-orange;
+}
+
+/**
+ * References
+ */
+#search > ol > li p.ref {
+  display: none;
+}
+
+/**
+ * Active
+ */
+#search > ol {
+  > li.active,
+  > li:target {
+    text-align: left;
+    cursor: normal;
+    position: relative;
+    border-width: 2px;
+    white-space: wrap;
+    height: auto;
+    width: auto;
+  }
+}
+
+#search > ol > li.active {
+  div.match-wrap {
+    min-height: 20pt;
+    div.snippet {
+	    background-color: $light-orange;
+	    > * {
+	      background-color: transparent;
+	    }
+      div.flag {
+        display: none;
+      }
+	    padding: 2pt 0 5pt 5pt;
+	    margin: {
+	      top: 0;
+	      right: $right-match-distance; // 3em;
+	      bottom: 0;
+	      left: 0; // 5pt margin-top
+	    }
+	    > span {
+        color: black;
+        line-height: 1.4em;
+        width: auto;
+        &.context-left {
+          margin-left: 0;
+          display: inline;
+          overflow: visible;
+          text-align: left;
+          width: auto;
+        }
+	    }
+    }
+  }
+}
+
+#search > ol > li.active {
+  overflow: hidden;
+  div.meta {
+    overflow: none;
+  }
+  div.match-main {
+    div.match-wrap {
+      width: auto;
+      margin-left: 0;
+      overflow-x: visible;
+      white-space: wrap;
+    }
+  }
+  p.ref {
+    display: block;
+	  color: white;
+	  padding: 3pt 10pt 3pt 3pt;
+	  padding-right: $right-match-distance;
+	  margin: 0pt;
+	  width: 100%;
+	  bottom: 0;
+	  z-index: 30;
+	  > span.sigle {
+	    font-size: 75%;
+	    vertical-align: top;
+	    color: $light-orange;
+	    float: right;
+	  }
+  }
+}
+    
+
+
+/**
+ * Right aligned
+ */
+
+#search ol span.context-left {
+  display: inline-block;
+  width: 50.01%;
+  text-align: right;
+}
+
+#search ol.align-right {
+  text-align: right;
+  div.match-main span.context-right {
+    display: inline-block;
+    width: 49.915%;
+    text-align: left;
+  }
+}
+
+
+/**
+ * Highlights
+ */
+mark {
+  background-color: inherit;
+  color: inherit;
+}
+
+mark > mark,
+em,
+.level-0 {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  padding-bottom: 0px;
+  font-style: normal;
+}
+
+mark > mark > mark,
+em > em,
+.level-1 {
+  padding-bottom: 3px;
+}
+
+mark > mark > mark > mark,
+em > em > em,
+.level-2 {
+  padding-bottom: 6px;
+}
+
+
+#search > ol > li {
+  &:not(.active) mark > mark > mark > mark,
+  &:not(.active) em > em > em {
+    line-height: 180%;
+  }
+  &.active mark > mark > mark > mark,
+  &.active em > em > em {
+    line-height: 250%;
+  }
+}
+
+.class-1 { border-color: $kwic-highlight-1; }
+.class-2 { border-color: $kwic-highlight-2; }
+.class-3 { border-color: $kwic-highlight-3; }
+.class-4 { border-color: $kwic-highlight-4; }
