@@ -30,11 +30,16 @@ $border-size: 2px;
     div.meta {
       position: relative;
       display: table-cell;
-      width: init;
+      width: 2px;
       z-index: 5;
       overflow-y: visible;
       background-color: green;
     }
+/*
+    &:first-of-type div.meta {
+      background-color: blue;
+    }
+*/
   }
 }
 
@@ -207,11 +212,14 @@ div.snippet div.flag {
 #search > ol > li.active {
   overflow: hidden;
   div.meta {
-    overflow: none;
+    display: none;
+    // visibility: hidden;
   }
   div.match-main {
+    //    width: 100%;
+    display: block;
     div.match-wrap {
-      width: auto;
+//      width: 100%;
       margin-left: 0;
       overflow-x: visible;
       white-space: wrap;
