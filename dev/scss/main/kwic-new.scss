@@ -7,9 +7,7 @@ $border-size: 2px;
   position: relative;
   margin-bottom: 30px;
   overflow: visible;
-  &.match {
-    marg-top: 14pt;
-  }
+//  margin-top: 14pt;
 }
 
 #search > ol {
@@ -33,7 +31,11 @@ $border-size: 2px;
       width: 2px;
       z-index: 5;
       overflow-y: visible;
-      background-color: green;
+      white-space: nowrap;
+      background-color: $light-green;
+      color: $nearly-white;
+      font-size: 80%;
+      padding: 0 5pt;
     }
 /*
     &:first-of-type div.meta {
@@ -68,7 +70,7 @@ $border-size: 2px;
 	    background-color: $kwic-line-noneven;
 	    overflow-x: hidden;
 	    overflow-y: visible;
-	    white-space: no-wrap;
+	    white-space: normal;
 	    cursor: pointer;
     }
   }
@@ -102,6 +104,12 @@ div.snippet {
 #search div.matchinfo {
   display: none;
 }
+
+#search li.active div.matchinfo {
+  display: block;
+}
+
+
 
 /*
 #search ol > li:focus:not(.active) {
@@ -145,6 +153,9 @@ div.snippet.endMore:after {
 div.snippet div.flag {
   position: absolute;
   height: 100%;
+  top: 0;
+ 	// margin-left: -49999.5%;
+  // margin-left: 50%;
   margin-left: 50%;
   width: 11px;
   background-color: $dark-orange;
@@ -165,17 +176,28 @@ div.snippet div.flag {
 #search > ol {
   > li.active,
   > li:target {
+    background-color: $dark-orange;
+    display: block;
     text-align: left;
-    cursor: normal;
     position: relative;
     border-width: 2px;
     white-space: wrap;
     height: auto;
     width: auto;
+
+    div.match-main > div.match-wrap {
+      cursor: default;
+    }
   }
 }
 
 #search > ol > li.active {
+  span {
+    display: inline !important;
+  }
+  ul.action {
+    display: block;
+  }
   div.match-wrap {
     min-height: 20pt;
     div.snippet {
@@ -216,10 +238,11 @@ div.snippet div.flag {
     // visibility: hidden;
   }
   div.match-main {
-    //    width: 100%;
+    width: 100%;
     display: block;
     div.match-wrap {
-//      width: 100%;
+      background-color: $dark-orange;
+      width: 100%;
       margin-left: 0;
       overflow-x: visible;
       white-space: wrap;
@@ -278,20 +301,20 @@ em,
 .level-0 {
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  padding-bottom: 0px;
+  padding-bottom: 0px !important;
   font-style: normal;
 }
 
 mark > mark > mark,
 em > em,
 .level-1 {
-  padding-bottom: 3px;
+  padding-bottom: 3px !important;
 }
 
 mark > mark > mark > mark,
 em > em > em,
 .level-2 {
-  padding-bottom: 6px;
+  padding-bottom: 6px !important;
 }
 
 
@@ -310,3 +333,55 @@ em > em > em,
 .class-2 { border-color: $kwic-highlight-2; }
 .class-3 { border-color: $kwic-highlight-3; }
 .class-4 { border-color: $kwic-highlight-4; }
+
+
+/**
+ * Actions
+ */
+
+ul.action {
+  display: none;
+  //  background-color: $dark-orange;
+  font-size: 12pt;
+  color: white;
+  text: {
+    shadow: none;
+    indent: 0;
+  }
+  margin: 0;
+  padding: 0;
+  z-index: 5;
+  
+  list-style: {
+    type: none;
+    position: inline;
+  }
+  &.right {
+    position: absolute;
+    width: $right-match-distance;
+    float: right;
+    text-align: center;
+    padding: 0pt 3pt;
+    height: 100%;
+    right: 0;
+    top: 0;
+    li {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+
+      > span {
+	      @include blind;
+      }
+      &.close::after {
+	      font-family: "FontAwesome";
+	      content: $fa-close;
+      }
+      &.info::after {
+	      font-family: "FontAwesome";
+	      content: $fa-info;
+      }
+    }
+  }
+}
+

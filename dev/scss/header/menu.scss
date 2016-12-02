@@ -201,6 +201,10 @@ ul.menu.roll {
   }
 }
 
+ul.menu.roll:not(.visible) {
+  height: 0;
+}
+
 
 /**
  * Sorting menu

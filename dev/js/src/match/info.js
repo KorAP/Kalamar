@@ -8,10 +8,10 @@ define([
   'match/treemenu',
   'util'
 ], function (infoLayerClass,
-	     matchTableClass,
-	     matchTreeClass,
-	     matchTreeMenuClass) {
-
+	           matchTableClass,
+	           matchTreeClass,
+	           matchTreeMenuClass) {
+  
   // Override 
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
     KorAP.log(0, 'KorAP.API.getMatchInfo() not implemented')
@@ -51,18 +51,21 @@ define([
      * if closed, otherwise close.
      */
     toggle : function () {
-      if (this.opened == true) {
-	this._match.element().children[0].removeChild(
-	  this.element()
-	);
-	this.opened = false;
+
+      var elem = this._match.element().getElementsByClassName('match-wrap')[0];
+
+      if (this.opened == true) {        
+	      elem.removeChild(
+	        this.element()
+	      );
+	      this.opened = false;
       }
       else {
-	// Append element to match
-	this._match.element().children[0].appendChild(
-	  this.element()
-	);
-	this.opened = true;
+	      // Append element to match
+        elem.appendChild(
+	        this.element()
+	      );
+	      this.opened = true;
       };
       
       return this.opened;
@@ -78,44 +81,45 @@ define([
 
       // Get all tokens
       if (tokens === undefined) {
-	focus = this._match.getTokens();
+	      focus = this._match.getTokens();
       } 
 
       // Get only some tokens
       else {
 
-	// Push newly to focus array
-	for (var i = 0; i < tokens.length; i++) {
-	  var term = tokens[i];
-	  try {
-	    // Create info layer objects
-	    var layer = infoLayerClass.create(term);
-	    layer.type = "tokens";
-	    focus.push(layer);
-	  }
-	  catch (e) {
-	    continue;
-	  };
-	};
+	      // Push newly to focus array
+	      for (var i = 0; i < tokens.length; i++) {
+	        var term = tokens[i];
+	        try {
+	          // Create info layer objects
+	          var layer = infoLayerClass.create(term);
+	          layer.type = "tokens";
+	          focus.push(layer);
+	        }
+	        catch (e) {
+	          continue;
+	        };
+	      };
       };
       
       // No tokens chosen
       if (focus.length == 0)
-	cb(null);
+	      cb(null);
 
       // Get info (may be cached)
       KorAP.API.getMatchInfo(
-	this._match,
-	{ 'spans' : false, 'layer' : focus },
+	      this._match,
+	      { 'spans' : false, 'layer' : focus },
 
-	// Callback for retrieval
-	function (matchResponse) {
-	  // Get snippet from match info
-	  if (matchResponse["snippet"] !== undefined) {
-	    this._table = matchTableClass.create(matchResponse["snippet"]);
-	    cb(this._table);
-	  };
-	}.bind(this)
+	      // Callback for retrieval
+	      function (matchResponse) {
+
+	        // Get snippet from match info
+	        if (matchResponse["snippet"] !== undefined) {
+	          this._table = matchTableClass.create(matchResponse["snippet"]);
+	          cb(this._table);
+	        };
+	      }.bind(this)
       );
 
       /*
@@ -264,42 +268,43 @@ define([
 
       // Create the table asynchronous
       this.getTable(undefined, function (table) {
-	if (table !== null) {
-	  matchtable.classList.remove('loading');
-	  matchtable.appendChild(table.element());
-	};
+
+	      if (table !== null) {
+	        matchtable.classList.remove('loading');
+          matchtable.appendChild(table.element());
+	      };
       });
 
       // Get spans
       var spanLayers = this._match.getSpans().sort(
-	function (a, b) {
-	  if (a.foundry < b.foundry) {
-	    return -1;
-	  }
-	  else if (a.foundry > b.foundry) {
-	    return 1;
-	  }
-	  else if (a.layer < b.layer) {
-	    return -1;
-	  }
-	  else if (a.layer > b.layer) {
-	    return 1;
-	  };
-	  return 0;
-	});
+	      function (a, b) {
+	        if (a.foundry < b.foundry) {
+	          return -1;
+	        }
+	        else if (a.foundry > b.foundry) {
+	          return 1;
+	        }
+	        else if (a.layer < b.layer) {
+	          return -1;
+	        }
+	        else if (a.layer > b.layer) {
+	          return 1;
+	        };
+	        return 0;
+	      });
       
       var menuList = [];
       
       // Show tree views
       for (var i = 0; i < spanLayers.length; i++) {
-	var span = spanLayers[i];
-	
-	// Add foundry/layer to menu list
-	menuList.push([
-	  span.foundry + '/' + span.layer,
-	  span.foundry,
-	  span.layer
-	]);
+	      var span = spanLayers[i];
+	      
+	      // Add foundry/layer to menu list
+	      menuList.push([
+	        span.foundry + '/' + span.layer,
+	        span.foundry,
+	        span.layer
+	      ]);
       };
 
       // Create tree menu
@@ -312,8 +317,8 @@ define([
       span.appendChild(treeElement);
 
       span.addEventListener('click', function (e) {
-	treemenu.show();
-	treemenu.focus();
+	      treemenu.show();
+	      treemenu.focus();
       });
       
       this._element = info;
@@ -329,7 +334,7 @@ define([
      */
     treeMenu : function (list) {
       if (this._treeMenu !== undefined)
-	return this._treeMenu;
+	      return this._treeMenu;
       
       return this._treeMenu = matchTreeMenuClass.create(this, list);
     }
