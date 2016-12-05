@@ -52,7 +52,7 @@ define([
      */
     toggle : function () {
 
-      var elem = this._match.element().getElementsByClassName('match-wrap')[0];
+      var elem = this._match.element();
 
       if (this.opened == true) {        
 	      elem.removeChild(

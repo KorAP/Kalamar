@@ -12,10 +12,11 @@
     data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
     id="<%= $id %>"\
 <% if (current_route eq 'match') { %> class="active"<% } =%>>
-  <div>
-    <div class="flag"></div>
+  <div class="match-main">
+    <div class="match-wrap">
 %# --- Snippet
-    <div class="snippet<%= $match->{startMore} ? ' startMore' : '' %><%= $match->{endMore} ? ' endMore' : '' %>"><%== $match->{snippet} %></div>
+      <div class="snippet<%= $match->{startMore} ? ' startMore' : '' %><%= $match->{endMore} ? ' endMore' : '' %>"><%== $match->{snippet} %></div>
+    </div>
   </div>
 %# -- Reference string
   <p class="ref">\

@@ -2,6 +2,7 @@
 @import "../util";
 
 $border-size: 2px;
+$font-size: 10pt;
 
 #search {
   position: relative;
@@ -20,7 +21,7 @@ $border-size: 2px;
   margin: 0;
   padding: 0;
   border: 1px solid $kwic-border;
-  font-size: 10pt;
+  font-size: $font-size;
 
   > li {
     display: table-row;
@@ -33,15 +34,22 @@ $border-size: 2px;
       overflow-y: visible;
       white-space: nowrap;
       background-color: $light-green;
+      // border-top: 1px solid lighten($light-green, 10%);
+      border: {
+        color: $dark-green;
+        style: solid;
+        width: 1px 0;
+      }
       color: $nearly-white;
       font-size: 80%;
       padding: 0 5pt;
     }
-/*
     &:first-of-type div.meta {
-      background-color: blue;
+      border-top-width: 0;
     }
-*/
+    &:last-of-type div.meta {
+      border-bottom-width: 0;
+    }
   }
 }
 
@@ -56,6 +64,7 @@ $border-size: 2px;
 #search {
   div.meta, div.match-main {
     position: relative;
+	  cursor: pointer;
   }
   /*
 	    &:not(.active):not(:target) {
@@ -71,7 +80,6 @@ $border-size: 2px;
 	    overflow-x: hidden;
 	    overflow-y: visible;
 	    white-space: normal;
-	    cursor: pointer;
     }
   }
 }
@@ -85,7 +93,9 @@ div.snippet {
 	text-overflow: ellipsis;
 	text-indent: 0;
 	text-shadow: $light-shadow;
+  font-size: 0;
   > span, mark {
+    font-size: $font-size;
 	  padding: 5pt 0 6pt 0;
     white-space: no-wrap !important;
     > span {
@@ -94,6 +104,8 @@ div.snippet {
   }
   > mark, > span.match {
     font-weight: bold;
+    color: $black;
+    text-shadow: none;
     padding-left: 4pt;
     padding-right: 2pt;
   }
@@ -216,7 +228,7 @@ div.snippet div.flag {
 	      left: 0; // 5pt margin-top
 	    }
 	    > span {
-        color: black;
+        // color: black;
         line-height: 1.4em;
         width: auto;
         &.context-left {
@@ -250,7 +262,7 @@ div.snippet div.flag {
   }
   p.ref {
     display: block;
-	  color: white;
+	  color: $nearly-white;
 	  padding: 3pt 10pt 3pt 3pt;
 	  padding-right: $right-match-distance;
 	  margin: 0pt;
@@ -343,7 +355,7 @@ ul.action {
   display: none;
   //  background-color: $dark-orange;
   font-size: 12pt;
-  color: white;
+  color: $nearly-white;
   text: {
     shadow: none;
     indent: 0;
@@ -358,6 +370,7 @@ ul.action {
   }
   &.right {
     position: absolute;
+    z-index: 4;
     width: $right-match-distance;
     float: right;
     text-align: center;
@@ -367,7 +380,7 @@ ul.action {
     top: 0;
     li {
       cursor: pointer;
-      color: white;
+      color: $nearly-white;
       text-decoration: none;
 
       > span {
