@@ -26,7 +26,7 @@ $border-size : 1px;
       cursor: pointer;
       position: relative;
       > span {
-	@include blind;
+	      @include blind;
       }
       box-shadow: $choose-box-shadow;
       @include standard-text-padding;
@@ -35,30 +35,30 @@ $border-size : 1px;
       
       @include choose-item;
       border: {
-	top-width: $border-size;
-	bottom-width:  $border-size;
-	top-style: solid;
-	bottom-style: solid;
+	      top-width: $border-size;
+	      bottom-width:  $border-size;
+	      top-style: solid;
+	      bottom-style: solid;
       }
       &:hover {
-	@include choose-hover;
+	      @include choose-hover;
       }
     }
     > a:last-child {
       border: {
-	top-right-radius: $standard-border-radius;
-	bottom-right-radius: $standard-border-radius;
-	right-width: $border-size;
-	right-style: solid;
-      }
+	    top-right-radius: $standard-border-radius;
+	    bottom-right-radius: $standard-border-radius;
+	    right-width: $border-size;
+	    right-style: solid;
+    }
     }
     > a:first-child {
       border: {
-	top-left-radius: $standard-border-radius;
-	bottom-left-radius: $standard-border-radius;
-	left-width: $border-size;
-	left-style: solid;
-      }
+	    top-left-radius: $standard-border-radius;
+	    bottom-left-radius: $standard-border-radius;
+	    left-width: $border-size;
+	    left-style: solid;
+    }
     }
     > a::after {
       font-family: 'FontAwesome';
@@ -71,6 +71,9 @@ $border-size : 1px;
     }
     > a.show-kq::after {
       content: $fa-code;
+    }
+    > a.show-meta::after {
+      content: $fa-metadata;
     }
   }
 }
@@ -89,6 +92,11 @@ $border-size : 1px;
     &:last-child {
       border-bottom-right-radius: 0;
     }
+  }
+  div.result.left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 }
 

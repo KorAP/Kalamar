@@ -1,4 +1,4 @@
-0.21 2016-11-10
+0.21 2016-12-06
         - Use textSigle for API communication instead of
           {corpus,doc,text}ID.
         - Added alert to hint helper.
@@ -15,7 +15,8 @@
         - Added download of tree visualizations.
         - Do not show multiple identical annotations
           in table view.
-
+        - Added preliminary support for metadata columns.
+        
 0.20 2016-05-25
         - Improved menu using sliders.
         - Improved menu to make prefixes chooseable,

@@ -47,6 +47,8 @@ define([
   loc.VC_oneCollection = loc.VC_oneCollection || 'one Collection';
   loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle Alignment';
   loc.SHOW_KQ          = loc.SHOW_KQ          || 'show KoralQuery';
+  loc.SHOW_META        = loc.SHOW_META        || 'show Metadata';
+
 
   // Override KorAP.log
   window.alertify = alertifyClass;
@@ -149,9 +151,15 @@ define([
 
     var result = document.getElementById('resultinfo');
     var resultButton = null;
+    var leftButton = null;
     if (result != null) {
+
+      // Add right buttons
       resultButton = result.appendChild(document.createElement('div'));
-      resultButton.classList.add('result', 'button'); 
+      resultButton.classList.add('result', 'button');
+
+      leftButton =  result.appendChild(document.createElement('div'));
+      leftButton.classList.add('result', 'button', 'left');
     };
 
     // There is a koralQuery
@@ -220,29 +228,47 @@ define([
         showKQ.apply();
     };
 
+    // There is more than 0 matches and there is a resultButton
+    if (i > 0) {
 
-    /**
-     * Toggle the alignment (left <=> right)
-     */
-    // querySelector('div.button.right');
-    if (i > 0 && resultButton !== null) {
-      var toggle = document.createElement('a');
-      toggle.setAttribute('title', loc.TOGGLE_ALIGN);
-      // Todo: Reuse old alignment from query
-      var cl = toggle.classList;
-      cl.add('align', 'right', 'button');
-      toggle.addEventListener(
-        'click',
-        function (e) {
-          var ol = document.querySelector('#search > ol');
-          ol.toggleClass("align-left", "align-right");
-          this.toggleClass("left", "right");
-        });
-      toggle.appendChild(document.createElement('span'))
-        .appendChild(document.createTextNode(loc.TOGGLE_ALIGN));
-      resultButton.appendChild(toggle);
+      if (resultButton !== null) {
+
+        /**
+         * Toggle the alignment (left <=> right)
+         */
+        // querySelector('div.button.right');
+        
+        var toggle = document.createElement('a');
+        toggle.setAttribute('title', loc.TOGGLE_ALIGN);
+        // Todo: Reuse old alignment from query
+        var cl = toggle.classList;
+        cl.add('align', 'right', 'button');
+        toggle.addEventListener(
+          'click',
+          function (e) {
+            var ol = document.querySelector('#search > ol');
+            ol.toggleClass("align-left", "align-right");
+            this.toggleClass("left", "right");
+          });
+        toggle.appendChild(document.createElement('span'))
+          .appendChild(document.createTextNode(loc.TOGGLE_ALIGN));
+        resultButton.appendChild(toggle);
+      };
+
+      /*
+      // Not ready yet
+      if (leftButton !== null) {
+        var metaInfo = document.createElement('a');
+        metaInfo.setAttribute('title', loc.SHOW_META)
+
+        var cl = metaInfo.classList;
+        cl.add('show-meta', 'button');
+        metaInfo.appendChild(document.createElement('span'))
+          .appendChild(document.createTextNode(loc.SHOW_META));
+        leftButton.appendChild(metaInfo);
+      };
+      */
     };
-
 
     /**
      * Toggle the Virtual Collection builder

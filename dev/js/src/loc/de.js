@@ -31,4 +31,5 @@ define(function () {
 
   loc.TOGGLE_ALIGN = 'tausche Textausrichtung';
   loc.SHOW_KQ      = 'zeige KoralQuery';
+  loc.SHOW_META    = 'zeige Metadaten';
 });
