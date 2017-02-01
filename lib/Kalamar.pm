@@ -1,6 +1,7 @@
 package Kalamar;
 use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
+use Mojo::File;
 use Mojo::JSON 'decode_json';
 
 # Minor version - may be patched from package.json
@@ -19,8 +20,11 @@ sub startup {
 
   # Set version based on package file
   # This may introduce a SemVer patch number
-  my $pkg = b($self->home . '/package.json')->slurp;
-  $Kalamar::VERSION = decode_json($pkg)->{version};
+  my $pkg_path = $self->home->child('package.json');
+  if (-e $pkg_path->to_abs) {
+    my $pkg = $pkg_path->slurp;
+    $Kalamar::VERSION = decode_json($pkg)->{version};
+  };
 
   # Lift maximum template cache
   $self->renderer->cache->max_keys(200);
@@ -34,17 +38,17 @@ sub startup {
       my $c = shift;
       my $host = $c->req->headers->header('X-Forwarded-Host');
       if ($host && $host eq 'korap.ids-mannheim.de') {
-	$c->req->url->base->path('/kalamar/');
-	$c->stash(prefix => '/kalamar');
+        $c->req->url->base->path('/kalamar/');
+        $c->stash(prefix => '/kalamar');
       };
     }) if $self->mode eq 'production';
 
 
   # Set secrets for signed cookies
-  if (-e (my $secret = $self->home . '/kalamar.secret')) {
+  if (-e (my $secret = $self->home->child('kalamar.secret'))) {
 
     # Load file and split lines for multiple secrets
-    $self->secrets([b($secret)->slurp->split("\n")]);
+    $self->secrets([b($secret->slurp)->split("\n")]);
   }
 
   # File not found ...
@@ -94,7 +98,7 @@ sub startup {
 
 
   # Configure documentation navigation
-  my $navi = b($self->home . '/templates/doc/navigation.json')->slurp;
+  my $navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $self->config(navi => decode_json($navi)) if $navi;
 
 
@@ -152,7 +156,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2016, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2017, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
