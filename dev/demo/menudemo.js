@@ -2,7 +2,7 @@ requirejs.config({
   baseUrl: '../js/src'
 });
 
-require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu', 'hint/item', 'hint/lengthField'], function (menuClass, itemClass, prefixClass, lengthFieldClass, selectMenuClass, hintItemClass, hintLengthField) {
+require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu', 'hint/item', 'hint/lengthField', 'multimenu'], function (menuClass, itemClass, prefixClass, lengthFieldClass, selectMenuClass, hintItemClass, hintLengthField, multiMenuClass) {
 
   /**
    * Create own menu item class.
@@ -144,8 +144,15 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu', 'h
     ["XY", "XY ", "Non-Word"]
   ], { 'itemClass' : hintItemClass, 'lengthField' : hintLengthField });
 
+  var multiMenu = multiMenuClass.create([
+    ["textSigle", "textSigle"],
+    ["author", "author"]
+  ]);
+
+  
   document.getElementById('menu').appendChild(menu.element());
   document.getElementById('largemenu').appendChild(largeMenu.element());
+  document.getElementById('multimenu').appendChild(multiMenu.element());
 
   menu.limit(3).show(3);
   menu.focus();
