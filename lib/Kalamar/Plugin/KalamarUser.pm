@@ -5,6 +5,8 @@ use Mojo::ByteStream 'b';
 has 'api';
 has 'ua';
 
+# TODO: Merge with meta-button
+
 sub register {
   my ($plugin, $mojo, $param) = @_;
 
@@ -49,36 +51,36 @@ sub register {
 
       my $url = Mojo::URL->new($plugin->api)->path('auth/apiToken');
       my $tx = $c->ua->get($url => {
-	Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode
+        Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode
       });
 
       # Login successful
       if (my $res = $tx->success) {
 
-	my $jwt = $res->json;
+        my $jwt = $res->json;
 
-	my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
+        my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
 
-	$mojo->log->debug(qq!Login successful: "$user" with "$auth"!);
+        $mojo->log->debug(qq!Login successful: "$user" with "$auth"!);
 
-	# Set session info
-	$c->session(user => $user);
-	$c->session(auth => $auth);
+        # Set session info
+        $c->session(user => $user);
+        $c->session(auth => $auth);
 
-	$c->stash(user => $user);
-	$c->stash(auth => $auth);
+        $c->stash(user => $user);
+        $c->stash(auth => $auth);
 
-	# Set cache
-	$c->chi('user')->set($auth => $user);
-	return 1;
+        # Set cache
+        $c->chi('user')->set($auth => $user);
+        return 1;
       }
 
       elsif (my $e = $tx->error) {
-	$c->notify(
-	  error =>
-	    ($e->{code} ? $e->{code} . ': ' : '') .
-	      $e->{message} . ' for Login (remote)'
-	    );
+        $c->notify(
+          error =>
+            ($e->{code} ? $e->{code} . ': ' : '') .
+            $e->{message} . ' for Login (remote)'
+          );
       };
 
       $mojo->log->debug(qq!Login fail: "$user"!);
@@ -110,20 +112,20 @@ sub register {
 
       unless ($value) {
 
-	my $tx = $plugin->build_authorized_tx($auth, 'GET', 'user/' . $param);
-	$tx = $plugin->ua->start($tx);
+        my $tx = $plugin->build_authorized_tx($auth, 'GET', 'user/' . $param);
+        $tx = $plugin->ua->start($tx);
 
-	unless ($value = $tx->success) {
-	  return;
-	}
-#	else {
-#	  warn $c->dumper($value->json);
-#	};
-	if ($value) {
-	  $value = $value->json;
-	};
+        unless ($value = $tx->success) {
+          return;
+        }
+        #	else {
+        #	  warn $c->dumper($value->json);
+        #	};
+        if ($value) {
+          $value = $value->json;
+        };
 
-	$chi->set($user . '_' . $param => $value);
+        $chi->set($user . '_' . $param => $value);
       };
 
       # Return value
@@ -152,7 +154,7 @@ sub register {
 
       # Build a JSON transaction object
       my $tx = $plugin->build_authorized_tx(
-	$auth, 'POST', 'user/' . $param, json => $json_obj
+        $auth, 'POST', 'user/' . $param, json => $json_obj
       );
 
       # Start
@@ -186,6 +188,7 @@ sub register {
   );
 };
 
+
 sub build_authorized_tx {
   my $plugin = shift;
 
@@ -201,7 +204,6 @@ sub build_authorized_tx {
   };
 
   my $url = Mojo::URL->new($plugin->api)->path($path);
-
 
   $header->{Authorization} = $auth;
 
