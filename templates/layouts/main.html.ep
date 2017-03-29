@@ -23,7 +23,7 @@
       %= include 'partial/header'
     % }
 
-% if (1) { # user not logged in
+% unless (user_auth) { # user not logged in
 % content_for 'sidebar', begin
 <fieldset>
   %= form_for 'login', begin

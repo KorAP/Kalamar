@@ -71,8 +71,10 @@ sub search {
   # Check cache for total results
   my $total_results;
 
+  my $user = $c->stash('user') // '?';
+
   if (!$index->no_cache &&
-	defined ($total_results = $c->chi->get($index->_api_cache))) {
+	defined ($total_results = $c->chi->get($user . $index->_api_cache))) {
 
     # Set total results from cache
     $index->total_results($total_results);
@@ -86,7 +88,7 @@ sub search {
   $index->api_request($url->to_string);
 
   # Create new user agent and set timeout to 2 minutes
-  my $ua = $c->ua;
+  my $ua = $c->user->ua;
   $ua->inactivity_timeout(120);
 
   # Debugging
@@ -97,10 +99,10 @@ sub search {
 
     $ua->get(
       $url => sub {
-	my $tx = pop;
-	$self->_process_response('matches', $index, $tx);
-	weaken $index;
-	return $cb->($index);
+        my $tx = pop;
+        $self->_process_response('matches', $index, $tx);
+        weaken $index;
+        return $cb->($index);
       });
   }
 
@@ -138,7 +140,7 @@ sub trace {
   $url->path('search');
 
   # Create new user agent and set timeout to 30 seconds
-  my $ua = $c->ua; # Mojo::UserAgent->new;
+  my $ua = $c->user->ua; # Mojo::UserAgent->new;
   $ua->inactivity_timeout(30);
 
   # Build transaction
@@ -198,7 +200,7 @@ sub match {
   $c->app->log->debug('Match info: ' . $url);
 
   # Create new user agent and set timeout to 30 seconds
-  my $ua = $c->ua; # Mojo::UserAgent->new;
+  my $ua = $c->user->ua; # Mojo::UserAgent->new;
   $ua->inactivity_timeout(30);
 
   # non-blocking
@@ -206,9 +208,9 @@ sub match {
     weaken $index;
     $ua->get(
       $url => sub {
-	my $tx = pop;
-	$self->_process_response('match', $index, $tx);
-	return $cb->($index);
+        my $tx = pop;
+        $self->_process_response('match', $index, $tx);
+        return $cb->($index);
       });
   }
 
@@ -228,6 +230,8 @@ sub resource {
   # Get controller
   my $c = $index->controller;
 
+  my $user = $c->stash('user') // '?';
+
   # If there is a callback, do async
   my $cb = pop if ref $_[-1] && ref $_[-1] eq 'CODE';
 
@@ -244,7 +248,7 @@ sub resource {
   $c->app->log->debug('Get resource info on '. $url);
 
   # Check for cached information
-  if (my $json = $c->chi->get($url->to_string)) {
+  if (my $json = $c->chi->get($user . $url->to_string)) {
 
     # TODO: That's unfortunate, as it prohibits caching of multiple resources
     $c->app->log->debug('Get resource info from cache');
@@ -264,8 +268,8 @@ sub resource {
     weaken $index;
     $ua->get(
       $url => sub {
-	$self->_process_response('resource', $index, pop);
-	return $cb->($index);
+        $self->_process_response('resource', $index, pop);
+        return $cb->($index);
       })
   }
 
@@ -385,9 +389,10 @@ sub _process_response_matches {
 
     if ($meta->{totalResults} && $meta->{totalResults} > -1) {
       my $c = $index->controller;
+      my $user = $c->stash('user') // '?';
 
       $c->app->log->debug('Cache total result');
-      $c->chi->set($index->_api_cache => $meta->{totalResults}, '120min');
+      $c->chi->set($user . $index->_api_cache => $meta->{totalResults}, '120min');
       $index->total_results($meta->{totalResults});
     };
   };
@@ -413,10 +418,12 @@ sub _process_response_resource {
   my ($self, $index, $json) = @_;
   my $c = $index->controller;
 
+  my $user = $c->stash('user') // '?';
+
   # TODO: That's unfortunate, as it prohibits multiple resources
   $c->stash('search.resource' => $json);
   $c->app->log->debug('Cache resource info');
-  $c->chi->set($c->stash('search._resource_cache') => $json, '24 hours');
+  $c->chi->set($user . $c->stash('search._resource_cache') => $json, '24 hours');
 };
 
 

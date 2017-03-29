@@ -35,9 +35,28 @@ sub register {
       my $token = $c->stash('auth');
       return $token if $token;
 
+      # Get auth from session
+      my $auth = $c->session('auth') or return;
+
       # Set token to stash
-      $c->stash(auth => $c->session('auth'));
-      return $c->stash('auth');
+      $c->stash(auth => $auth);
+      return $auth;
+    }
+  );
+
+  $mojo->helper(
+    'user.ua' => sub {
+      my $c = shift;
+      my $auth = $c->user_auth;
+      return $plugin->ua unless $auth;
+      my $ua = Mojo::UserAgent->new;
+      $ua->on(
+        start => sub {
+          my ($ua, $tx) = @_;
+          $tx->req->headers->header('Authorization' => $auth);
+        }
+      );
+      return $ua;
     }
   );
 
@@ -50,7 +69,7 @@ sub register {
       return if (index($user, ':') >= 0);
 
       my $url = Mojo::URL->new($plugin->api)->path('auth/apiToken');
-      my $tx = $c->ua->get($url => {
+      my $tx = $plugin->ua->get($url => {
         Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode
       });
 
@@ -58,6 +77,9 @@ sub register {
       if (my $res = $tx->success) {
 
         my $jwt = $res->json;
+
+
+        # TODO: Deal with user return values.
 
         my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
 

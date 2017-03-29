@@ -102,9 +102,19 @@ sub startup {
   my $navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $self->config(navi => decode_json($navi)) if $navi;
 
+  $self->log->info('API expected at ' . $self->config->{Kalamar}->{api});
 
-  # Establish routes
-  my $r = $self->routes;
+  # Establish routes with authentification
+  my $r = $self->routes->under(
+    '/' => sub {
+      my $c = shift;
+
+      if ($c->session('auth')) {
+        $c->stash(auth => $c->session('auth'));
+      };
+      return 1;
+    }
+  );
 
   # Base query route
   $r->get('/')->to('search#query')->name('index');
@@ -131,11 +141,11 @@ sub startup {
   $match->to('search#match_info')->name('match');
 
   # User Management
-  $r->any('/user')->to(controller => 'User');
-  $r->post('/login')->to(action => 'login')->name('login');
-  $r->get('/logout')->to(action => 'logout')->name('logout');
-  $r->any('/register')->to(action => 'register')->name('register');
-  $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
+  my $user = $r->any('/user')->to(controller => 'User');
+  $user->post('/login')->to(action => 'login')->name('login');
+#  $r->get('/logout')->to(action => 'logout')->name('logout');
+#  $r->any('/register')->to(action => 'register')->name('register');
+#  $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
 
   # Default user is called 'korap'
   # $r->route('/user/:user/:collection')

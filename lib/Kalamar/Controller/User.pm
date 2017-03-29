@@ -1,18 +1,22 @@
 package Kalamar::Controller::User;
 use Mojo::Base 'Mojolicious::Controller';
 
+# Login action
 sub login {
   my $c = shift;
-  my $v = $c->validator;
+
+  # Validate input
+  my $v = $c->validation;
   $v->required('handle_or_email');
   $v->required('pwd');
 
-  my $handle = $v->param('handle_or_email');
-  my $pwd = $v->param('pwd');
+  # Login user
+  $c->user->login(
+    $v->param('handle_or_email'),
+    $v->param('pwd')
+  );
 
-  $c->user->login($handle, $pwd);
-
-  return $c->redirect_to;
+  return $c->redirect_to('/');
 };
 
 sub logout {
