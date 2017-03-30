@@ -24,7 +24,10 @@ sub register {
 
   # Set API!
   $plugin->api($param->{api}) or return;
-  $plugin->ua(Mojo::UserAgent->new);
+  $plugin->ua(Mojo::UserAgent->new(
+    connect_timeout => 15,
+    inactivity_timeout => 60
+  ));
 
   # Get the user token necessary for authorization
   $mojo->helper(
@@ -48,12 +51,17 @@ sub register {
     'user.ua' => sub {
       my $c = shift;
       my $auth = $c->user_auth;
+      my $client = $c->req->headers->header('X-Forwarded-For');
+
       return $plugin->ua unless $auth;
+
       my $ua = Mojo::UserAgent->new;
       $ua->on(
         start => sub {
           my ($ua, $tx) = @_;
-          $tx->req->headers->header('Authorization' => $auth);
+          my $headers = $tx->req->headers;
+          $headers->header('Authorization' => $auth);
+          $headers->header('X-Forwarded-For' => $client);
         }
       );
       return $ua;
@@ -68,16 +76,24 @@ sub register {
 
       return if (index($user, ':') >= 0);
 
+      $c->app->log->debug("Login from user $user:$pwd");
+
       my $url = Mojo::URL->new($plugin->api)->path('auth/apiToken');
       my $tx = $plugin->ua->get($url => {
-        Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode
+        Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode->trim
       });
 
       # Login successful
       if (my $res = $tx->success) {
 
+        $c->app->log->debug("Transaction: " . $res->to_string);
+
         my $jwt = $res->json;
 
+        unless ($jwt) {
+          $c->notify(error => 'Response is no valid JWT (remote)');
+          return;
+        };
 
         # TODO: Deal with user return values.
 
@@ -103,6 +119,7 @@ sub register {
             ($e->{code} ? $e->{code} . ': ' : '') .
             $e->{message} . ' for Login (remote)'
           );
+        $c->app->log->debug($e->{code} . ($e->{message} ? ' - ' . $e->{message} : ''));
       };
 
       $mojo->log->debug(qq!Login fail: "$user"!);

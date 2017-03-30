@@ -7,15 +7,18 @@ sub login {
 
   # Validate input
   my $v = $c->validation;
-  $v->required('handle_or_email');
-  $v->required('pwd');
+  $v->required('handle_or_email', 'trim');
+  $v->required('pwd', 'trim');
 
   # Login user
-  $c->user->login(
+  if ($c->user->login(
     $v->param('handle_or_email'),
     $v->param('pwd')
-  );
+  )) {
+    $c->notify(success => 'Login successful!');
+  };
 
+  # return $c->render(text => 'ok');
   return $c->redirect_to('/');
 };
 
