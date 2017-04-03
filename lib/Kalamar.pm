@@ -97,6 +97,14 @@ sub startup {
   # Configure mail exception
   $self->plugin('MailException' => $self->config('MailException'));
 
+  # Start fixture
+  if ($self->mode eq 'test') {
+    $self->plugin(Mount => {
+      'http://*:3001/api/v0.1/' => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
+    });
+    $self->config('Kalamar')->{api} = 'http://*:3001/api/v0.1/';
+  };
+
 
   # Configure documentation navigation
   my $navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
