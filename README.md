@@ -24,7 +24,17 @@ you need NodeJS > 0.8 and npm (maybe bundled with your version of NodeJS).
 For processing Sass, you will need Ruby with
 the ```sass``` gem in addition.
 This will probably need administration
-rights. 
+rights, depending on your installation path.
+These tools may also be available with a package manager.
+
+You can check, if all tools are available using
+
+```
+$ npm -v
+$ sass -v
+```
+
+Afterwards you can install grunt and run grunt to create the assets.
 
 ```
 $ cd Kalamar
@@ -32,6 +42,8 @@ $ npm install -g grunt-cli
 $ npm install
 $ grunt
 ```
+
+Whenever the assets change, just rerun ```grunt```.
 
 ### Start Server
 
