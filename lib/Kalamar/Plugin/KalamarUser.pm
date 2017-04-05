@@ -29,6 +29,9 @@ sub register {
     inactivity_timeout => 60
   ));
 
+  # Set app to server
+  $plugin->ua->server->app($mojo);
+
   # Get the user token necessary for authorization
   $mojo->helper(
     'user_auth' => sub {
@@ -56,6 +59,10 @@ sub register {
       return $plugin->ua unless $auth;
 
       my $ua = Mojo::UserAgent->new;
+
+      # Set app to server
+      $ua->server->app($mojo);
+
       $ua->on(
         start => sub {
           my ($ua, $tx) = @_;

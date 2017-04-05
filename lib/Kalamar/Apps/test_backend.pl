@@ -5,6 +5,10 @@ use Mojo::Date;
 
 # This is an API fake server with fixtures
 
+get '/' => sub {
+  shift->render(text => 'Fake server available');
+};
+
 # Request API token
 get '/auth/apiToken' => sub {
   my $c = shift;
@@ -45,5 +49,3 @@ get '/auth/apiToken' => sub {
 };
 
 app->start;
-
-1;

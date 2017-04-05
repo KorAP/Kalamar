@@ -1,6 +1,6 @@
 use Mojo::Base -strict;
 use lib '../lib', 'lib';
-use Test::More skip_all => 'No remote tests';
+use Test::More;
 use Test::Mojo;
 use Data::Dumper;
 
@@ -8,7 +8,20 @@ $ENV{MOJO_USERAGENT_DEBUG} = 1;
 
 my $t = Test::Mojo->new('Kalamar');
 
-my $c = $t->app->build_controller;
+$t->app->mode('test');
+
+# my $c = $t->app->build_controller;
+
+$t->get_ok('/')
+  ->element_exists('form[action=/user/login] input[name=handle_or_email]');
+
+$t->post_ok('/user/login' => form => { handle_or_email => 'test' })
+  ->status_is(302);
+
+$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'xyz' });
+
+done_testing;
+__END__
 
 
 ok(!$c->user->get('details'), 'User not logged in');

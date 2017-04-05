@@ -3,6 +3,8 @@ use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
 use Mojo::File;
 use Mojo::JSON 'decode_json';
+use Mojo::Util qw/url_escape/;
+use File::Temp qw/tmpnam/;
 
 # Minor version - may be patched from package.json
 our $VERSION = '0.21';
@@ -61,6 +63,15 @@ sub startup {
   # Configuration framework
   $self->plugin('Config');
 
+  # Start fixture server
+  if ($self->mode eq 'test') {
+    $self->plugin(Mount => {
+      '/api/v0.1' => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
+    });
+
+    $self->config('Kalamar')->{api} = "/api/v0.1/";
+  };
+
   # Client notifications
   $self->plugin(Notifications => {
     'Kalamar::Plugin::Notifications' => 1,
@@ -97,13 +108,6 @@ sub startup {
   # Configure mail exception
   $self->plugin('MailException' => $self->config('MailException'));
 
-  # Start fixture
-  if ($self->mode eq 'test') {
-    $self->plugin(Mount => {
-      'http://*:3001/api/v0.1/' => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
-    });
-    $self->config('Kalamar')->{api} = 'http://*:3001/api/v0.1/';
-  };
 
 
   # Configure documentation navigation

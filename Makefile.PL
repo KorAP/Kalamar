@@ -21,10 +21,11 @@ WriteMakefile(
     'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
+    'File::Temp' => 1,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Search' => 0.04,
-    'Mojolicious::Plugin::Localize' => 0.15
+    'Mojolicious::Plugin::Localize' => 0.15,
   },
   test => {
     TESTS => 't/*.t'

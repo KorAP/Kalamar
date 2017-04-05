@@ -10,8 +10,12 @@ sub login {
   $v->required('handle_or_email', 'trim');
   $v->required('pwd', 'trim');
 
+  if ($v->has_error) {
+    $c->notify(error => 'login fail');
+  }
+
   # Login user
-  if ($c->user->login(
+  elsif ($c->user->login(
     $v->param('handle_or_email'),
     $v->param('pwd')
   )) {
