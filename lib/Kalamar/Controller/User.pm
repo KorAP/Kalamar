@@ -11,7 +11,7 @@ sub login {
   $v->required('pwd', 'trim');
 
   if ($v->has_error) {
-    $c->notify(error => 'login fail');
+    $c->notify(error => 'Login fail');
   }
 
   # Login user
@@ -22,7 +22,7 @@ sub login {
     $c->notify(success => 'Login successful!');
   };
 
-  # return $c->render(text => 'ok');
+  # Redirect to slash
   return $c->redirect_to('/');
 };
 

@@ -5,23 +5,33 @@ use Test::Mojo;
 use Data::Dumper;
 
 $ENV{MOJO_USERAGENT_DEBUG} = 1;
+$ENV{MOJO_MODE} = 'test';
 
 my $t = Test::Mojo->new('Kalamar');
-
-$t->app->mode('test');
-
-# my $c = $t->app->build_controller;
 
 $t->get_ok('/')
   ->element_exists('form[action=/user/login] input[name=handle_or_email]');
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test' })
-  ->status_is(302);
+#$t->post_ok('/user/login' => form => { handle_or_email => 'test' })
+#  ->status_is(302);
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'xyz' });
+# TODO: Use csrf!!!
+
+$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  # ->element_exists('input[name=handle_or_email][value=test]')
+  ;
 
 done_testing;
 __END__
+
+
+
 
 
 ok(!$c->user->get('details'), 'User not logged in');

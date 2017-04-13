@@ -93,17 +93,35 @@ sub register {
       # Login successful
       if (my $res = $tx->success) {
 
-        $c->app->log->debug("Transaction: " . $res->to_string);
-
+        # Get the java token
         my $jwt = $res->json;
 
+        # No java web token
         unless ($jwt) {
           $c->notify(error => 'Response is no valid JWT (remote)');
           return;
         };
 
-        # TODO: Deal with user return values.
+        # There is an error here
+        # Dealing with errors here
+        if (my $error = $jwt->{error}) {
+          if (ref $error eq 'ARRAY') {
+            foreach (@$error) {
+              if (ref($_) eq 'ARRAY') {
+                $c->notify(error => join(', ', @{$_}));
+              }
+              else {
+                $c->notify(error => 'There is an unknown JWT error');
+              };
+            };
+          }
+          else {
+            $c->notify(error => 'There is an unknown JWT error');
+          };
+          return;
+        };
 
+        # TODO: Deal with user return values.
         my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
 
         $mojo->log->debug(qq!Login successful: "$user" with "$auth"!);
@@ -112,6 +130,7 @@ sub register {
         $c->session(user => $user);
         $c->session(auth => $auth);
 
+        # Set stash info
         $c->stash(user => $user);
         $c->stash(auth => $auth);
 
@@ -121,12 +140,19 @@ sub register {
       }
 
       elsif (my $e = $tx->error) {
+
+        # Notify the user
         $c->notify(
           error =>
             ($e->{code} ? $e->{code} . ': ' : '') .
             $e->{message} . ' for Login (remote)'
           );
-        $c->app->log->debug($e->{code} . ($e->{message} ? ' - ' . $e->{message} : ''));
+
+        # Log failure
+        $c->app->log->debug(
+          ($e->{code} ? $e->{code} . ' - ' : '') .
+            $e->{message}
+          );
       };
 
       $mojo->log->debug(qq!Login fail: "$user"!);

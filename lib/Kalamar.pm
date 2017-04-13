@@ -63,12 +63,18 @@ sub startup {
   # Configuration framework
   $self->plugin('Config');
 
+  $self->log->info('Mode is ' . $self->mode);
+
   # Start fixture server
   if ($self->mode eq 'test') {
+
+    $self->log->info('Mount test server');
+
     $self->plugin(Mount => {
       '/api/v0.1' => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
     });
 
+    # Fix api endpoint
     $self->config('Kalamar')->{api} = "/api/v0.1/";
   };
 

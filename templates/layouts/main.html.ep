@@ -27,10 +27,10 @@
 % content_for 'sidebar', begin
 <fieldset>
   %= form_for 'login', begin
-    <legend><span><%= loc 'login' %></span></legend>
-    <input type="text" name="handle_or_email" placeholder="<%= loc 'email' %>" />
+  <legend><span><%= loc 'login' %></span></legend>
+    %= text_field 'handle_or_email', placeholder => loc('email')
     <div>
-      <input type="password" name="pwd" placeholder="<%= loc 'pwd' %>" />
+      %= password_field 'pwd', placeholder => loc('pwd')
       <button type="submit"><span><%= loc 'go' %></span></button>
     </div>
   % end

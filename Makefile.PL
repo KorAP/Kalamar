@@ -21,6 +21,7 @@ WriteMakefile(
     'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,
     'Cache::FastMmap' => 0,
+    'Mojo::JWT' => 0.05,
     'File::Temp' => 1,
 
     # Currently on GitHub only (github.com/akron)
