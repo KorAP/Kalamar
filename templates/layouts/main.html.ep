@@ -25,6 +25,9 @@
 
 % unless (user_auth) { # user not logged in
 % content_for 'sidebar', begin
+% if (flash('handle_or_email') && !param('handle_or_email')) {
+%   param(handle_or_email => flash('handle_or_email'));
+% };
 <fieldset>
   %= form_for 'login', begin
   <legend><span><%= loc 'login' %></span></legend>

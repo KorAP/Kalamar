@@ -15,8 +15,6 @@ $t->get_ok('/')
 #$t->post_ok('/user/login' => form => { handle_or_email => 'test' })
 #  ->status_is(302);
 
-# TODO: Use csrf!!!
-
 $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
@@ -24,8 +22,9 @@ $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' 
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
-  # ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists('input[name=handle_or_email][value=test]')
   ;
+
 
 done_testing;
 __END__

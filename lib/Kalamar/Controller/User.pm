@@ -22,6 +22,9 @@ sub login {
     $c->notify(success => 'Login successful!');
   };
 
+  # Set flash for redirect
+  $c->flash(handle_or_email => $v->param('handle_or_email'));
+
   # Redirect to slash
   return $c->redirect_to('/');
 };
