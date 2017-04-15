@@ -71,12 +71,15 @@ sub startup {
 
     $self->log->info('Mount test server');
 
+    my $mount_point = '/api/v0.1/';
+
     $self->plugin(Mount => {
-      '/api/v0.1' => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
+      $mount_point => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
     });
 
-    # Fix api endpoint
-    $self->config('Kalamar')->{api} = "/api/v0.1/";
+    # Fix api endpoints
+    $self->config('Kalamar')->{api} = $mount_point;
+    $self->config('Search')->{api} = $mount_point;
   };
 
   # Client notifications

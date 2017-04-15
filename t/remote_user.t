@@ -4,7 +4,6 @@ use Test::More;
 use Test::Mojo;
 use Data::Dumper;
 
-$ENV{MOJO_USERAGENT_DEBUG} = 1;
 $ENV{MOJO_MODE} = 'test';
 
 my $t = Test::Mojo->new('Kalamar');
