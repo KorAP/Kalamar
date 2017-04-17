@@ -389,6 +389,8 @@ sub _process_response_matches {
 
     if ($meta->{totalResults} && $meta->{totalResults} > -1) {
       my $c = $index->controller;
+
+      # TODO: Cache on auth_keys!
       my $user = $c->stash('user') // '?';
 
       $c->app->log->debug('Cache total result');

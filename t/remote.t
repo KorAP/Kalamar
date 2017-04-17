@@ -21,12 +21,8 @@ $t->get_ok('/?q=Baum')
   ->text_is('#pagination a[rel=self] span', 1)
   ;
 
-done_testing;
-__END__
-
 # Check paging
 $t->get_ok('/?q=test&p=2')
-  # ->text_is('pre.query.serial span', 'JSON-LD Serialization for "test"')
   ->text_like('#total-results', qr/\d+$/)
   ->text_is('#pagination a[rel=self] span', 2)
 ;

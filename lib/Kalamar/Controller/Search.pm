@@ -5,8 +5,18 @@ use Mojo::Base 'Mojolicious::Controller';
 # Query the KorAP backends and render a template
 sub query {
   my $c = shift;
+  my $v = $c->validation;
 
-  my $query = $c->param('q');
+  $v->optional('q');
+  $v->optional('ql');
+  $v->optional('collection');
+  $v->optional('action');
+  $v->optional('snippet');
+  $v->optional('cutoff');
+  $v->optional('count');
+  $v->optional('p');
+
+  my $query = $v->param('q');
 
   # No query
   unless ($query) {
@@ -15,26 +25,26 @@ sub query {
 
   # Base parameters for remote access
   my %param = (
-    query_language => scalar $c->param('ql'),
+    query_language => scalar $v->param('ql'),
     query => $query,
-    collection => scalar $c->param('collection')
+    collection => scalar $v->param('collection')
   );
 
   # May be not relevant
-  my $inspect = (scalar $c->param('action') // '') eq 'inspect' ? 1 : 0;
+  my $inspect = (scalar $v->param('action') // '') eq 'inspect' ? 1 : 0;
 
   # Just check the serialization non-blocking
   if ($inspect) {
     $c->search->trace(
       %param => sub {
-	return $c->render(template => 'query_info');
+        return $c->render(template => 'query_info');
       }
     );
     return;
   };
 
   # Choose the snippet based on the parameter
-  my $template = scalar $c->param('snippet') ? 'snippet' : 'search';
+  my $template = scalar $v->param('snippet') ? 'snippet' : 'search';
 
   # Search non-blocking
   $c->delay(
@@ -43,11 +53,11 @@ sub query {
 
       # Search with a callback (async)
       $c->search(
-	cutoff     => scalar $c->param('cutoff'),
-	count      => scalar $c->param('count'),
-	start_page => scalar $c->param('p'),
-	cb         => $delay->begin,
-	%param
+        cutoff     => scalar $v->param('cutoff'),
+        count      => scalar $v->param('count'),
+        start_page => scalar $v->param('p'),
+        cb         => $delay->begin,
+        %param
       ) if $query;
 
       # Search resource (async)
