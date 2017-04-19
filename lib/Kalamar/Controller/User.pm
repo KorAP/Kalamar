@@ -11,7 +11,7 @@ sub login {
   $v->required('pwd', 'trim');
 
   if ($v->has_error) {
-    $c->notify(error => 'Login fail');
+    $c->notify(error => $c->loc('Auth_loginFail'));
   }
 
   # Login user
@@ -19,19 +19,38 @@ sub login {
     $v->param('handle_or_email'),
     $v->param('pwd')
   )) {
-    $c->notify(success => 'Login successful!');
+    $c->notify(success => $c->loc('Auth_loginSuccess'));
+  }
+
+  else {
+    $c->notify(error => $c->loc('Auth_loginFail'));
   };
 
   # Set flash for redirect
   $c->flash(handle_or_email => $v->param('handle_or_email'));
 
   # Redirect to slash
-  return $c->redirect_to('/');
+  return $c->redirect_to('index');
 };
 
+
+# Logout of the session
 sub logout {
-  shift->user->logout;
+  my $c = shift;
+
+  # Log out of the system
+  if ($c->user->logout) {
+    $c->notify('success', $c->loc('Auth_logoutSuccess'));
+  }
+
+  # Something went wrong
+  else {
+    $c->notify('error', $c->loc('Auth_logoutFail'));
+  };
+  return $c->redirect_to('index');
 };
+
+
 
 sub register {
   my $c = shift;
@@ -39,6 +58,8 @@ sub register {
     response => 'register'
   });
 };
+
+
 
 sub pwdforgotten {
   my $c = shift;

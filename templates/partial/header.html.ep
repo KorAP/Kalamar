@@ -1,11 +1,14 @@
 <header>
   <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span></h1><% end %>
   <div class="button top">
-<!--
-    <a href="#"
-       class="login"
-       title="<%= loc 'login' %>"><span><%= loc 'login' %></span></a>
--->
+
+% if (stash('user')) {
+   %# TODO: CSRF protection
+   <a href="<%= url_for 'logout' %>"
+      class="logout"
+      title="<%= loc 'logout' %>: <%= stash('user') %>"><span><%= loc 'logout' %></span></a>
+% };
+
   </div>
   <form autocomplete="off" action="<%= url_for 'index' %>" id="searchform">
     <div id="searchbar">

@@ -37,10 +37,10 @@
       <button type="submit"><span><%= loc 'go' %></span></button>
     </div>
   % end
-  <ul>
-    <li><%= link_to loc('register') => 'register' %></li>
-    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
-  </ul>
+%#  <ul>
+%#    <li><%= link_to loc('register') => 'register' %></li>
+%#    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
+%#  </ul>
 </fieldset>
 % end
 % }

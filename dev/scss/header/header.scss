@@ -114,6 +114,9 @@ header {
     > a.login::after {
       content: $fa-login;
     }
+    > a.logout::after {
+      content: $fa-logout;
+    }
   }
 
   #vc-view > div {

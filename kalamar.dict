@@ -22,6 +22,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     about => 'Über KorAP',
     login => 'Anmelden',
+    logout => 'Abmelden',
     register => 'Registrieren',
     pwdforgotten => 'Password vergessen?',
     searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in »<%== param("collection-name") %>«<% } elsif (param("collection")) { %>im definierten Korpus<% } %> mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
@@ -52,6 +53,11 @@ my $THOUSAND_SEP_RE = qr/(
     },
     template => {
       intro => 'de/intro'
+    },
+    Auth => {
+      loginSuccess => 'Anmeldung erfolgreich',
+      loginFail => 'Anmeldung fehlgeschlagen',
+      logoutSuccess => 'Abmeldung erfolgreich'
     }
   },
   -en => {
@@ -65,6 +71,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     about => 'About KorAP',
     login => 'Login',
+    logout => 'Abmelden',
     register => 'Register',
     pwdforgotten => 'Password forgotten?',
     go => 'Go!',
@@ -97,6 +104,11 @@ my $THOUSAND_SEP_RE = qr/(
       cosmas2 => 'Cosmas II',
       annis => 'Annis QL',
       cql => 'CQL v1.2'
+    },
+    Auth => {
+      loginSuccess => 'Login successful',
+      loginFail => 'Access denied',
+      logoutSuccess => 'Logout successful'
     }
   }
 };

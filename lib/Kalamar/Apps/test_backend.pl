@@ -2,7 +2,7 @@
 use Mojolicious::Lite;
 use Mojo::ByteStream 'b';
 use Mojo::Date;
-use Mojo::JSON qw/true false/;
+use Mojo::JSON qw/true false encode_json/;
 use strict;
 use warnings;
 use Mojo::JWT;
@@ -13,7 +13,7 @@ use Mojo::JWT;
 
 helper jwt => sub {
   shift;
-  Mojo::JWT->new(
+  return Mojo::JWT->new(
     secret => 's3cr3t',
     token_type => 'api_token',
     expires => Mojo::Date->new(time + (3 * 34 * 60 * 60)),
@@ -125,6 +125,7 @@ get '/search' => sub {
 };
 
 
+
 ############
 # Auth API #
 ############
@@ -148,7 +149,6 @@ get '/auth/apiToken' => sub {
   # Decode header
   my ($username, $pwd) = @{b($auth)->b64_decode->split(':')->to_array};
 
-
   # the password is 'pass'
   if ($pwd) {
 
@@ -156,7 +156,18 @@ get '/auth/apiToken' => sub {
     if ($pwd eq 'pass') {
 
       # Render info with token
-      return $c->render($c->jwt(username => $username));
+      my $jwt = $c->jwt(username => $username);
+
+      # Render in the Kustvakt fashion:
+      return $c->render(
+        format => 'html',
+        text => encode_json({
+          %{$jwt->claims},
+          expires    => $jwt->expires,
+          token      => $jwt->encode,
+          token_type => 'api_token'
+        })
+      );
     };
 
     return $c->render(

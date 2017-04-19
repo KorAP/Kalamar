@@ -54,9 +54,10 @@ sub register {
     'user.ua' => sub {
       my $c = shift;
       my $auth = $c->user_auth;
-      my $client = $c->req->headers->header('X-Forwarded-For');
 
       return $plugin->ua unless $auth;
+
+      my $client = $c->req->headers->header('X-Forwarded-For');
 
       my $ua = Mojo::UserAgent->new;
 
@@ -125,6 +126,8 @@ sub register {
         my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
 
         $mojo->log->debug(qq!Login successful: "$user" with "$auth"!);
+
+        $user = $jwt->{username} ? $jwt->{username} : $user;
 
         # Set session info
         $c->session(user => $user);
@@ -248,14 +251,22 @@ sub register {
       my $c = shift;
 
       # TODO: csrf-protection!
-      # TODO: REVOKE ON THE SERVER ONCE SUPPORTED!
+
+      my $url = Mojo::URL->new($plugin->api);
+      $url->query('/auth/logout');
+
+      # Receive value from server
+      my $return_value = $c->user->ua->get($url);
+
+      # TODO:
+      #   Do something with value
 
       # Clear cache
       $c->chi('user')->remove($c->user_auth);
 
       # Expire session
       $c->session(expires => 1);
-      return $c->redirect_to('index');
+      return 1;
     }
   );
 };

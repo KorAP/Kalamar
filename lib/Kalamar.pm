@@ -133,6 +133,7 @@ sub startup {
 
       if ($c->session('auth')) {
         $c->stash(auth => $c->session('auth'));
+        $c->stash(user => $c->session('user'));
       };
       return 1;
     }
@@ -165,7 +166,7 @@ sub startup {
   # User Management
   my $user = $r->any('/user')->to(controller => 'User');
   $user->post('/login')->to(action => 'login')->name('login');
-#  $r->get('/logout')->to(action => 'logout')->name('logout');
+  $user->get('/logout')->to(action => 'logout')->name('logout');
 #  $r->any('/register')->to(action => 'register')->name('register');
 #  $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
 
