@@ -8,6 +8,13 @@ $ENV{MOJO_MODE} = 'test';
 
 my $t = Test::Mojo->new('Kalamar');
 
+$t->get_ok('/?q=Baum')
+  ->status_is(200)
+  ->text_like('h1 span', qr/KorAP: Find .Baum./i)
+  ->text_like('#total-results', qr/\d+$/)
+  ->content_like(qr/\"authorized\"\:null/)
+  ;
+
 $t->get_ok('/')
   ->element_exists('form[action=/user/login] input[name=handle_or_email]');
 
@@ -29,13 +36,41 @@ $t->get_ok('/')
   ->status_is(200)
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
-  ->text_is('div.notify-success', 'Login successful!')
+  ->text_is('div.notify-success', 'Login successful')
+  ;
+
+# Now the user is logged in and should be able to
+# search with authorization
+$t->get_ok('/?q=Baum')
+  ->status_is(200)
+  ->text_like('h1 span', qr/KorAP: Find .Baum./i)
+  ->text_like('#total-results', qr/\d+$/)
+  ->element_exists_not('div.notify-error')
+  ->content_like(qr/\"authorized\"\:\"test\"/)
   ;
 
 
+# Logout
+$t->get_ok('/user/logout')
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Logout successful')
+  ;
+
+$t->get_ok('/?q=Baum')
+  ->status_is(200)
+  ->text_like('h1 span', qr/KorAP: Find .Baum./i)
+  ->text_like('#total-results', qr/\d+$/)
+  ->content_like(qr/\"authorized\"\:null/)
+  ;
+
 done_testing;
 __END__
-
 
 
 

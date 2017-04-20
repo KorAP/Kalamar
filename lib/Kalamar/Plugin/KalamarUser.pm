@@ -26,7 +26,7 @@ sub register {
   $plugin->api($param->{api}) or return;
   $plugin->ua(Mojo::UserAgent->new(
     connect_timeout => 15,
-    inactivity_timeout => 60
+    inactivity_timeout => 120
   ));
 
   # Set app to server
@@ -53,28 +53,64 @@ sub register {
   $mojo->helper(
     'user.ua' => sub {
       my $c = shift;
+
       my $auth = $c->user_auth;
 
       return $plugin->ua unless $auth;
 
       my $client = $c->req->headers->header('X-Forwarded-For');
 
-      my $ua = Mojo::UserAgent->new;
+      my $ua = Mojo::UserAgent->new(
+        connect_timeout => 15,
+        inactivity_timeout => 120
+      );
 
       # Set app to server
-      $ua->server->app($mojo);
+      $ua->server->app($c->app);
 
       $ua->on(
         start => sub {
           my ($ua, $tx) = @_;
           my $headers = $tx->req->headers;
           $headers->header('Authorization' => $auth);
-          $headers->header('X-Forwarded-For' => $client);
+          $headers->header('X-Forwarded-For' => $client) if $client;
         }
       );
       return $ua;
     }
   );
+
+  # Request with authorization header
+  $mojo->helper(
+    'user.auth_request' => sub {
+      my $c = shift;
+      my $method = shift;
+      my $path = shift;
+
+      # Check for callback
+      my $cb;
+      if ($_[-1] && ref $_[-1] eq 'CODE') {
+        $cb = pop;
+      };
+
+      my $ua = $plugin->ua;
+
+      my $tx;
+      if ($c->user_auth) {
+        $tx = $plugin->build_authorized_tx(
+          $c->user_auth, uc($method), $path, @_
+        );
+      }
+      else {
+        $tx = $ua->build_tx(
+          uc($method), $path, @_
+        );
+      };
+      return $ua->start($tx, $cb) if $cb;
+      return $ua->start($tx);
+    }
+  );
+
 
   # Login
   $mojo->helper(
@@ -107,14 +143,7 @@ sub register {
         # Dealing with errors here
         if (my $error = $jwt->{error}) {
           if (ref $error eq 'ARRAY') {
-            foreach (@$error) {
-              if (ref($_) eq 'ARRAY') {
-                $c->notify(error => join(', ', @{$_}));
-              }
-              else {
-                $c->notify(error => 'There is an unknown JWT error');
-              };
-            };
+            $c->notify(error => $c->dumper($_));
           }
           else {
             $c->notify(error => 'There is an unknown JWT error');
@@ -187,7 +216,7 @@ sub register {
 
       unless ($value) {
 
-        my $tx = $plugin->build_authorized_tx($auth, 'GET', 'user/' . $param);
+        my $tx = $plugin->build_authorized_tx($auth, 'GET', Mojo::URL->new($plugin->api)->path('user/' . $param));
         $tx = $plugin->ua->start($tx);
 
         unless ($value = $tx->success) {
@@ -252,21 +281,22 @@ sub register {
 
       # TODO: csrf-protection!
 
-      my $url = Mojo::URL->new($plugin->api);
-      $url->query('/auth/logout');
+      my $url = Mojo::URL->new($plugin->api)->path('auth/logout');
 
-      # Receive value from server
-      my $return_value = $c->user->ua->get($url);
+      my $tx = $c->user->auth_request(
+        'get', $url
+      );
 
-      # TODO:
-      #   Do something with value
+      if ($tx->success) {
+        # Clear cache
+        $c->chi('user')->remove($c->user_auth);
 
-      # Clear cache
-      $c->chi('user')->remove($c->user_auth);
-
-      # Expire session
-      $c->session(expires => 1);
-      return 1;
+        # Expire session
+        $c->session(user => undef);
+        $c->session(auth => undef);
+        return 1;
+      };
+      return 0;
     }
   );
 };
@@ -286,7 +316,7 @@ sub build_authorized_tx {
     $header = {};
   };
 
-  my $url = Mojo::URL->new($plugin->api)->path($path);
+  my $url = Mojo::URL->new($path);
 
   $header->{Authorization} = $auth;
 

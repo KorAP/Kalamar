@@ -25,7 +25,7 @@ my $THOUSAND_SEP_RE = qr/(
     logout => 'Abmelden',
     register => 'Registrieren',
     pwdforgotten => 'Password vergessen?',
-    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in »<%== param("collection-name") %>«<% } elsif (param("collection")) { %>im definierten Korpus<% } %> mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
+    searchjob => '»<%== $q %>«<% if (param("collection-name")) { %> in »<%== param("collection-name") %>«<% } elsif (param("collection")) { %>im definierten Korpus<% } %> mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
     searchtitle => 'KorAP: Finde <%== loc("searchjob") %>',
     searchplaceholder => 'Finde ...',
     go => 'Los!',
@@ -57,7 +57,8 @@ my $THOUSAND_SEP_RE = qr/(
     Auth => {
       loginSuccess => 'Anmeldung erfolgreich',
       loginFail => 'Anmeldung fehlgeschlagen',
-      logoutSuccess => 'Abmeldung erfolgreich'
+      logoutSuccess => 'Abmeldung erfolgreich',
+      logoutFail => 'Abmeldung fehlgeschlagen'
     }
   },
   -en => {
@@ -108,7 +109,8 @@ my $THOUSAND_SEP_RE = qr/(
     Auth => {
       loginSuccess => 'Login successful',
       loginFail => 'Access denied',
-      logoutSuccess => 'Logout successful'
+      logoutSuccess => 'Logout successful',
+      logoutFail => 'Logout failed'
     }
   }
 };

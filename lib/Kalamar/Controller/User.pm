@@ -40,13 +40,14 @@ sub logout {
 
   # Log out of the system
   if ($c->user->logout) {
-    $c->notify('success', $c->loc('Auth_logoutSuccess'));
+    $c->notify(success => $c->loc('Auth_logoutSuccess'));
   }
 
   # Something went wrong
   else {
     $c->notify('error', $c->loc('Auth_logoutFail'));
   };
+
   return $c->redirect_to('index');
 };
 

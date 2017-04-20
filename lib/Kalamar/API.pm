@@ -24,6 +24,7 @@ sub register {
 			 query_language
 			 time_exceeded
 			 api_request
+       authorized
 			 _api_cache
 			 api_response
 			 benchmark
@@ -88,18 +89,20 @@ sub search {
   $index->api_request($url->to_string);
 
   # Create new user agent and set timeout to 2 minutes
-  my $ua = $c->user->ua;
-  $ua->inactivity_timeout(120);
+  #my $ua = $c->user->ua;
+  #$tx = $plugin->ua->start($tx);
+
+  #$ua->inactivity_timeout(120);
 
   # Debugging
   $c->app->log->debug('Search for ' . $index->api_request);
 
   # Search non-blocking
   if ($cb) {
-
-    $ua->get(
-      $url => sub {
+    $c->user->auth_request(
+      get => $url => sub {
         my $tx = pop;
+
         $self->_process_response('matches', $index, $tx);
         weaken $index;
         return $cb->($index);
@@ -108,7 +111,7 @@ sub search {
 
   # Search blocking
   else {
-    my $tx = $ua->get($url);
+    my $tx = $c->user->auth_request->get($url);
     $self->_process_response('matches', $index, $tx);
     return $index;
   };
@@ -361,11 +364,13 @@ sub _process_response_matches {
   # Set result values
   $index->items_per_page($meta->{itemsPerPage});
 
+  # Set authorization
+  $index->authorized($meta->{authorized}) if $meta->{authorized};
 
   # Bouncing query
-#  if ($json->{query}) {
-#    $index->query_jsonld($json->{query});
-#  };
+  #  if ($json->{query}) {
+  #    $index->query_jsonld($json->{query});
+  #  };
 
   # Legacy
   # elsif ($json->{request}->{query}) {
@@ -465,11 +470,11 @@ sub _notify_on_error {
       my $errors = $json->{errors};
       # TODO: Check for ref!
       foreach (@$errors) {
-	$c->notify(
-	  error =>
-	    ($_->[0] ? $_->[0] . ': ' : '') .
-	      $_->[1]
-	  );
+        $c->notify(
+          error =>
+            ($_->[0] ? $_->[0] . ': ' : '') .
+            $_->[1]
+          );
       };
     }
 

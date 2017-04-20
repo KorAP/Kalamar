@@ -11,14 +11,22 @@ use Mojo::JWT;
 
 # TODO: Test the fake server
 
-helper jwt => sub {
+my $secret = 's3cr3t';
+
+helper jwt_encode => sub {
   shift;
   return Mojo::JWT->new(
-    secret => 's3cr3t',
+    secret => $secret,
     token_type => 'api_token',
-    expires => Mojo::Date->new(time + (3 * 34 * 60 * 60)),
+    expires => time + (3 * 34 * 60 * 60),
     claims => { @_ }
   );
+};
+
+helper jwt_decode => sub {
+  my ($c, $auth) = @_;
+  $auth =~ s/\s*api_token\s+//;
+  return Mojo::JWT->new(secret => $secret)->decode($auth);
 };
 
 
@@ -44,6 +52,7 @@ get '/search' => sub {
     "meta" => {
       "count" => 25,
       "startIndex" => 0,
+      "authorized" => undef,
       "timeout" => 120000,
       "context" => {
         "left" => ["token",40],
@@ -113,6 +122,12 @@ get '/search' => sub {
   };
 
 
+  if (my $auth = $c->req->headers->header('Authorization')) {
+    if (my $jwt = $c->jwt_decode($auth)) {
+      $response->{meta}->{authorized} = $jwt->{username} if $jwt->{username};
+    };
+  };
+
   if ($v->param('page')) {
     $response->{meta}->{startIndex} = $v->param("startIndex");
   };
@@ -129,6 +144,23 @@ get '/search' => sub {
 ############
 # Auth API #
 ############
+
+# Request API token
+get '/auth/logout' => sub {
+  my $c = shift;
+
+  if (my $auth = $c->req->headers->header('Authorization')) {
+    if (my $jwt = $c->jwt_decode($auth)) {
+      my $user = $jwt->{username} if $jwt->{username};
+
+      $c->app->log->debug('Server-Logout: ' . $user);
+      return $c->render(json => { msg => [[0, 'Fine!']]});
+    };
+  };
+
+  return $c->render(status => 400, json => { error => [[0, 'No!']]});
+};
+
 
 # Request API token
 get '/auth/apiToken' => sub {
@@ -156,7 +188,7 @@ get '/auth/apiToken' => sub {
     if ($pwd eq 'pass') {
 
       # Render info with token
-      my $jwt = $c->jwt(username => $username);
+      my $jwt = $c->jwt_encode(username => $username);
 
       # Render in the Kustvakt fashion:
       return $c->render(
@@ -172,14 +204,14 @@ get '/auth/apiToken' => sub {
 
     return $c->render(
       json => {
-        error => [[3, 'x']]
+        error => [[2004, undef]]
       }
     );
   };
 
   return $c->render(
     json => {
-      error => [[4, 'x']]
+      error => [[2004, undef]]
     }
   );
 };
