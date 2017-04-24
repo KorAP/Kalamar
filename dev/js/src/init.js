@@ -141,6 +141,11 @@ define([
       });
     };
 
+    document.getElementsByTagName('aside')[0].addEventListener('focus', function() {
+      this.classList.add('active')
+    });
+
+      
     // Replace QL select menus with KorAP menus
     var qlField = document.getElementById('ql-field');
     if (qlField !== null) {
