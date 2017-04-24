@@ -31,5 +31,21 @@ $t->get_ok('/?q=test&p=2&ql=cosmas2')
   ->element_exists_not('#ql-field option[value=poliqarp][selected]')
 ;
 
+# Check paging
+$t->get_ok('/?q=test&p=2&ql=cosmas2')
+  ->text_like('#total-results', qr/\d+$/)
+  ->text_is('#pagination a[rel=self] span', 2)
+  ->element_exists('#ql-field option[value=cosmas2][selected]')
+  ->element_exists_not('#ql-field option[value=poliqarp][selected]')
+;
+
+# Check for authorization
+#   this should just trigger a fixture - it's not serious
+$t->get_ok('/?q=test&p=2&ql=cosmas3')
+  ->element_exists_not('#pagination a[rel=self] span')
+  ->element_exists('#search #no-results')
+  ->text_like('.notify-error', qr!No entity found!)
+  ;
+
 done_testing;
 __END__

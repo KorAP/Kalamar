@@ -121,6 +121,12 @@ get '/search' => sub {
     ]
   };
 
+  # Error responses:
+  if ($v->param('ql') && $v->param('ql') eq 'cosmas3') {
+    return $c->render(json => {
+      errors => [[101,"No entity found for id","test_h"]]
+    });
+  };
 
   if (my $auth = $c->req->headers->header('Authorization')) {
     if (my $jwt = $c->jwt_decode($auth)) {
