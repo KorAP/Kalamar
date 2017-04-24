@@ -58,8 +58,6 @@ sub register {
 
       return $plugin->ua unless $auth;
 
-      my $client = $c->req->headers->header('X-Forwarded-For');
-
       my $ua = Mojo::UserAgent->new(
         connect_timeout => 15,
         inactivity_timeout => 120
@@ -67,6 +65,9 @@ sub register {
 
       # Set app to server
       $ua->server->app($c->app);
+
+      # Initiate client information
+      my $client = $c->client_ip;
 
       $ua->on(
         start => sub {

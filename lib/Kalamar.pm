@@ -109,7 +109,8 @@ sub startup {
     'CHI',                       # Global caching mechanism
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
-    'KalamarUser'                # Specific Helpers for Kalamar
+    'KalamarUser',               # Specific Helpers for Kalamar
+    'ClientIP'                   # Get client IP from X-Forwarded-For
   ) {
     $self->plugin($_);
   };

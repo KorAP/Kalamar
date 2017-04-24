@@ -20,9 +20,10 @@ WriteMakefile(
     'Mojolicious::Plugin::Notifications' => 0.04,
     'Mojolicious::Plugin::MailException' => 0.18,
     'Mojolicious::Plugin::CHI' => 0.09,
+    'Mojolicious::Plugin::ClientIP' => 0.01,
     'Cache::FastMmap' => 0,
     'Mojo::JWT' => 0.05,
-    'File::Temp' => 1,
+    'File::Temp' => 0.2304,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Search' => 0.04,
