@@ -122,7 +122,8 @@ define([
           // lazyLoad
           matchClass.create(this).open();
         };
-        e.halt();
+        // This would prevent the sidebar to go back
+        // e.halt();
       });
       inactiveLi[i].addEventListener('keydown', function (e) {
         var code = _codeFromEvent(e);
@@ -141,9 +142,19 @@ define([
       });
     };
 
-    document.getElementsByTagName('aside')[0].addEventListener('focus', function() {
-      this.classList.add('active')
-    });
+    // Add focus listener to aside
+    var aside = document.getElementsByTagName('aside')[0];
+
+    if (aside && aside.classList.contains('active') == false) {
+      aside.addEventListener('focus', function() {
+        this.classList.add('active');
+      });
+
+      var main = document.getElementsByTagName('main')[0];
+      main.addEventListener('click', function() {
+        aside.classList.remove('active');
+      });
+    };
 
       
     // Replace QL select menus with KorAP menus
