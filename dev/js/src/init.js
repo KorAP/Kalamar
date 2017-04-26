@@ -146,13 +146,26 @@ define([
     var aside = document.getElementsByTagName('aside')[0];
 
     if (aside && aside.classList.contains('active') == false) {
-      aside.addEventListener('focus', function() {
+
+      // Make aside active on focus
+      aside.addEventListener('focus', function(e) {
         this.classList.add('active');
       });
 
-      var main = document.getElementsByTagName('main')[0];
-      main.addEventListener('click', function() {
-        aside.classList.remove('active');
+      // Deactivate focus when clicking anywhere else
+      var body = document.getElementsByTagName('body')[0];
+      if (body !== null) {
+        body.addEventListener('click', function() {
+          aside.classList.remove('active');
+        });
+      };
+
+      /* Stop click event on aside
+       * (to not trickle down to body)
+       */
+      aside.addEventListener('click', function(e) {
+        // TODO: This prevents the form submission!
+        e.halt();
       });
     };
 

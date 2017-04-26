@@ -26,10 +26,10 @@ aside {
     opacity: 1;
   }
   &::after {
+    position: absolute;
     display: block;
     opacity: 0;
     cursor: pointer;
-    position: absolute;
     right: 0;
     bottom: 0;
     margin-right: -1 * ($standard-margin / 2);
