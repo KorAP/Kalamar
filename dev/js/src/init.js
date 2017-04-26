@@ -147,6 +147,9 @@ define([
 
     if (aside && aside.classList.contains('active') == false) {
 
+      // Horrible lock to deal with sidebar clicks
+      var asideClicked = false;
+      
       // Make aside active on focus
       aside.addEventListener('focus', function(e) {
         this.classList.add('active');
@@ -156,7 +159,12 @@ define([
       var body = document.getElementsByTagName('body')[0];
       if (body !== null) {
         body.addEventListener('click', function() {
-          aside.classList.remove('active');
+          if (!asideClicked) {
+            aside.classList.remove('active');
+          }
+          else {
+            asideClicked = false;
+          };
         });
       };
 
@@ -164,8 +172,7 @@ define([
        * (to not trickle down to body)
        */
       aside.addEventListener('click', function(e) {
-        // TODO: This prevents the form submission!
-        e.halt();
+        asideClicked = true;
       });
     };
 
