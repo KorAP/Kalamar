@@ -72,7 +72,8 @@ sub search {
   # Check cache for total results
   my $total_results;
 
-  my $user = $c->stash('user') // '?';
+  # In case the user is not known, it is assumed, the user is not logged in
+  my $user = $c->stash('user') // 'not_logged_in';
 
   if (!$index->no_cache &&
 	defined ($total_results = $c->chi->get($user . $index->_api_cache))) {
@@ -156,8 +157,8 @@ sub trace {
     # Trace non-blocking
     $ua->start(
       $tx => sub {
-	$self->_process_response('trace', $index, pop);
-	return $cb->($index);
+        $self->_process_response('trace', $index, pop);
+        return $cb->($index);
       });
   }
   # Trace blocking
@@ -233,7 +234,7 @@ sub resource {
   # Get controller
   my $c = $index->controller;
 
-  my $user = $c->stash('user') // '?';
+  my $user = $c->stash('user') // 'not_logged_in';
 
   # If there is a callback, do async
   my $cb = pop if ref $_[-1] && ref $_[-1] eq 'CODE';
@@ -293,9 +294,9 @@ sub _process_response {
   if (my $e = $tx->error) {
     $c->notify(
       error =>
-	($e->{code} ? $e->{code} . ': ' : '') .
-	  $e->{message} . ' for ' . $type . ' (remote)'
-	);
+        ($e->{code} ? $e->{code} . ': ' : '') .
+        $e->{message} . ' for ' . $type . ' (remote)'
+      );
     return;
   };
 
@@ -396,7 +397,7 @@ sub _process_response_matches {
       my $c = $index->controller;
 
       # TODO: Cache on auth_keys!
-      my $user = $c->stash('user') // '?';
+      my $user = $c->stash('user') // 'not_logged_in';
 
       $c->app->log->debug('Cache total result');
       $c->chi->set($user . $index->_api_cache => $meta->{totalResults}, '120min');
@@ -425,7 +426,7 @@ sub _process_response_resource {
   my ($self, $index, $json) = @_;
   my $c = $index->controller;
 
-  my $user = $c->stash('user') // '?';
+  my $user = $c->stash('user') // 'not_logged_in';
 
   # TODO: That's unfortunate, as it prohibits multiple resources
   $c->stash('search.resource' => $json);

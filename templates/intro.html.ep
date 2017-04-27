@@ -5,15 +5,14 @@
 
 <div class="intro">
   <p><strong>KorAP</strong> is a new Corpus Analysis Platform, suited for large, multiple annotated corpora and complex search queries independent of particular research questions.</p>
-  <p>This is the new frontend for KorAP, <strong>Kalamar</strong>, with currently no access to restricted corpora. For full access, please visit the <a href="http://korap.ids-mannheim.de/app">first frontend</a>. <noscript>Kalamar expects activated JavaScript for some features.</noscript></p>
+
+  <p><noscript>KorAP expects activated JavaScript for some features.</noscript></p>
 
   <p><strong>New to KorAP?</strong> Please check out our <%= doc_opener 'korap', begin %>tutorial<% end %>!</p>
 
   <p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Institute for the German Language</a>, member of the <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
 
 </div>
-
-<!-- form -->
 
 <div id="logos">
   <div>

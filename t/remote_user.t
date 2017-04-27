@@ -73,6 +73,10 @@ done_testing;
 __END__
 
 
+# Login mit falschem Nutzernamen:
+# 400 und:
+{"errors":[[2022,"LDAP Authentication failed due to unknown user or password!"]]}
+
 
 
 ok(!$c->user->get('details'), 'User not logged in');

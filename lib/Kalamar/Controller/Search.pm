@@ -16,6 +16,9 @@ sub query {
   $v->optional('count');
   $v->optional('p');
 
+  #my $tx = $ua->build_tx(TRACE => $url . 'search?cq=corpusAuthor+%3D+%22Baum%22');
+  #{"@context":"http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld","errors":[[301,"You did not specify a query!"]],"collection":{"@type":"koral:doc","key":"corpusAuthor","value":"Baum","match":"match:eq"}}
+  
   my $query = $v->param('q');
 
   # No query
