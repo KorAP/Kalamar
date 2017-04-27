@@ -11,7 +11,8 @@
     data-available-info="<%= $match->{layerInfos} // $match->{layerInfo} // 'cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans' %>"
     data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
     id="<%= $id %>"\
-<% if (current_route eq 'match') { %> class="active"<% } =%>>
+    <% if (current_route eq 'match') { %> class="active"<% } =%>>
+  <div class="meta"><%= $text_sigle %></div>
   <div class="match-main">
     <div class="match-wrap">
 %# --- Snippet
