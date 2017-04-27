@@ -57,7 +57,6 @@ sub search {
 
   # Cache based on URL
   $index->_api_cache('total-' . $url->to_string);
-  # TODO: Make this user dependent for collections!!!!
 
   my %param = @_;
 
