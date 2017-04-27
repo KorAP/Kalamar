@@ -195,14 +195,16 @@ define(function () {
   var obj = {
     "-" : [
       ["Base Annotation", "base/s=", "Structure"],
-      ["Connexor", "cnx/", "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
+//      ["Connexor", "cnx/", "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
       ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
       ["DeReKo", "dereko/s=", "Structure"],
-      ["Mate", "mate/", "Lemma, Morphology, Part-of-Speech"],
+//      ["Mate", "mate/", "Lemma, Morphology, Part-of-Speech"],
+      ["Malt", "malt/", "Dependency"],
       ["OpenNLP", "opennlp/", "Part-of-Speech"],
-      ["Schreibgebrauch", "sgbr/", "Lemma, Lemma Variants, Part-of-Speech"],
+//      ["Schreibgebrauch", "sgbr/", "Lemma, Lemma Variants, Part-of-Speech"],
       ["TreeTagger", "tt/", "Lemma, Part-of-Speech"],
-      ["Xerox Parser", "xip/", "Constituency, Lemma, Part-of-Speech"]
+//      ["Xerox Parser", "xip/", "Constituency, Lemma, Part-of-Speech"]
+      ["MarMoT", "marmot/", "Morphology, Part-of-Speech"],
     ],
     "base/s=" : [
       ["s", "s", "Sentence"],
@@ -298,6 +300,14 @@ define(function () {
       ["Part-of-Speech", "p="]
     ],
     "tt/p=" : sttsArray,
+    "marmot/" : [
+      ["Morphology", "m="],
+      ["Part-of-Speech", "p="]
+    ],
+    "marmot/p=" : sttsArray,
+    "malt/" : [
+      ["Dependency", "d="]
+    ],
     "mate/" : [
       // Inactive: "d" : ["d=", "Dependency"],
       ["Lemma", "l="],
@@ -316,7 +326,24 @@ define(function () {
       ["Tense","tense:"],
       ["No type", "<no-type> "]
     ],
+    "marmot/m=" : [
+      ["Case", "case:"],
+      ["Degree", "degree:"],
+      ["Gender", "gender:"],
+      ["Mood", "mood:"],
+      ["Number", "number:"],
+      ["Person", "person:"],
+      ["Tense","tense:"],
+      ["No type", "<no-type> "]
+    ],
     "mate/m=case:" : [
+      ["acc", "acc ", "Accusative"],
+      ["dat","dat ", "Dative"],
+      ["gen", "gen ","Genitive"],
+      ["nom","nom ", "Nominative"],
+      ["*","* ", "Undefined"]
+    ],
+    "marmot/m=case:" : [
       ["acc", "acc ", "Accusative"],
       ["dat","dat ", "Dative"],
       ["gen", "gen ","Genitive"],
@@ -328,7 +355,18 @@ define(function () {
       ["pos","pos ", "Positive"],
       ["sup","sup ", "Superative"]
     ],
+    "marmot/m=degree:" : [
+      ["comp","comp ", "Comparative"],
+      ["pos","pos ", "Positive"],
+      ["sup","sup ", "Superative"]
+    ],
     "mate/m=gender:" : [
+      ["fem", "fem ", "Feminium"],
+      ["masc", "masc ", "Masculinum"],
+      ["neut","neut ", "Neuter"],
+      ["*","* ","Undefined"]
+    ],
+    "marmot/m=gender:" : [
       ["fem", "fem ", "Feminium"],
       ["masc", "masc ", "Masculinum"],
       ["neut","neut ", "Neuter"],
@@ -339,7 +377,17 @@ define(function () {
       ["ind","ind ", "Indicative"],
       ["subj","subj ", "Subjunctive"]
     ],
+    "marmot/m=mood:" : [
+      ["imp","imp ", "Imperative"],
+      ["ind","ind ", "Indicative"],
+      ["subj","subj ", "Subjunctive"]
+    ], 
     "mate/m=number:" : [
+      ["pl","pl ","Plural"],
+      ["sg","sg ","Singular"],
+      ["*","* ","Undefined"]
+    ],
+    "marmot/m=number" : [
       ["pl","pl ","Plural"],
       ["sg","sg ","Singular"],
       ["*","* ","Undefined"]
@@ -349,9 +397,55 @@ define(function () {
       ["2","2 ", "Second Person"],
       ["3","3 ", "Third Person"]
     ],
+    "marmot/m=person:" : [
+      ["1","1 ", "First Person"],
+      ["2","2 ", "Second Person"],
+      ["3","3 ", "Third Person"]
+    ],
     "mate/m=tense:" : [
       ["past","past ", "Past"],
       ["pres","pres ", "Present"]
+    ],
+    "marmot/m=tense:" : [
+      ["past","past ", "Past"],
+      ["pres","pres ", "Present"]
+    ],
+    "malt/d=" : [
+      ["-PUNCT-", "-PUNCT- "]
+      ["-UNKNOWN-","-UNKNOWN- "],
+      ["ADV","ADV "],
+      ["APP","APP "],
+      ["ATTR","ATTR "],
+      ["AUX","AUX "],
+      ["AVZ","AVZ "],
+      ["CJ","CJ "],
+      ["DET","DET "],
+      ["EXPL","EXPL "],
+      ["GMOD","GMOD "],
+      ["GRAD","GRAD "],
+      ["KOM","KOM "],
+      ["KON","KON "],
+      ["KONJ","KONJ "],
+      ["NEB","NEB "],
+      ["OBJA","OBJA "],
+      ["OBJC","OBJC "],
+      ["OBJD","OBJD "],
+      ["OBJG","OBJG "],
+      ["OBJI","OBJI "],
+      ["OBJP","OBJP "],
+      ["PAR","PAR "],
+      ["PART","PART "],
+      ["PN","PN "],
+      ["PP","PP "],
+      ["PRED","PRED "],
+      ["REL","REL "],
+      ["ROOT","ROOT "],
+      ["S","S "],
+      ["SUBJ","SUBJ "],
+      ["SUBJC","SUBJC "],
+      ["ZEIT","ZEIT "],
+      ["gmod-app","gmod-app "],
+      ["koord","koord "]
     ]
   };
 
