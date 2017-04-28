@@ -111,7 +111,7 @@ sub search {
 
   # Search blocking
   else {
-    my $tx = $c->user->auth_request->get($url);
+    my $tx = $c->user->auth_request(get => $url);
     $self->_process_response('matches', $index, $tx);
     return $index;
   };
@@ -184,10 +184,10 @@ sub match {
   my $url = Mojo::URL->new($index->api);
 
   # Legacy: In old versions, doc_id contained text_id
-  $param{doc_id} .= '.' . $param{text_id} if $param{text_id};
+  # $param{doc_id} .= '.' . $param{text_id} if $param{text_id};
 
   # Use hash slice to create path
-  $url->path(join('/', 'corpus', @param{qw/corpus_id doc_id match_id/}, 'matchInfo'));
+  $url->path(join('/', 'corpus', @param{qw/corpus_id doc_id text_id match_id/}, 'matchInfo'));
 
   # Build match id
   # $match = 'match-' . $corpus . '!' . $corpus . '_' . $doc . '-' . $match;
@@ -203,23 +203,26 @@ sub match {
   $c->app->log->debug('Match info: ' . $url);
 
   # Create new user agent and set timeout to 30 seconds
-  my $ua = $c->user->ua; # Mojo::UserAgent->new;
-  $ua->inactivity_timeout(30);
+#  my $ua = $c->user->ua; # Mojo::UserAgent->new;
+#  $ua->inactivity_timeout(30);
 
   # non-blocking
   if ($cb) {
-    weaken $index;
-    $ua->get(
+    # $c->u
+    $c->user->auth_request(get =>
+    # $ua->get(
       $url => sub {
         my $tx = pop;
         $self->_process_response('match', $index, $tx);
+    weaken $index;
         return $cb->($index);
       });
   }
 
   # Match info blocking
   else {
-    my $tx = $ua->get($url);
+    my $tx = $c->user->auth_request(get => $url);
+#    my $tx = $ua->get($url);
     return $self->_process_response('match', $index, $tx);
   };
 };
@@ -263,22 +266,22 @@ sub resource {
   $c->stash('search._resource_cache' => $url->to_string);
 
   # Create new user agent and set timeout to 30 seconds
-  my $ua = $c->ua; # Mojo::UserAgent->new;
-  $ua->inactivity_timeout(30);
+  #my $ua = $c->ua; # Mojo::UserAgent->new;
+  #$ua->inactivity_timeout(30);
 
   # Get resource information async
   if ($cb) {
-    weaken $index;
-    $ua->get(
+    $c->user->auth_request(get =>
       $url => sub {
         $self->_process_response('resource', $index, pop);
+        weaken $index;
         return $cb->($index);
       })
   }
 
   # Get resource information blocking
   else {
-    my $tx = $ua->get($url);
+    my $tx = $c->user->auth_request(get => $url);
     $self->_process_response('resource', $index, $tx);
   };
 };
