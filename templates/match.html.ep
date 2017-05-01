@@ -12,7 +12,17 @@
     data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
     id="<%= $id %>"\
     <% if (current_route eq 'match') { %> class="active"<% } =%>>
-  <div class="meta"><%= $text_sigle %></div>
+
+%# This should be done using JavaScript
+% my ($show_sigle, $flip) = ('', stash('flip') // 'flip');
+% if ($text_sigle ne stash('last_sigle')) {
+%   $show_sigle = $text_sigle;
+%   stash(last_sigle => $text_sigle);
+%   $flip = $flip eq 'flip' ? 'flop' : 'flip'; 
+%   stash(flip => $flip);
+% }
+  
+  <div class="meta <%= $flip %>"><%= $show_sigle %></div>
   <div class="match-main">
     <div class="match-wrap">
 %# --- Snippet

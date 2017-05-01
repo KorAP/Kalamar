@@ -223,3 +223,62 @@ get '/auth/apiToken' => sub {
 };
 
 app->start;
+
+
+__END__
+
+
+  # Temporary:
+  my $collection_query = {
+    '@type' => "koral:docGroup",
+    "operation" => "operation:or",
+    "operands" => [
+      {
+	'@type' => "koral:docGroup",
+	"operation" => "operation:and",
+	"operands" => [
+	  {
+	    '@type' => "koral:doc",
+	    "key" => "title",
+	    "match" => "match:eq",
+	    "value" => "Der Birnbaum",
+	    "type" => "type:string"
+	  },
+	  {
+	    '@type' => "koral:doc",
+	    "key" => "pubPlace",
+	    "match" => "match:eq",
+	    "value" => "Mannheim",
+	    "type" => "type:string"
+	  },
+	  {
+	    '@type' => "koral:docGroup",
+	    "operation" => "operation:or",
+	    "operands" => [
+	      {
+		'@type' => "koral:doc",
+		"key" => "subTitle",
+		"match" => "match:eq",
+		"value" => "Aufzucht oder Pflege",
+		"type" => "type:string"
+	      },
+	      {
+		'@type' => "koral:doc",
+		"key" => "subTitle",
+		"match" => "match:eq",
+		"value" => "Gedichte",
+		"type" => "type:string"
+	      }
+	    ]
+	  }
+	]
+      },
+      {
+	'@type' => "koral:doc",
+	"key" => "pubDate",
+	"match" => "match:geq",
+	"value" => "2015-03-05",
+	"type" => "type:date"
+      }
+    ]
+  };
