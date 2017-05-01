@@ -203,7 +203,7 @@ $logo-left-distance: 230px;
 }
 
 /**
- * Noisy background (probably not necessary)
+ * Noisy background
  */
 @mixin light-noise {
   background-image:url('#{$img-path}/noise.png');

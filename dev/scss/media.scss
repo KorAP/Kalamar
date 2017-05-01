@@ -62,14 +62,20 @@ $standard-margin: 4px;
   }
 
   header .button {
-    margin-right: $standard-margin;    
+    margin-right: $standard-margin;
+    &.top {
+      height: auto;
+    }
   }
 
   #search ol {
     > li:target, > li.active {
       > div > div.snippet {
-	margin: 2px 2em 2px 4px;
+	      margin: 2px 2em 2px 4px;
       }
+    }
+    > li div.meta {
+      display: none;
     }
     > li:not(:target):not(.active) {
       padding: 3pt 0 3pt 0;

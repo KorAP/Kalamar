@@ -29,11 +29,13 @@ $font-size: 10pt;
     div.meta {
       position: relative;
       display: table-cell;
+      cursor: initial;
       width: 2px;
       z-index: 5;
       overflow-y: visible;
       white-space: nowrap;
-      background-color: $middle-grey;
+      background-color: lighten($middle-grey, 5%);
+      // @include light-noise;
       border: {
         color: $dark-grey;
         style: solid;
@@ -43,7 +45,7 @@ $font-size: 10pt;
         border-width: 0 1px 0 0;
       }
       &.flip {
-        background-color: lighten($middle-grey, 10%);
+        background-color: lighten($middle-grey, 17%);
       }
       color: $nearly-white;
       font-size: 75%;
