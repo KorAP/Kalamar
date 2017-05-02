@@ -3,7 +3,7 @@
  */
 define(['vc/jsonld', 'util'], function (jsonldClass) {
 
-  var _validRewriteOpRE   = new RegExp("^(?:injec|modifica)tion$");
+  var _validRewriteOpRE   = new RegExp("^(operation:)?(?:injec|modifica)tion$");
 
   return {
     // Construction method
@@ -28,8 +28,8 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
 	if (_validRewriteOpRE.test(op)) {
 	  this._op = op;
 	}
-	else {
-	  KorAP.log(814, "Unknown rewrite operation");
+	      else {
+	        KorAP.log(814, "Unknown rewrite operation");
 	  return;
 	};
       };
