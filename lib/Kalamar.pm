@@ -74,7 +74,9 @@ sub startup {
     my $mount_point = '/api/v0.1/';
 
     $self->plugin(Mount => {
-      $mount_point => $self->home->child('lib/Kalamar/Apps/test_backend.pl')
+      $mount_point => $self->home->child(
+        'lib/Kalamar/Apps/test_backend.pl'
+      )
     });
 
     # Fix api endpoints
@@ -128,17 +130,27 @@ sub startup {
   $self->log->info('API expected at ' . $self->config->{Kalamar}->{api});
 
   # Establish routes with authentification
-  my $r = $self->routes->under(
-    '/' => sub {
-      my $c = shift;
+  my $r = $self->routes;
 
-      if ($c->session('auth')) {
-        $c->stash(auth => $c->session('auth'));
-        $c->stash(user => $c->session('user'));
-      };
-      return 1;
-    }
+  # Check for auth support
+  $self->defaults(
+    auth_support => $self->config('Kalamar')->{auth_support}
   );
+
+  # Support auth
+  if ($self->stash('auth_support')) {
+    $r = $r->under(
+      '/' => sub {
+        my $c = shift;
+
+        if ($c->session('auth')) {
+          $c->stash(auth => $c->session('auth'));
+          $c->stash(user => $c->session('user'));
+        };
+        return 1;
+      }
+    );
+  };
 
   # Base query route
   $r->get('/')->to('search#query')->name('index');

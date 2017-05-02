@@ -23,7 +23,7 @@
       %= include 'partial/header'
     % }
 
-% unless (user_auth) { # user not logged in
+% if (!user_auth && stash('auth_support')) { # user not logged in
 % content_for 'sidebar', begin
 % if (flash('handle_or_email') && !param('handle_or_email')) {
 %   param(handle_or_email => flash('handle_or_email'));

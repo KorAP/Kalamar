@@ -8,6 +8,8 @@ $ENV{MOJO_MODE} = 'test';
 
 my $t = Test::Mojo->new('Kalamar');
 
+$t->app->defaults(auth_support => 1);
+
 $t->get_ok('/?q=Baum')
   ->status_is(200)
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
