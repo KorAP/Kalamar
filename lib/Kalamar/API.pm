@@ -32,6 +32,7 @@ sub register {
 			 collection
 			 collection_jsonld/]);
   $index_class->attr(no_cache => 0);
+  $index_class->attr(status => 200);
 };
 
 
@@ -203,8 +204,8 @@ sub match {
   $c->app->log->debug('Match info: ' . $url);
 
   # Create new user agent and set timeout to 30 seconds
-#  my $ua = $c->user->ua; # Mojo::UserAgent->new;
-#  $ua->inactivity_timeout(30);
+  #  my $ua = $c->user->ua; # Mojo::UserAgent->new;
+  #  $ua->inactivity_timeout(30);
 
   # non-blocking
   if ($cb) {
@@ -214,7 +215,7 @@ sub match {
       $url => sub {
         my $tx = pop;
         $self->_process_response('match', $index, $tx);
-    weaken $index;
+        weaken $index;
         return $cb->($index);
       });
   }
@@ -222,7 +223,7 @@ sub match {
   # Match info blocking
   else {
     my $tx = $c->user->auth_request(get => $url);
-#    my $tx = $ua->get($url);
+    # my $tx = $ua->get($url);
     return $self->_process_response('match', $index, $tx);
   };
 };
@@ -294,11 +295,16 @@ sub _process_response {
 
   # An error has occurded
   if (my $e = $tx->error) {
-    $c->notify(
-      error =>
-        ($e->{code} ? $e->{code} . ': ' : '') .
-        $e->{message} . ' for ' . $type . ' (remote)'
-      );
+
+    # Send error
+    $self->_notify_on_error($c, 0, $tx->res->json);
+
+    # $c->notify(
+    # error =>
+    # ($e->{code} ? $e->{code} . ': ' : '') .
+    # $e->{message} . ' for ' . $type . ' (remote)'
+    # );
+    $index->status($e->{code} // 0);
     return;
   };
 
@@ -309,6 +315,7 @@ sub _process_response {
     my $json;
     unless ($json = $res->json) {
       $c->notify(error => 'JSON response is invalid');
+      $index->status(0);
       return;
     };
 
@@ -337,6 +344,7 @@ sub _process_response {
 
   # Request failed
   else {
+    $index->status(0);
     $self->_notify_on_error($c, 1, $tx->res);
   };
   return 1;
@@ -476,7 +484,7 @@ sub _notify_on_error {
         $c->notify(
           error =>
             ($_->[0] ? $_->[0] . ': ' : '') .
-            $_->[1]
+            ($_->[1] || 'Unknown')
           );
       };
     }

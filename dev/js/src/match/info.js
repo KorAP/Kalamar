@@ -114,6 +114,9 @@ define([
 	      // Callback for retrieval
 	      function (matchResponse) {
 
+          if (matchResponse === undefined)
+            cb(null);
+
 	        // Get snippet from match info
 	        if (matchResponse["snippet"] !== undefined) {
 	          this._table = matchTableClass.create(matchResponse["snippet"]);
@@ -270,9 +273,9 @@ define([
       this.getTable(undefined, function (table) {
 
 	      if (table !== null) {
-	        matchtable.classList.remove('loading');
           matchtable.appendChild(table.element());
 	      };
+	      matchtable.classList.remove('loading');
       });
 
       // Get spans

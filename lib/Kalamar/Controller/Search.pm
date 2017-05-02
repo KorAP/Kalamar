@@ -18,7 +18,7 @@ sub query {
 
   #my $tx = $ua->build_tx(TRACE => $url . 'search?cq=corpusAuthor+%3D+%22Baum%22');
   #{"@context":"http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld","errors":[[301,"You did not specify a query!"]],"collection":{"@type":"koral:doc","key":"corpusAuthor","value":"Baum","match":"match:eq"}}
-  
+
   my $query = $v->param('q');
 
   # No query
@@ -114,21 +114,24 @@ sub match_info {
       my $index = shift;
       return $c->respond_to(
 
-	# Render json if requested
-	json => sub {
-	  # Add notifications to the matching json
-	  # TODO: There should be a special notification engine doing that!
-	  my $notes = $c->notifications(json => $index->results->[0]);
-	  $c->render(json => $notes);
-	},
+        # Render json if requested
+        json => sub {
+          # Add notifications to the matching json
+          # TODO: There should be a special notification engine doing that!
+          my $notes = $c->notifications(json => $index->results->[0]);
+          $c->render(
+            json => $notes,
+            status => $index->status
+          );
+        },
 
-	# Render html if requested
-	html => sub {
-	  return $c->render(
-	    layout   => 'default',
-	    template => 'match_info'
-	  )
-	}
+        # Render html if requested
+        html => sub {
+          return $c->render(
+            layout   => 'default',
+            template => 'match_info'
+          )
+        }
       );
     }
   );

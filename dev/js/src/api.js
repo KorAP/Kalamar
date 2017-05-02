@@ -41,9 +41,9 @@ define(['util'], function () {
     if (param['spans'] == true) {
       url += '?spans=true';
       if (param['foundry'] !== undefined)
-	url += '&foundry=' + param['foundry'];
+	      url += '&foundry=' + param['foundry'];
       if (param['layer'] !== undefined)
-	url += '&layer=' + param['layer'];
+	      url += '&layer=' + param['layer'];
     }
     
     // { spans : false, layer: [Array of KorAP.InfoLayer] }
@@ -67,7 +67,6 @@ define(['util'], function () {
    */
   KorAP.API.getJSON = function (url, onload) {
     var req = new XMLHttpRequest();
-
     req.open("GET", url, true);
     req.setRequestHeader("Accept", "application/json");
     req.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
@@ -81,17 +80,23 @@ define(['util'], function () {
 	4 - done
       */
       if (this.readyState == 4) {
-	if (this.status === 200) {
-	  var json = JSON.parse(this.responseText);
-	  if (json["errors"] !== null) {
-	    for (var i in json["errors"]) {
-	      KorAP.log(json["errors"][i][0], json["errors"][i][1]);
-	    };
-	  };
-	  onload(json);
-	}
-	else
-	  KorAP.log(this.status, this.statusText);
+
+        var json = JSON.parse(this.responseText);
+	      if (json !== null && json["errors"] !== null) {
+	        for (var i in json["errors"]) {
+	          KorAP.log(json["errors"][i][0], json["errors"][i][1] || "Unknown");
+	        };
+	      }
+        else if (this.status !== 200) {
+        	KorAP.log(this.status, this.statusText);
+        };
+
+	      if (this.status === 200) {
+	        onload(json);
+	      }
+	      else {
+          onload(undefined);
+        };
       }
     };
     req.ontimeout = function () {
