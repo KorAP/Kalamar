@@ -15,7 +15,7 @@
 
 %# This should be done using JavaScript
 % my ($show_sigle, $flip) = ('', stash('flip') // 'flip');
-% if ($text_sigle ne stash('last_sigle')) {
+% if ($text_sigle ne (stash('last_sigle') // '')) {
 %   $show_sigle = $text_sigle;
 %   stash(last_sigle => $text_sigle);
 %   $flip = $flip eq 'flip' ? 'flop' : 'flip'; 
