@@ -3,31 +3,31 @@
  */
 define(['vc/jsonld', 'util'], function (jsonldClass) {
 
-  var _validRewriteOpRE   = new RegExp("^(operation:)?(?:injec|modifica)tion$");
+  var _validRewriteOpRE   = new RegExp("^(operation:)?(?:injec|inser|modifica)tion$");
 
   return {
     // Construction method
     create : function (json) {
       var obj = Object(jsonldClass).
-	create().
-	upgradeTo(this).
-	fromJson(json);
+	        create().
+	        upgradeTo(this).
+	        fromJson(json);
       return obj;
     },
 
     // Get or set source
     src : function (string) {
       if (arguments.length === 1)
-	this._src = string;
+	      this._src = string;
       return this._src;
     },
     
     // Get or set operation
     operation : function (op) {
       if (arguments.length === 1) {
-	if (_validRewriteOpRE.test(op)) {
-	  this._op = op;
-	}
+	      if (_validRewriteOpRE.test(op)) {
+	        this._op = op;
+	      }
 	      else {
 	        KorAP.log(814, "Unknown rewrite operation");
 	  return;
