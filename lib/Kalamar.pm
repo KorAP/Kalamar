@@ -119,9 +119,9 @@ sub startup {
 
 
   # Configure mail exception
-  $self->plugin('MailException' => $self->config('MailException'));
-
-
+  if ($self->config('MailException')) {
+    $self->plugin('MailException' => $self->config('MailException'));
+  };
 
   # Configure documentation navigation
   my $navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;

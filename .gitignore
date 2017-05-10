@@ -8,6 +8,7 @@ Sandbox
 node_modules
 cache/data
 public
+kalamar.*.conf
 script/hypnotoad.pid
 .sass-cache
 dev/css
