@@ -217,7 +217,7 @@ define(['match'], function () {
 
     it('should be initializable by Object', function () {
       expect(function() {
-	matchClass.create()
+	      matchClass.create()
       }).toThrow(new Error('Missing parameters'));
 
       expect(matchClass.create(match)).toBeTruthy();

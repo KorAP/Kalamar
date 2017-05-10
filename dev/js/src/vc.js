@@ -84,50 +84,50 @@ define([
 
       // Inject localized css styles
       if (!KorAP._overrideStyles) {
-	var sheet = KorAP.newStyleSheet();
+	      var sheet = KorAP.newStyleSheet();
 
-	// Add css rule for OR operations
-	sheet.insertRule(
-	  '.vc .docGroup[data-operation=or] > .doc::before,' +
-	  '.vc .docGroup[data-operation=or] > .docGroup::before ' +
-	    '{ content: "' + loc.OR + '" }',
-	  0
-	);
+	      // Add css rule for OR operations
+	      sheet.insertRule(
+	        '.vc .docGroup[data-operation=or] > .doc::before,' +
+	          '.vc .docGroup[data-operation=or] > .docGroup::before ' +
+	          '{ content: "' + loc.OR + '" }',
+	        0
+	      );
 
-	// Add css rule for AND operations
-	sheet.insertRule(
-	  '.vc .docGroup[data-operation=and] > .doc::before,' +
-	  '.vc .docGroup[data-operation=and] > .docGroup::before ' +
-	    '{ content: "' + loc.AND + '" }',
-	  1
-	);
+	      // Add css rule for AND operations
+	      sheet.insertRule(
+	        '.vc .docGroup[data-operation=and] > .doc::before,' +
+	          '.vc .docGroup[data-operation=and] > .docGroup::before ' +
+	          '{ content: "' + loc.AND + '" }',
+	        1
+	      );
 
-	KorAP._overrideStyles = true;
+	      KorAP._overrideStyles = true;
 
-	// Create key menu
-	KorAP._vcKeyMenu = menuClass.create(keyList);
-	KorAP._vcKeyMenu.limit(6);
+	      // Create key menu
+	      KorAP._vcKeyMenu = menuClass.create(keyList);
+	      KorAP._vcKeyMenu.limit(6);
 
-	// Create match menus ....
-	KorAP._vcMatchopMenu = {
-	  'string' : menuClass.create([
-	    ['eq', null],
-	    ['ne', null],
-	    ['contains', null],
-	    ['containsnot', null]
-	  ]),
-	  'date' : menuClass.create([
-	    ['eq', null],
-	    ['geq', null],
-	    ['leq', null]
-	  ]),
-	  'regex' : menuClass.create([
-	    ['eq', null],
-	    ['ne', null],
-	    ['contains', null],
-	    ['containsnot', null]
-	  ])
-	};
+	      // Create match menus ....
+	      KorAP._vcMatchopMenu = {
+	        'string' : menuClass.create([
+	          ['eq', null],
+	          ['ne', null],
+	          ['contains', null],
+	          ['containsnot', null]
+	        ]),
+	        'date' : menuClass.create([
+	          ['eq', null],
+	          ['geq', null],
+	          ['leq', null]
+	        ]),
+	        'regex' : menuClass.create([
+	          ['eq', null],
+	          ['ne', null],
+	          ['contains', null],
+	          ['containsnot', null]
+	        ])
+	      };
       };
 
       return this;
@@ -148,26 +148,25 @@ define([
      * based on a KoralQuery collection document 
      */
     fromJson : function (json) {
-
       if (json !== undefined) {
-	// Parse root document
-	if (json['@type'] == 'koral:doc') {
-	  this._root = docClass.create(this, json);
-	}
-	// parse root group
-	else if (json['@type'] == 'koral:docGroup') {
-	  this._root = docGroupClass.create(this, json);
-	}
-	// Unknown collection type
-	else {
-	  KorAP.log(813, "Collection type is not supported");
-	  return;
-	};
+	      // Parse root document
+	      if (json['@type'] == 'koral:doc') {
+	        this._root = docClass.create(this, json);
+	      }
+	      // parse root group
+	      else if (json['@type'] == 'koral:docGroup') {
+	        this._root = docGroupClass.create(this, json);
+	      }
+	      // Unknown collection type
+	      else {
+	        KorAP.log(813, "Collection type is not supported");
+	        return;
+	      };
       }
 
       else {
-	// Add unspecified object
-	this._root = unspecDocClass.create(this);
+	      // Add unspecified object
+	      this._root = unspecDocClass.create(this);
       };
 
       // Init element and update
@@ -195,24 +194,24 @@ define([
      */
     root : function (obj) {
       if (arguments.length === 1) {
-	var e = this.element();
+	      var e = this.element();
 
-	if (e.firstChild !== null) {
-	  if (e.firstChild !== obj.element()) {
-	    e.replaceChild(obj.element(), e.firstChild);
-	  };
-	}
+	      if (e.firstChild !== null) {
+	        if (e.firstChild !== obj.element()) {
+	          e.replaceChild(obj.element(), e.firstChild);
+	        };
+	      }
 
-	// Append root element
-	else {
-	  e.appendChild(obj.element());
-	};
+	      // Append root element
+	      else {
+	        e.appendChild(obj.element());
+	      };
 
-	// Update parent child relations
-	this._root = obj;
-	obj.parent(this);
+	      // Update parent child relations
+	      this._root = obj;
+	      obj.parent(this);
 
-	this.update();
+	      this.update();
       };
       return this._root;
     },

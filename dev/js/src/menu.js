@@ -21,9 +21,9 @@ define([
   'menu/slider',
   'util'
 ], function (defaultItemClass,
-	     defaultPrefixClass,
-	     defaultLengthFieldClass,
-	     sliderClass) {
+             defaultPrefixClass,
+             defaultLengthFieldClass,
+             sliderClass) {
 
   // Default maximum number of menu items
   var menuLimit = 8;
@@ -62,25 +62,25 @@ define([
     _init : function (list, params) {
 
       if (params === undefined)
-	params = {};
+        params = {};
 
       this._itemClass = params["itemClass"] || defaultItemClass;
 
       // Add prefix object
       if (params["prefixClass"] !== undefined) {
-	this._prefix = params["prefixClass"].create();
+        this._prefix = params["prefixClass"].create();
       }
       else {
-	this._prefix = defaultPrefixClass.create();
+        this._prefix = defaultPrefixClass.create();
       };
       this._prefix._menu = this;
 
       // Add lengthField object
       if (params["lengthFieldClass"] !== undefined) {
-	this._lengthField = params["lengthFieldClass"].create();
+        this._lengthField = params["lengthFieldClass"].create();
       }
       else {
-	this._lengthField = defaultLengthFieldClass.create();
+        this._lengthField = defaultLengthFieldClass.create();
       };
       this._lengthField._menu = this;
 
@@ -90,12 +90,12 @@ define([
       // Create the element
       var el = document.createElement("ul");
       with (el) {
-	style.outline = 0;
-	setAttribute('tabindex', 0);
-	classList.add('menu', 'roll');
-	appendChild(this._prefix.element());
-	appendChild(this._lengthField.element());
-	appendChild(this._slider.element());
+        style.outline = 0;
+        setAttribute('tabindex', 0);
+        classList.add('menu', 'roll');
+        appendChild(this._prefix.element());
+        appendChild(this._lengthField.element());
+        appendChild(this._slider.element());
       };
 
       // This has to be cleaned up later on
@@ -103,44 +103,44 @@ define([
 
       // Arrow keys
       el.addEventListener(
-	'keydown',
-	this._keydown.bind(this),
-	false
+        'keydown',
+        this._keydown.bind(this),
+        false
       );
 
       // Strings
       el.addEventListener(
-	'keypress',
-	this._keypress.bind(this),
-	false
+        'keypress',
+        this._keypress.bind(this),
+        false
       );
 
       // Mousewheel
       el.addEventListener(
-	'wheel',
-	this._mousewheel.bind(this),
-	false
+        'wheel',
+        this._mousewheel.bind(this),
+        false
       );
       this._element = el;
-
+      
       this._items = new Array();
 
       var i = 0;
       // Initialize item list based on parameters
       for (i in list) {
-	var obj = this._itemClass.create(list[i]);
+        var obj = this._itemClass.create(list[i]);
 
-	// This may become circular
-	obj["_menu"] = this;
-	this._lengthField.add(list[i]);
-	this._items.push(obj);
+        // This may become circular
+        obj["_menu"] = this;
+        this._lengthField.add(list[i]);
+        this._items.push(obj);
       };
 
       this._limit = menuLimit;
       this._slider.length(this.liveLength())
-	.limit(this._limit)
-	.reInit();
-
+        .limit(this._limit)
+        .reInit();
+      
       this._firstActive = false; // Show the first item active always?
       this.offset = 0;
       this.position = 0;
@@ -152,11 +152,11 @@ define([
 
       // Create a new list
       if (this._list === undefined) {
-	this._list = [];
+        this._list = [];
       }
       else if (this._list.length !== 0) {
-	this._boundary(false);
-	this._list.length = 0;
+        this._boundary(false);
+        this._list.length = 0;
       };
 
       // Offset is initially zero
@@ -165,16 +165,16 @@ define([
       // There is no prefix set
       if (this.prefix().length <= 0) {
 
-	// add all items to the list and lowlight
-	var i = 0;
-	for (; i < this._items.length; i++) {
-	  this._list.push(i);
-	  this._items[i].lowlight();
-	};
+        // add all items to the list and lowlight
+        var i = 0;
+        for (; i < this._items.length; i++) {
+          this._list.push(i);
+          this._items[i].lowlight();
+        };
 
-	this._slider.length(i).reInit();;
+        this._slider.length(i).reInit();;
 
-	return true;
+        return true;
       };
 
       /*
@@ -186,8 +186,8 @@ define([
       // Iterate over all items and choose preferred matching items
       // i.e. the matching happens at the word start
       for (pos = 0; pos < this._items.length; pos++) {
-	if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
-	  this._list.push(pos);
+        if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
+          this._list.push(pos);
       };
 
       // The list is empty - so lower your expectations
@@ -195,10 +195,10 @@ define([
       // i.e. the matching happens anywhere in the word
       prefix = prefix.substring(1);
       if (this._list.length == 0) {
-	for (pos = 0; pos < this._items.length; pos++) {
-	  if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
-	    this._list.push(pos);
-	};
+        for (pos = 0; pos < this._items.length; pos++) {
+          if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
+            this._list.push(pos);
+        };
       };
 
       this._slider.length(this._list.length).reInit();
@@ -217,11 +217,11 @@ define([
 
       // Remove circular reference to "this" in menu
       if (this._element != undefined)
-	delete this._element["menu"]; 
+        delete this._element["menu"]; 
 
       // Remove circular reference to "this" in items
       for (var i = 0; i < this._items.length; i++) {
-	delete this._items[i]["_menu"];
+        delete this._items[i]["_menu"];
       };
 
       // Remove circular reference to "this" in prefix
@@ -245,9 +245,9 @@ define([
 
       delta = e.deltaY / 120;
       if (delta > 0)
-	this.next();
+        this.next();
       else if (delta < 0)
-	this.prev();
+        this.prev();
       e.halt();
     },
 
@@ -258,66 +258,66 @@ define([
 
       switch (code) {
       case 27: // 'Esc'
-	e.halt();
-	this.hide();
-	break;
+        e.halt();
+        this.hide();
+        break;
 
       case 38: // 'Up'
-	e.halt();
-	this.prev();
-	break;
+        e.halt();
+        this.prev();
+        break;
       case 33: // 'Page up'
-	e.halt();
-	this.pageUp();
-	break;
+        e.halt();
+        this.pageUp();
+        break;
       case 40: // 'Down'
-	e.halt();
-	this.next();
-	break;
+        e.halt();
+        this.next();
+        break;
       case 34: // 'Page down'
-	e.halt();
-	this.pageDown();
-	break;
+        e.halt();
+        this.pageDown();
+        break;
       case 39: // 'Right'
-	if (this._prefix.active())
-	  break;
+        if (this._prefix.active())
+          break;
 
-	var item = this.liveItem(this.position);
-
-	if (item["further"] !== undefined) {
-	  item["further"].bind(item).apply();
-	};
-
-	e.halt();
-	break;
+        var item = this.liveItem(this.position);
+        
+        if (item["further"] !== undefined) {
+          item["further"].bind(item).apply();
+        };
+        
+        e.halt();
+        break;
       case 13: // 'Enter'
 
-	// Click on prefix
-	if (this._prefix.active())
-	  this._prefix.onclick(e);
+        // Click on prefix
+        if (this._prefix.active())
+          this._prefix.onclick(e);
 
-	// Click on item
-	else
-	  this.liveItem(this.position).onclick(e);
-	e.halt();
-	break;
+        // Click on item
+        else
+          this.liveItem(this.position).onclick(e);
+        e.halt();
+        break;
       case 8: // 'Backspace'
-	this._prefix.chop();
-	this.show();
-	e.halt();
-	break;
+        this._prefix.chop();
+        this.show();
+        e.halt();
+        break;
       };
     },
 
     // Add characters to prefix
     _keypress : function (e) {
       if (e.charCode !== 0) {
-	e.halt();
-	var c = String.fromCharCode(_codeFromEvent(e));
-
-	// Add prefix
-	this._prefix.add(c);
-	this.show();
+        e.halt();
+        var c = String.fromCharCode(_codeFromEvent(e));
+        
+        // Add prefix
+        this._prefix.add(c);
+        this.show();
       };
     },
 
@@ -327,14 +327,14 @@ define([
      */
     screen : function (nr) {
       if (nr < 0) {
-	nr = 0
+        nr = 0
       }
       else if (nr > (this.liveLength() - this.limit())) {
-	nr = (this.liveLength() - this.limit());
+        nr = (this.liveLength() - this.limit());
       };
 
       if (this.offset === nr)
-	return;
+        return;
 
       this._showItems(nr);
     },
@@ -359,11 +359,11 @@ define([
      */
     limit : function (limit) {
       if (arguments.length === 1) {
-	if (this._limit !== limit) {
-	  this._limit = limit;
-	  this._slider.limit(limit).reInit();
-	};
-	return this;
+        if (this._limit !== limit) {
+          this._limit = limit;
+          this._slider.limit(limit).reInit();
+        };
+        return this;
       };
       return this._limit;
     },
@@ -377,7 +377,7 @@ define([
      */
     upgradeTo : function (props) {
       for (var prop in props) {
-	this[prop] = props[prop];
+        this[prop] = props[prop];
       };
       return this;
     },
@@ -398,13 +398,13 @@ define([
       // Initialize the list
       if (!this._initList()) {
 
-	// The prefix is not active
-	this._prefix.active(true);
+        // The prefix is not active
+        this._prefix.active(true);
 
-	// finally show the element
-	this._element.classList.add('visible');
-
-	return true;
+        // finally show the element
+        this._element.classList.add('visible');
+        
+        return true;
       };
 
       var offset = 0;
@@ -412,33 +412,33 @@ define([
       // Set a chosen value to active and move the viewport
       if (arguments.length === 1) {
 
-	// Normalize active value
-	if (active < 0) {
-	  active = 0;
-	}
-	else if (active >= this.liveLength()) {
-	  active = this.liveLength() - 1;
-	};
+        // Normalize active value
+        if (active < 0) {
+          active = 0;
+        }
+        else if (active >= this.liveLength()) {
+          active = this.liveLength() - 1;
+        };
 
-	// Item is outside the first viewport
-	if (active >= this._limit) {
-	  offset = active;
-	  if (offset > (this.liveLength() - this._limit)) {
-	      offset = this.liveLength() - this._limit;
-	  };
-	};
-
-	this.position = active;
+        // Item is outside the first viewport
+        if (active >= this._limit) {
+          offset = active;
+          if (offset > (this.liveLength() - this._limit)) {
+            offset = this.liveLength() - this._limit;
+          };
+        };
+        
+        this.position = active;
       }
 
       // Choose the first item
       else if (this._firstActive) {
-	this.position = 0;
+        this.position = 0;
       }
 
       // Choose no item
       else {
-	this.position = -1;
+        this.position = -1;
       };
 
       this.offset = offset;
@@ -446,7 +446,7 @@ define([
 
       // Make chosen value active
       if (this.position !== -1) {
-	this.liveItem(this.position).active(true);
+        this.liveItem(this.position).active(true);
       };
 
       // The prefix is not active
@@ -487,8 +487,8 @@ define([
      */
     prefix : function (pref) {
       if (arguments.length === 1) {
-	this._prefix.value(pref);
-	return this;
+        this._prefix.value(pref);
+        return this;
       };
       return this._prefix.value();
     },
@@ -518,9 +518,9 @@ define([
       var children = this._element.childNodes;
       // Leave the prefix and lengthField
       for (var i = children.length - 1; i >= 3; i--) {
-	this._element.removeChild(
-	  children[i]
-	);
+        this._element.removeChild(
+          children[i]
+        );
       };
     },
 
@@ -542,8 +542,8 @@ define([
      */
     liveItem : function (index) {
       if (this._list === undefined)
-	if (!this._initList())
-	  return;
+        if (!this._initList())
+          return;
 
       return this._items[this._list[index]];
     },
@@ -557,7 +557,7 @@ define([
      */
     shownItem : function (index) {
       if (index >= this.limit())
-	return;
+        return;
       return this.liveItem(this.offset + index);
     },
 
@@ -575,7 +575,7 @@ define([
      */
     liveLength : function () {
       if (this._list === undefined)
-	this._initList();
+        this._initList();
       return this._list.length;
     },
 
@@ -587,11 +587,11 @@ define([
 
       // No list
       if (this.liveLength() === 0)
-	return;
+        return;
 
       // Deactivate old item
       if (this.position !== -1 && !this._prefix.active()) {
-	this.liveItem(this.position).active(false);
+        this.liveItem(this.position).active(false);
       };
 
       // Get new active item
@@ -601,33 +601,33 @@ define([
       // The next element is undefined - roll to top or to prefix
       if (newItem === undefined) {
 
-	// Activate prefix
-	var prefix = this._prefix;
+        // Activate prefix
+        var prefix = this._prefix;
 
-	// Prefix is set and not active - choose!
-	if (prefix.isSet() && !prefix.active()) {
-	  this.position--;
-	  prefix.active(true);
-	  return;
-	}
+        // Prefix is set and not active - choose!
+        if (prefix.isSet() && !prefix.active()) {
+          this.position--;
+          prefix.active(true);
+          return;
+        }
 
-	// Choose first item
-	else {
-	  newItem = this.liveItem(0);
-	  // choose first item
-	  this.position = 0;
-	  this._showItems(0);
-	};
+        // Choose first item
+        else {
+          newItem = this.liveItem(0);
+          // choose first item
+          this.position = 0;
+          this._showItems(0);
+        };
       }
 
       // The next element is after the viewport - roll down
       else if (this.position >= (this.limit() + this.offset)) {
-	this.screen(this.position - this.limit() + 1);
+        this.screen(this.position - this.limit() + 1);
       }
 
       // The next element is before the viewport - roll up
       else if (this.position <= this.offset) {
-	this.screen(this.position);
+        this.screen(this.position);
       };
 
       this._prefix.active(false);
@@ -641,20 +641,20 @@ define([
 
       // No list
       if (this.liveLength() === 0)
-	return;
+        return;
 
       // Deactivate old item
       if (!this._prefix.active()) {
 
-	// No active element set
-	if (this.position === -1) {
-	  this.position = this.liveLength();
-	}
+        // No active element set
+        if (this.position === -1) {
+          this.position = this.liveLength();
+        }
 
-	// No active element set
-	else {
-	  this.liveItem(this.position--).active(false);
-	};
+        // No active element set
+        else {
+          this.liveItem(this.position--).active(false);
+        };
       };
 
       // Get new active item
@@ -663,39 +663,39 @@ define([
       // The previous element is undefined - roll to bottom
       if (newItem === undefined) {
 
-	// Activate prefix
-	var prefix = this._prefix;
-	var offset =  this.liveLength() - this.limit();
+        // Activate prefix
+        var prefix = this._prefix;
+        var offset =  this.liveLength() - this.limit();
+        
+        // Normalize offset
+        offset = offset < 0 ? 0 : offset;
 
-	// Normalize offset
-	offset = offset < 0 ? 0 : offset;
+        // Choose the last item
+        this.position = this.liveLength() - 1;
+        
+        // Prefix is set and not active - choose!
+        if (prefix.isSet() && !prefix.active()) {
+          this.position++;
+          prefix.active(true);
+          this.offset = offset;
+          return;
+        }
 
-	// Choose the last item
-	this.position = this.liveLength() - 1;
-
-	// Prefix is set and not active - choose!
-	if (prefix.isSet() && !prefix.active()) {
-	  this.position++;
-	  prefix.active(true);
-	  this.offset = offset;
-	  return;
-	}
-
-	// Choose last item
-	else {
-	  newItem = this.liveItem(this.position);
-	  this._showItems(offset);
-	};
+        // Choose last item
+        else {
+          newItem = this.liveItem(this.position);
+          this._showItems(offset);
+        };
       }
 
       // The previous element is before the view - roll up
       else if (this.position < this.offset) {
-	this.screen(this.position);
+        this.screen(this.position);
       }
 
       // The previous element is after the view - roll down
       else if (this.position >= (this.limit() + this.offset)) {
-	this.screen(this.position - this.limit() + 2);
+        this.screen(this.position - this.limit() + 2);
       };
 
       this._prefix.active(false);
@@ -721,9 +721,9 @@ define([
     // Unmark all items
     _unmark : function () {
       for (var i in this._list) {
-	var item = this._items[this._list[i]];
-	item.lowlight();
-	item.active(false);	
+        var item = this._items[this._list[i]];
+        item.lowlight();
+        item.active(false);  
       };
     },
 
@@ -739,48 +739,48 @@ define([
 
       // optimization: scroll down one step
       if (this.offset === (off - 1)) {
-	this.offset = off;
+        this.offset = off;
 
-	// Remove the HTML node from the first item
-	// leave lengthField/prefix/slider
-	this._element.removeChild(this._element.children[3]);
-	var pos = this.offset + this.limit() - 1;
-	this._append(this._list[pos]);
+        // Remove the HTML node from the first item
+        // leave lengthField/prefix/slider
+        this._element.removeChild(this._element.children[3]);
+        var pos = this.offset + this.limit() - 1;
+        this._append(this._list[pos]);
       }
 
       // optimization: scroll up one step
       else if (this.offset === (off + 1)) {
-	this.offset = off;
+        this.offset = off;
 
-	// Remove the HTML node from the last item
-	this._element.removeChild(this._element.lastChild);
+        // Remove the HTML node from the last item
+        this._element.removeChild(this._element.lastChild);
 
-	this._prepend(this._list[this.offset]);
+        this._prepend(this._list[this.offset]);
       }
       else {
-	this.offset = off;
+        this.offset = off;
 
-	// Remove all items
-	this.removeItems();
+        // Remove all items
+        this.removeItems();
 
-	// Use list
-	var shown = 0;
-	var i;
+        // Use list
+        var shown = 0;
+        var i;
 
-	for (i in this._list) {
+        for (i in this._list) {
 
-	  // Don't show - it's before offset
-	  shown++;
-	  if (shown <= off)
-	    continue;
+          // Don't show - it's before offset
+          shown++;
+          if (shown <= off)
+            continue;
 
-	  var itemNr = this._list[i];
-	  var item = this.item(itemNr);
-	  this._append(itemNr);
-
-	  if (shown >= (this.limit() + off))
-	    break;
-	};
+          var itemNr = this._list[i];
+          var item = this.item(itemNr);
+          this._append(itemNr);
+          
+          if (shown >= (this.limit() + off))
+            break;
+        };
       };
 
       // set the slider to the new offset
@@ -794,7 +794,7 @@ define([
 
       // Highlight based on prefix
       if (this.prefix().length > 0) {
-	item.highlight(this.prefix().toLowerCase());
+        item.highlight(this.prefix().toLowerCase());
       };
 
 
@@ -809,15 +809,15 @@ define([
 
       // Highlight based on prefix
       if (this.prefix().length > 0) {
-	item.highlight(this.prefix().toLowerCase());
+        item.highlight(this.prefix().toLowerCase());
       };
 
       var e = this.element();
 
       // Append element after lengthField/prefix/slider
       e.insertBefore(
-	item.element(),
-	e.children[3]
+        item.element(),
+        e.children[3]
       );
     }
   };

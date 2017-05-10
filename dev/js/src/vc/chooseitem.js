@@ -13,14 +13,14 @@ define(['menu/item', 'util'], function (itemClass) {
      */
     create : function (params) {
       return Object.create(itemClass)
-	.upgradeTo(this)
-	._init(params);
+	      .upgradeTo(this)
+	      ._init(params);
     },
 
     // Initialize item object
     _init : function (params) {
       if (params[0] === undefined)
-	throw new Error("Missing parameters");
+	      throw new Error("Missing parameters");
       
       this._id  = params[0];
       this._name = params[1];
@@ -38,8 +38,8 @@ define(['menu/item', 'util'], function (itemClass) {
      */
     onclick : function (e) {
       this.menu().release(
-	this._id,
-	this._name
+	      this._id,
+	      this._name
       );
       e.halt();
     },
@@ -72,7 +72,7 @@ define(['menu/item', 'util'], function (itemClass) {
 
       // already defined
       if (this._element !== undefined)
-	return this._element;
+	      return this._element;
 
       // Create list item
       var li = document.createElement("li");

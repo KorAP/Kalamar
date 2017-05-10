@@ -12,14 +12,10 @@ define(['menu/prefix'], function (prefixClass) {
     /**
      * Override the prefix action.
      */
-    onclick : function () {
+    onclick : function (e) {
       var m = this.menu();
       var value = this.value();
-      var h = m.hint();
-      m.hide();
-
-      h.inputField().insert(value);
-      h.active = false;
+      m.release(value, "string");
     }
   };
 });

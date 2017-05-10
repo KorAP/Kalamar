@@ -41,13 +41,13 @@ define([
 
       // Create the object, inheriting from Json-LD class
       var obj = Object(jsonldClass).
-	create().
-	upgradeTo(this).
-	fromJson(json);
+          create().
+          upgradeTo(this).
+          fromJson(json);
 
       // Bind the parent
       if (parent !== undefined)
-	obj._parent = parent;
+        obj._parent = parent;
       
       obj.__changed = true;
       return obj;
@@ -58,7 +58,7 @@ define([
      */
     update : function () {
       if (this._element === undefined)
-	return this.element();
+        return this.element();
       
       // Get element
       var e = this._element;
@@ -69,82 +69,82 @@ define([
       // Check if there is a change
       if (this.__changed) {
 
-	// Was rewritten
-	if (this.rewrites() !== undefined) {
-	  e.classList.add("rewritten");
-	};
+        // Was rewritten
+        if (this.rewrites() !== undefined) {
+          e.classList.add("rewritten");
+        };
 
-	// Added key
-	this._keyE = document.createElement('span');
-	this._keyE.setAttribute('class', 'key');
+        // Added key
+        this._keyE = document.createElement('span');
+        this._keyE.setAttribute('class', 'key');
 
-	// Change key
-	this._keyE.addEventListener('click', this._changeKey.bind(this));
+        // Change key
+        this._keyE.addEventListener('click', this._changeKey.bind(this));
 
-	if (this.key()) {
-	  var k = this.key();
-	  if (loc['VC_' + k] !== undefined)
-	    k = loc['VC_' + k];
-	  this._keyE.appendChild(document.createTextNode(k));
-	};
+        if (this.key()) {
+          var k = this.key();
+          if (loc['VC_' + k] !== undefined)
+            k = loc['VC_' + k];
+          this._keyE.appendChild(document.createTextNode(k));
+        };
 
-	// Added match operator
-	this._matchopE = document.createElement('span');
-	this._matchopE.setAttribute('data-type', this.type());
-	this._matchopE.setAttribute('class', 'match');
-	this._matchopE.appendChild(
-	  document.createTextNode(this.matchop())
-	);
+        // Added match operator
+        this._matchopE = document.createElement('span');
+        this._matchopE.setAttribute('data-type', this.type());
+        this._matchopE.setAttribute('class', 'match');
+        this._matchopE.appendChild(
+          document.createTextNode(this.matchop())
+        );
 
-	// Change matchop
-	this._matchopE.addEventListener(
-	  'click',
-	  this._changeMatchop.bind(this)
-	);
+        // Change matchop
+        this._matchopE.addEventListener(
+          'click',
+          this._changeMatchop.bind(this)
+        );
 
-	// Added value operator
-	this._valueE = document.createElement('span');
-	this._valueE.setAttribute('data-type', this.type());
-	this._valueE.setAttribute('class', 'value');
-	if (this.value()) {
-	  this._valueE.appendChild(document.createTextNode(this.value()));
-	}
-	else {
-	  this._valueE.appendChild(document.createTextNode(loc.EMPTY));
-	};
+        // Added value operator
+        this._valueE = document.createElement('span');
+        this._valueE.setAttribute('data-type', this.type());
+        this._valueE.setAttribute('class', 'value');
+        if (this.value()) {
+          this._valueE.appendChild(document.createTextNode(this.value()));
+        }
+        else {
+          this._valueE.appendChild(document.createTextNode(loc.EMPTY));
+        };
 
-	// Change value
-	this._valueE.addEventListener(
-	  'click',
-	  this._changeValue.bind(this)
-	);
+        // Change value
+        this._valueE.addEventListener(
+          'click',
+          this._changeValue.bind(this)
+        );
 
 
-	// Remove all element children
-	_removeChildren(e);
+        // Remove all element children
+        _removeChildren(e);
 
-	// Add spans
-	e.appendChild(this._keyE);
-	e.appendChild(this._matchopE);
-	e.appendChild(this._valueE);
+        // Add spans
+        e.appendChild(this._keyE);
+        e.appendChild(this._matchopE);
+        e.appendChild(this._valueE);
 
-	this.__changed = false;
+        this.__changed = false;
       };
 
       if (this._rewrites !== undefined) {
-	e.appendChild(this._rewrites.element());
+        e.appendChild(this._rewrites.element());
       };
 
       if (this._parent !== undefined) {
-	// Set operators
-	var op = this.operators(
-	  true,
-	  true,
-	  true
-	);
+        // Set operators
+        var op = this.operators(
+          true,
+          true,
+          true
+        );
 
-	// Append new operators
-	e.appendChild(op.element());
+        // Append new operators
+        e.appendChild(op.element());
       };
       
       return e;
@@ -156,7 +156,7 @@ define([
      */
     element : function () {
       if (this._element !== undefined)
-	return this._element;
+        return this._element;
 
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'doc');
@@ -182,105 +182,105 @@ define([
      */
     fromJson : function (json) {
       if (json === undefined)
-	return this;
+        return this;
 
       if (json["@type"] === undefined) {
-	KorAP.log(701, "JSON-LD group has no @type attribute");
-	return;
+        KorAP.log(701, "JSON-LD group has no @type attribute");
+        return;
       };
 
       if (json["value"] === undefined ||
-	  typeof json["value"] != 'string') {
-	KorAP.log(805, "Value is invalid");
-	return;
+          typeof json["value"] != 'string') {
+        KorAP.log(805, "Value is invalid");
+        return;
       };
 
       // There is a defined key
       if (json["key"] !== undefined &&
-	  typeof json["key"] === 'string') {
+          typeof json["key"] === 'string') {
 
-	// Set key
-	this.key(json["key"]);
+        // Set key
+        this.key(json["key"]);
 
-	// Set match operation
-	if (json["match"] !== undefined) {
-	  if (typeof json["match"] === 'string') {
-	    this.matchop(json["match"]);
-	  }
-	  else {
-	    KorAP.log(802, "Match type is not supported by value type");
-	    return;
-	  };
-	};
+        // Set match operation
+        if (json["match"] !== undefined) {
+          if (typeof json["match"] === 'string') {
+            this.matchop(json["match"]);
+          }
+          else {
+            KorAP.log(802, "Match type is not supported by value type");
+            return;
+          };
+        };
 
-	// Key is a string
-	if (json["type"] === undefined ||
-	    json["type"] == "type:string") {
-	  this.type("string");
+        // Key is a string
+        if (json["type"] === undefined ||
+            json["type"] == "type:string") {
+          this.type("string");
 
-	  // Check match type
-	  if (!KorAP._validStringMatchRE.test(this.matchop())) {
-	    KorAP.log(802, "Match type is not supported by value type");
-	    return;
-	  };
+          // Check match type
+          if (!KorAP._validStringMatchRE.test(this.matchop())) {
+            KorAP.log(802, "Match type is not supported by value type");
+            return;
+          };
 
-	  // Set string value
-	  this.value(json["value"]);
-	}
+          // Set string value
+          this.value(json["value"]);
+        }
 
-	// Key is a date
-	else if (json["type"] === "type:date") {
-	  this.type("date");
+        // Key is a date
+        else if (json["type"] === "type:date") {
+          this.type("date");
 
-	  if (json["value"] !== undefined &&
-	      KorAP._validDateRE.test(json["value"])) {
+          if (json["value"] !== undefined &&
+              KorAP._validDateRE.test(json["value"])) {
 
-	    if (!KorAP._validDateMatchRE.test(this.matchop())) {
-	      KorAP.log(802, "Match type is not supported by value type");
-	      return;
-	    };
+            if (!KorAP._validDateMatchRE.test(this.matchop())) {
+              KorAP.log(802, "Match type is not supported by value type");
+              return;
+            };
 
-	    // Set value
-	    this.value(json["value"]);
-	  }
-	  else {
-	    KorAP.log(806, "Value is not a valid date string");
-	    return;
-	  };
-	}
+            // Set value
+            this.value(json["value"]);
+          }
+          else {
+            KorAP.log(806, "Value is not a valid date string");
+            return;
+          };
+        }
 
-	// Key is a regular expression
-	else if (json["type"] === "type:regex") {
-	  this.type("regex");
+        // Key is a regular expression
+        else if (json["type"] === "type:regex") {
+          this.type("regex");
 
-	  try {
+          try {
 
-	    // Try to create a regular expression
-	    var check = new RegExp(json["value"]);
+            // Try to create a regular expression
+            var check = new RegExp(json["value"]);
 
-	    if (!_validRegexMatchRE.test(this.matchop())) {
-	      KorAP.log(802, "Match type is not supported by value type");
-	      return;
-	    };
+            if (!_validRegexMatchRE.test(this.matchop())) {
+              KorAP.log(802, "Match type is not supported by value type");
+              return;
+            };
 
-	    this.value(json["value"]);
-	  }
+            this.value(json["value"]);
+          }
 
-	  catch (e) {
-	    KorAP.log(807, "Value is not a valid regular expression");
-	    return;
-	  };
-	  this.type("regex");
-	}
+          catch (e) {
+            KorAP.log(807, "Value is not a valid regular expression");
+            return;
+          };
+          this.type("regex");
+        }
 
-	else {
-	  KorAP.log(804, "Unknown value type");
-	  return;
-	};
+        else {
+          KorAP.log(804, "Unknown value type");
+          return;
+        };
       };
 
       if (json["rewrites"] !== undefined) {
-	this._rewrites = rewriteListClass.create(json["rewrites"]);
+        this._rewrites = rewriteListClass.create(json["rewrites"]);
       };
       
       return this;
@@ -291,9 +291,9 @@ define([
      */
     key : function (value) {
       if (arguments.length === 1) {
-	this._key = value;
-	this._changed();
-	return this;
+        this._key = value;
+        this._changed();
+        return this;
       };
       return this._key;
     },
@@ -304,24 +304,24 @@ define([
 
       // Insert menu
       this._element.insertBefore(
-	menu.element(),
-	this._keyE
+        menu.element(),
+        this._keyE
       );
 
       // Release event
       var that = this;
       menu.released(function (key, type) {
-	var doc = that.key(key).type(type);
+        var doc = that.key(key).type(type);
 
-	// This may not be compatible - then switch to default
-	doc.matchop(doc.matchop());
-	doc.value(doc.value());
+        // This may not be compatible - then switch to default
+        doc.matchop(doc.matchop());
+        doc.value(doc.value());
 
-	// Update the doc
-	doc.update();
+        // Update the doc
+        doc.update();
 
-	// hide!
-	this.hide();
+        // hide!
+        this.hide();
       });
 
       // TODO: Highlight the old value!
@@ -334,25 +334,25 @@ define([
      */
     matchop : function (match) {
       if (arguments.length === 1) {
-	var m = match.replace(/^match:/, '');
-	if (
-	  (this._type === undefined)
-	    ||
-	    (
-	      (this._type === 'string' || this._type === 'regex') &&
-		KorAP._validStringMatchRE.test(m)
-	    )
-	    ||
-	    (this._type === 'date' && KorAP._validDateMatchRE.test(m))
-	) {
-	  this._matchop = m;
-	}
-	else {
-	  this._matchop = "eq";
-	};
+        var m = match.replace(/^match:/, '');
+        if (
+          (this._type === undefined)
+            ||
+            (
+              (this._type === 'string' || this._type === 'regex') &&
+                KorAP._validStringMatchRE.test(m)
+            )
+            ||
+            (this._type === 'date' && KorAP._validDateMatchRE.test(m))
+        ) {
+          this._matchop = m;
+        }
+        else {
+          this._matchop = "eq";
+        };
 
-	this._changed();
-	return this;
+        this._changed();
+        return this;
       };
       return this._matchop || "eq";
     },
@@ -363,21 +363,21 @@ define([
       var menu = KorAP._vcMatchopMenu[this.type()];
 
       if (menu === undefined) {
-	KorAP.log(0, "Unable to init menu for " + this.type());
-	return;
+        KorAP.log(0, "Unable to init menu for " + this.type());
+        return;
       };
 
       // Insert menu
       this._element.insertBefore(
-	menu.element(),
-	this._matchopE
+        menu.element(),
+        this._matchopE
       );
 
       // Release event
       var that = this;
       menu.released(function (mo) {
-	that.matchop(mo).update();
-	this.hide();
+        that.matchop(mo).update();
+        this.hide();
       });
 
       menu.show();
@@ -390,9 +390,9 @@ define([
      */
     type : function (type) {
       if (arguments.length === 1) {
-	this._type = type;
-	this._changed();
-	return this;
+        this._type = type;
+        this._changed();
+        return this;
       };
       return this._type || "string";
     },
@@ -403,14 +403,14 @@ define([
      */
     value : function (value) {
       if (arguments.length === 1) {
-	if (this._type === 'date' && !KorAP._validDateRE.test(value)) {
-	  delete this._value;
-	}
-	else {
-	  this._value = value;
-	};
-	this._changed();
-	return this;
+        if (this._type === 'date' && !KorAP._validDateRE.test(value)) {
+          delete this._value;
+        }
+        else {
+          this._value = value;
+        };
+        this._changed();
+        return this;
       };
       return this._value;
     },
@@ -423,70 +423,69 @@ define([
 
       // Show datepicker
       if (this.type() === 'date') {
-	var dp = KorAP._vcDatePicker;
-	dp.fromString(v)
+        var dp = KorAP._vcDatePicker;
+        dp.fromString(v)
 
-	// Todo: change this
-	dp.onclick(function (selected) {
+        // Todo: change this
+        dp.onclick(function (selected) {
 
-	  // There are values selected
-	  if (selected['year']) {
-	    that.value(this.toString());
-	    that.update();
-	    return;
-	  };
+          // There are values selected
+          if (selected['year']) {
+            that.value(this.toString());
+            that.update();
+            return;
+          };
 
-	  // Remove datepicker
-	  that._element.removeChild(
-	    dp.element()
-	  );
-	});
+          // Remove datepicker
+          that._element.removeChild(
+            dp.element()
+          );
+        });
 
-	// Get element of the date picker
-	var dpElem = dp.show();
+        // Get element of the date picker
+        var dpElem = dp.show();
 
-	this._element.insertBefore(
-	  dpElem,
-	  this._valueE
-	);
+        this._element.insertBefore(
+          dpElem,
+          this._valueE
+        );
 
-	dpElem.focus();
-	/*
-	dpElem.addEventListener('blur', function (e) {
-	  e.halt();
-
-	  // Remove datepicker
-	  // TODO: If focus is not set to string input
-	  that._element.removeChild(this);
-	});
-	*/
+        dpElem.focus();
+        /*
+          dpElem.addEventListener('blur', function (e) {
+          e.halt();
+          
+          // Remove datepicker
+          // TODO: If focus is not set to string input
+          that._element.removeChild(this);
+          });
+        */
       }
       else {
-	var regex = this.type() === 'regex' ? true : false;
-	var str = stringValClass.create(this.value(), regex);
-	var strElem = str.element();
+        var regex = this.type() === 'regex' ? true : false;
+        var str = stringValClass.create(this.value(), regex);
+        var strElem = str.element();
 
+        str.store = function (value, regex) {
+          that.value(value);
+          if (regex === true)
+            that.type('regex');
+          else
+            that.type('string');
+          
+          that._element.removeChild(
+            this._element
+          );
+          that.update();
+        };
 
-	str.store = function (value, regex) {
-	  that.value(value);
-	  if (regex === true)
-	    that.type('regex');
-	  else
-	    that.type('string');
+        // Insert element
+        this._element.insertBefore(
+          strElem,
+          this._valueE
+        );
 
-	  that._element.removeChild(
-	    this._element
-	  );
-	  that.update();
-	};
-
-	// Insert element
-	this._element.insertBefore(
-	  strElem,
-	  this._valueE
-	);
-
-	str.focus();
+        str.focus();
       };
     },
 
@@ -498,37 +497,39 @@ define([
     _changed : function () {
       this.__changed = true;
       
-      if (this._parent) {
-      };
+      /*
+        if (this._parent) {
+        };
+      */
 
       if (this._rewrites === undefined)
-	return;
+        return;
 
       delete this["_rewrites"];
 
       if (this._element === undefined)
-	return;
+        return;
       this._element.classList.remove("rewritten");
     },
 
 
     toJson : function () {
       if (!this.matchop() || !this.key())
-	return {};
+        return {};
       
       return {
-	"@type" : "koral:" + this.ldType(),
-	"key"   : this.key(),
-	"match" : "match:" + this.matchop(),
-	"value" : this.value() || '',
-	"type"  : "type:" + this.type()
+        "@type" : "koral:" + this.ldType(),
+        "key"   : this.key(),
+        "match" : "match:" + this.matchop(),
+        "value" : this.value() || '',
+        "type"  : "type:" + this.type()
       };
     },
 
 
     toQuery : function () {
       if (!this.matchop() || !this.key())
-	return "";
+        return "";
 
       // Build doc string based on key
       var string = this.key() + ' ';
@@ -536,26 +537,26 @@ define([
       // Add match operator
       switch (this.matchop()) {
       case "ne":
-	string += '!=';
-	break;
+        string += '!=';
+        break;
       case "contains":
-	string += '~';
-	break;
+        string += '~';
+        break;
       case "excludes":
-	string += '!~';
-	break;
+        string += '!~';
+        break;
       case "containsnot":
-	string += '!~';
-	break;
+        string += '!~';
+        break;
       case "geq":
-	string += 'since';
-	break;
+        string += 'since';
+        break;
       case "leq":
-	string += 'until';
-	break;
+        string += 'until';
+        break;
       default:
-	string += (this.type() == 'date') ? 'in' : '=';
-	break;
+        string += (this.type() == 'date') ? 'in' : '=';
+        break;
       };
 
       string += ' ';
@@ -563,14 +564,14 @@ define([
       // Add value
       switch (this.type()) {
       case "date":
-	return string + this.value();
-	break;
+        return string + this.value();
+        break;
       case "regex":
-	return string + '/' + this.value() + '/';
-	break;
+        return string + '/' + this.value() + '/';
+        break;
       case "string":
-	return string + '"' + this.value().quote() + '"';
-	break;
+        return string + '"' + this.value().quote() + '"';
+        break;
       };
 
       return "";

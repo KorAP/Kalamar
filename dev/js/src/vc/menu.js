@@ -1,19 +1,22 @@
 /**
  * Menu showing all key fields.
  */
-define(['menu', 'vc/item'], function (menuClass, itemClass) {
+define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixClass) {
   return {
     create : function (params) {
       var obj = Object.create(menuClass)
-	.upgradeTo(this)
-	._init(params, {itemClass : itemClass});
+          .upgradeTo(this)
+          ._init(params, {
+            itemClass : itemClass,
+            prefixClass : prefixClass
+          });
       obj.limit(6);
 
       // This is only domspecific
       obj.element().addEventListener('blur', function (e) {
-	this.menu.hide();
+        this.menu.hide();
       });
-
+ 
       return obj;
     },
 
@@ -29,7 +32,7 @@ define(['menu', 'vc/item'], function (menuClass, itemClass) {
      */
     release : function (key, type) {
       if (this._cb !== undefined)
-	this._cb(key, type);
+        this._cb(key, type);
     }
   };
 });

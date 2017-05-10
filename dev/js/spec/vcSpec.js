@@ -5,6 +5,8 @@ define(['vc'], function () {
 
   var vcClass =          require('vc');
   var docClass =         require('vc/doc');
+  var menuClass =        require('vc/menu');
+  var prefixClass =      require('vc/prefix');
   var docGroupClass =    require('vc/docgroup');
   var unspecifiedClass = require('vc/unspecified');
   var operatorsClass =   require('vc/operators');
@@ -15,14 +17,14 @@ define(['vc'], function () {
   buildFactory = function (objClass, defaults) {
     return {
       create : function (overwrites) {
-	var newObj = {};
-	for (var prop in defaults) {
-	  newObj[prop] = defaults[prop];
-	};
-	for (var prop in overwrites) {
-	  newObj[prop] = overwrites[prop];
-	};
-	return objClass.create().fromJson(newObj);
+	      var newObj = {};
+	      for (var prop in defaults) {
+	        newObj[prop] = defaults[prop];
+	      };
+	      for (var prop in overwrites) {
+	        newObj[prop] = overwrites[prop];
+	      };
+	      return objClass.create().fromJson(newObj);
       }
     }
   };
@@ -148,7 +150,7 @@ define(['vc'], function () {
 
       // No valid string
       doc = stringFactory.create({
-	value : undefined
+	      value : undefined
       });
       expect(doc).toBeUndefined();
 
@@ -787,7 +789,7 @@ define(['vc'], function () {
     });
   });
 
-  describe('KorAP.VirtualCollection', function () {
+  describe('KorAP.VirtualCorpus', function () {
     var simpleGroupFactory = buildFactory(docGroupClass, {
       "@type" : "koral:docGroup",
       "operation" : "operation:and",
@@ -2022,12 +2024,49 @@ define(['vc'], function () {
       var sv = stringValClass.create();
       var count = 1;
       sv.store = function (value, regex) {
-	expect(regex).toBe(true);
-	expect(value).toBe('tree');
+	      expect(regex).toBe(true);
+	      expect(value).toBe('tree');
       };
       sv.regex(true);
       sv.value('tree');
       sv.element().lastChild.click();
+    });
+  });
+
+  // Check prefix
+  describe('KorAP.VC.Prefix', function () {
+
+    it('should be initializable', function () {
+      var p = prefixClass.create();
+      expect(p.element().classList.contains('pref')).toBeTruthy();
+      expect(p.isSet()).not.toBeTruthy();
+    });
+
+
+    it('should be clickable', function () {
+      var vc = vcClass.create([
+	      ['a', null],
+	      ['b', null],
+	      ['c', null]
+	    ]).fromJson();
+      expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
+
+      // This should open up the menu
+      vc.element().firstChild.firstChild.click();
+      expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
+
+      KorAP._vcKeyMenu._prefix.clear();
+      KorAP._vcKeyMenu._prefix.add('x');
+
+      var prefElement = vc.element().querySelector('span.pref');
+      expect(prefElement.innerText).toEqual('x');
+
+      // This should add key 'x' to VC
+      prefElement.click();
+
+      expect(vc.element().firstChild.classList.contains('doc')).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.className).toEqual('key');
+      expect(vc.element().firstChild.firstChild.innerText).toEqual('x');
     });
   });
 });
