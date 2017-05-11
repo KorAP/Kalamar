@@ -330,9 +330,15 @@ define([
           show['collection'] = true;
         };
       };
+
       vcname.onclick = vcclick;
       if (show['collection']) {
         vcclick.apply();
+      };
+
+      // Check
+      if (_checkVCrewrite(vcClass)) {
+        console.log("Rewrite!");
       };
     };
 
@@ -417,3 +423,10 @@ function _getCurrentVC (vcClass, vcArray) {
   };
   return vc;
 };
+
+function _checkVCrewrite (vcClass) {
+  if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
+    return vcClass.checkRewrite(KorAP.koralQuery["collection"]);
+  };
+  return false;
+}
