@@ -1857,7 +1857,54 @@ define(['vc'], function () {
     });
   });
 
+  // Check class method
+  describe('KorAP.VC.checkRewrite', function () {
+    
+    it('should check for simple rewrites', function () {
+      expect(vcClass.checkRewrite(
+        {
+          "@type" : "koral:doc",
+          "rewrites" : [{
+	          "@type" : "koral:rewrite",
+	          "operation" : "operation:modification",
+	          "src" : "querySerializer",
+	          "scope" : "tree"
+          }]
+        }
+      )).toBeTruthy();
 
+      var nested = {
+        "@type" : "koral:docGroup",
+        "operands" : [
+          {
+            "@type" : "koral:doc"
+          },
+          {
+            "@type" : "koral:docGroup",
+            "operands" : [
+              {
+                "@type": "koral:doc"
+              },
+              {
+                "@type": "koral:doc"
+              }
+            ]
+          }
+        ]
+      };
+
+      expect(vcClass.checkRewrite(nested)).toBe(false);
+
+      nested["operands"][1]["operands"][1]["rewrites"] = [{
+	      "@type" : "koral:rewrite",
+	      "operation" : "operation:modification",
+	      "src" : "querySerializer",
+	      "scope" : "tree"
+      }];
+
+      expect(vcClass.checkRewrite(nested)).toBeTruthy();
+    });
+  });
 
   describe('KorAP.Rewrite', function () {
     it('should be initializable', function () {

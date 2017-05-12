@@ -8,6 +8,7 @@ $bracket-size: .4em; // 4pt;
 /**
  * Virtual Collection Builder
  */
+
 .vc {
   margin-top: 4pt;
 
@@ -139,16 +140,16 @@ $bracket-size: .4em; // 4pt;
       display: inline-block;
       color: $dark-orange;
       &::after {
-	font: {
-	  family: FontAwesome;
-	  style: normal;
-	  weight: normal;
-	}
-	content: $fa-rewrite;
-	text-decoration: underline;
+	      font: {
+	      family: FontAwesome;
+	      style: normal;
+	      weight: normal;
+	    }
+	      content: $fa-rewrite;
+	      text-decoration: underline;
       }
       span {
-	display: none;
+	      display: none;
       }
     }
   }
@@ -308,17 +309,18 @@ $dg-index : 30;
   border-radius: $standard-border-radius;
 }
 
-/*
-#vc-choose {
+
+#vc-choose > span.rewritten {
   &::after {
-    content: $fa-down;
-    padding: {
-      left: 2pt;
-      right: 4pt;
-    }
-  }
-  &.active::after {
-    content: $fa-up;
+    color: $dark-orange;
+    padding: 0;
+    padding-left: 4px;
+	  font: {
+	    family: FontAwesome;
+	    style: normal;
+	    weight: normal;
+	  }
+	  content: $fa-rewrite;
+	  text-decoration: underline;
   }
 }
-*/

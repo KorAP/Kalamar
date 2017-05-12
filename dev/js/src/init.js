@@ -84,7 +84,7 @@ define([
     /**
      * Replace Virtual Collection field
      */
-    var vcname;
+    var vcname, vcchoose;
     var input = document.getElementById('collection');
     if (input) {
       input.style.display = 'none';
@@ -97,7 +97,9 @@ define([
         currentVC = loc.VC_oneCollection;
       };
 
-      vcname.appendChild(
+      vcchoose = vcname.appendChild(document.createElement('span'));
+
+      vcchoose.appendChild(
         document.createTextNode(
           document.getElementById('collection-name').value || currentVC
         )
@@ -332,13 +334,15 @@ define([
       };
 
       vcname.onclick = vcclick;
+
+      // Click, if the VC should be shown
       if (show['collection']) {
         vcclick.apply();
-      };
+      }
 
-      // Check
-      if (_checkVCrewrite(vcClass)) {
-        console.log("Rewrite!");
+      // else
+      else if (_checkVCrewrite(vcClass)) {
+        vcchoose.classList.add('rewritten');
       };
     };
 
