@@ -35,17 +35,6 @@ sub startup {
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
-  # korap.ids-mannheim.de specific path prefixing
-  $self->hook(
-    before_dispatch => sub {
-      my $c = shift;
-      my $host = $c->req->headers->header('X-Forwarded-Host');
-      if ($host && $host eq 'korap.ids-mannheim.de') {
-        $c->req->url->base->path('/kalamar/');
-        $c->stash(prefix => '/kalamar');
-      };
-    }) if $self->mode eq 'production';
-
 
   # Set secrets for signed cookies
   if (-e (my $secret = $self->home->child('kalamar.secret'))) {
@@ -65,6 +54,20 @@ sub startup {
   $self->plugin('Config');
 
   $self->log->info('Mode is ' . $self->mode);
+
+  # Specific path prefixing
+  my $conf = $self->config('Kalamar');
+  if ($conf && $conf->{proxy_prefix}) {
+
+    # Set prefix in stash
+    $self->defaults(prefix => $conf->{proxy_prefix});
+
+    # Create base path
+    $self->hook(
+      before_dispatch => sub {
+        shift->req->url->base->path($conf->{proxy_prefix} . '/');
+      });
+  };
 
   # Start fixture server
   if ($self->mode eq 'test') {

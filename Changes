@@ -1,7 +1,8 @@
-0.22 2017-04-24
+0.22 2017-05-17
         - Added user authentification using Kustvakts LDAP
           connection.
         - Added X-Forwarded-For.
+        - Introduced proxy_prefix as a configuration option.
 
 0.21 2017-02-01
         - Use textSigle for API communication instead of
