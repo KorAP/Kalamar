@@ -124,8 +124,15 @@ sub register {
       $c->app->log->debug("Login from user $user:$pwd");
 
       my $url = Mojo::URL->new($plugin->api)->path('auth/apiToken');
+
+      # Find client ip
+      my $client = $c->client_ip;
+      my %add;
+      %add = ('X-Forwarded-For' => $client) if $client;
+
       my $tx = $plugin->ua->get($url => {
-        Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode->trim
+        Authorization => 'Basic ' . b($user . ':' . $pwd)->b64_encode->trim,
+        %add
       });
 
       # Login successful
