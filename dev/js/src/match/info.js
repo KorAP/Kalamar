@@ -57,17 +57,17 @@ define([
       var elem = this._match.element();
 
       if (this.opened == true) {        
-	      elem.removeChild(
-	        this.element()
-	      );
-	      this.opened = false;
+        elem.removeChild(
+          this.element()
+        );
+        this.opened = false;
       }
       else {
-	      // Append element to match
+        // Append element to match
         elem.appendChild(
-	        this.element()
-	      );
-	      this.opened = true;
+          this.element()
+        );
+        this.opened = true;
       };
       
       return this.opened;
@@ -83,48 +83,48 @@ define([
 
       // Get all tokens
       if (tokens === undefined) {
-	      focus = this._match.getTokens();
+        focus = this._match.getTokens();
       } 
 
       // Get only some tokens
       else {
-
-	      // Push newly to focus array
-	      for (var i = 0; i < tokens.length; i++) {
-	        var term = tokens[i];
-	        try {
-	          // Create info layer objects
-	          var layer = infoLayerClass.create(term);
-	          layer.type = "tokens";
-	          focus.push(layer);
-	        }
-	        catch (e) {
-	          continue;
-	        };
-	      };
+        
+        // Push newly to focus array
+        for (var i = 0; i < tokens.length; i++) {
+          var term = tokens[i];
+          try {
+            // Create info layer objects
+            var layer = infoLayerClass.create(term);
+            layer.type = "tokens";
+            focus.push(layer);
+          }
+          catch (e) {
+            continue;
+          };
+        };
       };
       
       // No tokens chosen
       if (focus.length == 0)
-	      cb(null);
+        cb(null);
 
       // Get info (may be cached)
       KorAP.API.getMatchInfo(
-	      this._match,
-	      { 'spans' : false, 'layer' : focus },
-
-	      // Callback for retrieval
-	      function (matchResponse) {
+        this._match,
+        { 'spans' : false, 'layer' : focus },
+        
+        // Callback for retrieval
+        function (matchResponse) {
 
           if (matchResponse === undefined)
             cb(null);
 
-	        // Get snippet from match info
-	        if (matchResponse["snippet"] !== undefined) {
-	          this._table = matchTableClass.create(matchResponse["snippet"]);
-	          cb(this._table);
-	        };
-	      }.bind(this)
+          // Get snippet from match info
+          if (matchResponse["snippet"] !== undefined) {
+            this._table = matchTableClass.create(matchResponse["snippet"]);
+            cb(this._table);
+          };
+        }.bind(this)
       );
 
       /*
@@ -142,22 +142,22 @@ define([
       
       // TODO: Support and cache multiple trees
       KorAP.API.getMatchInfo(
-	      this._match, {
-	        'spans' : true,
-	        'foundry' : foundry,
-	        'layer' : layer
-	      },
-	      function (matchResponse) {
-	        // Get snippet from match info
-	        if (matchResponse["snippet"] !== undefined) {
-	          // Todo: This should be cached somehow
+        this._match, {
+          'spans' : true,
+          'foundry' : foundry,
+          'layer' : layer
+        },
+        function (matchResponse) {
+          // Get snippet from match info
+          if (matchResponse["snippet"] !== undefined) {
+            // Todo: This should be cached somehow
 
-	          cb(matchTreeClass.create(matchResponse["snippet"]));
-	        }
-	        else {
-	          cb(null);
-	        };
-	      }.bind(this)
+            cb(matchTreeClass.create(matchResponse["snippet"]));
+          }
+          else {
+            cb(null);
+          };
+        }.bind(this)
       );
     },
 
@@ -188,10 +188,10 @@ define([
       h6.appendChild(document.createElement('span'))
 	      .appendChild(document.createTextNode(foundry));
       h6.appendChild(document.createElement('span'))
-	      .appendChild(document.createTextNode(layer));
-      
+	      .appendChild(document.createTextNode(layer));      
+
       var tree = matchtree.appendChild(
-	      document.createElement('div')
+        document.createElement('div')
       );
       
       this._element.insertBefore(matchtree, this._element.lastChild);
@@ -202,10 +202,10 @@ define([
       close.className = 'close';
       close.appendChild(document.createElement('span'));
       close.addEventListener(
-	      'click', function (e) {
-	        matchtree.parentNode.removeChild(matchtree);
-	        e.halt();
-	      }
+        'click', function (e) {
+          matchtree.parentNode.removeChild(matchtree);
+          e.halt();
+        }
       );
 
       tree.classList.add('loading');
@@ -213,24 +213,24 @@ define([
       // Get tree data async
       this.getTree(foundry, layer, function (treeObj) {
 
-	      tree.classList.remove('loading');
+        tree.classList.remove('loading');
 
-	      // Something went wrong - probably log!!!
+        // Something went wrong - probably log!!!
 
-	      if (treeObj === null) {
-	        tree.appendChild(document.createTextNode('No data available.'));
-	      }
-	      else {
-	        tree.appendChild(treeObj.element());
-	        // Reposition the view to the center
-	        // (This may in a future release be a reposition
-	        // to move the root into the center or the actual
-	        // match)
+        if (treeObj === null) {
+          tree.appendChild(document.createTextNode('No data available.'));
+        }
+        else {
+          tree.appendChild(treeObj.element());
+          // Reposition the view to the center
+          // (This may in a future release be a reposition
+          // to move the root into the center or the actual
+          // match)
 
           var dl = document.createElement('li');
           dl.className = 'download';
           dl.addEventListener(
-	          'click', function (e) {
+            'click', function (e) {
 
               var a = document.createElement('a');
               a.setAttribute('href-lang', 'image/svg+xml');
@@ -243,14 +243,14 @@ define([
               document.body.removeChild(a)
 
               e.halt();
-	          }
+            }
           );
           actions.appendChild(dl);
           treeObj.center();
-	      };
-	
-	      if (cb !== undefined)
-	        cb(treeObj);
+        };
+  
+        if (cb !== undefined)
+          cb(treeObj);
       });
     },
     
@@ -260,7 +260,7 @@ define([
     element : function () {
       
       if (this._element !== undefined)
-	      return this._element;
+        return this._element;
       
       // Create info table
       var info = document.createElement('div');
@@ -274,7 +274,7 @@ define([
       // Create the table asynchronous
       this.getTable(undefined, function (table) {
 
-	      if (table !== null) {
+        if (table !== null) {
           matchtable.appendChild(table.element());
 	      };
 	      matchtable.classList.remove('loading');
@@ -283,36 +283,48 @@ define([
         this._matchCreator = matchQueryCreator.create(info);
       });
 
+      // Join spans and relations
+      var treeLayers = []
+      var spans = this._match.getSpans();
+      var rels = this._match.getRels();
+      var i;
+      for (i in spans) {
+        treeLayers.push(spans[i]);
+      };
+      for (i in rels) {
+        treeLayers.push(rels[i]);
+      };
+
       // Get spans
-      var spanLayers = this._match.getSpans().sort(
-	      function (a, b) {
-	        if (a.foundry < b.foundry) {
-	          return -1;
-	        }
-	        else if (a.foundry > b.foundry) {
-	          return 1;
-	        }
-	        else if (a.layer < b.layer) {
-	          return -1;
-	        }
-	        else if (a.layer > b.layer) {
-	          return 1;
-	        };
-	        return 0;
-	      });
+      treeLayers = treeLayers.sort(
+        function (a, b) {
+          if (a.foundry < b.foundry) {
+            return -1;
+          }
+          else if (a.foundry > b.foundry) {
+            return 1;
+          }
+          else if (a.layer < b.layer) {
+            return -1;
+          }
+          else if (a.layer > b.layer) {
+            return 1;
+          };
+          return 0;
+        });
       
       var menuList = [];
       
       // Show tree views
-      for (var i = 0; i < spanLayers.length; i++) {
-	      var span = spanLayers[i];
-	      
-	      // Add foundry/layer to menu list
-	      menuList.push([
-	        span.foundry + '/' + span.layer,
-	        span.foundry,
-	        span.layer
-	      ]);
+      for (var i = 0; i < treeLayers.length; i++) {
+        var span = treeLayers[i];
+        
+        // Add foundry/layer to menu list
+        menuList.push([
+          span.foundry + '/' + span.layer,
+          span.foundry,
+          span.layer
+        ]);
       };
 
       // Create tree menu
@@ -325,8 +337,8 @@ define([
       span.appendChild(treeElement);
 
       span.addEventListener('click', function (e) {
-	      treemenu.show();
-	      treemenu.focus();
+        treemenu.show();
+        treemenu.focus();
       });
       
       this._element = info;
@@ -342,7 +354,7 @@ define([
      */
     treeMenu : function (list) {
       if (this._treeMenu !== undefined)
-	      return this._treeMenu;
+        return this._treeMenu;
       
       return this._treeMenu = matchTreeMenuClass.create(this, list);
     }

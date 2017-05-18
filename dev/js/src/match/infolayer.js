@@ -23,26 +23,26 @@ define(function () {
     // Initialize Layer 
     _init : function (foundry, layer, type) {
       if (foundry === undefined)
-	throw new Error("Missing parameters");
+	      throw new Error("Missing parameters");
       
       if (layer === undefined) {
-	if (_AvailableRE.exec(foundry)) {
-	  this.foundry = RegExp.$1;
-	  this.layer = RegExp.$2;
-	  this.type = RegExp.$3;
-	}
-	else {
-	  throw new Error("Missing parameters");
-	};
+	      if (_AvailableRE.exec(foundry)) {
+	        this.foundry = RegExp.$1;
+	        this.layer = RegExp.$2;
+	        this.type = RegExp.$3;
+	      }
+	      else {
+	        throw new Error("Missing parameters");
+	      };
       }
       else {
-	this.foundry = foundry;
-	this.layer = layer;
-	this.type = type;
+	      this.foundry = foundry;
+	      this.layer = layer;
+	      this.type = type;
       };
       
       if (this.type === undefined)
-	this.type = 'tokens';
+	      this.type = 'tokens';
 
       return this;
     }

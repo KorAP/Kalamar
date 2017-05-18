@@ -11,7 +11,7 @@ define(['menu/item'], function (itemClass) {
      */
     create : function (params) {
       return Object.create(itemClass)
-	.upgradeTo(this)._init(params);
+	      .upgradeTo(this)._init(params);
     },
 
     /**
@@ -20,7 +20,7 @@ define(['menu/item'], function (itemClass) {
      */
     content : function (content) {
       if (arguments.length === 1) {
-	this._content = content;
+	      this._content = content;
       };
       return this._content;
     },
@@ -47,13 +47,13 @@ define(['menu/item'], function (itemClass) {
       menu.hide();
       e.halt();
       if (menu.info() !== undefined)
-	menu.info().addTree(this._foundry, this._layer);
+	      menu.info().addTree(this._foundry, this._layer);
     },
 
     // Initialize tree menu item.
     _init : function (params) {
       if (params[0] === undefined)
-	throw new Error("Missing parameters");
+	      throw new Error("Missing parameters");
 
       this._name    = params[0];
       this._foundry = params[1];

@@ -17,14 +17,14 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
      */
     create : function (info, params) {
       var obj = Object.create(menuClass)
-	.upgradeTo(this)
-	._init(params, {itemClass : itemClass});
+	        .upgradeTo(this)
+	        ._init(params, {itemClass : itemClass});
       obj.limit(6);
       obj._info = info;
 
       // This is only domspecific
       obj.element().addEventListener('blur', function (e) {
-	this.menu.hide();
+	      this.menu.hide();
       });
       
       return obj;
