@@ -411,7 +411,7 @@ define(function () {
       ["pres","pres ", "Present"]
     ],
     "malt/d=" : [
-      ["-PUNCT-", "-PUNCT- "]
+      ["-PUNCT-", "-PUNCT- "],
       ["-UNKNOWN-","-UNKNOWN- "],
       ["ADV","ADV "],
       ["APP","APP "],
