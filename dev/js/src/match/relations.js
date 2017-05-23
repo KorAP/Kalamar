@@ -6,23 +6,17 @@ define(function () {
   return {
     create : function (snippet) {
       var obj = Object.create(this)._init(snippet);
-      obj._tokens = ["Der", "alte", "Mann", "ging", "über", "die", "breite", "nasse", "Straße"];
+      obj._tokens = [];
       obj._tokenElements = [];
-      obj._arcs = [
+      obj._arcs = []
 
-
-        /*
-         * Start and end may be spans, i.e. arrays
-         */
-        { start: 0, end: 1, label: "a" },
-        { start: 0, end: 1, label: "b" },
-        { start: 1, end: 2, label: "c" },
-        { start: 0, end: 2, label: "d" },
-        { start: [2,4], end: 5, label: "e" },
-        { start: 4, end: [6,8], label: "f" },
-        { start: [5,6], end: 7, label: "g" },
-      ]
+      // Some configurations
       obj.maxArc = 200; // maximum height of the bezier control point
+      obj.overlapDiff = 20;
+      obj.arcDiff = 15;
+      obj.anchorDiff = 6;
+      obj.anchorStart = 10;
+      obj.tokenSep = 30;
       return obj;
     },
     
@@ -49,7 +43,7 @@ define(function () {
       var startPos = this._tokenElements[anchor.first].getBoundingClientRect().left;
       var endPos = this._tokenElements[anchor.last].getBoundingClientRect().right;
 
-      var y = (anchor.overlaps * -5) - 10;
+      var y = (anchor.overlaps * -1 * this.anchorDiff) - this.anchorStart; // - this.arcDiff;
       var l = this._c('path');
       l.setAttribute("d", "M " + startPos + " " + y + " L " + endPos + " " + y);
       l.setAttribute("class", "anchor");
@@ -87,27 +81,53 @@ define(function () {
       // Create arc
       var middle = Math.abs(endPos - startPos) / 2;
 
-      // var cHeight = middle < this.maxArc ? middle : this.maxArc;
       // TODO: take the number of tokens into account!
-      var cHeight = 10 + arc.overlaps * 12 + (middle / 2);
+      var cHeight = this.arcDiff + arc.overlaps * this.overlapDiff + (middle / 2);
+
+      // Respect the maximum height
+      cHeight = cHeight < this.maxArc ? cHeight : this.maxArc;
 
       var x = Math.min(startPos, endPos);
+
+      var controlY = (startY + endY - cHeight);
       
       var arcE = "M "+ startPos + " " + startY +
-          " C " + startPos + " " + (startY + endY - cHeight) +
-          " " + endPos + " " + (startY + endY - cHeight) +
+          " C " + startPos + " " + controlY +
+          " " + endPos + " " + controlY +
           " " + endPos + " " + endY;
 
       p.setAttribute("d", arcE);
 
+      /*
+       * Calculate the top point of the arc for labeling using
+       * de Casteljau's algorithm, see e.g.
+       * http://blog.sklambert.com/finding-the-control-points-of-a-bezier-curve/
+       * of course simplified to symmetric arcs ...
+       */
+      // Interpolate one side of the control polygon
+      // var controlInterpY1 = (startY + controlY) / 2;
+      // var controlInterpY2 = (controlInterpY1 + controlY) / 2;
+      var middleY = (((startY + controlY) / 2) + controlY) / 2;
+
+      // WARNING!
+      // This won't respect span anchors, adjusting startY and endY!
+
       if (arc.label !== undefined) {
         var labelE = g.appendChild(this._c("text"));
         labelE.setAttribute("x", x + middle);
-        labelE.setAttribute("y", -1 * cHeight);
+        labelE.setAttribute("y", middleY + 3);
         labelE.setAttribute("text-anchor", "middle");
         labelE.appendChild(document.createTextNode(arc.label));
       };
-      
+
+      /*
+      var circle = this._c("circle");
+      circle.setAttribute("cx", x + middle);
+      circle.setAttribute("cy", middleY);
+      circle.setAttribute("r", 4);
+      circle.setAttribute("fill", "red");
+      g.appendChild(circle);
+      */      
       return g;
     },
 
@@ -125,9 +145,17 @@ define(function () {
 
     // Add a relation with a start, an end,
     // a direction value and a label text
-    addArc : function (arc) {
+    addRel : function (rel) {
+      this._arcs.push(rel);
+      return this;
     },
 
+
+    addToken : function(token) {
+      this._tokens.push(token);
+      return this;
+    },
+    
     /*
      * All arcs need to be sorted before shown,
      * to avoid nesting.
@@ -227,7 +255,11 @@ define(function () {
         this._tokenElements.push(tspan);
 
         // Add whitespace!
-        text.appendChild(document.createTextNode(" "));
+        // var whitespace = text.appendChild(document.createTextNode(" "));
+        var ws = text.appendChild(this._c("tspan"));
+        ws.appendChild(document.createTextNode(" "));
+        ws.setAttribute("class", "rel-ws");
+        ws.setAttribute("dx", this.tokenSep);
       };
 
       this.arcs = svg.appendChild(this._c("g"));
