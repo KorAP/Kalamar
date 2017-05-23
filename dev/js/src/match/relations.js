@@ -259,11 +259,6 @@ define(function () {
       var svg = this._element;
       var height = this.maxArc;
 
-      /*
-      svg.setAttribute("width", 700);
-      svg.setAttribute("height", 300);
-      */
-
       // Delete old group
       if (svg.getElementsByTagName("g")[0] !== undefined) {
         var group = svg.getElementsByTagName("g")[0];
@@ -304,25 +299,7 @@ define(function () {
 
       var arcs = g.appendChild(this._c("g"));
       arcs.classList.add("arcs");
-
-      /*
-      var textBox = text.getBoundingClientRect();
-
-      arcs.setAttribute(
-        "transform",
-        "translate(0," + textBox.y +")"
-      );
-      */
       
-      /*
-       * TODO:
-       * Before creating the arcs, the height of the arc
-       * needs to be calculated to make it possible to "stack" arcs.
-       * That means, the arcs need to be presorted, so massively
-       * overlapping arcs are taken first.
-       * On the other hand, anchors need to be sorted as well
-       * in the same way.
-       */
       if (this._sortedArcs === undefined) {
         this._sortArcs();
       };
@@ -337,15 +314,9 @@ define(function () {
       };
 
       var width = text.getBoundingClientRect().width;
-      svg.setAttribute("width", width);
-      svg.setAttribute("height", height);
+      svg.setAttribute("width", width + 20);
+      svg.setAttribute("height", height + 20);
       svg.setAttribute("class", "relTree");
-
-      // svg.setAttribute("viewbox", "0 0 500 200");
-      /*
-        console.log(size.width);
-        console.log(size.height);
-      */
     }
   };
 
