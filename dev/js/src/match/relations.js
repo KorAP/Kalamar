@@ -7,15 +7,16 @@ define(function () {
     create : function (snippet) {
       var obj = Object.create(this)._init(snippet);
       obj._tokens = [];
-      obj._tokenElements = [];
       obj._arcs = []
+      obj._tokenElements = [];
+      obj._y = 0;
 
       // Some configurations
       obj.maxArc = 200; // maximum height of the bezier control point
       obj.overlapDiff = 20;
       obj.arcDiff = 15;
       obj.anchorDiff = 6;
-      obj.anchorStart = 10;
+      obj.anchorStart = 15;
       obj.tokenSep = 30;
       return obj;
     },
@@ -40,12 +41,16 @@ define(function () {
     },
 
     _drawAnchor : function (anchor) {
-      var startPos = this._tokenElements[anchor.first].getBoundingClientRect().left;
-      var endPos = this._tokenElements[anchor.last].getBoundingClientRect().right;
+      var firstBox = this._tokenElements[anchor.first].getBoundingClientRect();
+      var lastBox = this._tokenElements[anchor.last].getBoundingClientRect();
 
-      var y = (anchor.overlaps * -1 * this.anchorDiff) - this.anchorStart; // - this.arcDiff;
+      var startPos = firstBox.left;
+      var endPos = lastBox.right;
+
+      var y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
+
       var l = this._c('path');
-      l.setAttribute("d", "M " + startPos + " " + y + " L " + endPos + " " + y);
+      l.setAttribute("d", "M " + startPos + "," + y + " L " + endPos + "," + y);
       l.setAttribute("class", "anchor");
       anchor.element = l;
       anchor.y = y;
@@ -57,10 +62,10 @@ define(function () {
     _drawArc : function (arc) {
 
       var startPos, endPos;
-      var startY = 0, endY = 0;
+      var startY = this._y, endY = this._y;
 
       if (arc.startAnchor !== undefined) {
-        startPos = this._tokenPoint(arc.startAnchor.element)
+        startPos = this._tokenPoint(arc.startAnchor.element);
         startY = arc.startAnchor.y;
       }
       else {
@@ -89,14 +94,22 @@ define(function () {
 
       var x = Math.min(startPos, endPos);
 
-      var controlY = (startY + endY - cHeight);
+      //var controlY = (startY + endY - cHeight);
+      var controlY = (endY - cHeight);
       
-      var arcE = "M "+ startPos + " " + startY +
-          " C " + startPos + " " + controlY +
-          " " + endPos + " " + controlY +
-          " " + endPos + " " + endY;
+      var arcE = "M "+ startPos + "," + startY +
+          " C " + startPos + "," + controlY +
+          " " + endPos + "," + controlY +
+          " " + endPos + "," + endY;
 
       p.setAttribute("d", arcE);
+
+      if (arc.direction !== undefined) {
+        p.setAttribute("marker-end", "url(#arr)");
+        if (arc.direction === 'bi') {
+          p.setAttribute("marker-start", "url(#arr)");
+        };
+      };
 
       /*
        * Calculate the top point of the arc for labeling using
@@ -119,15 +132,6 @@ define(function () {
         labelE.setAttribute("text-anchor", "middle");
         labelE.appendChild(document.createTextNode(arc.label));
       };
-
-      /*
-      var circle = this._c("circle");
-      circle.setAttribute("cx", x + middle);
-      circle.setAttribute("cy", middleY);
-      circle.setAttribute("r", 4);
-      circle.setAttribute("fill", "red");
-      g.appendChild(circle);
-      */      
       return g;
     },
 
@@ -137,8 +141,24 @@ define(function () {
 
       // Create svg
       var svg = this._c("svg");
-      svg.setAttribute("width", 700);
-      svg.setAttribute("height", 300);
+
+      window.addEventListener("resize", function () {
+        // TODO: Only if text-size changed!
+        this.show();
+      }.bind(this));
+      
+      var defs = svg.appendChild(this._c("defs"));
+      var marker = defs.appendChild(this._c("marker"));
+      marker.setAttribute("refX", 9);
+      marker.setAttribute("id", "arr");
+      marker.setAttribute("orient", "auto-start-reverse");
+      marker.setAttribute("markerUnits","userSpaceOnUse");
+
+      var arrow = this._c("path");
+      arrow.setAttribute("transform", "scale(0.8)");
+      arrow.setAttribute("d", "M 0,-5 0,5 10,0 Z");
+      marker.appendChild(arrow);
+
       this._element = svg;
       return this._element;
     },
@@ -186,8 +206,8 @@ define(function () {
           var middle = Math.ceil(Math.abs(v.start[1] - v.start[0]) / 2) + v.start[0];
 
           v.startAnchor = {
-            "first": v.start[0],
-            "last" : v.start[1],
+            "first":   v.start[0],
+            "last" :   v.start[1],
             "length" : v.start[1] - v.start[0]
           };
 
@@ -199,8 +219,8 @@ define(function () {
         if (v.end instanceof Array) {
           var middle = Math.abs(v.end[0] - v.end[1]) + v.end[0];
           v.endAnchor = {
-            "first": v.end[0],
-            "last" : v.end[1],
+            "first":   v.end[0],
+            "last" :   v.end[1],
             "length" : v.end[1] - v.end[0]
           };
 
@@ -231,46 +251,68 @@ define(function () {
           return 1;
       });
 
-      this._sortedArcs = lengthSort(sortedArcs, false);
-
+      this._sortedArcs    = lengthSort(sortedArcs, false);
       this._sortedAnchors = lengthSort(anchors, true);
     },
     
     show : function () {
       var svg = this._element;
+      var height = this.maxArc;
+
+      /*
+      svg.setAttribute("width", 700);
+      svg.setAttribute("height", 300);
+      */
+
+      // Delete old group
+      if (svg.getElementsByTagName("g")[0] !== undefined) {
+        var group = svg.getElementsByTagName("g")[0];
+        svg.removeChild(group);
+        this._tokenElements = [];
+      };
+
+      var g = svg.appendChild(this._c("g"));
 
       /*
        * Generate token list
        */
-      var text = svg.appendChild(this._c("text"));
-      text.setAttribute("y", 135);
-      text.setAttribute("x", 160);
+      var text = g.appendChild(this._c("text"));
+      text.setAttribute("text-anchor", "start");
+      text.setAttribute("y", height);
 
+      this._y = height - (this.anchorStart);
+
+      var ws = text.appendChild(this._c("tspan"));
+      ws.appendChild(document.createTextNode('\u00A0'));
+      ws.style.textAnchor = "start";
+      
       var lastRight = 0;
       for (var node_i in this._tokens) {
         // Append svg
         var tspan = text.appendChild(this._c("tspan"));
         tspan.appendChild(document.createTextNode(this._tokens[node_i]));
-
+        tspan.setAttribute("text-anchor", "middle");
+        
         this._tokenElements.push(tspan);
 
         // Add whitespace!
-        // var whitespace = text.appendChild(document.createTextNode(" "));
-        var ws = text.appendChild(this._c("tspan"));
-        ws.appendChild(document.createTextNode(" "));
-        ws.setAttribute("class", "rel-ws");
-        ws.setAttribute("dx", this.tokenSep);
+        //var ws = text.appendChild(this._c("tspan"));
+        //ws.appendChild(document.createTextNode(" "));
+        // ws.setAttribute("class", "rel-ws");
+        tspan.setAttribute("dx", this.tokenSep);
       };
 
-      this.arcs = svg.appendChild(this._c("g"));
-      this.arcs.classList.add("arcs");
+      var arcs = g.appendChild(this._c("g"));
+      arcs.classList.add("arcs");
 
+      /*
       var textBox = text.getBoundingClientRect();
 
-      this.arcs.setAttribute(
+      arcs.setAttribute(
         "transform",
         "translate(0," + textBox.y +")"
       );
+      */
       
       /*
        * TODO:
@@ -281,16 +323,29 @@ define(function () {
        * On the other hand, anchors need to be sorted as well
        * in the same way.
        */
-      this._sortArcs();
+      if (this._sortedArcs === undefined) {
+        this._sortArcs();
+      };
 
       var i;
       for (i in this._sortedAnchors) {
-        this.arcs.appendChild(this._drawAnchor(this._sortedAnchors[i]));
+        arcs.appendChild(this._drawAnchor(this._sortedAnchors[i]));
       };
       
       for (i in this._sortedArcs) {
-        this.arcs.appendChild(this._drawArc(this._sortedArcs[i]));
+        arcs.appendChild(this._drawArc(this._sortedArcs[i]));
       };
+
+      var width = text.getBoundingClientRect().width;
+      svg.setAttribute("width", width);
+      svg.setAttribute("height", height);
+      svg.setAttribute("class", "relTree");
+
+      // svg.setAttribute("viewbox", "0 0 500 200");
+      /*
+        console.log(size.width);
+        console.log(size.height);
+      */
     }
   };
 
