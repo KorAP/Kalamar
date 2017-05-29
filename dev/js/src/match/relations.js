@@ -131,6 +131,16 @@ define(function () {
         labelE.setAttribute("y", middleY + 3);
         labelE.setAttribute("text-anchor", "middle");
         labelE.appendChild(document.createTextNode(arc.label));
+
+        /*
+        var textWidth = labelE.getComputedTextLength();
+
+        var labelR = g.appendChild(this._c("rect"));
+        labelR.setAttribute("x", x + middle);
+        labelR.setAttribute("y", middleY + 3);
+        labelR.setAttribute("width", textWidth +30);
+        labelR.setAttribute("height", 20);
+        */
       };
       return g;
     },
