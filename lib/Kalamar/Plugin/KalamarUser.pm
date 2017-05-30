@@ -99,7 +99,7 @@ sub register {
       my $tx;
       if ($c->user_auth) {
         $tx = $plugin->build_authorized_tx(
-          $c->user_auth, uc($method), $path, @_
+          $c->user_auth, $c->client_ip, uc($method), $path, @_
         );
       }
       else {
@@ -224,7 +224,12 @@ sub register {
 
       unless ($value) {
 
-        my $tx = $plugin->build_authorized_tx($auth, 'GET', Mojo::URL->new($plugin->api)->path('user/' . $param));
+        my $tx = $plugin->build_authorized_tx(
+          $auth,
+          $c->client_ip,
+          'GET',
+          Mojo::URL->new($plugin->api)->path('user/' . $param)
+          );
         $tx = $plugin->ua->start($tx);
 
         unless ($value = $tx->success) {
@@ -266,7 +271,7 @@ sub register {
 
       # Build a JSON transaction object
       my $tx = $plugin->build_authorized_tx(
-        $auth, 'POST', 'user/' . $param, json => $json_obj
+        $auth, $c->client_ip, 'POST', 'user/' . $param, json => $json_obj
       );
 
       # Start
@@ -314,7 +319,7 @@ sub build_authorized_tx {
   my $plugin = shift;
 
   my $ua = $plugin->ua;
-  my ($auth, $method, $path, @values) = @_;
+  my ($auth, $client_ip, $method, $path, @values) = @_;
 
   my $header;
   if (@values && ref $values[0] eq 'HASH') {
@@ -327,6 +332,7 @@ sub build_authorized_tx {
   my $url = Mojo::URL->new($path);
 
   $header->{Authorization} = $auth;
+  $header->{'X-Forwarded-For'} = $client_ip;
 
   return $ua->build_tx($method, $url => $header => @values);
 };
