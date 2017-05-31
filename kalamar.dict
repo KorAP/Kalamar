@@ -33,6 +33,7 @@ my $THOUSAND_SEP_RE = qr/(
     by => 'von',
     pwd => 'Passwort',
     email => 'Email',
+    userormail => 'Benutzername oder Email',
     with => 'mit',
     glimpse => {
       -short => 'Stichprobe',
@@ -46,6 +47,7 @@ my $THOUSAND_SEP_RE = qr/(
     notFound => '404 - Seite nicht gefunden',
     jsFile => 'kalamar-<%= $Kalamar::VERSION %>-de.js',
     underConstruction => 'In Vorbereitung!',
+    loginExplanation => 'Anmeldung mit einem registrierten Cosmas-II-Konto',
     korap => {
       -short => 'KorAP',
       desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
@@ -83,6 +85,7 @@ my $THOUSAND_SEP_RE = qr/(
     by => 'by',
     pwd => 'Password',
     email => 'Email',
+    userormail => 'Username or Email',
     with => 'with',
     pubOn => 'published on',
     matchCount => '<%= quant($found, "match", "matches") %>',
@@ -94,6 +97,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     faq => 'F.A.Q.',
     underConstruction => 'Under Construction!',
+    loginExplanation => 'Login with a registered Cosmas-II account',
     tutorial => 'Tutorial',
     korap => {
       -short => 'KorAP',

@@ -150,6 +150,9 @@ aside {
       padding-right: $button-width
     }
 
+    > p {
+      color: $light-green;
+    }
     ul {
       display: block;
       font-size: 80%;

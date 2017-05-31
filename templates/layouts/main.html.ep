@@ -31,12 +31,13 @@
 <fieldset>
   %= form_for 'login', begin
   <legend><span><%= loc 'login' %></span></legend>
-    %= text_field 'handle_or_email', placeholder => loc('email')
+    %= text_field 'handle_or_email', placeholder => loc('userormail')
     <div>
       %= password_field 'pwd', placeholder => loc('pwd')
       <button type="submit"><span><%= loc 'go' %></span></button>
     </div>
-  % end
+    % end
+    <p><%= loc 'loginExplanation' %></p>
 %#  <ul>
 %#    <li><%= link_to loc('register') => 'register' %></li>
 %#    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
