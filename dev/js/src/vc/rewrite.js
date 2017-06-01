@@ -3,7 +3,8 @@
  */
 define(['vc/jsonld', 'util'], function (jsonldClass) {
 
-  var _validRewriteOpRE   = new RegExp("^(operation:)?(?:injec|inser|modifica)tion$");
+  // injection, modification, and deletion should probably be enough
+  var _validRewriteOpRE   = new RegExp("^(operation:)?(?:injec|inser|modifica|dele)tion|override$");
 
   return {
     // Construction method
@@ -30,8 +31,8 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
 	      }
 	      else {
 	        KorAP.log(814, "Unknown rewrite operation");
-	  return;
-	};
+	        return;
+	      };
       };
       return this._op || 'injection';
     },
@@ -39,26 +40,26 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
     // Get or set scope
     scope : function (attr) {
       if (arguments.length === 1)
-	this._scope = attr;
+	      this._scope = attr;
       return this._scope;
     },
 
     // Serialize from Json
     fromJson : function (json) {
       if (json === undefined)
-	return this;
-
+	      return this;
+      
       // Missing @type
       if (json["@type"] === undefined) {
-	KorAP.log(701, "JSON-LD group has no @type attribute");
-	return;
+	      KorAP.log(701, "JSON-LD group has no @type attribute");
+	      return;
       };
       
       // Missing source
       if (json["src"] === undefined ||
-	  typeof json["src"] !== 'string') {
-	KorAP.log(815, "Rewrite expects source");
-	return;
+	        typeof json["src"] !== 'string') {
+	      KorAP.log(815, "Rewrite expects source");
+	      return;
       };
 
       // Set source
@@ -66,14 +67,14 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
 
       // Set operation
       if (json["operation"] !== undefined) {
-	var operation = json["operation"];
-	this.operation(operation.replace(/^operation:/,''));
+	      var operation = json["operation"];
+	      this.operation(operation.replace(/^operation:/,''));
       };
 
       // Set scope
       if (json["scope"] !== undefined &&
-	  typeof json["scope"] === 'string')
-	this.scope(json["scope"]);
+	        typeof json["scope"] === 'string')
+	      this.scope(json["scope"]);
 
       return this;
     },
@@ -83,16 +84,16 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
       var op = this.operation();
       str += op.charAt(0).toUpperCase() + op.slice(1);
       str += ' of ' + (
-	this._scope === null ?
-	  'object' :
-	  '"' +
-	  this.scope().quote() +
-	  '"'
+	      this._scope === null ?
+	        'object' :
+	        '"' +
+	        this.scope().quote() +
+	        '"'
       );
       str += ' by ' +
-	'"' +
-	this.src().quote() +
-	'"';
+	      '"' +
+	      this.src().quote() +
+	      '"';
       return str;
     }
   };
