@@ -3,7 +3,7 @@
           connection.
         - Added X-Forwarded-For.
         - Introduced proxy_prefix as a configuration option.
-        - Added support for more rewrite options.
+        - Added support for more rewrite options in js.
 
 0.21 2017-02-01
         - Use textSigle for API communication instead of
