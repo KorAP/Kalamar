@@ -8,7 +8,8 @@
 
 $standard-margin: 4px;
 
-@media (orientation: portrait), (max-width: 42.5em) {
+// (orientation: portrait),
+@media all and (max-width: 42.5em) {
   body,
   #search ol,
   header,
@@ -117,14 +118,17 @@ $standard-margin: 4px;
     &:not(:focus):not(.active) {
       margin-left: -1 * $logo-left-distance;
       &::after {
-	font-size: 12pt;
-	width: 10pt;
-	height: 11pt;
+	      font-size: 12pt;
+	      width: 10pt;
+	      height: 11pt;
       }
     }
     ul {
       font-size: 9pt;
       line-height: 1em;
+    }
+    &.active + main div.intro {
+      margin-left: $standard-margin !important;
     }
   }
 
