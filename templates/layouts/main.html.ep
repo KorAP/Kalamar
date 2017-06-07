@@ -19,10 +19,6 @@
   <body<% if ($embedded) { %> class="embedded"<% } %>>
     <div id="kalamar-bg"></div>
 
-    % unless ($embedded) {
-      %= include 'partial/header'
-    % }
-
 % if (!user_auth && stash('auth_support')) { # user not logged in
 % content_for 'sidebar', begin
 % if (flash('handle_or_email') && !param('handle_or_email')) {
@@ -53,6 +49,10 @@
       </div>
     </aside>
 
+    % unless ($embedded) {
+      %= include 'partial/header'
+    % }
+    
     <main<% if (stash 'main_class') { %> class="<%= stash 'main_class' %>"<% } %>>
     %= content
     </main>

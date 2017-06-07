@@ -1,0 +1,97 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Complete Demo</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+    <link type="text/css" rel="stylesheet" href="../css/kwic.css" />
+    <script>//<![CDATA[
+
+  window.KorAP = window.KorAP || {};
+  KorAP.URL = '';
+
+    //]]></script>
+    <script data-main="alldemo.js" src="../js/lib/require.js" async="async"></script>
+  </head>
+  <body>
+    <div id="kalamar-bg"></div>
+
+        <aside tabindex="0" class="active">
+      <div>
+      <fieldset>
+  <form action="/user/login" method="POST">
+  <legend><span>Anmelden</span></legend>
+    <input name="handle_or_email" placeholder="Benutzername oder Email" type="text">
+    <div>
+      <input name="pwd" placeholder="Passwort" type="password">
+      <button type="submit"><span>Los!</span></button>
+    </div>
+</form>    <p>Anmeldung mit einem registrierten Cosmas-II-Konto</p>
+</fieldset>
+
+      </div>
+        </aside>
+
+    
+    <header>
+      <a href="/" class="logo" tabindex="-1"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
+
+      <div class="button top">
+<!--
+	<a href="#" class="login" tabindex="-1"><span>Login</span></a>
+-->
+      </div>
+
+      <form autocomplete="off" action="/kalamar" id="searchform">
+	<div id="searchbar">
+	  <input type="search"
+		 placeholder="Find ..."
+		 name="q"
+		 id="q-field"
+		 value="abcdefghijklmnopqrstuvwxyz"
+		 autofocus="autofocus" />
+	  <button type="submit"><span>Go</span></button>
+	  <!-- <i class="fa fa-arrow-circle-down show-hint" onclick="hint.popUp()"></i> -->
+	</div>
+
+        <!-- Search in the following virtual collection -->
+        <div id="vc-view"></div>
+        in
+        <input id="show" name="show" type="hidden" />
+        <input id="collection-name" name="collection-name" type="hidden">
+        <input id="collection" name="collection" type="text" value="">
+	with <span class="menu select">
+	  <select name="ql" id="ql-field">
+	    <option value="poliqarp">Poliqarp</option>
+	    <option value="cosmas2">Cosmas II</option>
+	    <option value="annis">Annis</option>
+	    <option value="cql">CQL v1.2</option>
+	  </select>
+	</span>
+	<div class="button right">
+	  <input type="checkbox"
+		 value="1"
+		 name="cutoff"
+		 class="checkbox"
+		 id="q-cutoff-field" />
+	  <label for="q-cutoff-field"><span></span>Glimpse</label>
+
+	  <!-- Todo: open tutorial - like openTutorial() -->
+	  <a href="doc/faq" tabindex="-1" class="question"><span>Question</span></a>
+	  <a href="tutorial.html" title="Tutorial" class="tutorial" id="view-tutorial"><span>Tutorial</span></a>
+	</div>
+      </form>
+    </header>
+
+
+        
+    <main>
+    </main>
+
+    <footer>
+      <a href="/doc/KorAP">About</a>
+      <a href="http://korap.ids-mannheim.de/">About</a>
+      <a href="#">V 0.14</a>
+    </footer>
+  </body>
+</html>

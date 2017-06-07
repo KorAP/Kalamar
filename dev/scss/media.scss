@@ -130,6 +130,24 @@ $standard-margin: 4px;
     &.active + main div.intro {
       margin-left: $standard-margin !important;
     }
+
+    &.active {
+      position: relative;
+      display: block;
+      padding-top: 0;
+      width: 100%;
+      top: 0;
+      border-width: 0;
+      fieldset input {
+        font-size: 9pt;
+      }
+      &::after {
+        display: none;
+      }
+      p {
+        display: none;
+      }
+    }
   }
 
   #tutorial {
