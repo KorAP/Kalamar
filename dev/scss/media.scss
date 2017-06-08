@@ -127,7 +127,7 @@ $standard-margin: 4px;
       font-size: 9pt;
       line-height: 1em;
     }
-    &.active + main div.intro {
+    &.active ~ main div.intro {
       margin-left: $standard-margin !important;
     }
 

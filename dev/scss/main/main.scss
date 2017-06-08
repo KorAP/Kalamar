@@ -19,7 +19,7 @@ div.intro {
   }
 }
 
-aside.active + main div.intro {
+aside.active ~ main div.intro {
   margin-left: $logo-left-distance - $standard-margin + $base-padding;
 }
 
