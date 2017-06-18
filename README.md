@@ -132,6 +132,7 @@ is released under the terms of the MIT License.
 
 Copyright (C) 2015-2017, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](http://nils-diewald.de/)
+Contributor: Susanne Feix (Translations)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the
