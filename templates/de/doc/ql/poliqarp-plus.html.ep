@@ -2,112 +2,117 @@
 
 <h2>Poliqarp+</h2>
 
-<p>The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
+<p>Das folgende Tutorial präsentiert alle Features, die unsere Version der Poliqarp Abfragesprache zur Verfügung stellt und enthält zusätzlich einige spezifische KorAP Erweiterungen.</p>
+%# The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.
 
 <section id="segments">
-  <h3>Simple Segments</h3>
+  <h3>Einfache Segmente</h3>
 
-  <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
-  %# footnote: In the polish national corpus, Poliqarp can join multiple segments when identifying a single word.
+  <p>Die einzelnen Elemente von Poliqarp sind Segmente. Meistens repräsentieren Segmente Wörter und können leicht abgefragt werden:</p>
+  %# Fußnote: Im polnischen National-Korpus kann Poliqarp viele Segmente verbinden, wenn ein einzelnes Wort erkannt wird.
 
   %= doc_query poliqarp => 'Baum'
 
-  <p>Sequences of simple segments are expressed using a space delimiter:</p>
+  <p>Abfolgen einfacher Segmenten werden durch Leerzeichen getrennt:</p>
 
   %= doc_query poliqarp => 'der Baum'
 
-  <p>Simple segments always refer to the surface form of a word. To search for surface forms without case sensitivity, you can use the <code>/i</code> flag.</p>
+  <p>Einfache Segmente beziehen sich immer auf die Oberflächenform eines Wortes. Wenn Sie nach einer Oberflächenform ohne Beachtung der Groß- und Kleinschreibung suchen, können Sie <code>/i</code> anfügen.</p>
 
   %= doc_query poliqarp => 'laufen/i'
 
-  <p>The query above will find all occurrences of <code>laufen</code> irrespective of the capitalization of letters, so <code>wir laufen</code> will be found as well as <code>das Laufen</code> and even <code>&quot;GEH LAUFEN!&quot;</code>.</p>
+  <p>Die Abfrage oben findet alle Vorkommen von <code>laufen</code> unabhängig von der Großschreibung von Buchstaben, so wird <code>wir laufen</code> genauso gefunden wie <code>das Laufen</code> und sogar <code>&quot;GEH LAUFEN!&quot;</code>.
 
-  <h4 id="regexp">Regular Expressions</h4>
+  <h4 id="regexp">Reguläre Ausdrücke</h4>
 
-  <p>Segments can also be queried using <%= doc_link_to 'regular expressions', 'ql', 'regexp' %> - by surrounding the segment with double quotes.</p>
+  <p>Segmente können auch durch <%= doc_link_to 'Reguläre Ausdrücke', 'ql', 'regexp' %> abgefragt werden - indem das Segment mit doppelten Anführungszeichen umschlossen wird.</p>
 
   %= doc_query poliqarp => '"l(au|ie)fen"'
 
-  <p>Regular expression segments will always match the whole segment, meaning the above query will find words starting with <code>l</code> and ending with <code>n</code>. To support subqueries, you can use the <code>/x</code> flag.</p>
+  <p>Reguläre Ausdrücke stimmen immer mit dem gesamten Segment überein, d.h. die obige Abfrage findet Wörter, die mit <code>l</code> beginnen und mit <code>n</code> enden. Um Teilausdrücke zu unterstützen, können Sie das Flag <code>/x</code> verwenden.</p>
 
     %= doc_query poliqarp => '"l(au|ie)fen"/x', cutoff => 1
 
-  <p>The <code>/x</code> will search for all segments that contain a sequence of characters the regular expression matches. That means the above query is equivalent to:</p>
+  <p>Das <code>/x</code> flag sucht nach allen Segmenten, die eine Sequenz von Zeichen enthalten, die mit dem regulären Ausdruck übereinstimmen. Das bedeutet, dass die obige Abfrage äquivalent zu der Folgenden ist:</p>
 
   %= doc_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
 
-  <p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
+  <p>Das <Code>/x</code> Flag kann auch in Verbindung mit exakten Ausdrücken verwendet werden, um nach Teilzeichenketten zu suchen:</p>
 
   %= doc_query poliqarp => 'trenn/xi', cutoff => 1
 
-  <p>The above query will find all occurrences of segments including the string <code>trenn</code> case insensitive, like &quot;Trennung&quot;, &quot;unzertrennlich&quot;, or &quot;Wettrennen&quot;.</p>
+  <p>Die obige Abfrage findet alle Vorkommen von Segmenten mit der Zeichenfolge <code>trenn</code> unabhängig von Groß-Kleinschreibung, wie &quot;Trennung&quot;, &quot;unzertrennlich&quot; oder &quot;Wettrennen&quot;.</p>
 
   <blockquote class="warning">
-    <p>Beware: These kinds of queries (with prepended <code>.*</code> expressions) are extremely slow!</p>
+    <p>Achtung: Diese Art von Abfragen (mit vorangestellten <code>.*</Code> Ausdrücken) sind extrem langsam!</p>
   </blockquote>
 
-  <p>You can again apply the <code>/i</code> flag to search case insensitive.</p>
+  <p>Sie können das <code>/i</code> Flag erneut anwenden, um unabhängig von Groß-Kleinschreibung zu suchen.</p>
 
   %= doc_query poliqarp => '"l(au|ie)fen"/xi', cutoff => 1
+
 </section>
 
 <section id="complex">
-  <h3>Complex Segments</h3>
+  <h3>Komplexe Segmente</h3>
 
-  <p>Complex segments are expressed in square brackets and contain additional information on the resource of the term under scrutiny by providing key/value pairs, separated by an equal-sign.</p>
+  <p>Komplexe Segmente werden in eckigen Klammern ausgedrückt und enthalten zusätzliche Informationen über die Ressource des zu prüfenden Begriffs, indem sie Schlüssel/Wert-Paare enthalten, die durch ein Gleichheitszeichen getrennt sind.</p>
 
-  <p>The KorAP implementation of Poliqarp provides three special segment keys: <code>orth</code> for surface forms, <code>base</code> for lemmata, and <code>pos</code> for Part-of-Speech. The following complex query finds all surface forms of <code>Baum</code>.</p>
-  %# There are more special keys in Poliqarp, but KorAP doesn't provide them.
+  <p>Die KorAP-Implementierung von Poliqarp bietet drei spezielle Segmentschlüssel: <code>orth</code> für Oberflächenformen, <code>base</code> für Lemmata und <code>pos</code> für Part-of-Speech-Annotationen. Die folgende komplexe Abfrage findet alle Oberflächenformen von <code>Baum</code>.</p>
+
+  %# Es gibt mehr spezielle Schlüssel in Poliqarp, aber KorAP bietet sie nicht an.
 
   %= doc_query poliqarp => '[orth=Baum]'
 
-  <p>The query is thus equivalent to:</p>
+  <p>Die Abfrage entspricht also:</p>
 
   %= doc_query poliqarp => 'Baum'
 
-  <p>Complex segments expect simple expressions as values, meaning that the following expression is valid as well:</p>
+  <p>Komplexe Segmente erwarten einfache Ausdrücke als Werte, was bedeutet, dass auch der folgende Ausdruck gültig ist:</p>
 
   %= doc_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
 
-  <p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.
-    The following query finds all occurrences of segments annotated as the lemma <code>Baum</code> by the default foundry.</p>
+  <p>Ein weiterer spezieller Schlüssel ist <code>base</code>, bezogen auf die Lemma-Annotation der <%= doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
+    Die folgende Abfrage findet alle Vorkommen von Segmenten, die als Lemma <code>Baum</code> durch die Standard-Foundry annotiert wurden.</p>
 
   %= doc_query poliqarp => '[base=Baum]'
 
-  <p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.
-    The following query finds all attributive adjectives:</p>
+  <p>Der dritte Sonderschlüssel ist <code>pos</code> und bezieht sich auf die Wortarten-Annotation der <% = doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
+    Die folgende Abfrage findet alle attributiven Adjektive:</p>
 
   %= doc_query poliqarp => '[pos=ADJA]'
 
-  <p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation.
-    For example to find all occurrences of plural words in the <code>mate</code> foundry, you can search using the following query:</p>
+  <p>Komplexe Segmente, die weitere Token-Annotationen anfordern, können Schlüssel der <code>foundry/layer</code> Notation folgend haben.
+    Zum Beispiel, um alle Vorkommen von mehreren Wörtern in der <code>mate</code> Foundry zu finden, können Sie mit der folgenden Abfrage suchen:</p>
 
   %= doc_query poliqarp => '[mate/m=number:pl]'
 
   <h4>Negation</h4>
-  <p>Negation of terms in complex expressions can be expressed by prepending the equal sign or the whole expression with an exclamation mark.</p>
+  <p>Die Negation von Termen in komplexen Ausdrücken kann durch Voranstellen eines Ausrufezeichen vor dem Gleichheitszeichen oder dem gesamten Term ausgedrückt werden.</p>
 
   %= doc_query poliqarp => '[pos!=ADJA]'
   %= doc_query poliqarp => '[!pos=ADJA]'
 
   <blockquote class="warning">
-    <p>Beware: Negated complex segments can't be searched solely in the Lucene index.
-      However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
+    <p>Vorsicht: Negierte komplexe Segmente können nicht alleinstehend im Lucene-Index gesucht werden.
+      Allerdings funktionieren sie, wenn sie Teil einer <%= doc_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%> sind.</p>
   </blockquote>
 
-  <h4 id="empty-segments">Empty Segments</h4>
+  <h4 id="empty-segments">Leere Segmente</h4>
 
-  <p>A special segment is the empty segment, that matches every word in the index.</p>
+  <p>Ein spezielles Segment ist das leere Segment, das jedem Wort im Index entspricht.</p>
 
   %= doc_query poliqarp => '[]'
 
-  <p>Empty segments are useful to express distances of words by using <%= doc_link_to 'repetitions', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %>.</p>
+  <p>Leere Segmente sind nützlich, um Abstände von Wörtern auszudrücken, indem sie <%= doc_link_to 'Wiederholungen', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %> verwenden.</p>
 
   <blockquote class="warning">
-    <p>Beware: Empty segments can't be searched solely in the Lucene index.
-      However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
+    <p>Vorsicht: Leere Segmente können nicht alleinstehend im Lucene-Index gesucht werden. 
+      Allerdings arbeiten sie, falls sie Teil eines <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %> sind.</p>
   </blockquote>
 </section>
+
+%# TODO:
 
 <section id="spans">
   <h3>Span Segments</h3>
