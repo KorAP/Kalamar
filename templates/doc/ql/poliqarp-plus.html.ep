@@ -201,9 +201,9 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= doc_query poliqarp => '[base=ein][tt/p=ADJA]{3,4}[xip/p=NOUN]'
 
-  <p>In addition to numbered quantities, it is also possible to pass repetition information as Kleene operators <code>?</code>, <code>+</code>, and <code>+</code>.</p>
+  <p>In addition to numbered quantities, it is also possible to pass repetition information as Kleene operators <code>?</code>, <code>+</code>, and <code>*</code>.</p>
 
-  <p>To search for a sequence of the lemma <code>der</code> followed by the lemma <code>baum</code> as annotated by the base foundry, but allowing an optional adjective as annotated by the TreeTagger foundry in between, you can search for:</p>
+  <p>To search for a sequence of the lemma <code>der</code> followed by the lemma <code>baum</code> as annotated by the default foundry, but allowing an optional adjective as annotated by the TreeTagger foundry in between, you can search for:</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]?[base=Baum]'
 
