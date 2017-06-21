@@ -59,7 +59,7 @@ sub startup {
   my $conf = $self->config('Kalamar');
   if ($conf && $conf->{proxy_prefix}) {
 
-    for (app->sessions) {
+    for ($self->sessions) {
       $_->cookie_path($conf->{proxy_prefix});
       $_->cookie_name('kalamar');
       $_->secure(1);
