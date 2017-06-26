@@ -542,6 +542,9 @@ require(['app/en', 'init'], function (lang, init) {
   // Parse and show the table
   // Override getMatchInfo API call
   KorAP.API.getMatchInfo = function(match, callObj, cb) {
+
+    console.log(match);
+    
     if (callObj["spans"] !== undefined && callObj["spans"] === true) {
       cb({ "snippet": treeSnippet2 });
     }

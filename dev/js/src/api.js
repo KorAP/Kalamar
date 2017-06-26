@@ -24,7 +24,7 @@ define(['util'], function () {
     url += '/' + match.textID;
 */
 
-    var legacySigle = new RegExp('^([^_]+)_([^\.]+)\.(.+?)$');
+    var legacySigle = new RegExp('^([^_]+)_([^\\.]+)\\.(.+?)$');
 
     // This is for legacy support
     var legacy = legacySigle.exec(match.textSigle);

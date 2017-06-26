@@ -1,6 +1,7 @@
 package Kalamar::API;
 use Mojo::Base 'Mojolicious::Plugin';
 use Scalar::Util qw/blessed weaken/;
+use Mojo::JSON qw/true false/;
 use strict;
 use warnings;
 
@@ -542,8 +543,12 @@ sub _map_matches {
 # Cleanup single match
 sub _map_match {
   my $x = shift or return;
-  $x->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\.[^-]+?-// or
-    $x->{matchID} =~ s!^match\-(?:[^\/]+\/){2}[^-]+?-!!;
+
+  # legacy match id
+  if ($x->{matchID}) {
+    $x->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\.[^-]+?-// or
+      $x->{matchID} =~ s!^match\-(?:[^\/]+\/){2}[^-]+?-!!;
+  };
 
   (
     $x->{corpusID},
