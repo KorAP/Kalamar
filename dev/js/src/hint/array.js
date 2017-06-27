@@ -198,6 +198,7 @@ define(function () {
 //      ["Connexor", "cnx/", "Constituency, Lemma, Morphology, Part-of-Speech, Syntax"],
       ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
       ["DeReKo", "dereko/s=", "Structure"],
+      ["DRuKoLa", "drukola/", "Lemma, Morphology, Part-of-Speech"],
 //      ["Mate", "mate/", "Lemma, Morphology, Part-of-Speech"],
       ["Malt", "malt/", "Dependency"],
       ["OpenNLP", "opennlp/", "Part-of-Speech"],
@@ -275,6 +276,11 @@ define(function () {
       ["@POSTMOD", "@POSTMOD ", "Postmodifier"],
       ["@PREMARK", "@PREMARK ", "Preposed Marker"],
       ["@PREMOD", "@POSTMOD ", "Premodifier"]
+    ],
+    "drukola/" : [
+      ["Lemma", "l="],
+      ["Morphology", "m="],
+      ["Part-of-Speech", "p="]      
     ],
     "opennlp/" : [
       ["Part-of-Speech", "p="]
