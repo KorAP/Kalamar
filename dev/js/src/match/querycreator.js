@@ -21,8 +21,11 @@ define(['util'], function () {
       this._query = []
       this._matchInfo = matchInfo;
 
+      // Get the match table
+      this._matchTable = this._matchInfo.getElementsByClassName('matchtable')[0];
+
       // Listen on the match table
-      this._matchInfo.addEventListener(
+      this._matchTable.addEventListener(
         "click", this.clickOnAnno.bind(this), false
       );
 
@@ -187,7 +190,7 @@ define(['util'], function () {
       else {
 
         if (this._shown === false) {
-          this._matchInfo.appendChild(this._element);
+          this._matchInfo.insertBefore(this._element, this._matchTable.nextSibling);
           this._shown = true;
         };
 

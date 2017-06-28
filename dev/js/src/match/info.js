@@ -280,7 +280,7 @@ define([
 	      matchtable.classList.remove('loading');
 
         // Add query creator
-        this._matchCreator = matchQueryCreator.create(matchtable);
+        this._matchCreator = matchQueryCreator.create(info);
       });
 
       // Get spans

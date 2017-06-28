@@ -7,7 +7,7 @@ use Mojo::Util qw/url_escape/;
 use File::Temp qw/tmpnam/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 
 # TODO: Use CSRF!!!
 # TODO: The FAQ-Page has a contact form for new questions

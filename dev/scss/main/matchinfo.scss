@@ -67,16 +67,6 @@ div.matchinfo {
       }
     }
   }
-}
-
-div.matchtable {
-  z-index: 20;
-  margin-left: $left-distance - ($border-size / 2);
-  margin-right: $right-match-distance;
-  padding: 0;
-  overflow-x: auto;
-  overflow-y: visible;
-  width: auto;
 
   p.queryfragment {
     position:relative;
@@ -87,6 +77,13 @@ div.matchtable {
       radius: $standard-border-radius;
     }
     padding: 2pt 4pt !important;
+    margin: {
+      // left: $border-size;
+      left: $left-distance;
+      top: .5em;
+      bottom: .5em;
+      right: $right-match-distance;
+    }
     &:hover {
       cursor:pointer;
       @include choose-hover;
@@ -108,9 +105,19 @@ div.matchtable {
 	    content: $fa-to-query;
       position: absolute;
       right: 4pt;
-      top: 4pt;
+      top: $border-size;
     }
   }
+}
+
+div.matchtable {
+  z-index: 20;
+  margin-left: $left-distance - ($border-size / 2);
+  margin-right: $right-match-distance;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  width: auto;
 
   table {
     display: table;

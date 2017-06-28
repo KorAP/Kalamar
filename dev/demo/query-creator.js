@@ -7,6 +7,6 @@ requirejs.config({
 
 define(['match/querycreator', 'lib/domReady'], function (qc, domReady) {
   domReady(function () {
-    qc.create(document.getElementsByClassName('matchtable')[0]);
+    qc.create(document.getElementsByClassName('matchinfo')[0]);
   });
 });
