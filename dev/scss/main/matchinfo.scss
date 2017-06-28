@@ -78,6 +78,40 @@ div.matchtable {
   overflow-y: visible;
   width: auto;
 
+  p.queryfragment {
+    position:relative;
+    @include choose-item;
+    border : {
+      width: $border-size;
+      style: solid;
+      radius: $standard-border-radius;
+    }
+    padding: 2pt 4pt !important;
+    &:hover {
+      cursor:pointer;
+      @include choose-hover;
+    }
+
+    // This is the description
+    > span:first-of-type {
+      font-weight: bold;
+      padding-right: 4pt;
+    }
+
+    // Query fragment
+    > span:nth-of-type(2) {
+      padding-right: 1.2em;
+    }
+
+    &::after {
+	    font-family: 'FontAwesome';
+	    content: $fa-to-query;
+      position: absolute;
+      right: 4pt;
+      top: 4pt;
+    }
+  }
+
   table {
     display: table;
     border-collapse: separate;
@@ -86,16 +120,34 @@ div.matchtable {
   th {
     color: $nearly-white;
   }
+
+  // Use matchinfo cells for query creation
+  td,
+  tbody th,
+  thead th:not(:nth-child(1)):not(:nth-child(2)) {
+    cursor: pointer;
+  }
+  tr {
+    outline: none;
+    > td.chosen,
+    > th.chosen {
+      background-color: $light-green !important;
+      color: $nearly-white;
+      // transition: color 0.1s, background-color 0.15s ease-out;
+    }
+  }
+
   thead {
     tr th {
       background-color: $darker-orange;
       border-top-width: 0px !important;
       text-align: center;
       &:nth-of-type(1), &:nth-of-type(2) {
-	text-align: left;
+	                        text-align: left;
       }
     }
   }
+  
   tbody {
     > tr:nth-of-type(1) > th {
       border-top-color: transparent;
@@ -103,13 +155,14 @@ div.matchtable {
     /**
      * Click on a row and it's highlighted.
      */
-    > tr:focus {
-      outline: none;
-      /*
+          /*
 	outline:  (2 * $border-size) solid $light-green;
 	-moz-outline-radius: $border-size;
 	outline-radius: $border-size;
 	*/
+    /*
+    > tr:focus {
+      outline: none;
       background-color: $light-green;
       border-color: $light-green;
       td {
@@ -118,6 +171,7 @@ div.matchtable {
         border-color: $light-green;
       }
     }
+   */
   }
   tr {
     /**

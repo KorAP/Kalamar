@@ -3,55 +3,49 @@
   <head>
     <title>Query creator demo</title>
     <meta charset="utf-8" />
+    <script data-main="query-creator.js" src="../js/lib/require.js" async="async"></script>
+    <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+
     <style type="text/css" rel="stylesheet">
-      * {
-      outline: none;
-      }
-      td, tbody th, thead th:not(:nth-child(1)):not(:nth-child(2)) {
-        cursor: pointer;
-      }
-      td.chosen, th.chosen {
-        background-color: red;
-      }
-      input {
-        display: block;
-        width: 80%;
+      body {
+        background-color: #f6a800;
       }
     </style>
   </head>
   <body>
     <div class="matchinfo">
-      <table>
-        <thead>
-          <tr>
-            <th>Foundry</th>
-            <th>Layer</th>
-            <th>Der</th>
-            <th>älteste</th>
-            <th>lebende</th>
-            <th>Baum</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr tabindex="0">
-            <th>corenlp</th>
-            <th>p</th>
-            <td>ART</td>
-            <td>ADJA</td>
-            <td>ADJA</td>
-            <td>NN</td>
-          </tr>
-          <tr tabindex="0">
-            <th>opennlp</th>
-            <th>p</th>
-            <td>ART</td>
-            <td>ADJA</td>
-            <td>ADJA</td>
-            <td>NN</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="matchtable">
+        <table>
+          <thead>
+            <tr>
+              <th>Foundry</th>
+              <th>Layer</th>
+              <th>Der</th>
+              <th>älteste</th>
+              <th>lebende</th>
+              <th>Baum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tabindex="0">
+              <th>corenlp</th>
+              <th>p</th>
+              <td>ART</td>
+              <td>ADJA</td>
+              <td>ADJA</td>
+              <td>NN</td>
+            </tr>
+            <tr tabindex="0">
+              <th>opennlp</th>
+              <th>p</th>
+              <td>ART</td>
+              <td>ADJA</td>
+              <td>ADJA</td>
+              <td>NN</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </body>
-  <script src="query-creator.js"></script>
 </html>
