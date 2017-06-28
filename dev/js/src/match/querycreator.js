@@ -65,6 +65,9 @@ define(['util'], function () {
 
         if (target.tagName == 'TD') {
 
+          if (target.innerText == '')
+            return;
+
           // Check foundry and layer
           var head    = target.parentNode.getElementsByTagName('th');
           var foundry = head[0].innerText;
