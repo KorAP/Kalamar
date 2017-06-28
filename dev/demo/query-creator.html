@@ -7,12 +7,15 @@
       * {
       outline: none;
       }
-      td {
-      cursor: pointer;
+      td, tbody th, thead th:not(:nth-child(1)):not(:nth-child(2)) {
+        cursor: pointer;
+      }
+      td.chosen, th.chosen {
+        background-color: red;
       }
       input {
-      display: block;
-      width: 80%;
+        display: block;
+        width: 80%;
       }
     </style>
   </head>

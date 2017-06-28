@@ -37,14 +37,13 @@
 
           // Check index position:
           var i = -2;
-          var child = target;
-          while((child = child.previousSibling) != null) {
-            if (child.nodeType === 1)
+          var sib = target;
+          while((sib = sib.previousSibling) != null) {
+            if (sib.nodeType === 1)
               i++;
           };
-        
-          this.addToToken(i, foundry + '/' + layer + '=' + target.innerText);
-          target.style.backgroundColor = 'red';
+
+          this.toggleInToken(target, i, foundry + '/' + layer + '=' + target.innerText);
         }
 
         // Get orth values
@@ -54,35 +53,56 @@
           if (target.parentNode.parentNode.tagName == 'THEAD') {
 
             var i = -2;
-            var child = target;
-            while((child = child.previousSibling) != null) {
-              if (child.nodeType === 1)
+            var sib = target;
+            while ((sib = sib.previousSibling) != null) {
+              if (sib.nodeType === 1)
                 i++;
             };
 
             // Target is an orth
             if (i >= 0) {
+              this.toggleInToken(target, i, 'orth=' + target.innerText);
+            }            
+          }
 
-              this.addToToken(i, 'orth=' + target.innerText);
-              target.style.backgroundColor = 'red';
-            }
-            
-          };      
+          // The head refers to the complete row
+          else {
+
+            // Check foundry and layer
+            var head    = target.parentNode.getElementsByTagName('th');
+            var foundry = head[0].innerText;
+            var layer   = head[1].innerText;
+            var prefix = foundry + '/' + layer + '=';
+
+            // Iterate over all siblings
+            var i = 0;
+            var sib = target;
+            while ((sib = sib.nextSibling) != null) {
+              if (sib.nodeType !== 1 || sib.tagName === 'TH')
+                continue;
+              this.addToToken(i, prefix + sib.innerText);
+              sib.className = 'chosen';
+              i++;
+            };
+          };
         };
       };
 
       event.stopPropagation();
     },
 
-    addToToken : function (index, annotation) {
+    // Add term to token
+    addToToken : function (index, term) {
 
       var token = this._query[index];
 
+      // Initialize token
       if (token === undefined) {
         token = this._query[index] = [];
       };
 
-      token.push(annotation);
+      // Push to token array
+      token.push(term);
 
       // Make terms unique
       this._query[index] = token.filter(
@@ -93,9 +113,30 @@
 
       this.show();
     },
+
+    // Remove term from token
+    removeFromToken : function (index, term) {
+      var token = this._query[index];
+
+      if (token === undefined)
+        return;
+
+      token.splice(token.indexOf(term), 1);
+
+      if (token.length > 0)
+        this._query[index] = token;
+      else
+        this._query[index] = undefined;
+
+      this.show();
+    },
+
+    // Get element representing annotation line
     element : function () {
       return this._element;
     },
+
+    // Show annotation fragment
     show : function () {
       var str = '';
       this._query.forEach(function (token, index) {
@@ -106,18 +147,38 @@
 
       // Element is not yet defined
       if (this._element === undefined) {
+
+        // Better create a div
         this._element = document.createElement('input');
         this._element.setAttribute('type', 'text');
         this._matchInfo.appendChild(this._element);
       };
 
-      this._element.value = str;
+      if (str === '') {
+        this._matchInfo.removeChild(this._element);
+        this._element = undefined;
+      }
+      else {
+        this._element.value = str;
+      };
+    },
+
+    // Add term to token if not yet chosen, otherwise remove
+    toggleInToken : function (node, index, term) {
+      if (node.className == 'chosen') {
+        this.removeFromToken(index, term);
+        node.className = '';
+      }
+      else {
+        this.addToToken(index, term);
+        node.className = 'chosen';
+      };
     }
   };
 
   function _createToken (token) {
     var str = '[';
-    str += token.join(" & ");
+    str += token.sort().join(" & ");
     return str + ']';
   };
 
