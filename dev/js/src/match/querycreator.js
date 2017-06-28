@@ -81,7 +81,27 @@ define(['util'], function () {
               i++;
           };
 
-          this.toggleInToken(target, i, foundry + '/' + layer + '=' + target.innerText);
+
+          var prefix = foundry + '/' + layer + '=';
+          var annotation = '';
+
+          // There are multiple annotations in this cell - add/remove an or-group
+          if (target.childNodes.length > 1) {
+            var orGroup = [];
+            target.childNodes.forEach(function (item) {
+              if (item.nodeType === 3)
+                orGroup.push(prefix + item.data);
+            });
+            annotation = '(' + orGroup.sort().join(' | ') + ')';
+          }
+
+          // Add/Remove the annotation
+          else {
+            annotation = prefix + target.innerText;
+          };
+
+          // Add term
+          this.toggleInToken(target, i, annotation);
         }
 
         // Get orth values
