@@ -39,10 +39,19 @@ define(['util'], function () {
         document.createElement('span')
       );
 
+      // Event when the query fragment is clicked
+      this._element.addEventListener('click', this.toQueryBar.bind(this), 1);
+
+      // Get some basic information - see tutorial.js
+      // It may be better to consultate a global object like KorAP.Hint, however ...
+      this._ql = document.getElementById("ql-field");
+	    this._q = document.getElementById("q-field")
+
       this._shown = false;
       return this;
     },
 
+    // Realease a click event on the annotation table
     clickOnAnno : function (event) {
 
       // Listen for clicks on table cells
@@ -211,12 +220,23 @@ define(['util'], function () {
       return str;
     },
 
-    toQueryBar : function () {
-      // 1. Activate Poliquarp-QL
-      // 2. Empty query helper
-      // 3. Reset annotation helper
-      // 4. Insert to query bar
-      // 5. scroll to top
+    // Add query fragment to query bar
+    toQueryBar : function (e) {
+
+      // Set query language field
+      var qlf = this._ql.options;
+      for (var i in qlf) {
+	      if (qlf[i].value == 'poliqarp') {
+	        qlf[i].selected = true;
+          break;
+	      };
+      };
+
+      // Insert to query bar
+      this._q.value = this.toString();
+
+      // Scroll to top
+      window.scrollTo(0, 0);
     }
   };  
 });

@@ -1,16 +1,18 @@
-  /**
-   * Information about a match.
-   */
+/**
+ * Information about a match.
+ */
 define([
   'match/infolayer',
   'match/table',
   'match/tree',
   'match/treemenu',
+  'match/querycreator',
   'util'
 ], function (infoLayerClass,
 	           matchTableClass,
 	           matchTreeClass,
-	           matchTreeMenuClass) {
+	           matchTreeMenuClass,
+             matchQueryCreator) {
   
   // Override 
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
@@ -166,12 +168,12 @@ define([
 
       // Remove circular reference
       if (this._treeMenu !== undefined)
-	delete this._treeMenu["info"];
+	      delete this._treeMenu["info"];
       
       this._treeMenu.destroy();
       this._treeMenu = undefined;
       this._match = undefined;
-      
+      this._matchCreator = undefined;      
       // Element destroy
     },
 
@@ -184,9 +186,9 @@ define([
       
       var h6 = matchtree.appendChild(document.createElement('h6'));
       h6.appendChild(document.createElement('span'))
-	.appendChild(document.createTextNode(foundry));
+	      .appendChild(document.createTextNode(foundry));
       h6.appendChild(document.createElement('span'))
-	.appendChild(document.createTextNode(layer));
+	      .appendChild(document.createTextNode(layer));
       
       var tree = matchtree.appendChild(
 	      document.createElement('div')
@@ -276,6 +278,9 @@ define([
           matchtable.appendChild(table.element());
 	      };
 	      matchtable.classList.remove('loading');
+
+        // Add query creator
+        this._matchCreator = matchQueryCreator.create(matchtable);
       });
 
       // Get spans

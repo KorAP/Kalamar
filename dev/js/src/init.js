@@ -415,6 +415,9 @@ define([
     if (obj.hint === undefined)
       obj.hint = hintClass.create();
 
+    // Add the hinthelper to the KorAP object to make it manipulatable globally
+    // KorAP.Hint = obj.hint;
+
     return obj;
   });
 });

@@ -201,28 +201,28 @@ define(function () {
       var foundryList = Object.keys(this._foundry).sort();
 
       for (var f = 0; f < foundryList.length; f++) {
-  var foundry = foundryList[f];
-  var layerList =
-    Object.keys(this._foundry[foundry]).sort();
+        var foundry = foundryList[f];
+        var layerList =
+            Object.keys(this._foundry[foundry]).sort();
 
-  for (var l = 0; l < layerList.length; l++) {
-    var layer = layerList[l];
-    tr = tbody.appendChild(
-      d.createElement('tr')
-    );
-    tr.setAttribute('tabindex', 0);
-    tr.addCell = addCell;
+        for (var l = 0; l < layerList.length; l++) {
+          var layer = layerList[l];
+          tr = tbody.appendChild(
+            d.createElement('tr')
+          );
+          tr.setAttribute('tabindex', 0);
+          tr.addCell = addCell;
 
-    tr.addCell('th', foundry);
-    tr.addCell('th', layer);
+          tr.addCell('th', foundry);
+          tr.addCell('th', layer);
 
-    for (var v = 0; v < this.length(); v++) {
-      tr.addCell(
-        'td',
-        this.getValue(v, foundry, layer) 
-      );
-    };
-  };
+          for (var v = 0; v < this.length(); v++) {
+            tr.addCell(
+              'td',
+              this.getValue(v, foundry, layer) 
+            );
+          };
+        };
       };
 
       return this._element = table;

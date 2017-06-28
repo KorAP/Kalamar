@@ -74,9 +74,10 @@ define(['session', 'util'], function (sessionClass) {
 
       var qlf = this._ql.options;
       for (var i in qlf) {
-	if (qlf[i].value == ql) {
-	  qlf[i].selected = true;
-	};
+	      if (qlf[i].value == ql) {
+	        qlf[i].selected = true;
+          break;
+	      };
       };
 
       this._q.value = q;
@@ -118,42 +119,42 @@ define(['session', 'util'], function (sessionClass) {
     show : function () {
       var element = this._element;
       if (element.style.display === 'block')
-	return;
+	      return;
 
       if (this._iframe === null) {
-	this._iframe = document.createElement('iframe');
-	this._iframe.setAttribute(
-	  'src',
-	  (this.getPage() || this.start) + '?embedded=true'
-	);
+	      this._iframe = document.createElement('iframe');
+	      this._iframe.setAttribute(
+	        'src',
+	        (this.getPage() || this.start) + '?embedded=true'
+	      );
 
-	var ul = document.createElement('ul');
-	ul.classList.add('action', 'right');
+	      var ul = document.createElement('ul');
+	      ul.classList.add('action', 'right');
 
-	// Add close button
-	var close = document.createElement('li');
-	close.appendChild(document.createElement('span'))
-	  .appendChild(document.createTextNode(loc.CLOSE));
-	close.classList.add('close');
-	close.setAttribute('title', loc.CLOSE);
-	close.onclick = function () {
-	  element.style.display = 'none';
-	};
+	      // Add close button
+	      var close = document.createElement('li');
+	      close.appendChild(document.createElement('span'))
+	        .appendChild(document.createTextNode(loc.CLOSE));
+	      close.classList.add('close');
+	      close.setAttribute('title', loc.CLOSE);
+	      close.onclick = function () {
+	        element.style.display = 'none';
+	      };
 
-	// Add open in new window button
-	// Add scroll to top button
-	/*
-	  var info = document.createElement('li');
-	  info.appendChild(document.createElement('span'))
-	  .appendChild(document.createTextNode(loc.SHOWINFO));
-	  info.classList.add('info');
-	  info.setAttribute('title', loc.SHOWINFO);
-	*/
+	      // Add open in new window button
+	      // Add scroll to top button
+	      /*
+	        var info = document.createElement('li');
+	        info.appendChild(document.createElement('span'))
+	        .appendChild(document.createTextNode(loc.SHOWINFO));
+	        info.classList.add('info');
+	        info.setAttribute('title', loc.SHOWINFO);
+	      */
 	
-	ul.appendChild(close);
+	      ul.appendChild(close);
 
-	element.appendChild(ul);
-	element.appendChild(this._iframe);
+	      element.appendChild(ul);
+	      element.appendChild(this._iframe);
       };
 
       element.style.display = 'block';
