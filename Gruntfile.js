@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         files: {
           'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss',
           'dev/css/kalamar.css' : 'dev/scss/kalamar.scss',
-          'dev/css/kwic.css' : 'dev/scss/main/kwic-new.scss'
+          'dev/css/kwic.css' : 'dev/scss/main/kwic.scss'
         }
       }
     },
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
 		            'dev/scss/footer/footer.scss',
 		            'dev/scss/sidebar/sidebar.scss',
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',
-		            'dev/scss/main/{alertify,koralquery,highlight,kwic,kwic-new,logos,tagger,' +
+		            'dev/scss/main/{alertify,koralquery,highlight,kwic,logos,tagger,' +
 		            'main,matchinfo,pagination,query,'+
 		            'resultinfo,sidebar,tutorial}.scss'
 	             ],
