@@ -307,6 +307,14 @@ div.snippet div.flag {
   }
 }
 
+// fix empty contexts
+#search ol span.context-left,
+#search ol span.context-right {
+  &:empty::after {
+    content: " ";
+    display: inline-block;
+  }
+}
 
 /**
  * Highlights
