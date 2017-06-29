@@ -277,15 +277,33 @@ define(['util'], function () {
       };
     },
 
-
     // Stringify annotation
     toString : function () {
       var str = '';
-      this._query.forEach(function (token) {
+      var distance = 0;
+
+      for (var i = 0; i < this._query.length; i++) {
+        var token = this._query[i];
+
+        // Token is defined
         if (token !== undefined) {
+          if (distance > 0) {
+            str += '[]';
+            if (distance > 1) {
+              str += '{' + distance + '}';
+            };
+            distance = 0;
+          };
+          
           str += '[' + token.sort().join(" & ") + ']';
+        }
+
+        // Token is not defined - but distances count
+        else if (str !== '') {
+          distance++;
         };
-      });
+      };
+
       return str;
     },
 

@@ -12,6 +12,7 @@ function matchInfoFactory () {
     "          <th>älteste</th>" +
     "          <th>lebende</th>" +
     "          <th>Baum</th>" +
+    "          <th>hier</th>" +
     "        </tr>" +
     "      </thead>" +
     "      <tbody>" +
@@ -22,6 +23,7 @@ function matchInfoFactory () {
     "          <td>ADJA</td>" +
     "          <td>ADJA<br>ADJD</td>" +
     "          <td>NN</td>" +
+    "          <td>ADV</td>" +
     "        </tr>" +
     "        <tr tabindex=\"0\">" +
     "          <th>opennlp</th>" +
@@ -30,6 +32,7 @@ function matchInfoFactory () {
     "          <td>ADJA</td>" +
     "          <td></td>" +
     "          <td>NN</td>" +
+    "          <td>ADV</td>" +
     "        </tr>" +
     "      </tbody>" +
     "    </table>" +
@@ -136,7 +139,7 @@ define(['match/querycreator'], function (qcClass) {
       cell = matchInfo.querySelector("tbody > tr:nth-child(2) > td:nth-child(3)");
       expect(cell.innerText).toEqual("ART");
       cell.click();
-      expect(qc.toString()).toEqual("[opennlp/p=ART][orth=lebende]");
+      expect(qc.toString()).toEqual("[opennlp/p=ART][][orth=lebende]");
 
       cell = matchInfo.querySelector("tbody > tr > td:nth-child(4)");
       expect(cell.innerText).toEqual("ADJA");
@@ -169,7 +172,7 @@ define(['match/querycreator'], function (qcClass) {
       cell = matchInfo.querySelector("thead > tr > th:nth-child(6)");
       expect(cell.innerText).toEqual("Baum");
       cell.click();
-      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste][orth=Baum]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste][][orth=Baum]");
       var cell4 = cell;
 
       cell = matchInfo.querySelector("thead > tr > th:nth-child(5)");
@@ -183,28 +186,28 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell5.classList.contains("chosen")).toBeTruthy();
       cell5.click()
       expect(cell5.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste][orth=Baum]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste][][orth=Baum]");
 
       expect(cell2.classList.contains("chosen")).toBeTruthy();
       cell2.click()
       expect(cell2.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA][orth=Baum]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA][][orth=Baum]");
 
       expect(cell1.classList.contains("chosen")).toBeTruthy();
       cell1.click()
       expect(cell1.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[corenlp/p=ART][orth=Baum]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART][]{2}[orth=Baum]");
 
       // Re-add first cell at the same position
       expect(cell1.classList.contains("chosen")).toBe(false);
       cell1.click()
       expect(cell1.classList.contains("chosen")).toBeTruthy();
-      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA][orth=Baum]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA][][orth=Baum]");
 
       expect(cell3.classList.contains("chosen")).toBeTruthy();
       cell3.click()
       expect(cell3.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[opennlp/p=ADJA][orth=Baum]");
+      expect(qc.toString()).toEqual("[opennlp/p=ADJA][][orth=Baum]");
 
       expect(cell4.classList.contains("chosen")).toBeTruthy();
       cell4.click()
@@ -345,8 +348,9 @@ define(['match/querycreator'], function (qcClass) {
       expect(corenlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
       expect(corenlpRow.querySelector("td:nth-child(5).chosen")).toBeTruthy();
       expect(corenlpRow.querySelector("td:nth-child(6).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(7).chosen")).toBeTruthy();
       
-      expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][(corenlp/p=ADJA | corenlp/p=ADJD)][corenlp/p=NN]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][(corenlp/p=ADJA | corenlp/p=ADJD)][corenlp/p=NN][corenlp/p=ADV]");
 
       // Remove one of the cells again
       cell = corenlpRow.querySelector("td:nth-child(5).chosen");
@@ -354,7 +358,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBeTruthy();
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][corenlp/p=NN]");
+      expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][][corenlp/p=NN][corenlp/p=ADV]");
 
     });
 
@@ -383,6 +387,26 @@ define(['match/querycreator'], function (qcClass) {
       expect(opennlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
       expect(opennlpRow.querySelector("td:nth-child(5).chosen")).toBeNull();
       expect(opennlpRow.querySelector("td:nth-child(6).chosen")).toBeTruthy();
+    });
+
+    it('should support multiple distances', function () {
+      var matchInfo = matchInfoFactory();
+      var qc = qcClass.create(matchInfo);
+
+      var cell = matchInfo.querySelector("thead > tr > th:nth-child(3)");
+      expect(cell.innerText).toEqual("Der");
+      cell.click();
+      expect(qc.toString()).toEqual("[orth=Der]");
+
+      cell = matchInfo.querySelector("thead > tr > th:nth-child(7)");
+      expect(cell.innerText).toEqual("hier");
+      cell.click();
+      expect(qc.toString()).toEqual("[orth=Der][]{3}[orth=hier]");
+
+      cell = matchInfo.querySelector("thead > tr > th:nth-child(5)");
+      expect(cell.innerText).toEqual("lebende");
+      cell.click();
+      expect(qc.toString()).toEqual("[orth=Der][][orth=lebende][][orth=hier]");
     });
   });
 });
