@@ -357,5 +357,32 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][corenlp/p=NN]");
 
     });
+
+    it('should ignore empty terms in whole rows', function () {
+      var matchInfo = matchInfoFactory();
+      var qc = qcClass.create(matchInfo);
+      expect(qc.toString()).toEqual("");
+
+      var opennlpRow = matchInfo.querySelector("tbody > tr:nth-child(2)");
+
+      expect(opennlpRow.querySelector("td:nth-child(3).chosen")).toBeNull();
+      expect(opennlpRow.querySelector("td:nth-child(4).chosen")).toBeNull();
+      expect(opennlpRow.querySelector("td:nth-child(5).chosen")).toBeNull();
+      expect(opennlpRow.querySelector("td:nth-child(6).chosen")).toBeNull();
+
+      expect(qc.toString()).toEqual("");
+
+      // Mark all opennlp lists
+      cell = opennlpRow.querySelector("th:nth-child(1)");
+      expect(cell.innerText).toEqual("opennlp");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+
+      expect(opennlpRow.querySelector("td:nth-child(3).chosen")).toBeTruthy();
+      expect(opennlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
+      expect(opennlpRow.querySelector("td:nth-child(5).chosen")).toBeNull();
+      expect(opennlpRow.querySelector("td:nth-child(6).chosen")).toBeTruthy();
+    });
   });
 });
