@@ -229,9 +229,133 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.element().innerHTML).toEqual("<span>New Query:</span><span>[orth=Baum]</span>");
     });
 
-    it('should ignore empty terms');
-    it('should create groups for multiple terms');
-    it('should add whole rows');
+    it('should ignore empty terms', function () {
+      var matchInfo = matchInfoFactory();
+      var qc = qcClass.create(matchInfo);
 
+      // Nothing to show
+      expect(qc.toString()).toEqual("");
+      expect(qc.shown()).toBe(false);
+      qc.show();
+      expect(qc.shown()).toBe(false);
+      expect(qc.element().className).toEqual("queryfragment");
+
+      var cell = matchInfo.querySelector("tbody > tr:nth-child(2) > td:nth-child(4)");
+      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[opennlp/p=ADJA]");
+
+      cell = matchInfo.querySelector("tbody > tr:nth-child(2) > td:nth-child(5)");
+      expect(cell.innerText).toEqual("");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("[opennlp/p=ADJA]");
+
+    });
+
+    it('should create groups for multiple terms', function () {
+      var matchInfo = matchInfoFactory();
+      var qc = qcClass.create(matchInfo);
+
+      // Nothing to show
+      expect(qc.toString()).toEqual("");
+      expect(qc.shown()).toBe(false);
+      qc.show();
+      expect(qc.shown()).toBe(false);
+      expect(qc.element().className).toEqual("queryfragment");
+
+      var cell = matchInfo.querySelector("thead > tr > th:nth-child(5)");
+      expect(cell.innerText).toEqual("lebende");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[orth=lebende]");
+
+      cell = matchInfo.querySelector("tbody > tr:nth-child(1) > td:nth-child(5)");
+      expect(cell.innerText).toEqual("ADJAADJD");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[(corenlp/p=ADJA | corenlp/p=ADJD) & orth=lebende]");
+
+      // Remove or group again
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("[orth=lebende]");
+    });
+
+
+    it('should add whole rows', function () {
+      var matchInfo = matchInfoFactory();
+      var qc = qcClass.create(matchInfo);
+
+      // Nothing to show
+      expect(qc.toString()).toEqual("");
+      expect(qc.shown()).toBe(false);
+      qc.show();
+      expect(qc.shown()).toBe(false);
+      expect(qc.element().className).toEqual("queryfragment");
+
+      var corenlpRow = matchInfo.querySelector("tbody > tr:nth-child(1)");
+
+      var cell = corenlpRow.querySelector("td:nth-child(4)");
+      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+
+      // Activate another cell in another row
+      cell = matchInfo.querySelector("tbody > tr:nth-child(2) td:nth-child(3)");
+      expect(cell.innerText).toEqual("ART");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+
+      expect(corenlpRow.querySelector("td:nth-child(3).chosen")).toBeNull();
+      expect(corenlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(5).chosen")).toBeNull();
+      expect(corenlpRow.querySelector("td:nth-child(6).chosen")).toBeNull();
+
+      expect(qc.toString()).toEqual("[opennlp/p=ART][corenlp/p=ADJA]");
+
+      // Mark all corenlp lists
+      cell = corenlpRow.querySelector("th:nth-child(1)");
+      expect(cell.innerText).toEqual("corenlp");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+
+      expect(corenlpRow.querySelector("td:nth-child(3).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(5).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(6).chosen")).toBeTruthy();
+
+      // Replay the choice without any effect
+      cell = corenlpRow.querySelector("th:nth-child(1)");
+      expect(cell.innerText).toEqual("corenlp");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+
+      expect(corenlpRow.querySelector("td:nth-child(3).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(5).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(6).chosen")).toBeTruthy();
+      
+      expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][(corenlp/p=ADJA | corenlp/p=ADJD)][corenlp/p=NN]");
+
+      // Remove one of the cells again
+      cell = corenlpRow.querySelector("td:nth-child(5).chosen");
+      expect(cell.innerText).toEqual("ADJAADJD");
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("[corenlp/p=ART & opennlp/p=ART][corenlp/p=ADJA][corenlp/p=NN]");
+
+    });
   });
 });
