@@ -9,6 +9,25 @@ define(['util'], function () {
   var loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
+  function _getAnnotation (prefix, target) {
+    var annotation = '';
+
+    // Complex annotation
+    if (target.childNodes.length > 1) {
+      var orGroup = [];
+      target.childNodes.forEach(function (item) {
+        if (item.nodeType === 3)
+          orGroup.push(prefix + item.data);
+      });
+      return '(' + orGroup.sort().join(' | ') + ')';
+    }
+
+    // Simple annotation
+    else {
+      return prefix + target.innerText;
+    };
+  };
+
   return {
     create : function (matchInfo) {
       return Object.create(this)._init(matchInfo);
@@ -66,6 +85,7 @@ define(['util'], function () {
       return this;
     },
 
+
     // Realease a click event on the annotation table
     clickOnAnno : function (event) {
 
@@ -97,20 +117,8 @@ define(['util'], function () {
           var prefix = foundry + '/' + layer + '=';
           var annotation = '';
 
-          // There are multiple annotations in this cell - add/remove an or-group
-          if (target.childNodes.length > 1) {
-            var orGroup = [];
-            target.childNodes.forEach(function (item) {
-              if (item.nodeType === 3)
-                orGroup.push(prefix + item.data);
-            });
-            annotation = '(' + orGroup.sort().join(' | ') + ')';
-          }
-
-          // Add/Remove the annotation
-          else {
-            annotation = prefix + target.innerText;
-          };
+          // Get annotation value from cell
+          var annotation = _getAnnotation(prefix, target);
 
           // Add term
           this.toggleInToken(target, i, annotation);
@@ -150,7 +158,13 @@ define(['util'], function () {
             while ((sib = sib.nextSibling) != null) {
               if (sib.nodeType !== 1 || sib.tagName === 'TH')
                 continue;
-              this.addToToken(i, prefix + sib.innerText);
+
+              // Get annotation value from cell
+              var annotation = _getAnnotation(prefix, sib);
+
+              // Add annotation to string
+              this.addToToken(i, annotation);
+              
               sib.className = 'chosen';
               i++;
             };
