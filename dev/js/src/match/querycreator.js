@@ -10,11 +10,12 @@ define(['util'], function () {
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
   function _getAnnotation (prefix, target) {
-    var annotation = '';
 
     // Complex annotation
     if (target.childNodes.length > 1) {
       var orGroup = [];
+
+      // Iterate over alternative annotations
       target.childNodes.forEach(function (item) {
         if (item.nodeType === 3)
           orGroup.push(prefix + item.data);
@@ -24,6 +25,9 @@ define(['util'], function () {
 
     // Simple annotation
     else {
+      if (target.innerText == '')
+        return '';
+
       return prefix + target.innerText;
     };
   };
@@ -120,8 +124,10 @@ define(['util'], function () {
           // Get annotation value from cell
           var annotation = _getAnnotation(prefix, target);
 
-          // Add term
-          this.toggleInToken(target, i, annotation);
+          if (annotation !== '') {
+            // Add term
+            this.toggleInToken(target, i, annotation);
+          };
         }
 
         // Get orth values
@@ -162,10 +168,13 @@ define(['util'], function () {
               // Get annotation value from cell
               var annotation = _getAnnotation(prefix, sib);
 
-              // Add annotation to string
-              this.addToToken(i, annotation);
-              
-              sib.className = 'chosen';
+              if (annotation !== '') {
+
+                // Add annotation to string
+                this.addToToken(i, annotation);
+                sib.className = 'chosen';
+              };
+
               i++;
             };
           };
