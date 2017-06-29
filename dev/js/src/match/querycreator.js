@@ -17,12 +17,24 @@ define(['util'], function () {
     // Initialize query creator
     _init : function (matchInfo) {
 
-      // This may be probably a hint helper
+      // Parameter checks
+      if (matchInfo === undefined)
+        throw new Error('Missing parameters');
+      else if (!(matchInfo instanceof Node))
+        throw new Error('Requires element');
+
+      // Collect the token sequence in an array
       this._query = []
+
+      // Remember the matchinfo that is the parent of
+      // the matchtable and the query frafment
       this._matchInfo = matchInfo;
 
       // Get the match table
       this._matchTable = this._matchInfo.getElementsByClassName('matchtable')[0];
+
+      if (this._matchTable === undefined)
+        throw new Error('Element contains no match table');
 
       // Listen on the match table
       this._matchTable.addEventListener(
@@ -189,11 +201,19 @@ define(['util'], function () {
       this.show();
     },
 
+    
     // Get element representing annotation line
     element : function () {
       return this._element;
     },
 
+
+    // Check if the query fragment is shown
+    shown : function () {
+      return this._shown;
+    },
+
+    
     // Show annotation fragment
     show : function () {
 
@@ -248,6 +268,9 @@ define(['util'], function () {
 
     // Add query fragment to query bar
     toQueryBar : function (e) {
+
+      if (this._ql === undefined || this._q === undefined)
+        return;
 
       // Set query language field
       var qlf = this._ql.options;
