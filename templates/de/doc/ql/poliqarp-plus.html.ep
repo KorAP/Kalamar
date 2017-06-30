@@ -75,7 +75,7 @@
 
   %= doc_query poliqarp => '[base=Baum]'
 
-  <p>Der dritte Sonderschlüssel ist <code>pos</code> und bezieht sich auf die Wortarten-Annotation der <% = doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
+  <p>Der dritte Sonderschlüssel ist <code>pos</code> und bezieht sich auf die Wortarten-Annotation der <%= doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
     Die folgende Abfrage findet alle attributiven Adjektive:</p>
 
   %= doc_query poliqarp => '[pos=ADJA]'

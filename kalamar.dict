@@ -61,6 +61,13 @@ my $THOUSAND_SEP_RE = qr/(
       loginFail => 'Anmeldung fehlgeschlagen',
       logoutSuccess => 'Abmeldung erfolgreich',
       logoutFail => 'Abmeldung fehlgeschlagen'
+    },
+    Template => {
+      doc => {
+        ql => {
+          'poliqarp-plus' => 'de/doc/ql/poliqarp-plus'
+        }
+      }
     }
   },
   -en => {
@@ -115,6 +122,18 @@ my $THOUSAND_SEP_RE = qr/(
       loginFail => 'Access denied',
       logoutSuccess => 'Logout successful',
       logoutFail => 'Logout failed'
+    },
+    Template => {
+      doc => {
+        ql => {
+#          'annis' => 'doc/ql/annis',
+#          'cosmas-2' => 'doc/ql/cosmas-2',
+#          'cql' => 'doc/ql/cql',
+          'poliqarp-plus' => 'doc/ql/poliqarp-plus',
+#          'regexp' => 'doc/ql/regexp',
+#          'wildcards' => 'doc/ql/wildcards'
+        }
+      }
     }
   }
 };

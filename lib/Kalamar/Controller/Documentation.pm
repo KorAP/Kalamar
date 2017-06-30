@@ -4,6 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 # Show documentation page
 sub page {
   my $c = shift;
+
   if ($c->param('embedded')) {
     $c->stash(embedded => 1);
   };
@@ -27,7 +28,7 @@ sub page {
   return $c->render(
     sidebar_active => 1,
     main_class     => 'tutorial',
-    template       => join('/', @path)
+    template       => $c->loc('Template_' . join('_', @path), join('/', @path))
   );
 };
 
