@@ -412,8 +412,9 @@ define(['match'], function () {
       expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
 
       // now
-      var infotable = matchElement.children[0].children[1];
+      var infotable = matchElement.children[2];
       expect(infotable.tagName).toEqual('DIV');
+
       expect(infotable.classList.contains('matchinfo')).toBeTruthy();
 
       expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
@@ -457,7 +458,7 @@ define(['match'], function () {
       expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
 
       // now
-      var infotable = matchElement.children[0].children[1];
+      var infotable = matchElement.children[2];
       expect(infotable.tagName).toEqual('DIV');
       expect(infotable.classList.contains('matchinfo')).toBeTruthy();
       expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
@@ -473,7 +474,7 @@ define(['match'], function () {
 
     it('should add a tree view async 2', function () {
       // With added tree
-      var infotable = matchElement.children[0].children[1];
+      var infotable = matchElement.children[2];
       expect(infotable.tagName).toEqual('DIV');
       expect(infotable.classList.contains('matchinfo')).toBeTruthy();
       expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
