@@ -7,6 +7,8 @@ $left-distance: $left-width + ($border-size * 2);
 
 @mixin cell-info {
   text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 25em;
   overflow: hidden;
   padding: 1px 6px;
   margin: 0px;
@@ -198,6 +200,8 @@ div.matchtable {
     > th:nth-of-type(2) {
       left: ($left-width / 2) + $border-size;
     }
+
+    // Includes header line as well
     > * {
       @include cell-info;
       border: ($border-size / 2) solid $dark-orange;
