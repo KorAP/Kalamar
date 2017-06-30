@@ -567,7 +567,7 @@ define([
         return string + this.value();
         break;
       case "regex":
-        return string + '/' + this.value() + '/';
+        return string + '/' + this.value().escapeRegex() + '/';
         break;
       case "string":
         return string + '"' + this.value().quote() + '"';

@@ -36,10 +36,10 @@ define({
   regex : function (bool) {
     if (arguments.length === 1) {
       if (bool) {
-	this._regex = true;
+	      this._regex = true;
       }
       else {
-	this._regex = false;
+	      this._regex = false;
       };
       this._update();
     };
@@ -128,8 +128,8 @@ define({
     re.addEventListener(
       'click',
       function (e) {
-	this.toggleRegex();
-	e.halt();
+	      this.toggleRegex();
+	      e.halt();
       }.bind(this),
       true
     );
@@ -138,19 +138,19 @@ define({
     e.addEventListener(
       'blur',
       function (e) {
-	this.store(this.value(), this.regex());
-	e.halt();
+	      this.store(this.value(), this.regex());
+	      e.halt();
       }.bind(this)
     );
 
     this._input.addEventListener(
       'keypress',
       function (e) {
-	if (e.keyCode == 13) {
-	  this.value(this._input.value);
-	  this.store(this.value(), this.regex());
+	      if (e.keyCode == 13) {
+	        this.value(this._input.value);
+	        this.store(this.value(), this.regex());
           return false;
-	};
+	      };
       }.bind(this)
     );
 

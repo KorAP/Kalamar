@@ -14,6 +14,11 @@ String.prototype.quote = function () {
   return this.replace(_quoteRE, '\\$1');
 };
 
+var _escapeRE = new RegExp("([\/\\\\])", 'g');
+String.prototype.escapeRegex = function () {
+  return this.replace(_escapeRE, '\\$1');
+};
+
 // Add toggleClass method similar to jquery
 HTMLElement.prototype.toggleClass = function (c1, c2) {
   var cl = this.classList;

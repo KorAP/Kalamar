@@ -15,21 +15,21 @@ define(['vc/operators'], function (operatorsClass) {
      */
     upgradeTo : function (props) {
       for (var prop in props) {
-	this[prop] = props[prop];
+	      this[prop] = props[prop];
       };
       return this;
     },
     
     ldType : function (type) {
       if (arguments.length === 1)
-	this._ldType = type;
+	      this._ldType = type;
       return this._ldType;
     },
     
     parent : function (obj) {
       if (arguments.length === 1) {
-	this._parent = obj;
-	this.__changed = true;
+	      this._parent = obj;
+	      this.__changed = true;
       };
       return this._parent;
     },
@@ -39,19 +39,19 @@ define(['vc/operators'], function (operatorsClass) {
     // I'm paranoid!
     destroy : function () {
       if (this._ops != undefined) {
-	this._ops._parent = undefined;
-	if (this._ops._element !== undefined)
-	  this._ops._element.refTo = undefined;
-	this._ops = undefined;
+	      this._ops._parent = undefined;
+	      if (this._ops._element !== undefined)
+	        this._ops._element.refTo = undefined;
+	      this._ops = undefined;
       };
       if (this._element !== undefined)
-	this._element = undefined;
+	      this._element = undefined;
       
       // In case of a group, destroy all operands
       if (this._operands !== undefined) {
-	for (var i = 0; i < this._operands.length; i++)
-	  this.getOperand(i).destroy();
-	this._operands = [];
+	      for (var i = 0; i < this._operands.length; i++)
+	        this.getOperand(i).destroy();
+	      this._operands = [];
       };
     },
     
@@ -61,11 +61,11 @@ define(['vc/operators'], function (operatorsClass) {
       
       var group = require('vc/docgroup').create(parent);
       if (arguments.length === 1)
-	group.operation(op);
+	      group.operation(op);
       else
-	group.operation(
-	  this.operation() === 'and' ? 'or' : 'and'
-	);
+	      group.operation(
+	        this.operation() === 'and' ? 'or' : 'and'
+	      );
       group.append(this);
       this.parent(group);
       group.append();
@@ -77,9 +77,9 @@ define(['vc/operators'], function (operatorsClass) {
     // Be aware! This may be cyclic
     operators : function (and, or, del) {
       if (arguments === 0)
-	return this._ops;
+	      return this._ops;
       this._ops = operatorsClass.create(
-	and, or, del
+	      and, or, del
       );
       this._ops.parent(this);
       return this._ops;
@@ -87,8 +87,8 @@ define(['vc/operators'], function (operatorsClass) {
 
     toJson : function () {
       return {
-	// Unspecified object
-	"@type" : "koral:" + this.ldType()
+	      // Unspecified object
+	      "@type" : "koral:" + this.ldType()
       };
     },
 

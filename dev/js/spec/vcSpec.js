@@ -323,15 +323,20 @@ define(['vc'], function () {
       expect(doc.toQuery()).toEqual('title = /[^b]ee.+?/');
 
       doc = regexFactory.create({
-	match: "match:ne"
+	      match: "match:ne"
       });
       expect(doc.toQuery()).toEqual('title != /[^b]ee.+?/');
+
+      doc = regexFactory.create({
+	      value: "WPD/AAA/00001"
+      });
+      expect(doc.toQuery()).toEqual('title = /WPD\\/AAA\\/00001/');
 
       doc = dateFactory.create();
       expect(doc.toQuery()).toEqual('pubDate in 2014-11-05');
 
       doc = dateFactory.create({
-	value : "2014"
+	      value : "2014"
       });
       expect(doc.toQuery()).toEqual('pubDate in 2014');
     });
