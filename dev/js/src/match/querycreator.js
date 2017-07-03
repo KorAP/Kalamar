@@ -6,6 +6,10 @@
 define(['util'], function () {
   "use strict";
 
+  /*
+   * TODO:
+   *   Cache foundry and layer information per row.
+   */
   var loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
@@ -104,6 +108,10 @@ define(['util'], function () {
           if (target.innerText == '')
             return;
 
+          if (target.classList.contains('matchkeyvalues'))
+            return;
+
+
           // Check foundry and layer
           var head    = target.parentNode.getElementsByTagName('th');
           var foundry = head[0].innerText;
@@ -130,6 +138,42 @@ define(['util'], function () {
           };
         }
 
+        // The annotation is part of a key-value-pair
+        else if (target.tagName == 'SPAN' || target.tagName == 'DIV') {
+          if (target.innerText == '')
+            return;
+
+          if (target.tagName == 'SPAN') {
+            target = target.parentNode;
+          };
+
+          // Check foundry and layer
+          var parentCell = target.parentNode;
+          var head    = parentCell.parentNode.getElementsByTagName('th');
+          var foundry = head[0].innerText;
+          var layer   = head[1].innerText;
+
+          // Check index position of parent cell
+          var i = -2;
+          var sib = parentCell;
+          while((sib = sib.previousSibling) != null) {
+            if (sib.nodeType === 1)
+              i++;
+          };
+
+          var prefix = foundry + '/' + layer + '=';
+          var annotation = '';
+
+          // Get annotation value from cell
+          var annotation = _getAnnotation(prefix, target);
+
+          if (annotation !== '') {
+
+            // Add term
+            this.toggleInToken(target, i, annotation);
+          }
+        }
+
         // Get orth values
         else if (target.tagName == 'TH') {
 
@@ -150,6 +194,7 @@ define(['util'], function () {
           }
 
           // The head refers to the complete row
+          // Mark the complete row!
           else {
 
             // Check foundry and layer
@@ -165,15 +210,37 @@ define(['util'], function () {
               if (sib.nodeType !== 1 || sib.tagName === 'TH')
                 continue;
 
-              // Get annotation value from cell
-              var annotation = _getAnnotation(prefix, sib);
+              // Is a key-value-cell
+              if (sib.classList.contains('matchkeyvalues')) {
+                var divs = sib.getElementsByTagName('div');
+                for (var j = 0; j < divs.length; j++) {
+                  var keyvaluepair = divs[j];
 
-              if (annotation !== '') {
+                  // Get annotation value from cell
+                  var annotation = _getAnnotation(prefix, keyvaluepair);
 
-                // Add annotation to string
-                this.addToToken(i, annotation);
-                sib.className = 'chosen';
-              };
+                  if (annotation !== '') {
+
+                    // Add annotation to string
+                    this.addToToken(i, annotation);
+                    keyvaluepair.className = 'chosen';
+                  };
+                };
+              }
+
+              // Normal cell
+              else {
+
+                // Get annotation value from cell
+                var annotation = _getAnnotation(prefix, sib);
+
+                if (annotation !== '') {
+
+                  // Add annotation to string
+                  this.addToToken(i, annotation);
+                  sib.className = 'chosen';
+                };
+              }
 
               i++;
             };
@@ -206,6 +273,7 @@ define(['util'], function () {
 
       this.show();
     },
+
 
     // Remove term from token
     removeFromToken : function (index, term) {
