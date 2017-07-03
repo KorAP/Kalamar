@@ -9,6 +9,8 @@ define(['util'], function () {
   /*
    * TODO:
    *   Cache foundry and layer information per row.
+   * TODO:
+   *   Or-Groups are no longer in use.
    */
   var loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
