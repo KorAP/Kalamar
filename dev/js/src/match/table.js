@@ -164,8 +164,15 @@ define(function () {
         if (name instanceof Array && name[1] !== undefined) {
 
           // There are multiple values to add
+          c.classList.add('matchkeyvalues');
+          for (var n = 0; n < name.length; n++) {
+            var text = d.createTextNode(name[n]);
+            var e = c.appendChild(d.createElement('div'));
+            e.appendChild(text);
+          };
 
           // These are andgroups
+          /*
           if (name.some(function (item) { return item.indexOf(':') == -1 ? false : true})) {
             c.classList.add('matchkeyvalues');
             for (var n = 0; n < name.length; n++) {
@@ -184,6 +191,7 @@ define(function () {
               };
             };
           };
+          */
         }
         else {
           c.appendChild(d.createTextNode(name));

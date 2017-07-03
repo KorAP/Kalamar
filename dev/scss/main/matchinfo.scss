@@ -214,18 +214,18 @@ div.matchtable {
     vertical-align: top;
     text-align: center;
     div {
-      background-color: $middle-orange; // $nearly-white;
+      background-color: $light-orange; // $nearly-white;
     }
   }
   tr:nth-child(even) > td {
     background-color: $light-orange;
     div:nth-child(even) {
-      background-color: $light-orange;
+      background-color: $middle-orange;
     }
   }
 
   tr:nth-child(odd) > td > div:nth-child(odd) {
-    background-color: $light-orange;
+    background-color: $middle-orange;
   }
 
 
