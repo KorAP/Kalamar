@@ -14,8 +14,10 @@ var snippet = "<span title=\"cnx/l:meist\">" +
   "    <span title=\"cnx/syn:@PREMOD\">" +
   "      <span title=\"mate/l:deutlich\">" +
   "        <span title=\"mate/m:degree:pos\">" +
-  "          <span title=\"mate/p:ADJD\">" +
-  "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
+  "          <span title=\"mate/m:case:nom\">" +
+  "            <span title=\"mate/p:ADJD\">" +
+  "              <span title=\"opennlp/p:ADJD\">deutlich</span>" +
+  "            </span>" +
   "          </span>" +
   "        </span>" +
   "      </span>" +

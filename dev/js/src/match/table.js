@@ -68,15 +68,6 @@ define(function () {
     getValue : function (pos, foundry, layer) {
       return this._info[pos][foundry + '/' + layer]
     },
-    
-    /*
-      getLayerPerFoundry : function (foundry) {
-        return this._foundry[foundry]
-      },
-      getFoundryPerLayer : function (layer) {
-        return this._layer[layer];
-      },
-    */
 
     // Parse the snippet
     _parse : function (children) {
@@ -170,11 +161,27 @@ define(function () {
         if (name === undefined)
           return c;
 
-        if (name instanceof Array) {
-          for (var n = 0; n < name.length; n++) {
-            c.appendChild(d.createTextNode(name[n]));
-            if (n !== name.length - 1) {
-              c.appendChild(d.createElement('br'));
+        if (name instanceof Array && name[1] !== undefined) {
+
+          // There are multiple values to add
+
+          // These are andgroups
+          if (name.some(function (item) { return item.indexOf(':') == -1 ? false : true})) {
+            c.classList.add('matchkeyvalues');
+            for (var n = 0; n < name.length; n++) {
+              var text = d.createTextNode(name[n]);
+              var e = c.appendChild(d.createElement('div'));
+              e.appendChild(text);
+            };
+          }
+
+          // Add alternatives
+          else {
+            for (var n = 0; n < name.length; n++) {
+              c.appendChild(d.createTextNode(name[n]));
+              if (n !== name.length - 1) {
+                c.appendChild(d.createElement('br'));
+              };
             };
           };
         }
