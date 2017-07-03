@@ -42,6 +42,53 @@ function matchInfoFactory () {
   return info;
 };
 
+function matchInfoComplexFactory () {
+  var info = document.createElement('div');
+  info.className = 'matchinfo';
+  info.innerHTML = 
+    "  <div class=\"matchtable\">" +
+    "    <table>" +
+    "      <thead>" +
+    "        <tr>" +
+    "          <th>Foundry</th>" +
+    "          <th>Layer</th>" +
+    "          <th>Der</th>" +
+    "          <th>älteste</th>" +
+    "          <th>lebende</th>" +
+    "          <th>Baum</th>" +
+    "        </tr>" +
+    "      </thead>" +
+    "      <tbody>" +
+    "        <tr tabindex=\"0\">" +
+    "          <th>corenlp</th>" +
+    "          <th>p</th>" +
+    "          <td>ART</td>" +
+    "          <td>ADJA</td>" +
+    "          <td>ADJA<br>ADJD</td>" +
+    "          <td class=\"matchkeyvalues\">" +
+    "            <div>case:nom</div>" +
+    "            <div>gender:masc<br/>gender:fem</div>" +
+    "            <div>number:sg</div>" +
+    "          </td>" +
+    "        </tr>" +
+    "        <tr tabindex=\"0\">" +
+    "          <th>opennlp</th>" +
+    "          <th>p</th>" +
+    "          <td class=\"matchkeyvalues\">" +
+    "            <div>case:nom</div>" +
+    "            <div>gender:masc</div>" +
+    "            <div>number:sg</div>" +
+    "          </td>" +
+    "          <td>ADJA</td>" +
+    "          <td></td>" +
+    "          <td>NN</td>" +
+    "        </tr>" +
+    "      </tbody>" +
+    "    </table>" +
+    "  </div>";
+  return info;
+};
+
 
 define(['match/querycreator'], function (qcClass) {
 
@@ -259,7 +306,7 @@ define(['match/querycreator'], function (qcClass) {
 
     });
 
-    it('should create groups for multiple terms', function () {
+    it('should create or-groups for alternative terms', function () {
       var matchInfo = matchInfoFactory();
       var qc = qcClass.create(matchInfo);
 
@@ -387,6 +434,8 @@ define(['match/querycreator'], function (qcClass) {
       expect(opennlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
       expect(opennlpRow.querySelector("td:nth-child(5).chosen")).toBeNull();
       expect(opennlpRow.querySelector("td:nth-child(6).chosen")).toBeTruthy();
+
+      expect(qc.toString()).toEqual("[opennlp/p=ART][opennlp/p=ADJA][][opennlp/p=NN][opennlp/p=ADV]");
     });
 
     it('should support multiple distances', function () {
@@ -407,6 +456,111 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.innerText).toEqual("lebende");
       cell.click();
       expect(qc.toString()).toEqual("[orth=Der][][orth=lebende][][orth=hier]");
+    });
+
+    it('should create and-groups for key-value terms', function () {
+      var matchInfo = matchInfoComplexFactory();
+      var qc = qcClass.create(matchInfo);
+
+      // Nothing to show
+      expect(qc.toString()).toEqual("");
+      expect(qc.shown()).toBe(false);
+      qc.show();
+      expect(qc.shown()).toBe(false);
+      expect(qc.element().className).toEqual("queryfragment");
+
+      var cell = matchInfo.querySelector("thead > tr > th:nth-child(5)");
+      expect(cell.innerText).toEqual("lebende");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[orth=lebende]");
+
+      // Check complex cell
+      cell = matchInfo.querySelector("tbody > tr:nth-child(1) > td:nth-child(6)");
+      expect(cell.innerText).toMatch(/case:nom/);
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("[orth=lebende]");
+
+      // Check complex cell div
+      cell = matchInfo.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(1)");
+      expect(cell.innerText).toEqual('case:nom');
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(true);
+      expect(qc.toString()).toEqual("[orth=lebende][corenlp/p=case:nom]");
+      var cell = cell;
+
+      cell = matchInfo.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(3)");
+      expect(cell.innerText).toEqual('number:sg');
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(true);
+      expect(qc.toString()).toEqual("[orth=lebende][corenlp/p=case:nom & corenlp/p=number:sg]");
+      var cell2 = cell;
+
+      cell = matchInfo.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(2)");
+      expect(cell.innerText).toEqual('gender:mascgender:fem');
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(true);
+      expect(qc.toString()).toEqual("[orth=lebende][(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom & corenlp/p=number:sg]");
+      var cell3 = cell;
+
+      // Remove cell again
+      cell = cell2;
+      expect(cell.innerText).toEqual('number:sg');
+      expect(cell.classList.contains("chosen")).toBe(true);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("[orth=lebende][(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom]");
+
+      // Remove cell again
+      cell = cell3;
+      expect(cell.innerText).toEqual('gender:mascgender:fem');
+      expect(cell.classList.contains("chosen")).toBe(true);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("[orth=lebende][corenlp/p=case:nom]");
+    });
+
+
+    it('should create rows including key-value terms', function () {
+      var matchInfo = matchInfoComplexFactory();
+      var qc = qcClass.create(matchInfo);
+      expect(qc.toString()).toEqual("");
+
+      var corenlpRow = matchInfo.querySelector("tbody > tr:nth-child(1)");
+
+      expect(corenlpRow.querySelector("td:nth-child(3).chosen")).toBeNull();
+      expect(corenlpRow.querySelector("td:nth-child(4).chosen")).toBeNull();
+      expect(corenlpRow.querySelector("td:nth-child(5).chosen")).toBeNull();
+      expect(corenlpRow.querySelector("td:nth-child(6) *.chosen")).toBeNull();
+
+      expect(qc.toString()).toEqual("");
+
+      // Mark all opennlp lists
+      cell = corenlpRow.querySelector("th:nth-child(1)");
+      expect(cell.innerText).toEqual("corenlp");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+
+      expect(corenlpRow.querySelector("td:nth-child(3).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(4).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(5).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(6) div:nth-child(1).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(6) div:nth-child(2).chosen")).toBeTruthy();
+      expect(corenlpRow.querySelector("td:nth-child(6) div:nth-child(3).chosen")).toBeTruthy();
+
+      expect(qc.toString()).toEqual(
+        "[corenlp/p=ART]"+
+          "[corenlp/p=ADJA]"+
+          "[(corenlp/p=ADJA | corenlp/p=ADJD)]"+
+          "[(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom & corenlp/p=number:sg]"
+      );
     });
   });
 });
