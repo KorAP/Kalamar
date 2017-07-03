@@ -534,8 +534,8 @@ define(['match'], function () {
       expect(tr.children[1].firstChild.nodeValue).toEqual('l');
       expect(tr.children[2].firstChild.nodeValue).toEqual('meist');
       expect(tr.children[3].firstChild.nodeValue).toEqual('deutlich');
-      expect(tr.children[4].firstChild.nodeValue).toEqual('fähig');
-      expect(tr.children[4].lastChild.nodeValue).toEqual('leistung');
+      expect(tr.children[4].firstChild.firstChild.nodeValue).toEqual('fähig');
+      expect(tr.children[4].lastChild.firstChild.nodeValue).toEqual('leistung');
 
       // second row
       tr = e.children[1].children[1];
@@ -546,7 +546,8 @@ define(['match'], function () {
       expect(tr.children[1].firstChild.nodeValue).toEqual('p');
       expect(tr.children[2].firstChild.nodeValue).toEqual('ADV');
       expect(tr.children[3].firstChild.nodeValue).toEqual('A');
-      expect(tr.children[4].firstChild.nodeValue).toEqual('A');
+      expect(tr.children[4].firstChild.firstChild.nodeValue).toEqual('A');
+      expect(tr.children[4].lastChild.firstChild.nodeValue).toEqual('ADJA');
     });
   });
 
