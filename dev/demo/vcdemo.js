@@ -23,7 +23,8 @@ var json = {
           "@type":"koral:doc",
           "key":"pubPlace",
           "value":"Mannheim",
-          "match":"match:eq"
+          "type" : "type:regex",
+          "match":"match:contains"
         },
         {
           "@type":"koral:docGroup",
@@ -40,7 +41,6 @@ var json = {
               "key":"subTitle",
               "value":"Gedichte",
               "match":"match:eq",
-/*
               "rewrites" : [
                 {
                   "@type": "koral:rewrite",
@@ -48,7 +48,6 @@ var json = {
                   "operation" : "operation:injection",
                 }
               ]
-*/
             }
           ]
         }

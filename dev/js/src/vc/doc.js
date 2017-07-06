@@ -195,6 +195,8 @@ define([
         return;
       };
 
+      var rewrite;
+
       // There is a defined key
       if (json["key"] !== undefined &&
           typeof json["key"] === 'string') {
@@ -221,7 +223,10 @@ define([
           // Check match type
           if (!KorAP._validStringMatchRE.test(this.matchop())) {
             KorAP.log(802, "Match type is not supported by value type");
-            return;
+
+            // Rewrite method
+            this.matchop('eq');
+            rewrite = 'modification';
           };
 
           // Set string value
@@ -237,7 +242,10 @@ define([
 
             if (!KorAP._validDateMatchRE.test(this.matchop())) {
               KorAP.log(802, "Match type is not supported by value type");
-              return;
+
+              // Rewrite method
+              this.matchop('eq');
+              rewrite = 'modification';
             };
 
             // Set value
@@ -260,7 +268,10 @@ define([
 
             if (!_validRegexMatchRE.test(this.matchop())) {
               KorAP.log(802, "Match type is not supported by value type");
-              return;
+
+              // Rewrite method
+              this.matchop('eq');
+              rewrite = 'modification';
             };
 
             this.value(json["value"]);
@@ -279,10 +290,16 @@ define([
         };
       };
 
+      // Rewrite coming from the server
       if (json["rewrites"] !== undefined) {
-        this._rewrites = rewriteListClass.create(json["rewrites"]);
+        this.rewrite(json["rewrites"]);
+      }
+
+      // Rewrite coming from Kalamar
+      else if (rewrite !== undefined) {
+        this.rewrite(rewrite);
       };
-      
+
       return this;
     },
 
@@ -494,21 +511,29 @@ define([
       return this._rewrites;
     },
 
+    rewrite : function (value) {
+      if (typeof value === 'string') {
+        value = [{
+          "@type" : "koral:rewrite",
+          "operation" : "operation:" + value,
+          "src" : "Kalamar"
+        }];
+      };
+      this._rewrites = rewriteListClass.create(value);
+    },
+
+    // Remove rewrite marker when the data changes
     _changed : function () {
       this.__changed = true;
-      
-      /*
-        if (this._parent) {
-        };
-      */
 
       if (this._rewrites === undefined)
         return;
 
-      delete this["_rewrites"];
+        delete this["_rewrites"];
 
       if (this._element === undefined)
         return;
+
       this._element.classList.remove("rewritten");
     },
 

@@ -156,13 +156,13 @@ define(['vc'], function () {
 
       // No valid string
       doc = stringFactory.create({
-	value : { "foo" : "bar" }
+	      value : { "foo" : "bar" }
       });
       expect(doc).toBeUndefined();
 
       // Change match type
       doc = stringFactory.create({
-	"match" : "match:ne"
+	      "match" : "match:ne"
       });
 
       expect(doc.matchop()).toEqual('ne');
@@ -172,7 +172,7 @@ define(['vc'], function () {
 
       // Invalid match type
       doc = stringFactory.create({
-	"match" : { "foo" : "bar" }
+	      "match" : { "foo" : "bar" }
       });
       expect(doc).toBeUndefined();
     });
@@ -186,19 +186,21 @@ define(['vc'], function () {
 
       // change matcher
       doc = regexFactory.create({
-	match : "match:ne"
+	      match : "match:ne"
       });
       expect(doc.matchop()).toEqual('ne');
+      expect(doc.rewrites()).toBeUndefined();
 
       // Invalid matcher
       doc = regexFactory.create({
-	match : "match:chook"
+	      match : "match:chook"
       });
-      expect(doc).toBeUndefined();
+      expect(doc.matchop()).toEqual('eq');
+      expect(doc.rewrites()).toBeDefined();
 
       // Invalid regex
       doc = regexFactory.create({
-	value : "[^b"
+	      value : "[^b"
       });
       expect(doc).toBeUndefined();
     });
@@ -215,7 +217,7 @@ define(['vc'], function () {
 
       // Short date 1
       doc = dateFactory.create({
-	"value" : "2014-11"
+	      "value" : "2014-11"
       });
 
       expect(doc.matchop()).toEqual('eq');
@@ -225,7 +227,7 @@ define(['vc'], function () {
 
       // Short date 2
       doc = dateFactory.create({
-	"value" : "2014"
+	      "value" : "2014"
       });
 
       expect(doc.matchop()).toEqual('eq');
@@ -235,15 +237,17 @@ define(['vc'], function () {
 
       // Invalid date!
       doc = dateFactory.create({
-	"value" : "2014-11-050"
+	      "value" : "2014-11-050"
       });
       expect(doc).toBeUndefined();
 
       // Invalid matcher!
       doc = dateFactory.create({
-	"match" : "match:ne",
+	      "match" : "match:ne",
       });
-      expect(doc).toBeUndefined();
+      expect(doc).toBeDefined();
+      expect(doc.rewrites()).toBeDefined();
+      expect(doc.matchop()).toEqual('eq');
     });
 
     it('should be serializale to JSON', function () {
@@ -285,11 +289,11 @@ define(['vc'], function () {
 
       doc = dateFactory.create();
       expect(doc.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:doc",
-	"type" : "type:date",
-	"value" : "2014-11-05",
-	"match" : "match:eq",
-	"key" : 'pubDate'
+	      "@type" : "koral:doc",
+	      "type" : "type:date",
+	      "value" : "2014-11-05",
+	      "match" : "match:eq",
+	      "key" : 'pubDate'
       }));
 
       doc = dateFactory.create({
