@@ -36,7 +36,6 @@ my $THOUSAND_SEP_RE = qr/(
     userormail => 'Benutzername oder Email',
     with => 'mit',
     glimpse => {
-      -short => 'Stichprobe',
       desc => 'Zeige nur die ersten Treffer in beliebiger Reihenfolge'
     },
     faq => 'Häufige Fragen',
@@ -99,7 +98,7 @@ my $THOUSAND_SEP_RE = qr/(
     noMatches => 'There were no matches found for <%== loc("searchjob") %>.',
     notFound => '404 - Page not found',
     glimpse => {
-      -short => 'Sample',
+      -short => 'Glimpse',
       desc => 'Just show the first matches in arbitrary order'
     },
     faq => 'F.A.Q.',
