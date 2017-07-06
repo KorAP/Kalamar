@@ -123,9 +123,7 @@ define([
 	        ]),
 	        'regex' : menuClass.create([
 	          ['eq', null],
-	          ['ne', null],
-	          ['contains', null],
-	          ['containsnot', null]
+	          ['ne', null]
 	        ])
 	      };
       };
