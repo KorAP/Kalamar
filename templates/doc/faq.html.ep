@@ -9,6 +9,7 @@
   <p>Parts of KorAP are already available on <%= doc_ext_link_to 'GitHub', 'https://github.com/KorAP' %>, and we will publish more components in the future.</p>
 </section>
 
+<!--
 <section>
   <h3>Why can’t I create an account?</h3>
   <blockquote>
@@ -22,12 +23,15 @@
   <h3>Why is this written in English only?</h3>
   <p>This is a temporary collection of info before we develop proper documentation.</p>
 </section>
+-->
 
 <section>
   <h3>Why do some queries take a long time to finish, or in the end yield no results?</h3>
   <p>In the alpha phase, part of our tasks is to optimize the system. In the beginning, one may expect some actions to take an inordinate amount of time, but this is getting better and better. If you notice a persistent failure in some specific case, please be so kind as to <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found a bug in the query system', begin %>let us know<% end %>.</p>
 </section
 
+
+<!--
 <section>
   <h3>How do I know which tagset to use for collocation analysis properties?</h3>
   <blockquote>
@@ -45,13 +49,15 @@
   <p>The collocation search view uses collocation properties to find collocates in the context of the specified query. This property can be of either a POS or a lemma. The operator assigns this property either an inclusive and exclusive state (i.e. negation) or can specify that the selected property is a regular expression. You can assign multiple properties per queries.</p>
   <p>For more information on this topic, see our <%= doc_ext_link_to 'tutorial video', 'http://youtu.be/hiKHw50Hq9k' %>.</p>
 </section>
+-->
 
 <section>
   <h3>I want to report an issue, how do I do it?</h3>
-  <p>At some point, we shall move to a public ticketing system. For now, we are mostly aware of the outstanding issues and some others are listed below. When you want to report an issue, please send us an <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found an issue', begin %>e-mail<% end %>.</p>
+  <p>Please refer to our public ticketing system <%= doc_ext_link_to 'for the frontend at GitHub', 'https://github.com/KorAP/Kalamar/issues' %>, to report on any issues. If you don't have a GitHub account, please send us an <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found an issue', begin %>e-mail<% end %>.</p>
   %# This option is the preferred one because it gathers some (and will in time gather more) important versioning data.
 </section>
 
+    <!--
 <section>
   <h3>Are you aware of this/that issue?</h3>
   <p>What follows is a list of selected issues that might affect the users. We are aware of them and will address them. (When? As soon as possible, given the development schedule and time constraints.)</p>
@@ -59,14 +65,13 @@
     <li><strong>Some matches are completely wrong - what’s going on?</strong><br>
       Before the data can be searched, it has to be preprocessed and indexed. These processes can also suffer from errors, especially if the input data format is not perfectly regular, as a result of prior conversions. While fixes in the frontend and in the backend are uploaded quickly, fixes in the preprocessing pipeline (including tokenization, lemmatization etc.) only appear after reindexation - and that doesn’t happen very often. So these bugs will stay online for a while even if they are already fixed in the datasets. Known index bugs already fixed but with the fixes not visible immediately include:
       <ul>
-	<li>Sentence annotations for Treetagger</li>
-	<li>All annotations for Mate (including lemmata)</li>
-	<li>Some annotations on the first token of a text (includes first sentences and first paragraphs, in case they start at the beginning of a text)</li>
+	      <li>Sentence annotations for Treetagger</li>
+	      <li>All annotations for Mate (including lemmata)</li>
+	      <li>Some annotations on the first token of a text (includes first sentences and first paragraphs, in case they start at the beginning of a text)</li>
       </ul>
     </li>
   </ul>
-
   <p>We will be happy to get reports about all wrong matches not related to these bugs.</p>
 </section>
-
+-->
 
