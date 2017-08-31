@@ -19,7 +19,7 @@
   <body<% if ($embedded) { %> class="embedded"<% } %>>
     <div id="kalamar-bg"></div>
 
-% if (!user_auth && stash('auth_support')) { # user not logged in
+% if (!$embedded && !user_auth && stash('auth_support')) { # user not logged in
 % content_for 'sidebar', begin
 % if (flash('handle_or_email') && !param('handle_or_email')) {
 %   param(handle_or_email => flash('handle_or_email'));
@@ -38,6 +38,7 @@
 %#    <li><%= link_to loc('register') => 'register' %></li>
 %#    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
 %#  </ul>
+
 </fieldset>
 % end
 % }
