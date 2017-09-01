@@ -1,8 +1,8 @@
 use Mojo::Base -strict;
-use lib '../lib', 'lib';
 use Mojolicious::Lite;
 use Test::More;
 use Test::Mojo;
+use utf8;
 
 my $t = Test::Mojo->new;
 my $app = $t->app;
@@ -15,6 +15,23 @@ $app->routes->get('/doc/(*scope)/:page')->to(cb => sub {})->name('doc');
 
 # Load plugin to test
 $app->plugin('KalamarHelpers');
+
+my $languages = [qw/en de/];
+$app->plugin('Localize' => {
+  dict => {
+    Nav => {
+      _ => sub { $languages },
+      -en => {
+        faq => 'F.A.Q.',
+        '#default-foundries' => 'Default Foundries',
+      },
+      de => {
+        faq => 'Häufige Fragen',
+        '#default-foundries' => 'Standard Foundries'
+      }
+    }
+  }
+});
 
 my $navi = [
   {
@@ -50,8 +67,8 @@ $navi = [
     title => 'KorAP',
     items => [
       {
-	id => 'krill',
-	title => 'Krill',
+        id => 'krill',
+        title => 'Krill',
       }
     ]
   },
@@ -72,12 +89,12 @@ $navi = [
     title => 'KorAP',
     items => [
       {
-	id => 'krill',
-	title => 'Krill',
+        id => 'krill',
+        title => 'Krill',
       },
       {
-	id => 'koral',
-	title => 'Koral'
+        id => 'koral',
+        title => 'Koral'
       }
     ]
   },
@@ -86,22 +103,22 @@ $navi = [
     id => 'ql',
     items => [
       {
-	title => 'Cosmas II',
-	id => 'cosmas2'
+        title => 'Cosmas II',
+        id => 'cosmas2'
       },
       {
-	'title' => 'Poliqarp+',
-	'id' => 'poliqarp-plus',
-	items => [
-	  {
-	    "title" => "Simple Segments",
-	    "id" => "#segments"
-	  },
-	  {
-	    "title" => "Complex Segments",
-	    "id" => "#complex"
-	  }
-	]
+        'title' => 'Poliqarp+',
+        'id' => 'poliqarp-plus',
+        items => [
+          {
+            "title" => "Simple Segments",
+            "id" => "#segments"
+          },
+          {
+            "title" => "Complex Segments",
+            "id" => "#complex"
+          }
+        ]
       }
     ]
   },
@@ -155,12 +172,12 @@ $navi = [
     title => 'KorAP',
     items => [
       {
-	id => 'krill',
-	title => 'Krill',
+        id => 'krill',
+        title => 'Krill',
       },
       {
-	id => 'koral',
-	title => 'Koral'
+        id => 'koral',
+        title => 'Koral'
       }
     ]
   },
@@ -169,23 +186,23 @@ $navi = [
     id => 'ql',
     items => [
       {
-	title => 'Cosmas II',
-	id => 'cosmas2'
+        title => 'Cosmas II',
+        id => 'cosmas2'
       },
       {
-	'title' => 'Poliqarp+',
-	'id' => 'poliqarp-plus',
-	'class' => 'folded',
-	items => [
-	  {
-	    "title" => "Simple Segments",
-	    "id" => "#segments"
-	  },
-	  {
-	    "title" => "Complex Segments",
-	    "id" => "#complex"
-	  }
-	]
+        'title' => 'Poliqarp+',
+        'id' => 'poliqarp-plus',
+        'class' => 'folded',
+        items => [
+          {
+            "title" => "Simple Segments",
+            "id" => "#segments"
+          },
+          {
+            "title" => "Complex Segments",
+            "id" => "#complex"
+          }
+        ]
       }
     ]
   },
@@ -204,6 +221,45 @@ like($render, qr!/doc/ql/poliqarp-plus#segments!,
 like($render, qr!/doc/ql/poliqarp-plus#complex!,
      'Path matches doc/ql/poliqarp-plus#complex');
 like($render, qr!class="folded active".*?Poliqarp\+!, 'Active and folded value for Poliqarp+');
+
+
+# Test for translations
+$navi = [
+  {
+    id => 'korap',
+    title => 'KorAP',
+    items => [
+      {
+        id => 'krill',
+        title => 'Krill',
+      }
+    ]
+  },
+  {
+    id => 'faq',
+    title => 'F.A.Q.'
+  }
+];
+
+$render = $app->doc_navi($navi);
+like($render, qr!/doc/korap!, 'Path matches doc/korap');
+like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
+like($render, qr!<a href="/doc/korap/krill">Krill</a>!,
+     'Path matches korap/krill');
+like($render, qr!<a href="/doc/faq">F\.A\.Q\.</a>!,
+     'Path matches FAQ');
+
+# Change preferred language
+$languages = [qw/de en/];
+
+$render = $app->doc_navi($navi);
+like($render, qr!/doc/korap!, 'Path matches doc/korap');
+like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
+like($render, qr!<a href="/doc/korap/krill">Krill</a>!,
+     'Path matches korap/krill');
+like($render, qr!<a href="/doc/faq">Häufige Fragen</a>!,
+     'Path matches FAQ');
+
 
 done_testing;
 

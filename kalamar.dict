@@ -80,6 +80,21 @@ my $THOUSAND_SEP_RE = qr/(
           'kustvakt' => 'de/doc/korap/kustvakt'
         }
       }
+    },
+    Nav => {
+      'ql' => 'Anfragesprachen',
+      '#segments' => 'Einfache Segmente',
+      '#complex' => 'Komplexe Segmente',
+      '#spans' => 'Span Segmente',
+      '#paradigmatic-operators' => 'Paradigmatische Operatoren',
+      '#syntagmatic-operators' => 'Syntagmatische Operatoren',
+      '#class-operators' => 'Klassen Operatoren',
+      'regexp' => 'Reguläre Ausdrücke',
+      'data' => 'Daten',
+      'corpus' => 'Korpora',
+      'annotation' => 'Annotationen',
+      '#default-foundries' => 'Standard Foundries',
+      'faq' => 'Häufig gestellte Fragen'
     }
   },
   -en => {
@@ -138,14 +153,37 @@ my $THOUSAND_SEP_RE = qr/(
     Template => {
       doc => {
         ql => {
-#          'annis' => 'doc/ql/annis',
-#          'cosmas-2' => 'doc/ql/cosmas-2',
-#          'cql' => 'doc/ql/cql',
-          'poliqarp-plus' => 'doc/ql/poliqarp-plus',
-#          'regexp' => 'doc/ql/regexp',
-#          'wildcards' => 'doc/ql/wildcards'
+          'poliqarp-plus' => 'doc/ql/poliqarp-plus'
+        },
+        api => {
+          'koralquery' => 'doc/api/koralquery'
+        },
+        data => {
+          'annotation' => 'doc/data/annotation'
+        },
+        korap => {
+          'kalamar' => 'doc/korap/kalamar',
+          'karang' => 'doc/korap/karang',
+          'koral' => 'doc/korap/koral',
+          'krill' => 'doc/korap/krill',
+          'kustvakt' => 'doc/korap/kustvakt'
         }
       }
+    },
+    Nav => {
+      'ql' => 'Query Languages',
+      '#segments' => 'Simple Segments',
+      '#complex' => 'Complex Segments',
+      '#spans' => 'Span Segments',
+      '#paradigmatic-operators' => 'Paradigmatic Operators',
+      '#syntagmatic-operators' => 'Syntagmatic Operators',
+      '#class-operators' => 'Class Operators',
+      'regexp' => 'Regular Expressions',
+      'data' => 'Data',
+      'corpus' => 'Corpora',
+      'annotation' => 'Annotations',
+      '#default-foundries' => 'Default Foundries',
+      'faq' => 'F.A.Q.'
     }
   }
 };

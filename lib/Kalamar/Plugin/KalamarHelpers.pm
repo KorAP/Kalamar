@@ -18,7 +18,7 @@ sub register {
 
       my $base = $c->url_for('index');
       if ($base->path->parts->[0]) {
-	$base->path->trailing_slash(1);
+        $base->path->trailing_slash(1);
       };
 
       # If there is a different base - append this as a base
@@ -26,11 +26,12 @@ sub register {
 
       $url->fragment($scope);
 
-      return $c->tag('object',
-	data => $url,
-	type => 'image/svg+xml',
-	alt  => $c->loc('korap_overview'),
-	id   => 'overview'
+      return $c->tag(
+        'object',
+        data => $url,
+        type => 'image/svg+xml',
+        alt  => $c->loc('korap_overview'),
+        id   => 'overview'
       );
     }
   );
@@ -48,17 +49,17 @@ sub register {
       ($page, my $fragment) = split '#', $page;
 
       my $url = $c->url_with(
-	'doc',
-	scope => $scope,
-	page => $page
+        'doc',
+        scope => $scope,
+        page => $page
       );
 
       $url->fragment($fragment) if $fragment;
 
       return $c->link_to(
-	$title,
-	$url,
-	class => 'doc-link'
+        $title,
+        $url,
+        class => 'doc-link'
       );
     }
   );
@@ -87,11 +88,11 @@ sub register {
       my $scope = shift;
       my $url;
       if ($page) {
-	$url = $c->url_for('doc', page => $page, scope => $scope);
-	$url->path->canonicalize;
+        $url = $c->url_for('doc', page => $page, scope => $scope);
+        $url->path->canonicalize;
       }
       else {
-	$url = $c->url_for('doc_start');
+        $url = $c->url_for('doc_start');
       };
       return $c->link_to($cb->($c), $url);
     }
@@ -111,71 +112,73 @@ sub register {
       # Embed all link tags
       foreach (@$items) {
 
-	my ($active, $url) = 0;
+        my ($active, $url) = 0;
 
-	# There is a fragment!
-	if (index($_->{id}, '#') == 0) {
+        # There is a fragment!
+        if (index($_->{id}, '#') == 0) {
 
-	  my $part_scope = scalar($scope);
-	  $part_scope =~ s!\/([^\/]+)$!!;
-	  my $page = $1;
-	  my $id = $_->{id};
-	  $id =~ s/^#//;
+          my $part_scope = scalar($scope);
+          $part_scope =~ s!\/([^\/]+)$!!;
+          my $page = $1;
+          my $id = $_->{id};
+          $id =~ s/^#//;
 
-	  $url = $c->url_with(
-	    'doc',
-	    'scope' => $part_scope,
-	    'page' => $page
-	  );
+          $url = $c->url_with(
+            'doc',
+            'scope' => $part_scope,
+            'page' => $page
+          );
 
-	  $url->fragment($id);
-	}
+          $url->fragment($id);
+        }
 
-	# There is no fragment
-	else {
+        # There is no fragment
+        else {
 
-	  # The item is active
-	  if ($c->stash('page') && $c->stash('page') eq $_->{id}) {
-	    $active = 1;
-	  };
+          # The item is active
+          if ($c->stash('page') && $c->stash('page') eq $_->{id}) {
+            $active = 1;
+          };
 
-	  # Generate url with query parameter inheritance
-	  $url = $c->url_with(
-	    'doc',
-	    'scope' => $scope,
-	    'page' => $_->{id}
-	  );
+          # Generate url with query parameter inheritance
+          $url = $c->url_with(
+            'doc',
+            'scope' => $scope,
+            'page' => $_->{id}
+          );
 
-	  # Canonicalize (for empty scopes)
-	  $url->path->canonicalize;
-	};
+          # Canonicalize (for empty scopes)
+          $url->path->canonicalize;
+        };
 
-	my @classes;
-	push(@classes, $_->{'class'}) if $_->{'class'};
-	push(@classes, 'active') if $active;
-
-
-	# New list item
-	$html .= '<li';
-	if (@classes) {
-	  $html .= ' class="' . join(' ', @classes) . '"';
-	};
-	$html .= '>';
+        my @classes;
+        push(@classes, $_->{'class'}) if $_->{'class'};
+        push(@classes, 'active') if $active;
 
 
-	# Generate link
-	$html .= $c->link_to($_->{title}, $url);
+        # New list item
+        $html .= '<li';
+        if (@classes) {
+          $html .= ' class="' . join(' ', @classes) . '"';
+        };
+        $html .= '>';
 
-	# Set sub entries
-	if ($_->{items} && ref($_->{items}) eq 'ARRAY') {
-	  $html .= "\n";
-	  my $subscope = $scope ? scalar($scope) . '/' . $_->{id} : $_->{id};
-	  $html .= $c->doc_navi($subscope, $_->{items});
-	  $html .= "</li>\n";
-	}
-	else {
-	  $html .= "</li>\n";
-	};
+        # Translate title
+        my $title = $c->loc('Nav_' . $_->{id}, $_->{title});
+
+        # Generate link
+        $html .= $c->link_to($title, $url);
+
+        # Set sub entries
+        if ($_->{items} && ref($_->{items}) eq 'ARRAY') {
+          $html .= "\n";
+          my $subscope = $scope ? scalar($scope) . '/' . $_->{id} : $_->{id};
+          $html .= $c->doc_navi($subscope, $_->{items});
+          $html .= "</li>\n";
+        }
+        else {
+          $html .= "</li>\n";
+        };
       };
       return $html . "</ul>\n";
     }
@@ -192,13 +195,13 @@ sub register {
 
       # Return tag
       b('<pre class="query tutorial" ' .
-	  qq!data-query="$q" data-query-cutoff="! .
-	    ($param{cutoff} ? 1 : 0) .
-	      '"' .
-		qq! data-query-language="$ql">! .
-		  '<code>' . $q . '</code>' .
-		    '</pre>'
-		);
+          qq!data-query="$q" data-query-cutoff="! .
+          ($param{cutoff} ? 1 : 0) .
+          '"' .
+          qq! data-query-language="$ql">! .
+          '<code>' . $q . '</code>' .
+          '</pre>'
+        );
     }
   );
 
@@ -210,14 +213,14 @@ sub register {
 
       # Test port is defined in the stash
       if (defined $c->stash('kalamar.test_port')) {
-	return $c->stash('kalamar.test_port');
+        return $c->stash('kalamar.test_port');
       };
 
       # Check the port
       if ($c->req->url->to_abs->port == 6666 ||
-	    $c->app->mode =~ m/^development|test$/) {
-	$c->stash('kalamar.test_port' => 1);
-	return 1;
+            $c->app->mode =~ m/^development|test$/) {
+        $c->stash('kalamar.test_port' => 1);
+        return 1;
       };
 
       # No test port

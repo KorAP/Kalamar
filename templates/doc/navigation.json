@@ -4,24 +4,24 @@
     "id" : "korap",
     "items" : [
       {
-	"title" : "Kalamar",
-	"id" : "kalamar"
+        "title" : "Kalamar",
+        "id" : "kalamar"
       },
       {
-	"title" : "Kustvakt",
-	"id" : "kustvakt"
+        "title" : "Kustvakt",
+        "id" : "kustvakt"
       },
       {
-	"title" : "Koral",
-	"id" : "koral"
+        "title" : "Koral",
+        "id" : "koral"
       },
       {
-	"title" : "Krill",
-	"id" : "krill"
+        "title" : "Krill",
+        "id" : "krill"
       },
       {
-	"title" : "Karang",
-	"id" : "karang"
+        "title" : "Karang",
+        "id" : "karang"
       }
     ]
   },
@@ -30,55 +30,55 @@
     "id" : "ql",
     "items" : [
       {
-	"title" : "Cosmas II",
-	"id" : "cosmas-2"
+        "title" : "Cosmas II",
+        "id" : "cosmas-2"
       },
       {
-	"title" : "Poliqarp+",
-	"id" : "poliqarp-plus",
-	"class" : "folded",
-	"items" : [
-	  {
-	    "title" : "Simple Segments",
-	    "id" : "#segments"
-	  },
-	  {
-	    "title" : "Complex Segments",
-	    "id" : "#complex"
-	  },
-	  {
-	    "title" : "Span Segments",
-	    "id" : "#spans"
-	  },
-	  {
-	    "title" : "Paradigmatic Operators",
-	    "id" : "#paradigmatic-operators"
-	  },
-	  {
-	    "title" : "Syntagmatic Operators",
-	    "id" : "#syntagmatic-operators"
-	  },
-	  {
-	    "title" : "Class Operators",
-	    "id" : "#class-operators"
-	  }
-	]
+        "title" : "Poliqarp+",
+        "id" : "poliqarp-plus",
+        "class" : "folded",
+        "items" : [
+          {
+            "title" : "Simple Segments",
+            "id" : "#segments"
+          },
+          {
+            "title" : "Complex Segments",
+            "id" : "#complex"
+          },
+          {
+            "title" : "Span Segments",
+            "id" : "#spans"
+          },
+          {
+            "title" : "Paradigmatic Operators",
+            "id" : "#paradigmatic-operators"
+          },
+          {
+            "title" : "Syntagmatic Operators",
+            "id" : "#syntagmatic-operators"
+          },
+          {
+            "title" : "Class Operators",
+            "id" : "#class-operators"
+          }
+        ]
       },
       {
-	"title" : "Annis QL",
-	"id" : "annis"
+        "title" : "Annis QL",
+        "id" : "annis"
       },
       {
-	"title" : "CQL",
-	"id" : "cql"
+        "title" : "CQL",
+        "id" : "cql"
       },
       {
-	"title" : "Regular Expressions",
-	"id" : "regexp"
+        "title" : "Regular Expressions",
+        "id" : "regexp"
       },
       {
-	"title" : "Wildcards",
-	"id" : "wildcards"
+        "title" : "Wildcards",
+        "id" : "wildcards"
       }
     ]
   },
@@ -87,54 +87,54 @@
     "id" : "data",
     "items" : [
       {
-	"title" : "Corpora",
-	"id" : "corpus",
-	"class" : "folded",
-	"items" : [
-	  {
-	    "title" : "DeReKo",
-	    "id" : "#dereko"
-	  }
-	]
+        "title" : "Corpora",
+        "id" : "corpus",
+        "class" : "folded",
+        "items" : [
+          {
+            "title" : "DeReKo",
+            "id" : "#dereko"
+          }
+        ]
       },
       {
-	"title" : "Annotations",
-	"id" : "annotation",
-	"class" : "folded",
-	"items" : [
-	  {
-	    "title" : "Base",
-	    "id" : "#base"
-	  },
-	  {
-	    "title" : "Connexor",
-	    "id" : "#cnx"
-	  },
-	  {
-	    "title" : "CoreNLP",
-	    "id" : "#corenlp"
-	  },
-	  {
-	    "title" : "TreeTagger",
-	    "id" : "#tt"
-	  },
-	  {
-	    "title" : "Mate",
-	    "id" : "#mate"
-	  },
-	  {
-	    "title" : "OpenNLP",
-	    "id" : "#opennlp"
-	  },
-	  {
-	    "title" : "XIP",
-	    "id" : "#xip"
-	  },
-	  {
-	    "title" : "Default Foundries",
-	    "id" : "#default-foundries"
-	  }
-	]
+        "title" : "Annotations",
+        "id" : "annotation",
+        "class" : "folded",
+        "items" : [
+          {
+            "title" : "Base",
+            "id" : "#base"
+          },
+          {
+            "title" : "Connexor",
+            "id" : "#cnx"
+          },
+          {
+            "title" : "CoreNLP",
+            "id" : "#corenlp"
+          },
+          {
+            "title" : "TreeTagger",
+            "id" : "#tt"
+          },
+          {
+            "title" : "Mate",
+            "id" : "#mate"
+          },
+          {
+            "title" : "OpenNLP",
+            "id" : "#opennlp"
+          },
+          {
+            "title" : "XIP",
+            "id" : "#xip"
+          },
+          {
+            "title" : "Default Foundries",
+            "id" : "#default-foundries"
+          }
+        ]
       }
     ]
   },
@@ -143,20 +143,20 @@
     "id" : "api",
     "items" : [
       {
-	"title" : "KoralQuery",
-	"id" : "koralquery"
+        "title" : "KoralQuery",
+        "id" : "koralquery"
       },
       {
-	"title" : "Search API",
-	"id" : "search"
+        "title" : "Search API",
+        "id" : "search"
       },
       {
-	"title" : "Match API",
-	"id" : "match"
+        "title" : "Match API",
+        "id" : "match"
       },
       {
-	"title" : "User API",
-	"id" : "user"
+        "title" : "User API",
+        "id" : "user"
       }
     ]
   },
