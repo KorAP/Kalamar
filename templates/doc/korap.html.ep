@@ -31,13 +31,13 @@
 <dl>
   <dt>Head</dt>
   <dd>
-    <%= doc_ext_link_to 'Dr. Marc Kupietz', "http://www.ids-mannheim.de/direktion/personal/kupietz.html" %>,
-    <%= doc_ext_link_to 'Dr. Andreas Witt', "http://www.ids-mannheim.de/direktion/personal/witt.html" %>
+    <%= doc_ext_link_to 'Marc Kupietz', "http://www.ids-mannheim.de/direktion/personal/kupietz.html" %>,
+    <%= doc_ext_link_to 'Andreas Witt', "http://www.ids-mannheim.de/direktion/personal/witt.html" %>
   </dd>
 
   <dt>Scientific Staff</dt>
   <dd>
-    <%= doc_ext_link_to 'Franck Bodmer', "http://www.ids-mannheim.de/zdv/personal/bodmer.html" %>,
+    <%= doc_ext_link_to 'Franck Bodmer', "http://www.ids-mannheim.de/direktion/personal/bodmer.html" %>,
     <%= doc_ext_link_to 'Nils Diewald', "http://nils-diewald.de/" %>,
     <%= doc_ext_link_to 'Peter Harders', "http://www.ids-mannheim.de/direktion/personal/harders.html" %>,
     <%= doc_ext_link_to 'Eliza Margaretha', "http://www.ids-mannheim.de/direktion/personal/margaretha/" %>,
@@ -46,10 +46,10 @@
 
   <dt>Past Project Members</dt>
   <dd>
-    <%= doc_ext_link_to 'Dr. Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
-    Joachim Bingel, 
+    <%= doc_ext_link_to 'Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
+    Joachim Bingel,
     <%= doc_ext_link_to 'Elena Frick', "http://www.ids-mannheim.de/direktion/personal/frick/" %>,
-    Michael Hanl, 
+    Michael Hanl,
     <%= doc_ext_link_to 'Carsten Schnober', "http://www.ids-mannheim.de/direktion/personal/ehemalige/schnober.html" %>
   </dd>
 
