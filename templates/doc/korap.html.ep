@@ -37,29 +37,26 @@
 
   <dt>Scientific Staff</dt>
   <dd>
-    <%= doc_ext_link_to 'Dr. Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %> (Coordination),
-    <%= doc_ext_link_to 'Nils Diewald', "http://nils-diewald.de/" %>,
-    <%= doc_ext_link_to 'Elena Frick', "http://www.ids-mannheim.de/direktion/personal/frick/" %>,
-    Michael Hanl
-  </dd>
-
-  <dt>Extended project crew</dt>
-  <dd>
-    <%= doc_ext_link_to 'Joachim Bingel', "http://www.ids-mannheim.de/direktion/personal/bingel.html" %>,
-    <%= doc_ext_link_to 'Eliza Margaretha', "http://www.ids-mannheim.de/direktion/personal/margaretha/" %>,
     <%= doc_ext_link_to 'Franck Bodmer', "http://www.ids-mannheim.de/zdv/personal/bodmer.html" %>,
-    <%= doc_ext_link_to 'Peter Harders', "http://www.ids-mannheim.de/zdv/personal/harders.html" %>,
-    <%= doc_ext_link_to 'Helge Stallkamp', "http://www.ids-mannheim.de/zdv/personal/krause.html" %>
+    <%= doc_ext_link_to 'Nils Diewald', "http://nils-diewald.de/" %>,
+    <%= doc_ext_link_to 'Peter Harders', "http://www.ids-mannheim.de/direktion/personal/harders.html" %>,
+    <%= doc_ext_link_to 'Eliza Margaretha', "http://www.ids-mannheim.de/direktion/personal/margaretha/" %>,
+    <%= doc_ext_link_to 'Helge Stallkamp', "http://www.ids-mannheim.de/direktion/personal/krause.html" %>
   </dd>
 
   <dt>Past Project Members</dt>
   <dd>
+    <%= doc_ext_link_to 'Dr. Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
+    Joachim Bingel, 
+    <%= doc_ext_link_to 'Elena Frick', "http://www.ids-mannheim.de/direktion/personal/frick/" %>,
+    Michael Hanl, 
     <%= doc_ext_link_to 'Carsten Schnober', "http://www.ids-mannheim.de/direktion/personal/ehemalige/schnober.html" %>
   </dd>
 
   <dt>Consulting</dt>
   <dd>
     <%= doc_ext_link_to 'Cyril Belica', "http://www.ids-mannheim.de/direktion/personal/belica.html" %>,
+		Piotr Pęzik,
     <%= doc_ext_link_to 'Oliver Schonefeld', "http://www.ids-mannheim.de/direktion/personal/schonefeld/" %>
   </dd>
 </dl>
