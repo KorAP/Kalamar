@@ -1,0 +1,9 @@
+% layout 'main', title => 'KorAP: Kustvakt';
+
+<h2>Kustvakt</h2>
+
+%= korap_overview 'kustvakt'
+
+<p><strong>Hauptentwickler:</strong> Michael Hanl, Eliza Margaretha, Franck Bodmer</p>
+
+<p>Kustvakt ist eine Benutzer- und Rechte-Management-Software, die in der Lage ist, Abfragen für richtlinienbasierte Dokumentenbeschränkungen umzuschreiben.</p>

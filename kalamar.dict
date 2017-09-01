@@ -65,6 +65,19 @@ my $THOUSAND_SEP_RE = qr/(
       doc => {
         ql => {
           'poliqarp-plus' => 'de/doc/ql/poliqarp-plus'
+        },
+        api => {
+          'koralquery' => 'de/doc/api/koralquery'
+        },
+        data => {
+          'annotation' => 'de/doc/data/annotation'
+        },
+        korap => {
+          'kalamar' => 'de/doc/korap/kalamar',
+          'karang' => 'de/doc/korap/karang',
+          'koral' => 'de/doc/korap/koral',
+          'krill' => 'de/doc/korap/krill',
+          'kustvakt' => 'de/doc/korap/kustvakt'
         }
       }
     }

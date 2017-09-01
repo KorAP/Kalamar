@@ -6,8 +6,8 @@
 
 <section id="base">
   <h3>Base Foundry</h3>
-  <p>The base foundry is available for all corpora and acts as a common ground for document structure annotation. It supports two types of spans: <code>&lt;s&gt;</code> for sentences and <code>&lt;p&gt;</code> for paragraphs - this will likely change in the next index version. These spans lack prefix information!</p>
-  %= doc_query poliqarp => '<s>', cutoff => 1
+  <p>The base foundry is available for all corpora and acts as a common ground for document structure annotation in the layer <code>s</code>. It supports three types of spans: <code>&lt;base/s=s&gt;</code> for sentences, <code>&lt;base/s=p&gt;</code> for paragraphs, and <code>&lt;base/s=t&gt;</code> for the text span</p>
+  %= doc_query poliqarp => '<base/s=s>', cutoff => 1
 </section>
 
 
@@ -33,8 +33,14 @@
 <section id="corenlp">
   <h3>CoreNLP (<code>corenlp</code>)</h3>
   <dl>
-    <dt><abbr data-type="token" title="Named Entity">ne_hgc_175m_600</abbr></dt>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Part-of-speech information is written in capital letters and is based on STTS</dd>
+    <dt><abbr data-type="token" title="Constituency">c</abbr></dt>
+    <dd>Constituency information follows the annotations of the <a href="http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html">negr@ corpus</a>.</dd>
+    <dt><abbr data-type="token" title="Named Entity">ne</abbr></dt>
     <dd>Contains named entities like <code>I-PER</code>, <code>I-ORG</code> etc.</dd>
+    <dt><abbr data-type="token" title="Named Entity">ne_hgc_175m_600</abbr></dt>
+    <dd>See above</dd>
     <dt><abbr data-type="token" title="Named Entity">ne_dewac_175_175m_600</abbr></dt>
     <dd>See above</dd>
   </dl>
@@ -77,7 +83,7 @@
   %= doc_query poliqarp => '[opennlp/p=PDAT]', cutoff => 1
 </section>
 
-
+<!--
 <section id="xip">
   <h3>Xerox Incremental Parser (<code>xip</code>)</h3>
   <dl>
@@ -91,10 +97,11 @@
   %= doc_query poliqarp => '[xip/p=ADJ]', cutoff => 1
   %= doc_query poliqarp => '<xip/c=VERB>', cutoff => 1
 </section>
+-->
 
 <section id="default-foundries">
   <h3>Default Foundries</h3>
-  <p>For queries on specific layers without given foundries, KorAP provides default foundries, that can be overwritten by user configurations. The default foundries apply to the following layers:</p>
+  <p>For queries on specific layers without given foundries, KorAP provides default foundries<!--, that can be overwritten by user configurations-->. The default foundries apply to the following layers:</p>
 
   <ul>
     <li><strong>orth</strong>: <code>opennlp</code></li>

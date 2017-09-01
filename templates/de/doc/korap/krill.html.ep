@@ -1,0 +1,11 @@
+% layout 'main', title => 'KorAP: Krill';
+
+<h2>Krill</h2>
+
+%= korap_overview 'krill'
+
+<p><strong>Hauptentwickler:</strong> Nils Diewald, Eliza Margaretha</p>
+
+<p>Krill ist eine <%= doc_ext_link_to 'Lucene', "https://lucene.apache.org/"%> basierte Suchmaschine für große kommentierte Korpora, die als Backend-Komponente für KorAP verwendet wird. Es ist die Referenzimplementierung für <%= doc_link_to('KoralQuery', 'api', 'koralquery')%>, die die meisten Protokolleigenschaften abdeckt.</p>
+
+<p>Krill ist Open Source und steht unter <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Krill"%> zur Verfügung.</p>

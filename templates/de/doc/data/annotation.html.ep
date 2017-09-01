@@ -1,0 +1,115 @@
+% layout 'main', title => 'KorAP: Annotationen';
+
+<h2>Annotationen</h2>
+
+<p>KorAP bietet Zugriff auf mehrere Ebenen von Annotationen, die aus mehreren Ressourcen stammen, so genannten <em>foundries</em>.</p>
+
+<section id="base">
+  <h3>Basis Foundry</h3>
+  <p>Die Basis Foundry steht allen Korpora zur Verfügung und dient als gemeinsame Grundlage für die Dokumentenstrukturannotation im layer <code>s</code>. Sie unterstützt drei Arten von Spans: <code>&lt;base/s=s&gt;</code> für Sätze, <code>&lt;base/s=p&gt;</code> für Absätze und <code>&lt;base/s=t&gt;</code> für den gesamten Text.</p>
+  %= doc_query poliqarp => '<base/s=s>', cutoff => 1
+</section>
+
+
+<section id="cnx">
+  <h3>Connexor (<code>cnx</code>)</h3>
+  <p>Connexor-Annotationen liefern die folgenden Layer für das <code>cnx</ code> Präfix:</p>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>Alle Lemmata sind in Kleinbuchstaben geschrieben. Komposita werden aufgeteilt, z. B. wird das Token &quot;Leitfähigkeit&quot durch die Lemmata &quot;leit&quot; und &quot;fähigkeit&quot; gefunden - nicht durch das Lemma &quot;leitfähigkeit&quot.</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Part-of-Speech-Informationen werden in Großbuchstaben geschrieben und basieren auf STTS</dd>
+    <dt><abbr data-type="token" title="Syntaktische Informationen">syn</abbr></dt>
+    <dd>Enthält Token-basierte Informationen wie <code>@PREMOD</code>, <code>@NH</code>, <code>@MAIN</code> ...</dd>
+    <dt><abbr data-type="token" title="Morphosyntaktische Information">m</abbr></dt>
+    <dd>Enthält Informationen über Tempus (<code>PRES</code> ...), Modus (<code>IND</code>), Numerus (<code>PL</code> ...) etc.</dd>
+    <dt><abbr data-type="span" title="Phrasen">c</abbr></dt>
+    <dd>Es stehen nur Nominalphrasen zur Verfügung und alle Nominalphrasen sind in Kleinbuchstaben geschrieben (<code>np</code>)</dd>
+  </dl>
+  %= doc_query poliqarp => '[cnx/p=CC]', cutoff => 1
+</section>
+
+
+<section id="corenlp">
+  <h3>CoreNLP (<code>corenlp</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Part-of-Speech-Informationen werden in Großbuchstaben geschrieben und basieren auf STTS</dd>
+    <dt><abbr data-type="token" title="Constituency">c</abbr></dt>
+    <dd>Konstituenten Informationen folgen den Annotationen des <a href="http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html">negr@ Korpus</a>.</dd>
+    <dt><abbr data-type="token" title="Named Entity">ne</abbr></dt>
+    <dd>Enthält benannte Entitäten wie <code>I-PER</code>, <code>I-ORG</code> etc.</dd>
+    <dt><abbr data-type="token" title="Named Entity">ne_hgc_175m_600</abbr></dt>
+    <dd>S.o</dd>
+    <dt><abbr data-type="token" title="Named Entity">ne_dewac_175_175m_600</abbr></dt>
+    <dd>S.o.</dd>
+  </dl>
+  %= doc_query poliqarp => '[corenlp/ne_dewac_175m_600=I-ORG]', cutoff => 1
+</section>
+
+
+<section id="tt">
+  <h3>TreeTagger (<code>tt</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>Alle Nicht-Nomen-Lemmata sind in Kleinbuchstaben geschrieben, Substantive sind in Großbuchstaben geschrieben. Komposita bleiben intakt (z. B. <code>Normalbedingung</code>).</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Alle Part-of-Speech-Informationen werden in Großbuchstaben geschrieben und basieren auf STTS.</dd>
+  </dl>
+  %= doc_query poliqarp => '[tt/p=ADV]', cutoff => 1
+</section>
+
+
+<section id="mate">
+  <h3>Mate (<code>mate</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>Alle Lemmata sind in Kleinbuchstaben geschrieben. Komposita bleiben intakt (z. B. <code>buchstabenbezeichnung</code>)</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Alle Part-of-Speech-Informationen sind in Großbuchstaben geschrieben und basieren auf STTS</dd>
+    <dt><abbr data-type="token" title="Morphosyntaktische Informationen">m</abbr></dt>
+    <dd>Enthält Informationen über Tempus (<code>tense:pres</code> ...), Modus (<code>mood:ind</code>), Nummerus (<code>number:pl</code> ...), Geschlecht (<code>gender:masc</code> ...) etc.</dd>
+  </dl>
+  %= doc_query poliqarp => '[mate/m=gender:fem]', cutoff => 1
+</section>
+
+
+<section id="opennlp">
+  <h3>OpenNLP (<code>opennlp</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Alle Part-of-Speech-Informationen sind in Großbuchstaben geschrieben und basieren auf STTS</dd>
+  </dl>
+  %= doc_query poliqarp => '[opennlp/p=PDAT]', cutoff => 1
+</section>
+
+<!--
+<section id="xip">
+  <h3>Xerox Incremental Parser (<code>xip</code>)</h3>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
+    <dd>All non-noun lemmas are written in lower case, nouns are written upper case. Composita are split, e.g. the token <code>Leitfähigkeit</code> is matched by the lemmas <code>leiten</code> and <code>Fähigkeit</code> - and by a merged and pretty useless <code>leitenfähigkeit</code> (This is going to change)</dd>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>All part-of-spech information is written in capital letters and is based on STTS</dd>
+    <dt><abbr data-type="span" title="Phrases">c</abbr></dt>
+    <dd>Some phrases to create sentences, all upper case (<code>NP</code>, <code>NPA</code>, <code>NOUN</code>, <code>VERB</code>, <code>PREP</code>, <code>AP</code> ...)</dd>      
+  </dl>
+  %= doc_query poliqarp => '[xip/p=ADJ]', cutoff => 1
+  %= doc_query poliqarp => '<xip/c=VERB>', cutoff => 1
+</section>
+-->
+
+<section id="default-foundries">
+  <h3>Standard Foundries</h3>
+  <p>Für Abfragen auf bestimmten Ebenen ohne vorgegebene Foundries stellt KorAP Standard Foundries zur Verfügung. Die Standardfoundries gelten für die folgenden Ebenen:</p>
+
+  <ul>
+    <li><strong>orth</strong>: <code>opennlp</code></li>
+    <li><strong>lemma</strong>: <code>tt</code></li>
+    <li><strong>pos</strong>: <code>tt</code></li>
+  </ul>
+
+  <blockquote>
+    <p>Im Lucene-Backend kann die <code>orth</code>-Ebene nur an eine bestimmte Foundry gebunden werden, da nur eine Tokenisierung unterstützt wird.</p>
+  </blockquote>
+</section>
