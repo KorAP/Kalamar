@@ -44,6 +44,11 @@
     <%= doc_ext_link_to 'Helge Stallkamp', "http://www.ids-mannheim.de/direktion/personal/krause.html" %>
   </dd>
 
+  <dt>Translations</dt>
+  <dd>
+    <%= doc_ext_link_to 'Susanne Feix', "http://www.ids-mannheim.de/direktion/personal/bergmann.html" %>
+  </dd>
+
   <dt>Past Project Members</dt>
   <dd>
     <%= doc_ext_link_to 'Dr. Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
