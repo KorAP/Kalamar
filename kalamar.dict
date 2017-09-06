@@ -108,7 +108,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     about => 'About KorAP',
     login => 'Login',
-    logout => 'Abmelden',
+    logout => 'Logout',
     register => 'Register',
     pwdforgotten => 'Password forgotten?',
     go => 'Go!',
