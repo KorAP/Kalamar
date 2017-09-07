@@ -63,7 +63,10 @@ g > text > tspan {
   font-size: 9pt;
 }
 
-g.leaf > text > tspan {
-  font-size: 10pt;
-  overflow: visible;
+g.leaf > text,
+text.leaf {
+  > tspan {
+    font-size: 10pt;
+    overflow: visible;
+  }
 }

@@ -292,6 +292,7 @@ define(function () {
        * Create token list
        */
       var text = g.appendChild(this._c("text"));
+      text.setAttribute('class', 'leaf');
       text.setAttribute("text-anchor", "start");
       text.setAttribute("y", height);
 
