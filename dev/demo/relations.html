@@ -5,43 +5,22 @@
     <script data-main="relationsdemo.js" src="../js/lib/require.js" async="async"></script>
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
     <style>
-        tspan, text {  
-          font-size: 11pt; 
-          stroke-width: 0; 
-          line-height: 100%; 
-          stroke-opacity:0; 
-          padding-right: 3pt 
-          fill: black; 
-        }
-        /*
-        svg.relTree g > text > tspan {
-          text-anchor: middle;
-        }
-        */
-        g.arcs text { 
-          font-size: 9pt; 
-          fill: blue;
-        }
-        path { 
-          stroke-width: 2; 
-          stroke: black;  
-          fill: none;
-        }
-        path.anchor {
-          stroke: green;
-          z-index: 20;
-        }
-        marker > path {
-          fill-opacity:1;
-          fill: black;
-        }
-        marker {
-          overflow:visible
-        }
     </style>
     
   </head>
   <body>
-    <div id="tree"></div>
+    <div id="search">
+      <ol>
+        <li class="active action">
+          <div class="matchinfo">
+            <div class="matchtree">
+              <div id="treeRel"></div>
+              <div id="treeHier"></div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
   </body>
 </html>

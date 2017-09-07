@@ -118,7 +118,7 @@ module.exports = function(grunt) {
 		            'dev/scss/sidebar/sidebar.scss',
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',
 		            'dev/scss/main/{alertify,koralquery,highlight,kwic,logos,tagger,' +
-		            'main,matchinfo,pagination,query,'+
+		            'main,matchinfo,tree,pagination,query,'+
 		            'resultinfo,sidebar,tutorial}.scss'
 	             ],
 	      tasks: ['sass'],

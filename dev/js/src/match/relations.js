@@ -29,10 +29,12 @@ define(function () {
       return this;
     },
 
+
     // This is a shorthand for SVG element creation
     _c : function (tag) {
       return document.createElementNS(svgNS, tag);
     },
+
 
     // Returns the center point of the requesting token
     _tokenPoint : function (node) {
@@ -40,13 +42,17 @@ define(function () {
       return box.x + (box.width / 2);
     },
 
+
+    // Draws an anchor
     _drawAnchor : function (anchor) {
+
+      // Calculate the span of the first and last token, the anchor spans
       var firstBox = this._tokenElements[anchor.first].getBoundingClientRect();
       var lastBox = this._tokenElements[anchor.last].getBoundingClientRect();
 
-      var startPos = firstBox.left;
-      var endPos = lastBox.right;
-
+      var startPos = firstBox.left - this.offsetLeft;
+      var endPos = lastBox.right - this.offsetLeft;
+      
       var y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
 
       var l = this._c('path');
@@ -80,8 +86,12 @@ define(function () {
         endPos = this._tokenPoint(this._tokenElements[arc.last]);
       };
 
+      startPos -= this.offsetLeft;
+      endPos -= this.offsetLeft;
+
       var g = this._c("g");
       var p = g.appendChild(this._c("path"));
+      p.setAttribute('class', 'edge');
 
       // Create arc
       var middle = Math.abs(endPos - startPos) / 2;
@@ -279,7 +289,7 @@ define(function () {
       var g = svg.appendChild(this._c("g"));
 
       /*
-       * Generate token list
+       * Create token list
        */
       var text = g.appendChild(this._c("text"));
       text.setAttribute("text-anchor", "start");
@@ -307,18 +317,26 @@ define(function () {
         tspan.setAttribute("dx", this.tokenSep);
       };
 
+      var globalBoundingBox = g.getBoundingClientRect();
+      this.offsetLeft = globalBoundingBox.left;
+
       var arcs = g.appendChild(this._c("g"));
       arcs.classList.add("arcs");
-      
+
+      // Sort arcs if not sorted yet
       if (this._sortedArcs === undefined) {
         this._sortArcs();
       };
 
       var i;
+
+      // Draw all anchors
       for (i in this._sortedAnchors) {
         arcs.appendChild(this._drawAnchor(this._sortedAnchors[i]));
       };
-      
+
+
+      // draw all arcs
       for (i in this._sortedArcs) {
         arcs.appendChild(this._drawArc(this._sortedArcs[i]));
       };

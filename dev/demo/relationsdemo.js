@@ -1,10 +1,69 @@
+var treeSnippet =
+  "<span class=\"context-left\"></span>" +
+  "<span class=\"match\">" +
+  "  <span title=\"xip/c:MC\">" +
+  "    <span title=\"xip/c:TOP\">" +
+  "      <span title=\"xip/c:PP\">" +
+  "        <span title=\"xip/c:PREP\">Mit</span>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:DET\">dieser</span>" +
+  "          <span title=\"xip/c:NPA\">" +
+  "            <span title=\"xip/c:NOUN\">Methode</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:VERB\">ist</span>" +
+  "      <span title=\"xip/c:NP\">" +
+  "        <span title=\"xip/c:PRON\">es</span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:AP\">" +
+  "        <span title=\"xip/c:ADV\">nun</span>" +
+  "        <span title=\"xip/c:ADJ\">möglich</span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:ADV\">z. B.</span>" +
+  "      <span title=\"xip/c:NPA\">" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:NOUN\">Voice</span>" +
+  "        </span>" +
+  "      </span>" + "(" +
+  "      <span title=\"xip/c:INS\">" +
+  "        <span title=\"xip/c:NPA\">" +
+  "          <span title=\"xip/c:NP\">" +
+  "            <span title=\"xip/c:NOUN\">Sprache</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" + ")" +
+  "      <span title=\"xip/c:VERB\">bevorzugt</span>" +
+  "      <span title=\"xip/c:PP\">" +
+  "        <span title=\"xip/c:PREP\">in</span>" +
+  "        <span title=\"xip/c:NP\">" +
+  "          <span title=\"xip/c:PRON\">der</span>" +
+  "        </span>" +
+  "        <span title=\"xip/c:NPA\">" +
+  "          <span title=\"xip/c:NP\">" +
+  "            <span title=\"xip/c:NOUN\">Bridge</span>" +
+  "          </span>" +
+  "        </span>" +
+  "      </span>" +
+  "      <span title=\"xip/c:INFC\">" +
+  "        <span title=\"xip/c:INS\">" +
+  "          <span title=\"xip/c:VERB\">weiterzugeben</span>" +
+  "        </span>" +
+  "      </span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span class=\"context-right\"></span>";
+
 requirejs.config({
-  baseUrl: '../js/src'
+  baseUrl: '../js/src',
+  paths : {
+    'lib': '../lib'
+  }
 });
 
-require(['match/relations'], function (relClass) {
+require(['match/relations', 'match/tree'], function (relClass, treeClass) {
   var rel = relClass.create();
-  document.getElementById("tree").appendChild(rel.element());
 
   /*
    * Start and end may be spans, i.e. arrays
@@ -31,6 +90,13 @@ require(['match/relations'], function (relClass) {
     .addRel({ start: [5,6], end: 7, label: "g" })
     .addRel({ start: 4, end: [6,8], label: "f", direction: "bi" })
   ;
-  
+
+  document.getElementById("treeRel").appendChild(rel.element());
+
+  // Todo: Probably rename to rel.draw()
   rel.show();
+
+  var tree = treeClass.create(treeSnippet);
+  document.getElementById("treeHier").appendChild(tree.element());
 });
+
