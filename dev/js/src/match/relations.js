@@ -13,11 +13,13 @@ define(function () {
 
       // Some configurations
       obj.maxArc = 200; // maximum height of the bezier control point
-      obj.overlapDiff = 20;
+      obj.overlapDiff = 40;
       obj.arcDiff = 15;
-      obj.anchorDiff = 6;
+      obj.anchorDiff = 8;
       obj.anchorStart = 15;
       obj.tokenSep = 30;
+      obj.xPadding = 10;
+      obj.yPadding = 5;
       return obj;
     },
     
@@ -56,6 +58,7 @@ define(function () {
       var y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
 
       var l = this._c('path');
+      this._arcsElement.appendChild(l);
       l.setAttribute("d", "M " + startPos + "," + y + " L " + endPos + "," + y);
       l.setAttribute("class", "anchor");
       anchor.element = l;
@@ -90,8 +93,12 @@ define(function () {
       endPos -= this.offsetLeft;
 
       var g = this._c("g");
+      g.setAttribute("class", "arc");
       var p = g.appendChild(this._c("path"));
       p.setAttribute('class', 'edge');
+      
+      // Attach the new arc before drawing, so computed values are available
+      this._arcsElement.appendChild(g);
 
       // Create arc
       var middle = Math.abs(endPos - startPos) / 2;
@@ -140,19 +147,26 @@ define(function () {
         labelE.setAttribute("x", x + middle);
         labelE.setAttribute("y", middleY + 3);
         labelE.setAttribute("text-anchor", "middle");
-        labelE.appendChild(document.createTextNode(arc.label));
+        var textNode = document.createTextNode(arc.label);
+        labelE.appendChild(textNode);
 
-        /*
-        var textWidth = labelE.getComputedTextLength();
+        var labelBox = labelE.getBBox();
+        var textWidth = labelBox.width; // labelE.getComputedTextLength();
+        var textHeight = labelBox.height; // labelE.getComputedTextLength();
 
-        var labelR = g.appendChild(this._c("rect"));
-        labelR.setAttribute("x", x + middle);
-        labelR.setAttribute("y", middleY + 3);
-        labelR.setAttribute("width", textWidth +30);
-        labelR.setAttribute("height", 20);
-        */
+        // Add padding to left and right
+
+        // var labelR = g.appendChild(this._c("rect"));
+        var labelR = g.insertBefore(this._c("rect"), labelE);
+        var boxWidth = textWidth + 2 * this.xPadding;
+        labelR.setAttribute("x", x + middle - (boxWidth / 2));
+        labelR.setAttribute("ry", 5);
+        labelR.setAttribute("y", labelBox.y - this.yPadding);
+        labelR.setAttribute("width", boxWidth);
+        labelR.setAttribute("height", textHeight + 2*this.yPadding);
       };
-      return g;
+
+      // return g;
     },
 
     element : function () {
@@ -322,6 +336,8 @@ define(function () {
       this.offsetLeft = globalBoundingBox.left;
 
       var arcs = g.appendChild(this._c("g"));
+      this._arcsElement = arcs;
+
       arcs.classList.add("arcs");
 
       // Sort arcs if not sorted yet
@@ -333,13 +349,13 @@ define(function () {
 
       // Draw all anchors
       for (i in this._sortedAnchors) {
-        arcs.appendChild(this._drawAnchor(this._sortedAnchors[i]));
+        this._drawAnchor(this._sortedAnchors[i]);
       };
 
 
       // draw all arcs
       for (i in this._sortedArcs) {
-        arcs.appendChild(this._drawArc(this._sortedArcs[i]));
+        this._drawArc(this._sortedArcs[i]);
       };
 
       var width = text.getBoundingClientRect().width;

@@ -22,6 +22,8 @@ marker#arr {
 
 path.anchor {
   stroke: $darkest-orange;
+  stroke-width: 3;
+  stroke-linecap: round;
   z-index: 20;
 }
 
@@ -31,10 +33,12 @@ g.root rect.empty {
   stroke-width: 2px;
 }
 
-g.middle rect {
-  stroke: $darker-orange;
-  stroke-width: 2px;
-  fill: $middle-orange;
+g.middle, g.arc {
+  rect {
+    stroke: $darker-orange;
+    stroke-width: 2px;
+    fill: $middle-orange;
+  }
 }
 
 g.middle.mark {
@@ -68,5 +72,6 @@ text.leaf {
   > tspan {
     font-size: 10pt;
     overflow: visible;
+    z-index: 30;
   }
 }
