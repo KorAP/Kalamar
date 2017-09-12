@@ -55,6 +55,75 @@ var treeSnippet =
   "</span>" +
   "<span class=\"context-right\"></span>";
 
+var relSnippet =
+    "<span class=\"context-left\"></span>" +
+    "<span class=\"match\">" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p199\">" +
+    "    <span xlink:title=\"malt/d:ADV\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p199\">dann</span>" +
+    "  </span>" +
+    " zog " +
+    "  <span xlink:title=\"malt/d:SUBJ\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p199\">ich</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p202\">" +
+    "    <span xlink:title=\"malt/d:OBJA\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p199\">mich</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:PP\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p199\">gegen</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p204\">" +
+    "    <span xlink:title=\"malt/d:DET\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p204\">das</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:PN\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p202\">Regiment</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p206\">" +
+    "    <span xlink:title=\"malt/d:AVZ\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p199\">zurück</span>" +
+    "  </span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p207\">" +
+    "    <span xlink:title=\"malt/d:KON\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p199\">und</span>" +
+    "  </span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p208\">" +
+    "    <span xlink:title=\"malt/d:CJ\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p206\">war</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:AUX\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p207\">bemüht</span>" +
+    "," +
+    "  <span xlink:title=\"malt/d:DET\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p211\">einige</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p211\">" +
+    "    <span xlink:title=\"malt/d:ATTR\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p211\">genaue</span>" +
+    "  </span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p212\">" +
+    "    <span xlink:title=\"malt/d:OBJA\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p215\">Umrisse</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:OBJP\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p215\">aufs</span>" +
+    "  <span xlink:title=\"malt/d:PN\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p212\">Papier</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p215\">" +
+    "    <span xlink:title=\"malt/d:PART\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p215\">zu</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:OBJI\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p208\">bringen</span>" +
+    ", um mir " +
+    "  <span xml:id=\"token-GOE/AGA/01784-p219\">" +
+    "    <span xlink:title=\"malt/d:DET\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p219\">die</span>" +
+    "  </span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p220\">Bezüge</span>" +
+    "  <span xlink:title=\"malt/d:KON\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p219\">und</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p222\">" +
+    "    <span xlink:title=\"malt/d:DET\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p222\">die</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:CJ\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p220\">Distanzen</span>" +
+    "  <mark>" +
+    "    <span xlink:title=\"malt/d:DET\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p225\">der</span>" +
+    "  </mark>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p225\">" +
+    "    <span xlink:title=\"malt/d:ATTR\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p225\">landschaftlichen</span>" +
+    "  </span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p226\">" +
+    "    <span xlink:title=\"malt/d:GMOD\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p222\">Gegenstände</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:KON\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p219\">desto</span>" +
+    "  <span xlink:title=\"malt/d:ADV\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p229\">besser</span>" +
+    "  <span xml:id=\"token-GOE/AGA/01784-p229\">" +
+    "    <span xlink:title=\"malt/d:PART\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p229\">zu</span>" +
+    "  </span>" +
+    "  <span xlink:title=\"malt/d:CJ\" xlink:type=\"simple\" xlink:href=\"#token-GOE/AGA/01784-p226\">imprimieren</span>" +
+    "</span>" +
+    "<span class=\"context-right\"></span>";
+
+
 requirejs.config({
   baseUrl: '../js/src',
   paths : {
