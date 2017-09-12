@@ -165,6 +165,11 @@ require(['match/relations', 'match/tree'], function (relClass, treeClass) {
   // Todo: Probably rename to rel.draw()
   rel.show();
 
+  var rel2 = relClass.create(relSnippet);
+  document.getElementById("treeRel2").appendChild(rel2.element());
+  rel2.show();
+
+  
   var tree = treeClass.create(treeSnippet);
   document.getElementById("treeHier").appendChild(tree.element());
 });

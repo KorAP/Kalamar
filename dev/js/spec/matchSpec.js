@@ -176,18 +176,18 @@ define(['match'], function () {
     else
       cb({ "snippet": treeSnippet });
   };
-
+  
   describe('KorAP.InfoLayer', function () {
     
     var infoClass = require('match/infolayer');
 
     it('should be initializable', function () {
       expect(
-	function() { infoClass.create() }
+        function() { infoClass.create() }
       ).toThrow(new Error("Missing parameters"));
 
       expect(
-	function() { infoClass.create("base") }
+        function() { infoClass.create("base") }
       ).toThrow(new Error("Missing parameters"));
 
       var layer = infoClass.create("base", "s");
@@ -219,7 +219,7 @@ define(['match'], function () {
 
     it('should be initializable by Object', function () {
       expect(function() {
-	      matchClass.create()
+        matchClass.create()
       }).toThrow(new Error('Missing parameters'));
 
       expect(matchClass.create(match)).toBeTruthy();
@@ -342,23 +342,26 @@ define(['match'], function () {
       expect(info).toBeTruthy();
 
       info.getTable([], function (tablen) {
-	      table1 = tablen;
-	      done();
+        table1 = tablen;
+        done();
       });
     });
+
 
     it('should\'nt be parsable (async)', function () {
       expect(table1).not.toBeTruthy();
     });
 
+
     it('should load a working table async', function(done) {
       expect(info).toBeTruthy();
       info.getTable(undefined, function (tablem) {
-	      table2 = tablem;
-	      done();
+        table2 = tablem;
+        done();
       });
     });
     
+
     it('should parse into a table (async)', function () {
       expect(table2).toBeTruthy();
 
@@ -375,10 +378,9 @@ define(['match'], function () {
 
       expect(table2.getValue(2, "cnx", "l")[0]).toBe("fähig");
       expect(table2.getValue(2, "cnx", "l")[1]).toBe("leistung");
-
-      
     });
 
+    
     it('should parse into a table view', function () {
       var matchElement = matchElementFactory();
       expect(matchElement.tagName).toEqual('LI');
@@ -423,20 +425,23 @@ define(['match'], function () {
       expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
     });
 
+
     var tree;
     it('should parse into a tree (async) 1', function (done) {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
       info.getTree(undefined, undefined, function (treem) {
-	      tree = treem;
-	      done();
+        tree = treem;
+        done();
       });
     });
+
 
     it('should parse into a tree (async) 2', function () {
       expect(tree).toBeTruthy();
       expect(tree.nodes()).toEqual(49);
     });
+
 
     var matchElement, info;
     // var info, matchElement;
@@ -467,12 +472,14 @@ define(['match'], function () {
       expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
     });
 
+
     it('should add a tree view async 1', function (done) {
       expect(info).toBeTruthy();
       info.addTree('mate', 'beebop', function () {
-	      done();
+        done();
       });
     });
+
 
     it('should add a tree view async 2', function () {
       // With added tree
@@ -505,8 +512,8 @@ define(['match'], function () {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
       info.getTable(undefined, function (x) {
-	table = x;
-	done();
+        table = x;
+        done();
       });
     });
 
@@ -559,8 +566,8 @@ define(['match'], function () {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
       info.getTree(undefined, undefined, function (y) {
-	tree = y;
-	done();
+        tree = y;
+        done();
       });
     });
 
@@ -584,14 +591,51 @@ define(['match'], function () {
   });
 
 
+  describe('KorAP.MatchRelation', function () {
+    var relClass = require('match/relations')
+
+    var relExample = "<span class=\"context-left\"></span>" +
+        "<span class=\"match\">" +
+        "  <span xml:id=\"token-GOE/AGA/01784-p199\">" +
+        "    <span xlink:title=\"malt/d:ADV\" " +
+        "          xlink:type=\"simple\" " +
+        "          xlink:href=\"#token-GOE/AGA/01784-p199\">dann</span>" +
+        "  </span>" +
+        " zog " +
+        "  <span xlink:title=\"malt/d:SUBJ\" " +
+        "        xlink:type=\"simple\" " +
+        "        xlink:href=\"#token-GOE/AGA/01784-p199\">ich</span>" +
+        "  <span xml:id=\"token-GOE/AGA/01784-p202\">" +
+        "    <span xlink:title=\"malt/d:OBJA\" " +
+        "          xlink:type=\"simple\" " +
+        "          xlink:href=\"#token-GOE/AGA/01784-p199\">mich</span>" +
+        "  </span>" +
+        "</span>" +
+        "<span class=\"context-right\"></span>";
+
+
+    it('should be initializable', function () {
+      var tree = relClass.create();
+      expect(tree.size()).toBe(0);
+    });
+
+    it('should be parse string data', function () {
+      var tree = relClass.create(relExample);
+      expect(tree.size()).toBe(4);
+    });
+
+
+  });
+
+  
   describe('KorAP.MatchTreeMenu', function () {
     var matchTreeMenu = require('match/treemenu');
     var matchTreeItem = require('match/treeitem');
 
     it('should be initializable', function () {
       var menu = matchTreeMenu.create(undefined, [
-	      ['cnx/c', 'cnx', 'c'],
-	      ['xip/c', 'xip', 'c']
+        ['cnx/c', 'cnx', 'c'],
+        ['xip/c', 'xip', 'c']
       ]);
 
       expect(menu.itemClass()).toEqual(matchTreeItem);
@@ -609,5 +653,4 @@ define(['match'], function () {
   // table.element();
   // tree = view.toTree();
   // tree.element();
-
 });

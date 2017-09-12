@@ -1,36 +1,143 @@
-define(function () {
+define([], function () {
   "use strict";
 
   var svgNS = "http://www.w3.org/2000/svg";
+  var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
 
   return {
     create : function (snippet) {
-      var obj = Object.create(this)._init(snippet);
+      var obj = Object.create(this);
       obj._tokens = [];
       obj._arcs = []
       obj._tokenElements = [];
       obj._y = 0;
 
       // Some configurations
-      obj.maxArc = 200; // maximum height of the bezier control point
+      obj.maxArc      = 200; // maximum height of the bezier control point
       obj.overlapDiff = 40;
-      obj.arcDiff = 15;
-      obj.anchorDiff = 8;
+      obj.arcDiff     = 15;
+      obj.anchorDiff  = 8;
       obj.anchorStart = 15;
-      obj.tokenSep = 30;
-      obj.xPadding = 10;
-      obj.yPadding = 5;
-      return obj;
+      obj.tokenSep    = 30;
+      obj.xPadding    = 10;
+      obj.yPadding    = 5;
+      return obj._init(snippet);
     },
     
     _init : function (snippet) {
-      /*
-      var html = document.createElement("div");
-      html.innerHTML = snippet;
-      */
+
+      if (snippet != undefined && snippet != null) {
+        var html = document.createElement("div");
+        html.innerHTML = snippet;
+
+        // Establish temporary parsing memory
+        this.temp = {
+
+          // Remember the map id => pos
+          target : {},
+
+          // Remember edge definitions
+          edges : [],
+
+          // Keep track of the current token position
+          pos : 0
+        };
+        this._parse(0, html.childNodes, undefined);
+
+        // Establish edge list
+        var targetMap = this.temp['target'];
+        var edges = this.temp['edges'];
+        for (var i in edges) {
+          var edge = edges[i];
+
+          // Check the target identifier
+          var targetID = edge.targetID;
+          var target = targetMap[targetID];
+
+          if (target != undefined) {
+
+            // Add relation
+            this.addRel({
+              start : edge.src,
+              end : target,
+              direction : 'uni',
+              label : edge.label
+            });
+          };
+        };
+
+        // Reset parsing memory
+        this.temp = {};
+      };
+
       return this;
     },
 
+    _parse : function (parent, children, mark) {
+      for (var i in children) {
+        var c = children[i];
+
+        // Element node
+        if (c.nodeType == 1) {
+
+          // Node is an identifier
+          if (c.hasAttribute('xml:id')) {
+
+            // Remember that pos has this identifier
+            this.temp['target'][c.getAttribute('xml:id')] = this.temp['pos'];
+          }
+
+          // Node is a relation
+          else if (c.hasAttribute('xlink:href')) {
+            var label, target;
+
+            target = c.getAttribute('xlink:href');
+            target = target.replace(/^#/, "");
+
+            if (c.hasAttribute('xlink:title')) {
+              label = this._clean(c.getAttribute('xlink:title'));
+            };
+
+            // Remember the defined edge
+            this.temp['edges'].push({
+              label : label,
+              src : this.temp['pos'],
+              targetID : target
+            });
+          };
+
+          if (c.hasChildNodes()) {
+            this._parse(0, c.childNodes, mark);
+          };
+        }
+
+        // Text node
+        else if (c.nodeType == 3) {
+
+          // Check, if there is a non-whitespace token
+          if (c.nodeValue !== undefined) {
+            var str = c.nodeValue.trim();
+            if (str !== undefined && str.length > 0) {
+
+              // Add token to token list
+              this.addToken(str);
+
+              // Move token position
+              this.temp['pos']++;
+            };
+          };
+        }
+      };
+    },
+
+    // Remove foundry and layer for labels
+    _clean : function (title) {
+      return title.replace(_TermRE, "$3");
+    },
+
+    size : function () {
+      return this._tokens.length;
+    },
 
     // This is a shorthand for SVG element creation
     _c : function (tag) {

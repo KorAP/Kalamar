@@ -1,4 +1,6 @@
 define(['menu/item'], function (itemClass) {
+  "use strict";
+
   /**
    * Menu item for tree view choice.
    */

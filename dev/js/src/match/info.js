@@ -7,12 +7,14 @@ define([
   'match/tree',
   'match/treemenu',
   'match/querycreator',
+  'match/relations',
   'util'
 ], function (infoLayerClass,
 	           matchTableClass,
 	           matchTreeClass,
 	           matchTreeMenuClass,
-             matchQueryCreator) {
+             matchQueryCreator,
+             matchRelClass) {
   
   // Override 
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
