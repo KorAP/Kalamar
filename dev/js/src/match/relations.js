@@ -26,7 +26,7 @@ define([], function () {
 
       // Some configurations
       this.maxArc      = 200; // maximum height of the bezier control point
-      this.overlapDiff = 40;
+      this.overlapDiff = 40;  // Difference on overlaps and minimum height for self-refernces
       this.arcDiff     = 15;
       this.anchorDiff  = 8;
       this.anchorStart = 15;
@@ -205,7 +205,8 @@ define([], function () {
     _drawArc : function (arc) {
 
       var startPos, endPos;
-      var startY = this._y, endY = this._y;
+      var startY = this._y;
+      var endY = this._y;
 
       if (arc.startAnchor !== undefined) {
         startPos = this._tokenPoint(arc.startAnchor.element);
@@ -226,6 +227,14 @@ define([], function () {
       startPos -= this.offsetLeft;
       endPos -= this.offsetLeft;
 
+      // Special treatment for self-references
+      var overlaps = arc.overlaps;
+      if (startPos == endPos) {
+        startPos -= this.overlapDiff / 3;
+        endPos += this.overlapDiff / 3;
+        overlaps += .5;
+      };
+
       var g = this._c("g");
       g.setAttribute("class", "arc");
       var p = g.appendChild(this._c("path"));
@@ -237,8 +246,9 @@ define([], function () {
       // Create arc
       var middle = Math.abs(endPos - startPos) / 2;
 
-      // TODO: take the number of tokens into account!
-      var cHeight = this.arcDiff + arc.overlaps * this.overlapDiff + (middle / 2);
+      // TODO:
+      //   take the number of tokens into account!
+      var cHeight = this.arcDiff + (overlaps * this.overlapDiff) + (middle / 2);
 
       // Respect the maximum height
       cHeight = cHeight < this.maxArc ? cHeight : this.maxArc;

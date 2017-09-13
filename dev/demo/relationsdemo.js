@@ -158,6 +158,7 @@ require(['match/relations', 'match/tree'], function (relClass, treeClass) {
     .addRel({ start: [2,4], end: 5, label: "e", direction: "uni" })
     .addRel({ start: [5,6], end: 7, direction: "uni" })
     .addRel({ start: 4, end: [6,8], label: "f", direction: "bi" })
+    .addRel({ start: 8, end: 8, label: "self", direction: "uni"})
   ;
 
   document.getElementById("treeRel").appendChild(rel.element());
@@ -165,12 +166,13 @@ require(['match/relations', 'match/tree'], function (relClass, treeClass) {
   // Todo: Probably rename to rel.draw()
   rel.show();
 
+  /*
   var rel2 = relClass.create(relSnippet);
   document.getElementById("treeRel2").appendChild(rel2.element());
   rel2.show();
 
-  
   var tree = treeClass.create(treeSnippet);
   document.getElementById("treeHier").appendChild(tree.element());
+  */
 });
 
