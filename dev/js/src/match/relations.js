@@ -1,3 +1,9 @@
+/**
+ * Parse a relational tree and visualize using arcs.
+ *
+ * @author Nils Diewald
+ */
+
 define([], function () {
   "use strict";
 
@@ -6,74 +12,82 @@ define([], function () {
 
   return {
     create : function (snippet) {
-      var obj = Object.create(this);
-      obj._tokens = [];
-      obj._arcs = []
-      obj._tokenElements = [];
-      obj._y = 0;
-
-      // Some configurations
-      obj.maxArc      = 200; // maximum height of the bezier control point
-      obj.overlapDiff = 40;
-      obj.arcDiff     = 15;
-      obj.anchorDiff  = 8;
-      obj.anchorStart = 15;
-      obj.tokenSep    = 30;
-      obj.xPadding    = 10;
-      obj.yPadding    = 5;
-      return obj._init(snippet);
+      return Object.create(this)._init(snippet);
     },
-    
+
+    // Initialize the state of the object
     _init : function (snippet) {
 
-      if (snippet != undefined && snippet != null) {
-        var html = document.createElement("div");
-        html.innerHTML = snippet;
+      // Predefine some values
+      this._tokens = [];
+      this._arcs = []
+      this._tokenElements = [];
+      this._y = 0;
 
-        // Establish temporary parsing memory
-        this.temp = {
+      // Some configurations
+      this.maxArc      = 200; // maximum height of the bezier control point
+      this.overlapDiff = 40;
+      this.arcDiff     = 15;
+      this.anchorDiff  = 8;
+      this.anchorStart = 15;
+      this.tokenSep    = 30;
+      this.xPadding    = 10;
+      this.yPadding    = 5;
 
-          // Remember the map id => pos
-          target : {},
+      // No snippet to process
+      if (snippet == undefined || snippet == null)
+        return this;
 
-          // Remember edge definitions
-          edges : [],
+      // Parse the snippet
+      var html = document.createElement("div");
+      html.innerHTML = snippet;
 
-          // Keep track of the current token position
-          pos : 0
-        };
-        this._parse(0, html.childNodes, undefined);
-
-        // Establish edge list
-        var targetMap = this.temp['target'];
-        var edges = this.temp['edges'];
-        for (var i in edges) {
-          var edge = edges[i];
-
-          // Check the target identifier
-          var targetID = edge.targetID;
-          var target = targetMap[targetID];
-
-          if (target != undefined) {
-
-            // Add relation
-            this.addRel({
-              start : edge.src,
-              end : target,
-              direction : 'uni',
-              label : edge.label
-            });
-          };
-        };
-
-        // Reset parsing memory
-        this.temp = {};
+      // Establish temporary parsing memory
+      this.temp = {
+        target : {}, // Remember the map id => pos        
+        edges  : [], // Remember edge definitions
+        pos    : 0   // Keep track of the current token position
       };
+
+      // Start parsing from root
+      this._parse(0, html.childNodes, undefined);
+
+      // Establish edge list
+      var targetMap = this.temp['target'];
+      var edges = this.temp['edges'];
+
+      // Iterate over edge lists
+      // TODO:
+      //   Support spans for anchors!
+      for (var i in edges) {
+        var edge = edges[i];
+
+        // Check the target identifier
+        var targetID = edge.targetID;
+        var target = targetMap[targetID];
+
+        if (target != undefined) {
+
+          // Add relation
+          this.addRel({
+            start : edge.src,
+            end : target,
+            direction : 'uni',
+            label : edge.label
+          });
+        };
+      };
+
+      // Reset parsing memory
+      this.temp = {};
 
       return this;
     },
 
+    // Parse a node of the tree snippet
     _parse : function (parent, children, mark) {
+
+      // Iterate over all child nodes
       for (var i in children) {
         var c = children[i];
 
@@ -84,28 +98,33 @@ define([], function () {
           if (c.hasAttribute('xml:id')) {
 
             // Remember that pos has this identifier
+            // TODO:
+            //   Target may be a span!
             this.temp['target'][c.getAttribute('xml:id')] = this.temp['pos'];
           }
 
           // Node is a relation
           else if (c.hasAttribute('xlink:href')) {
-            var label, target;
+            var label;
 
-            target = c.getAttribute('xlink:href');
-            target = target.replace(/^#/, "");
+            // Get target id
+            var target = c.getAttribute('xlink:href').replace(/^#/, "");
 
             if (c.hasAttribute('xlink:title')) {
               label = this._clean(c.getAttribute('xlink:title'));
             };
 
             // Remember the defined edge
+            // TODO:
+            //   src may be a span!
             this.temp['edges'].push({
-              label : label,
-              src : this.temp['pos'],
+              label    : label,
+              src      : this.temp['pos'],
               targetID : target
             });
           };
 
+          // Go on with child nodes
           if (c.hasChildNodes()) {
             this._parse(0, c.childNodes, mark);
           };
@@ -130,15 +149,22 @@ define([], function () {
       };
     },
 
+    
     // Remove foundry and layer for labels
     _clean : function (title) {
       return title.replace(_TermRE, "$3");
     },
 
+    
+    // Return the number of leaf nodes
+    // (not necessarily part of a relation).
+    // Consecutive nodes that are not part of any
+    // relation are summarized in one node.
     size : function () {
       return this._tokens.length;
     },
 
+    
     // This is a shorthand for SVG element creation
     _c : function (tag) {
       return document.createElementNS(svgNS, tag);
@@ -157,10 +183,10 @@ define([], function () {
 
       // Calculate the span of the first and last token, the anchor spans
       var firstBox = this._tokenElements[anchor.first].getBoundingClientRect();
-      var lastBox = this._tokenElements[anchor.last].getBoundingClientRect();
+      var lastBox  = this._tokenElements[anchor.last].getBoundingClientRect();
 
       var startPos = firstBox.left - this.offsetLeft;
-      var endPos = lastBox.right - this.offsetLeft;
+      var endPos   = lastBox.right - this.offsetLeft;
       
       var y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
 
@@ -173,7 +199,8 @@ define([], function () {
       return l;
     },
     
-    // Create an arc with a label
+
+    // Create an arc with an optional label
     // Potentially needs a height parameter for stacks
     _drawArc : function (arc) {
 
@@ -235,6 +262,9 @@ define([], function () {
         };
       };
 
+      if (arc.label === undefined)
+        return g;
+      
       /*
        * Calculate the top point of the arc for labeling using
        * de Casteljau's algorithm, see e.g.
@@ -242,40 +272,31 @@ define([], function () {
        * of course simplified to symmetric arcs ...
        */
       // Interpolate one side of the control polygon
-      // var controlInterpY1 = (startY + controlY) / 2;
-      // var controlInterpY2 = (controlInterpY1 + controlY) / 2;
       var middleY = (((startY + controlY) / 2) + controlY) / 2;
 
-      // WARNING!
-      // This won't respect span anchors, adjusting startY and endY!
+      // Create a boxed label
+      var labelE = g.appendChild(this._c("text"));
+      labelE.setAttribute("x", x + middle);
+      labelE.setAttribute("y", middleY + 3);
+      labelE.setAttribute("text-anchor", "middle");
+      var textNode = document.createTextNode(arc.label);
+      labelE.appendChild(textNode);
 
-      if (arc.label !== undefined) {
-        var labelE = g.appendChild(this._c("text"));
-        labelE.setAttribute("x", x + middle);
-        labelE.setAttribute("y", middleY + 3);
-        labelE.setAttribute("text-anchor", "middle");
-        var textNode = document.createTextNode(arc.label);
-        labelE.appendChild(textNode);
+      var labelBox   = labelE.getBBox();
+      var textWidth  = labelBox.width; // labelE.getComputedTextLength();
+      var textHeight = labelBox.height; // labelE.getComputedTextLength();
 
-        var labelBox = labelE.getBBox();
-        var textWidth = labelBox.width; // labelE.getComputedTextLength();
-        var textHeight = labelBox.height; // labelE.getComputedTextLength();
-
-        // Add padding to left and right
-
-        // var labelR = g.appendChild(this._c("rect"));
-        var labelR = g.insertBefore(this._c("rect"), labelE);
-        var boxWidth = textWidth + 2 * this.xPadding;
-        labelR.setAttribute("x", x + middle - (boxWidth / 2));
-        labelR.setAttribute("ry", 5);
-        labelR.setAttribute("y", labelBox.y - this.yPadding);
-        labelR.setAttribute("width", boxWidth);
-        labelR.setAttribute("height", textHeight + 2*this.yPadding);
-      };
-
-      // return g;
+      // Add box with padding to left and right
+      var labelR = g.insertBefore(this._c("rect"), labelE);
+      var boxWidth = textWidth + 2 * this.xPadding;
+      labelR.setAttribute("x", x + middle - (boxWidth / 2));
+      labelR.setAttribute("ry", 5);
+      labelR.setAttribute("y", labelBox.y - this.yPadding);
+      labelR.setAttribute("width", boxWidth);
+      labelR.setAttribute("height", textHeight + 2 * this.yPadding);
     },
 
+    // Get the svg element
     element : function () {
       if (this._element !== undefined)
         return this._element;
@@ -284,17 +305,20 @@ define([], function () {
       var svg = this._c("svg");
 
       window.addEventListener("resize", function () {
-        // TODO: Only if text-size changed!
+        // TODO:
+        //   Only if text-size changed!
+        // TODO:
+        //   This is currently untested
         this.show();
       }.bind(this));
-      
+
+      // Define marker arrows
       var defs = svg.appendChild(this._c("defs"));
       var marker = defs.appendChild(this._c("marker"));
       marker.setAttribute("refX", 9);
       marker.setAttribute("id", "arr");
       marker.setAttribute("orient", "auto-start-reverse");
       marker.setAttribute("markerUnits","userSpaceOnUse");
-
       var arrow = this._c("path");
       arrow.setAttribute("transform", "scale(0.8)");
       arrow.setAttribute("d", "M 0,-5 0,5 10,0 Z");
@@ -305,13 +329,14 @@ define([], function () {
     },
 
     // Add a relation with a start, an end,
-    // a direction value and a label text
+    // a direction value and an optional label text
     addRel : function (rel) {
       this._arcs.push(rel);
       return this;
     },
 
 
+    // Add a token to the list (this will mostly be a word)
     addToken : function(token) {
       this._tokens.push(token);
       return this;
@@ -322,7 +347,6 @@ define([], function () {
      * to avoid nesting.
      */
     _sortArcs : function () {
-
 
       // TODO:
       //   Keep in mind that the arcs may have long anchors!
@@ -395,7 +419,9 @@ define([], function () {
       this._sortedArcs    = lengthSort(sortedArcs, false);
       this._sortedAnchors = lengthSort(anchors, true);
     },
-    
+
+
+    // Show the element
     show : function () {
       var svg = this._element;
       var height = this.maxArc;
@@ -409,16 +435,16 @@ define([], function () {
 
       var g = svg.appendChild(this._c("g"));
 
-      /*
-       * Create token list
-       */
+      // Draw token list
       var text = g.appendChild(this._c("text"));
       text.setAttribute('class', 'leaf');
       text.setAttribute("text-anchor", "start");
       text.setAttribute("y", height);
 
+      // Calculate the start position
       this._y = height - (this.anchorStart);
 
+      // Introduce some prepending whitespace (yeah - I know ...)
       var ws = text.appendChild(this._c("tspan"));
       ws.appendChild(document.createTextNode('\u00A0'));
       ws.style.textAnchor = "start";
@@ -433,38 +459,34 @@ define([], function () {
         this._tokenElements.push(tspan);
 
         // Add whitespace!
-        //var ws = text.appendChild(this._c("tspan"));
-        //ws.appendChild(document.createTextNode(" "));
-        // ws.setAttribute("class", "rel-ws");
         tspan.setAttribute("dx", this.tokenSep);
       };
 
+      // Get some global position data that may change on resize
       var globalBoundingBox = g.getBoundingClientRect();
       this.offsetLeft = globalBoundingBox.left;
 
+      // The group of arcs
       var arcs = g.appendChild(this._c("g"));
       this._arcsElement = arcs;
-
       arcs.classList.add("arcs");
 
       // Sort arcs if not sorted yet
-      if (this._sortedArcs === undefined) {
+      if (this._sortedArcs === undefined)
         this._sortArcs();
-      };
 
+      // 1. Draw all anchors
       var i;
-
-      // Draw all anchors
       for (i in this._sortedAnchors) {
         this._drawAnchor(this._sortedAnchors[i]);
       };
 
-
-      // draw all arcs
+      // 2. Draw all arcs
       for (i in this._sortedArcs) {
         this._drawArc(this._sortedArcs[i]);
       };
 
+      // Resize the svg with some reasonable margins
       var width = text.getBoundingClientRect().width;
       svg.setAttribute("width", width + 20);
       svg.setAttribute("height", height + 20);
@@ -472,6 +494,7 @@ define([], function () {
     }
   };
 
+  // Sort relations regarding their span
   function lengthSort (list, inclusive) {
 
     /*
@@ -488,7 +511,6 @@ define([], function () {
 
       // Check the stack order
       var overlaps = 0;
-
       for (var j = (stack.length - 1); j >= 0; j--) {
         var check = stack[j];
 
@@ -522,7 +544,8 @@ define([], function () {
 
       // Although it is already sorted,
       // the new item has to be put at the correct place
-      // TODO: Use something like splice() instead
+      // TODO:
+      //   Use something like splice() instead
       stack.sort(function (a,b) {
         b.overlaps - a.overlaps
       });

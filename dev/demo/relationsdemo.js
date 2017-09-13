@@ -156,7 +156,7 @@ require(['match/relations', 'match/tree'], function (relClass, treeClass) {
     .addRel({ start: 1, end: 2, label: "c", direction: "bi"   })
     .addRel({ start: 0, end: 2, label: "dreizehn", direction: "uni" })
     .addRel({ start: [2,4], end: 5, label: "e", direction: "uni" })
-    .addRel({ start: [5,6], end: 7, label: "g", direction: "uni" })
+    .addRel({ start: [5,6], end: 7, direction: "uni" })
     .addRel({ start: 4, end: [6,8], label: "f", direction: "bi" })
   ;
 
