@@ -231,7 +231,7 @@ define([], function () {
       var overlaps = arc.overlaps;
       if (startPos == endPos) {
         startPos -= this.overlapDiff / 3;
-        endPos += this.overlapDiff / 3;
+        endPos   += this.overlapDiff / 3;
         overlaps += .5;
       };
 
@@ -285,6 +285,15 @@ define([], function () {
       var middleY = (((startY + controlY) / 2) + controlY) / 2;
 
       // Create a boxed label
+      g = this._c("g");
+      g.setAttribute("class", "label");
+      this._labelsElement.appendChild(g);
+
+      var that = this;
+      g.addEventListener('mouseenter', function () {
+        that._labelsElement.appendChild(this);
+      });
+
       var labelE = g.appendChild(this._c("text"));
       labelE.setAttribute("x", x + middle);
       labelE.setAttribute("y", middleY + 3);
@@ -480,6 +489,10 @@ define([], function () {
       var arcs = g.appendChild(this._c("g"));
       this._arcsElement = arcs;
       arcs.classList.add("arcs");
+
+      var labels = g.appendChild(this._c("g"));
+      this._labelsElement = labels;
+      labels.classList.add("labels");
 
       // Sort arcs if not sorted yet
       if (this._sortedArcs === undefined)

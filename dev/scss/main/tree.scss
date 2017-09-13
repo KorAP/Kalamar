@@ -33,7 +33,7 @@ g.root rect.empty {
   stroke-width: 2px;
 }
 
-g.middle, g.arc {
+g.middle, g.label {
   rect {
     stroke: $darker-orange;
     stroke-width: 2px;
@@ -53,7 +53,6 @@ g.middle.mark {
   }
 }
 
-
 g.leaf.mark text > tspan {
   font-weight: bold;
 }
@@ -72,6 +71,5 @@ text.leaf {
   > tspan {
     font-size: 10pt;
     overflow: visible;
-    z-index: 30;
   }
 }
