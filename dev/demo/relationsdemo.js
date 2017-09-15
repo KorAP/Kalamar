@@ -123,6 +123,39 @@ var relSnippet =
     "</span>" +
     "<span class=\"context-right\"></span>";
 
+/*
+ *     ___OBJA____
+ *     |_________|____DET________
+ *     |_________|____          |
+ *     |_SUBJ_   |   |          |
+ *  ___|_____|__ADV_ | ___PP____|
+ *  |  Y     |   | Y Y |       Y|
+ * -|------  |  -|-----|-- ----------
+ * dann zog ich mich gegen das Altern
+ *   1   2   3   4     5    6    7
+ */
+
+relSnippet =
+  "<span class=\"context-left\"></span>" +
+  "<span class=\"match\">" +
+  "  <span xml:id=\"token-1\">" +
+  "    <span xlink:title=\"malt/d:ADV\" xlink:type=\"simple\" xlink:href=\"#token-4\">dann</span>" +
+  "    zog " +
+  "  </span>" +
+  "  <span xlink:title=\"malt/d:SUBJ\" xlink:type=\"simple\" xlink:href=\"#token-1\">ich</span>" +
+  "  <span xml:id=\"token-4\">" +
+  "    <span xlink:title=\"malt/d:OBJA\" xlink:type=\"simple\" xlink:href=\"#token-1\">mich</span>" +
+  "    <span xlink:title=\"malt/d:PP\" xlink:type=\"simple\" xlink:href=\"#token-3\">gegen</span>" +
+  "  </span>" +
+  "  <span xml:id=\"token-3\">" +
+  "    <span xlink:title=\"malt/d:DET\" xlink:type=\"simple\" xlink:href=\"#token-1\">" +
+  "      das" +
+  "      <span xml:id=\"token-2\">Altern</span>" +
+  "    </span>" +
+  "  </span>" +
+  "</span>" +
+  "<span class=\"context-right\"></span>";
+
 
 requirejs.config({
   baseUrl: '../js/src',

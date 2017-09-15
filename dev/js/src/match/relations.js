@@ -19,8 +19,8 @@ define([], function () {
     _init : function (snippet) {
 
       // Predefine some values
-      this._tokens = [];
-      this._arcs = [];
+      this._tokens  = [];
+      this._arcs    = [];
       this._tokenElements = [];
       this._y = 0;
 
@@ -405,7 +405,7 @@ define([], function () {
       //   Keep in mind that the arcs may have long anchors!
       //   1. Iterate over all arcs
       //   2. Sort all multi
-      var anchors = [];
+      var anchors = {};
       
       // 1. Sort by length
       // 2. Tag all spans with the number of overlaps before
@@ -423,27 +423,55 @@ define([], function () {
         if (v.start instanceof Array) {
           var middle = Math.ceil(Math.abs(v.start[1] - v.start[0]) / 2) + v.start[0];
 
-          v.startAnchor = {
-            "first":   v.start[0],
-            "last" :   v.start[1],
-            "length" : v.start[1] - v.start[0]
+          // Calculate signature to avoid multiple anchors
+          var anchorSig = "#" + v.start[0] + "_" + v.start[1];
+          if (v.start[0] > v.start[1]) {
+            anchorSig = "#" + v.start[1] + "_" + v.start[0];
           };
 
+          // Check if the anchor already exist
+          var anchor = anchors[anchorSig];
+          if (anchor === undefined) {
+            anchor = {
+              "first":   v.start[0],
+              "last" :   v.start[1],
+              "length" : v.start[1] - v.start[0]
+            };
+            anchors[anchorSig] = anchor;
+            // anchors.push(v.startAnchor);
+          };
+
+          v.startAnchor = anchor;
+
           // Add to anchors list
-          anchors.push(v.startAnchor);
           v.start = middle;
         };
 
         if (v.end instanceof Array) {
           var middle = Math.abs(v.end[0] - v.end[1]) + v.end[0];
-          v.endAnchor = {
-            "first":   v.end[0],
-            "last" :   v.end[1],
-            "length" : v.end[1] - v.end[0]
+
+          // Calculate signature to avoid multiple anchors
+          var anchorSig = "#" + v.end[0] + "_" + v.end[1];
+          if (v.end[0] > v.end[1]) {
+            anchorSig = "#" + v.end[1] + "_" + v.end[0];
           };
 
+          // Check if the anchor already exist
+          var anchor = anchors[anchorSig];
+          if (anchor === undefined) {
+            anchor = {
+              "first":   v.end[0],
+              "last" :   v.end[1],
+              "length" : v.end[1] - v.end[0]
+            };
+            anchors[anchorSig] = anchor;
+            // anchors.push(v.startAnchor);
+          };
+
+          v.endAnchor = anchor;
+
           // Add to anchors list
-          anchors.push(v.endAnchor);
+          // anchors.push(v.endAnchor);
           v.end = middle;
         };
 
@@ -460,11 +488,6 @@ define([], function () {
           v.length = v.start - v.end;
         };
 
-        if (v.label === "OBJA") {
-          console.log(v);
-        };
-
-        // console.log(v);
         return v;
       });
 
@@ -478,7 +501,13 @@ define([], function () {
 
       // Add sorted arcs and anchors
       this._sortedArcs    = lengthSort(sortedArcs, false);
-      this._sortedAnchors = lengthSort(anchors, true);
+
+      // Translate map to array (there is probably a better JS method)
+      var sortedAnchors = [];
+      for (var i in anchors) {
+        sortedAnchors.push(anchors[i]);
+      };
+      this._sortedAnchors = lengthSort(sortedAnchors, true);
     },
 
 
