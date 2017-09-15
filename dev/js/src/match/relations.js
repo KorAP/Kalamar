@@ -69,15 +69,16 @@ define([], function () {
         if (target != undefined) {
 
           // Check if the source is a span anchor
+          /*
           var start = edge.srcStart;
           if (start !== edge.srcEnd) {
             start = [start, edge.srcEnd];
           };
-
+          */
           
           // Add relation
           var relation = {
-            start : start,
+            start : [edge.srcStart, edge.srcEnd],
             end : target,
             direction : 'uni',
             label : edge.label
@@ -421,58 +422,74 @@ define([], function () {
 
         // Check for long anchors
         if (v.start instanceof Array) {
-          var middle = Math.ceil(Math.abs(v.start[1] - v.start[0]) / 2) + v.start[0];
 
-          // Calculate signature to avoid multiple anchors
-          var anchorSig = "#" + v.start[0] + "_" + v.start[1];
-          if (v.start[0] > v.start[1]) {
-            anchorSig = "#" + v.start[1] + "_" + v.start[0];
-          };
+          if (v.start[0] == v.start[1]) {
+            v.start = v.start[0];
+          }
 
-          // Check if the anchor already exist
-          var anchor = anchors[anchorSig];
-          if (anchor === undefined) {
-            anchor = {
-              "first":   v.start[0],
-              "last" :   v.start[1],
-              "length" : v.start[1] - v.start[0]
+          else {
+          
+            var middle = Math.ceil(Math.abs(v.start[1] - v.start[0]) / 2) + v.start[0];
+
+            // Calculate signature to avoid multiple anchors
+            var anchorSig = "#" + v.start[0] + "_" + v.start[1];
+            if (v.start[0] > v.start[1]) {
+              anchorSig = "#" + v.start[1] + "_" + v.start[0];
             };
-            anchors[anchorSig] = anchor;
-            // anchors.push(v.startAnchor);
+            
+            // Check if the anchor already exist
+            var anchor = anchors[anchorSig];
+            if (anchor === undefined) {
+              anchor = {
+                "first":   v.start[0],
+                "last" :   v.start[1],
+                "length" : v.start[1] - v.start[0]
+              };
+              anchors[anchorSig] = anchor;
+              // anchors.push(v.startAnchor);
+            };
+
+            v.startAnchor = anchor;
+
+            // Add to anchors list
+            v.start = middle;
           };
-
-          v.startAnchor = anchor;
-
-          // Add to anchors list
-          v.start = middle;
         };
 
         if (v.end instanceof Array) {
-          var middle = Math.abs(v.end[0] - v.end[1]) + v.end[0];
 
-          // Calculate signature to avoid multiple anchors
-          var anchorSig = "#" + v.end[0] + "_" + v.end[1];
-          if (v.end[0] > v.end[1]) {
-            anchorSig = "#" + v.end[1] + "_" + v.end[0];
-          };
+          if (v.end[0] == v.end[1]) {
+            v.end = v.end[0];
+          }
 
-          // Check if the anchor already exist
-          var anchor = anchors[anchorSig];
-          if (anchor === undefined) {
-            anchor = {
-              "first":   v.end[0],
-              "last" :   v.end[1],
-              "length" : v.end[1] - v.end[0]
+          else {
+
+            var middle = Math.abs(v.end[0] - v.end[1]) + v.end[0];
+
+            // Calculate signature to avoid multiple anchors
+            var anchorSig = "#" + v.end[0] + "_" + v.end[1];
+            if (v.end[0] > v.end[1]) {
+              anchorSig = "#" + v.end[1] + "_" + v.end[0];
             };
-            anchors[anchorSig] = anchor;
-            // anchors.push(v.startAnchor);
+
+            // Check if the anchor already exist
+            var anchor = anchors[anchorSig];
+            if (anchor === undefined) {
+              anchor = {
+                "first":   v.end[0],
+                "last" :   v.end[1],
+                "length" : v.end[1] - v.end[0]
+              };
+              anchors[anchorSig] = anchor;
+              // anchors.push(v.startAnchor);
+            };
+            
+            v.endAnchor = anchor;
+
+            // Add to anchors list
+            // anchors.push(v.endAnchor);
+            v.end = middle;
           };
-
-          v.endAnchor = anchor;
-
-          // Add to anchors list
-          // anchors.push(v.endAnchor);
-          v.end = middle;
         };
 
         v.first = v.start;

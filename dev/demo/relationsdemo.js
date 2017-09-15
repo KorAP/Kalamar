@@ -136,6 +136,7 @@ var relSnippet =
  */
 
 relSnippet =
+// var relSnippetSimple =
   "<span class=\"context-left\"></span>" +
   "<span class=\"match\">" +
   "  <span xml:id=\"token-1\">" +
