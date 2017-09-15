@@ -20,7 +20,7 @@ define([], function () {
 
       // Predefine some values
       this._tokens = [];
-      this._arcs = []
+      this._arcs = [];
       this._tokenElements = [];
       this._y = 0;
 
@@ -68,13 +68,22 @@ define([], function () {
 
         if (target != undefined) {
 
+          // Check if the source is a span anchor
+          var start = edge.srcStart;
+          if (start !== edge.srcEnd) {
+            start = [start, edge.srcEnd];
+          };
+
+          
           // Add relation
-          this.addRel({
-            start : edge.src,
+          var relation = {
+            start : start,
             end : target,
             direction : 'uni',
             label : edge.label
-          });
+          };
+          // console.log(relation);
+          this.addRel(relation);
         };
       };
 
@@ -94,13 +103,14 @@ define([], function () {
         // Element node
         if (c.nodeType == 1) {
 
+          var xmlid, target;
+
           // Node is an identifier
           if (c.hasAttribute('xml:id')) {
 
             // Remember that pos has this identifier
-            // TODO:
-            //   Target may be a span!
-            this.temp['target'][c.getAttribute('xml:id')] = this.temp['pos'];
+            xmlid = c.getAttribute('xml:id');
+            this.temp['target'][xmlid] = [this.temp['pos'], this.temp['pos']];
           }
 
           // Node is a relation
@@ -108,25 +118,49 @@ define([], function () {
             var label;
 
             // Get target id
-            var target = c.getAttribute('xlink:href').replace(/^#/, "");
+            target = c.getAttribute('xlink:href').replace(/^#/, "");
 
             if (c.hasAttribute('xlink:title')) {
               label = this._clean(c.getAttribute('xlink:title'));
             };
 
             // Remember the defined edge
-            // TODO:
-            //   src may be a span!
-            this.temp['edges'].push({
+            var edge = {
               label    : label,
-              src      : this.temp['pos'],
+              srcStart : this.temp['pos'],
               targetID : target
-            });
+            };
+            this.temp['edges'].push(edge);
           };
 
           // Go on with child nodes
           if (c.hasChildNodes()) {
             this._parse(0, c.childNodes, mark);
+          };
+
+          if (xmlid !== undefined) {
+            this.temp['target'][xmlid][1] = this.temp['pos'] -1;
+
+            /*
+            console.log('Target ' + xmlid + ' spans from ' +
+                        this.temp['target'][xmlid][0] +
+                        ' to ' +
+                        this.temp['target'][xmlid][1]
+                       );
+            */
+            xmlid = undefined;
+          }
+          else if (target !== undefined) {
+            edge["srcEnd"] = this.temp['pos'] -1;
+
+            /*
+            console.log('Source spans from ' +
+                        edge["srcStart"] +
+                        ' to ' +
+                        edge["srcEnd"]
+                       );
+            */
+            target = undefined;
           };
         }
 
@@ -413,17 +447,24 @@ define([], function () {
           v.end = middle;
         };
 
+        v.first = v.start;
+        v.last = v.end;
+
         // calculate the arch length
         if (v.start < v.end) {
-          v.first = v.start;
-          v.last = v.end;
           v.length = v.end - v.start;
         }
         else {
-          v.first = v.end;
-          v.last = v.start;
+          // v.first = v.end;
+          // v.last = v.start;
           v.length = v.start - v.end;
         };
+
+        if (v.label === "OBJA") {
+          console.log(v);
+        };
+
+        // console.log(v);
         return v;
       });
 
@@ -435,6 +476,7 @@ define([], function () {
           return 1;
       });
 
+      // Add sorted arcs and anchors
       this._sortedArcs    = lengthSort(sortedArcs, false);
       this._sortedAnchors = lengthSort(anchors, true);
     },
