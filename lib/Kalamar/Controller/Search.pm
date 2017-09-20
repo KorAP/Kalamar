@@ -23,7 +23,7 @@ sub query {
 
   # No query
   unless ($query) {
-    return $c->render(template => $c->loc('template_intro', 'intro'));
+    return $c->render(template => $c->loc('Template_intro', 'intro'));
   };
 
   # Base parameters for remote access

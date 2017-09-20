@@ -10,19 +10,7 @@
 @import "koralquery"; // KoralQuery
 @import "tagger";     // Tagger
 @import "alertify";
-
-div.intro {
-  // min-width: 600px;
-
-  // Visited links
-  a:visited {
-    color: $darkest-orange
-  }
-}
-
-aside.active ~ main div.intro {
-  margin-left: $logo-left-distance - $standard-margin + $base-padding;
-}
+@import "intro";      // Intro page
 
 main {
   margin: {

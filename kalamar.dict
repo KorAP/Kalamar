@@ -52,9 +52,6 @@ my $THOUSAND_SEP_RE = qr/(
       desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
       overview => 'KorAP - Übersicht',
     },
-    template => {
-      intro => 'de/intro'
-    },
     Auth => {
       loginSuccess => 'Anmeldung erfolgreich',
       loginFail => 'Anmeldung fehlgeschlagen',
@@ -62,6 +59,7 @@ my $THOUSAND_SEP_RE = qr/(
       logoutFail => 'Abmeldung fehlgeschlagen'
     },
     Template => {
+      intro => 'de/intro',
       doc => {
         ql => {
           'poliqarp-plus' => 'de/doc/ql/poliqarp-plus'
@@ -151,6 +149,7 @@ my $THOUSAND_SEP_RE = qr/(
       logoutFail => 'Logout failed'
     },
     Template => {
+      intro => 'intro',
       doc => {
         ql => {
           'poliqarp-plus' => 'doc/ql/poliqarp-plus'

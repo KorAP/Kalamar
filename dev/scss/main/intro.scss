@@ -1,0 +1,19 @@
+div.intro {
+  // Visited links
+  a:visited {
+    color: $darkest-orange
+  }
+
+  div.announcement {
+    background-color: $light-orange;
+    padding: $base-padding;
+    border: 5px dashed $dark-orange;
+    border-radius: 1em;
+    width: 90%;
+    margin: auto;
+  }
+}
+
+aside.active ~ main div.intro {
+  margin-left: $logo-left-distance - $standard-margin + $base-padding;
+}

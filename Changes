@@ -1,6 +1,7 @@
-0.23 2017-06-29
+0.23 2017-09-20
         - Added query creator tool.
         - Fix visualization of empty contexts in KWIC.
+        - Added announcement template.
 
 0.22 2017-06-26
         - Added user authentification using Kustvakts LDAP
