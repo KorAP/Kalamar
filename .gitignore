@@ -12,6 +12,7 @@ kalamar.*.conf
 script/hypnotoad.pid
 .sass-cache
 dev/css
+template/announcement.html.ep
 log
 blib
 script*
