@@ -82,8 +82,15 @@ $ perl script/kalamar daemon
 Kalamar will then be available at ```localhost:3000``` in your browser.
 
 By default, Kalamar tries to connect to ```localhost:9999```.
-You may change that endpoint to the KorAP API provider in ```kalamar.conf```.
+You may change that endpoint to the KorAP API provider in in the configuration
+(see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information).
 
+
+### Configuration
+
+The basic configuration file is ```kalamar.conf```. To define derivations,
+create a configuration file with the pattern ```kalamar.[MYNAME].conf``` and
+follow the descriptions in ```kalamar.conf```.
 
 ### Localization
 
