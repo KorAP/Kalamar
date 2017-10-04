@@ -293,9 +293,11 @@ define([
       for (i in spans) {
         treeLayers.push(spans[i]);
       };
+      /*
       for (i in rels) {
         treeLayers.push(rels[i]);
       };
+      */
 
       // Get spans
       treeLayers = treeLayers.sort(
