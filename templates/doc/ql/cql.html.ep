@@ -1,5 +1,5 @@
 % layout 'main', title => 'KorAP: CQL';
 
-<h2>CQL</h2>
+<h2 id="tutorial-top">CQL</h2>
 
 %= doc_uc

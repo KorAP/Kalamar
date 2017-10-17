@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Annotationen';
 
-<h2>Annotationen</h2>
+<h2 id="tutorial-top">Annotationen</h2>
 
 <p>KorAP bietet Zugriff auf mehrere Ebenen von Annotationen, die aus mehreren Ressourcen stammen, so genannten <em>foundries</em>.</p>
 

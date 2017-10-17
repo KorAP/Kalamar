@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Poliqarp+';
 
-<h2>Poliqarp+</h2>
+<h2 id="tutorial-top">Poliqarp+</h2>
 
 <p>The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
 

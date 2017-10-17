@@ -1,5 +1,5 @@
 % layout 'main', title => 'KorAP: Search API';
 
-<h2>Search API</h2>
+<h2 id="tutorial-top">Search API</h2>
 
 %= doc_uc

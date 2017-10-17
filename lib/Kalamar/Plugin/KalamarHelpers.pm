@@ -149,6 +149,7 @@ sub register {
 
           # Canonicalize (for empty scopes)
           $url->path->canonicalize;
+          $url->fragment('tutorial-top');
         };
 
         my @classes;
