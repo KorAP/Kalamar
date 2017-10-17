@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Application Programming Interface';
 
-<h2>Application Programming Interface</h2>
+<h2 id="tutorial-top">Application Programming Interface</h2>
 
 <p>Internally the communication between the KorAP components is done using the <%= doc_link_to('KoralQuery', 'api', 'koralquery') %> protocol. The following endpoints make use of this protocol or establish additional mechanisms. All described endpoints are (more or lest) REST-ful web APIs.</p>
 

@@ -6,7 +6,7 @@
 %# This should be stored when clicking on a specific query
 %# but the remembered section contains the id - not the query
 
-<h2>Query Languages</h2>
+<h2 id="tutorial-top">Query Languages</h2>
 
 <section id="intro">
   <h3>Frontend Features</h3>

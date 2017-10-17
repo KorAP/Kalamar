@@ -1,5 +1,5 @@
 % layout 'main', title => 'KorAP: Cosmas II';
 
-<h2>Cosmas II</h2>
+<h2 id="tutorial-top">Cosmas II</h2>
 
 %= doc_uc

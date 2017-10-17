@@ -1,5 +1,5 @@
 % layout 'main', title => 'KorAP: Annis QL';
 
-<h2>Annis QL</h2>
+<h2 id="tutorial-top">Annis QL</h2>
 
 %= doc_uc

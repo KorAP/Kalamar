@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Overview';
 
-<h2>KorAP: An Overview</h2>
+<h2 id="tutorial-top">KorAP: An Overview</h2>
 
 %= korap_overview 'korap'
 

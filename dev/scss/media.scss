@@ -114,6 +114,11 @@ $standard-margin: 4px;
     width: 100%;
   }
 
+  body.embedded aside > div {
+    top: 0;
+    transform: translateY(0);
+  }
+  
   aside {
     &:not(:focus):not(.active) {
       margin-left: -1 * $logo-left-distance;
@@ -127,7 +132,8 @@ $standard-margin: 4px;
       font-size: 9pt;
       line-height: 1em;
     }
-    &.active ~ main div.intro {
+    &.active ~ main div.intro,
+    &.active ~ main.tutorial {
       margin-left: $standard-margin !important;
     }
 
@@ -161,9 +167,15 @@ $standard-margin: 4px;
     iframe {
       border-radius: 0;
     }
+    > ul.action.right {
+      height: 1.5em;
+      right: 20px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
   }
 
   main.tutorial {
-    margin-right: 30px;
+    margin-right: 20px;
   }
 }

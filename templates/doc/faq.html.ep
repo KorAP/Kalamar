@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Frequently Asked Questions';
 
-<h2>Frequently Asked Questions</h2>
+<h2 id="tutorial-top">Frequently Asked Questions</h2>
 
 <p>This document puts together the most frequent questions and issues that we have encountered so far. Please feel welcome to ask further questions via <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'Question via Kalamar', begin %>e-mail<% end %>.
 
