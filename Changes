@@ -1,3 +1,6 @@
+0.24 2017-11-10
+        - Added support for relation visualization.
+
 0.23 2017-09-20
         - Added query creator tool.
         - Fix visualization of empty contexts in KWIC.
