@@ -162,8 +162,15 @@ define(['lib/dagre'], function (dagre) {
       return this;
     },
 
+    // Dummy method to be compatible with relTree
+    show : function () {
+      return;
+    },
+
     /**
      * Center the viewport of the canvas
+     * TODO:
+     *   This is identical to relations
      */
     center : function () {
       if (this._element === undefined)

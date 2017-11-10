@@ -5,16 +5,16 @@ define([
   'match/infolayer',
   'match/table',
   'match/tree',
+  'match/relations',
   'match/treemenu',
   'match/querycreator',
-  'match/relations',
   'util'
 ], function (infoLayerClass,
 	           matchTableClass,
 	           matchTreeClass,
+             matchRelClass,
 	           matchTreeMenuClass,
-             matchQueryCreator,
-             matchRelClass) {
+             matchQueryCreator) {
   
   // Override 
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
@@ -139,7 +139,7 @@ define([
     /**
      * Retrieve and parse snippet for tree representation
      */
-    getTree : function (foundry, layer, cb) {
+    getTree : function (foundry, layer, type, cb) {
       var focus = [];
       
       // TODO: Support and cache multiple trees
@@ -154,7 +154,17 @@ define([
           if (matchResponse["snippet"] !== undefined) {
             // Todo: This should be cached somehow
 
-            cb(matchTreeClass.create(matchResponse["snippet"]));
+            if (type === "spans") {
+              cb(matchTreeClass.create(matchResponse["snippet"]));
+            }
+            else if (type === "rels") {
+              cb(matchRelClass.create(matchResponse["snippet"]));              
+            }
+
+            // Unknown tree type
+            else {
+              cb(null);
+            };
           }
           else {
             cb(null);
@@ -182,7 +192,7 @@ define([
     /**
      * Add a new tree view to the list
      */
-    addTree : function (foundry, layer, cb) {
+    addTree : function (foundry, layer, type, cb) {
       var matchtree = document.createElement('div');
       matchtree.classList.add('matchtree');
       
@@ -213,7 +223,7 @@ define([
       tree.classList.add('loading');
 
       // Get tree data async
-      this.getTree(foundry, layer, function (treeObj) {
+      this.getTree(foundry, layer, type, function (treeObj) {
 
         tree.classList.remove('loading');
 
@@ -224,30 +234,35 @@ define([
         }
         else {
           tree.appendChild(treeObj.element());
+          treeObj.show();
           // Reposition the view to the center
           // (This may in a future release be a reposition
           // to move the root into the center or the actual
           // match)
 
-          var dl = document.createElement('li');
-          dl.className = 'download';
-          dl.addEventListener(
-            'click', function (e) {
+          // This is currently not supported by relations
+          if (type === "spans") {
+            var dl = document.createElement('li');
+            dl.className = 'download';
+            dl.addEventListener(
+              'click', function (e) {
 
-              var a = document.createElement('a');
-              a.setAttribute('href-lang', 'image/svg+xml');
-              a.setAttribute('href', 'data:image/svg+xml;base64,'+treeObj.toBase64());
-              a.setAttribute('download', 'tree.svg');
-              a.target = '_blank';
-
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a)
-
-              e.halt();
-            }
-          );
-          actions.appendChild(dl);
+                var a = document.createElement('a');
+                a.setAttribute('href-lang', 'image/svg+xml');
+                a.setAttribute('href', 'data:image/svg+xml;base64,'+treeObj.toBase64());
+                a.setAttribute('download', 'tree.svg');
+                a.target = '_blank';
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a)
+                e.halt();
+              }
+            );
+            
+            actions.appendChild(dl);
+          };
+          
           treeObj.center();
         };
   
@@ -293,11 +308,9 @@ define([
       for (i in spans) {
         treeLayers.push(spans[i]);
       };
-      /*
       for (i in rels) {
         treeLayers.push(rels[i]);
       };
-      */
 
       // Get spans
       treeLayers = treeLayers.sort(
@@ -327,7 +340,8 @@ define([
         menuList.push([
           span.foundry + '/' + span.layer,
           span.foundry,
-          span.layer
+          span.layer,
+          span.type
         ]);
       };
 

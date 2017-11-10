@@ -15,10 +15,10 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
      * @param params The match menu items
      *   as an array of arrays.
      */
-    create : function (info, params) {
+    create : function (info, list) {
       var obj = Object.create(menuClass)
 	        .upgradeTo(this)
-	        ._init(params, {itemClass : itemClass});
+	        ._init(list, {itemClass : itemClass});
       obj.limit(6);
       obj._info = info;
 

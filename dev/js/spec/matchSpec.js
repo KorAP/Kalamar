@@ -430,7 +430,7 @@ define(['match'], function () {
     it('should parse into a tree (async) 1', function (done) {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
-      info.getTree(undefined, undefined, function (treem) {
+      info.getTree(undefined, undefined, "spans", function (treem) {
         tree = treem;
         done();
       });
@@ -475,7 +475,7 @@ define(['match'], function () {
 
     it('should add a tree view async 1', function (done) {
       expect(info).toBeTruthy();
-      info.addTree('mate', 'beebop', function () {
+      info.addTree('mate', 'beebop', "spans", function () {
         done();
       });
     });
@@ -565,7 +565,7 @@ define(['match'], function () {
     it('should be rendered async 1', function (done) {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
-      info.getTree(undefined, undefined, function (y) {
+      info.getTree(undefined, undefined, "spans", function (y) {
         tree = y;
         done();
       });

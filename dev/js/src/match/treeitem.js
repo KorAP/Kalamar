@@ -42,14 +42,23 @@ define(['menu/item'], function (itemClass) {
     },
 
     /**
+     * The type attribute of the menu item.
+     * Is either "spans" or "rels".
+     */
+    type : function () {
+      return this._type;
+    },
+    
+    /**
      * Override click action of the menu item.
      */
     onclick : function (e) {
       var menu = this.menu();
       menu.hide();
       e.halt();
-      if (menu.info() !== undefined)
-	      menu.info().addTree(this._foundry, this._layer);
+      if (menu.info() !== undefined) {
+	      menu.info().addTree(this._foundry, this._layer, this._type);
+      };
     },
 
     // Initialize tree menu item.
@@ -60,6 +69,7 @@ define(['menu/item'], function (itemClass) {
       this._name    = params[0];
       this._foundry = params[1];
       this._layer   = params[2];
+      this._type    = params[3];
       this._content = document.createTextNode(this._name);
       this._lcField = ' ' + this.content().textContent.toLowerCase();
       return this;

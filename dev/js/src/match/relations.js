@@ -527,6 +527,26 @@ define([], function () {
       this._sortedAnchors = lengthSort(sortedAnchors, true);
     },
 
+    /**
+     * Center the viewport of the canvas
+     * TODO:
+     *   This is identical to tree
+     */
+    center : function () {
+      if (this._element === undefined)
+       return;
+
+      var treeDiv = this._element.parentNode;
+
+      var cWidth = parseFloat(window.getComputedStyle(this._element).width);
+      var treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
+      // Reposition:
+      if (cWidth > treeWidth) {
+       var scrollValue = (cWidth - treeWidth) / 2;
+       treeDiv.scrollLeft = scrollValue;
+      };
+    },
+
 
     // Show the element
     show : function () {
