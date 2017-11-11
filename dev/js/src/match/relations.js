@@ -205,10 +205,21 @@ define([], function () {
       return document.createElementNS(svgNS, tag);
     },
 
+    // Get bounding box - with workaround for text nodes
+    _rect : function (node) {
+      if (node.tagName == "tspan") {
+        var range = document.createRange();
+        range.selectNode(node);
+        var rect = range.getBoundingClientRect();
+        range.detach();
+        return rect;
+      };
+      return node.getBoundingClientRect();
+    },
 
     // Returns the center point of the requesting token
     _tokenPoint : function (node) {
-      var box = node.getBoundingClientRect();
+      var box = this._rect(node);
       return box.x + (box.width / 2);
     },
 
@@ -217,8 +228,8 @@ define([], function () {
     _drawAnchor : function (anchor) {
 
       // Calculate the span of the first and last token, the anchor spans
-      var firstBox = this._tokenElements[anchor.first].getBoundingClientRect();
-      var lastBox  = this._tokenElements[anchor.last].getBoundingClientRect();
+      var firstBox = this._rect(this._tokenElements[anchor.first]);
+      var lastBox  = this._rect(this._tokenElements[anchor.last]);
 
       var startPos = firstBox.left - this.offsetLeft;
       var endPos   = lastBox.right - this.offsetLeft;
@@ -579,6 +590,7 @@ define([], function () {
       var lastRight = 0;
       for (var node_i in this._tokens) {
         // Append svg
+        // var x = text.appendChild(this._c("text"));
         var tspan = text.appendChild(this._c("tspan"));
         tspan.appendChild(document.createTextNode(this._tokens[node_i]));
         tspan.setAttribute("text-anchor", "middle");
@@ -590,7 +602,7 @@ define([], function () {
       };
 
       // Get some global position data that may change on resize
-      var globalBoundingBox = g.getBoundingClientRect();
+      var globalBoundingBox = this._rect(g);
       this.offsetLeft = globalBoundingBox.left;
 
       // The group of arcs
@@ -618,7 +630,7 @@ define([], function () {
       };
 
       // Resize the svg with some reasonable margins
-      var width = text.getBoundingClientRect().width;
+      var width = this._rect(text).width;
       svg.setAttribute("width", width + 20);
       svg.setAttribute("height", height + 20);
       svg.setAttribute("class", "relTree");
