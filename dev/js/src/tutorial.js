@@ -19,7 +19,7 @@ define(['session', 'util'], function (sessionClass) {
      */
     create : function (obj,session) {
       if (!obj)
-	return null;
+	      return null;
       return Object.create(this)._init(obj,session);
     },
 
@@ -27,34 +27,34 @@ define(['session', 'util'], function (sessionClass) {
     _init : function (obj, session) {
 
       if (session === undefined) {
-	this._session = sessionClass.create();
+	      this._session = sessionClass.create();
       }
       else {
-	this._session = session;
+	      this._session = session;
       };
     
 
       if (obj) {
-	this._show = obj;
-	this.start = obj.getAttribute('href');
-	obj.removeAttribute('href');
-	var that = this;
-	obj.onclick = function () {
-	  that.show();
-	};
+	      this._show = obj;
+	      this.start = obj.getAttribute('href');
+	      obj.removeAttribute('href');
+	      var that = this;
+	      obj.onclick = function () {
+	        that.show();
+	      };
 
-	// Injects a tutorial div to the body
-	var div = document.createElement('div');
-	div.setAttribute('id', 'tutorial');
-	div.style.display = 'none';
-	document.getElementsByTagName('body')[0].appendChild(div);
-	this._iframe = null;
-	this._element = div;
+	      // Injects a tutorial div to the body
+	      var div = document.createElement('div');
+	      div.setAttribute('id', 'tutorial');
+	      div.style.display = 'none';
+	      document.getElementsByTagName('body')[0].appendChild(div);
+	      this._iframe = null;
+	      this._element = div;
 
-	// Some fields
-	this._ql     = document.getElementById("ql-field");
-	this._q      = document.getElementById("q-field")
-	this._cutoff = document.getElementById("q-cutoff-field");
+	      // Some fields
+	      this._ql     = document.getElementById("ql-field");
+	      this._q      = document.getElementById("q-field")
+	      this._cutoff = document.getElementById("q-cutoff-field");
       };
 
       return this;
@@ -69,9 +69,13 @@ define(['session', 'util'], function (sessionClass) {
       var ql = e.getAttribute("data-query-language");
       var qc = e.getAttribute("data-query-cutoff");
       if (qc !== 0 && qc !== "0" && qc !== "off" && qc !== null) {
-	this._cutoff.checked = true;
+	      this._cutoff.checked = true;
       };
 
+      if (KorAP.QLmenu) {
+        KorAP.QLmenu.selectValue(ql);
+      };
+      /*
       var qlf = this._ql.options;
       for (var i in qlf) {
 	      if (qlf[i].value == ql) {
@@ -79,6 +83,7 @@ define(['session', 'util'], function (sessionClass) {
           break;
 	      };
       };
+      */
 
       this._q.value = q;
       this.setPage(e);
@@ -92,9 +97,9 @@ define(['session', 'util'], function (sessionClass) {
       var qs = d.querySelectorAll('pre.query.tutorial');
       var that = this;
       for (var i = 0; i < qs.length; i++) {
-	qs[i].onclick = function (e) {
-	  that.useQuery(this,e);
-	};
+	      qs[i].onclick = function (e) {
+	        that.useQuery(this,e);
+	      };
       };
     },
 
@@ -105,10 +110,10 @@ define(['session', 'util'], function (sessionClass) {
       var dl = d.getElementsByClassName('doc-link');
       var that = this;
       for (var i = 0; i < dl.length; i++) {
-	dl[i].onclick = function (e) {
-	  that.setPage(this.getAttribute('href'));
-	  return true;
-	};
+	      dl[i].onclick = function (e) {
+	        that.setPage(this.getAttribute('href'));
+	        return true;
+	      };
       };      
     },
 
@@ -127,7 +132,7 @@ define(['session', 'util'], function (sessionClass) {
 	        'src',
 	        (this.getPage() || this.start) + '?embedded=true'
 	      );
-
+        
 	      var ul = document.createElement('ul');
 	      ul.classList.add('action', 'right');
 
@@ -174,23 +179,23 @@ define(['session', 'util'], function (sessionClass) {
     setPage : function (obj) {
       var page = obj;
       if (typeof page != 'string') {
-	var l = this._iframe !== null ? window.frames[0].location : window.location;
-	page = l.pathname + l.search;
+	      var l = this._iframe !== null ? window.frames[0].location : window.location;
+	      page = l.pathname + l.search;
 
-	for (var i = 1; i < 5; i++) {
-	  if (obj.nodeName === 'SECTION') {
-	    if (obj.hasAttribute('id'))
-	      page += '#' + obj.getAttribute('id');
-	    break;
-	  }
-	  else if (obj.nodeName === 'PRE' && obj.hasAttribute('id')) {
-	    page += '#' + obj.getAttribute('id');
-	    break;
-	  }
-	  else {
-	    obj = obj.parentNode;
-	  };
-	};
+	      for (var i = 1; i < 5; i++) {
+	        if (obj.nodeName === 'SECTION') {
+	          if (obj.hasAttribute('id'))
+	            page += '#' + obj.getAttribute('id');
+	          break;
+	        }
+	        else if (obj.nodeName === 'PRE' && obj.hasAttribute('id')) {
+	          page += '#' + obj.getAttribute('id');
+	          break;
+	        }
+	        else {
+	          obj = obj.parentNode;
+	        };
+	      };
       };
       this._session.set('tutpage', page);
     },

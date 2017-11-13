@@ -182,7 +182,7 @@ define([
     // Replace QL select menus with KorAP menus
     var qlField = document.getElementById('ql-field');
     if (qlField !== null) {
-      selectMenuClass.create(
+      KorAP.QLmenu = selectMenuClass.create(
         document.getElementById('ql-field').parentNode
       ).limit(5);
     };

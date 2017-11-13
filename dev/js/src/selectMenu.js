@@ -83,6 +83,24 @@ define(
 	      return this._selected || this._select.selectedIndex || 0;
       },
 
+
+      /**
+       * Set the select value
+       */
+      selectValue : function (vParam) {
+        var qlf = this._select.options;
+        var i;
+        for (i in qlf) {
+	        if (qlf[i].value == vParam) {
+            this.hide();
+            this.select(i);
+            this.showTitle();
+            break;
+	        };
+        };
+        return this;
+      },
+      
       /**
        * Show the select menu
        */

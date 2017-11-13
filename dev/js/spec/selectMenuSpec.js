@@ -27,17 +27,22 @@ define(
 	        value : 'cql'
 	      }
       ];
-      
-      it('should replace a select element', function () {
-	      var div = document.createElement('div');
+
+      function _selectE() {
+        var div = document.createElement('div');
 	      var element = div.appendChild(document.createElement('select'));
 	      for (i in list) {
 	        var opt = element.appendChild(document.createElement('option'));
 	        opt.setAttribute('value', list[i].value);
 	        opt.appendChild(document.createTextNode(list[i].content));
 	      };
-
+        return div;
+      };
+      
+      it('should replace a select element', function () {
+	      var div = _selectE();
 	      var menu = selectMenuClass.create(div);
+        var element = div.firstChild;
 
 	      expect(element.style.display).toEqual('none');
 
@@ -55,14 +60,10 @@ define(
 	      expect(menu.shownItem(0).lcField()).toEqual(' poliqarp');
       });
 
+
       it('should first show the selected value', function () {
-	      var div = document.createElement('div');
-	      var element = div.appendChild(document.createElement('select'));
-	      for (i in list) {
-	        var opt = element.appendChild(document.createElement('option'));
-	        opt.setAttribute('value', list[i].value);
-	        opt.appendChild(document.createTextNode(list[i].content));
-	      };
+	      var div = _selectE();
+        var element = div.firstChild;
 
         expect(element.selectedIndex).toEqual(0);
 
@@ -74,6 +75,16 @@ define(
 	      var menu = selectMenuClass.create(div);
         menu.show(3);
         expect(menu._title.textContent).toEqual('Annis');
+      });
+
+      it('should be selectable via method', function () {
+        var div = _selectE();
+        var element = div.firstChild;
+	      var menu = selectMenuClass.create(div);
+        
+        expect(element.selectedIndex).toEqual(0);
+        menu.selectValue('annis');
+        expect(element.selectedIndex).toEqual(2);
       });
     });
   }
