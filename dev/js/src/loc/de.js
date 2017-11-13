@@ -13,7 +13,7 @@ define(function () {
   */
 
   loc.VC_allCorpora = 'allen Korpora';
-  loc.VC_oneCollection = 'einer Kollektion';
+  loc.VC_oneCollection = 'einem virtuellen Korpus';
 
   // Date picker:
   loc.WDAY = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];

@@ -43,11 +43,11 @@ define([
 
   // Localization values
   var loc = KorAP.Locale;
-  loc.VC_allCorpora    = loc.VC_allCorpora    || 'all Corpora';
-  loc.VC_oneCollection = loc.VC_oneCollection || 'one Collection';
-  loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle Alignment';
+  loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
+  loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
+  loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle alignment';
   loc.SHOW_KQ          = loc.SHOW_KQ          || 'show KoralQuery';
-  loc.SHOW_META        = loc.SHOW_META        || 'show Metadata';
+  loc.SHOW_META        = loc.SHOW_META        || 'show metadata';
 
 
   // Override KorAP.log
