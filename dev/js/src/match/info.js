@@ -252,6 +252,7 @@ define([
                 a.setAttribute('href', 'data:image/svg+xml;base64,'+treeObj.toBase64());
                 a.setAttribute('download', 'tree.svg');
                 a.target = '_blank';
+                a.setAttribute('rel', 'noopener noreferrer');
                 
                 document.body.appendChild(a);
                 a.click();
