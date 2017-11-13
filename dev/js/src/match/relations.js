@@ -207,7 +207,7 @@ define([], function () {
 
     // Get bounding box - with workaround for text nodes
     _rect : function (node) {
-      if (node.tagName == "tspan") {
+      if (node.tagName == "tspan" && !navigator.userAgent.match(/Edge/)) {
         var range = document.createRange();
         range.selectNode(node);
         var rect = range.getBoundingClientRect();
@@ -219,8 +219,8 @@ define([], function () {
 
     // Returns the center point of the requesting token
     _tokenPoint : function (node) {
-      var box = this._rect(node);
-      return box.x + (box.width / 2);
+	    var box = this._rect(node);
+	    return box.left + (box.width / 2);
     },
 
 
@@ -230,15 +230,16 @@ define([], function () {
       // Calculate the span of the first and last token, the anchor spans
       var firstBox = this._rect(this._tokenElements[anchor.first]);
       var lastBox  = this._rect(this._tokenElements[anchor.last]);
-
+	
       var startPos = firstBox.left - this.offsetLeft;
       var endPos   = lastBox.right - this.offsetLeft;
       
       var y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
 
       var l = this._c('path');
-      this._arcsElement.appendChild(l);
-      l.setAttribute("d", "M " + startPos + "," + y + " L " + endPos + "," + y);
+	    this._arcsElement.appendChild(l);
+	    var pathStr = "M " + startPos + "," + y + " L " + endPos + "," + y;
+      l.setAttribute("d", pathStr);
       l.setAttribute("class", "anchor");
       anchor.element = l;
       anchor.y = y;
@@ -253,7 +254,7 @@ define([], function () {
       var startPos, endPos;
       var startY = this._y;
       var endY = this._y;
-
+	
       if (arc.startAnchor !== undefined) {
         startPos = this._tokenPoint(arc.startAnchor.element);
         startY = arc.startAnchor.y;
@@ -270,10 +271,11 @@ define([], function () {
         endPos = this._tokenPoint(this._tokenElements[arc.last]);
       };
 
+
       startPos -= this.offsetLeft;
       endPos -= this.offsetLeft;
 
-      // Special treatment for self-references
+	    // Special treatment for self-references
       var overlaps = arc.overlaps;
       if (startPos == endPos) {
         startPos -= this.overlapDiff / 3;
