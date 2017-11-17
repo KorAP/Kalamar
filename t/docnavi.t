@@ -244,9 +244,9 @@ $navi = [
 $render = $app->doc_navi($navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
-like($render, qr!<a href="/doc/korap/krill">Krill</a>!,
+like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
      'Path matches korap/krill');
-like($render, qr!<a href="/doc/faq">F\.A\.Q\.</a>!,
+like($render, qr!<a href="/doc/faq(?:#[^"]+)?">F\.A\.Q\.</a>!,
      'Path matches FAQ');
 
 # Change preferred language
@@ -255,9 +255,9 @@ $languages = [qw/de en/];
 $render = $app->doc_navi($navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
-like($render, qr!<a href="/doc/korap/krill">Krill</a>!,
+like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
      'Path matches korap/krill');
-like($render, qr!<a href="/doc/faq">Häufige Fragen</a>!,
+like($render, qr!<a href="/doc/faq(?:#[^"]+)?">Häufige Fragen</a>!,
      'Path matches FAQ');
 
 
