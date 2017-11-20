@@ -23,6 +23,7 @@ define([], function () {
       this._arcs    = [];
       this._tokenElements = [];
       this._y = 0;
+      this._currentInFocus = undefined;
 
       // Some configurations
       this.maxArc      = 200; // maximum height of the bezier control point
@@ -271,7 +272,6 @@ define([], function () {
         endPos = this._tokenPoint(this._tokenElements[arc.last]);
       };
 
-
       startPos -= this.offsetLeft;
       endPos -= this.offsetLeft;
 
@@ -333,16 +333,19 @@ define([], function () {
       var middleY = (((startY + controlY) / 2) + controlY) / 2;
 
       // Create a boxed label
-      g = this._c("g");
-      g.setAttribute("class", "label");
-      this._labelsElement.appendChild(g);
+      var label = this._c("g");
+      label.setAttribute("class", "label");
+      this._labelsElement.appendChild(label);
+
+      // Set arc reference
+      label.arcRef = g;
 
       var that = this;
-      g.addEventListener('mouseenter', function () {
-        that._labelsElement.appendChild(this);
+      label.addEventListener('mouseenter', function () {
+        that.inFocus(this);
       });
 
-      var labelE = g.appendChild(this._c("text"));
+      var labelE = label.appendChild(this._c("text"));
       labelE.setAttribute("x", x + middle);
       labelE.setAttribute("y", middleY + 3);
       labelE.setAttribute("text-anchor", "middle");
@@ -354,7 +357,7 @@ define([], function () {
       var textHeight = labelBox.height; // labelE.getComputedTextLength();
 
       // Add box with padding to left and right
-      var labelR = g.insertBefore(this._c("rect"), labelE);
+      var labelR = label.insertBefore(this._c("rect"), labelE);
       var boxWidth = textWidth + 2 * this.xPadding;
       labelR.setAttribute("x", x + middle - (boxWidth / 2));
       labelR.setAttribute("ry", 5);
@@ -407,6 +410,29 @@ define([], function () {
     addToken : function(token) {
       this._tokens.push(token);
       return this;
+    },
+
+
+    // Move label and arc in focus
+    inFocus : function (element) {
+      var cif;
+
+      if (this._currentInFocus) {
+
+        // Already in focus
+        if (this._currentInFocus === element)
+          return;
+
+        cif = this._currentInFocus;
+        cif.classList.remove('infocus');
+        cif.arcRef.classList.remove('infocus');
+      };
+
+      cif = this._currentInFocus = element;
+      this._labelsElement.appendChild(cif);
+      this._arcsElement.appendChild(cif.arcRef);
+      cif.classList.add('infocus');
+      cif.arcRef.classList.add('infocus');
     },
     
     /*

@@ -10,13 +10,17 @@ path.edge {
   fill: none;
 }
 
+g.arc.infocus > path.edge {
+  stroke: $dark-green;
+}
+
 marker#arr {
   overflow: visible;
   path {
-    fill-opacity:1;
-    stroke-width: 2; 
     stroke: $darkest-orange;
     fill: $darkest-orange;
+    fill-opacity:1;
+    stroke-width: 2; 
   }
 }
 
@@ -39,6 +43,11 @@ g.middle, g.label {
     stroke-width: 2px;
     fill: $middle-orange;
   }
+}
+
+g.label.infocus rect {
+  stroke: $dark-green;
+  fill: $lightest-green;
 }
 
 g.middle.mark {
