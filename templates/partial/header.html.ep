@@ -25,7 +25,7 @@
 
     <%= loc 'with' %>
     <span class="select">
-      %= select_field 'ql', [[loc('QL_poliqarp') => 'poliqarp'], [loc('QL_cosmas2') => 'cosmas2'], [loc('QL_annis') => 'annis'], [loc('QL_cql') => 'cql']], id => 'ql-field'
+      %= select_field 'ql', [[loc('QL_poliqarp') => 'poliqarp'], [loc('QL_cosmas2') => 'cosmas2'], [loc('QL_annis') => 'annis'], [loc('QL_cql') => 'cql'], [loc('QL_fcsql') => 'fcsql']], id => 'ql-field'
     </span>
     <div class="button right">
       % param(cutoff => 1) unless param 'q';

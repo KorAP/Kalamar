@@ -1,5 +1,6 @@
-0.24 2017-11-10
+0.24 2017-11-22
         - Added support for relation visualization.
+        - Added support for FCSQL.
 
 0.23 2017-09-20
         - Added query creator tool.
