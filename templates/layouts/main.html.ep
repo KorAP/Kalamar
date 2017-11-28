@@ -16,7 +16,8 @@
   </head>
 % my $embedded = 0;
 % $embedded = 1 if stash('embedded');
-  <body<% if ($embedded) { %> class="embedded"<% } %>>
+  <body class="no-js<% if ($embedded) { %> embedded<% } %>">
+    <script>document.body.classList.remove('no-js');</script>
     <div id="kalamar-bg"></div>
 
 % if (!$embedded && !user_auth && stash('auth_support')) { # user not logged in
@@ -25,7 +26,7 @@
 %   param(handle_or_email => flash('handle_or_email'));
 % };
 <fieldset>
-  %= form_for 'login', begin
+  %= form_for 'login', class => 'login', begin
   <legend><span><%= loc 'login' %></span></legend>
     %= text_field 'handle_or_email', placeholder => loc('userormail')
     <div>

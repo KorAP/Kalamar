@@ -113,7 +113,7 @@ module.exports = function(grunt) {
     },
     watch: {
       css: {
-	      files: ['dev/scss/{util,base,fonts,kalamar,media}.scss',
+	      files: ['dev/scss/{util,base,fonts,kalamar,media,no-js}.scss',
 		            'dev/scss/footer/footer.scss',
 		            'dev/scss/sidebar/sidebar.scss',
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,datepicker}.scss',

@@ -1,0 +1,37 @@
+// Aside in noscript mode
+body.no-js aside {
+  > * {
+    opacity: 1 !important;
+    transition: none;
+  }
+  transition: none;
+  position: relative;
+  margin-left: 0 !important;
+  display: block;
+  padding-top:0;
+  width: 100%;
+  top: 0;
+  form.login {
+    > input, > div {
+      width: auto;
+      margin-top: 0;
+      &:first-of-type {
+        float: left;
+        margin-right: 1em;
+      }
+    }
+    button {
+      height: 100%
+    }
+  }
+  &::after {
+    display: none;
+  }
+  p {
+    display: none;
+  }
+}
+
+body.no-js main div.intro {
+  margin-left: $base-padding !important;
+}
