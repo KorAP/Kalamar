@@ -38,6 +38,7 @@ my $THOUSAND_SEP_RE = qr/(
     glimpse => {
       desc => 'Zeige nur die ersten Treffer in beliebiger Reihenfolge'
     },
+    activateJS => 'Für den vollen Funktionsumfang aktivieren Sie bitte JavaScript!',
     faq => 'Häufige Fragen',
     tutorial => 'Einführung',
     pubOn => 'veröffentlicht am',
@@ -127,6 +128,7 @@ my $THOUSAND_SEP_RE = qr/(
       -short => 'Glimpse',
       desc => 'Just show the first matches in arbitrary order'
     },
+    activateJS => 'To make use of all features, please activate JavaScript!',
     faq => 'F.A.Q.',
     underConstruction => 'Under Construction!',
     loginExplanation => 'Login with a registered Cosmas-II account',

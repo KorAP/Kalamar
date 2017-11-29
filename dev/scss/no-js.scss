@@ -1,3 +1,5 @@
+@import "util";
+
 // Aside in noscript mode
 body.no-js aside {
   > * {
@@ -34,4 +36,15 @@ body.no-js aside {
 
 body.no-js main div.intro {
   margin-left: $base-padding !important;
+}
+
+
+#activate {
+  text-align: right;
+  background-color: $dark-orange;
+  margin-top: 0;
+  padding: $base-padding;
+  padding-right: $standard-margin;
+  color: $nearly-white;
+  font-size: 80%;
 }

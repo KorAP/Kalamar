@@ -54,6 +54,11 @@
     % unless ($embedded) {
       %= include 'partial/header'
     % }
+
+
+    <noscript>
+      <p id="activate"><%= loc 'activateJS' %></p>
+    </noscript>
     
     <main<% if (stash 'main_class') { %> class="<%= stash 'main_class' %>"<% } %>>
     %= content
