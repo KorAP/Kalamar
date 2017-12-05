@@ -9,12 +9,13 @@ var hint = undefined;
 
 require(['hint','hint/array','lib/domReady'], function (hintClass, hintArray, domReady) {
   KorAP.hintArray = hintArray;
+  KorAP.Hint = null;
   domReady(function() {
-    hint = hintClass.create();
+    KorAP.Hint = hintClass.create();
   });
 });
 
 function demoAlert (pos, msg) {
-  if (hint !== undefined)
-    hint.alert(pos, msg);
+  if (KorAP.hint !== undefined)
+    KorAP.Hint.alert(pos, msg);
 }

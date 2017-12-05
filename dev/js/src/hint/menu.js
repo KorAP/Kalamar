@@ -12,12 +12,12 @@ define(['menu',
      */
     create : function (hint, context, params) {
       var obj = Object.create(menuClass)
-	.upgradeTo(this)
-	._init(params, {
-	  itemClass : itemClass,
-	  prefixClass : prefixClass,
-	  lengthFieldClass : lengthFieldClass
-	});
+	        .upgradeTo(this)
+	        ._init(params, {
+	          itemClass : itemClass,
+	          prefixClass : prefixClass,
+	          lengthFieldClass : lengthFieldClass
+	        });
       obj._context = context;
       obj._element.classList.add('hint');
       obj._hint = hint;
@@ -27,12 +27,12 @@ define(['menu',
 
       // This is only domspecific
       obj.element().addEventListener('blur', function (e) {
-	this.menu.hide();
+	      this.menu.hide();
       });
 
       // Focus on input field on hide
       obj.onHide = function () {
-	this._hint.unshow();
+	      this._hint.unshow();
       };
 
       return obj;
