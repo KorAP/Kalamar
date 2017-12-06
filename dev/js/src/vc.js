@@ -58,8 +58,6 @@ define([
 
   // ???
   KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains(?:not)?|excludes)$");
-  KorAP._validDateMatchRE   = new RegExp("^[lg]?eq$");
-  KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
   KorAP._overrideStyles     = false;
 
   var loc = KorAP.Locale;
