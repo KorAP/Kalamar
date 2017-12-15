@@ -16,7 +16,6 @@ define([
   'vc',
   'tutorial',
   'lib/domReady',
-  'hint/array',
   'vc/array',
   'lib/alertify',
   'session',
@@ -31,15 +30,11 @@ define([
              vcClass,
              tutClass,
              domReady,
-             hintArray,
              vcArray,
              alertifyClass,
              sessionClass,
              tagger,
              selectMenuClass) {
-
-  // Set hint array for hint helper
-  KorAP.hintArray = hintArray;
 
   // Localization values
   var loc = KorAP.Locale;

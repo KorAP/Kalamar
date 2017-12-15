@@ -13,6 +13,7 @@
  *       or anytime items would be outside the screen.
  * TODO: Add a .match() method to items for scrolling and probably for prefixing.
  * TODO: Add static header (for title, sortation fields, but also for menu points like "fragments" and "history".
+ * TODO: Support space separated list of prefixes so "co no" will highlight "common noun"
  */
 define([
   'menu/item',

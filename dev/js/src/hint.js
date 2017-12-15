@@ -42,7 +42,7 @@ define([
     ")?" +
     ")?" +
     ")$";
-  KorAP.hintArray = KorAP.hintArray || {};
+  KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
 
   /**
    * Return keycode based on event
@@ -175,12 +175,12 @@ define([
       if (this._menu[action] === undefined) {
 
 	      // No matching hint menu
-	      if (KorAP.hintArray[action] === undefined)
+	      if (KorAP.annotationHelper[action] === undefined)
 	        return;
 
 	      // Create matching hint menu
 	      this._menu[action] = menuClass.create(
-	        this, action, KorAP.hintArray[action]
+	        this, action, KorAP.annotationHelper[action]
 	      );
       };
 

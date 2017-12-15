@@ -143,7 +143,7 @@ define(['hint'], function () {
 
 
   describe('KorAP.Hint', function () {
-    KorAP.hintArray = {
+    KorAP.annotationHelper = {
       "-" : [
   ["Base Annotation", "base/s=", "Structure"],
   ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"]

@@ -9,6 +9,7 @@ node_modules
 cache/data
 public
 kalamar.*.conf
+kalamar.conf.json
 script/hypnotoad.pid
 .sass-cache
 dev/css
