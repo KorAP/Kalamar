@@ -107,7 +107,7 @@ define({
     // Prefix is long enough for backspace
     if (this._string.length > 1) {
       this._string = this._string.substring(
-	0, this._string.length - 1
+	      0, this._string.length - 1
       );
     }
     else {

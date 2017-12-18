@@ -181,18 +181,44 @@ define([
        * There is a prefix set, so filter the list!
        */
       var pos;
-      var prefix = " " + this.prefix().toLowerCase();
+      var prefixList = this.prefix().toLowerCase().split(" ");
+
+      var items = [];
+      var maxPoints = 1; // minimum 1
 
       // Iterate over all items and choose preferred matching items
       // i.e. the matching happens at the word start
       for (pos = 0; pos < this._items.length; pos++) {
-        if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
+
+        var points = 0;
+
+        for (pref = 0; pref < prefixList.length; pref++) {
+          var prefix = " " + prefixList[pref];
+
+          // Check if it matches at the beginning
+          if ((this.item(pos).lcField().indexOf(prefix)) >= 0) {
+            points += 5;
+          }
+
+          // Check if it matches anywhere
+          else if ((this.item(pos).lcField().indexOf(prefix.substring(1))) >= 0) {
+            points += 1;
+          };
+        };
+
+        if (points > maxPoints) {
+          this._list = [pos];
+          maxPoints = points;
+        }
+        else if (points == maxPoints) {
           this._list.push(pos);
+        }
       };
 
       // The list is empty - so lower your expectations
       // Iterate over all items and choose matching items
       // i.e. the matching happens anywhere in the word
+      /*
       prefix = prefix.substring(1);
       if (this._list.length == 0) {
         for (pos = 0; pos < this._items.length; pos++) {
@@ -200,6 +226,7 @@ define([
             this._list.push(pos);
         };
       };
+      */
 
       this._slider.length(this._list.length).reInit();
 

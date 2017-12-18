@@ -5,6 +5,8 @@
  * further: action happen on right arrow
  */
 
+"use strict";
+
 /**
  * Item in the Dropdown menu
  */
@@ -153,13 +155,13 @@ define({
     for (var i = marks.length - 1; i >= 0; i--) {
       // Create text node clone
       var x = document.createTextNode(
-	marks[i].firstChild.nodeValue
+	      marks[i].firstChild.nodeValue
       );
       
       // Replace with content
       marks[i].parentNode.replaceChild(
-	x,
-	marks[i]
+	      x,
+	      marks[i]
       );
     };
 
@@ -169,48 +171,114 @@ define({
   },
 
   // Highlight a certain substring of the menu item
-  _highlight : function (elem, prefix) {
+  _highlight : function (elem, prefixString) {    
     if (elem.nodeType === 3) {
       
       var text   = elem.nodeValue;
       var textlc = text.toLowerCase();
-      var pos    = textlc.indexOf(prefix);
+
+      // Split prefixes
+      if (prefixString) {
+        var prefixes = prefixString.trim().split(" ");
+
+        var prefix;
+        var testPos;
+        var pos = -1;
+        var len = 0;
+
+        // Iterate over all prefixes and get the best one
+        for (var i = 0; i < prefixes.length; i++) {
+
+          // Get first pos of a matching prefix
+          testPos = textlc.indexOf(prefixes[i]);
+          if (testPos < 0)
+            continue;
+
+          if (pos === -1 || testPos < pos) {
+            pos = testPos;
+            len = prefixes[i].length;
+          }
+          else if (testPos === pos && prefixes[i].length > len) {
+            len = prefixes[i].length;
+          };
+        };
+
+        // Matches!
+        if (pos >= 0) {
+	
+	        // First element
+	        if (pos > 0) {
+	          elem.parentNode.insertBefore(
+	            document.createTextNode(text.substr(0, pos)),
+	            elem
+	          );
+	        };
+	
+	        // Second element
+	        var hl = document.createElement("mark");
+	        hl.appendChild(
+	          document.createTextNode(text.substr(pos, len))
+	        );
+	        elem.parentNode.insertBefore(hl, elem);
+	
+	        // Third element
+	        var third = text.substr(pos + len);
+
+	        if (third.length > 0) {
+	          var thirdE = document.createTextNode(third);
+	          elem.parentNode.insertBefore(
+	            thirdE,
+	            elem
+	          );
+	          this._highlight(thirdE, prefixString);
+	        };
+	
+	        var p = elem.parentNode;
+	        p.removeChild(elem);
+        };
+      };
+
+      /*
+      pos = textlc.indexOf(prefix);
+
+      // Matches!
       if (pos >= 0) {
 	
-	// First element
-	if (pos > 0) {
-	  elem.parentNode.insertBefore(
-	    document.createTextNode(text.substr(0, pos)),
-	    elem
-	  );
-	};
+	      // First element
+	      if (pos > 0) {
+	        elem.parentNode.insertBefore(
+	          document.createTextNode(text.substr(0, pos)),
+	          elem
+	        );
+	      };
 	
-	// Second element
-	var hl = document.createElement("mark");
-	hl.appendChild(
-	  document.createTextNode(text.substr(pos, prefix.length))
-	);
-	elem.parentNode.insertBefore(hl, elem);
+	      // Second element
+	      var hl = document.createElement("mark");
+	      hl.appendChild(
+	        document.createTextNode(text.substr(pos, prefix.length))
+	      );
+	      elem.parentNode.insertBefore(hl, elem);
 	
-	// Third element
-	var third = text.substr(pos + prefix.length);
-	if (third.length > 0) {
-	  var thirdE = document.createTextNode(third);
-	  elem.parentNode.insertBefore(
-	    thirdE,
-	    elem
-	  );
-	  this._highlight(thirdE, prefix);
-	};
+	      // Third element
+	      var third = text.substr(pos + prefix.length);
+	      if (third.length > 0) {
+	        var thirdE = document.createTextNode(third);
+	        elem.parentNode.insertBefore(
+	          thirdE,
+	          elem
+	        );
+	        this._highlight(thirdE, prefix);
+	      };
 	
-	var p = elem.parentNode;
-	p.removeChild(elem);
+	      var p = elem.parentNode;
+	      p.removeChild(elem);
       };
+      */
     }
     else {
       var children = elem.childNodes;
       for (var i = children.length -1; i >= 0; i--) {
-	this._highlight(children[i], prefix);
+	      this._highlight(children[i], prefixString);
       };
     };
   },
