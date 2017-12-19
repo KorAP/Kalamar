@@ -819,6 +819,24 @@ define(
         expect(menu.shownItem(2)).toBe(undefined);
       });
 
+      it('should be filterable (trimming = " p")', function () {
+        var menu = KorAP.HintMenu.create("/p=", listMultiPrefix);
+        // menu._firstActive = true;
+
+        menu.limit(2);
+        expect(menu.show()).toBe(true);
+        menu._prefix.add(" ");
+        expect(menu.show()).toBe(true);
+        menu._prefix.add("p")
+        expect(menu.show()).toBe(true);
+        expect(menu.shownItem(0).name()).toEqual("PP");
+        expect(menu.element().childNodes[3].innerHTML).toEqual(
+          "<strong><mark>P</mark><mark>P</mark></strong>"+
+            "<span><mark>P</mark>ersonal <mark>P</mark>ronoun</span>"
+        );
+      });
+
+      
       it('should choose prefix with failing prefix (1)', function () {
         var menu = KorAP.HintMenu.create("cnx/", list);
         menu.limit(2);
