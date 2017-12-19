@@ -73,6 +73,10 @@
         "id" : "cql"
       },
       {
+        "title" : "FCSQL",
+        "id" : "fcsql"
+      },
+      {
         "title" : "Regular Expressions",
         "id" : "regexp"
       },
