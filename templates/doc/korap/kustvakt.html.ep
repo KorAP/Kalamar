@@ -4,6 +4,9 @@
 
 %= korap_overview 'kustvakt'
 
-<p><strong>Main developer:</strong> Michael Hanl</p>
+<p><strong>Main developer:</strong> Michael Hanl, Eliza Margaretha, Franck Bodmer</p>
 
 <p>Kustvakt is a user and policy management software, that is capable of rewriting queries for policy based document restrictions.</p>
+
+<p>Kustvakt is open source and available on <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Kustvakt" %>.</p>
+
