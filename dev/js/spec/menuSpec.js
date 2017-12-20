@@ -295,6 +295,7 @@ define(
         // Highlight in the middle - both
         menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
         menuItem.highlight("e");
+
         expect(menuItem.element().innerHTML).toEqual("<div><h1>Cor<mark>e</mark>NLP</h1><h2>cor<mark>e</mark>nlp/</h2><h3>This is my <mark>E</mark>xampl<mark>e</mark></h3></div>");
 
         menuItem.lowlight();
@@ -328,6 +329,21 @@ define(
         ["Syntax", "syn="]
       ];
 
+      var listMultiPrefix = [
+        ["PP","PP ","Personal Pronoun"],
+        ["PPP","PPP ","Personal Pronoun, Plural"],
+        ["PPPA","PPPA ","Personal Pronoun, Plural, Acc."],
+        ["PPPD","PPPD ","Personal Pronoun, Plural, Dative"],
+        ["PPPR","PPPR ","Personal Pronoun, Plural, Direct"],
+        ["PPPO","PPPO ","Personal Pronoun, Plural, Oblique"],
+        ["PPS","PPS ","Personal Pronoun, Singular"],
+        ["PPSA","PPSA ","Personal Pronoun, Singular, Accusative"],
+        ["PPSD","PPSD ","Personal Pronoun, Singular, Dative"],
+        ["PPSR","PPSR ","Personal Pronoun, Singular, Direct"],
+        ["PPSN","PPSN ","Personal Pronoun, Singular, Nominative"],
+        ["PPSO","PPSO ","Personal Pronoun, Singular, Oblique"]
+      ];
+      
       var demolist = [
         ['Titel', 'title'],
         ['Untertitel', 'subTitle'],
@@ -784,6 +800,24 @@ define(
         expect(menu.shownItem(2)).toBe(undefined);
       });
 
+      it('should be filterable (multiple prefix = "pro sin")', function () {
+        var menu = KorAP.HintMenu.create("drukola/p=", listMultiPrefix);
+        menu._firstActive = true;
+
+        menu.limit(2);
+        expect(menu.prefix("pro sin").show()).toBe(true);
+        expect(menu.shownItem(0).name()).toEqual("PPS");
+        expect(menu.element().childNodes[3].innerHTML).toEqual(
+          "<strong>PPS</strong><span>Personal <mark>Pro</mark>noun, <mark>Sin</mark>gular</span>"
+        );
+
+        expect(menu.shownItem(0).active()).toBe(true);
+        expect(menu.shownItem(1).name()).toEqual("PPSA");
+        expect(menu.element().childNodes[4].innerHTML).toEqual("<strong>PPSA</strong><span>Personal <mark>Pro</mark>noun, <mark>Sin</mark>gular, Accusative</span>");
+        expect(menu.shownItem(1).active()).toBe(false);
+
+        expect(menu.shownItem(2)).toBe(undefined);
+      });
 
       it('should choose prefix with failing prefix (1)', function () {
         var menu = KorAP.HintMenu.create("cnx/", list);
