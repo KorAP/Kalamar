@@ -179,7 +179,12 @@ define({
 
       // Split prefixes
       if (prefixString) {
-        var prefixes = prefixString.trim().split(" ");
+
+        // ND:
+        //   Doing this in a single line can trigger
+        //   a deep-recursion in Firefox 57.01, though I don't know why.
+        prefixString = prefixString.trim();
+        var prefixes = prefixString.split(" ");
 
         var prefix;
         var testPos;
@@ -237,43 +242,6 @@ define({
 	        p.removeChild(elem);
         };
       };
-
-      /*
-      pos = textlc.indexOf(prefix);
-
-      // Matches!
-      if (pos >= 0) {
-	
-	      // First element
-	      if (pos > 0) {
-	        elem.parentNode.insertBefore(
-	          document.createTextNode(text.substr(0, pos)),
-	          elem
-	        );
-	      };
-	
-	      // Second element
-	      var hl = document.createElement("mark");
-	      hl.appendChild(
-	        document.createTextNode(text.substr(pos, prefix.length))
-	      );
-	      elem.parentNode.insertBefore(hl, elem);
-	
-	      // Third element
-	      var third = text.substr(pos + prefix.length);
-	      if (third.length > 0) {
-	        var thirdE = document.createTextNode(third);
-	        elem.parentNode.insertBefore(
-	          thirdE,
-	          elem
-	        );
-	        this._highlight(thirdE, prefix);
-	      };
-	
-	      var p = elem.parentNode;
-	      p.removeChild(elem);
-      };
-      */
     }
     else {
       var children = elem.childNodes;

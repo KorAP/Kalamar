@@ -4,7 +4,6 @@
  * @author Nils Diewald
  */
 /*
- * TODO: space is not a valid prefix!
  * TODO: Show the slider briefly on move (whenever screen is called).
  * TODO: Ignore alt+ and strg+ key strokes.
  * TODO: Should scroll to a chosen value after prefixing, if the chosen value is live
