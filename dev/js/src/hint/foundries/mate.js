@@ -1,4 +1,4 @@
-require(["hint/foundries/stts"], function (sttsArray) {
+define(["hint/foundries","hint/foundries/stts"], function (ah, sttsArray) {
   var mateSttsArray = sttsArray.slice(0);
   mateSttsArray.push(
     ["<root-POS>","<root-POS>","Root Part of Speech"]

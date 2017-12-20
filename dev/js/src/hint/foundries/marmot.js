@@ -1,6 +1,4 @@
-require(["hint/foundries/stts"], function () {
-  var ah = KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
-
+define(["hint/foundries","hint/foundries/stts"], function (ah, sttsArray) {
   ah["-"].push(
     ["MarMoT", "marmot/", "Morphology, Part-of-Speech"]
   );

@@ -1,6 +1,4 @@
-require(["hint/foundries/stts"], function (sttsArray) {
-  var ah = KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
-
+define(["hint/foundries","hint/foundries/stts"], function (ah, sttsArray) {
   var namedEntities = [
     ["I-LOC",  "I-LOC ",  "Location"],
     ["I-MISC", "I-MISC ", "Miscellaneous"],
