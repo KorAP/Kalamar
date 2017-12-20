@@ -170,32 +170,12 @@ define(function () {
             var e = c.appendChild(d.createElement('div'));
             e.appendChild(text);
           };
-
-          // These are andgroups
-          /*
-          if (name.some(function (item) { return item.indexOf(':') == -1 ? false : true})) {
-            c.classList.add('matchkeyvalues');
-            for (var n = 0; n < name.length; n++) {
-              var text = d.createTextNode(name[n]);
-              var e = c.appendChild(d.createElement('div'));
-              e.appendChild(text);
-            };
-          }
-
-          // Add alternatives
-          else {
-            for (var n = 0; n < name.length; n++) {
-              c.appendChild(d.createTextNode(name[n]));
-              if (n !== name.length - 1) {
-                c.appendChild(d.createElement('br'));
-              };
-            };
-          };
-          */
         }
         else {
           c.appendChild(d.createTextNode(name));
         };
+
+        return c;
       };
 
       tr.addCell = addCell;
@@ -215,6 +195,8 @@ define(function () {
 
       var foundryList = Object.keys(this._foundry).sort();
 
+      var ah = KorAP.annotationHelper || {};
+
       for (var f = 0; f < foundryList.length; f++) {
         var foundry = foundryList[f];
         var layerList =
@@ -231,11 +213,35 @@ define(function () {
           tr.addCell('th', foundry);
           tr.addCell('th', layer);
 
+          var key = foundry + '/' + layer + '=';
+          var anno = ah[key];
+
           for (var v = 0; v < this.length(); v++) {
-            tr.addCell(
+
+            // Get the cell value
+            var value = this.getValue(v, foundry, layer);
+
+            // Add cell to row
+            var cell = tr.addCell(
               'td',
-              this.getValue(v, foundry, layer) 
+              value 
             );
+
+            // Iterate over all annotations and add the descriptions
+            if (anno) {
+
+              // This is a classic hash-lookup-case, but we have
+              // to deal with lists ...
+              for (var i = 0; i < anno.length; i++) {
+                if (anno[i] &&
+                    anno[i][0] &&
+                    anno[i][2] &&
+                    anno[i][0] == value) {
+                  cell.setAttribute('title', anno[i][2]);
+                  break;
+                };
+              };
+            };
           };
         };
       };

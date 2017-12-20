@@ -15,42 +15,29 @@
  */
 
 module.exports = function(grunt) {
-
   var config;
-
-  try {
-    config = grunt.file.readJSON('kalamar.conf.json');
-  }
-  catch(err) {
-    console.log("Error: " + err);
-    config = {};
-  };
-
-  if (config["include"] === undefined) {
-    config["include"] = [
-      'hint/foundries/base',
-      'hint/foundries/dereko'
-    ];
+  var includeFile = 'default';
+  if (grunt.file.exists('kalamar.conf.js')) {
+    includeFile = 'root/kalamar.conf';
   };
 
   // Generate requireJS files for l10n
   var reqTasks = [];
   for (var i in {'en' : 0, 'de' : 1}) {
 
-    var includeFiles = config["include"].slice();
-    includeFiles.push('app/' + i);
-
     reqTasks.push({
       options: {
+
         // optimize: "uglify",
         baseUrl: 'dev/js/src',
         paths : {
-	        'lib': '../lib'
+	        'lib': '../lib',
+          'root' : '../../..'
         },
-        wrap:true,
+        wrap: true,
         // dir : 'public/js',
         name: 'lib/almond',
-        include : includeFiles,
+        include : [includeFile, "app/" + i],
         out: 'public/js/kalamar-<%= pkg.version %>-' + i + '.js'
       }
     })

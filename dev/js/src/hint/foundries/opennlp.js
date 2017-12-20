@@ -1,7 +1,4 @@
-require(["hint/foundries/stts"], function (sttsArray) {
-  
-  var ah = KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
-
+define(["hint/foundries","hint/foundries/stts"], function (ah, sttsArray) {
   ah["-"].push(
     ["OpenNLP", "opennlp/", "Part-of-Speech"]
   );

@@ -10,6 +10,7 @@ cache/data
 public
 kalamar.*.conf
 kalamar.conf.json
+kalamar.conf.js
 script/hypnotoad.pid
 .sass-cache
 dev/css

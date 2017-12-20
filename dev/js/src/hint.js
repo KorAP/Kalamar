@@ -42,7 +42,7 @@ define([
     ")?" +
     ")?" +
     ")$";
-  KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
+  // KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
 
   /**
    * Return keycode based on event
@@ -77,6 +77,12 @@ define([
       this._menu   = {};
       this._alert  = alertClass.create();
       this._active = null;
+
+      // No annotation helper available
+      if (!KorAP.annotationHelper) {
+        console.log("No annotationhelper defined");
+        return;
+      };
 
       // Get input field
       var qfield = param["inputField"] || document.getElementById("q-field");

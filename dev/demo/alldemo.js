@@ -604,7 +604,7 @@ requirejs.config({
 
 KorAP.currentQuery = queryExample;
 
-require(['app/en', 'init'], function (lang, init) {
+require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   KorAP.hintArray = hintArray;
 
   // Set current virtual collection

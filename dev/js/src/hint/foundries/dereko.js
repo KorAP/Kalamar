@@ -1,5 +1,5 @@
-var ah = KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
-
-ah["-"].push(
-  ["DeReKo", "dereko/s=", "Structure"]
-);
+define(["hint/foundries"], function (ah) {
+  ah["-"].push(
+    ["DeReKo", "dereko/s=", "Structure"]
+  );
+});
