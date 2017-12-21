@@ -10,17 +10,17 @@
   <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
   %# footnote: In the polish national corpus, Poliqarp can join multiple segments when identifying a single word.
 
-  %= doc_query poliqarp => 'Baum'
+  %= doc_query poliqarp => loc('Q_poliqarp_simple', 'Tree')
 
   <p>Sequences of simple segments are expressed using a space delimiter:</p>
 
-  %= doc_query poliqarp => 'der Baum'
+  %= doc_query poliqarp => loc('Q_poliqarp_simpleseq', 'the Tree')
 
   <p>Simple segments always refer to the surface form of a word. To search for surface forms without case sensitivity, you can use the <code>/i</code> flag.</p>
 
-  %= doc_query poliqarp => 'laufen/i'
+  %= doc_query poliqarp => loc('Q_poliqarp_simpleci', 'run/i')
 
-  <p>The query above will find all occurrences of <code>laufen</code> irrespective of the capitalization of letters, so <code>wir laufen</code> will be found as well as <code>das Laufen</code> and even <code>&quot;GEH LAUFEN!&quot;</code>.</p>
+  <p>The query above will find all occurrences of the term irrespective of the capitalization of letters.</p>
 
   <h4 id="regexp">Regular Expressions</h4>
 
