@@ -58,6 +58,6 @@ define(["hint/foundries"], function (ah) {
     ["@NH", "@NH ", "Nominal Head"],
     ["@POSTMOD", "@POSTMOD ", "Postmodifier"],
     ["@PREMARK", "@PREMARK ", "Preposed Marker"],
-    ["@PREMOD", "@POSTMOD ", "Premodifier"]
+    ["@PREMOD", "@PREMOD ", "Premodifier"]
   ];
 });

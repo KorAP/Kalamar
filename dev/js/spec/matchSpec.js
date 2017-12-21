@@ -167,7 +167,7 @@ function matchElementReal () {
   return me.firstChild;
 };
 
-define(['match'], function () {
+define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
   // Override getMatchInfo API call
   KorAP.API.getMatchInfo = function (x, param, cb) {
@@ -555,6 +555,10 @@ define(['match'], function () {
       expect(tr.children[3].firstChild.nodeValue).toEqual('A');
       expect(tr.children[4].firstChild.firstChild.nodeValue).toEqual('A');
       expect(tr.children[4].lastChild.firstChild.nodeValue).toEqual('ADJA');
+
+      expect(tr.children[4].firstChild.getAttribute("title")).toEqual('Adjective');
+      expect(tr.children[2].getAttribute("title")).toEqual('Adverb');
+
     });
   });
 

@@ -155,24 +155,41 @@ define(function () {
       var tr = table.appendChild(d.createElement('thead'))
           .appendChild(d.createElement('tr'));
 
+      var ah = KorAP.annotationHelper || { "getDesc" : function () {}};
+
       // Add cell to row
-      var addCell = function (type, name) {
+      var addCell = function (type, key, value) {        
         var c = this.appendChild(d.createElement(type))
-        if (name === undefined)
+        if (value === undefined)
           return c;
 
-        if (name instanceof Array && name[1] !== undefined) {
+        if (key && value instanceof Array && value[1] !== undefined) {
 
           // There are multiple values to add
           c.classList.add('matchkeyvalues');
-          for (var n = 0; n < name.length; n++) {
-            var text = d.createTextNode(name[n]);
+          for (var n = 0; n < value.length; n++) {
+            var text = d.createTextNode(value[n]);
             var e = c.appendChild(d.createElement('div'));
             e.appendChild(text);
+
+            var anno = ah.getDesc(key, value[n]);
+
+            if (anno)
+              e.setAttribute("title", anno);
           };
         }
+
         else {
-          c.appendChild(d.createTextNode(name));
+
+          if (value instanceof Array)
+            value = value[0];
+
+          c.appendChild(d.createTextNode(value));
+
+          // Add tooltip
+          var anno = ah.getDesc(key, value);
+          if (anno)
+            c.setAttribute("title", anno);
         };
 
         return c;
@@ -181,12 +198,12 @@ define(function () {
       tr.addCell = addCell;
 
       // Add header information
-      tr.addCell('th', 'Foundry');
-      tr.addCell('th', 'Layer');
+      tr.addCell('th', undefined, 'Foundry');
+      tr.addCell('th', undefined, 'Layer');
 
       // Add tokens
       for (var i in this._token) {
-        tr.addCell('th', this.getToken(i));
+        tr.addCell('th', undefined, this.getToken(i));
       };
       
       var tbody = table.appendChild(
@@ -194,8 +211,6 @@ define(function () {
       );
 
       var foundryList = Object.keys(this._foundry).sort();
-
-      var ah = KorAP.annotationHelper || {};
 
       for (var f = 0; f < foundryList.length; f++) {
         var foundry = foundryList[f];
@@ -210,11 +225,10 @@ define(function () {
           tr.setAttribute('tabindex', 0);
           tr.addCell = addCell;
 
-          tr.addCell('th', foundry);
-          tr.addCell('th', layer);
+          tr.addCell('th', undefined, foundry);
+          tr.addCell('th', undefined, layer);
 
           var key = foundry + '/' + layer + '=';
-          var anno = ah[key];
 
           for (var v = 0; v < this.length(); v++) {
 
@@ -224,24 +238,9 @@ define(function () {
             // Add cell to row
             var cell = tr.addCell(
               'td',
+              key,
               value 
             );
-
-            // Iterate over all annotations and add the descriptions
-            if (anno) {
-
-              // This is a classic hash-lookup-case, but we have
-              // to deal with lists ...
-              for (var i = 0; i < anno.length; i++) {
-                if (anno[i] &&
-                    anno[i][0] &&
-                    anno[i][2] &&
-                    anno[i][0] == value) {
-                  cell.setAttribute('title', anno[i][2]);
-                  break;
-                };
-              };
-            };
           };
         };
       };
