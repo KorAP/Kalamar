@@ -129,24 +129,6 @@ div.snippet {
   display: block;
 }
 
-
-
-/*
-#search ol > li:focus:not(.active) {
-	      background-color: $dark-orange !important;
-	      &:not(:target) div.flag {
-	        border-right-color: $nearly-white;
-	      }
-	      div.snippet {
-	        color: $nearly-white;
-	        text-shadow: none !important;
-	        .class-3 {
-	          border-color: $nearly-white;
-	        }
-	      }
-      }
-*/
-
 #search div.match-main {
   position: relative;
   z-index: 4;
@@ -193,25 +175,21 @@ div.snippet div.flag {
 /**
  * Active
  */
-#search > ol {
-  > li.active,
-  > li:target {
-    background-color: $dark-orange;
-    display: block;
-    text-align: left;
-    position: relative;
-    border-width: 2px;
-    white-space: wrap;
-    height: auto;
-    width: auto;
+body.no-js #search > ol > li:active,
+#search > ol > li.active,
+#search > ol > li:target {
+  background-color: $dark-orange;
+  display: block;
+  text-align: left;
+  position: relative;
+  border-width: 2px;
+  white-space: wrap;
+  height: auto;
+  width: auto;
 
-    div.match-main > div.match-wrap {
-      cursor: default;
-    }
+  div.match-main > div.match-wrap {
+    cursor: default;
   }
-}
-
-#search > ol > li.active {
   span {
     display: inline !important;
   }
@@ -249,9 +227,7 @@ div.snippet div.flag {
 	    }
     }
   }
-}
 
-#search > ol > li.active {
   overflow: hidden;
   div.meta {
     display: none;
