@@ -441,7 +441,7 @@ define([
       // Show datepicker
       if (this.type() === 'date') {
         var dp = KorAP._vcDatePicker;
-        dp.fromString(v)
+        dp.fromString(v);
 
         // Todo: change this
         dp.onclick(function (selected) {
@@ -467,16 +467,7 @@ define([
           this._valueE
         );
 
-        dpElem.focus();
-        /*
-          dpElem.addEventListener('blur', function (e) {
-          e.halt();
-          
-          // Remove datepicker
-          // TODO: If focus is not set to string input
-          that._element.removeChild(this);
-          });
-        */
+        dp.input().focus();
       }
       else {
         var regex = this.type() === 'regex' ? true : false;

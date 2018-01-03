@@ -36,6 +36,7 @@ define(['util'], function () {
       return Object.create(this)._init();
     },
 
+
     // Init datepicker
     _init : function () {
       this._selected = [];
@@ -93,6 +94,10 @@ define(['util'], function () {
       this._click = cb;
     },
 
+
+    input : function () {
+      return this._input;
+    },
     
     /**
      * Show the datepicker.
@@ -120,10 +125,40 @@ define(['util'], function () {
          (today.getMonth() + 1));
 
       // Append all helpers
-      this._element.appendChild(this._monthHelper());
-      this._element.appendChild(this._yearHelper());
-      this._element.appendChild(this._dayHelper());
-      this._element.appendChild(this._stringHelper());
+      e.appendChild(this._monthHelper());
+      e.appendChild(this._yearHelper());
+      e.appendChild(this._dayHelper());
+      this._input = e.appendChild(this._stringHelper());
+
+      // Always focus
+      e.addEventListener(
+        'mousedown',
+        function (ev) {
+          this._inField = true
+        }.bind(this)
+      );
+
+      e.addEventListener(
+        'mouseup',
+        function (ev) {
+          this._inField = false;
+          this._input.focus();
+        }.bind(this)
+      );
+
+      this._input.addEventListener(
+        'blur',
+        function (ev) {
+          if (!this._inField) {
+            if (this.fromString(this._input.value)) {
+              this.store();
+            };
+          };
+          ev.halt();
+        }.bind(this)
+      );
+
+      this._input.focus();
 
       return this._element;
     },
