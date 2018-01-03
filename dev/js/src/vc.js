@@ -243,8 +243,9 @@ define([
      * Get the element associated with the virtual collection
      */
     element : function () {
-      if (this._element !== undefined)
-	return this._element;
+      if (this._element !== undefined) {
+	      return this._element;
+      };
 
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'vc');
@@ -270,18 +271,18 @@ define([
      * as a creation date limit criterion.
      */
     makePersistant : function () {
-//      this.root().wrapOnRoot('and');
+      // this.root().wrapOnRoot('and');
       var todayStr = KorAP._vcDatePicker.today();
       var doc = docClass.create();
       var root = this.root();
 
       if (root.ldType() === 'docGroup' &&
-	  root.operation === 'and') {
-	root.append(cond);
+	        root.operation === 'and') {
+	      root.append(cond);
       }
       else {
-	root.wrapOnRoot('and');
-	root.append(doc);
+	      root.wrapOnRoot('and');
+	      root.append(doc);
       };
 
       doc.key("creationDate");

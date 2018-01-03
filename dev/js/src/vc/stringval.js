@@ -87,11 +87,14 @@ define({
   /**
    * Store the string value.
    * This method should be overwritten.
-   * The method receives the the value and the regex.
+   * The method receives the value and the regex.
    */
   store : function (v,r) {},
 
 
+  /**
+   * Put focus on element
+   */
   focus : function () {
     this._element.children[0].focus();
   },
@@ -127,26 +130,47 @@ define({
     );
     re.addEventListener(
       'click',
-      function (e) {
+      function (ev) {
 	      this.toggleRegex();
-	      e.halt();
+        // ev.halt();
       }.bind(this),
       true
     );
     re.appendChild(document.createTextNode('RE'));
 
-    e.addEventListener(
+    // If the focus is not on the text field anymore,
+    // delegate focus to
+    this._input.addEventListener(
       'blur',
-      function (e) {
-	      this.store(this.value(), this.regex());
-	      e.halt();
+      function (ev) {
+        if (!this._inField) {
+	        this.value(this._input.value);
+          this.store(this.value(), this.regex());
+        };
+        ev.halt();
+      }.bind(this)
+    );
+
+    // Workaround to check the click is in the field
+    e.addEventListener(
+      'mousedown',
+      function (ev) {
+        this._inField = true;
+      }.bind(this)
+    );
+
+    e.addEventListener(
+      'mouseup',
+      function (ev) {
+        this._inField = false;
+        this._input.focus();
       }.bind(this)
     );
 
     this._input.addEventListener(
       'keypress',
-      function (e) {
-	      if (e.keyCode == 13) {
+      function (ev) {
+	      if (ev.keyCode == 13) {
 	        this.value(this._input.value);
 	        this.store(this.value(), this.regex());
           return false;
