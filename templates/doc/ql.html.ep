@@ -41,6 +41,9 @@
   <p><strong><%= doc_link_to 'Annis', 'ql', 'annis' %></strong>: Find all occurrences of the sequence of two tokens annotated as adverbs by the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.</p>
   %= doc_query annis => 'pos="ADV" & pos="ADV" & #1 . #2'
 
+  <p><strong><%= doc_link_to 'Annis', 'ql', 'annis' %></strong>: Find all determiner relations with the label <code>DET</code> by MALT where the relation sources are attributive possesive pronouns annotated by Tree Tagger.</p>
+  %= doc_query annis => 'tt/p="PPOSAT" ->malt/d[func="DET"] node'
+
   <p><strong><%= doc_link_to 'CQL', 'ql', 'cql' %></strong>: Find all occurrences of the sequence &quot;der alte Mann&quot;.</p>
   %= doc_query cql => '"der alte Mann"'	
 </section>
