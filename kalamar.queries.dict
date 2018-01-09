@@ -1,3 +1,5 @@
+# To mark queries as 'not available in the specific corpus',
+# prepend the string '** ' to the query.
 {
   Q => {
     _ => sub { shift->config('Kalamar')->{'examplecorpus'} },
@@ -5,7 +7,8 @@
       poliqarp => {
         simple => 'Baum',
         simpleseq => 'der Baum',
-        simpleci => 'laufen/i'
+        simpleci => 'laufen/i',
+        complexpos => '[pos=ADJA]'
       }
     }
   }

@@ -94,7 +94,7 @@ define(['session', 'util'], function (sessionClass) {
      * Decorate a page with query event handler.
      */
     initQueries : function (d) {
-      var qs = d.querySelectorAll('pre.query.tutorial');
+      var qs = d.querySelectorAll('pre.query.tutorial:not(.unsupported)');
       var that = this;
       for (var i = 0; i < qs.length; i++) {
 	      qs[i].onclick = function (e) {

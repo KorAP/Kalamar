@@ -54,5 +54,36 @@ $t->get_ok('/doc/ql/annis' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
   ->text_is("title", "KorAP: Annis QL");
 
+# Check corpus examples
+$t->get_ok('/doc/ql/poliqarp-plus')
+  ->status_is(200)
+  ->text_is('#segments pre.query.tutorial:nth-of-type(1) code', 'Baum');
+
+my $app = $t->app;
+
+$app->plugin(
+  'Localize' => {
+    dict => {
+      Q => {
+        newexample => {
+          poliqarp => {
+            simple => '** Beispiel'
+          }
+        }
+      }
+    }
+  }
+);
+
+# Set other example query
+$app->config('Kalamar')->{examplecorpus} = 'newexample';
+
+is($app->loc('Q_poliqarp_simple'), '** Beispiel');
+
+# Check corpus examples
+$t->get_ok('/doc/ql/poliqarp-plus')
+  ->status_is(200)
+  ->text_is('#segments pre.query.tutorial:nth-of-type(1) code', 'Beispiel')
+  ->text_is('#segments pre.query.tutorial:nth-of-type(1) span', '*');
 
 done_testing();

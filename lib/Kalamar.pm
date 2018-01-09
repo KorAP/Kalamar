@@ -7,14 +7,14 @@ use Mojo::Util qw/url_escape/;
 use File::Temp qw/tmpnam/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 
 # TODO: Use CSRF!!!
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
 # TODO: Embed collection statistics
+# TODO: Show further meta data per click
 # TODO: Implement tab opener for matches and the tutorial
-# TODO: Make the tutorial ql sensitive
 # TODO: Implement a "projects" system
 
 # Start the application and register all routes and plugins
@@ -220,7 +220,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2017, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2018, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>

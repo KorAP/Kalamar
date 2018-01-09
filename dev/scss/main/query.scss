@@ -4,7 +4,6 @@
 
 pre.query {
   overflow-x: hidden; 
-  cursor: pointer;
   padding: .5em;
   @include choose-item;
   position:relative;
@@ -14,11 +13,20 @@ pre.query {
     radius: $standard-border-radius;
   }
   box-shadow: $choose-box-shadow;
-  
-  &:hover {
-    @include choose-hover;
+  &:not(.unsupported) {
+    cursor: pointer;
+    &:hover {
+      @include choose-hover;
+    }
+    &:active {
+      @include choose-active;
+    }
   }
-  &:active {
-    @include choose-active;
+  &.unsupported span {
+    vertical-align: super;
+    color: $dark-blue;
+    font-size: 90%;
+    font-weight: bold;
+    cursor: help;
   }
 }

@@ -191,6 +191,18 @@ sub register {
     doc_query => sub {
       my ($c, $ql, $q, %param) = @_;
 
+      # Query is not supported in the corpus
+      if ($q =~ s/^\*\*\s*//) {
+        # Escape query for html embedding
+        $q = xml_escape $q;
+
+        return b(
+          '<pre class="query tutorial unsupported">' .
+            "<code>$q</code>" .
+            '<span title="' . $c->loc('notAvailInCorpus') . '">*</span>' .
+            '</pre>');
+      };
+
       # Escape query for html embedding
       $q = xml_escape $q;
 

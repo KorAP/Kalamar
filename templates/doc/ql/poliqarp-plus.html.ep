@@ -77,7 +77,7 @@
   <p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.
     The following query finds all attributive adjectives:</p>
 
-  %= doc_query poliqarp => '[pos=ADJA]'
+  %= doc_query poliqarp => loc('Q_poliqarp_complexpos', '[pos=ADJA]')
 
   <p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation.
     For example to find all occurrences of plural words in the <code>mate</code> foundry, you can search using the following query:</p>

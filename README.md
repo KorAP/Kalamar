@@ -137,7 +137,7 @@ is released under the terms of the MIT License.
 
 ### Original Software
 
-Copyright (C) 2015-2017, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
+Copyright (C) 2015-2018, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](http://nils-diewald.de/)
 Contributor: Susanne Feix (Translations)
 
