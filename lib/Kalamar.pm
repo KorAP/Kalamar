@@ -4,7 +4,6 @@ use Mojo::ByteStream 'b';
 use Mojo::File;
 use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
-use File::Temp qw/tmpnam/;
 
 # Minor version - may be patched from package.json
 our $VERSION = '0.25';

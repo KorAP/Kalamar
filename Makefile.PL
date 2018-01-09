@@ -14,20 +14,19 @@ WriteMakefile(
   },
   LICENSE      => 'bsd_2',
   PREREQ_PM => {
-    'Mojolicious' => '7.23',
+    'Mojolicious' => '7.60',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.06,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.09,
-    'Mojolicious::Plugin::Notifications' => 0.04,
-    'Mojolicious::Plugin::MailException' => 0.18,
-    'Mojolicious::Plugin::CHI' => 0.09,
+    'Mojolicious::Plugin::Notifications' => 1.01,
+    'Mojolicious::Plugin::MailException' => 0.20,
+    'Mojolicious::Plugin::CHI' => 0.15,
     'Mojolicious::Plugin::ClientIP' => 0.01,
     'Cache::FastMmap' => 0,
     'Mojo::JWT' => 0.05,
-    'File::Temp' => 0.2304,
 
     # Currently on GitHub only (github.com/akron)
-    'Mojolicious::Plugin::Search' => 0.04,
-    'Mojolicious::Plugin::Localize' => 0.15,
+    'Mojolicious::Plugin::Search' => 0.07,
+    'Mojolicious::Plugin::Localize' => 0.16,
   },
   test => {
     TESTS => 't/*.t'

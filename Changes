@@ -5,6 +5,7 @@
         - Improve result display when JavaScript is disabled.
         - Improve VC creation tool by supporting "blurring".
         - Make tutorial queries localizable for different default corpora.
+        - Update dependencies.
 
 0.24 2017-11-22
         - Added support for relation visualization.
