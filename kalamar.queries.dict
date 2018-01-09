@@ -1,0 +1,12 @@
+{
+  Q => {
+    _ => sub { shift->config('Kalamar')->{'examplecorpus'} },
+    -dereko => {
+      poliqarp => {
+        simple => 'Baum',
+        simpleseq => 'der Baum',
+        simpleci => 'laufen/i'
+      }
+    }
+  }
+};

@@ -101,7 +101,7 @@ sub startup {
 
   # Localization framework
   $self->plugin(Localize => {
-    resources => ['kalamar.dict']
+    resources => ['kalamar.dict', 'kalamar.queries.dict']
   });
 
   # Pagination widget

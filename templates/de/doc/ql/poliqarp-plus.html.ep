@@ -9,17 +9,17 @@
 
   <p>Die einzelnen Elemente von Poliqarp sind Segmente. Meistens repräsentieren Segmente Wörter und können leicht abgefragt werden:</p>
 
-  %= doc_query poliqarp => 'Baum'
+  %= doc_query poliqarp => loc('Q_poliqarp_simple', 'Tree')
 
   <p>Abfolgen einfacher Segmenten werden durch Leerzeichen getrennt:</p>
 
-  %= doc_query poliqarp => 'der Baum'
+  %= doc_query poliqarp => loc('Q_poliqarp_simpleseq', 'the Tree')
 
   <p>Einfache Segmente beziehen sich immer auf die Oberflächenform eines Wortes. Wenn Sie nach einer Oberflächenform ohne Beachtung der Groß- und Kleinschreibung suchen, können Sie <code>/i</code> anfügen.</p>
 
-  %= doc_query poliqarp => 'laufen/i'
+  %= doc_query poliqarp => loc('Q_poliqarp_simpleci', 'run/i')
 
-  <p>Die Abfrage oben findet alle Vorkommen von <code>laufen</code> unabhängig von der Großschreibung von Buchstaben, so wird <code>wir laufen</code> genauso gefunden wie <code>das Laufen</code> und sogar <code>&quot;GEH LAUFEN!&quot;</code>.
+  <p>Die Abfrage oben findet alle Vorkommen des Wortes unabhängig von der Großschreibung von Buchstaben.
 
   <h4 id="regexp">Reguläre Ausdrücke</h4>
 
@@ -243,7 +243,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
     
   <h4>Positionen</h4>
 
-    <p>Sequenzen wie oben gezeigt können in weiteren komplexen Abfragen verschachtelt und als Unterabfragen behandelt werden (siehe <%= doc_link_to 'Klassenoperatoren', 'ql', 'poliqarp-plus#class-operator' %>, um direkten Zugriff auf auf Unterabfragen zu erhalten).</p>
+    <p>Sequenzen wie oben gezeigt können in weiteren komplexen Abfragen verschachtelt und als Unterabfragen behandelt werden (siehe <%= doc_link_to 'Klassenoperatoren', 'ql', 'poliqarp-plus#class-operator' %>, um direkten Zugriff auf Unterabfragen zu erhalten).</p>
     
     <p>Positionsoperatoren vergleichen zwei Varianten von Unterabfragen und ergeben einen Treffer, falls eine bestimmte Bedingung bezüglich der Position von beiden wahr ist.</p>
 
