@@ -704,7 +704,7 @@ Get resource information.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2017, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2018, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
