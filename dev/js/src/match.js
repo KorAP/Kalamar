@@ -10,16 +10,17 @@
  * - A click on a table field and a tree node should at the field description to the fragments list.
  */
 define([
-  'match/info',
-  'match/reference',
+  'match/info',      // rename to anno
+  'match/reference', // rename to meta
   'util'
 ], function (infoClass, refClass) {
 
   // Localization values
   var loc   = KorAP.Locale;
-  loc.ADDTREE  = loc.ADDTREE  || 'Add tree view';
-  loc.SHOWINFO = loc.SHOWINFO || 'Show information';
-  loc.CLOSE    = loc.CLOSE    || 'Close';
+  loc.ADDTREE   = loc.ADDTREE   || 'Add tree view';
+  loc.SHOWINFO  = loc.SHOWINFO  || 'Show information';
+  loc.CLOSE     = loc.CLOSE     || 'Close';
+  loc.SHOW_META = loc.SHOW_META || 'Show metadata';
   
   // 'corpusID', 'docID', 'textID'
   var _matchTerms  = ['textSigle', 'matchID', 'available'];
@@ -186,6 +187,31 @@ define([
 
       var that = this;
 
+      // Add meta button
+      var refLine = element.querySelector("p.ref");
+
+      // There is a reference line
+      if (0 && refLine) {
+        
+        var meta = document.createElement('span');
+        meta.appendChild(
+          document.createTextNode(loc.SHOW_META)
+        );
+        meta.setAttribute('title', loc.SHOW_META);
+        meta.classList.add('meta');
+        refLine.insertBefore(
+          meta,
+          refLine.firstChild
+        );
+
+        meta.addEventListener(
+          'click', function (e) {
+            e.halt();
+            that.showMeta(refLine);
+          }
+        );
+      };
+
       // Close match
       close.addEventListener('click', function (e) {
         e.halt();
@@ -208,25 +234,17 @@ define([
     /**
      * Return a list of meta data.
      */
-    showMeta : function () {
-      this.metaInfo = this._element.getAttribute('data-info');
+    showMeta : function (refLine) {
+      var metaInfo = this._element.getAttribute('data-info');
+
+      // refLine.parentNode
+      
       if (metaInfo)
         metaInfo = JSON.parse(metaInfo);
-      if (metaInfo) {
 
-        // TODO: Meta fields should be separated
-        for (i in metaInfo) {
-          if (i !== "UID" &&
-              i !== "corpusID" &&
-              i !== "docID" &&
-              i !== "textID" &&
-              i !== "corpusSigle" &&
-              i !== "docSigle" &&
-              i !== "textSigle" &&
-              i !== "layerInfos") {
-            console.log(i);
-          };
-        };
+      if (metaInfo) {
+        var metaElem = refClass.create(this).element(metaInfo);
+        this.element().appendChild(metaElem);
       };
     },
 

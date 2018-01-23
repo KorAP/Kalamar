@@ -42,7 +42,6 @@ define([
   loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
   loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle alignment';
   loc.SHOW_KQ          = loc.SHOW_KQ          || 'show KoralQuery';
-  loc.SHOW_META        = loc.SHOW_META        || 'show metadata';
 
 
   // Override KorAP.log
@@ -288,8 +287,8 @@ define([
         resultButton.appendChild(toggle);
       };
 
-      /*
       // Not ready yet
+      /*
       if (leftButton !== null) {
         var metaInfo = document.createElement('a');
         metaInfo.setAttribute('title', loc.SHOW_META)

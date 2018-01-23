@@ -326,6 +326,62 @@ div.matchtree {
   }
 }
 
+
+dl.metatable {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 100%;
+  > div {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 100%;
+    border: ($border-size / 2) solid $dark-orange;
+    align-items: stretch;
+    > * {
+      @include cell-info;
+    }
+    > dt {
+      text-align: left;
+      background: $darker-orange;
+      color: $nearly-white;
+      width: 8em;
+      margin: 0;
+    }
+    > dd {
+      text-align: left;
+      background-color: $light-orange;
+      padding: 2px;
+      margin: 0;
+      width: 100%;
+      margin-left: $border-size;
+      // padding-left: 2 * $border-size;
+    }
+  }
+}
+
+@media (min-width:640px) {
+  dl.metatable > div {
+    width: 50%;
+  }
+}
+
+@media (min-width:800px) {
+  dl.metatable > div {
+    width: 33%;
+  }
+}
+
+@media (min-width:1200px) {
+  dl.metatable > div {
+    width: 30%;
+  }
+}
+
+
 div.loading {
   background-color: transparent !important;
   height: 16px !important;
