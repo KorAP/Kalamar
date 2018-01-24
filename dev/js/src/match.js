@@ -191,10 +191,12 @@ define([
       var refLine = element.querySelector("p.ref");
 
       // There is a reference line
-      if (0 && refLine) {
+      if (refLine) {
         
         var meta = document.createElement('span');
         meta.appendChild(
+          document.createElement('span')
+        ).appendChild(
           document.createTextNode(loc.SHOW_META)
         );
         meta.setAttribute('title', loc.SHOW_META);

@@ -170,6 +170,23 @@ div.snippet div.flag {
  */
 #search > ol > li p.ref {
   display: none;
+
+  > span.meta {
+    cursor: pointer;
+    color: $nearly-white;
+    text-decoration: none;
+    padding: 0pt 3pt;
+
+    &::after {
+      font-size: 12pt;
+	    font-family: "FontAwesome";
+	    content: $fa-metadata;
+    }
+
+    > span {
+	    @include blind;
+    }
+  }
 }
 
 /**
