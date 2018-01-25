@@ -5,6 +5,7 @@ define([
   'match/infolayer',
   'match/table',
   'match/tree',
+  'match/reference', // rename to meta
   'match/relations',
   'match/treemenu',
   'match/querycreator',
@@ -12,6 +13,7 @@ define([
 ], function (infoLayerClass,
 	           matchTableClass,
 	           matchTreeClass,
+	           matchRefClass,
              matchRelClass,
 	           matchTreeMenuClass,
              matchQueryCreator) {
@@ -54,6 +56,7 @@ define([
      * Open the information view,
      * if closed, otherwise close.
      */
+    /*
     toggle : function () {
 
       var elem = this._match.element();
@@ -74,6 +77,7 @@ define([
       
       return this.opened;
     },
+    */
 
 
     /**
@@ -133,6 +137,11 @@ define([
       // Todo: Store the table as a hash of the focus
       return null;
       */
+    },
+
+
+    getMeta : function (metaInfo, cb) {
+      
     },
     
 
@@ -271,18 +280,33 @@ define([
           cb(treeObj);
       });
     },
-    
-    /**
-     * Create match information view.
-     */
-    element : function () {
-      
-      if (this._element !== undefined)
-        return this._element;
-      
-      // Create info table
-      var info = document.createElement('div');
-      info.classList.add('matchinfo');
+
+
+    addMeta : function () {
+      var matchmeta = document.createElement('div');
+      // matchRefClass.create();
+
+      // TODO: This is part of the getMeta!
+      var metaInfo = this._match.element().getAttribute('data-info');
+
+      if (metaInfo)
+        metaInfo = JSON.parse(metaInfo);
+
+      // There is metainfo
+      if (metaInfo) {
+
+        // Add metainfo to matchview
+        var metaElem = matchRefClass.create(this._match).element(metaInfo);
+        this.element().appendChild(metaElem);
+
+        console.log(this.element());
+      };
+    },
+
+    // Add table
+    addTable : function () {
+
+      var info = this.element();
 
       // Append default table
       var matchtable = document.createElement('div');
@@ -300,6 +324,13 @@ define([
         // Add query creator
         this._matchCreator = matchQueryCreator.create(info);
       });
+
+      
+      info.appendChild(this.addTreeMenu());
+    },
+
+
+    addTreeMenu : function () {
 
       // Join spans and relations
       var treeLayers = []
@@ -348,7 +379,7 @@ define([
 
       // Create tree menu
       var treemenu = this.treeMenu(menuList);
-      var span = info.appendChild(document.createElement('p'));
+      var span = document.createElement('p');
       span.classList.add('addtree');
       span.appendChild(document.createTextNode(loc.ADDTREE));
 
@@ -359,10 +390,25 @@ define([
         treemenu.show();
         treemenu.focus();
       });
+
+      return span;
+    },
+
+    /**
+     * Create match information view.
+     */
+    element : function () {
+      
+      if (this._element !== undefined)
+        return this._element;
+      
+      // Create info table
+      var info = document.createElement('div');
+      info.classList.add('matchinfo');
       
       this._element = info;
 
-      return info;
+      return this._element;
     },
 
     

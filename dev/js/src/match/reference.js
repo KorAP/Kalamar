@@ -22,7 +22,12 @@
   biblEditionStatement
   fileEditionStatement
 */
-define(function () {
+define(['util'], function () {
+
+  // Localization values
+  var loc   = KorAP.Locale;
+  loc.METADATA   = loc.METADATA   || 'Metadata';
+
   return {
 
     /**
@@ -55,8 +60,22 @@ define(function () {
       if (this._element !== undefined)
         return this._element;
       
-      var metaTable = document.createElement('dl');
+      var metaTable = document.createElement('div');
       metaTable.classList.add('metatable');
+
+      var header = metaTable.appendChild(
+        document.createElement('h6')
+      );
+
+      header.appendChild(
+        document.createElement('div')
+      ).appendChild(
+        document.createTextNode(loc.METADATA)
+      );
+
+      var metaDL = metaTable.appendChild(
+        document.createElement('dl')
+      );
 
       this._element = metaTable;
 
@@ -85,7 +104,7 @@ define(function () {
             document.createTextNode(metaInfo[k])
           );
 
-          metaTable.appendChild(metaL);
+          metaDL.appendChild(metaL);
         };
       };
 

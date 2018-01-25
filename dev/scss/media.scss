@@ -91,12 +91,12 @@ $standard-margin: 4px;
     padding: 1pt 3pt;
   }
 
-  div.matchtree {
+  div.matchtree, div.metatable {
     h6 {
       display: block;
       float: none;
     }
-    > div {
+    > div, > dl {
       margin-left: 2px;
     }
   }

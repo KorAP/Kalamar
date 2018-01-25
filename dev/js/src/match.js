@@ -11,9 +11,9 @@
  */
 define([
   'match/info',      // rename to anno
-  'match/reference', // rename to meta
+  // 'match/reference', // rename to meta
   'util'
-], function (infoClass, refClass) {
+], function (infoClass) { //, refClass) {
 
   // Localization values
   var loc   = KorAP.Locale;
@@ -209,7 +209,7 @@ define([
         meta.addEventListener(
           'click', function (e) {
             e.halt();
-            that.showMeta(refLine);
+            that.info().addMeta();
           }
         );
       };
@@ -223,7 +223,7 @@ define([
       // Add information, unless it already exists
       info.addEventListener('click', function (e) {
         e.halt();
-        that.info().toggle();
+        that.info().addTable();
       });
 
       ul.appendChild(close);
@@ -233,23 +233,6 @@ define([
     },
 
     
-    /**
-     * Return a list of meta data.
-     */
-    showMeta : function (refLine) {
-      var metaInfo = this._element.getAttribute('data-info');
-
-      // refLine.parentNode
-      
-      if (metaInfo)
-        metaInfo = JSON.parse(metaInfo);
-
-      if (metaInfo) {
-        var metaElem = refClass.create(this).element(metaInfo);
-        this.element().appendChild(metaElem);
-      };
-    },
-
     // Todo: Test toggle
     toggle : function () {
       if (this._element.classList.contains('active'))
@@ -289,6 +272,17 @@ define([
       if (this._info._element !== undefined)
         return this._info;
 
+      /*
+        this.element().appendChild(
+        this._info.element()
+      );
+      */
+      var refLine = this._element.querySelector("p.ref");
+      this._element.insertBefore(
+        this._info.element(),
+        refLine
+      );
+      
       return this._info;
     },
 

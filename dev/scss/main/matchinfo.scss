@@ -21,7 +21,7 @@ $left-distance: $left-width + ($border-size * 2);
  * first column has to be static.
  */
 @mixin matchinfo-head {
-  border-width: 0px;
+  // border-width: 0px;
   border-top: $border-size solid $darker-orange; // #ff8000;
   width: $left-width / 2;
 }
@@ -34,6 +34,7 @@ div.matchinfo {
   height: auto;
   font-size: 10pt;
   text-align: left;
+
   > p.addtree {
     position: relative;
     @include choose-item;
@@ -250,6 +251,35 @@ div.matchtable {
   }
 }
 
+
+  /**
+   * Label
+   */
+div.matchtree, div.metatable {
+  h6 {
+    display: inline;
+    font-size: inherit;
+    color: $nearly-white;
+    margin: 0;
+    padding: 0 !important;
+    float: left;
+    > span, > div {
+      @include matchinfo-head;
+      @include cell-info;
+      display: inline-block !important;
+      margin: 0;
+      &:nth-of-type(2) {
+	      margin-left: $border-size;
+      }
+    }
+    > div {
+
+      // Override half width !
+      width: $left-width;
+    }
+  }
+}
+
 /**
   * Tree view
   */
@@ -260,26 +290,6 @@ div.matchtree {
   padding: 0;
   margin-top: 1pt;
 
-  /**
-   * Label
-   */
-  h6 {
-    display: inline;
-    font-size: inherit;
-    color: $nearly-white;
-    margin: 0;
-    padding: 0 !important;
-    float: left;
-    > span {
-      @include matchinfo-head;
-      @include cell-info;
-      display: inline-block;
-      margin: 0;
-      &:nth-of-type(2) {
-	      margin-left: $border-size;
-      }
-    }
-  }
   > div {
     position: unset;
     z-index: 4;
@@ -326,14 +336,27 @@ div.matchtree {
   }
 }
 
+div.metatable + div.matchtable {
+  /*
+  padding-top: 5 * $border-size;
+  border-top: $border-size solid $middle-orange;
+  */
+  margin-top: 5 * $border-size;
+}
 
-dl.metatable {
+
+div.metatable > dl {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
-  width: 100%;
+  width: auto;
+  padding-bottom: 0;
+  margin-left: $left-distance;
+  margin-right: $right-match-distance;
+  margin-top: $border-size;
+
   > div {
     display: flex;
     flex-direction: row;
@@ -357,6 +380,7 @@ dl.metatable {
       padding: 2px;
       margin: 0;
       width: 100%;
+      max-width: none;
       margin-left: $border-size;
       // padding-left: 2 * $border-size;
     }
@@ -364,20 +388,28 @@ dl.metatable {
 }
 
 @media (min-width:640px) {
-  dl.metatable > div {
-    width: 50%;
+  div.metatable > dl {
+    > div {
+      width: 50%; // 2*
+    }
   }
 }
 
 @media (min-width:800px) {
-  dl.metatable > div {
-    width: 33%;
+  div.metatable > dl > div {
+    width: 33%; // 3*
   }
 }
 
 @media (min-width:1200px) {
-  dl.metatable > div {
-    width: 30%;
+  div.metatable > dl > div {
+    width: 25%; // 4*
+  }
+}
+
+@media (min-width:1680px) {
+  div.metatable > dl > div {
+    width: 20%; // 5*
   }
 }
 

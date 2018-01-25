@@ -208,7 +208,7 @@ body.no-js #search > ol > li:active,
     cursor: default;
   }
   span {
-    display: inline !important;
+    display: inline; // !important;
   }
   ul.action {
     display: block;
