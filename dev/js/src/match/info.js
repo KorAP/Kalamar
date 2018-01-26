@@ -282,6 +282,7 @@ define([
     },
 
 
+    // Add meta information to match
     addMeta : function () {
       var matchmeta = document.createElement('div');
       // matchRefClass.create();
@@ -297,9 +298,14 @@ define([
 
         // Add metainfo to matchview
         var metaElem = matchRefClass.create(this._match).element(metaInfo);
-        this.element().appendChild(metaElem);
+        var elem = this.element();
 
-        console.log(this.element());
+        elem.insertBefore(
+          metaElem,
+          elem.firstChild
+        );
+
+        console.log(elem);
       };
     },
 

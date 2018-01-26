@@ -381,8 +381,10 @@ div.metatable > dl {
       margin: 0;
       width: 100%;
       max-width: none;
+      max-height: 6em;
       margin-left: $border-size;
-      // padding-left: 2 * $border-size;
+      white-space: normal;
+      overflow: visible;
     }
   }
 }
