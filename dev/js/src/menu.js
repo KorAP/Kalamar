@@ -122,8 +122,35 @@ define([
         false
       );
       this._element = el;
+
+      this._limit = menuLimit;
       
       this._items = new Array();
+
+      // TODO:
+      // Make this separate from _init
+      this.readItems(list);
+
+      return this;
+    },
+
+    // Read items to add to list
+    readItems : function (list) {
+
+      this._list = undefined;
+
+      // Remove circular reference to "this" in items
+      for (var i = 0; i < this._items.length; i++) {
+        delete this._items[i]["_menu"];
+        delete this._items[i];
+      };
+
+      this._items = new Array();
+      this.removeItems();
+
+
+      // Initialize items
+      this._lengthField.reset();
 
       var i = 0;
       // Initialize item list based on parameters
@@ -136,17 +163,16 @@ define([
         this._items.push(obj);
       };
 
-      this._limit = menuLimit;
       this._slider.length(this.liveLength())
         .limit(this._limit)
         .reInit();
       
-      this._firstActive = false; // Show the first item active always?
+      this._firstActive = false;
+      // Show the first item active always?
       this.offset = 0;
       this.position = 0;
-      return this;
     },
-
+    
     // Initialize the item list
     _initList : function () {
 
@@ -172,7 +198,7 @@ define([
           this._items[i].lowlight();
         };
 
-        this._slider.length(i).reInit();;
+        this._slider.length(i).reInit();
 
         return true;
       };

@@ -40,5 +40,14 @@ define({
   add : function (param) {
     this._element.appendChild(document.createElement('span'))
       .appendChild(document.createTextNode(param[0] + '--'));
+  },
+
+  /**
+   * Remove all initialized values
+   */
+  reset : function () {
+    while (this._element.firstChild) {
+      this._element.firstChild.remove();
+    };
   }
 });

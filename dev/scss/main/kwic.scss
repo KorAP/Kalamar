@@ -208,11 +208,13 @@ font-family: "FontAwesome";
   }
 }
 
-div.action.bottom {
+// More is defined in vc.scss
+p.ref div.action.bottom {
   display: inline-block;
   margin-right: .5em;
   > span {
     position: relative;
+    box-shadow: none;
   }
 }
 

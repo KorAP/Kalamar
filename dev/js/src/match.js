@@ -256,8 +256,20 @@ define([
           'click', function (e) {
             e.halt();
 
+            if (KorAP.TreeMenu === undefined) {
+              KorAP.TreeMenu = matchTreeMenuClass.create([]);
+            };
+
+            var tm = KorAP.TreeMenu;
+
+            // Reread list
+            tm.info(that.info());
+            tm.readItems(that.treeMenuList());
+            tm.attachTo(this);
+
             // Not yet initialized
-            if (that._treemenu === undefined) {
+            /*
+              if (that._treemenu === undefined) {
               that._treemenu = that.initTreeMenu();
 
               // TODO:
@@ -267,6 +279,7 @@ define([
               this.appendChild(that._treemenu.element());
             };
             var tm = that._treemenu;
+            */
             tm.show();
             tm.focus();
           }
@@ -348,7 +361,10 @@ define([
     },
 
 
-    initTreeMenu : function () {
+    treeMenuList : function () {
+
+      if (this._menuList)
+        return this._menuList;
 
       // Join spans and relations
       var treeLayers = []
@@ -396,7 +412,8 @@ define([
       };
 
       // Create tree menu
-      return matchTreeMenuClass.create(this.info(), menuList);
+      this._menuList = menuList;
+      return menuList;
       /*
       var span = document.createElement('p');
       span.classList.add('addtree');
