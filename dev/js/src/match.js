@@ -11,9 +11,9 @@
  */
 define([
   'match/info',      // rename to anno
-  // 'match/reference', // rename to meta
-  'util'
-], function (infoClass) { //, refClass) {
+  'match/treemenu',
+	'util'
+], function (infoClass,matchTreeMenuClass) { //, refClass) {
 
   // Localization values
   var loc   = KorAP.Locale;
@@ -179,11 +179,13 @@ define([
       close.setAttribute('title', loc.CLOSE);
       
       // Add info button
+      /*
       var info = document.createElement('li');
       info.appendChild(document.createElement('span'))
         .appendChild(document.createTextNode(loc.SHOWINFO));
       info.classList.add('info');
       info.setAttribute('title', loc.SHOWINFO);
+      */
 
       var that = this;
 
@@ -192,7 +194,35 @@ define([
 
       // There is a reference line
       if (refLine) {
+
+        // Temporary
+        var ops = document.createElement('div');
+        ops.classList.add('action', 'bottom', 'hui');
+
+        var meta = document.createElement('span');
+        ops.appendChild(meta);
+        meta.appendChild(document.createTextNode('+ Meta'));
+        meta.setAttribute('title', loc.SHOW_META);
+        meta.classList.add('meta');
+
+        var info = document.createElement('span');
+        ops.appendChild(info);
+        info.appendChild(document.createTextNode('+ Anno'));
+        info.setAttribute('title', loc.SHOWINFO);
+        info.classList.add('info');
+
+        var tree = document.createElement('span');
+        ops.appendChild(tree);
+        tree.appendChild(document.createTextNode('+ Tree'));
+        tree.setAttribute('title', loc.ADDTREE);
+        tree.classList.add('tree');
         
+        refLine.insertBefore(
+          ops,
+          refLine.firstChild
+        );
+
+        /*
         var meta = document.createElement('span');
         meta.appendChild(
           document.createElement('span')
@@ -205,11 +235,40 @@ define([
           meta,
           refLine.firstChild
         );
+        */
 
         meta.addEventListener(
           'click', function (e) {
             e.halt();
             that.info().addMeta();
+          }
+        );
+
+        // Add information, unless it already exists
+        info.addEventListener(
+          'click', function (e) {
+            e.halt();
+            that.info().addTable();
+          }
+        );
+
+        tree.addEventListener(
+          'click', function (e) {
+            e.halt();
+
+            // Not yet initialized
+            if (that._treemenu === undefined) {
+              that._treemenu = that.initTreeMenu();
+
+              // TODO:
+              // Do not add the tree menu to the button!
+              // Only reposition a global treemenu element there,
+              // that is positioned below the annotation helper!
+              this.appendChild(that._treemenu.element());
+            };
+            var tm = that._treemenu;
+            tm.show();
+            tm.focus();
           }
         );
       };
@@ -221,13 +280,15 @@ define([
       });
 
       // Add information, unless it already exists
+      /*
       info.addEventListener('click', function (e) {
         e.halt();
         that.info().addTable();
       });
+      */
 
       ul.appendChild(close);
-      ul.appendChild(info);
+      // ul.appendChild(info);
 
       return true;
     },
@@ -286,6 +347,84 @@ define([
       return this._info;
     },
 
+
+    initTreeMenu : function () {
+
+      // Join spans and relations
+      var treeLayers = []
+      var spans = this.getSpans();
+      var rels = this.getRels();
+      var i;
+      for (i in spans) {
+        treeLayers.push(spans[i]);
+      };
+      for (i in rels) {
+        treeLayers.push(rels[i]);
+      };
+
+      // Get spans
+      treeLayers = treeLayers.sort(
+        function (a, b) {
+          if (a.foundry < b.foundry) {
+            return -1;
+          }
+          else if (a.foundry > b.foundry) {
+            return 1;
+          }
+          else if (a.layer < b.layer) {
+            return -1;
+          }
+          else if (a.layer > b.layer) {
+            return 1;
+          };
+          return 0;
+        });
+      
+      var menuList = [];
+      
+      // Show tree views
+      for (var i = 0; i < treeLayers.length; i++) {
+        var span = treeLayers[i];
+        
+        // Add foundry/layer to menu list
+        menuList.push([
+          span.foundry + '/' + span.layer,
+          span.foundry,
+          span.layer,
+          span.type
+        ]);
+      };
+
+      // Create tree menu
+      return matchTreeMenuClass.create(this.info(), menuList);
+      /*
+      var span = document.createElement('p');
+      span.classList.add('addtree');
+      span.appendChild(document.createTextNode(loc.ADDTREE));
+      var treeElement = treemenu.element();
+      span.appendChild(treeElement);
+
+      span.addEventListener('click', function (e) {
+        treemenu.show();
+        treemenu.focus();
+      });
+      */
+    },
+
+        
+    /**
+     * Get tree menu.
+     * There is only one menu rendered
+     * - no matter how many trees exist
+     */
+    /*
+    treeMenu : function (list) {
+      if (this._treeMenu !== undefined)
+        return this._treeMenu;
+      
+      return this._treeMenu = matchTreeMenuClass.create(this, list);
+    },
+    */
     
     /**
      * Get match element.

@@ -86,10 +86,10 @@ $bracket-size: .4em; // 4pt;
       vertical-align: middle;
       left: 3px;
       > span:first-child {
-	border: {
-	  top-left-radius: 0;
-	  bottom-left-radius: 0;
-	}
+	      border: {
+	      top-left-radius: 0;
+	      bottom-left-radius: 0;
+	    }
       }
       margin-left: 100%;
       padding: 0;
@@ -128,8 +128,8 @@ $bracket-size: .4em; // 4pt;
     > span.key {
       position: relative;
       > ul {
-	margin: 0;
-	margin-left: 3.3em;
+	      margin: 0;
+	      margin-left: 3.3em;
       }
     }
   }
@@ -171,35 +171,6 @@ $bracket-size: .4em; // 4pt;
     font-size: 0;
     line-height: 0;
     text-align: center;
-
-    > span {
-      box-shadow: $choose-box-shadow;
-      cursor: pointer;
-      font-size: 9pt;
-      line-height: 1.5em;
-      padding: 0 4px;
-      display: inline-block;
-      @include choose-item;
-      border-style: solid;
-      border-width: $border-size 0;
-      &:hover {
-	@include choose-hover;
-      }
-      &:first-child {
-	border: {
-	  left-width: $border-size;
-	  top-left-radius: $standard-border-radius;
-	  bottom-left-radius: $standard-border-radius;
-	}
-      }
-      &:last-child {
-	border: {
-	  right-width: $border-size;
-	  top-right-radius: $standard-border-radius;
-	  bottom-right-radius: $standard-border-radius;
-	}
-      }
-    }
   }
 
   > .docGroup {
@@ -259,6 +230,38 @@ $bracket-size: .4em; // 4pt;
       > div {
 	@include choose-active;
       }
+    }
+  }
+}
+
+.vc .operators,
+div.action.bottom {
+  > span {
+    cursor: pointer;
+    box-shadow: $choose-box-shadow;
+    font-size: 9pt;
+    line-height: 1.5em;
+    padding: 0 4px;
+    display: inline-block;
+    @include choose-item;
+    border-style: solid;
+    border-width: $border-size 0;
+    &:hover {
+	    @include choose-hover;
+    }
+    &:first-child {
+	    border: {
+	    left-width: $border-size;
+	    top-left-radius: $standard-border-radius;
+	    bottom-left-radius: $standard-border-radius;
+	  }
+    }
+    &:last-child {
+	    border: {
+	    right-width: $border-size;
+	    top-right-radius: $standard-border-radius;
+	    bottom-right-radius: $standard-border-radius;
+	  }
     }
   }
 }

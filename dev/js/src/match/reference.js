@@ -63,6 +63,7 @@ define(['util'], function () {
       var metaTable = document.createElement('div');
       metaTable.classList.add('metatable');
 
+      /*
       var header = metaTable.appendChild(
         document.createElement('h6')
       );
@@ -72,6 +73,7 @@ define(['util'], function () {
       ).appendChild(
         document.createTextNode(loc.METADATA)
       );
+      */
 
       var metaDL = metaTable.appendChild(
         document.createElement('dl')
@@ -87,8 +89,10 @@ define(['util'], function () {
             k !== "corpusID" &&
             k !== "docID" &&
             k !== "textID" &&
+            /*
             k !== "corpusSigle" &&
             k !== "docSigle" &&
+            */
             k !== "layerInfos") {
 
           var metaL = document.createElement('div');

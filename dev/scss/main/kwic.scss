@@ -168,24 +168,51 @@ div.snippet div.flag {
 /**
  * References
  */
+
 #search > ol > li p.ref {
   display: none;
 
+  // TEMP! Remove
   > span.meta {
     cursor: pointer;
-    color: $nearly-white;
+    @include choose-item;
+    margin: $border-size $border-size 0 $border-size !important;
+    text-align: center;
     text-decoration: none;
     padding: 0pt 3pt;
+    border: {
+      width: $border-size;
+      style: solid;
+      radius: $standard-border-radius;
+    }
+    &:hover {
+      cursor:pointer;
+      @include choose-hover;
+    }
 
+    /*
+    color: $nearly-white;
+   */
     &::after {
+	    /*
       font-size: 12pt;
-	    font-family: "FontAwesome";
+font-family: "FontAwesome";
 	    content: $fa-metadata;
+     */
+      content: "+Meta";
     }
 
     > span {
 	    @include blind;
     }
+  }
+}
+
+div.action.bottom {
+  display: inline-block;
+  margin-right: .5em;
+  > span {
+    position: relative;
   }
 }
 
@@ -246,6 +273,7 @@ body.no-js #search > ol > li:active,
   }
 
   overflow: hidden;
+
   div.meta {
     display: none;
     // visibility: hidden;

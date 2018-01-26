@@ -30,11 +30,14 @@ div.matchinfo {
   position: relative;
   width: 100%;
   padding-top: $border-size;
-//  background-color: $dark-orange;
+  //  background-color: $dark-orange;
   height: auto;
   font-size: 10pt;
   text-align: left;
 
+  // TODO: This may not be necessary anymore
+  // REMOVE!
+  /*
   > p.addtree {
     position: relative;
     @include choose-item;
@@ -45,8 +48,8 @@ div.matchinfo {
     }
 
     font-size: inherit;
-    margin: $border-size $border-size 0 $border-size !important;
     width: $left-width;
+    margin: $border-size $border-size 0 $border-size !important;
     text-align: center;
     cursor: pointer;
     padding: 0 !important;
@@ -55,7 +58,8 @@ div.matchinfo {
       cursor:pointer;
       @include choose-hover;
     }
-
+ */
+  /*
     *.menu {
       border-top-right-radius: 8px;
       position: absolute;
@@ -69,7 +73,8 @@ div.matchinfo {
 	      border-top-right-radius: 5px;
       }
     }
-  }
+}
+*/
 
   p.queryfragment {
     position:relative;
@@ -113,6 +118,22 @@ div.matchinfo {
   }
 }
 
+div.action.bottom span.tree .menu {
+  border-top-right-radius: 8px;
+  z-index: 200;
+  position: absolute;
+  width: $left-width;
+  left: 0;
+  bottom: 0;
+  text-align: left;
+  margin: -1* $border-size;
+  margin-top: 0;
+  > li:first-of-type {
+	  border-top-right-radius: 5px;
+  }
+}
+
+ 
 div.matchtable {
   z-index: 20;
   margin-left: $left-distance - ($border-size / 2);
@@ -252,10 +273,11 @@ div.matchtable {
 }
 
 
-  /**
-   * Label
-   */
-div.matchtree, div.metatable {
+/**
+ * Label
+ */
+// The metatable branch was experimental
+div.matchtree { //, div.metatable {
   h6 {
     display: inline;
     font-size: inherit;
@@ -263,7 +285,7 @@ div.matchtree, div.metatable {
     margin: 0;
     padding: 0 !important;
     float: left;
-    > span, > div {
+    > span { // , > div {
       @include matchinfo-head;
       @include cell-info;
       display: inline-block !important;
@@ -272,11 +294,13 @@ div.matchtree, div.metatable {
 	      margin-left: $border-size;
       }
     }
+    /*
     > div {
 
       // Override half width !
       width: $left-width;
     }
+   */
   }
 }
 
@@ -337,11 +361,7 @@ div.matchtree {
 }
 
 div.metatable + div.matchtable {
-  /*
-  padding-top: 5 * $border-size;
-  border-top: $border-size solid $middle-orange;
-  */
-  margin-top: 5 * $border-size;
+  margin-top: 4 * $border-size !important;
 }
 
 
@@ -353,7 +373,7 @@ div.metatable > dl {
   align-items: stretch;
   width: auto;
   padding-bottom: 0;
-  margin-left: $left-distance;
+  // margin-left: $left-distance;
   margin-right: $right-match-distance;
   margin-top: $border-size;
 

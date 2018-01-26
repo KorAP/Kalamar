@@ -7,7 +7,6 @@ define([
   'match/tree',
   'match/reference', // rename to meta
   'match/relations',
-  'match/treemenu',
   'match/querycreator',
   'util'
 ], function (infoLayerClass,
@@ -15,7 +14,6 @@ define([
 	           matchTreeClass,
 	           matchRefClass,
              matchRelClass,
-	           matchTreeMenuClass,
              matchQueryCreator) {
   
   // Override 
@@ -188,11 +186,13 @@ define([
     destroy : function () {
 
       // Remove circular reference
+      /*
       if (this._treeMenu !== undefined)
 	      delete this._treeMenu["info"];
       
       this._treeMenu.destroy();
       this._treeMenu = undefined;
+      */
       this._match = undefined;
       this._matchCreator = undefined;      
       // Element destroy
@@ -304,8 +304,6 @@ define([
           metaElem,
           elem.firstChild
         );
-
-        console.log(elem);
       };
     },
 
@@ -331,73 +329,7 @@ define([
         this._matchCreator = matchQueryCreator.create(info);
       });
 
-      
-      info.appendChild(this.addTreeMenu());
-    },
-
-
-    addTreeMenu : function () {
-
-      // Join spans and relations
-      var treeLayers = []
-      var spans = this._match.getSpans();
-      var rels = this._match.getRels();
-      var i;
-      for (i in spans) {
-        treeLayers.push(spans[i]);
-      };
-      for (i in rels) {
-        treeLayers.push(rels[i]);
-      };
-
-      // Get spans
-      treeLayers = treeLayers.sort(
-        function (a, b) {
-          if (a.foundry < b.foundry) {
-            return -1;
-          }
-          else if (a.foundry > b.foundry) {
-            return 1;
-          }
-          else if (a.layer < b.layer) {
-            return -1;
-          }
-          else if (a.layer > b.layer) {
-            return 1;
-          };
-          return 0;
-        });
-      
-      var menuList = [];
-      
-      // Show tree views
-      for (var i = 0; i < treeLayers.length; i++) {
-        var span = treeLayers[i];
-        
-        // Add foundry/layer to menu list
-        menuList.push([
-          span.foundry + '/' + span.layer,
-          span.foundry,
-          span.layer,
-          span.type
-        ]);
-      };
-
-      // Create tree menu
-      var treemenu = this.treeMenu(menuList);
-      var span = document.createElement('p');
-      span.classList.add('addtree');
-      span.appendChild(document.createTextNode(loc.ADDTREE));
-
-      var treeElement = treemenu.element();
-      span.appendChild(treeElement);
-
-      span.addEventListener('click', function (e) {
-        treemenu.show();
-        treemenu.focus();
-      });
-
-      return span;
+      // info.appendChild(this.addTreeMenu());
     },
 
     /**
@@ -415,19 +347,6 @@ define([
       this._element = info;
 
       return this._element;
-    },
-
-    
-    /**
-     * Get tree menu.
-     * There is only one menu rendered
-     * - no matter how many trees exist
-     */
-    treeMenu : function (list) {
-      if (this._treeMenu !== undefined)
-        return this._treeMenu;
-      
-      return this._treeMenu = matchTreeMenuClass.create(this, list);
     }
   };
 });
