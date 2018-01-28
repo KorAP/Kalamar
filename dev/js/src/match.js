@@ -197,7 +197,7 @@ define([
 
         // Temporary
         var ops = document.createElement('div');
-        ops.classList.add('action', 'bottom', 'hui');
+        ops.classList.add('action', 'bottom', 'button-group');
 
         var meta = document.createElement('span');
         ops.appendChild(meta);

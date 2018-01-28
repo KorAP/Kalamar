@@ -138,7 +138,7 @@ define(['util'], function () {
 	return this._element;
 
       this._element = document.createElement('div');
-      this._element.setAttribute('class', 'operators');
+      this._element.classList.add('operators', 'button-group');
 
       // Init elements
       this.update();

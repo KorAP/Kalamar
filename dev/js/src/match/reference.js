@@ -1,4 +1,6 @@
-/*
+define(['util'], function () {
+
+  /*
   author, editor title, subTitle textSigle
   in corpusAuthor (corpusEditor), corpusTitle, corpusSubTitle, corpusSigle
   in docAuthor    (docEditor),    docTitle,    docSubTitle,    docSigle
@@ -22,7 +24,6 @@
   biblEditionStatement
   fileEditionStatement
 */
-define(['util'], function () {
 
   // Localization values
   var loc   = KorAP.Locale;
