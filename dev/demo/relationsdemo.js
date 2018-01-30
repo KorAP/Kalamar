@@ -158,6 +158,57 @@ relSnippet =
   "<span class=\"context-right\"></span>";
 
 
+// This is just a temprary example
+var relSnippet3 =
+  "<span class=\"context-left\"></span>"+
+	"<span class=\"match\">"+
+	"<span xml:id=\"token-WDD17/982/72848-p15836-15839\">"+
+	"<span xlink:title=\"lwc/d:NK\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15838\">Ein</span>"+
+	" "+
+	"<span xlink:title=\"lwc/d:NK\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15838\">letztes</span>"+
+	" "+
+	"<span xml:id=\"token-WDD17/982/72848-p15838\">"+
+	"<span xlink:title=\"lwc/d:--\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15836-15839\">mal</span>"+
+	"</span>"+
+	": "+
+	"<span xml:id=\"token-WDD17/982/72848-p15839-15840\">"+
+	"<span xlink:title=\"lwc/d:--\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15839-15840\">AL</span>"+
+	"</span>"+
+	  "</span>"+
+
+  // Here is a double given id, that should use a join instead!
+	"<span xml:id=\"token-WDD17/982/72848-p15839-15840\">"+
+	":"+
+	"<span xml:id=\"token-WDD17/982/72848-p15840-15846\">"+
+	"<span xml:id=\"token-WDD17/982/72848-p15840\">"+
+	"<span xlink:title=\"lwc/d:--\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15840-15846\">halt</span>"+
+	"</span>"+
+	"</span>"+
+	"</span>"+
+	"<span xml:id=\"token-WDD17/982/72848-p15840-15846\">"+
+	" "+
+	"<span xlink:title=\"lwc/d:NK\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15842\">den</span>"+
+	" "+
+	"<span xml:id=\"token-WDD17/982/72848-p15842\">"+
+	"<span xlink:title=\"lwc/d:OA\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15843\">Ball</span>"+
+	"</span>"+
+	" "+
+	"<span xml:id=\"token-WDD17/982/72848-p15843\">"+
+	"<span xlink:title=\"lwc/d:PD\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15840\">flach</span>"+
+	"</span>"+
+	", "+
+	"<mark>"+
+	"<span xlink:title=\"lwc/d:MO\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15845\">ganz</span>"+
+	" "+
+	"<span xml:id=\"token-WDD17/982/72848-p15845\">"+
+	"<span xlink:title=\"lwc/d:CJ\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15843\">flach</span>"+
+	"</span>"+
+	"</mark>"+
+	"</span>"+
+	"</span>"+
+	"<span class=\"context-right\"></span>";
+
+
 requirejs.config({
   baseUrl: '../js/src',
   paths : {
@@ -203,6 +254,10 @@ require(['match/relations', 'match/tree'], function (relClass, treeClass) {
   var rel2 = relClass.create(relSnippet);
   document.getElementById("treeRel2").appendChild(rel2.element());
   rel2.show();
+
+  var rel3 = relClass.create(relSnippet3);
+  document.getElementById("treeRel3").appendChild(rel3.element());
+  rel3.show();
 
   var tree = treeClass.create(treeSnippet);
   document.getElementById("treeHier").appendChild(tree.element());
