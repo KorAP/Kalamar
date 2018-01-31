@@ -105,34 +105,60 @@ define([], function () {
         // Element node
         if (c.nodeType == 1) {
 
-          var xmlid, target;
+          var xmlid, target, start, end;
 
           // Node is an identifier
           if (c.hasAttribute('xml:id')) {
 
             // Remember that pos has this identifier
             xmlid = c.getAttribute('xml:id');
-            this.temp['target'][xmlid] = [this.temp['pos'], this.temp['pos']];
+            // this.temp['target'][xmlid] =
+            start = this.temp['pos'];
+            end = this.temp['pos'];
           }
 
-          // Node is a relation
+          // Node is a link
+          // Stricter: && c.hasAttribute('xlink:show')
           else if (c.hasAttribute('xlink:href')) {
-            var label;
 
-            // Get target id
-            target = c.getAttribute('xlink:href').replace(/^#/, "");
+            // Node is a continuation
+            if (c.getAttribute('xlink:show') == "other" &&
+                c.hasAttribute('data-action') &&
+                c.getAttribute('data-action') == "join"
+               ) {
+              xmlid = c.getAttribute('xlink:href').replace(/^#/, "");
+              start = this.temp['pos'];
+              end = this.temp['pos'];
 
-            if (c.hasAttribute('xlink:title')) {
-              label = this._clean(c.getAttribute('xlink:title'));
+              // this.temp['target'][xmlid][1] = this.temp['pos'] -1;
+              // console.log("Here");
+            }
+
+            // Node is a relation
+            // Stricter: c.getAttribute('xlink:show') == "none"
+            else {
+              var label;
+
+              // Get target id
+              target = c.getAttribute('xlink:href').replace(/^#/, "");
+
+              if (c.hasAttribute('xlink:title')) {
+                label = this._clean(c.getAttribute('xlink:title'));
+              };
+
+              // Remember the defined edge
+              var edge = {
+                label    : label,
+                srcStart : this.temp['pos'],
+                targetID : target
+              };
+
+              // TEMP: Hot-fix for root relations
+              if (!label.match(/--$/) && !label.match(/ROOT$/)) {
+                this.temp['edges'].push(edge);
+              };
+
             };
-
-            // Remember the defined edge
-            var edge = {
-              label    : label,
-              srcStart : this.temp['pos'],
-              targetID : target
-            };
-            this.temp['edges'].push(edge);
           };
 
           // Go on with child nodes
@@ -140,8 +166,25 @@ define([], function () {
             this._parse(0, c.childNodes, mark);
           };
 
+
+          // The element is a defined anchor
           if (xmlid !== undefined) {
-            this.temp['target'][xmlid][1] = this.temp['pos'] -1;
+
+            // this.temp['target'][xmlid][1] = this.temp['pos'] -1;
+
+            // Element already defined
+            if (this.temp['target'][xmlid] !== undefined) {
+              var newtarget = this.temp['target'][xmlid];
+              end = this.temp['pos'] - 1;
+              newtarget[0] = start < newtarget[0] ? start : newtarget[0];
+              newtarget[1] = end > newtarget[1] ? end : newtarget[1];
+            }
+
+            // Element not yet defined
+            else {
+              end = this.temp['pos'] - 1;
+              this.temp['target'][xmlid] = [start, end];
+            };
 
             /*
             console.log('Target ' + xmlid + ' spans from ' +
@@ -152,8 +195,13 @@ define([], function () {
             */
             xmlid = undefined;
           }
+
+          // Current element describes an arc
           else if (target !== undefined) {
+
+            // TODO: This does not work yet!
             edge["srcEnd"] = this.temp['pos'] -1;
+            // console.log('Here');
 
             /*
             console.log('Source spans from ' +
@@ -183,6 +231,8 @@ define([], function () {
           };
         }
       };
+
+      // Todo: define edges here!
     },
 
     

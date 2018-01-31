@@ -1,4 +1,4 @@
-0.25 2018-01-09
+0.25 2018-01-31
         - Make annotation helper configurable.
         - Support multiple prefixes in menus.
         - Show annotation tooltips in table views.
@@ -7,6 +7,7 @@
         - Make tutorial queries localizable for different default corpora.
         - Update dependencies.
         - Add lwc annotations.
+        - Adapt support for new relation serialization by Krill.
 
 0.24 2017-11-22
         - Added support for relation visualization.

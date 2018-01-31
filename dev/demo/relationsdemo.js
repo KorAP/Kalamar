@@ -168,6 +168,7 @@ var relSnippet3 =
 	"<span xlink:title=\"lwc/d:NK\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15838\">letztes</span>"+
 	" "+
 	"<span xml:id=\"token-WDD17/982/72848-p15838\">"+
+    
 	"<span xlink:title=\"lwc/d:--\" xlink:type=\"simple\" xlink:href=\"#token-WDD17/982/72848-p15836-15839\">mal</span>"+
 	"</span>"+
 	": "+
@@ -261,48 +262,48 @@ relSnippet3 =
 relSnippet3 =
  	"<span class=\"context-left\"></span>"+
 	"<span class=\"match\">"+
-	"<span xml:id=\"token-WDD17/982/72848-p15836-15839\">"+
-	"<span xlink:title=\"lwc/d:NK\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15838\">Ein</span>"+
+	"  <span xml:id=\"token-WDD17/982/72848-p15836-15839\">"+
+	"    <span xlink:title=\"lwc/d:NK\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15838\">Ein</span>"+
 	" "+
-	"<span xlink:title=\"lwc/d:NK\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15838\">letztes</span>"+
+	"    <span xlink:title=\"lwc/d:NK\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15838\">letztes</span>"+
 	" "+
-	"<span xml:id=\"token-WDD17/982/72848-p15838\">"+
-	"<span xlink:title=\"lwc/d:--\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15836-15839\">mal</span>"+
-	"</span>"+
+	"    <span xml:id=\"token-WDD17/982/72848-p15838\">"+
+  //     s1464_n2 "ein" -> ":"
+	"      <span xlink:title=\"lwc/d:--\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15836-15839\">mal</span>"+
+	"    </span>"+
 	": "+
-	"<span xml:id=\"token-WDD17/982/72848-p15839-15840\">"+
-	"<span xlink:title=\"lwc/d:--\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15839-15840\">AL</span>"+
-	"</span>"+
-	"</span>"+
-	"<span xlink:show=\"other\" data-action=\"join\" xlink:href=\"#token-WDD17/982/72848-p15839-15840\">"+
+	"    <span xml:id=\"token-WDD17/982/72848-p15839-15840\">"+
+	"      <span xlink:title=\"lwc/d:--\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15839-15840\">AL</span>"+
+	"    </span>"+
+	"  </span>"+
+	"  <span xlink:show=\"other\" data-action=\"join\" xlink:href=\"#token-WDD17/982/72848-p15839-15840\">"+
 	":"+
-	"<span xml:id=\"token-WDD17/982/72848-p15840-15846\">"+
-	"<span xml:id=\"token-WDD17/982/72848-p15840\">"+
-	"<span xlink:title=\"lwc/d:--\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15840-15846\">halt</span>"+
-	"</span>"+
-	"</span>"+
-	"</span>"+
-	// "<span xml:id=\"token-WDD17/982/72848-p15840-15846\">"+
-	"<span xlink:show=\"other\" data-action=\"join\" xlink:href=\"#token-WDD17/982/72848-p15840-15846\">"+
+	"    <span xml:id=\"token-WDD17/982/72848-p15840-15846\">"+
+	"      <span xml:id=\"token-WDD17/982/72848-p15840\">"+
+	"        <span xlink:title=\"lwc/d:--\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15840-15846\">halt</span>"+
+	"      </span>"+
+	"    </span>"+
+	"  </span>"+
+	"  <span xlink:show=\"other\" data-action=\"join\" xlink:href=\"#token-WDD17/982/72848-p15840-15846\">"+
 	" "+
-	"<span xlink:title=\"lwc/d:NK\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15842\">den</span>"+
+	"    <span xlink:title=\"lwc/d:NK\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15842\">den</span>"+
 	" "+
-	"<span xml:id=\"token-WDD17/982/72848-p15842\">"+
-	"<span xlink:title=\"lwc/d:OA\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15843\">Ball</span>"+
-	"</span>"+
+	"    <span xml:id=\"token-WDD17/982/72848-p15842\">"+
+	"      <span xlink:title=\"lwc/d:OA\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15843\">Ball</span>"+
+	"    </span>"+
 	" "+
-	"<span xml:id=\"token-WDD17/982/72848-p15843\">"+
-	"<span xlink:title=\"lwc/d:PD\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15840\">flach</span>"+
-	"</span>"+
+	"    <span xml:id=\"token-WDD17/982/72848-p15843\">"+
+	"      <span xlink:title=\"lwc/d:PD\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15840\">flach</span>"+
+	"    </span>"+
 	", "+
-	"<mark>"+
-	"<span xlink:title=\"lwc/d:MO\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15845\">ganz</span>"+
+	"    <mark>"+
+	"      <span xlink:title=\"lwc/d:MO\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15845\">ganz</span>"+
 	" "+
-	"<span xml:id=\"token-WDD17/982/72848-p15845\">"+
-	"<span xlink:title=\"lwc/d:CJ\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15843\">flach</span>"+
-	"</span>"+
-	"</mark>"+
-	"</span>"+
+	"      <span xml:id=\"token-WDD17/982/72848-p15845\">"+
+	"        <span xlink:title=\"lwc/d:CJ\" xlink:show=\"none\" xlink:href=\"#token-WDD17/982/72848-p15843\">flach</span>"+
+	"      </span>"+
+	"    </mark>"+
+	"  </span>"+
 	"</span>"+
 	"<span class=\"context-right\"></span>";
 
