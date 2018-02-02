@@ -57,7 +57,7 @@ define(['menu/item'], function (itemClass) {
       menu.hide();
       e.halt();
       if (menu.info() !== undefined) {
-	      menu.info().addTree(this._foundry, this._layer, this._type);
+	      menu.info().showTree(this._foundry, this._layer, this._type);
       };
     },
 

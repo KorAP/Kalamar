@@ -5,14 +5,14 @@ define([
   'match/infolayer',
   'match/table',
   'match/tree',
-  'match/reference', // rename to meta
+  'match/meta',
   'match/relations',
   'match/querycreator',
   'util'
 ], function (infoLayerClass,
 	           matchTableClass,
 	           matchTreeClass,
-	           matchRefClass,
+	           matchMetaClass,
              matchRelClass,
              matchQueryCreator) {
   
@@ -33,6 +33,7 @@ define([
       return Object.create(this)._init(match);
     },
 
+
     /**
      * Initialize object
      */
@@ -41,6 +42,7 @@ define([
       this.opened = false;
       return this;
     },
+
 
     /**
      * Get match object
@@ -82,7 +84,7 @@ define([
      * Retrieve and parse snippet for table
      * representation
      */
-    getTable : function (tokens, cb) {
+    getTableData : function (tokens, cb) {
       var focus = [];
 
       // Get all tokens
@@ -138,15 +140,15 @@ define([
     },
 
 
-    getMeta : function (metaInfo, cb) {
-      
+    getMetaData : function (metaInfo, cb) {
+      // ...
     },
     
 
     /**
      * Retrieve and parse snippet for tree representation
      */
-    getTree : function (foundry, layer, type, cb) {
+    getTreeData : function (foundry, layer, type, cb) {
       var focus = [];
       
       // TODO: Support and cache multiple trees
@@ -180,6 +182,7 @@ define([
       );
     },
 
+
     /**
      * Destroy this match information view.
      */
@@ -198,30 +201,29 @@ define([
       // Element destroy
     },
 
+
     /**
      * Add a new tree view to the list
      */
-    addTree : function (foundry, layer, type, cb) {
+    showTree : function (foundry, layer, type, cb) {
       var matchtree = document.createElement('div');
       matchtree.classList.add('matchtree');
-      
-      var h6 = matchtree.appendChild(document.createElement('h6'));
-      h6.appendChild(document.createElement('span'))
-	      .appendChild(document.createTextNode(foundry));
-      h6.appendChild(document.createElement('span'))
-	      .appendChild(document.createTextNode(layer));      
 
-      var tree = matchtree.appendChild(
-        document.createElement('div')
-      );
+      // Add title line
+      var h6 = matchtree.addE('h6');
+      h6.addE('span').addT(foundry);
+      h6.addE('span').addT(layer);      
+
+      var tree = matchtree.addE('div');
       
       this._element.insertBefore(matchtree, this._element.lastChild);
 
-      var actions = tree.appendChild(document.createElement('ul'));
+      // Add close action button
+      var actions = tree.addE('ul');
       actions.classList.add('action', 'image');
-      var close = actions.appendChild(document.createElement('li'));
+      var close = actions.addE('li');
       close.className = 'close';
-      close.appendChild(document.createElement('span'));
+      close.addE('span');
       close.addEventListener(
         'click', function (e) {
           matchtree.parentNode.removeChild(matchtree);
@@ -232,22 +234,22 @@ define([
       tree.classList.add('loading');
 
       // Get tree data async
-      this.getTree(foundry, layer, type, function (treeObj) {
+      this.getTreeData(foundry, layer, type, function (treeObj) {
 
         tree.classList.remove('loading');
 
         // Something went wrong - probably log!!!
 
         if (treeObj === null) {
-          tree.appendChild(document.createTextNode('No data available.'));
+          tree.addT('No data available.');
         }
         else {
           tree.appendChild(treeObj.element());
           treeObj.show();
+
           // Reposition the view to the center
           // (This may in a future release be a reposition
-          // to move the root into the center or the actual
-          // match)
+          // to move the root to the actual match)
 
           // This is currently not supported by relations
           if (type === "spans") {
@@ -255,14 +257,7 @@ define([
             dl.className = 'download';
             dl.addEventListener(
               'click', function (e) {
-
-                var a = document.createElement('a');
-                a.setAttribute('href-lang', 'image/svg+xml');
-                a.setAttribute('href', 'data:image/svg+xml;base64,'+treeObj.toBase64());
-                a.setAttribute('download', 'tree.svg');
-                a.target = '_blank';
-                a.setAttribute('rel', 'noopener noreferrer');
-                
+                var a = treeObj.downloadLink();
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a)
@@ -283,9 +278,8 @@ define([
 
 
     // Add meta information to match
-    addMeta : function () {
+    showMeta : function () {
       var matchmeta = document.createElement('div');
-      // matchRefClass.create();
 
       // TODO: This is part of the getMeta!
       var metaInfo = this._match.element().getAttribute('data-info');
@@ -297,7 +291,7 @@ define([
       if (metaInfo) {
 
         // Add metainfo to matchview
-        var metaElem = matchRefClass.create(this._match).element(metaInfo);
+        var metaElem = matchMetaClass.create(this._match).element(metaInfo);
         var elem = this.element();
 
         elem.insertBefore(
@@ -307,8 +301,9 @@ define([
       };
     },
 
+
     // Add table
-    addTable : function () {
+    showTable : function () {
 
       var info = this.element();
 
@@ -318,19 +313,20 @@ define([
       info.appendChild(matchtable);
 
       // Create the table asynchronous
-      this.getTable(undefined, function (table) {
+      this.getTableData(undefined, function (table) {
 
         if (table !== null) {
           matchtable.appendChild(table.element());
 	      };
-	      matchtable.classList.remove('loading');
+
+        // Load data
+        matchtable.classList.remove('loading');
 
         // Add query creator
         this._matchCreator = matchQueryCreator.create(info);
       });
-
-      // info.appendChild(this.addTreeMenu());
     },
+
 
     /**
      * Create match information view.

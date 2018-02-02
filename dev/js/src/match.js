@@ -178,113 +178,79 @@ define([
       close.classList.add('close');
       close.setAttribute('title', loc.CLOSE);
       
-      // Add info button
-      /*
-      var info = document.createElement('li');
-      info.appendChild(document.createElement('span'))
-        .appendChild(document.createTextNode(loc.SHOWINFO));
-      info.classList.add('info');
-      info.setAttribute('title', loc.SHOWINFO);
-      */
-
       var that = this;
 
       // Add meta button
       var refLine = element.querySelector("p.ref");
 
-      // There is a reference line
-      if (refLine) {
+      if (!refLine)
+        return;
+      
+      // TODO: Simplify
+      var ops = document.createElement('div');
+      ops.classList.add('action', 'bottom', 'button-group');
+      
+      var meta = document.createElement('span');
+      ops.appendChild(meta);
+      meta.appendChild(document.createTextNode('Meta'));
+      meta.setAttribute('title', loc.SHOW_META);
+      meta.classList.add('meta');
 
-        // Temporary
-        var ops = document.createElement('div');
-        ops.classList.add('action', 'bottom', 'button-group');
+      var info = document.createElement('span');
+      ops.appendChild(info);
+      info.appendChild(document.createTextNode('Anno'));
+      info.setAttribute('title', loc.SHOWINFO);
+      info.classList.add('info');
 
-        var meta = document.createElement('span');
-        ops.appendChild(meta);
-        meta.appendChild(document.createTextNode('+ Meta'));
-        meta.setAttribute('title', loc.SHOW_META);
-        meta.classList.add('meta');
+      var tree = document.createElement('span');
+      ops.appendChild(tree);
+      tree.appendChild(document.createTextNode('+ Tree'));
+      tree.setAttribute('title', loc.ADDTREE);
+      tree.classList.add('tree');
 
-        var info = document.createElement('span');
-        ops.appendChild(info);
-        info.appendChild(document.createTextNode('+ Anno'));
-        info.setAttribute('title', loc.SHOWINFO);
-        info.classList.add('info');
+      // Insert before reference line
+      refLine.insertBefore(
+        ops,
+        refLine.firstChild
+      );
 
-        var tree = document.createElement('span');
-        ops.appendChild(tree);
-        tree.appendChild(document.createTextNode('+ Tree'));
-        tree.setAttribute('title', loc.ADDTREE);
-        tree.classList.add('tree');
-        
-        refLine.insertBefore(
-          ops,
-          refLine.firstChild
-        );
+      // Click on meta - add meta (unless already there)
+      meta.addEventListener(
+        'click', function (e) {
+          e.halt();
+          that.info().showMeta();
+        }
+      );
 
-        /*
-        var meta = document.createElement('span');
-        meta.appendChild(
-          document.createElement('span')
-        ).appendChild(
-          document.createTextNode(loc.SHOW_META)
-        );
-        meta.setAttribute('title', loc.SHOW_META);
-        meta.classList.add('meta');
-        refLine.insertBefore(
-          meta,
-          refLine.firstChild
-        );
-        */
+      // Click on token annotations - add token annotations (unless already there)
+      info.addEventListener(
+        'click', function (e) {
+          e.halt();
+          that.info().showTable();
+        }
+      );
 
-        meta.addEventListener(
-          'click', function (e) {
-            e.halt();
-            that.info().addMeta();
-          }
-        );
+      // Click to show tree menu
+      tree.addEventListener(
+        'click', function (e) {
+          e.halt();
 
-        // Add information, unless it already exists
-        info.addEventListener(
-          'click', function (e) {
-            e.halt();
-            that.info().addTable();
-          }
-        );
+          if (KorAP.TreeMenu === undefined) {
+            KorAP.TreeMenu = matchTreeMenuClass.create([]);
+          };
 
-        tree.addEventListener(
-          'click', function (e) {
-            e.halt();
+          var tm = KorAP.TreeMenu;
 
-            if (KorAP.TreeMenu === undefined) {
-              KorAP.TreeMenu = matchTreeMenuClass.create([]);
-            };
+          // Reread list
+          tm.info(that.info());
+          tm.readItems(that.treeMenuList());
 
-            var tm = KorAP.TreeMenu;
-
-            // Reread list
-            tm.info(that.info());
-            tm.readItems(that.treeMenuList());
-            tm.attachTo(this);
-
-            // Not yet initialized
-            /*
-              if (that._treemenu === undefined) {
-              that._treemenu = that.initTreeMenu();
-
-              // TODO:
-              // Do not add the tree menu to the button!
-              // Only reposition a global treemenu element there,
-              // that is positioned below the annotation helper!
-              this.appendChild(that._treemenu.element());
-            };
-            var tm = that._treemenu;
-            */
-            tm.show();
-            tm.focus();
-          }
-        );
-      };
+          // Reposition and show menu
+          tm.attachTo(this);
+          tm.show();
+          tm.focus();
+        }
+      );
 
       // Close match
       close.addEventListener('click', function (e) {
@@ -292,16 +258,7 @@ define([
         that.close()
       });
 
-      // Add information, unless it already exists
-      /*
-      info.addEventListener('click', function (e) {
-        e.halt();
-        that.info().addTable();
-      });
-      */
-
       ul.appendChild(close);
-      // ul.appendChild(info);
 
       return true;
     },
@@ -321,15 +278,16 @@ define([
      */
     close : function () {
       this._element.classList.remove('active');
-      /* if (this._info !== undefined) {
-       *   this._info.destroy();
-       * };
-       */
+      /*
+      if (this._info !== undefined) {
+        this._info.destroy();
+      };
+      */
     },
 
 
     /**
-     * Get and open associated match info.
+     * Get and open associated match infos.
      */
     info : function () {
 
@@ -346,11 +304,6 @@ define([
       if (this._info._element !== undefined)
         return this._info;
 
-      /*
-        this.element().appendChild(
-        this._info.element()
-      );
-      */
       var refLine = this._element.querySelector("p.ref");
       this._element.insertBefore(
         this._info.element(),
@@ -361,6 +314,7 @@ define([
     },
 
 
+    // Return tree menu list
     treeMenuList : function () {
 
       if (this._menuList)
@@ -414,34 +368,8 @@ define([
       // Create tree menu
       this._menuList = menuList;
       return menuList;
-      /*
-      var span = document.createElement('p');
-      span.classList.add('addtree');
-      span.appendChild(document.createTextNode(loc.ADDTREE));
-      var treeElement = treemenu.element();
-      span.appendChild(treeElement);
-
-      span.addEventListener('click', function (e) {
-        treemenu.show();
-        treemenu.focus();
-      });
-      */
     },
 
-        
-    /**
-     * Get tree menu.
-     * There is only one menu rendered
-     * - no matter how many trees exist
-     */
-    /*
-    treeMenu : function (list) {
-      if (this._treeMenu !== undefined)
-        return this._treeMenu;
-      
-      return this._treeMenu = matchTreeMenuClass.create(this, list);
-    },
-    */
     
     /**
      * Get match element.

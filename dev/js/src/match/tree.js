@@ -188,6 +188,9 @@ define(['lib/dagre'], function (dagre) {
     },
 
 
+    /**
+     * Create svg and serialize as base64
+     */
     toBase64 : function () {
 
       // First clone element
@@ -310,6 +313,16 @@ define(['lib/dagre'], function (dagre) {
       canvas.setAttribute('width', g.graph().width);
       canvas.setAttribute('height', height);
       return this._element;
+    },
+
+    downloadLink : function () {
+      var a = document.createElement('a');
+      a.setAttribute('href-lang', 'image/svg+xml');
+      a.setAttribute('href', 'data:image/svg+xml;base64,' + this.toBase64());
+      a.setAttribute('download', 'tree.svg');
+      a.target = '_blank';
+      a.setAttribute('rel', 'noopener noreferrer');
+      return a;
     }
   };
 });

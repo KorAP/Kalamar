@@ -33,12 +33,22 @@ HTMLElement.prototype.toggleClass = function (c1, c2) {
 };
 
 
+HTMLElement.prototype.addE = function (tag) {
+  return this.appendChild(document.createElement(tag));
+};
+
+HTMLElement.prototype.addT = function (text) {
+  return this.appendChild(document.createTextNode(text));
+};
+
+
 // Utility for removing all children of a node
 function _removeChildren (node) {
   // Remove everything underneath
   while (node.firstChild)
     node.removeChild(node.firstChild);
 };
+
 
 // Utility to get either the charCode
 // or the keyCode of an event
