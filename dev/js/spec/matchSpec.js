@@ -596,7 +596,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
 
   describe('KorAP.MatchRelation', function () {
-    var relClass = require('match/relations')
+    var relClass = require('match/treearc')
 
     var relExample = "<span class=\"context-left\"></span>" +
         "<span class=\"match\">" +

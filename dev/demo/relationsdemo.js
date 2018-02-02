@@ -314,7 +314,7 @@ requirejs.config({
   }
 });
 
-require(['match/relations', 'match/tree'], function (relClass, treeClass) {
+require(['match/treearc', 'match/treehierarchy'], function (relClass, treeClass) {
   var rel = relClass.create();
 
   /*

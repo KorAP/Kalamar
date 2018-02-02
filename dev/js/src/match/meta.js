@@ -102,7 +102,30 @@ define(['util'], function () {
         };
       };
 
+      this.addButton('close', function (e) {
+        var el = this.element();
+        el.parentNode.removeChild(el);
+        e.halt();
+      });
+      
       return this._element;
-    }
+    },
+
+    // TODO: This should be a method by all matchinfo objects
+    addButton : function (buttonType, cb) {
+      // TODO: Unless existent
+      var actions = document.createElement('ul');
+      actions.classList.add('action', 'image');
+      var button = actions.addE('li');
+      button.className = buttonType;
+      button.addE('span').addT(buttonType);
+      button.addEventListener(
+        'click', cb.bind(this)
+      );
+
+      this.element().appendChild(actions);
+      return actions;
+    },
+
   };
 });

@@ -4,16 +4,16 @@
 define([
   'match/infolayer',
   'match/table',
-  'match/tree',
+  'match/treehierarchy',
+  'match/treearc',
   'match/meta',
-  'match/relations',
   'match/querycreator',
   'util'
 ], function (infoLayerClass,
 	           matchTableClass,
-	           matchTreeClass,
+	           matchTreeHierarchyClass,
+             matchTreeArcClass,
 	           matchMetaClass,
-             matchRelClass,
              matchQueryCreator) {
   
   // Override 
@@ -165,10 +165,10 @@ define([
             // Todo: This should be cached somehow
 
             if (type === "spans") {
-              cb(matchTreeClass.create(matchResponse["snippet"]));
+              cb(matchTreeHierarchyClass.create(matchResponse["snippet"]));
             }
             else if (type === "rels") {
-              cb(matchRelClass.create(matchResponse["snippet"]));              
+              cb(matchTreeArcClass.create(matchResponse["snippet"]));              
             }
 
             // Unknown tree type
@@ -281,6 +281,7 @@ define([
     // Add meta information to match
     showMeta : function () {
       var matchmeta = d.createElement('div');
+      matchmeta.classList.add('matchmeta', 'loading');
 
       // TODO: This is part of the getMeta!
       var metaInfo = this._match.element().getAttribute('data-info');
@@ -293,25 +294,27 @@ define([
 
         // Add metainfo to matchview
         var metaElem = matchMetaClass.create(this._match).element(metaInfo);
-        var elem = this.element();
-
+        this.element().appendChild(metaElem);
+        /*
         elem.insertBefore(
           metaElem,
           elem.firstChild
         );
+        */
       };
+
+      // Load data
+      matchmeta.classList.remove('loading');
     },
 
 
     // Add table
     showTable : function () {
 
-      var info = this.element();
-
       // Append default table
       var matchtable = d.createElement('div');
       matchtable.classList.add('matchtable', 'loading');
-      info.appendChild(matchtable);
+      this.element().appendChild(matchtable);
 
       // Create the table asynchronous
       this.getTableData(undefined, function (table) {
@@ -327,7 +330,6 @@ define([
         this._matchCreator = matchQueryCreator.create(info);
       });
     },
-
 
     /**
      * Create match information view.
