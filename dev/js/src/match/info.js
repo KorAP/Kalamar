@@ -280,8 +280,8 @@ define([
 
     // Add meta information to match
     showMeta : function () {
-      var matchmeta = d.createElement('div');
-      matchmeta.classList.add('matchmeta', 'loading');
+      var metaTable = document.createElement('div');
+      metaTable.classList.add('metatable'); // , 'loading');
 
       // TODO: This is part of the getMeta!
       var metaInfo = this._match.element().getAttribute('data-info');
@@ -294,17 +294,18 @@ define([
 
         // Add metainfo to matchview
         var metaElem = matchMetaClass.create(this._match).element(metaInfo);
-        this.element().appendChild(metaElem);
-        /*
-        elem.insertBefore(
-          metaElem,
-          elem.firstChild
-        );
-        */
+        metaTable.appendChild(metaElem);
+        this.element().appendChild(metaTable);
+
+        // Add button
+        this._addButton('close', metaTable, function (e) {
+          this.parentNode.removeChild(this);
+          e.halt();
+        });
       };
 
       // Load data
-      matchmeta.classList.remove('loading');
+      metaTable.classList.remove('loading');
     },
 
 
@@ -313,8 +314,11 @@ define([
 
       // Append default table
       var matchtable = d.createElement('div');
-      matchtable.classList.add('matchtable', 'loading');
-      this.element().appendChild(matchtable);
+      matchtable.classList.add('matchtable'); // , 'loading');
+
+      var info = this.element();
+      info.appendChild(matchtable);
+
 
       // Create the table asynchronous
       this.getTableData(undefined, function (table) {
@@ -329,7 +333,33 @@ define([
         // Add query creator
         this._matchCreator = matchQueryCreator.create(info);
       });
+
+      // Add button
+      this._addButton('close', matchtable, function (e) {
+        this.parentNode.removeChild(this);
+        e.halt();
+      });
+
+      // Load data
+      matchtable.classList.remove('loading');
     },
+
+
+    _addButton : function (buttonType, element, cb) {
+      // TODO: Unless existent
+      var actions = document.createElement('ul');
+      actions.classList.add('action', 'image');
+      var b = actions.addE('li');
+      b.className = buttonType;
+      b.addE('span').addT(buttonType);
+      b.addEventListener(
+        'click', cb.bind(element)
+      );
+
+      element.appendChild(actions);
+      return actions;
+    },
+
 
     /**
      * Create match information view.

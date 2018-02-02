@@ -61,9 +61,6 @@ define(['util'], function () {
       if (this._element !== undefined)
         return this._element;
       
-      var metaTable = document.createElement('div');
-      metaTable.classList.add('metatable');
-
       /*
       var header = metaTable.appendChild(
         document.createElement('h6')
@@ -76,9 +73,9 @@ define(['util'], function () {
       );
       */
 
-      var metaDL = metaTable.addE('dl');
+      var metaDL = document.createElement('dl');
 
-      this._element = metaTable;
+      this._element = metaDL;
 
       // TODO: Meta fields should be separated
       var keys = Object.keys(metaInfo);
@@ -101,31 +98,7 @@ define(['util'], function () {
           metaDL.appendChild(metaL);
         };
       };
-
-      this.addButton('close', function (e) {
-        var el = this.element();
-        el.parentNode.removeChild(el);
-        e.halt();
-      });
-      
       return this._element;
-    },
-
-    // TODO: This should be a method by all matchinfo objects
-    addButton : function (buttonType, cb) {
-      // TODO: Unless existent
-      var actions = document.createElement('ul');
-      actions.classList.add('action', 'image');
-      var button = actions.addE('li');
-      button.className = buttonType;
-      button.addE('span').addT(buttonType);
-      button.addEventListener(
-        'click', cb.bind(this)
-      );
-
-      this.element().appendChild(actions);
-      return actions;
-    },
-
+    }
   };
 });

@@ -2,6 +2,7 @@
  * Table representation of morphological
  * annotations of a match.
  */
+// TODO: Create base object for all matchinfo classes!
 define(["util"], function () {
   const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
   const d = document;
@@ -69,6 +70,7 @@ define(["util"], function () {
     getValue : function (pos, foundry, layer) {
       return this._info[pos][foundry + '/' + layer]
     },
+
 
     // Parse the snippet
     _parse : function (children) {
@@ -149,7 +151,11 @@ define(["util"], function () {
         return this._element;
 
       // First the legend table
-      var table = d.createElement('table');
+      var wrap = d.createElement('div');
+
+      var table = wrap.addE('table');
+
+      this._element = wrap;
 
       // Single row in head
       var tr = table.addE('thead').addE('tr');
@@ -239,7 +245,7 @@ define(["util"], function () {
         };
       };
 
-      return this._element = table;
-    }
+      return this._element;
+    },
   };
 });

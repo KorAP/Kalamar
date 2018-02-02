@@ -139,7 +139,7 @@ ul#treeMenu {
 }
 
  
-div.matchtable {
+div.matchtable > div {
   z-index: 20;
   margin-left: $left-distance - ($border-size / 2);
   margin-right: $right-match-distance;
@@ -278,7 +278,7 @@ div.matchtable {
 }
 
 
-div.metatable {
+div.metatable, div.matchtable {
   position: relative;
 }
 
