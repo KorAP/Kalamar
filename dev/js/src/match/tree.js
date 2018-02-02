@@ -7,8 +7,9 @@
 define(['lib/dagre'], function (dagre) {
   "use strict";
 
-  var svgXmlns = "http://www.w3.org/2000/svg";
-  var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
+  const d = document;
+  const svgNS = "http://www.w3.org/2000/svg";
+  const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
 
   // Node size
   var WIDTH  = 55, HEIGHT = 20, LINEHEIGHT = 14;
@@ -44,7 +45,7 @@ define(['lib/dagre'], function (dagre) {
       this._next = new Number(0);
       
       // Create html for traversal
-      var html = document.createElement("div");
+      var html = d.createElement("div");
       html.innerHTML = snippet;
       var g = new dagre.graphlib.Graph({
        "directed" : true 
@@ -76,6 +77,11 @@ define(['lib/dagre'], function (dagre) {
       return this;
     },
 
+
+    _c : function (tag) {
+      return d.createElementNS(svgNS, tag);
+    },
+    
     /**
      * The number of nodes in the tree.
      */
@@ -194,11 +200,11 @@ define(['lib/dagre'], function (dagre) {
     toBase64 : function () {
 
       // First clone element
-      var svgWrapper = document.createElement('div')
+      var svgWrapper = d.createElement('div')
       svgWrapper.innerHTML = this.element().outerHTML;
       var svg = svgWrapper.firstChild;
 
-      var style = document.createElementNS(svgXmlns, 'style');
+      var style = this._c('style');
       svg.getElementsByTagName('defs')[0].appendChild(style);
 
       style.innerHTML = 
@@ -223,10 +229,11 @@ define(['lib/dagre'], function (dagre) {
 
       dagre.layout(g);
       
-      var canvas = document.createElementNS(svgXmlns, 'svg');
+      var canvas = this._c('svg');
       this._element = canvas;
+      var that = this;
 
-      canvas.appendChild(document.createElementNS(svgXmlns, 'defs'));
+      canvas.appendChild(this._c('defs'));
       
       var height = g.graph().height;
 
@@ -235,7 +242,7 @@ define(['lib/dagre'], function (dagre) {
         function (e) {
           var src = g.node(e.v);
           var target = g.node(e.w);
-          var p = document.createElementNS(svgXmlns, 'path');
+          var p = that._c('path');
           p.setAttributeNS(null, "d", _line(src, target));
           p.classList.add('edge');
           canvas.appendChild(p);
@@ -245,11 +252,11 @@ define(['lib/dagre'], function (dagre) {
       g.nodes().forEach(
         function (v) {
           v = g.node(v);
-          var group = document.createElementNS(svgXmlns, 'g');
+          var group = that._c('g');
           group.setAttribute('class', v.class);
           
           // Add node box
-          var rect = group.appendChild(document.createElementNS(svgXmlns, 'rect'));
+          var rect = group.appendChild(that._c('rect'));
           rect.setAttribute('x', v.x - v.width / 2);
           rect.setAttribute('y', v.y - v.height / 2);
           rect.setAttribute('rx', 5);
@@ -265,7 +272,7 @@ define(['lib/dagre'], function (dagre) {
 
           // Add label
           if (v.label !== undefined) {
-            var text = group.appendChild(document.createElementNS(svgXmlns, 'text'));
+            var text = group.appendChild(that._c('text'));
             var y = v.y - v.height / 2;
             text.setAttribute('y', y);
             text.setAttribute(
@@ -282,8 +289,8 @@ define(['lib/dagre'], function (dagre) {
                 if (labelPart[i].length === 0)
                   continue;
 
-                var tspan = document.createElementNS(svgXmlns, 'tspan');
-                tspan.appendChild(document.createTextNode(labelPart[i]));
+                var tspan = that._c('tspan');
+                tspan.appendChild(d.createTextNode(labelPart[i]));
                 if (n !== 0)
                   tspan.setAttribute('dy', LINEHEIGHT + 'pt');
                 else
@@ -300,8 +307,8 @@ define(['lib/dagre'], function (dagre) {
                 height = y;
             }
             else {
-              var tspan = document.createElementNS(svgXmlns, 'tspan');
-              tspan.appendChild(document.createTextNode(v.label));
+              var tspan = that._c('tspan');
+              tspan.appendChild(d.createTextNode(v.label));
               tspan.setAttribute('x', v.x - v.width / 2);
               text.appendChild(tspan);
             };
@@ -316,7 +323,7 @@ define(['lib/dagre'], function (dagre) {
     },
 
     downloadLink : function () {
-      var a = document.createElement('a');
+      var a = d.createElement('a');
       a.setAttribute('href-lang', 'image/svg+xml');
       a.setAttribute('href', 'data:image/svg+xml;base64,' + this.toBase64());
       a.setAttribute('download', 'tree.svg');

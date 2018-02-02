@@ -1,5 +1,5 @@
 define(
-  ['menu', 'selectMenu/item'],
+  ['menu', 'selectMenu/item', 'util'],
   function (menuClass, selectMenuItemClass) {
 
     return {
@@ -42,8 +42,8 @@ define(
 	      obj._select.style.display = 'none';
 
 	      // Create title
-	      obj._title = obj._container.appendChild(document.createElement('span'));
-	      obj._title.appendChild(document.createTextNode(''));
+	      obj._title = obj._container.addE('span');
+	      obj._title.addT('');
 	      obj._container.appendChild(obj.element());
 
         // Show the menu

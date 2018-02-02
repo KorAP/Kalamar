@@ -60,7 +60,7 @@ define([
   KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains(?:not)?|excludes)$");
   KorAP._overrideStyles     = false;
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
 
   KorAP._vcKeyMenu = undefined;
   KorAP._vcDatePicker = dpClass.create();

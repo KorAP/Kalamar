@@ -18,11 +18,11 @@ define(['util'], function () {
     // match is a KorAP.Match object
     var url = KorAP.URL;
     url += '/corpus';
-/*
-    url += '/' + match.corpusID;
-    url += '/' + match.docID;
-    url += '/' + match.textID;
-*/
+    /*
+      url += '/' + match.corpusID;
+      url += '/' + match.docID;
+      url += '/' + match.textID;
+    */
 
     var legacySigle = new RegExp('^([^_]+)_([^\\.]+)\\.(.+?)$');
 
@@ -55,12 +55,14 @@ define(['util'], function () {
     KorAP.API.getJSON(url, cb);
   };
 
+
   /**
    * Retrieve information about collections
    */
   KorAP.API.getCollections = function (cb) {
     KorAP.API.getJSON(KorAP.URL + '/collection', cb);
   };
+
 
   /**
    * General method to retrieve JSON information
@@ -72,12 +74,12 @@ define(['util'], function () {
     req.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
     req.onreadystatechange = function () {
       /*
-	States:
-	0 - unsent (prior to open)
-	1 - opened (prior to send)
-	2 - headers received
-	3 - loading (responseText has partial data)
-	4 - done
+	      States:
+	      0 - unsent (prior to open)
+	      1 - opened (prior to send)
+	      2 - headers received
+	      3 - loading (responseText has partial data)
+	      4 - done
       */
       if (this.readyState == 4) {
 

@@ -1,7 +1,7 @@
 /**
  * Hint menu item based on MenuItem
  */
-define(['menu/item'], function (itemClass) {
+define(['menu/item', 'util'], function (itemClass) {
   return {
 
     /**
@@ -100,7 +100,7 @@ define(['menu/item'], function (itemClass) {
 
       // Create title
       var name =  document.createElement("span");
-      name.appendChild(document.createTextNode(this._name));
+      name.addT(this._name);
       
       li.appendChild(name);
 
@@ -108,7 +108,7 @@ define(['menu/item'], function (itemClass) {
       if (this._desc !== undefined) {
 	      var desc = document.createElement("span");
 	      desc.classList.add('desc');
-	      desc.appendChild(document.createTextNode(this._desc));
+	      desc.addT(this._desc);
 	      li.appendChild(desc);
       };
       return this._element = li;

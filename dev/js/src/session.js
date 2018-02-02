@@ -61,10 +61,10 @@ define({
       var pair = part[i].split('=');
       var name = pair[0].trim().toLowerCase();
       if (name === this._name) {
-	if (pair.length === 1 || pair[1].length === 0)
-	  return;
+	      if (pair.length === 1 || pair[1].length === 0)
+	        return;
         this._hash = JSON.parse(decodeURIComponent(pair[1]));
-	return;
+	      return;
       };
     };
   }

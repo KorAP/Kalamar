@@ -9,20 +9,9 @@ define([
   'util'
 ], function (jsonldClass, rewriteListClass, stringValClass) {
 
-    /*
-      var fieldMenu = menuClass.create([
-        ['Titel', 'title', 'string'],
-        ['Untertitel', 'subTitle', 'string'],
-        ['Veröffentlichungsdatum', 'pubDate', 'date'],
-        ['Autor', 'author', 'string']
-      ]);
-      
-      fieldMenu.limit(5);
-    */
-
   _validRegexMatchRE  = new RegExp("^(?:eq|ne)$");
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
 
   return {
@@ -85,16 +74,14 @@ define([
           var k = this.key();
           if (loc['VC_' + k] !== undefined)
             k = loc['VC_' + k];
-          this._keyE.appendChild(document.createTextNode(k));
+          this._keyE.addT(k);
         };
 
         // Added match operator
         this._matchopE = document.createElement('span');
         this._matchopE.setAttribute('data-type', this.type());
         this._matchopE.setAttribute('class', 'match');
-        this._matchopE.appendChild(
-          document.createTextNode(this.matchop())
-        );
+        this._matchopE.addT(this.matchop());
 
         // Change matchop
         this._matchopE.addEventListener(
@@ -107,10 +94,10 @@ define([
         this._valueE.setAttribute('data-type', this.type());
         this._valueE.setAttribute('class', 'value');
         if (this.value()) {
-          this._valueE.appendChild(document.createTextNode(this.value()));
+          this._valueE.addT(this.value());
         }
         else {
-          this._valueE.appendChild(document.createTextNode(loc.EMPTY));
+          this._valueE.addT(loc.EMPTY);
         };
 
         // Change value

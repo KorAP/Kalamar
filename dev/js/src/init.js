@@ -37,12 +37,13 @@ define([
              selectMenuClass) {
 
   // Localization values
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
   loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
   loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle alignment';
   loc.SHOW_KQ          = loc.SHOW_KQ          || 'show KoralQuery';
 
+  const d = document;
 
   // Override KorAP.log
   window.alertify = alertifyClass;
@@ -79,10 +80,10 @@ define([
      * Replace Virtual Collection field
      */
     var vcname, vcchoose;
-    var input = document.getElementById('collection');
+    var input = d.getElementById('collection');
     if (input) {
       input.style.display = 'none';
-      vcname = document.createElement('span');
+      vcname = d.createElement('span');
       vcname.setAttribute('id', 'vc-choose');
       vcname.classList.add('select');
 
@@ -91,12 +92,10 @@ define([
         currentVC = loc.VC_oneCollection;
       };
 
-      vcchoose = vcname.appendChild(document.createElement('span'));
+      vcchoose = vcname.addE('span');
 
-      vcchoose.appendChild(
-        document.createTextNode(
-          document.getElementById('collection-name').value || currentVC
-        )
+      vcchoose.addT(
+        d.getElementById('collection-name').value || currentVC
       );
 
       input.parentNode.insertBefore(vcname, input);
@@ -105,7 +104,7 @@ define([
     /**
      * Add actions to match entries
      */
-    var inactiveLi = document.querySelectorAll(
+    var inactiveLi = d.querySelectorAll(
       '#search > ol > li:not(.active)'
     );
     var i = 0;
@@ -139,7 +138,7 @@ define([
     };
 
     // Add focus listener to aside
-    var aside = document.getElementsByTagName('aside')[0];
+    var aside = d.getElementsByTagName('aside')[0];
 
     if (aside && aside.classList.contains('active') == false) {
 
@@ -152,7 +151,7 @@ define([
       });
 
       // Deactivate focus when clicking anywhere else
-      var body = document.getElementsByTagName('body')[0];
+      var body = d.getElementsByTagName('body')[0];
       if (body !== null) {
         body.addEventListener('click', function() {
           if (!asideClicked) {
@@ -174,23 +173,23 @@ define([
 
       
     // Replace QL select menus with KorAP menus
-    var qlField = document.getElementById('ql-field');
+    var qlField = d.getElementById('ql-field');
     if (qlField !== null) {
       KorAP.QLmenu = selectMenuClass.create(
-        document.getElementById('ql-field').parentNode
+        d.getElementById('ql-field').parentNode
       ).limit(5);
     };
 
-    var result = document.getElementById('resultinfo');
+    var result = d.getElementById('resultinfo');
     var resultButton = null;
     var leftButton = null;
     if (result != null) {
 
       // Add right buttons
-      resultButton = result.appendChild(document.createElement('div'));
+      resultButton = result.addE('div');
       resultButton.classList.add('result', 'button');
 
-      leftButton =  result.appendChild(document.createElement('div'));
+      leftButton =  result.addE('div');
       leftButton.classList.add('result', 'button', 'left');
     };
 
@@ -199,23 +198,23 @@ define([
 
       if (resultButton !== null) {
         var kq;
-        var toggle = document.createElement('a');
+        var toggle = d.createElement('a');
         toggle.setAttribute('title', loc.SHOW_KQ)
         toggle.classList.add('show-kq', 'button');
-        toggle.appendChild(document.createElement('span'))
-          .appendChild(document.createTextNode(loc.SHOW_KQ));
+        toggle.addE('span')
+          .addT(loc.SHOW_KQ);
         resultButton.appendChild(toggle);
 
         var showKQ = function () {
           if (kq === undefined) {
-            kq = document.createElement('div');
+            kq = d.createElement('div');
             kq.setAttribute('id', 'koralquery');
             kq.style.display = 'none';
-            var kqInner = document.createElement('div');
+            var kqInner = d.createElement('div');
             kq.appendChild(kqInner);
             kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
             hljs.highlightBlock(kqInner);
-            var sb = document.getElementById('search');
+            var sb = d.getElementById('search');
             sb.insertBefore(kq, sb.firstChild);
           };
 
@@ -270,7 +269,7 @@ define([
          */
         // querySelector('div.button.right');
         
-        var toggle = document.createElement('a');
+        var toggle = d.createElement('a');
         toggle.setAttribute('title', loc.TOGGLE_ALIGN);
         // Todo: Reuse old alignment from query
         var cl = toggle.classList;
@@ -278,25 +277,24 @@ define([
         toggle.addEventListener(
           'click',
           function (e) {
-            var ol = document.querySelector('#search > ol');
+            var ol = d.querySelector('#search > ol');
             ol.toggleClass("align-left", "align-right");
             this.toggleClass("left", "right");
           });
-        toggle.appendChild(document.createElement('span'))
-          .appendChild(document.createTextNode(loc.TOGGLE_ALIGN));
+        toggle.addE('span').addT(loc.TOGGLE_ALIGN);
         resultButton.appendChild(toggle);
       };
 
       // Not ready yet
       /*
       if (leftButton !== null) {
-        var metaInfo = document.createElement('a');
+        var metaInfo = d.createElement('a');
         metaInfo.setAttribute('title', loc.SHOW_META)
 
         var cl = metaInfo.classList;
         cl.add('show-meta', 'button');
-        metaInfo.appendChild(document.createElement('span'))
-          .appendChild(document.createTextNode(loc.SHOW_META));
+        metaInfo.appendChild(d.createElement('span'))
+          .appendChild(d.createTextNode(loc.SHOW_META));
         leftButton.appendChild(metaInfo);
       };
       */
@@ -308,7 +306,7 @@ define([
     if (vcname) {
       var vc;
       var vcclick = function () {
-        var view = document.getElementById('vc-view');
+        var view = d.getElementById('vc-view');
 
         // The vc is visible
         if (vcname.classList.contains('active')) {
@@ -344,9 +342,9 @@ define([
     /**
      * Init Tutorial view
      */
-    if (document.getElementById('view-tutorial')) {
+    if (d.getElementById('view-tutorial')) {
       window.tutorial = tutClass.create(
-        document.getElementById('view-tutorial'),
+        d.getElementById('view-tutorial'),
         session
       );
       obj.tutorial = window.tutorial;
@@ -357,22 +355,22 @@ define([
       obj.tutorial = window.parent.tutorial;
     };
 
-    // Initialize queries for document
+    // Initialize queries for d
     if (obj.tutorial) {
-      obj.tutorial.initQueries(document);
+      obj.tutorial.initQueries(d);
 
       // Initialize documentation links
-      obj.tutorial.initDocLinks(document);
+      obj.tutorial.initDocLinks(d);
     };
 
 
     /**
      * Add VC creation on submission.
      */
-    var form = document.getElementById('searchform');
+    var form = d.getElementById('searchform');
     if (form !== null) {
       form.addEventListener('submit', function (e) {
-        var qf = document.getElementById('q-field');
+        var qf = d.getElementById('q-field');
 
         // No query was defined
         if (qf.value === undefined || qf.value === '') {

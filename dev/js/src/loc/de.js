@@ -1,5 +1,5 @@
 define(function () {
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.OR = 'oder';
   loc.AND = 'und';
   // EMPTY, DELETE

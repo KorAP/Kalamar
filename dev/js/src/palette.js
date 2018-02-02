@@ -3,7 +3,7 @@ define(['util'],function () {
    * Created with http://tools.medialab.sciences-po.fr/iwanthue/
    * and H: 0-360, C: 0.4-2.1, L: 0.7-1.5, 64 colors
    */
-  var palette = [
+  const palette = [
     '9C8AC7',
     '6DED31',
     'DF7F23',

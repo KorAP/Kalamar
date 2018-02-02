@@ -76,12 +76,14 @@ define(['util'], function () {
       this.store();
     },
 
+    
     store : function () {
       if (this._click !== undefined)
         this._click(this._selected);
       else 
         console.dir(this._selected);
     },
+
     
     /**
      * Set the action for clicking as a callback.
@@ -99,6 +101,7 @@ define(['util'], function () {
       return this._input;
     },
     
+
     /**
      * Show the datepicker.
      * Will either show the selected year/month
@@ -167,7 +170,7 @@ define(['util'], function () {
 
       // Create element
       // Add input field
-      var input = document.createElement('input');
+      var input = d.createElement('input');
       input.value = this.toString();
       input.setAttribute('tabindex', 0);
 
@@ -205,6 +208,7 @@ define(['util'], function () {
       return this._element;
     },
 
+
     /**
      * Get the current date in string format.
      */
@@ -217,6 +221,7 @@ define(['util'], function () {
       str += '-' + (d < 10 ? '0' + d : d);
       return str;
     },
+
 
     toString : function () {
       // There are values selected
@@ -235,6 +240,7 @@ define(['util'], function () {
       };
       return v;
     },
+
 
     /**
      * Increment the year.
@@ -307,11 +313,11 @@ define(['util'], function () {
       year.classList.add('year');
 
       // Decrement year
-      year.appendChild(d.createElement('span'))
+      year.addE('span')
         .onclick = this.decrYear.bind(this);
 
-      this._yElement = year.appendChild(d.createElement('span'));
-      this._yElement.appendChild(document.createTextNode(this._showYear));
+      this._yElement = year.addE('span');
+      this._yElement.addT(this._showYear);
 
       this._yElement.onclick = function () {
         this.set(this._showYear);
@@ -319,7 +325,7 @@ define(['util'], function () {
       this._selectYear();
 
       // Increment year
-      year.appendChild(d.createElement('span'))
+      year.addE('span')
         .onclick = this.incrYear.bind(this);
 
       return year;
@@ -347,13 +353,11 @@ define(['util'], function () {
       month.classList.add('month');
 
       // Decrement month
-      month.appendChild(d.createElement('span'))
+      month.addE('span')
         .onclick = this.decrMonth.bind(this);
       
-      this._mElement = month.appendChild(d.createElement('span'));
-      this._mElement.appendChild(
-        document.createTextNode(loc.MONTH[this._showMonth-1])
-      );
+      this._mElement = month.addE('span');
+      this._mElement.addT(loc.MONTH[this._showMonth-1]);
       this._mElement.onclick = function () {
         this.set(this._showYear, this._showMonth);
       }.bind(this);
@@ -361,7 +365,7 @@ define(['util'], function () {
       this._selectMonth();
       
       // Increment month
-      month.appendChild(d.createElement('span'))
+      month.addE('span')
         .onclick = this.incrMonth.bind(this);
 
       return month;
@@ -392,11 +396,9 @@ define(['util'], function () {
       var table = d.createElement('table');
 
       // Localized day view
-      var tr = table.appendChild(d.createElement('thead'))
-          .appendChild(d.createElement('tr'));
+      var tr = table.addE('thead').addE('tr');
       for (var i = 0; i < 7; i++) {
-        tr.appendChild(d.createElement('th'))
-          .appendChild(d.createTextNode(loc.WDAY[i]));
+        tr.addE('th').addT(loc.WDAY[i]);
       };
 
       this._dBElement = this._dayBody();
@@ -448,9 +450,9 @@ define(['util'], function () {
       while (1) {
 
         // Loop through the week
-        var tr = tb.appendChild(d.createElement('tr'));
+        var tr = tb.addE('tr');
         for (var i = 0; i < 7; i++) {
-          var td = tr.appendChild(d.createElement('td'));
+          var td = tr.addE('td');
           
           // Not part of the current month
           if (date.getMonth() !== showDate.getMonth()) {
@@ -477,9 +479,7 @@ define(['util'], function () {
           };
 
           // Add the current day to the table
-          td.appendChild(
-            d.createTextNode(date.getDate())
-          );
+          td.addT(date.getDate());
     
           // Next day
           date.setDate(date.getDate() + 1);

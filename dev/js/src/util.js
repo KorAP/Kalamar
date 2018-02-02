@@ -32,11 +32,12 @@ HTMLElement.prototype.toggleClass = function (c1, c2) {
   };
 };
 
-
+// Append element by tag name
 HTMLElement.prototype.addE = function (tag) {
   return this.appendChild(document.createElement(tag));
 };
 
+// Append text node
 HTMLElement.prototype.addT = function (text) {
   return this.appendChild(document.createTextNode(text));
 };
@@ -64,7 +65,7 @@ define(function () {
   KorAP.API = KorAP.API || {};
   KorAP.Locale = KorAP.Locale || {};
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.OR  = loc.OR  || 'or';
   loc.AND = loc.AND || 'and';
 

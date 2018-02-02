@@ -3,7 +3,7 @@
  */
 define(['util'], function () {
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.DEL   = loc.DEL   || '×';
 
 
@@ -22,26 +22,26 @@ define(['util'], function () {
 
       // Check that the action differs from the type
       if (ref.operation() === type)
-	return;
+	      return;
 
       if (parent.ldType() !== null) {
-	return parent.newAfter(ref);
+	      return parent.newAfter(ref);
       }
       else {
-	// The group is on root - wrap
-	return ref.wrapOnRoot();
+	      // The group is on root - wrap
+	      return ref.wrapOnRoot();
       };
     }
     else if (ref.ldType() === 'doc') {
 
       if (parent.ldType() === null) {
-	return ref.wrapOnRoot(type);
+	      return ref.wrapOnRoot(type);
       }
       else if (parent.operation() === type) {
-	return parent.newAfter(ref);
+	      return parent.newAfter(ref);
       }
       else {
-	return ref.wrap(type);
+	      return ref.wrap(type);
       };
     };
   };
@@ -83,7 +83,7 @@ define(['util'], function () {
     update : function () {
       // Init the element
       if (this._element === undefined)
-	return this.element();
+	      return this.element();
 
       var op = this._element;
 
@@ -94,31 +94,26 @@ define(['util'], function () {
       
       // Add and button
       if (this._and === true) {
-	var andE = document.createElement('span');
-	andE.setAttribute('class', 'and');
-	andE.addEventListener('click', KorAP._and, false);
-	andE.appendChild(
-	  document.createTextNode(loc.AND)
-	);
-	op.appendChild(andE);
+	      var andE = op.addE('span');
+	      andE.setAttribute('class', 'and');
+	      andE.addEventListener('click', KorAP._and, false);
+	      andE.addT(loc.AND);
       };
 
       // Add or button
       if (this._or === true) {
-	var orE = document.createElement('span');
-	orE.setAttribute('class', 'or');
-	orE.addEventListener('click', KorAP._or, false);
-	orE.appendChild(document.createTextNode(loc.OR));
-	op.appendChild(orE);
+	      var orE = op.addE('span');
+	      orE.setAttribute('class', 'or');
+	      orE.addEventListener('click', KorAP._or, false);
+	      orE.addT(loc.OR);
       };
 
       // Add delete button
       if (this._del === true) {
-	var delE = document.createElement('span');
-	delE.setAttribute('class', 'delete');
-	delE.appendChild(document.createTextNode(loc.DEL));
-	delE.addEventListener('click', KorAP._delete, false);
-	op.appendChild(delE);
+	      var delE = op.addE('span');
+	      delE.setAttribute('class', 'delete');
+	      delE.addT(loc.DEL);
+	      delE.addEventListener('click', KorAP._delete, false);
       };
 
       return op;
@@ -127,7 +122,7 @@ define(['util'], function () {
     // Be aware! This may be cyclic
     parent : function (obj) {
       if (arguments.length === 1)
-	this._parent = obj;
+	      this._parent = obj;
       return this._parent;
     },
 
@@ -135,7 +130,7 @@ define(['util'], function () {
 
       // Return existing element
       if (this._element !== undefined)
-	return this._element;
+	      return this._element;
 
       this._element = document.createElement('div');
       this._element.classList.add('operators', 'button-group');
@@ -147,19 +142,19 @@ define(['util'], function () {
 
     and : function (bool) {
       if (arguments.length === 1)
-	this._and = _bool(bool);
+	      this._and = _bool(bool);
       return this._and;
     },
 
     or : function (bool) {
       if (arguments.length === 1)
-	this._or = _bool(bool);
+	      this._or = _bool(bool);
       return this._or;
     },
 
     del : function (bool) {
       if (arguments.length === 1)
-	this._del = _bool(bool);
+	      this._del = _bool(bool);
       return this._del;
     }
   };

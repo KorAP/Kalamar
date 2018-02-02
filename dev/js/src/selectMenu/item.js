@@ -2,7 +2,6 @@ define(['menu/item'], function (itemClass) {
   /**
    * Menu item for select menus.
    */
-
   return {
 
     /**
@@ -13,6 +12,7 @@ define(['menu/item'], function (itemClass) {
       return Object.create(itemClass)
 	      .upgradeTo(this)._init(params);
     },
+
 
     /**
      * Override click action of the menu item.
@@ -26,6 +26,10 @@ define(['menu/item'], function (itemClass) {
       e.halt();
     },
 
+
+    /**
+     * Get title of item.
+     */
     title : function () {
       return this.content().textContent;
     }

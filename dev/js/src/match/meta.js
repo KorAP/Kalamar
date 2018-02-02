@@ -26,7 +26,7 @@ define(['util'], function () {
 */
 
   // Localization values
-  var loc   = KorAP.Locale;
+  const loc   = KorAP.Locale;
   loc.METADATA   = loc.METADATA   || 'Metadata';
 
   return {
@@ -76,9 +76,7 @@ define(['util'], function () {
       );
       */
 
-      var metaDL = metaTable.appendChild(
-        document.createElement('dl')
-      );
+      var metaDL = metaTable.addE('dl');
 
       this._element = metaTable;
 
@@ -97,17 +95,8 @@ define(['util'], function () {
             k !== "layerInfos") {
 
           var metaL = document.createElement('div');
-          metaL.appendChild(
-            document.createElement('dt')
-          ).appendChild(
-            document.createTextNode(k)
-          );
-
-          metaL.appendChild(
-            document.createElement('dd')
-          ).appendChild(
-            document.createTextNode(metaInfo[k])
-          );
+          metaL.addE('dt').addT(k);
+          metaL.addE('dd').addT(metaInfo[k]);
 
           metaDL.appendChild(metaL);
         };

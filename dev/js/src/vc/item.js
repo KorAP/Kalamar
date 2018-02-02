@@ -1,7 +1,7 @@
 // Field menu item
 define(['menu/item', 'util'], function (itemClass) {
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
 
   return {
 
@@ -14,14 +14,14 @@ define(['menu/item', 'util'], function (itemClass) {
      */
     create : function (params) {
       return Object.create(itemClass)
-	.upgradeTo(this)
-	._init(params);
+	      .upgradeTo(this)
+	      ._init(params);
     },
 
     // Initialize item object
     _init : function (params) {
       if (params[0] === undefined)
-	throw new Error("Missing parameters");
+	      throw new Error("Missing parameters");
 
       this._key = params[0];
       this._type  = params[1];
@@ -40,8 +40,8 @@ define(['menu/item', 'util'], function (itemClass) {
      */
     onclick : function (e) {
       this.menu().release(
-	this._key,
-	this._type
+	      this._key,
+	      this._type
       );
       e.halt();
     },
@@ -76,7 +76,7 @@ define(['menu/item', 'util'], function (itemClass) {
 
       // already defined
       if (this._element !== undefined)
-	return this._element;
+	      return this._element;
 
       // Create list item
       var li = document.createElement("li");
@@ -86,7 +86,7 @@ define(['menu/item', 'util'], function (itemClass) {
       // Connect action
       li["onclick"] = this.onclick.bind(this);
 
-      li.appendChild(document.createTextNode(this._name));
+      li.addT(this._name);
       return this._element = li;
     }
   };

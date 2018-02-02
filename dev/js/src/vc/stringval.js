@@ -1,7 +1,7 @@
 /**
  * Add string values to the virtual collection
  */
-define({
+define(['util'], {
 
   /**
    * Create new string value helper.
@@ -118,16 +118,12 @@ define({
       cl.add('regex');
     
     // Add input field
-    this._input = e.appendChild(
-      document.createElement('input')
-    );
+    this._input = e.addE('input');
     if (this.value() !== undefined)
       this._input.value = this.value();
 
     // Add regex button
-    var re = e.appendChild(
-      document.createElement('div')
-    );
+    var re = e.addE('div');
     re.addEventListener(
       'click',
       function (ev) {
@@ -136,7 +132,7 @@ define({
       }.bind(this),
       true
     );
-    re.appendChild(document.createTextNode('RE'));
+    re.addT('RE');
 
     // If the focus is not on the text field anymore,
     // delegate focus to

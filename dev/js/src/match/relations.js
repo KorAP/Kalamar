@@ -7,8 +7,9 @@
 define([], function () {
   "use strict";
 
-  var svgNS = "http://www.w3.org/2000/svg";
-  var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
+  const svgNS = "http://www.w3.org/2000/svg";
+  const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
+  const d = document;
 
   return {
     create : function (snippet) {
@@ -40,7 +41,7 @@ define([], function () {
         return this;
 
       // Parse the snippet
-      var html = document.createElement("div");
+      var html = d.createElement("div");
       html.innerHTML = snippet;
 
       // Establish temporary parsing memory
@@ -253,13 +254,13 @@ define([], function () {
     
     // This is a shorthand for SVG element creation
     _c : function (tag) {
-      return document.createElementNS(svgNS, tag);
+      return d.createElementNS(svgNS, tag);
     },
 
     // Get bounding box - with workaround for text nodes
     _rect : function (node) {
       if (node.tagName == "tspan" && !navigator.userAgent.match(/Edge/)) {
-        var range = document.createRange();
+        var range = d.createRange();
         range.selectNode(node);
         var rect = range.getBoundingClientRect();
         range.detach();
@@ -399,7 +400,7 @@ define([], function () {
       labelE.setAttribute("x", x + middle);
       labelE.setAttribute("y", middleY + 3);
       labelE.setAttribute("text-anchor", "middle");
-      var textNode = document.createTextNode(arc.label);
+      var textNode = d.createTextNode(arc.label);
       labelE.appendChild(textNode);
 
       var labelBox   = labelE.getBBox();
@@ -662,7 +663,7 @@ define([], function () {
 
       // Introduce some prepending whitespace (yeah - I know ...)
       var ws = text.appendChild(this._c("tspan"));
-      ws.appendChild(document.createTextNode('\u00A0'));
+      ws.appendChild(d.createTextNode('\u00A0'));
       ws.style.textAnchor = "start";
       
       var lastRight = 0;
@@ -670,7 +671,7 @@ define([], function () {
         // Append svg
         // var x = text.appendChild(this._c("text"));
         var tspan = text.appendChild(this._c("tspan"));
-        tspan.appendChild(document.createTextNode(this._tokens[node_i]));
+        tspan.appendChild(d.createTextNode(this._tokens[node_i]));
         tspan.setAttribute("text-anchor", "middle");
         
         this._tokenElements.push(tspan);

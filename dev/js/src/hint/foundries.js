@@ -3,7 +3,7 @@ KorAP.annotationHelper = KorAP.annotationHelper || { '-' : [] };
 
 define(function () {
 
-  var ah = KorAP.annotationHelper;
+  const ah = KorAP.annotationHelper;
 
   ah["getDesc"] = function (foundryLayer, value) {
 

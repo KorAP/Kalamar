@@ -16,14 +16,16 @@ define([
 ], function (infoClass,matchTreeMenuClass) { //, refClass) {
 
   // Localization values
-  var loc   = KorAP.Locale;
+  const loc   = KorAP.Locale;
   loc.ADDTREE   = loc.ADDTREE   || 'Add tree view';
   loc.SHOWINFO  = loc.SHOWINFO  || 'Show information';
   loc.CLOSE     = loc.CLOSE     || 'Close';
   loc.SHOW_META = loc.SHOW_META || 'Show metadata';
   
   // 'corpusID', 'docID', 'textID'
-  var _matchTerms  = ['textSigle', 'matchID', 'available'];
+  const _matchTerms  = ['textSigle', 'matchID', 'available'];
+
+  const d = document;
 
   /**
    * Match object
@@ -163,7 +165,7 @@ define([
         return true;
 
       // Create action buttons
-      var ul = document.createElement('ul');
+      var ul = d.createElement('ul');
       ul.classList.add('action', 'right');
 
       element.appendChild(ul);
@@ -172,9 +174,8 @@ define([
       // Todo: Open in new frame
 
       // Add close button
-      var close = document.createElement('li');
-      close.appendChild(document.createElement('span'))
-        .appendChild(document.createTextNode(loc.CLOSE));
+      var close = d.createElement('li');
+      close.addE('span').addT(loc.CLOSE);
       close.classList.add('close');
       close.setAttribute('title', loc.CLOSE);
       
@@ -183,28 +184,25 @@ define([
       // Add meta button
       var refLine = element.querySelector("p.ref");
 
+      // No reference found
       if (!refLine)
         return;
       
-      // TODO: Simplify
-      var ops = document.createElement('div');
+      var ops = d.createElement('div');
       ops.classList.add('action', 'bottom', 'button-group');
       
-      var meta = document.createElement('span');
-      ops.appendChild(meta);
-      meta.appendChild(document.createTextNode('Meta'));
+      var meta = ops.addE('span');
+      meta.addT('Meta');
       meta.setAttribute('title', loc.SHOW_META);
       meta.classList.add('meta');
 
-      var info = document.createElement('span');
-      ops.appendChild(info);
-      info.appendChild(document.createTextNode('Anno'));
+      var info = ops.addE('span');
+      info.addT('Anno');
       info.setAttribute('title', loc.SHOWINFO);
       info.classList.add('info');
 
-      var tree = document.createElement('span');
-      ops.appendChild(tree);
-      tree.appendChild(document.createTextNode('+ Tree'));
+      var tree = ops.addE('span');
+      tree.addT('+ Tree');
       tree.setAttribute('title', loc.ADDTREE);
       tree.classList.add('tree');
 

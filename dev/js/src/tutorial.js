@@ -9,7 +9,7 @@ define(['session', 'util'], function (sessionClass) {
   "use strict";
 
   // Localization values
-  var loc   = KorAP.Locale;
+  const loc   = KorAP.Locale;
   loc.CLOSE = loc.CLOSE || 'Close';
 
   return {
@@ -138,8 +138,7 @@ define(['session', 'util'], function (sessionClass) {
 
 	      // Add close button
 	      var close = document.createElement('li');
-	      close.appendChild(document.createElement('span'))
-	        .appendChild(document.createTextNode(loc.CLOSE));
+	      close.addE('span').addT(loc.CLOSE);
 	      close.classList.add('close');
 	      close.setAttribute('title', loc.CLOSE);
 	      close.onclick = function () {

@@ -2,6 +2,7 @@
  * Menu showing all key fields.
  */
 define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixClass) {
+
   return {
     create : function (params) {
       var obj = Object.create(menuClass)

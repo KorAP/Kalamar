@@ -2,9 +2,10 @@
  * Table representation of morphological
  * annotations of a match.
  */
-define(function () {
-  var _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
-  
+define(["util"], function () {
+  const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
+  const d = document;
+
   return {
 
     /**
@@ -18,7 +19,7 @@ define(function () {
     // Initialize table based on snippet
     _init : function (snippet) {
       // Create html for traversal
-      var html = document.createElement("div");
+      var html = d.createElement("div");
       html.innerHTML = snippet;
       
       this._pos = 0;
@@ -148,18 +149,17 @@ define(function () {
         return this._element;
 
       // First the legend table
-      var d = document;
       var table = d.createElement('table');
 
       // Single row in head
-      var tr = table.appendChild(d.createElement('thead'))
-          .appendChild(d.createElement('tr'));
+      var tr = table.addE('thead').addE('tr');
 
       var ah = KorAP.annotationHelper || { "getDesc" : function () {}};
 
       // Add cell to row
       var addCell = function (type, key, value) {        
-        var c = this.appendChild(d.createElement(type))
+        var c = this.addE(type);
+
         if (value === undefined)
           return c;
 
@@ -168,9 +168,7 @@ define(function () {
           // There are multiple values to add
           c.classList.add('matchkeyvalues');
           for (var n = 0; n < value.length; n++) {
-            var text = d.createTextNode(value[n]);
-            var e = c.appendChild(d.createElement('div'));
-            e.appendChild(text);
+            var e = c.addE('div').addT(value[n]);
 
             var anno = ah.getDesc(key, value[n]);
 
@@ -184,7 +182,7 @@ define(function () {
           if (value instanceof Array)
             value = value[0];
 
-          c.appendChild(d.createTextNode(value));
+          c.addT(value);
 
           // Add tooltip
           var anno = ah.getDesc(key, value);
@@ -206,9 +204,7 @@ define(function () {
         tr.addCell('th', undefined, this.getToken(i));
       };
       
-      var tbody = table.appendChild(
-        d.createElement('tbody')
-      );
+      var tbody = table.addE('tbody');
 
       var foundryList = Object.keys(this._foundry).sort();
 
@@ -219,9 +215,7 @@ define(function () {
 
         for (var l = 0; l < layerList.length; l++) {
           var layer = layerList[l];
-          tr = tbody.appendChild(
-            d.createElement('tr')
-          );
+          tr = tbody.addE('tr');
           tr.setAttribute('tabindex', 0);
           tr.addCell = addCell;
 

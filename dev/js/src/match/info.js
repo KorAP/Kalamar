@@ -22,7 +22,8 @@ define([
     return {};
   };
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
+  const d = document;
 
   return {
 
@@ -206,7 +207,7 @@ define([
      * Add a new tree view to the list
      */
     showTree : function (foundry, layer, type, cb) {
-      var matchtree = document.createElement('div');
+      var matchtree = d.createElement('div');
       matchtree.classList.add('matchtree');
 
       // Add title line
@@ -253,14 +254,14 @@ define([
 
           // This is currently not supported by relations
           if (type === "spans") {
-            var dl = document.createElement('li');
+            var dl = d.createElement('li');
             dl.className = 'download';
             dl.addEventListener(
               'click', function (e) {
                 var a = treeObj.downloadLink();
-                document.body.appendChild(a);
+                d.body.appendChild(a);
                 a.click();
-                document.body.removeChild(a)
+                d.body.removeChild(a)
                 e.halt();
               }
             );
@@ -279,7 +280,7 @@ define([
 
     // Add meta information to match
     showMeta : function () {
-      var matchmeta = document.createElement('div');
+      var matchmeta = d.createElement('div');
 
       // TODO: This is part of the getMeta!
       var metaInfo = this._match.element().getAttribute('data-info');
@@ -308,7 +309,7 @@ define([
       var info = this.element();
 
       // Append default table
-      var matchtable = document.createElement('div');
+      var matchtable = d.createElement('div');
       matchtable.classList.add('matchtable', 'loading');
       info.appendChild(matchtable);
 
@@ -337,7 +338,7 @@ define([
         return this._element;
       
       // Create info table
-      var info = document.createElement('div');
+      var info = d.createElement('div');
       info.classList.add('matchinfo');
       
       this._element = info;

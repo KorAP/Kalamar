@@ -1,4 +1,4 @@
-define(['menu/lengthField'], function (lengthFieldClass) {
+define(['menu/lengthField', 'util'], function (lengthFieldClass) {
   return {
 
     /**
@@ -6,19 +6,18 @@ define(['menu/lengthField'], function (lengthFieldClass) {
      */
     create : function () {
       return Object.create(lengthFieldClass).
-	upgradeTo(this)._init();
+	      upgradeTo(this)._init();
     },
 
     /**
      * Override the prefix action.
      */
     add : function (param) {
-      this._element.appendChild(document.createElement('span'))
-	.appendChild(document.createTextNode(param[0] + '--'));
+      this._element.addE('span').addT(param[0] + '--');
 
-      var desc = this._element.appendChild(document.createElement('span'));
+      var desc = this._element.addE('span');
       desc.classList.add("desc");
-      desc.appendChild(document.createTextNode(param[2] + '--'));
+      desc.addT(param[2] + '--');
       this._element.appendChild(desc);
     }
   };

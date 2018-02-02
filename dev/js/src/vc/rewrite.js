@@ -4,7 +4,8 @@
 define(['vc/jsonld', 'util'], function (jsonldClass) {
 
   // injection, modification, and deletion should probably be enough
-  var _validRewriteOpRE   = new RegExp("^(operation:)?(?:injec|inser|modifica|dele)tion|override$");
+  const _validRewriteOpRE =
+        new RegExp("^(operation:)?(?:injec|inser|modifica|dele)tion|override$");
 
   return {
     // Construction method

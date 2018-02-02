@@ -23,10 +23,10 @@ define([
      */
     create : function (parent) {
       var obj = Object.create(jsonldClass).
-	upgradeTo(this);
+	        upgradeTo(this);
 
       if (parent !== undefined)
-	obj._parent = parent;
+	      obj._parent = parent;
 
       return obj;
     },
@@ -38,24 +38,24 @@ define([
 
       // Not replaceable
       if (this._parent === undefined)
-	return null;
+	      return null;
 
       // Set JSON-LD type
       var newDoc = docClass.create(this._parent, {
-	"@type" : "koral:doc",
-	"value" : "",
-	"key"   : v
+	      "@type" : "koral:doc",
+	      "value" : "",
+	      "key"   : v
       });
 
       // Unspecified document on root
       if (this._parent.ldType() === null) {
-	this._parent.root(newDoc);
-	this.destroy();
+	      this._parent.root(newDoc);
+	      this.destroy();
       }
 
       // Unspecified document in group
       else {
-	this._parent.replaceOperand(this, newDoc);
+	      this._parent.replaceOperand(this, newDoc);
       };
       this._parent.update();
       return newDoc;
@@ -68,13 +68,13 @@ define([
     update : function () {
 
       if (this._element === undefined)
-	return this.element();
+	      return this.element();
 
       // Remove element content
-      _removeChildren(this._element);
+       _removeChildren(this._element);
 
       var ellipsis = document.createElement('span');
-      ellipsis.appendChild(document.createTextNode(loc.EMPTY));
+      ellipsis.addT(loc.EMPTY);
 
       // Click on empty criterion
       ellipsis.addEventListener('click', this.onclick.bind(this));
@@ -86,15 +86,15 @@ define([
 
       // Set operators
       if (this._parent !== undefined && this.parent().ldType() !== null) {
-	var op = this.operators(
-	  false,
-	  false,
-	  true
-	);
-	
-	this._element.appendChild(
-	  op.element()
-	);
+	      var op = this.operators(
+	        false,
+	        false,
+	        true
+	      );
+	      
+	      this._element.appendChild(
+	        op.element()
+	      );
       };
 
       return this.element();
@@ -106,7 +106,7 @@ define([
      */
     element : function () {
       if (this._element !== undefined)
-	return this._element;
+	      return this._element;
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'doc unspecified');
       this.update();
@@ -123,17 +123,17 @@ define([
 
       // Add key menu element at the correct position
       this._element.insertBefore(
-	menu.element(),	
-	this._element.firstChild
+	      menu.element(),	
+	      this._element.firstChild
       );
 
       var that = this;
 
       // Set released method
       menu.released(function (key, type) {
-	// Set chosen key and type - will return a doc
-	that.key(key).type(type).update();
-	this.hide();
+	      // Set chosen key and type - will return a doc
+	      that.key(key).type(type).update();
+	      this.hide();
       });
 
       menu.show();

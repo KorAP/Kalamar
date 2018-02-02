@@ -17,6 +17,7 @@ define({
     return Object.create(this)._init(menu);
   },
 
+
   /**
    * Length attribute of the slider
    * (as number of items).
@@ -32,6 +33,7 @@ define({
     return this;
   },
 
+
   /**
    * Limit of items per screen.
    *
@@ -46,6 +48,7 @@ define({
     return this;
   },
 
+
   /**
    * Is the slider active or not.
    *
@@ -54,18 +57,19 @@ define({
   active : function (bool) {
     if (arguments.length === 1) {
       if (bool) {
-	if (!this._active) {
-	  this._element.classList.add('active');
-	  this._active = true;
-	};
+	      if (!this._active) {
+	        this._element.classList.add('active');
+	        this._active = true;
+	      };
       }
       else if (this._active) {
-	this._element.classList.remove('active');
-	this._active = false;
+	      this._element.classList.remove('active');
+	      this._active = false;
       }
     };
     return this._active;
   },
+
 
   /**
    * Move the slider to a relative position
@@ -88,6 +92,7 @@ define({
     };
   },
 
+
   /**
    * Move the slider to an absolute position
    *
@@ -101,6 +106,7 @@ define({
       this._menu.screen(off);
     };
   },
+
 
   /**
    * Screen offset of the slider
@@ -127,12 +133,14 @@ define({
     return off;
   },
 
+
   /**
    * Get the associated dom element.
    */
   element : function () {
     return this._element;
   },
+
 
   /**
    * Reinitialize the size of the slider.
@@ -156,6 +164,7 @@ define({
     this._step    = (100 - this._height) / this._screens;
     this._slider.style.height = this._height + '%';
   },
+
 
   // Initialize prefix object
   _init : function (menu) {
@@ -188,17 +197,20 @@ define({
     return this;
   },
 
+
   // Reinit height based on dom position
   _initClientHeight : function () {
     this._rulerHeight  = this._element.clientHeight;
     this._sliderHeight = this._slider.clientHeight;
   },
 
+
   // Release mousemove event
   _mousemove : function (e) {
     this.movetoRel(e.clientY - this._event.init);
     e.halt();
   },
+
 
   // Release mouseup event
   _mouseup : function (e) {
@@ -207,6 +219,7 @@ define({
     window.removeEventListener('mouseup', this._event.up);
     this._menu.focus();
   },
+
 
   // Release mousedown event
   _mousedown : function (e) {
@@ -231,6 +244,7 @@ define({
 
     e.halt();
   },
+
 
   // Release event to reposition slider on ruler
   _mouseclick : function (e) {

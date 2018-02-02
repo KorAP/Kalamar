@@ -12,7 +12,7 @@ define(['util'], function () {
    * TODO:
    *   Or-Groups are no longer in use.
    */
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
   function _getAnnotation (prefix, target) {
@@ -75,13 +75,10 @@ define(['util'], function () {
       this._element.className = 'queryfragment';
 
       // Prepend info text
-      this._element.appendChild(document.createElement('span'))
-        .appendChild(document.createTextNode(loc.NEW_QUERY + ':'));
+      this._element.addE('span').addT(loc.NEW_QUERY + ':');
 
       // Append query fragment part
-      this._queryFragment = this._element.appendChild(
-        document.createElement('span')
-      );
+      this._queryFragment = this._element.addE('span');
 
       // Event when the query fragment is clicked
       this._element.addEventListener('click', this.toQueryBar.bind(this), 1);
