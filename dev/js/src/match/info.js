@@ -208,7 +208,9 @@ define([
      */
     showTree : function (foundry, layer, type, cb) {
       var matchtree = d.createElement('div');
-      matchtree.classList.add('matchtree');
+      matchtree.classList.add('matchtree', 'loading');
+
+      this.element().appendChild(matchtree);
 
       // Add title line
       var h6 = matchtree.addE('h6');
@@ -217,27 +219,17 @@ define([
 
       var tree = matchtree.addE('div');
       
-      this._element.insertBefore(matchtree, this._element.lastChild);
-
       // Add close action button
-      var actions = tree.addE('ul');
-      actions.classList.add('action', 'image');
-      var close = actions.addE('li');
-      close.className = 'close';
-      close.addE('span');
-      close.addEventListener(
-        'click', function (e) {
-          matchtree.parentNode.removeChild(matchtree);
-          e.halt();
-        }
-      );
+      var actions = this._addButton('close', matchtree, function (e) {
+        this.parentNode.removeChild(this);
+        e.halt();
+      });
 
-      tree.classList.add('loading');
+      // tree.classList.add('loading'); // alternatively
 
       // Get tree data async
       this.getTreeData(foundry, layer, type, function (treeObj) {
-
-        tree.classList.remove('loading');
+        matchtree.classList.remove('loading');
 
         // Something went wrong - probably log!!!
 
@@ -275,13 +267,15 @@ define([
         if (cb !== undefined)
           cb(treeObj);
       });
+      matchtree.classList.remove('loading');
     },
 
 
     // Add meta information to match
     showMeta : function () {
       var metaTable = document.createElement('div');
-      metaTable.classList.add('metatable'); // , 'loading');
+      metaTable.classList.add('metatable', 'loading');
+      this.element().appendChild(metaTable);
 
       // TODO: This is part of the getMeta!
       var metaInfo = this._match.element().getAttribute('data-info');
@@ -292,10 +286,12 @@ define([
       // There is metainfo
       if (metaInfo) {
 
+        // Load data
+        metaTable.classList.remove('loading');
+
         // Add metainfo to matchview
         var metaElem = matchMetaClass.create(this._match).element(metaInfo);
         metaTable.appendChild(metaElem);
-        this.element().appendChild(metaTable);
 
         // Add button
         this._addButton('close', metaTable, function (e) {
@@ -314,14 +310,16 @@ define([
 
       // Append default table
       var matchtable = d.createElement('div');
-      matchtable.classList.add('matchtable'); // , 'loading');
-
+      matchtable.classList.add('matchtable', 'loading');
       var info = this.element();
       info.appendChild(matchtable);
 
 
       // Create the table asynchronous
       this.getTableData(undefined, function (table) {
+
+        // Load data
+        matchtable.classList.remove('loading');
 
         if (table !== null) {
           matchtable.appendChild(table.element());
@@ -344,7 +342,7 @@ define([
       matchtable.classList.remove('loading');
     },
 
-
+    // Add action button
     _addButton : function (buttonType, element, cb) {
       // TODO: Unless existent
       var actions = document.createElement('ul');

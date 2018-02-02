@@ -380,7 +380,7 @@ div.metatable > dl {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
   width: auto;
   padding-bottom: 0;
@@ -430,7 +430,7 @@ div.metatable > dl {
 
 @media (min-width:800px) {
   div.metatable > dl > div {
-    width: 33%; // 3*
+    width: 33.3333333333333%; // 3*
   }
 }
 
