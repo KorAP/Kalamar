@@ -125,9 +125,22 @@ div.snippet {
   display: none;
 }
 
-#search li.active div.matchinfo {
-  display: block;
+#search {
+
+  li.active div.matchinfo {
+    display: block;
+  }
+
+  li.active + li.active {
+    border-top: $border-size solid $light-grey;
+    padding-top: 3 * $border-size;
+    > ul.action.right {
+      padding-top: 3 * $border-size;
+    }
+  }
 }
+
+
 
 #search div.match-main {
   position: relative;

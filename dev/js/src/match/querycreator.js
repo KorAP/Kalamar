@@ -1,5 +1,7 @@
 /**
  * QueryCreator for Kalamar.
+ * This creates a Poliqarp/CQP query by using the
+ * annotation table.
  *
  * @author Nils Diewald
  */
@@ -11,6 +13,8 @@ define(['util'], function () {
    *   Cache foundry and layer information per row.
    * TODO:
    *   Or-Groups are no longer in use.
+   * TODO:
+   *   Make language and input fields snigletons!
    */
   const loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
@@ -39,31 +43,28 @@ define(['util'], function () {
   };
 
   return {
-    create : function (matchInfo) {
-      return Object.create(this)._init(matchInfo);
+
+    /**
+     * Constructor
+     */
+    create : function (matchTable) {
+      return Object.create(this)._init(matchTable);
     },
 
     // Initialize query creator
-    _init : function (matchInfo) {
+    _init : function (matchTable) {
 
       // Parameter checks
-      if (matchInfo === undefined)
+      if (matchTable === undefined)
         throw new Error('Missing parameters');
-      else if (!(matchInfo instanceof Node))
+      else if (!(matchTable instanceof Node))
         throw new Error('Requires element');
 
       // Collect the token sequence in an array
       this._query = []
 
-      // Remember the matchinfo that is the parent of
-      // the matchtable and the query frafment
-      this._matchInfo = matchInfo;
-
       // Get the match table
-      this._matchTable = this._matchInfo.getElementsByClassName('matchtable')[0];
-
-      if (this._matchTable === undefined)
-        throw new Error('Element contains no match table');
+      this._matchTable = matchTable;
 
       // Listen on the match table
       this._matchTable.addEventListener(
@@ -84,7 +85,9 @@ define(['util'], function () {
       this._element.addEventListener('click', this.toQueryBar.bind(this), 1);
 
       // Get some basic information - see tutorial.js
-      // It may be better to consultate a global object like KorAP.Hint, however ...
+      // TODO:
+      //   It may be better to consultate a global object
+      //   like KorAP.Hint, however ...
       this._ql = document.getElementById("ql-field");
 	    this._q = document.getElementById("q-field")
 
@@ -221,7 +224,7 @@ define(['util'], function () {
                   if (annotation !== '') {
 
                     // Add annotation to string
-                    this.addToToken(i, annotation);
+                    this._addToToken(i, annotation);
                     keyvaluepair.className = 'chosen';
                   };
                 };
@@ -236,7 +239,7 @@ define(['util'], function () {
                 if (annotation !== '') {
 
                   // Add annotation to string
-                  this.addToToken(i, annotation);
+                  this._addToToken(i, annotation);
                   sib.className = 'chosen';
                 };
               }
@@ -251,7 +254,7 @@ define(['util'], function () {
     },
 
     // Add term to token
-    addToToken : function (index, term) {
+    _addToToken : function (index, term) {
 
       var token = this._query[index];
 
@@ -275,7 +278,7 @@ define(['util'], function () {
 
 
     // Remove term from token
-    removeFromToken : function (index, term) {
+    _removeFromToken : function (index, term) {
       var token = this._query[index];
 
       if (token === undefined)
@@ -314,7 +317,7 @@ define(['util'], function () {
 
         // Hide element
         if (this._shown === true) {
-          this._matchInfo.removeChild(this._element);
+          this._matchTable.parentNode.removeChild(this._element);
           this._shown = false;
         }
       }
@@ -323,7 +326,11 @@ define(['util'], function () {
       else {
 
         if (this._shown === false) {
-          this._matchInfo.insertBefore(this._element, this._matchTable.nextSibling);
+
+          // Insert after
+          this._matchTable.parentNode.insertBefore(
+            this._element, this._matchTable.nextSibling
+          );
           this._shown = true;
         };
 
@@ -335,11 +342,11 @@ define(['util'], function () {
     // Add term to token if not yet chosen, otherwise remove
     toggleInToken : function (node, index, term) {
       if (node.className == 'chosen') {
-        this.removeFromToken(index, term);
+        this._removeFromToken(index, term);
         node.className = '';
       }
       else {
-        this.addToToken(index, term);
+        this._addToToken(index, term);
         node.className = 'chosen';
       };
     },
@@ -377,8 +384,10 @@ define(['util'], function () {
     // Add query fragment to query bar
     toQueryBar : function (e) {
 
-      if (this._ql === undefined || this._q === undefined)
+      if (this._ql === undefined || this._q === undefined || this._ql === null) {
+        console.log('No query language object defined');
         return;
+      };
 
       // Set query language field
       var qlf = this._ql.options;

@@ -1,9 +1,17 @@
 /**
- * Table representation of morphological
+ * Table representation of token-based
  * annotations of a match.
  */
-// TODO: Create base object for all matchinfo classes!
-define(["util"], function () {
+define([
+  'match/querycreator',
+  "util"
+], function (matchQueryCreator) {
+  /*
+   * TODO:
+   *   Create base object for all matchinfo classes!
+   * TODO:
+   *   Rename to match/annotationtable
+   */
   const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
   const d = document;
 
@@ -31,11 +39,15 @@ define(["util"], function () {
     
       // Parse the snippet
       this._parse(html.childNodes);      
-    
+
       html.innerHTML = '';
       return this;
     },
-    
+
+    // TODO: Destroy match!
+    destroy : function () {
+      this._matchCreator = undefined;
+    },
 
     /**
      * Length of the table (columns),
@@ -244,7 +256,10 @@ define(["util"], function () {
           };
         };
       };
-
+      
+      // Add query creator
+      this._matchCreator = matchQueryCreator.create(this._element);
+      
       return this._element;
     },
   };

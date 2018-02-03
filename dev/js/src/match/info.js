@@ -7,14 +7,12 @@ define([
   'match/treehierarchy',
   'match/treearc',
   'match/meta',
-  'match/querycreator',
   'util'
 ], function (infoLayerClass,
 	           matchTableClass,
 	           matchTreeHierarchyClass,
              matchTreeArcClass,
-	           matchMetaClass,
-             matchQueryCreator) {
+	           matchMetaClass) {
   
   // Override 
   KorAP.API.getMatchInfo = KorAP.API.getMatchInfo || function () {
@@ -315,6 +313,9 @@ define([
       info.appendChild(matchtable);
 
 
+      // TODO:
+      //   Create try-catch-exception-handling
+      
       // Create the table asynchronous
       this.getTableData(undefined, function (table) {
 
@@ -327,9 +328,6 @@ define([
 
         // Load data
         matchtable.classList.remove('loading');
-
-        // Add query creator
-        this._matchCreator = matchQueryCreator.create(info);
       });
 
       // Add button
