@@ -38,6 +38,8 @@ define([
      */
     _init : function (match) {
       this._match = match;
+      this._visibleTable = false;
+      this._visibleMeta = false;
       this.opened = false;
       return this;
     },
@@ -271,6 +273,13 @@ define([
 
     // Add meta information to match
     showMeta : function () {
+
+      // Already visible
+      if (this._visibleMeta)
+        return;
+
+      this._visibleMeta = true;
+
       var metaTable = document.createElement('div');
       metaTable.classList.add('metatable', 'loading');
       this.element().appendChild(metaTable);
@@ -280,6 +289,8 @@ define([
 
       if (metaInfo)
         metaInfo = JSON.parse(metaInfo);
+
+      var that = this;
 
       // There is metainfo
       if (metaInfo) {
@@ -294,6 +305,7 @@ define([
         // Add button
         this._addButton('close', metaTable, function (e) {
           this.parentNode.removeChild(this);
+          that._visibleMeta = false;
           e.halt();
         });
       };
@@ -306,12 +318,19 @@ define([
     // Add table
     showTable : function () {
 
+      // Already visible
+      if (this._visibleTable)
+        return;
+      
+      this._visibleTable = true;
+
       // Append default table
       var matchtable = d.createElement('div');
       matchtable.classList.add('matchtable', 'loading');
       var info = this.element();
       info.appendChild(matchtable);
 
+      var that = this;
 
       // TODO:
       //   Create try-catch-exception-handling
@@ -330,6 +349,7 @@ define([
       // Add button
       this._addButton('close', matchtable, function (e) {
         this.parentNode.removeChild(this);
+        that._visibleTable = false;
         e.halt();
       });
 
