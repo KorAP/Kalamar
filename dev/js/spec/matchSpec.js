@@ -341,7 +341,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
     it('should fail to load a table async', function (done) {
       expect(info).toBeTruthy();
 
-      info.getTable([], function (tablen) {
+      info.getTableData([], function (tablen) {
         table1 = tablen;
         done();
       });
@@ -355,7 +355,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
     it('should load a working table async', function(done) {
       expect(info).toBeTruthy();
-      info.getTable(undefined, function (tablem) {
+      info.getTableData(undefined, function (tablem) {
         table2 = tablem;
         done();
       });
@@ -401,28 +401,30 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(matchElement.children[0].children[1]).toBe(undefined);
 
       var info = matchClass.create(matchElement).info();
-      info.toggle();
+      info.showTable();
 
       // Match
       expect(matchElement.children[0].tagName).toEqual('DIV');
 
       // snippet
       expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+
       expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+
       expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
 
       // reference
-      expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
-      expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+      expect(matchElement.lastChild.classList.contains('ref')).toBeTruthy();
+      expect(matchElement.lastChild.firstChild.nodeValue).toEqual('me');
 
       // now
-      var infotable = matchElement.children[2];
+      var infotable = matchElement.children[1];
       expect(infotable.tagName).toEqual('DIV');
 
       expect(infotable.classList.contains('matchinfo')).toBeTruthy();
 
       expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
-      expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+      // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
     });
 
 
@@ -430,7 +432,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
     it('should parse into a tree (async) 1', function (done) {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
-      info.getTree(undefined, undefined, "spans", function (treem) {
+      info.getTreeData(undefined, undefined, "spans", function (treem) {
         tree = treem;
         done();
       });
@@ -444,13 +446,14 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
 
     var matchElement, info;
+
     // var info, matchElement;
     it('should parse into a tree view', function () {      
       matchElement = matchElementFactory();
       expect(matchElement.tagName).toEqual('LI');
 
       info = matchClass.create(matchElement).info();
-      info.toggle();
+      info.showTable();
 
       // Match
       expect(matchElement.children[0].tagName).toEqual('DIV');
@@ -461,21 +464,21 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
 
       // reference
-      expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
-      expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+      expect(matchElement.lastChild.classList.contains('ref')).toBeTruthy();
+      expect(matchElement.lastChild.firstChild.nodeValue).toEqual('me');
 
       // now
-      var infotable = matchElement.children[2];
+      var infotable = matchElement.children[1];
       expect(infotable.tagName).toEqual('DIV');
       expect(infotable.classList.contains('matchinfo')).toBeTruthy();
       expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
-      expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+      // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
     });
 
 
     it('should add a tree view async 1', function (done) {
       expect(info).toBeTruthy();
-      info.addTree('mate', 'beebop', "spans", function () {
+      info.showTree('mate', 'beebop', "spans", function () {
         done();
       });
     });
@@ -483,7 +486,8 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
     it('should add a tree view async 2', function () {
       // With added tree
-      var infotable = matchElement.children[2];
+      var infotable = matchElement.children[1];
+      
       expect(infotable.tagName).toEqual('DIV');
       expect(infotable.classList.contains('matchinfo')).toBeTruthy();
       expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
@@ -511,15 +515,15 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
     it('should be retrieved async', function (done) {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
-      info.getTable(undefined, function (x) {
+      info.getTableData(undefined, function (x) {
         table = x;
         done();
       });
     });
 
     it('should be rendered async', function () {
-      var e = table.element();
-      
+
+      var e = table.element().firstChild;
       expect(e.nodeName).toBe('TABLE');
       expect(e.children[0].nodeName).toBe('THEAD');
       var tr = e.children[0].children[0];
@@ -569,7 +573,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
     it('should be rendered async 1', function (done) {
       var info = matchClass.create(match).info();
       expect(info).toBeTruthy();
-      info.getTree(undefined, undefined, "spans", function (y) {
+      info.getTreeData(undefined, undefined, "spans", function (y) {
         tree = y;
         done();
       });
@@ -637,7 +641,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
     var matchTreeItem = require('match/treeitem');
 
     it('should be initializable', function () {
-      var menu = matchTreeMenu.create(undefined, [
+      var menu = matchTreeMenu.create([
         ['cnx/c', 'cnx', 'c'],
         ['xip/c', 'xip', 'c']
       ]);

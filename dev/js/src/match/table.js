@@ -186,7 +186,8 @@ define([
           // There are multiple values to add
           c.classList.add('matchkeyvalues');
           for (var n = 0; n < value.length; n++) {
-            var e = c.addE('div').addT(value[n]);
+            var e = c.addE('div');
+            e.addT(value[n]);
 
             var anno = ah.getDesc(key, value[n]);
 

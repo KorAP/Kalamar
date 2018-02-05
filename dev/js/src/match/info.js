@@ -325,9 +325,6 @@ define([
         if (table !== null) {
           matchtable.appendChild(table.element());
 	      };
-
-        // Load data
-        matchtable.classList.remove('loading');
       });
 
       // Add button
