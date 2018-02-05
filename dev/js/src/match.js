@@ -244,8 +244,8 @@ define([
           tm.readItems(that.treeMenuList());
 
           // Reposition and show menu
-          tm.attachTo(this);
           tm.show();
+          tm.attachTo(this);
           tm.focus();
         }
       );

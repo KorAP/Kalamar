@@ -50,7 +50,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
     attachTo : function (e) {
       var bounding = e.getBoundingClientRect();
       this._element.style.left = bounding.left + "px";
-      this._element.style.top = bounding.top + "px";
+      this._element.style.top = (bounding.top + bounding.height - this._element.clientHeight) + "px";
       this.slider().reInit();
     }
   };
