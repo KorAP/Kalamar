@@ -48,10 +48,44 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
 
     // Attach menu to
     attachTo : function (e) {
+
+      // this._attached = e;
+      this._repos(e);
+      this.slider().reInit();
+
+      /*
+       * This is a suboptimal scrolling solution, see
+       * see https://developer.mozilla.org/docs/Mozilla/Performance/ScrollLinkedEffects
+       */
+      if (this._onscroll !== undefined) {
+        window.removeEventListener('scroll', this._onscroll);
+      };
+
+      this._onscroll = function () {
+        this._repos(e);
+      }.bind(this);
+      
+      window.addEventListener('scroll', this._onscroll);
+    },
+
+
+    // Overwrite onHide method
+    onHide : function () {
+
+      // Remove listener
+      if (this._onscroll !== undefined) {
+        window.removeEventListener('scroll', this._onscroll);
+      };
+    },
+
+    _repos : function (e) {
       var bounding = e.getBoundingClientRect();
       this._element.style.left = bounding.left + "px";
-      this._element.style.top = (bounding.top + bounding.height - this._element.clientHeight) + "px";
-      this.slider().reInit();
+      this._element.style.top = (
+        bounding.top +
+          bounding.height -
+          this._element.clientHeight
+      ) + "px";
     }
   };
 });
