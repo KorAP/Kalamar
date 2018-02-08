@@ -157,6 +157,11 @@ require(['init'], function () {
 	"</span>"+
 	"<span class=\"context-right\"></span>";
 
+  var meta = {"messages":[["Response format is temporary"]],"@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld","meta":{},"document":{"@type":"koral:document","fields":[{"@type":"koral:field","type":"type:store","key":"ref","value":"My reference"},{"@type":"koral:field","type":"type:text","key":"title","value":"Der Name der Rose"},{"@type":"koral:field","type":"type:string","key":"textSigle","value":"a/b/c"},{"@type":"koral:field","type":"type:string","key":"keyword","value":["baum","wald"]},{"@type":"koral:field","type":"type:number","key":"zahl1","value":56},{"@type":"koral:field","type":"type:string","key":"name","value":"Peter"}]}};
+
+  meta = {"messages":[["Response format is temporary"]],"@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld","meta":{},"document":{"@type":"koral:document","fields":[{"@type":"koral:field","type":"type:number","key":"pubDate","value":20170701},{"@type":"koral:field","type":"type:string","key":"textSigle","value":"WDD17/982/72848"},{"@type":"koral:field","type":"type:string","key":"foundries","value":"dereko dereko/structure dereko/structure/base-sentences-paragraphs-pagebreaks lwc lwc/dependency treetagger treetagger/morpho"},{"@type":"koral:field","type":"type:string","key":"corpusSigle","value":"WDD17"},{"@type":"koral:field","type":"type:string","key":"docSigle","value":"WDD17/982"},{"@type":"koral:field","type":"type:store","key":"reference","value":"Diskussion:99 Namen Allahs/Archiv/1, In: Wikipedia - URL:http://de.wikipedia.org/wiki/Diskussion:99_Namen_Allahs/Archiv/1: Wikipedia, 2017"},{"@type":"koral:field","type":"type:text","key":"author","value":"ArchivBot, u.a."},{"@type":"koral:field","type":"type:number","key":"creationDate","value":20140609},{"@type":"koral:field","type":"type:string","key":"textTypeArt","value":"Diskussion"},{"@type":"koral:field","type":"type:store","key":"editor","value":"wikipedia.org"},{"@type":"koral:field","type":"type:text","key":"title","value":"Diskussion:99 Namen Allahs/Archiv/1"},{"@type":"koral:field","type":"type:store","key":"tokenSource","value":"base#tokens"},{"@type":"koral:field","type":"type:store","key":"layerInfos","value":"dereko/s=spans lwc/d=rels tt/l=tokens tt/p=tokens"},{"@type":"koral:field","type":"type:string","key":"textClass","value":"staat-gesellschaft biographien-interviews"},{"@type":"koral:field","type":"type:string","key":"availability","value":"CC-BY-SA"}]}}
+
+  
 //  var treeSnippet = "<span class=\"context-left\"><\/span><span class=\"match\">In diesem <span title=\"cnx\/c:np\">Sinne<\/span> schrieb <span title=\"cnx\/c:np\">Brunschwicg<\/span>:&quot;In <span title=\"cnx\/c:np\">Euklids<\/span> <span title=\"cnx\/c:np\">Elementen<\/span> <span title=\"cnx\/c:np\">spiegel<\/span> sich die <span title=\"cnx\/c:np\">Resultate<\/span> der <span title=\"cnx\/c:np\">Arbeit von Generationen vor Aristoteles<\/span> wider, nicht nur die <span title=\"cnx\/c:np\">technische Arbeit<\/span> der <span title=\"cnx\/c:np\">Entdecklung<\/span>, sondern auch die <span title=\"cnx\/c:np\">methodologische Arbeit<\/span> der <span title=\"cnx\/c:np\">Verbindung<\/span> und des <span title=\"cnx\/c:np\">Beweises<\/span>, die, in der <span title=\"cnx\/c:np\">Schule<\/span> des <span title=\"cnx\/c:np\">Phythagoras<\/span> begonnen, ihre <span title=\"cnx\/c:np\">Vollendung in den Schulen von Eudoxos von Cnidus<\/span> und <span title=\"cnx\/c:np\">Platon<\/span> gefunden hat&quot;(5<\/span><span class=\"context-right\"><\/span>";
 
   KorAP.API.getMatchInfo = function(match, callObj, cb) {
@@ -172,5 +177,9 @@ require(['init'], function () {
     else {
       return cb({ "snippet": snippet });
     }
+  };
+
+  KorAP.API.getTextInfo = function(doc, callObj, cb) {
+    return cb(meta);
   };
 });

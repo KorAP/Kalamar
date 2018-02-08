@@ -57,6 +57,25 @@ define(['util'], function () {
 
 
   /**
+   * Retrieve information about a document.
+   */
+  KorAP.API.getTextInfo = function (doc, param, cb) {
+
+    // doc is a KorAP.Match object
+    var url = KorAP.URL;
+    url += '/' + match.textSigle;
+
+    if (param['fields'] !== undefined) {
+      url += '?fields='; // TODO!
+    }
+    else {
+      url += '?fields=@all';
+    }
+    KorAP.API.getJSON(url, cb);
+  };
+
+
+  /**
    * Retrieve information about collections
    */
   KorAP.API.getCollections = function (cb) {

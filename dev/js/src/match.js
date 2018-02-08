@@ -190,19 +190,23 @@ define([
       
       var ops = d.createElement('div');
       ops.classList.add('action', 'bottom', 'button-group');
-      
+
+      /*
+        Temporarily disabled
       var meta = ops.addE('span');
       meta.addT('Meta');
       meta.setAttribute('title', loc.SHOW_META);
       meta.classList.add('meta');
+      */
 
+      // TODO: Rename anno
       var info = ops.addE('span');
-      info.addT('Anno');
+      info.addT(loc.SHOWINFO);
       info.setAttribute('title', loc.SHOWINFO);
       info.classList.add('info');
 
       var tree = ops.addE('span');
-      tree.addT('+ Tree');
+      tree.addT(loc.ADDTREE);
       tree.setAttribute('title', loc.ADDTREE);
       tree.classList.add('tree');
 
@@ -213,12 +217,14 @@ define([
       );
 
       // Click on meta - add meta (unless already there)
+      /*
       meta.addEventListener(
         'click', function (e) {
           e.halt();
           that.info().showMeta();
         }
       );
+      */
 
       // Click on token annotations - add token annotations (unless already there)
       info.addEventListener(

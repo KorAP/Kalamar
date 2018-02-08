@@ -141,8 +141,35 @@ define([
     },
 
 
-    getMetaData : function (metaInfo, cb) {
-      // ...
+    getMetaData : function (cb) {
+      KorAP.API.getTextInfo(
+        this._match, {}, function (textResponse) {
+          
+          if (textResponse === undefined) {
+            cb(null);
+            return;
+          };
+
+          var doc = textResponse["document"];
+       
+
+          if (doc === undefined) {
+            cb(null);
+            return;
+          };
+
+          var fields = doc["fields"];
+          if (fields === undefined) {
+            cb(null);
+            return;
+          };
+
+          // Add metainfo to matchview
+          cb(matchMetaClass.create(
+            this._match, fields
+          ));
+        }
+      );
     },
     
 
@@ -160,6 +187,11 @@ define([
           'layer' : layer
         },
         function (matchResponse) {
+          if (matchResponse === undefined) {
+            cb(null);
+            return;
+          };
+
           // Get snippet from match info
           if (matchResponse["snippet"] !== undefined) {
             // Todo: This should be cached somehow
@@ -284,33 +316,29 @@ define([
       metaTable.classList.add('metatable', 'loading');
       this.element().appendChild(metaTable);
 
-      // TODO: This is part of the getMeta!
+      /*
+       * This was temporary
       var metaInfo = this._match.element().getAttribute('data-info');
-
       if (metaInfo)
         metaInfo = JSON.parse(metaInfo);
-
+      */
       var that = this;
 
-      // There is metainfo
-      if (metaInfo) {
-
+      this.getMetaData(function (meta) {
         // Load data
         metaTable.classList.remove('loading');
 
-        // Add metainfo to matchview
-        var metaElem = matchMetaClass.create(this._match).element(metaInfo);
-        metaTable.appendChild(metaElem);
+        metaTable.appendChild(meta.element());
 
         // Add button
-        this._addButton('close', metaTable, function (e) {
+        that._addButton('close', metaTable, function (e) {
           this.parentNode.removeChild(this);
           that._visibleMeta = false;
           e.halt();
         });
-      };
+      });
 
-      // Load data
+      // Do not load any longer
       metaTable.classList.remove('loading');
     },
 

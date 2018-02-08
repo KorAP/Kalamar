@@ -27,23 +27,24 @@ define(['util'], function () {
 
   // Localization values
   const loc   = KorAP.Locale;
-  loc.METADATA   = loc.METADATA   || 'Metadata';
+  loc.METADATA = loc.METADATA || 'Metadata';
 
   return {
 
     /**
      * Create new match object
      */
-    create : function (match) {
-      return Object.create(this)._init(match);
+    create : function (match, fields) {
+      return Object.create(this)._init(match, fields);
     },
 
     /**
      * Initialize object
      */
-    _init : function (match) {
+    _init : function (match, fields) {
       this._match = match;
-      this.opened = false;
+      this._fields = fields;
+      // this.opened = false;
       return this;
     },
 
@@ -57,25 +58,34 @@ define(['util'], function () {
     /**
      * Create match reference view.
      */
-    element : function (metaInfo) {
+    element : function () {
       if (this._element !== undefined)
         return this._element;
-      
-      /*
-      var header = metaTable.appendChild(
-        document.createElement('h6')
-      );
 
-      header.appendChild(
-        document.createElement('div')
-      ).appendChild(
-        document.createTextNode(loc.METADATA)
-      );
-      */
+      if (this._fields === null)
+        return;
 
       var metaDL = document.createElement('dl');
 
       this._element = metaDL;
+
+      var fields = this._fields;
+
+      // TODO:
+      // This should only remember array positions by index
+      // and keep all other field information intact
+      var metaInfo = {};
+      for (var i in fields) {
+        var value = fields[i].value;
+        if (value instanceof Array) {
+          metaInfo[fields[i].key] = value.join(", ");
+        }
+        else {
+          metaInfo[fields[i].key] = value;
+        };
+      };
+
+      // console.log(fields);
 
       // TODO: Meta fields should be separated
       var keys = Object.keys(metaInfo);
