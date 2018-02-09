@@ -25,12 +25,13 @@ define(function () {
   ];
 
   // Match view
-  loc.ADDTREE  = 'Baumansicht hinzufügen';
+  loc.ADDTREE  = 'Relationen';
+  loc.SHOWANNO  = 'Token';
   loc.SHOWINFO = 'Informationen';
   loc.CLOSE    = 'Schließen';
 
   loc.TOGGLE_ALIGN = 'tausche Textausrichtung';
   loc.SHOW_KQ      = 'zeige KoralQuery';
-  loc.SHOW_META    = 'zeige Metadaten';
+  loc.SHOW_META    = 'Metadaten';
   loc.NEW_QUERY = 'Neue Anfrage';
 });

@@ -17,10 +17,11 @@ define([
 
   // Localization values
   const loc   = KorAP.Locale;
-  loc.ADDTREE   = loc.ADDTREE   || 'Add tree view';
   loc.SHOWINFO  = loc.SHOWINFO  || 'Show information';
+  loc.ADDTREE   = loc.ADDTREE   || 'Relations';
+  loc.SHOWANNO  = loc.SHOWANNO  || 'Tokens';
   loc.CLOSE     = loc.CLOSE     || 'Close';
-  loc.SHOW_META = loc.SHOW_META || 'Show metadata';
+  loc.SHOW_META = loc.SHOW_META || 'Metadata';
   
   // 'corpusID', 'docID', 'textID'
   const _matchTerms  = ['textSigle', 'matchID', 'available'];
@@ -201,8 +202,8 @@ define([
 
       // TODO: Rename anno
       var info = ops.addE('span');
-      info.addT(loc.SHOWINFO);
-      info.setAttribute('title', loc.SHOWINFO);
+      info.addT(loc.SHOWANNO);
+      info.setAttribute('title', loc.SHOWANNO);
       info.classList.add('info');
 
       var tree = ops.addE('span');
