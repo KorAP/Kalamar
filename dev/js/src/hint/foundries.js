@@ -1,7 +1,8 @@
 window.KorAP = window.KorAP || {};
 KorAP.annotationHelper = KorAP.annotationHelper || { '-' : [] };
 
-define(function () {
+define([], function () {
+  "use strict";
 
   const ah = KorAP.annotationHelper;
 
@@ -53,12 +54,15 @@ define(function () {
         };
       };
 
-      // Nothinmg found
+      // Nothing found
       if (text.length === 0)
         return;
 
       // Check next level
       anno = this[foundryLayer + l1];
+
+      if (!anno)
+        return;
 
       l2 += ' ';
 
