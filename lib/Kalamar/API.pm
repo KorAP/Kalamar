@@ -7,6 +7,13 @@ use warnings;
 
 # KorAP Search engine for Mojolicious::Plugin::Search
 
+
+# TODO:
+#   This contains a lot of legacy code that is not
+#   necessary anymore. Quite a lot of endpoints are
+#   only proxies and should simply be piped through
+#   the backend (including auth code)
+
 # TODO: Add fixtures
 # TODO: Support search in corpus and virtualcollection
 # TODO: Support caching everywhere!
@@ -230,6 +237,52 @@ sub match {
 };
 
 
+# Get text info
+sub text {
+  my $self = shift;
+  my $index = shift;
+
+  # Get controller
+  my $c = $index->controller;
+
+  # If there is a callback, do async
+  my $cb = pop if ref $_[-1] && ref $_[-1] eq 'CODE';
+
+  my %param = @_;
+
+  my $url = Mojo::URL->new($index->api);
+
+  # Use hash slice to create path
+  $url->path(join('/', 'corpus', @param{qw/corpus_id doc_id text_id/}));
+
+  my %query;
+  $query{fields} = $param{fields};
+
+  # Add query
+  $url->query(\%query);
+
+  $c->app->log->debug('Text info: ' . $url);
+
+  # non-blocking
+  if ($cb) {
+    $c->user->auth_request(
+      get =>
+        $url => sub {
+          my $tx = pop;
+          $self->_process_response('text', $index, $tx);
+          weaken $index;
+          return $cb->($index);
+        });
+  }
+
+  # Text info blocking
+  else {
+    my $tx = $c->user->auth_request(get => $url);
+    return $self->_process_response('text', $index, $tx);
+  };
+};
+
+
 # Get resource information
 sub resource {
   my $self = shift;
@@ -335,6 +388,9 @@ sub _process_response {
     }
     elsif ($type eq 'resource') {
       $self->_process_response_resource($index, $json);
+    }
+    elsif ($type eq 'text') {
+      $self->_process_response_text($index, $json);
     };
 
     return 1 if ref $json ne 'HASH';
@@ -422,6 +478,13 @@ sub _process_response_matches {
 sub _process_response_match {
   my ($self, $index, $json) = @_;
   $index->results(_map_match($json));
+};
+
+
+# Process query serialization response
+sub _process_response_text {
+  my ($self, $index, $json) = @_;
+  $index->results($json);
 };
 
 

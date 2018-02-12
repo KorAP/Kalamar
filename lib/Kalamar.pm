@@ -185,9 +185,8 @@ sub startup {
   # Match route
   my $corpus = $r->route('/corpus/:corpus_id');
   my $doc    = $corpus->get('/:doc_id');
-  my $text   = $doc->get('/:text_id');
-  my $match  = $text->get('/:match_id');
-  $match->to('search#match_info')->name('match');
+  my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
+  my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
 
   # User Management
   my $user = $r->any('/user')->to(controller => 'User');

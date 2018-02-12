@@ -80,6 +80,46 @@ sub query {
 };
 
 
+# Get meta data of a text
+sub text_info {
+  my $c = shift;
+
+  my %query = (fields => '*');
+  if ($c->param('fields')) {
+    $query{fields} = $c->param('fields')
+  };
+
+  $c->render_later;
+
+  # Use the API for fetching matching information non-blocking
+  $c->search->text(
+    corpus_id => $c->stash('corpus_id'),
+    doc_id    => $c->stash('doc_id'),
+    text_id   => $c->stash('text_id'),
+    %query,
+
+    # Callback for async search
+    sub {
+      my $index = shift;
+      return $c->respond_to(
+
+        # Render json if requested
+        json => sub {
+          # Add notifications to the matching json
+          # TODO: There should be a special notification engine doing that!
+          my $notes = $c->notifications(json => $index->results->[0]);
+          $c->render(
+            json => $notes,
+            status => $index->status
+          );
+        }
+      );
+    }
+  );
+};
+
+
+
 # Get information about a match
 # Note: This is called 'match_info' as 'match' is reserved
 sub match_info {
