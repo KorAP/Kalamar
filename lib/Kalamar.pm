@@ -90,6 +90,11 @@ sub startup {
     # Fix api endpoints
     $self->config('Kalamar')->{api} = $mount_point;
     $self->config('Search')->{api} = $mount_point;
+  }
+
+  # Add development path
+  elsif ($self->mode eq 'development') {
+    push @{$self->static->paths}, 'dev';
   };
 
   # Client notifications

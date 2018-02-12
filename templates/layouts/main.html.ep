@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=false, user-scalable=no" />
     <link href="<%= stash 'prefix' %>/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
     <link href="<%= stash 'prefix' %>/css/kalamar-<%= $Kalamar::VERSION %>.css" type="text/css" rel="stylesheet" />
-    %= javascript begin  
+%= javascript begin  
   window.KorAP = window.KorAP || {};
   % my $api = url_for('index');
   % $api =~ s!/$!!;
   KorAP.URL = '<%== $api %>';
 % end
+
+% if ($c->app->mode eq 'development') {
+    <script data-main="js/src/app/devel" src="js/lib/require.js" async="async"></script>
+% } else {
     <script src="<%= (stash('prefix') // '') . '/js/' . loc('jsFile', 'kalamar-' . $Kalamar::VERSION . '-en.js') %>" async="async"></script>
+% };
   </head>
 % my $embedded = 0;
 % $embedded = 1 if stash('embedded');
