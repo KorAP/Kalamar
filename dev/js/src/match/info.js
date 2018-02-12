@@ -115,24 +115,30 @@ define([
       if (focus.length == 0)
         cb(null);
 
-      // Get info (may be cached)
-      KorAP.API.getMatchInfo(
-        this._match,
-        { 'spans' : false, 'layer' : focus },
+      try {
+        // Get info (may be cached)
+        KorAP.API.getMatchInfo(
+          this._match,
+          { 'spans' : false, 'layer' : focus },
         
-        // Callback for retrieval
-        function (matchResponse) {
+          // Callback for retrieval
+          function (matchResponse) {
 
-          if (matchResponse === undefined)
-            cb(null);
+            if (matchResponse === undefined)
+              cb(null);
 
-          // Get snippet from match info
-          if (matchResponse["snippet"] !== undefined) {
-            this._table = matchTableClass.create(matchResponse["snippet"]);
-            cb(this._table);
-          };
-        }.bind(this)
-      );
+            // Get snippet from match info
+            if (matchResponse["snippet"] !== undefined) {
+              this._table = matchTableClass.create(matchResponse["snippet"]);
+              cb(this._table);
+            };
+          }.bind(this)
+        );
+      }
+      catch (e) {
+        KorAP.log(0, e);
+        cb(null);
+      };
 
       /*
       // Todo: Store the table as a hash of the focus
@@ -141,35 +147,43 @@ define([
     },
 
 
+    /**
+     * Receive meta data from server.
+     */
     getMetaData : function (cb) {
-      KorAP.API.getTextInfo(
-        this._match, {}, function (textResponse) {
+      try {
+        KorAP.API.getTextInfo(
+          this._match, {}, function (textResponse) {
           
-          if (textResponse === undefined) {
-            cb(null);
-            return;
-          };
+            if (textResponse === undefined) {
+              cb(null);
+              return;
+            };
 
-          var doc = textResponse["document"];
+            var doc = textResponse["document"];
        
+            if (doc === undefined) {
+              cb(null);
+              return;
+            };
 
-          if (doc === undefined) {
-            cb(null);
-            return;
-          };
+            var fields = doc["fields"];
+            if (fields === undefined) {
+              cb(null);
+              return;
+            };
 
-          var fields = doc["fields"];
-          if (fields === undefined) {
-            cb(null);
-            return;
-          };
-
-          // Add metainfo to matchview
-          cb(matchMetaClass.create(
-            this._match, fields
-          ));
-        }
-      );
+            // Add metainfo to matchview
+            cb(matchMetaClass.create(
+              this._match, fields
+            ));
+          }
+        );
+      }
+      catch (e) {
+        KorAP.log(0, e);
+        cb(null);
+      };
     },
     
 
@@ -178,41 +192,47 @@ define([
      */
     getTreeData : function (foundry, layer, type, cb) {
       var focus = [];
-      
-      // TODO: Support and cache multiple trees
-      KorAP.API.getMatchInfo(
-        this._match, {
-          'spans' : true,
-          'foundry' : foundry,
-          'layer' : layer
-        },
-        function (matchResponse) {
-          if (matchResponse === undefined) {
-            cb(null);
-            return;
-          };
 
-          // Get snippet from match info
-          if (matchResponse["snippet"] !== undefined) {
-            // Todo: This should be cached somehow
+      try {
+        // TODO: Support and cache multiple trees
+        KorAP.API.getMatchInfo(
+          this._match, {
+            'spans' : true,
+            'foundry' : foundry,
+            'layer' : layer
+          },
+          function (matchResponse) {
+            if (matchResponse === undefined) {
+              cb(null);
+              return;
+            };
 
-            if (type === "spans") {
-              cb(matchTreeHierarchyClass.create(matchResponse["snippet"]));
+            // Get snippet from match info
+            if (matchResponse["snippet"] !== undefined) {
+              // Todo: This should be cached somehow
+
+              if (type === "spans") {
+                cb(matchTreeHierarchyClass.create(matchResponse["snippet"]));
+              }
+              else if (type === "rels") {
+                cb(matchTreeArcClass.create(matchResponse["snippet"]));              
+              }
+
+              // Unknown tree type
+              else {
+                cb(null);
+              };
             }
-            else if (type === "rels") {
-              cb(matchTreeArcClass.create(matchResponse["snippet"]));              
-            }
-
-            // Unknown tree type
             else {
               cb(null);
             };
-          }
-          else {
-            cb(null);
-          };
-        }.bind(this)
-      );
+          }.bind(this)
+        );
+      }
+      catch (e) {
+        KorAP.log(0, e);
+        cb(null);
+      };
     },
 
 
