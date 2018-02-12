@@ -330,7 +330,9 @@ div.metatable > dl {
       max-height: 6em;
       margin-left: $border-size;
       white-space: normal;
-      overflow: visible;
+      overflow-y: auto;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

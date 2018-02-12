@@ -6,7 +6,7 @@ use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.25';
+our $VERSION = '0.26';
 
 # TODO: Use CSRF!!!
 # TODO: The FAQ-Page has a contact form for new questions

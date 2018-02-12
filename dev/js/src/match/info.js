@@ -151,10 +151,13 @@ define([
      * Receive meta data from server.
      */
     getMetaData : function (cb) {
+
+      var match = this._match;
+
       try {
         KorAP.API.getTextInfo(
-          this._match, {}, function (textResponse) {
-          
+          match, {}, function (textResponse) {
+            
             if (textResponse === undefined) {
               cb(null);
               return;
@@ -175,7 +178,7 @@ define([
 
             // Add metainfo to matchview
             cb(matchMetaClass.create(
-              this._match, fields
+              match, fields
             ));
           }
         );
@@ -345,6 +348,10 @@ define([
       var that = this;
 
       this.getMetaData(function (meta) {
+
+        if (meta === null)
+          return;
+
         // Load data
         metaTable.classList.remove('loading');
 

@@ -193,7 +193,6 @@ define([
       ops.classList.add('action', 'bottom', 'button-group');
 
       /*
-        Temporarily disabled
       var meta = ops.addE('span');
       meta.addT('Meta');
       meta.setAttribute('title', loc.SHOW_META);

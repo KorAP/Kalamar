@@ -63,7 +63,8 @@ define(['util'], function () {
 
     // doc is a KorAP.Match object
     var url = KorAP.URL;
-    url += '/' + match.textSigle;
+    url += '/corpus';
+    url += '/' + doc.textSigle;
 
     if (param['fields'] !== undefined) {
       url += '?fields='; // TODO!
@@ -102,7 +103,16 @@ define(['util'], function () {
       */
       if (this.readyState == 4) {
 
-        var json = JSON.parse(this.responseText);
+        var json;
+        try {
+          json = JSON.parse(this.responseText);
+        }
+        catch (e) {
+          KorAP.log(0, e);
+          console.log(e);
+          onload(undefined);
+          return;
+        };
 	      if (json !== null && json["errors"] !== null) {
 	        for (var i in json["errors"]) {
 	          KorAP.log(json["errors"][i][0], json["errors"][i][1] || "Unknown");
