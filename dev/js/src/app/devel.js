@@ -4,7 +4,7 @@
  */
 
 requirejs.config({
-  baseUrl: 'js/src',
+  baseUrl: '/js/src',
   paths : {
     'lib': '../lib'
   }

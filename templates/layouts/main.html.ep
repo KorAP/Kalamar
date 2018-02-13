@@ -14,7 +14,7 @@
 % end
 
 % if ($c->app->mode eq 'development') {
-    <script data-main="js/src/app/devel" src="js/lib/require.js" async="async"></script>
+    <script data-main="/js/src/app/devel" src="/js/lib/require.js" async="async"></script>
 % } else {
     <script src="<%= (stash('prefix') // '') . '/js/' . loc('jsFile', 'kalamar-' . $Kalamar::VERSION . '-en.js') %>" async="async"></script>
 % };
