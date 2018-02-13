@@ -179,3 +179,35 @@ $standard-margin: 4px;
     margin-right: 20px;
   }
 }
+
+
+@media print {
+  body, html, select, g > text {
+    color: black;
+  }
+  header, aside {
+    display: none;
+  }
+  main.tutorial {
+    margin: 1em;
+  }
+  #kalamar-bg {
+    display: none;
+  }
+  a.doc-link {
+    color: black;
+    text-decoration: underline;
+  }
+  pre.query.tutorial {
+    background-color: white;
+    color: black;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+  blockquote.warning {
+    background-color: grey;
+    color: white;
+    border-left-color: black;
+    border-left-width: 1em;
+  }
+}
