@@ -7,7 +7,7 @@
 <section id="segments">
   <h3>Simple Segments</h3>
 
-  <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simply queried:</p>
+  <p>The atomic elements of Poliqarp queries are segments. Most of the time segments represent words and can be simple queried:</p>
   %# footnote: In the polish national corpus, Poliqarp can join multiple segments when identifying a single word.
 
   %= doc_query poliqarp => loc('Q_poliqarp_simple', 'Tree')
@@ -28,7 +28,7 @@
 
   %= doc_query poliqarp => '"l(au|ie)fen"'
 
-  <p>Regular expression segments will always match the whole segment, meaning the above query will find words starting with <code>l</code> and ending with <code>n</code>. To support subqueries, you can use the <code>/x</code> flag.</p>
+  <p>Regular expression segments will always match the whole segment, meaning the above query will find words starting with the first letter of the regular expression and ending with the last letter. To support subqueries, you can use the <code>/x</code> flag.</p>
 
     %= doc_query poliqarp => '"l(au|ie)fen"/x', cutoff => 1
 
@@ -36,17 +36,17 @@
 
   %= doc_query poliqarp => '".*?l(au|ie)fen.*?"', cutoff => 1
 
-  <p>The <code>/x</code> flag can also be used in conjuntion with strict expressions to search for substrings:</p>
+  <p>The <code>/x</code> flag can also be used in conjunction with strict expressions to search for substrings:</p>
 
   %= doc_query poliqarp => 'trenn/xi', cutoff => 1
 
-  <p>The above query will find all occurrences of segments including the string <code>trenn</code> case insensitive, like &quot;Trennung&quot;, &quot;unzertrennlich&quot;, or &quot;Wettrennen&quot;.</p>
+  <p>The above query will find all occurrences of segments including the defined substring regardless of upper and lower case.</p>
 
   <blockquote class="warning">
-    <p>Beware: These kinds of queries (with prepended <code>.*</code> expressions) are extremely slow!</p>
+    <p>Beware: Queries with prepended <code>.*</code> expressions can become extremely slow!</p>
   </blockquote>
 
-  <p>You can again apply the <code>/i</code> flag to search case insensitive.</p>
+  <p>You can again apply the <code>/i</code> flag to regular expressions to search case insensitive.</p>
 
   %= doc_query poliqarp => '"l(au|ie)fen"/xi', cutoff => 1
 </section>
@@ -56,7 +56,7 @@
 
   <p>Complex segments are expressed in square brackets and contain additional information on the resource of the term under scrutiny by providing key/value pairs, separated by an equal-sign.</p>
 
-  <p>The KorAP implementation of Poliqarp provides three special segment keys: <code>orth</code> for surface forms, <code>base</code> for lemmata, and <code>pos</code> for Part-of-Speech. The following complex query finds all surface forms of <code>Baum</code>.</p>
+  <p>The KorAP implementation of Poliqarp provides three special segment keys: <code>orth</code> for surface forms, <code>base</code> for lemmata, and <code>pos</code> for Part-of-Speech. The following complex query finds all surface forms of the defined word.</p>
   %# There are more special keys in Poliqarp, but KorAP doesn't provide them.
 
   %= doc_query poliqarp => '[orth=Baum]'
@@ -70,7 +70,7 @@
   %= doc_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
 
   <p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.
-    The following query finds all occurrences of segments annotated as the lemma <code>Baum</code> by the default foundry.</p>
+    The following query finds all occurrences of segments annotated as a specified lemma by the default foundry.</p>
 
   %= doc_query poliqarp => '[base=Baum]'
 
@@ -80,7 +80,7 @@
   %= doc_query poliqarp => loc('Q_poliqarp_complexpos', '[pos=ADJA]')
 
   <p>Complex segments requesting further token annotations can have keys following the <code>foundry/layer</code> notation.
-    For example to find all occurrences of plural words in the <code>mate</code> foundry, you can search using the following query:</p>
+    For example to find all occurrences of plural words in a supporting foundry, you can search using the following query:</p>
 
   %= doc_query poliqarp => '[mate/m=number:pl]'
 
@@ -91,7 +91,7 @@
   %= doc_query poliqarp => '[!pos=ADJA]'
 
   <blockquote class="warning">
-    <p>Beware: Negated complex segments can't be searched solely in the Lucene index.
+    <p>Beware: Negated complex segments can't be searched as a single statement.
       However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
   </blockquote>
 
@@ -104,7 +104,7 @@
   <p>Empty segments are useful to express distances of words by using <%= doc_link_to 'repetitions', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %>.</p>
 
   <blockquote class="warning">
-    <p>Beware: Empty segments can't be searched solely in the Lucene index.
+    <p>Beware: Empty segments can't be searched as a single statement.
       However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
   </blockquote>
 </section>
@@ -123,7 +123,7 @@ Span segments can be searched for using angular brackets instead of square brack
 <section id="paradigmatic-operators">
   <h3>Paradigmatic Operators</h3>
 
-  <p>A complex segment can have multiple properties a token has to fulfill. For example to search for all words with the surface form <code>laufe</code> (no matter if capitalized or not) that have the lemma <code>lauf</code> (and not, for example, <code>laufen</code>, which would indicate a verb or a gerund), you can search for:</p>
+  <p>A complex segment can have multiple properties a token requires. For example to search for all words with a certain surface form of a particular lemma (no matter if capitalized or not), you can search for:</p>
 
   %= doc_query poliqarp => '[orth=laufe/i & base=Lauf]'
 
@@ -134,7 +134,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <p>The following query is therefore equivalent:</p>
 
-  %= doc_query poliqarp => '[orth=laufe & !base=Lauf]'
+  %= doc_query poliqarp => '[orth=laufe/i & !base=Lauf]'
 
   <p>Alternatives can be expressed by using the pipe symbol:</p>
 
@@ -150,7 +150,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <h4 id="syntagmatic-operators-sequence">Sequences</h4>
 
-  <p>Sequences can be used to search for segments in order. For example to search for the word &quot;alte&quot; preceded by &quot;der&quot; and followed by &quot;Mann&quot;, you can simple search for the sequence of simple expressions separated by whitespaces.</p>
+  <p>Sequences can be used to search for segments in order. For this, simple expressions are separated by whitespaces.</p>
 
   %= doc_query poliqarp => 'der alte Mann'
 
@@ -162,7 +162,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= doc_query poliqarp => '[orth=der][][orth=Mann]'
 
-  <p>You are also able to mix segments and spans in sequences, for example to search for the word &quot;Der&quot; at the beginning of a sentence (which can be interpreted as the first word after the end of a sentence).</p>
+  <p>You are also able to mix segments and spans in sequences, for example to search for a word at the beginning of a sentence (which can be interpreted as the first word after the end of a sentence).</p>
 
   %= doc_query poliqarp => '<base/s=s>[orth=Der]'
 
@@ -172,38 +172,38 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <h4>Alternation</h4>
 
-  <p>Alternations allow for searching alternative segments or sequences of segments, similar to the paradigmatic operator. You already have seen that you can search for both sequences of <code>der alte Mann</code> and <code>der junge Mann</code> by typing in:</p>
+  <p>Alternations allow for searching alternative segments or sequences of segments, similar to the paradigmatic operator. You already have seen that you can search for a sequence with an alternative adjective in between by typing in:</p>
 
   %= doc_query poliqarp => 'der [orth=alte | orth=junge] Mann'
 
-  <p>However, this formulation has problems in case you want to search for alternations of sequences rather than terms. If you want to search for both sequences of <code>dem jungen Mann</code> and <code>der alte Mann</code> you can use syntagmatic alternations and groups:</p>
+  <p>However, this formulation has problems in case you want to search for alternations of sequences rather than terms. In this case you can use syntagmatic alternations and groups:</p>
 
   %= doc_query poliqarp => '(dem jungen | der alte) Mann'
 
-  <p>The pipe symbol works the same way as with the paradigmatic alternation, but supports sequences of different length as operands. The above query for <code>der alte Mann</code> and <code>der junge Mann</code> can therefor be reformulated as:</p>
+  <p>The pipe symbol works the same way as with the paradigmatic alternation, but supports sequences of different length as operands. The above query with an alternative adjective in a sequence can therefore be reformulated as:</p>
 
   %= doc_query poliqarp => 'der (junge | alte) Mann'
 
   <h4 id="syntagmatic-operators-repetitions">Repetition</h4>
 
   <p>Repetitions in Poliqarp are realized as in <%= doc_link_to 'regular expressions', 'ql', 'regexp' %>, by giving quantifieres in curly brackets.</p>
-  <p>To search for a sequence of three occurrences of <code>der</code>, you can formulate your query in any of the following ways - they will have the same results:</p>
+  <p>To search for a sequence of three occurrences of a defined string, you can formulate your query in any of the following ways - they will have the same results:</p>
 
   %= doc_query poliqarp => 'der der der'
   %= doc_query poliqarp => 'der{3}'
   %= doc_query poliqarp => '[orth=der]{3}'
 
-  <p>In difference to regular expressions, the repetition operation won't refer to the match but to the pattern given. So the following query will give you a sequence of three words having the term <code>der</code> as a substring - but the words don't have to be identical. The following query for example will match a sequence of three words all starting with <code>la</code>.</p>
+  <p>In difference to regular expressions, the repetition operation won't refer to the match but to the pattern given. So the following query will give you a sequence of three words with a defined substring - but the words don't have to be identical.</p>
 
   %= doc_query poliqarp => '"la.*?"/i{3}'
 
-  <p>The same is true for annotations. The following query will find a sequence of 3 to 4 adjectives as annotated by the TreeTagger foundry, that is preceded by the lemma <code>ein</code> as annotated by the default foundry and followed by a noun as annotated by the XIP foundry. The adjectives do not have to be identical though.</p>
+  <p>The same is true for annotations. The following query will find a sequence of 3 to 4 adjectives in a defined context. The adjectives do not have to be identical though.</p>
 
   %= doc_query poliqarp => '[base=ein][tt/p=ADJA]{3,4}[xip/p=NOUN]'
 
-  <p>In addition to numbered quantities, it is also possible to pass repetition information as Kleene operators <code>?</code>, <code>+</code>, and <code>*</code>.</p>
+  <p>In addition to numbered quantities, it is also possible to pass repetition information as Kleene operators <code>?</code>, <code>*</code>, and <code>+</code>.</p>
 
-  <p>To search for a sequence of the lemma <code>der</code> followed by the lemma <code>baum</code> as annotated by the default foundry, but allowing an optional adjective as annotated by the TreeTagger foundry in between, you can search for:</p>
+  <p>To search for a sequence with an optional segment, you can search for:</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]?[base=Baum]'
 
@@ -211,7 +211,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]{,1}[base=Baum]'
 
-  <p>To search for the same sequences but with unlimited adjectives as annotated by the TreeTagger foundry in between, you can use the Kleene Star:</p>
+  <p>To search for the same sequences but with unlimited adjectives in between, you can use the Kleene Star:</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]*[base=Baum]'
 
@@ -222,8 +222,8 @@ Terms of the complex segment can be negated as introduced before.</p>
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]', cutoff => 1
 
   <blockquote class="warning">
-    <p>Repetition operators like <code>{,4}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated and not as part of a sequence (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional.</p>
-    <p>Keep in mind that optionality may be somehow <i>inherited</i>, for example when you search for <code>(junge|alte)?|tote</code>, one segment of the alternation is optional, which makes the whole query optional as well.</p>
+    <p>Repetition operators like <code>{,n}</code>, <code>?</code>, and <code>*</code> make segments or groups of segments optional. In case these queries are used separated and not as part of a sequence (and there are no mandatory segments in the query), you will be warned by the system that your query won't be treated as optional.</p>
+    <p>Keep in mind that optionality may be somehow <i>inherited</i>, for example an entire query becomes optional as soon as one segment of an alternation is optional.</p>
   </blockquote>
 
   <p>Repetition can also be used to express distances between segments by using <%= doc_link_to 'empty segments', 'ql', 'poliqarp-plus#empty-segments' %>.</p>
@@ -255,7 +255,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= doc_query poliqarp => 'endsWith(<base/s=s>, [opennlp/p=NN])', cutoff => 1
 
-  <p>The <code>matches()</code> operation will match, when a second subquery has the exact same span of a first subquery.</p>
+  <p>The <code>matches()</code> operation will match, when a second subquery has the exact same span as a first subquery.</p>
 
   %= doc_query poliqarp => 'matches(<base/s=s>,[tt/p=CARD][tt/p="N.*"])', cutoff => 1
 
@@ -265,7 +265,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <blockquote class="warning">
     <p>Positional operators are still experimental and may change in certain aspects in the future (although the behaviour defined is intended to be stable). There is also known incorrect behaviour which will be corrected in future versions.</p>
-    <p>Optional operands in position operators, like in <code>contains(&lt;s&gt;,[orth=Baum]*)</code>, have to be mandatory at the moment and will be reformulated to occur at least once.</p>
+    <p>Optional operands in position operators have to be mandatory at the moment and will be reformulated to occur at least once.</p>
     <p>This behaviour may change in the future.</p>
   </blockquote>
 
@@ -280,13 +280,13 @@ Terms of the complex segment can be negated as introduced before.</p>
 <section id="class-operators">
   <h3>Class Operators</h3>
 
-  <p>Classes are used to group sub matches by surrounding curly brackets and a class number <code>{1:...}</code>. Classes can be used to refer to sub matches in a query, similar to captures in regular expressions. In Poliqarp+ classes have multiple purposes, with highlighting being the most intuitive one:</p>
+  <p>Classes are used to group submatches by surrounding curly brackets and a class number <code>{1:...}</code>. Classes can be used to refer to submatches in a query, similar to captures in regular expressions. In Poliqarp+ classes have multiple purposes, with highlighting being the most intuitive one:</p>
 
   %= doc_query poliqarp => 'der {1:{2:[]} Mann}'
 
   %#= doc_query poliqarp => 'der {1:{2:[]{1,4}} {3:Baum}} {4:[]}'
 
-  <p>In KorAP classes can be defined from 1 to 128. In case a class number is dismissed, the class defaults to the class number 1: <code>{...}</code> is equal to <code>{1:...}</code>.</p>
+  <p>In KorAP classes can be defined from 1 to 128. In case a class number is missing, the class defaults to the class number 1: <code>{...}</code> is equal to <code>{1:...}</code>.</p>
 
   <h4>Match Modification</h4>
 
@@ -294,13 +294,13 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= doc_query poliqarp => 'focus(der {Baum})'
 
-  <p>The query above will search for the sequence <code>der Baum</code> but the match will be limited to <code>Baum</code>. You can think of <code>der</code> in this query as a positive look-behind zero-length assertion in regular expressions.</p>
+  <p>The query above will search for a sequence but the match will be limited to the second segment. You can think of the first segment in this query as a <i>positive look-behind zero-length assertion</i> in regular expressions.</p>
 
-  <p>But focus is way more useful if you are searching for matches without knowing the surface form. For example, to find all terms between the words &quot;der&quot; and &quot;Mann&quot; you can search:</p>
+  <p>But focus is way more useful if you are searching for matches without knowing the surface form. For example, to find all terms between defined words you can search:</p>
 
   %= doc_query poliqarp => 'focus(der {[]} Mann)'
 
-  <p>This will limit the match to all interesting terms in between &quot;der&quot; and &quot;Mann&quot;. Or you may want to search for all words following the sequence &quot;der alte und&quot; immediately:</p>
+  <p>Or you may want to search for all words following a known sequence immediately:</p>
 
   %= doc_query poliqarp => 'focus(der alte und {[]})'
 
@@ -311,7 +311,7 @@ While not being interested in the whole quote as a match, you can focus on what'
       %= doc_query poliqarp => 'focus(1:contains(er []{,10} sagte, 1{Baum}))'
       -->
 
-  <p>In case a class number is dismissed, the focus operator defaults to the class number 1: <code>focus(...)</code> is equal to <code>focus(1: ...)</code>.</p>
+  <p>In case a class number is missing, the focus operator defaults to the class number 1: <code>focus(...)</code> is equal to <code>focus(1: ...)</code>.</p>
 
   <blockquote class="warning">
     <p>As numbers in curly brackets can be ambiguous in certain circumstances, for example <code>[]{3}</code> can be read as either &quot;any word repeated three times&quot; or &quot;any word followed by the number 3 highlighted as class number 1&quot;, numbers should always be expressed as <code>[orth=3]</code> for the latter case.</p>

@@ -7,11 +7,11 @@
 <section id="segments">
   <h3>Einfache Segmente</h3>
 
-  <p>Die einzelnen Elemente von Poliqarp sind Segmente. Meistens repräsentieren Segmente Wörter und können leicht abgefragt werden:</p>
+  <p>Die kleinsten Elemente von Poliqarp sind Segmente. Meistens repräsentieren Segmente Wörter und können leicht abgefragt werden:</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_simple', 'Tree')
 
-  <p>Abfolgen einfacher Segmenten werden durch Leerzeichen getrennt:</p>
+  <p>Abfolgen einfacher Segmente werden durch Leerzeichen getrennt:</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_simpleseq', 'the Tree')
 
@@ -19,7 +19,7 @@
 
   %= doc_query poliqarp => loc('Q_poliqarp_simpleci', 'run/i')
 
-  <p>Die Abfrage oben findet alle Vorkommen des Wortes unabhängig von der Großschreibung von Buchstaben.
+  <p>Die Abfrage oben findet alle Vorkommen des Wortes unabhängig von ihrer Großschreibung.
 
   <h4 id="regexp">Reguläre Ausdrücke</h4>
 
@@ -27,7 +27,8 @@
 
   %= doc_query poliqarp => '"l(au|ie)fen"'
 
-  <p>Reguläre Ausdrücke stimmen immer mit dem gesamten Segment überein, d.h. die obige Abfrage findet Wörter, die mit <code>l</code> beginnen und mit <code>n</code> enden. Um Teilausdrücke zu unterstützen, können Sie das Flag <code>/x</code> verwenden.</p>
+  <p>Reguläre Ausdrücke stimmen immer mit dem gesamten Segment überein,
+    d.h. die obige Abfrage findet Wörter, die mit dem ersten Buchstaben des Ausdrucks beginnen und mit dem letzten Buchstaben enden. Um Teilausdrücke zu unterstützen, können Sie das Flag <code>/x</code> verwenden.</p>
 
     %= doc_query poliqarp => '"l(au|ie)fen"/x', cutoff => 1
 
@@ -39,10 +40,10 @@
 
   %= doc_query poliqarp => 'trenn/xi', cutoff => 1
 
-  <p>Die obige Abfrage findet alle Vorkommen von Segmenten mit der Zeichenfolge <code>trenn</code> unabhängig von Groß-Kleinschreibung, wie &quot;Trennung&quot;, &quot;unzertrennlich&quot; oder &quot;Wettrennen&quot;.</p>
+  <p>Die obige Abfrage findet alle Vorkommen von Segmenten mit der definierten Zeichenfolge - unabhängig von Groß-Kleinschreibung und unabhängig von ihrem Zeichenkontext.</p>
 
   <blockquote class="warning">
-    <p>Achtung: Diese Art von Abfragen (mit vorangestellten <code>.*</Code> Ausdrücken) sind extrem langsam!</p>
+    <p>Achtung: Diese Art von Abfragen (mit vorangestellten <code>.*</Code> Ausdrücken) können extrem langsam sein!</p>
   </blockquote>
 
   <p>Sie können das <code>/i</code> Flag erneut anwenden, um unabhängig von Groß-Kleinschreibung zu suchen.</p>
@@ -56,9 +57,9 @@
 
   <p>Komplexe Segmente werden in eckigen Klammern ausgedrückt und enthalten zusätzliche Informationen über die Ressource des zu prüfenden Begriffs, indem sie Schlüssel/Wert-Paare enthalten, die durch ein Gleichheitszeichen getrennt sind.</p>
 
-  <p>Die KorAP-Implementierung von Poliqarp bietet drei spezielle Segmentschlüssel: <code>orth</code> für Oberflächenformen, <code>base</code> für Lemmata und <code>pos</code> für Part-of-Speech-Annotationen. Die folgende komplexe Abfrage findet alle Oberflächenformen von <code>Baum</code>.</p>
+  <p>Die KorAP-Implementierung von Poliqarp bietet drei spezielle Segmentschlüssel: <code>orth</code> für Oberflächenformen, <code>base</code> für Lemmata und <code>pos</code> für Part-of-Speech-Annotationen. Die folgende komplexe Abfrage findet alle Oberflächenformen des eingegebenen Wortes.</p>
 
-  %# Es gibt mehr spezielle Schlüssel in Poliqarp, aber KorAP bietet sie nicht an.
+  %# Es gibt noch mehr spezielle Schlüssel in Poliqarp, aber KorAP bietet sie nicht an.
 
   %= doc_query poliqarp => '[orth=Baum]'
 
@@ -71,7 +72,7 @@
   %= doc_query poliqarp => '[orth="l(au|ie)fen"/xi]', cutoff => 1
 
   <p>Ein weiterer spezieller Schlüssel ist <code>base</code>, bezogen auf die Lemma-Annotation der <%= doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
-    Die folgende Abfrage findet alle Vorkommen von Segmenten, die als Lemma <code>Baum</code> durch die Standard-Foundry annotiert wurden.</p>
+    Die folgende Abfrage findet alle Vorkommen von Segmenten, die mit dem eingegebenen Lemma in der Standard-Foundry annotiert wurden.</p>
 
   %= doc_query poliqarp => '[base=Baum]'
 
@@ -80,19 +81,19 @@
 
   %= doc_query poliqarp => '[pos=ADJA]'
 
-  <p>Komplexe Segmente, die weitere Token-Annotationen anfordern, können Schlüssel der <code>foundry/layer</code> Notation folgend haben.
-    Zum Beispiel, um alle Vorkommen von mehreren Wörtern in der <code>mate</code> Foundry zu finden, können Sie mit der folgenden Abfrage suchen:</p>
+  <p>Komplexe Segmente, die weitere Token-Annotationen erfordern, können die <code>foundry/layer</code> Notation dem Suchschlüssel voranstellen.
+    Zum Beispiel, um alle Vorkommen von Plural-Wörtern in einer diese Information enthaltenden Foundry zu finden, können Sie mit der folgenden Abfrage suchen:</p>
 
   %= doc_query poliqarp => '[mate/m=number:pl]'
 
   <h4>Negation</h4>
-  <p>Die Negation von Termen in komplexen Ausdrücken kann durch Voranstellen eines Ausrufezeichen vor dem Gleichheitszeichen oder dem gesamten Term ausgedrückt werden.</p>
+  <p>Die Negation von Termen in komplexen Ausdrücken kann durch Voranstellen eines Ausrufezeichens vor dem Gleichheitszeichen oder dem gesamten Term ausgedrückt werden.</p>
 
   %= doc_query poliqarp => '[pos!=ADJA]'
   %= doc_query poliqarp => '[!pos=ADJA]'
 
   <blockquote class="warning">
-    <p>Vorsicht: Negierte komplexe Segmente können nicht alleinstehend im Lucene-Index gesucht werden.
+    <p>Vorsicht: Negierte komplexe Segmente können nicht alleinstehend gesucht werden.
       Allerdings funktionieren sie, wenn sie Teil einer <%= doc_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%> sind.</p>
   </blockquote>
 
@@ -105,16 +106,16 @@
   <p>Leere Segmente sind nützlich, um Abstände von Wörtern auszudrücken, indem sie <%= doc_link_to 'Wiederholungen', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %> verwenden.</p>
 
   <blockquote class="warning">
-    <p>Vorsicht: Leere Segmente können nicht alleinstehend im Lucene-Index gesucht werden. 
-      Allerdings arbeiten sie, falls sie Teil eines <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %> sind.</p>
+    <p>Vorsicht: Leere Segmente können nicht alleinstehend gesucht werden. 
+      Allerdings funktionieren sie, wenn sie Teil einer <%= doc_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %> sind.</p>
   </blockquote>
 </section>
 
 <section id="spans">
-  <h3>Span Segmente</h3>
+  <h3>Span-Segmente</h3>
 
   <p>Nicht alle Segmente sind an Worte gebunden - manche sind an Konzepte gebunden, die mehrere Wörter überspannen, z. B. Nominalphrasen, Sätze oder Absätze.
-Spansegmente können durch spitze Klammern anstelle von eckigen Klammern gesucht werden.</p>
+Span-Segmente können durch spitze Klammern anstelle von eckigen Klammern gesucht werden.</p>
 
   %= doc_query poliqarp => '<xip/c=INFC>'
     
@@ -124,7 +125,7 @@ Spansegmente können durch spitze Klammern anstelle von eckigen Klammern gesucht
 <section id="paradigmatic-operators">
   <h3>Paradigmatische Operatoren</h3>
 
-  <p>Ein komplexes Segment kann mehrere Eigenschaften haben, die ein Token erfüllen muss. Zum Beispiel, um nach allen Wörtern mit der Oberflächenform <code>laufe</code> (egal ob großgeschrieben oder nicht) zu suchen, die das Lemma <code>lauf</code> haben (und nicht z. B. <code>laufen</code>, was ein Verb oder ein Gerundium angeben würde), können Sie suchen nach:</p>
+  <p>Ein komplexes Segment kann mehrere Eigenschaften haben, die ein Token erfüllen muss. Zum Beispiel, um nach allen Wörtern einer bestimmten Oberflächenform eines bestimmten Lemmas (egal ob großgeschrieben oder nicht) zu suchen, können Sie folgende Abfrage nutzen:</p>
 
   %= doc_query poliqarp => '[orth=laufe/i & base=Lauf]'
 
@@ -135,7 +136,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   <p>Die folgende Abfrage ist daher äquivalent:</p>
 
-  %= doc_query poliqarp => '[orth=laufe & !base=Lauf]'
+  %= doc_query poliqarp => '[orth=laufe/i & !base=Lauf]'
 
   <p>Alternativen können mit dem Balkensymbol ausgedrückt werden:</p>
 
@@ -151,7 +152,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   <h4 id="syntagmatic-operators-sequence">Sequenzen</h4>
 
-  <p>Sequenzen können verwendet werden, um Segmente in einer Reihe zu suchen. Zum Beispiel um nach dem Wort &quot;alte&quot; zu suchen, vorangestellt mit &quot;der&quot; und gefolgt von &quot;Mann&quot;, können Sie einfach nach der Reihenfolge der einfachen Ausdrücke, die durch Leerzeichen getrennt sind, suchen.</p>
+  <p>Sequenzen können verwendet werden, um Segmente in einer bestimmten Reihenfolge zu suchen. Hierfür werden die einfachen Ausdrücke mit Leerzeichen getrennt.</p>
 
   %= doc_query poliqarp => 'der alte Mann'
 
@@ -159,29 +160,29 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   %= doc_query poliqarp => '[orth=der][orth=alte][orth=Mann]'
 
-  <p>Jetzt können Sie den Nutzen des leeren Segments erkennen, um nach Wörtern zu suchen, die Sie nicht kennen:</p>
+  <p>Jetzt können Sie auch den Nutzen des leeren Segments erkennen, um nach Wörtern zu suchen, die Sie nicht kennen:</p>
 
   %= doc_query poliqarp => '[orth=der][][orth=Mann]'
 
-  <p>Sie können auch Segmente und Span Segmente in Sequenzen mischen, um beispielsweise nach dem Wort &quot;Der&quot; am Anfang eines Satzes zu suchen (das als erstes Wort nach dem Ende eines Satzes interpretiert werden kann).</p>
+  <p>Sie können Segmente und Span-Segmente auch in Sequenzen mischen, um beispielsweise nach einem Wort am Anfang eines Satzes zu suchen (das als erstes Wort nach dem Ende eines Satzes interpretiert werden kann).</p>
 
   %= doc_query poliqarp => '<base/s=s>[orth=Der]'
 
-  <h4>Groups</h4>
+  <h4>Gruppen</h4>
 
   ...
 
   <h4>Alternativen</h4>
 
-  <p>Alternativen erlauben die Suche nach alternativen Segmenten oder Sequenzen von Segmenten, ähnlich dem paradigmatischen Operator. Sie haben bereits gesehen, dass Sie nach beiden Sequenzen von <code>der alte Mann</code> und <code>der junge Mann</code> suchen können, indem Sie eingeben:</p>
+  <p>Alternativen erlauben die Suche nach alternativen Segmenten oder Sequenzen von Segmenten, ähnlich dem paradigmatischen Operator. Sie haben bereits gesehen, dass Sie nach alternativen Adjektiv-Sequenzen suchen können, indem Sie eingeben:</p>
 
   %= doc_query poliqarp => 'der [orth=alte | orth=junge] Mann'
 
-  <p>Allerdings macht dieser Ausdruck Probleme, falls Sie nach Alternativen von Sequenzen anstatt von Begriffen suchen möchten. Wenn Sie nach beiden Sequenzen von <code>dem jungen Mann</code> und <code>der alte Mann</code> suchen möchten, können Sie syntagmatische Alternationen und Gruppen verwenden:</p>
+  <p>Allerdings bereitet dieser Ausdruck Probleme, falls Sie nach Alternativen von Sequenzen anstatt von Begriffen suchen möchten. In diesem Fall können Sie syntagmatische Alternativen und Gruppen verwenden:</p>
 
   %= doc_query poliqarp => '(dem jungen | der alte) Mann'
 
-  <p>Das Balkensymbol funktioniert genauso wie bei der paradigmatischen Alternative, unterstützt aber Sequenzen unterschiedlicher Länge als Operanden. Die obige Abfrage für <code>der alte Mann</code> und <code>der junge Mann</code> kann daher umformuliert werden als:</p>
+  <p>Das Balkensymbol funktioniert genauso wie bei der paradigmatischen Alternative, unterstützt aber Sequenzen unterschiedlicher Länge als Operanden. Die obige Abfrage nach einem alternativen Adjektiv kann daher umformuliert werden als:</p>
 
   %= doc_query poliqarp => 'der (junge | alte) Mann'
 
@@ -189,23 +190,23 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   <p>Wiederholungen in Poliqarp werden wie in <%= doc_link_to 'regulären Ausdrücken', 'ql', 'regexp'%> realisiert, indem Quantifizierer in geschweifte Klammern gesetzt werden.</p>
 
-    <p>Um eine Sequenz von drei Vorkommen von <code>der</code> zu suchen, können Sie Ihre Abfrage auf eine der folgenden Arten formulieren - sie werden dieselben Ergebnisse erhalten:</p>
+    <p>Um eine Sequenz von drei Vorkommen eines Wortes zu suchen, können Sie Ihre Abfrage auf eine der folgenden Arten formulieren - sie werden die selben Ergebnisse erhalten:</p>
 
   %= doc_query poliqarp => 'der der der'
   %= doc_query poliqarp => 'der{3}'
   %= doc_query poliqarp => '[orth=der]{3}'
 
-  <p>Im Unterschied zu regulären Ausdrücken bezieht sich der Wiederholungsoperator nicht auf den Treffer, sondern auf das gegebene Muster. So gibt Ihnen die folgende Abfrage eine Sequenz von drei Wörtern mit dem Begriff <code>der</code> als Teilstring - aber die Wörter müssen nicht identisch sein. Die folgende Abfrage findet beispielsweise eine Sequenz von drei Wörtern, die alle mit <code>la</code> beginnen.</p>
+  <p>Im Unterschied zu regulären Ausdrücken bezieht sich der Wiederholungsoperator nicht auf den Treffer, sondern auf das gegebene Muster. So gibt Ihnen die folgende Abfrage eine Sequenz von drei Wörtern mit einer definierten Zeichenfolge als Teilstring - aber die gefundenen Wörter müssen nicht identisch sein.</p>
 
   %= doc_query poliqarp => '"la.*?"/i{3}'
 
-  <p>Das gleiche gilt für Annotationen. Die folgende Abfrage findet eine Folge von 3 bis 4 Adjektiven, wie sie von der TreeTagger-Foundry annotiert wurden, dem das Lemma <code>ein</code> vorausgeht, wie es von der Standard-Foundry annotatiert wurde, gefolgt von einem Substantiv, wie es von der XIP-Foundry annotiert wurde.</p>
+  <p>Das gleiche gilt für Annotationen. Die folgende Abfrage findet eine Folge von 3 bis 4 Adjektiven in einem definierten Kontext, wobei die Adjektive nicht identisch sein müssen.</p>
 
   %= doc_query poliqarp => '[base=ein][tt/p=ADJA]{3,4}[xip/p=NOUN]'
 
-  <p>Zusätzlich zu nummerierten Quantitäten ist es auch möglich, Wiederholungsinformationen als Kleene-Operatoren <code>?</code>, <code>+</code> und <code>*</code> anzugeben.</p>
+  <p>Zusätzlich zu nummerierten Quantitäten ist es auch möglich, Wiederholungsinformationen als Kleene-Operatoren <code>?</code>, <code>*</code> und <code>+</code> anzugeben.</p>
 
-  <p>Um nach einer Sequenz des Lemmas <code>der</code> (Standard-Foundry), gefolgt von dem Lemma <code>baum</code> (Standard-Foundry) mit einem optionalen Adjektiv von der TreeTagger Foundry annotiert dazwischen zu suchen, können Sie folgendes angeben:</p>
+  <p>Um nach einer Sequenz mit einem optionalen Segment zu suchen, können Sie Folgendes angeben:</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]?[base=Baum]'
 
@@ -213,19 +214,19 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]{,1}[base=Baum]'
 
-  <p>Um nach den gleichen Sequenzen zu suchen, aber mit unbegrenzten Adjektiven dazwischen wie von der TreeTagger-Foundry annotiert, können Sie den Kleene-Stern benutzen:</p>
+  <p>Um nach den gleichen Sequenzen zu suchen, aber mit einer unbegrenzten Anzahl von Adjektiven, können Sie den Kleene-Stern benutzen:</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]*[base=Baum]'
 
-  <p>Und um nach dieser Sequenz zu suchen, aber mit mindestens einem Adjektiv dazwischen, kannst du das Kleene Plus benutzen (alle Abfragen sind identisch):</p>
+  <p>Und um nach dieser Sequenz zu suchen, aber mit mindestens einem Adjektiv dazwischen, können Sie das Kleene Plus benutzen (alle Abfragen sind identisch):</p>
 
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]+[base=Baum]', cutoff => 1
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA]{1,}[base=Baum]', cutoff => 1
   %= doc_query poliqarp => '[base=die][tt/pos=ADJA][tt/pos=ADJA]*[base=Baum]', cutoff => 1
 
   <blockquote class="warning">
-    <p>Wiederholungsoperatoren wie <code>{,4}</code>, <code>?</code> und <code>*</code> machen Segmente oder Gruppen von Segmenten optional. Falls diese Abfragen getrennt und nicht als Teil einer Sequenz verwendet werden (und es keine obligatorischen Segmente in der Abfrage gibt), werden Sie vom System gewarnt, dass Ihre Abfrage nicht als optional behandelt wird.</p>
-    <p>Denken Sie daran, dass Optionalität auf unterschiedliche Arten <i>vererbt</i> sein kann, zum Beispiel, wenn Sie nach <code>(junge | alte)? | Tote</code> suchen, ist ein Segment der Alternation optional, was die ganze Abfrage optional macht.</p>
+    <p>Wiederholungsoperatoren wie <code>{,n}</code>, <code>?</code> und <code>*</code> machen Segmente oder Gruppen von Segmenten optional. Falls diese Abfragen getrennt und nicht als Teil einer Sequenz verwendet werden (und es keine obligatorischen Segmente in der Abfrage gibt), werden Sie vom System gewarnt, dass Ihre Abfrage nicht als optional behandelt wird.</p>
+    <p>Denken Sie daran, dass Optionalität auf unterschiedliche Arten <i>vererbt</i> sein kann, zum Beispiel wird eine ganze Abfrage optional, sobald ein Segment der Alternative optional ist.</p>
   </blockquote>
 
   <p>Die Wiederholung kann auch verwendet werden, um Distanzen zwischen Segmenten auszudrücken, indem Sie <%= doc_link_to 'leere Segmente', 'ql', 'poliqarp-plus # leere Segmente'%> verwenden.</p>
@@ -243,11 +244,11 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
     
   <h4>Positionen</h4>
 
-    <p>Sequenzen wie oben gezeigt können in weiteren komplexen Abfragen verschachtelt und als Unterabfragen behandelt werden (siehe <%= doc_link_to 'Klassenoperatoren', 'ql', 'poliqarp-plus#class-operator' %>, um direkten Zugriff auf Unterabfragen zu erhalten).</p>
+    <p>Sequenzen wie oben können in weiteren komplexen Abfragen verschachtelt und als Unterabfragen behandelt werden (siehe <%= doc_link_to 'Klassenoperatoren', 'ql', 'poliqarp-plus#class-operator' %>, um direkten Zugriff auf Unterabfragen zu erhalten).</p>
     
-    <p>Positionsoperatoren vergleichen zwei Varianten von Unterabfragen und ergeben einen Treffer, falls eine bestimmte Bedingung bezüglich der Position von beiden wahr ist.</p>
+    <p>Positionsoperatoren vergleichen zwei Treffer von Unterabfragen und ergeben einen Treffer, falls eine bestimmte Bedingung bezüglich der Position von beiden wahr ist.</p>
 
-  <p>Der Befehl <code>contains()</code> ergibt einen Treffer, wenn die zweite Unterabfrage innerhalb der Spanne einer ersten Unterabfrage liegt.</p>
+  <p>Der Befehl <code>contains()</code> ergibt einen Treffer, wenn eine zweite Unterabfrage innerhalb der Spanne einer ersten Unterabfrage liegt.</p>
 
   %= doc_query poliqarp => 'contains(<base/s=s>, [tt/p=KOUS])', cutoff => 1
 
@@ -269,28 +270,28 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   <blockquote class="warning">
     <p>Positionsoperatoren sind noch experimentell und können sich in bestimmten Aspekten in Zukunft ändern (obwohl das definierte Verhalten stabil ist). Es gibt auch falsches Verhalten, das in zukünftigen Versionen korrigiert wird.</p>
-    <p>Optionale Operanden in Positionsoperatoren wie in <code>contains(&lt;s&gt;, [orth=Baum]*)</code> müssen derzeit obligatorisch sein und werden umformuliert um mindestens einmal vorzukommen.</p>
+    <p>Optionale Operanden in Positionsoperatoren müssen derzeit obligatorisch sein und werden umformuliert um mindestens einmal vorzukommen.</p>
     <p>Dieses Verhalten kann sich in Zukunft ändern.</p>
   </blockquote>
 
   <!--
       <blockquote>
-	<p>Die KorAP-Implementierung von Poliqarp unterstützt auch den Postfix <code> innerhalb </ code> Operator, der ähnlich wie der <code> enthält () </ code> Operator funktioniert, aber nicht schachtelbar ist.</p>
+	<p>Die KorAP-Implementierung von Poliqarp unterstützt auch den Postfix <code>within</ code> Operator, der ähnlich wie der <code>contains()</ code> Operator funktioniert, aber nicht schachtelbar ist.</p>
       </blockquote>
       -->
       
 </section>
 
 <section id="class-operators">
-  <h3>Klassen Operatoren</h3>
+  <h3>Klassen-Operatoren</h3>
 
-  <p>Klassen werden verwendet, um Teiltreffer durch umgebende geschweifte Klammern und eine Klassennummer <code>{1: ...}</code> zu gruppieren. Klassen können verwendet werden, um auf Teiltreffer in einer Abfrage zu verweisen, ähnlich wie bei Captures in regulären Ausdrücken. In Poliqarp+ haben Klassen mehrere Zwecke, wobei die Hervorhebung der natürlichste ist:</p>
+  <p>Klassen werden verwendet, um Teiltreffer durch umgebende geschweifte Klammern und eine Klassennummer <code>{1: ...}</code> zu gruppieren. Klassen können verwendet werden, um auf Teiltreffer in einer Abfrage zu verweisen, ähnlich wie bei Captures in regulären Ausdrücken. In Poliqarp+ haben Klassen mehrere Zwecke, wobei die Hervorhebung der Intuitivste ist:</p>
 
   %= doc_query poliqarp => 'der {1:{2:[]} Mann}'
 
   %#= doc_query poliqarp => 'der {1:{2:[]{1,4}} {3:Baum}} {4:[]}'
 
-  <p>In KorAP können Klassen von 1 bis 128 definiert werden. Wenn eine Klassennummer fehlt, ist die Klasse standardmäßig auf die Klassennummer 1 gesetzt: <code>{...}</code> ist gleich <code>{1: ...}</code> voreingestellt.</p>
+  <p>In KorAP können Klassen von 1 bis 128 definiert werden. Wenn eine Klassennummer fehlt, ist die Klasse standardmäßig auf die Klassennummer 1 gesetzt: <code>{...}</code> ist gleich <code>{1: ...}</code>.</p>
 
   <h4>Treffer-Modifikation</h4>
 
@@ -298,13 +299,13 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   %= doc_query poliqarp => 'focus(der {Baum})'
 
-  <p>Die obige Abfrage sucht nach der Sequenz <code>der Baum</code>, aber der Treffer wird auf <code>Baum</code> beschränkt. Sie können <code>der</code> in dieser Abfrage als positive look-behind zero-length assertion in regulären Ausdrücken verstehen.</p>
+  <p>Die obige Abfrage sucht nach einer Sequenz, wobei der Treffer auf das zweite Segment beschränkt wird. Sie können das erste Segment in dieser Abfrage als <i>positive look-behind zero-length assertion</i> in regulären Ausdrücken verstehen.</p>
 
-  <p>Aber Fokussieren ist weitaus nützlicher, wenn Sie nach Treffern suchen, ohne die Oberflächenform zu kennen. Um beispielsweise alle Begriffe zwischen den Worten &quot;der&quot; und &quot;Mann&quot; zu finden, können Sie suchen:</p>
+  <p>Aber Fokussieren ist weitaus nützlicher, wenn Sie nach Treffern suchen, ohne die Oberflächenform zu kennen. Um beispielsweise alle Wörter zwischen zwei definierten Wörtern zu finden, können Sie suchen:</p>
 
   %= doc_query poliqarp => 'focus(der {[]} Mann)'
 
-  <p>Dies beschränkt die Treffer auf alle interessanten Begriffe zwischen &quot;der&quot; und &quot;Mann&quot;. Oder Sie können nach allen Wörtern, die der Sequenz &quot;der alte und&quot; unmittelbar folgen suchen:</p>
+  <p>Dies beschränkt die Treffer auf alle interessanten Begriffe zwischen der definierten Sequenz. Oder Sie können nach allen Wörtern, die einer Sequenz unmittelbar folgen suchen:</p>
 
   %= doc_query poliqarp => 'focus(der alte und {[]})'
 
@@ -314,7 +315,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
       %= doc_query poliqarp => 'focus(1:contains(er []{,10} sagte, {1:Baum}))'
       -->
 
-  <p>Falls eine Klassennummer entfernt wird, setzt der Fokusoperator standardmäßig auf die Klassennummer 1: <code>focus(...)</code> entspricht <code>focus(1: ...)</code>.</p>
+  <p>Falls eine Klassennummer fehlt, setzt der Fokusoperator standardmäßig auf die Klassennummer 1: <code>focus(...)</code> entspricht <code>focus(1: ...)</code>.</p>
 
   <blockquote class="warning">
     <p>Da Zahlen in geschweiften Klammern unter bestimmten Umständen zweideutig sein können (beispielsweise kann <code>[]{3}</code> entweder als &quot;irgendein Wort dreimal wiederholt&quot; gelesen werden oder als &quot;irgendein Wort, gefolgt von der Zahl 3, die als Klassennummer 1 hervorgehoben ist&quot;), sollten Zahlen immer als <code>[orth=3]</code> für den letzteren Fall ausgedrückt werden.</p>
