@@ -105,6 +105,11 @@ sub startup {
 
   # Localization framework
   $self->plugin(Localize => {
+    dict => {
+      Q => {
+        _ => sub { shift->config('Kalamar')->{'examplecorpus'} },
+      }
+    },
     resources => ['kalamar.dict', 'kalamar.queries.dict']
   });
 

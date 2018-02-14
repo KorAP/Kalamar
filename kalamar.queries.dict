@@ -2,7 +2,6 @@
 # prepend the string '** ' to the query.
 {
   Q => {
-    _ => sub { shift->config('Kalamar')->{'examplecorpus'} },
     -dereko => {
       poliqarp => {
         simple => 'Baum',

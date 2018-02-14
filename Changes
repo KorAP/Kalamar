@@ -1,4 +1,4 @@
-0.26 2018-02-12
+0.26 2018-02-14
         - Added meta data view.
         - Attach reference line to match bottom.
         - Separate match views and integrate relation menu
@@ -6,7 +6,9 @@
         - Attach querycreator object to annotation table.
         - Update client side dependencies
         - Introduce development mode to client side code.
-        - Generalized Poliqarp tutorials.
+        - Generalized Poliqarp tutorials and made
+          example queries corpus independent.
+        - Improve README.
 
 0.25 2018-01-31
         - Make annotation helper configurable.

@@ -91,6 +91,9 @@ You may change that endpoint to the KorAP API provider in in the configuration
 The basic configuration file is ```kalamar.conf```. To define derivations,
 create a configuration file with the pattern ```kalamar.[MYNAME].conf``` and
 follow the descriptions in ```kalamar.conf```.
+For client-side configurations, a file ```kalamar.conf.js``` can be
+introduced, that will be consulted during the build process, loading
+optional components using a ```require(...)``` directive.
 
 ### Localization
 
@@ -101,10 +104,44 @@ with the target locale as its argument, e.g. ```pl``` for polish.
 $ perl script/kalamar localize pl
 ```
 
-The newly defined dictionary file can then be added to the resource definition
-of the ```Localize``` plugin.
+The newly defined dictionary file can then be modified and added to the resources
+definition of the ```Localize``` plugin in the configuration:
+
+```
+Localize => {
+  resources => ['kalamar.pl.dict']
+}
+```
+
+To localize example queries according to a special corpus environment,
+define a name of the example corpus in the configuration,
+and create a translation file based on ```kalamar.queries.dict```
+as a blueprint.
+
+```
+Kalamar => {
+  examplecorpus => 'mycorpus'
+}
+
+```
 
 Currently the JavaScript translations are separated and stored in ```dev/js/src/loc```.
+To generate assets relying on different locales, add the locale to ```Gruntfile.js```.
+
+To localize the annotation helper according to a special corpus environment,
+different annotation foundries can be loaded in ```kalamar.conf.js```.
+For example to support ```marmot``` and ```malt```,
+the configuration may look like this:
+
+```
+require([
+  "hint/foundries/marmot",
+  "hint/foundries/malt"
+]);
+```
+
+See ```dev/js/src/hint/foundries``` for
+more optional foundries.
 
 
 ## COPYRIGHT AND LICENSE

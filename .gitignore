@@ -11,6 +11,8 @@ public
 kalamar.*.conf
 kalamar.conf.json
 kalamar.conf.js
+kalamar.*.dict
+!kalamar.queries.dict
 script/hypnotoad.pid
 .sass-cache
 dev/css
