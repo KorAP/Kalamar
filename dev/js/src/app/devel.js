@@ -10,6 +10,6 @@ requirejs.config({
   }
 });
 
-require(['app/en'], function (lang) {
+require(['app/en', 'default'], function (lang) {
   // TODO: Define logging output!
 });
