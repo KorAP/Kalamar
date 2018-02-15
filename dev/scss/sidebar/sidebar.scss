@@ -10,7 +10,7 @@ aside {
   display: block;
   background-color: $dark-green;
   position: fixed;
-  z-index: 4000; // Needs to be behind alerts
+  z-index: 100; // Needs to be behind alerts
   color: $nearly-white;
   width: $logo-left-distance;
   top: 0;

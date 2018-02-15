@@ -13,7 +13,7 @@ ul.menu > span.pref:not(:empty) {
   font-weight: normal;
   // Pagination border?
 
-  z-index: 7000;
+  z-index: 120;
 }
 
 ul.menu > li,
@@ -87,7 +87,7 @@ ul.menu {
       display: block;
       right: 0;
       width: 10px;
-      z-index: 600;
+      z-index: 115;
       border: {
 	radius: 4px;
 	width: 2px;
@@ -225,14 +225,14 @@ ul.menu.sort {
  */
 span.menu.select {
   > span {
-    z-index: 100;
+    z-index: 105;
   }
   > ul.menu.roll {
     display: none;
     z-index: -100;
     &.visible {
       display: block;
-      z-index: 200;
+      z-index: 110;
     }
   }
 }
