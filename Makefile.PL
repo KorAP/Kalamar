@@ -14,7 +14,7 @@ WriteMakefile(
   },
   LICENSE      => 'bsd_2',
   PREREQ_PM => {
-    'Mojolicious' => '7.60',
+    'Mojolicious' => '7.66',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.06,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.09,
     'Mojolicious::Plugin::Notifications' => 1.01,
