@@ -192,12 +192,10 @@ define([
       var ops = d.createElement('div');
       ops.classList.add('action', 'bottom', 'button-group');
 
-      /*
       var meta = ops.addE('span');
       meta.addT('Meta');
       meta.setAttribute('title', loc.SHOW_META);
       meta.classList.add('meta');
-      */
 
       // TODO: Rename anno
       var info = ops.addE('span');
@@ -217,14 +215,12 @@ define([
       );
 
       // Click on meta - add meta (unless already there)
-      /*
       meta.addEventListener(
         'click', function (e) {
           e.halt();
           that.info().showMeta();
         }
       );
-      */
 
       // Click on token annotations - add token annotations (unless already there)
       info.addEventListener(
