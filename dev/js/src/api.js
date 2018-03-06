@@ -70,7 +70,7 @@ define(['util'], function () {
       url += '?fields='; // TODO!
     }
     else {
-      url += '?fields=@all';
+      url += '?fields=@all'; // TODO: Maybe '*'?
     }
     KorAP.API.getJSON(url, cb);
   };

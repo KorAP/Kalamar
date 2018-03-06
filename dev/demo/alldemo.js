@@ -595,6 +595,147 @@ queryExample = {
 };
 
 
+var textInfo = {
+  "@context":"http:\/\/korap.ids-mannheim.de\/ns\/KoralQuery\/v0.3\/context.jsonld",
+  "document":{
+    "@type":"koral:document",
+    "fields":[
+      {
+        "@type":"koral:field",
+        "key":"editor",
+        "type":"type:store",
+        "value":"wikipedia.org"
+      },
+      {
+        "@type":"koral:field",
+        "key":"textSigle",
+        "type":"type:string",
+        "value":"WPD15\/264\/58336"
+      },
+      {
+        "@type":"koral:field",
+        "key":"author",
+        "type":"type:text",
+        "value":"Sprachpfleger, u.a."
+      },
+      {
+        "@type":"koral:field",
+        "key":"docSigle",
+        "type":"type:string",
+        "value":"WPD15\/264"
+      },
+      {
+        "@type":"koral:field",
+        "key":"textTypeArt",
+        "type":"type:string",
+        "value":"Enzyklopädie-Artikel"
+      },
+      {
+        "@type":"koral:field",
+        "key":"language",
+        "type":"type:string",
+        "value":"de"
+      },
+      {
+        "@type":"koral:field",
+        "key":"docTitle",
+        "type":"type:text",
+        "value":"Wikipedia, Artikel mit Anfangszahl 2, Teil 64"
+      },
+      {
+        "@type":"koral:field",
+        "key":"textType",
+        "type":"type:string",
+        "value":"Enzyklopädie"
+      },
+      {
+        "@type":"koral:field",
+        "key":"availability",
+        "type":"type:string",
+        "value":"CC-BY-SA"
+      },
+      {
+        "@type":"koral:field",
+        "key":"foundries",
+        "type":"type:string",
+        "value":"corenlp corenlp\/constituency corenlp\/morpho corenlp\/sentences dereko dereko\/structure dereko\/structure\/base-sentences-paragraphs-pagebreaks opennlp opennlp\/morpho opennlp\/sentences"
+      },
+      {
+        "@type":"koral:field",
+        "key":"creationDate",
+        "type":"type:number",
+        "value":20150417
+      },
+      {
+        "@type":"koral:field",
+        "key":"title",
+        "type":"type:text",
+        "value":"22:43 – Das Schicksal hat einen Plan"
+      },
+      {
+        "@type":"koral:field",
+        "key":"pubDate",
+        "type":"type:number",
+        "value":20150501
+      },
+      {
+        "@type":"koral:field",
+        "key":"reference",
+        "type":"type:store",
+        "value":"22:43 – Das Schicksal hat einen Plan, In: Wikipedia - URL:http:\/\/de.wikipedia.org\/wiki\/22:43_–_Das_Schicksal_hat_einen_Plan: Wikipedia, 2015"
+      },
+      {
+        "@type":"koral:field",
+        "key":"textClass",
+        "type":"type:string",
+        "value":"kultur film"
+      },
+      {
+        "@type":"koral:field",
+        "key":"tokenSource",
+        "type":"type:store",
+        "value":"base#tokens"
+      },
+      {
+        "@type":"koral:field",
+        "key":"publisher",
+        "type":"type:store",
+        "value":"Wikipedia"
+      },
+      {
+        "@type":"koral:field",
+        "key":"layerInfos",
+        "type":"type:store",
+        "value":"corenlp\/c=spans corenlp\/p=tokens corenlp\/s=spans dereko\/s=spans opennlp\/p=tokens opennlp\/s=spans"
+      },
+      {
+        "@type":"koral:field",
+        "key":"pubPlace",
+        "type":"type:string",
+        "value":"URL:http:\/\/de.wikipedia.org"
+      },
+      {
+        "@type":"koral:field",
+        "key":"corpusTitle",
+        "type":"type:text",
+        "value":"Wikipedia"
+      },
+      {
+        "@type":"koral:field",
+        "key":"corpusEditor",
+        "type":"type:store",
+        "value":"wikipedia.org"
+      },
+      {
+        "@type":"koral:field",
+        "key":"corpusSigle",
+        "type":"type:string",
+        "value":"WPD15"
+      }
+    ]
+  }
+};
+
 requirejs.config({
   baseUrl: '../js/src',
   paths : {
@@ -627,6 +768,10 @@ require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
     }
   };
 
+  KorAP.API.getTextInfo = function (doc, param, cb) {
+    cb(textInfo);
+  };
+  
   /**
    * Do some things at the beginning.
    */
