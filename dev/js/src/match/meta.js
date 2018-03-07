@@ -77,7 +77,9 @@ define(['util'], function () {
             k !== "layerInfos") {
 
           var metaL = document.createElement('div');
-          metaL.addE('dt').addT(k);
+          var dt = metaL.addE('dt');
+          dt.addT(k);
+          dt.setAttribute("title", k);
           metaL.addE('dd').addT(metaInfo[k]);
 
           metaDL.appendChild(metaL);
