@@ -159,10 +159,160 @@ require(['init'], function () {
 
   var meta = {"messages":[["Response format is temporary"]],"@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld","meta":{},"document":{"@type":"koral:document","fields":[{"@type":"koral:field","type":"type:store","key":"ref","value":"My reference"},{"@type":"koral:field","type":"type:text","key":"title","value":"Der Name der Rose"},{"@type":"koral:field","type":"type:string","key":"textSigle","value":"a/b/c"},{"@type":"koral:field","type":"type:string","key":"keyword","value":["baum","wald"]},{"@type":"koral:field","type":"type:number","key":"zahl1","value":56},{"@type":"koral:field","type":"type:string","key":"name","value":"Peter"}]}};
 
-  meta = {"messages":[["Response format is temporary"]],"@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld","meta":{},"document":{"@type":"koral:document","fields":[{"@type":"koral:field","type":"type:number","key":"pubDate","value":20170701},{"@type":"koral:field","type":"type:string","key":"textSigle","value":"WDD17/982/72848"},{"@type":"koral:field","type":"type:string","key":"foundries","value":"dereko dereko/structure dereko/structure/base-sentences-paragraphs-pagebreaks lwc lwc/dependency treetagger treetagger/morpho"},{"@type":"koral:field","type":"type:string","key":"corpusSigle","value":"WDD17"},{"@type":"koral:field","type":"type:string","key":"docSigle","value":"WDD17/982"},{"@type":"koral:field","type":"type:store","key":"reference","value":"Diskussion:99 Namen Allahs/Archiv/1, In: Wikipedia - URL:http://de.wikipedia.org/wiki/Diskussion:99_Namen_Allahs/Archiv/1: Wikipedia, 2017"},{"@type":"koral:field","type":"type:text","key":"author","value":"ArchivBot, u.a."},{"@type":"koral:field","type":"type:number","key":"creationDate","value":20140609},{"@type":"koral:field","type":"type:string","key":"textTypeArt","value":"Diskussion"},{"@type":"koral:field","type":"type:store","key":"editor","value":"wikipedia.org"},{"@type":"koral:field","type":"type:text","key":"title","value":"Diskussion:99 Namen Allahs/Archiv/1"},{"@type":"koral:field","type":"type:store","key":"tokenSource","value":"base#tokens"},{"@type":"koral:field","type":"type:store","key":"layerInfos","value":"dereko/s=spans lwc/d=rels tt/l=tokens tt/p=tokens"},{"@type":"koral:field","type":"type:string","key":"textClass","value":"staat-gesellschaft biographien-interviews"},{"@type":"koral:field","type":"type:string","key":"availability","value":"CC-BY-SA"}]}}
+  meta = {"messages":[["Response format is temporary"]],"@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld","meta":{},"document":{"@type":"koral:document","fields":[{"@type":"koral:field","type":"type:number","key":"pubDate","value":20170701},{"@type":"koral:field","type":"type:string","key":"textSigle","value":"WDD17/982/72848"},{"@type":"koral:field","type":"type:string","key":"foundries","value":"dereko dereko/structure dereko/structure/base-sentences-paragraphs-pagebreaks lwc lwc/dependency treetagger treetagger/morpho"},{"@type":"koral:field","type":"type:string","key":"corpusSigle","value":"WDD17"},{"@type":"koral:field","type":"type:string","key":"docSigle","value":"WDD17/982"},{"@type":"koral:field","type":"type:store","key":"reference","value":"Diskussion:99 Namen Allahs/Archiv/1, In: Wikipedia - URL:http://de.wikipedia.org/wiki/Diskussion:99_Namen_Allahs/Archiv/1: Wikipedia, 2017"},{"@type":"koral:field","type":"type:text","key":"author","value":"ArchivBot, u.a."},{"@type":"koral:field","type":"type:number","key":"creationDate","value":20140609},{"@type":"koral:field","type":"type:string","key":"textTypeArt","value":"Diskussion"},{"@type":"koral:field","type":"type:store","key":"editor","value":"wikipedia.org"},{"@type":"koral:field","type":"type:text","key":"title","value":"Diskussion:99 Namen Allahs/Archiv/1"},{"@type":"koral:field","type":"type:store","key":"tokenSource","value":"base#tokens"},{"@type":"koral:field","type":"type:store","key":"layerInfos","value":"dereko/s=spans lwc/d=rels tt/l=tokens tt/p=tokens"},{"@type":"koral:field","type":"type:string","key":"textClass","value":"staat-gesellschaft biographien-interviews"},{"@type":"koral:field","type":"type:string","key":"availability","value":"CC-BY-SA"}]}};
 
+  meta = {
+    "@context":"http:\/\/korap.ids-mannheim.de\/ns\/KoralQuery\/v0.3\/context.jsonld",
+    "document":{
+      "@type":"koral:document",
+      "fields":[
+        {
+          "@type":"koral:field",
+          "key":"editor",
+          "type":"type:store",
+          "value":"wikipedia.org"
+        },
+        {
+          "@type":"koral:field",
+          "key":"textSigle",
+          "type":"type:string",
+          "value":"WPD15\/264\/58336"
+        },
+        {
+          "@type":"koral:field",
+          "key":"author",
+          "type":"type:text",
+          "value":"Sprachpfleger, u.a."
+        },
+        {
+          "@type":"koral:field",
+          "key":"docSigle",
+          "type":"type:string",
+          "value":"WPD15\/264"
+        },
+        {
+          "@type":"koral:field",
+          "key":"textTypeArt",
+          "type":"type:string",
+          "value":"Enzyklopädie-Artikel"
+        },
+        {
+          "@type":"koral:field",
+          "key":"language",
+          "type":"type:string",
+          "value":"de"
+        },
+        {
+          "@type":"koral:field",
+          "key":"docTitle",
+          "type":"type:text",
+          "value":"Wikipedia, Artikel mit Anfangszahl 2, Teil 64"
+        },
+        {
+          "@type":"koral:field",
+          "key":"textType",
+          "type":"type:string",
+          "value":"Enzyklopädie"
+        },
+        {
+          "@type":"koral:field",
+          "key":"availability",
+          "type":"type:string",
+          "value":"CC-BY-SA"
+        },
+        {
+          "@type":"koral:field",
+          "key":"foundries",
+          "type":"type:keywords",
+          "value":[
+            "corenlp",
+            "corenlp\/constituency",
+            "corenlp\/morpho",
+            "corenlp\/sentences",
+            "dereko",
+            "dereko\/structure",
+            "dereko\/structure\/base-sentences-paragraphs-pagebreaks",
+            "opennlp",
+            "opennlp\/morpho",
+            "opennlp\/sentences"
+          ]
+        },
+        {
+          "@type":"koral:field",
+          "key":"creationDate",
+          "type":"type:date",
+          "value":"2015-04-17"
+        },
+        {
+          "@type":"koral:field",
+          "key":"title",
+          "type":"type:text",
+          "value":"22:43 – Das Schicksal hat einen Plan"
+        },
+        {
+          "@type":"koral:field",
+          "key":"pubDate",
+          "type":"type:date",
+          "value":"2015-05-01"
+        },
+        {
+          "@type":"koral:field",
+          "key":"reference",
+          "type":"type:store",
+          "value":"22:43 – Das Schicksal hat einen Plan, In: Wikipedia - URL:http:\/\/de.wikipedia.org\/wiki\/22:43_–_Das_Schicksal_hat_einen_Plan: Wikipedia, 2015"
+        },
+        {
+          "@type":"koral:field",
+          "key":"textClass",
+          "type":"type:keywords",
+          "value":["kultur","film"]
+        },
+        {
+          "@type":"koral:field",
+          "key":"tokenSource",
+          "type":"type:store",
+          "value":"base#tokens"
+        },
+        {
+          "@type":"koral:field",
+          "key":"publisher",
+          "type":"type:store",
+          "value":"Wikipedia"
+        },
+        {
+          "@type":"koral:field",
+          "key":"layerInfos",
+          "type":"type:store",
+          "value":"corenlp\/c=spans corenlp\/p=tokens corenlp\/s=spans dereko\/s=spans opennlp\/p=tokens opennlp\/s=spans"
+        },
+        {
+          "@type":"koral:field",
+          "key":"pubPlace",
+          "type":"type:string",
+          "value":"URL:http:\/\/de.wikipedia.org"
+        },
+        {
+          "@type":"koral:field",
+          "key":"corpusTitle",
+          "type":"type:text",
+          "value":"Wikipedia"
+        },
+        {
+          "@type":"koral:field",
+          "key":"corpusEditor",
+          "type":"type:store",
+          "value":"wikipedia.org"
+        },
+        {
+          "@type":"koral:field",
+          "key":"corpusSigle",
+          "type":"type:string",
+          "value":"WPD15"
+        }
+      ]
+    }
+  };
   
-//  var treeSnippet = "<span class=\"context-left\"><\/span><span class=\"match\">In diesem <span title=\"cnx\/c:np\">Sinne<\/span> schrieb <span title=\"cnx\/c:np\">Brunschwicg<\/span>:&quot;In <span title=\"cnx\/c:np\">Euklids<\/span> <span title=\"cnx\/c:np\">Elementen<\/span> <span title=\"cnx\/c:np\">spiegel<\/span> sich die <span title=\"cnx\/c:np\">Resultate<\/span> der <span title=\"cnx\/c:np\">Arbeit von Generationen vor Aristoteles<\/span> wider, nicht nur die <span title=\"cnx\/c:np\">technische Arbeit<\/span> der <span title=\"cnx\/c:np\">Entdecklung<\/span>, sondern auch die <span title=\"cnx\/c:np\">methodologische Arbeit<\/span> der <span title=\"cnx\/c:np\">Verbindung<\/span> und des <span title=\"cnx\/c:np\">Beweises<\/span>, die, in der <span title=\"cnx\/c:np\">Schule<\/span> des <span title=\"cnx\/c:np\">Phythagoras<\/span> begonnen, ihre <span title=\"cnx\/c:np\">Vollendung in den Schulen von Eudoxos von Cnidus<\/span> und <span title=\"cnx\/c:np\">Platon<\/span> gefunden hat&quot;(5<\/span><span class=\"context-right\"><\/span>";
 
   KorAP.API.getMatchInfo = function(match, callObj, cb) {
     console.dir(callObj);

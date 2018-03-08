@@ -657,14 +657,25 @@ var textInfo = {
       {
         "@type":"koral:field",
         "key":"foundries",
-        "type":"type:string",
-        "value":"corenlp corenlp\/constituency corenlp\/morpho corenlp\/sentences dereko dereko\/structure dereko\/structure\/base-sentences-paragraphs-pagebreaks opennlp opennlp\/morpho opennlp\/sentences"
+        "type":"type:keywords",
+        "value":[
+          "corenlp",
+          "corenlp\/constituency",
+          "corenlp\/morpho",
+          "corenlp\/sentences",
+          "dereko",
+          "dereko\/structure",
+          "dereko\/structure\/base-sentences-paragraphs-pagebreaks",
+          "opennlp",
+          "opennlp\/morpho",
+          "opennlp\/sentences"
+        ]
       },
       {
         "@type":"koral:field",
         "key":"creationDate",
-        "type":"type:number",
-        "value":20150417
+        "type":"type:date",
+        "value":"2015-04-17"
       },
       {
         "@type":"koral:field",
@@ -675,8 +686,8 @@ var textInfo = {
       {
         "@type":"koral:field",
         "key":"pubDate",
-        "type":"type:number",
-        "value":20150501
+        "type":"type:date",
+        "value":"2015-05-01"
       },
       {
         "@type":"koral:field",
@@ -687,8 +698,8 @@ var textInfo = {
       {
         "@type":"koral:field",
         "key":"textClass",
-        "type":"type:string",
-        "value":"kultur film"
+        "type":"type:keywords",
+        "value":["kultur","film"]
       },
       {
         "@type":"koral:field",
