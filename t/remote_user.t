@@ -34,6 +34,17 @@ $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'pass' 
   ->status_is(302)
   ->header_is('Location' => '/');
 
+my $csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Bad CSRF token')
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'pass', csrf_token => $csrf })
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists_not('div.notify-error')

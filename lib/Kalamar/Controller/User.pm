@@ -9,9 +9,15 @@ sub login {
   my $v = $c->validation;
   $v->required('handle_or_email', 'trim');
   $v->required('pwd', 'trim');
+  $v->csrf_protect;
 
   if ($v->has_error) {
-    $c->notify(error => $c->loc('Auth_loginFail'));
+    if ($v->has_error('csrf_token')) {
+      $c->notify(error => $c->loc('Auth_csrfFail'));
+    }
+    else {
+      $c->notify(error => $c->loc('Auth_loginFail'));
+    };
   }
 
   # Login user
