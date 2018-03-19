@@ -35,6 +35,7 @@
   <legend><span><%= loc 'login' %></span></legend>
     %= csrf_field
     %= text_field 'handle_or_email', placeholder => loc('userormail')
+    %= hidden_field fwd => $c->url_with
     <div>
       %= password_field 'pwd', placeholder => loc('pwd')
       <button type="submit"><span><%= loc 'go' %></span></button>

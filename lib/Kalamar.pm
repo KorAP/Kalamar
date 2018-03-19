@@ -8,11 +8,9 @@ use Mojo::Util qw/url_escape/;
 # Minor version - may be patched from package.json
 our $VERSION = '0.26';
 
-# TODO: Use CSRF!!!
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
 # TODO: Embed collection statistics
-# TODO: Show further meta data per click
 # TODO: Implement tab opener for matches and the tutorial
 # TODO: Implement a "projects" system
 
@@ -130,7 +128,8 @@ sub startup {
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
     'KalamarUser',               # Specific Helpers for Kalamar
-    'ClientIP'                   # Get client IP from X-Forwarded-For
+    'ClientIP',                  # Get client IP from X-Forwarded-For
+    'ClosedRedirect'             # Redirect with OpenRedirect protection
   ) {
     $self->plugin($_);
   };

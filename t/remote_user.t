@@ -82,6 +82,43 @@ $t->get_ok('/?q=Baum')
   ->content_like(qr/\"authorized\"\:null/)
   ;
 
+# Get redirect
+my $fwd = $t->get_ok('/?q=Baum&ql=poliqarp')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->tx->res->dom->at('input[name=fwd]')->attr('value')
+  ;
+
+is($fwd, '/?q=Baum&ql=poliqarp', 'Redirect is valid');
+
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'pass',
+  csrf_token => $csrf,
+  fwd => 'http://bad.example.com/test'
+})
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->element_exists_not('div.notify-success')
+  ->text_is('div.notify-error', 'Redirect failure')
+  ;
+
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'pass',
+  csrf_token => $csrf,
+  fwd => $fwd
+})
+  ->status_is(302)
+  ->header_is('Location' => '/?q=Baum&ql=poliqarp');
+
+
+
+
 done_testing;
 __END__
 

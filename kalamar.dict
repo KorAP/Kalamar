@@ -59,7 +59,8 @@ my $THOUSAND_SEP_RE = qr/(
       loginFail => 'Anmeldung fehlgeschlagen',
       logoutSuccess => 'Abmeldung erfolgreich',
       logoutFail => 'Abmeldung fehlgeschlagen',
-      csrfFail => 'Fehlerhafter CSRF Token'
+      csrfFail => 'Fehlerhafter CSRF Token',
+      openRedirectFail => 'Weiterleitungsfehler'
     },
     Template => {
       intro => 'de/intro',
@@ -153,7 +154,8 @@ my $THOUSAND_SEP_RE = qr/(
       loginFail => 'Access denied',
       logoutSuccess => 'Logout successful',
       logoutFail => 'Logout failed',
-      csrfFail => 'Bad CSRF token'
+      csrfFail => 'Bad CSRF token',
+      openRedirectFail => 'Redirect failure'
     },
     Template => {
       intro => 'intro',

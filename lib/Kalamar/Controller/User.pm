@@ -10,9 +10,13 @@ sub login {
   $v->required('handle_or_email', 'trim');
   $v->required('pwd', 'trim');
   $v->csrf_protect;
+  $v->optional('fwd')->closed_redirect;
 
   if ($v->has_error) {
-    if ($v->has_error('csrf_token')) {
+    if ($v->has_error('fwd')) {
+      $c->notify(error => $c->loc('Auth_openRedirectFail'));
+    }
+    elsif ($v->has_error('csrf_token')) {
       $c->notify(error => $c->loc('Auth_csrfFail'));
     }
     else {
@@ -36,7 +40,7 @@ sub login {
   $c->flash(handle_or_email => $v->param('handle_or_email'));
 
   # Redirect to slash
-  return $c->redirect_to('index');
+  return $c->relative_redirect_to($v->param('fwd') // 'index');
 };
 
 
