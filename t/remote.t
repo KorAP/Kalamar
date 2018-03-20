@@ -48,7 +48,11 @@ $t->get_ok('/?q=test&p=2&ql=cosmas3')
   ;
 
 
-
+# Check for server error
+$t->get_ok('/?q=server_fail&ql=poliqarp')
+  ->element_exists('.notify-error')
+  ->text_is('.notify-error', '500: Internal Server Error (remote)')
+  ;
 
 done_testing;
 __END__

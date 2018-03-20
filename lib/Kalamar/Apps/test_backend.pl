@@ -128,6 +128,14 @@ get '/search' => sub {
     });
   };
 
+  if ($v->param('q') && $v->param('q') eq 'server_fail') {
+    return $c->render(
+      status => 500,
+      inline => 'Oooops'
+    );
+
+  };
+
   if (my $auth = $c->req->headers->header('Authorization')) {
     if (my $jwt = $c->jwt_decode($auth)) {
       $response->{meta}->{authorized} = $jwt->{username} if $jwt->{username};

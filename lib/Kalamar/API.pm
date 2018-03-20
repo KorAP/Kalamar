@@ -111,7 +111,6 @@ sub search {
     $c->user->auth_request(
       get => $url => sub {
         my $tx = pop;
-
         $self->_process_response('matches', $index, $tx);
         weaken $index;
         return $cb->($index);
@@ -351,7 +350,7 @@ sub _process_response {
   if (my $e = $tx->error) {
 
     # Send error
-    $self->_notify_on_error($c, 0, $tx->res->json);
+    $self->_notify_on_error($c, 1, $tx->res);
 
     # $c->notify(
     # error =>
