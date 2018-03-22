@@ -1,6 +1,4 @@
-% layout 'main';
-
-% stash(sidebar_active => 1);
+% layout 'main', sidebar_active => 1;
 
 
 <div class="intro">

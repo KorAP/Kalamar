@@ -1,0 +1,6 @@
+% layout 'main', sidebar_active => 1;
+
+
+<div class="intro">
+  <h2>This is a custom intro page!</h2>
+</div>

@@ -62,7 +62,10 @@ $ cpanm git://github.com/Akron/Mojolicious-Plugin-Search.git
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
 ```
 
-Then install the dependencies as always and run the test suite.
+Then install the dependencies using
+[App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/)
+(there is no need to install Kalamar)
+and run the test suite.
 
 ```
 $ cd Kalamar
@@ -95,7 +98,7 @@ For client-side configurations, a file ```kalamar.conf.js``` can be
 introduced, that will be consulted during the build process, loading
 optional components using a ```require(...)``` directive.
 
-### Localization
+### Localization and Customization
 
 To create a localized version of Kalamar, start the ```localize``` command
 with the target locale as its argument, e.g. ```pl``` for polish.
@@ -114,9 +117,7 @@ Localize => {
 ```
 
 To localize example queries according to a special corpus environment,
-define a name of the example corpus in the configuration,
-and create a translation file based on ```kalamar.queries.dict```
-as a blueprint.
+define a name of the example corpus in the configuration.
 
 ```
 Kalamar => {
@@ -124,6 +125,14 @@ Kalamar => {
 }
 
 ```
+
+Then create a translation file based on ```kalamar.queries.dict```
+as a blueprint and add it to the ```Localize``` resource list.
+
+Templates can be localized and customized by overriding
+the ```Template``` dictionary entries.
+This is especially useful for the landing page in
+```Template_intro```.
 
 Currently the JavaScript translations are separated and stored in ```dev/js/src/loc```.
 To generate assets relying on different locales, add the locale to ```Gruntfile.js```.
@@ -142,7 +151,6 @@ require([
 
 See ```dev/js/src/hint/foundries``` for
 more optional foundries.
-
 
 ## COPYRIGHT AND LICENSE
 

@@ -17,6 +17,7 @@ script/hypnotoad.pid
 .sass-cache
 dev/css
 templates/announcement.html.ep
+templates/custom
 log
 blib
 script*
