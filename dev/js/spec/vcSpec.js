@@ -17,14 +17,14 @@ define(['vc'], function () {
   buildFactory = function (objClass, defaults) {
     return {
       create : function (overwrites) {
-	      var newObj = {};
-	      for (var prop in defaults) {
-	        newObj[prop] = defaults[prop];
-	      };
-	      for (var prop in overwrites) {
-	        newObj[prop] = overwrites[prop];
-	      };
-	      return objClass.create().fromJson(newObj);
+        var newObj = {};
+        for (var prop in defaults) {
+          newObj[prop] = defaults[prop];
+        };
+        for (var prop in overwrites) {
+          newObj[prop] = overwrites[prop];
+        };
+        return objClass.create().fromJson(newObj);
       }
     }
   };
@@ -46,9 +46,9 @@ define(['vc'], function () {
     "operation":"operation:or",
     "operands":[
       {
-	"@type":"koral:docGroup",
-	"operation":"operation:and",
-	"operands":[
+        "@type":"koral:docGroup",
+        "operation":"operation:and",
+        "operands":[
           {
             "@type":"koral:doc",
             "key":"Titel",
@@ -66,26 +66,26 @@ define(['vc'], function () {
             "operation":"operation:or",
             "operands":[
               {
-		"@type":"koral:doc",
-		"key":"Titel",
-		"value":"Baum",
-		"match":"match:eq"
+                "@type":"koral:doc",
+                "key":"Titel",
+                "value":"Baum",
+                "match":"match:eq"
               },
               {
-		"@type":"koral:doc",
-		"key":"Veröffentlichungsort",
-		"value":"hihi",
-		"match":"match:eq"
+                "@type":"koral:doc",
+                "key":"Veröffentlichungsort",
+                "value":"hihi",
+                "match":"match:eq"
               }
             ]
           }
-	]
+        ]
       },
       {
-	"@type":"koral:doc",
-	"key":"Untertitel",
-	"value":"huhu",
-	"match":"match:eq"
+        "@type":"koral:doc",
+        "key":"Untertitel",
+        "value":"huhu",
+        "match":"match:contains"
       }
     ]
   });
@@ -95,6 +95,14 @@ define(['vc'], function () {
     var stringFactory = buildFactory(docClass, {
       "key"   : "author",
       "value" : "Max Birkendale",
+      "@type" : "koral:doc"
+    });
+
+    // Create example factories
+    var textFactory = buildFactory(docClass, {
+      "key"   : "author",
+      "value" : "Birkendale",
+      "match" : "match:contains",
       "@type" : "koral:doc"
     });
 
@@ -150,19 +158,19 @@ define(['vc'], function () {
 
       // No valid string
       doc = stringFactory.create({
-	      value : undefined
+        value : undefined
       });
       expect(doc).toBeUndefined();
 
       // No valid string
       doc = stringFactory.create({
-	      value : { "foo" : "bar" }
+        value : { "foo" : "bar" }
       });
       expect(doc).toBeUndefined();
 
       // Change match type
       doc = stringFactory.create({
-	      "match" : "match:ne"
+        "match" : "match:ne"
       });
 
       expect(doc.matchop()).toEqual('ne');
@@ -172,7 +180,7 @@ define(['vc'], function () {
 
       // Invalid match type
       doc = stringFactory.create({
-	      "match" : { "foo" : "bar" }
+        "match" : { "foo" : "bar" }
       });
       expect(doc).toBeUndefined();
     });
@@ -186,21 +194,21 @@ define(['vc'], function () {
 
       // change matcher
       doc = regexFactory.create({
-	      match : "match:ne"
+        match : "match:ne"
       });
       expect(doc.matchop()).toEqual('ne');
       expect(doc.rewrites()).toBeUndefined();
 
       // Invalid matcher
       doc = regexFactory.create({
-	      match : "match:chook"
+        match : "match:chook"
       });
       expect(doc.matchop()).toEqual('eq');
       expect(doc.rewrites()).toBeDefined();
 
       // Invalid regex
       doc = regexFactory.create({
-	      value : "[^b"
+        value : "[^b"
       });
       expect(doc).toBeUndefined();
     });
@@ -217,7 +225,7 @@ define(['vc'], function () {
 
       // Short date 1
       doc = dateFactory.create({
-	      "value" : "2014-11"
+        "value" : "2014-11"
       });
 
       expect(doc.matchop()).toEqual('eq');
@@ -227,7 +235,7 @@ define(['vc'], function () {
 
       // Short date 2
       doc = dateFactory.create({
-	      "value" : "2014"
+        "value" : "2014"
       });
 
       expect(doc.matchop()).toEqual('eq');
@@ -237,13 +245,13 @@ define(['vc'], function () {
 
       // Invalid date!
       doc = dateFactory.create({
-	      "value" : "2014-11-050"
+        "value" : "2014-11-050"
       });
       expect(doc).toBeUndefined();
 
       // Invalid matcher!
       doc = dateFactory.create({
-	      "match" : "match:ne",
+        "match" : "match:ne",
       });
       expect(doc).toBeDefined();
       expect(doc.rewrites()).toBeDefined();
@@ -259,52 +267,52 @@ define(['vc'], function () {
       // Serialize string
       doc = stringFactory.create();
       expect(doc.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:doc",
-	"type" : "type:string",
-	"key" : "author",
-	"value" : "Max Birkendale",
-	"match" : "match:eq"
+        "@type" : "koral:doc",
+        "type" : "type:string",
+        "key" : "author",
+        "value" : "Max Birkendale",
+        "match" : "match:eq"
       }));
 
       // Serialize regex
       doc = regexFactory.create();
       expect(doc.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:doc",
-	"type" : "type:regex",
-	"value" : "[^b]ee.+?",
-	"match" : "match:eq",
-	"key" : 'title'
+        "@type" : "koral:doc",
+        "type" : "type:regex",
+        "value" : "[^b]ee.+?",
+        "match" : "match:eq",
+        "key" : 'title'
       }));
 
       doc = regexFactory.create({
-	match: "match:ne"
+        match: "match:ne"
       });
       expect(doc.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:doc",
-	"type" : "type:regex",
-	"value" : "[^b]ee.+?",
-	"match" : "match:ne",
-	"key" : 'title'
+        "@type" : "koral:doc",
+        "type" : "type:regex",
+        "value" : "[^b]ee.+?",
+        "match" : "match:ne",
+        "key" : 'title'
       }));
 
       doc = dateFactory.create();
       expect(doc.toJson()).toEqual(jasmine.objectContaining({
-	      "@type" : "koral:doc",
-	      "type" : "type:date",
-	      "value" : "2014-11-05",
-	      "match" : "match:eq",
-	      "key" : 'pubDate'
+        "@type" : "koral:doc",
+        "type" : "type:date",
+        "value" : "2014-11-05",
+        "match" : "match:eq",
+        "key" : 'pubDate'
       }));
 
       doc = dateFactory.create({
-	value : "2014"
+        value : "2014"
       });
       expect(doc.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:doc",
-	"type" : "type:date",
-	"value" : "2014",
-	"match" : "match:eq",
-	"key" : 'pubDate'
+        "@type" : "koral:doc",
+        "type" : "type:date",
+        "value" : "2014",
+        "match" : "match:eq",
+        "key" : 'pubDate'
       }));
     });
 
@@ -327,12 +335,12 @@ define(['vc'], function () {
       expect(doc.toQuery()).toEqual('title = /[^b]ee.+?/');
 
       doc = regexFactory.create({
-	      match: "match:ne"
+        match: "match:ne"
       });
       expect(doc.toQuery()).toEqual('title != /[^b]ee.+?/');
 
       doc = regexFactory.create({
-	      value: "WPD/AAA/00001"
+        value: "WPD/AAA/00001"
       });
       expect(doc.toQuery()).toEqual('title = /WPD\\/AAA\\/00001/');
 
@@ -340,7 +348,7 @@ define(['vc'], function () {
       expect(doc.toQuery()).toEqual('pubDate in 2014-11-05');
 
       doc = dateFactory.create({
-	      value : "2014"
+        value : "2014"
       });
       expect(doc.toQuery()).toEqual('pubDate in 2014');
     });
@@ -352,25 +360,25 @@ define(['vc'], function () {
     var docFactory = buildFactory(
       docClass,
       {
-	"@type" : "koral:doc",
-	"match":"match:eq",
-	"key" : "author",
-	"value" : "Max Birkendale"
+        "@type" : "koral:doc",
+        "match":"match:eq",
+        "key" : "author",
+        "value" : "Max Birkendale"
       }
     );
 
     var docGroupFactory = buildFactory(
       docGroupClass, {
-	"@type" : "koral:docGroup",
-	"operation" : "operation:and",
-	"operands" : [
-	  docFactory.create().toJson(),
-	  docFactory.create({
-	    "key" : "pubDate",
-	    "type" : "type:date",
-	    "value" : "2014-12-05"
-	  }).toJson()
-	]
+        "@type" : "koral:docGroup",
+        "operation" : "operation:and",
+        "operands" : [
+          docFactory.create().toJson(),
+          docFactory.create({
+            "key" : "pubDate",
+            "type" : "type:date",
+            "value" : "2014-12-05"
+          }).toJson()
+        ]
       });
 
     it('should be initializable', function () {
@@ -421,10 +429,10 @@ define(['vc'], function () {
       newGroup.operation('or');
       newGroup.append(docFactory.create());
       newGroup.append(docFactory.create({
-	"type" : "type:regex",
-	"key" : "title",
-	"value" : "^e.+?$",
-	"match" : "match:ne"
+        "type" : "type:regex",
+        "key" : "title",
+        "value" : "^e.+?$",
+        "match" : "match:ne"
       }));
 
       expect(docGroup.operation()).toEqual("and");
@@ -467,77 +475,77 @@ define(['vc'], function () {
       var docGroup = docGroupFactory.create();
 
       expect(docGroup.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:docGroup",
-	"operation" : "operation:and",
-	"operands" : [
-	  {
-	    "@type": 'koral:doc',
-	    "key" : 'author',
-	    "match": 'match:eq',
-	    "value": 'Max Birkendale',
-	    "type": 'type:string'
-	  },
-	  {
-	    "@type": 'koral:doc',
-	    "key": 'pubDate',
-	    "match": 'match:eq',
-	    "value": '2014-12-05',
-	    "type": 'type:date'
-	  }
-	]
+        "@type" : "koral:docGroup",
+        "operation" : "operation:and",
+        "operands" : [
+          {
+            "@type": 'koral:doc',
+            "key" : 'author',
+            "match": 'match:eq',
+            "value": 'Max Birkendale',
+            "type": 'type:string'
+          },
+          {
+            "@type": 'koral:doc',
+            "key": 'pubDate',
+            "match": 'match:eq',
+            "value": '2014-12-05',
+            "type": 'type:date'
+          }
+        ]
       }));
     });
 
     it('should be serializable to String', function () {
       var docGroup = docGroupFactory.create();
       expect(docGroup.toQuery()).toEqual(
-	'author = "Max Birkendale" & pubDate in 2014-12-05'
+        'author = "Max Birkendale" & pubDate in 2014-12-05'
       );
 
       docGroup = docGroupFactory.create({
-	"@type" : "koral:docGroup",
-	"operation" : "operation:or",
-	"operands" : [
-	  {
-	    "@type": 'koral:doc',
-	    "key" : 'author',
-	    "match": 'match:eq',
-	    "value": 'Max Birkendale',
-	    "type": 'type:string'
-	  },
-	  {
-	    "@type" : "koral:docGroup",
-	    "operation" : "operation:and",
-	    "operands" : [
-	      {
-		"@type": 'koral:doc',
-		"key": 'pubDate',
-		"match": 'match:geq',
-		"value": '2014-05-12',
-		"type": 'type:date'
-	      },
-	      {
-		"@type": 'koral:doc',
-		"key": 'pubDate',
-		"match": 'match:leq',
-		"value": '2014-12-05',
-		"type": 'type:date'
-	      },
-	      {
-		"@type": 'koral:doc',
-		"key": 'foo',
-		"match": 'match:ne',
-		"value": '[a]?bar',
-		"type": 'type:regex'
-	      }
-	    ]
-	  }
-	]
+        "@type" : "koral:docGroup",
+        "operation" : "operation:or",
+        "operands" : [
+          {
+            "@type": 'koral:doc',
+            "key" : 'author',
+            "match": 'match:eq',
+            "value": 'Max Birkendale',
+            "type": 'type:string'
+          },
+          {
+            "@type" : "koral:docGroup",
+            "operation" : "operation:and",
+            "operands" : [
+              {
+                "@type": 'koral:doc',
+                "key": 'pubDate',
+                "match": 'match:geq',
+                "value": '2014-05-12',
+                "type": 'type:date'
+              },
+              {
+                "@type": 'koral:doc',
+                "key": 'pubDate',
+                "match": 'match:leq',
+                "value": '2014-12-05',
+                "type": 'type:date'
+              },
+              {
+                "@type": 'koral:doc',
+                "key": 'foo',
+                "match": 'match:ne',
+                "value": '[a]?bar',
+                "type": 'type:regex'
+              }
+            ]
+          }
+        ]
       });
       expect(docGroup.toQuery()).toEqual(
-	'author = "Max Birkendale" | ' +
-	  '(pubDate since 2014-05-12 & ' +
-	  'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+        'author = "Max Birkendale" | ' +
+          '(pubDate since 2014-05-12 & ' +
+          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
       );
     });
   });
@@ -561,11 +569,11 @@ define(['vc'], function () {
       expect(docGroup.operation()).toEqual('or');
 
       docGroup.append({
-	"@type": 'koral:doc',
-	"key": 'pubDate',
-	"match": 'match:eq',
-	"value": '2014-12-05',
-	"type": 'type:date'      
+        "@type": 'koral:doc',
+        "key": 'pubDate',
+        "match": 'match:eq',
+        "value": '2014-12-05',
+        "type": 'type:date'      
       });
 
       // Add unspecified object
@@ -593,11 +601,11 @@ define(['vc'], function () {
       expect(docGroup.operation()).toEqual('or');
 
       docGroup.append({
-	"@type": 'koral:doc',
-	"key": 'pubDate',
-	"match": 'match:eq',
-	"value": '2014-12-05',
-	"type": 'type:date'      
+        "@type": 'koral:doc',
+        "key": 'pubDate',
+        "match": 'match:eq',
+        "value": '2014-12-05',
+        "type": 'type:date'      
       });
 
       expect(docGroup.toQuery()).toEqual("pubDate in 2014-12-05");
@@ -659,10 +667,10 @@ define(['vc'], function () {
   describe('KorAP.Doc element', function () {
     it('should be initializable', function () {
       var docElement = docClass.create(undefined, {
-	"@type" : "koral:doc",
-	"key":"Titel",
-	"value":"Baum",
-	"match":"match:eq"
+        "@type" : "koral:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq"
       });
       expect(docElement.key()).toEqual('Titel');
       expect(docElement.matchop()).toEqual('eq');
@@ -676,10 +684,10 @@ define(['vc'], function () {
       expect(docE.children[2].getAttribute('data-type')).toEqual('string');
       
       expect(docElement.toJson()).toEqual(jasmine.objectContaining({
-	"@type" : "koral:doc",
-	"key":"Titel",
-	"value":"Baum",
-	"match":"match:eq"
+        "@type" : "koral:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq"
       }));
     });
   });
@@ -688,24 +696,24 @@ define(['vc'], function () {
     it('should be initializable', function () {
 
       var docGroup = docGroupClass.create(undefined, {
-	"@type" : "koral:docGroup",
-	"operation" : "operation:and",
-	"operands" : [
-	  {
-	    "@type": 'koral:doc',
-	    "key" : 'author',
-	    "match": 'match:eq',
-	    "value": 'Max Birkendale',
-	    "type": 'type:string'
-	  },
-	  {
-	    "@type": 'koral:doc',
-	    "key": 'pubDate',
-	    "match": 'match:eq',
-	    "value": '2014-12-05',
-	    "type": 'type:date'
-	  }
-	]
+        "@type" : "koral:docGroup",
+        "operation" : "operation:and",
+        "operands" : [
+          {
+            "@type": 'koral:doc',
+            "key" : 'author',
+            "match": 'match:eq',
+            "value": 'Max Birkendale',
+            "type": 'type:string'
+          },
+          {
+            "@type": 'koral:doc',
+            "key": 'pubDate',
+            "match": 'match:eq',
+            "value": '2014-12-05',
+            "type": 'type:date'
+          }
+        ]
       });
 
       expect(docGroup.operation()).toEqual('and');
@@ -736,37 +744,37 @@ define(['vc'], function () {
 
     it('should be deserializable with nested groups', function () {
       var docGroup = docGroupClass.create(undefined, {
-	"@type" : "koral:docGroup",
-	"operation" : "operation:or",
-	"operands" : [
-	  {
-	    "@type": 'koral:doc',
-	    "key" : 'author',
-	    "match": 'match:eq',
-	    "value": 'Max Birkendale',
-	    "type": 'type:string'
-	  },
-	  {
-	    "@type" : "koral:docGroup",
-	    "operation" : "operation:and",
-	    "operands" : [
-	      {
-		"@type": 'koral:doc',
-		"key": 'pubDate',
-		"match": 'match:geq',
-		"value": '2014-05-12',
-		"type": 'type:date'
-	      },
-	      {
-		"@type": 'koral:doc',
-		"key": 'pubDate',
-		"match": 'match:leq',
-		"value": '2014-12-05',
-		"type": 'type:date'
-	      }
-	    ]
-	  }
-	]
+        "@type" : "koral:docGroup",
+        "operation" : "operation:or",
+        "operands" : [
+          {
+            "@type": 'koral:doc',
+            "key" : 'author',
+            "match": 'match:eq',
+            "value": 'Max Birkendale',
+            "type": 'type:string'
+          },
+          {
+            "@type" : "koral:docGroup",
+            "operation" : "operation:and",
+            "operands" : [
+              {
+                "@type": 'koral:doc',
+                "key": 'pubDate',
+                "match": 'match:geq',
+                "value": '2014-05-12',
+                "type": 'type:date'
+              },
+              {
+                "@type": 'koral:doc',
+                "key": 'pubDate',
+                "match": 'match:leq',
+                "value": '2014-12-05',
+                "type": 'type:date'
+              }
+            ]
+          }
+        ]
       });
 
       expect(docGroup.operation()).toEqual('or');
@@ -803,20 +811,20 @@ define(['vc'], function () {
       "@type" : "koral:docGroup",
       "operation" : "operation:and",
       "operands" : [
-	{
-	  "@type": 'koral:doc',
-	  "key" : 'author',
-	  "match": 'match:eq',
-	  "value": 'Max Birkendale',
-	  "type": 'type:string'
-	},
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:eq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	}
+        {
+          "@type": 'koral:doc',
+          "key" : 'author',
+          "match": 'match:eq',
+          "value": 'Max Birkendale',
+          "type": 'type:string'
+        },
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:eq',
+          "value": '2014-12-05',
+          "type": 'type:date'
+        }
       ]
     });
 
@@ -824,33 +832,33 @@ define(['vc'], function () {
       "@type" : "koral:docGroup",
       "operation" : "operation:or",
       "operands" : [
-	{
-	  "@type": 'koral:doc',
-	  "key" : 'author',
-	  "match": 'match:eq',
-	  "value": 'Max Birkendale',
-	  "type": 'type:string'
-	},
-	{
-	  "@type" : "koral:docGroup",
-	  "operation" : "operation:and",
-	  "operands" : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:geq',
-	      "value": '2014-05-12',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:leq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:doc',
+          "key" : 'author',
+          "match": 'match:eq',
+          "value": 'Max Birkendale',
+          "type": 'type:string'
+        },
+        {
+          "@type" : "koral:docGroup",
+          "operation" : "operation:and",
+          "operands" : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:geq',
+              "value": '2014-05-12',
+              "type": 'type:date'
+            },
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:leq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            }
+          ]
+        }
       ]
     });
 
@@ -858,27 +866,27 @@ define(['vc'], function () {
       "@type" : "koral:docGroup",
       "operation" : "operation:and",
       "operands" : [
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:geq',
-	  "value": '2014-05-12',
-	  "type": 'type:date'
-	},
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:leq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	},
-	{
-	  "@type": 'koral:doc',
-	  "key": 'foo',
-	  "match": 'match:eq',
-	  "value": 'bar',
-	  "type": 'type:string'
-	}
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:geq',
+          "value": '2014-05-12',
+          "type": 'type:date'
+        },
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:leq',
+          "value": '2014-12-05',
+          "type": 'type:date'
+        },
+        {
+          "@type": 'koral:doc',
+          "key": 'foo',
+          "match": 'match:eq',
+          "value": 'bar',
+          "type": 'type:string'
+        }
       ]
     });
     
@@ -893,10 +901,10 @@ define(['vc'], function () {
 
     it('should be based on a doc', function () {
       var vc = vcClass.create().fromJson({
-	"@type" : "koral:doc",
-	"key":"Titel",
-	"value":"Baum",
-	"match":"match:eq"
+        "@type" : "koral:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq"
       });
 
       expect(vc.element().getAttribute('class')).toEqual('vc');
@@ -987,7 +995,7 @@ define(['vc'], function () {
       var vc = nestedGroupFactory.create();
 
       expect(vc.toQuery()).toEqual(
-	'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05)'
+        'author = "Max Birkendale" | (pubDate since 2014-05-12 & pubDate until 2014-12-05)'
       );
 
       var docGroup = vc.root();
@@ -1015,9 +1023,9 @@ define(['vc'], function () {
 
       // Remove first operand so everything becomes root
       expect(
-	vc.root().delOperand(
-	  vc.root().getOperand(0)
-	).update().ldType()
+        vc.root().delOperand(
+          vc.root().getOperand(0)
+        ).update().ldType()
       ).toEqual("docGroup");
 
       expect(vc.root().ldType()).toEqual("docGroup");
@@ -1025,7 +1033,7 @@ define(['vc'], function () {
       expect(vc.root().getOperand(0).ldType()).toEqual("doc");
 
       expect(vc.toQuery()).toEqual(
-	'pubDate since 2014-05-12 & pubDate until 2014-12-05'
+        'pubDate since 2014-05-12 & pubDate until 2014-12-05'
       );
     });
 
@@ -1057,7 +1065,7 @@ define(['vc'], function () {
       // Get nested group
       var firstGroup = vc.root().getOperand(1);
       firstGroup.append(simpleGroupFactory.create({
-	"operation" : "operation:or"
+        "operation" : "operation:or"
       }));
       var oldAuthor = firstGroup.getOperand(2).getOperand(0);
       oldAuthor.key("title");
@@ -1066,11 +1074,11 @@ define(['vc'], function () {
       // Structur is now:
       // or(doc, and(doc, doc, or(doc, doc)))
       expect(vc.toQuery()).toEqual(
-	'author = "Max Birkendale" | ' +
-	  '(pubDate since 2014-05-12 & ' +
-	  'pubDate until 2014-12-05 & ' +
-	  '(title = "Der Birnbaum" | ' +
-	  'pubDate in 2014-12-05))'
+        'author = "Max Birkendale" | ' +
+          '(pubDate since 2014-05-12 & ' +
+          'pubDate until 2014-12-05 & ' +
+          '(title = "Der Birnbaum" | ' +
+          'pubDate in 2014-12-05))'
       );
 
       var andGroup = vc.root().getOperand(1);
@@ -1085,15 +1093,15 @@ define(['vc'], function () {
 
       // Remove 2
       expect(
-	andGroup.delOperand(doc2).update().operation()
+        andGroup.delOperand(doc2).update().operation()
       ).toEqual("and");
       // Structur is now:
       // or(doc, and(doc, or(doc, doc)))
 
       expect(vc.toQuery()).toEqual(
-	'author = "Max Birkendale"' +
-	  ' | (pubDate since 2014-05-12 & ' +
-	  '(title = "Der Birnbaum" | pubDate in 2014-12-05))'
+        'author = "Max Birkendale"' +
+          ' | (pubDate since 2014-05-12 & ' +
+          '(title = "Der Birnbaum" | pubDate in 2014-12-05))'
       );
 
 
@@ -1103,7 +1111,7 @@ define(['vc'], function () {
       // or(doc, doc, doc)
 
       expect(vc.toQuery()).toEqual(
-	'author = "Max Birkendale" | title = "Der Birnbaum" | pubDate in 2014-12-05'
+        'author = "Max Birkendale" | title = "Der Birnbaum" | pubDate in 2014-12-05'
       );
     });
 
@@ -1112,13 +1120,13 @@ define(['vc'], function () {
 
       expect(vc.toQuery()).toEqual(vc.root().toQuery());
       expect(vc.toQuery()).toEqual(
-	'(Titel = "Baum" & Veröffentlichungsort = "hihi" & ' +
-	  '(Titel = "Baum" | Veröffentlichungsort = "hihi")) ' +
-	  '| Untertitel = "huhu"');
+        '(Titel = "Baum" & Veröffentlichungsort = "hihi" & ' +
+          '(Titel = "Baum" | Veröffentlichungsort = "hihi")) ' +
+          '| Untertitel ~ "huhu"');
       expect(vc.root().element().lastChild.children[0].firstChild.nodeValue).toEqual('and');
       expect(vc.root().element().lastChild.children[1].firstChild.nodeValue).toEqual('×');
       expect(vc.root().delOperand(vc.root().getOperand(0)).update()).not.toBeUndefined();
-      expect(vc.toQuery()).toEqual('Untertitel = "huhu"');
+      expect(vc.toQuery()).toEqual('Untertitel ~ "huhu"');
 
       var lc = vc.root().element().lastChild;
       expect(lc.children[0].firstChild.nodeValue).toEqual('and');
@@ -1132,56 +1140,56 @@ define(['vc'], function () {
 
     it('should flatten on import', function () {
       var vc = vcClass.create().fromJson({
-	"@type":"koral:docGroup",
-	"operation":"operation:or",
-	"operands":[
-	  {
-	    "@type":"koral:docGroup",
-	    "operation":"operation:or",
-	    "operands":[
+        "@type":"koral:docGroup",
+        "operation":"operation:or",
+        "operands":[
+          {
+            "@type":"koral:docGroup",
+            "operation":"operation:or",
+            "operands":[
               {
-		"@type":"koral:doc",
-		"key":"Titel",
-		"value":"Baum",
-		"match":"match:eq"
+                "@type":"koral:doc",
+                "key":"Titel",
+                "value":"Baum",
+                "match":"match:eq"
               },
               {
-		"@type":"koral:doc",
-		"key":"Veröffentlichungsort",
-		"value":"hihi",
-		"match":"match:eq"
+                "@type":"koral:doc",
+                "key":"Veröffentlichungsort",
+                "value":"hihi",
+                "match":"match:eq"
               },
               {
-		"@type":"koral:docGroup",
-		"operation":"operation:or",
-		"operands":[
-		  {
-		    "@type":"koral:doc",
-		    "key":"Titel",
-		    "value":"Baum",
-		    "match":"match:eq"
-		  },
-		  {
-		    "@type":"koral:doc",
-		    "key":"Veröffentlichungsort",
-		    "value":"hihi",
-		    "match":"match:eq"
-		  }
-		]
+                "@type":"koral:docGroup",
+                "operation":"operation:or",
+                "operands":[
+                  {
+                    "@type":"koral:doc",
+                    "key":"Titel",
+                    "value":"Baum",
+                    "match":"match:eq"
+                  },
+                  {
+                    "@type":"koral:doc",
+                    "key":"Veröffentlichungsort",
+                    "value":"hihi",
+                    "match":"match:eq"
+                  }
+                ]
               }
-	    ]
-	  },
-	  {
-	    "@type":"koral:doc",
-	    "key":"Untertitel",
-	    "value":"huhu",
-	    "match":"match:eq"
-	  }
-	]
+            ]
+          },
+          {
+            "@type":"koral:doc",
+            "key":"Untertitel",
+            "value":"huhu",
+            "match":"match:contains"
+          }
+        ]
       });
 
       expect(vc.toQuery()).toEqual(
-	'Titel = "Baum" | Veröffentlichungsort = "hihi" | Untertitel = "huhu"'
+        'Titel = "Baum" | Veröffentlichungsort = "hihi" | Untertitel ~ "huhu"'
       );
     });
   });
@@ -1229,39 +1237,39 @@ define(['vc'], function () {
       "@type": 'koral:docGroup',
       'operation' : 'operation:and',
       'operands' : [
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:eq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	},
-	{
-	  "@type" : 'koral:docGroup',
-	  'operation' : 'operation:or',
-	  'operands' : [
-	    {
-	      '@type' : 'koral:doc',
-	      'key' : 'title',
-	      'value' : 'Hello World!'
-	    },
-	    {
-	      '@type' : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:eq',
+          "value": '2014-12-05',
+          "type": 'type:date'
+        },
+        {
+          "@type" : 'koral:docGroup',
+          'operation' : 'operation:or',
+          'operands' : [
+            {
+              '@type' : 'koral:doc',
+              'key' : 'title',
+              'value' : 'Hello World!'
+            },
+            {
+              '@type' : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       ]
     });
 
     it('should clean on root docs', function () {
       var vc = vcClass.create().fromJson({
-	"@type": 'koral:doc',
-	"key": 'pubDate',
-	"match": 'match:eq',
-	"value": '2014-12-05',
-	"type": 'type:date'
+        "@type": 'koral:doc',
+        "key": 'pubDate',
+        "match": 'match:eq',
+        "value": '2014-12-05',
+        "type": 'type:date'
       });
       expect(vc.root().toQuery()).toEqual('pubDate in 2014-12-05');
       expect(vc.root().element().lastChild.getAttribute('class')).toEqual('operators button-group');
@@ -1275,24 +1283,24 @@ define(['vc'], function () {
 
     it('should remove on nested docs', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:and',
-	  'operands' : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:eq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type" : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:and',
+          'operands' : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:eq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            },
+            {
+              "@type" : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       );
 
       // Delete with direct element access
@@ -1305,24 +1313,24 @@ define(['vc'], function () {
 
     it('should clean on doc groups', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:and',
-	  'operands' : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:eq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type" : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:and',
+          'operands' : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:eq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            },
+            {
+              "@type" : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       );
 
       // Cleanwith direct element access
@@ -1337,7 +1345,7 @@ define(['vc'], function () {
 
       // Delete with direct element access
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+        'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
       );
 
       // Remove hello world:
@@ -1351,7 +1359,7 @@ define(['vc'], function () {
 
       // Delete with direct element access
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+        'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
       );
 
       // Remove bar
@@ -1366,8 +1374,8 @@ define(['vc'], function () {
 
       // Delete with direct element access
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 & ' +
-	  '(title = "Hello World!" | foo = "bar")'
+        'pubDate in 2014-12-05 & ' +
+          '(title = "Hello World!" | foo = "bar")'
       );
 
       // Remove bar
@@ -1379,60 +1387,60 @@ define(['vc'], function () {
 
     it('should remove on nested doc groups (list flattening)', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:or',
-	  'operands' : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:eq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type" : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    },
-	    {
-	      "@type": 'koral:docGroup',
-	      'operation' : 'operation:and',
-	      'operands' : [
-		{
-		  "@type": 'koral:doc',
-		  "key": 'pubDate',
-		  "match": 'match:eq',
-		  "value": '2014-12-05',
-		  "type": 'type:date'
-		},
-		{
-		  "@type" : 'koral:docGroup',
-		  'operation' : 'operation:or',
-		  'operands' : [
-		    {
-		      '@type' : 'koral:doc',
-		      'key' : 'title',
-		      'value' : 'Hello World!'
-		    },
-		    {
-		      '@type' : 'koral:doc',
-		      'key' : 'yeah',
-		      'value' : 'juhu'
-		    }
-		  ]
-		}
-	      ]
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:or',
+          'operands' : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:eq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            },
+            {
+              "@type" : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            },
+            {
+              "@type": 'koral:docGroup',
+              'operation' : 'operation:and',
+              'operands' : [
+                {
+                  "@type": 'koral:doc',
+                  "key": 'pubDate',
+                  "match": 'match:eq',
+                  "value": '2014-12-05',
+                  "type": 'type:date'
+                },
+                {
+                  "@type" : 'koral:docGroup',
+                  'operation' : 'operation:or',
+                  'operands' : [
+                    {
+                      '@type' : 'koral:doc',
+                      'key' : 'title',
+                      'value' : 'Hello World!'
+                    },
+                    {
+                      '@type' : 'koral:doc',
+                      'key' : 'yeah',
+                      'value' : 'juhu'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       );
 
       // Delete with direct element access
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 | foo = "bar" | ' +
-	  '(pubDate in 2014-12-05 & ' +
-	  '(title = "Hello World!" | yeah = "juhu"))'
+        'pubDate in 2014-12-05 | foo = "bar" | ' +
+          '(pubDate in 2014-12-05 & ' +
+          '(title = "Hello World!" | yeah = "juhu"))'
       );
 
       expect(vc.root().ldType()).toEqual('docGroup');
@@ -1446,7 +1454,7 @@ define(['vc'], function () {
       _delOn(vc.root().getOperand(2).getOperand(0));
 
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 | foo = "bar" | title = "Hello World!" | yeah = "juhu"'
+        'pubDate in 2014-12-05 | foo = "bar" | title = "Hello World!" | yeah = "juhu"'
       );
       expect(vc.root().ldType()).toEqual('docGroup');
       expect(vc.root().operation()).toEqual('or');
@@ -1462,52 +1470,52 @@ define(['vc'], function () {
       "@type": 'koral:docGroup',
       'operation' : 'operation:and',
       'operands' : [
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:eq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	},
-	{
-	  "@type" : 'koral:docGroup',
-	  'operation' : 'operation:or',
-	  'operands' : [
-	    {
-	      '@type' : 'koral:doc',
-	      'key' : 'title',
-	      'value' : 'Hello World!'
-	    },
-	    {
-	      '@type' : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:eq',
+          "value": '2014-12-05',
+          "type": 'type:date'
+        },
+        {
+          "@type" : 'koral:docGroup',
+          'operation' : 'operation:or',
+          'operands' : [
+            {
+              '@type' : 'koral:doc',
+              'key' : 'title',
+              'value' : 'Hello World!'
+            },
+            {
+              '@type' : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       ]
     });
 
     it('should add new unspecified doc with "and"', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:and',
-	  'operands' : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:eq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type" : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:and',
+          'operands' : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:eq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            },
+            {
+              "@type" : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       );
 
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
@@ -1535,24 +1543,24 @@ define(['vc'], function () {
 
     it('should add new unspecified doc with "or"', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:and',
-	  'operands' : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:eq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type" : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:and',
+          'operands' : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:eq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            },
+            {
+              "@type" : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       );
 
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar"');
@@ -1589,11 +1597,11 @@ define(['vc'], function () {
 
       // Wrap with direct element access
       expect(vc.toQuery()).toEqual(
-	'(Titel = "Baum" & ' +
-	  'Veröffentlichungsort = "hihi" & ' +
-	  '(Titel = "Baum" | ' +
-	  'Veröffentlichungsort = "hihi")) | ' +
-	  'Untertitel = "huhu"'
+        '(Titel = "Baum" & ' +
+          'Veröffentlichungsort = "hihi" & ' +
+          '(Titel = "Baum" | ' +
+          'Veröffentlichungsort = "hihi")) | ' +
+          'Untertitel ~ "huhu"'
       );
 
       expect(vc.root().getOperand(0).ldType()).toEqual('docGroup');
@@ -1625,7 +1633,7 @@ define(['vc'], function () {
 
       // Wrap with direct element access
       expect(vc.toQuery()).toEqual(
-	'(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel = "huhu"'
+        '(Titel = "Baum" & Veröffentlichungsort = "hihi" & (Titel = "Baum" | Veröffentlichungsort = "hihi")) | Untertitel ~ "huhu"'
       );
 
       var fo = vc.root().getOperand(0).getOperand(0);
@@ -1651,16 +1659,16 @@ define(['vc'], function () {
     });
 
 
-    it('should remove an unspecified doc with an doc in a nested group', function () {
+    it('should remove an unspecified doc with a doc in a nested group', function () {
       var vc = demoFactory.create();
 
       // Wrap with direct element access
       expect(vc.toQuery()).toEqual(
-	'(Titel = "Baum" & ' +
-	  'Veröffentlichungsort = "hihi" & ' +
-	  '(Titel = "Baum" ' +
-	  '| Veröffentlichungsort = "hihi")) | ' +
-	  'Untertitel = "huhu"'
+        '(Titel = "Baum" & ' +
+          'Veröffentlichungsort = "hihi" & ' +
+          '(Titel = "Baum" ' +
+          '| Veröffentlichungsort = "hihi")) | ' +
+          'Untertitel ~ "huhu"'
       );
 
       var fo = vc.root().getOperand(0).getOperand(0);
@@ -1694,7 +1702,7 @@ define(['vc'], function () {
 
       // Wrap with direct element access
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+        'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
       );
 
       expect(vc.root().operands().length).toEqual(2);
@@ -1702,7 +1710,7 @@ define(['vc'], function () {
       // Add unspecified on the root group
       _andOn(vc.root().getOperand(1));
       expect(vc.toQuery()).toEqual(
-	'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
+        'pubDate in 2014-12-05 & (title = "Hello World!" | foo = "bar")'
       );
 
       expect(vc.root().ldType()).toEqual('docGroup');
@@ -1734,24 +1742,24 @@ define(['vc'], function () {
 
     it('should wrap on root', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:and',
-	  'operands' : [
-	    {
-	      "@type": 'koral:doc',
-	      "key": 'pubDate',
-	      "match": 'match:eq',
-	      "value": '2014-12-05',
-	      "type": 'type:date'
-	    },
-	    {
-	      "@type" : 'koral:doc',
-	      'key' : 'foo',
-	      'value' : 'bar'
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:and',
+          'operands' : [
+            {
+              "@type": 'koral:doc',
+              "key": 'pubDate',
+              "match": 'match:eq',
+              "value": '2014-12-05',
+              "type": 'type:date'
+            },
+            {
+              "@type" : 'koral:doc',
+              'key' : 'foo',
+              'value' : 'bar'
+            }
+          ]
+        }
       );
 
       // Wrap on root
@@ -1768,13 +1776,13 @@ define(['vc'], function () {
 
     it('should add on root (case "and")', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:eq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	}
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:eq',
+          "value": '2014-12-05',
+          "type": 'type:date'
+        }
       );
 
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05');
@@ -1790,13 +1798,13 @@ define(['vc'], function () {
 
     it('should add on root (case "or")', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:doc',
-	  "key": 'pubDate',
-	  "match": 'match:eq',
-	  "value": '2014-12-05',
-	  "type": 'type:date'
-	}
+        {
+          "@type": 'koral:doc',
+          "key": 'pubDate',
+          "match": 'match:eq',
+          "value": '2014-12-05',
+          "type": 'type:date'
+        }
       );
 
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05');
@@ -1811,48 +1819,48 @@ define(['vc'], function () {
 
     it('should support multiple sub groups per group', function () {
       var vc = vcClass.create().fromJson(
-	{
-	  "@type": 'koral:docGroup',
-	  'operation' : 'operation:or',
-	  'operands' : [
-	    {
-	      "@type": 'koral:docGroup',
-	      'operation' : 'operation:and',
-	      'operands' : [
-		{
-		  "@type": 'koral:doc',
-		  "key": 'title',
-		  "value": 't1',
-		},
-		{
-		  "@type" : 'koral:doc',
-		  'key' : 'title',
-		  'value' : 't2'
-		}
-	      ]
-	    },
-	    {
-	      "@type": 'koral:docGroup',
-	      'operation' : 'operation:and',
-	      'operands' : [
-		{
-		  "@type": 'koral:doc',
-		  "key": 'title',
-		  "value": 't3',
-		},
-		{
-		  "@type" : 'koral:doc',
-		  'key' : 'title',
-		  'value' : 't4'
-		}
-	      ]
-	    }
-	  ]
-	}
+        {
+          "@type": 'koral:docGroup',
+          'operation' : 'operation:or',
+          'operands' : [
+            {
+              "@type": 'koral:docGroup',
+              'operation' : 'operation:and',
+              'operands' : [
+                {
+                  "@type": 'koral:doc',
+                  "key": 'title',
+                  "value": 't1',
+                },
+                {
+                  "@type" : 'koral:doc',
+                  'key' : 'title',
+                  'value' : 't2'
+                }
+              ]
+            },
+            {
+              "@type": 'koral:docGroup',
+              'operation' : 'operation:and',
+              'operands' : [
+                {
+                  "@type": 'koral:doc',
+                  "key": 'title',
+                  "value": 't3',
+                },
+                {
+                  "@type" : 'koral:doc',
+                  'key' : 'title',
+                  'value' : 't4'
+                }
+              ]
+            }
+          ]
+        }
       );
       expect(vc.toQuery()).toEqual(
-	'(title = "t1" & title = "t2") | ' +
-	  '(title = "t3" & title = "t4")'
+        '(title = "t1" & title = "t2") | ' +
+          '(title = "t3" & title = "t4")'
       );
       expect(vc.root().operation()).toEqual('or');
       expect(vc.root().getOperand(0).toQuery()).toEqual('title = "t1" & title = "t2"');
@@ -1874,10 +1882,10 @@ define(['vc'], function () {
         {
           "@type" : "koral:doc",
           "rewrites" : [{
-	          "@type" : "koral:rewrite",
-	          "operation" : "operation:modification",
-	          "src" : "querySerializer",
-	          "scope" : "tree"
+            "@type" : "koral:rewrite",
+            "operation" : "operation:modification",
+            "src" : "querySerializer",
+            "scope" : "tree"
           }]
         }
       )).toBeTruthy();
@@ -1905,10 +1913,10 @@ define(['vc'], function () {
       expect(vcClass.checkRewrite(nested)).toBe(false);
 
       nested["operands"][1]["operands"][1]["rewrites"] = [{
-	      "@type" : "koral:rewrite",
-	      "operation" : "operation:modification",
-	      "src" : "querySerializer",
-	      "scope" : "tree"
+        "@type" : "koral:rewrite",
+        "operation" : "operation:modification",
+        "src" : "querySerializer",
+        "scope" : "tree"
       }];
 
       expect(vcClass.checkRewrite(nested)).toBeTruthy();
@@ -1918,43 +1926,43 @@ define(['vc'], function () {
   describe('KorAP.Rewrite', function () {
     it('should be initializable', function () {
       var rewrite = rewriteClass.create({
-	"@type" : "koral:rewrite",
-	"operation" : "operation:modification",
-	"src" : "querySerializer",
-	"scope" : "tree"
+        "@type" : "koral:rewrite",
+        "operation" : "operation:modification",
+        "src" : "querySerializer",
+        "scope" : "tree"
       });
       expect(rewrite.toString()).toEqual('Modification of "tree" by "querySerializer"');
     });
 
     it('should be deserialized by docs', function () {
       var doc = docClass.create(
-	undefined,
-	{
-	  "@type":"koral:doc",
-	  "key":"Titel",
-	  "value":"Baum",
-	  "match":"match:eq"
-	});
+        undefined,
+        {
+          "@type":"koral:doc",
+          "key":"Titel",
+          "value":"Baum",
+          "match":"match:eq"
+        });
 
       expect(doc.element().classList.contains('doc')).toBeTruthy();
       expect(doc.element().classList.contains('rewritten')).toBe(false);
 
       doc = docClass.create(
-	undefined,
-	{
-	  "@type":"koral:doc",
-	  "key":"Titel",
-	  "value":"Baum",
-	  "match":"match:eq",
-	  "rewrites" : [
-	    {
-	      "@type" : "koral:rewrite",
-	      "operation" : "operation:modification",
-	      "src" : "querySerializer",
-	      "scope" : "tree"
-	    }
-	  ]
-	});
+        undefined,
+        {
+          "@type":"koral:doc",
+          "key":"Titel",
+          "value":"Baum",
+          "match":"match:eq",
+          "rewrites" : [
+            {
+              "@type" : "koral:rewrite",
+              "operation" : "operation:modification",
+              "src" : "querySerializer",
+              "scope" : "tree"
+            }
+          ]
+        });
       
       expect(doc.element().classList.contains('doc')).toBeTruthy();
       expect(doc.element().classList.contains('rewritten')).toBeTruthy();
@@ -1962,53 +1970,39 @@ define(['vc'], function () {
 
     xit('should be deserialized by docGroups', function () {
       var docGroup = docGroupClass.create(
-	undefined,
-	{
-	  "@type" : "koral:docGroup",
-	  "operation" : "operation:or",
-	  "operands" : [
-	    {
-	      "@type" : "doc",
-	      "key" : "pubDate",
-	      "type" : "type:date",
-	      "value" : "2014-12-05"
-	    },
-	    {
-	      "@type" : "doc",
-	      "key" : "pubDate",
-	      "type" : "type:date",
-	      "value" : "2014-12-06"
-	    }
-	  ],
-	  "rewrites" : [
-	    {
-	      "@type" : "koral:rewrite",
-	      "operation" : "operation:modification",
-	      "src" : "querySerializer",
-	      "scope" : "tree"
-	    }
-	  ]
-	}
+        undefined,
+        {
+          "@type" : "koral:docGroup",
+          "operation" : "operation:or",
+          "operands" : [
+            {
+              "@type" : "doc",
+              "key" : "pubDate",
+              "type" : "type:date",
+              "value" : "2014-12-05"
+            },
+            {
+              "@type" : "doc",
+              "key" : "pubDate",
+              "type" : "type:date",
+              "value" : "2014-12-06"
+            }
+          ],
+          "rewrites" : [
+            {
+              "@type" : "koral:rewrite",
+              "operation" : "operation:modification",
+              "src" : "querySerializer",
+              "scope" : "tree"
+            }
+          ]
+        }
       );
 
       expect(doc.element().classList.contains('docgroup')).toBeTruthy();
       expect(doc.element().classList.contains('rewritten')).toBe(false);
     });
   });
-  /*
-    describe('KorAP.DocKey', function () {
-    it('should be initializable', function () {
-    var docKey = KorAP.DocKey.create();
-    expect(docKey.toString()).toEqual('...');
-    });
-    });
-
-      expect(
-	function() { menuItemClass.create([]) }
-      ).toThrow(new Error("Missing parameters"));
-
-
-  */
 
   describe('KorAP.stringValue', function () {
     it('should be initializable', function () {
@@ -2080,15 +2074,56 @@ define(['vc'], function () {
       var sv = stringValClass.create();
       var count = 1;
       sv.store = function (value, regex) {
-	      expect(regex).toBe(true);
-	      expect(value).toBe('tree');
+        expect(regex).toBe(true);
+        expect(value).toBe('tree');
       };
       sv.regex(true);
       sv.value('tree');
       sv.element().lastChild.click();
     });
+
   });
 
+  describe('KorAP.VC.Menu', function () {
+    it('should be initializable', function () {
+
+      var vc = vcClass.create([
+        ['a', 'text'],
+        ['b', 'string'],
+        ['c', 'date']
+      ]).fromJson();
+      expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
+
+      // Click on unspecified
+      vc.element().firstChild.firstChild.click();
+      expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
+
+      var list = vc.element().firstChild.firstChild;
+      expect(list.getElementsByTagName("LI")[0].innerText).toEqual('a');
+      expect(list.getElementsByTagName("LI")[1].innerText).toEqual('b');
+      expect(list.getElementsByTagName("LI")[2].innerText).toEqual('c');
+
+      vc = vcClass.create([
+        ['d', 'text'],
+        ['e', 'string'],
+        ['f', 'date']
+      ]).fromJson();
+      expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
+
+      // Click on unspecified
+      vc.element().firstChild.firstChild.click();
+      expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
+
+      list = vc.element().firstChild.firstChild;
+      expect(list.getElementsByTagName("LI")[0].innerText).toEqual('d');
+      expect(list.getElementsByTagName("LI")[1].innerText).toEqual('e');
+      expect(list.getElementsByTagName("LI")[2].innerText).toEqual('f');
+    });
+  });
+
+  
   // Check prefix
   describe('KorAP.VC.Prefix', function () {
 
@@ -2101,10 +2136,10 @@ define(['vc'], function () {
 
     it('should be clickable', function () {
       var vc = vcClass.create([
-	      ['a', null],
-	      ['b', null],
-	      ['c', null]
-	    ]).fromJson();
+        ['a', null],
+        ['b', null],
+        ['c', null]
+      ]).fromJson();
       expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
 
       // This should open up the menu

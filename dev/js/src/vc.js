@@ -65,6 +65,29 @@ define([
   KorAP._vcKeyMenu = undefined;
   KorAP._vcDatePicker = dpClass.create();
 
+	// Create match menus ....
+	KorAP._vcMatchopMenu = {
+	  'string' : menuClass.create([
+	    ['eq', null],
+	    ['ne', null]
+	  ]),
+	  'text' : menuClass.create([
+	    ['eq', null],         // Requires exact match
+	    ['ne', null],
+	    ['contains', null],   // Requires token sequence match
+	    ['containsnot', null]
+	  ]),
+	  'date' : menuClass.create([
+	    ['eq', null],
+	    ['geq', null],
+	    ['leq', null]
+	  ]),
+	  'regex' : menuClass.create([
+	    ['eq', null],
+	    ['ne', null]
+	  ])
+	};
+
   /**
    * Virtual Collection
    */
@@ -101,30 +124,11 @@ define([
 	      );
 
 	      KorAP._overrideStyles = true;
-
-	      // Create key menu
-	      KorAP._vcKeyMenu = menuClass.create(keyList);
-	      KorAP._vcKeyMenu.limit(6);
-
-	      // Create match menus ....
-	      KorAP._vcMatchopMenu = {
-	        'string' : menuClass.create([
-	          ['eq', null],
-	          ['ne', null],
-	          ['contains', null],
-	          ['containsnot', null]
-	        ]),
-	        'date' : menuClass.create([
-	          ['eq', null],
-	          ['geq', null],
-	          ['leq', null]
-	        ]),
-	        'regex' : menuClass.create([
-	          ['eq', null],
-	          ['ne', null]
-	        ])
-	      };
       };
+
+	    // Create key menu
+      KorAP._vcKeyMenu = menuClass.create(keyList);
+      KorAP._vcKeyMenu.limit(6);
 
       return this;
     },
@@ -134,6 +138,7 @@ define([
      */
     create : function (keyList) {
       var obj = Object.create(this)._init(keyList);
+      console.log(keyList);
       obj._root = unspecDocClass.create(obj);
       return obj;
     },
