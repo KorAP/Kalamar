@@ -138,7 +138,6 @@ define([
      */
     create : function (keyList) {
       var obj = Object.create(this)._init(keyList);
-      console.log(keyList);
       obj._root = unspecDocClass.create(obj);
       return obj;
     },

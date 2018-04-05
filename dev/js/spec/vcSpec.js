@@ -2063,7 +2063,6 @@ define(['vc'], function () {
 
     it('should have a classed element', function () {
       var sv = stringValClass.create();
-      console.log(sv.element());
       expect(sv.element().classList.contains('regex')).toBe(false);
       expect(sv.regex()).toBe(false);
       sv.toggleRegex();
@@ -2085,9 +2084,12 @@ define(['vc'], function () {
   });
 
   describe('KorAP.VC.Menu', function () {
+
+    var vc;
+    
     it('should be initializable', function () {
 
-      var vc = vcClass.create([
+      vc = vcClass.create([
         ['a', 'text'],
         ['b', 'string'],
         ['c', 'date']
@@ -2121,6 +2123,34 @@ define(['vc'], function () {
       expect(list.getElementsByTagName("LI")[1].innerText).toEqual('e');
       expect(list.getElementsByTagName("LI")[2].innerText).toEqual('f');
     });
+
+    // Reinitialize to make tests stable
+    vc = vcClass.create([
+      ['d', 'text'],
+      ['e', 'string'],
+      ['f', 'date']
+    ]).fromJson();
+
+    it('should be clickable on key', function () {
+
+      // Click on "d"
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
+      expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
+      expect(vc.element().firstChild.firstChild.innerText).toEqual('d');
+      expect(vc.element().firstChild.children[1].innerText).toEqual('eq');
+      expect(vc.element().firstChild.children[1].getAttribute('data-type')).toEqual('text');
+    });
+
+    it('should be clickable on operation', function () {
+      vc.element().firstChild.children[1].click();
+      expect(vc.element().firstChild.children[1].tagName).toEqual('UL');
+      var ul = vc.element().firstChild.children[1];
+      expect(ul.getElementsByTagName('li')[0].innerText).toEqual("eq");
+      expect(ul.getElementsByTagName('li')[1].innerText).toEqual("ne");
+      expect(ul.getElementsByTagName('li')[2].innerText).toEqual("contains");
+      expect(ul.getElementsByTagName('li')[3].innerText).toEqual("containsnot");
+      expect(ul.getElementsByTagName('li')[4]).toBeUndefined();
+    })
   });
 
   

@@ -120,7 +120,6 @@ define([
 
       // Get the key menu
       var menu = KorAP._vcKeyMenu;
-
       // Add key menu element at the correct position
       this._element.insertBefore(
 	      menu.element(),	

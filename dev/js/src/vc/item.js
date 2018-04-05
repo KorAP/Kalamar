@@ -80,7 +80,8 @@ define(['menu/item', 'util'], function (itemClass) {
 
       // Create list item
       var li = document.createElement("li");
-      li.setAttribute("data-type", this._type);
+      if (this._type)
+        li.setAttribute("data-type", this._type);
       li.setAttribute("data-key",  this._key);
 
       // Connect action

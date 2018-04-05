@@ -9,7 +9,6 @@ define([
   'util'
 ], function (jsonldClass, rewriteListClass, stringValClass) {
 
-  _validRegexMatchRE  = new RegExp("^(?:eq|ne)$");
 
   const loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
@@ -253,7 +252,7 @@ define([
             // Try to create a regular expression
             var check = new RegExp(json["value"]);
 
-            if (!_validRegexMatchRE.test(this.matchop())) {
+            if (!KorAP._validStringMatchRE.test(this.matchop())) {
               KorAP.log(802, "Match type is not supported by value type");
 
               // Rewrite method

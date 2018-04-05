@@ -2,19 +2,19 @@ define(function () {
   return [
     // layerInfo                   // stored
     // tokenSource                 // stored
-    ['author', 'string'],          // text
+    ['author', 'text'],            // text
     // ['biblEditionStatement', 'string'], // stored
-    ['corpusAuthor', 'string'],    // text
+    ['corpusAuthor', 'text'],      // text
     // ['corpusEditor', 'string'], // stored
     ['corpusSigle', 'string'],     // string 
-    ['corpusSubTitle', 'string'],  // text
-    ['corpusTitle', 'string'],     // text
+    ['corpusSubTitle', 'text']  ,  // text
+    ['corpusTitle', 'text'],       // text
     ['creationDate', 'date'],      // int
-    ['docAuthor', 'string'],       // text
+    ['docAuthor', 'text'],         // text
     // ['docEditor', 'string'],    // stored
     ['docSigle', 'string'],        // string
-    ['docSubTitle', 'string'],     // text
-    ['docTitle', 'string'],        // text
+    ['docSubTitle', 'text'],       // text
+    ['docTitle', 'text'],          // text
     // ['editor', 'string'],       // stored
     // ['fileEditionStatement', 'string'], // stored
     ['foundries', 'string'],       // keywords
@@ -26,7 +26,7 @@ define(function () {
     // ['publisher', 'string'],    // stored
     ['pubPlace', 'string'],        // string
     // ['reference', 'string'],    // stored
-    ['subTitle', 'string'],        // text
+    ['subTitle', 'text'],          // text
     ['textClass', 'string'],       // keyword
     ['textColumn', 'string'],      // string
     ['textDomain', 'string'],      // string
@@ -34,6 +34,6 @@ define(function () {
     ['textType', 'string'],        // string
     ['textTypeArt', 'string'],     // string
     ['textTypeRef', 'string'],     // string
-    ['title', 'string']            // text
+    ['title', 'text']              // text
   ]
 });
