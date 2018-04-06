@@ -1,4 +1,4 @@
-0.26 2018-03-19
+0.26 2018-04-06
         - Added meta data view.
         - Attach reference line to match bottom.
         - Separate match views and integrate relation menu
@@ -12,6 +12,11 @@
         - Protect login for csrf attacks.
         - Remember app state after login (issue #20).
         - Fixed DRuKoLA annotation assistant data.
+        - Fixed server error reporting.
+        - Introduced text type in VC creation.
+        - Removed "contains" and "containsnot" from
+          string type.
+        - Added "ne" operation to date meta type.
 
 0.25 2018-01-31
         - Make annotation helper configurable.

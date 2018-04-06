@@ -10,6 +10,7 @@ define([
 ], function (jsonldClass, rewriteListClass, stringValClass) {
 
 
+  const errstr802 = "Match type is not supported by value type";
   const loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
 
@@ -54,7 +55,7 @@ define([
       // Set ref - TODO: Cleanup!
       e.refTo = this;
 
-      // Check if there is a change
+      // Check if there is a change in the underlying data
       if (this.__changed) {
 
         // Was rewritten
@@ -193,22 +194,58 @@ define([
         // Set match operation
         if (json["match"] !== undefined) {
           if (typeof json["match"] === 'string') {
+
             this.matchop(json["match"]);
           }
           else {
-            KorAP.log(802, "Match type is not supported by value type");
+            KorAP.log(802, errstr802);
             return;
           };
         };
+        
+        // Type is unspecified
+        if (json["type"] === undefined) {
 
-        // Key is a string
-        if (json["type"] === undefined ||
-            json["type"] == "type:string") {
+          // TODO:
+          // First check the VC list if the field is known
+
+          // Check match type
+          if (!KorAP._validUnspecMatchRE.test(this.matchop())) {
+            KorAP.log(802, errstr802);
+
+            // Rewrite method
+            this.matchop('eq');
+            rewrite = 'modification';
+          };
+
+          // Set string value
+          this.value(json["value"]);
+        }
+
+        // Field is string type
+        else if (json["type"] == "type:string") {
           this.type("string");
 
           // Check match type
           if (!KorAP._validStringMatchRE.test(this.matchop())) {
-            KorAP.log(802, "Match type is not supported by value type");
+            KorAP.log(802, errstr802);
+
+            // Rewrite method
+            this.matchop('eq');
+            rewrite = 'modification';
+          };
+
+          // Set string value
+          this.value(json["value"]);
+        }
+
+        // Field is specified
+        else if (json["type"] == "type:text") {
+          this.type("text");
+
+          // Check match type
+          if (!KorAP._validTextMatchRE.test(this.matchop())) {
+            KorAP.log(802, errstr802);
 
             // Rewrite method
             this.matchop('eq');
@@ -227,7 +264,7 @@ define([
               KorAP._validDateRE.test(json["value"])) {
 
             if (!KorAP._validDateMatchRE.test(this.matchop())) {
-              KorAP.log(802, "Match type is not supported by value type");
+              KorAP.log(802, errstr802);
 
               // Rewrite method
               this.matchop('eq');
@@ -253,7 +290,7 @@ define([
             var check = new RegExp(json["value"]);
 
             if (!KorAP._validStringMatchRE.test(this.matchop())) {
-              KorAP.log(802, "Match type is not supported by value type");
+              KorAP.log(802, errstr802);
 
               // Rewrite method
               this.matchop('eq');
@@ -336,15 +373,19 @@ define([
      * Get or set the match operator
      */
     matchop : function (match) {
+
       if (arguments.length === 1) {
         var m = match.replace(/^match:/, '');
+
         if (
-          (this._type === undefined)
+          (this._type == undefined) // && KorAP._validUnspecMatchRE.test(m))
             ||
             (
               (this._type === 'string' || this._type === 'regex') &&
                 KorAP._validStringMatchRE.test(m)
             )
+            ||
+            (this._type === 'text' && KorAP._validTextMatchRE.test(m))
             ||
             (this._type === 'date' && KorAP._validDateMatchRE.test(m))
         ) {
@@ -355,7 +396,7 @@ define([
         };
 
         this._changed();
-        return this;
+        return this
       };
       return this._matchop || "eq";
     },
@@ -499,7 +540,10 @@ define([
       this._rewrites = rewriteListClass.create(value);
     },
 
-    // Remove rewrite marker when the data changes
+    // Mark the underlying data as being changed.
+    // This is important for rerendering the dom.
+    // This will also remove rewrite markers, when the data
+    // change happened by the user
     _changed : function () {
       this.__changed = true;
 

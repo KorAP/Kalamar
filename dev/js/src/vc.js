@@ -56,9 +56,12 @@ define([
 ], function (unspecDocClass, docClass, docGroupClass, menuClass, dpClass) {
   "use strict";
 
-  // ???
-  KorAP._validStringMatchRE = new RegExp("^(?:eq|ne|contains(?:not)?|excludes)$");
+  KorAP._validUnspecMatchRE = new RegExp("^(?:eq|ne|contains(?:not)?|excludes)$");
+  KorAP._validStringMatchRE = new RegExp("^(?:eq|ne)$");
+  KorAP._validTextMatchRE = KorAP._validUnspecMatchRE;
+  KorAP._validTextOnlyMatchRE = new RegExp("^(?:contains(?:not)?|excludes)$");
   KorAP._overrideStyles     = false;
+  // KorAP._validDateMatchRE is defined in datepicker.js!
 
   const loc = KorAP.Locale;
 
@@ -79,6 +82,7 @@ define([
 	  ]),
 	  'date' : menuClass.create([
 	    ['eq', null],
+      ['ne', null],
 	    ['geq', null],
 	    ['leq', null]
 	  ]),

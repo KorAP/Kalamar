@@ -7,7 +7,7 @@
 define(['util'], function () {
   "use strict";
 
-  KorAP._validDateMatchRE   = new RegExp("^[lg]?eq$");
+  KorAP._validDateMatchRE   = new RegExp("^(?:[lg]?eq|ne)$");
   KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
 
   /*

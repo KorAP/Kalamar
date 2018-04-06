@@ -95,6 +95,7 @@ define(['vc'], function () {
     var stringFactory = buildFactory(docClass, {
       "key"   : "author",
       "value" : "Max Birkendale",
+      "type"  : "type:string",
       "@type" : "koral:doc"
     });
 
@@ -102,6 +103,7 @@ define(['vc'], function () {
     var textFactory = buildFactory(docClass, {
       "key"   : "author",
       "value" : "Birkendale",
+      "type"  : "type:string",
       "match" : "match:contains",
       "@type" : "koral:doc"
     });
@@ -251,7 +253,7 @@ define(['vc'], function () {
 
       // Invalid matcher!
       doc = dateFactory.create({
-        "match" : "match:ne",
+        "match" : "match:contains",
       });
       expect(doc).toBeDefined();
       expect(doc.rewrites()).toBeDefined();
@@ -2122,6 +2124,8 @@ define(['vc'], function () {
       expect(list.getElementsByTagName("LI")[0].innerText).toEqual('d');
       expect(list.getElementsByTagName("LI")[1].innerText).toEqual('e');
       expect(list.getElementsByTagName("LI")[2].innerText).toEqual('f');
+      // blur
+      document.body.click();
     });
 
     // Reinitialize to make tests stable
@@ -2132,25 +2136,103 @@ define(['vc'], function () {
     ]).fromJson();
 
     it('should be clickable on key', function () {
-
+      // Click on unspecified
+      vc.element().firstChild.firstChild.click();
       // Click on "d"
       vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
       expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
       expect(vc.element().firstChild.firstChild.innerText).toEqual('d');
       expect(vc.element().firstChild.children[1].innerText).toEqual('eq');
       expect(vc.element().firstChild.children[1].getAttribute('data-type')).toEqual('text');
+      // blur
+      document.body.click();
     });
 
-    it('should be clickable on operation', function () {
+    it('should be clickable on operation for text', function () {
+      // Click on "d" (or unspecified)
+      vc.element().firstChild.firstChild.click();
+
+      // Choose "d"
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
+
+      // Click on matchop
       vc.element().firstChild.children[1].click();
+
       expect(vc.element().firstChild.children[1].tagName).toEqual('UL');
+
       var ul = vc.element().firstChild.children[1];
       expect(ul.getElementsByTagName('li')[0].innerText).toEqual("eq");
       expect(ul.getElementsByTagName('li')[1].innerText).toEqual("ne");
       expect(ul.getElementsByTagName('li')[2].innerText).toEqual("contains");
       expect(ul.getElementsByTagName('li')[3].innerText).toEqual("containsnot");
       expect(ul.getElementsByTagName('li')[4]).toBeUndefined();
+
+      // Choose "contains"
+      ul.getElementsByTagName('li')[2].click();
+      expect(vc.element().firstChild.children[1].tagName).toEqual("SPAN");
+      expect(vc.element().firstChild.children[1].innerText).toEqual("contains");
+      // blur
+      document.body.click();
     })
+
+    it('should be clickable on operation for string', function () {
+      // Click on "d" (or unspecified)
+      vc.element().firstChild.firstChild.click();
+
+      // Choose "e"
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
+
+      // As a consequence the matchoperator may no longer
+      // be valid and needs to be re-evaluated
+      var fc = vc.element().firstChild;
+      expect(fc.firstChild.tagName).toEqual('SPAN');
+      expect(fc.firstChild.innerText).toEqual('e');
+      expect(fc.children[1].innerText).toEqual('eq');
+      expect(fc.children[1].getAttribute('data-type')).toEqual('string');
+
+      vc.element().firstChild.children[1].click();
+
+      expect(vc.element().firstChild.children[1].tagName).toEqual('UL');
+
+      var ul = vc.element().firstChild.children[1];
+      expect(ul.getElementsByTagName('li')[0].innerText).toEqual("eq");
+      expect(ul.getElementsByTagName('li')[1].innerText).toEqual("ne");
+      expect(ul.getElementsByTagName('li')[2]).toBeUndefined();
+
+      // Choose "ne"
+      ul.getElementsByTagName('li')[1].click();
+      expect(vc.element().firstChild.children[1].tagName).toEqual("SPAN");
+      expect(vc.element().firstChild.children[1].innerText).toEqual("ne");
+      // blur
+      document.body.click();
+    });
+
+    it('should be clickable on operation for date', function () {
+
+      // Replay matchop check - so it's guaranteed that "ne" is chosen
+      // Click on "e" (or unspecified)
+      vc.element().firstChild.firstChild.click();
+      // Rechoose "e"
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
+      // Click on matchop
+      vc.element().firstChild.children[1].click();
+      // Choose "ne"
+      vc.element().firstChild.children[1].getElementsByTagName('li')[1].click();
+      expect(vc.element().firstChild.children[1].innerText).toEqual("ne");
+
+      // Click on "e"
+      vc.element().firstChild.firstChild.click();
+      // Choose "f"
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[2].click();
+      
+      // The matchoperator should still be "ne" as this is valid for dates as well (now)
+      var fc = vc.element().firstChild;
+      expect(fc.firstChild.tagName).toEqual('SPAN');
+      expect(fc.firstChild.innerText).toEqual('f');
+      expect(fc.children[1].innerText).toEqual('ne');
+      // blur
+      document.body.click();
+    });
   });
 
   
