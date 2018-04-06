@@ -21,6 +21,7 @@ define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixC
       return obj;
     },
 
+
     /**
      * Register callback for click event.
      */
@@ -28,12 +29,26 @@ define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixC
       this._cb = cb;
     },
 
+
     /**
      * A click event was released
      */
     release : function (key, type) {
       if (this._cb !== undefined)
         this._cb(key, type);
+    },
+
+    /**
+     * Return a key type based on a key.
+     * This is a linear search, but should work okay for small
+     * VCs and small key lists.
+     */
+    typeOf : function (key) {
+      for (i in this._items) {
+        if (this._items[i].key() === key) {
+          return this._items[i].type();
+        }
+      };
     }
   };
 });

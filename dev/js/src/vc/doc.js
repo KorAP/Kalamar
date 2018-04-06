@@ -203,12 +203,19 @@ define([
           };
         };
         
-        // Type is unspecified
+        // Type is unspecified - but may be known by the menu
+        if (json["type"] === undefined && KorAP._vcKeyMenu) {
+
+          // Check the VC list if the field is known
+          var type = KorAP._vcKeyMenu.typeOf(this.key());
+          if (type != undefined) {
+            json["type"] = "type:" + type;
+          };
+        };
+
+        // Type is still undefined
         if (json["type"] === undefined) {
-
-          // TODO:
-          // First check the VC list if the field is known
-
+        
           // Check match type
           if (!KorAP._validUnspecMatchRE.test(this.matchop())) {
             KorAP.log(802, errstr802);

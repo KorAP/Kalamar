@@ -2233,6 +2233,22 @@ define(['vc'], function () {
       // blur
       document.body.click();
     });
+
+
+    // Check json deserialization
+    it('should be initializable', function () {
+      vc = vcClass.create([
+        ['a', 'text'],
+        ['b', 'string'],
+        ['c', 'date']
+      ]).fromJson({
+        "@type" : "koral:doc",
+        "key":"a",
+        "value":"Baum"
+      });
+     
+      expect(vc.element().firstChild.children[1].getAttribute('data-type')).toEqual('text');
+    });
   });
 
   
