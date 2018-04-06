@@ -782,6 +782,8 @@ define([
 
     // Set boundary for viewport
     _boundary : function (bool) {
+      if (this._list.length === 0)
+        return;
       this.item(this._list[0]).noMore(bool);
       this.item(this._list[this._list.length - 1]).noMore(bool);
     },

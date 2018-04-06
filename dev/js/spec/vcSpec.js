@@ -625,7 +625,7 @@ define(['vc'], function () {
       expect(docGroup.getOperand(1).key("name")).not.toBeNull();
       expect(docGroup.getOperand(1).ldType()).toEqual("doc");
       expect(docGroup.getOperand(1).key()).toEqual("name");
-      expect(docGroup.getOperand(1).value()).toEqual("");
+      expect(docGroup.getOperand(1).value()).toBeUndefined();
 
       op = docGroup.getOperand(1).element().lastChild;
       expect(op.getAttribute('class')).toEqual('operators button-group');
@@ -664,6 +664,21 @@ define(['vc'], function () {
       expect(op.children[2].getAttribute('class')).toEqual('delete');
       expect(op.children.length).toEqual(3);
     });
+
+    it('should be clickable', function () {
+      var vc = vcClass.create([
+        ["pubDate", "date"]
+      ]);
+      expect(vc.toQuery()).toEqual("");
+      expect(vc.element().firstChild.textContent).toEqual("⋯");
+      vc.element().firstChild.firstChild.click();
+
+      // Click on pubDate
+      vc.element().firstChild.getElementsByTagName("LI")[0].click();
+
+      expect(vc.element().firstChild.firstChild.textContent).toEqual("pubDate");
+      expect(vc.element().firstChild.children[1].getAttribute("data-type")).toEqual("date");
+    });    
   });
 
   describe('KorAP.Doc element', function () {

@@ -41,12 +41,9 @@ define([
 	      return null;
 
       // Set JSON-LD type
-      var newDoc = docClass.create(this._parent, {
-	      "@type" : "koral:doc",
-	      "value" : "",
-	      "key"   : v
-      });
-
+      var newDoc = docClass.create(this._parent);
+      newDoc.key(v);
+  
       // Unspecified document on root
       if (this._parent.ldType() === null) {
 	      this._parent.root(newDoc);
@@ -120,6 +117,7 @@ define([
 
       // Get the key menu
       var menu = KorAP._vcKeyMenu;
+
       // Add key menu element at the correct position
       this._element.insertBefore(
 	      menu.element(),	
