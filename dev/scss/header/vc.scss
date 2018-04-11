@@ -103,7 +103,8 @@ $bracket-size: .4em; // 4pt;
   .doc {
     padding-left: $left-padding;
     > span + span,
-    > span + div + span {
+    > span + div + span,
+    > span + ul + span {
       margin-left: 5pt;
     }
 
