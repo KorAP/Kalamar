@@ -51,19 +51,15 @@ define(['util'], function () {
       // and keep all other field information intact
       var metaInfo = {};
       for (var i in fields) {
-        var value = fields[i].value;
-        if (value instanceof Array) {
-          metaInfo[fields[i].key] = value.join(", ");
-        }
-        else {
-          metaInfo[fields[i].key] = value;
-        };
+        var value = fields[i].value;      	
+        metaInfo[fields[i].key] = value;	
       };
-
-      // console.log(fields);
-
+    
+      // console.log(fields);   
+      
       // TODO: Meta fields should be separated
-      var keys = Object.keys(metaInfo);
+      var keys = Object.keys(metaInfo);  
+      
       for (var i in keys.sort()) {
         var k = keys[i];
         if (k !== "UID" &&
@@ -77,11 +73,24 @@ define(['util'], function () {
             k !== "layerInfos") {
 
           var metaL = document.createElement('div');
+          
           var dt = metaL.addE('dt');
           dt.addT(k);
           dt.setAttribute("title", k);
-          metaL.addE('dd').addT(metaInfo[k]);
-
+          
+          var metaDescr = metaInfo[k];
+          metaDD =  metaL.addE('dd');
+          
+          if(metaDescr instanceof Array){
+        	metaDD.classList.add("metakeyvalues");  
+        	for(i = 0; i < metaDescr.length; i++){
+        	metaDD.addE('div').addT(metaDescr[i]);
+        	} 
+          }
+          else{
+          metaDD.addT(metaInfo[k]);
+          }
+      
           metaDL.appendChild(metaL);
         };
       };
