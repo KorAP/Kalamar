@@ -62,6 +62,7 @@ a {
   &[href^="http://"]::after,
   &[href^="https://"]::after {
     font-family: FontAwesome;
+    white-space: nowrap;
     content: " " + $fa-extlink;
     font-size: 75%;
   }
@@ -69,6 +70,7 @@ a {
   // Link to documentation
   &.doc-link::after {
     font-family: FontAwesome;
+    white-space: nowrap;
     content: " " + $fa-tutorial;
     font-size: 75%;
   }
