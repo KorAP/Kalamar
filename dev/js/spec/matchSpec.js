@@ -27,6 +27,40 @@ var match = {
   'available' : available
 };
 
+
+var fields = [
+	{
+    "@type": "koral:field",
+    "key": "author",
+    "type": "type:text",
+    "value": "Sprachpfleger, u.a."
+  },
+  {
+    "@type": "koral:field",
+    "key": "textClass",
+    "type": "type:keywords",
+    "value": ["kultur", "film"]
+  },
+  {
+    "@type":"koral:field",
+    "key":"foundries",
+    "type":"type:string",
+    "value":[
+      "corenlp",
+      "corenlp\/constituency",
+      "corenlp\/morpho",
+      "corenlp\/sentences",
+      "dereko",
+      "dereko\/structure",
+      "dereko\/structure\/base-sentences-paragraphs-pagebreaks",
+      "opennlp",
+      "opennlp\/morpho",
+      "opennlp\/sentences"
+    ]
+  }
+];
+
+
 var snippet = "<span title=\"cnx/l:meist\">" +
     "  <span title=\"cnx/p:ADV\">" +
     "    <span title=\"cnx/syn:@PREMOD\">" +
@@ -166,6 +200,7 @@ function matchElementReal () {
     '</li>';
   return me.firstChild;
 };
+
 
 define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
@@ -655,7 +690,57 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(menu.item(0).active()).toBe(false);
     });
   });
-
+  
+  //Test display and sorting of meta information 
+  describe('KorAP.Meta', function(){
+	 
+	  var metaClass = require("match/meta");
+	  var met = metaClass.create(match, fields);
+	  var mel = met.element(); 
+	  	  
+	  // Meta information should be parsed into a list
+	  it('should parse in a meta view', function(){
+		expect(mel.tagName).toEqual('DL');
+		expect(mel.children[0].tagName).toEqual('DIV');
+		expect(mel.children[0].children[0].tagName).toEqual('DT');
+		expect(mel.children[0].children[0].attributes[0].name).toEqual('title');
+		expect(mel.children[0].children[1].tagName).toEqual('DD');
+		
+		expect(mel.children[0].children[0].firstChild.nodeValue).toEqual('author');
+		expect(mel.children[0].children[1].firstChild.nodeValue).toEqual('Sprachpfleger, u.a.');
+		expect(mel.children[0].children[0].attributes[0].value).toEqual('author');
+	  });
+	  
+	  
+	 /* The keywords in the meta information list should be formatted to be able  
+	 to chose each keyword separately in the corpusByMatch assistant. */
+	 it('keywords should be formatted', function(){
+		
+		 //type:string or type:keyword should b not relevant
+		 expect(mel.children[1].children[1].classList.contains('metakeyvalues')).toBeTruthy;
+		 expect(mel.children[1].children[1].children[0].tagName).toEqual('DIV');
+		 expect(mel.children[1].children[1].children[0].firstChild.nodeValue).toEqual('corenlp');
+		 expect(mel.children[1].children[1].children[1].tagName).toEqual('DIV');
+		 expect(mel.children[1].children[1].children[1].firstChild.nodeValue).toEqual('corenlp\/constituency');
+		 
+		 expect(mel.children[2].children[1].classList.contains('metakeyvalues')).toBeTruthy;
+		 expect(mel.children[2].children[1].children[0].tagName).toEqual('DIV');
+		 expect(mel.children[2].children[1].children[0].firstChild.nodeValue).toEqual('kultur');
+		 expect(mel.children[2].children[1].children[1].tagName).toEqual('DIV');
+		 expect(mel.children[2].children[1].children[1].firstChild.nodeValue).toEqual('film');		 
+	  }); 
+  
+  
+	 // Meta information should be sorted alphabetically
+  it('should be alphabetically sorted', function(){
+  	var a = mel.children[0].children[0].firstChild.nodeValue;
+  	var b = mel.children[1].children[0].firstChild.nodeValue;
+  	var c = mel.children[2].children[0].firstChild.nodeValue;
+  	expect(a.localeCompare(b)).toBe(-1);
+  	expect(b.localeCompare(c)).toBe(-1);
+  });
+  
+});
   // table = view.toTable();
   // table.sortBy('');
   // table.element();
