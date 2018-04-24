@@ -76,6 +76,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
       if (this._onscroll !== undefined) {
         window.removeEventListener('scroll', this._onscroll);
       };
+      this.element().blur();
     },
 
     _repos : function (e) {

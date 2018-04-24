@@ -350,14 +350,42 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(e.classList.contains('active')).toBe(true);
       expect(e["_match"]).not.toBe(undefined);
 
+      actions = e.querySelector("p.ref > div.action.bottom").getElementsByTagName("span");
+      expect(actions[0].getAttribute("class")).toEqual("meta");
+      expect(actions[1].getAttribute("class")).toEqual("info");
+      expect(actions[2].getAttribute("class")).toEqual("tree");
+      
       // Close the match
       m.close();
       expect(e.classList.contains('active')).toBe(false);
       expect(e["_match"]).not.toBe(undefined);
-
     });
-  });
 
+    it('should open tree menu', function () {
+      var e = matchElementFactory();
+      var m = matchClass.create(e);
+      m.open();
+      var relation = e.querySelector("p.ref > div.action.bottom > span:nth-of-type(3)");
+      expect(relation.getAttribute("class")).toEqual("tree");
+      expect(document.getElementById("treeMenu")).toBeNull();
+
+      expect(document.activeElement.tagName).toEqual("BODY");
+
+      // Show menu
+      relation.click();
+      expect(document.getElementById("treeMenu")).toBeTruthy();
+
+      expect(document.activeElement.tagName).toEqual("UL");
+
+      // Choose first tree
+      document.getElementById("treeMenu").getElementsByTagName("li")[1].click();
+      expect(e.querySelector("div.matchinfo div.matchtree h6 span").innerText).toEqual("corenlp");
+
+      // This should blur the focus
+      expect(document.activeElement.tagName).toEqual("BODY");
+    });
+
+  });
 
   describe('KorAP.MatchInfo', function () {
 
