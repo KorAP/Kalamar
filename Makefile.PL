@@ -4,6 +4,10 @@ use warnings;
 
 use ExtUtils::MakeMaker;
 
+if ($^O =~ /^(MSWin32|cygwin)$/i) {
+  die "No support for Windows.\n";
+};
+
 WriteMakefile(
   VERSION_FROM => 'lib/Kalamar.pm',
   ABSTRACT     => 'Mojolicious-based Frontend for KorAP',
@@ -12,7 +16,7 @@ WriteMakefile(
   BUILD_REQUIRES => {
     'Test::More' => 0
   },
-  LICENSE      => 'bsd_2',
+  LICENSE      => 'freebsd',
   PREREQ_PM => {
     'Mojolicious' => '7.66',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.06,
