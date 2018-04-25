@@ -259,7 +259,7 @@ define([
 
       // Remove the active object
       this._unshow();
-      
+     
       // Get the menu
       var menu;
       if (menu = this.contextMenu(ifContext)) {
@@ -300,12 +300,12 @@ define([
     _unshow : function () {
       if (this.active() !== null) {
         // var act = this.active();
-        
+
         // This does not work for alert currently!
 	      //if (act._type !== 'alert') {
         if (!this._alert.active) {
           var c = this._inputField.container();
-	        c.removeChild(this._active.element());
+          c.removeChild(this._active.element());
 	      }
         else {
           this._unshowAlert();
