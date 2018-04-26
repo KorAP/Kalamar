@@ -7,7 +7,7 @@ requirejs.config({
 
 var hint = undefined;
 
-require(['hint','hint/array','lib/domReady'], function (hintClass, hintArray, domReady) {
+require(['hint','hint/foundries/cnx','lib/domReady'], function (hintClass, hintArray, domReady) {
   KorAP.hintArray = hintArray;
   KorAP.Hint = null;
   domReady(function() {

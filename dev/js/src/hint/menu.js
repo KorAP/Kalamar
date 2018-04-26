@@ -27,7 +27,7 @@ define(['menu',
 
       // This is only domspecific
       obj.element().addEventListener('blur', function (e) {
-	      this.menu.hide();
+        this.menu.hideWithoutDestruction();
       });
 
       // Focus on input field on hide
@@ -44,6 +44,16 @@ define(['menu',
      */ 
     hint : function () {
       return this._hint;
+    },
+
+    /**
+     * Hide the menu just for the moment,
+     * without cleaning up anything.
+     */
+    hideWithoutDestruction : function () {
+      this.element().classList.remove("visible");
+      if (this._hint)
+        this._hint.inputField().element().focus();
     }
   };
 });
