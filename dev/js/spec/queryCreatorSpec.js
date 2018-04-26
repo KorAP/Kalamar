@@ -1,5 +1,11 @@
 function matchTableFactory () {
   var table = document.createElement('div');
+
+  Element.prototype.innerString = function () {
+    return this.innerText.split("\n").join("");
+  };
+
+  
   table.className = 'matchtable';
   table.innerHTML = 
     "    <table>" +
@@ -124,7 +130,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Click on cell 0:0 "Foundry"
       var cell = matchTable.querySelector("thead > tr > th:first-child");
-      expect(cell.innerText).toEqual("Foundry");
+      expect(cell.innerString()).toEqual("Foundry");
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
       expect(qc.toString()).toEqual("");
@@ -132,7 +138,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Click on cell 0:2 "Der"
       cell = matchTable.querySelector("thead > tr > th:nth-child(3)")
-      expect(cell.innerText).toEqual("Der");
+      expect(cell.innerString()).toEqual("Der");
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
       expect(qc.toString()).toEqual("[orth=Der]");
@@ -140,7 +146,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Click on cell 0:2 "Der" again - to hide
       cell = matchTable.querySelector("thead > tr > th:nth-child(3)")
-      expect(cell.innerText).toEqual("Der");
+      expect(cell.innerString()).toEqual("Der");
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
       expect(qc.toString()).toEqual("");
@@ -152,17 +158,17 @@ define(['match/querycreator'], function (qcClass) {
       var qc = qcClass.create(matchTable);
 
       var cell = matchTable.querySelector("tbody > tr:nth-child(2) > td:nth-child(4)");
-      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.innerString()).toEqual("ADJA");
       cell.click();
       expect(qc.toString()).toEqual("[opennlp/p=ADJA]");
 
       cell = matchTable.querySelector("thead > tr > th:nth-child(4)");
-      expect(cell.innerText).toEqual("älteste");
+      expect(cell.innerString()).toEqual("älteste");
       cell.click();
       expect(qc.toString()).toEqual("[opennlp/p=ADJA & orth=älteste]");
 
       cell = matchTable.querySelector("tbody > tr > td:nth-child(4)");
-      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.innerString()).toEqual("ADJA");
       cell.click();
       expect(qc.toString()).toEqual("[corenlp/p=ADJA & opennlp/p=ADJA & orth=älteste]");
     });
@@ -172,17 +178,17 @@ define(['match/querycreator'], function (qcClass) {
       var qc = qcClass.create(matchTable);
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
-      expect(cell.innerText).toEqual("lebende");
+      expect(cell.innerString()).toEqual("lebende");
       cell.click();
       expect(qc.toString()).toEqual("[orth=lebende]");
 
       cell = matchTable.querySelector("tbody > tr:nth-child(2) > td:nth-child(3)");
-      expect(cell.innerText).toEqual("ART");
+      expect(cell.innerString()).toEqual("ART");
       cell.click();
       expect(qc.toString()).toEqual("[opennlp/p=ART][][orth=lebende]");
 
       cell = matchTable.querySelector("tbody > tr > td:nth-child(4)");
-      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.innerString()).toEqual("ADJA");
       cell.click();
       expect(qc.toString()).toEqual("[opennlp/p=ART][corenlp/p=ADJA][orth=lebende]");
     });
@@ -192,31 +198,31 @@ define(['match/querycreator'], function (qcClass) {
       var qc = qcClass.create(matchTable);
 
       var cell = matchTable.querySelector("tbody > tr:nth-child(2) > td:nth-child(4)");
-      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.innerString()).toEqual("ADJA");
       cell.click();
       expect(qc.toString()).toEqual("[opennlp/p=ADJA]");
       var cell1 = cell;
 
       cell = matchTable.querySelector("thead > tr > th:nth-child(4)");
-      expect(cell.innerText).toEqual("älteste");
+      expect(cell.innerString()).toEqual("älteste");
       cell.click();
       expect(qc.toString()).toEqual("[opennlp/p=ADJA & orth=älteste]");
       var cell2 = cell;
 
       cell = matchTable.querySelector("tbody > tr > td:nth-child(3)");
-      expect(cell.innerText).toEqual("ART");
+      expect(cell.innerString()).toEqual("ART");
       cell.click();
       expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste]");
       var cell3 = cell;
 
       cell = matchTable.querySelector("thead > tr > th:nth-child(6)");
-      expect(cell.innerText).toEqual("Baum");
+      expect(cell.innerString()).toEqual("Baum");
       cell.click();
       expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste][][orth=Baum]");
       var cell4 = cell;
 
       cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
-      expect(cell.innerText).toEqual("lebende");
+      expect(cell.innerString()).toEqual("lebende");
       cell.click();
       expect(qc.toString()).toEqual("[corenlp/p=ART][opennlp/p=ADJA & orth=älteste][orth=lebende][orth=Baum]");
       var cell5 = cell;
@@ -284,14 +290,14 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.element().className).toEqual("queryfragment");
 
       var cell = matchTable.querySelector("tbody > tr:nth-child(2) > td:nth-child(4)");
-      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.innerString()).toEqual("ADJA");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
       expect(qc.toString()).toEqual("[opennlp/p=ADJA]");
 
       cell = matchTable.querySelector("tbody > tr:nth-child(2) > td:nth-child(5)");
-      expect(cell.innerText).toEqual("");
+      expect(cell.innerString()).toEqual("");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -311,14 +317,14 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.element().className).toEqual("queryfragment");
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
-      expect(cell.innerText).toEqual("lebende");
+      expect(cell.innerString()).toEqual("lebende");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
       expect(qc.toString()).toEqual("[orth=lebende]");
 
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(5)");
-      expect(cell.innerText).toEqual("ADJAADJD");
+      expect(cell.innerString()).toEqual("ADJAADJD");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
@@ -346,14 +352,14 @@ define(['match/querycreator'], function (qcClass) {
       var corenlpRow = matchTable.querySelector("tbody > tr:nth-child(1)");
 
       var cell = corenlpRow.querySelector("td:nth-child(4)");
-      expect(cell.innerText).toEqual("ADJA");
+      expect(cell.innerString()).toEqual("ADJA");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
 
       // Activate another cell in another row
       cell = matchTable.querySelector("tbody > tr:nth-child(2) td:nth-child(3)");
-      expect(cell.innerText).toEqual("ART");
+      expect(cell.innerString()).toEqual("ART");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
@@ -367,7 +373,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Mark all corenlp lists
       cell = corenlpRow.querySelector("th:nth-child(1)");
-      expect(cell.innerText).toEqual("corenlp");
+      expect(cell.innerString()).toEqual("corenlp");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -379,7 +385,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Replay the choice without any effect
       cell = corenlpRow.querySelector("th:nth-child(1)");
-      expect(cell.innerText).toEqual("corenlp");
+      expect(cell.innerString()).toEqual("corenlp");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -394,7 +400,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Remove one of the cells again
       cell = corenlpRow.querySelector("td:nth-child(5).chosen");
-      expect(cell.innerText).toEqual("ADJAADJD");
+      expect(cell.innerString()).toEqual("ADJAADJD");
       expect(cell.classList.contains("chosen")).toBeTruthy();
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -418,7 +424,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Mark all opennlp lists
       cell = opennlpRow.querySelector("th:nth-child(1)");
-      expect(cell.innerText).toEqual("opennlp");
+      expect(cell.innerString()).toEqual("opennlp");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -436,17 +442,17 @@ define(['match/querycreator'], function (qcClass) {
       var qc = qcClass.create(matchTable);
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(3)");
-      expect(cell.innerText).toEqual("Der");
+      expect(cell.innerString()).toEqual("Der");
       cell.click();
       expect(qc.toString()).toEqual("[orth=Der]");
 
       cell = matchTable.querySelector("thead > tr > th:nth-child(7)");
-      expect(cell.innerText).toEqual("hier");
+      expect(cell.innerString()).toEqual("hier");
       cell.click();
       expect(qc.toString()).toEqual("[orth=Der][]{3}[orth=hier]");
 
       cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
-      expect(cell.innerText).toEqual("lebende");
+      expect(cell.innerString()).toEqual("lebende");
       cell.click();
       expect(qc.toString()).toEqual("[orth=Der][][orth=lebende][][orth=hier]");
     });
@@ -463,7 +469,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.element().className).toEqual("queryfragment");
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
-      expect(cell.innerText).toEqual("lebende");
+      expect(cell.innerString()).toEqual("lebende");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
@@ -471,7 +477,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Check complex cell
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6)");
-      expect(cell.innerText).toMatch(/case:nom/);
+      expect(cell.innerString()).toMatch(/case:nom/);
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -479,7 +485,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Check complex cell div
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(1)");
-      expect(cell.innerText).toEqual('case:nom');
+      expect(cell.innerString()).toEqual('case:nom');
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(true);
@@ -487,7 +493,7 @@ define(['match/querycreator'], function (qcClass) {
       var cell = cell;
 
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(3)");
-      expect(cell.innerText).toEqual('number:sg');
+      expect(cell.innerString()).toEqual('number:sg');
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(true);
@@ -495,7 +501,7 @@ define(['match/querycreator'], function (qcClass) {
       var cell2 = cell;
 
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(2)");
-      expect(cell.innerText).toEqual('gender:mascgender:fem');
+      expect(cell.innerString()).toEqual('gender:mascgender:fem');
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(true);
@@ -504,7 +510,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Remove cell again
       cell = cell2;
-      expect(cell.innerText).toEqual('number:sg');
+      expect(cell.innerString()).toEqual('number:sg');
       expect(cell.classList.contains("chosen")).toBe(true);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -512,7 +518,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Remove cell again
       cell = cell3;
-      expect(cell.innerText).toEqual('gender:mascgender:fem');
+      expect(cell.innerString()).toEqual('gender:mascgender:fem');
       expect(cell.classList.contains("chosen")).toBe(true);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
@@ -536,7 +542,7 @@ define(['match/querycreator'], function (qcClass) {
 
       // Mark all opennlp lists
       cell = corenlpRow.querySelector("th:nth-child(1)");
-      expect(cell.innerText).toEqual("corenlp");
+      expect(cell.innerString()).toEqual("corenlp");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
