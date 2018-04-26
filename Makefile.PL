@@ -4,7 +4,7 @@ use warnings;
 
 use ExtUtils::MakeMaker;
 
-if ($^O =~ /^(MSWin32|cygwin)$/i) {
+if ($^O =~ /^(MSWin32|cygwin|msys)$/i) {
   die "No support for Windows.\n";
 };
 
