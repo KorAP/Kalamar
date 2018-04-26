@@ -48,12 +48,14 @@ define(['menu',
 
     /**
      * Hide the menu just for the moment,
-     * without cleaning up anything.
+     * without cleaning up anything,
+     /* but resetting the prefix.
      */
     hideWithoutDestruction : function () {
       this.element().classList.remove("visible");
-      if (this._hint)
+      if (this._hint) {
         this._hint.inputField().element().focus();
+      };
     }
   };
 });

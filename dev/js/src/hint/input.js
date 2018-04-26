@@ -58,6 +58,14 @@ define({
 
 
   /**
+     * Reset the input value
+   */
+  reset : function () {
+    this._element.value = "";
+  },
+
+
+  /**
    * Update the mirror content.
    */
   update : function () {

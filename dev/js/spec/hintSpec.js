@@ -46,7 +46,7 @@ define(['hint'], function () {
 
     afterEach(function () {
       document.getElementsByTagName("body")[0].removeChild(
-  input
+        input
       );    
     });
 
@@ -277,6 +277,50 @@ define(['hint'], function () {
       expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(0);
     });
 
+
+    it('should open menus depending on the context', function () {
+      var hint = hintClass.create({
+        inputField : input
+      });
+      hint.inputField().reset();
+
+      expect(hint.active()).toBeFalsy();
+
+      // show with context
+      hint.show(false);
+
+      expect(hint.active()).toBeTruthy();
+      
+      expect(hint.inputField().container().getElementsByTagName('li')[0].firstChild.innerText).toEqual("Base Annotation");
+
+      // Type in prefix
+      hint.active().prefix("cor").show();
+      expect(hint.active().prefix()).toEqual("cor");
+
+      // Click first step
+      expect(hint.inputField().container().getElementsByTagName('li')[0].firstChild.firstChild.innerText).toEqual("Cor");
+      hint.inputField().container().getElementsByTagName('li')[0].click();
+
+      expect(hint.active()).toBeTruthy();
+      
+      // Click second step
+      expect(hint.inputField().container().getElementsByTagName('li')[0].firstChild.innerText).toEqual("Named Entity");
+      hint.inputField().container().getElementsByTagName('li')[0].click()
+
+      // Invisible menu
+      expect(hint.inputField().container().getElementsByTagName('li')[0]).toBeUndefined();
+
+      // Inactive menu
+      expect(hint.active()).toBeFalsy();
+
+      // show with context
+      hint.show(false);
+
+      // No prefix
+      expect(hint.active().prefix()).toEqual("");
+    });
+
+    
     it('should not view main menu if context is mandatory', function () {
       var hint = hintClass.create({
         inputField : input

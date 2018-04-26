@@ -50,12 +50,15 @@ define(['menu/item', 'util'], function (itemClass) {
       var h = m.hint();
       // m.hide();
 
+      // Reset prefix
+      m.prefix("");
+
       // Update input field
       var input = h.inputField();
       input.insert(this._action).update();
 
       e.halt();
-
+     
       // show alt
       h.show(true);
     },
