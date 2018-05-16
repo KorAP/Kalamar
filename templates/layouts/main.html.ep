@@ -73,7 +73,7 @@
 
     % unless ($embedded) {
     <footer>
-      <a href="http://korap.ids-mannheim.de/"><%= loc 'about' %></a>
+      <a href="http://www1.ids-mannheim.de/kl/projekte/korap/"><%= loc 'about' %></a>
       <%= doc_link_to 'V '. $Kalamar::VERSION, 'korap', 'kalamar' %>
     </footer>
     % };
