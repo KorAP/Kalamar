@@ -26,6 +26,7 @@ WriteMakefile(
     'Mojolicious::Plugin::MailException' => 0.20,
     'Mojolicious::Plugin::CHI' => 0.15,
     'Mojolicious::Plugin::ClientIP' => 0.01,
+    'Mojolicious::Plugin::Piwik' => 0.20,
     'Cache::FastMmap' => 0,
     'Mojo::JWT' => 0.05,
 

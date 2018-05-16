@@ -17,6 +17,7 @@
         - Removed "contains" and "containsnot" from
           string type.
         - Added "ne" operation to date meta type.
+        - Added Piwik/Matomo integration.
 
 0.25 2018-01-31
         - Make annotation helper configurable.

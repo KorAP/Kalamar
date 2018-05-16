@@ -129,7 +129,8 @@ sub startup {
     'KalamarHelpers',            # Specific Helpers for Kalamar
     'KalamarUser',               # Specific Helpers for Kalamar
     'ClientIP',                  # Get client IP from X-Forwarded-For
-    'ClosedRedirect'             # Redirect with OpenRedirect protection
+    'ClosedRedirect',            # Redirect with OpenRedirect protection
+    'Piwik'                      # Integrate Piwik/Matomo Analytics
   ) {
     $self->plugin($_);
   };
