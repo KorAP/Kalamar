@@ -11,7 +11,7 @@ my $app = $t->app;
 push(@{$app->plugins->namespaces}, 'Kalamar::Plugin');
 
 # Establish test route
-$app->routes->get('/doc/(*scope)/:page')->to(cb => sub {})->name('doc');
+$app->routes->get('/doc/*scope/:page')->to(cb => sub {})->name('doc');
 
 # Load plugin to test
 $app->plugin('KalamarHelpers');
