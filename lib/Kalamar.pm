@@ -174,9 +174,8 @@ sub startup {
   $r->get('/')->to('search#query')->name('index');
 
   # Collection route
-  # TODO: Probably rename to /corpus
-  $r->get('/collection')->to('Search#collections')->name('collections');
-  $r->get('/collection/:id')->to('Search#collection')->name('collection');
+  $r->get('/corpus')->to('Search#corpus_info')->name('corpus');
+  # $r->get('/collection/:id')->to('Search#corpus_info')->name('collection');
 
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');

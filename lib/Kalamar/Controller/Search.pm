@@ -1,5 +1,6 @@
 package Kalamar::Controller::Search;
 use Mojo::Base 'Mojolicious::Controller';
+use Mojo::Util qw/deprecated/;
 
 
 # Query the KorAP backends and render a template
@@ -183,11 +184,31 @@ sub match_info {
 
 
 # Get information about collections
-sub collections {
+sub corpus_info {
   my $c = shift;
+  my $v = $c->validation;
+
+  $v->optional('cq');
 
   # Async
   $c->render_later;
+
+  $c->search->statistics(
+    cq => $v->param('cq'),
+    sub {
+      my $notes = $c->notifications(json => $c->stash('search.resource'));
+      return $c->render(json => $notes);
+    }
+  );
+};
+
+
+sub collections {
+  my $c = shift;
+  # Async
+  $c->render_later;
+
+  deprecated 'collections() is deprecated in favour of corpus_info';
 
   # Get resource (for all)
   $c->search->resource(

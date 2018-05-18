@@ -285,6 +285,55 @@ sub text {
 };
 
 
+# Get corpus statistics
+sub statistics {
+  my $self = shift;
+  my $index = shift;
+
+  # Get controller
+  my $c = $index->controller;
+
+  # If there is a callback, do async
+  my $cb = pop if ref $_[-1] && ref $_[-1] eq 'CODE';
+
+  my %param = @_;
+
+  my $url = Mojo::URL->new($index->api);
+
+  # Use hash slice to create path
+  $url->path('statistics');
+
+  my %query;
+  $query{corpusQuery} = $param{cq};
+
+  # Add query
+  $url->query(\%query);
+
+  $c->stash('search._resource_cache' => $url->to_string);
+
+  $c->app->log->debug('Statistics info: ' . $url);
+
+  # non-blocking
+  if ($cb) {
+    $c->user->auth_request(
+      get =>
+        $url => sub {
+          my $tx = pop;
+          $self->_process_response('resource', $index, $tx);
+          weaken $index;
+          return $cb->($index);
+        });
+  }
+
+  # Statistics info blocking
+  else {
+    my $tx = $c->user->auth_request(get => $url);
+    return $self->_process_response('resource', $index, $tx);
+  };
+};
+
+
+
 # Get resource information
 sub resource {
   my $self = shift;
