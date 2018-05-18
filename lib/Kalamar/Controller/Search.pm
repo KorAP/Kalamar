@@ -50,7 +50,11 @@ sub query {
   my $template = scalar $v->param('snippet') ? 'snippet' : 'search';
 
   # Search non-blocking
-  $c->delay(
+  my $tx = $c->render_later->tx;
+
+  # TODO:
+  #   This should be simplified to use Promises only
+  Mojo::IOLoop->delay(
     sub {
       my $delay = shift;
 
@@ -76,7 +80,7 @@ sub query {
       # Render to the template
       return $c->render(template => $template);
     }
-  );
+  )->catch(sub { $c->helpers->reply->exception(pop) and undef $tx })->wait;
 };
 
 

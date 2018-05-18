@@ -20,6 +20,9 @@ use warnings;
 # TODO: Correct use of stash info everywhere!
 # TODO: Alot is now underneath "meta"
 
+# TODO:
+#   Rewrite to use promises!
+
 
 # Register the plugin
 sub register {
@@ -84,7 +87,7 @@ sub search {
   my $user = $c->stash('user') // 'not_logged_in';
 
   if (!$index->no_cache &&
-	defined ($total_results = $c->chi->get($user . $index->_api_cache))) {
+        defined ($total_results = $c->chi->get($user . $index->_api_cache))) {
 
     # Set total results from cache
     $index->total_results($total_results);
