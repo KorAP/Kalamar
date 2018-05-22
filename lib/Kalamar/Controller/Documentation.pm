@@ -28,6 +28,7 @@ sub page {
   return $c->render(
     sidebar_active => 1,
     main_class     => 'tutorial',
+    documentation => 1,
     template       => $c->loc('Template_' . join('_', @path), join('/', @path))
   );
 };

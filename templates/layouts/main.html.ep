@@ -25,39 +25,9 @@
     <script>document.body.classList.remove('no-js');</script>
     <div id="kalamar-bg"></div>
 
-% if (!$embedded && !user_auth && stash('auth_support')) { # user not logged in
-% content_for 'sidebar', begin
-% if (flash('handle_or_email') && !param('handle_or_email')) {
-%   param(handle_or_email => flash('handle_or_email'));
-% };
-<fieldset>
-  %= form_for 'login', class => 'login', begin
-  <legend><span><%= loc 'login' %></span></legend>
-    %= csrf_field
-    %= text_field 'handle_or_email', placeholder => loc('userormail')
-    %= hidden_field fwd => $c->url_with
-    <div>
-      %= password_field 'pwd', placeholder => loc('pwd')
-      <button type="submit"><span><%= loc 'go' %></span></button>
-    </div>
-    % end
-    <p><%== loc 'loginExplanation' %></p>
-%#  <ul>
-%#    <li><%= link_to loc('register') => 'register' %></li>
-%#    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
-%#  </ul>
-
-</fieldset>
-% end
-% }
-
-    % my $aside = content_for('sidebar');
-    <aside tabindex="0" class="<% unless (length($aside) > 0) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
-      <div>
-      %= $aside
-      </div>
-    </aside>
-
+    
+    %= include 'partial/side', embedded => $embedded
+    
     % unless ($embedded) {
       %= include 'partial/header'
     % }
@@ -72,10 +42,7 @@
     </main>
 
     % unless ($embedded) {
-    <footer>
-      <a href="http://www1.ids-mannheim.de/kl/projekte/korap/"><%= loc 'about' %></a>
-      <%= doc_link_to 'V '. $Kalamar::VERSION, 'korap', 'kalamar' %>
-    </footer>
+      %= include 'partial/footer'
     % };
     %= notifications 'Kalamar::Plugin::Notifications'
     %= piwik_tag
