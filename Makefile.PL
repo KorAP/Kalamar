@@ -20,7 +20,6 @@ WriteMakefile(
   PREREQ_PM => {
     'Mojolicious' => '7.66',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.06,
-    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.05,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.09,
     'Mojolicious::Plugin::ClosedRedirect' => 0.13,
     'Mojolicious::Plugin::Notifications' => 1.01,
@@ -33,7 +32,8 @@ WriteMakefile(
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Search' => 0.07,
-    'Mojolicious::Plugin::Localize' => 0.16,
+    'Mojolicious::Plugin::Localize' => 0.17,
+    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.05,
   },
   test => {
     TESTS => 't/*.t'
