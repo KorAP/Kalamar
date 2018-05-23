@@ -1,4 +1,3 @@
 <footer>
-  <a href="http://www1.ids-mannheim.de/kl/projekte/korap/"><%= loc 'about' %></a>
-  <%= doc_link_to 'V '. $Kalamar::VERSION, 'korap', 'kalamar' %>
+  %= content_block 'footer'
 </footer>

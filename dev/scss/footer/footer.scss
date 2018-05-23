@@ -11,14 +11,20 @@ footer {
   font-size: 70%;
   width: 100%;
   text-align: right;
-  a:link {
-    margin: 0 .5em;
-    color: $light-grey;
-  }
-  a:visited {
-    color: $light-grey;
-  }
-  a:hover {
-    color: $nearly-white;
+  a {
+    &:link {
+      margin: 0 .5em;
+      color: $light-grey;
+    }
+    &:visited {
+      color: $light-grey;
+    }
+    &:hover {
+      color: $nearly-white;
+    }
+    &[href^="http://"]::after,
+    &[href^="https://"]::after {
+      content: none
+    }
   }
 }

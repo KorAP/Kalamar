@@ -54,6 +54,8 @@ my $THOUSAND_SEP_RE = qr/(
       desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
       overview => 'KorAP - Übersicht',
     },
+    privacy => 'Datenschutz',
+    imprint => 'Impressum',
     Auth => {
       loginSuccess => 'Anmeldung erfolgreich',
       loginFail => 'Anmeldung fehlgeschlagen',
@@ -149,6 +151,8 @@ my $THOUSAND_SEP_RE = qr/(
       cql => 'CQL v1.2',
       fcsql => 'FCSQL'
     },
+    privacy => 'Privacy',
+    imprint => 'Imprint',
     Auth => {
       loginSuccess => 'Login successful',
       loginFail => 'Access denied',

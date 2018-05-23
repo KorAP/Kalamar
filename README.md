@@ -5,8 +5,6 @@ frontend for the [KorAP Corpus Analysis Platform](http://korap.ids-mannheim.de/)
 
 ![Kalamar Screenshots](https://raw.githubusercontent.com/KorAP/Kalamar/master/dev/demo/img/screenshots.png)
 
-**! This software is in its early stages and not stable yet! Use it on your own risk!**
-
 ## INSTALLATION
 
 ### Setup
@@ -60,6 +58,7 @@ This will probably need administration rights.
 ```
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-Search.git
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+$ cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
 ```
 
 Then install the dependencies using

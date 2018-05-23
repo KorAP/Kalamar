@@ -6,7 +6,7 @@ use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
@@ -130,6 +130,7 @@ sub startup {
     'KalamarUser',               # Specific Helpers for Kalamar
     'ClientIP',                  # Get client IP from X-Forwarded-For
     'ClosedRedirect',            # Redirect with OpenRedirect protection
+    'TagHelpers::ContentBlock',  # Flexible content blocks
     'Piwik'                      # Integrate Piwik/Matomo Analytics
   ) {
     $self->plugin($_);
@@ -169,6 +170,12 @@ sub startup {
       }
     );
   };
+
+  # Set footer value
+  $self->content_block(footer => (
+    inline => '<%= doc_link_to "V ' . $Kalamar::VERSION . '", "korap", "kalamar" %>',
+    position => 100
+  ));
 
   # Base query route
   $r->get('/')->to('search#query')->name('index');
