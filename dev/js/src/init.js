@@ -45,6 +45,8 @@ define([
 
   const d = document;
 
+  KorAP.session = sessionClass.create('KalamarJS');
+
   // Override KorAP.log
   window.alertify = alertifyClass;
   KorAP.log = function (code, msg) {
@@ -61,10 +63,8 @@ define([
   domReady(function (event) {
     var obj = {};
 
-    var session = sessionClass.create('KalamarJS');
-
     // What should be visible?
-    var show = session.get('show') || {};
+    var show = KorAP.session.get('show') || {};
 
     /**
      * Release notifications
@@ -345,7 +345,7 @@ define([
     if (d.getElementById('view-tutorial')) {
       window.tutorial = tutClass.create(
         d.getElementById('view-tutorial'),
-        session
+        KorAP.session
       );
       obj.tutorial = window.tutorial;
     }
@@ -381,7 +381,7 @@ define([
         };
 
         // Store session information
-        session.set("show", show);
+        KorAP.session.set("show", show);
 
         // Set Virtual collection 
         if (vc === undefined) {
