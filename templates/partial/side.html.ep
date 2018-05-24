@@ -15,7 +15,9 @@
         <button type="submit"><span><%= loc 'go' %></span></button>
       </div>
     % end
-    <p><%== loc 'loginExplanation' %></p>
+
+    %= content_block 'loginInfo'
+
     %#  <ul>
     %#    <li><%= link_to loc('register') => 'register' %></li>
     %#    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>

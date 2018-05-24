@@ -153,6 +153,17 @@ aside {
     > p {
       color: $light-green;
     }
+    > p.announcement {
+      color: $nearly-white;
+      > time {
+        display: block;
+        font-size: 70%;
+      }
+    }
+    hr {
+      border: none;
+      border-top: 2px solid $ids-grey-2;
+    }
     ul {
       display: block;
       font-size: 80%;

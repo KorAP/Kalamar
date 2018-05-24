@@ -48,7 +48,6 @@ my $THOUSAND_SEP_RE = qr/(
     notFound => '404 - Seite nicht gefunden',
     jsFile => 'kalamar-<%= $Kalamar::VERSION %>-de.js',
     underConstruction => 'In Vorbereitung!',
-    loginExplanation => 'Anmeldung mit einem registrierten <%= link_to "Cosmas-II" => "https://www.ids-mannheim.de/cosmas2/projekt/registrierung/", style => "white-space: nowrap" %>-Konto',
     korap => {
       -short => 'KorAP',
       desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
@@ -137,7 +136,6 @@ my $THOUSAND_SEP_RE = qr/(
     activateJS => 'To make use of all features, please activate JavaScript!',
     faq => 'F.A.Q.',
     underConstruction => 'Under Construction!',
-    loginExplanation => 'Login with a registered <%= link_to "Cosmas-II" => "https://www.ids-mannheim.de/cosmas2/projekt/registrierung/", style => "white-space: nowrap" %> account',
     tutorial => 'Tutorial',
     korap => {
       -short => 'KorAP',
