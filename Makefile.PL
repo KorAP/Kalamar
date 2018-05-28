@@ -33,7 +33,7 @@ WriteMakefile(
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Search' => 0.07,
     'Mojolicious::Plugin::Localize' => 0.17,
-    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.05,
+    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.08,
   },
   test => {
     TESTS => 't/*.t'

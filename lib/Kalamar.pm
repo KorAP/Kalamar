@@ -172,10 +172,10 @@ sub startup {
   };
 
   # Set footer value
-  $self->content_block(footer => (
+  $self->content_block(footer => {
     inline => '<%= doc_link_to "V ' . $Kalamar::VERSION . '", "korap", "kalamar" %>',
     position => 100
-  ));
+  });
 
   # Base query route
   $r->get('/')->to('search#query')->name('index');

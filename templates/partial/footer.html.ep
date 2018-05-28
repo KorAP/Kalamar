@@ -1,3 +1,3 @@
 <footer>
-  %= content_block 'footer'
+  %= content_block 'footer', separator => '<span class="separator"></span>'
 </footer>

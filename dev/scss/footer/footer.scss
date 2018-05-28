@@ -28,4 +28,10 @@ footer {
       content: none
     }
   }
+  span.separator {
+    &:after {
+      content: "-";
+      color: $light-grey;
+    }
+  }
 }

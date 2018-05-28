@@ -16,7 +16,7 @@
       </div>
     % end
 
-    %= content_block 'loginInfo'
+    %= content_block 'loginInfo', separator => '<hr />'
 
     %#  <ul>
     %#    <li><%= link_to loc('register') => 'register' %></li>

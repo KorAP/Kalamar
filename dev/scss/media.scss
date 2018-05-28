@@ -150,7 +150,7 @@ $standard-margin: 4px;
       &::after {
         display: none;
       }
-      p {
+      p, hr {
         display: none;
       }
     }
