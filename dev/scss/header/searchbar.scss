@@ -2,7 +2,7 @@
 @import "../util";
 
 $border-size: 2px;
-$right-padding: 60px;
+// $right-padding: 60px;
 
 
 /**
@@ -26,7 +26,7 @@ header input {
 #searchbar {
   position: relative;
   width: 100%;
-  padding-right: $right-padding;
+  padding-right: $right-distance + $button-width;
   button[type=submit] {
     position: absolute;
     right: $right-distance;
