@@ -13,7 +13,8 @@ define(['util'], {
       regex = arguments[1];
     };
     if (arguments.length >= 1) {
-      value = arguments[0];
+      if (arguments[0] !== undefined)
+        value = arguments[0];
     };
     return Object.create(this)._init(value, regex);
   },
@@ -119,8 +120,10 @@ define(['util'], {
     
     // Add input field
     this._input = e.addE('input');
-    if (this.value() !== undefined)
+
+    if (this.value() !== undefined) {
       this._input.value = this.value();
+    };
 
     // Add regex button
     var re = e.addE('div');
@@ -138,7 +141,7 @@ define(['util'], {
     // delegate focus to
     this._input.addEventListener(
       'blur',
-      function (ev) {
+      function (ev) {        
         if (!this._inField) {
 	        this.value(this._input.value);
           this.store(this.value(), this.regex());

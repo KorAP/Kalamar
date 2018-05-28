@@ -140,6 +140,7 @@ define(['vc'], function () {
 
       // Set values
       doc.key("title");
+
       doc.value("Der alte Mann");
       expect(doc.matchop()).toEqual('eq');
       expect(doc.key()).toEqual("title");
@@ -2218,6 +2219,14 @@ define(['vc'], function () {
       ul.getElementsByTagName('li')[1].click();
       expect(vc.element().firstChild.children[1].tagName).toEqual("SPAN");
       expect(vc.element().firstChild.children[1].innerText).toEqual("ne");
+
+      // Click on text
+      expect(vc.element().firstChild.children[2].innerText).toEqual("⋯");
+      vc.element().firstChild.children[2].click();
+
+      // Blur text element
+      expect(vc.element().firstChild.children[2].firstChild.value).toEqual('');
+
       // blur
       document.body.click();
     });

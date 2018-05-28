@@ -213,7 +213,6 @@ define([
           // Check the VC list if the field is known
           var type = KorAP._vcKeyMenu.typeOf(this.key());
           if (type != undefined) {
-            console.log("Guessed the type for " + this.key() + " to be " + type);
             json["type"] = "type:" + type;
           };
         };
@@ -476,7 +475,7 @@ define([
     _changeValue : function (e) {
       var v = this.value();
       var that = this;
-
+     
       // Show datepicker
       if (this.type() === 'date') {
         var dp = KorAP._vcDatePicker;
