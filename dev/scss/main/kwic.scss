@@ -117,6 +117,15 @@ div.snippet {
     padding-left: 4pt;
     padding-right: 2pt;
   }
+  > span.match > span.cutted::after {
+    content: $fa-cut;
+    font-family: FontAwesome;
+    padding: {
+      left: 4pt;
+      right: 4pt;
+    }
+    color: $light-green;
+  }
 }
 
 
