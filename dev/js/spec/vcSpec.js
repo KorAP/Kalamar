@@ -1986,6 +1986,36 @@ define(['vc'], function () {
       expect(doc.element().classList.contains('rewritten')).toBeTruthy();
     });
 
+    it('should be described in a title attribute', function () {
+
+            doc = docClass.create(
+        undefined,
+        {
+          "@type":"koral:doc",
+          "key":"Titel",
+          "value":"Baum",
+          "match":"match:eq",
+          "rewrites" : [
+            {
+              "@type" : "koral:rewrite",
+              "operation" : "operation:modification",
+              "src" : "querySerializer",
+              "scope" : "tree"
+            },
+            {
+              "@type" : "koral:rewrite",
+              "operation" : "operation:injection",
+              "src" : "me"
+            }
+          ]
+        });
+      
+      expect(doc.element().classList.contains('doc')).toBeTruthy();
+      expect(doc.element().classList.contains('rewritten')).toBeTruthy();
+      expect(doc.element().lastChild.getAttribute("title")).toEqual("querySerializer: tree (modification)\nme (injection)");
+    });
+
+    
     xit('should be deserialized by docGroups', function () {
       var docGroup = docGroupClass.create(
         undefined,

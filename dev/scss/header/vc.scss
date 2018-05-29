@@ -38,21 +38,21 @@ $bracket-size: .4em; // 4pt;
     &[data-operation] {
       > .doc:first-child::before,
       > .docGroup:first-child::before {
-	content: none;
+        content: none;
       }
       > .doc::before,
       > .docGroup::before {
-	display: inline-block;
-	position: absolute;
-	text-align: right;
-	width: $left-padding;
-	margin-left: -1 * ($left-padding + .5em); // -28pt
-	color: $dark-green;
-	line-height: 1.5em;
-	border-top: $border-size solid transparent;
+        display: inline-block;
+        position: absolute;
+        text-align: right;
+        width: $left-padding;
+        margin-left: -1 * ($left-padding + .5em); // -28pt
+        color: $dark-green;
+        line-height: 1.5em;
+        border-top: $border-size solid transparent;
       }
       > .docGroup::before {
-	margin-left: -1 * ($left-padding + .5em) + (-1 * $bracket-size);
+        margin-left: -1 * ($left-padding + .5em) + (-1 * $bracket-size);
       }
     }
 
@@ -61,8 +61,8 @@ $bracket-size: .4em; // 4pt;
       border-color: $dark-orange;
       > .doc::before,
       > .docGroup::before {
-	// This will be overruled by JS!
-	content: "or";
+        // This will be overruled by JS!
+        content: "or";
       }
     }
 
@@ -70,8 +70,8 @@ $bracket-size: .4em; // 4pt;
     &[data-operation=and] {
       > .doc::before,
       > .docGroup::before {
-	// This will be overruled by JS!
-	content: "and";
+        // This will be overruled by JS!
+        content: "and";
       }
     }
 
@@ -86,10 +86,10 @@ $bracket-size: .4em; // 4pt;
       vertical-align: middle;
       left: 3px;
       > span:first-child {
-	      border: {
-	      top-left-radius: 0;
-	      bottom-left-radius: 0;
-	    }
+        border: {
+        top-left-radius: 0;
+        bottom-left-radius: 0;
+      }
       }
       margin-left: 100%;
       padding: 0;
@@ -112,10 +112,11 @@ $bracket-size: .4em; // 4pt;
     > span.value {
       font-weight: bold;
       &[data-type=regex] {
-	font-style: italic;
-	&::after, &::before {
-	  content: '/';
-	}
+        font-style: italic;
+        &::after,
+        &::before {
+          content: '/';
+        }
       }
     }
 
@@ -129,8 +130,8 @@ $bracket-size: .4em; // 4pt;
     > span.key {
       position: relative;
       > ul {
-	      margin: 0;
-	      margin-left: 3.3em;
+        margin: 0;
+        margin-left: 3.3em;
       }
     }
   }
@@ -141,16 +142,16 @@ $bracket-size: .4em; // 4pt;
       display: inline-block;
       color: $dark-orange;
       &::after {
-	      font: {
-	      family: FontAwesome;
-	      style: normal;
-	      weight: normal;
-	    }
-	      content: $fa-rewrite;
-	      text-decoration: underline;
+        font: {
+          family: FontAwesome;
+          style: normal;
+          weight: normal;
+        }
+        content: $fa-rewrite;
+        text-decoration: underline;
       }
-      span {
-	      display: none;
+      > span {
+        display: none;
       }
     }
   }
@@ -208,28 +209,28 @@ $bracket-size: .4em; // 4pt;
       padding: 2pt;
       cursor: pointer;
       font: {
-	size: 80%;
-	style: italic;
+        size: 80%;
+        style: italic;
       }
       display: inline-block;
       @include choose-item;
       border: {
-	width: $border-size;
-	style: solid;
-	radius: $standard-border-radius;
+        width: $border-size;
+        style: solid;
+        radius: $standard-border-radius;
       }
 
       &:hover {
-	@include choose-hover;
+        @include choose-hover;
       }
     }
     &.regex {
       > input {
-	font-style: italic;
+        font-style: italic;
       }
 
       > div {
-	@include choose-active;
+        @include choose-active;
       }
     }
   }
@@ -250,27 +251,27 @@ $dg-index : 30;
     }
     .docGroup {
       > .operators {
-	z-index: $dg-index + 2;
+        z-index: $dg-index + 2;
       }
       .docGroup {
-	> .operators {
-	  z-index: $dg-index + 3;
-	}
-	.docGroup {
-	  > .operators {
-	    z-index: $dg-index + 4;
-	  }
-	  .docGroup {
-	    > .operators {
-	      z-index: $dg-index + 5;
-	    }
-	    .docGroup {
-	      > .operators {
-		z-index: $dg-index + 6;
-	      }
-	    }
-	  }
-	}
+        > .operators {
+          z-index: $dg-index + 3;
+        }
+        .docGroup {
+          > .operators {
+            z-index: $dg-index + 4;
+          }
+          .docGroup {
+            > .operators {
+              z-index: $dg-index + 5;
+            }
+            .docGroup {
+              > .operators {
+                z-index: $dg-index + 6;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -287,12 +288,12 @@ $dg-index : 30;
     color: $dark-orange;
     padding: 0;
     padding-left: 4px;
-	  font: {
-	    family: FontAwesome;
-	    style: normal;
-	    weight: normal;
-	  }
-	  content: $fa-rewrite;
-	  text-decoration: underline;
+    font: {
+      family: FontAwesome;
+      style: normal;
+      weight: normal;
+    }
+    content: $fa-rewrite;
+    text-decoration: underline;
   }
 }

@@ -32,22 +32,32 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
 
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'rewrite');
+      var comments = [];
       for (var x in this._list) {
 	      var rewrite = this._list[x];
+
+        // This is a blind element
 	      var span = document.createElement('span');
 
 	      // Set class attribute
 	      span.setAttribute('class', rewrite.operation());
 
 	      // Append source information
-	      span.addT(rewrite.src());
+	      var rewriteText = rewrite.src();
 
 	      // Append scope information
 	      if (rewrite.scope() !== undefined) {
-	        span.addT(': ' + rewrite.scope());
+	        rewriteText += ': ' + rewrite.scope();
 	      };
+
+	      // Append source information
+	      span.addT(rewriteText);
+
+        comments.push(rewriteText + ' (' + rewrite.operation() + ')');
+        
 	      this._element.appendChild(span);
       };
+      this._element.setAttribute("title", comments.join("\n"))
       return this._element;
     }
   };
