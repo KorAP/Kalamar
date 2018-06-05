@@ -51,9 +51,10 @@ define([
   'vc/doc',
   'vc/docgroup',
   'vc/menu',
+  'vc/statistic',
   'datepicker',
-  'util'
-], function (unspecDocClass, docClass, docGroupClass, menuClass, dpClass) {
+  'util',
+], function (unspecDocClass, docClass, docGroupClass, menuClass, statClass, dpClass) {
   "use strict";
 
   KorAP._validUnspecMatchRE = new RegExp("^(?:eq|ne|contains(?:not)?|excludes)$");
@@ -324,6 +325,19 @@ define([
      */
     toQuery : function () {
       return this._root.toQuery();
-    }
+    },
+    
+    
+    /**
+    * Get associated corpus statistic,
+    * create corpus statistic if it is unassigned
+   	*/
+   	statistic : function(){
+   		if(this.corpStat == undefined){
+   			this.corpStat = statClass.create();
+   		}
+   		return this.corpStat;
+   	}
+   	
   };
 });
