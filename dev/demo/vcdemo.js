@@ -92,9 +92,18 @@ var collections = [
   }
 ];
 
+
 require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass, domReady) {
 
   var loc = KorAP.Locale;
+  
+  //corpus statistic
+  var statistic = {
+  		"documents":1,
+  		"tokens":222222,
+  		"sentences":33333,
+  		"paragraphs":444
+	};
 
 /*
   loc.AND = 'und';
@@ -134,5 +143,11 @@ require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass
     KorAP.makeVCPersistant = function () {
       vc.makePersistant();
     };
-  });
+    
+    //get the corpus statistic (demo function)
+    KorAP.API.getCorpStat = function(collQu, cb){
+    	return cb(statistic);
+  }; 
 });
+});
+
