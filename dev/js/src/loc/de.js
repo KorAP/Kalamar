@@ -14,6 +14,8 @@ define(function () {
 
   loc.VC_allCorpora = 'allen Korpora';
   loc.VC_oneCollection = 'einem virtuellen Korpus';
+  //Show corpus statistic
+  loc.VC_SHOWSTAT = 'Korpusstatistik';
 
   // Date picker:
   loc.WDAY = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
