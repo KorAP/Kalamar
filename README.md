@@ -88,16 +88,16 @@ You may change that endpoint to the KorAP API provider in in the configuration
 (see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information).
 
 
-### Configuration
+## Configuration
 
 The basic configuration file is ```kalamar.conf```. To define derivations,
 create a configuration file with the pattern ```kalamar.[MYNAME].conf``` and
 follow the descriptions in ```kalamar.conf```.
 For client-side configurations, a file ```kalamar.conf.js``` can be
 introduced, that will be consulted during the build process, loading
-optional components using a ```require(...)``` directive.
+optional components using a ```require(...)``` directive (see example below).
 
-### Localization and Customization
+### Localization
 
 To create a localized version of Kalamar, start the ```localize``` command
 with the target locale as its argument, e.g. ```pl``` for polish.
@@ -109,7 +109,7 @@ $ perl script/kalamar localize pl
 The newly defined dictionary file can then be modified and added to the resources
 definition of the ```Localize``` plugin in the configuration:
 
-```
+```perl
 Localize => {
   resources => ['kalamar.pl.dict']
 }
@@ -118,7 +118,7 @@ Localize => {
 To localize example queries according to a special corpus environment,
 define a name of the example corpus in the configuration.
 
-```
+```perl
 Kalamar => {
   examplecorpus => 'mycorpus'
 }
@@ -130,8 +130,6 @@ as a blueprint and add it to the ```Localize``` resource list.
 
 Templates can be localized and customized by overriding
 the ```Template``` dictionary entries.
-This is especially useful for the landing page in
-```Template_intro```.
 
 Currently the JavaScript translations are separated and stored in ```dev/js/src/loc```.
 To generate assets relying on different locales, add the locale to ```Gruntfile.js```.
@@ -141,7 +139,7 @@ different annotation foundries can be loaded in ```kalamar.conf.js```.
 For example to support ```marmot``` and ```malt```,
 the configuration may look like this:
 
-```
+```js
 require([
   "hint/foundries/marmot",
   "hint/foundries/malt"
@@ -150,6 +148,17 @@ require([
 
 See ```dev/js/src/hint/foundries``` for
 more optional foundries.
+
+### Customization
+
+The landing page can be customized by overriding the
+entry for ```Template_intro``` in the dictionary.
+
+Some sections of the user interface can be customized
+by adding new
+[content blocks](https://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock).
+Currently the sections are in ```footer```, in the bottom line of the user interface,
+and ```loginInfo```, below the login form, if present.
 
 ## COPYRIGHT AND LICENSE
 
@@ -189,7 +198,7 @@ Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the
 [Institute for the German Language (IDS)](http://ids-mannheim.de/),
 member of the
-[Leibniz-Gemeinschaft](http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/)
+[Leibniz Association](https://www.leibniz-gemeinschaft.de/en/home/)
 and supported by the [KobRA](http://www.kobra.tu-dortmund.de) project,
 funded by the
 [Federal Ministry of Education and Research (BMBF)](http://www.bmbf.de/en/).
