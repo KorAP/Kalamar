@@ -1,7 +1,8 @@
-0.27 2018-05-23
+0.27 2018-06-18
         - Introduced content blocks to create
           flexible entry lists in the footer
         - Add marker for "cutted" matches.
+        - Re-enabled Windows installations.
 
 0.26 2018-04-06
         - Added meta data view.

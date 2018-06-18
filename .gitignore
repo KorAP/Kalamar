@@ -18,6 +18,7 @@ script/hypnotoad.pid
 dev/css
 templates/announcement.html.ep
 templates/custom
+lib/Kalamar/Plugin/Announcements.pm
 log
 blib
 script*
