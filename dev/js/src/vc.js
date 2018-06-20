@@ -65,7 +65,8 @@ define([
   // KorAP._validDateMatchRE is defined in datepicker.js!
 
   const loc = KorAP.Locale;
-
+  loc.VC_SHOWSTAT = loc.VC_SHOWSTAT || 'Corpus Statistic';
+  
   KorAP._vcKeyMenu = undefined;
   KorAP._vcDatePicker = dpClass.create();
 
@@ -262,6 +263,11 @@ define([
       // Initialize root
       this._element.appendChild(this._root.element());
       
+     //Add corpus statistic button
+     if(!(this._root.element().classList.contains('unspecified'))){
+     	this.addStatBut();
+     }
+    
       return this._element;
     },
 
@@ -327,17 +333,39 @@ define([
       return this._root.toQuery();
     },
     
-    
-    /**
-    * Get associated corpus statistic,
-    * create corpus statistic if it is unassigned
-   	*/
-   	statistic : function(){
-   		if(this.corpStat == undefined){
-   			this.corpStat = statClass.create();
-   		}
-   		return this.corpStat;
-   	}
+       	
+   	/**
+   	* Adds Corpus Statistic Button
+   	**/
+   	addStatBut : function(){
    	
+   	  //add div element 'corpStat' with id 'dCorpStat'
+   	  var dv = this._element.addE('div');
+      dv.id = "dCorpStat";
+      
+      //add button      
+      var bu = dv.addE('div');
+      bu.classList.add('bottom', 'button-single');
+      var stat = bu.addE('span');
+      stat.addT('Statistics');
+      //localize the buttons title attribute
+      stat.setAttribute('title', loc.VC_SHOWSTAT);
+      stat.classList.add('statistic');
+      
+      /* 
+      * In ECMAScript Language Specification this is set incorrectly for inner functions,
+      * therefore thatelement and that is defined.
+      */
+      var thatelement = this._element;
+      var that = this;
+      
+      //show corpus statistic if button is clicked
+      stat.addEventListener('click', function(e){
+      	e.halt();
+      	statClass.showCorpStat(thatelement, that);
+      });
+      
+     }
+  
   };
 });
