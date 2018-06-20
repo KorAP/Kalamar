@@ -89,16 +89,35 @@ define(['util'], function () {
    * 
    * Development mode:
    * URL = http://localhost:8089/api 
+   * 
+   * collectionQuery has be changed to corpusQuery 
    */
-  /*KorAP.API.getCorpStat = function (collQu, cb){
-  	//var url = KorAP.API;
+  /* KorAP.API.getCorpStat = function (collQu, cb){
   	//development mode:
   	var url = "http://localhost:8089/api/";
   	url  = url + "statistics";
-  	url = url + "?collectionQuery=";
+  	url = url + "?corpusQuery=";
   	url = url + collQu;
   	KorAP.API.getJSON(url, cb);
   };*/
+
+  
+  /**
+   * Retrieve information about corpus statistic
+   * 
+   * Example URL:  /corpus?cq=availability+%3D+%2FCC-BY.*%2F+%26+textClass+%3D+%22kultur%22
+   * 
+   * cq = corpus query (formerly collectionQuery)
+   * 
+   * Adress the MOJO-Endpoint for example with
+   * http://localhost:3000/corpus?cq=availability+%3D+%2FCC-BY.*%2F+%26+textClass+%3D+%22kultur%22
+   */
+  KorAP.API.getCorpStat = function (cq, cb){
+  	var url  =  "/corpus";
+  	url = url + "?cq=";
+  	url = url + cq;
+  	KorAP.API.getJSON(url, cb);
+  };
   
   /**
    * General method to retrieve JSON information
