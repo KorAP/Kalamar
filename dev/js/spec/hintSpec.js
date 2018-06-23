@@ -343,6 +343,21 @@ define(['hint'], function () {
       hint.show(true);
       expect(hint.active()).toBeFalsy();
     });
+
+
+    it('should show the assistant bar on blur', function () {
+      var hint = hintClass.create({
+        inputField : input
+      });
+      // Fine
+      hint.inputField().insert('der Baum corenlp/');
+      hint.show(true);
+      expect(hint.active()).toBeTruthy();
+
+      // Blur
+      hint.active().hideWithoutDestruction();
+      expect(hint.active()).toBeFalsy();
+    });
     
     xit('should remove all menus on escape');
   });

@@ -55,6 +55,7 @@ define(['menu',
       this.element().classList.remove("visible");
       if (this._hint) {
         this._hint.inputField().element().focus();
+        this.onHide();
       };
     }
   };
