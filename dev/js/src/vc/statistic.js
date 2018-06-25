@@ -125,8 +125,10 @@ define(['util'], function (){
 			statisticobj = that.create(statistic);
 			
 			//Removes statistic button when statistic is displayed
-			var divStatButton = document.getElementById('dCorpStat');
-			divStatButton.parentNode.removeChild(divStatButton);
+			if(document.getElementById('dCorpStat') !== null){
+				var divStatButton = document.getElementById('dCorpStat');
+				divStatButton.parentNode.removeChild(divStatButton);
+			}
       
 			statTable.appendChild(statisticobj.element());
 			
