@@ -65,7 +65,8 @@ define([
   // KorAP._validDateMatchRE is defined in datepicker.js!
 
   const loc = KorAP.Locale;
-  loc.VC_SHOWSTAT = loc.VC_SHOWSTAT || 'Corpus Statistic';
+  loc.SHOWSTAT = loc.SHOWSTAT || 'Statistics';
+  loc.VERB_SHOWSTAT = loc.VERB_SHOWSTAT || 'Corpus Statistics';
   
   KorAP._vcKeyMenu = undefined;
   KorAP._vcDatePicker = dpClass.create();
@@ -264,10 +265,8 @@ define([
       this._element.appendChild(this._root.element());
       
      //Add corpus statistic button
-     if(!(this._root.element().classList.contains('unspecified'))){
      	this.addStatBut();
-     }
-    
+ 
       return this._element;
     },
 
@@ -345,11 +344,11 @@ define([
       
       //add button      
       var bu = dv.addE('div');
-      bu.classList.add('bottom', 'button-single');
+      bu.classList.add('bottom', 'button-stat');
       var stat = bu.addE('span');
-      stat.addT('Statistics');
+      stat.addT(loc.SHOWSTAT);
       //localize the buttons title attribute
-      stat.setAttribute('title', loc.VC_SHOWSTAT);
+      //stat.setAttribute('title', loc.SHOWSTAT);
       stat.classList.add('statistic');
       
       /* 

@@ -42,10 +42,10 @@ define(['util'], function (){
 			if (this._element !== undefined) {
 	      return this._element;
       };
-      
-      //create HTML Description List Element
-			var statDL = document.createElement('dl');
-			var statistic = this._statistic;
+   
+      //create HTML Description List Element	
+      var statDL = document.createElement('dl');
+		  var statistic = this._statistic;
 			
 			var keys = Object.keys(statistic);
 			for(i = 0; i <  keys.length; i++){
@@ -81,6 +81,14 @@ define(['util'], function (){
 						cb(null);
 						return;
 					}
+					
+					//catches notifications
+					if(statResponse["notifications"] !== null && statResponse["notifications"] !== undefined ){
+						notif = statResponse["notifications"];
+						KorAP.log(0, notif[0][1]);
+						return;
+					}
+					
 					cb(statResponse);
 				});
 			}
@@ -123,12 +131,6 @@ define(['util'], function (){
 				
 			statTable.classList.remove('loading');
 			statisticobj = that.create(statistic);
-			
-			//Removes statistic button when statistic is displayed
-			if(document.getElementById('dCorpStat') !== null){
-				var divStatButton = document.getElementById('dCorpStat');
-				divStatButton.parentNode.removeChild(divStatButton);
-			}
       
 			statTable.appendChild(statisticobj.element());
 			
@@ -142,7 +144,6 @@ define(['util'], function (){
 			b.addEventListener('click', function (e){
 				statTable.parentNode.removeChild(statTable);
 				that._visibleStat = false;
-				vc.addStatBut();
 				e.halt();
 				});
 			});
