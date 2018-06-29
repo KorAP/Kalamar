@@ -332,6 +332,12 @@ define([
       return this._root.toQuery();
     },
     
+    /*
+    * Returns ld type of associated doc, docGroup or unspecified doc 
+    */
+    getLdType:function(){
+    	return this._root.ldType();
+    },
        	
    	/**
    	* Adds Corpus Statistic Button
