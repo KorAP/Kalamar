@@ -14,8 +14,6 @@ define(function () {
 
   loc.VC_allCorpora = 'allen Korpora';
   loc.VC_oneCollection = 'einem virtuellen Korpus';
-  //Show corpus statistic
-  loc.VC_SHOWSTAT = 'Korpusstatistik';
 
   // Date picker:
   loc.WDAY = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
@@ -37,4 +35,9 @@ define(function () {
   loc.SHOW_KQ      = 'zeige KoralQuery';
   loc.SHOW_META    = 'Metadaten';
   loc.NEW_QUERY = 'Neue Anfrage';
+  
+  //Corpus statistic
+  loc.SHOWSTAT = 'Korpusstatistik';
+  //verbose description, for title attributes for example
+  //loc.VERB_SHOWSTAT = 'Korpusstatistik';
 });
