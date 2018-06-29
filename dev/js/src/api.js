@@ -85,6 +85,22 @@ define(['util'], function () {
 
 
   /**
+   * Retrieve information about corpus statistic
+   * 
+   * Development mode:
+   * URL = http://localhost:8089/api 
+   */
+  /*KorAP.API.getCorpStat = function (collQu, cb){
+  	//var url = KorAP.API;
+  	//development mode:
+  	var url = "http://localhost:8089/api/";
+  	url  = url + "statistics";
+  	url = url + "?collectionQuery=";
+  	url = url + collQu;
+  	KorAP.API.getJSON(url, cb);
+  };*/
+  
+  /**
    * General method to retrieve JSON information
    */
   KorAP.API.getJSON = function (url, onload) {
