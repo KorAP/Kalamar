@@ -76,8 +76,7 @@ define(['vc', 'vc/statistic'], function(vcClass, statClass){
   	return cb(preDefinedStat);
   	}; 
   	
- 
-  	
+ 	
 	describe('KorAP.CorpusStat', function(){
 	   
 		var vc = vcClass.create([
@@ -92,13 +91,7 @@ define(['vc', 'vc/statistic'], function(vcClass, statClass){
 		var stat = statClass.create(preDefinedStat);
 		var descL = stat.element();
 		
-		it('statButton should only be added if doc is specified', function(){
-			expect(vcEl.children[1].id).not.toBe(null);	
-			vc2 = vcClass.create().fromJson();
-			expect(vc2.element().children[1]).toBeUndefined();	
-		});
-
-		
+			
 		it('should be initiable', function(){
 			expect(stat._visibleStat).toEqual(false);
 	    expect( function() { statClass.create() }).toThrow(new Error("Missing parameter"));
