@@ -69,7 +69,12 @@ define(['util'], function (){
 		 */			
 		getStatistic : function(vc, cb){
 			//cq = corpusQuery
-			var cq = encodeURI(vc.toQuery());
+			
+			//console.log("HK ld-Type corpus = " +  vc.getLdType());
+			
+			var cq;
+			
+			cq = encodeURI(vc.toQuery());
 			
 			try{	
 				KorAP.API.getCorpStat(cq, function(statResponse){
@@ -86,6 +91,7 @@ define(['util'], function (){
 					if(statResponse["notifications"] !== null && statResponse["notifications"] !== undefined ){
 						notif = statResponse["notifications"];
 						KorAP.log(0, notif[0][1]);
+						cb(null);
 						return;
 					}
 					
@@ -125,13 +131,13 @@ define(['util'], function (){
 			* append result to statTable 
 			*/
 			this.getStatistic(vc, function (statistic) {
+
+			statTable.classList.remove('loading');
+			statisticobj = that.create(statistic);
 			
 			if (statistic === null)
 				return; 
-				
-			statTable.classList.remove('loading');
-			statisticobj = that.create(statistic);
-      
+			
 			statTable.appendChild(statisticobj.element());
 			
 			// Add Close Button
