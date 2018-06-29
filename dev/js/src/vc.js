@@ -264,8 +264,13 @@ define([
       // Initialize root
       this._element.appendChild(this._root.element());
       
-     //Add corpus statistic button
-     	this.addStatBut();
+      /* TODO by Helge
+      Hack! additional div, because statistic button is removed after 
+      choosing and/or/x in vc builder. REMOVE this lines after solving the problem!!!! */
+      this._element.addE('div');
+      this._element.addE('div');
+      //Add corpus statistic button
+      this.addStatBut();
  
       return this._element;
     },
@@ -343,11 +348,11 @@ define([
    	* Adds Corpus Statistic Button
    	**/
    	addStatBut : function(){
-   	
-   	  //add div element 'corpStat' with id 'dCorpStat'
+   	  
+   	  //add div element 'corpStat'
    	  var dv = this._element.addE('div');
-      dv.id = "dCorpStat";
-      
+      dv.classList.add('dCorpStat');
+       
       //add button      
       var bu = dv.addE('div');
       bu.classList.add('bottom', 'button-stat');
