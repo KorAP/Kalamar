@@ -5,10 +5,21 @@
     <link type="text/css" rel="stylesheet" href="/css/kalamar.css" />
 
     <!-- load client javascript library -->
-    <script src="/js/src/plugin/client.js"></script>
+    <script src="/js/src/plugin/client.js" data-server="http://localhost:3003/"></script>
+    <style>
+      body, html {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      border-width: 0;
+      }
+    </style>
   </head>
-  <body>
+  <body style="background-color: yellow">
     <h2>Example Widget!</h2>
-    <a onclick="KorAPlugin.log(333, 'Huhu!')">Send log!</a>
+    <ul>
+      <li><a onclick="KorAPlugin.log(333, 'Huhu!')">Send log!</a></li>
+      <li><a onclick="KorAPlugin.resize()">Resize</a></li>
+    </ul>
   </body>
 </html>

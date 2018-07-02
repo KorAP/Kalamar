@@ -8,6 +8,19 @@
  * @author Nils Diewald
  */
 
+/*
+* TODO:
+*   Some methods require bidirectional
+*   calling, like
+*   - getKoralQuery()
+*   this probably should be done using a callback,
+*   like fetch({data}, function () {}, '*'), that will
+*   add a unique ID to the message and will call on the cb
+*   once the answer to that message arrives.
+*/
+
+var cs = document.currentScript;
+
 (function () {
   "use strict";
 
@@ -24,16 +37,18 @@
      * Initialize plugin
      */
     _init : function () {
-      console.log('Init');
+      this.widgetID = window.name;
+      this.server = cs.getAttribute('data-server') || '*';
       this.resize();
       return this;
     },
 
     // Send a message
     _sendMsg : function (data) {
+      data["originID"] = this.widgetID;
 
       // TODO: This should send a correct origin
-      window.parent.postMessage(data, '*');
+      window.parent.postMessage(data, this.server);
     },
 
     /**
@@ -53,8 +68,6 @@
      */
     resize : function () {
       var body = document.body;
-
-      console.log('Resize');
 
       // recognize margin of first element
       // (don't know why in FF)
