@@ -747,6 +747,14 @@ var textInfo = {
   }
 };
 
+//corpus statistic
+var statistic = {
+  "documents":1,
+  "tokens":222222,
+  "sentences":33333,
+  "paragraphs":444
+};
+
 requirejs.config({
   baseUrl: '../js/src',
   paths : {
@@ -782,6 +790,12 @@ require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   KorAP.API.getTextInfo = function (doc, param, cb) {
     cb(textInfo);
   };
+
+  //get the corpus statistic (demo function)
+  KorAP.API.getCorpStat = function(collQu, cb){
+    return cb(statistic);
+  }; 
+
   
   /**
    * Do some things at the beginning.
