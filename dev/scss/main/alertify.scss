@@ -10,4 +10,13 @@ article.alertify-log {
 
 article.alertify-log-warn {
   background-color: $dark-orange;
+  code.src {
+    color: $darkest-orange;
+  }
+}
+
+article.alertify-log code.src {
+  display: block;
+  color: $dark-red;
+  font-size: 70%;
 }
