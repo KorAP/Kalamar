@@ -11,18 +11,23 @@
 define(["plugin/widget", "util"], function (widgetClass) {
   "use strict";
 
-  // TODO:
-  //   This is a counter to limit acceptable incoming messages
-  //   to hundred. For every message, this will be decreased
-  //   (down to 0), for every second this will be increased
-  //   (up to 100).
-  var maxMessages = 100;
-  var limits = {};
-
   // Contains all widgets to address with
   // messages to them
   var widgets = {};
 
+  // This is a counter to limit acceptable incoming messages
+  // to a certain amount. For every message, this counter will
+  // be decreased (down to 0), for every second this will be
+  // increased (up to 100).
+  // Once a widget surpasses the limit, it will be killed
+  // and called suspicious.
+  var maxMessages = 100;
+  var limits = {};
+
+  // TODO:
+  //   It may be useful to establish a watcher that pings
+  //   all widgets every second to see if it is still alive.
+  
   return {
 
     /**
@@ -37,6 +42,10 @@ define(["plugin/widget", "util"], function (widgetClass) {
      * the global 'message' hook.
      */
     _init : function () {
+
+      // TODO:
+      //   It is better to establish the listener
+      //   only in case there is a widget
 
       var that = this;
       window.addEventListener("message", function (e) {
@@ -55,7 +64,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
     },
 
     /**
-     * Open a new widget on a certain element
+     * Open a new widget as a child to a certain element
      */
     addWidget : function (element, src) {
 
@@ -75,7 +84,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
       );
     },
 
-    // Receive a call from an embedded iframe
+    // Receive a call from an embedded iframe.
+    // The handling needs to be very careful,
+    // as this can easily become a security nightmare.
     _receiveMsg : function (e) {
       // Get event data
       var d = e.data;
@@ -86,9 +97,6 @@ define(["plugin/widget", "util"], function (widgetClass) {
         return;
 
       // e.origin is probably set and okay - CHECK!
-
-      // TODO:
-      //   Deal with mad iframes
 
       // Get origin ID
       var id = d["originID"];
@@ -106,6 +114,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
       // Check for message limits
       if (limits[id]-- < 0) {
+
+        // Kill widget
+        KorAP.log(0, 'Suspicious action from ' + widget.src);
         widget.shutdown();
         delete limits[id];
         delete widgets[id];
@@ -114,7 +125,6 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
       // Resize the iframe
       if (d.action === 'resize') {
-
         widget.resize(d);
       }
 

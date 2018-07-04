@@ -2,16 +2,22 @@
 <html>
   <head>
     <title>Plugin demo</title>
+
     <link type="text/css" rel="stylesheet" href="/css/kalamar.css" />
 
     <!-- load client javascript library -->
     <script src="/js/src/plugin/client.js" data-server="http://localhost:3003/"></script>
     <style>
       body, html {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      border-width: 0;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        border-width: 0;
+        height: unset !important;
+      }
+
+      body {
+        min-height: unset !important;
       }
     </style>
   </head>
