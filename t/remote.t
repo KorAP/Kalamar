@@ -54,5 +54,12 @@ $t->get_ok('/?q=server_fail&ql=poliqarp')
   ->text_is('.notify-error', '500: Internal Server Error (remote)')
   ;
 
+
+# Check for query error
+$t->get_ok('/?q=[orth=das&ql=poliqarp')
+  ->element_exists('.notify-error')
+  ->text_is('.notify-error', '302: Parantheses/brackets unbalanced.')
+  ;
+
 done_testing;
 __END__

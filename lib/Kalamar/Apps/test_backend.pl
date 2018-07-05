@@ -128,12 +128,67 @@ get '/search' => sub {
     });
   };
 
-  if ($v->param('q') && $v->param('q') eq 'server_fail') {
-    return $c->render(
-      status => 500,
-      inline => 'Oooops'
-    );
-
+  if ($v->param('q')) {
+    if ($v->param('q') eq 'server_fail') {
+      return $c->render(
+        status => 500,
+        inline => 'Oooops'
+      );
+    }
+    elsif ($v->param('q') eq '[orth=das') {
+      return $c->render(
+        status => 400,
+        json => {
+          "meta" => {
+            "count" => 13
+          },
+          "collection" => {
+            '@type' => "koral:docGroup",
+            "operation" => "operation:and",
+            "operands" => [
+              {
+                '@type' => "koral:doc",
+                "match" => "match:eq",
+                "type" => "type:regex",
+                "value" => "CC-BY.*",
+                "key" => "availability"
+              },
+              {
+                "operands" => [
+                  {
+                    '@type' => "koral:doc",
+                    "match" => "match:eq",
+                    "value" => "WPD",
+                    "key" => "corpusSigle"
+                  },
+                  {
+                    '@type' => "koral:doc",
+                    "match" => "match:eq",
+                    "value" => "GOE",
+                    "key" => "corpusSigle"
+                  }
+                ],
+                '@type' => "koral:docGroup",
+                "operation" => "operation:or"
+              }
+            ],
+            "rewrites" => [
+              {
+                '@type' => "koral:rewrite",
+                "src" => "Kustvakt",
+                "operation" => "operation:insertion",
+                "scope" => "availability(FREE)"
+              }
+            ]
+          },
+          '@context' => "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+          "errors" => [
+            [302,"Parantheses/brackets unbalanced.",0],
+            [302,"Could not parse query >>> [orth=der <<<."]
+          ]
+        }
+      );
+    }
   };
 
   if (my $auth = $c->req->headers->header('Authorization')) {
