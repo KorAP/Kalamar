@@ -1,5 +1,13 @@
-iframe.widget {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@import "../util";
+
+div.widget {
+  margin-right: $right-match-distance;
+
+  > iframe {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: auto;
+  }
 }

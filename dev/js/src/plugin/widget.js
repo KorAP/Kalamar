@@ -10,6 +10,10 @@
 define(["util"], function () {
   "use strict";
 
+  // Localization values
+  const loc   = KorAP.Locale;
+  loc.CLOSE     = loc.CLOSE     || 'Close';
+
   return {
 
     /**
@@ -34,23 +38,50 @@ define(["util"], function () {
       if (this._element)
         return this._element;
 
+      var div = document.createElement('div');
+      div.classList.add('widget');
+
       // Spawn new iframe
-      var i = document.createElement('iframe');
+      var i = div.addE('iframe');
       i.setAttribute('allowTransparency',"true");
       i.setAttribute('frameborder', 0);
       i.setAttribute('sandbox','allow-scripts');
-      i.classList.add('widget');
       i.style.height = '0px';
       i.setAttribute('name', this.id);
       i.setAttribute('src', this.src);
-      this._element = i;
+      this._iframe = i;
 
-      return i;
+      var ul = div.addE('ul');
+      ul.classList.add('action','right');
+
+      // Add close button
+      var close = ul.addE('li');
+      close.addE('span').addT(loc.CLOSE);
+      close.classList.add('close');
+      close.setAttribute('title', loc.CLOSE);
+
+      // Close match
+      close.addEventListener('click', function (e) {
+        e.halt();
+        this.shutdown()
+      }.bind(this));
+      
+      this._element = div;
+
+      return div;
+    },
+
+    // Return iframe of widget
+    iframe : function () {
+      if (this._iframe)
+        return this._iframe;
+      this.element();
+      return this._iframe;
     },
 
     // Resize iframe
     resize : function (data) {
-      this._element.style.height = data.height + 'px';
+      this.iframe().style.height = data.height + 'px';
     },
 
     // Shutdown suspicious iframe
