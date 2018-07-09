@@ -47,7 +47,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
     /**
      * Open a new widget as a child to a certain element
      */
-    addWidget : function (element, src) {
+    addWidget : function (element, name, src) {
 
       // Is it the first widget?
       if (!this._listener) {
@@ -72,7 +72,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
       var id = 'id-' + this._randomID();
 
       // Create a new widget
-      var widget = widgetClass.create(src, id);
+      var widget = widgetClass.create(name, src, id);
 
       // Store the widget based on the identifier
       widgets[id] = widget;

@@ -456,6 +456,10 @@ ul.action {
 	      font-family: "FontAwesome";
 	      content: $fa-info;
       }
+      &.plugin::after {
+	      font-family: "FontAwesome";
+	      content: $fa-plugin;        
+      }
     }
   }
 }
