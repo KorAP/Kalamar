@@ -193,7 +193,7 @@ define([
       ops.classList.add('action', 'bottom', 'button-group');
 
       var meta = ops.addE('span');
-      meta.addT('Meta');
+      meta.addT(loc.SHOW_META);
       meta.setAttribute('title', loc.SHOW_META);
       meta.classList.add('meta');
 
