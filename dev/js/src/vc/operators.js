@@ -1,7 +1,7 @@
 /**
  * Operators for criteria
  */
-define(['util'], function () {
+define(['buttongroup'], function (buttonGroupClass) {
 
   const loc = KorAP.Locale;
   loc.DEL   = loc.DEL   || '×';
@@ -15,33 +15,32 @@ define(['util'], function () {
 
   // Add new unspecified document
   function _add (obj, type) {
-    var ref = obj.parentNode.refTo;
-    var parent = ref.parent();
+    var parent = obj.parent();
 
-    if (ref.ldType() === 'docGroup') {
+    if (obj.ldType() === 'docGroup') {
 
       // Check that the action differs from the type
-      if (ref.operation() === type)
+      if (obj.operation() === type)
 	      return;
 
       if (parent.ldType() !== null) {
-	      return parent.newAfter(ref);
+	      return parent.newAfter(obj);
       }
       else {
 	      // The group is on root - wrap
-	      return ref.wrapOnRoot();
+	      return obj.wrapOnRoot();
       };
     }
-    else if (ref.ldType() === 'doc') {
+    else if (obj.ldType() === 'doc') {
 
       if (parent.ldType() === null) {
-	      return ref.wrapOnRoot(type);
+	      return obj.wrapOnRoot(type);
       }
       else if (parent.operation() === type) {
-	      return parent.newAfter(ref);
+	      return parent.newAfter(obj);
       }
       else {
-	      return ref.wrap(type);
+	      return obj.wrap(type);
       };
     };
   };
@@ -61,83 +60,63 @@ define(['util'], function () {
 
   // Remove doc or docGroup
   KorAP._delete = function () {
-    var ref = this.parentNode.refTo;
-    if (ref.parent().ldType() !== null) {
-      return ref.parent().delOperand(ref).update();
+    if (this.parent().ldType() !== null) {
+      return this.parent().delOperand(this).update();
     }
     else {
-      ref.parent().clean();
+      this.parent().clean();
     };
   };
 
 
   return {
     create : function (and, or, del) {
-      var op = Object.create(this);
+
+      // Inherit from buttonGroupClass
+      var op = Object(buttonGroupClass).create(['operators']).upgradeTo(this);
       op.and(and);
       op.or(or);
       op.del(del);
+      op.update();
+
       return op;
     },
 
+    /*
+      * Update the element
+     */
     update : function () {
-      // Init the element
-      if (this._element === undefined)
-	      return this.element();
 
-      var op = this._element;
+      // Clear button group
+      this.clear();
 
-      op.refTo = this.parent();
-
-      // Remove everything underneath
-      _removeChildren(op);
-      
-      // Add and button
       if (this._and === true) {
-	      var andE = op.addE('span');
-	      andE.setAttribute('class', 'and');
-	      andE.addEventListener('click', KorAP._and, false);
-	      andE.addT(loc.AND);
+        this.add(loc.AND, ['and'], KorAP._and);
       };
 
       // Add or button
       if (this._or === true) {
-	      var orE = op.addE('span');
-	      orE.setAttribute('class', 'or');
-	      orE.addEventListener('click', KorAP._or, false);
-	      orE.addT(loc.OR);
+        this.add(loc.OR, ['or'], KorAP._or);
       };
 
       // Add delete button
       if (this._del === true) {
-	      var delE = op.addE('span');
-	      delE.setAttribute('class', 'delete');
-	      delE.addT(loc.DEL);
-	      delE.addEventListener('click', KorAP._delete, false);
+        this.add(loc.DEL, ['delete'], KorAP._delete);
       };
 
-      return op;
+      return this.element();
     },
 
     // Be aware! This may be cyclic
+    // This is somehow redundant with bind, but relevant for ldTypes
     parent : function (obj) {
-      if (arguments.length === 1)
+      if (arguments.length === 1) {
 	      this._parent = obj;
+
+        // This is somehow duplicate - but it's not that relevant
+        this.bind(obj);
+      };
       return this._parent;
-    },
-
-    element : function () {
-
-      // Return existing element
-      if (this._element !== undefined)
-	      return this._element;
-
-      this._element = document.createElement('div');
-      this._element.classList.add('operators', 'button-group');
-
-      // Init elements
-      this.update();
-      return this._element;
     },
 
     and : function (bool) {

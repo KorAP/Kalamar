@@ -35,6 +35,40 @@ define(['buttongroup'], function (buttonGroupClass) {
       expect(btn.innerText).toEqual('Meta');
     });
 
+    it('should be clearable', function () {
+      var group = buttonGroupClass.create();
+      expect(group.element().classList.contains('button-group')).toBeTruthy();
+
+      group.add('Meta', ['meta', 'top'], function (e) {});
+      group.add('Mate', ['mate'], function (e) {});
+
+      var btn = group.element().children[0];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('meta')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeTruthy();
+      expect(btn.innerText).toEqual('Meta');
+
+      btn = group.element().children[1];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('mate')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeFalsy();
+      expect(btn.innerText).toEqual('Mate');
+
+      // clear button
+      group.clear();
+
+      expect(group.element().children.length).toEqual(0);
+
+      group.add('New', ['new'], function (e) {});
+
+      btn = group.element().children[0];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('new')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeFalsy();
+      expect(btn.innerText).toEqual('New');
+    });
+
+    
     it('should listen to button clicks', function () {
       var group = buttonGroupClass.create();
 

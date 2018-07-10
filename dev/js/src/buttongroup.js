@@ -19,6 +19,7 @@ define(['util'], function () {
       return this;
     },
 
+    
     /**
      * Return main element
      */
@@ -26,6 +27,21 @@ define(['util'], function () {
       return this._element;
     },
 
+    
+    /**
+     * Upgrade this object to another object,
+     * while private data stays intact.
+     *
+     * @param {Object} An object with properties.
+     */
+    upgradeTo : function (props) {
+      for (var prop in props) {
+        this[prop] = props[prop];
+      };
+      return this;
+    },
+
+    
     /**
      * Add button in order
      */
@@ -48,6 +64,7 @@ define(['util'], function () {
       });
     },
 
+    
     /**
      * Bind an object to all callbacks of the button group
      */
@@ -56,6 +73,15 @@ define(['util'], function () {
         this._bind = obj;
       };
       return this._bind || this;
+    },
+
+    
+    /**
+     * Remove all defined buttons
+     */
+    clear : function () {
+      _removeChildren(this._element);
+      return this;
     }
   }
 });

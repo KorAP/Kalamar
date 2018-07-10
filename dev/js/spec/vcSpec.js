@@ -30,15 +30,15 @@ define(['vc'], function () {
   };
 
   function _andOn (obj) {
-    KorAP._and.bind(obj.element().lastChild.firstChild).apply();
+    KorAP._and.apply(obj);
   };
 
   function _orOn (obj) {
-    KorAP._or.bind(obj.element().lastChild.firstChild).apply();
+    KorAP._or.apply(obj);
   };
 
   function _delOn (obj) {
-    KorAP._delete.bind(obj.element().lastChild.firstChild).apply();
+    KorAP._delete.apply(obj);
   };
 
   var demoFactory = buildFactory(vcClass, {
@@ -566,7 +566,7 @@ define(['vc'], function () {
       expect(docElement.lastChild.children.length).toEqual(0);
     });
 
-    it('should be removable, when no root', function () {
+    it('should be removable, when no root', function () {    
       var docGroup = docGroupClass.create();
       docGroup.operation('or');
       expect(docGroup.operation()).toEqual('or');
@@ -582,6 +582,9 @@ define(['vc'], function () {
       // Add unspecified object
       docGroup.append();
 
+      var parent = document.createElement('div');
+      parent.appendChild(docGroup.element());
+
       expect(docGroup.element().getAttribute('class')).toEqual('docGroup');
       expect(docGroup.element().children[0].getAttribute('class')).toEqual('doc');
 
@@ -593,6 +596,7 @@ define(['vc'], function () {
       expect(unspec.lastChild.children[0].getAttribute('class')).toEqual('delete');
     });
 
+    
     it('should be replaceable by a doc', function () {
       var doc = unspecifiedClass.create();
       expect(doc.ldType()).toEqual("non");
@@ -1141,15 +1145,15 @@ define(['vc'], function () {
         '(Titel = "Baum" & Veröffentlichungsort = "hihi" & ' +
           '(Titel = "Baum" | Veröffentlichungsort = "hihi")) ' +
           '| Untertitel ~ "huhu"');
-      expect(vc.root().element().lastChild.children[0].firstChild.nodeValue).toEqual('and');
-      expect(vc.root().element().lastChild.children[1].firstChild.nodeValue).toEqual('×');
+      expect(vc.root().element().lastChild.children[0].innerText).toEqual('and');      
+      expect(vc.root().element().lastChild.children[1].innerText).toEqual('×');
       expect(vc.root().delOperand(vc.root().getOperand(0)).update()).not.toBeUndefined();
       expect(vc.toQuery()).toEqual('Untertitel ~ "huhu"');
 
       var lc = vc.root().element().lastChild;
-      expect(lc.children[0].firstChild.nodeValue).toEqual('and');
-      expect(lc.children[1].firstChild.nodeValue).toEqual('or');
-      expect(lc.children[2].firstChild.nodeValue).toEqual('×');
+      expect(lc.children[0].innerText).toEqual('and');
+      expect(lc.children[1].innerText).toEqual('or');
+      expect(lc.children[2].innerText).toEqual('×');
 
       // Clean everything
       vc.clean();
@@ -1230,23 +1234,22 @@ define(['vc'], function () {
       expect(op.or()).toBeTruthy();
       expect(op.del()).toBeTruthy();
 
-      var e = op.element();
+      var e = op.update();
       expect(e.getAttribute('class')).toEqual('operators button-group');
       expect(e.children[0].getAttribute('class')).toEqual('or');
-      expect(e.children[0].firstChild.data).toEqual('or');
+      expect(e.children[0].innerText).toEqual('or');
       expect(e.children[1].getAttribute('class')).toEqual('delete');
-      expect(e.children[1].firstChild.data).toEqual('×');
+      expect(e.children[1].innerText).toEqual('×');
 
       op.and(true);
       op.del(false);
-      op.update();
+      e = op.update();
 
-      e = op.element();
       expect(e.getAttribute('class')).toEqual('operators button-group');
       expect(e.children[0].getAttribute('class')).toEqual('and');
-      expect(e.children[0].firstChild.data).toEqual('and');
+      expect(e.children[0].innerText).toEqual('and');
       expect(e.children[1].getAttribute('class')).toEqual('or');
-      expect(e.children[1].firstChild.data).toEqual('or');
+      expect(e.children[1].innerText).toEqual('or');
     });
   });
 

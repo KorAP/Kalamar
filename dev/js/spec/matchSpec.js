@@ -350,7 +350,8 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(e.classList.contains('active')).toBe(true);
       expect(e["_match"]).not.toBe(undefined);
 
-      actions = e.querySelector("p.ref > div.action.bottom").getElementsByTagName("span");
+      actions = e.querySelector("p.ref > div.action.bottom").children;
+      
       expect(actions[0].getAttribute("class")).toEqual("meta");
       expect(actions[1].getAttribute("class")).toEqual("info");
       expect(actions[2].getAttribute("class")).toEqual("tree");
