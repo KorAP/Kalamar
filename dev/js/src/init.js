@@ -15,6 +15,7 @@ define([
   'hint',
   'vc',
   'tutorial',
+  'buttongroup',
   'lib/domReady',
   'vc/array',
   'lib/alertify',
@@ -29,6 +30,7 @@ define([
              hintClass,
              vcClass,
              tutClass,
+             buttonGroupClass,
              domReady,
              vcArray,
              alertifyClass,
@@ -181,29 +183,19 @@ define([
     };
 
     var result = d.getElementById('resultinfo');
-    var resultButton = null;
-    var leftButton = null;
+    var resultButton;
     if (result != null) {
 
-      // Add right buttons
-      resultButton = result.addE('div');
-      resultButton.classList.add('result', 'button');
-
-      leftButton =  result.addE('div');
-      leftButton.classList.add('result', 'button', 'left');
+      // Add result button group
+      resultButton = buttonGroupClass.create(['result']);
+      result.appendChild(resultButton.element());
     };
 
     // There is a koralQuery
     if (KorAP.koralQuery !== undefined) {
 
-      if (resultButton !== null) {
+      if (result !== null) {
         var kq;
-        var toggle = d.createElement('a');
-        toggle.setAttribute('title', loc.SHOW_KQ)
-        toggle.classList.add('show-kq', 'button');
-        toggle.addE('span')
-          .addT(loc.SHOW_KQ);
-        resultButton.appendChild(toggle);
 
         var showKQ = function () {
           if (kq === undefined) {
@@ -228,11 +220,8 @@ define([
           };
         };
 
-        if (toggle !== undefined) {
-          
-          // Show koralquery
-          toggle.addEventListener('click', showKQ);
-        };
+        // Add KoralQuery button
+        resultButton.add(loc.SHOW_KQ, ['show-kq','button-icon'], showKQ);
       };
 
       if (KorAP.koralQuery["errors"]) {
@@ -263,41 +252,16 @@ define([
     if (i > 0) {
 
       if (resultButton !== null) {
-
         /**
          * Toggle the alignment (left <=> right)
          */
-        // querySelector('div.button.right');
-        
-        var toggle = d.createElement('a');
-        toggle.setAttribute('title', loc.TOGGLE_ALIGN);
-        // Todo: Reuse old alignment from query
-        var cl = toggle.classList;
-        cl.add('align', 'right', 'button');
-        toggle.addEventListener(
-          'click',
-          function (e) {
-            var ol = d.querySelector('#search > ol');
-            ol.toggleClass("align-left", "align-right");
-            this.toggleClass("left", "right");
-          });
-        toggle.addE('span').addT(loc.TOGGLE_ALIGN);
-        resultButton.appendChild(toggle);
-      };
 
-      // Not ready yet
-      /*
-      if (leftButton !== null) {
-        var metaInfo = d.createElement('a');
-        metaInfo.setAttribute('title', loc.SHOW_META)
-
-        var cl = metaInfo.classList;
-        cl.add('show-meta', 'button');
-        metaInfo.appendChild(d.createElement('span'))
-          .appendChild(d.createTextNode(loc.SHOW_META));
-        leftButton.appendChild(metaInfo);
+        resultButton.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
+          var ol = d.querySelector('#search > ol');
+          ol.toggleClass("align-left", "align-right");
+          this.toggleClass("left", "right");
+        });
       };
-      */
     };
 
     /**

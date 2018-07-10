@@ -31,11 +31,11 @@ define(['util'], function () {
      */
     add : function (title, classes, cb) {
       var b = this._element.addE('span');
-      b.addT(title);
       b.setAttribute('title',title);
       if (classes !== undefined) {
         b.classList.add.apply(b.classList, classes);
       };
+      b.addE('span').addT(title);
 
       var that = this;
       b.addEventListener('click', function (e) {

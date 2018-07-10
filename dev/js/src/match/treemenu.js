@@ -46,7 +46,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
       return this._info;
     },
 
-    // Attach menu to
+    // Attach menu to button
     attachTo : function (e) {
 
       // this._attached = e;

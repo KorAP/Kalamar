@@ -15,12 +15,11 @@ $font-size: 10pt;
   overflow-x: hidden;
   overflow-y: visible;
   width: auto;
-  border: 1px solid black;
   text-indent: 0;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  border: 1px solid $kwic-border;
+  border: $result-border-size solid $kwic-border;
   font-size: $font-size;
 
   > li {

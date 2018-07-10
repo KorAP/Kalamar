@@ -1,0 +1,42 @@
+@charset "utf-8";
+@import "../util";
+
+/*
+ * Define the base layout of horizontal button groups
+ */
+.button-group {
+  > span {
+    cursor: pointer;
+    box-shadow: $choose-box-shadow;
+    font-size: 9pt;
+    line-height: 1.5em;
+    padding: 0 4px;
+    display: inline-block;
+    @include choose-item;
+    border-style: solid;
+    border-width: $border-size 0;
+    &:hover {
+	    @include choose-hover;
+    }
+    &:first-child {
+	    border: {
+	      left-width: $border-size;
+	      top-left-radius: $standard-border-radius;
+	      bottom-left-radius: $standard-border-radius;
+	    }
+    }
+    &:last-child {
+	    border: {
+	      right-width: $border-size;
+	      top-right-radius: $standard-border-radius;
+	      bottom-right-radius: $standard-border-radius;
+	    }
+    }
+    &.button-icon {
+      font-family: 'FontAwesome';
+      > span {
+        @include blind;
+      }
+    }
+  }
+}

@@ -1,16 +1,17 @@
-@import "highlight";  // JSON highlighting
-@import "kwic";       // Kwic view information
-@import "logos";      // Logo images
-@import "matchinfo";  // Match table
-@import "tree";       // Tree view
-@import "pagination"; // Pagination
-@import "query";      // View query
-@import "resultinfo"; // Information on results
-@import "tutorial";   // Embedded and non-embedded tutorial
-@import "koralquery"; // KoralQuery
-@import "tagger";     // Tagger
-@import "alertify";
-@import "intro";      // Intro page
+@import "highlight";   // JSON highlighting
+@import "kwic";        // Kwic view information
+@import "logos";       // Logo images
+@import "matchinfo";   // Match table
+@import "tree";        // Tree view
+@import "pagination";  // Pagination
+@import "query";       // View query
+@import "resultinfo";  // Information on results
+@import "tutorial";    // Embedded and non-embedded tutorial
+@import "koralquery";  // KoralQuery
+@import "tagger";      // Tagger
+@import "alertify";    // Styling alerts
+@import "intro";       // Intro page
+@import "buttongroup"; // Button groups
 
 main {
   margin: {

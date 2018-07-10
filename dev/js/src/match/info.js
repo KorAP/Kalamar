@@ -1,6 +1,12 @@
 /**
  * Information about a match.
  */
+/*
+ * TODO:
+ *   Create a "views" object, that is the parent of this
+ *   class and supports a simple .add() method to add views
+ *   to an element.
+ */
 define([
   'match/infolayer',
   'match/table',

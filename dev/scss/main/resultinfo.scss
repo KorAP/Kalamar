@@ -16,73 +16,46 @@ $border-size : 1px;
     margin: 0;
     text-align: right;
   }
+}
 
-  div.result {
-    vertical-align: bottom;
-    display: inline-block;
+// Specify result button group layout
+.result.button-group {
+  vertical-align: bottom;
+  display: inline-block;
+  line-height: 1.3em;
+
+  > span {
     line-height: 1.3em;
-    > a {
-      display: inline-block;
-      cursor: pointer;
-      position: relative;
-      > span {
-	      @include blind;
-      }
-      box-shadow: $choose-box-shadow;
-      @include standard-text-padding;
-      // padding-top: 1pt;
-      // padding-bottom: 3pt;
-      
-      @include choose-item;
-      border: {
-	      top-width: $border-size;
-	      bottom-width:  $border-size;
-	      top-style: solid;
-	      bottom-style: solid;
-      }
-      &:hover {
-	      @include choose-hover;
-      }
+    border-width: $result-border-size 0;
+    &:first-child {
+      border-left-width: $result-border-size;
     }
-    > a:last-child {
-      border: {
-	    top-right-radius: $standard-border-radius;
-	    bottom-right-radius: $standard-border-radius;
-	    right-width: $border-size;
-	    right-style: solid;
+    &:last-child {
+      border-right-width: $result-border-size;
     }
-    }
-    > a:first-child {
-      border: {
-	    top-left-radius: $standard-border-radius;
-	    bottom-left-radius: $standard-border-radius;
-	    left-width: $border-size;
-	    left-style: solid;
-    }
-    }
-    > a::after {
-      font-family: 'FontAwesome';
-    }
-    > a.align.left::after {
+  }
+
+  // Define icons for result buttons
+  .button-icon {
+    &.align.left::after {
       content: $fa-left-align;
     }
-    > a.align.right::after {
+    &.align.right::after {
       content: $fa-right-align;
     }
-    > a.show-kq::after {
+    &.show-kq::after {
       content: $fa-code;
-    }
-    > a.show-meta::after {
-      content: $fa-metadata;
     }
   }
 }
+
 
 #resultinfo.found {
   position: relative;
   // z-index: 20;
   margin-bottom: 0px;
-  div.result > a {
+
+  .button-group > span {
     margin-bottom: 0;
     border-bottom-width: 0;
     box-shadow: none;
@@ -91,14 +64,19 @@ $border-size : 1px;
     }
     &:last-child {
       border-bottom-right-radius: 0;
-    }
+    }   
   }
+
+  /*
   div.result.left {
     position: absolute;
     left: 0;
     bottom: 0;
   }
+  */
 }
+
+
 
 #total-results {
   color: $total-results;
