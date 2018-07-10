@@ -12,8 +12,9 @@
 define([
   'match/info',      // rename to anno
   'match/treemenu',
+  'buttongroup',
 	'util'
-], function (infoClass,matchTreeMenuClass) { //, refClass) {
+], function (infoClass,matchTreeMenuClass,buttonGroupClass) { //, refClass) {
 
   // Localization values
   const loc   = KorAP.Locale;
@@ -188,53 +189,26 @@ define([
       // No reference found
       if (!refLine)
         return;
-      
-      var ops = d.createElement('div');
-      ops.classList.add('action', 'bottom', 'button-group');
 
-      var meta = ops.addE('span');
-      meta.addT(loc.SHOW_META);
-      meta.setAttribute('title', loc.SHOW_META);
-      meta.classList.add('meta');
+      var btns = buttonGroupClass.create(['action', 'bottom']);
 
-      // TODO: Rename anno
-      var info = ops.addE('span');
-      info.addT(loc.SHOWANNO);
-      info.setAttribute('title', loc.SHOWANNO);
-      info.classList.add('info');
-
-      var tree = ops.addE('span');
-      tree.addT(loc.ADDTREE);
-      tree.setAttribute('title', loc.ADDTREE);
-      tree.classList.add('tree');
-
-      // Insert before reference line
-      refLine.insertBefore(
-        ops,
-        refLine.firstChild
-      );
-
-      // Click on meta - add meta (unless already there)
-      meta.addEventListener(
-        'click', function (e) {
-          e.halt();
+      // Add meta button
+      btns.add(
+        loc.SHOW_META, ['meta'], function (e) {
           that.info().showMeta();
         }
       );
 
-      // Click on token annotations - add token annotations (unless already there)
-      info.addEventListener(
-        'click', function (e) {
-          e.halt();
+      // Add token annotation button
+      btns.add(
+        loc.SHOWANNO, ['info'], function (e) {
           that.info().showTable();
         }
       );
 
-      // Click to show tree menu
-      tree.addEventListener(
-        'click', function (e) {
-          e.halt();
-
+      // Add tree view button
+      btns.add(
+        loc.ADDTREE, ['tree'], function (e) {
           if (KorAP.TreeMenu === undefined) {
             KorAP.TreeMenu = matchTreeMenuClass.create([]);
           };
@@ -252,6 +226,14 @@ define([
         }
       );
 
+      
+      // Insert before reference line
+      refLine.insertBefore(
+        btns.element(),
+        refLine.firstChild
+      );
+
+      
       // Close match
       close.addEventListener('click', function (e) {
         e.halt();
