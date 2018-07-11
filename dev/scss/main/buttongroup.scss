@@ -40,3 +40,17 @@
     }
   }
 }
+
+ul.button-group-list {
+  border-top-right-radius: 8px;
+  z-index: 150;
+  font-size: 10pt;
+  position: fixed;
+  left: 0;
+  text-align: left;
+  margin: -1 * $border-size;
+  margin-top: 0;
+  > li:first-of-type {
+	  border-top-right-radius: 5px;
+  }
+}

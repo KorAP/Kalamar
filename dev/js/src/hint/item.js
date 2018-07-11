@@ -40,18 +40,19 @@ define(['menu/item', 'util'], function (itemClass) {
       };
       return this._content;
     },
-
+  
     /**
      * Override the click action
      * of the menu item.
      */
     onclick : function (e) {
       var m = this.menu();
-      var h = m.hint();
       // m.hide();
 
       // Reset prefix
       m.prefix("");
+
+      var h = m.hint();
 
       // Update input field
       var input = h.inputField();

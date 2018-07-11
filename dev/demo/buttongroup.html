@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hint demo</title>
+    <meta charset="utf-8" />
+    <script src="../js/lib/require.js" async="async"></script>
+    <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+  </head>
+  <body>
+    <nav id="mainButton" style="position: absolute; top: 300px"></nav>
+  </body>
+  <script>
+requirejs.config({
+  baseUrl: '../js/src',
+  paths : {
+    'lib': '../lib'
+  }
+});
+
+
+require(['buttongroup'], function (btnClass) {
+  btns = btnClass.create();
+  btns.add('Meta',['meta'], function () {
+    console.log(this.button.classList.contains('meta'));
+  });
+  var list = btns.addList('More', ['list']);
+  list.readItems([
+    ['cool', 'cool', function (e, action) { console.log('really' + this.action()) }],
+    ['very cool', 'veryCool', function (e, action) { console.log('very cool') }]
+  ]);
+  document.getElementById('mainButton').appendChild(btns.element());
+});
+
+
+  </script>
+</html>

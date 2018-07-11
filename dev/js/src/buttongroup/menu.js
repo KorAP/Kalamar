@@ -1,7 +1,7 @@
   /**
-   * Menu to choose from for tree views.
+   * Menu to choose from in a button group.
    */
-define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
+define(['menu'], function (menuClass) {
   "use strict";
 
   return {
@@ -15,7 +15,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
      * @param params The match menu items
      *   as an array of arrays.
      */
-    create : function (list) {
+    create : function (list, itemClass) {
       var obj = Object.create(menuClass)
 	        .upgradeTo(this)
 	        ._init(list, {itemClass : itemClass});
@@ -28,7 +28,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
 	      this.menu.hide();
       });
 
-      e.setAttribute('id', 'treeMenu');
+      e.classList.add('button-group-list');
 
       // Add menu to body
       document.getElementsByTagName('body')[0].appendChild(e);
@@ -38,6 +38,8 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
 
     /**
      * The match information object of the menu.
+     * TODO:
+     *   Rename to 'Panel'
      */
     info :function (infoVar) {
       if (infoVar !== undefined)
@@ -47,10 +49,10 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
     },
 
     // Attach menu to button
-    attachTo : function (e) {
+    button : function (btn) {
 
       // this._attached = e;
-      this._repos(e);
+      this._repos(btn);
       this.slider().reInit();
 
       /*
@@ -62,7 +64,7 @@ define(['menu', 'match/treeitem'], function (menuClass, itemClass) {
       };
 
       this._onscroll = function () {
-        this._repos(e);
+        this._repos(btn);
       }.bind(this);
       
       window.addEventListener('scroll', this._onscroll);

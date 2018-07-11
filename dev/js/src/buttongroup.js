@@ -1,4 +1,6 @@
-define(['util'], function () {
+define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, defaultItemClass) {
+  "use strict";
+  
   return {
     /**
      * Create button group
@@ -44,6 +46,8 @@ define(['util'], function () {
     
     /**
      * Add button in order
+     *
+     * Returns the button element
      */
     add : function (title, classes, cb) {
       var b = this._element.addE('span');
@@ -60,13 +64,36 @@ define(['util'], function () {
         e.halt();
         
         // Call callback
-        cb.apply(that._bind || this, e)
+        var obj = that._bind || this;
+        obj.button = b;
+        cb.apply(obj, e)
       });
+
+      return b;
     },
 
     
     /**
-     * Bind an object to all callbacks of the button group
+     * Add button that spawns a list in order.
+     *
+     * Returns the list object.
+     */
+    addList : function (title, classes, itemClass) {
+      var list = treeMenuClass.create([], itemClass || defaultItemClass);
+      this.add(title, classes, function (e) {
+        list.show();
+        list.button(this.button);
+        list.focus();
+      });
+
+      return list;
+    },
+    
+
+    /**
+     * Bind an object to all callbacks of the button group.
+     * To get the button element inside the callback,
+     * use this.button
      */
     bind : function (obj) {
       if (obj !== undefined) {

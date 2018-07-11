@@ -103,5 +103,9 @@ define(['buttongroup'], function (buttonGroupClass) {
       group.element().firstChild.click();
       expect(fun.count).toEqual(1);
     });
+
+    it('should open lists', function () {
+      
+    });
   });
 });

@@ -11,10 +11,11 @@
  */
 define([
   'match/info',      // rename to anno
-  'match/treemenu',
+  'match/treeitem',
   'buttongroup',
+  'buttongroup/menu',
 	'util'
-], function (infoClass,matchTreeMenuClass,buttonGroupClass) { //, refClass) {
+], function (infoClass,treeItemClass,buttonGroupClass,buttonGroupMenuClass) { //, refClass) {
 
   // Localization values
   const loc   = KorAP.Locale;
@@ -210,7 +211,7 @@ define([
       btns.add(
         loc.ADDTREE, ['tree'], function (e) {
           if (KorAP.TreeMenu === undefined) {
-            KorAP.TreeMenu = matchTreeMenuClass.create([]);
+            KorAP.TreeMenu = buttonGroupMenuClass.create([], treeItemClass);
           };
 
           var tm = KorAP.TreeMenu;
@@ -221,7 +222,7 @@ define([
 
           // Reposition and show menu
           tm.show();
-          tm.attachTo(this);
+          tm.button(this);
           tm.focus();
         }
       );

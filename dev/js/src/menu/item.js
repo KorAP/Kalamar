@@ -47,15 +47,6 @@ define({
   },
 
   /**
-   * Get the lower cased field of the item
-   * (used for analyses).
-   */
-  lcField : function () {
-    return this._lcField;
-  },
-
-
-  /**
    * Get or set the information for action of this item. 
    */
   action : function (action) {
@@ -63,6 +54,16 @@ define({
       this._action = action;
     return this._action;
   },
+  
+
+  /**
+   * Get the lower cased field of the item
+   * (used for analyses).
+   */
+  lcField : function () {
+    return this._lcField;
+  },
+
 
   /**
    * Check or set if the item is active
@@ -170,6 +171,7 @@ define({
     this._prefix = null;
   },
 
+
   // Highlight a certain substring of the menu item
   _highlight : function (elem, prefixString) {    
     if (elem.nodeType === 3) {
@@ -260,15 +262,36 @@ define({
 
     this.content(params[0]);
     
-    if (params.length === 2)
+    if (params.length > 1) {
       this._action = params[1];
 
+      if (params.length > 2)
+        this._onclick = params[2];
+    };
+    
     this._lcField = ' ' + this.content().textContent.toLowerCase();
     this._prefix = null;
 
     return this;
   },
 
+
+  /**
+   * The click action of the menu item.
+   */
+  onclick : function (e) {
+    var m = this.menu();
+
+    // Reset prefix
+    m.prefix("");
+
+    if (this._onclick)
+      this._onclick.apply(this, e);
+
+    m.hide();
+  },
+
+  
   /**
    * Return menu list.
    */

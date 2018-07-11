@@ -368,18 +368,18 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       m.open();
       var relation = e.querySelector("p.ref > div.action.bottom > span:nth-of-type(3)");
       expect(relation.getAttribute("class")).toEqual("tree");
-      expect(document.getElementById("treeMenu")).toBeNull();
+      expect(document.getElementsByClassName("button-group-list").length).toEqual(0);
 
       expect(document.activeElement.tagName).toEqual("BODY");
 
       // Show menu
       relation.click();
-      expect(document.getElementById("treeMenu")).toBeTruthy();
+      expect(document.getElementsByClassName("button-group-list").length).toEqual(1);
 
       expect(document.activeElement.tagName).toEqual("UL");
 
       // Choose first tree
-      document.getElementById("treeMenu").getElementsByTagName("li")[1].click();
+      document.getElementsByClassName("button-group-list")[0].getElementsByTagName("li")[1].click();
       expect(e.querySelector("div.matchinfo div.matchtree h6 span").innerText).toEqual("corenlp");
 
       // This should blur the focus
@@ -701,14 +701,14 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
   
   describe('KorAP.MatchTreeMenu', function () {
-    var matchTreeMenu = require('match/treemenu');
+    var matchTreeMenu = require('buttongroup/menu');
     var matchTreeItem = require('match/treeitem');
 
     it('should be initializable', function () {
       var menu = matchTreeMenu.create([
         ['cnx/c', 'cnx', 'c'],
         ['xip/c', 'xip', 'c']
-      ]);
+      ], matchTreeItem);
 
       expect(menu.itemClass()).toEqual(matchTreeItem);
       expect(menu.element().nodeName).toEqual('UL');
