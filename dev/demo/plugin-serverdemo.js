@@ -15,12 +15,11 @@ define(['app/en','buttongroup', 'plugin/server','lib/domReady','init','hint/foun
       'desc' : 'Some content about cats',
       // 'about' : 'https://localhost:5678/',
       'embed' : [{
-        'buttonGroup' : 'match',
+        'panel' : 'match',
         'title' : 'Translate',
         'classes' : ['translate'],
         'onClick' : {
           'action' : 'addWidget',
-          'panel' : 'container',
           'template' : 'http://localhost:3003/demo/plugin-client.html',
         }
       }]

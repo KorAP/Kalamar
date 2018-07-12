@@ -15,10 +15,17 @@ define(["plugin/widget", "util"], function (widgetClass) {
   // messages to them
   var widgets = {};
   var plugins = {};
+
+  // TODO:
+  //   These should better be panels and every panel
+  //   has a buttonGroup
   var buttons = {
     match : []
   };
-
+  var panels = {
+    match : 1
+  };
+  
   // This is a counter to limit acceptable incoming messages
   // to a certain amount. For every message, this counter will
   // be decreased (down to 0), for every second this will be
@@ -52,38 +59,33 @@ define(["plugin/widget", "util"], function (widgetClass) {
      * Register a plugin described as a JSON object.
      *
      * This is work in progress.
+     *
+     * Example:
+     *
+     *   KorAP.Plugin.register({
+     *     'name' : 'CatContent',
+     *     'desc' : 'Some content about cats',
+     *     'about' : 'https://localhost:5678/',
+     *     'embed' : [{
+     *       'panel' : 'match',
+     *       'title' : loc.TRANSLATE,
+     *       'classes' : ['translate']
+     *       'onClick' : {
+     *         'action' : 'addWidget',
+     *         'template' : 'https://localhost:5678/?match={matchid}',
+     *       }
+     *     }]
+     *   });
+     *
      */
     register : function (obj) {
-
-      /* Example:
-
-         KorAP.Plugin.register({
-           'name' : 'CatContent',
-           'desc' : 'Some content about cats',
-           'about' : 'https://localhost:5678/',
-           'embed' : [{
-             'buttonGroup' : 'match',
-             'title' : loc.TRANSLATE,
-             'classes' : ['translate']
-             'onClick' : {
-               'action' : 'addWidget',
-               'panel' : 'match',
-               'template' : 'https://localhost:5678/?match={matchid}',
-             }
-           }]
-         });
-      */
-
       // TODO:
-      //   These fields need to be localized by a structure like
-      //   {
-      //     de : {
-      //       name : '..'
-      //     }
-      //     en : ...
-      //   }
-      // for display
+      //   These fields need to be localized for display by a structure like
+      //   { de : { name : '..' }, en : { .. } }
       var name = obj["name"];
+
+      if (!name)
+        throw new Error("Missing name of plugin");
 
       // Register plugin by name
       var plugin = plugins[name] = {
@@ -92,20 +94,31 @@ define(["plugin/widget", "util"], function (widgetClass) {
         about : obj["about"],
         widgets : []
       };
+
+      if (typeof obj["embed"] !== 'object')
+        throw new Error("Embedding of plugin is no list");
  
       // Embed all embeddings of the plugin
       for (var i in obj["embed"]) {
         var embed = obj["embed"][i];
-        var addTo = embed["buttonGroup"];
+
+        if (typeof embed !== 'object')
+          throw new Error("Embedding of plugin is no object");
+
+        var panel = embed["panel"];
+
+        if (!panel || !buttons[panel])
+          throw new Error("Panel for plugin is invalid");
+
         var onClick = embed["onClick"];
 
         // Needs to be localized as well
         var title = embed["title"];
 
         // The embedding will open a widget
-        if (onClick["action"] == "addWidget") {
+        if (!onClick["action"] || onClick["action"] == "addWidget") {
 
-          var panel = onClick["panel"];
+          var panel = document.getElementById(panel);
           var that = this;
           var cb = function (e) {
 
@@ -113,11 +126,11 @@ define(["plugin/widget", "util"], function (widgetClass) {
             var url = onClick["template"]; // that._interpolateURI(onClick["template"], this.match);
 
             // Add the widget to the panel
-            var id = that.addWidget(document.getElementById(panel), name, url);
+            var id = that.addWidget(panel, name, url);
             plugin["widgets"].push(id);
           };
 
-          buttons["match"].push([title, embed["classes"], cb]);
+          buttons[pannel].push([title, embed["classes"], cb]);
         };
       };
     },
