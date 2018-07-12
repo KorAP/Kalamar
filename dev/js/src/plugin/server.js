@@ -14,6 +14,10 @@ define(["plugin/widget", "util"], function (widgetClass) {
   // Contains all widgets to address with
   // messages to them
   var widgets = {};
+  var plugins = {};
+  var buttons = {
+    match : []
+  };
 
   // This is a counter to limit acceptable incoming messages
   // to a certain amount. For every message, this counter will
@@ -44,6 +48,96 @@ define(["plugin/widget", "util"], function (widgetClass) {
       return this;
     },
 
+    /**
+     * Register a plugin described as a JSON object.
+     *
+     * This is work in progress.
+     */
+    register : function (obj) {
+
+      /* Example:
+
+         KorAP.Plugin.register({
+           'name' : 'CatContent',
+           'desc' : 'Some content about cats',
+           'about' : 'https://localhost:5678/',
+           'embed' : [{
+             'buttonGroup' : 'match',
+             'title' : loc.TRANSLATE,
+             'classes' : ['translate']
+             'onClick' : {
+               'action' : 'addWidget',
+               'panel' : 'match',
+               'template' : 'https://localhost:5678/?match={matchid}',
+             }
+           }]
+         });
+      */
+
+      // TODO:
+      //   These fields need to be localized by a structure like
+      //   {
+      //     de : {
+      //       name : '..'
+      //     }
+      //     en : ...
+      //   }
+      // for display
+      var name = obj["name"];
+
+      // Register plugin by name
+      var plugin = plugins[name] = {
+        name : name,
+        desc : obj["desc"],
+        about : obj["about"],
+        widgets : []
+      };
+ 
+      // Embed all embeddings of the plugin
+      for (var i in obj["embed"]) {
+        var embed = obj["embed"][i];
+        var addTo = embed["buttonGroup"];
+        var onClick = embed["onClick"];
+
+        // Needs to be localized as well
+        var title = embed["title"];
+
+        // The embedding will open a widget
+        if (onClick["action"] == "addWidget") {
+
+          var panel = onClick["panel"];
+          var that = this;
+          var cb = function (e) {
+
+            // Get the URL of the widget
+            var url = onClick["template"]; // that._interpolateURI(onClick["template"], this.match);
+
+            // Add the widget to the panel
+            var id = that.addWidget(document.getElementById(panel), name, url);
+            plugin["widgets"].push(id);
+          };
+
+          buttons["match"].push([title, embed["classes"], cb]);
+        };
+      };
+    },
+
+
+    // TODO:
+    //   Interpolate URIs similar to https://tools.ietf.org/html/rfc6570
+    //   but as simple as possible
+    _interpolateURI : function (uri, obj) {
+      // ...
+    },
+
+
+    /**
+     * Get named button group
+     */
+    buttonGroup : function (name) {
+      return buttons[name];
+    },
+    
     /**
      * Open a new widget as a child to a certain element
      */
@@ -79,6 +173,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
       limits[id] = maxMessages;
 
       // Open widget in frontend
+      // TODO:
+      //   Instead of an "element" this should probably be a 'panel' object!
       element.appendChild(
         widget.element()
       );
@@ -119,6 +215,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
         // Kill widget
         KorAP.log(0, 'Suspicious action by widget', widget.src);
+
+        // TODO:
+        //   Potentially kill the whole plugin!
         this.closeWidget(widget);
         return;
       };
