@@ -20,7 +20,6 @@ define([
   'vc/array',
   'lib/alertify',
   'session',
-  'tagger',
   'selectMenu',
   'api',
   'mailToChiffre',
@@ -35,7 +34,6 @@ define([
              vcArray,
              alertifyClass,
              sessionClass,
-             tagger,
              selectMenuClass) {
 
   // Localization values
