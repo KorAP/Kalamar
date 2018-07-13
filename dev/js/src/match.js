@@ -184,6 +184,9 @@ define([
       
       var that = this;
 
+      // TODO:
+      //   Introduce panel object here!
+      
       // Add meta button
       var refLine = element.querySelector("p.ref");
 
@@ -273,6 +276,9 @@ define([
      * Get and open associated match infos.
      */
     info : function () {
+
+      // TODO:
+      //   Rename info() to panel()
 
       // Create match info
       if (this._info === undefined)

@@ -3,7 +3,7 @@
  */
 /*
  * TODO:
- *   Create a "views" object, that is the parent of this
+ *   Create a "panel" object, that is the parent of this
  *   class and supports a simple .add() method to add views
  *   to an element.
  */
@@ -57,34 +57,6 @@ define([
     match : function () {
       return this._match;
     },
-
-
-    /**
-     * Open the information view,
-     * if closed, otherwise close.
-     */
-    /*
-    toggle : function () {
-
-      var elem = this._match.element();
-
-      if (this.opened == true) {        
-        elem.removeChild(
-          this.element()
-        );
-        this.opened = false;
-      }
-      else {
-        // Append element to match
-        elem.appendChild(
-          this.element()
-        );
-        this.opened = true;
-      };
-      
-      return this.opened;
-    },
-    */
 
 
     /**
@@ -419,6 +391,9 @@ define([
     },
 
     // Add action button
+    // TODO:
+    //   These are view-buttons that should be added to
+    //   the view and not to the panel!
     _addButton : function (buttonType, element, cb) {
       // TODO: Unless existent
       var actions = document.createElement('ul');

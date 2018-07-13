@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hint demo</title>
+    <title>Panel and ButtonGroup demo</title>
     <meta charset="utf-8" />
     <script src="../js/lib/require.js" async="async"></script>
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
   </head>
   <body>
-    <nav id="mainButton" style="position: absolute; top: 300px"></nav>
+    <nav id="mainButton" style="position: absolute; width: 100%; top: 150px"></nav>
   </body>
   <script>
 requirejs.config({
@@ -18,17 +18,21 @@ requirejs.config({
 });
 
 
-require(['buttongroup'], function (btnClass) {
-  btns = btnClass.create();
-  btns.add('Meta',['meta'], function () {
+require(['buttongroup', 'panel','view'], function (btnClass, panelClass, viewClass) {
+  var panel = panelClass.create();
+  var actions = panel.actions;
+  actions.add('Meta',['meta'], function () {
     console.log(this.button.classList.contains('meta'));
+    view = viewClass.create();
+    panel.add(view);
   });
-  var list = btns.addList('More', ['list']);
+  var list = actions.addList('More', ['list']);
   list.readItems([
     ['cool', 'cool', function (e, action) { console.log('really' + this.action()) }],
     ['very cool', 'veryCool', function (e, action) { console.log('very cool') }]
   ]);
-  document.getElementById('mainButton').appendChild(btns.element());
+
+  document.getElementById('mainButton').appendChild(panel.element());
 });
 
 
