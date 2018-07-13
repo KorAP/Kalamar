@@ -92,7 +92,9 @@ define(['buttongroup'], function (buttonGroupClass) {
       expect(fun.count).toEqual(0);
 
       // Bind group to another object
-      group.bind(fun);
+      var group2 = group.bind(fun);
+      expect(group2).toEqual(group);
+      expect(group.bind()).toEqual(fun);
 
       group.add('Incr', undefined, function (e) {
         // increment on bind object

@@ -98,6 +98,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     bind : function (obj) {
       if (obj !== undefined) {
         this._bind = obj;
+        return this;
       };
       return this._bind || this;
     },
