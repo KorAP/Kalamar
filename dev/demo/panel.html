@@ -19,7 +19,7 @@ requirejs.config({
 
 
 require(['buttongroup', 'panel','view'], function (btnClass, panelClass, viewClass) {
-  var panel = panelClass.create();
+  var panel = panelClass.create('up');
   var actions = panel.actions;
   actions.add('Meta',['meta'], function () {
     console.log(this.button.classList.contains('meta'));

@@ -8,13 +8,14 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
     // TODO:
     //   Support classes
-    create : function () {
-      return Object.create(this)._init();
+    create : function (viewpos) {
+      return Object.create(this)._init(viewpos);
     },
 
-    _init : function () {
-      // ...
+    _init : function (viewpos) {
       this.views = [];
+
+      this._viewpos = (viewpos == 'down' ? viewpos : 'up');
 
       
       /**
@@ -37,10 +38,27 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       var e = document.createElement('div');
       e.classList.add('panel');
 
+      if (this._viewpos == 'up') {
+        this._viewE = e.addE('div');
+      };
+
       e.appendChild(this.actions.element());
+
+      if (this._viewpos == 'down') {
+        this._viewE = e.addE('div');
+      };
 
       this._element = e;
       return e;
+    },
+
+
+    /**
+     * The element of the views
+     */
+    viewElement : function () {
+      this.element();
+      return this._viewE;
     },
 
 
@@ -54,7 +72,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       // Append element to panel element
 
-      this.element().appendChild(
+      this.viewElement().appendChild(
         view.element()
       );
 
@@ -74,6 +92,8 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
     /**
      * Elements before the action buttons
+     * TODO:
+     *   Maybe rename actionLine?
      */
     beforeActions : function (element) {
       if (arguments.length > 0)
