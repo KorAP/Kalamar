@@ -121,7 +121,8 @@ define([
               found[foundry + "/" + layer] = [value];
             }
             else {
-              if (found[foundry + "/" + layer].indexOf(value) === -1) {
+              // if (found[foundry + "/" + layer].indexOf(value) === -1) {
+              if (!found[foundry + "/" + layer].includes(value)) {
                 // Push value to foundry/layer at correct position
                 found[foundry + "/" + layer].push(value);
               };

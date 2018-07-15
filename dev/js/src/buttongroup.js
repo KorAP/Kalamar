@@ -78,8 +78,8 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      *
      * Returns the list object.
      */
-    addList : function (title, classes, itemClass) {
-      var list = treeMenuClass.create([], itemClass || defaultItemClass);
+    addList : function (title, classes, itemClass = defaultItemClass) {
+      var list = treeMenuClass.create([], itemClass);
       this.add(title, classes, function (e) {
         list.show();
         list.button(this.button);

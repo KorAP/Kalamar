@@ -9,10 +9,8 @@ define({
    * Create a new session.
    * Expects a name or defaults to 'korap'
    */
-  create : function (name) {
+  create : function (name = 'korap') {
     var obj = Object.create(this);
-    if (name === undefined)
-      name = 'korap';
     obj._name = name.toLowerCase();
     obj._hash = {};
     obj._parse();

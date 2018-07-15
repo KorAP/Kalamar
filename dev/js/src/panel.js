@@ -8,14 +8,14 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
     // TODO:
     //   Support classes
-    create : function (viewpos) {
+    create : function (viewpos = 'up') {
       return Object.create(this)._init(viewpos);
     },
 
     _init : function (viewpos) {
       this.views = [];
 
-      this._viewpos = (viewpos == 'down' ? viewpos : 'up');
+      this._viewpos = viewpos;
 
       
       /**

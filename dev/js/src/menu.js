@@ -222,12 +222,14 @@ define([
           var prefix = " " + prefixList[pref];
 
           // Check if it matches at the beginning
-          if ((this.item(pos).lcField().indexOf(prefix)) >= 0) {
+          // if ((this.item(pos).lcField().indexOf(prefix)) >= 0) {
+          if ((this.item(pos).lcField().includes(prefix))) {
             points += 5;
           }
 
           // Check if it matches anywhere
-          else if ((this.item(pos).lcField().indexOf(prefix.substring(1))) >= 0) {
+          // else if ((this.item(pos).lcField().indexOf(prefix.substring(1))) >= 0) {
+          else if ((this.item(pos).lcField().includes(prefix.substring(1)))) {
             points += 1;
           };
         };

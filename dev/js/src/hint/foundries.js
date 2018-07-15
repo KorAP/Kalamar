@@ -16,7 +16,8 @@ define([], function () {
     if (!anno)
       return;
 
-    if (value.indexOf(':') < 0) {
+    // if (value.indexOf(':') < 0) {
+    if (!value.includes(':')) {
       value += ' ';
 
       // Iterate over all annotations and add the descriptions
