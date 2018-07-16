@@ -25,7 +25,6 @@ define([
   'view/koralquery',
   'api',
   'mailToChiffre',
-  'lib/highlight/highlight.pack',
   'util'
 ], function (matchClass,
              hintClass,
@@ -186,16 +185,6 @@ define([
 
     var resultInfo = d.getElementById('resultinfo');
 
-    /*
-    var resultButton;
-    if (result != null) {
-
-      // Add result button group
-      resultButton = buttonGroupClass.create(['result']);
-      result.appendChild(resultButton.element());
-    };
-    */
-
     /**
      * Add result panel
      */
@@ -206,7 +195,7 @@ define([
       // Move buttons to resultinfo
       resultInfo.appendChild(resultPanel.actions.element());
 
-      
+      // The views are at the top of the search results
       var sb = d.getElementById('search');
       sb.insertBefore(resultPanel.element(), sb.firstChild);
 
@@ -218,46 +207,29 @@ define([
       
       if (resultInfo !== null) {
 
-        /*
-        var kq;
+        // Open KoralQuery view
+        var kqButton = resultPanel.actions.add(loc.SHOW_KQ, ['show-kq','button-icon'], function () {
 
-        var showKQ = function () {
-          if (kq === undefined) {
-            kq = d.createElement('div');
-            kq.setAttribute('id', 'koralquery');
-            kq.style.display = 'none';
-            var kqInner = d.createElement('div');
-            kq.appendChild(kqInner);
-            kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
-            hljs.highlightBlock(kqInner);
-            var sb = d.getElementById('search');
-            sb.insertBefore(kq, sb.firstChild);
-          };
-
-          if (kq.style.display === 'none') {
-            kq.style.display = 'block';
-            show['kq'] = true;
-          }
-          else {
-            kq.style.display = 'none';
-            delete show['kq'];
-          };
-        };
-
-        // Add KoralQuery button
-        resultButton.add(loc.SHOW_KQ, ['show-kq','button-icon'], showKQ);
-        */
-
-        resultPanel.actions.add(loc.SHOW_KQ, ['show-kq','button-icon'], function () {
-
-          // Show only once
+          // Show only once - otherwise toggle
           if (this._kq && this._kq.shown()) {
+            this._kq.close();
             return;
           };
           
           this._kq = kqClass.create();
+
+          // On close, remove session info on KQ
+          this._kq.onClose = function () {
+            delete show['kq'];
+          };
+
+          show['kq'] = true;
           this.add(this._kq);
         });
+
+        // Show KoralQuery in case it's meant to be shown
+        if (show['kq'])
+          kqButton.click();
       };
 
       if (KorAP.koralQuery["errors"]) {

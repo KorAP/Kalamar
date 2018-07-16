@@ -67,7 +67,9 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
     shown : function () {
       return this._shown;
     },
-    
+
+    // onClose : function () {},
+
     /**
      * Close the view.
      */
@@ -76,6 +78,8 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       e.parentNode.removeChild(e);
       this.panel.delView(this);
       this._shown = false;
+      if (this.onClose)
+        this.onClose();
     },
 
 

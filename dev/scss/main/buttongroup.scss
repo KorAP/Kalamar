@@ -15,7 +15,7 @@
     }
   }
 
-  &.button-panel {
+  &.button-panel, &.operators {
     > span {
       box-shadow: $choose-box-shadow;
       font-size: 9pt;
