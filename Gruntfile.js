@@ -23,12 +23,13 @@ module.exports = function(grunt) {
 
   // Generate requireJS files for l10n
   var reqTasks = [];
+  var uglyFiles = {};
   for (var i in {'en' : 0, 'de' : 1}) {
 
     reqTasks.push({
       options: {
 
-        // optimize: "uglify",
+        optimize: "none",
         baseUrl: 'dev/js/src',
         paths : {
 	        'lib': '../lib',
@@ -40,12 +41,19 @@ module.exports = function(grunt) {
         include : [includeFile, "app/" + i],
         out: 'public/js/kalamar-<%= pkg.version %>-' + i + '.js'
       }
-    })
+    });
+
+    uglyFiles['public/js/kalamar-<%= pkg.version %>-' + i + '.js'] = ['public/js/kalamar-<%= pkg.version %>-' + i + '.js'];
   };
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     requirejs: reqTasks,
+    uglify: {
+      kalamar : {
+        files: uglyFiles
+      }
+    },
     imagemin: {
       dynamic: {
 	      files: [{
@@ -66,20 +74,6 @@ module.exports = function(grunt) {
           'dev/css/kalamar.css' : 'dev/scss/kalamar.scss',
           'dev/css/kwic.css' : 'dev/scss/main/kwic.scss'
         }
-      }
-    },
-    jasmine: {
-      pivotal: {
-	      src: [
-	        'dev/js/src/menu.js',
-	        'dev/js/src/match.js',
-	        'dev/js/src/hint.js',
-	        'dev/js/src/vc.js'
-	      ],
-	      options: {
-	        specs: 'dev/js/spec/*Spec.js',
-	        vendor: ['dev/js/lib/require.js']
-	      }
       }
     },
     // see https://github.com/gruntjs/grunt-contrib-copy/issues/64
@@ -141,16 +135,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-uglify-es');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('default', ['requirejs']);
   grunt.registerTask('img', ['imagemin','copy']);
   grunt.registerTask('js', ['requirejs']);
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
-    ['requirejs', 'imagemin', 'copy', 'sass']
+    ['requirejs', 'uglify', 'imagemin', 'copy', 'sass']
   );
 };
