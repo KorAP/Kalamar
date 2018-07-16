@@ -51,8 +51,10 @@ define(['menu'], function (menuClass) {
     // Attach menu to button
     button : function (btn) {
 
+      this._button = btn;
+
       // this._attached = e;
-      this._repos(btn);
+      this._repos(this._button);
       this.slider().reInit();
 
       /*
@@ -64,7 +66,7 @@ define(['menu'], function (menuClass) {
       };
 
       this._onscroll = function () {
-        this._repos(btn);
+        this._repos(this._button);
       }.bind(this);
       
       window.addEventListener('scroll', this._onscroll);

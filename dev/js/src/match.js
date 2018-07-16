@@ -215,6 +215,7 @@ define([
         loc.ADDTREE, ['tree'], function (e) {
           if (KorAP.TreeMenu === undefined) {
             KorAP.TreeMenu = buttonGroupMenuClass.create([], treeItemClass);
+            KorAP.TreeMenu.element().setAttribute('id', 'treeMenu');
           };
 
           var tm = KorAP.TreeMenu;
