@@ -4,9 +4,7 @@
 $border-size: 2px;
 
 #koralquery {
-  border: 1px solid $kwic-border;
   white-space: pre;
-  background-color: $dark-orange;
   > div {
     overflow-x: auto;
     font-size: 85%;

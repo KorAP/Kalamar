@@ -1,32 +1,40 @@
 /**
  * Create a panel for a certain aspect of the system, like
  * the result, a match, or the VC.
+ *
+ * The buttons are associated with the panel's views,
+ * though they are integrated independently
  */
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
   return {
-
-    // TODO:
-    //   Support classes
-    create : function (viewpos = 'up') {
-      return Object.create(this)._init(viewpos);
+    create : function (classes) {
+      return Object.create(this)._init(classes);
     },
 
-    _init : function (viewpos) {
+
+    // Override by inheriting object
+    _init : function (classes) {
       this.views = [];
 
-      this._viewpos = viewpos;
-
-      
       /**
        * Main action buttons for the panel,
        * may be at the bottom (for matches)
        * or as tabs (for the result).
        */
-      this.actions = buttonGroupClass.create(['action', 'panel']);
+
+      this._classes = classes;
+      var c = ['action', 'button-panel'];
+      if (classes)
+        c.push.apply(c,classes);
+      this.actions = buttonGroupClass.create(c).bind(this);
+
+      // Warning: This is circular
+      this.actions.panel = this;
       return this;
     },
 
+    
     /**
      * The element of the panel
      */
@@ -36,31 +44,32 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       // Create panel element
       var e = document.createElement('div');
-      e.classList.add('panel');
+      var cl = e.classList;
+      cl.add('panel');
+   
+      if (this._classes)
+        cl.add.apply(cl, this._classes);
 
-      if (this._viewpos == 'up') {
-        this._viewE = e.addE('div');
-      };
+      this._viewE = e.addE('div');
 
-      e.appendChild(this.actions.element());
-
-      if (this._viewpos == 'down') {
-        this._viewE = e.addE('div');
-      };
+      // Per default the action buttons are below the view
+      // and integrated
+      var aElem = this.actions.element();
+      if (!aElem.parentNode)
+        e.appendChild(aElem);
 
       this._element = e;
       return e;
     },
 
 
-    /**
+    /*
      * The element of the views
      */
-    viewElement : function () {
+    _viewElement : function () {
       this.element();
       return this._viewE;
     },
-
 
     /**
      * Add a view to the panel
@@ -72,7 +81,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       // Append element to panel element
 
-      this.viewElement().appendChild(
+      this._viewElement().appendChild(
         view.element()
       );
 
@@ -89,27 +98,5 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
         }
       }
     },
-
-    /**
-     * Elements before the action buttons
-     * TODO:
-     *   Maybe rename actionLine?
-     */
-    beforeActions : function (element) {
-      if (arguments.length > 0)
-        this._beforeActions = element;
-
-      return this._beforeActions;
-    },
-
-    /**
-     * Element after the action buttons
-     */
-    afterActions : function (element) {
-      if (arguments.length > 0)
-        this._afterActions = element;
-
-      return this._afterActions;
-    }
   }
 });

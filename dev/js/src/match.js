@@ -194,7 +194,7 @@ define([
       if (!refLine)
         return;
 
-      var btns = buttonGroupClass.create(['action', 'bottom']);
+      var btns = buttonGroupClass.create(['action', 'bottom','button-panel']);
 
       // Add meta button
       btns.add(

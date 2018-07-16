@@ -21,6 +21,8 @@ define([
   'lib/alertify',
   'session',
   'selectMenu',
+  'panel',
+  'view/koralquery',
   'api',
   'mailToChiffre',
   'lib/highlight/highlight.pack',
@@ -34,7 +36,9 @@ define([
              vcArray,
              alertifyClass,
              sessionClass,
-             selectMenuClass) {
+             selectMenuClass,
+             panelClass,
+             kqClass) {
 
   // Localization values
   const loc = KorAP.Locale;
@@ -63,7 +67,7 @@ define([
   domReady(function (event) {
     var obj = {};
 
-    // What should be visible?
+    // What should be visible in the beginning?
     var show = KorAP.session.get('show') || {};
 
     /**
@@ -180,7 +184,9 @@ define([
       ).limit(5);
     };
 
-    var result = d.getElementById('resultinfo');
+    var resultInfo = d.getElementById('resultinfo');
+
+    /*
     var resultButton;
     if (result != null) {
 
@@ -188,11 +194,31 @@ define([
       resultButton = buttonGroupClass.create(['result']);
       result.appendChild(resultButton.element());
     };
+    */
 
+    /**
+     * Add result panel
+     */
+    var resultPanel;
+    if (resultInfo != null) {
+      resultPanel = panelClass.create(['result']);
+
+      // Move buttons to resultinfo
+      resultInfo.appendChild(resultPanel.actions.element());
+
+      
+      var sb = d.getElementById('search');
+      sb.insertBefore(resultPanel.element(), sb.firstChild);
+
+    };
+
+    
     // There is a koralQuery
-    if (KorAP.koralQuery !== undefined) {
+    if (KorAP.koralQuery !== undefined) {    
+      
+      if (resultInfo !== null) {
 
-      if (result !== null) {
+        /*
         var kq;
 
         var showKQ = function () {
@@ -220,6 +246,18 @@ define([
 
         // Add KoralQuery button
         resultButton.add(loc.SHOW_KQ, ['show-kq','button-icon'], showKQ);
+        */
+
+        resultPanel.actions.add(loc.SHOW_KQ, ['show-kq','button-icon'], function () {
+
+          // Show only once
+          if (this._kq && this._kq.shown()) {
+            return;
+          };
+          
+          this._kq = kqClass.create();
+          this.add(this._kq);
+        });
       };
 
       if (KorAP.koralQuery["errors"]) {
@@ -242,22 +280,32 @@ define([
       };
 
       // Session has KQ visibility stored
+      /**
+       * TODO:
       if (show["kq"])
         showKQ.apply();
+      */
     };
 
     // There is more than 0 matches and there is a resultButton
     if (i > 0) {
 
-      if (resultButton !== null) {
+      if (resultPanel !== null) {
         /**
          * Toggle the alignment (left <=> right)
          */
-
+        /*
         resultButton.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
           var ol = d.querySelector('#search > ol');
           ol.toggleClass("align-left", "align-right");
           this.toggleClass("left", "right");
+        });
+        */
+
+        resultPanel.actions.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
+          var ol = d.querySelector('#search > ol');
+          ol.toggleClass("align-left", "align-right");
+          this.button.toggleClass("left", "right");
         });
       };
     };

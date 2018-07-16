@@ -5,22 +5,31 @@ div.panel {
   position: relative;
   width: 100%;
   display: block;
-  padding-top: $border-size;
-  background-color: $dark-orange;
-  border: {
-    style: solid;
-    color: $dark-orange;
-    width: 0;
+  > div {
+    /*
+    border: {
+      style: solid;
+      width: $border-size;
+    }
+    &:empty {
+      border-width: 0;
+    }
+   */
   }
 }
 
 div.view {
   position: relative;
+  padding-top: $border-size;
   display: block;
-  min-height: 40px;
-  background-color: $middle-green;
   width: 100%;
   .button-group {
     color: white;
   }
+}
+
+
+#search div.view {
+  border: 1px solid $kwic-border;
+  background-color: $dark-orange;
 }

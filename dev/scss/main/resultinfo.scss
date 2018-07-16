@@ -1,7 +1,6 @@
 @charset "utf-8";
 @import "../util";
 
-$border-size : 1px;
 
 #resultinfo {
   clear: both;
@@ -19,7 +18,8 @@ $border-size : 1px;
 }
 
 // Specify result button group layout
-.result.button-group {
+.result.button-group.button-panel {
+  width: auto;
   vertical-align: bottom;
   display: inline-block;
   line-height: 1.3em;

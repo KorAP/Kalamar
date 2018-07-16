@@ -13,7 +13,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     _init : function (classes) {
       var e = document.createElement('div');
       var cl = e.classList;
-      if (classes !== undefined) {
+      if (classes) {
         cl.add.apply(cl,classes);
       };
       cl.add('button-group');

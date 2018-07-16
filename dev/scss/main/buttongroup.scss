@@ -14,36 +14,69 @@
       }
     }
   }
-}
 
-.button-group:not(.view) > span {
-  box-shadow: $choose-box-shadow;
-  font-size: 9pt;
-  line-height: 1.5em;
-  padding: 0 4px;
-  display: inline-block;
-  @include choose-item;
-  border-style: solid;
-  border-width: $border-size 0;
-  &:hover {
-	  @include choose-hover;
+  &.button-panel {
+    > span {
+      box-shadow: $choose-box-shadow;
+      font-size: 9pt;
+      line-height: 1.5em;
+      padding: 0 4px;
+      display: inline-block;
+      @include choose-item;
+      border-style: solid;
+      border-width: $border-size 0;
+      &:hover {
+	      @include choose-hover;
+      }
+      &:first-child {
+	      border: {
+	      left-width: $border-size;
+	      top-left-radius: $standard-border-radius;
+	      bottom-left-radius: $standard-border-radius;
+	    }
+      }
+      &:last-child {
+	      border: {
+	      right-width: $border-size;
+	      top-right-radius: $standard-border-radius;
+	      bottom-right-radius: $standard-border-radius;
+      }
+      }
+    }
   }
-  &:first-child {
-	  border: {
-	    left-width: $border-size;
-	    top-left-radius: $standard-border-radius;
-	    bottom-left-radius: $standard-border-radius;
-	  }
-  }
-  &:last-child {
-	  border: {
-	    right-width: $border-size;
-	    top-right-radius: $standard-border-radius;
-	    bottom-right-radius: $standard-border-radius;
+  &.button-view {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 20;
+    margin: 0;
+    padding: 0;
+    width: $right-match-distance;
+    > span:first-child {
+      margin-top: $border-size
+    }
+    > span {
+      display: block;
+      border-width: 0;
+      text-decoration:none;
+      text-align: center;
+      font-style: normal;
+      
+      &.download::after {
+	      font-family: 'FontAwesome';
+	      content: $fa-download;
+      }
+      
+      &.close::after {
+	      font-family: 'FontAwesome';
+	      content: $fa-close;
+      }
     }
   }
 }
- 
+
+
 ul.button-group-list {
   border-top-right-radius: 8px;
   z-index: 150;
@@ -59,29 +92,3 @@ ul.button-group-list {
 }
 
 
-.button-group.view {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 20;
-  margin: 0;
-  padding: 0;
-  width: $right-match-distance;
-  > span {
-    border-width: 0;
-    text-decoration:none;
-    text-align: center;
-    font-style: normal;
-    
-    &.download::after {
-	    font-family: 'FontAwesome';
-	    content: $fa-download;
-    }
-    
-    &.close::after {
-	    font-family: 'FontAwesome';
-	    content: $fa-close;
-    }
-  }
-}

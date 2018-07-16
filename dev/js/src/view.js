@@ -6,26 +6,34 @@
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
   return {
-
-    // TODO:
-    //   Support classes
-    create : function () {
-      return Object.create(this)._init();
+    create : function (classes) {
+      return Object.create(this)._init(classes);
     },
 
-    _init : function () {
-      // ..
+    // Override by inheriting object
+    _init : function (classes) {
       this.panel = undefined;
+      this._classes = classes;
+      this._shown = false;
 
       // The buttonclass is bind to the view
-      this.actions = buttonGroupClass.create(['action', 'view']).bind(this);
+      var c = ['action', 'button-view'];
+      if (classes)
+        c.push.apply(null,classes);
+      
+      this.actions = buttonGroupClass.create(c).bind(this);
+
       this.actions.add('close', ['button-icon','close'], function (e) {
         this.close();
       });
 
+      // Warning: This is circular
+      this.actions.view = this;
+
       return this;
     },
 
+    
     /**
      * Element of the view
      */
@@ -35,7 +43,16 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       // Create panel element
       var e = document.createElement('div');
-      e.classList.add('view');
+
+      var cl = e.classList;
+      cl.add('view');
+      if (this._classes)
+        cl.add.apply(cl, this._classes);
+
+      if (this.show !== undefined)
+        e.appendChild(this.show());
+
+      this._shown = true;
 
       e.appendChild(this.actions.element());
 
@@ -43,6 +60,14 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       return e;
     },
 
+
+    /**
+     * Is the object shown?
+     */
+    shown : function () {
+      return this._shown;
+    },
+    
     /**
      * Close the view.
      */
@@ -50,6 +75,21 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       var e = this.element();
       e.parentNode.removeChild(e);
       this.panel.delView(this);
+      this._shown = false;
+    },
+
+
+    /**
+     * Upgrade this object to another object,
+     * while private data stays intact.
+     *
+     * @param {Object] An object with properties.
+     */
+    upgradeTo : function (props) {
+      for (var prop in props) {
+        this[prop] = props[prop];
+      };
+      return this;
     }
   };
 });
