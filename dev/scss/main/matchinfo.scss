@@ -30,8 +30,6 @@ div.matchinfo:empty {
   display: none !important;
 }
 
-// TODO:
-//   This is now a view
 div.matchinfo {
   position: relative;
   width: 100%;
@@ -237,48 +235,21 @@ div.matchtree {
   }
 }
 
-// TODO:
-//   Probably obsolete now, as it will become part of the panel system
-div.matchinfo ul.action.image {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 20;
-  margin: 0;
-  padding: 0;
-  width: $right-match-distance;
-  li {
-    cursor: pointer;
-    color: $nearly-white;
-    text-decoration: none;
-    > span {
-      @include blind;
-    }
-    border-width: 0;
-    // z-index: 8;
-    text-decoration:none;
-    text-align: center;
-    font-style: normal;
-    
-    &.download::after {
-	    font-family: 'FontAwesome';
-	    content: $fa-download;
-    }
-    
-    &.close::after {
-	    font-family: 'FontAwesome';
-	    content: $fa-close;
-    }
+div.button-group.button-panel.button-matchinfo {
+  display: inline-block;
+  margin-right: .5em;
+  > span {
+    position: relative;
+    box-shadow: none;
   }
 }
 
-
-div.metatable + div.matchtable,
-div.metatable + div.matchtree {
+div.matchinfo .view + .view {
   margin-top: 4 * $border-size !important;
 }
 
+
+// Metatable
 div.metatable > dl {
   display: flex;
   flex-direction: row;

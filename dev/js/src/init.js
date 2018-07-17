@@ -250,13 +250,6 @@ define([
           }
         }
       };
-
-      // Session has KQ visibility stored
-      /**
-       * TODO:
-      if (show["kq"])
-        showKQ.apply();
-      */
     };
 
     // There is more than 0 matches and there is a resultButton
@@ -266,14 +259,6 @@ define([
         /**
          * Toggle the alignment (left <=> right)
          */
-        /*
-        resultButton.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
-          var ol = d.querySelector('#search > ol');
-          ol.toggleClass("align-left", "align-right");
-          this.toggleClass("left", "right");
-        });
-        */
-
         resultPanel.actions.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
           var ol = d.querySelector('#search > ol');
           ol.toggleClass("align-left", "align-right");

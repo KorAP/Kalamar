@@ -5,17 +5,6 @@ div.panel {
   position: relative;
   width: 100%;
   display: block;
-  > div {
-    /*
-    border: {
-      style: solid;
-      width: $border-size;
-    }
-    &:empty {
-      border-width: 0;
-    }
-   */
-  }
 }
 
 div.view {
@@ -23,13 +12,10 @@ div.view {
   padding-top: $border-size;
   display: block;
   width: 100%;
-  .button-group {
-    color: white;
-  }
 }
 
 
-#search div.view {
+div.result.panel .view {
   border: 1px solid $kwic-border;
   background-color: $dark-orange;
 }

@@ -25,10 +25,11 @@ define(function () {
   ];
 
   // Match view
-  loc.ADDTREE  = 'Relationen';
+  loc.ADDTREE   = 'Relationen';
   loc.SHOWANNO  = 'Token';
-  loc.SHOWINFO = 'Informationen';
-  loc.CLOSE    = 'Schließen';
+  loc.SHOWINFO  = 'Informationen';
+  loc.CLOSE     = 'Schließen';
+  loc.DOWNLOAD  = 'Herunterladen';
 
   loc.TOGGLE_ALIGN = 'tausche Textausrichtung';
   loc.SHOW_KQ      = 'zeige KoralQuery';

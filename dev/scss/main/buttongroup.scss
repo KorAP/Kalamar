@@ -57,7 +57,7 @@
       margin-top: $border-size
     }
     > span {
-      display: block;
+      display: block !important;
       border-width: 0;
       text-decoration:none;
       text-align: center;
@@ -74,6 +74,11 @@
       }
     }
   }
+}
+
+.button-group.button-view {
+  font-size: 10pt;
+  color: $nearly-white;
 }
 
 

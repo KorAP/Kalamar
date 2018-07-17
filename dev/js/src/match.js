@@ -10,20 +10,18 @@
  * - A click on a table field and a tree node should at the field description to the fragments list.
  */
 define([
-  'match/info',      // rename to anno
-  'match/treeitem',
   'buttongroup',
-  'buttongroup/menu',
+  'panel/match',
 	'util'
-], function (infoClass,treeItemClass,buttonGroupClass,buttonGroupMenuClass) { //, refClass) {
+], function (buttonGroupClass,matchPanelClass) { //, refClass) {
 
   // Localization values
   const loc   = KorAP.Locale;
-  loc.SHOWINFO  = loc.SHOWINFO  || 'Show information';
-  loc.ADDTREE   = loc.ADDTREE   || 'Relations';
-  loc.SHOWANNO  = loc.SHOWANNO  || 'Tokens';
+  // loc.SHOWINFO  = loc.SHOWINFO  || 'Show information';
+  // loc.ADDTREE   = loc.ADDTREE   || 'Relations';
+  // loc.SHOWANNO  = loc.SHOWANNO  || 'Tokens';
   loc.CLOSE     = loc.CLOSE     || 'Close';
-  loc.SHOW_META = loc.SHOW_META || 'Metadata';
+  // loc.SHOW_META = loc.SHOW_META || 'Metadata';
   
   // 'corpusID', 'docID', 'textID'
   const _matchTerms  = ['textSigle', 'matchID', 'available'];
@@ -50,6 +48,7 @@ define([
      */
     _init : function (match) {
       this._element = null;
+      this._initialized = false;
 
       // No match defined
       if (arguments.length < 1 ||
@@ -164,89 +163,45 @@ define([
       element.classList.add('active');
 
       // Already there
-      if (element.classList.contains('action'))
+      /*
+        if (element.classList.contains('action'))
         return true;
-
-      // Create action buttons
-      var ul = d.createElement('ul');
-      ul.classList.add('action', 'right');
-
-      element.appendChild(ul);
-      element.classList.add('action');
-
-      // Todo: Open in new frame
-
-      // Add close button
-      var close = d.createElement('li');
-      close.addE('span').addT(loc.CLOSE);
-      close.classList.add('close');
-      close.setAttribute('title', loc.CLOSE);
+      */
+      if (this._initialized)
+        return true;
       
+      var btn = buttonGroupClass.create(
+        ['action','button-view']
+      );
+
       var that = this;
+      btn.add(loc.CLOSE, ['button-icon','close'], function () {
+        that.close();
+      });
+      element.appendChild(btn.element());
 
-      // TODO:
-      //   Introduce panel object here!
-      
       // Add meta button
       var refLine = element.querySelector("p.ref");
 
       // No reference found
       if (!refLine)
         return;
-
-      var btns = buttonGroupClass.create(['action', 'bottom','button-panel']);
-
-      // Add meta button
-      btns.add(
-        loc.SHOW_META, ['meta'], function (e) {
-          that.info().showMeta();
-        }
-      );
-
-      // Add token annotation button
-      btns.add(
-        loc.SHOWANNO, ['info'], function (e) {
-          that.info().showTable();
-        }
-      );
-
-      // Add tree view button
-      btns.add(
-        loc.ADDTREE, ['tree'], function (e) {
-          if (KorAP.TreeMenu === undefined) {
-            KorAP.TreeMenu = buttonGroupMenuClass.create([], treeItemClass);
-            KorAP.TreeMenu.element().setAttribute('id', 'treeMenu');
-          };
-
-          var tm = KorAP.TreeMenu;
-
-          // Reread list
-          tm.info(that.info());
-          tm.readItems(that.treeMenuList());
-
-          // Reposition and show menu
-          tm.show();
-          tm.button(this);
-          tm.focus();
-        }
-      );
-
       
+      var panel = matchPanelClass.create(this);
+
+      this._element.insertBefore(
+        panel.element(),
+        this._element.querySelector("p.ref")
+      );
+
       // Insert before reference line
       refLine.insertBefore(
-        btns.element(),
+        panel.actions.element(),
         refLine.firstChild
       );
 
+      this._initialized = true;
       
-      // Close match
-      close.addEventListener('click', function (e) {
-        e.halt();
-        that.close()
-      });
-
-      ul.appendChild(close);
-
       return true;
     },
 
@@ -265,99 +220,6 @@ define([
      */
     close : function () {
       this._element.classList.remove('active');
-      /*
-      if (this._info !== undefined) {
-        this._info.destroy();
-      };
-      */
-    },
-
-
-    /**
-     * Get and open associated match infos.
-     */
-    info : function () {
-
-      // TODO:
-      //   Rename info() to panel()
-
-      // Create match info
-      if (this._info === undefined)
-        this._info = infoClass.create(this);
-
-      // There is an element to append
-      if (this._element === undefined ||
-          this._element === null)
-        return this._info;
-      
-      // Info is already activated
-      if (this._info._element !== undefined)
-        return this._info;
-
-      var refLine = this._element.querySelector("p.ref");
-      this._element.insertBefore(
-        this._info.element(),
-        refLine
-      );
-      
-      return this._info;
-    },
-
-
-    // Return tree menu list
-    treeMenuList : function () {
-
-      if (this._menuList)
-        return this._menuList;
-
-      // Join spans and relations
-      var treeLayers = []
-      var spans = this.getSpans();
-      var rels = this.getRels();
-      var i;
-      for (i in spans) {
-        treeLayers.push(spans[i]);
-      };
-      for (i in rels) {
-        treeLayers.push(rels[i]);
-      };
-
-      // Get spans
-      treeLayers = treeLayers.sort(
-        function (a, b) {
-          if (a.foundry < b.foundry) {
-            return -1;
-          }
-          else if (a.foundry > b.foundry) {
-            return 1;
-          }
-          else if (a.layer < b.layer) {
-            return -1;
-          }
-          else if (a.layer > b.layer) {
-            return 1;
-          };
-          return 0;
-        });
-      
-      var menuList = [];
-      
-      // Show tree views
-      for (var i = 0; i < treeLayers.length; i++) {
-        var span = treeLayers[i];
-        
-        // Add foundry/layer to menu list
-        menuList.push([
-          span.foundry + '/' + span.layer,
-          span.foundry,
-          span.layer,
-          span.type
-        ]);
-      };
-
-      // Create tree menu
-      this._menuList = menuList;
-      return menuList;
     },
 
     

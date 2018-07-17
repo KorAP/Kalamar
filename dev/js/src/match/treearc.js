@@ -404,6 +404,10 @@ define([], function () {
       labelE.appendChild(textNode);
 
       var labelBox   = labelE.getBBox();
+
+      if (!labelBox)
+        console.log("----");
+      
       var textWidth  = labelBox.width; // labelE.getComputedTextLength();
       var textHeight = labelBox.height; // labelE.getComputedTextLength();
 

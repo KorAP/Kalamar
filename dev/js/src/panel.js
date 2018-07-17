@@ -85,6 +85,9 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
         view.element()
       );
 
+      if (view.afterEmbed)
+        view.afterEmbed();
+      
       view.panel = this;
     },
 
@@ -98,5 +101,18 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
         }
       }
     },
+
+    /**
+     * Upgrade this object to another object,
+     * while private data stays intact.
+     *
+     * @param {Object] An object with properties.
+     */
+    upgradeTo : function (props) {
+      for (var prop in props) {
+        this[prop] = props[prop];
+      };
+      return this;
+    }
   }
 });

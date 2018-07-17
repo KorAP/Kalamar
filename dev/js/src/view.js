@@ -5,6 +5,10 @@
 
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
+  const loc   = KorAP.Locale;
+  loc.CLOSE     = loc.CLOSE     || 'Close';
+  
+
   return {
     create : function (classes) {
       return Object.create(this)._init(classes);
@@ -19,11 +23,11 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       // The buttonclass is bind to the view
       var c = ['action', 'button-view'];
       if (classes)
-        c.push.apply(null,classes);
+        c.push.apply(c,classes);
       
       this.actions = buttonGroupClass.create(c).bind(this);
 
-      this.actions.add('close', ['button-icon','close'], function (e) {
+      this.actions.add(loc.CLOSE, ['button-icon','close'], function (e) {
         this.close();
       });
 

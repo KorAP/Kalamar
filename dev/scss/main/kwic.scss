@@ -142,7 +142,8 @@ div.snippet {
   li.active + li.active {
     border-top: $border-size solid $light-grey;
     padding-top: 3 * $border-size;
-    > ul.action.right {
+    // > ul.action.right {
+    .button-group.button-view {
       padding-top: 3 * $border-size;
     }
   }
@@ -229,15 +230,6 @@ font-family: "FontAwesome";
   }
 }
 
-// More is defined in vc.scss
-p.ref div.action.bottom {
-  display: inline-block;
-  margin-right: .5em;
-  > span {
-    position: relative;
-    box-shadow: none;
-  }
-}
 
 /**
  * Active
@@ -260,9 +252,13 @@ body.no-js #search > ol > li:active,
   span {
     display: inline; // !important;
   }
-  ul.action {
+  .button-group.button-view {
     display: block;
   }
+/*  ul.action {
+    display: block;
+  }
+*/
   div.match-wrap {
     min-height: 20pt;
     div.snippet {
@@ -411,7 +407,13 @@ em > em > em,
  * Actions
  */
 
+#search > ol > li .button-group.button-view {
+  display: none;
+}
+
+/*
 ul.action {
+
   display: none;
   //  background-color: $dark-orange;
   font-size: 12pt;
@@ -457,4 +459,4 @@ ul.action {
     }
   }
 }
-
+*/
