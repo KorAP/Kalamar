@@ -388,24 +388,22 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
   });
 
-  xdescribe('KorAP.MatchInfo', function () {
+  describe('KorAP.TableView', function () {
 
     var matchClass = require('match');
+    var tableClass = require('view/match/tokentable');
 
-    var m = matchClass.create(match);
-    var info = m.info();
+    var table;
 
-    it('should contain a valid info', function () {
-      expect(m._info).toEqual(info);
-    });
+    var matchObj = matchClass.create(match);
+    var tableObj = tableClass.create(matchObj);
 
     var table1, table2;
 
-    // Async preparation
     it('should fail to load a table async', function (done) {
-      expect(info).toBeTruthy();
+      expect(tableObj).toBeTruthy();
 
-      info.getTableData([], function (tablen) {
+      tableObj.getData([], function (tablen) {
         table1 = tablen;
         done();
       });
@@ -416,177 +414,34 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(table1).not.toBeTruthy();
     });
 
-
-    it('should load a working table async', function(done) {
-      expect(info).toBeTruthy();
-      info.getTableData(undefined, function (tablem) {
-        table2 = tablem;
-        done();
-      });
-    });
     
-
-    it('should parse into a table (async)', function () {
-      expect(table2).toBeTruthy();
-
-      expect(table2.length()).toBe(3);
-
-      expect(table2.getToken(0)).toBe("meist");
-      expect(table2.getToken(1)).toBe("deutlich");
-      expect(table2.getToken(2)).toBe("leistungsfähiger");
-
-      expect(table2.getValue(0, "cnx", "p")[0]).toBe("ADV");
-      expect(table2.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
-      expect(table2.getValue(0, "mate", "l")[0]).toBe("meist");
-      expect(table2.getValue(0, "mate", "l")[1]).toBeUndefined();
-
-      expect(table2.getValue(2, "cnx", "l")[0]).toBe("fähig");
-      expect(table2.getValue(2, "cnx", "l")[1]).toBe("leistung");
-    });
-
-    
-    it('should parse into a table view', function () {
-      var matchElement = matchElementFactory();
-      expect(matchElement.tagName).toEqual('LI');
-
-      // Match
-      expect(matchElement.children[0].tagName).toEqual('DIV');
-
-      // snippet
-      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
-      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
-      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
-
-      // reference
-      expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
-      expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
-
-      // not yet
-      expect(matchElement.children[0].children[1]).toBe(undefined);
-
-      var info = matchClass.create(matchElement).info();
-      info.showTable();
-
-      // Match
-      expect(matchElement.children[0].tagName).toEqual('DIV');
-
-      // snippet
-      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
-
-      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
-
-      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
-
-      // reference
-      expect(matchElement.lastChild.classList.contains('ref')).toBeTruthy();
-      expect(matchElement.lastChild.firstChild.nodeValue).toEqual('me');
-
-      // now
-      var infotable = matchElement.children[1];
-      expect(infotable.tagName).toEqual('DIV');
-
-      expect(infotable.classList.contains('matchinfo')).toBeTruthy();
-
-      expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
-      // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
-    });
-
-
-    var tree;
-    it('should parse into a tree (async) 1', function (done) {
-      var info = matchClass.create(match).info();
-      expect(info).toBeTruthy();
-      info.getTreeData(undefined, undefined, "spans", function (treem) {
-        tree = treem;
-        done();
-      });
-    });
-
-
-    it('should parse into a tree (async) 2', function () {
-      expect(tree).toBeTruthy();
-      expect(tree.nodes()).toEqual(49);
-    });
-
-
-    var matchElement, info;
-
-    // var info, matchElement;
-    it('should parse into a tree view', function () {      
-      matchElement = matchElementFactory();
-      expect(matchElement.tagName).toEqual('LI');
-
-      info = matchClass.create(matchElement).info();
-      info.showTable();
-
-      // Match
-      expect(matchElement.children[0].tagName).toEqual('DIV');
-
-      // snippet
-      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
-      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
-      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
-
-      // reference
-      expect(matchElement.lastChild.classList.contains('ref')).toBeTruthy();
-      expect(matchElement.lastChild.firstChild.nodeValue).toEqual('me');
-
-      // now
-      var infotable = matchElement.children[1];
-      expect(infotable.tagName).toEqual('DIV');
-      expect(infotable.classList.contains('matchinfo')).toBeTruthy();
-      expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
-      // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
-    });
-
-
-    it('should add a tree view async 1', function (done) {
-      expect(info).toBeTruthy();
-      info.showTree('mate', 'beebop', "spans", function () {
-        done();
-      });
-    });
-
-
-    it('should add a tree view async 2', function () {
-      // With added tree
-      var infotable = matchElement.children[1];
-      
-      expect(infotable.tagName).toEqual('DIV');
-      expect(infotable.classList.contains('matchinfo')).toBeTruthy();
-      expect(infotable.children[0].classList.contains('matchtable')).toBeTruthy();
-      expect(infotable.children[1].classList.contains('addtree')).toBe(false);
-
-      var tree = infotable.children[1];
-      expect(tree.tagName).toEqual('DIV');
-      expect(tree.classList.contains('matchtree')).toBeTruthy();
-      expect(tree.children[0].tagName).toEqual('H6');
-      expect(tree.children[0].children[0].tagName).toEqual('SPAN');
-      expect(tree.children[0].children[0].firstChild.nodeValue).toEqual('mate');
-      expect(tree.children[0].children[1].tagName).toEqual('SPAN');
-      expect(tree.children[0].children[1].firstChild.nodeValue).toEqual('beebop');
-
-      expect(tree.children[1].tagName).toEqual('DIV');
-    });
-  });
-
-
-  xdescribe('KorAP.MatchTable', function () {
-
-    var matchClass = require('match');
-
-    var table;
     it('should be retrieved async', function (done) {
-      var info = matchClass.create(match).info();
-      expect(info).toBeTruthy();
-      info.getTableData(undefined, function (x) {
+      expect(tableObj).toBeTruthy();
+      tableObj.getData(undefined, function (x) {
         table = x;
         done();
       });
     });
 
-    it('should be rendered async', function () {
+    it('should parse into a table (async)', function () {
+      expect(table).toBeTruthy();
 
+      expect(table.length()).toBe(3);
+
+      expect(table.getToken(0)).toBe("meist");
+      expect(table.getToken(1)).toBe("deutlich");
+      expect(table.getToken(2)).toBe("leistungsfähiger");
+
+      expect(table.getValue(0, "cnx", "p")[0]).toBe("ADV");
+      expect(table.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
+      expect(table.getValue(0, "mate", "l")[0]).toBe("meist");
+      expect(table.getValue(0, "mate", "l")[1]).toBeUndefined();
+
+      expect(table.getValue(2, "cnx", "l")[0]).toBe("fähig");
+      expect(table.getValue(2, "cnx", "l")[1]).toBe("leistung");
+    });
+   
+    it('should be rendered async', function () {
       var e = table.element().firstChild;
       expect(e.nodeName).toBe('TABLE');
       expect(e.children[0].nodeName).toBe('THEAD');
@@ -628,26 +483,112 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(tr.children[2].getAttribute("title")).toEqual('Adverb');
 
     });
+
+
+    it('should parse into a table view (sync)', function () {
+      var matchElement = matchElementFactory();
+      expect(matchElement.tagName).toEqual('LI');
+
+      // Match
+      expect(matchElement.children[0].tagName).toEqual('DIV');
+
+      // snippet
+      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+      // reference
+      expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
+      expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+
+      // not yet
+      expect(matchElement.children[0].children[1]).toBe(undefined);
+
+      /*
+      var info = matchClass.create(matchElement).info();
+      info.showTable();
+      */
+      var matchObj = matchClass.create(matchElement);
+      matchObj.open();
+
+      // Match
+      expect(matchElement.children[0].tagName).toEqual('DIV');
+
+      // snippet
+      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+
+      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+
+      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+      // reference
+
+      expect(matchElement.children[2].classList.contains('ref')).toBeTruthy();
+      expect(matchElement.children[2].childNodes[1].nodeValue).toEqual('me');
+
+      // Add table
+      matchObj.panel.addTable();
+
+      // now
+      var infotable = matchElement.children[1];
+      expect(infotable.tagName).toEqual('DIV');
+
+      expect(infotable.classList.contains('matchinfo')).toBeTruthy();
+    
+      expect(infotable.firstChild.firstChild.firstChild.classList.contains('matchtable')).toBeTruthy();
+
+      // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+    });
+
   });
 
-  xdescribe('KorAP.MatchTree', function () {
+  describe('KorAP.RelationsView', function () {
     var tree;
     var matchClass = require('match');
+    var relClass = require('view/match/relations');
+    var panelClass = require('panel/match');
 
     it('should be rendered async 1', function (done) {
-      var info = matchClass.create(match).info();
-      expect(info).toBeTruthy();
-      info.getTreeData(undefined, undefined, "spans", function (y) {
+      var matchObj = matchClass.create(match);
+      var relObj = relClass.create(matchObj);
+      expect(relObj).toBeTruthy();
+      relObj.getData(undefined, undefined, "spans", function (y) {
         tree = y;
         done();
       });
     });
 
     it('should be rendered async 2', function () {
+      expect(tree).toBeTruthy();
+      expect(tree.nodes()).toEqual(49);
+      
       var e = tree.element();
       expect(e.nodeName).toEqual('svg');
       expect(e.getElementsByTagName('g').length).toEqual(48);
     });
+
+
+    it('should add a tree view async 2', function () {
+      var matchElement = matchElementFactory();
+      var matchObj = matchClass.create(matchElement);
+      matchObj.open();
+      matchObj.panel.addTree('mate', 'beebop', 'spans', function () {
+        done();
+      });
+
+      // With added tree
+      var tree = matchElement.children[1].firstChild.firstChild.firstChild;
+      expect(tree.tagName).toEqual('DIV');
+      expect(tree.classList.contains('matchtree')).toBeTruthy();
+      expect(tree.children[0].tagName).toEqual('H6');
+      expect(tree.children[0].children[0].tagName).toEqual('SPAN');
+      expect(tree.children[0].children[0].firstChild.nodeValue).toEqual('mate');
+      expect(tree.children[0].children[1].tagName).toEqual('SPAN');
+      expect(tree.children[0].children[1].firstChild.nodeValue).toEqual('beebop');
+
+      expect(tree.children[1].tagName).toEqual('DIV');
+    });
+
   });
 
 
@@ -695,8 +636,6 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       var tree = relClass.create(relExample);
       expect(tree.size()).toBe(4);
     });
-
-
   });
 
   

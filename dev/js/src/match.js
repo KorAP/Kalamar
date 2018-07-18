@@ -34,9 +34,8 @@ define([
   return {
 
     /**
-     * Create a new annotation object.
-     * Expects an array of available foundry/layer=type terms.
-     * Supported types are 'spans', 'tokens' and 'rels'.
+     * Create a new match object.
+     * Expects an element with match descriptions.
      */
     create : function (match) {
       return Object.create(this)._init(match);
@@ -147,12 +146,12 @@ define([
      * Open match
      */
     open : function () {
-
+      
       // Add actions unless it's already activated
       var element = this._element;
 
       // There is an element to open
-      if (this._element === undefined || this._element === null)
+      if (element === undefined || element === null)
         return false;
 
       // The element is already opened
@@ -187,16 +186,16 @@ define([
       if (!refLine)
         return;
       
-      var panel = matchPanelClass.create(this);
+      this.panel = matchPanelClass.create(this);
 
       this._element.insertBefore(
-        panel.element(),
+        this.panel.element(),
         this._element.querySelector("p.ref")
       );
 
       // Insert before reference line
       refLine.insertBefore(
-        panel.actions.element(),
+        this.panel.actions.element(),
         refLine.firstChild
       );
 

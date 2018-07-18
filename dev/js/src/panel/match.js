@@ -35,7 +35,8 @@ define([
 
       var a = this.actions;
 
-      // Ugly hack!
+      // TODO:
+      //   Ugly hack!
       var cl= a.element().classList;
       cl.remove('matchinfo');
       cl.add('button-matchinfo');
@@ -67,7 +68,7 @@ define([
           var tm = KorAP.TreeMenu;
 
           // Set panel
-          tm.info(this);
+          tm.panel(this);
 
           // Reread list
           tm.readItems(this._treeMenuList());
@@ -107,8 +108,7 @@ define([
     /**
      * Add Tree view to panel
      */
-    // TODO: Rename to addTree() - this is called in treeitem.js
-    showTree : function (foundry, layer, type) {
+    addTree : function (foundry, layer, type) {
       this.add(
         relationsView.create(this._match, foundry, layer, type)
       );

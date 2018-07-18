@@ -8,10 +8,10 @@ define(['menu'], function (menuClass) {
 
     /**
      * Create new menu object.
-     * Pass the match information object
+     * Pass the panel object
      * and the item parameters.
      *
-     * @param info The match info object
+     * @param panel The panel object
      * @param params The match menu items
      *   as an array of arrays.
      */
@@ -37,15 +37,13 @@ define(['menu'], function (menuClass) {
     },
 
     /**
-     * The match information object of the menu.
-     * TODO:
-     *   Rename to 'Panel'
+     * The panel object of the menu.
      */
-    info :function (infoVar) {
-      if (infoVar !== undefined)
-        this._info = infoVar;
+    panel :function (panelVar) {
+      if (panelVar !== undefined)
+        this._panel = panelVar;
 
-      return this._info;
+      return this._panel;
     },
 
     // Attach menu to button

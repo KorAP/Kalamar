@@ -13,7 +13,6 @@ define([
 
 
     _init : function (match) {
-      console.log(match);
       this._match = match;
       return this;
     },
