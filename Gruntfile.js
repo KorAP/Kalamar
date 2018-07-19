@@ -25,7 +25,7 @@ module.exports = function(grunt) {
   var reqTasks = [];
   var uglyFiles = {
     'public/js/korap-plugin-<%= pkg.pluginVersion %>.js': ['dev/js/src/plugin/client.js']
-  },
+  };
   
   for (var i in {'en' : 0, 'de' : 1}) {
 
@@ -157,7 +157,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify-es');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('img', ['imagemin','copy']);
   grunt.registerTask('js', ['requirejs']);
   grunt.registerTask('css', ['sass']);
