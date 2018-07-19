@@ -16,9 +16,11 @@ $border-size: 2px;
   margin: 0;
 */
   background-color: $nearly-white;
-  ul.action {
+
+  .button-group.button-view {
     background-color: $middle-grey;
     display: block;
+    height: 100%;
   }
   border: {
     width: 2 * $border-size;

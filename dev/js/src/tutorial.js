@@ -2,10 +2,11 @@
  * Open and close a tutorial page.
  * The current page is stored and retrieved in a session cookie.
  */
+// TODO: Make this a panel
 // TODO: Add query mechanism!
 // TODO: Highlight current section:
 //       http://stackoverflow.com/questions/24887258/highlight-navigation-link-as-i-scroll-down-the-page
-define(['session', 'util'], function (sessionClass) {
+define(['session','buttongroup','util'], function (sessionClass, buttonGroupClass) {
   "use strict";
 
   // Localization values
@@ -132,18 +133,16 @@ define(['session', 'util'], function (sessionClass) {
 	        'src',
 	        (this.getPage() || this.start) + '?embedded=true'
 	      );
-        
-	      var ul = document.createElement('ul');
-	      ul.classList.add('action', 'right');
 
-	      // Add close button
-	      var close = document.createElement('li');
-	      close.addE('span').addT(loc.CLOSE);
-	      close.classList.add('close');
-	      close.setAttribute('title', loc.CLOSE);
-	      close.onclick = function () {
-	        element.style.display = 'none';
-	      };
+        var btn = buttonGroupClass.create(
+          ['action','button-view']
+        );
+
+        var that = this;
+        btn.add(loc.CLOSE, ['button-icon','close'], function () {
+          element.style.display = 'none';
+        });
+        element.appendChild(btn.element());
 
 	      // Add open in new window button
 	      // Add scroll to top button
@@ -154,10 +153,12 @@ define(['session', 'util'], function (sessionClass) {
 	        info.classList.add('info');
 	        info.setAttribute('title', loc.SHOWINFO);
 	      */
-	
+
+        /*
 	      ul.appendChild(close);
 
 	      element.appendChild(ul);
+        */
 	      element.appendChild(this._iframe);
       };
 
