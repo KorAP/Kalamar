@@ -18,6 +18,11 @@
 *   add a unique ID to the message and will call on the cb
 *   once the answer to that message arrives.
 */
+/*
+ * When loading the script from a remote KorAP instance,
+ * demand using integrity check:
+ * https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
+ */
 
 var cs = document.currentScript;
 

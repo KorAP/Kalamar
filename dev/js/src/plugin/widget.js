@@ -49,6 +49,12 @@ define(["util"], function () {
     // Resize iframe
     resize : function (data) {
       this._element.style.height = data.height + 'px';
+    },
+
+    // Shutdown suspicious iframe
+    shutdown : function () {
+      KorAP.log(0, 'Suspicious action from ' + this.src);
+      this._element.parentNode.removeChild(this._element);
     }
   }
 });

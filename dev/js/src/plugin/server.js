@@ -16,7 +16,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
   //   to hundred. For every message, this will be decreased
   //   (down to 0), for every second this will be increased
   //   (up to 100).
-  var c = 100;
+  var maxMessages = 100;
+  var limits = {};
 
   // Contains all widgets to address with
   // messages to them
@@ -41,6 +42,15 @@ define(["plugin/widget", "util"], function (widgetClass) {
       window.addEventListener("message", function (e) {
         that._receiveMsg(e);
       });
+
+      // Every second increase the limits of all registered widgets
+      var myTimer = setInterval(function () {
+        for (var i in limits) {
+          if (limits[i]++ >= maxMessages) {
+            limits[i] = maxMessages;
+          }
+        }
+      }, 1000);
       return this;
     },
 
@@ -57,6 +67,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
       // Store the widget based on the identifier
       widgets[id] = widget;
+      limits[id] = maxMessages;
 
       // Open widget in frontend
       element.appendChild(
@@ -69,18 +80,37 @@ define(["plugin/widget", "util"], function (widgetClass) {
       // Get event data
       var d = e.data;
 
-      // e.origin is probably set and okay
+      // If no data given - fail
+      // (probably check that it's an assoc array)
+      if (!d)
+        return;
+
+      // e.origin is probably set and okay - CHECK!
 
       // TODO:
       //   Deal with mad iframes
 
+      // Get origin ID
+      var id = d["originID"];
+
+      // If no origin ID given - fail
+      if (!id)
+        return;
+
       // Get the widget
-      var widget = widgets[d["originID"]];
+      var widget = widgets[id];
 
       // If the addressed widget does not exist - fail
       if (!widget)
         return;
 
+      // Check for message limits
+      if (limits[id]-- < 0) {
+        widget.shutdown();
+        delete limits[id];
+        delete widgets[id];
+        return;
+      };
 
       // Resize the iframe
       if (d.action === 'resize') {
