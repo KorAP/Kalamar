@@ -12,7 +12,14 @@
   <body>
     <p>Start the demo server with <code>morbo -l 'http://*:3003' t/plugin-server.pl</code> and open <a href="http://localhost:3003/demo/plugin-server.html"><code>this website</code></a>.</p>
     <main>
-      <div id="container"></div>
+      <div id="search">
+        <ol>
+          <li class="active">
+            <div id="container"></div>
+            <a onclick="KorAP.Plugin.addWidget(document.getElementById('container'), 'http://localhost:3003/demo/plugin-client.html')">Open widget</a>
+          </li>
+        </ol>
+      </div>
     </main>
   </body>
 </html>
