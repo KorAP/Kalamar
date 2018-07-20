@@ -64,13 +64,15 @@
       font-style: normal;
       
       &.download::after {
-	      font-family: 'FontAwesome';
 	      content: $fa-download;
       }
       
       &.close::after {
-	      font-family: 'FontAwesome';
 	      content: $fa-close;
+      }
+
+      &.plugin::after {
+	      content: $fa-plugin;        
       }
     }
   }
@@ -80,7 +82,6 @@
   font-size: 10pt;
   color: $nearly-white;
 }
-
 
 ul.menu.button-group-list {
   border-top-right-radius: 8px;

@@ -5,11 +5,18 @@ requirejs.config({
   }
 });
 
-define(['app/en','buttongroup', 'plugin/server','lib/domReady','init','hint/foundries/cnx'], function (lang, buttonGroupClass, pluginClass, domReady) {
+define(['app/en','match', 'panel/match', 'plugin/server','lib/domReady','init'], function (lang, matchClass, matchPanelClass, pluginClass, domReady) {
   domReady(function () {
 
+    // Initialize match
+    matchClass.create(
+      document.getElementById('WPD-FFF.01460-p119-120')
+    );
+
+    // Load plugin server
     KorAP.Plugin = pluginClass.create();
 
+    // Register match plugin
     KorAP.Plugin.register({
       'name' : 'Example New',
       'desc' : 'Some content about cats',
@@ -25,18 +32,5 @@ define(['app/en','buttongroup', 'plugin/server','lib/domReady','init','hint/foun
       }]
     });
 
-    
-    var btns = buttonGroupClass.create();
-    document.getElementById('buttons').appendChild(btns.element());
-
-    // Are there plugin buttons defined
-    var matchButtons = KorAP.Plugin.buttonGroup("match");
-    if (matchButtons) {
-
-      // Add all matchbuttons in order
-      for (i in matchButtons) {
-        btns.add.apply(btns, matchButtons[i]);
-      }
-    };  
   });
 });

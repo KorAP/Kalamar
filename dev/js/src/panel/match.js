@@ -78,7 +78,19 @@ define([
           tm.button(this.button);
           tm.focus();
         }
-      )
+      );
+
+      // If plugins are enabled, add all buttons for the match panel
+      if (KorAP.Plugin) {
+        var matchButtons = KorAP.Plugin.buttonGroup("match");
+        if (matchButtons) {
+
+          // Add all matchbuttons in order
+          for (i in matchButtons) {
+            a.add.apply(a, matchButtons[i]);
+          }
+        };
+      };
 
       return this;
     },

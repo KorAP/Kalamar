@@ -185,7 +185,8 @@ define([
       // No reference found
       if (!refLine)
         return;
-      
+
+      // Create panel
       this.panel = matchPanelClass.create(this);
 
       this._element.insertBefore(

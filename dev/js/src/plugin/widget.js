@@ -2,17 +2,14 @@
  * The plugin system is based
  * on registered widgets (iframes) from
  * foreign services.
- * The widget component represents a single iframe.
+ * The widget component represents a single iframe and is
+ * implemented as a view object.
  *
  * @author Nils Diewald
  */
 
-define(["util"], function () {
+define(["view","util"], function (viewClass) {
   "use strict";
-
-  // Localization values
-  const loc   = KorAP.Locale;
-  loc.CLOSE     = loc.CLOSE     || 'Close';
 
   return {
 
@@ -20,7 +17,7 @@ define(["util"], function () {
      * Create new widget
      */
     create : function (name, src, id) {
-      return Object.create(this)._init(name, src, id);
+      return Object.create(viewClass)._init(['widget']).upgradeTo(this)._init(name, src, id);
     },
 
     // Initialize widget
@@ -32,68 +29,46 @@ define(["util"], function () {
     },
 
     /**
-     * The element of the widget
+     * The element of the widget as embedded in the view
      */
-    element : function () {
+    show : function () {
 
-      if (this._element)
-        return this._element;
-
-      var div = document.createElement('div');
-      div.classList.add('widget');
+      if (this._show)
+        return this._show;
 
       // Spawn new iframe
-      var i = div.addE('iframe');
+      var i = document.createElement('iframe');
       i.setAttribute('allowTransparency',"true");
       i.setAttribute('frameborder', 0);
       i.setAttribute('sandbox','allow-scripts');
       i.style.height = '0px';
       i.setAttribute('name', this.id);
       i.setAttribute('src', this.src);
-      this._iframe = i;
 
-      var ul = div.addE('ul');
-      ul.classList.add('action','right');
+      // Per default there should at least be a button
+      // for settings, if the plugin requires settings.
+      // Otherwise a button indicating this is a plugin
+      // is a nice idea as well.
 
-      // Add close button
-      var close = ul.addE('li');
-      close.addE('span').addT(loc.CLOSE);
-      close.classList.add('close');
-      close.setAttribute('title', loc.CLOSE);
+      this.actions.add(
+        this.name, ['button-icon', 'plugin'], function (e) {
 
-      // Add info button on plugin
-      var plugin = ul.addE('li');
-      plugin.addE('span').addT(this.name);
-      plugin.classList.add('plugin');
-      plugin.setAttribute('title', this.name);
-      
-      // Close match
-      close.addEventListener('click', function (e) {
-        e.halt();
-        this.shutdown()
+          // Temporary
+          window.alert("Basic information about this plugin");
       }.bind(this));
       
-      this._element = div;
-
-      return div;
-    },
-
-    // Return iframe of widget
-    iframe : function () {
-      if (this._iframe)
-        return this._iframe;
-      this.element();
-      return this._iframe;
+      this._show = i;
+      return i;
     },
 
     // Resize iframe
     resize : function (data) {
-      this.iframe().style.height = data.height + 'px';
+      this.show().style.height = data.height + 'px';
     },
 
     // Shutdown suspicious iframe
     shutdown : function () {
-      this._element.parentNode.removeChild(this._element);
+      this.element().parentNode.removeChild(this.element());
     }
   }
 });
