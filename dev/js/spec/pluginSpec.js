@@ -13,7 +13,8 @@ define(['plugin/server','plugin/widget'], function (pluginServerClass, widgetCla
       var div = document.createElement("div");
       var id = manager.addWidget(div, 'about:blank');
       expect(id).toMatch(/^id-/);
-      expect(div.firstChild.tagName).toEqual("IFRAME");
+      expect(div.firstChild.classList.contains('widget')).toBeTruthy();
+      expect(div.firstChild.firstChild.tagName).toEqual("IFRAME");
       manager.destroy();
     });
   });
