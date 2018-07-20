@@ -23,7 +23,10 @@ module.exports = function(grunt) {
 
   // Generate requireJS files for l10n
   var reqTasks = [];
-  var uglyFiles = {};
+  var uglyFiles = {
+    'public/js/korap-plugin-<%= pkg.pluginVersion %>.js': ['dev/js/src/plugin/client.js']
+  },
+  
   for (var i in {'en' : 0, 'de' : 1}) {
 
     reqTasks.push({
@@ -76,6 +79,22 @@ module.exports = function(grunt) {
         }
       }
     },
+    // see https://github.com/gruntjs/grunt-contrib-copy/issues/64
+    jasmine: {
+      pivotal: {
+	      src: [
+	        'dev/js/src/menu.js',
+	        'dev/js/src/match.js',
+	        'dev/js/src/hint.js',
+	        'dev/js/src/vc.js'
+	      ],
+	      options: {
+	        specs: 'dev/js/spec/*Spec.js',
+	        vendor: ['dev/js/lib/require.js']
+	      }
+      }
+    },
+
     // see https://github.com/gruntjs/grunt-contrib-copy/issues/64
     // for copying binary files
     copy : {
@@ -138,7 +157,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify-es');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('img', ['imagemin','copy']);
   grunt.registerTask('js', ['requirejs']);
   grunt.registerTask('css', ['sass']);
