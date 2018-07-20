@@ -48,9 +48,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
       //   only in case there is a widget
 
       var that = this;
-      window.addEventListener("message", function (e) {
-        that._receiveMsg(e);
-      });
+      this._listener = this._receiveMsg.bind(that);
+      window.addEventListener("message", this._listener);
 
       // Every second increase the limits of all registered widgets
       var myTimer = setInterval(function () {
@@ -82,6 +81,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
       element.appendChild(
         widget.element()
       );
+
+      return id;
     },
 
     // Receive a call from an embedded iframe.
@@ -140,6 +141,13 @@ define(["plugin/widget", "util"], function (widgetClass) {
     // Get a random identifier
     _randomID : function () {
       return randomID(20);
+    },
+
+    // Destructor, just for testing scenarios
+    destroy : function () {
+      limits = {};
+      widgets = {};
+      window.removeEventListener("message", this._listener);
     }
   }
 });

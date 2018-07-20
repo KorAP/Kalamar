@@ -50,8 +50,6 @@ var cs = document.currentScript;
     // Send a message
     _sendMsg : function (data) {
       data["originID"] = this.widgetID;
-
-      // TODO: This should send a correct origin
       window.parent.postMessage(data, this.server);
     },
 
