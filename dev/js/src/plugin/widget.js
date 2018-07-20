@@ -19,12 +19,13 @@ define(["util"], function () {
     /**
      * Create new widget
      */
-    create : function (src, id) {
-      return Object.create(this)._init(src, id);
+    create : function (name, src, id) {
+      return Object.create(this)._init(name, src, id);
     },
 
     // Initialize widget
-    _init : function (src, id) {
+    _init : function (name, src, id) {
+      this.name = name;
       this.src = src;
       this.id = id;
       return this;
@@ -60,6 +61,12 @@ define(["util"], function () {
       close.classList.add('close');
       close.setAttribute('title', loc.CLOSE);
 
+      // Add info button on plugin
+      var plugin = ul.addE('li');
+      plugin.addE('span').addT(this.name);
+      plugin.classList.add('plugin');
+      plugin.setAttribute('title', this.name);
+      
       // Close match
       close.addEventListener('click', function (e) {
         e.halt();
