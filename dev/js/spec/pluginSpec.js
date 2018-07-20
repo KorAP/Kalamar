@@ -17,6 +17,31 @@ define(['plugin/server','plugin/widget'], function (pluginServerClass, widgetCla
       expect(div.firstChild.firstChild.tagName).toEqual("IFRAME");
       manager.destroy();
     });
+
+    it('should fail on invalid registries', function () {
+      var manager = pluginServerClass.create();
+
+      expect(
+	      function() { manager.register({}) }
+      ).toThrow(new Error("Missing name of plugin"));
+
+      expect(
+	      function() { manager.register({
+          name : 'Example',
+          embed : ''
+        })}
+      ).toThrow(new Error("Embedding of plugin is no list"));
+
+      expect(
+	      function() { manager.register({
+          name : 'Example',
+          embed : [{
+            panel : ''
+          }]
+        })}
+      ).toThrow(new Error("Panel for plugin is invalid"));
+
+    });
   });
 
   describe('KorAP.Plugin.Widget', function () {
