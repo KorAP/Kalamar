@@ -19,6 +19,7 @@ define(["util"], function () {
       return Object.create(this)._init(src, id);
     },
 
+    // Initialize widget
     _init : function (src, id) {
       this.src = src;
       this.id = id;
@@ -39,6 +40,7 @@ define(["util"], function () {
       i.setAttribute('frameborder', 0);
       i.setAttribute('sandbox','allow-scripts');
       i.classList.add('widget');
+      i.style.height = '0px';
       i.setAttribute('name', this.id);
       i.setAttribute('src', this.src);
       this._element = i;
@@ -53,7 +55,6 @@ define(["util"], function () {
 
     // Shutdown suspicious iframe
     shutdown : function () {
-      KorAP.log(0, 'Suspicious action from ' + this.src);
       this._element.parentNode.removeChild(this._element);
     }
   }

@@ -44,7 +44,6 @@ var cs = document.currentScript;
     _init : function () {
       this.widgetID = window.name;
       this.server = cs.getAttribute('data-server') || '*';
-      this.resize();
       return this;
     },
 
@@ -72,19 +71,9 @@ var cs = document.currentScript;
      * embedding KorAP
      */
     resize : function () {
-      var body = document.body;
-
-      // recognize margin of first element
-      // (don't know why in FF)
-      var cs = getComputedStyle(body.children[0]);
-
-      var offsetHeight = parseInt(body.offsetHeight) +
-          parseInt(cs.getPropertyValue("margin-top")) +
-          parseInt(cs.getPropertyValue("margin-bottom"));
-
       this._sendMsg({
         'action' : 'resize',
-        'height' : offsetHeight
+        'height' : document.documentElement.scrollHeight
       });
     }
   };
@@ -92,7 +81,7 @@ var cs = document.currentScript;
   // Create plugin on windows load
   window.onload = function () {
     window.KorAPlugin = window.KorAPlugin || obj.create();
+    window.KorAPlugin.resize();
   };
 })();
-
 
