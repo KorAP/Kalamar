@@ -38,27 +38,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
     },
 
     /*
-     * Initialize the plugin manager by establishing
-     * the global 'message' hook.
+     * Initialize the plugin manager
      */
     _init : function () {
-
-      // TODO:
-      //   It is better to establish the listener
-      //   only in case there is a widget
-
-      var that = this;
-      this._listener = this._receiveMsg.bind(that);
-      window.addEventListener("message", this._listener);
-
-      // Every second increase the limits of all registered widgets
-      var myTimer = setInterval(function () {
-        for (var i in limits) {
-          if (limits[i]++ >= maxMessages) {
-            limits[i] = maxMessages;
-          }
-        }
-      }, 1000);
       return this;
     },
 
@@ -66,6 +48,25 @@ define(["plugin/widget", "util"], function (widgetClass) {
      * Open a new widget as a child to a certain element
      */
     addWidget : function (element, src) {
+
+      // Is it the first widget?
+      if (!this._listener) {
+
+        /*
+         * Establish the global 'message' hook.
+         */
+        this._listener = this._receiveMsg.bind(this);
+        window.addEventListener("message", this._listener);
+        
+        // Every second increase the limits of all registered widgets
+        this._timer = window.setInterval(function () {
+          for (var i in limits) {
+            if (limits[i]++ >= maxMessages) {
+              limits[i] = maxMessages;
+            }
+          }
+        }, 1000);
+      };
 
       // Create a unique random ID per widget
       var id = 'id-' + this._randomID();
@@ -118,9 +119,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
         // Kill widget
         KorAP.log(0, 'Suspicious action by widget', widget.src);
-        widget.shutdown();
-        delete limits[id];
-        delete widgets[id];
+        this.closeWidget(widget);
         return;
       };
 
@@ -138,16 +137,36 @@ define(["plugin/widget", "util"], function (widgetClass) {
       //   Close
     },
 
+    // Close the widget
+    closeWidget : function (widget) {
+      delete limits[widget.id];
+      delete widgets[widget.id];
+      widget.shutdown();
+
+      // Remove listeners in case no widget
+      // is available any longer
+      if (Object.keys(limits).length == 0)
+        this._removeListener();
+    },
+
     // Get a random identifier
     _randomID : function () {
       return randomID(20);
+    },
+
+    // Remove the listener
+    _removeListener : function () {
+      window.clearInterval(this._timer);
+      this._timer = undefined;
+      window.removeEventListener("message", this._listener);
+      this._listener = undefined;
     },
 
     // Destructor, just for testing scenarios
     destroy : function () {
       limits = {};
       widgets = {};
-      window.removeEventListener("message", this._listener);
+      this._removeListener();
     }
   }
 });
