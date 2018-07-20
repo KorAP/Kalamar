@@ -99,7 +99,8 @@ define(function () {
 
 
   // Default log message
-  KorAP.log = KorAP.log || function (type, msg) {
+  KorAP.log = KorAP.log || function (type, msg, src) {
+    if (src) msg += ' from ' + src;
     console.log(type + ": " + msg);
   };
 

@@ -116,7 +116,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
       if (limits[id]-- < 0) {
 
         // Kill widget
-        KorAP.log(0, 'Suspicious action from ' + widget.src);
+        KorAP.log(0, 'Suspicious action by widget', widget.src);
         widget.shutdown();
         delete limits[id];
         delete widgets[id];
@@ -130,7 +130,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
       // Log message from iframe
       else if (d.action === 'log') {
-        KorAP.log(d.code, d.msg);
+        KorAP.log(d.code, d.msg,  widget.src);
       };
 
       // TODO:

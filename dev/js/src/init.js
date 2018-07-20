@@ -52,7 +52,11 @@ define([
 
   // Override KorAP.log
   window.alertify = alertifyClass;
-  KorAP.log = function (code, msg) {
+  KorAP.log = function (code, msg, src) {
+
+    if (src) {
+      msg += '<code class="src">'+src+'</code>';
+    };
 
     // Use alertify to log errors
     alertifyClass.log(
