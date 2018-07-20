@@ -59,6 +59,24 @@ function _codeFromEvent (e) {
   return e.keyCode;
 };
 
+function _dec2hex (dec) {
+  return ('0' + dec.toString(16)).substr(-2)
+};
+
+
+/**
+ * Create random identifiers
+ */
+/*
+ * code based on
+ * https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript#8084248
+ */
+function randomID (len) {
+  var arr = new Uint8Array((len || 40) / 2)
+  window.crypto.getRandomValues(arr)
+  return Array.from(arr, _dec2hex).join('')
+};
+
 
 define(function () {
   // Todo: That's double now!

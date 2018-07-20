@@ -8,8 +8,19 @@
  * @author Nils Diewald
  */
 
-define(["util"], function () {
+define(["plugin/widget", "util"], function (widgetClass) {
   "use strict";
+
+  // TODO:
+  //   This is a counter to limit acceptable incoming messages
+  //   to hundred. For every message, this will be decreased
+  //   (down to 0), for every second this will be increased
+  //   (up to 100).
+  var c = 100;
+
+  // Contains all widgets to address with
+  // messages to them
+  var widgets = {};
 
   return {
 
@@ -35,17 +46,22 @@ define(["util"], function () {
 
     /**
      * Open a new widget on a certain element
-     * TODO: and register
      */
     addWidget : function (element, src) {
 
-      // Spawn new iframe
-      var iframe = element.addE('iframe');
-      iframe.setAttribute('allowTransparency',"true");
-      iframe.setAttribute('frameborder',0);
-      iframe.setAttribute('sandbox','allow-scripts');
-      iframe.classList.add('widget');
-      iframe.setAttribute('src', src);
+      // Create a unique random ID per widget
+      var id = 'id-' + this._randomID();
+
+      // Create a new widget
+      var widget = widgetClass.create(src, id);
+
+      // Store the widget based on the identifier
+      widgets[id] = widget;
+
+      // Open widget in frontend
+      element.appendChild(
+        widget.element()
+      );
     },
 
     // Receive a call from an embedded iframe
@@ -53,30 +69,37 @@ define(["util"], function () {
       // Get event data
       var d = e.data;
 
-      // TODO: Check for e.origin!
+      // e.origin is probably set and okay
 
-      // TODO: Deal with mad iframes
-   
+      // TODO:
+      //   Deal with mad iframes
+
+      // Get the widget
+      var widget = widgets[d["originID"]];
+
+      // If the addressed widget does not exist - fail
+      if (!widget)
+        return;
+
+
       // Resize the iframe
       if (d.action === 'resize') {
 
-        // TODO: Check which iframe it was
-        // var iframe = document.getElementById('?');
-
-        // this.resize(iframe, d);
-        console.log('Resizing not yet implemented');
+        widget.resize(d);
       }
 
       // Log message from iframe
       else if (d.action === 'log') {
         KorAP.log(d.code, d.msg);
-      }
+      };
+
+      // TODO:
+      //   Close
     },
 
-
-    // Resize the calling iframe
-    resize : function (iframe, d) {
-      iframe.style.height = d.height + 'px';
+    // Get a random identifier
+    _randomID : function () {
+      return randomID(20);
     }
   }
 });
