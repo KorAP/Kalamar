@@ -69,9 +69,16 @@ var cs = document.currentScript;
      * embedding KorAP
      */
     resize : function () {
+      var de = document.documentElement;
+      var height = de.scrollHeight;
+
+      // Add assumed scrollbar height
+      if (de.scrollWidth > de.clientWidth) {
+        height += 14;
+      };
       this._sendMsg({
         'action' : 'resize',
-        'height' : document.documentElement.scrollHeight
+        'height' : height
       });
     }
   };
