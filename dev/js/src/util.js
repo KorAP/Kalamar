@@ -83,9 +83,6 @@ define(function () {
   KorAP.API = KorAP.API || {};
   KorAP.Locale = KorAP.Locale || {};
 
-  // This should load plugin/server
-  KorAP.Plugin = KorAP.Plugin || {};
-
   const loc = KorAP.Locale;
   loc.OR  = loc.OR  || 'or';
   loc.AND = loc.AND || 'and';

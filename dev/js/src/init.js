@@ -259,7 +259,7 @@ define([
     // There is more than 0 matches and there is a resultButton
     if (i > 0) {
 
-      if (resultPanel !== null) {
+      if (resultPanel) {
         /**
          * Toggle the alignment (left <=> right)
          */

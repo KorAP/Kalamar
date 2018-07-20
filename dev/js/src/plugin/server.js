@@ -37,8 +37,10 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
   // TODO:
   //   It may be useful to establish a watcher that pings
-  //   all widgets every second to see if it is still alive.
+  //   all widgets every second to see if it is still alive,
+  //   otherwise kill
   
+  // Load Plugin server
   return {
 
     /**
@@ -99,6 +101,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
         throw new Error("Embedding of plugin is no list");
  
       // Embed all embeddings of the plugin
+      var that = this;
       for (var i in obj["embed"]) {
         var embed = obj["embed"][i];
 
@@ -118,19 +121,20 @@ define(["plugin/widget", "util"], function (widgetClass) {
         // The embedding will open a widget
         if (!onClick["action"] || onClick["action"] == "addWidget") {
 
-          var panel = document.getElementById(panel);
-          var that = this;
           var cb = function (e) {
 
+            // "this" is bind to the panel
+
             // Get the URL of the widget
-            var url = onClick["template"]; // that._interpolateURI(onClick["template"], this.match);
+            var url = onClick["template"];
+            // that._interpolateURI(onClick["template"], this.match);
 
             // Add the widget to the panel
-            var id = that.addWidget(panel, name, url);
+            var id = that.addWidget(this, name, url);
             plugin["widgets"].push(id);
           };
 
-          buttons[pannel].push([title, embed["classes"], cb]);
+          buttons[panel].push([title, embed["classes"], cb]);
         };
       };
     },
@@ -152,9 +156,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
     },
     
     /**
-     * Open a new widget as a child to a certain element
+     * Open a new widget in a certaoin panel
      */
-    addWidget : function (element, name, src) {
+    addWidget : function (panel, name, src) {
 
       // Is it the first widget?
       if (!this._listener) {
@@ -185,12 +189,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
       widgets[id] = widget;
       limits[id] = maxMessages;
 
-      // Open widget in frontend
-      // TODO:
-      //   Instead of an "element" this should probably be a 'panel' object!
-      element.appendChild(
-        widget.element()
-      );
+      // Add widget to panel
+      panel.add(widget);
 
       return id;
     },
@@ -280,5 +280,5 @@ define(["plugin/widget", "util"], function (widgetClass) {
       widgets = {};
       this._removeListener();
     }
-  }
+  };
 });
