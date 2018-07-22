@@ -56,6 +56,7 @@ ul.menu > span.pref:not(.active) {
   @include choose-item;
 }
 
+ul.menu:active > div.ruler,
 ul.menu:hover > div.ruler,
 ul.menu > div.ruler.active {
   transition: opacity .1s ease;

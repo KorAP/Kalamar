@@ -121,6 +121,25 @@ define([
         this._mousewheel.bind(this),
         false
       );
+
+      // Touch
+      el.addEventListener(
+        'touchstart',
+        this._touch.bind(this),
+        false
+      );
+      el.addEventListener(
+        'touchend',
+        this._touch.bind(this),
+        false
+      );
+      el.addEventListener(
+        'touchmove',
+        this._touch.bind(this),
+        false
+      );
+
+      
       this._element = el;
 
       this._limit = menuLimit;
@@ -297,7 +316,6 @@ define([
     // mouse wheel treatment
     _mousewheel : function (e) {
       var delta = 0;
-
       delta = e.deltaY / 120;
       if (delta > 0)
         this.next();
@@ -306,6 +324,34 @@ define([
       e.halt();
     },
 
+    // touchmove treatment
+    _touch : function (e) {
+      var s = this.slider();
+      if (e.type === "touchstart") {
+        // s.active(true);
+        var t = e.touches[0];
+        this._lastTouch = t.clientY;
+      }
+      else if (e.type === "touchend") {
+        // s.active(false);
+        this._lastTouch = undefined;
+        // TODO:
+        // Release click event on touchend!
+      }
+      else if (e.type === "touchmove") {
+        var t = e.touches[0];
+        // s.movetoRel(t.clientY - this._initTouch);
+        if ((this._lastTouch + 26) < t.clientY) {
+          this.screen(this.offset - 1);
+          this._lastTouch = t.clientY;
+        }
+        else if ((this._lastTouch - 26) > t.clientY) {
+          this.screen(this.offset + 1);
+          this._lastTouch = t.clientY;
+        }
+        e.halt();
+      };
+    },
 
     // Arrow key and prefix treatment
     _keydown : function (e) {
