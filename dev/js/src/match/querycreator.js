@@ -19,6 +19,16 @@ define(['util'], function () {
   const loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
+  var esc = RegExp("[ \.\'\\\\]");
+  
+  function _getKeyValue (keyValue) {
+    if (keyValue.match(esc) != null) {
+      return "'" + keyValue.replace(/\\/g, "\\\\").replace(/'/g, "\\'") + "'";
+    };
+    return keyValue;
+  };
+
+  
   function _getAnnotation (prefix, target) {
 
     // Complex annotation
@@ -28,7 +38,7 @@ define(['util'], function () {
       // Iterate over alternative annotations
       target.childNodes.forEach(function (item) {
         if (item.nodeType === 3)
-          orGroup.push(prefix + item.data);
+          orGroup.push(prefix + _getKeyValue(item.data));
       });
       return '(' + orGroup.sort().join(' | ') + ')';
     }
@@ -38,7 +48,7 @@ define(['util'], function () {
       if (target.innerText == '')
         return '';
 
-      return prefix + target.innerText;
+      return prefix + _getKeyValue(target.innerText);
     };
   };
 

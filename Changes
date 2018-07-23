@@ -1,4 +1,4 @@
-0.27 2018-07-17
+0.27 2018-07-23
         - Introduced content blocks to create
           flexible entry lists in the footer
         - Add marker for "cutted" matches.
@@ -6,6 +6,8 @@
         - Added buttongroup class.
         - Introduced panel and view system for
           results and matches.
+        - Support verbatim keys/values in QueryCreator
+          to deal with Koral issue #42.
 
 0.26 2018-04-06
         - Added meta data view.

@@ -1,3 +1,7 @@
+/**
+ * Specification for the query creator.
+ */
+
 function matchTableFactory () {
   var table = document.createElement('div');
 
@@ -83,6 +87,7 @@ function matchTableComplexFactory () {
     "            <div>case:nom</div>" +
     "            <div>gender:masc</div>" +
     "            <div>number:sg</div>" +
+    "            <div>morphemes:.::_SORSZ \\ZERO::NOM 'period::PUNCT'</div>" +
     "          </td>" +
     "          <td>ADJA</td>" +
     "          <td></td>" +
@@ -560,6 +565,21 @@ define(['match/querycreator'], function (qcClass) {
           "[(corenlp/p=ADJA | corenlp/p=ADJD)]"+
           "[(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom & corenlp/p=number:sg]"
       );
+    });
+
+    it('should support verbatim strings', function () {
+      var matchTable = matchTableComplexFactory();
+      var qc = qcClass.create(matchTable);
+      expect(qc.toString()).toEqual("");
+
+      // TODO:
+      // This does not respect keys vs values at the moment, but neither does Koral
+      var cell = matchTable.querySelector("tbody > tr:nth-child(2) > td > div:nth-child(4)");
+      expect(cell.innerString()).toEqual("morphemes:.::_SORSZ \\ZERO::NOM 'period::PUNCT'");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[opennlp/p='morphemes:.::_SORSZ \\\\ZERO::NOM \\\'period::PUNCT\\\'']");
     });
   });
 });
