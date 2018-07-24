@@ -1,7 +1,8 @@
 /**
- * Define a panel for matches
+ * The match panel.
+ *
+ * @author Nils Diewald
  */
-
 define([
   'panel',
   'match/treeitem',
