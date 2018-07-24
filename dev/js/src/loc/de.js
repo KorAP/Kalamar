@@ -37,7 +37,7 @@ define(function () {
   loc.NEW_QUERY = 'Neue Anfrage';
   
   //Corpus statistic
-  loc.SHOWSTAT = 'Korpusstatistik';
+  loc.SHOW_STAT = 'Korpusstatistik';
   //verbose description, for title attributes for example
   //loc.VERB_SHOWSTAT = 'Korpusstatistik';
 });
