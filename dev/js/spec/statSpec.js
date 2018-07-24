@@ -5,7 +5,7 @@
  */
 
 
-define(['vc', 'vc/statistic'], function(vcClass, statClass){
+define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, corpStatVClass){
 	 
 	var json = {
    	  "@type":"koral:docGroup",
@@ -86,14 +86,13 @@ define(['vc', 'vc/statistic'], function(vcClass, statClass){
 	      ['author', 'text']
 	    ]).fromJson(json);
 
-    vcEl = vc.element();
+		vcEl = vc.element();
     
 		var stat = statClass.create(preDefinedStat);
 		var descL = stat.element();
 		
 			
 		it('should be initiable', function(){
-			expect(stat._visibleStat).toEqual(false);
 	    expect( function() { statClass.create() }).toThrow(new Error("Missing parameter"));
 		});
 		
@@ -111,18 +110,20 @@ define(['vc', 'vc/statistic'], function(vcClass, statClass){
 		});
 		
 		
-		it('should display corpus statistic and close Button', function(){
-			
+		it('should display corpus statistic after creating a corpus statistic view', function(){
+		    statView = corpStatVClass.create(vc);
+		    //corpStatVClass.show(vc);
+		    
 			var testDiv = document.createElement('div');
-			statClass.showCorpStat(testDiv, vc);
+			testDiv.appendChild(statView.show());
+			//statClass.showCorpStat(testDiv, vc);
 			
 			expect(testDiv.children[0].tagName).toEqual('DIV');
 			expect(testDiv.children[0].getAttribute("class")).toEqual('stattable');   
 			expect(testDiv.children[0].children[0].tagName).toEqual('DL');	
 			expect(testDiv.children[0].children[0].children[0].children[0].firstChild.nodeValue).toEqual('documents');
 			expect(testDiv.children[0].children[0].children[0].children[1].firstChild.nodeValue).toEqual('12');
-			expect(testDiv.children[0].children[1].classList).toContain('action');
-			expect(testDiv.children[0].children[1].children[0].classList).toContain('close');
+
 		});
 		
 	});
