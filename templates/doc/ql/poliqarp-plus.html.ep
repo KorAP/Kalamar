@@ -44,6 +44,7 @@
 
   <blockquote class="warning">
     <p>Beware: Queries with prepended <code>.*</code> expressions can become extremely slow!</p>
+    <p>In the original Poliqarp specification, regular expressions can be marked both by double quotes and single quotes. In Poliqarp+ only double quotes are used for regular expressions, while single quotes are used to mark verbatim strings.</p>
   </blockquote>
 
   <p>You can again apply the <code>/i</code> flag to regular expressions to search case insensitive.</p>
@@ -84,6 +85,10 @@
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexplural', '** [mate/m=number:pl]'), cutoff => 1
 
+  <p>In case an annotation contains special non-alphabetic and non-numeric characters, the annotation part can be surrounded by single quotes to ensure a verbatim interpretation:</p>
+
+  %= doc_query poliqarp => loc('Q_poliqarp_complexverbatim', '** [mate/o=\'This is an annotation with space characters\']'), cutoff => 1
+  
   <h4>Negation</h4>
   <p>Negation of terms in complex expressions can be expressed by prepending the equal sign or the whole expression with an exclamation mark.</p>
 

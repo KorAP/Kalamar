@@ -17,6 +17,7 @@
         complexre => '[orth="l(au|ie)fen"/xi]',
         complexlemma => '[base=Baum]',
         complexplural => '[mate/m=number:pl]',
+        complexverbatim => '** [mate/o=\'Dies ist eine Annotation mit Leerzeichen\']',
         neg1 => '[pos!=ADJA]',
         neg2 => '[!pos=ADJA]',
         span => '<corenlp/c=NP>',
