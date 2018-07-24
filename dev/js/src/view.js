@@ -5,8 +5,8 @@
 
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
-  const loc   = KorAP.Locale;
-  loc.CLOSE     = loc.CLOSE     || 'Close';
+  const loc = KorAP.Locale;
+  loc.CLOSE = loc.CLOSE     || 'Close';
   
 
   return {
@@ -53,6 +53,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       if (this._classes)
         cl.add.apply(cl, this._classes);
 
+      // TODO: The show may need to be wrapped in another DIV!
       if (this.show !== undefined)
         e.appendChild(this.show());
 
@@ -85,7 +86,6 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       if (this.onClose)
         this.onClose();
     },
-
 
     /**
      * Upgrade this object to another object,
