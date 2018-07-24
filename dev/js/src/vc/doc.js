@@ -9,8 +9,14 @@ define([
   'util'
 ], function (jsonldClass, rewriteListClass, stringValClass) {
 
+  /*
+   * TODO:
+   *   Improve error handling by using window.onerror() to
+   *   capture thrown errors and log them.
+   */
 
   const errstr802 = "Match type is not supported by value type";
+  const errstr804 = "Unknown value type";
   const loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
 
@@ -319,8 +325,8 @@ define([
         }
 
         else {
-          KorAP.log(804, "Unknown value type");
-          return;
+          KorAP.log(804, errstr804 + ": " + this.type());
+          throw new Error(errstr804 + ": " + this.type());
         };
       };
 
@@ -622,13 +628,11 @@ define([
       switch (this.type()) {
       case "date":
         return string + this.value();
-        break;
       case "regex":
         return string + '/' + this.value().escapeRegex() + '/';
-        break;
       case "string":
+      case "text":
         return string + '"' + this.value().quote() + '"';
-        break;
       };
 
       return "";

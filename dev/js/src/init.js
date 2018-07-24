@@ -359,9 +359,15 @@ define([
 // Render Virtual collection
 function _getCurrentVC (vcClass, vcArray) {
   var vc = vcClass.create(vcArray);
-  if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
-    vc.fromJson(KorAP.koralQuery["collection"]);
-  };
+  try {
+    if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
+      vc.fromJson(KorAP.koralQuery["collection"]);
+    };
+  }
+  catch (e) {
+    KorAP.log(0, e);
+    return;
+  }
   return vc;
 };
 

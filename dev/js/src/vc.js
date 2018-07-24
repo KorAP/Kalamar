@@ -316,18 +316,9 @@ define([ 'vc/unspecified', 'vc/doc', 'vc/docgroup', 'vc/menu', 'vc/statistic',
           var that = this;
           var actions = panel.actions;
           var statView;
-          
-          //delete log after solving the cq= -Problem.
-          console.log("vc._root.element() = " + that._root.element().innerHTML);
-          console.log("vc._root.toQuery = " + that._root.toQuery());
-          
+                    
           actions.add(loc.SHOW_STAT, [ 'statistic' ], function() {
             if (statView === undefined || !statView.shown()) {
-             
-              //delete log after solving the cq= -Problem
-              console.log("statView created mit vc.toQuery()= "
-                  + that.toQuery());
-             
               statView = corpStatVClass.create(that);
               panel.add(statView);
             }

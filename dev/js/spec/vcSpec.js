@@ -1214,7 +1214,154 @@ define(['vc'], function () {
         'Titel = "Baum" | Veröffentlichungsort = "hihi" | Untertitel ~ "huhu"'
       );
     });
+
+    it('should be deserializable from collection 1', function () {
+      var kq = {
+        "matches":["..."],
+        "collection":{
+          "@type": "koral:docGroup",
+          "operation": "operation:or",
+          "operands": [{
+            "@type": "koral:docGroup",
+            "operation": "operation:and",
+            "operands": [
+              {
+                "@type": "koral:doc",
+                "key": "title",
+                "match": "match:eq",
+                "value": "Der Birnbaum",
+                "type": "type:string"
+              },
+              {
+                "@type": "koral:doc",
+                "key": "pubPlace",
+                "match": "match:eq",
+                "value": "Mannheim",
+                "type": "type:string"
+              },
+              {
+                "@type": "koral:docGroup",
+                "operation": "operation:or",
+                "operands": [
+                  {
+                    "@type": "koral:doc",
+                    "key": "subTitle",
+                    "match": "match:eq",
+                    "value": "Aufzucht und Pflege",
+                    "type": "type:string"
+                  },
+                  {
+                    "@type": "koral:doc",
+                    "key": "subTitle",
+                    "match": "match:eq",
+                    "value": "Gedichte",
+                    "type": "type:string"
+                  }
+                ]
+              }
+            ]
+          },{
+            "@type": "koral:doc",
+            "key": "pubDate",
+            "match": "match:geq",
+            "value": "2015-03-05",
+            "type": "type:date",
+            "rewrites" : [{
+	            "@type" : "koral:rewrite",
+	            "operation" : "operation:modification",
+	            "src" : "querySerializer",
+	            "scope" : "tree"
+            }]
+          }]
+        }
+      };
+      
+      var vc = vcClass.create().fromJson(kq["collection"]);
+      expect(vc.toQuery()).toEqual('(title = "Der Birnbaum" & pubPlace = "Mannheim" & (subTitle = "Aufzucht und Pflege" | subTitle = "Gedichte")) | pubDate since 2015-03-05');
+    });
+
+    it('should be deserializable from collection 2', function () {
+      var kq = {
+        "@context": "http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld",
+        "meta": {},
+        "query": {
+          "@type": "koral:token",
+          "wrap": {
+            "@type": "koral:term",
+            "match": "match:eq",
+            "layer": "orth",
+            "key": "Baum",
+            "foundry": "opennlp",
+            "rewrites": [
+              {
+                "@type": "koral:rewrite",
+                "src": "Kustvakt",
+                "operation": "operation:injection",
+                "scope": "foundry"
+              }
+            ]
+          },
+          "idn": "Baum_2227",
+          "rewrites": [
+            {
+              "@type": "koral:rewrite",
+              "src": "Kustvakt",
+              "operation": "operation:injection",
+              "scope": "idn"
+            }
+          ]
+        },
+        "collection": {
+          "@type": "koral:docGroup",
+          "operation": "operation:and",
+          "operands": [
+            {
+              "@type": "koral:doc",
+              "match": "match:eq",
+              "type": "type:regex",
+              "value": "CC-BY.*",
+              "key": "availability"
+            },
+            {
+              "@type": "koral:doc",
+              "match": "match:eq",
+              "type":"type:text",
+              "value": "Goethe",
+              "key": "author"
+            }
+          ],
+          "rewrites": [
+            {
+              "@type": "koral:rewrite",
+              "src": "Kustvakt",
+              "operation": "operation:insertion",
+              "scope": "availability(FREE)"
+            }
+          ]
+        },
+        "matches": []
+      };
+
+      var vc = vcClass.create().fromJson(kq["collection"]);
+      expect(vc.toQuery()).toEqual('availability = /CC-BY.*/ & author = "Goethe"');
+    });
   });
+
+  it('shouldn\'t be deserializable from collection with unknown type', function () {
+    var kq = {
+      "@type" : "koral:doc",
+      "match": "match:eq",
+      "type":"type:failure",
+      "value": "Goethe",
+      "key": "author"
+    };
+
+    expect(function () {
+      vcClass.create().fromJson(kq)
+    }).toThrow(new Error("Unknown value type: string"));
+
+  });
+
 
   describe('KorAP.Operators', function () {
     it('should be initializable', function () {
