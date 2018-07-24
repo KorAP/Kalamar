@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df3745e2_d55e9868",
+        "filename": "dev/js/src/view/corpstatv.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2018-07-24T10:15:52Z",
+      "side": 1,
+      "message": "I think, in a later change, this should become part of the API object.",
+      "revId": "a169ad3520a6caa79423d9b79cf7a6ce6241d6a5",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
