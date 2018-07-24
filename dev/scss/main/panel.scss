@@ -18,3 +18,10 @@ div.result.panel .view {
   border: 1px solid $kwic-border;
   background-color: $dark-orange;
 }
+
+div.view.vcstatistic{
+	  position: relative;  
+	  display: inline-flex;
+	  width: auto;
+	}
+
