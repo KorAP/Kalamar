@@ -44,6 +44,7 @@
 
   <blockquote class="warning">
     <p>Achtung: Diese Art von Abfragen (mit vorangestellten <code>.*</Code> Ausdrücken) können extrem langsam sein!</p>
+    <p>In der ursprünglichen Poliqarp-Implementation konnten sowohl doppelte Anführungszeichen als auch einfache Anführungszeichen reguläre Ausdrücke markieren. In Poliqarp+ hingegen werden einfache Anführungszeichen für zeichengetreue Ausdrücke verwendet.</p>
   </blockquote>
 
   <p>Sie können das <code>/i</code> Flag erneut anwenden, um unabhängig von Groß-Kleinschreibung zu suchen.</p>
@@ -86,6 +87,10 @@
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexplural', '** [mate/m=number:pl]'), cutoff => 1
 
+  <p>Falls eine Annotation Sonderzeichen enthält, sorgen umschließende einfache Anführungszeichen für eine zeichengetreue Interpretation.</p>
+
+  %= doc_query poliqarp => loc('Q_poliqarp_complexverbatim', '** [mate/o=\'This is an annotation with space characters\']'), cutoff => 1
+  
   <h4>Negation</h4>
   <p>Die Negation von Termen in komplexen Ausdrücken kann durch Voranstellen eines Ausrufezeichens vor dem Gleichheitszeichen oder dem gesamten Term ausgedrückt werden.</p>
 
