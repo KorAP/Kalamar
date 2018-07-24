@@ -1,4 +1,9 @@
 /*
+ * Initialize The JS frontend part and decorate
+ * the static HTML data.
+ *
+ * @author Nils Diewald
+ *
  * TODO: Create lazy loading of objects including
  * - obj.hint()
  * - obj.alertify()
@@ -15,14 +20,12 @@ define([
   'hint',
   'vc',
   'tutorial',
-  'buttongroup',
   'lib/domReady',
   'vc/array',
   'lib/alertify',
   'session',
   'selectMenu',
-  'panel',
-  'view/koralquery',
+  'panel/result',
   'api',
   'mailToChiffre',
   'util'
@@ -30,21 +33,17 @@ define([
              hintClass,
              vcClass,
              tutClass,
-             buttonGroupClass,
              domReady,
              vcArray,
              alertifyClass,
              sessionClass,
              selectMenuClass,
-             panelClass,
-             kqClass) {
+             resultPanelClass) {
 
   // Localization values
   const loc = KorAP.Locale;
   loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
   loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
-  loc.TOGGLE_ALIGN     = loc.TOGGLE_ALIGN     || 'toggle alignment';
-  loc.SHOW_KQ          = loc.SHOW_KQ          || 'show KoralQuery';
 
   const d = document;
 
@@ -114,9 +113,9 @@ define([
     var inactiveLi = d.querySelectorAll(
       '#search > ol > li:not(.active)'
     );
-    var i = 0;
+    var matchCount = 0;
 
-    for (i = 0; i < inactiveLi.length; i++) {
+    for (matchCount = 0; matchCount < inactiveLi.length; matchCount++) {
       inactiveLi[i].addEventListener('click', function (e) {
         if (this._match !== undefined)
           this._match.open();
@@ -127,7 +126,7 @@ define([
         // This would prevent the sidebar to go back
         // e.halt();
       });
-      inactiveLi[i].addEventListener('keydown', function (e) {
+      inactiveLi[matchCount].addEventListener('keydown', function (e) {
         var code = _codeFromEvent(e);
         
         switch (code) {
@@ -192,9 +191,9 @@ define([
     /**
      * Add result panel
      */
-    var resultPanel;
+    var resultPanel = resultPanelClass.create(show);
+
     if (resultInfo != null) {
-      resultPanel = panelClass.create(['result']);
 
       // Move buttons to resultinfo
       resultInfo.appendChild(resultPanel.actions.element());
@@ -202,38 +201,15 @@ define([
       // The views are at the top of the search results
       var sb = d.getElementById('search');
       sb.insertBefore(resultPanel.element(), sb.firstChild);
-
     };
 
     
     // There is a koralQuery
     if (KorAP.koralQuery !== undefined) {    
-      
+
+      // Add KoralQuery view to result panel
       if (resultInfo !== null) {
-
-        // Open KoralQuery view
-        var kqButton = resultPanel.actions.add(loc.SHOW_KQ, ['show-kq','button-icon'], function () {
-
-          // Show only once - otherwise toggle
-          if (this._kq && this._kq.shown()) {
-            this._kq.close();
-            return;
-          };
-          
-          this._kq = kqClass.create();
-
-          // On close, remove session info on KQ
-          this._kq.onClose = function () {
-            delete show['kq'];
-          };
-
-          show['kq'] = true;
-          this.add(this._kq);
-        });
-
-        // Show KoralQuery in case it's meant to be shown
-        if (show['kq'])
-          kqButton.click();
+        resultPanel.addKqAction()
       };
 
       if (KorAP.koralQuery["errors"]) {
@@ -256,22 +232,16 @@ define([
       };
     };
 
-    // There is more than 0 matches and there is a resultButton
-    if (i > 0) {
+    
+    /*
+     * There is more than 0 matches, so allow for
+     * alignment toggling (left <=> right)
+     */
+    if (matchCount > 0)
+      resultPanel.addAlignAction();
 
-      if (resultPanel) {
-        /**
-         * Toggle the alignment (left <=> right)
-         */
-        resultPanel.actions.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
-          var ol = d.querySelector('#search > ol');
-          ol.toggleClass("align-left", "align-right");
-          this.button.toggleClass("left", "right");
-        });
-      };
-    };
 
-    /**
+    /*
      * Toggle the Virtual Collection builder
      */
     if (vcname) {
@@ -385,6 +355,7 @@ define([
   });
 });
 
+
 // Render Virtual collection
 function _getCurrentVC (vcClass, vcArray) {
   var vc = vcClass.create(vcArray);
@@ -393,6 +364,7 @@ function _getCurrentVC (vcClass, vcArray) {
   };
   return vc;
 };
+
 
 function _checkVCrewrite (vcClass) {
   if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
