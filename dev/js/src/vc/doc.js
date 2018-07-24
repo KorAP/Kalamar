@@ -629,6 +629,9 @@ define([
       case "string":
         return string + '"' + this.value().quote() + '"';
         break;
+      case "text":
+        return string + '"' + this.value().quote() + '"';
+        break;
       };
 
       return "";
