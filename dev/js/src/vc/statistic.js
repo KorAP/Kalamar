@@ -42,6 +42,7 @@ define([ 'util' ], function() {
 
       // create HTML Description List Element
       var statDL = document.createElement('dl');
+      statDL.classList.add("flex");
       var statistic = this._statistic;
 
       var keys = Object.keys(statistic);
