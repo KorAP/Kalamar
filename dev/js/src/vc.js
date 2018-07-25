@@ -11,23 +11,37 @@
  */
 
 /*
- * TODO: Disable "and" or "or" in case it's followed by an unspecified document
- * TODO: Add "and"-method to root to add further constraints based on match-
- * input (like clicking on a pubDate timestamp in a match) TODO: Implement
- * "persistence"-Option, injecting the current creation date stamp TODO:
- * Implement vec-Type for document-id vectors like docID in [1,2,3,4 ...]
- * 
- * Error codes: 701: "JSON-LD group has no @type attribute" 704: "Operation
- * needs operand list" 802: "Match type is not supported by value type" 804:
- * "Unknown value type" 805: "Value is invalid" 806: "Value is not a valid date
- * string" 807: "Value is not a valid regular expression" 810: "Unknown document
- * group operation" (like 711) 811: "Document group expects operation" (like
- * 703) 812: "Operand not supported in document group" (like 744) 813:
- * "Collection type is not supported" (like 713) 814: "Unknown rewrite
- * operation" 815: "Rewrite expects source"
- * 
- * Localization strings: KorAP.Locale = { EMPTY : '...', AND : 'and', OR : 'or',
- * DELETE : 'x' } and various field names with the prefix 'VC_'
+  TODO: Disable "and" or "or" in case it's followed 
+        by an unspecified document
+  TODO: Add "and"-method to root to add further constraints 
+        based on match-input (like clicking on a pubDate timestamp in a match) 
+  TODO: Implement "persistence"-Option, injecting the current creation 
+        date stamp 
+  TODO: Implement vec-Type for document-id vectors like docID in [1,2,3,4 ...]
+
+  Error codes: 
+  701: "JSON-LD group has no @type attribute" 
+  704: "Operation needs operand list" 
+  802: "Match type is not supported by value type" 
+  804: "Unknown value type" 
+  805: "Value is invalid" 
+  806: "Value is not a valid date string" 
+  807: "Value is not a valid regular expression" 
+  810: "Unknown document group operation" (like 711) 
+  811: "Document group expects operation" (like 703) 
+  812: "Operand not supported in document group" (like 744) 
+  813: "Collection type is not supported" (like 713) 
+  814: "Unknown rewrite operation" 
+  815: "Rewrite expects source"
+  
+  Localization strings: 
+  KorAP.Locale = {
+    EMPTY : '...', 
+    AND : 'and', 
+    OR : 'or',
+   DELETE : 'x' }
+   
+   and various field names with the prefix 'VC_'
  */
 
 define([ 'vc/unspecified', 'vc/doc', 'vc/docgroup', 'vc/menu', 'vc/statistic',
