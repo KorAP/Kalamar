@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34c385f7_a3f4d658",
+        "filename": "dev/js/src/vc/statistic.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2018-07-25T14:14:51Z",
+      "side": 1,
+      "message": "Maybe add .toLocaleString() ? I don\u0027t know however how well this is supported across browsers...",
+      "revId": "0f29e2946a5532f39cdc31c7d8f7216822d1e00d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
