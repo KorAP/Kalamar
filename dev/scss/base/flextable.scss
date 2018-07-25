@@ -1,0 +1,69 @@
+/**
+ * This defines flexible table cells
+ * for views.
+ */
+
+dl.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: auto;
+  padding-bottom: 0;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 100%;
+    border-width: $border-size / 2;
+    border-style: solid;
+    align-items: stretch;
+    > * {
+      @include cell-info;
+    }
+    > dt {
+      text-align: left;
+      width: 12.5em;
+      margin: 0;
+    }
+    > dd {
+      text-align: left;
+      padding: 2px;
+      margin: 0;
+      width: 100%;
+      max-width: none;
+      max-height: 6em;
+      margin-left: $border-size;
+      white-space: normal;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+}
+
+
+@media (min-width:640px) {
+  dl.flex > div {
+    width: 50%; // 2*
+  }
+}
+
+@media (min-width:800px) {
+  dl.flex > div {
+    width: 33.3333333333333%; // 3*
+  }
+}
+
+@media (min-width:1200px) {
+  dl.flex > div {
+    width: 25%; // 4*
+  }
+}
+
+@media (min-width:1680px) {
+  dl.flex > div {
+    width: 20%; // 5*
+  }
+}
