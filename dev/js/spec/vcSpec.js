@@ -1359,7 +1359,6 @@ define(['vc'], function () {
     expect(function () {
       vcClass.create().fromJson(kq)
     }).toThrow(new Error("Unknown value type: string"));
-
   });
 
 

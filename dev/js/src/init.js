@@ -116,7 +116,7 @@ define([
     var matchCount = 0;
 
     for (matchCount = 0; matchCount < inactiveLi.length; matchCount++) {
-      inactiveLi[i].addEventListener('click', function (e) {
+      inactiveLi[matchCount].addEventListener('click', function (e) {
         if (this._match !== undefined)
           this._match.open();
         else {

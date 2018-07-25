@@ -16,13 +16,13 @@ define([
   loc.SHOW_KQ      = loc.SHOW_KQ      || 'show KoralQuery';
   
   return {
-    create : function (show) {
-      return Object.create(panelClass)._init(['result']).upgradeTo(this)._init(show);
+    create : function (opened) {
+      return Object.create(panelClass)._init(['result']).upgradeTo(this)._init(opened);
     },
 
     // Initialize panel
-    _init : function (show) {
-
+    _init : function (opened) {
+      this._opened = opened;
       return this;
     },
 
@@ -45,15 +45,15 @@ define([
 
         // On close, remove session info on KQ
         this._kq.onClose = function () {
-          delete show['kq'];
+          this._opened['kq'] = undefined;
         };
 
-        show['kq'] = true;
+        this._opened['kq'] = true;
         this.add(this._kq);
       });
 
       // Show KoralQuery in case it's meant to be shown
-      if (show['kq'])
+      if (this._opened['kq'])
         kqButton.click();
     },
 
