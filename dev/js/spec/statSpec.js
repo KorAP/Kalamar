@@ -107,7 +107,11 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 			expect(descL.children[0].children[0].firstChild.nodeValue).toEqual('documents');
 			expect(descL.children[0].children[1].firstChild.nodeValue).toEqual('12');
 			expect(descL.children[0].children[0].attributes[0].value).toEqual('documents');
-		});
+
+			expect(descL.children[1].children[0].firstChild.nodeValue).toEqual('tokens');
+			expect(descL.children[1].children[1].firstChild.nodeValue).toEqual(new Number(2323).toLocaleString());
+			expect(descL.children[1].children[0].attributes[0].value).toEqual('tokens');
+    });
 		
 		
 		it('should display corpus statistic after creating a corpus statistic view', function(){

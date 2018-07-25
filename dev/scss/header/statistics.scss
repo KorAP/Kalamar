@@ -1,0 +1,83 @@
+@charset "utf-8";
+@import "../util";
+
+/*
+div.view.vcstatistic {
+	position: relative;  
+	display: inline-flex;
+	width: auto;
+}
+*/
+
+div.stattable {
+	display: flex;
+	flex-direction: row;
+}
+/*
+div.stattable ul.action.image {
+  display: block;
+  li {
+    cursor: pointer;
+    color: $nearly-white;
+    text-decoration: none;
+    > span {
+      @include blind;
+    }
+    border-width: 0;
+    // z-index: 8;
+    text-decoration:none;
+    text-align: center;
+    font-style: normal;
+  
+    &.close::after {
+	    font-family: 'FontAwesome';
+	    content: $fa-close;
+    }
+  }
+}
+*/
+
+div.stattable > dl {
+  display: flex;
+  flex-flow: row wrap;
+  //margin-top: 4 * $border-size !important;
+  margin-top:4px;
+  margin-bottom:4px;
+  padding-bottom: 1px;   
+  > div {
+    /*
+    display: flex;
+    margin-right: 5px;
+ 	  margin-left: 5px;
+    > * {
+      @include cell-info;
+    }
+   */
+    border-color: $dark-green;
+    > dt {
+      background-color: $middle-green;
+      /*
+      text-align: right;
+      // padding: 1px;
+     */
+      width: 15em;
+      margin: 0;
+      &:after {
+  		  content: ":";
+  	  }
+    }
+   	> dd {
+   	  /*
+   	  text-align: left;
+      // padding: 1px;
+      margin: 0;
+      width: 100%;
+      max-width: none;
+      max-height: 6em;
+      margin-left: $border-size;
+     */
+      background-color: $lightest-green;
+      color: $dark-grey;
+	  }
+  }
+}

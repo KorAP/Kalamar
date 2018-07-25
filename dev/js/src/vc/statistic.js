@@ -42,6 +42,7 @@ define([ 'util' ], function() {
 
       // create HTML Description List Element
       var statDL = document.createElement('dl');
+      statDL.classList.add("flex");
       var statistic = this._statistic;
 
       var keys = Object.keys(statistic);
@@ -52,7 +53,7 @@ define([ 'util' ], function() {
         statDT.addT(k);
         statDT.setAttribute('title', k);
         statDD = statSp.addE('dd');
-        statDD.addT(statistic[k]);
+        statDD.addT(statistic[k].toLocaleString());
       }
 
       this._element = statDL;
