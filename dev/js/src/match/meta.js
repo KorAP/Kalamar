@@ -41,6 +41,7 @@ define(['util'], function () {
         return;
 
       var metaDL = document.createElement('dl');
+      metaDL.classList.add("flex");
 
       this._element = metaDL;
 

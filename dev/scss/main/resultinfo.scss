@@ -17,6 +17,11 @@
   }
 }
 
+div.result.panel .view {
+  border: 1px solid $kwic-border;
+  background-color: $dark-orange;
+}
+
 // Specify result button group layout
 .result.button-group.button-panel {
   width: auto;
