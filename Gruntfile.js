@@ -54,7 +54,12 @@ module.exports = function(grunt) {
     requirejs: reqTasks,
     uglify: {
       kalamar : {
-        files: uglyFiles
+        files: uglyFiles,
+        options : {
+          sourceMap: {
+            includeSources: true
+          }
+        }
       }
     },
     imagemin: {
