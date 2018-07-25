@@ -12,6 +12,13 @@ $bracket-size: .4em; // 4pt;
 .vc {
   margin-top: 4pt;
 
+  .docGroup, .doc {
+    // color: $nearly-white;
+    // color: $dark-green;
+    color: $dark-grey;
+    // text-shadow: $light-shadow;
+  }
+  
   /**
    * Rules for all docGroups
    */
@@ -22,7 +29,6 @@ $bracket-size: .4em; // 4pt;
 
     .docGroup { display: block; }
 
-    color: $nearly-white;
     padding: 4pt 2pt 4pt 0pt;
     border: {
       radius: $standard-border-radius * 2;
@@ -33,7 +39,8 @@ $bracket-size: .4em; // 4pt;
 	
     // Whiten on hover 
     &:hover {
-      background-color: rgba(255,255,255,.06);
+      // background-color: rgba(255,255,255,.06);
+      background-color: rgba(255,255,255,.3);
     }
 
     &[data-operation] {
@@ -48,7 +55,8 @@ $bracket-size: .4em; // 4pt;
         text-align: right;
         width: $left-padding;
         margin-left: -1 * ($left-padding + .5em); // -28pt
-        color: $dark-green;
+        // color: $dark-green;
+        color: $dark-orange;
         line-height: 1.5em;
         border-top: $border-size solid transparent;
       }
@@ -65,37 +73,34 @@ $bracket-size: .4em; // 4pt;
         // This will be overruled by JS!
         content: "or";
       }
-     
-     &:after {
-     .button-stat {
-	
 
-
-  > span {
-    cursor: pointer;
-    box-shadow: $choose-box-shadow;
-    font-size: 9pt;
-    line-height: 1.5em;
-    padding: 0 4px;
-    display: inline-block;
-    @include choose-item;
-    border-style: solid;
-    border-width: $border-size 0;
-    &:hover {
-	    @include choose-hover;
-    }
-    &:first-child {
-	    border: {
-	    left-width: $border-size;
-	    right-width: $border-size;
-	  }
-    }
-
-  }
-}
-
-     	
+      /*
+      &:after {
+        .button-stat {
+	        > span {
+            cursor: pointer;
+            box-shadow: $choose-box-shadow;
+            font-size: 9pt;
+            line-height: 1.5em;
+            padding: 0 4px;
+            display: inline-block;
+            @include choose-item;
+            border-style: solid;
+            border-width: $border-size 0;
+            &:hover {
+	            @include choose-hover;
+            }
+            &:first-child {
+	            border: {
+	            left-width: $border-size;
+	            right-width: $border-size;
+	          }
+            }
+            
+          }
+        }
      	}
+     */
     }
 
     // And operation
@@ -191,7 +196,8 @@ $bracket-size: .4em; // 4pt;
   .doc > span {
     cursor: pointer;
     &:hover {
-      color: $dark-green;
+      // color: $dark-green;
+      color: $dark-orange;
     }
   }
 
@@ -314,6 +320,10 @@ $dg-index : 30;
   border-radius: $standard-border-radius;
 }
 
+header #vc-view > div {
+  margin: 1.3em 0 .5em 0;
+}
+
 
 #vc-choose > span.rewritten {
   &::after {
@@ -330,64 +340,31 @@ $dg-index : 30;
   }
 }
 
-div.stattable{  
-	display: flex;
-	flex-direction: row;
-	}
-
-div.stattable ul.action.image {
-  display: block;
-  li {
-    cursor: pointer;
-    color: $nearly-white;
-    text-decoration: none;
-    > span {
-      @include blind;
-    }
-    border-width: 0;
-    // z-index: 8;
-    text-decoration:none;
-    text-align: center;
-    font-style: normal;
-  
-    &.close::after {
-	    font-family: 'FontAwesome';
-	    content: $fa-close;
-    }
+div#vc-view > div.vc {
+  border: 2px solid $dark-green;
+  background-color: $nearly-white;
+  > div:first-child {
+    margin: 1.3em;
   }
 }
 
-
-div.stattable  > dl {
-  display: flex;
-  flex-flow: row wrap;
+div.panel.vcinfo {
+  padding: 3pt 10pt 3pt 3pt;
   background-color: $dark-green;
-  //margin-top: 4 * $border-size !important;
-  margin-top:4px;
-  margin-bottom:4px;
-  padding-bottom: 1px;   
-  	> div {
-    display: flex;
-    margin-right: 5px;
- 	margin-left: 5px;
-     > dt {
-      text-align: right;
-      padding: 1px;
-      margin: 0;
-      &:after {
-  		content: ":";
-  	}
+  /*
+  div.button-group {
+    display: inline-block;
+    margin-right: .5em;
+    > span {
+      position: relative;
+      box-shadow: none;
     }
-   	> dd {   	
-   	  text-align: left;
-      padding: 1px;
-      margin: 0;
-      width: 100%;
-      max-width: none;
-      max-height: 6em;
-      margin-left: $border-size;
-	}
   }
+*/
 }
 
-
+/*
+.button-group.vcstatistic{
+	position:relative;
+	}
+*/

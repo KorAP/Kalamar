@@ -34,9 +34,10 @@ $darkest-orange: #e55d00;
  * Green Colors
  */
 $dark-green:     $ids-green-1; // #496000;
-$middle-green:   lighten($ids-green-1, 5%); // $ids-green-1; // #688704;
+// $middle-green:   lighten($ids-green-1, 5%);
+$middle-green:   lighten($ids-green-1, 9%);
 $light-green:    lighten($ids-green-1, 13%); // #7ba400;
-$lightest-green: lighten($ids-green-1, 26%);
+$lightest-green: #d8e38c; // lighten($ids-green-1, 26%);
 
 /**
  * Blue Colors
