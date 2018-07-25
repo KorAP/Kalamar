@@ -5,15 +5,6 @@ $left-width: 176px;
 $border-size: 2px;
 $left-distance: $left-width + ($border-size * 2);
 
-@mixin cell-info {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 25em;
-  overflow: hidden;
-  padding: 1px 6px;
-  margin: 0px;
-}
-
 /**
  * Table view
  *
@@ -251,76 +242,21 @@ div.matchinfo .view + .view {
 
 // Metatable
 div.metatable > dl {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  width: auto;
-  padding-bottom: 0;
   margin-right: $right-match-distance;
   margin-top: $border-size;
 
   > div {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    width: 100%;
-    border: ($border-size / 2) solid $dark-orange;
-    align-items: stretch;
-    > * {
-      @include cell-info;
-    }
+    border-color: $dark-orange;
     > dt {
-      text-align: left;
       background: $darker-orange;
       color: $nearly-white;
       width: 12.5em;
-      margin: 0;
     }
     > dd {
-      text-align: left;
       background-color: $light-orange;
-      padding: 2px;
-      margin: 0;
-      width: 100%;
-      max-width: none;
-      max-height: 6em;
-      margin-left: $border-size;
-      white-space: normal;
-      overflow-y: auto;
-      overflow-x: hidden;
-      text-overflow: ellipsis;
     }
   }
 }
-
-@media (min-width:640px) {
-  div.metatable > dl {
-    > div {
-      width: 50%; // 2*
-    }
-  }
-}
-
-@media (min-width:800px) {
-  div.metatable > dl > div {
-    width: 33.3333333333333%; // 3*
-  }
-}
-
-@media (min-width:1200px) {
-  div.metatable > dl > div {
-    width: 25%; // 4*
-  }
-}
-
-@media (min-width:1680px) {
-  div.metatable > dl > div {
-    width: 20%; // 5*
-  }
-}
-
 
 div.loading {
   background-color: transparent !important;
