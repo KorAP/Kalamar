@@ -1,220 +1,253 @@
 // Regarding async:
 // http://stackoverflow.com/questions/16423156/getting-requirejs-to-work-with-jasmine
+define(['match',
+        'view/match/tokentable',
+        'view/match/relations',
+        'panel/match',
+        'match/meta',
+        'match/infolayer',
+        'match/treeitem',
+        'match/treearc',
+        'buttongroup/menu',
+        'hint/foundries/cnx',
+        'hint/foundries/mate'], function (
+          matchClass,
+          tableClass,
+          relClass,
+          panelClass,
+          metaClass,
+          infoClass,
+          matchTreeItemClass,
+          matchRelClass,
+          matchTreeMenuClass) {
 
-var available = [
-  'base/s=spans',
-  'corenlp/c=spans',
-  'corenlp/ne=tokens',
-  'corenlp/p=tokens',
-  'corenlp/s=spans',
-  'glemm/l=tokens',
-  'mate/l=tokens',
-  'mate/m=tokens',
-  'mate/p=tokens',
-  'opennlp/p=tokens',
-  'opennlp/s=spans',
-  'tt/l=tokens',
-  'tt/p=tokens',
-  'tt/s=spans'
-];
+  var available = [
+    'base/s=spans',
+    'corenlp/c=spans',
+    'corenlp/ne=tokens',
+    'corenlp/p=tokens',
+    'corenlp/s=spans',
+    'glemm/l=tokens',
+    'mate/l=tokens',
+    'mate/m=tokens',
+    'mate/p=tokens',
+    'opennlp/p=tokens',
+    'opennlp/s=spans',
+    'tt/l=tokens',
+    'tt/p=tokens',
+    'tt/s=spans'
+  ];
 
-var match = {
-  'corpusID' : 'WPD',
-  'docID' : 'UUU',
-  'textID' : '01912',
-  'matchID' : 'p121-122',
-  'textSigle' : 'WPD/UUU/01912',
-  'available' : available
-};
-
-
-var fields = [
-	{
-    "@type": "koral:field",
-    "key": "author",
-    "type": "type:text",
-    "value": "Sprachpfleger, u.a."
-  },
-  {
-    "@type": "koral:field",
-    "key": "textClass",
-    "type": "type:keywords",
-    "value": ["kultur", "film"]
-  },
-  {
-    "@type":"koral:field",
-    "key":"foundries",
-    "type":"type:string",
-    "value":[
-      "corenlp",
-      "corenlp\/constituency",
-      "corenlp\/morpho",
-      "corenlp\/sentences",
-      "dereko",
-      "dereko\/structure",
-      "dereko\/structure\/base-sentences-paragraphs-pagebreaks",
-      "opennlp",
-      "opennlp\/morpho",
-      "opennlp\/sentences"
-    ]
-  }
-];
-
-
-var snippet = "<span title=\"cnx/l:meist\">" +
-    "  <span title=\"cnx/p:ADV\">" +
-    "    <span title=\"cnx/syn:@PREMOD\">" +
-    "      <span title=\"mate/l:meist\">" +
-    "        <span title=\"mate/l:meist\">" +
-    "          <span title=\"mate/p:ADV\">" +
-    "            <span title=\"opennlp/p:ADV\">meist</span>" +
-    "          </span>" +
-    "        </span>" +
-    "      </span>" +
-    "    </span>" +
-    "  </span>" +
-    "</span>" +
-    "<span title=\"cnx/l:deutlich\">" +
-    "  <span title=\"cnx/p:A\">" +
-    "    <span title=\"cnx/syn:@PREMOD\">" +
-    "      <span title=\"mate/l:deutlich\">" +
-    "        <span title=\"mate/m:degree:pos\">" +
-    "          <span title=\"mate/p:ADJD\">" +
-    "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
-    "          </span>" +
-    "        </span>" +
-    "      </span>" +
-    "    </span>" +
-    "  </span>" +
-    "</span>" +
-    "<span title=\"cnx/l:fähig\">" +
-    "  <span title=\"cnx/l:leistung\">" +
-    "    <span title=\"cnx/p:A\">" +
-    "      <span title=\"cnx/p:ADJA\">" +
-    "        <span title=\"cnx/syn:@NH\">" +
-    "          <span title=\"mate/l:leistungsfähig\">" +
-    "            <span title=\"mate/m:degree:comp\">" +
-    "              <span title=\"mate/p:ADJD\">" +
-    "                <span title=\"opennlp/p:ADJD\">leistungsfähiger</span>" +
-    "              </span>" +
-    "            </span>" +
-    "          </span>" +
-    "        </span>" +
-    "      </span>" +
-    "    </span>" +
-    "  </span>" +
-    "</span>";
-
-var treeSnippet =
-  "<span class=\"context-left\"></span>" +
-  "<span class=\"match\">" +
-  "  <span title=\"xip/c:MC\">" +
-  "    <span title=\"xip/c:TOP\">" +
-  "      <span title=\"xip/c:PP\">" +
-  "        <span title=\"xip/c:PREP\">Mit</span>" +
-  "        <span title=\"xip/c:NP\">" +
-  "          <span title=\"xip/c:DET\">dieser</span>" +
-  "          <span title=\"xip/c:NPA\">" +
-  "            <span title=\"xip/c:NOUN\">Methode</span>" +
-  "          </span>" +
-  "        </span>" +
-  "      </span>" +
-  "      <span title=\"xip/c:VERB\">ist</span>" +
-  "      <mark>" +
-  "        <span title=\"xip/c:NP\">" +
-  "          <span title=\"xip/c:PRON\">es</span>" +
-  "        </span>" +  
-  "        <span title=\"xip/c:AP\">" +
-  "          <span title=\"xip/c:ADV\">nun</span>" +
-  "          <span title=\"xip/c:ADJ\">möglich</span>" +
-  "        </span>" +
-  "      </mark>" +
-  "      <span title=\"xip/c:ADV\">z. B.</span>" +
-  "      <span title=\"xip/c:NPA\">" +
-  "        <span title=\"xip/c:NP\">" +
-  "          <span title=\"xip/c:NOUN\">Voice</span>" +
-  "        </span>" +
-  "      </span>" + "(" +
-  "      <span title=\"xip/c:INS\">" +
-  "        <span title=\"xip/c:NPA\">" +
-  "          <span title=\"xip/c:NP\">" +
-  "            <span title=\"xip/c:NOUN\">Sprache</span>" +
-  "          </span>" +
-  "        </span>" +
-  "      </span>" + ")" +
-  "      <span title=\"xip/c:VERB\">bevorzugt</span>" +
-  "      <span title=\"xip/c:PP\">" +
-  "        <span title=\"xip/c:PREP\">in</span>" +
-  "        <span title=\"xip/c:NP\">" +
-  "          <span title=\"xip/c:PRON\">der</span>" +
-  "        </span>" +
-  "        <span title=\"xip/c:NPA\">" +
-  "          <span title=\"xip/c:NP\">" +
-  "            <span title=\"xip/c:NOUN\">Bridge</span>" +
-  "          </span>" +
-  "        </span>" +
-  "      </span>" +
-  "      <span title=\"xip/c:INFC\">" +
-  "        <span title=\"xip/c:INS\">" +
-  "          <span title=\"xip/c:VERB\">weiterzugeben</span>" +
-  "        </span>" +
-  "      </span>" +
-  "    </span>" +
-  "  </span>" +
-  "</span>" +
-  "<span class=\"context-right\"></span>";
-
-
-function matchElementFactory () {
-  var me = document.createElement('li');
-
-  me.setAttribute(
-    'data-available-info',
-    'base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens' +
-      ' corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens' +
-      ' mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens' +
-      ' tt/p=tokens tt/s=spans');
-
-  me.setAttribute('data-corpus-id', 'WPD');
-  me.setAttribute('data-doc-id', 'FFF');
-  me.setAttribute('data-text-id', '01460');
-  me.setAttribute('data-text-sigle', 'WPD/FFF/01460');
-  me.setAttribute('data-match-id', 'p119-120');
-  me.innerHTML = '<div><div class="snippet">check</div></div><p class="ref">me</p>';
-  return me;
-};
-
-function matchElementReal () {
-  var me = document.createElement('em');
-  me.innerHTML =
-    '<li data-match-id="p85183-85184"' +
-    ' data-text-sigle="GOE/AGI/00000"' +
-    ' data-available-info="base/s=spans corenlp/c=spans corenlp/p=tokens corenlp/s=spans dereko/s=spans malt/d=rels opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"' +
-    ' data-info="{&quot;UID&quot;:0,&quot;author&quot;:&quot;Goethe, Johann Wolfgang von&quot;,&quot;corpusID&quot;:null,&quot;corpusSigle&quot;:&quot;GOE&quot;,&quot;docID&quot;:null,&quot;docSigle&quot;:&quot;GOE\/AGI&quot;,&quot;layerInfos&quot;:&quot;base\/s=spans corenlp\/c=spans corenlp\/p=tokens corenlp\/s=spans dereko\/s=spans malt\/d=rels opennlp\/p=tokens opennlp\/s=spans tt\/l=tokens tt\/p=tokens tt\/s=spans&quot;,&quot;matchID&quot;:&quot;match-GOE\/AGI\/00000-p85183-85184&quot;,&quot;pubDate&quot;:&quot;1982&quot;,&quot;pubPlace&quot;:&quot;München&quot;,&quot;subTitle&quot;:&quot;Auch ich in Arkadien!&quot;,&quot;textID&quot;:null,&quot;textSigle&quot;:&quot;GOE\/AGI\/00000&quot;,&quot;title&quot;:&quot;Italienische Reise&quot;}"' +
-    ' id="GOE/AGI/00000#p85183-85184">' +
-    '<div>' + 
-    '<div class="flag"></div>' +
-    '<div class="snippet startMore endMore"><span class="context-left"><span class="more"></span>keine großen Flächen, aber sanft gegeneinander laufende Berg- und Hügelrücken, durchgängig mit Weizen und Gerste bestellt, die eine ununterbrochene Masse von Fruchtbarkeit dem Auge darbieten. der diesen Pflanzen geeignete Boden wird so genutzt und so geschont, daß man nirgends einen </span><span class="match"><mark>Baum</mark></span><span class="context-right"> sieht, ja, alle die kleinen Ortschaften und Wohnungen liegen auf Rücken der Hügel, wo eine hinstreichende Reihe Kalkfelsen den Boden ohnehin unbrauchbar macht. dort wohnen die Weiber das ganze Jahr, mit Spinnen und Weben beschäftigt, die Männer hingegen bringen zur<span class="more"></span></span></div>' +
-    '</div>' +
-    '<p class="ref"><strong>Italienische Reise</strong> von Goethe, Johann Wolfgang von (<time datetime="1982">1982</time>)  <span class="sigle">[GOE/AGI/00000]</span> </p>' +
-    '</li>';
-  return me.firstChild;
-};
-
-
-define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
-
-  // Override getMatchInfo API call
-  KorAP.API.getMatchInfo = function (x, param, cb) {
-    if (param['spans'] === undefined || param['spans'] === false)
-      cb({ "snippet": snippet });
-    else
-      cb({ "snippet": treeSnippet });
+  var match = {
+    'corpusID' : 'WPD',
+    'docID' : 'UUU',
+    'textID' : '01912',
+    'matchID' : 'p121-122',
+    'textSigle' : 'WPD/UUU/01912',
+    'available' : available
   };
+
+
+  var fields = [
+	  {
+      "@type": "koral:field",
+      "key": "author",
+      "type": "type:text",
+      "value": "Sprachpfleger, u.a."
+    },
+    {
+      "@type": "koral:field",
+      "key": "textClass",
+      "type": "type:keywords",
+      "value": ["kultur", "film"]
+    },
+    {
+      "@type":"koral:field",
+      "key":"foundries",
+      "type":"type:string",
+      "value":[
+        "corenlp",
+        "corenlp\/constituency",
+        "corenlp\/morpho",
+        "corenlp\/sentences",
+        "dereko",
+        "dereko\/structure",
+        "dereko\/structure\/base-sentences-paragraphs-pagebreaks",
+        "opennlp",
+        "opennlp\/morpho",
+        "opennlp\/sentences"
+      ]
+    }
+  ];
+
+
+  var snippet = "<span title=\"cnx/l:meist\">" +
+      "  <span title=\"cnx/p:ADV\">" +
+      "    <span title=\"cnx/syn:@PREMOD\">" +
+      "      <span title=\"mate/l:meist\">" +
+      "        <span title=\"mate/l:meist\">" +
+      "          <span title=\"mate/p:ADV\">" +
+      "            <span title=\"opennlp/p:ADV\">meist</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>" +
+      "<span title=\"cnx/l:deutlich\">" +
+      "  <span title=\"cnx/p:A\">" +
+      "    <span title=\"cnx/syn:@PREMOD\">" +
+      "      <span title=\"mate/l:deutlich\">" +
+      "        <span title=\"mate/m:degree:pos\">" +
+      "          <span title=\"mate/p:ADJD\">" +
+      "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>" +
+      "<span title=\"cnx/l:fähig\">" +
+      "  <span title=\"cnx/l:leistung\">" +
+      "    <span title=\"cnx/p:A\">" +
+      "      <span title=\"cnx/p:ADJA\">" +
+      "        <span title=\"cnx/syn:@NH\">" +
+      "          <span title=\"mate/l:leistungsfähig\">" +
+      "            <span title=\"mate/m:degree:comp\">" +
+      "              <span title=\"mate/p:ADJD\">" +
+      "                <span title=\"opennlp/p:ADJD\">leistungsfähiger</span>" +
+      "              </span>" +
+      "            </span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>";
+
+  var treeSnippet =
+      "<span class=\"context-left\"></span>" +
+      "<span class=\"match\">" +
+      "  <span title=\"xip/c:MC\">" +
+      "    <span title=\"xip/c:TOP\">" +
+      "      <span title=\"xip/c:PP\">" +
+      "        <span title=\"xip/c:PREP\">Mit</span>" +
+      "        <span title=\"xip/c:NP\">" +
+      "          <span title=\"xip/c:DET\">dieser</span>" +
+      "          <span title=\"xip/c:NPA\">" +
+      "            <span title=\"xip/c:NOUN\">Methode</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "      <span title=\"xip/c:VERB\">ist</span>" +
+      "      <mark>" +
+      "        <span title=\"xip/c:NP\">" +
+      "          <span title=\"xip/c:PRON\">es</span>" +
+      "        </span>" +  
+      "        <span title=\"xip/c:AP\">" +
+      "          <span title=\"xip/c:ADV\">nun</span>" +
+      "          <span title=\"xip/c:ADJ\">möglich</span>" +
+      "        </span>" +
+      "      </mark>" +
+      "      <span title=\"xip/c:ADV\">z. B.</span>" +
+      "      <span title=\"xip/c:NPA\">" +
+      "        <span title=\"xip/c:NP\">" +
+      "          <span title=\"xip/c:NOUN\">Voice</span>" +
+      "        </span>" +
+      "      </span>" + "(" +
+      "      <span title=\"xip/c:INS\">" +
+      "        <span title=\"xip/c:NPA\">" +
+      "          <span title=\"xip/c:NP\">" +
+      "            <span title=\"xip/c:NOUN\">Sprache</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" + ")" +
+      "      <span title=\"xip/c:VERB\">bevorzugt</span>" +
+      "      <span title=\"xip/c:PP\">" +
+      "        <span title=\"xip/c:PREP\">in</span>" +
+      "        <span title=\"xip/c:NP\">" +
+      "          <span title=\"xip/c:PRON\">der</span>" +
+      "        </span>" +
+      "        <span title=\"xip/c:NPA\">" +
+      "          <span title=\"xip/c:NP\">" +
+      "            <span title=\"xip/c:NOUN\">Bridge</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "      <span title=\"xip/c:INFC\">" +
+      "        <span title=\"xip/c:INS\">" +
+      "          <span title=\"xip/c:VERB\">weiterzugeben</span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>" +
+      "<span class=\"context-right\"></span>";
+
+
+  function matchElementFactory () {
+    var me = document.createElement('li');
+
+    me.setAttribute(
+      'data-available-info',
+      'base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens' +
+        ' corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens' +
+        ' mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens' +
+        ' tt/p=tokens tt/s=spans');
+
+    me.setAttribute('data-corpus-id', 'WPD');
+    me.setAttribute('data-doc-id', 'FFF');
+    me.setAttribute('data-text-id', '01460');
+    me.setAttribute('data-text-sigle', 'WPD/FFF/01460');
+    me.setAttribute('data-match-id', 'p119-120');
+    me.innerHTML = '<div><div class="snippet">check</div></div><p class="ref">me</p>';
+    return me;
+  };
+
+  function matchElementReal () {
+    var me = document.createElement('em');
+    me.innerHTML =
+      '<li data-match-id="p85183-85184"' +
+      ' data-text-sigle="GOE/AGI/00000"' +
+      ' data-available-info="base/s=spans corenlp/c=spans corenlp/p=tokens corenlp/s=spans dereko/s=spans malt/d=rels opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans"' +
+      ' data-info="{&quot;UID&quot;:0,&quot;author&quot;:&quot;Goethe, Johann Wolfgang von&quot;,&quot;corpusID&quot;:null,&quot;corpusSigle&quot;:&quot;GOE&quot;,&quot;docID&quot;:null,&quot;docSigle&quot;:&quot;GOE\/AGI&quot;,&quot;layerInfos&quot;:&quot;base\/s=spans corenlp\/c=spans corenlp\/p=tokens corenlp\/s=spans dereko\/s=spans malt\/d=rels opennlp\/p=tokens opennlp\/s=spans tt\/l=tokens tt\/p=tokens tt\/s=spans&quot;,&quot;matchID&quot;:&quot;match-GOE\/AGI\/00000-p85183-85184&quot;,&quot;pubDate&quot;:&quot;1982&quot;,&quot;pubPlace&quot;:&quot;München&quot;,&quot;subTitle&quot;:&quot;Auch ich in Arkadien!&quot;,&quot;textID&quot;:null,&quot;textSigle&quot;:&quot;GOE\/AGI\/00000&quot;,&quot;title&quot;:&quot;Italienische Reise&quot;}"' +
+      ' id="GOE/AGI/00000#p85183-85184">' +
+      '<div>' + 
+      '<div class="flag"></div>' +
+      '<div class="snippet startMore endMore"><span class="context-left"><span class="more"></span>keine großen Flächen, aber sanft gegeneinander laufende Berg- und Hügelrücken, durchgängig mit Weizen und Gerste bestellt, die eine ununterbrochene Masse von Fruchtbarkeit dem Auge darbieten. der diesen Pflanzen geeignete Boden wird so genutzt und so geschont, daß man nirgends einen </span><span class="match"><mark>Baum</mark></span><span class="context-right"> sieht, ja, alle die kleinen Ortschaften und Wohnungen liegen auf Rücken der Hügel, wo eine hinstreichende Reihe Kalkfelsen den Boden ohnehin unbrauchbar macht. dort wohnen die Weiber das ganze Jahr, mit Spinnen und Weben beschäftigt, die Männer hingegen bringen zur<span class="more"></span></span></div>' +
+      '</div>' +
+      '<p class="ref"><strong>Italienische Reise</strong> von Goethe, Johann Wolfgang von (<time datetime="1982">1982</time>)  <span class="sigle">[GOE/AGI/00000]</span> </p>' +
+      '</li>';
+    return me.firstChild;
+  };
+
+  var beforeAllFunc = function () {
+    // Override getMatchInfo API call
+    KorAP.API.getMatchInfo = function (x, param, cb) {
+      if (param['spans'] === undefined || param['spans'] === false)
+        cb({ "snippet": snippet });
+      else
+        cb({ "snippet": treeSnippet });
+    };
+  };
+
+  var afterAllFunc = function () {
+    KorAP.API.getMatchInfo = undefined;
+    // KorAP.annotationHelper = undefined;
+    var body = document.body;
+    for (var i in body.children) {
+      if (body.children[i].nodeType && body.children[i].nodeType === 1) {
+        if (!body.children[i].classList.contains("jasmine_html-reporter")) {
+          body.removeChild(body.children[i]);
+        };
+      };
+    };
+  };
+
   
   describe('KorAP.InfoLayer', function () {
-    
-    var infoClass = require('match/infolayer');
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
 
     it('should be initializable', function () {
       expect(
@@ -241,6 +274,9 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
 
   describe('KorAP.Match', function () {
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
+
     var match = {
       'corpusID'  : 'WPD',
       'docID'     : 'UUU',
@@ -249,8 +285,6 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       'textSigle' : 'WPD/UUU/01912',
       'available' : available
     };
-
-    var matchClass = require('match');
 
     it('should be initializable by Object', function () {
       expect(function() {
@@ -362,7 +396,7 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
       expect(e["_match"]).not.toBe(undefined);
     });
 
-    it('should open tree menu', function () {
+    it('should open tree menu', function () {      
       var e = matchElementFactory();
       var m = matchClass.create(e);
       m.open();
@@ -389,10 +423,9 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
   });
 
   describe('KorAP.TableView', function () {
-
-    var matchClass = require('match');
-    var tableClass = require('view/match/tokentable');
-
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
+   
     var table;
 
     var matchObj = matchClass.create(match);
@@ -543,10 +576,10 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
   });
 
   describe('KorAP.RelationsView', function () {
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
+
     var tree;
-    var matchClass = require('match');
-    var relClass = require('view/match/relations');
-    var panelClass = require('panel/match');
 
     it('should be rendered async 1', function (done) {
       var matchObj = matchClass.create(match);
@@ -593,7 +626,9 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
 
   describe('KorAP.MatchTreeItem', function () {
-    var matchTreeItemClass = require('match/treeitem');
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
+
     it('should be initializable', function () {
       var mi = matchTreeItemClass.create(['cnx/c', 'cnx', 'c'])
       expect(mi.element().firstChild.nodeValue).toEqual('cnx/c');
@@ -605,7 +640,8 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
 
   describe('KorAP.MatchRelation', function () {
-    var relClass = require('match/treearc')
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
 
     var relExample = "<span class=\"context-left\"></span>" +
         "<span class=\"match\">" +
@@ -628,28 +664,28 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
 
 
     it('should be initializable', function () {
-      var tree = relClass.create();
+      var tree = matchRelClass.create();
       expect(tree.size()).toBe(0);
     });
 
     it('should be parse string data', function () {
-      var tree = relClass.create(relExample);
+      var tree = matchRelClass.create(relExample);
       expect(tree.size()).toBe(4);
     });
   });
 
   
   describe('KorAP.MatchTreeMenu', function () {
-    var matchTreeMenu = require('buttongroup/menu');
-    var matchTreeItem = require('match/treeitem');
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
 
     it('should be initializable', function () {
-      var menu = matchTreeMenu.create([
+      var menu = matchTreeMenuClass.create([
         ['cnx/c', 'cnx', 'c'],
         ['xip/c', 'xip', 'c']
-      ], matchTreeItem);
+      ], matchTreeItemClass);
 
-      expect(menu.itemClass()).toEqual(matchTreeItem);
+      expect(menu.itemClass()).toEqual(matchTreeItemClass);
       expect(menu.element().nodeName).toEqual('UL');
       expect(menu.element().classList.contains('visible')).toBeFalsy();
       expect(menu.limit()).toEqual(6);
@@ -661,9 +697,10 @@ define(['match', 'hint/foundries/cnx', 'hint/foundries/mate'], function () {
   
   //Test display and sorting of meta information 
   describe('KorAP.Meta', function(){
-	 
-	  var metaClass = require("match/meta");
-	  var met = metaClass.create(match, fields);
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);  
+
+	 	var met = metaClass.create(match, fields);
 	  var mel = met.element(); 
 	  	  
 	  // Meta information should be parsed into a list
