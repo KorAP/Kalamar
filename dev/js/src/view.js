@@ -80,7 +80,9 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      */
     close : function () {
       var e = this.element();
-      e.parentNode.removeChild(e);
+      if (e.parentNode) {
+        e.parentNode.removeChild(e);
+      };
       this.panel.delView(this);
       this._shown = false;
       if (this.onClose)

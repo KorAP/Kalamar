@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget'], function (pluginServerClass, widgetClass) {
+define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, widgetClass, panelClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -8,17 +8,48 @@ define(['plugin/server','plugin/widget'], function (pluginServerClass, widgetCla
       manager.destroy();
     });
 
+
     it('should add a widget', function () {
       var manager = pluginServerClass.create();
-      var div = document.createElement("div");
-      var id = manager.addWidget(div, 'about:blank');
+      var panel = panelClass.create();
+      var id = manager.addWidget(panel, 'Example 1', 'about:blank');
       expect(id).toMatch(/^id-/);
-      expect(div.firstChild.classList.contains('widget')).toBeTruthy();
-      expect(div.firstChild.firstChild.tagName).toEqual("IFRAME");
+
+      var panelE = panel.element();
+      var widgetE = panelE.firstChild.firstChild;
+      expect(widgetE.classList.contains('widget')).toBeTruthy();
+      expect(widgetE.firstChild.tagName).toEqual("IFRAME");
+      var iframe = widgetE.firstChild;
+      expect(iframe.getAttribute("src")).toEqual("about:blank");
+
+      expect(widgetE.lastChild.firstChild.textContent).toEqual("Close");
+      expect(widgetE.lastChild.lastChild.textContent).toEqual("Example 1");
+
       manager.destroy();
     });
 
-    it('should fail on invalid registries', function () {
+    it('should close a widget', function () {
+      var manager = pluginServerClass.create();
+      var panel = panelClass.create();
+      var id = manager.addWidget(panel, 'Example 2', 'about:blank');
+      expect(id).toMatch(/^id-/);
+
+      var panelE = panel.element();
+      var widgetE = panelE.firstChild.firstChild;
+      expect(widgetE.classList.contains('widget')).toBeTruthy();
+
+      expect(panelE.getElementsByClassName('view').length).toEqual(1);
+
+      var widget = manager.widget(id);
+      widget.close();
+
+      expect(panelE.getElementsByClassName('view').length).toEqual(0);
+
+      manager.destroy();
+    });
+
+    
+    it('should fail on invalid registrations', function () {
       var manager = pluginServerClass.create();
 
       expect(
@@ -40,7 +71,6 @@ define(['plugin/server','plugin/widget'], function (pluginServerClass, widgetCla
           }]
         })}
       ).toThrow(new Error("Panel for plugin is invalid"));
-
     });
   });
 

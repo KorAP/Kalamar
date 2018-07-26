@@ -66,9 +66,13 @@ define(["view","util"], function (viewClass) {
       this.show().style.height = data.height + 'px';
     },
 
-    // Shutdown suspicious iframe
-    shutdown : function () {
-      this.element().parentNode.removeChild(this.element());
+
+    // On closing the widget view
+    onClose : function () {
+      if (this._mgr) {
+        this._mgr._closeWidget(this._id);
+        this._mgr = undefined;
+      };
     }
   }
 });
