@@ -1,35 +1,66 @@
-function emitKeyboardEvent (element, type, keyCode) {
-  // event type : keydown, keyup, keypress
-  // http://stackoverflow.com/questions/596481/simulate-javascript-key-events
-  // http://stackoverflow.com/questions/961532/firing-a-keyboard-event-in-javascript
-  var keyboardEvent = document.createEvent("KeyboardEvent");
-  var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ?
-    "initKeyboardEvent" : "initKeyEvent";
-  keyboardEvent[initMethod](
-    type, 
-    true,    // bubbles
-    true,    // cancelable
-    window,  // viewArg: should be window
-    false,   // ctrlKeyArg
-    false,   // altKeyArg
-    false,   // shiftKeyArg
-    false,   // metaKeyArg
-    keyCode, // keyCodeArg : unsigned long the virtual key code, else 0
-    0        // charCodeArgs : unsigned long the Unicode character
-             // associated with the depressed key, else 0
-  );
-  element.dispatchEvent(keyboardEvent);
-};
+define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'], function (hintClass, inputClass, contextClass, menuClass, menuItemClass) {
 
+  function emitKeyboardEvent (element, type, keyCode) {
+    // event type : keydown, keyup, keypress
+    // http://stackoverflow.com/questions/596481/simulate-javascript-key-events
+    // http://stackoverflow.com/questions/961532/firing-a-keyboard-event-in-javascript
+    var keyboardEvent = document.createEvent("KeyboardEvent");
+    var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ?
+        "initKeyboardEvent" : "initKeyEvent";
+    keyboardEvent[initMethod](
+      type, 
+      true,    // bubbles
+      true,    // cancelable
+      window,  // viewArg: should be window
+      false,   // ctrlKeyArg
+      false,   // altKeyArg
+      false,   // shiftKeyArg
+      false,   // metaKeyArg
+      keyCode, // keyCodeArg : unsigned long the virtual key code, else 0
+      0        // charCodeArgs : unsigned long the Unicode character
+      // associated with the depressed key, else 0
+    );
+    element.dispatchEvent(keyboardEvent);
+  };
 
-define(['hint'], function () {
-  var hintClass =     require("hint");
-  var inputClass =    require("hint/input");
-  var contextClass =  require("hint/contextanalyzer");
-  var menuClass =     require("hint/menu");
-  var menuItemClass = require("hint/item");
+  var afterAllFunc = function () {
+    try {
+      var mirrors = document.querySelectorAll(".hint.mirror");
+      for (var i in mirrors) {
+        mirrors[i].parentNode.removeChild(mirrors[i])
+      };
+    }
+    catch (e) {};
+    
+    var body = document.body;
+    for (var i in body.children) {
+      if (body.children[i].nodeType && body.children[i].nodeType === 1) {
+        if (!body.children[i].classList.contains("jasmine_html-reporter")) {
+          body.removeChild(body.children[i]);
+        };
+      };
+    };
+    KorAP.API.getMatchInfo = undefined;
+    KorAP.context = undefined;
+    // KorAP.annotationHelper = undefined;
+  };
+
+  var beforeAllFunc = function () {
+    KorAP.annotationHelper = KorAP.annotationHelper || {};
+    KorAP.annotationHelper["-"] = [
+      ["Base Annotation", "base/s=", "Structure"],
+      ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"]
+    ];
+    KorAP.annotationHelper["corenlp/"] = [
+      ["Named Entity", "ne=" , "Combined"],
+      ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
+      ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
+    ];
+  };
 
   describe('KorAP.InputField', function () {
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);
     var input;
 
     beforeEach(function () {
@@ -48,16 +79,6 @@ define(['hint'], function () {
       document.getElementsByTagName("body")[0].removeChild(
         input
       );    
-    });
-
-    afterAll(function () {
-      try {
-  var mirrors = document.querySelectorAll(".hint.mirror");
-  for (var i in mirrors) {
-    mirrors[i].parentNode.removeChild(mirrors[i])
-  };
-      }
-      catch (e) {};
     });
 
     it('should be initializable', function () {
@@ -113,6 +134,9 @@ define(['hint'], function () {
 
 
   describe('KorAP.ContextAnalyzer', function () {
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);
+
     it('should be initializable', function () {
       var analyzer = contextClass.create(")");
       expect(analyzer).toBe(undefined);
@@ -121,6 +145,10 @@ define(['hint'], function () {
     });
 
     it('should check correctly', function () {
+
+      // Intialize KorAP.context
+      hintClass.create();
+
       analyzer = contextClass.create(KorAP.context);
       expect(analyzer.test("cnx/]cnx/c=")).toEqual("cnx/c=");
       expect(analyzer.test("cnx/c=")).toEqual("cnx/c=");
@@ -128,7 +156,7 @@ define(['hint'], function () {
       expect(analyzer.test("impcnx/")).toEqual("impcnx/");
       expect(analyzer.test("cnx/c=npcnx/")).toEqual("npcnx/");
       expect(analyzer.test("mate/m=degree:pos corenlp/ne_dewac_175m_600="))
-  .toEqual("corenlp/ne_dewac_175m_600=");
+        .toEqual("corenlp/ne_dewac_175m_600=");
       expect(analyzer.test("corenlp/")).toEqual("corenlp/");
       expect(analyzer.test("corenlp/c=")).toEqual("corenlp/c=");
       expect(analyzer.test("corenlp/c=PP-")).toEqual("corenlp/c=PP-");
@@ -143,17 +171,8 @@ define(['hint'], function () {
 
 
   describe('KorAP.Hint', function () {
-    KorAP.annotationHelper = {
-      "-" : [
-  ["Base Annotation", "base/s=", "Structure"],
-  ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"]
-      ],
-      "corenlp/" : [
-  ["Named Entity", "ne=" , "Combined"],
-  ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
-  ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"]
-      ]
-    };
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);
 
     beforeEach(function () {
       input = document.createElement("input");
@@ -167,9 +186,10 @@ define(['hint'], function () {
     });
 
     it('should be initializable', function () {
+
       // Supports: context, searchField
       var hint = hintClass.create({
-  inputField : input
+        inputField : input
       });
 
       expect(hint).toBeTruthy();
@@ -213,7 +233,7 @@ define(['hint'], function () {
       expect(hint.inputField().mirrorValue()).toEqual('abcde');
       expect(hint.alert().active).toBeFalsy();
 
-            // Show again
+      // Show again
       expect(hint.alert(5, 'That does not work!')).toBeTruthy();
       expect(hint.inputField().mirrorValue()).toEqual('abcde');
       expect(hint.alert().active).toBeTruthy();
@@ -226,8 +246,6 @@ define(['hint'], function () {
       expect(hint.alert().active).toBeFalsy();
     });
 
-
-    
     it('should view main menu on default', function () {
       var hint = hintClass.create({
         inputField : input
@@ -364,13 +382,16 @@ define(['hint'], function () {
 
   
   describe('KorAP.HintMenuItem', function () {
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);
+
     it('should be initializable', function () {
       expect(
-  function() { menuItemClass.create([]) }
+        function() { menuItemClass.create([]) }
       ).toThrow(new Error("Missing parameters"));
 
       expect(
-  function() { menuItemClass.create(['CoreNLP']) }
+        function() { menuItemClass.create(['CoreNLP']) }
       ).toThrow(new Error("Missing parameters"));
 
       var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
@@ -379,13 +400,14 @@ define(['hint'], function () {
       expect(menuItem.desc()).toBeUndefined();
 
       menuItem = menuItemClass.create(
-  ['CoreNLP', 'corenlp/', 'It\'s funny']
+        ['CoreNLP', 'corenlp/', 'It\'s funny']
       );
       expect(menuItem.name()).toEqual('CoreNLP');
       expect(menuItem.action()).toEqual('corenlp/');
       expect(menuItem.desc()).not.toBeUndefined();
       expect(menuItem.desc()).toEqual('It\'s funny');
     });
+
 
     it('should have an element', function () {
       var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
@@ -400,7 +422,7 @@ define(['hint'], function () {
       expect(menuItem.element().childNodes[1]).toBe(undefined);
 
       menuItem = menuItemClass.create(
-  ['CoreNLP', 'corenlp/', 'my DescRiption']
+        ['CoreNLP', 'corenlp/', 'my DescRiption']
       );
       expect(menuItem.element()).not.toBe(undefined);
       expect(menuItem.element().nodeName).toEqual("LI");
@@ -442,6 +464,7 @@ define(['hint'], function () {
       expect(menuItem.element().getAttribute("class")).toBe(null);
     });
 
+
     it('should be set to boundary', function () {
       var menuItem = menuItemClass.create(['CoreNLP', 'corenlp/']);
       expect(menuItem.active()).toBe(false);
@@ -478,6 +501,7 @@ define(['hint'], function () {
       expect(menuItem.noMore()).toBe(true);
       expect(menuItem.element().getAttribute("class")).toEqual("no-more active");
     });
+
 
     it('should be highlightable', function () {
       // Highlight in the middle
@@ -569,11 +593,14 @@ define(['hint'], function () {
 
       menuItem.lowlight();
       expect(menuItem.element().innerHTML).toEqual("<span>CoreNLP</span><span class=\"desc\">This is my Example</span>");
-
     });
   });
 
+
   describe('KorAP.HintMenu', function () {
+    beforeAll(beforeAllFunc);
+    afterAll(afterAllFunc);
+
     var list = [
       ["Constituency", "c=", "Example 1"],
       ["Lemma", "l="],
