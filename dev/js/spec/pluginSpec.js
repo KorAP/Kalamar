@@ -76,9 +76,52 @@ define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, w
 
   describe('KorAP.Plugin.Widget', function () {
     it('should be initializable', function () {
-      var widget = widgetClass.create();
+      expect(function () { widgetClass.create() }).toThrow(new Error("Widget not well defined"));
+
+      widget = widgetClass.create("Test", "https://example", 56);
       expect(widget).toBeTruthy();
+      expect(widget.id).toEqual(56);
+      expect(widget.name).toEqual("Test");
+      expect(widget.src).toEqual("https://example");
+    });
+
+    it('should create a view element', function () {
+      var widget = widgetClass.create("Test", "https://example", 56);
+      var we = widget.element();
+
+      expect(we.tagName).toEqual("DIV");
+      expect(we.classList.contains('view')).toBeTruthy();
+      expect(we.classList.contains('widget')).toBeTruthy();
+
+      var iframe = we.firstChild;
+      expect(iframe.tagName).toEqual("IFRAME");
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-scripts");
+      expect(iframe.getAttribute("src")).toEqual("https://example");
+      expect(iframe.getAttribute("name")).toEqual("56");
+
+      var btn = we.lastChild;
+      expect(btn.classList.contains("button-group")).toBeTruthy();
+      expect(btn.classList.contains("button-view")).toBeTruthy();
+      expect(btn.classList.contains("widget")).toBeTruthy();
+
+      expect(btn.firstChild.tagName).toEqual("SPAN");
+      expect(btn.firstChild.classList.contains("button-icon")).toBeTruthy();
+      expect(btn.firstChild.classList.contains("close")).toBeTruthy();
+      expect(btn.firstChild.firstChild.tagName).toEqual("SPAN");
+
+      expect(btn.lastChild.tagName).toEqual("SPAN");
+      expect(btn.lastChild.classList.contains("button-icon")).toBeTruthy();
+      expect(btn.lastChild.classList.contains("plugin")).toBeTruthy();
+      expect(btn.lastChild.firstChild.tagName).toEqual("SPAN");
+      expect(btn.lastChild.textContent).toEqual("Test");
+    })
+
+    it('should be resizable', function () {
+      var widget = widgetClass.create("Test", "https://example", 56);
+      var iframe = widget.show();
+      expect(iframe.style.height).toEqual('0px');
+      widget.resize({ height : 9 });
+      expect(iframe.style.height).toEqual('9px');
     });
   });
-
 });

@@ -22,6 +22,8 @@ define(["view","util"], function (viewClass) {
 
     // Initialize widget
     _init : function (name, src, id) {
+      if (!name || !src || !id)
+        throw Error("Widget not well defined");
       this.name = name;
       this.src = src;
       this.id = id;
