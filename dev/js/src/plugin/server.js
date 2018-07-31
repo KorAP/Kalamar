@@ -149,16 +149,20 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
 
     /**
-     * Get named button group
+     * Get named button group - better rename to "action"
      */
     buttonGroup : function (name) {
       return buttons[name];
     },
     
     /**
-     * Open a new widget in a certaoin panel
+     * Open a new widget view in a certain panel and return
+     * the id.
      */
     addWidget : function (panel, name, src) {
+
+      if (!src)
+        return;
 
       // Is it the first widget?
       if (!this._listener) {
@@ -189,12 +193,23 @@ define(["plugin/widget", "util"], function (widgetClass) {
       widgets[id] = widget;
       limits[id] = maxMessages;
 
+      widget._mgr = this;
+
       // Add widget to panel
       panel.add(widget);
 
       return id;
     },
 
+
+    /**
+     * Get widget by identifier
+     */
+    widget : function (id) {
+      return widgets[id];
+    },
+
+    
     // Receive a call from an embedded iframe.
     // The handling needs to be very careful,
     // as this can easily become a security nightmare.
@@ -231,7 +246,10 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
         // TODO:
         //   Potentially kill the whole plugin!
-        this.closeWidget(widget);
+
+        // This removes all connections before closing the widget 
+        this._closeWidget(widget.id);
+        widget.close();
         return;
       };
 
@@ -250,10 +268,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
     },
 
     // Close the widget
-    closeWidget : function (widget) {
-      delete limits[widget.id];
-      delete widgets[widget.id];
-      widget.shutdown();
+    _closeWidget : function (id) {
+      delete limits[id];
+      delete widgets[id];
 
       // Remove listeners in case no widget
       // is available any longer
@@ -277,6 +294,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
     // Destructor, just for testing scenarios
     destroy : function () {
       limits = {};
+      for (let w in widgets) {
+        widgets[w].close();
+      };
       widgets = {};
       this._removeListener();
     }
