@@ -6,27 +6,36 @@
   <link rel="shortcut icon" type="image/png" href="../lib/jasmine-2.1.1/jasmine_favicon.png">
   <link rel="stylesheet" href="../lib/jasmine-2.1.1/jasmine.css">
   <script src="../lib/require.js"></script>
-  <script src="../lib/jasmine-2.1.1/jasmine.js"></script>
-  <script src="../lib/jasmine-2.1.1/jasmine-html.js"></script>
-  <script src="../lib/jasmine-2.1.1/boot.js"></script>
   <script>
     require.config({
       baseUrl: "../src",
       paths: {
         "lib" : "../lib",
-        "spec" : "../spec"
+        "spec" : "../spec",
+        "jlib" : "lib/jasmine-2.1.1",
+        "jasmine" : ['../lib/jasmine-2.1.1/jasmine'],
+        "jasmine-html": ['../lib/jasmine-2.1.1/jasmine-html'],
+        "jasmine-boot": ['../lib/jasmine-2.1.1/boot']
+      },
+      shim : {
+        'jasmine-html' : {
+          deps : ['jasmine']
+        },
+        'jasmine-boot' : {
+          deps : ['jasmine','jasmine-html']
+        }
       }
     });
-    require([
-    'lib/domReady!',
-    'spec/menuSpec',
-    'spec/selectMenuSpec'
-    ],
-    function () {
-      if (jsApiReporter.finished === true)
-        jasmine.getEnv().execute();
+    require(['jasmine-boot'], function () {
+      require([
+        'spec/menuSpec',
+        'spec/selectMenuSpec'
+     ],
+      function () {
+        window.onload();
+      });
     });
-  </script>
+    </script>
 </head>
 <body>
 </body>
