@@ -29,22 +29,6 @@ define([
   "use strict";
 
   /**
-   * @define {regex} Regular expression for context
-   */
-  KorAP.context = KorAP.context ||
-    "(?:^|[^-_a-zA-Z0-9])" +   // Anchor
-    "((?:[-_a-zA-Z0-9]+?)\/" + // Foundry
-    "(?:" +
-    "(?:[-_a-zA-Z0-9]+?)=" +   // Layer
-    "(?:"+
-    "(?:[^:=\/ ]+?):|" +       // Key
-    "(?:[^-=\/ ]+?)-" +        // Node
-    ")?" +
-    ")?" +
-    ")$";
-  // KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
-
-  /**
    * Return keycode based on event
    */
 
@@ -83,6 +67,21 @@ define([
         console.log("No annotationhelper defined");
         return;
       };
+      
+      /**
+       * @define {regex} Regular expression for context
+       */
+      KorAP.context = KorAP.context ||
+        "(?:^|[^-_a-zA-Z0-9])" +   // Anchor
+        "((?:[-_a-zA-Z0-9]+?)\/" + // Foundry
+        "(?:" +
+        "(?:[-_a-zA-Z0-9]+?)=" +   // Layer
+        "(?:"+
+        "(?:[^:=\/ ]+?):|" +       // Key
+        "(?:[^-=\/ ]+?)-" +        // Node
+        ")?" +
+        ")?" +
+        ")$";
 
       // Get input field
       var qfield = param["inputField"] || document.getElementById("q-field");
