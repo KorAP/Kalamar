@@ -102,8 +102,8 @@ div.snippet {
 	text-shadow: $light-shadow;
   font-size: 0;
   > span, mark {
-    font-size: $font-size;
 	  padding: 5pt 0 6pt 0;
+    font-size: $font-size;
     white-space: no-wrap !important;
     > span {
       white-space: no-wrap !important;
@@ -195,6 +195,7 @@ div.snippet div.flag {
   display: none;
 
   // TEMP! Remove
+  /*
   > span.meta {
     cursor: pointer;
     @include choose-item;
@@ -212,15 +213,11 @@ div.snippet div.flag {
       @include choose-hover;
     }
 
-    /*
-    color: $nearly-white;
-   */
+    // color: $nearly-white;
     &::after {
-	    /*
-      font-size: 12pt;
-font-family: "FontAwesome";
-	    content: $fa-metadata;
-     */
+      // font-size: 12pt;
+      // font-family: "FontAwesome";
+	    // content: $fa-metadata;
       content: "+Meta";
     }
 
@@ -228,6 +225,7 @@ font-family: "FontAwesome";
 	    @include blind;
     }
   }
+  */
 }
 
 
@@ -249,16 +247,12 @@ body.no-js #search > ol > li:active,
   div.match-main > div.match-wrap {
     cursor: default;
   }
-  span {
-    display: inline; // !important;
+  .snippet span {
+    display: inline !important;
   }
   .button-group.button-view {
     display: block;
   }
-/*  ul.action {
-    display: block;
-  }
-*/
   div.match-wrap {
     min-height: 20pt;
     div.snippet {
@@ -331,7 +325,6 @@ body.no-js #search > ol > li:active,
 /**
  * Right aligned
  */
-
 #search ol span.context-left {
   display: inline-block;
   width: 50.01%;
@@ -340,6 +333,7 @@ body.no-js #search > ol > li:active,
 
 #search ol.align-right {
   text-align: right;
+
   div.match-main span.context-right {
     display: inline-block;
     width: 49.915%;
@@ -406,61 +400,6 @@ em > em > em,
 /**
  * Actions
  */
-
 #search > ol > li .button-group.button-view {
   display: none;
 }
-
-/*
-ul.action {
-
-  display: none;
-  //  background-color: $dark-orange;
-  font-size: 12pt;
-  color: $nearly-white;
-  text: {
-    shadow: none;
-    indent: 0;
-  }
-  margin: 0;
-  padding: 0;
-  z-index: 5;
-  
-  list-style: {
-    type: none;
-    position: inline;
-  }
-  &.right {
-    position: absolute;
-    z-index: 4;
-    width: $right-match-distance;
-    float: right;
-    text-align: center;
-    padding: 0pt 3pt;
-    height: 100%;
-    right: 0;
-    top: 0;
-    li {
-      cursor: pointer;
-      color: $nearly-white;
-      text-decoration: none;
-
-      > span {
-	      @include blind;
-      }
-      &.close::after {
-	      font-family: "FontAwesome";
-	      content: $fa-close;
-      }
-      &.info::after {
-	      font-family: "FontAwesome";
-	      content: $fa-info;
-      }
-      &.plugin::after {
-	      font-family: "FontAwesome";
-	      content: $fa-plugin;        
-      }
-    }
-  }
-}
-*/
