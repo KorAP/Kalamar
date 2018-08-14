@@ -294,8 +294,9 @@ body.no-js #search > ol > li:active,
     // visibility: hidden;
   }
   div.match-main {
-    width: 100%;
     display: block;
+    width: 100%;
+  
     div.match-wrap {
       background-color: $dark-orange;
       width: 100%;
@@ -343,53 +344,77 @@ body.no-js #search > ol > li:active,
   }
 }
 
+// Complete margin, see main.scss
+// TODO:
+//   This, however, needs to be adjusted for embedded views
+//   and media!
+$complete-margin: $right-distance + ($standard-margin / 2) + (2 * $result-border-size);
+
+
 /**
  * Center aligned
  */
 #search ol.align-center {
   display: table;
-  table-layout: fixed;
   width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
 
-  div.meta {
-    width: 12em;
-    min-width: 12em;
+  li.active {
+    /*
+    display: table-caption !important;
+    caption-side: inherit;
+   */
+
+    display: block;
+    max-width: calc(100vw - #{$complete-margin});
+    width: calc(100vw - #{$complete-margin});
+
   }
+  
+  li:not(.active) {
 
-  .match-main {
-
-    div.flag {
-      margin-left: 50%;
-    }
-    
-    > .match-wrap {
-      margin-left: 0;
-      width: 100% !important;
+    div.meta {
+      width: 13vw;
+      min-width: 12em;
+      max-width: 12em; 
     }
 
-    .snippet {
-      position: initial;
-      display: inline-block;
-      left: 50%;
-      transform: translateX(-50%);
-      overflow-x: hidden;
-      white-space: nowrap !important;
+    .match-main {
+
+      div.flag {
+        margin-left: 50%;
+      }
       
-      > mark, span.match {
-        display: inline-block;
+      > .match-wrap {
+        margin-left: 0;
+        width: 100% !important;
       }
 
-      span.context-left {
+      .snippet {
+        position: initial;
         display: inline-block;
-        text-align: right;
-        width: 80000px;
-        margin-left: 60vw;
-      }
+        left: 50%;
+        transform: translateX(-50%);
+        overflow-x: hidden;
+        white-space: nowrap !important;
+        
+        > mark, span.match {
+          display: inline-block;
+        }
 
-      span.context-right {
-        display: inline-block;
-        text-align: left;
-        width: 80000px;
+        span.context-left {
+          display: inline-block;
+          text-align: right;
+          width: 80000px;
+          margin-left: 70vw;
+        }
+
+        span.context-right {
+          display: inline-block;
+          text-align: left;
+          width: 80000px;
+        }
       }
     }
   }
