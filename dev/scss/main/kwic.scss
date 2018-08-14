@@ -29,10 +29,13 @@ $font-size: 10pt;
       position: relative;
       display: table-cell;
       text-align: left;
+      vertical-align: middle;
       cursor: initial;
       width: 2px;
       z-index: 5;
-      overflow-y: visible;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
       white-space: nowrap;
       background-color: lighten($middle-grey, 5%);
       // @include light-noise;
@@ -104,9 +107,9 @@ div.snippet {
   > span, mark {
 	  padding: 5pt 0 6pt 0;
     font-size: $font-size;
-    white-space: no-wrap !important;
+    // white-space: nowrap;
     > span {
-      white-space: no-wrap !important;
+      // white-space: nowrap;
     }
   }
   > mark, > span.match {
@@ -271,7 +274,6 @@ body.no-js #search > ol > li:active,
 	      left: 0; // 5pt margin-top
 	    }
 	    > span {
-        // color: black;
         line-height: 1.4em;
         width: auto;
         &.context-left {
@@ -340,6 +342,59 @@ body.no-js #search > ol > li:active,
     text-align: left;
   }
 }
+
+/**
+ * Center aligned
+ */
+#search ol.align-center {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  div.meta {
+    width: 12em;
+    min-width: 12em;
+  }
+
+  .match-main {
+
+    div.flag {
+      margin-left: 50%;
+    }
+    
+    > .match-wrap {
+      margin-left: 0;
+      width: 100% !important;
+    }
+
+    .snippet {
+      position: initial;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      overflow-x: hidden;
+      white-space: nowrap !important;
+      
+      > mark, span.match {
+        display: inline-block;
+      }
+
+      span.context-left {
+        display: inline-block;
+        text-align: right;
+        width: 80000px;
+        margin-left: 60vw;
+      }
+
+      span.context-right {
+        display: inline-block;
+        text-align: left;
+        width: 80000px;
+      }
+    }
+  }
+}
+
 
 // fix empty contexts
 #search ol span.context-left,
