@@ -48,6 +48,9 @@ div.result.panel .view {
     &.align.right::after {
       content: $fa-right-align;
     }
+    &.align.center::after {
+      content: $fa-center-align;
+    }
     &.show-kq::after {
       content: $fa-code;
     }

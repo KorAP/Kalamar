@@ -65,9 +65,22 @@ define([
        * Toggle the alignment (left <=> right)
        */
       this.actions.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
-        var ol = d.querySelector('#search > ol');
-        ol.toggleClass("align-left", "align-right");
-        this.button.toggleClass("left", "right");
+        var olCl = d.querySelector('#search > ol').classList;
+        if (olCl.contains('align-left')) {
+          olCl.remove('align-left');
+          olCl.add('align-right');
+          this.button.toggleClass("right", "center");
+        }
+        else if (olCl.contains('align-right')) {
+          olCl.remove('align-right');
+          olCl.add('align-center');
+          this.button.toggleClass("center", "left");
+        }
+        else if (olCl.contains('align-center')) {
+          olCl.remove('align-center');
+          olCl.add('align-left');
+          this.button.toggleClass("left", "right");
+        };        
       });
     }
   }
