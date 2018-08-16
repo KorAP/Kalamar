@@ -8,10 +8,12 @@ define([
   'vc/jsonld',
   'vc/unspecified',
   'vc/doc',
+  'vc/docgroupref',
   'util'
 ], function (jsonldClass,
-	     unspecClass,
-	     docClass) {
+	           unspecClass,
+	           docClass,
+            docGroupRefClass) {
 
   const _validGroupOpRE = new RegExp("^(?:and|or)$");
 
@@ -41,6 +43,10 @@ define([
 
     // The doc is already set in the group
     _duplicate : function (operand) {
+
+      // TODO:
+      //   Also check for duplicate docGroupRefs!
+      
       if (operand.ldType() !== 'doc')
 	      return null;
 
@@ -73,7 +79,8 @@ define([
 	      // No @type defined
 	      if (operand["ldType"] !== undefined) {
 	        if (operand.ldType() !== 'doc' &&
-	            operand.ldType() !== 'docGroup') {
+	            operand.ldType() !== 'docGroup' &&
+              operand.ldType() !== 'docGroupRef') {
 	          KorAP.log(812, "Operand not supported in document group");
 	          return;
 	        };
@@ -126,6 +133,28 @@ define([
 	      };
 	      this._operands.push(docGroup);
 	      return docGroup;
+
+      case "koral:docGroupRef":
+      
+        var docGroupRef = docGroupRefClass.create(this, operand);
+      
+        if (docGroupRef === undefined) {
+          return
+        };
+
+        // TODO:
+        //   Currently this doesn't do anything meaningful,
+        //   as duplicate only checks on docs for the moment
+        /*
+	      var dupl = this._duplicate(doc);
+	      if (dupl === null) {
+	        this._operands.push(doc);
+	        return doc;
+	      };
+	      return dupl;
+        */
+	      this._operands.push(docGroupRef);
+        return docGroupRef;
 
       default:
 	      KorAP.log(812, "Operand not supported in document group");
@@ -229,6 +258,7 @@ define([
 	        // Just insert a doc or ...
 	        if (newOp.ldType() === "doc" ||
 	            newOp.ldType() === "non" ||
+              newOp.ldType() === 'docGroupRef' ||
 	            // ... insert a group of a different operation
 	            // (i.e. "and" in "or"/"or" in "and")
 	            newOp.operation() != this.operation()) {

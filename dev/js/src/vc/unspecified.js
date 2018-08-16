@@ -5,8 +5,9 @@
 define([
   'vc/jsonld',
   'vc/doc',
+  'vc/docgroupref',
   'util'
-], function (jsonldClass, docClass) {
+], function (jsonldClass, docClass, docGroupRefClass) {
 
   // Localize empty string
   var loc = KorAP.Locale;
@@ -40,9 +41,18 @@ define([
       if (this._parent === undefined)
 	      return null;
 
+      var newDoc;
+      var keyType = KorAP._vcKeyMenu.typeOf(v);
+
       // Set JSON-LD type
-      var newDoc = docClass.create(this._parent);
-      newDoc.key(v);
+      if (keyType && keyType === 'ref') {
+        newDoc = docGroupRefClass.create(this._parent);
+      }
+      else {
+        newDoc = docClass.create(this._parent);
+        newDoc.key(v);
+        newDoc.type(keyType);
+      };
   
       // Unspecified document on root
       if (this._parent.ldType() === null) {
@@ -82,7 +92,8 @@ define([
       this._element.refTo = this;
 
       // Set operators
-      if (this._parent !== undefined && this.parent().ldType() !== null) {
+      if (this._parent !== undefined &&
+          this.parent().ldType() !== null) {
 	      var op = this.operators(
 	        false,
 	        false,
@@ -127,9 +138,9 @@ define([
       var that = this;
 
       // Set released method
-      menu.released(function (key, type) {
+      menu.released(function (key) {
 	      // Set chosen key and type - will return a doc
-	      that.key(key).type(type).update();
+	      that.key(key).update();
 	      this.hide();
       });
 
