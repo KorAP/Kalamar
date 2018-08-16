@@ -7,24 +7,38 @@ define(['util'], {
    * Create new string value helper.
    */
   create : function () {
+    var regexOp = true;
     var regex = false;
     var value = '';
-    if (arguments.length == 2) {
-      regex = arguments[1];
-    };
+
+    // Set value
     if (arguments.length >= 1) {
       if (arguments[0] !== undefined)
         value = arguments[0];
     };
-    return Object.create(this)._init(value, regex);
+
+    // Set regex
+    if (arguments.length >= 2) {
+      if (arguments[1] !== undefined)
+        regex = arguments[1];
+    };
+
+    // Set regexOp
+    if (arguments.length >= 3) {
+      regexOp = arguments[2];
+      if (regexOp === false) {
+        regex = false;
+      }
+    };
+    return Object.create(this)._init(value, regex, regexOp);
   },
   
 
   // Initialize the string value
-  _init : function (value, regex) {
-    this.element();
+  _init : function (value, regex, regexOp) {
     this.value(value);
     this.regex(regex);
+    this._regexOp(regexOp);
     return this;
   },
 
@@ -47,6 +61,18 @@ define(['util'], {
     return this._regex;
   },
 
+  _regexOp : function (regexOp) {
+    if (arguments.length === 1) {
+      if (regexOp) {
+        this.__regexOp = true;
+      }
+      else {
+        this.__regexOp = false;
+      };
+      this._update();
+    };
+    return this.__regexOp;
+  },
 
   /**
    * Toggle the regex, make it either true,
@@ -65,18 +91,20 @@ define(['util'], {
   value : function (val) {
     if (arguments.length === 1) {
       this._value = val;
-      this._input.value = val;
+      // this._input.value = val;
       this._update();
     };
     return this._value;
   },
 
-
   // Update dom element
   _update : function () {
+    if (this._element === undefined)
+      return;
+ 
     this._value = this._input.value;
 
-    if (this._regex) {
+    if (this._regexOp() && this._regex) {
       this._element.classList.add('regex');
     }
     else {
@@ -91,7 +119,6 @@ define(['util'], {
    * The method receives the value and the regex.
    */
   store : function (v,r) {},
-
 
   /**
    * Put focus on element
@@ -126,16 +153,18 @@ define(['util'], {
     };
 
     // Add regex button
-    var re = e.addE('div');
-    re.addEventListener(
-      'click',
-      function (ev) {
-	      this.toggleRegex();
-        // ev.halt();
-      }.bind(this),
-      true
-    );
-    re.addT('RE');
+    if (this._regexOp()) {
+      var re = e.addE('div');
+      re.addEventListener(
+        'click',
+        function (ev) {
+	        this.toggleRegex();
+          // ev.halt();
+        }.bind(this),
+        true
+      );
+      re.addT('RE');
+    };
 
     // If the focus is not on the text field anymore,
     // delegate focus to

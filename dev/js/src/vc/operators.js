@@ -31,7 +31,7 @@ define(['buttongroup'], function (buttonGroupClass) {
 	      return obj.wrapOnRoot();
       };
     }
-    else if (obj.ldType() === 'doc') {
+    else if (obj.ldType() === 'doc' || obj.ldType() === 'docGroupRef') {
 
       if (parent.ldType() === null) {
 	      return obj.wrapOnRoot(type);
@@ -71,7 +71,7 @@ define(['buttongroup'], function (buttonGroupClass) {
 
   return {
     create : function (and, or, del) {
-
+      
       // Inherit from buttonGroupClass
       var op = Object(buttonGroupClass).create(['operators']).upgradeTo(this);
       op.and(and);

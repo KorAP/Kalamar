@@ -148,6 +148,8 @@ $bracket-size: .4em; // 4pt;
     > span.key,
     > span.value {
       font-weight: bold;
+    }
+    > span.value {
       &[data-type=regex] {
         font-style: italic;
         &::after,
@@ -155,6 +157,10 @@ $bracket-size: .4em; // 4pt;
           content: '/';
         }
       }
+    }
+
+    > span.key.fixed {
+      color: $light-green;
     }
 
     /**
@@ -193,7 +199,7 @@ $bracket-size: .4em; // 4pt;
     }
   }
 
-  .doc > span {
+  .doc > span:not(.fixed) {
     cursor: pointer;
     &:hover {
       // color: $dark-green;

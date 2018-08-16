@@ -62,77 +62,79 @@ define([
       // Get element
       var e = this._element;
 
+      // Check if there is a change in the underlying data
+      if (!this.__changed)
+        return e;
+
       // Set ref - TODO: Cleanup!
       e.refTo = this;
 
-      // Check if there is a change in the underlying data
-      if (this.__changed) {
 
-        // Was rewritten
-        if (this.rewrites() !== undefined) {
-          e.classList.add("rewritten");
-        };
-
-        // Added key
-        this._keyE = document.createElement('span');
-        this._keyE.setAttribute('class', 'key');
-
-        // Change key
-        this._keyE.addEventListener('click', this._changeKey.bind(this));
-
-        if (this.key()) {
-          var k = this.key();
-          if (loc['VC_' + k] !== undefined)
-            k = loc['VC_' + k];
-          this._keyE.addT(k);
-        };
-
-        // Added match operator
-        this._matchopE = document.createElement('span');
-        this._matchopE.setAttribute('data-type', this.type());
-        this._matchopE.setAttribute('class', 'match');
-        this._matchopE.addT(this.matchop());
-
-        // Change matchop
-        this._matchopE.addEventListener(
-          'click',
-          this._changeMatchop.bind(this)
-        );
-
-        // Added value operator
-        this._valueE = document.createElement('span');
-        this._valueE.setAttribute('data-type', this.type());
-        this._valueE.setAttribute('class', 'value');
-        if (this.value()) {
-          this._valueE.addT(this.value());
-        }
-        else {
-          this._valueE.addT(loc.EMPTY);
-        };
-
-        // Change value
-        this._valueE.addEventListener(
-          'click',
-          this._changeValue.bind(this)
-        );
-
-
-        // Remove all element children
-        _removeChildren(e);
-
-        // Add spans
-        e.appendChild(this._keyE);
-        e.appendChild(this._matchopE);
-        e.appendChild(this._valueE);
-
-        this.__changed = false;
+      // Was rewritten
+      if (this.rewrites() !== undefined) {
+        e.classList.add("rewritten");
       };
+
+      // Added key
+      this._keyE = document.createElement('span');
+      this._keyE.setAttribute('class', 'key');
+
+      // Change key
+      this._keyE.addEventListener('click', this._changeKey.bind(this));
+
+      if (this.key()) {
+        var k = this.key();
+        if (loc['VC_' + k] !== undefined)
+          k = loc['VC_' + k];
+        this._keyE.addT(k);
+      };
+
+      // Added match operator
+      this._matchopE = document.createElement('span');
+      this._matchopE.setAttribute('data-type', this.type());
+      this._matchopE.setAttribute('class', 'match');
+      this._matchopE.addT(this.matchop());
+
+      // Change matchop
+      this._matchopE.addEventListener(
+        'click',
+        this._changeMatchop.bind(this)
+      );
+
+      // Added value operator
+      this._valueE = document.createElement('span');
+      this._valueE.setAttribute('data-type', this.type());
+      this._valueE.setAttribute('class', 'value');
+
+      if (this.value()) {
+        this._valueE.addT(this.value());
+      }
+      else {
+        this._valueE.addT(loc.EMPTY);
+      };
+
+      // Change value
+      this._valueE.addEventListener(
+        'click',
+        this._changeValue.bind(this)
+      );
+
+      // Remove all element children
+      _removeChildren(e);
+
+      // Add spans
+      e.appendChild(this._keyE);
+      e.appendChild(this._matchopE);
+      e.appendChild(this._valueE);
+
+      this.__changed = false;
 
       if (this._rewrites !== undefined) {
         e.appendChild(this._rewrites.element());
       };
 
       if (this._parent !== undefined) {
+        
         // Set operators
         var op = this.operators(
           true,
