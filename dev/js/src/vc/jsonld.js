@@ -38,12 +38,15 @@ define(['vc/operators'], function (operatorsClass) {
     // acyclic structures!
     // I'm paranoid!
     destroy : function () {
+      
       if (this._ops != undefined) {
 	      this._ops._parent = undefined;
-	      if (this._ops._element !== undefined)
+	      if (this._ops._element !== undefined) {
 	        this._ops._element.refTo = undefined;
+        };
 	      this._ops = undefined;
       };
+
       if (this._element !== undefined)
 	      this._element = undefined;
       

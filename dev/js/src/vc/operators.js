@@ -71,7 +71,7 @@ define(['buttongroup'], function (buttonGroupClass) {
 
   return {
     create : function (and, or, del) {
-
+      
       // Inherit from buttonGroupClass
       var op = Object(buttonGroupClass).create(['operators']).upgradeTo(this);
       op.and(and);
