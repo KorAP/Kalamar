@@ -6,7 +6,7 @@ use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.27';
+our $VERSION = '0.28';
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
