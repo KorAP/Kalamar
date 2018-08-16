@@ -8,6 +8,7 @@ define(['vc'], function () {
   var menuClass =        require('vc/menu');
   var prefixClass =      require('vc/prefix');
   var docGroupClass =    require('vc/docgroup');
+  var docGroupRefClass = require('vc/docgroupref');
   var unspecifiedClass = require('vc/unspecified');
   var operatorsClass =   require('vc/operators');
   var rewriteClass =     require('vc/rewrite');
@@ -553,6 +554,62 @@ define(['vc'], function () {
     });
   });
 
+  describe('KorAP.DocGroupRef', function () {
+    // Create example factories
+    var docRefFactory = buildFactory(
+      docGroupRefClass,
+      {
+        "@type" : "koral:docGroupRef",
+        "ref" : "@max/myCorpus"
+      }
+    );
+
+    it('should be initializable', function () {
+      var vcRef = docGroupRefClass.create();
+      expect(vcRef.ref()).toBeUndefined();
+    });
+
+    it('should be definable', function () {
+      var vcRef = docGroupRefClass.create();
+      vcRef.ref("@peter/mycorpus");
+      expect(vcRef.ref()).toEqual("@peter/mycorpus");
+      vcRef.ref("@peter/mycorpus2");
+      expect(vcRef.ref()).toEqual("@peter/mycorpus2");
+    });
+
+    it('should deserialize JSON-LD string', function () {
+      var vcRef = docRefFactory.create();
+      expect(vcRef.ref()).toEqual("@max/myCorpus");
+    });
+
+    it('should serialize to JSON-LD', function () {
+      var vcRef = docRefFactory.create();
+      expect(vcRef.toJson()).toEqual(jasmine.objectContaining({
+        "@type" : "koral:docGroupRef",
+        "ref":"@max/myCorpus"
+      }));
+
+      vcRef.ref("@peter/myCorpus2");
+      expect(vcRef.toJson()).toEqual(jasmine.objectContaining({
+        "@type" : "koral:docGroupRef",
+        "ref":"@peter/myCorpus2"
+      }));
+    });
+
+    it('should serialize to a query', function () {
+      var vcRef = docRefFactory.create();
+      expect(vcRef.toQuery()).toEqual(
+        "referTo \"@max/myCorpus\""
+      );
+
+      vcRef.ref("@peter/myCorpus2");
+      expect(vcRef.toQuery()).toEqual(
+        "referTo \"@peter/myCorpus2\""
+      );
+    });
+  });
+
+  
   describe('KorAP.UnspecifiedDoc', function () {
     it('should be initializable', function () {
       var doc = unspecifiedClass.create();
@@ -590,6 +647,9 @@ define(['vc'], function () {
 
       var unspec = docGroup.element().children[1];
       expect(unspec.getAttribute('class')).toEqual('doc unspecified');
+
+      // Only unspec and delete
+      expect(unspec.children.length).toEqual(2);
 
       // Removable
       expect(unspec.lastChild.children.length).toEqual(1);
@@ -631,6 +691,8 @@ define(['vc'], function () {
       expect(docGroup.getOperand(1).ldType()).toEqual("doc");
       expect(docGroup.getOperand(1).key()).toEqual("name");
       expect(docGroup.getOperand(1).value()).toBeUndefined();
+
+      expect(docGroup.getOperand(1).element().children.length).toEqual(4);
 
       op = docGroup.getOperand(1).element().lastChild;
       expect(op.getAttribute('class')).toEqual('operators button-group');
@@ -711,6 +773,38 @@ define(['vc'], function () {
         "value":"Baum",
         "match":"match:eq"
       }));
+    });
+
+    
+    it('should be replacable by unspecified', function () {
+      var vc = vcClass.create([
+        ["pubDate", "date"]
+      ]).fromJson({
+        "@type" : "koral:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq"
+      });
+      expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
+
+      var vcE = vc.element();
+      expect(vcE.firstChild.children.length).toEqual(4);
+
+      // Click to delete
+      vcE.firstChild.lastChild.lastChild.click();
+
+      expect(vcE.firstChild.children.length).toEqual(1);
+
+      expect(vcE.firstChild.textContent).toEqual("⋯");
+      vcE.firstChild.firstChild.click();
+      
+      // Click on pubDate
+      vcE.firstChild.getElementsByTagName("LI")[0].click();
+
+      expect(vcE.firstChild.firstChild.textContent).toEqual("pubDate");
+      expect(vcE.firstChild.children[1].getAttribute("data-type")).toEqual("date");
+
+      expect(vcE.firstChild.children.length).toEqual(4);
     });
   });
 
@@ -828,6 +922,49 @@ define(['vc'], function () {
     });
   });
 
+  describe('KorAP.DocGroupRef element', function () {
+    it('should be initializable', function () {
+      var docGroupRef = docGroupRefClass.create(undefined, {
+        "@type" : "koral:docGroupRef",
+        "ref" : "@franz/myVC1"
+      });
+      expect(docGroupRef.ref()).toEqual("@franz/myVC1");
+      var dgrE = docGroupRef.element();
+
+      expect(dgrE.children[0].firstChild.data).toEqual("@referTo");
+      expect(dgrE.children[0].tagName).toEqual("SPAN");
+      expect(dgrE.children[0].classList.contains("key")).toBeTruthy();
+      expect(dgrE.children[0].classList.contains("fixed")).toBeTruthy();
+      expect(dgrE.children[1].firstChild.data).toEqual("@franz/myVC1");
+      expect(dgrE.children[1].tagName).toEqual("SPAN");
+      expect(dgrE.children[1].classList.contains("value")).toBeTruthy();
+      expect(dgrE.children[1].getAttribute("data-type")).toEqual("string");
+    });
+
+    it('should be modifiable on reference', function () {
+      var docGroupRef = docGroupRefClass.create(undefined, {
+        "@type" : "koral:docGroupRef",
+        "ref" : "@franz/myVC1"
+      });
+      var dgrE = docGroupRef.element();
+      expect(docGroupRef.toQuery()).toEqual("referTo \"@franz/myVC1\"");
+      dgrE.children[1].click();
+
+      var input = dgrE.children[1].firstChild;
+      expect(input.tagName).toEqual("INPUT");
+      input.value = "Versuch";
+
+      var event = new KeyboardEvent("keypress", {
+	      "key" : "[Enter]",
+	      "keyCode"  : 13
+      });
+
+      input.dispatchEvent(event);
+      expect(docGroupRef.toQuery()).toEqual("referTo \"Versuch\"");     
+    });
+  });
+
+  
   describe('KorAP.VirtualCorpus', function () {
     var simpleGroupFactory = buildFactory(docGroupClass, {
       "@type" : "koral:docGroup",
@@ -963,6 +1100,29 @@ define(['vc'], function () {
       expect(second.matchop()).toEqual('eq');
     });
 
+    it('should be based on a docGroupRef', function () {
+      var vc = vcClass.create().fromJson({
+        "@type" : "koral:docGroupRef",
+        "ref":"myCorpus"
+      });
+
+      // iv class="doc groupref"><span class="key fixed">@referTo</span><span data-type="string" class="value">myCorpus</span>
+      var vcE = vc.element();
+      expect(vcE.getAttribute('class')).toEqual('vc');
+      expect(vcE.firstChild.tagName).toEqual('DIV');
+      expect(vcE.firstChild.classList.contains('groupref')).toBeTruthy();
+
+      expect(vcE.firstChild.firstChild.tagName).toEqual('SPAN');
+      expect(vcE.firstChild.firstChild.classList.contains('key')).toBeTruthy();
+      expect(vcE.firstChild.firstChild.classList.contains('fixed')).toBeTruthy();
+
+      expect(vcE.firstChild.firstChild.textContent).toEqual("@referTo");
+
+      expect(vcE.firstChild.children[1].tagName).toEqual('SPAN');
+      expect(vcE.firstChild.children[1].classList.contains('value')).toBeTruthy();
+      expect(vcE.firstChild.children[1].getAttribute('data-type')).toEqual('string');
+      expect(vcE.firstChild.children[1].textContent).toEqual("myCorpus");
+    });
 
     it('should be based on a nested docGroup', function () {
       var vc = nestedGroupFactory.create();
@@ -978,6 +1138,27 @@ define(['vc'], function () {
       expect(vc.element().firstChild.children[2].getAttribute('class')).toEqual('operators button-group');
     });    
 
+    it('should be based on a nested docGroupRef', function () {
+      var vc = vcClass.create().fromJson({
+        "@type" : "koral:docGroup",
+        "operation" : "operation:and",
+        "operands" : [{
+          "@type" : "koral:docGroupRef",
+          "ref":"myCorpus"
+        },{
+          "@type" : "koral:doc",
+          "key":"Titel",
+          "value":"Baum",
+          "match":"match:eq"
+        }]
+      });
+
+      expect(vc._root.ldType()).toEqual("docGroup");
+
+      expect(vc.toQuery()).toEqual('referTo "myCorpus" & Titel = "Baum"');
+    });
+
+    
     it('should be modifiable by deletion in flat docGroups', function () {
       var vc = flatGroupFactory.create();
       var docGroup = vc.root();
@@ -2276,6 +2457,16 @@ define(['vc'], function () {
       sv.regex(true);
       sv.value('tree');
       sv.element().lastChild.click();
+    });
+
+    it('should have a disableoption for regex', function () {
+      var sv = stringValClass.create(undefined, undefined, true);
+      var svE = sv.element();
+      expect(svE.children.length).toEqual(2);
+
+      sv = stringValClass.create(undefined, undefined, false);
+      svE = sv.element();
+      expect(svE.children.length).toEqual(1);
     });
 
   });
