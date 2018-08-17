@@ -1,18 +1,30 @@
 /*
  * Todo: In demoSpec: Create "and" on the last element of the top "or"-Group
  */
-define(['vc'], function () {
+define([
+  'vc',
+  'vc/doc',
+  'vc/menu',
+  'vc/prefix',
+  'vc/docgroup',
+  'vc/docgroupref',
+  'vc/unspecified',
+  'vc/operators',
+  'vc/rewrite',
+  'vc/stringval'
+], function (vcClass,
+             docClass,
+             menuClass,
+             prefixClass,
+             docGroupClass,
+             docGroupRefClass,
+             unspecifiedClass,
+             operatorsClass,
+             rewriteClass,
+             stringValClass) {
 
-  var vcClass =          require('vc');
-  var docClass =         require('vc/doc');
-  var menuClass =        require('vc/menu');
-  var prefixClass =      require('vc/prefix');
-  var docGroupClass =    require('vc/docgroup');
-  var docGroupRefClass = require('vc/docgroupref');
-  var unspecifiedClass = require('vc/unspecified');
-  var operatorsClass =   require('vc/operators');
-  var rewriteClass =     require('vc/rewrite');
-  var stringValClass =   require('vc/stringval');
+  KorAP._vcKeyMenu = undefined;
+
 
   // Helper method for building factories
   buildFactory = function (objClass, defaults) {
