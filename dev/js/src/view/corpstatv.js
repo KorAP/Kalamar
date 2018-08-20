@@ -107,7 +107,6 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
      */
     onClose : function() {
       this.vc = undefined;
-    },
-
+    }
   }
 });
