@@ -264,8 +264,9 @@ define([
       if (menu = this.contextMenu(ifContext)) {
 	      this.active(menu);
 
-        var c = this._inputField.container();
+        var c = this._inputField.container();        
 	      c.appendChild(menu.element());
+
 	      menu.show();
 	      menu.focus();
 	      // Focus on input field
@@ -303,6 +304,8 @@ define([
         // This does not work for alert currently!
 	      //if (act._type !== 'alert') {
         if (!this._alert.active) {
+
+          // This does not work for webkit!
           var c = this._inputField.container();
           c.removeChild(this._active.element());
 	      }

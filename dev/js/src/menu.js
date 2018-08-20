@@ -535,7 +535,6 @@ define([
      */
     onHide : function () {},
 
-
     /**
      * Get the prefix for filtering,
      * e.g. &quot;ve&quot; for &quot;verb&quot;

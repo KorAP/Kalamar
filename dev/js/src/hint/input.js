@@ -146,13 +146,14 @@ define({
     // Create mirror for searchField
     // This is important for positioning
     // if ((this._mirror = document.getElementById("searchMirror")) === null) {
-      this._mirror = document.createElement("div");
-      this._mirror.classList.add('hint', 'mirror');
-      this._mirror.appendChild(document.createElement("span"));
-      this._container = this._mirror.appendChild(document.createElement("div"));
-      this._mirror.style.height = "0px";
-      document.getElementsByTagName("body")[0].appendChild(this._mirror);
-//    };
+    this._mirror = document.createElement("div");
+    this._mirror.classList.add('hint', 'mirror');
+    this._mirror.appendChild(document.createElement("span"));
+    this._container = document.createElement("div");
+    this._mirror.appendChild(this._container);
+    this._mirror.style.height = "0px";
+    document.getElementsByTagName("body")[0].appendChild(this._mirror);
+    //    };
 
     // Update position of the mirror
     window.addEventListener('resize', this.reposition.bind(this));
