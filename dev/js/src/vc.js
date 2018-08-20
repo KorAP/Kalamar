@@ -238,9 +238,11 @@ define([
      */
     root : function(obj) {
       if (arguments.length === 1) {
-        var e = this.element();
+        var e = this.builder();
 
         if (e.firstChild !== null) {
+
+          // Object not yet set
           if (e.firstChild !== obj.element()) {
             e.replaceChild(obj.element(), e.firstChild);
           };
@@ -260,12 +262,24 @@ define([
       return this._root;
     },
 
+
+    /**
+     * Get the wrapper element associated with the vc
+     */
+    builder : function () {
+
+      // Initialize if necessary
+      if (this._builder !== undefined)
+        return this._builder;
+
+      this.element();
+      return this._builder;
+    },
+    
     /**
      * Get the element associated with the virtual collection
      */
     element : function() {
-
-      
       if (this._element !== undefined) {
         return this._element;
       };
@@ -273,17 +287,11 @@ define([
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'vc');
 
+      this._builder = this._element.addE('div');
+      this._builder.setAttribute('class', 'builder');
+
       // Initialize root
-      this._element.appendChild(this._root.element());
-      
-      /*
-       * TODO by Helge Hack! additional div, because statistic button is
-       * removed after choosing and/or/x in vc builder. REMOVE this lines
-       * after solving the problem!!!!
-       */
-      this._element.addE('div');
-      this._element.addE('div');
-      this._element.addE('div');
+      this._builder.appendChild(this._root.element());      
       
       // Add panel to display corpus statistic, ...
       this.addVcInfPanel();

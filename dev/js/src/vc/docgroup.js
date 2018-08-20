@@ -13,7 +13,7 @@ define([
 ], function (jsonldClass,
 	           unspecClass,
 	           docClass,
-            docGroupRefClass) {
+             docGroupRefClass) {
 
   const _validGroupOpRE = new RegExp("^(?:and|or)$");
 

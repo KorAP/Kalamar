@@ -750,14 +750,14 @@ define([
         ["pubDate", "date"]
       ]);
       expect(vc.toQuery()).toEqual("");
-      expect(vc.element().firstChild.textContent).toEqual("⋯");
-      vc.element().firstChild.firstChild.click();
+      expect(vc.builder().firstChild.textContent).toEqual("⋯");
+      vc.builder().firstChild.firstChild.click();
 
       // Click on pubDate
-      vc.element().firstChild.getElementsByTagName("LI")[0].click();
+      vc.builder().firstChild.getElementsByTagName("LI")[0].click();
 
-      expect(vc.element().firstChild.firstChild.textContent).toEqual("pubDate");
-      expect(vc.element().firstChild.children[1].getAttribute("data-type")).toEqual("date");
+      expect(vc.builder().firstChild.firstChild.textContent).toEqual("pubDate");
+      expect(vc.builder().firstChild.children[1].getAttribute("data-type")).toEqual("date");
     });    
   });
 
@@ -800,7 +800,7 @@ define([
       });
       expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
 
-      var vcE = vc.element();
+      var vcE = vc.builder();
       expect(vcE.firstChild.children.length).toEqual(4);
 
       // Click to delete
@@ -833,7 +833,7 @@ define([
 
       expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
 
-      var vcE = vc.element();
+      var vcE = vc.builder();
       expect(vcE.firstChild.children.length).toEqual(4);
 
       // Click to delete
@@ -1152,8 +1152,8 @@ define([
       });
 
       // iv class="doc groupref"><span class="key fixed">@referTo</span><span data-type="string" class="value">myCorpus</span>
-      var vcE = vc.element();
-      expect(vcE.getAttribute('class')).toEqual('vc');
+      var vcE = vc.builder();
+      expect(vcE.getAttribute('class')).toEqual('builder');
       expect(vcE.firstChild.tagName).toEqual('DIV');
       expect(vcE.firstChild.classList.contains('groupref')).toBeTruthy();
 
@@ -1172,15 +1172,15 @@ define([
     it('should be based on a nested docGroup', function () {
       var vc = nestedGroupFactory.create();
 
-      expect(vc.element().getAttribute('class')).toEqual('vc');
-      expect(vc.element().firstChild.getAttribute('class')).toEqual('docGroup');
-      expect(vc.element().firstChild.children[0].getAttribute('class')).toEqual('doc');
-      var dg = vc.element().firstChild.children[1];
+      expect(vc.builder().getAttribute('class')).toEqual('builder');
+      expect(vc.builder().firstChild.getAttribute('class')).toEqual('docGroup');
+      expect(vc.builder().firstChild.children[0].getAttribute('class')).toEqual('doc');
+      var dg = vc.builder().firstChild.children[1];
       expect(dg.getAttribute('class')).toEqual('docGroup');
       expect(dg.children[0].getAttribute('class')).toEqual('doc');
       expect(dg.children[1].getAttribute('class')).toEqual('doc');
       expect(dg.children[2].getAttribute('class')).toEqual('operators button-group');
-      expect(vc.element().firstChild.children[2].getAttribute('class')).toEqual('operators button-group');
+      expect(vc.builder().firstChild.children[2].getAttribute('class')).toEqual('operators button-group');
     });    
 
     it('should be based on a nested docGroupRef', function () {
@@ -1840,8 +1840,8 @@ define([
       expect(vc.root().operation()).toEqual('or');
 
       // Operands and operators
-      expect(vc.element().firstChild.children.length).toEqual(4);
-      expect(vc.element().firstChild.lastChild.getAttribute('class')).toEqual('operators button-group');
+      expect(vc.builder().firstChild.children.length).toEqual(4);
+      expect(vc.builder().firstChild.lastChild.getAttribute('class')).toEqual('operators button-group');
 
       // Remove inner group and flatten
       _delOn(vc.root().getOperand(2).getOperand(0));
@@ -1853,8 +1853,8 @@ define([
       expect(vc.root().operation()).toEqual('or');
 
       // Operands and operators
-      expect(vc.element().firstChild.children.length).toEqual(5);
-      expect(vc.element().firstChild.lastChild.getAttribute('class')).toEqual('operators button-group');
+      expect(vc.builder().firstChild.children.length).toEqual(5);
+      expect(vc.builder().firstChild.lastChild.getAttribute('class')).toEqual('operators button-group');
     });
   });
 
@@ -1917,7 +1917,7 @@ define([
 
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar" & referTo "myCorpus"');
 
-      var fc = vc.element().firstChild;
+      var fc = vc.builder().firstChild;
       expect(fc.getAttribute('data-operation')).toEqual('and');
       expect(fc.children.length).toEqual(4);
       expect(fc.lastChild.getAttribute('class')).toEqual('operators button-group');
@@ -1929,7 +1929,7 @@ define([
       _andOn(vc.root().getOperand(0));
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar" & referTo "myCorpus"');
 
-      fc = vc.element().firstChild;
+      fc = vc.builder().firstChild;
       expect(fc.getAttribute('data-operation')).toEqual('and');
       expect(fc.children.length).toEqual(5);
       expect(fc.lastChild.getAttribute('class')).toEqual('operators button-group');
@@ -1981,7 +1981,7 @@ define([
 
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar" & referTo "myCorpus"');
 
-      var fc = vc.element().firstChild;
+      var fc = vc.builder().firstChild;
       expect(fc.children.length).toEqual(4);
       expect(fc.lastChild.getAttribute('class')).toEqual('operators button-group');
       expect(fc.children[0].getAttribute('class')).toEqual('doc');
@@ -1991,7 +1991,7 @@ define([
       // add with 'or' in the middle
       _orOn(vc.root().getOperand(0));
       expect(vc.toQuery()).toEqual('pubDate in 2014-12-05 & foo = "bar" & referTo "myCorpus"');
-      fc = vc.element().firstChild;
+      fc = vc.builder().firstChild;
 
       expect(fc.getAttribute('data-operation')).toEqual('and');
       expect(fc.children.length).toEqual(4);
@@ -2002,7 +2002,7 @@ define([
       expect(fc.children[3].getAttribute('class')).toEqual('operators button-group');
       expect(fc.lastChild.getAttribute('class')).toEqual('operators button-group');
 
-      fc = vc.element().firstChild.firstChild;
+      fc = vc.builder().firstChild.firstChild;
       expect(fc.children.length).toEqual(3);
       expect(fc.children[0].getAttribute('class')).toEqual('doc');
       expect(fc.children[1].getAttribute('class')).toEqual('doc unspecified');
@@ -2010,7 +2010,7 @@ define([
       expect(fc.lastChild.getAttribute('class')).toEqual('operators button-group');
 
       _orOn(vc.root().getOperand(2));
-      fc = vc.element().firstChild;
+      fc = vc.builder().firstChild;
       expect(fc.children.length).toEqual(4);
 
       expect(fc.children[0].getAttribute('class')).toEqual('docGroup');
@@ -2018,7 +2018,7 @@ define([
       expect(fc.children[2].getAttribute('class')).toEqual('docGroup');
       expect(fc.children[3].getAttribute('class')).toEqual('operators button-group');
 
-      fc = vc.element().firstChild.children[2];
+      fc = vc.builder().firstChild.children[2];
       expect(fc.children[0].getAttribute('class')).toEqual('doc groupref');
       expect(fc.children[1].getAttribute('class')).toEqual('doc unspecified');
       expect(fc.children[2].getAttribute('class')).toEqual('operators button-group');
@@ -2568,14 +2568,14 @@ define([
         ['b', 'string'],
         ['c', 'date']
       ]).fromJson();
-      expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
-      expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
+      expect(vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
+      expect(vc.builder().firstChild.firstChild.tagName).toEqual('SPAN');
 
       // Click on unspecified
-      vc.element().firstChild.firstChild.click();
-      expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
+      vc.builder().firstChild.firstChild.click();
+      expect(vc.builder().firstChild.firstChild.tagName).toEqual('UL');
 
-      var list = vc.element().firstChild.firstChild;
+      var list = vc.builder().firstChild.firstChild;
       expect(list.getElementsByTagName("LI")[0].innerText).toEqual('a');
       expect(list.getElementsByTagName("LI")[1].innerText).toEqual('b');
       expect(list.getElementsByTagName("LI")[2].innerText).toEqual('c');
@@ -2585,14 +2585,14 @@ define([
         ['e', 'string'],
         ['f', 'date']
       ]).fromJson();
-      expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
-      expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
+      expect(vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
+      expect(vc.builder().firstChild.firstChild.tagName).toEqual('SPAN');
 
       // Click on unspecified
-      vc.element().firstChild.firstChild.click();
-      expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
+      vc.builder().firstChild.firstChild.click();
+      expect(vc.builder().firstChild.firstChild.tagName).toEqual('UL');
 
-      list = vc.element().firstChild.firstChild;
+      list = vc.builder().firstChild.firstChild;
       expect(list.getElementsByTagName("LI")[0].innerText).toEqual('d');
       expect(list.getElementsByTagName("LI")[1].innerText).toEqual('e');
       expect(list.getElementsByTagName("LI")[2].innerText).toEqual('f');
@@ -2609,30 +2609,30 @@ define([
 
     it('should be clickable on key', function () {
       // Click on unspecified
-      vc.element().firstChild.firstChild.click();
+      vc.builder().firstChild.firstChild.click();
       // Click on "d"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
-      expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
-      expect(vc.element().firstChild.firstChild.innerText).toEqual('d');
-      expect(vc.element().firstChild.children[1].innerText).toEqual('eq');
-      expect(vc.element().firstChild.children[1].getAttribute('data-type')).toEqual('text');
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[0].click();
+      expect(vc.builder().firstChild.firstChild.tagName).toEqual('SPAN');
+      expect(vc.builder().firstChild.firstChild.innerText).toEqual('d');
+      expect(vc.builder().firstChild.children[1].innerText).toEqual('eq');
+      expect(vc.builder().firstChild.children[1].getAttribute('data-type')).toEqual('text');
       // blur
       document.body.click();
     });
 
     it('should be clickable on operation for text', function () {
       // Click on "d" (or unspecified)
-      vc.element().firstChild.firstChild.click();
+      vc.builder().firstChild.firstChild.click();
 
       // Choose "d"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[0].click();
 
       // Click on matchop
-      vc.element().firstChild.children[1].click();
+      vc.builder().firstChild.children[1].click();
 
-      expect(vc.element().firstChild.children[1].tagName).toEqual('UL');
+      expect(vc.builder().firstChild.children[1].tagName).toEqual('UL');
 
-      var ul = vc.element().firstChild.children[1];
+      var ul = vc.builder().firstChild.children[1];
       expect(ul.getElementsByTagName('li')[0].innerText).toEqual("eq");
       expect(ul.getElementsByTagName('li')[1].innerText).toEqual("ne");
       expect(ul.getElementsByTagName('li')[2].innerText).toEqual("contains");
@@ -2641,47 +2641,47 @@ define([
 
       // Choose "contains"
       ul.getElementsByTagName('li')[2].click();
-      expect(vc.element().firstChild.children[1].tagName).toEqual("SPAN");
-      expect(vc.element().firstChild.children[1].innerText).toEqual("contains");
+      expect(vc.builder().firstChild.children[1].tagName).toEqual("SPAN");
+      expect(vc.builder().firstChild.children[1].innerText).toEqual("contains");
       // blur
       document.body.click();
     })
 
     it('should be clickable on operation for string', function () {
       // Click on "d" (or unspecified)
-      vc.element().firstChild.firstChild.click();
+      vc.builder().firstChild.firstChild.click();
 
       // Choose "e"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[1].click();
 
       // As a consequence the matchoperator may no longer
       // be valid and needs to be re-evaluated
-      var fc = vc.element().firstChild;
+      var fc = vc.builder().firstChild;
       expect(fc.firstChild.tagName).toEqual('SPAN');
       expect(fc.firstChild.innerText).toEqual('e');
       expect(fc.children[1].innerText).toEqual('eq');
       expect(fc.children[1].getAttribute('data-type')).toEqual('string');
 
-      vc.element().firstChild.children[1].click();
+      vc.builder().firstChild.children[1].click();
 
-      expect(vc.element().firstChild.children[1].tagName).toEqual('UL');
+      expect(vc.builder().firstChild.children[1].tagName).toEqual('UL');
 
-      var ul = vc.element().firstChild.children[1];
+      var ul = vc.builder().firstChild.children[1];
       expect(ul.getElementsByTagName('li')[0].innerText).toEqual("eq");
       expect(ul.getElementsByTagName('li')[1].innerText).toEqual("ne");
       expect(ul.getElementsByTagName('li')[2]).toBeUndefined();
 
       // Choose "ne"
       ul.getElementsByTagName('li')[1].click();
-      expect(vc.element().firstChild.children[1].tagName).toEqual("SPAN");
-      expect(vc.element().firstChild.children[1].innerText).toEqual("ne");
+      expect(vc.builder().firstChild.children[1].tagName).toEqual("SPAN");
+      expect(vc.builder().firstChild.children[1].innerText).toEqual("ne");
 
       // Click on text
-      expect(vc.element().firstChild.children[2].innerText).toEqual("⋯");
-      vc.element().firstChild.children[2].click();
+      expect(vc.builder().firstChild.children[2].innerText).toEqual("⋯");
+      vc.builder().firstChild.children[2].click();
 
       // Blur text element
-      expect(vc.element().firstChild.children[2].firstChild.value).toEqual('');
+      expect(vc.builder().firstChild.children[2].firstChild.value).toEqual('');
 
       // blur
       document.body.click();
@@ -2691,22 +2691,22 @@ define([
 
       // Replay matchop check - so it's guaranteed that "ne" is chosen
       // Click on "e" (or unspecified)
-      vc.element().firstChild.firstChild.click();
+      vc.builder().firstChild.firstChild.click();
       // Rechoose "e"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[1].click();
       // Click on matchop
-      vc.element().firstChild.children[1].click();
+      vc.builder().firstChild.children[1].click();
       // Choose "ne"
-      vc.element().firstChild.children[1].getElementsByTagName('li')[1].click();
-      expect(vc.element().firstChild.children[1].innerText).toEqual("ne");
+      vc.builder().firstChild.children[1].getElementsByTagName('li')[1].click();
+      expect(vc.builder().firstChild.children[1].innerText).toEqual("ne");
 
       // Click on "e"
-      vc.element().firstChild.firstChild.click();
+      vc.builder().firstChild.firstChild.click();
       // Choose "f"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[2].click();
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[2].click();
       
       // The matchoperator should still be "ne" as this is valid for dates as well (now)
-      var fc = vc.element().firstChild;
+      var fc = vc.builder().firstChild;
       expect(fc.firstChild.tagName).toEqual('SPAN');
       expect(fc.firstChild.innerText).toEqual('f');
       expect(fc.children[1].innerText).toEqual('ne');
@@ -2727,7 +2727,7 @@ define([
         "value":"Baum"
       });
      
-      expect(vc.element().firstChild.children[1].getAttribute('data-type')).toEqual('text');
+      expect(vc.builder().firstChild.children[1].getAttribute('data-type')).toEqual('text');
     });
   });
 
@@ -2748,24 +2748,24 @@ define([
         ['b', null],
         ['c', null]
       ]).fromJson();
-      expect(vc.element().firstChild.classList.contains('unspecified')).toBeTruthy();
+      expect(vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
 
       // This should open up the menu
-      vc.element().firstChild.firstChild.click();
-      expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
+      vc.builder().firstChild.firstChild.click();
+      expect(vc.builder().firstChild.firstChild.tagName).toEqual('UL');
 
       KorAP._vcKeyMenu._prefix.clear();
       KorAP._vcKeyMenu._prefix.add('x');
 
-      var prefElement = vc.element().querySelector('span.pref');
+      var prefElement = vc.builder().querySelector('span.pref');
       expect(prefElement.innerText).toEqual('x');
 
       // This should add key 'x' to VC
       prefElement.click();
 
-      expect(vc.element().firstChild.classList.contains('doc')).toBeTruthy();
-      expect(vc.element().firstChild.firstChild.className).toEqual('key');
-      expect(vc.element().firstChild.firstChild.innerText).toEqual('x');
+      expect(vc.builder().firstChild.classList.contains('doc')).toBeTruthy();
+      expect(vc.builder().firstChild.firstChild.className).toEqual('key');
+      expect(vc.builder().firstChild.firstChild.innerText).toEqual('x');
     });
   });
 });
