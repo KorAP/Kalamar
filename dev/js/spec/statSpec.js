@@ -164,7 +164,7 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 
       expect(show.querySelector(".statistic").tagName).toEqual("SPAN");
 
-      var and = vc.element().firstChild.lastChild.firstChild;
+      var and = vc.builder().lastChild.firstChild;
 
       // Click on and() in VC
       and.click();

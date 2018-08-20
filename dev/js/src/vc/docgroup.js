@@ -13,11 +13,9 @@ define([
 ], function (jsonldClass,
 	           unspecClass,
 	           docClass,
-            docGroupRefClass) {
+             docGroupRefClass) {
 
   const _validGroupOpRE = new RegExp("^(?:and|or)$");
-
-  const loc = KorAP.Locale;
 
   const docGroupClass = {
     _ldType : "docGroup",

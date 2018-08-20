@@ -9,7 +9,7 @@ $bracket-size: .4em; // 4pt;
  * Virtual Collection Builder
  */
 
-.vc {
+.vc .builder {
   margin-top: 4pt;
 
   .docGroup, .doc {
@@ -73,34 +73,6 @@ $bracket-size: .4em; // 4pt;
         // This will be overruled by JS!
         content: "or";
       }
-
-      /*
-      &:after {
-        .button-stat {
-	        > span {
-            cursor: pointer;
-            box-shadow: $choose-box-shadow;
-            font-size: 9pt;
-            line-height: 1.5em;
-            padding: 0 4px;
-            display: inline-block;
-            @include choose-item;
-            border-style: solid;
-            border-width: $border-size 0;
-            &:hover {
-	            @include choose-hover;
-            }
-            &:first-child {
-	            border: {
-	            left-width: $border-size;
-	            right-width: $border-size;
-	          }
-            }
-            
-          }
-        }
-     	}
-     */
     }
 
     // And operation
@@ -366,20 +338,4 @@ div#vc-view > div.vc {
 div.panel.vcinfo {
   padding: 3pt 0pt 3pt 3pt;
   background-color: $dark-green;
-  /*
-  div.button-group {
-    display: inline-block;
-    margin-right: .5em;
-    > span {
-      position: relative;
-      box-shadow: none;
-    }
-  }
-*/
 }
-
-/*
-.button-group.vcstatistic{
-	position:relative;
-	}
-*/
