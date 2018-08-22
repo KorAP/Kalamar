@@ -39,7 +39,7 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
        // cq = corpusQuery
       var cq;
 
-      cq = encodeURI(vc.toQuery());
+      cq = encodeURIComponent(vc.toQuery());
       try {
         KorAP.API.getCorpStat(cq, function(statResponse) {
           if (statResponse === null) {
