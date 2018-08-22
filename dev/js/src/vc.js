@@ -142,8 +142,17 @@ define([
         KorAP._overrideStyles = true;
       };
 
+      var l;
+      if (keyList) {
+         l = keyList.slice();
+        l.unshift(['referTo', 'ref']);
+      }
+      else {
+        l = [['referTo', 'ref']];
+      }
+
       // Create key menu
-      KorAP._vcKeyMenu = menuClass.create(keyList);
+      KorAP._vcKeyMenu = menuClass.create(l);
       KorAP._vcKeyMenu.limit(6);
 
       return this;

@@ -61,8 +61,8 @@ define([
       };
 
       var refTitle = document.createElement('span');
-      refTitle.classList.add('key','fixed');
-      refTitle.addT('@referTo');
+      refTitle.classList.add('key','fixed', 'ref');
+      refTitle.addT('referTo');
 
       // Added value operator
       this._refE = document.createElement('span');

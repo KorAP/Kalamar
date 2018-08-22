@@ -126,8 +126,7 @@ require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass
       ['title', 'string'],
       ['subTitle', 'string'],
       ['pubDate', 'date'],
-      ['author', 'text'],
-      ['@referTo', 'ref']
+      ['author', 'text']
     ]).fromJson(json);
 
     document.getElementById('vc-view').appendChild(vc.element());

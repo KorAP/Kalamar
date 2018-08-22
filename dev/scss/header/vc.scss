@@ -233,6 +233,15 @@ $bracket-size: .4em; // 4pt;
     display: inline-block;
   }
 
+  .menu li[data-type=ref]:before,
+  span.key.ref:before {
+    content: $fa-referto;
+    font-family: 'FontAwesome';
+    padding-right: 2pt;
+    style: normal;
+    weight: normal;
+  }
+
   div.value {
     position: absolute;
     display: inline-block;

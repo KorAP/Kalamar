@@ -754,7 +754,7 @@ define([
       vc.element().firstChild.firstChild.click();
 
       // Click on pubDate
-      vc.element().firstChild.getElementsByTagName("LI")[0].click();
+      vc.element().firstChild.getElementsByTagName("LI")[1].click();
 
       expect(vc.element().firstChild.firstChild.textContent).toEqual("pubDate");
       expect(vc.element().firstChild.children[1].getAttribute("data-type")).toEqual("date");
@@ -812,7 +812,7 @@ define([
       vcE.firstChild.firstChild.click();
       
       // Click on pubDate
-      vcE.firstChild.getElementsByTagName("LI")[0].click();
+      vcE.firstChild.getElementsByTagName("LI")[1].click();
 
       expect(vcE.firstChild.firstChild.textContent).toEqual("pubDate");
       expect(vcE.firstChild.children[1].getAttribute("data-type")).toEqual("date");
@@ -822,9 +822,7 @@ define([
 
     
     it('should be replaceable by a docGroupRef', function () {
-      var vc = vcClass.create([
-        ["@referTo", "ref"]
-      ]).fromJson({
+      var vc = vcClass.create().fromJson({
         "@type" : "koral:doc",
         "key":"Titel",
         "value":"Baum",
@@ -844,10 +842,10 @@ define([
       expect(vcE.firstChild.textContent).toEqual("⋯");
       vcE.firstChild.firstChild.click();
       
-      // Click on @referTo
+      // Click on referTo
       vcE.firstChild.getElementsByTagName("LI")[0].click();
 
-      expect(vcE.firstChild.firstChild.textContent).toEqual("@referTo");
+      expect(vcE.firstChild.firstChild.textContent).toEqual("referTo");
       expect(vcE.firstChild.children[1].getAttribute("data-type")).toEqual("string");
       expect(vcE.firstChild.children.length).toEqual(3);
     });
@@ -976,7 +974,7 @@ define([
       expect(docGroupRef.ref()).toEqual("@franz/myVC1");
       var dgrE = docGroupRef.element();
 
-      expect(dgrE.children[0].firstChild.data).toEqual("@referTo");
+      expect(dgrE.children[0].firstChild.data).toEqual("referTo");
       expect(dgrE.children[0].tagName).toEqual("SPAN");
       expect(dgrE.children[0].classList.contains("key")).toBeTruthy();
       expect(dgrE.children[0].classList.contains("fixed")).toBeTruthy();
@@ -1151,7 +1149,7 @@ define([
         "ref":"myCorpus"
       });
 
-      // iv class="doc groupref"><span class="key fixed">@referTo</span><span data-type="string" class="value">myCorpus</span>
+      // iv class="doc groupref"><span class="key fixed">referTo</span><span data-type="string" class="value">myCorpus</span>
       var vcE = vc.element();
       expect(vcE.getAttribute('class')).toEqual('vc');
       expect(vcE.firstChild.tagName).toEqual('DIV');
@@ -1161,7 +1159,7 @@ define([
       expect(vcE.firstChild.firstChild.classList.contains('key')).toBeTruthy();
       expect(vcE.firstChild.firstChild.classList.contains('fixed')).toBeTruthy();
 
-      expect(vcE.firstChild.firstChild.textContent).toEqual("@referTo");
+      expect(vcE.firstChild.firstChild.textContent).toEqual("referTo");
 
       expect(vcE.firstChild.children[1].tagName).toEqual('SPAN');
       expect(vcE.firstChild.children[1].classList.contains('value')).toBeTruthy();
@@ -2576,9 +2574,10 @@ define([
       expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
 
       var list = vc.element().firstChild.firstChild;
-      expect(list.getElementsByTagName("LI")[0].innerText).toEqual('a');
-      expect(list.getElementsByTagName("LI")[1].innerText).toEqual('b');
-      expect(list.getElementsByTagName("LI")[2].innerText).toEqual('c');
+      expect(list.getElementsByTagName("LI")[0].innerText).toEqual('referTo');
+      expect(list.getElementsByTagName("LI")[1].innerText).toEqual('a');
+      expect(list.getElementsByTagName("LI")[2].innerText).toEqual('b');
+      expect(list.getElementsByTagName("LI")[3].innerText).toEqual('c');
 
       vc = vcClass.create([
         ['d', 'text'],
@@ -2593,9 +2592,10 @@ define([
       expect(vc.element().firstChild.firstChild.tagName).toEqual('UL');
 
       list = vc.element().firstChild.firstChild;
-      expect(list.getElementsByTagName("LI")[0].innerText).toEqual('d');
-      expect(list.getElementsByTagName("LI")[1].innerText).toEqual('e');
-      expect(list.getElementsByTagName("LI")[2].innerText).toEqual('f');
+      expect(list.getElementsByTagName("LI")[0].innerText).toEqual('referTo');
+      expect(list.getElementsByTagName("LI")[1].innerText).toEqual('d');
+      expect(list.getElementsByTagName("LI")[2].innerText).toEqual('e');
+      expect(list.getElementsByTagName("LI")[3].innerText).toEqual('f');
       // blur
       document.body.click();
     });
@@ -2611,7 +2611,7 @@ define([
       // Click on unspecified
       vc.element().firstChild.firstChild.click();
       // Click on "d"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
       expect(vc.element().firstChild.firstChild.tagName).toEqual('SPAN');
       expect(vc.element().firstChild.firstChild.innerText).toEqual('d');
       expect(vc.element().firstChild.children[1].innerText).toEqual('eq');
@@ -2625,7 +2625,7 @@ define([
       vc.element().firstChild.firstChild.click();
 
       // Choose "d"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[0].click();
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
 
       // Click on matchop
       vc.element().firstChild.children[1].click();
@@ -2652,11 +2652,12 @@ define([
       vc.element().firstChild.firstChild.click();
 
       // Choose "e"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[1].click();
-
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[2].click();
+      
       // As a consequence the matchoperator may no longer
       // be valid and needs to be re-evaluated
       var fc = vc.element().firstChild;
+      
       expect(fc.firstChild.tagName).toEqual('SPAN');
       expect(fc.firstChild.innerText).toEqual('e');
       expect(fc.children[1].innerText).toEqual('eq');
@@ -2703,7 +2704,7 @@ define([
       // Click on "e"
       vc.element().firstChild.firstChild.click();
       // Choose "f"
-      vc.element().firstChild.firstChild.getElementsByTagName("LI")[2].click();
+      vc.element().firstChild.firstChild.getElementsByTagName("LI")[3].click();
       
       // The matchoperator should still be "ne" as this is valid for dates as well (now)
       var fc = vc.element().firstChild;
