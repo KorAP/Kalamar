@@ -113,9 +113,8 @@ define(['util'], function () {
    * http://localhost:3000/corpus?cq=availability+%3D+%2FCC-BY.*%2F+%26+textClass+%3D+%22kultur%22
    */
   KorAP.API.getCorpStat = function (cq, cb){
-  	var url  =  "/corpus";
-  	url = url + "?cq=";
-  	url = url + cq;
+  	var url  =  KorAP.URL;
+    url += "/corpus?cq=" + cq;
   	KorAP.API.getJSON(url, cb);
   };
   
