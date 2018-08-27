@@ -296,7 +296,7 @@ define([
     },
     
     /**
-     * Get the element associated with the virtual collection
+     * Get the element associated with the virtual corpus
      */
     element : function() {
       if (this._element !== undefined) {

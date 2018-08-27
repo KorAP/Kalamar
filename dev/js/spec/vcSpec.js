@@ -11,7 +11,8 @@ define([
   'vc/unspecified',
   'vc/operators',
   'vc/rewrite',
-  'vc/stringval'
+  'vc/stringval',
+  'vc/fragment'
 ], function (vcClass,
              docClass,
              menuClass,
@@ -21,7 +22,8 @@ define([
              unspecifiedClass,
              operatorsClass,
              rewriteClass,
-             stringValClass) {
+             stringValClass,
+             fragmentClass) {
 
   KorAP._vcKeyMenu = undefined;
 
@@ -2867,6 +2869,79 @@ define([
       expect(vc.builder().firstChild.classList.contains('doc')).toBeTruthy();
       expect(vc.builder().firstChild.firstChild.className).toEqual('key');
       expect(vc.builder().firstChild.firstChild.innerText).toEqual('x');
+    });
+  });
+
+  describe('KorAP.VC.Fragment', function () {
+    it('should be initializable', function () {
+      var f = fragmentClass.create();
+      var e = f.element();
+      expect(e.classList.contains('vc')).toBeTruthy();
+      expect(e.classList.contains('fragment')).toBeTruthy();
+      expect(e.children.length).toEqual(0);
+    });
+
+    it('should be expansable', function () {
+      var f = fragmentClass.create();
+      f.add("author", "Peter");
+
+      var root = f.element().firstChild;
+
+      expect(root.classList.contains("doc")).toBeTruthy();
+      expect(root.children[0].tagName).toEqual("SPAN");
+      expect(root.children[0].textContent).toEqual("author");
+      expect(root.children[1].tagName).toEqual("SPAN");
+      expect(root.children[1].textContent).toEqual("eq");
+      expect(root.children[2].tagName).toEqual("SPAN");
+      expect(root.children[2].textContent).toEqual("Peter");
+
+      f.add("title", "Example");
+
+      root = f.element().firstChild;
+
+      expect(root.classList.contains("docGroup")).toBeTruthy();
+
+      var doc = root.children[0];
+
+      expect(doc.children[0].tagName).toEqual("SPAN");
+      expect(doc.children[0].textContent).toEqual("author");
+      expect(doc.children[1].tagName).toEqual("SPAN");
+      expect(doc.children[1].textContent).toEqual("eq");
+      expect(doc.children[2].tagName).toEqual("SPAN");
+      expect(doc.children[2].textContent).toEqual("Peter");
+      
+      doc = root.children[1];
+
+      expect(doc.children[0].tagName).toEqual("SPAN");
+      expect(doc.children[0].textContent).toEqual("title");
+      expect(doc.children[1].tagName).toEqual("SPAN");
+      expect(doc.children[1].textContent).toEqual("eq");
+      expect(doc.children[2].tagName).toEqual("SPAN");
+      expect(doc.children[2].textContent).toEqual("Example");
+    });
+
+
+    it('should be reducible', function () {
+      var f = fragmentClass.create();
+      f.add("author", "Peter");
+      f.add("title", "Example");
+
+      var root = f.element().firstChild;
+      expect(root.classList.contains("docGroup")).toBeTruthy();
+
+      expect(root.children.length).toEqual(2);
+
+      f.remove("author","Peter");
+
+      root = f.element().firstChild;
+      expect(root.classList.contains("doc")).toBeTruthy();
+
+      expect(root.children[0].tagName).toEqual("SPAN");
+      expect(root.children[0].textContent).toEqual("title");
+      expect(root.children[1].tagName).toEqual("SPAN");
+      expect(root.children[1].textContent).toEqual("eq");
+      expect(root.children[2].tagName).toEqual("SPAN");
+      expect(root.children[2].textContent).toEqual("Example");
     });
   });
 });
