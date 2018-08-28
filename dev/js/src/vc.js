@@ -236,33 +236,8 @@ define([
 
       return false;
     },
+
     
-    // Check if the virtual corpus contains a rewrite
-    // This is a class method
-    checkRewrite : function(json) {
-
-      // There is a rewrite attribute
-      if (json['rewrites'] !== undefined) {
-        return true;
-      }
-
-      // There is a group to check for rewrites
-      else if (json['@type'] === 'koral:docGroup') {
-        var ops = json['operands'];
-        if (ops === undefined)
-          return false;
-
-        for ( var i in ops) {
-
-          // "this" is the class
-          if (this.checkRewrite(ops[i])) {
-            return true;
-          };
-        };
-      };
-      return false;
-    },
-
     /**
      * Clean the virtual document to uspecified doc.
      */
