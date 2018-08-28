@@ -81,6 +81,8 @@ define([
   const loc = KorAP.Locale;
   loc.SHOW_STAT = loc.SHOW_STAT || 'Statistics';
   loc.VERB_SHOWSTAT = loc.VERB_SHOWSTAT || 'Corpus Statistics';
+  loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
+  loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
 
   KorAP._vcKeyMenu = undefined;
   KorAP._vcDatePicker = dpClass.create();
@@ -167,6 +169,7 @@ define([
       return obj;
     },
 
+
     /**
      * Create and render a new virtual collection based on a KoralQuery
      * collection document
@@ -204,7 +207,7 @@ define([
 
       return this;
     },
-
+    
     // Check if the virtual corpus contains a rewrite
     // This is a class method
     checkRewrite : function(json) {
@@ -339,6 +342,21 @@ define([
       this.update();
     },
 
+
+    // Get the reference name
+    getName : function () {
+      if (this._root.ldType() === 'non') {
+        return loc.VC_allCorpora;
+      }
+      else if (this._root.ldType() === 'docGroupRef') {
+        return this._root.ref();
+      }
+      else {
+        return loc.VC_oneCollection;
+      }
+    },
+
+    
     /**
      * Get the generated json string
      */

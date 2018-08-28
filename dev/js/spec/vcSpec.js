@@ -1569,20 +1569,31 @@ define([
       var vc = vcClass.create().fromJson(kq["collection"]);
       expect(vc.toQuery()).toEqual('availability = /CC-BY.*/ & author = "Goethe"');
     });
-  });
 
-  it('shouldn\'t be deserializable from collection with unknown type', function () {
-    var kq = {
-      "@type" : "koral:doc",
-      "match": "match:eq",
-      "type":"type:failure",
-      "value": "Goethe",
-      "key": "author"
-    };
+    it('shouldn\'t be deserializable from collection with unknown type', function () {
+      var kq = {
+        "@type" : "koral:doc",
+        "match": "match:eq",
+        "type":"type:failure",
+        "value": "Goethe",
+        "key": "author"
+      };
 
-    expect(function () {
-      vcClass.create().fromJson(kq)
-    }).toThrow(new Error("Unknown value type: string"));
+      expect(function () {
+        vcClass.create().fromJson(kq)
+      }).toThrow(new Error("Unknown value type: string"));
+    });
+
+    it('should return a name', function () {
+      var vc = vcClass.create();
+      expect(vc.getName()).toEqual(KorAP.Locale.VC_allCorpora);
+
+      vc = vcClass.create().fromJson({"@type" : "koral:docGroupRef", "ref" : "DeReKo"});
+      expect(vc.getName()).toEqual("DeReKo");
+
+      vc = vcClass.create().fromJson({"@type" : "koral:doc", "key" : "author", "value" : "Peter"});
+      expect(vc.getName()).toEqual(KorAP.Locale.VC_oneCollection);
+    });
   });
 
 
