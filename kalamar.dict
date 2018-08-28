@@ -25,7 +25,8 @@ my $THOUSAND_SEP_RE = qr/(
     logout => 'Abmelden',
     register => 'Registrieren',
     pwdforgotten => 'Password vergessen?',
-    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in »<%== param("collection-name") %>« <% } elsif (param("collection")) { %>im definierten Korpus <% } %>mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
+    # TODO: use document.write() refering to vc.getName()!
+    searchjob => '»<%== $q %>« <% if (param("collection")) { %>im definierten Korpus <% } %>mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
     searchtitle => 'KorAP: Finde <%== loc("searchjob") %>',
     searchplaceholder => 'Finde ...',
     go => 'Los!',
@@ -115,7 +116,8 @@ my $THOUSAND_SEP_RE = qr/(
     register => 'Register',
     pwdforgotten => 'Password forgotten?',
     go => 'Go!',
-    searchjob => '»<%== $q %>« <% if (param("collection-name")) { %>in »<%== param("collection-name") %>« <% } elsif (param("collection")) { %>in the defined corpus <% } %>with <%== loc("QL_". $ql, "unknown query language") %>',
+    # TODO: use document.write() refering to vc.getName()!
+    searchjob => '»<%== $q %>« <% if (param("collection")) { %>in the defined corpus <% } %>with <%== loc("QL_". $ql, "unknown query language") %>',
     searchtitle => 'KorAP: Find <%== loc("searchjob") %>',
     searchplaceholder => 'Find ...',
     in => 'in',

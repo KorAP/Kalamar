@@ -40,11 +40,6 @@ define([
              selectMenuClass,
              resultPanelClass) {
 
-  // Localization values
-  const loc = KorAP.Locale;
-  loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
-  loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
-
   const d = document;
 
   KorAP.session = sessionClass.create('KalamarJS');
@@ -87,22 +82,34 @@ define([
      */
     var vcname, vcchoose;
     var input = d.getElementById('collection');
+
+    var vc = vcClass.create(vcArray);
+
+    // Add vc name object
     if (input) {
       input.style.display = 'none';
       vcname = d.createElement('span');
       vcname.setAttribute('id', 'vc-choose');
       vcname.classList.add('select');
 
-      var currentVC = loc.VC_allCorpora;
+      // Load virtual corpus object
       if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
-        currentVC = loc.VC_oneCollection;
+        try {
+          vc.fromJson(KorAP.koralQuery["collection"]);
+        }
+        catch (e) {
+          KorAP.log(0,e);
+        }
       };
 
       vcchoose = vcname.addE('span');
-
       vcchoose.addT(
-        d.getElementById('collection-name').value || currentVC
+        vc.getName()
       );
+
+      if (vc.wasRewritten()) {
+        vcchoose.classList.add('rewritten');
+      };
 
       input.parentNode.insertBefore(vcname, input);
     };
@@ -245,7 +252,6 @@ define([
      * Toggle the Virtual Collection builder
      */
     if (vcname) {
-      var vc;
       var vcclick = function () {
         var view = d.getElementById('vc-view');
 
@@ -258,8 +264,6 @@ define([
 
         // The vc is not visible
         else {
-          if (vc === undefined)
-            vc = _getCurrentVC(vcClass, vcArray);
           view.appendChild(vc.element());
           vcname.classList.add('active');
           show['collection'] = true;
@@ -271,11 +275,6 @@ define([
       // Click, if the VC should be shown
       if (show['collection']) {
         vcclick.apply();
-      }
-
-      // else
-      else if (_checkVCrewrite(vcClass)) {
-        vcchoose.classList.add('rewritten');
       };
     };
 
@@ -324,11 +323,6 @@ define([
         // Store session information
         KorAP.session.set("show", show);
 
-        // Set Virtual collection 
-        if (vc === undefined) {
-          vc = _getCurrentVC(vcClass, vcArray);
-        };
-
         if (vc !== undefined) {
           input.value = vc.toQuery();
         }
@@ -354,27 +348,3 @@ define([
     return obj;
   });
 });
-
-
-// Render Virtual collection
-function _getCurrentVC (vcClass, vcArray) {
-  var vc = vcClass.create(vcArray);
-  try {
-    if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
-      vc.fromJson(KorAP.koralQuery["collection"]);
-    };
-  }
-  catch (e) {
-    KorAP.log(0, e);
-    return;
-  }
-  return vc;
-};
-
-
-function _checkVCrewrite (vcClass) {
-  if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
-    return vcClass.checkRewrite(KorAP.koralQuery["collection"]);
-  };
-  return false;
-}

@@ -1,10 +1,11 @@
-0.28 2018-08-17
+0.28 2018-08-28
         - Introduced Widget based plugin system.
         - Added corpus statistics to VC (hebasta, #25).
         - Introduce center alignment (#63).
         - Change KWIC lines from table style
           to flexbox style (#31).
         - Added doc group reference to VC builder (#62).
+        - Show VC name, when a reference is defined.
 
 0.27 2018-07-23
         - Introduced content blocks to create

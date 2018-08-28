@@ -765,11 +765,18 @@ requirejs.config({
 
 KorAP.currentQuery = queryExample;
 
+/*
+KorAP.koralQuery["collection"] = {
+  "@type" : "koral:docGroupRef",
+  "ref" : "This is my name"
+};
+*/
+
 require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   KorAP.hintArray = hintArray;
 
   // Set current virtual collection
-  KorAP.currentVC = vcExample;
+  // KorAP.currentVC = vcExample;
 
   // Parse and show the table
   // Override getMatchInfo API call

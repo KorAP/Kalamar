@@ -20,7 +20,6 @@
     <div id="vc-view"></div>
     <%= loc 'in' %>
     %# TODO: Create 'align' parameter
-    %= hidden_field 'collection-name' => param('collection-name'), id => 'collection-name' 
     %= text_field 'collection', id => 'collection'
 
     <%= loc 'with' %>
