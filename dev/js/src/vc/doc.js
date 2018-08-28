@@ -42,6 +42,7 @@ define([
 
       if (obj === undefined) {
         console.log(json);
+        return;
       };
 
       // Bind the parent

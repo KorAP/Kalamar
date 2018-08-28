@@ -207,6 +207,35 @@ define([
 
       return this;
     },
+
+
+    // Check if the virtual corpus contains a rerite
+    wasRewritten : function (obj) {
+
+      var obj;
+      if (arguments.length === 1) {
+        obj = arguments[0];
+      }
+      else {
+        obj = this._root;
+      };
+
+      // Check for rewrite
+      if (obj.rewrites() && obj.rewrites().length() > 0) {
+        return true;
+      }
+
+      // Check recursively
+      else if (obj.ldType() === 'docGroup') {
+        for (var i in obj.operands()) {
+          if (this.wasRewritten(obj.getOperand(i))) {
+            return true;
+          }
+        };
+      };
+
+      return false;
+    },
     
     // Check if the virtual corpus contains a rewrite
     // This is a class method

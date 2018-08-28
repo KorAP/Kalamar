@@ -1594,6 +1594,61 @@ define([
       vc = vcClass.create().fromJson({"@type" : "koral:doc", "key" : "author", "value" : "Peter"});
       expect(vc.getName()).toEqual(KorAP.Locale.VC_oneCollection);
     });
+
+    it('should check for rewrites', function () {
+
+      var vc = vcClass.create().fromJson({
+        "@type" : "koral:doc",
+        "key" : "author",
+        "value" : "Goethe",
+        "rewrites" : [{
+          "@type" : "koral:rewrite",
+          "operation" : "operation:modification",
+          "src" : "querySerializer",
+          "scope" : "value"
+        }]
+      });
+      expect(vc.wasRewritten()).toBeTruthy();
+
+      var nested = {
+        "@type" : "koral:docGroup",
+        "operation" : "operation:or",
+        "operands" : [
+          {
+            "@type" : "koral:doc",
+            "key" : "author",
+            "value" : "Goethe"
+          },
+          {
+            "@type" : "koral:docGroup",
+            "operation" : "operation:and",
+            "operands" : [
+              {
+                "@type": "koral:doc",
+                "key" : "author",
+                "value" : "Schiller"
+              },
+              {
+                "@type": "koral:doc",
+                "key" : "author",
+                "value" : "Fontane"
+              }
+            ]
+          }
+        ]
+      };
+      vc = vcClass.create().fromJson(nested);
+      expect(vc.wasRewritten()).toBe(false);
+
+      nested["operands"][1]["operands"][1]["rewrites"] = [{
+        "@type" : "koral:rewrite",
+        "operation" : "operation:modification",
+        "src" : "querySerializer",
+        "scope" : "tree"
+      }];
+      vc = vcClass.create().fromJson(nested);
+      expect(vc.wasRewritten()).toBeTruthy();
+    });
   });
 
 
@@ -2318,7 +2373,9 @@ define([
   });
 
   // Check class method
-  describe('KorAP.VC.checkRewrite', function () {
+  xdescribe('KorAP.VC.checkRewrite', function () {
+
+    // Class method is deprecated!
     
     it('should check for simple rewrites', function () {
       expect(vcClass.checkRewrite(

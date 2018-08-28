@@ -23,6 +23,10 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
       return this;
     },
 
+    length : function () {
+      return this._list.length;
+    },
+
     /**
      * Get element.
      */

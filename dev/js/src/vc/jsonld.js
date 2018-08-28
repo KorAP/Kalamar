@@ -95,6 +95,10 @@ define(['vc/operators'], function (operatorsClass) {
       };
     },
 
+    rewrites : function () {
+      return null;
+    },
+
     toQuery : function () {
       return '';
     }

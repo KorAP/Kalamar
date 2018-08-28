@@ -9,6 +9,9 @@ define([
   'util'
 ], function (jsonldClass, rewriteListClass, stringValClass) {
 
+  // TODO:
+  //   Does not support rewrites currently
+  
   const loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
 
