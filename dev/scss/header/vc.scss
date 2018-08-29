@@ -10,7 +10,10 @@ $bracket-size: .4em; // 4pt;
  */
 
 .vc .builder {
-  overflow-x: auto;
+  position: initial;
+
+  // Unfortunately that does not work:
+  // overflow-x: auto;
   margin-top: 4pt;
 
   .docGroup, .doc {
@@ -25,6 +28,7 @@ $bracket-size: .4em; // 4pt;
    */
   .docGroup {
     position: relative;
+
     display: inline-block;
     margin-left: $left-padding; // 28pt
 

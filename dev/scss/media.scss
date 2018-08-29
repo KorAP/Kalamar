@@ -31,6 +31,14 @@ $standard-margin: 4px;
 
   .vc {
     font-size: 9pt;
+    .builder {
+      .doc {
+        padding-left: 3em;
+      }
+      * .docGroup {
+        margin-left: 3em;
+      }
+    }
   }
 
   h1 {
