@@ -131,6 +131,8 @@ require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass
 
     document.getElementById('vc-view').appendChild(vc.element());
 
+    vc.open();
+
     // show the current JSON serialization
     KorAP.showJSON = function () {
       var json = document.getElementById("json");
