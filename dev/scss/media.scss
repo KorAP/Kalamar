@@ -11,7 +11,8 @@ $standard-margin: 4px;
 // (orientation: portrait),
 @media all and (max-width: 42.5em) {
   body,
-  #search ol,
+  #search > ol,
+  #search div.snippet > span,
   header,
   header input,
   div#resultinfo,
@@ -19,6 +20,10 @@ $standard-margin: 4px;
     font-size: 9pt;
   }
 
+  header {
+    padding-right: 8px;
+  };
+  
   header form {
     padding-left: 0;
     padding-top: 33px;
@@ -78,9 +83,6 @@ $standard-margin: 4px;
     > li div.meta {
       display: none;
     }
-    > li:not(:target):not(.active) {
-      padding: 3pt 0 3pt 0;
-    }
   }
 
   div.matchinfo {
@@ -124,8 +126,10 @@ $standard-margin: 4px;
       margin-left: -1 * $logo-left-distance;
       &::after {
 	      font-size: 12pt;
-	      width: 10pt;
 	      height: 11pt;
+        text-align: right;
+        padding-right: 3pt;
+        padding-top: 2pt;
       }
     }
     ul {

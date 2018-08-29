@@ -10,6 +10,7 @@ $bracket-size: .4em; // 4pt;
  */
 
 .vc .builder {
+  overflow-x: auto;
   margin-top: 4pt;
 
   .docGroup, .doc {
@@ -354,7 +355,8 @@ div#vc-view {
     border: 2px solid $dark-green;
     background-color: $nearly-white;
     > div:first-child {
-      margin: 1.3em;
+      // margin: 1.3em;
+      padding: 1.3em;
     }
   }
 }
