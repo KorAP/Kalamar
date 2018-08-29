@@ -391,7 +391,7 @@ define(['match',
       expect(actions[2].getAttribute("class")).toEqual("tree");
       
       // Close the match
-      m.close();
+      m.minimize();
       expect(e.classList.contains('active')).toBe(false);
       expect(e["_match"]).not.toBe(undefined);
     });

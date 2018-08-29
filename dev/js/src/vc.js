@@ -55,6 +55,7 @@ define([
   'buttongroup',
   'panel',
   'view/corpstatv',
+  'buttongroup',
   'util'
 ], function(
   unspecDocClass,
@@ -66,7 +67,8 @@ define([
   dpClass,
   buttonGrClass,
   panelClass,
-  corpStatVClass) {
+  corpStatVClass,
+  buttonGroupClass) {
   "use strict";
 
   KorAP._validUnspecMatchRE = new RegExp(
@@ -79,10 +81,11 @@ define([
   // KorAP._validDateMatchRE is defined in datepicker.js!
 
   const loc = KorAP.Locale;
-  loc.SHOW_STAT = loc.SHOW_STAT || 'Statistics';
-  loc.VERB_SHOWSTAT = loc.VERB_SHOWSTAT || 'Corpus Statistics';
+  loc.SHOW_STAT        = loc.SHOW_STAT        || 'Statistics';
+  loc.VERB_SHOWSTAT    = loc.VERB_SHOWSTAT    || 'Corpus Statistics';
   loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
   loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
+  loc.MINIMIZE         = loc.MINIMIZE         || 'Minimize';
 
   KorAP._vcKeyMenu = undefined;
   KorAP._vcDatePicker = dpClass.create();
@@ -301,10 +304,22 @@ define([
       };
 
       this._element = document.createElement('div');
-      this._element.setAttribute('class', 'vc');
+      this._element.classList.add('vc');
+
 
       this._builder = this._element.addE('div');
       this._builder.setAttribute('class', 'builder');
+
+      var btn = buttonGroupClass.create(
+        ['action','button-view']
+      );
+      var that = this;
+      btn.add(loc.MINIMIZE, ['button-icon','minimize'], function () {
+        that.minimize();
+      });
+      this._element.appendChild(btn.element());
+      
+      
 
       // Initialize root
       this._builder.appendChild(this._root.element());      
@@ -315,6 +330,36 @@ define([
       return this._element;
     },
 
+
+    /**
+     * Check, if the VC is open
+     */
+    isOpen : function () {
+      if (!this._element)
+        return false;
+      return this._element.classList.contains('active');
+    },
+    
+    /**
+     * Open the VC view
+     */
+    open : function () {
+      this.element().classList.add('active');
+      if (this.onOpen)
+        this.onOpen();
+    },
+
+
+    /**
+     * Minimize the VC view
+     */
+    minimize : function () {
+      this.element().classList.remove('active');
+      if (this.onMinimize)
+        this.onMinimize();
+    },
+
+    
     /**
      * Update the whole object based on the underlying data structure
      */

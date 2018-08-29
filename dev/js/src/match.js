@@ -17,11 +17,7 @@ define([
 
   // Localization values
   const loc   = KorAP.Locale;
-  // loc.SHOWINFO  = loc.SHOWINFO  || 'Show information';
-  // loc.ADDTREE   = loc.ADDTREE   || 'Relations';
-  // loc.SHOWANNO  = loc.SHOWANNO  || 'Tokens';
-  loc.CLOSE     = loc.CLOSE     || 'Close';
-  // loc.SHOW_META = loc.SHOW_META || 'Metadata';
+  loc.MINIMIZE     = loc.MINIMIZE  || 'Minimize';
   
   // 'corpusID', 'docID', 'textID'
   const _matchTerms  = ['textSigle', 'matchID', 'available'];
@@ -174,8 +170,8 @@ define([
       );
 
       var that = this;
-      btn.add(loc.CLOSE, ['button-icon','close'], function () {
-        that.close();
+      btn.add(loc.MINIMIZE, ['button-icon','minimize'], function () {
+        that.minimize();
       });
       element.appendChild(btn.element());
 
@@ -209,16 +205,16 @@ define([
     // Todo: Test toggle
     toggle : function () {
       if (this._element.classList.contains('active'))
-        this.close();
+        this.minimize();
       else
         this.open();
     },
 
 
     /**
-     * Close info view
+     * Minimize info view
      */
-    close : function () {
+    minimize : function () {
       this._element.classList.remove('active');
     },
 

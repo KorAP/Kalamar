@@ -103,9 +103,7 @@ define([
       };
 
       vcchoose = vcname.addE('span');
-      vcchoose.addT(
-        vc.getName()
-      );
+      vcchoose.addT(vc.getName());
 
       if (vc.wasRewritten()) {
         vcchoose.classList.add('rewritten');
@@ -252,22 +250,52 @@ define([
      * Toggle the Virtual Collection builder
      */
     if (vcname) {
-      var vcclick = function () {
-        var view = d.getElementById('vc-view');
+      vc.onMinimize = function () {
+        vcname.classList.remove('active');
+        delete show['collection'];
+      };
 
+      vc.onOpen = function () {
+        vcname.classList.add('active');
+        show['collection'] = true;
+      };
+      
+      var vcclick = function () {
+
+        if (vc.isOpen()) {
+          vc.minimize()
+        }
+        else {
+          var view = d.getElementById('vc-view');
+          if (!view.firstChild)
+            view.appendChild(vc.element());
+
+          vc.open();
+        }
+
+        /*
         // The vc is visible
         if (vcname.classList.contains('active')) {
-          view.removeChild(vc.element());
+
+          // view.removeChild(vc.element());
+          vc.minimize();
           vcname.classList.remove('active');
           delete show['collection'];
         }
 
-        // The vc is not visible
+        // The vc is not visible yet
         else {
-          view.appendChild(vc.element());
+
+          // Spawn the element for the first time
+          var view = d.getElementById('vc-view');
+          if (!view.firstChild)
+            view.appendChild(vc.element());
+
+          vc.open();
           vcname.classList.add('active');
           show['collection'] = true;
         };
+        */
       };
 
       vcname.onclick = vcclick;

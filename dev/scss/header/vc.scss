@@ -307,10 +307,11 @@ $dg-index : 30;
   border-radius: $standard-border-radius;
 }
 
+/*
 header #vc-view > div {
   margin: 1.3em 0 .5em 0;
 }
-
+*/
 
 #vc-choose > span.rewritten {
   &::after {
@@ -327,15 +328,26 @@ header #vc-view > div {
   }
 }
 
-div#vc-view > div.vc {
-  border: 2px solid $dark-green;
-  background-color: $nearly-white;
-  > div:first-child {
-    margin: 1.3em;
+div#vc-view {
+  position:relative;
+  > div.vc {
+    display: none;
+    &.active {
+      display: block;
+    }
+    margin: 1.3em 0 .5em 0;
+    border: 2px solid $dark-green;
+    background-color: $nearly-white;
+    > div:first-child {
+      margin: 1.3em;
+    }
   }
 }
 
 div.panel.vcinfo {
   padding: 3pt 0pt 3pt 3pt;
   background-color: $dark-green;
+  div.button-group > span {
+    box-shadow: none;
+  }
 }

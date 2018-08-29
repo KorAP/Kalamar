@@ -71,6 +71,10 @@
 	      content: $fa-close;
       }
 
+      &.minimize::after {
+	      content: $fa-minimize;
+      }
+      
       &.plugin::after {
 	      content: $fa-plugin;        
       }

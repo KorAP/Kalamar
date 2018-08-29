@@ -29,8 +29,8 @@ define(function () {
   loc.SHOWANNO  = 'Token';
   loc.SHOWINFO  = 'Informationen';
   loc.CLOSE     = 'Schließen';
+  loc.MINIMIZE  = 'Zuklappen';
   loc.DOWNLOAD  = 'Herunterladen';
-
   loc.TOGGLE_ALIGN = 'tausche Textausrichtung';
   loc.SHOW_KQ      = 'zeige KoralQuery';
   loc.SHOW_META    = 'Metadaten';
