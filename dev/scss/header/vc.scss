@@ -131,6 +131,21 @@ $bracket-size: .4em; // 4pt;
       }
     }
 
+    // Unspecified value
+    &.unspecified > span, span.unspecified {
+      padding: 0 4px;
+      box-shadow: $choose-box-shadow;
+      border: {
+        style: solid;
+        width: $border-size;
+        radius: $standard-border-radius;
+      }
+      @include choose-item;
+      &:hover {
+	      @include choose-hover;
+      }
+    }
+
     > span.key.fixed {
       color: $light-green;
     }

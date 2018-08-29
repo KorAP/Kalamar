@@ -8,6 +8,7 @@
         - Show VC name, when a reference is defined.
         - Make close in match view to minimize.
         - Add minimize button to VC.
+        - Make unspecified values in VC a button.
 
 0.27 2018-07-23
         - Introduced content blocks to create

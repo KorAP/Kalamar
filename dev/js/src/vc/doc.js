@@ -112,6 +112,7 @@ define([
       }
       else {
         this._valueE.addT(loc.EMPTY);
+        this._valueE.classList.add('unspecified');
       };
 
       // Change value

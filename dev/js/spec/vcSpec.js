@@ -336,6 +336,7 @@ define([
     it('should be serializale to String', function () {
       // Empty doc
       var doc = docClass.create();
+      
       expect(doc.toQuery()).toEqual("");
 
       // Serialize string
@@ -631,8 +632,8 @@ define([
       var doc = unspecifiedClass.create();
       var docElement = doc.element();
       expect(docElement.getAttribute('class')).toEqual('doc unspecified');
-      expect(docElement.firstChild.firstChild.data).toEqual('⋯');
-      expect(docElement.lastChild.lastChild.data).toEqual('⋯');
+      expect(docElement.firstChild.firstChild.data).toEqual(KorAP.Locale.EMPTY);
+      expect(docElement.lastChild.lastChild.data).toEqual(KorAP.Locale.EMPTY);
       expect(doc.toQuery()).toEqual('');
 
       // Only removable
@@ -735,7 +736,7 @@ define([
 
       // No operators on root
       op = vc.root().element().lastChild;
-      expect(op.lastChild.textContent).toEqual('⋯');
+      expect(op.lastChild.textContent).toEqual(KorAP.Locale.EMPTY);
 
       // Replace
       expect(vc.root().key("baum")).not.toBeNull();
@@ -754,7 +755,8 @@ define([
         ["pubDate", "date"]
       ]);
       expect(vc.toQuery()).toEqual("");
-      expect(vc.builder().firstChild.textContent).toEqual("⋯");
+      expect(vc.builder().firstChild.textContent).toEqual(KorAP.Locale.EMPTY);
+      expect(vc.builder().firstChild.classList.contains('unspecified')).toEqual(true);
       vc.builder().firstChild.firstChild.click();
 
       // Click on pubDate
@@ -811,7 +813,8 @@ define([
 
       expect(vcE.firstChild.children.length).toEqual(1);
 
-      expect(vcE.firstChild.textContent).toEqual("⋯");
+      expect(vcE.firstChild.textContent).toEqual(KorAP.Locale.EMPTY);
+      expect(vcE.firstChild.classList.contains("unspecified")).toBeTruthy();
       vcE.firstChild.firstChild.click();
       
       // Click on pubDate
@@ -842,7 +845,8 @@ define([
 
       expect(vcE.firstChild.children.length).toEqual(1);
 
-      expect(vcE.firstChild.textContent).toEqual("⋯");
+      expect(vcE.firstChild.textContent).toEqual(KorAP.Locale.EMPTY);
+      expect(vcE.firstChild.classList.contains('unspecified')).toEqual(true);
       vcE.firstChild.firstChild.click();
       
       // Click on referTo
@@ -1738,7 +1742,8 @@ define([
       expect(vc.root().element().lastChild.lastChild.getAttribute('class')).toEqual('delete');
       _delOn(vc.root());
       expect(vc.root().toQuery()).toEqual('');
-      expect(vc.root().element().lastChild.lastChild.data).toEqual('⋯');
+      expect(vc.root().element().lastChild.lastChild.data).toEqual(KorAP.Locale.EMPTY);
+      expect(vc.root().element().classList.contains('unspecified')).toEqual(true);
     });
 
     it('should remove on nested docs', function () {
@@ -2698,7 +2703,8 @@ define([
       expect(vc.builder().firstChild.children[1].innerText).toEqual("ne");
 
       // Click on text
-      expect(vc.builder().firstChild.children[2].innerText).toEqual("⋯");
+      expect(vc.builder().firstChild.children[2].innerText).toEqual(KorAP.Locale.EMPTY);
+      expect(vc.builder().firstChild.children[2].classList.contains('unspecified')).toEqual(true);
       vc.builder().firstChild.children[2].click();
 
       // Blur text element
