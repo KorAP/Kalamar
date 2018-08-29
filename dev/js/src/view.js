@@ -6,8 +6,7 @@
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
   const loc = KorAP.Locale;
-  loc.CLOSE = loc.CLOSE     || 'Close';
-  
+  loc.CLOSE = loc.CLOSE     || 'Close';  
 
   return {
     create : function (classes) {

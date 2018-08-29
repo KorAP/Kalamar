@@ -271,31 +271,7 @@ define([
             view.appendChild(vc.element());
 
           vc.open();
-        }
-
-        /*
-        // The vc is visible
-        if (vcname.classList.contains('active')) {
-
-          // view.removeChild(vc.element());
-          vc.minimize();
-          vcname.classList.remove('active');
-          delete show['collection'];
-        }
-
-        // The vc is not visible yet
-        else {
-
-          // Spawn the element for the first time
-          var view = d.getElementById('vc-view');
-          if (!view.firstChild)
-            view.appendChild(vc.element());
-
-          vc.open();
-          vcname.classList.add('active');
-          show['collection'] = true;
         };
-        */
       };
 
       vcname.onclick = vcclick;

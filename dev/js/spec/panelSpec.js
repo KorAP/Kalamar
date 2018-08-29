@@ -1,4 +1,4 @@
-define(['panel','view','util'], function (panelClass,viewClass) {
+define(['panel','view','panel/result','util'], function (panelClass,viewClass, resultClass) {
 
   var controlStr = "";
 
@@ -125,6 +125,41 @@ define(['panel','view','util'], function (panelClass,viewClass) {
       expect(viewE.classList.contains('myview')).toBeTruthy();
       expect(viewE.firstChild.tagName).toEqual("SPAN");
       expect(viewE.firstChild.firstChild.data).toEqual("Hello World!");
+    });
+  });
+
+  describe('KorAP.Panel.Result', function () {
+
+    it('should be initializable', function () {
+      var show = {};
+      var result = resultClass.create(show);
+      expect(result.element().children.length).toEqual(2);
+      expect(result.element().firstChild.children.length).toEqual(0);
+    });
+
+    it('should open KQAction', function () {
+      var show = {};
+      var result = resultClass.create(show);
+
+      result.addKqAction();
+
+      expect(result.element().lastChild.firstChild.textContent).toEqual("show KoralQuery");
+      expect(show["kq"]).toBeFalsy();
+
+      // Open KQ view
+      result.element().lastChild.firstChild.click();
+
+      expect(result.element().querySelector('#koralquery').textContent).toEqual("{}");
+      expect(show["kq"]).toBeTruthy();
+
+      var close = result.element().firstChild.firstChild.lastChild.firstChild;
+      expect(close.textContent).toEqual("Close");
+
+      // Close view
+      close.click();
+
+      expect(result.element().querySelector('#koralquery')).toBeFalsy();
+      expect(show["kq"]).toBeFalsy();
     });
   });
 });

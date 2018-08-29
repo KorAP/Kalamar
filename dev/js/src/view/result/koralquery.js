@@ -18,7 +18,7 @@ define([
       kq.setAttribute('id', 'koralquery');
 
       var kqInner = kq.addE('div');
-      kqInner.innerHTML = JSON.stringify(KorAP.koralQuery, null, '  ');
+      kqInner.innerHTML = JSON.stringify(KorAP.koralQuery || {}, null, '  ');
 
       // Highlight the view
       hljs.highlightBlock(kqInner);

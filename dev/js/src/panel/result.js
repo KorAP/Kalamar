@@ -45,8 +45,8 @@ define([
 
         // On close, remove session info on KQ
         this._kq.onClose = function () {
-          this._opened['kq'] = undefined;
-        };
+          delete this._opened['kq'];
+        }.bind(this);
 
         this._opened['kq'] = true;
         this.add(this._kq);
