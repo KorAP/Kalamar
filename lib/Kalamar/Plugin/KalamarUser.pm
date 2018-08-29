@@ -26,7 +26,8 @@ sub register {
   $plugin->api($param->{api}) or return;
   $plugin->ua(Mojo::UserAgent->new(
     connect_timeout => 15,
-    inactivity_timeout => 120
+    inactivity_timeout => 120,
+    max_redirects => 3
   ));
 
   # Set app to server
@@ -60,7 +61,8 @@ sub register {
 
       my $ua = Mojo::UserAgent->new(
         connect_timeout => 15,
-        inactivity_timeout => 120
+        inactivity_timeout => 120,
+        max_redirects => 3
       );
 
       # Set app to server
