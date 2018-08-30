@@ -76,6 +76,7 @@ define([
       }
       else {
         this._refE.addT(loc.EMPTY);
+        this._refE.classList.add('unspecified');
       };
 
       // Change value

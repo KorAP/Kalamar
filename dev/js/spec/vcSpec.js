@@ -855,6 +855,7 @@ define([
       expect(vcE.firstChild.firstChild.textContent).toEqual("referTo");
       expect(vcE.firstChild.children[1].getAttribute("data-type")).toEqual("string");
       expect(vcE.firstChild.children.length).toEqual(3);
+      expect(vcE.firstChild.children[1].classList.contains("unspecified")).toBeTruthy();      
     });
   });
 
