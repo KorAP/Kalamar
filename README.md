@@ -83,19 +83,30 @@ $ perl script/kalamar daemon
 
 Kalamar will then be available at ```localhost:3000``` in your browser.
 
-By default, Kalamar tries to connect to ```localhost:9999```.
-You may change that endpoint to the KorAP API provider in in the configuration
-(see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information).
+By default, Kalamar tries to connect to ```http://localhost:9999/api/```,
+followed by the most current version of the API.
+You may change that endpoint to the KorAP API provider in the configuration
+(see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information)
+or by using the environment variable ```KALAMAR_API```.
 
 
 ## Configuration
 
 The basic configuration file is ```kalamar.conf```. To define derivations,
-create a configuration file with the pattern ```kalamar.[MYNAME].conf``` and
+create a configuration file with the pattern ```kalamar.myconf.conf``` and
 follow the descriptions in ```kalamar.conf```.
+
+To start Kalamar with a derivative configuration, set the ```MOJO_MODE```
+environment variable.
+
+```
+$ MOJO_MODE=myconf perl script/kalamar daemon
+```
+
 For client-side configurations, a file ```kalamar.conf.js``` can be
 introduced, that will be consulted during the build process, loading
 optional components using a ```require(...)``` directive (see example below).
+
 
 ### Localization
 
@@ -148,6 +159,7 @@ require([
 
 See ```dev/js/src/hint/foundries``` for
 more optional foundries.
+
 
 ### Customization
 

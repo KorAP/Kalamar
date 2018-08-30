@@ -1,12 +1,16 @@
 package Kalamar;
 use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
+use Mojo::URL;
 use Mojo::File;
 use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.28';
+our $VERSION = '0.29';
+
+# Supported version of Backend API
+our $API_VERSION = '1.0';
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
@@ -72,7 +76,33 @@ sub startup {
       });
   };
 
-  # Start fixture server
+  # Load Kalamar configuration
+  my $kalamar_conf = $self->config('Kalamar');
+
+  # Check for API endpoint and set the endpoint accordingly
+  if ($kalamar_conf->{api}) {
+
+    # The api endpoint should be defined as a separated path
+    # and version string
+    $self->log->info(
+      'Kalamar.api is deprecated in configurations '.
+        'in favor of Kalamar.api_path'
+      );
+  }
+
+  # Set from environment variable
+  elsif ($ENV{'KALAMAR_API'}) {
+    $kalamar_conf->{api} = $ENV{'KALAMAR_API'};
+  }
+
+  # API is not yet set - define
+  else {
+    $kalamar_conf->{api} =
+      Mojo::URL->new($kalamar_conf->{api_path})->path('v' . ($kalamar_conf->{api_version} // $API_VERSION) . '/')->to_string;
+  };
+
+
+  # Start fixture server for testing purposes
   if ($self->mode eq 'test') {
 
     $self->log->info('Mount test server');
@@ -86,14 +116,18 @@ sub startup {
     });
 
     # Fix api endpoints
-    $self->config('Kalamar')->{api} = $mount_point;
-    $self->config('Search')->{api} = $mount_point;
+    $kalamar_conf->{api} = $mount_point;
   }
 
   # Add development path
   elsif ($self->mode eq 'development') {
     push @{$self->static->paths}, 'dev';
   };
+
+  # Check search configuration
+
+  # Set endpoint
+  $self->config('Search')->{api} //= $kalamar_conf->{api};
 
   # Client notifications
   $self->plugin(Notifications => {

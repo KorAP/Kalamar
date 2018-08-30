@@ -1,3 +1,7 @@
+0.29 2018-08-30
+        - Deprecated Kalamar.api configuration key
+          in favor of Kalamar.api_path.
+
 0.28 2018-08-29
         - Introduced Widget based plugin system.
         - Added corpus statistics to VC (hebasta, #25).
