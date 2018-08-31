@@ -49,6 +49,7 @@ define({
     return this._element.value;
   },
 
+
   /**
    * Get the value of the input field mirror.
    */
@@ -58,7 +59,7 @@ define({
 
 
   /**
-     * Reset the input value
+   * Reset the input value
    */
   reset : function () {
     this._element.value = "";
@@ -138,7 +139,7 @@ define({
     return this._split()[0];
   },
 
-  
+
   // Initialize new input field
   _init : function (element) {
     this._element = element;
@@ -161,6 +162,7 @@ define({
     this.reposition();
     return this;
   },
+
 
   // Get the right position
   _rightPos : function () {
