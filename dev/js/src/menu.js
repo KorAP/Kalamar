@@ -338,13 +338,18 @@ define([
       }
       else if (e.type === "touchmove") {
         var t = e.touches[0];
+
+        // TODO:
+        // Instead of using 26px, choose the item height
+        // or use the menu height // shownItems
+        
         // s.movetoRel(t.clientY - this._initTouch);
         if ((this._lastTouch + 26) < t.clientY) {
-          this.screen(this.offset - 1);
+          this.viewDown();
           this._lastTouch = t.clientY;
         }
         else if ((this._lastTouch - 26) > t.clientY) {
-          this.screen(this.offset + 1);
+          this.viewUp();
           this._lastTouch = t.clientY;
         }
         e.halt();
@@ -425,18 +430,31 @@ define([
      * in the viewport.
      */
     screen : function (nr) {
+
+      // Normalize negative values
       if (nr < 0) {
         nr = 0
       }
+
+      // The shown list already shows everything
+      else if (this.liveLength() < this.limit()) {
+        return false;
+      }
+
+      // Move relatively to the next screen
       else if (nr > (this.liveLength() - this.limit())) {
         nr = (this.liveLength() - this.limit());
       };
 
+      // no change
       if (this.offset === nr)
-        return;
+        return false;
 
       this._showItems(nr);
+
+      return true;
     },
+
 
     /**
      * Get the associated dom element.
@@ -677,7 +695,7 @@ define([
       return this._list.length;
     },
 
-
+    
     /**
      * Make the next item in the filtered menu active
      */
@@ -815,6 +833,21 @@ define([
       this.screen(this.offset + this.limit());
     },
 
+
+    /**
+     * Move the view one item up
+     */
+    viewUp : function () {
+      this.screen(this.offset - 1);
+    },
+
+
+    /**
+     * Move the view one item down
+     */
+    viewDown : function () {
+      this.screen(this.offset + 1);
+    },
 
     // Unmark all items
     _unmark : function () {
