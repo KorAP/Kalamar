@@ -6,8 +6,9 @@ define([
   'vc/jsonld',
   'vc/rewritelist',
   'vc/stringval',
+  'vc/docgroupref',
   'util'
-], function (jsonldClass, rewriteListClass, stringValClass) {
+], function (jsonldClass, rewriteListClass, stringValClass, docGroupRefClass) {
 
   /*
    * TODO:
@@ -178,6 +179,20 @@ define([
       return parent.replaceOperand(this, group).update();
     },
 
+    replaceWith : function (op) {
+      var p = this.parent();
+
+      if (p.ldType() === 'docGroup') {
+        p.replaceOperand(this,op);
+      }
+      else if (p.ldType() == null) {
+        p.root(op);
+      };
+      p.update();
+
+      this.destroy();
+    },
+    
     /**
      * Deserialize from json
      */
@@ -372,14 +387,22 @@ define([
       // Release event
       var that = this;
       menu.released(function (key, type) {
-        var doc = that.key(key).type(type);
 
-        // This may not be compatible - then switch to default
-        doc.matchop(doc.matchop());
-        doc.value(doc.value());
+        if (type === 'ref') {
+          // KorAP._delete.bind(that);
+          var ref = docGroupRefClass.create(that.parent());
+          that.replaceWith(ref);
+        }
+        else {
+          var doc = that.key(key).type(type);
 
-        // Update the doc
-        doc.update();
+          // This may not be compatible - then switch to default
+          doc.matchop(doc.matchop());
+          doc.value(doc.value());
+
+          // Update the doc
+          doc.update();
+        };
 
         // hide!
         this.hide();

@@ -827,7 +827,7 @@ define([
     });
 
     
-    it('should be replaceable by a docGroupRef', function () {
+    it('should be replaceable by docGroupRef with deletion', function () {
       var vc = vcClass.create().fromJson({
         "@type" : "koral:doc",
         "key":"Titel",
@@ -854,8 +854,81 @@ define([
 
       expect(vcE.firstChild.firstChild.textContent).toEqual("referTo");
       expect(vcE.firstChild.children[1].getAttribute("data-type")).toEqual("string");
+
       expect(vcE.firstChild.children.length).toEqual(3);
       expect(vcE.firstChild.children[1].classList.contains("unspecified")).toBeTruthy();      
+    });
+
+
+    it('should be replaceable by docGroupRef on root', function () {
+      var vc = vcClass.create().fromJson({
+        "@type" : "koral:doc",
+        "key":"Titel",
+        "value":"Baum",
+        "match":"match:eq"
+      });
+
+      expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
+
+      var vcE = vc.builder();
+      expect(vcE.firstChild.children.length).toEqual(4);
+
+      // Click on the key
+      vcE.firstChild.firstChild.click();
+
+      expect(vcE.firstChild.getElementsByTagName("LI")[0].textContent).toEqual("referTo");
+
+      // Click on referTo
+      vcE.firstChild.getElementsByTagName("LI")[0].click();
+
+      // Now it's a referTo element
+      expect(vcE.firstChild.firstChild.textContent).toEqual("referTo");
+      expect(vcE.firstChild.children.length).toEqual(3);
+      expect(vcE.firstChild.children[1].classList.contains("unspecified")).toBeTruthy();
+    });
+
+    it('should be replaceable by docGroupRef nested', function () {
+      var vc = vcClass.create().fromJson({
+        "@type" : "koral:docGroup",
+        "operation" : "operation:and",
+        "operands" : [
+          {
+            "@type": 'koral:doc',
+            "key" : 'author',
+            "match": 'match:eq',
+            "value": 'Max Birkendale',
+            "type": 'type:string'
+          },
+          {
+            "@type": 'koral:doc',
+            "key": 'pubDate',
+            "match": 'match:eq',
+            "value": '2014-12-05',
+            "type": 'type:date'
+          }
+        ]
+      });
+
+      expect(vc.toQuery()).toEqual("author = \"Max Birkendale\" & pubDate in 2014-12-05");
+
+      var vcE = vc.builder();
+
+      // First doc
+      var doc = vcE.firstChild.firstChild;
+      expect(doc.children.length).toEqual(4);
+
+      // Click on the key
+      doc.firstChild.click();
+
+      expect(doc.getElementsByTagName("LI")[0].textContent).toEqual("referTo");
+      
+      // Click on referTo
+      vcE.firstChild.getElementsByTagName("LI")[0].click();
+
+      // Now it's a referTo element
+      expect(vcE.firstChild.firstChild.firstChild.textContent).toEqual("referTo");
+      expect(vcE.firstChild.firstChild.children.length).toEqual(3);
+      expect(vcE.firstChild.firstChild.children[1].classList.contains("unspecified")).toBeTruthy();
     });
   });
 

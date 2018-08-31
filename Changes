@@ -1,6 +1,8 @@
-0.29 2018-08-30
+0.29 2018-08-31
         - Deprecated Kalamar.api configuration key
           in favor of Kalamar.api_path.
+        - Fix replacement of docs with docGroupRefs in
+          VC builder.
 
 0.28 2018-08-29
         - Introduced Widget based plugin system.
