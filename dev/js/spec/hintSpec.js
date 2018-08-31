@@ -375,7 +375,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(hint.active()).toBeTruthy();
 
       // Blur
-      hint.active().hideWithoutDestruction();
+      hint.active().hide();
       expect(hint.active()).toBeFalsy();
     });
     

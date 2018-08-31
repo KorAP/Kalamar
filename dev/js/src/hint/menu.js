@@ -33,7 +33,7 @@ define([
       obj._firstActive = true;
 
       obj.element().addEventListener('blur', function (e) {
-        this.menu.hideWithoutDestruction();
+        this.menu.hide(); // WithoutDestruction();
       });
 
       // Focus on input field on hide
@@ -57,19 +57,6 @@ define([
      */ 
     hint : function () {
       return this._hint;
-    },
-
-    /**
-     * Hide the menu just for the moment,
-     * without cleaning up anything,
-     /* but resetting the prefix.
-     */
-    hideWithoutDestruction : function () {
-      this.element().classList.remove("visible");
-      if (this._hint) {
-        this._hint.inputField().element().focus();
-        this.onHide();
-      };
     }
   };
 });
