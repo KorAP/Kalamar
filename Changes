@@ -3,6 +3,8 @@
           in favor of Kalamar.api_path.
         - Fix replacement of docs with docGroupRefs in
           VC builder.
+        - Improve touch support for menus.
+        - Improve touch support for annotation assistant.
 
 0.28 2018-08-29
         - Introduced Widget based plugin system.
@@ -50,7 +52,7 @@
         - Added Piwik/Matomo integration.
 
 0.25 2018-01-31
-        - Make annotation helper configurable.
+        - Make annotation assistant configurable.
         - Support multiple prefixes in menus.
         - Show annotation tooltips in table views.
         - Improve result display when JavaScript is disabled.
@@ -80,11 +82,11 @@
 0.21 2017-02-01
         - Use textSigle for API communication instead of
           {corpus,doc,text}ID.
-        - Added alert to hint helper.
+        - Added alert to annotation assistant.
         - Improved menu creation.
         - Introduced benchmark system.
         - select elements are now improved menus.
-        - Hint menu do not append menus anymore.
+        - Annotation menu do not append menus anymore.
         - Updated dependency for bugfixed Localize.
         - Improved readme for localization generation.
         - Fixed select menus to show selected item on
@@ -140,7 +142,7 @@
         - Project name is now "Kalamar"
         - Removed Mr Crabs - introduced Karl
         - Support semantic markup for KWIC
-        - Fixed Click-bug in hint-menu
+        - Fixed Click-bug in annotation menu
         - Renamed "KorAP" classes to "Kalamar"
         - Support proxy
 

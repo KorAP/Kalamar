@@ -335,8 +335,6 @@ define([
       else if (e.type === "touchend") {
         // s.active(false);
         this._lastTouch = undefined;
-        // TODO:
-        // Release click event on touchend!
       }
       else if (e.type === "touchmove") {
         var t = e.touches[0];
