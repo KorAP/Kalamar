@@ -83,7 +83,7 @@ define(['util'], function () {
 
       // Initialize element
       this._element = document.createElement('p');
-      this._element.className = 'queryfragment';
+      this._element.classList.add('query','fragment');
 
       // Prepend info text
       this._element.addE('span').addT(loc.NEW_QUERY + ':');

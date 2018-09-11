@@ -97,7 +97,7 @@ var collections = [
 ];
 
 
-require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass, domReady) {
+require(['vc','vc/fragment','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass, fragmentClass, domReady) {
 
   var loc = KorAP.Locale;
   
@@ -153,7 +153,18 @@ require(['vc','lib/domReady', 'lib/highlight/highlight.pack'], function (vcClass
     //get the corpus statistic (demo function)
     KorAP.API.getCorpStat = function(collQu, cb){
     	return cb(statistic);
-  }; 
-});
+    };
+
+
+    var f = fragmentClass.create();
+    f.add("author", "Peter");
+    f.add("title", "Sonstiges");
+    f.add("subTitle", "Anderes");
+    
+    document.getElementById('fragment').appendChild(
+      f.element()
+    );
+    
+  });
 });
 

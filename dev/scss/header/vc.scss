@@ -9,23 +9,9 @@ $bracket-size: .4em; // 4pt;
  * Virtual Collection Builder
  */
 
-.vc .builder {
-  position: initial;
-
-  // Unfortunately that does not work:
-  // overflow-x: auto;
+.vc {
   margin-top: 4pt;
 
-  .docGroup, .doc {
-    // color: $nearly-white;
-    // color: $dark-green;
-    color: $dark-grey;
-    // text-shadow: $light-shadow;
-  }
-  
-  /**
-   * Rules for all docGroups
-   */
   .docGroup {
     position: relative;
 
@@ -41,13 +27,6 @@ $bracket-size: .4em; // 4pt;
       width: 0 $bracket-size; // .6em .5em
     }
 
-	
-    // Whiten on hover 
-    &:hover {
-      // background-color: rgba(255,255,255,.06);
-      background-color: rgba(255,255,255,.3);
-    }
-
     &[data-operation] {
       > .doc:first-child::before,
       > .docGroup:first-child::before {
@@ -60,8 +39,6 @@ $bracket-size: .4em; // 4pt;
         text-align: right;
         width: $left-padding;
         margin-left: -1 * ($left-padding + .5em); // -28pt
-        // color: $dark-green;
-        color: $dark-orange;
         line-height: 1.5em;
         border-top: $border-size solid transparent;
       }
@@ -72,7 +49,6 @@ $bracket-size: .4em; // 4pt;
 
     // Or operation
     &[data-operation=or] {
-      border-color: $dark-orange;
       > .doc::before,
       > .docGroup::before {
         // This will be overruled by JS!
@@ -110,11 +86,12 @@ $bracket-size: .4em; // 4pt;
     }
   }
 
-
+  
   /**
    * All document rules
    */
   .doc {
+    line-height: 170%;
     padding-left: $left-padding;
     > span + span,
     > span + div + span,
@@ -191,14 +168,6 @@ $bracket-size: .4em; // 4pt;
     }
   }
 
-  .doc > span:not(.fixed) {
-    cursor: pointer;
-    &:hover {
-      // color: $dark-green;
-      color: $dark-orange;
-    }
-  }
-
   /**
    * All operators
    */
@@ -215,12 +184,6 @@ $bracket-size: .4em; // 4pt;
     margin-left: 0;
   }
 
-  .doc, .docGroup {
-    &:hover > .operators {
-      opacity: 1;
-    }
-  }
-
   .menu {
     display: inline-block;
   }
@@ -232,14 +195,12 @@ $bracket-size: .4em; // 4pt;
     padding-right: 4pt;
     style: normal;
     weight: normal;
-  }
+  }  
 
   div.value {
     position: absolute;
     display: inline-block;
     z-index: 8000;
-    @include choose-item;
-    box-shadow: $choose-box-shadow;
     padding: 4pt;
     margin-top: -6pt;
     border: {
@@ -281,6 +242,64 @@ $bracket-size: .4em; // 4pt;
   }
 }
 
+.vc:not(.fragment) {
+  .docGroup, .doc {
+    // color: $nearly-white;
+    // color: $dark-green;
+    color: $dark-grey;
+    // text-shadow: $light-shadow;
+  }
+  
+  /**
+   * Rules for all docGroups
+   */
+  // Whiten on hover 
+  .docGroup:hover {
+    // background-color: rgba(255,255,255,.06);
+    background-color: rgba(255,255,255,.3);
+  }
+
+  .doc > span.key.fixed {
+    color: $light-green;
+  }  
+
+  .doc > span:not(.fixed) {
+    cursor: pointer;
+    &:hover {
+      // color: $dark-green;
+      color: $dark-orange;
+    }
+  }
+
+  .rewritten .rewrite {
+    color: $dark-orange;
+  }
+
+  .doc, .docGroup {
+    &:hover > .operators {
+      opacity: 1;
+    }
+  }
+
+  .docGroup {
+    &[data-operation] {
+      > .doc::before,
+      > .docGroup::before {
+        // color: $dark-green;
+        color: $dark-orange;
+      }
+    }
+    &[data-operation=or] {
+      border-color: $dark-orange;
+    }
+  }
+
+  div.value {
+    @include choose-item;
+    box-shadow: $choose-box-shadow;
+  }
+}
+
 
 /**
  * The z-index cascade for groups.
@@ -319,6 +338,12 @@ $dg-index : 30;
         }
       }
     }
+  }
+}
+
+.vc.fragment {
+  .doc {
+    margin-right: 2em;
   }
 }
 

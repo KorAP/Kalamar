@@ -1,0 +1,44 @@
+@charset "utf-8";
+@import "../util";
+
+.vc.fragment, p.query.fragment {
+  position:relative;
+  @include choose-item;
+  
+  border : {
+    width: $border-size;
+    style: solid;
+    radius: $standard-border-radius;
+  }
+  padding: 2pt 4pt !important;
+  margin: {
+    // left: $border-size;
+    left: $left-distance;
+    top: .5em;
+    bottom: .5em;
+    right: $right-match-distance;
+  }
+  &:hover {
+    cursor:pointer;
+    @include choose-hover;
+  }
+
+  // This is the description
+  > span:first-of-type {
+    font-weight: bold;
+    padding-right: 4pt;
+  }
+
+  // Query fragment
+  > span:nth-of-type(2) {
+    padding-right: 1.2em;
+  }
+  
+  &::after {
+	  font-family: 'FontAwesome';
+	  content: $fa-to-query;
+    position: absolute;
+    right: 4pt;
+    top: $border-size;
+  }
+}
