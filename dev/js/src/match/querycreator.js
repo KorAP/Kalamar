@@ -235,7 +235,7 @@ define(['util'], function () {
 
                     // Add annotation to string
                     this._addToToken(i, annotation);
-                    keyvaluepair.className = 'chosen';
+                    keyvaluepair.classList.add('chosen');
                   };
                 };
               }
@@ -250,7 +250,7 @@ define(['util'], function () {
 
                   // Add annotation to string
                   this._addToToken(i, annotation);
-                  sib.className = 'chosen';
+                  sib.classList.add('chosen');
                 };
               }
 
@@ -351,13 +351,13 @@ define(['util'], function () {
 
     // Add term to token if not yet chosen, otherwise remove
     toggleInToken : function (node, index, term) {
-      if (node.className == 'chosen') {
+      if (node.classList.contains('chosen')) {
         this._removeFromToken(index, term);
-        node.className = '';
+        node.classList.remove('chosen');
       }
       else {
         this._addToToken(index, term);
-        node.className = 'chosen';
+        node.classList.add('chosen');
       };
     },
 

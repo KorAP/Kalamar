@@ -64,7 +64,7 @@ function matchTableComplexFactory () {
     "          <th>Der</th>" +
     "          <th>älteste</th>" +
     "          <th>lebende</th>" +
-    "          <th>Baum</th>" +
+    "          <th class=\"mark\">Baum</th>" +
     "        </tr>" +
     "      </thead>" +
     "      <tbody>" +
@@ -74,7 +74,7 @@ function matchTableComplexFactory () {
     "          <td>ART</td>" +
     "          <td>ADJA</td>" +
     "          <td>ADJA<br>ADJD</td>" +
-    "          <td class=\"matchkeyvalues\">" +
+    "          <td class=\"matchkeyvalues mark\">" +
     "            <div>case:nom</div>" +
     "            <div>gender:masc<br/>gender:fem</div>" +
     "            <div>number:sg</div>" +
@@ -91,7 +91,7 @@ function matchTableComplexFactory () {
     "          </td>" +
     "          <td>ADJA</td>" +
     "          <td></td>" +
-    "          <td>NN</td>" +
+    "          <td class=\"mark\">NN</td>" +
     "        </tr>" +
     "      </tbody>" +
     "    </table>";
@@ -580,6 +580,24 @@ define(['match/querycreator'], function (qcClass) {
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
       expect(qc.toString()).toEqual("[opennlp/p='morphemes:.::_SORSZ \\\\ZERO::NOM \\\'period::PUNCT\\\'']");
+    });
+
+    it('should respect marked elements', function () {
+      var matchTable = matchTableComplexFactory();
+      var qc = qcClass.create(matchTable);
+      expect(qc.toString()).toEqual("");
+
+      var cell = matchTable.querySelector("thead > tr > th:nth-child(6)");
+      expect(cell.classList.contains("mark")).toBeTruthy();
+      expect(cell.classList.contains("chosen")).toBeFalsy();
+
+      cell.click();
+      expect(cell.classList.contains("mark")).toBeTruthy();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+
+      cell.click();
+      expect(cell.classList.contains("mark")).toBeTruthy();
+      expect(cell.classList.contains("chosen")).toBeFalsy();
     });
   });
 });
