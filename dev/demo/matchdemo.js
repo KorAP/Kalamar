@@ -49,6 +49,395 @@ require(['init'], function () {
   "  </span>" +
   "</span>";
 
+  snippet = "<span class=\"context-left\"></span>" +
+  "<span class=\"match\">"+
+  " <span title=\"corenlp\/p:KOUI\">"+
+  "  <span title=\"marmot\/p:KOUI\">"+
+  "   <span title=\"opennlp\/p:KOUI\">"+
+  "    <span title=\"tt\/l:um\">"+
+  "     <span title=\"tt\/l:um\">"+
+  "      <span title=\"tt\/p:APPR\">"+
+  "      <span title=\"tt\/p:KOUI\">Um</span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>"+
+  "  " +
+  " <span title=\"corenlp\/p:ART\">"+
+  "  <span title=\"marmot\/m:case:acc\">"+
+  "   <span title=\"marmot\/m:gender:masc\">"+
+  "    <span title=\"marmot\/m:number:pl\">"+
+  "     <span title=\"marmot\/p:ART\">"+
+  "      <span title=\"opennlp\/p:ART\">"+
+  "       <span title=\"tt\/l:die\">" +
+  "       <span title=\"tt\/p:ART\">die</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:APPR\">"+
+  "  <span title=\"marmot\/p:APPR\">"+
+  "   <span title=\"opennlp\/p:APPR\">"+
+  "    <span title=\"tt\/l:von\">"+
+  "    <span title=\"tt\/p:APPR\">von</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:PPOSAT\">"+
+  "  <span title=\"marmot\/m:case:dat\">"+
+  "   <span title=\"marmot\/m:gender:masc\">"+
+  "    <span title=\"marmot\/m:number:sg\">"+
+  "     <span title=\"marmot\/p:PPOSAT\">"+
+  "      <span title=\"opennlp\/p:PPOSAT\">"+
+  "       <span title=\"tt\/l:sein\">"+
+  "       <span title=\"tt\/p:PPOSAT\">seinem</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:NN\">"+
+  "  <span title=\"marmot\/m:case:dat\">"+
+  "   <span title=\"marmot\/m:gender:masc\">"+
+  "    <span title=\"marmot\/m:number:sg\">"+
+  "     <span title=\"marmot\/p:NN\">"+
+  "      <span title=\"opennlp\/p:NN\">"+
+  "       <span title=\"tt\/l:Großvater\">"+
+  "       <span title=\"tt\/p:NN\">Großvater</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:ADJA\">" +
+  "  <span title=\"marmot\/m:case:acc\">" +
+  "   <span title=\"marmot\/m:degree:pos\">" +
+  "    <span title=\"marmot\/m:gender:fem\">" +
+  "     <span title=\"marmot\/m:number:sg\">" +
+  "      <span title=\"marmot\/p:ADJA\">" +
+  "       <span title=\"opennlp\/p:ADJA\">" +
+  "        <span title=\"tt\/l:gepflanzt\">" +
+  "        <span title=\"tt\/p:ADJA\">gepflanzte</span>" +
+  "        </span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:NN\">" +
+  "  <span title=\"marmot\/m:case:acc\">" +
+  "   <span title=\"marmot\/m:gender:fem\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:NN\">" +
+  "      <span title=\"opennlp\/p:NN\">" +
+  "       <span title=\"tt\/l:Esche\">" +
+  "       <span title=\"tt\/p:NN\">Esche</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:VAFIN\">" +
+  "  <span title=\"marmot\/m:mood:ind\">" +
+  "   <span title=\"marmot\/m:number:sg\">" +
+  "    <span title=\"marmot\/m:person:3\">" +
+  "     <span title=\"marmot\/m:tense:pres\">" +
+  "      <span title=\"marmot\/p:VAFIN\">" +
+  "       <span title=\"opennlp\/p:VAFIN\">" +
+  "        <span title=\"tt\/l:haben\">" +
+  "        <span title=\"tt\/p:VAFIN\">hat</span>" +
+  "        </span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:NE\">" +
+  "  <span title=\"marmot\/m:case:nom\">" +
+  "   <span title=\"marmot\/m:gender:*\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:NE\">" +
+  "      <span title=\"opennlp\/p:NE\">" +
+  "       <span title=\"tt\/l:Behrens\">" +
+  "       <span title=\"tt\/p:NE\">Behrens</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:APPR\">" +
+  "  <span title=\"marmot\/p:APPR\">" +
+  "   <span title=\"opennlp\/p:APPR\">" +
+  "    <span title=\"tt\/l:bei\">" +
+  "    <span title=\"tt\/p:APPR\">bei</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:ART\">" +
+  "  <span title=\"marmot\/m:case:dat\">" +
+  "   <span title=\"marmot\/m:gender:fem\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:ART\">" +
+  "      <span title=\"opennlp\/p:ART\">" +
+  "       <span title=\"tt\/l:die\">" +
+  "       <span title=\"tt\/p:ART\">der</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:NN\">" +
+  "  <span title=\"marmot\/m:case:dat\">" +
+  "   <span title=\"marmot\/m:gender:fem\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:NN\">" +
+  "      <span title=\"opennlp\/p:NN\">" +
+  "       <span title=\"tt\/l:Vergrößerung\">" +
+  "       <span title=\"tt\/p:NN\">Vergrößerung</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:ART\">" +
+  "  <span title=\"marmot\/m:case:gen\">" +
+  "   <span title=\"marmot\/m:gender:neut\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:ART\">" +
+  "      <span title=\"opennlp\/p:ART\">" +
+  "       <span title=\"tt\/l:die\">" +
+  "       <span title=\"tt\/p:ART\">des</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:NN\">" +
+  "  <span title=\"marmot\/m:case:gen\">" +
+  "   <span title=\"marmot\/m:gender:neut\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:NN\">" +
+  "      <span title=\"opennlp\/p:NN\">" +
+  "       <span title=\"tt\/l:Laden\">" +
+  "       <span title=\"tt\/p:NN\">Ladens</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:ADV\">" +
+  "  <span title=\"marmot\/p:ADV\">" +
+  "   <span title=\"opennlp\/p:ADV\">" +
+  "    <span title=\"tt\/l:einfach\">" +
+  "    <span title=\"tt\/p:ADJD\">einfach</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:VVPP\">" +
+  "  <span title=\"marmot\/p:VVPP\">" +
+  "   <span title=\"opennlp\/p:VVPP\">" +
+  "    <span title=\"tt\/l:herumbauen\">" +
+  "    <span title=\"tt\/p:VVPP\">herumgebaut</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  " : " +
+  " <span title=\"corenlp\/p:ADV\">" +
+  "  <span title=\"marmot\/p:ADV\">" +
+  "   <span title=\"opennlp\/p:ADV\">" +
+  "    <span title=\"tt\/l:nun\">" +
+  "    <span title=\"tt\/p:ADV\">Nun</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:VVFIN\">" +
+  "  <span title=\"marmot\/m:mood:ind\">" +
+  "   <span title=\"marmot\/m:number:sg\">" +
+  "    <span title=\"marmot\/m:person:3\">" +
+  "     <span title=\"marmot\/m:tense:pres\">" +
+  "      <span title=\"marmot\/p:VVFIN\">" +
+  "       <span title=\"opennlp\/p:VVFIN\">" +
+  "        <span title=\"tt\/l:stehen\">" +
+  "        <span title=\"tt\/p:VVFIN\">steht</span>" +
+  "        </span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <mark>" +
+  "  <span title=\"corenlp\/p:ART\">" +
+  "   <span title=\"marmot\/m:case:nom\">" +
+  "    <span title=\"marmot\/m:gender:masc\">" +
+  "     <span title=\"marmot\/m:number:sg\">" +
+  "      <span title=\"marmot\/p:ART\">" +
+  "       <span title=\"opennlp\/p:ART\">" +
+  "        <span title=\"tt\/l:die\">" +
+  "        <span title=\"tt\/p:ART\">der</span>" +
+  "        </span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  "   " +
+  "  <span title=\"corenlp\/p:ADJA\">" +
+  "   <span title=\"marmot\/m:case:nom\">" +
+  "    <span title=\"marmot\/m:degree:pos\">" +
+  "     <span title=\"marmot\/m:gender:masc\">" +
+  "      <span title=\"marmot\/m:number:sg\">" +
+  "       <span title=\"marmot\/p:ADJA\">" +
+  "        <span title=\"opennlp\/p:ADJA\">" +
+  "         <span title=\"tt\/l:alt\">" +
+  "         <span title=\"tt\/p:ADJA\">alte</span>" +
+  "         </span>" +
+  "        </span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  "   " +
+  "  <span title=\"corenlp\/p:NN\">" +
+  "   <span title=\"marmot\/m:case:nom\">" +
+  "    <span title=\"marmot\/m:gender:masc\">" +
+  "     <span title=\"marmot\/m:number:sg\">" +
+  "      <span title=\"marmot\/p:NN\">" +
+  "       <span title=\"opennlp\/p:NN\">" +
+  "        <span title=\"tt\/l:Baum\">" +
+  "        <span title=\"tt\/p:NN\">Baum</span>" +
+  "        </span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  "  " +
+  " </mark> <span title=\"corenlp\/p:ADV\">" +
+  "  <span title=\"marmot\/p:ADV\">" +
+  "   <span title=\"opennlp\/p:ADV\">" +
+  "    <span title=\"tt\/l:mitten\">" +
+  "    <span title=\"tt\/p:ADV\">mitten</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:APPR\">" +
+  "  <span title=\"marmot\/p:APPR\">" +
+  "   <span title=\"opennlp\/p:APPR\">" +
+  "    <span title=\"tt\/l:in\">" +
+  "    <span title=\"tt\/p:APPR\">in</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:ART\">" +
+  "  <span title=\"marmot\/m:case:dat\">" +
+  "   <span title=\"marmot\/m:gender:fem\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:ART\">" +
+  "      <span title=\"opennlp\/p:ART\">" +
+  "       <span title=\"tt\/l:die\">" +
+  "       <span title=\"tt\/p:ART\">der</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"marmot\/p:TRUNC\">" +
+  "  <span title=\"opennlp\/p:TRUNC\">" +
+  "   <span title=\"tt\/l:Obst-\">" +
+  "   <span title=\"tt\/p:TRUNC\">Obst-</span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:KON\">" +
+  "  <span title=\"marmot\/p:KON\">" +
+  "   <span title=\"opennlp\/p:KON\">" +
+  "    <span title=\"tt\/l:und\">" +
+  "    <span title=\"tt\/p:KON\">und</span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  "  " +
+  " <span title=\"corenlp\/p:NN\">" +
+  "  <span title=\"marmot\/m:case:gen\">" +
+  "   <span title=\"marmot\/m:gender:fem\">" +
+  "    <span title=\"marmot\/m:number:sg\">" +
+  "     <span title=\"marmot\/p:NN\">" +
+  "      <span title=\"opennlp\/p:NN\">" +
+  "       <span title=\"tt\/l:Gemüseabteilung\">" +
+  "       <span title=\"tt\/p:NN\">Gemüseabteilung</span>" +
+  "       </span>" +
+  "      </span>" +
+  "     </span>" +
+  "    </span>" +
+  "   </span>" +
+  "  </span>" +
+  " </span>" +
+  " ." +
+  "</span>" +
+  "<span class=\"context-right\">" +
+  "</span>";
+
   var treeSnippet =
   "<span class=\"context-left\"></span>" +
   "<span class=\"match\">" +

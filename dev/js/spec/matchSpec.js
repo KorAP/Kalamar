@@ -94,6 +94,7 @@ define(['match',
       "    </span>" +
       "  </span>" +
       "</span>" +
+      "<mark>" + 
       "<span title=\"cnx/l:deutlich\">" +
       "  <span title=\"cnx/p:A\">" +
       "    <span title=\"cnx/syn:@PREMOD\">" +
@@ -107,6 +108,7 @@ define(['match',
       "    </span>" +
       "  </span>" +
       "</span>" +
+      "</mark>" +
       "<span title=\"cnx/l:fähig\">" +
       "  <span title=\"cnx/l:leistung\">" +
       "    <span title=\"cnx/p:A\">" +
@@ -485,8 +487,11 @@ define(['match',
       expect(tr.children[0].firstChild.nodeValue).toBe('Foundry');
       expect(tr.children[1].firstChild.nodeValue).toBe('Layer');
       expect(tr.children[2].firstChild.nodeValue).toBe('meist');
+      expect(tr.children[2].classList.contains('mark')).toBeFalsy();
       expect(tr.children[3].firstChild.nodeValue).toBe('deutlich');
+      expect(tr.children[3].classList.contains('mark')).toBeTruthy();
       expect(tr.children[4].firstChild.nodeValue).toBe('leistungsfähiger');
+      expect(tr.children[4].classList.contains('mark')).toBeFalsy();
 
       // first row
       tr = e.children[1].children[0];

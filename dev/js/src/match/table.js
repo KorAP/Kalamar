@@ -33,12 +33,14 @@ define([
       
       this._pos = 0;
       this._token = [];
+      this._mark = [];
+      this._markE = undefined;
       this._info = [];
       this._foundry = {};
       this._layer = {};
     
       // Parse the snippet
-      this._parse(html.childNodes);      
+      this._parse(html.childNodes, false);      
 
       html.innerHTML = '';
       return this;
@@ -58,6 +60,19 @@ define([
       return this._pos;
     },
 
+
+    /**
+     * Move the viewport to the match
+     */
+    toMark : function () {
+      if (this._markE === undefined)
+        return;
+      this._markE.scrollIntoView({
+        inline: "start",
+        block: "nearest"
+      });
+    },
+    
     /**
      * Get the token in the snippet
      * At a given position.
@@ -85,7 +100,7 @@ define([
 
 
     // Parse the snippet
-    _parse : function (children) {
+    _parse : function (children, mark) {
 
       // Get all children
       for (var i in children) {
@@ -101,7 +116,13 @@ define([
 
         // Element with title
         if (c.nodeType === 1) {
-          if (c.getAttribute("title") &&
+          var newMark = mark;
+
+          if (c.tagName === 'MARK') {
+            newMark = true;
+          }
+
+          else if (c.getAttribute("title") &&
               _TermRE.exec(c.getAttribute("title"))) {
 
             // Fill position with info
@@ -141,14 +162,16 @@ define([
 
           // depth search
           if (c.hasChildNodes())
-            this._parse(c.childNodes);
+            this._parse(c.childNodes, newMark);
         }
 
         // Leaf node
         // store string on position and go to next string
         else if (c.nodeType === 3) {
-          if (c.nodeValue.match(/[a-z0-9]/i))
+          if (c.nodeValue.match(/[a-z0-9]/i)) {
+            this._mark[this._pos] = mark ? true : false;
             this._token[this._pos++] = c.nodeValue;
+          };
         };
       };
 
@@ -221,7 +244,13 @@ define([
 
       // Add tokens
       for (var i in this._token) {
-        tr.addCell('th', undefined, this.getToken(i));
+        var c = tr.addCell('th', undefined, this.getToken(i));
+        if (this._mark[i]) {
+          c.classList.add('mark');
+          if (this._markE === undefined) {
+            this._markE = c;
+          };
+        };
       };
       
       var tbody = table.addE('tbody');
@@ -255,6 +284,10 @@ define([
               key,
               value 
             );
+
+            if (this._mark[v]) {
+              cell.classList.add('mark');
+            };
           };
         };
       };

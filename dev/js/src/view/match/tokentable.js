@@ -27,29 +27,36 @@ define([
       // Append default table
       var matchtable = d.createElement('div');
       matchtable.classList.add('matchtable', 'loading');
+      this._show = matchtable;
+      return matchtable;
+    },
 
-      var that = this;
-
+    /**
+     * Do after embedding
+     */
+    afterEmbed : function () {
       // TODO:
       //   Create try-catch-exception-handling
-      
-      // Create the table asynchronous
-      this.getData(undefined, function (table) {
-
-        // Load data
-        matchtable.classList.remove('loading');
-
-        if (table !== null) {
-          matchtable.appendChild(table.element());
-	      };
-      });
 
       // TODO:
       //   Loading should have a timeout on view-level
       //   matchtable.classList.remove('loading');
-      
-      this._show = matchtable;
-      return matchtable;
+
+      // var that = this;
+      var matchtable = this._show;
+
+      // Create the table asynchronous
+      this.getData(undefined, function (table) {
+
+        if (table !== null) {
+          matchtable.appendChild(table.element());
+          table.toMark();
+	      };
+
+      });
+
+      // Load data
+      matchtable.classList.remove('loading');      
     },
 
 
