@@ -7,6 +7,8 @@ $ENV{MOJO_MODE} = 'test';
 
 my $t = Test::Mojo->new('Kalamar');
 
+if (0) {
+
 $t->get_ok('/')
   ->status_is(200)
   ->text_is('title', 'KorAP - Corpus Analysis Platform')
@@ -54,11 +56,14 @@ $t->get_ok('/?q=server_fail&ql=poliqarp')
   ->text_is('.notify-error', '500: Internal Server Error (remote)')
   ;
 
+};
+
 
 # Check for query error
 $t->get_ok('/?q=[orth=das&ql=poliqarp')
   ->element_exists('.notify-error')
   ->text_is('.notify-error', '302: Parantheses/brackets unbalanced.')
+  ->content_like(qr!KorAP\.koralQuery =!)
   ;
 
 done_testing;

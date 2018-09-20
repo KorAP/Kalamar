@@ -398,6 +398,19 @@ sub _process_response {
   my ($self, $type, $index, $tx) = @_;
   my $c = $index->controller;
 
+  my $json;
+  my $res = $tx->res;
+
+  # Json failure
+  unless ($json = $res->json) {
+    $c->notify(error => 'JSON response is invalid');
+    $index->status(0);
+    return;
+  };
+
+  # Set api response as jsonld
+  $index->api_response($json);
+
   # An error has occurded
   if (my $e = $tx->error) {
 
@@ -413,19 +426,9 @@ sub _process_response {
     return;
   };
 
+
   # Response was fine
-  if (my $res = $tx->success) {
-
-    # Json failure
-    my $json;
-    unless ($json = $res->json) {
-      $c->notify(error => 'JSON response is invalid');
-      $index->status(0);
-      return;
-    };
-
-    # Set api response as jsonld
-    $index->api_response($json);
+  if ($res->is_success) {
 
     # expected response for matches
     if ($type eq 'matches') {
