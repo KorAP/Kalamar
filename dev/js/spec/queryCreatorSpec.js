@@ -2,13 +2,13 @@
  * Specification for the query creator.
  */
 
+
+Element.prototype.innerString = function () {
+  return this.innerText.split("\n").join("");
+};
+
 function matchTableFactory () {
   var table = document.createElement('div');
-
-  Element.prototype.innerString = function () {
-    return this.innerText.split("\n").join("");
-  };
-
   
   table.className = 'matchtable';
   table.innerHTML = 
@@ -131,7 +131,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.shown()).toBe(false);
       qc.show();
       expect(qc.shown()).toBe(false);
-      expect(qc.element().className).toEqual("queryfragment");
+      expect(qc.element().className).toEqual("query fragment");
 
       // Click on cell 0:0 "Foundry"
       var cell = matchTable.querySelector("thead > tr > th:first-child");
@@ -292,7 +292,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.shown()).toBe(false);
       qc.show();
       expect(qc.shown()).toBe(false);
-      expect(qc.element().className).toEqual("queryfragment");
+      expect(qc.element().className).toEqual("query fragment");
 
       var cell = matchTable.querySelector("tbody > tr:nth-child(2) > td:nth-child(4)");
       expect(cell.innerString()).toEqual("ADJA");
@@ -319,7 +319,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.shown()).toBe(false);
       qc.show();
       expect(qc.shown()).toBe(false);
-      expect(qc.element().className).toEqual("queryfragment");
+      expect(qc.element().className).toEqual("query fragment");
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
       expect(cell.innerString()).toEqual("lebende");
@@ -352,7 +352,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.shown()).toBe(false);
       qc.show();
       expect(qc.shown()).toBe(false);
-      expect(qc.element().className).toEqual("queryfragment");
+      expect(qc.element().className).toEqual("query fragment");
 
       var corenlpRow = matchTable.querySelector("tbody > tr:nth-child(1)");
 
@@ -471,7 +471,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.shown()).toBe(false);
       qc.show();
       expect(qc.shown()).toBe(false);
-      expect(qc.element().className).toEqual("queryfragment");
+      expect(qc.element().className).toEqual("query fragment");
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
       expect(cell.innerString()).toEqual("lebende");

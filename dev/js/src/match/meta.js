@@ -1,4 +1,4 @@
-define(['util'], function () {
+define(['match/corpusByMatch','util'], function (cbmClass) {
 
   // Localization values
   const loc   = KorAP.Locale;
@@ -55,7 +55,7 @@ define(['util'], function () {
         var value = fields[i].value;      	
         metaInfo[fields[i].key] = value;	
       };
-    
+      
       // console.log(fields);   
       
       // TODO: Meta fields should be separated
@@ -63,13 +63,15 @@ define(['util'], function () {
       
       for (var i in keys.sort()) {
         var k = keys[i];
+
+        // Ignore internal IDs
         if (k !== "UID" &&
             k !== "corpusID" &&
             k !== "docID" &&
             k !== "textID" &&
             /*
-            k !== "corpusSigle" &&
-            k !== "docSigle" &&
+              k !== "corpusSigle" &&
+              k !== "docSigle" &&
             */
             k !== "layerInfos") {
 
@@ -83,18 +85,20 @@ define(['util'], function () {
           metaDD =  metaL.addE('dd');
           
           if(metaDescr instanceof Array){
-        	metaDD.classList.add("metakeyvalues");  
-        	for(i = 0; i < metaDescr.length; i++){
-        	metaDD.addE('div').addT(metaDescr[i]);
-        	} 
+        	  metaDD.classList.add("metakeyvalues");  
+        	  for(i = 0; i < metaDescr.length; i++){
+        	    metaDD.addE('div').addT(metaDescr[i]);
+        	  } 
           }
           else{
-          metaDD.addT(metaInfo[k]);
+            metaDD.addT(metaInfo[k]);
           }
-      
+          
           metaDL.appendChild(metaL);
         };
       };
+
+      this._corpusByMatch = cbmClass.create(this._element);
       return this._element;
     }
   };
