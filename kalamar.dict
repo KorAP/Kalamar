@@ -53,6 +53,7 @@ my $THOUSAND_SEP_RE = qr/(
       -short => 'KorAP',
       desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
       overview => 'KorAP - Übersicht',
+      keywords => 'KorAP, DeReKo, Korpussuche, IDS Mannheim, Institut für Deutsche Sprache',
     },
     privacy => 'Datenschutz',
     imprint => 'Impressum',
@@ -142,7 +143,10 @@ my $THOUSAND_SEP_RE = qr/(
     korap => {
       -short => 'KorAP',
       desc => 'KorAP - Corpus Analysis Platform',
-      overview => 'KorAP - Overview'
+      overview => 'KorAP - Overview',
+      region => 'DE-BW',
+      placename => 'Mannheim',
+      keywords => 'KorAP, DeReKo, Corpus Query Platform, IDS Mannheim, Institute for the German Language'
     },
     QL => {
       poliqarp => 'Poliqarp',

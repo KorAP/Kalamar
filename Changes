@@ -1,4 +1,4 @@
-0.29 2018-09-19
+0.29 2018-10-05
         - Deprecated Kalamar.api configuration key
           in favor of Kalamar.api_path.
         - Fix replacement of docs with docGroupRefs in
@@ -6,6 +6,7 @@
         - Improve touch support for menus.
         - Improve touch support for annotation assistant.
         - Move token table view to marked match.
+        - Added metadata headers.
 
 0.28 2018-08-29
         - Introduced Widget based plugin system.

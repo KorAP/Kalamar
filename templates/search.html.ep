@@ -1,4 +1,4 @@
-% layout 'main', title => loc('searchtitle', q => search->query, ql => search->query_language);
+% layout 'main', title => loc('searchtitle', q => search->query, ql => search->query_language), schematype => 'SearchResultsPage';
 
 <div id="resultinfo" <% if (search->results->size) { %> class="found"<%} %>>
   <div id="pagination"><%= pagination(search->start_page, search->total_pages, url_with->query(['p' => '{page}'])) =%></div>
