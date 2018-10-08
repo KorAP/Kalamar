@@ -7,6 +7,7 @@
         - Improve touch support for annotation assistant.
         - Move token table view to marked match.
         - Added metadata headers.
+        - Update to Mojolicious >= 8.02.
 
 0.28 2018-08-29
         - Introduced Widget based plugin system.

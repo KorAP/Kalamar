@@ -138,7 +138,8 @@ sub register {
       });
 
       # Login successful
-      if (my $res = $tx->success) {
+      my $res = $tx->result;
+      unless ($res->error) {
 
         # Get the java token
         my $jwt = $res->json;
@@ -234,9 +235,9 @@ sub register {
           );
         $tx = $plugin->ua->start($tx);
 
-        unless ($value = $tx->success) {
-          return;
-        }
+        return if $tx->error;
+
+        $value = $tx->result;
         #	else {
         #	  warn $c->dumper($value->json);
         #	};
@@ -279,7 +280,8 @@ sub register {
       # Start
       $tx = $plugin->ua->start($tx);
 
-      my $res = $tx->success or return;
+      return if $tx->error;
+      my $res = $tx->result;
 
       # Kill all caches!!
       $chi->remove($user . '_' . $param);
@@ -302,7 +304,7 @@ sub register {
         'get', $url
       );
 
-      if ($tx->success) {
+      unless ($tx->error) {
         # Clear cache
         $c->chi('user')->remove($c->user_auth);
 
