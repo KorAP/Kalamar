@@ -142,7 +142,6 @@ sub startup {
   # Load plugins
   foreach (
     'Search',                    # Abstract Search framework
-    'CHI',                       # Global caching mechanism
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
     'KalamarUser',               # Specific Helpers for Kalamar
@@ -154,6 +153,17 @@ sub startup {
     $self->plugin($_);
   };
 
+  # Global caching mechanism
+  $self->plugin('CHI' => {
+    default => {
+      driver => 'Memory',
+      global => 1
+    },
+    user => {
+      driver => 'Memory',
+      global => 1
+    }
+  });
 
   # Configure mail exception
   if ($self->config('MailException')) {
