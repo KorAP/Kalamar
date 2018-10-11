@@ -17,6 +17,7 @@ our $API_VERSION = '1.0';
 # TODO: Embed collection statistics
 # TODO: Implement tab opener for matches and the tutorial
 # TODO: Implement a "projects" system
+# TODO: Make authentification a plugin
 
 # Start the application and register all routes and plugins
 sub startup {
@@ -97,30 +98,13 @@ sub startup {
 
   # API is not yet set - define
   else {
+
     $kalamar_conf->{api} =
       Mojo::URL->new($kalamar_conf->{api_path})->path('v' . ($kalamar_conf->{api_version} // $API_VERSION) . '/')->to_string;
   };
 
-
-  # Start fixture server for testing purposes
-  if ($self->mode eq 'test') {
-
-    $self->log->info('Mount test server');
-
-    my $mount_point = '/api/v0.1/';
-
-    $self->plugin(Mount => {
-      $mount_point => $self->home->child(
-        'lib/Kalamar/Apps/test_backend.pl'
-      )
-    });
-
-    # Fix api endpoints
-    $kalamar_conf->{api} = $mount_point;
-  }
-
   # Add development path
-  elsif ($self->mode eq 'development') {
+  if ($self->mode eq 'development') {
     push @{$self->static->paths}, 'dev';
   };
 
@@ -213,6 +197,7 @@ sub startup {
 
   # Base query route
   $r->get('/')->to('search#query')->name('index');
+  $r->get('/q2')->to('search2#query');
 
   # Collection route
   $r->get('/corpus')->to('Search#corpus_info')->name('corpus');

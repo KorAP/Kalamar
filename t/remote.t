@@ -1,11 +1,27 @@
 use Mojo::Base -strict;
-use lib '../lib', 'lib';
+use Mojo::File qw/path/;
 use Test::More;
 use Test::Mojo;
 
-$ENV{MOJO_MODE} = 'test';
+my $mount_point = '/api/';
+$ENV{KALAMAR_API} = $mount_point;
 
 my $t = Test::Mojo->new('Kalamar');
+$t->app->defaults('auth_support' => 1);
+
+# Mount fake backend
+# Get the fixture path
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
+my $fake_backend = $t->app->plugin(
+  Mount => {
+    $mount_point =>
+      $fixtures_path->child('query_backend.pl')
+  }
+);
+
+# Configure fake backend
+$fake_backend->pattern->defaults->{app}->log($t->app->log);
+
 
 if (0) {
 
@@ -57,6 +73,8 @@ $t->get_ok('/?q=server_fail&ql=poliqarp')
   ;
 
 };
+
+
 
 
 # Check for query error

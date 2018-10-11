@@ -1,14 +1,31 @@
 use Mojo::Base -strict;
-use lib '../lib', 'lib';
 use Test::More;
 use Test::Mojo;
+use Mojo::File qw/path/;
 use Data::Dumper;
 
-$ENV{MOJO_MODE} = 'test';
+my $mount_point = '/api/';
+$ENV{KALAMAR_API} = $mount_point;
 
 my $t = Test::Mojo->new('Kalamar');
+$t->app->defaults('auth_support' => 1);
 
-$t->app->defaults(auth_support => 1);
+# Mount fake backend
+# Get the fixture path
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
+my $fake_backend = $t->app->plugin(
+  Mount => {
+    $mount_point =>
+      $fixtures_path->child('test_backend.pl')
+  }
+);
+
+# Configure fake backend
+$fake_backend->pattern->defaults->{app}->log($t->app->log);
+
+$t->get_ok('/api')
+  ->status_is(200)
+  ->content_is('Fake server available');
 
 $t->get_ok('/?q=Baum')
   ->status_is(200)
@@ -16,6 +33,7 @@ $t->get_ok('/?q=Baum')
   ->text_like('#total-results', qr/\d+$/)
   ->content_like(qr/\"authorized\"\:null/)
   ;
+
 
 $t->get_ok('/')
   ->element_exists('form[action=/user/login] input[name=handle_or_email]');
