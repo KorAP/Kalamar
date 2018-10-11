@@ -27,6 +27,7 @@ $t->app->plugin(Localize => {
   override => 1
 });
 
+
 $t->get_ok('/')
   ->status_is(200)
   ->text_is('title', 'KorAP - Corpus Analysis Platform')
@@ -42,12 +43,5 @@ $t->get_ok('/huhuhuhuhu')
   ->status_is(404)
   ->text_is('title', 'KorAP: 404 - Page not found')
   ->text_is('h1 span', 'KorAP: 404 - Page not found');
-
-$t->get_ok('/?q=hui')
-  ->status_is(200)
-  ->text_is('title', 'KorAP: Find »hui« with Poliqarp')
-  ->element_exists('meta[name="DC.title"][content="KorAP: Find »hui« with Poliqarp"]')
-  ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
-  ;
 
 done_testing();
