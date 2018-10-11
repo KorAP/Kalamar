@@ -1,5 +1,6 @@
 package Kalamar::Plugin::KalamarUser;
 use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::Promise;
 use Mojo::ByteStream 'b';
 
 has 'api';
@@ -111,6 +112,33 @@ sub register {
       };
       return $ua->start($tx, $cb) if $cb;
       return $ua->start($tx);
+    }
+  );
+
+  # Request with authorization header
+  # return a promise
+  $mojo->helper(
+    'user.auth_request_p' => sub {
+      my $c = shift;
+      my $method = shift;
+      my $path = shift;
+
+      my $ua = $plugin->ua;
+
+      my $tx;
+      if ($c->user_auth) {
+        $tx = $plugin->build_authorized_tx(
+          $c->user_auth, $c->client_ip, uc($method), $path, @_
+        );
+      }
+      else {
+        $tx = $ua->build_tx(
+          uc($method), $path, @_
+        );
+      };
+
+      # Create a promise object
+      return $ua->start_p($tx);
     }
   );
 

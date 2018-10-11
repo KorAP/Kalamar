@@ -4,6 +4,10 @@ use Test::Mojo;
 use Mojo::File qw/path/;
 use Data::Dumper;
 
+
+#####################
+# Start Fake server #
+#####################
 my $mount_point = '/api/';
 $ENV{KALAMAR_API} = $mount_point;
 
@@ -19,9 +23,9 @@ my $fake_backend = $t->app->plugin(
       $fixtures_path->child('fake_backend.pl')
   }
 );
-
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
+
 
 $t->get_ok('/api')
   ->status_is(200)
@@ -57,6 +61,7 @@ my $csrf = $t->get_ok('/')
   ->text_is('div.notify-error', 'Bad CSRF token')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
+
 
 $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'pass', csrf_token => $csrf })
   ->status_is(302)

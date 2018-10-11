@@ -32,6 +32,14 @@ $t->get_ok('/search?q=[orth=das&ql=poliqarp')
   ->json_is('/errors/1/1','Could not parse query >>> [orth=das <<<.')
   ;
 
+$t->get_ok('/search?q=baum&ql=poliqarp')
+  ->status_is(200)
+  ->json_is('/meta/count', 25)
+  ->json_is('/meta/serialQuery', "tokens:s:Baum")
+  ->json_is('/matches/0/docSigle', "GOE/AGI")
+  ;
+
+
 done_testing;
 __END__
 

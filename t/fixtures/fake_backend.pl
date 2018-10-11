@@ -54,6 +54,7 @@ get '/' => sub {
   shift->render(text => 'Fake server available');
 };
 
+
 # Search fixtures
 get '/search' => sub {
   my $c = shift;
@@ -63,6 +64,8 @@ get '/search' => sub {
   $v->optional('ql');
   $v->optional('count');
   $v->optional('context');
+
+  $c->app->log->debug('Receive request');
 
   # Response q=x&ql=cosmas3
   if ($v->param('ql') && $v->param('ql') eq 'cosmas3') {
@@ -93,9 +96,12 @@ get '/search' => sub {
     $response->{json}->{meta}->{startIndex} = $v->param("startIndex");
   };
 
-
   # Simple search fixture
-  return $c->render(%$response);
+  $c->render(%$response);
+
+  $c->app->log->debug('Rendered result');
+
+  return 1;
 };
 
 
