@@ -6,11 +6,13 @@ use Mojo::JSON qw/true false encode_json decode_json/;
 use strict;
 use warnings;
 use Mojo::JWT;
-use Mojo::File;
+use Mojo::File qw/path/;
+use Mojo::Util qw/slugify/;
 
 # This is an API fake server with fixtures
 
 my $secret = 's3cr3t';
+my $fixture_path = path(Mojo::File->new(__FILE__)->dirname);
 
 helper jwt_encode => sub {
   shift;
@@ -29,9 +31,27 @@ helper jwt_decode => sub {
 };
 
 
+# Load fixture responses
+helper 'load_response' => sub {
+  my $c = shift;
+  my $q_name = shift;
+  my $file = $fixture_path->child("response_$q_name.json");
+  unless (-f $file) {
+    return {
+      status => 500,
+      json => {
+        errors => [[0, 'Unable to load query response from ' . $file]]
+      }
+    }
+  };
+  my $response = $file->slurp;
+  return decode_json($response);
+};
+
+
 # Base page
 get '/' => sub {
-  shift->render(text => 'Query fake server available');
+  shift->render(text => 'Fake server available');
 };
 
 # Search fixtures
@@ -54,54 +74,28 @@ get '/search' => sub {
       });
   };
 
-  if ($v->param('q')) {
-
-    my $q = $v->param('q');
-
-    # Response q=server_fail
-    if ($q eq 'server_fail') {
-      return $c->render(
-        status => 500,
-        inline => 'Oooops'
-      );
-    }
-
-    # Response q=[orth=das
-    if ($q eq '[orth=das') {
-      return $c->render(
-        status => 400,
-        json => {
-          "\@context" => "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
-          "errors" => [
-            [302,"Parantheses/brackets unbalanced.",0],
-            [302,"Could not parse query >>> [orth=das <<<."]
-          ]
-        }
-      );
-    }
+  if (!$v->param('q')) {
+    return $c->render(%{$c->load_response('no_query')});
   };
 
-  my $response = decode_json(
-    Mojo::File->new(__FILE__)->parent->child('response_baum.jsonld')
-    );
-
+  # Get response based on query parameter
+  my $response = $c->load_response(slugify($v->param('q')));
 
   # Check authentification
   if (my $auth = $c->req->headers->header('Authorization')) {
     if (my $jwt = $c->jwt_decode($auth)) {
-      $response->{meta}->{authorized} = $jwt->{username} if $jwt->{username};
+      $response->{json}->{meta}->{authorized} = $jwt->{username} if $jwt->{username};
     };
   };
 
+  # Set page parameter
   if ($v->param('page')) {
-    $response->{meta}->{startIndex} = $v->param("startIndex");
+    $response->{json}->{meta}->{startIndex} = $v->param("startIndex");
   };
 
 
   # Simple search fixture
-  return $c->render(
-    json => $response
-  );
+  return $c->render(%$response);
 };
 
 

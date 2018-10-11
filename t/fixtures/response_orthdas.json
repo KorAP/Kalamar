@@ -1,0 +1,11 @@
+{
+  "comment" : "q=[orth=das",
+  "status" : 400,
+  "json" : {
+    "@context" : "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+    "errors" : [
+      [302,"Parantheses/brackets unbalanced.",0],
+      [302,"Could not parse query >>> [orth=das <<<."]
+    ]
+  }
+}

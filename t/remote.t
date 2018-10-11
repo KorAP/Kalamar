@@ -15,7 +15,7 @@ my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
 my $fake_backend = $t->app->plugin(
   Mount => {
     $mount_point =>
-      $fixtures_path->child('query_backend.pl')
+      $fixtures_path->child('fake_backend.pl')
   }
 );
 

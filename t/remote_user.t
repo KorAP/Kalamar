@@ -16,7 +16,7 @@ my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
 my $fake_backend = $t->app->plugin(
   Mount => {
     $mount_point =>
-      $fixtures_path->child('test_backend.pl')
+      $fixtures_path->child('fake_backend.pl')
   }
 );
 
@@ -33,7 +33,6 @@ $t->get_ok('/?q=Baum')
   ->text_like('#total-results', qr/\d+$/)
   ->content_like(qr/\"authorized\"\:null/)
   ;
-
 
 $t->get_ok('/')
   ->element_exists('form[action=/user/login] input[name=handle_or_email]');

@@ -1,0 +1,9 @@
+{
+  "status" : 400,
+  "@context" : "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+  "errors":[
+    [
+      301,"You did not specify a query!"
+    ]
+  ]
+}
