@@ -1,0 +1,32 @@
+% layout 'main', title => loc('searchtitle', q => stash('q'), ql => stash('ql')), schematype => 'SearchResultsPage';
+
+<div id="resultinfo" <% if (stash('results_size')) { %> class="found"<%} %>>
+  <div id="pagination"><%= pagination(stash('start_page'), stash('total_pages'), url_with->query(['p' => '{page}'])) =%></div>
+% my $found = stash('total_results');
+  <p class="found">\
+% if ($found != -1) {
+%   my $found_text = loc('numf', number => $found);
+%   if (stash('time_exceeded')) {
+%     $found_text = '> ' . $found_text;
+%   };
+<span id="total-results"><%= $found_text %></span> <%= loc('matchCount', found => $found) %>\
+%# <% if (stash('benchmark')) { %> (~ <%= stash('benchmark') %>)<% } %>
+% } elsif (stash('start_index') == 0 && stash('result_size') == 0) {
+<span id="total-results">0</span> <%= loc('matchCount', found => $found) %>\
+% };
+</p>
+</div>
+
+%= include 'query2'
+
+<div id="search">
+% if (stash('total_results') != 0 && stash('result_size')) {
+  <ol class="align-left">
+%=  search_results begin
+%=    include 'match', match => $_
+%   end
+  </ol>
+% } elsif (stash('result_size') == 0) {
+<p id="no-results"><%= loc 'noMatches', q => stash('q'), ql => stash('ql') %></p>
+% }
+</div>
