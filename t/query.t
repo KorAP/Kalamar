@@ -31,9 +31,40 @@ $t->get_ok('/q2?q=baum')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
+
+  # Total results
   ->text_is('#total-results', 51)
+
+  # Total pages
+  ->element_count_is('#pagination a', 5)
+
+  # api_response
+  ->content_like(qr/\"authorized\":null/)
+  ->content_like(qr/\"pubDate\",\"subTitle\",\"author\"/)
+
+  ->element_exists('li[data-text-sigle=GOE/AGI/00000]')
+  ->element_exists('li:nth-of-type(1) div.flop')
+  ->element_exists('li[data-text-sigle=GOE/AGI/00001]')
+  ->element_exists('li:nth-of-type(2) div.flip')
+
+  # Match1
+  ->element_exists('li:nth-of-type(1)' .
+                     '[data-match-id="p2030-2031"]' .
+                     '[data-text-sigle="GOE/AGI/00000"]' .
+                     '[id="GOE/AGI/00000#p2030-2031"]' .
+                     '[data-available-info^="base/s=spans"]' .
+                     '[data-info^="{"]')
+  ->text_is('li:nth-of-type(1) div.meta', 'GOE/AGI/00000')
+  ->element_exists('li:nth-of-type(1) div.match-main div.match-wrap div.snippet')
+  ->element_exists('li:nth-of-type(1) div.snippet.startMore.endMore')
+  ->text_like('li:nth-of-type(1) div.snippet span.context-left',qr!sie etwas bedeuten!)
+  ->text_like('li:nth-of-type(1) div.snippet span.context-left',qr!sie etwas bedeuten!)
+  ->text_is('li:nth-of-type(1) div.snippet span.match mark','Baum')
+  ->text_like('li:nth-of-type(1) div.snippet span.context-right',qr!es war!)
+  ->text_is('li:nth-of-type(1) p.ref strong', 'Italienische Reise')
+  ->text_like('li:nth-of-type(1) p.ref', qr!by Goethe, Johann Wolfgang!)
+  ->text_is('li:nth-of-type(1) p.ref time[datetime=1982]', 1982)
+  ->text_is('li:nth-of-type(1) p.ref span.sigle', '[GOE/AGI/00000]')
   ;
-
-
 
 done_testing;

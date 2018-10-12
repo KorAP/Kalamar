@@ -4,15 +4,13 @@
 % delete @match_data{qw/snippet startMore endMore field/};
 % my $text_sigle = $match->{textSigle} // join('/', $match->{corpusID}, $match->{docID}, $match->{textID});
 % my $id = $text_sigle . '#' . $match->{matchID};
+% # Legacy:
+% my $layer_infos = $match->{layerInfos} // $match->{layerInfo} // 'cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans';
 <li data-match-id="<%= $match->{matchID} %>"
     data-text-sigle="<%= $text_sigle %>"
-
-    %# TODO: This needs to be retrieved per match 
-    data-available-info="<%= $match->{layerInfos} // $match->{layerInfo} // 'cnx/c=spans corenlp/ne=tokens corenlp/p=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens tt/l=tokens tt/p=tokens xip/c=spans' %>"
+    data-available-info="<%= $layer_infos %>"
     data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
-    id="<%= $id %>"\
-    <% if (current_route eq 'match') { %> class="active"<% } =%>>
-
+    id="<%= $id %>"<% if (current_route eq 'match') { %> class="active"<% } =%>>
 %# This should be done using JavaScript
 % my ($show_sigle, $flip) = ('', stash('flip') // 'flip');
 % if ($text_sigle ne (stash('last_sigle') // '')) {
@@ -20,8 +18,7 @@
 %   stash(last_sigle => $text_sigle);
 %   $flip = $flip eq 'flip' ? 'flop' : 'flip'; 
 %   stash(flip => $flip);
-% }
-  
+% }  
   <div class="meta <%= $flip %>"><%= $show_sigle %></div>
   <div class="match-main">
     <div class="match-wrap">

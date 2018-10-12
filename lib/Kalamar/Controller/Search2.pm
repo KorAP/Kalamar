@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Data::Dumper;
 use Mojo::Collection 'c';
 use Mojo::ByteStream 'b';
+use POSIX 'ceil';
 
 # This should be implemented as a helper
 has api => '/api/';
@@ -11,6 +12,9 @@ has no_cache => 0;
 
 has items_per_page => 25;
 
+
+# TODO:
+#   Support server timing API
 
 # Catch connection errors
 sub _catch_http_errors {
@@ -28,15 +32,7 @@ sub _catch_http_errors {
 
 # Catch koral errors
 sub _catch_koral_errors {
-  my $res = shift;
-
-  my $json = $res->json;
-
-  unless ($json) {
-    return Mojo::Promise->new->reject([
-      [undef, 'JSON response is invalid']
-    ]);
-  };
+  my $json = shift;
 
   # Get errors
   my $err = $json->{errors};
@@ -82,24 +78,6 @@ sub _notify_on_errors {
 };
 
 
-# Notify the user in case of errors
-#sub _notify_on_warnings {
-#  my ($self, $json) = @_;
-#
-#  if ($json->{warnings}) {
-#
-#    # TODO: Check for ref!
-#    foreach (@{$json->{warnings}}) {
-#      $self->notify(
-#        warn =>
-#          ($_->[0] ? $_->[0] . ': ' : '') .
-#          $_->[1]
-#        );
-#    };
-#  };
-#}
-
-
 # Process response and set stash values
 sub _process_matches {
   my ($self, $json) = @_;
@@ -116,8 +94,8 @@ sub _process_matches {
   # if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
   #   $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
   # };
-  # Set benchmark
-  # $index->benchmark($benchmark);
+  # # Set benchmark
+  # $self->stash(benchmark => $benchmark);
 
   # Set time exceeded
   if ($meta->{timeExceeded} && $meta->{timeExceeded} eq Mojo::JSON::true) {
@@ -199,13 +177,14 @@ sub query {
 
   $v->optional('q', 'trim');
   $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
-  $v->optional('collection'); # Legacy
+  $v->optional('collection', 'trim'); # Legacy
   $v->optional('cq', 'trim');
   # $v->optional('action'); # action 'inspect' is no longer valid
   $v->optional('snippet');
   $v->optional('cutoff')->in(qw/true false/);
   $v->optional('count')->num(1, undef);
-  $v->optional('p');
+  $v->optional('p', 'trim')->num(1, undef); # Start page
+  $v->optional('o', 'trim')->num(1, undef); # Offset
   $v->optional('context');
 
   # Get query
@@ -218,12 +197,40 @@ sub query {
 
   my %query = ();
   $query{q}       = $v->param('q');
-  $query{ql}      = $v->param('ql');
-  $query{page}    = $v->param('p') if $v->param('p');
+  $query{ql}      = $v->param('ql') // 'poliqarp';
+  $query{p}       = $v->param('p') // 1; # Start page
   $query{count}   = $v->param('count') // $c->items_per_page;
   $query{cq}      = $v->param('cq') // $v->param('collection');
   $query{cutoff}  = $v->param('cutoff');
   $query{context} = $v->param('context') // '40-t,40-t'; # 'base/s:p'/'paragraph'
+
+  my $items_per_page = $c->items_per_page;
+
+  # Set count
+  if ($query{count} && $query{count} <= $c->items_per_page ) {
+    $items_per_page = delete $query{count};
+  };
+
+  $c->stash(items_per_page => $items_per_page);
+
+  # Set offset
+  # From Mojolicious::Plugin::Search::Index
+  $query{o} = $v->param('o') || ((($query{p} // 1) - 1) * ($items_per_page || 1));
+
+
+  # already set by stash - or use plugin param
+  # else {
+  #   $items_per_page = $c->stash('search.count') // $plugin->items_per_page
+  # };
+
+  # Set start page based on param
+  #if ($query{p}) {
+  #  $index->start_page(delete $param{start_page});
+  #}
+  ## already set by stash
+  #elsif ($c->stash('search.start_page')) {
+  #  $index->start_page($c->stash('search.start_page'));
+  #};
 
 
   # Create remote request URL
@@ -232,10 +239,14 @@ sub query {
   $url->query(\%query);
 
   # Check if total results is cached
-  my $total_results;
-  if (!$c->no_cache && 0) {
+  my $total_results = -1;
+  unless ($c->no_cache) {
+
+    # Get total results value
     $total_results = $c->chi->get('total-' . $user . '-' . $url->to_string);
-    $c->stash(total_results => $total_results);
+
+    # Set stash if cache exists
+    $c->stash(total_results => $total_results) if $total_results;
     $c->app->log->debug('Get total result from cache');
 
     # Set cutoff unless already set
@@ -276,7 +287,7 @@ sub query {
   my $url_string = $url->to_string;
 
   # Set api request for debugging
-  # $c->stash('api_request' => $url_string);
+  $c->stash('api_request' => $url_string);
 
   # Debugging
   $c->app->log->debug('Search for ' . $url_string);
@@ -300,36 +311,67 @@ sub query {
 
     # Wrap a user agent method with a promise
     $promise = $c->user->auth_request_p(get => $url)
+      # TODO: Better use a single then
       ->then(\&_catch_http_errors)
+      ->then(
+        sub {
+          my $json = shift->json;
+
+          unless ($json) {
+            return Mojo::Promise->new->reject([
+              [undef, 'JSON response is invalid']
+            ]);
+          };
+
+          $c->stash('api_response' => $json);
+          return $json;
+        })
       ->then(\&_catch_koral_errors)
       ;
   };
 
+  # Wait for rendering
   $c->render_later;
 
-  # Prepare warnings
+  # Process response
   $promise->then(
     sub {
       my $json = shift;
-      $c->_notify_on_warnings($json->{warnings}) if $json->{warnings};
-      return $json
-    }
 
-  # Process response
-  )->then(
-    sub {
-      my $json = shift;
+      # Prepare warnings
+      $c->_notify_on_warnings($json->{warnings}) if $json->{warnings};
 
       # Cache total results
-      unless ($c->stash('total_results') && $json->{meta}->{totalResults}) {
+      # The stash is set in case the total results value is from the cache,
+      # so in that case, it does not need to be cached again
+      my $total_results = $c->stash('total_results');
+      if (!$total_results) {
 
-        # Remove cutoff requirement again
-        $url->query([cutoff => 'true']);
+        # There are results to remember
+        if ($json->{meta}->{totalResults} >= 0) {
 
-        # Set cache
-        $c->chi->set(
-          'total-' . $user . '-' . $url->to_string => $json->{meta}->{totalResults}
-        )
+          # Remove cutoff requirement again
+          $url->query([cutoff => 'true']);
+
+          $total_results = $json->{meta}->{totalResults};
+          $c->stash(total_results => $total_results);
+
+          # Set cache
+          $c->chi->set(
+            'total-' . $user . '-' . $url->to_string => $total_results
+          );
+        };
+      }
+      else {
+        $c->stash(total_results => -1);
+      }
+
+      $c->stash(total_pages => 0);
+
+      # Set total pages
+      # From Mojolicious::Plugin::Search::Index
+      if ($total_results > 0) {
+        $c->stash(total_pages => ceil($total_results / ($c->stash('items_per_page') || 1)));
       };
 
       # Cache result
@@ -351,19 +393,11 @@ sub query {
       # Choose the snippet based on the parameter
       my $template = scalar $v->param('snippet') ? 'snippet' : 'search2';
 
-      $c->app->log->debug('Render template ...');
-
       return $c->render(
         template => $template,
         q => $query,
-        ql => scalar $v->param('ql') // 'poliqarp',
-        results => c(),
-        start_page => 1,
-        total_pages => 20,
-        # total_results => 40,
-        time_exceeded => 0,
-        benchmark => 'Long ...',
-        api_response => ''
+        ql => $query{ql},
+        start_page => $query{p},
       );
     }
   )->wait;
