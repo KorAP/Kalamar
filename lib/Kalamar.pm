@@ -228,6 +228,8 @@ sub startup {
   my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
   my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
 
+  $r->route('/corpus2/:corpus_id/:doc_id/:text_id/:match_id')->to('search2#match_info')->name('match');
+
   # User Management
   my $user = $r->any('/user')->to(controller => 'User');
   $user->post('/login')->to(action => 'login')->name('login');

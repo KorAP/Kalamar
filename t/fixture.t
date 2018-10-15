@@ -39,6 +39,10 @@ $t->get_ok('/search?q=baum&ql=poliqarp')
   ->json_is('/matches/0/docSigle', "GOE/AGI")
   ;
 
+$t->get_ok('/corpus/WPD15/232/39681/p2133-2134/matchInfo?spans=false&foundry=*')
+  ->status_is(200)
+  ->json_is('/textSigle', 'WPD15/232/39681')
+  ;
 
 done_testing;
 __END__

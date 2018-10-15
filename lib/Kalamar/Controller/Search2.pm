@@ -190,6 +190,10 @@ sub query {
   # Get query
   my $query = $v->param('q');
 
+
+  # TODO:
+  #   Check for validation errors!
+
   # No query
   unless ($query) {
     return $c->render($c->loc('Template_intro', 'intro'));
@@ -400,11 +404,144 @@ sub query {
         start_page => $query{p},
       );
     }
-  )->wait;
+  )
+
+  # Start IOLoop
+  ->wait;
 
 
   return 1;
 };
 
 
+sub match_info {
+  my $c = shift;
+
+  # Validate user input
+  my $v = $c->validation;
+  $v->optional('foundry');
+  $v->optional('layer');
+  $v->optional('spans')->in(qw/true false/);
+
+  # Old API foundry/layer usage
+  my $foundry = '*';
+  my %query = (foundry => '*');
+  if ($v->param('foundry')) {
+    $query{foundry} = $v->param('foundry');
+    $query{layer} = $v->param('layer') if $v->param('layer');
+    $query{spans} = $v->param('spans') if $v->param('spans');
+  };
+
+  # Create new request API
+  my $url = Mojo::URL->new($c->api);
+
+  # Use stash information to create url path
+  $url->path(
+    join('/', (
+      'corpus',
+      $c->stash('corpus_id'),
+      $c->stash('doc_id'),
+      $c->stash('text_id'),
+      $c->stash('match_id'),
+      'matchInfo'
+    ))
+  );
+
+  # Set query parameters
+  $url->query(\%query);
+
+  $c->app->log->debug('Text info: ' . $url);
+
+  $c->render_later;
+
+  # TODO: Add caching!
+  $c->user->auth_request_p(
+    get => $url
+  )
+  ->then(\&_catch_http_errors)
+  ->then(
+    sub {
+      my $json = shift->json;
+      unless ($json) {
+        return Mojo::Promise->new->reject([
+          [undef, 'JSON response is invalid']
+        ]);
+      };
+
+      $c->stash(results => _map_match($json));
+#      $c->stash(results => $json);
+      return $json;
+    }
+  )
+  ->then(
+    \&_catch_koral_errors
+  )
+  # Deal with errors
+  ->catch(
+    sub {
+      $c->_notify_on_errors(shift);
+    }
+  )
+
+  ->finally(
+    sub {
+      # Add notifications to the matching json
+      # TODO: There should be a special notification engine doing that!
+
+      my $json = $c->stash('results');
+      my $notes = $c->notifications(json => $json);
+      return $c->render(
+        json => $notes,
+        status => 200
+      );
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
+};
+
 1;
+
+
+__END__
+
+  # Async
+  $c->render_later;
+
+  # Use the API for fetching matching information non-blocking
+  $c->search->match(
+    corpus_id => $c->stash('corpus_id'),
+    doc_id    => $c->stash('doc_id'),
+    text_id   => $c->stash('text_id'),
+    match_id  => $c->stash('match_id'),
+    %query,
+
+    # Callback for async search
+    sub {
+      my $index = shift;
+      return $c->respond_to(
+
+        # Render json if requested
+        json => sub {
+          # Add notifications to the matching json
+          # TODO: There should be a special notification engine doing that!
+          my $notes = $c->notifications(json => $index->results->[0]);
+          $c->render(
+            json => $notes,
+            status => $index->status
+          );
+        },
+
+        # Render html if requested
+        html => sub {
+          return $c->render(
+            layout   => 'default',
+            template => 'match_info'
+          )
+        }
+      );
+    }
+  );

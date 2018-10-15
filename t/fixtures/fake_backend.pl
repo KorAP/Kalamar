@@ -105,6 +105,23 @@ get '/search' => sub {
 };
 
 
+# Matchinfo fixtures
+get '/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
+  my $c = shift;
+
+  my $file = join('_', (
+    'matchinfo',
+    $c->stash('corpusId'),
+    $c->stash('docId'),
+    $c->stash('textId'),
+    $c->stash('matchId')
+  ));
+
+  # Get response based on query parameter
+  my $response = $c->load_response(slugify($file));
+  return $c->render(%$response);
+};
+
 
 ############
 # Auth API #

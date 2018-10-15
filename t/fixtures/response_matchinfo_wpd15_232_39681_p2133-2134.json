@@ -1,0 +1,29 @@
+{
+  "status" : 200,
+  "json" : {
+    "@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld",
+    "meta":{
+      "version":"Krill-0.58.0"
+    },
+    "field":"tokens",
+    "textClass":"kultur film",
+    "pubPlace":"URL:http://de.wikipedia.org",
+    "textSigle":"WPD15/232/39681",
+    "docSigle":"WPD15/232",
+    "corpusSigle":"WPD15",
+    "title":"2nd Infantry Division (Vereinigte Staaten)",
+    "author":"Boshomi, u.a.",
+    "availability":"CC-BY-SA",
+    "layerInfos":"corenlp/c=spans corenlp/p=tokens corenlp/s=spans dereko/s=spans opennlp/p=tokens opennlp/s=spans",
+    "startMore":false,
+    "endMore":false,
+    "license":"CC-BY-SA",
+    "snippet":"<span class=\"context-left\"></span><span class=\"match\"><span title=\"corenlp/p:CARD\"><span title=\"opennlp/p:CARD\">1976</span></span> <span title=\"corenlp/p:ADJA\"><span title=\"opennlp/p:VVFIN\">erschlugen</span></span> <span title=\"corenlp/p:ADJA\"><span title=\"opennlp/p:ADJA\">nordkoreanische</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Grenzsoldaten</span></span> <span title=\"corenlp/p:APPR\"><span title=\"opennlp/p:APPR\">in</span></span> <span title=\"corenlp/p:ART\"><span title=\"opennlp/p:ART\">einem</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Handgemenge</span></span> <span title=\"corenlp/p:CARD\"><span title=\"opennlp/p:CARD\">zwei</span></span> <span title=\"corenlp/p:ADJA\"><span title=\"opennlp/p:ADJA\">amerikanische</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Soldaten</span></span>, <span title=\"corenlp/p:PRELS\"><span title=\"opennlp/p:PRELS\">die</span></span> <span title=\"corenlp/p:APPRART\"><span title=\"opennlp/p:APPRART\">im</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Rahmen</span></span> <span title=\"corenlp/p:ART\"><span title=\"opennlp/p:ART\">eines</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Routineeinsatzes</span></span> <span title=\"corenlp/p:ART\"><span title=\"opennlp/p:ART\">einen</span></span> <mark><span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Baum</span></span></mark> <span title=\"corenlp/p:APPR\"><span title=\"opennlp/p:APPR\">an</span></span> <span title=\"corenlp/p:ART\"><span title=\"opennlp/p:ART\">der</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">Demarkationslinie</span></span> <span title=\"corenlp/p:VVPP\"><span title=\"opennlp/p:VVPP\">beschnitten</span></span>.&lt;<span title=\"opennlp/p:ADJA\">ref</span>&gt;''…<span title=\"corenlp/p:NE\"><span title=\"opennlp/p:NE\">On</span></span> <span title=\"corenlp/p:CARD\"><span title=\"opennlp/p:CARD\">18</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:NN\">August</span></span> <span title=\"corenlp/p:CARD\"><span title=\"opennlp/p:CARD\">1976</span></span>, <span title=\"corenlp/p:VVFIN\"><span title=\"opennlp/p:NE\">during</span></span> <span title=\"corenlp/p:XY\"><span title=\"opennlp/p:NE\">a</span></span> <span title=\"corenlp/p:ADJA\"><span title=\"opennlp/p:NE\">routine</span></span> <span title=\"corenlp/p:ADJA\"><span title=\"opennlp/p:VVFIN\">tree</span></span> <span title=\"corenlp/p:NN\"><span title=\"opennlp/p:FM\">trimming</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:FM\">operation</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:ADV\">within</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:NE\">the</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:NE\">DMZ</span></span>, <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:NE\">North</span></span> <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:NE\">Korean</span></span> <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:NE\">border</span></span> <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:APPR\">guards</span></span> <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:ADJA\">bludgeoned</span></span> <span title=\"corenlp/p:XY\"><span title=\"opennlp/p:PWAV\">two</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:NE\">American</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:NE\">officers</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:NE\">to</span></span> <span title=\"corenlp/p:FM\"><span title=\"opennlp/p:NE\">death</span></span> <span title=\"corenlp/p:APPR\"><span title=\"opennlp/p:APPR\">in</span></span> <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:NE\">a</span></span> <span title=\"corenlp/p:VVFIN\"><span title=\"opennlp/p:NE\">melee</span></span> <span title=\"corenlp/p:APPR\"><span title=\"opennlp/p:APPR\">in</span></span> <span title=\"corenlp/p:NE\"><span title=\"opennlp/p:NE\">the</span></span> Joint Security Area, what resulted is known as Operation PAUL BUNYAN.<span class=\"cutted\"></span></span><span class=\"context-right\"></span>",
+    "matchID":"match-WPD15/232/39681-p2133-2134",
+    "pubDate":"2015-05-01",
+    "context":{
+      "left":["token",0],
+      "right":["token",0]
+    }
+  }
+}
