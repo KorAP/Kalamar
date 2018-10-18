@@ -1,0 +1,13 @@
+{
+  "status":200,
+  "json" : {
+    "@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld",
+    "meta":{
+      "version":"Krill-0.58.0"
+    },
+    "textSigle":"NOTFOUND/X/X",
+    "startMore":true,
+    "endMore":true,
+    "matchID":"match-NOTFOUND/X/X-p0-1"
+  }
+}

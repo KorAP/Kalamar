@@ -22,6 +22,7 @@ sub _catch_http_errors {
   my $err = $tx->error;
 
   if ($err) {
+    # print $err->code, "\n";
     return Mojo::Promise->new->reject([
       [$err->{code}, $err->{message}]
     ]);
@@ -42,6 +43,7 @@ sub _catch_koral_errors {
     return Mojo::Promise->new->reject($err);
   };
 
+  # TODO: What does status mean?
   if ($json->{status}) {
     return Mojo::Promise->new->reject([
       [undef, 'Middleware error ' . $json->{'status'}]
@@ -153,6 +155,8 @@ sub _map_match {
     $match->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\.[^-]+?-// or
       $match->{matchID} =~ s!^match\-(?:[^\/]+\/){2}[^-]+?-!!;
   };
+
+  return unless $match->{textSigle};
 
   # Set IDs based on the sigle
   (
@@ -315,6 +319,7 @@ sub query {
 
     # Wrap a user agent method with a promise
     $promise = $c->user->auth_request_p(get => $url)
+
       # TODO: Better use a single then
       ->then(\&_catch_http_errors)
       ->then(
@@ -336,6 +341,10 @@ sub query {
 
   # Wait for rendering
   $c->render_later;
+
+  # Choose the snippet based on the parameter
+  my $template = scalar $v->param('snippet') ? 'snippet' : 'search2';
+  $c->stash(template => $template);
 
   # Process response
   $promise->then(
@@ -385,23 +394,25 @@ sub query {
       return $c->_process_matches($json);
     }
 
+  # Render template
+  )->then(
+    sub {
+      return $c->render(
+        q => $query,
+        ql => $query{ql},
+        start_page => $query{p},
+      );
+    }
+
   # Deal with errors
   )->catch(
     sub {
       $c->_notify_on_errors(shift);
-    }
-
-  # Render template
-  )->finally(
-    sub {
-      # Choose the snippet based on the parameter
-      my $template = scalar $v->param('snippet') ? 'snippet' : 'search2';
-
       return $c->render(
-        template => $template,
+        results => c(),
         q => $query,
         ql => $query{ql},
-        start_page => $query{p},
+        start_page => 1
       );
     }
   )

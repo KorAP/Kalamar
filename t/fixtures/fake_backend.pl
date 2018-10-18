@@ -117,8 +117,10 @@ get '/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
     $c->stash('matchId')
   ));
 
+  my $slug = slugify($file);
+
   # Get response based on query parameter
-  my $response = $c->load_response(slugify($file));
+  my $response = $c->load_response($slug);
   return $c->render(%$response);
 };
 

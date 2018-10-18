@@ -1,0 +1,14 @@
+{
+  "status":200,
+  "json" : {
+    "errors":[
+      [730,"Invalid match identifier","match-GOE/AGF/02286-p-2-0"]
+    ],
+    "@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld",
+    "meta":{
+      "version":"Krill-0.58.0"
+    },
+    "startMore":true,
+    "endMore":true
+  }
+}

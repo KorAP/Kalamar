@@ -1,0 +1,28 @@
+{
+  "status":200,
+  "json" : {
+    "@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld",
+    "meta":{
+      "version":"Krill-0.58.0"
+    },
+    "field":"tokens",
+    "pubPlace":"München",
+    "textSigle":"GOE/AGF/02286",
+    "docSigle":"GOE/AGF",
+    "corpusSigle":"GOE",
+    "title":"Materialien zur Geschichte der Farbenlehre",
+    "author":"Goethe, Johann Wolfgang von",
+    "availability":"QAO-NC",
+    "layerInfos":"corenlp/c=spans corenlp/p=tokens corenlp/s=spans dereko/s=spans malt/d=rels marmot/m=tokens marmot/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens",
+    "startMore":true,
+    "endMore":true,
+    "license":"QAO-NC",
+    "snippet":"<span class=\"context-left\"><span class=\"more\"></span></span><span class=\"match\"><mark>Baum</mark></span><span class=\"context-right\"><span class=\"more\"></span></span>",
+    "matchID":"match-GOE/AGF/02286-p75682-75683",
+    "pubDate":"1982",
+    "context":{
+      "left":["token",0],
+      "right":["token",0]
+    }
+  }
+}
