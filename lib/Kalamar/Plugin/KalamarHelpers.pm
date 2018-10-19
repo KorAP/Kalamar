@@ -240,6 +240,42 @@ sub register {
       $c->stash('kalamar.test_port' => 0);
       return 0;
     });
+
+  # Establish 'search_results' taghelper
+  # This is based on Mojolicious::Plugin::Search
+  $mojo->helper(
+    search_results2 => sub {
+      my $c = shift;
+
+      # This is a tag helper for templates
+      my $cb = shift;
+      if (!ref $cb || !(ref $cb eq 'CODE')) {
+        $c->app->log->error('search_results expects a code block');
+        return '';
+      };
+
+      my $coll = $c->stash('results');
+
+      # Iterate over results
+      my $string = $coll->map(
+        sub {
+          # Call hit callback
+          # $c->stash('search.hit' => $_);
+          local $_ = $_[0];
+          return $cb->($_);
+        })->join;
+
+      # Remove hit from stash
+      # delete $c->stash->{'search.hit'};
+      return b($string);
+    }
+  );
+
+  $mojo->helper(
+    'korap.api' => sub {
+      return shift->config('Search')->{api};
+    }
+  );
 };
 
 

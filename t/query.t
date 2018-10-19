@@ -67,4 +67,11 @@ $t->get_ok('/q2?q=baum')
   ->text_is('li:nth-of-type(1) p.ref span.sigle', '[GOE/AGI/00000]')
   ;
 
+
+$t->get_ok('/q2?q=[orth=das')
+  ->status_is(400)
+  ->text_is('div.notify-error:nth-of-type(1)', '302: Parantheses/brackets unbalanced.')
+  ->text_like('div.notify-error:nth-of-type(2)', qr!302: Could not parse query .+? \[orth=das.+?!)
+  ;
+
 done_testing;

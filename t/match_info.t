@@ -50,7 +50,7 @@ $t->get_ok('/corpus2/notfound/X/X/p0-1')
 $t->get_ok('/corpus2/fail/x/x/p0-0')
   ->status_is(200)
   ->json_is('/notifications/0/0', 'error')
-  ->json_is('/notifications/0/1', '500: Internal Server Error')
+  ->json_is('/notifications/0/1', 'Unable to load query response from /home/ndiewald/Repositories/korap-git/Kalamar/t/fixtures/response_matchinfo_fail_x_x_p0-0.json')
   ;
 
 # TODO:
@@ -64,10 +64,11 @@ $t->get_ok('/corpus2/GOE/AGF/02286/p-2-0')
 # TODO:
 #   It's surprising, that it doesn't return a 404!
 $t->get_ok('/corpus2/notfound2/X/X/p0-1')
-  ->status_is(200)
+  ->status_is(404)
   ->json_is('/notifications/0/0', 'error')
   ->json_is('/notifications/0/1', '404: Not Found')
   ;
 
 
 done_testing;
+__END__

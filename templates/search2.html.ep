@@ -1,8 +1,7 @@
 % layout 'main', title => loc('searchtitle', q => stash('q'), ql => stash('ql')), schematype => 'SearchResultsPage';
-
 <div id="resultinfo" <% if (stash('results')->size) { %> class="found"<%} %>>
   <div id="pagination"><%= pagination(stash('start_page'), stash('total_pages'), url_with->query(['p' => '{page}'])) =%></div>
-% my $found = stash('total_results');
+% my $found = stash('total_results') // 0;
   <p class="found">\
 % if ($found != -1) {
 %   my $found_text = loc('numf', number => $found);
@@ -20,9 +19,9 @@
 %= include 'query2'
 
 <div id="search">
-% if (stash('total_results') != 0 && stash('results')->size) {
+% if (stash('results')->size && stash('total_results') != 0) {
   <ol class="align-left">
-%=  search_results begin
+%=  search_results2 begin
 %=    include 'match', match => $_
 %   end
   </ol>
