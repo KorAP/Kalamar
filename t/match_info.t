@@ -69,6 +69,26 @@ $t->get_ok('/corpus2/notfound2/X/X/p0-1')
   ->json_is('/notifications/0/1', '404: Not Found')
   ;
 
+$t->get_ok('/corpus2/brokenerr/X/X/p0-1')
+  ->status_is(409)
+  ->json_is('/notifications/0/0', 'error')
+  ->json_is('/notifications/0/1', 'Message structure failed')
+  ;
+
+$t->get_ok('/corpus2/brokenwarn/X/X/p0-1')
+  ->status_is(200)
+  ->json_is('/notifications/0/0', 'warning')
+  ->json_is('/notifications/0/1', '1: Warning 1')
+  ->json_is('/notifications/1/0', 'error')
+  ->json_is('/notifications/1/1', 'Message structure failed')
+  ;
+
+$t->get_ok('/corpus2/brokenerr2/X/X/p0-1')
+  ->status_is(417)
+  ->json_is('/notifications/0/0', 'error')
+  ->json_is('/notifications/0/1', 'Message structure failed')
+  ;
+
 
 done_testing;
 __END__

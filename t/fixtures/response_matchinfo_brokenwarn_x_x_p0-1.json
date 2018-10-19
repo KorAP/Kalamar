@@ -1,0 +1,11 @@
+{
+  "comment" : "q=[orth=das",
+  "status" : 200,
+  "json" : {
+    "@context" : "http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld",
+    "warnings" : [
+      [1, "Warning 1"],
+      "Warning 2"
+    ]
+  }
+}

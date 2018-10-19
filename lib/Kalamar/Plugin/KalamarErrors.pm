@@ -2,6 +2,41 @@ package Kalamar::Plugin::KalamarErrors;
 use Mojo::Base 'Mojolicious::Plugin';
 
 
+# Notify types
+sub _notify {
+  my ($c, $json, $type, $notify_type) = @_;
+  my $msgs = $json->{$type};
+
+  return unless $msgs;
+
+  # wrong structure
+  unless (ref $msgs && ref $msgs eq 'ARRAY') {
+    $c->notify(error => 'Message structure failed');
+    return 1;
+  }
+
+  # Get errors
+  foreach my $m (@$msgs) {
+
+    # Error is correctly defined
+    if (ref $m && ref $m eq 'ARRAY') {
+      $c->notify(
+        $notify_type =>
+          ($m->[0] ? $m->[0] . ': ' : '') .
+          ($m->[1] || 'Unknown')
+        );
+    }
+
+    # Wrong structure
+    else {
+      $c->notify(error => 'Message structure failed');
+    };
+  };
+
+  return 1;
+};
+
+
 # Register error plugin
 sub register {
   my ($plugin, $mojo) = @_;
@@ -11,42 +46,16 @@ sub register {
   $mojo->helper(
     notify_on_warnings => sub {
       my ($c, $json) = @_;
-
-      my $warnings = $json->{warnings};
-
-      return unless $warnings;
-
-      # TODO: Check for ref!
-      foreach my $w (@$warnings) {
-        $c->notify(
-          warn =>
-            ($w->[0] ? $w->[0] . ': ' : '') .
-            $w->[1]
-          );
-      };
-
-      return 1;
+      return _notify($c, $json, 'warnings', 'warning');
     }
   );
+
 
   # Notify on errors
   $mojo->helper(
     notify_on_errors => sub {
       my ($c, $json) = @_;
-
-      my $errors = $json->{errors};
-
-      return unless $errors;
-
-      foreach my $e (@$errors) {
-        $c->notify(
-          error =>
-            ($e->[0] ? $e->[0] . ': ' : '') .
-            ($e->[1] || 'Unknown')
-          );
-      };
-
-      return 1;
+      return _notify($c, $json, 'errors', 'error');
     }
   );
 
@@ -76,9 +85,6 @@ sub register {
       # There is json
       if ($json) {
         $c->stash(api_response => $json);
-
-        # TODO:
-        #   Check for references of errors and warnings!
 
         # There are errors
         if ($c->notify_on_errors($json)) {
