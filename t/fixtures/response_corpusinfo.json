@@ -1,0 +1,9 @@
+{
+  "status" : 200,
+  "json" : {
+    "documents":11,
+    "tokens":665842,
+    "sentences":25074,
+    "paragraphs":772
+  }
+}

@@ -12,6 +12,9 @@ has items_per_page => 25;
 # TODO:
 #   Support server timing API
 
+# TODO:
+#   Add match_info template for HTML
+
 # Query endpoint
 sub query {
   my $c = shift;
@@ -277,8 +280,7 @@ sub match_info {
     sub {
       return $c->catch_errors_and_warnings(shift);
     }
-  )
-  ->then(
+  )->then(
     sub {
       my $json = shift;
 
@@ -294,6 +296,79 @@ sub match_info {
       return $json;
     }
   )
+
+  # Deal with errors
+  ->catch(
+    sub {
+      return $c->render(
+        json => $c->notifications('json')
+      )
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
+};
+
+
+# Get information about
+# This replaces the collections endpoint
+sub corpus_info {
+  my $c = shift;
+
+  # Input validation
+  my $v = $c->validation;
+  $v->optional('cq');
+
+  # Async
+  $c->render_later;
+
+  my $url = Mojo::URL->new($c->korap->api);
+
+  # Use hash slice to create path
+  $url->path('statistics');
+
+  # Add query
+  $url->query(corpusQuery => $v->param('cq'));
+
+  # Set stash
+  $c->stash('search._resource_cache' => $url->to_string);
+
+  $c->app->log->debug("Statistics info: $url");
+
+  # non-blocking
+  $c->user->auth_request_p(get => $url)->then(
+    sub {
+      return $c->catch_errors_and_warnings(shift);
+    }
+  )->then(
+    sub {
+      my $json = shift;
+
+      # TODO: CACHING!!!
+      # my $user = $c->stash('user') // 'not_logged_in';
+      # $c->stash('search.resource' => $json);
+      # $c->chi->set($user . $c->stash('search._resource_cache') => $json, '24 hours');
+
+      # $self->_process_response('resource', $index, $tx);
+
+      return $json;
+    }
+  )
+
+  # Process response
+  ->then(
+    sub {
+      my $json = shift;
+      return $c->render(
+        json => $c->notifications(json => $json),
+        status => 200
+      );
+    }
+  )
+
   # Deal with errors
   ->catch(
     sub {

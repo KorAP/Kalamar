@@ -229,6 +229,7 @@ sub startup {
   my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
   my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
 
+  $r->get('/corpus2')->to('Search2#corpus_info')->name('corpus');
   $r->route('/corpus2/:corpus_id/:doc_id/:text_id/:match_id')->to('search2#match_info')->name('match');
 
   # User Management

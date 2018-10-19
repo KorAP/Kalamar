@@ -125,6 +125,23 @@ get '/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
 };
 
 
+# Statistics endpoint
+get '/statistics' => sub {
+  my $c = shift;
+  my $v = $c->validation;
+  $v->optional('corpusQuery');
+
+  my @list = 'corpusinfo';
+  if ($v->param('corpusQuery')) {
+    push @list, $v->param('corpusQuery');
+  };
+  my $slug = slugify(join('_', @list));
+
+  # Get response based on query parameter
+  my $response = $c->load_response($slug);
+  return $c->render(%$response);
+};
+
 ############
 # Auth API #
 ############
