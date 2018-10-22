@@ -29,6 +29,7 @@ $t->get_ok('/corpus2/WPD15/232/39681/p2133-2134?spans=false&foundry=*')
   ->status_is(200)
   ->json_is('/textSigle', 'WPD15/232/39681')
   ->json_like('/snippet', qr!<span class=\"context-left\">!)
+  ->json_is('/X-cached', undef)
   ;
 
 $t->get_ok('/corpus2/GOE/AGF/02286/p75682-75683')
@@ -87,6 +88,14 @@ $t->get_ok('/corpus2/brokenerr2/X/X/p0-1')
   ->status_is(417)
   ->json_is('/notifications/0/0', 'error')
   ->json_is('/notifications/0/1', 'Message structure failed')
+  ;
+
+# Get from cache
+$t->get_ok('/corpus2/WPD15/232/39681/p2133-2134?spans=false&foundry=*')
+  ->status_is(200)
+  ->json_is('/textSigle', 'WPD15/232/39681')
+  ->json_like('/snippet', qr!<span class=\"context-left\">!)
+  ->json_is('/X-cached', 1)
   ;
 
 

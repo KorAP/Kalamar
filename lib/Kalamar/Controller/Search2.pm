@@ -15,6 +15,7 @@ has items_per_page => 25;
 # TODO:
 #   Add match_info template for HTML
 
+
 # Query endpoint
 sub query {
   my $c = shift;
@@ -91,7 +92,8 @@ sub query {
   # Create remote request URL
   my $url = Mojo::URL->new($c->korap->api);
   $url->path('search');
-  $url->query(\%query);
+  # $url->query(%query);
+  $url->query(map { $_ => $query{$_}} sort keys %query);
 
   # Check if total results is cached
   my $total_results = -1;
@@ -108,58 +110,19 @@ sub query {
     $url->query({cutoff => 'true'});
   };
 
-  # Check if the request is cached
-  my $url_string = $url->to_string;
+  # Choose the snippet based on the parameter
+  # TODO:
+  #   scalar $v->param('snippet') ? 'snippet' : 'search2';
+  $c->stash(template => 'search2');
 
-  # Set api request for debugging
-  $c->stash(api_request => $url_string);
-
-  # Debugging
-  $c->app->log->debug("Search for $url_string");
-
-  # Check for cache
-  my $json = $c->chi->get("matches-$user-$url_string");
-
-  # Initialize promise object
-  my $promise;
-
-  # Result is cached
-  if ($json) {
-    $json->{cached} = 'true';
-
-    # The promise is already satisfied by the cache
-    $promise = Mojo::Promise->new->resolve($json)->then(
-      sub {
-        my $json = shift;
-        $c->notify_on_warnings($json);
-        return $json;
-      }
-    );
-  }
-
-  # Retrieve from URL
-  else {
-
-    # Wrap a user agent method with a promise
-    $promise = $c->user->auth_request_p(get => $url)->then(
-      sub {
-
-        # Catch errors and warnings
-        return $c->catch_errors_and_warnings(shift)
-      }
-    );
-  };
 
   # Wait for rendering
   $c->render_later;
 
-  # Choose the snippet based on the parameter
-  # scalar $v->param('snippet') ? 'snippet' : 'search2';
-  my $template = 'search2';
-  $c->stash(template => $template);
+  # Fetch resource
+  $c->cached_koral_p('get', $url)->then(
 
-  # Process response
-  $promise->then(
+    # Process response
     sub {
       my $json = shift;
 
@@ -199,9 +162,6 @@ sub query {
           total_pages => ceil($total_results / ($c->stash('items_per_page') || 1))
         );
       };
-
-      # Cache result
-      $c->chi->set('matches-' . $user . '-' . $url_string => $json);
 
       # Process match results
       $c->_process_query_response($json);
@@ -270,17 +230,12 @@ sub match_info {
     ))
   );
 
-  # Set query parameters
-  $url->query(\%query);
+  # Set query parameters in order
+  $url->query(map { $_ => $query{$_}} sort keys %query);
 
   $c->render_later;
 
-  # TODO: Add caching!
-  $c->user->auth_request_p(get => $url)->then(
-    sub {
-      return $c->catch_errors_and_warnings(shift);
-    }
-  )->then(
+  $c->cached_koral_p('get', $url)->then(
     sub {
       my $json = shift;
 
@@ -322,9 +277,6 @@ sub corpus_info {
   my $v = $c->validation;
   $v->optional('cq');
 
-  # Async
-  $c->render_later;
-
   my $url = Mojo::URL->new($c->korap->api);
 
   # Use hash slice to create path
@@ -338,25 +290,11 @@ sub corpus_info {
 
   $c->app->log->debug("Statistics info: $url");
 
-  # non-blocking
-  $c->user->auth_request_p(get => $url)->then(
-    sub {
-      return $c->catch_errors_and_warnings(shift);
-    }
-  )->then(
-    sub {
-      my $json = shift;
+  # Async
+  $c->render_later;
 
-      # TODO: CACHING!!!
-      # my $user = $c->stash('user') // 'not_logged_in';
-      # $c->stash('search.resource' => $json);
-      # $c->chi->set($user . $c->stash('search._resource_cache') => $json, '24 hours');
-
-      # $self->_process_response('resource', $index, $tx);
-
-      return $json;
-    }
-  )
+  # Request koral, maybe cached
+  $c->cached_koral_p('get', $url)
 
   # Process response
   ->then(

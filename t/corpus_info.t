@@ -31,6 +31,7 @@ $t->get_ok('/corpus2')
   ->json_is('/tokens', 665842)
   ->json_is('/sentences', 25074)
   ->json_is('/paragraphs', 772)
+  ->json_is('/X-cached', undef)
   ;
 
 $t->get_ok('/corpus2?cq=docSigle+%3D+\"GOE/AGA\"')
@@ -39,12 +40,24 @@ $t->get_ok('/corpus2?cq=docSigle+%3D+\"GOE/AGA\"')
   ->json_is('/tokens', 108557)
   ->json_is('/sentences', 3835)
   ->json_is('/paragraphs', 124)
+  ->json_is('/X-cached', undef)
   ;
 
 $t->get_ok('/corpus2?cq=4')
   ->status_is(400)
   ->json_is('/notifications/0/1', "302: Could not parse query >>> (4) <<<.")
   ;
+
+# Query passed
+$t->get_ok('/corpus2')
+  ->status_is(200)
+  ->json_is('/documents', 11)
+  ->json_is('/tokens', 665842)
+  ->json_is('/sentences', 25074)
+  ->json_is('/paragraphs', 772)
+  ->json_is('/X-cached', 1)
+  ;
+
 
 done_testing;
 __END__

@@ -1,7 +1,6 @@
 package Kalamar::Plugin::KalamarHelpers;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::JSON 'decode_json';
-use Mojo::JSON::Pointer;
+use Mojo::JSON qw/decode_json true false/;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/xml_escape/;
 
@@ -276,6 +275,68 @@ sub register {
       return shift->config('Search')->{api};
     }
   );
+
+
+  # Get a cached request from the backend
+  $mojo->helper(
+    cached_koral_p => sub {
+      my ($c, $method, $url) = @_;
+
+      # In case the user is not known, it is assumed,
+      # the user is not logged in
+      my $user = $c->stash('user') // 'not_logged_in';
+
+      # Set api request for debugging
+      my $cache_str = "$method-$user-" . $url->to_string;
+      $c->stash(api_request => $cache_str);
+
+      if ($c->no_cache) {
+        return $c->user->auth_request_p($method => $url)->then(
+          sub {
+            # Catch errors and warnings
+            return $c->catch_errors_and_warnings(shift)
+          }
+        );
+      };
+
+      # Get koral from cache
+      my $koral = $c->chi->get($cache_str);
+
+      my $promise;
+
+      # Cache was found
+      if ($koral) {
+
+        # Mark response as cache
+        $koral->{'X-cached'} = Mojo::JSON->true;
+
+        # The promise is already satisfied by the cache
+        return Mojo::Promise->new->resolve($koral)->then(
+          sub {
+            my $json = shift;
+            $c->notify_on_warnings($json);
+            return $json;
+          }
+        );
+      };
+
+      # Resolve request
+      return $c->user->auth_request_p($method => $url)->then(
+        sub {
+          # Catch errors and warnings
+          return $c->catch_errors_and_warnings(shift)
+        }
+      )->then(
+        # Cache on success
+        sub {
+          my $json = shift;
+          $c->chi->set($cache_str => $json);
+          return $json;
+        }
+      );
+    }
+  );
+
 };
 
 
