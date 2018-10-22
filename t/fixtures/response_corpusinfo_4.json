@@ -1,0 +1,9 @@
+{
+  "status" : 400,
+  "json" : {
+    "errors":
+    [
+      [302,"Could not parse query >>> (4) <<<.","(4)"]
+    ]
+  }
+}

@@ -34,10 +34,16 @@ $t->get_ok('/corpus2')
   ;
 
 $t->get_ok('/corpus2?cq=docSigle+%3D+\"GOE/AGA\"')
+  ->status_is(200)
   ->json_is('/documents', 5)
   ->json_is('/tokens', 108557)
   ->json_is('/sentences', 3835)
   ->json_is('/paragraphs', 124)
+  ;
+
+$t->get_ok('/corpus2?cq=4')
+  ->status_is(400)
+  ->json_is('/notifications/0/1', "302: Could not parse query >>> (4) <<<.")
   ;
 
 done_testing;
