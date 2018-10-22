@@ -207,12 +207,11 @@ sub startup {
   });
 
   # Base query route
-  $r->get('/')->to('search#query')->name('index');
+  $r->get('/')->to('search2#query')->name('index');
   $r->get('/q2')->to('search2#query');
 
   # Collection route
   $r->get('/corpus')->to('Search#corpus_info')->name('corpus');
-  # $r->get('/collection/:id')->to('Search#corpus_info')->name('collection');
 
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
@@ -236,8 +235,8 @@ sub startup {
   my $user = $r->any('/user')->to(controller => 'User');
   $user->post('/login')->to(action => 'login')->name('login');
   $user->get('/logout')->to(action => 'logout')->name('logout');
-#  $r->any('/register')->to(action => 'register')->name('register');
-#  $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
+  # $r->any('/register')->to(action => 'register')->name('register');
+  # $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
 
   # Default user is called 'korap'
   # $r->route('/user/:user/:collection')

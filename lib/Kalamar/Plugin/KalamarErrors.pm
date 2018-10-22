@@ -84,7 +84,6 @@ sub register {
 
       # There is json
       if ($json) {
-        $c->stash(api_response => $json);
 
         # There are errors
         if ($c->notify_on_errors($json)) {

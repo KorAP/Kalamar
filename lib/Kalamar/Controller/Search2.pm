@@ -381,18 +381,15 @@ sub _process_query_response {
   # Set result values
   $self->stash(items_per_page => $meta->{itemsPerPage});
 
-  # Set authorization
-  # $index->authorized($meta->{authorized}) if $meta->{authorized};
+  ## Bouncing query
+  ##  if ($json->{query}) {
+  ##    $index->query_jsonld($json->{query});
+  ##  };
 
-  # Bouncing query
-  #  if ($json->{query}) {
-  #    $index->query_jsonld($json->{query});
-  #  };
-
-  # Legacy
-  # elsif ($json->{request}->{query}) {
-  #   $index->query_jsonld($json->{request}->{query});
-  # };
+  ## Legacy
+  ## elsif ($json->{request}->{query}) {
+  ##   $index->query_jsonld($json->{request}->{query});
+  ## };
 
 
   if ($meta->{totalResults}) {

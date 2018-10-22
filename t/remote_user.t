@@ -63,7 +63,11 @@ my $csrf = $t->get_ok('/')
   ;
 
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'pass', csrf_token => $csrf })
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'pass',
+  csrf_token => $csrf
+})
   ->status_is(302)
   ->header_is('Location' => '/');
 
@@ -83,7 +87,6 @@ $t->get_ok('/?q=Baum')
   ->element_exists_not('div.notify-error')
   ->content_like(qr/\"authorized\"\:\"test\"/)
   ;
-
 
 # Logout
 $t->get_ok('/user/logout')

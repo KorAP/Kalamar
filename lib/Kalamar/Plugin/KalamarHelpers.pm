@@ -284,17 +284,28 @@ sub register {
 
       # In case the user is not known, it is assumed,
       # the user is not logged in
-      my $user = $c->stash('user') // 'not_logged_in';
+      my $user = $c->stash('user');
+      unless ($user) {
+        $user = $c->session('user');
+        if ($user) {
+          $c->stash(user => $user);
+        }
+        else {
+          $user = 'not_logged_in';
+        }
+      };
 
       # Set api request for debugging
       my $cache_str = "$method-$user-" . $url->to_string;
-      $c->stash(api_request => $cache_str);
+      $c->stash(api_request => $url->to_string);
 
       if ($c->no_cache) {
         return $c->user->auth_request_p($method => $url)->then(
           sub {
+            my $json = shift;
             # Catch errors and warnings
-            return $c->catch_errors_and_warnings(shift)
+            $c->stash(api_response => $json);
+            return $c->catch_errors_and_warnings($json);
           }
         );
       };
@@ -315,6 +326,7 @@ sub register {
           sub {
             my $json = shift;
             $c->notify_on_warnings($json);
+            $c->stash(api_response => $json);
             return $json;
           }
         );
@@ -323,14 +335,17 @@ sub register {
       # Resolve request
       return $c->user->auth_request_p($method => $url)->then(
         sub {
+          my $json = shift;
           # Catch errors and warnings
-          return $c->catch_errors_and_warnings(shift)
+          $c->stash(api_response => $json);
+          return $c->catch_errors_and_warnings($json);
         }
       )->then(
         # Cache on success
         sub {
           my $json = shift;
           $c->chi->set($cache_str => $json);
+          $c->stash(api_response => $json);
           return $json;
         }
       );

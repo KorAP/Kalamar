@@ -41,6 +41,7 @@ sub register {
 
       # Get token from stash
       my $token = $c->stash('auth');
+
       return $token if $token;
 
       # Get auth from session
@@ -48,6 +49,7 @@ sub register {
 
       # Set token to stash
       $c->stash(auth => $auth);
+
       return $auth;
     }
   );
@@ -127,6 +129,7 @@ sub register {
 
       my $tx;
       if ($c->user_auth) {
+
         $tx = $plugin->build_authorized_tx(
           $c->user_auth, $c->client_ip, uc($method), $path, @_
         );
