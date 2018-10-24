@@ -14,6 +14,13 @@ has items_per_page => 25;
 
 # TODO:
 #   Add match_info template for HTML
+#
+# TODO:
+#   Support search in corpus and virtualcollection
+#
+# TODO:
+#   set caches with timing like '120min'
+
 
 
 # Query endpoint
@@ -71,25 +78,12 @@ sub query {
 
   $c->stash(items_per_page => $items_per_page);
 
+  # TODO:
+  #   if ($v->param('action') eq 'inspect') use trace!
+
   # Set offset
   # From Mojolicious::Plugin::Search::Index
   $query{offset} = $v->param('o') || ((($page // 1) - 1) * ($items_per_page || 1));
-
-
-  # already set by stash - or use plugin param
-  # else {
-  #   $items_per_page = $c->stash('search.count') // $plugin->items_per_page
-  # };
-
-  # Set start page based on param
-  #if ($query{p}) {
-  #  $index->start_page(delete $param{start_page});
-  #}
-  ## already set by stash
-  #elsif ($c->stash('search.start_page')) {
-  #  $index->start_page($c->stash('search.start_page'));
-  #};
-
 
   # Create remote request URL
   my $url = Mojo::URL->new($c->korap->api);
@@ -202,16 +196,6 @@ sub query {
       # Set result values
       $c->stash(items_per_page => $meta->{itemsPerPage});
 
-      ## Bouncing query
-      ##  if ($json->{query}) {
-      ##    $index->query_jsonld($json->{query});
-      ##  };
-
-      ## Legacy
-      ## elsif ($json->{request}->{query}) {
-      ##   $index->query_jsonld($json->{request}->{query});
-      ## };
-
       # Bouncing collection query
       if ($json->{corpus} || $json->{collection}) {
         $c->stash(corpus_jsonld => ($json->{corpus} || $json->{collection}));
@@ -248,6 +232,115 @@ sub query {
         ql => $c->stash('ql'),
         template => 'failure'
       );
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
+};
+
+
+# Corpus info endpoint
+# This replaces the collections endpoint
+sub corpus_info {
+  my $c = shift;
+
+  # Input validation
+  my $v = $c->validation;
+  $v->optional('cq');
+
+  my $url = Mojo::URL->new($c->korap->api);
+
+  # Use hash slice to create path
+  $url->path('statistics');
+
+  # Add query
+  $url->query(corpusQuery => $v->param('cq'));
+
+  $c->app->log->debug("Statistics info: $url");
+
+  # Async
+  $c->render_later;
+
+  # Request koral, maybe cached
+  $c->cached_koral_p('get', $url)
+
+  # Process response
+  ->then(
+    sub {
+      my $json = shift;
+      return $c->render(
+        json => $c->notifications(json => $json),
+        status => 200
+      );
+    }
+  )
+
+  # Deal with errors
+  ->catch(
+    sub {
+      return $c->render(
+        json => $c->notifications('json')
+      )
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
+};
+
+
+# Text info endpoint
+sub text_info {
+  my $c = shift;
+
+  # Input validation
+  my $v = $c->validation;
+  $v->optional('fields');
+
+  my %query = (fields => '@all');
+  $query{fields} = $v->param('fields') if $v->param('fields');
+
+  my $url = Mojo::URL->new($c->korap->api);
+
+  # Use hash slice to create path
+  $url->path(
+    join('/', (
+      'corpus',
+      $c->stash('corpus_id'),
+      $c->stash('doc_id'),
+      $c->stash('text_id')
+    ))
+  );
+  $url->query(%query);
+
+  # Async
+  $c->render_later;
+
+  # Request koral, maybe cached
+  $c->cached_koral_p('get', $url)
+
+  # Process response
+  ->then(
+    sub {
+      my $json = shift;
+      return $c->render(
+        json => $c->notifications(json => $json),
+        status => 200
+      );
+    }
+  )
+
+  # Deal with errors
+  ->catch(
+    sub {
+      return $c->render(
+        json => $c->notifications('json')
+      )
     }
   )
 
@@ -330,61 +423,6 @@ sub match_info {
 };
 
 
-# Get information about
-# This replaces the collections endpoint
-sub corpus_info {
-  my $c = shift;
-
-  # Input validation
-  my $v = $c->validation;
-  $v->optional('cq');
-
-  my $url = Mojo::URL->new($c->korap->api);
-
-  # Use hash slice to create path
-  $url->path('statistics');
-
-  # Add query
-  $url->query(corpusQuery => $v->param('cq'));
-
-  # Set stash
-  $c->stash('search._resource_cache' => $url->to_string);
-
-  $c->app->log->debug("Statistics info: $url");
-
-  # Async
-  $c->render_later;
-
-  # Request koral, maybe cached
-  $c->cached_koral_p('get', $url)
-
-  # Process response
-  ->then(
-    sub {
-      my $json = shift;
-      return $c->render(
-        json => $c->notifications(json => $json),
-        status => 200
-      );
-    }
-  )
-
-  # Deal with errors
-  ->catch(
-    sub {
-      return $c->render(
-        json => $c->notifications('json')
-      )
-    }
-  )
-
-  # Start IOLoop
-  ->wait;
-
-  return 1;
-};
-
-
 # Cleanup array of matches
 sub _map_matches {
   return c() unless $_[0];
@@ -419,3 +457,178 @@ sub _map_match {
 
 
 __END__
+
+__END__
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Kalamar::Controller::Search
+
+
+=head1 DESCRIPTION
+
+L<Kalamar::Controller::Search> is the controller class for
+search related endpoints in Kalamar. Actions are released when routes
+match.
+
+
+=head1 METHODS
+
+L<Kalamar::Controller::Search> inherits all methods from
+L<Mojolicious::Controller> and implements the following new ones.
+
+=head2 query
+
+  GET /?q=Baum&ql=poliqarp
+
+Action for all queries to the system. Returns C<HTML> only for the moment.
+
+The following parameters are supported.
+
+
+=over 2
+
+=item B<q>
+
+The query string. This may any query written in a supported query language.
+
+
+=item B<ql>
+
+The query language. This may be any query language supported by the system,
+written as the API expects the string.
+
+
+=item B<action>
+
+May be C<inspect>. In that case, the serialized request is mirrored instead of
+processed.
+
+B<This switch is experimental and may change without warnings!>
+
+
+=item B<snippet>
+
+If set, the query is returned in the snippet view template.
+
+B<This parameter is experimental and may change without warnings!>
+
+
+=item B<cutoff>
+
+If set, the query will be cut off after the matches.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+
+=item B<count>
+
+If set, the query will be only return the given number of matches,
+in case the API supports it. Will fallback to the default number of matches defined
+by the API or the backend.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+
+=item B<p>
+
+If set, the query will page to the given number of pages in the result set.
+Will default to 1.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+=item B<o>
+
+If set, the matches will offset to the given match in the result set.
+Will default to 0.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+=item B<context>
+
+The context of the snippets to retrieve. Defaults to C<40-t,40-t>.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+=item B<cq>
+
+The corpus query to limit the search to.
+
+=back
+
+
+=head2 corpus
+
+  /corpus?cq=corpusSigle+%3D+%22GOE%22
+
+Returns statistics information for a virtual corpus.
+
+=head2 text
+
+  /corpus/:corpus_id/:doc_id/:text_id
+
+Returns meta data information for a specific text.
+
+
+=head2 match
+
+  /corpus/:corpus_id/:doc_id/:text_id/:match_id?foundry=*
+
+Returns information to a match either as a C<JSON> or an C<HTML> document.
+The path defines the concrete match, by corpus identifier, document identifier,
+text identifier (all information as given by DeReKo), and match identifier
+(essentially the position of the match in the document, including highlight information).
+
+The following parameters are supported.
+
+
+=over 2
+
+=item B<foundry>
+
+Expects a foundry definition for retrieved information.
+If not given, returns all annotations for the match.
+If given, returns only given layer information for the defined foundry.
+
+B<This parameter is experimental and may change without warnings!>
+
+
+=item B<layer>
+
+Expects a layer definition for retrieved information.
+If not given, returns all annotations for the foundry.
+If given, returns only given layer information for the defined foundry.
+
+B<This parameter is experimental and may change without warnings!>
+
+
+=item B<spans>
+
+Boolean value - either C<true> or C<false> - indicating, whether span information
+(i.e. for tree structures) should be retrieved.
+
+=back
+
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015-2018, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Author: L<Nils Diewald|http://nils-diewald.de/>
+
+Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
+Corpus Analysis Platform at the
+L<Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+member of the
+L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
+and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
+funded by the
+L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
+
+Kalamar is free software published under the
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
+
+=cut

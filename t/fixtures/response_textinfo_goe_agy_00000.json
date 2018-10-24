@@ -1,0 +1,4 @@
+{
+  "status" : 200,
+  "json" : {"errors":[[630,"Document not found"]],"messages":[["Response format is temporary"]],"@context":"http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld","meta":{},"document":{"@type":"koral:document","fields":[]}}
+}

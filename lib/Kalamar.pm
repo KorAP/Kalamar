@@ -210,9 +210,6 @@ sub startup {
   # Base query route
   $r->get('/')->to('search2#query')->name('index');
 
-  # Corpus route
-  $r->get('/corpus')->to('Search2#corpus_info')->name('corpus');
-
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:page')->to('documentation#page', scope => undef);
@@ -223,8 +220,9 @@ sub startup {
   $r->get('/contact')->mail_to_chiffre('documentation#contact');
 
   # Match route
-  my $corpus = $r->route('/corpus/:corpus_id');
-  my $doc    = $corpus->get('/:doc_id');
+  # Corpus route
+  my $corpus = $r->get('/corpus')->to('Search2#corpus_info')->name('corpus');
+  my $doc    = $r->route('/corpus/:corpus_id/:doc_id');
   my $text   = $doc->get('/:text_id')->to('search2#text_info')->name('text');
   my $match  = $doc->get('/:text_id/:match_id')->to('search2#match_info')->name('match');
 
@@ -234,9 +232,6 @@ sub startup {
   $user->get('/logout')->to(action => 'logout')->name('logout');
   # $r->any('/register')->to(action => 'register')->name('register');
   # $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
-
-  # Default user is called 'korap'
-  # $r->route('/user/:user/:collection')
 };
 
 

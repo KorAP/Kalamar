@@ -114,6 +114,24 @@ get '/search' => sub {
   return 1;
 };
 
+# Textinfo fixtures
+get '/corpus/:corpusId/:docId/:textId' => sub {
+  my $c = shift;
+
+  my $file = join('_', (
+    'textinfo',
+    $c->stash('corpusId'),
+    $c->stash('docId'),
+    $c->stash('textId')
+  ));
+
+  my $slug = slugify($file);
+
+  # Get response based on query parameter
+  my $response = $c->load_response($slug);
+  return $c->render(%$response);
+};
+
 
 # Matchinfo fixtures
 get '/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
