@@ -1,227 +1,461 @@
 package Kalamar::Controller::Search;
 use Mojo::Base 'Mojolicious::Controller';
-use Mojo::Util qw/deprecated/;
+use Mojo::Collection 'c';
+use Mojo::ByteStream 'b';
+use POSIX 'ceil';
+
+has no_cache => 0;
+
+has items_per_page => 25;
+
+# TODO:
+#   Support server timing API
+
+# TODO:
+#   Add match_info template for HTML
+#
+# TODO:
+#   Support search in corpus and virtualcollection
+#
+# TODO:
+#   set caches with timing like '120min'
 
 
-# Query the KorAP backends and render a template
+
+# Query endpoint
 sub query {
   my $c = shift;
+
+  # Validate user input
   my $v = $c->validation;
 
-  $v->optional('q');
-  $v->optional('ql');
-  $v->optional('collection');
-  $v->optional('action');
-  $v->optional('snippet');
-  $v->optional('cutoff');
-  $v->optional('count');
-  $v->optional('p');
+  $v->optional('q', 'trim');
+  $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
+  $v->optional('collection', 'trim'); # Legacy
+  $v->optional('cq', 'trim');
+  # $v->optional('action'); # action 'inspect' is no longer valid
+  # $v->optional('snippet');
+  $v->optional('cutoff')->in(qw/true false/);
+  $v->optional('count')->num(1, undef);
+  $v->optional('p', 'trim')->num(1, undef); # Start page
+  $v->optional('o', 'trim')->num(1, undef); # Offset
+  $v->optional('context');
 
-  #my $tx = $ua->build_tx(TRACE => $url . 'search?cq=corpusAuthor+%3D+%22Baum%22');
-  #{"@context":"http://korap.ids-mannheim.de/ns/koral/0.3/context.jsonld","errors":[[301,"You did not specify a query!"]],"collection":{"@type":"koral:doc","key":"corpusAuthor","value":"Baum","match":"match:eq"}}
-
+  # Get query
   my $query = $v->param('q');
+
+  # TODO:
+  #   Check for validation errors!
 
   # No query
   unless ($query) {
     return $c->render($c->loc('Template_intro', 'intro'));
   };
 
-  # Base parameters for remote access
-  my %param = (
-    query_language => scalar $v->param('ql'),
-    query => $query,
-    collection => scalar $v->param('collection')
-  );
+  my %query = ();
+  $query{q}       = $query;
+  $query{ql}      = $v->param('ql') // 'poliqarp';
+  $query{count}   = $v->param('count') // $c->items_per_page;
+  $query{cq}      = $v->param('cq') // $v->param('collection');
+  $query{cutoff}  = $v->param('cutoff');
+  # Before: 'base/s:p'/'paragraph'
+  $query{context} = $v->param('context') // '40-t,40-t';
 
-  # May be not relevant
-  my $inspect = (scalar $v->param('action') // '') eq 'inspect' ? 1 : 0;
+  # Start page
+  my $page = $v->param('p') // 1;
 
-  # Just check the serialization non-blocking
-  if ($inspect) {
-    $c->search->trace(
-      %param => sub {
-        return $c->render(template => 'query_info');
-      }
-    );
-    return;
+  $c->stash(query => $query);
+  $c->stash(ql => $query{ql});
+
+  my $items_per_page = $c->items_per_page;
+
+  # Set count
+  if ($query{count} && $query{count} <= $c->items_per_page ) {
+    $items_per_page = delete $query{count};
+    $query{count} = $items_per_page;
   };
 
-  # Choose the snippet based on the parameter
-  my $template = scalar $v->param('snippet') ? 'snippet' : 'search';
-
-  # Search non-blocking
-  my $tx = $c->render_later->tx;
+  $c->stash(items_per_page => $items_per_page);
 
   # TODO:
-  #   This should be simplified to use Promises only
-  Mojo::IOLoop->delay(
+  #   if ($v->param('action') eq 'inspect') use trace!
+
+  # Set offset
+  # From Mojolicious::Plugin::Search::Index
+  $query{offset} = $v->param('o') || ((($page // 1) - 1) * ($items_per_page || 1));
+
+  # Create remote request URL
+  my $url = Mojo::URL->new($c->korap->api);
+  $url->path('search');
+  # $url->query(%query);
+  $url->query(map { $_ => $query{$_}} sort keys %query);
+
+  # In case the user is not known, it is assumed, the user is not logged in
+  my $total_cache_str;
+
+  # Check if total results information is cached
+  my $total_results = -1;
+  unless ($c->no_cache) {
+
+    # Create cache string
+    my $user = $c->user->handle;
+    my $cache_url = $url->clone;
+    $cache_url->query->remove('context')->remove('count')->remove('cutoff')->remove('offset');
+    $total_cache_str = "total-$user-" . $cache_url->to_string;
+
+    $c->app->log->debug('Check for total results: ' . $total_cache_str);
+
+    # Get total results value
+    $total_results = $c->chi->get($total_cache_str);
+
+    # Set stash if cache exists
+    if (defined $total_results) {
+      $c->stash(total_results => $total_results);
+
+      $c->app->log->debug('Get total result from cache: ' . $total_results);
+
+      # Set cutoff unless already set
+      $url->query({cutoff => 'true'});
+    };
+  };
+
+  # Wait for rendering
+  $c->render_later;
+
+  # Fetch resource
+  $c->cached_koral_p('get', $url)->then(
+
+    # Process response
     sub {
-      my $delay = shift;
+      my $json = shift;
 
-      # Search with a callback (async)
-      $c->search(
-        cutoff     => scalar $v->param('cutoff'),
-        count      => scalar $v->param('count'),
-        start_page => scalar $v->param('p'),
-        cb         => $delay->begin,
-        %param
-      ) if $query;
+      #######################
+      # Cache total results #
+      #######################
+      # The stash is set in case the total results value is from the cache,
+      # so in that case, it does not need to be cached again
+      my $total_results = $c->stash('total_results');
 
-      # Search resource (async)
-      # $c->search->resource(
-      #   type => 'collection',
-      #   $delay->begin
-      # );
-    },
+      unless (defined $total_results) {
 
-    # Collected search
-    sub {
+        # There are results to remember
+        if ($json->{meta}->{totalResults} >= 0) {
 
-      # Render to the template
-      return $c->render(template => $template);
+          # Remove cutoff requirement again
+          # $url->query([cutoff => 'true']);
+
+          $total_results = $json->{meta}->{totalResults};
+          $c->stash(total_results => $total_results);
+
+          $c->app->log->debug('Set for total results: ' . $total_cache_str);
+
+          # Set cache
+          $c->chi->set($total_cache_str => $total_results);
+        }
+
+        # Undefined total results
+        else {
+          $c->stash(total_results => -1);
+        };
+      };
+
+
+      $c->stash(total_pages => 0);
+
+      # Set total pages
+      # From Mojolicious::Plugin::Search::Index
+      if ($total_results > 0) {
+        $c->stash(
+          total_pages => ceil($total_results / ($c->stash('items_per_page') || 1))
+        );
+      };
+
+      # Process meta
+      my $meta = $json->{meta};
+
+      # TODO:
+      #   Set benchmark in case of development mode only.
+      #   Use server timing API
+      #
+      # Reformat benchmark counter
+      # my $benchmark = $meta->{benchmark};
+      # if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
+      #   $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
+      # };
+      #
+      # # Set benchmark
+      # $self->stash(benchmark => $benchmark);
+
+      # Set time exceeded
+      if ($meta->{timeExceeded} &&
+            $meta->{timeExceeded} eq Mojo::JSON::true) {
+        $c->stash(time_exceeded => 1);
+      };
+
+      # Set result values
+      $c->stash(items_per_page => $meta->{itemsPerPage});
+
+      # Bouncing collection query
+      if ($json->{corpus} || $json->{collection}) {
+        $c->stash(corpus_jsonld => ($json->{corpus} || $json->{collection}));
+      };
+
+      # TODO:
+      #   scalar $v->param('snippet') ? 'snippet' : 'search';
+
+      # Render result
+      return $c->render(
+        q => $c->stash('query'),
+        ql => $c->stash('ql'),
+        start_page => $page,
+        start_index => $json->{meta}->{startIndex},
+        results => _map_matches($json->{matches}),
+        template => 'search'
+      );
     }
-  )->catch(sub { $c->helpers->reply->exception(pop) and undef $tx })->wait;
+
+      # Deal with errors
+  )->catch(
+    sub {
+      my $err_msg = shift;
+
+      # Only raised in case of connection errors
+      if ($err_msg) {
+        $c->stash('err_msg' => 'backendNotAvailable');
+        $c->notify(error => { src => 'Backend' } => $err_msg)
+      };
+
+      # $c->_notify_on_errors(shift);
+      return $c->render(
+        q => $c->stash('query'),
+        ql => $c->stash('ql'),
+        template => 'failure'
+      );
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
 };
 
 
-# Get meta data of a text
+# Corpus info endpoint
+# This replaces the collections endpoint
+sub corpus_info {
+  my $c = shift;
+
+  # Input validation
+  my $v = $c->validation;
+  $v->optional('cq');
+
+  my $url = Mojo::URL->new($c->korap->api);
+
+  # Use hash slice to create path
+  $url->path('statistics');
+
+  # Add query
+  $url->query(corpusQuery => $v->param('cq'));
+
+  $c->app->log->debug("Statistics info: $url");
+
+  # Async
+  $c->render_later;
+
+  # Request koral, maybe cached
+  $c->cached_koral_p('get', $url)
+
+  # Process response
+  ->then(
+    sub {
+      my $json = shift;
+      return $c->render(
+        json => $c->notifications(json => $json),
+        status => 200
+      );
+    }
+  )
+
+  # Deal with errors
+  ->catch(
+    sub {
+      return $c->render(
+        json => $c->notifications('json')
+      )
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
+};
+
+
+# Text info endpoint
 sub text_info {
   my $c = shift;
 
-  my %query = (fields => '*');
-  if ($c->param('fields')) {
-    $query{fields} = $c->param('fields')
-  };
+  # Input validation
+  my $v = $c->validation;
+  $v->optional('fields');
 
+  my %query = (fields => '@all');
+  $query{fields} = $v->param('fields') if $v->param('fields');
+
+  my $url = Mojo::URL->new($c->korap->api);
+
+  # Use hash slice to create path
+  $url->path(
+    join('/', (
+      'corpus',
+      $c->stash('corpus_id'),
+      $c->stash('doc_id'),
+      $c->stash('text_id')
+    ))
+  );
+  $url->query(%query);
+
+  # Async
   $c->render_later;
 
-  # Use the API for fetching matching information non-blocking
-  $c->search->text(
-    corpus_id => $c->stash('corpus_id'),
-    doc_id    => $c->stash('doc_id'),
-    text_id   => $c->stash('text_id'),
-    %query,
+  # Request koral, maybe cached
+  $c->cached_koral_p('get', $url)
 
-    # Callback for async search
+  # Process response
+  ->then(
     sub {
-      my $index = shift;
-      return $c->respond_to(
-
-        # Render json if requested
-        json => sub {
-          # Add notifications to the matching json
-          # TODO: There should be a special notification engine doing that!
-          my $notes = $c->notifications(json => $index->results->[0]);
-          $c->render(
-            json => $notes,
-            status => $index->status
-          );
-        }
+      my $json = shift;
+      return $c->render(
+        json => $c->notifications(json => $json),
+        status => 200
       );
     }
-  );
+  )
+
+  # Deal with errors
+  ->catch(
+    sub {
+      return $c->render(
+        json => $c->notifications('json')
+      )
+    }
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
 };
 
 
-
-# Get information about a match
-# Note: This is called 'match_info' as 'match' is reserved
+# Match info endpoint
 sub match_info {
   my $c = shift;
+
+  # Validate user input
+  my $v = $c->validation;
+  $v->optional('foundry');
+  $v->optional('layer');
+  $v->optional('spans')->in(qw/true false/);
 
   # Old API foundry/layer usage
   my $foundry = '*';
   my %query = (foundry => '*');
-  if ($c->param('foundry')) {
-    $query{foundry} = scalar $c->param('foundry');
-    if ($c->param('layer')) {
-      $query{layer} = scalar $c->param('layer');
-    };
-    if ($c->param('spans')) {
-      $query{spans} = 'true';
-    };
+  if ($v->param('foundry')) {
+    $query{foundry} = $v->param('foundry');
+    $query{layer} = $v->param('layer') if $v->param('layer');
+    $query{spans} = $v->param('spans') if $v->param('spans');
   };
 
-  # Async
+  # Create new request API
+  my $url = Mojo::URL->new($c->korap->api);
+
+  # Use stash information to create url path
+  $url->path(
+    join('/', (
+      'corpus',
+      $c->stash('corpus_id'),
+      $c->stash('doc_id'),
+      $c->stash('text_id'),
+      $c->stash('match_id'),
+      'matchInfo'
+    ))
+  );
+
+  # Set query parameters in order
+  $url->query(map { $_ => $query{$_}} sort keys %query);
+
   $c->render_later;
 
-  # Use the API for fetching matching information non-blocking
-  $c->search->match(
-    corpus_id => $c->stash('corpus_id'),
-    doc_id    => $c->stash('doc_id'),
-    text_id   => $c->stash('text_id'),
-    match_id  => $c->stash('match_id'),
-    %query,
-
-    # Callback for async search
+  $c->cached_koral_p('get', $url)->then(
     sub {
-      my $index = shift;
-      return $c->respond_to(
+      my $json = shift;
 
-        # Render json if requested
-        json => sub {
-          # Add notifications to the matching json
-          # TODO: There should be a special notification engine doing that!
-          my $notes = $c->notifications(json => $index->results->[0]);
-          $c->render(
-            json => $notes,
-            status => $index->status
-          );
-        },
+      # Process results
+      $json = _map_match($json);
+      $c->stash(results => $json);
 
-        # Render html if requested
-        html => sub {
-          return $c->render(
-            layout   => 'default',
-            template => 'match_info'
-          )
-        }
+      return $c->render(
+        json => $c->notifications(json => $json),
+        status => 200
       );
+
+      return $json;
     }
-  );
-};
+  )
 
-
-# Get information about collections
-sub corpus_info {
-  my $c = shift;
-  my $v = $c->validation;
-
-  $v->optional('cq');
-
-  # Async
-  $c->render_later;
-
-  $c->search->statistics(
-    cq => $v->param('cq'),
+  # Deal with errors
+  ->catch(
     sub {
-      my $notes = $c->notifications(json => $c->stash('search.resource'));
-      return $c->render(json => $notes);
+      return $c->render(
+        json => $c->notifications('json')
+      )
     }
-  );
+  )
+
+  # Start IOLoop
+  ->wait;
+
+  return 1;
 };
 
 
-sub collections {
-  my $c = shift;
-  # Async
-  $c->render_later;
-
-  deprecated 'collections() is deprecated in favour of corpus_info';
-
-  # Get resource (for all)
-  $c->search->resource(
-    type => 'collection',
-    sub {
-      my $notes = $c->notifications(json => $c->stash('search.resource'));
-      return $c->render(json => $notes);
-    }
-  );
+# Cleanup array of matches
+sub _map_matches {
+  return c() unless $_[0];
+  c(map { _map_match($_) } @{ shift() });
 };
+
+
+# Cleanup single match
+sub _map_match {
+  my $match = shift or return;
+
+  # Legacy match id
+  if ($match->{matchID}) {
+    $match->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\.[^-]+?-// or
+      $match->{matchID} =~ s!^match\-(?:[^\/]+\/){2}[^-]+?-!!;
+  };
+
+  return unless $match->{textSigle};
+
+  # Set IDs based on the sigle
+  (
+    $match->{corpusID},
+    $match->{docID},
+    $match->{textID}
+  ) = ($match->{textSigle} =~ /^([^_]+?)_+([^\.]+?)\.(.+?)$/);
+
+  return $match;
+};
+
 
 1;
 
+
+__END__
 
 __END__
 
@@ -306,12 +540,42 @@ Will default to 1.
 
 B<This parameter is directly forwarded to the API and may not be supported in the future.>
 
+=item B<o>
+
+If set, the matches will offset to the given match in the result set.
+Will default to 0.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+=item B<context>
+
+The context of the snippets to retrieve. Defaults to C<40-t,40-t>.
+
+B<This parameter is directly forwarded to the API and may not be supported in the future.>
+
+=item B<cq>
+
+The corpus query to limit the search to.
+
 =back
+
+
+=head2 corpus
+
+  /corpus?cq=corpusSigle+%3D+%22GOE%22
+
+Returns statistics information for a virtual corpus.
+
+=head2 text
+
+  /corpus/:corpus_id/:doc_id/:text_id
+
+Returns meta data information for a specific text.
 
 
 =head2 match
 
-  /:corpus_id/:doc_id/:text_id/:match_id?foundry=*
+  /corpus/:corpus_id/:doc_id/:text_id/:match_id?foundry=*
 
 Returns information to a match either as a C<JSON> or an C<HTML> document.
 The path defines the concrete match, by corpus identifier, document identifier,
@@ -345,33 +609,6 @@ B<This parameter is experimental and may change without warnings!>
 
 Boolean value - either C<true> or C<false> - indicating, whether span information
 (i.e. for tree structures) should be retrieved.
-
-=back
-
-In addition to the given parameters, the following path values are expected.
-
-=over 2
-
-=item B<corpus_id>
-
-The corpus sigle as defined by DeReKo.
-
-
-=item B<doc_id>
-
-The document sigle as defined by DeReKo.
-
-
-=item B<text_id>
-
-The text sigle as defined by DeReKo.
-
-
-=item B<match_id>
-
-The ID of the match, normally generated by the search backend.
-This contains the span of the match in the text and possibly further
-information (like highlights).
 
 =back
 

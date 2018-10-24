@@ -7,7 +7,7 @@ use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -142,7 +142,6 @@ sub startup {
 
   # Load plugins
   foreach (
-    'Search',                    # Abstract Search framework
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
     'KalamarErrors',             # Specific Errors for Kalamar
@@ -208,7 +207,7 @@ sub startup {
   });
 
   # Base query route
-  $r->get('/')->to('search2#query')->name('index');
+  $r->get('/')->to('search#query')->name('index');
 
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
@@ -221,10 +220,10 @@ sub startup {
 
   # Match route
   # Corpus route
-  my $corpus = $r->get('/corpus')->to('Search2#corpus_info')->name('corpus');
+  my $corpus = $r->get('/corpus')->to('search#corpus_info')->name('corpus');
   my $doc    = $r->route('/corpus/:corpus_id/:doc_id');
-  my $text   = $doc->get('/:text_id')->to('search2#text_info')->name('text');
-  my $match  = $doc->get('/:text_id/:match_id')->to('search2#match_info')->name('match');
+  my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
+  my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
 
   # User Management
   my $user = $r->any('/user')->to(controller => 'User');

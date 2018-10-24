@@ -243,7 +243,7 @@ sub register {
   # Establish 'search_results' taghelper
   # This is based on Mojolicious::Plugin::Search
   $mojo->helper(
-    search_results2 => sub {
+    search_results => sub {
       my $c = shift;
 
       # This is a tag helper for templates

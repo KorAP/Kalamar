@@ -1,8 +1,8 @@
 % use Mojo::JSON 'encode_json';
 
-% if (search->api_response) {
+% if (stash('api_response')) {
 %=  javascript begin
-%   my $kq_hash = search->api_response;
+%   my $kq_hash = stash('api_response');
 %   $kq_hash->{matches} = ["..."];
   KorAP.koralQuery = <%= b(encode_json($kq_hash))->decode %>;
 %   end

@@ -401,10 +401,3 @@ sub build_authorized_tx {
 
 __END__
 
-# Failure
-entity {
-  "errors":[
-    [204,"authentication token is expired","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MSIsImlzcyI6Imh0dHA6IiwiZXhwIjoxNDUyOTY2NzAxOTYxfQ.W_rJjJ8i82Srw7MiSPRGeIBLE-rMPmSPK9BA7Dt_7Yc"]
-  ]
-}
-

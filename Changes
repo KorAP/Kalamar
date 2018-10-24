@@ -1,3 +1,12 @@
+0.30 2018-10-24
+        - Rewrote backend:
+          - Removed dependency of Mojolicious::Plugin::Search.
+          - Removed abstract API.
+        - Improved backend error handling.
+        - Improved backend test suite.
+        - Removed MMap cache from default configuration
+          and rely on in-memory cache.
+
 0.29 2018-10-05
         - Deprecated Kalamar.api configuration key
           in favor of Kalamar.api_path.

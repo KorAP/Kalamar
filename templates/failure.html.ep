@@ -2,7 +2,7 @@
 
 <div id="resultinfo"><p class="found"></p></div>
 
-%= include 'query2'
+%= include 'query'
 
 <p class="no-results"><%= loc('notIssued') %></p>
 % if (stash('err_msg')) {
