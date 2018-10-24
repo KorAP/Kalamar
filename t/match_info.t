@@ -51,7 +51,7 @@ $t->get_ok('/corpus/notfound/X/X/p0-1')
 $t->get_ok('/corpus/fail/x/x/p0-0')
   ->status_is(200)
   ->json_is('/notifications/0/0', 'error')
-  ->json_is('/notifications/0/1', 'Unable to load query response from /home/ndiewald/Repositories/korap-git/Kalamar/t/fixtures/response_matchinfo_fail_x_x_p0-0.json')
+  ->json_like('/notifications/0/1', qr!Unable to load query response from .+?response_matchinfo_fail_x_x_p0-0\.json!)
   ;
 
 # TODO:
