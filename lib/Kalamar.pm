@@ -116,7 +116,8 @@ sub startup {
   # Client notifications
   $self->plugin(Notifications => {
     'Kalamar::Plugin::Notifications' => 1,
-    JSON => 1
+    JSON => 1,
+    'HTML' => 1
   });
 
   # Localization framework
@@ -208,10 +209,9 @@ sub startup {
 
   # Base query route
   $r->get('/')->to('search2#query')->name('index');
-  $r->get('/q2')->to('search2#query');
 
-  # Collection route
-  $r->get('/corpus')->to('Search#corpus_info')->name('corpus');
+  # Corpus route
+  $r->get('/corpus')->to('Search2#corpus_info')->name('corpus');
 
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
@@ -225,11 +225,8 @@ sub startup {
   # Match route
   my $corpus = $r->route('/corpus/:corpus_id');
   my $doc    = $corpus->get('/:doc_id');
-  my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
-  my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
-
-  $r->get('/corpus2')->to('Search2#corpus_info')->name('corpus');
-  $r->route('/corpus2/:corpus_id/:doc_id/:text_id/:match_id')->to('search2#match_info')->name('match');
+  my $text   = $doc->get('/:text_id')->to('search2#text_info')->name('text');
+  my $match  = $doc->get('/:text_id/:match_id')->to('search2#match_info')->name('match');
 
   # User Management
   my $user = $r->any('/user')->to(controller => 'User');

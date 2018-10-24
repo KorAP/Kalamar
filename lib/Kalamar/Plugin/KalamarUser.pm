@@ -86,6 +86,29 @@ sub register {
     }
   );
 
+  # Get user handle
+  $mojo->helper(
+    'user.handle' => sub {
+      my $c = shift;
+
+      # Get from stash
+      my $user = $c->stash('user');
+      return $user if $user;
+
+      # Get from session
+      $user = $c->session('user');
+
+      # Set in stash
+      if ($user) {
+        $c->stash(user => $user);
+        return $user;
+      };
+
+      return 'not_logged_in';
+    }
+  );
+
+
   # Request with authorization header
   $mojo->helper(
     'user.auth_request' => sub {

@@ -73,7 +73,11 @@ define([
     if (KorAP.Notifications !== undefined) {
       var n = KorAP.Notifications;
       for (var i = 0; i < n.length; i++) {
-        alertifyClass.log(n[i][1], n[i][0], 10000);
+        var msg = n[i][1];
+        if (n[i][2]) {
+          msg += '<code class="src">'+n[i][2]+'</code>';
+        };
+        alertifyClass.log(msg, n[i][0], 10000);
       };
     };
 

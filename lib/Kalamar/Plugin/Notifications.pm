@@ -21,6 +21,9 @@ sub notifications {
   foreach (@$notify_array) {
     $js .= 'KorAP.Notifications.push([';
     $js .= quote($_->[0]) . ',' . quote($_->[-1]);
+    if (ref $_->[1] && ref $_->[1] eq 'HASH') {
+      $js .= ',' . quote($_->[1]->{src}) if $_->[1]->{src};
+    };
     $js .= "]);\n";
 
     $noscript .= qq{<div class="notify notify-} . $_->[0] . '">' .

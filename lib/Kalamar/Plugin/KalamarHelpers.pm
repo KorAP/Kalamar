@@ -277,23 +277,14 @@ sub register {
   );
 
 
-  # Get a cached request from the backend
+  # Get a cached request from the backend as a promise
   $mojo->helper(
     cached_koral_p => sub {
       my ($c, $method, $url) = @_;
 
       # In case the user is not known, it is assumed,
       # the user is not logged in
-      my $user = $c->stash('user');
-      unless ($user) {
-        $user = $c->session('user');
-        if ($user) {
-          $c->stash(user => $user);
-        }
-        else {
-          $user = 'not_logged_in';
-        }
-      };
+      my $user = $c->user->handle;
 
       # Set api request for debugging
       my $cache_str = "$method-$user-" . $url->to_string;
@@ -302,10 +293,10 @@ sub register {
       if ($c->no_cache) {
         return $c->user->auth_request_p($method => $url)->then(
           sub {
-            my $json = shift;
+            my $tx = shift;
             # Catch errors and warnings
-            $c->stash(api_response => $json);
-            return $c->catch_errors_and_warnings($json);
+            return ($c->catch_errors_and_warnings($tx) ||
+              Mojo::Promise->new->reject);
           }
         );
       };
@@ -319,7 +310,7 @@ sub register {
       if ($koral) {
 
         # Mark response as cache
-        $koral->{'X-cached'} = Mojo::JSON->true;
+        $c->res->headers->add('X-Kalamar-Cache' => 'true');
 
         # The promise is already satisfied by the cache
         return Mojo::Promise->new->resolve($koral)->then(
@@ -335,17 +326,15 @@ sub register {
       # Resolve request
       return $c->user->auth_request_p($method => $url)->then(
         sub {
-          my $json = shift;
-          # Catch errors and warnings
-          $c->stash(api_response => $json);
-          return $c->catch_errors_and_warnings($json);
+          my $tx = shift;
+          return ($c->catch_errors_and_warnings($tx) ||
+                    Mojo::Promise->new->reject);
         }
       )->then(
         # Cache on success
         sub {
           my $json = shift;
           $c->chi->set($cache_str => $json);
-          $c->stash(api_response => $json);
           return $json;
         }
       );

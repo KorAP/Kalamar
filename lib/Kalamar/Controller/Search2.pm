@@ -23,9 +23,6 @@ sub query {
   # Validate user input
   my $v = $c->validation;
 
-  # In case the user is not known, it is assumed, the user is not logged in
-  my $user = $c->stash('user') // 'not_logged_in';
-
   $v->optional('q', 'trim');
   $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
   $v->optional('collection', 'trim'); # Legacy
@@ -50,28 +47,33 @@ sub query {
   };
 
   my %query = ();
-  $query{q}       = $v->param('q');
+  $query{q}       = $query;
   $query{ql}      = $v->param('ql') // 'poliqarp';
-  $query{p}       = $v->param('p') // 1; # Start page
   $query{count}   = $v->param('count') // $c->items_per_page;
   $query{cq}      = $v->param('cq') // $v->param('collection');
   $query{cutoff}  = $v->param('cutoff');
-
   # Before: 'base/s:p'/'paragraph'
   $query{context} = $v->param('context') // '40-t,40-t';
+
+  # Start page
+  my $page = $v->param('p') // 1;
+
+  $c->stash(query => $query);
+  $c->stash(ql => $query{ql});
 
   my $items_per_page = $c->items_per_page;
 
   # Set count
   if ($query{count} && $query{count} <= $c->items_per_page ) {
     $items_per_page = delete $query{count};
+    $query{count} = $items_per_page;
   };
 
   $c->stash(items_per_page => $items_per_page);
 
   # Set offset
   # From Mojolicious::Plugin::Search::Index
-  $query{o} = $v->param('o') || ((($query{p} // 1) - 1) * ($items_per_page || 1));
+  $query{offset} = $v->param('o') || ((($page // 1) - 1) * ($items_per_page || 1));
 
 
   # already set by stash - or use plugin param
@@ -95,26 +97,34 @@ sub query {
   # $url->query(%query);
   $url->query(map { $_ => $query{$_}} sort keys %query);
 
-  # Check if total results is cached
+  # In case the user is not known, it is assumed, the user is not logged in
+  my $total_cache_str;
+
+  # Check if total results information is cached
   my $total_results = -1;
   unless ($c->no_cache) {
 
+    # Create cache string
+    my $user = $c->user->handle;
+    my $cache_url = $url->clone;
+    $cache_url->query->remove('context')->remove('count')->remove('cutoff')->remove('offset');
+    $total_cache_str = "total-$user-" . $cache_url->to_string;
+
+    $c->app->log->debug('Check for total results: ' . $total_cache_str);
+
     # Get total results value
-    $total_results = $c->chi->get('total-' . $user . '-' . $url->to_string);
+    $total_results = $c->chi->get($total_cache_str);
 
     # Set stash if cache exists
-    $c->stash(total_results => $total_results) if $total_results;
-    $c->app->log->debug('Get total result from cache');
+    if (defined $total_results) {
+      $c->stash(total_results => $total_results);
 
-    # Set cutoff unless already set
-    $url->query({cutoff => 'true'});
+      $c->app->log->debug('Get total result from cache: ' . $total_results);
+
+      # Set cutoff unless already set
+      $url->query({cutoff => 'true'});
+    };
   };
-
-  # Choose the snippet based on the parameter
-  # TODO:
-  #   scalar $v->param('snippet') ? 'snippet' : 'search2';
-  $c->stash(template => 'search2');
-
 
   # Wait for rendering
   $c->render_later;
@@ -132,26 +142,30 @@ sub query {
       # The stash is set in case the total results value is from the cache,
       # so in that case, it does not need to be cached again
       my $total_results = $c->stash('total_results');
-      if (!$total_results) {
+
+      unless (defined $total_results) {
 
         # There are results to remember
         if ($json->{meta}->{totalResults} >= 0) {
 
           # Remove cutoff requirement again
-          $url->query([cutoff => 'true']);
+          # $url->query([cutoff => 'true']);
 
           $total_results = $json->{meta}->{totalResults};
           $c->stash(total_results => $total_results);
 
+          $c->app->log->debug('Set for total results: ' . $total_cache_str);
+
           # Set cache
-          $c->chi->set(
-            'total-' . $user . '-' . $url->to_string => $total_results
-          );
+          $c->chi->set($total_cache_str => $total_results);
+        }
+
+        # Undefined total results
+        else {
+          $c->stash(total_results => -1);
         };
-      }
-      else {
-        $c->stash(total_results => -1);
-      }
+      };
+
 
       $c->stash(total_pages => 0);
 
@@ -163,28 +177,76 @@ sub query {
         );
       };
 
-      # Process match results
-      $c->_process_query_response($json);
+      # Process meta
+      my $meta = $json->{meta};
+
+      # TODO:
+      #   Set benchmark in case of development mode only.
+      #   Use server timing API
+      #
+      # Reformat benchmark counter
+      # my $benchmark = $meta->{benchmark};
+      # if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
+      #   $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
+      # };
+      #
+      # # Set benchmark
+      # $self->stash(benchmark => $benchmark);
+
+      # Set time exceeded
+      if ($meta->{timeExceeded} &&
+            $meta->{timeExceeded} eq Mojo::JSON::true) {
+        $c->stash(time_exceeded => 1);
+      };
+
+      # Set result values
+      $c->stash(items_per_page => $meta->{itemsPerPage});
+
+      ## Bouncing query
+      ##  if ($json->{query}) {
+      ##    $index->query_jsonld($json->{query});
+      ##  };
+
+      ## Legacy
+      ## elsif ($json->{request}->{query}) {
+      ##   $index->query_jsonld($json->{request}->{query});
+      ## };
+
+      # Bouncing collection query
+      if ($json->{corpus} || $json->{collection}) {
+        $c->stash(corpus_jsonld => ($json->{corpus} || $json->{collection}));
+      };
+
+      # TODO:
+      #   scalar $v->param('snippet') ? 'snippet' : 'search2';
 
       # Render result
       return $c->render(
-        q => $query,
-        ql => $query{ql},
-        start_page => $query{p},
+        q => $c->stash('query'),
+        ql => $c->stash('ql'),
+        start_page => $page,
+        start_index => $json->{meta}->{startIndex},
+        results => _map_matches($json->{matches}),
+        template => 'search2'
       );
-
     }
 
       # Deal with errors
   )->catch(
     sub {
+      my $err_msg = shift;
+
+      # Only raised in case of connection errors
+      if ($err_msg) {
+        $c->stash('err_msg' => 'backendNotAvailable');
+        $c->notify(error => { src => 'Backend' } => $err_msg)
+      };
 
       # $c->_notify_on_errors(shift);
       return $c->render(
-        results => c(),
-        q => $query,
-        ql => $query{ql},
-        start_page => 1
+        q => $c->stash('query'),
+        ql => $c->stash('ql'),
+        template => 'failure'
       );
     }
   )
@@ -350,63 +412,6 @@ sub _map_match {
   ) = ($match->{textSigle} =~ /^([^_]+?)_+([^\.]+?)\.(.+?)$/);
 
   return $match;
-};
-
-
-# Process response and set stash values
-sub _process_query_response {
-  my ($self, $json) = @_;
-
-    # Process meta
-  my $meta = $json->{meta};
-
-  # TODO:
-  #   Set benchmark in case of development mode only.
-  #   Use server timing API
-  #
-  # Reformat benchmark counter
-  # my $benchmark = $meta->{benchmark};
-  # if ($benchmark && $benchmark =~ s/\s+(m)?s$//) {
-  #   $benchmark = sprintf("%.2f", $benchmark) . ($1 ? $1 : '') . 's';
-  # };
-  #
-  # # Set benchmark
-  # $self->stash(benchmark => $benchmark);
-
-  # Set time exceeded
-  if ($meta->{timeExceeded} && $meta->{timeExceeded} eq Mojo::JSON::true) {
-    $self->stash(time_exceeded => 1);
-  };
-
-  # Set result values
-  $self->stash(items_per_page => $meta->{itemsPerPage});
-
-  ## Bouncing query
-  ##  if ($json->{query}) {
-  ##    $index->query_jsonld($json->{query});
-  ##  };
-
-  ## Legacy
-  ## elsif ($json->{request}->{query}) {
-  ##   $index->query_jsonld($json->{request}->{query});
-  ## };
-
-
-  if ($meta->{totalResults}) {
-    $self->stash(total_results => $meta->{totalResults});
-  };
-
-  # Bouncing collection query
-  if ($json->{corpus} || $json->{collection}) {
-    $self->stash(corpus_jsonld => ($json->{corpus} || $json->{collection}));
-  };
-
-  # Set results to stash
-  $self->stash(
-    results => _map_matches($json->{matches})
-  );
-
-  return;
 };
 
 

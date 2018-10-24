@@ -1,6 +1,6 @@
 % my $msg = stash('msg') // loc('notFound');
 % layout 'main', title => 'KorAP: ' . loc('notFound');
 
-<p id="no-results"><%= $msg %></p>
+<p class="no-results"><%= $msg %></p>
 
 % notify('warn' => $msg);

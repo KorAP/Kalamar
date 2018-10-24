@@ -36,6 +36,8 @@ helper 'load_response' => sub {
   my $c = shift;
   my $q_name = shift;
   my $file = $fixture_path->child("response_$q_name.json");
+  $c->app->log->debug("Load response from $file");
+
   unless (-f $file) {
     return {
       status => 500,
@@ -44,6 +46,7 @@ helper 'load_response' => sub {
       }
     }
   };
+
   my $response = $file->slurp;
   return decode_json($response);
 };
@@ -64,6 +67,8 @@ get '/search' => sub {
   $v->optional('ql');
   $v->optional('count');
   $v->optional('context');
+  $v->optional('offset');
+  $v->optional('cutoff')->in(qw/true false/);
 
   $c->app->log->debug('Receive request');
 
@@ -78,11 +83,16 @@ get '/search' => sub {
   };
 
   if (!$v->param('q')) {
-    return $c->render(%{$c->load_response('no_query')});
+    return $c->render(%{$c->load_response('query_no_query')});
   };
 
+  my @slug_base = ($v->param('q'));
+  push @slug_base, 'o' . $v->param('offset') if defined $v->param('offset');
+  push @slug_base, 'c' . $v->param('count') if defined $v->param('count');
+  push @slug_base, 'co' . $v->param('cutoff') if defined $v->param('cutoff');
+
   # Get response based on query parameter
-  my $response = $c->load_response(slugify($v->param('q')));
+  my $response = $c->load_response('query_' . slugify(join('_', @slug_base)));
 
   # Check authentification
   if (my $auth = $c->req->headers->header('Authorization')) {

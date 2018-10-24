@@ -25,37 +25,37 @@ my $fake_backend = $t->app->plugin(
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
 # Query passed
-$t->get_ok('/corpus2')
+$t->get_ok('/corpus')
   ->status_is(200)
   ->json_is('/documents', 11)
   ->json_is('/tokens', 665842)
   ->json_is('/sentences', 25074)
   ->json_is('/paragraphs', 772)
-  ->json_is('/X-cached', undef)
+  ->header_isnt('X-Kalamar-Cache', 'true')
   ;
 
-$t->get_ok('/corpus2?cq=docSigle+%3D+\"GOE/AGA\"')
+$t->get_ok('/corpus?cq=docSigle+%3D+\"GOE/AGA\"')
   ->status_is(200)
   ->json_is('/documents', 5)
   ->json_is('/tokens', 108557)
   ->json_is('/sentences', 3835)
   ->json_is('/paragraphs', 124)
-  ->json_is('/X-cached', undef)
+  ->header_isnt('X-Kalamar-Cache', 'true')
   ;
 
-$t->get_ok('/corpus2?cq=4')
+$t->get_ok('/corpus?cq=4')
   ->status_is(400)
   ->json_is('/notifications/0/1', "302: Could not parse query >>> (4) <<<.")
   ;
 
 # Query passed
-$t->get_ok('/corpus2')
+$t->get_ok('/corpus')
   ->status_is(200)
   ->json_is('/documents', 11)
   ->json_is('/tokens', 665842)
   ->json_is('/sentences', 25074)
   ->json_is('/paragraphs', 772)
-  ->json_is('/X-cached', 1)
+  ->header_is('X-Kalamar-Cache', 'true')
   ;
 
 

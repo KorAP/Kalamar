@@ -23,13 +23,9 @@ my $fake_backend = $t->app->plugin(
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
 
+
 if (0) {
 
-$t->get_ok('/')
-  ->status_is(200)
-  ->text_is('title', 'KorAP - Corpus Analysis Platform')
-  ->text_like('h1 span', qr/KorAP - Corpus Analysis Platform/i)
-  ;
 
 # Check paging
 $t->get_ok('/?q=Baum')
@@ -75,13 +71,12 @@ $t->get_ok('/?q=server_fail&ql=poliqarp')
 };
 
 
-
-
 # Check for query error
 $t->get_ok('/?q=[orth=das&ql=poliqarp')
   ->element_exists('.notify-error')
   ->text_is('.notify-error', '302: Parantheses/brackets unbalanced.')
   ->content_like(qr!KorAP\.koralQuery =!)
+  ->text_is('.no-results:nth-of-type(1)', 'Unable to perform the search.')
   ;
 
 done_testing;

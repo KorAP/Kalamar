@@ -59,11 +59,11 @@ sub register {
     }
   );
 
-  # Catch connection errors
+  # Catch errors and warnings
+  # This won't be called for connection errors!
   $mojo->helper(
     catch_errors_and_warnings => sub {
       my ($c, $tx) = @_;
-
       my $err = $tx->error;
 
       if ($err && $err->{code} != 500) {
@@ -79,17 +79,19 @@ sub register {
       if (!$json && !$err) {
 
         $c->notify(error => 'JSON response is invalid');
-        return Mojo::Promise->new->reject;
+        return; # Mojo::Promise->new->reject;
       };
 
       # There is json
       if ($json) {
 
+        $c->stash(api_response => $json);
+
         # There are errors
         if ($c->notify_on_errors($json)) {
 
           # Return on errors - ignore warnings
-          return Mojo::Promise->new->reject;
+          return;# Mojo::Promise->new->reject;
         };
 
         # Notify on warnings
@@ -99,7 +101,7 @@ sub register {
         if ($json->{status}) {
 
           $c->notify(error => 'Middleware error ' . $json->{'status'});
-          return Mojo::Promise->new->reject;
+          return;# Mojo::Promise->new->reject;
         };
       }
 
@@ -108,7 +110,7 @@ sub register {
 
         # Send rejection promise
         $c->notify(error => $err->{code} . ': ' . $err->{message});
-        return Mojo::Promise->new->reject;
+        return; #Mojo::Promise->new->reject;
       };
 
       return $json;

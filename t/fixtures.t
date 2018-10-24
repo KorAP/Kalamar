@@ -24,16 +24,18 @@ $t->get_ok('/search?q=server_fail')
   ->content_like(qr!Oooops!)
   ;
 
-$t->get_ok('/search?q=[orth=das&ql=poliqarp')
+$t->get_ok('/search?q=[orth=das&ql=poliqarp&offset=0&count=25')
   ->status_is(400)
+  ->text_is('#error', '')
   ->json_is('/errors/0/0',302)
   ->json_is('/errors/0/1','Parantheses/brackets unbalanced.')
   ->json_is('/errors/1/0',302)
   ->json_is('/errors/1/1','Could not parse query >>> [orth=das <<<.')
   ;
 
-$t->get_ok('/search?q=baum&ql=poliqarp')
+$t->get_ok('/search?q=baum&ql=poliqarp&offset=0&count=25')
   ->status_is(200)
+  ->text_is('#error', '')
   ->json_is('/meta/count', 25)
   ->json_is('/meta/serialQuery', "tokens:s:Baum")
   ->json_is('/matches/0/docSigle', "GOE/AGI")
