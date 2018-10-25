@@ -27,7 +27,6 @@ WriteMakefile(
     'Mojo::JWT' => 0.05,
 
     # Currently on GitHub only (github.com/akron)
-    'Mojolicious::Plugin::Search' => 0.08,
     'Mojolicious::Plugin::Localize' => 0.20,
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.08,
   },
