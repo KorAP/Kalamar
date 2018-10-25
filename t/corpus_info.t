@@ -14,11 +14,11 @@ my $t = Test::Mojo->new('Kalamar');
 
 # Mount fake backend
 # Get the fixture path
-my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'server');
 my $fake_backend = $t->app->plugin(
   Mount => {
     $mount_point =>
-      $fixtures_path->child('fake_backend.pl')
+      $fixtures_path->child('mock.pl')
   }
 );
 # Configure fake backend

@@ -14,11 +14,11 @@ my $t = Test::Mojo->new('Kalamar');
 
 # Mount fake backend
 # Get the fixture path
-my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'server');
 my $fake_backend = $t->app->plugin(
   Mount => {
     $mount_point =>
-      $fixtures_path->child('fake_backend.pl')
+      $fixtures_path->child('mock.pl')
   }
 );
 # Configure fake backend
@@ -78,6 +78,15 @@ $t->get_ok('/?q=[orth=das')
   ->text_is('div.notify-error:nth-of-type(1)', '302: Parantheses/brackets unbalanced.')
   ->text_like('div.notify-error:nth-of-type(2)', qr!302: Could not parse query .+? \[orth=das.+?!)
   ;
+
+# Check for query error with ql (from remote.t)
+$t->get_ok('/?q=[orth=das&ql=poliqarp')
+  ->element_exists('.notify-error')
+  ->text_is('.notify-error', '302: Parantheses/brackets unbalanced.')
+  ->content_like(qr!KorAP\.koralQuery =!)
+  ->text_is('.no-results:nth-of-type(1)', 'Unable to perform the search.')
+  ;
+
 
 # Query with partial cache (for total results)
 $t->get_ok('/?q=baum')

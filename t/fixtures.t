@@ -4,9 +4,9 @@ use Test::Mojo;
 use Mojo::File qw/path/;
 
 # Get the fixture path
-my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
+my $mock_server = path(Mojo::File->new(__FILE__)->dirname, 'server')->child('mock.pl');
 
-my $t = Test::Mojo->new($fixtures_path->child('fake_backend.pl'));
+my $t = Test::Mojo->new($mock_server);
 
 $t->get_ok('/')
   ->status_is(200)

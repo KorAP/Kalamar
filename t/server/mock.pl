@@ -12,7 +12,7 @@ use Mojo::Util qw/slugify/;
 # This is an API fake server with fixtures
 
 my $secret = 's3cr3t';
-my $fixture_path = path(Mojo::File->new(__FILE__)->dirname);
+my $fixture_path = path(Mojo::File->new(__FILE__)->dirname)->child('..', 'fixtures');
 
 helper jwt_encode => sub {
   shift;
