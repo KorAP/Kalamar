@@ -157,7 +157,22 @@ $t->get_ok('/?q=der&p=2&count=2')
   ->content_like(qr!\"cutOff":true!)
   ;
 
-
+# Query with failing parameters
+$t->get_ok('/?q=fantastisch&ql=Fabelsprache')
+  ->status_is(400)
+  ->text_is('noscript div.notify-error', 'Parameter "ql" invalid')
+  ->element_count_is('noscript div.notify-error', 1)
+  ;
+$t->get_ok('/?q=fantastisch&cutoff=no')
+  ->status_is(400)
+  ->text_is('noscript div.notify-error', 'Parameter "cutoff" invalid')
+  ->element_count_is('noscript div.notify-error', 1)
+  ;
+$t->get_ok('/?q=fantastisch&p=hui&o=hui&count=-8')
+  ->status_is(400)
+  ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
+  ->element_count_is('noscript div.notify-error', 3)
+  ;
 
 
 done_testing;

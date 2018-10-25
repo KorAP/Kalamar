@@ -98,6 +98,11 @@ $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*')
   ->header_is('X-Kalamar-Cache', 'true')
   ;
 
+# Check for validation error
+$t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no')
+  ->status_is(400)
+  ->json_is('/notifications/0/1', 'Parameter "spans" invalid')
+  ;
 
 done_testing;
 __END__

@@ -2,6 +2,7 @@ package Kalamar::Controller::Search;
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Collection 'c';
 use Mojo::ByteStream 'b';
+use Mojo::Util qw/quote/;
 use POSIX 'ceil';
 
 has no_cache => 0;
@@ -32,20 +33,17 @@ sub query {
   $v->optional('q', 'trim');
   $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
   $v->optional('collection', 'trim'); # Legacy
-  $v->optional('cq', 'trim');
-  # $v->optional('action'); # action 'inspect' is no longer valid
-  # $v->optional('snippet');
+  $v->optional('cq', 'trim');         # New
   $v->optional('cutoff')->in(qw/true false/);
   $v->optional('count')->num(1, undef);
   $v->optional('p', 'trim')->num(1, undef); # Start page
   $v->optional('o', 'trim')->num(1, undef); # Offset
   $v->optional('context');
+  # $v->optional('action'); # action 'inspect' is no longer valid
+  # $v->optional('snippet');
 
   # Get query
   my $query = $v->param('q');
-
-  # TODO:
-  #   Check for validation errors!
 
   # No query
   unless ($query) {
@@ -64,8 +62,21 @@ sub query {
   # Start page
   my $page = $v->param('p') // 1;
 
-  $c->stash(query => $query);
+  $c->stash(q => $query);
   $c->stash(ql => $query{ql});
+
+  # Check validation
+  if ($v->has_error) {
+
+    # Create error notifications
+    foreach my $failed_field (@{$v->failed}) {
+      $c->notify(error => 'Parameter ' . quote($failed_field) . ' invalid');
+    };
+    return $c->render(
+      status => 400,
+      template => 'failure'
+    );
+  };
 
   my $items_per_page = $c->items_per_page;
 
@@ -205,8 +216,6 @@ sub query {
 
       # Render result
       return $c->render(
-        q => $c->stash('query'),
-        ql => $c->stash('ql'),
         start_page => $page,
         start_index => $json->{meta}->{startIndex},
         results => _map_matches($json->{matches}),
@@ -227,8 +236,6 @@ sub query {
 
       # $c->_notify_on_errors(shift);
       return $c->render(
-        q => $c->stash('query'),
-        ql => $c->stash('ql'),
         template => 'failure'
       );
     }
@@ -359,6 +366,19 @@ sub match_info {
   $v->optional('foundry');
   $v->optional('layer');
   $v->optional('spans')->in(qw/true false/);
+
+  # Check validation
+  if ($v->has_error) {
+
+    # Create error notifications
+    foreach my $failed_field (@{$v->failed}) {
+      $c->notify(error => 'Parameter ' . quote($failed_field) . ' invalid');
+    };
+    return $c->render(
+      status => 400,
+      json => $c->notifications('json')
+    );
+  };
 
   # Old API foundry/layer usage
   my $foundry = '*';
