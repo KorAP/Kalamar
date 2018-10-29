@@ -62,7 +62,7 @@ sub logout {
 };
 
 
-
+# Currently not in used
 sub register {
   my $c = shift;
   $c->render(json => {
@@ -71,7 +71,7 @@ sub register {
 };
 
 
-
+# Currently not in use
 sub pwdforgotten {
   my $c = shift;
   $c->render(json => {

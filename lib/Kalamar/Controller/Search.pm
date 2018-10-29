@@ -34,13 +34,18 @@ sub query {
   $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
   $v->optional('collection', 'trim'); # Legacy
   $v->optional('cq', 'trim');         # New
-  $v->optional('cutoff')->in(qw/true false/);
-  $v->optional('count')->num(1, undef);
+  $v->optional('cutoff', 'trim')->in(qw/true false/);
+  $v->optional('count', 'trim')->num(1, undef);
   $v->optional('p', 'trim')->num(1, undef); # Start page
   $v->optional('o', 'trim')->num(1, undef); # Offset
   $v->optional('context');
   # $v->optional('action'); # action 'inspect' is no longer valid
   # $v->optional('snippet');
+
+  my $cutoff = 0;
+  if ($v->param('cutoff') && $v->param('cutoff') =~ /true/i) {
+    $cutoff = 1;
+  };
 
   # Get query
   my $query = $v->param('q');
@@ -106,7 +111,8 @@ sub query {
 
   # Check if total results information is cached
   my $total_results = -1;
-  unless ($c->no_cache) {
+
+  if (!$cutoff && !$c->no_cache) {
 
     # Create cache string
     my $user = $c->user->handle;
@@ -150,7 +156,7 @@ sub query {
       unless (defined $total_results) {
 
         # There are results to remember
-        if ($json->{meta}->{totalResults} >= 0) {
+        if (!$cutoff && $json->{meta}->{totalResults} >= 0) {
 
           # Remove cutoff requirement again
           # $url->query([cutoff => 'true']);
@@ -167,6 +173,7 @@ sub query {
         # Undefined total results
         else {
           $c->stash(total_results => -1);
+          $total_results = -1;
         };
       };
 

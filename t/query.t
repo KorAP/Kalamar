@@ -100,6 +100,30 @@ $t->get_ok('/?q=baum')
   ->text_is('#total-results', 51)
   ;
 
+# Query without partial cache (unfortunately) (but no total results)
+$t->get_ok('/?q=baum&cutoff=true')
+  ->status_is(200)
+  ->text_is('#error','')
+  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
+  ->header_isnt('X-Kalamar-Cache', 'true')
+  ->content_like(qr!\"cutOff":true!)
+  ->element_exists_not('#total-results')
+  ;
+
+# Query with partial cache (but no total results)
+$t->get_ok('/?q=baum&cutoff=true')
+  ->status_is(200)
+  ->text_is('#error','')
+  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
+  ->header_is('X-Kalamar-Cache', 'true')
+  ->content_like(qr!\"cutOff":true!)
+  ->element_exists_not('#total-results')
+  ;
+
 # Query with full cache
 $t->get_ok('/?q=baum')
   ->status_is(200)
