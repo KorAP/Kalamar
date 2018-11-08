@@ -21,8 +21,6 @@ has items_per_page => 25;
 # TODO:
 #   set caches with timing like '120min'
 
-
-
 # Query endpoint
 sub query {
   my $c = shift;
@@ -30,11 +28,11 @@ sub query {
   # Validate user input
   my $v = $c->validation;
 
-  $v->optional('q', 'trim');
+  $v->optional('q', 'trim')->size(1,1000);
   $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
   $v->optional('collection', 'trim'); # Legacy
   $v->optional('cq', 'trim');         # New
-  $v->optional('cutoff', 'trim')->in(qw/true false/);
+  $v->optional('cutoff', 'trim')->in(qw/1 0 true false/);
   $v->optional('count', 'trim')->num(1, undef);
   $v->optional('p', 'trim')->num(1, undef); # Start page
   $v->optional('o', 'trim')->num(1, undef); # Offset
@@ -43,31 +41,20 @@ sub query {
   # $v->optional('snippet');
 
   my $cutoff = 0;
-  if ($v->param('cutoff') && $v->param('cutoff') =~ /true/i) {
+  if ($v->param('cutoff') && $v->param('cutoff') =~ /^1|true$/i) {
     $cutoff = 1;
   };
 
-  # Get query
-  my $query = $v->param('q');
-
-  # No query
-  unless ($query) {
+  # No query (Check ignoring validation)
+  unless ($c->param('q')) {
     return $c->render($c->loc('Template_intro', 'intro'));
   };
 
   my %query = ();
-  $query{q}       = $query;
-  $query{ql}      = $v->param('ql') // 'poliqarp';
-  $query{count}   = $v->param('count') // $c->items_per_page;
-  $query{cq}      = $v->param('cq') // $v->param('collection');
-  $query{cutoff}  = $v->param('cutoff');
-  # Before: 'base/s:p'/'paragraph'
-  $query{context} = $v->param('context') // '40-t,40-t';
+  $query{q}  = $v->param('q')  // '';
+  $query{ql} = $v->param('ql') // 'poliqarp';
 
-  # Start page
-  my $page = $v->param('p') // 1;
-
-  $c->stash(q => $query);
+  $c->stash(q  => $query{q});
   $c->stash(ql => $query{ql});
 
   # Check validation
@@ -82,6 +69,16 @@ sub query {
       template => 'failure'
     );
   };
+
+
+  $query{count}   = $v->param('count') // $c->items_per_page;
+  $query{cq}      = $v->param('cq') // $v->param('collection');
+  $query{cutoff}  = $v->param('cutoff');
+  # Before: 'base/s:p'/'paragraph'
+  $query{context} = $v->param('context') // '40-t,40-t';
+
+  # Start page
+  my $page = $v->param('p') // 1;
 
   my $items_per_page = $c->items_per_page;
 

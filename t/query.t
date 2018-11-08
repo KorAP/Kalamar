@@ -24,6 +24,8 @@ my $fake_backend = $t->app->plugin(
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
+if (0) {
+
 # Query passed
 $t->get_ok('/?q=baum')
   ->status_is(200)
@@ -196,6 +198,16 @@ $t->get_ok('/?q=fantastisch&p=hui&o=hui&count=-8')
   ->status_is(400)
   ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
   ->element_count_is('noscript div.notify-error', 3)
+  ;
+
+};
+
+# Query too long
+my $long_query = 'b' x 2000;
+$t->get_ok('/?q=' . $long_query)
+  ->status_is(400)
+  ->text_is('#error','')
+  ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
   ;
 
 
