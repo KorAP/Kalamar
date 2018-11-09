@@ -1,4 +1,4 @@
-0.30 2018-10-24
+0.30 2018-11-09
         - Rewrote backend:
           - Removed dependency of Mojolicious::Plugin::Search.
           - Removed abstract API.
