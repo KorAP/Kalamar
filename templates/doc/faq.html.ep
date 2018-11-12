@@ -19,3 +19,5 @@
   <p>Please refer to our public ticketing system <%= doc_ext_link_to 'for the frontend at GitHub', 'https://github.com/KorAP/Kalamar/issues' %>, to report on any issues. If you don't have a GitHub account, please send us an <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found an issue', begin %>e-mail<% end %>.</p>
   %# This option is the preferred one because it gathers some (and will in time gather more) important versioning data.
 </section>
+
+%= content_block 'faq'

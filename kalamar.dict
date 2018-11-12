@@ -205,5 +205,13 @@ my $THOUSAND_SEP_RE = qr/(
       '#default-foundries' => 'Default Foundries',
       'faq' => 'F.A.Q.'
     }
+  },
+  Piwik => {
+    en => {
+      'HowToOptOut' => 'How to opt-out from Piwik/Matomo tracking?'
+    },
+    de => {
+      'HowToOptOut' => 'Wie kann ich die Weitergabe meiner Daten per Matomo/Piwik unterbinden?'
+    }
   }
 };

@@ -1,4 +1,4 @@
-0.30 2018-11-09
+0.30 2018-11-12
         - Rewrote backend:
           - Removed dependency of Mojolicious::Plugin::Search.
           - Removed abstract API.
@@ -6,6 +6,8 @@
         - Improved backend test suite.
         - Removed MMap cache from default configuration
           and rely on in-memory cache.
+        - Introduced Piwik as a separated plugin
+          (no longer a mandatory plugin).
 
 0.29 2018-10-05
         - Deprecated Kalamar.api configuration key

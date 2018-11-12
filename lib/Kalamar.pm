@@ -5,6 +5,7 @@ use Mojo::URL;
 use Mojo::File;
 use Mojo::JSON 'decode_json';
 use Mojo::Util qw/url_escape/;
+use List::Util 'none';
 
 # Minor version - may be patched from package.json
 our $VERSION = '0.30';
@@ -149,7 +150,6 @@ sub startup {
     'ClientIP',                  # Get client IP from X-Forwarded-For
     'ClosedRedirect',            # Redirect with OpenRedirect protection
     'TagHelpers::ContentBlock',  # Flexible content blocks
-    'Piwik'                      # Integrate Piwik/Matomo Analytics
   ) {
     $self->plugin($_);
   };
@@ -169,6 +169,23 @@ sub startup {
   # Configure mail exception
   if ($self->config('MailException')) {
     $self->plugin('MailException' => $self->config('MailException'));
+  };
+
+  # Load further plugins
+  if (exists $conf->{'plugins'}) {
+    foreach (@{$conf->{'plugins'}}) {
+      $self->plugin('Kalamar::Plugin::' . $_);
+    };
+  };
+
+  # Deprecated Legacy code -
+  # TODO: Remove 2019-02
+  if ($self->config('Piwik') &&
+        none { $_ eq 'Piwik' } @{$conf->{plugins} // []}) {
+    use Data::Dumper;
+    warn Dumper $self->config('Piwik');
+    $self->log->error('Piwik is no longer considered a mandatory plugin');
+    $self->plugin('Piwik');
   };
 
   # Configure documentation navigation

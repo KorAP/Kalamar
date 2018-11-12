@@ -168,7 +168,8 @@ entry for ```Template_intro``` in the dictionary.
 Some sections of the user interface can be customized
 by adding new
 [content blocks](https://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock).
-Currently the sections are in ```footer```, in the bottom line of the user interface,
+Currently the documented sections are in ```footer```,
+in the bottom line of the user interface,
 and ```loginInfo```, below the login form, if present.
 
 ## COPYRIGHT AND LICENSE

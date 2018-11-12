@@ -6,10 +6,10 @@ define(['util'], function () {
   // http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
   // http://stackoverflow.com/questions/6112744/load-javascript-on-demand
 
-  KorAP.URL = KorAP.URL !== undefined ? KorAP.URL : 'http://korap.ids-mannheim.de/kalamar';
+  KorAP.URL = KorAP.URL !== undefined ? KorAP.URL : '';
 
   KorAP.API = KorAP.API || {};
-
+  
   /**
    * Retrieve information about a match
    */
@@ -124,6 +124,14 @@ define(['util'], function () {
   KorAP.API.getJSON = function (url, onload) {
     var req = new XMLHttpRequest();
     req.open("GET", url, true);
+
+    // Dispatch global "window" event
+    var reqE = new CustomEvent('korapRequest', {
+      bubbles : false,
+      detail: { "url" : url }
+    });
+    window.dispatchEvent(reqE);
+    
     req.setRequestHeader("Accept", "application/json");
     req.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
     req.onreadystatechange = function () {

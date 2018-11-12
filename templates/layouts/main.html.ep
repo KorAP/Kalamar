@@ -81,6 +81,7 @@
       %= include 'partial/footer'
     % };
     %= notifications 'Kalamar::Plugin::Notifications'
-    %= piwik_tag
+
   </body>
+  %= content_block 'scripts'
 </html>
