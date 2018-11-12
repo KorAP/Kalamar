@@ -12,6 +12,10 @@ $bracket-size: .4em; // 4pt;
 .vc {
   margin-top: 4pt;
 
+  .builder {
+    position: initial;
+  }
+
   .docGroup {
     position: relative;
 
