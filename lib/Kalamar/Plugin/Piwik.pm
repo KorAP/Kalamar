@@ -31,7 +31,8 @@ sub register {
 window.addEventListener('korapRequest', function(e) {
   _paq.push(['setReferrerUrl', location.href]);
   _paq.push(['setCustomUrl', e.detail.url]);
-  _paq.push(['trackPageView'])
+  _paq.push(['trackPageView']);
+});
 % end
 SCRIPT
   });
