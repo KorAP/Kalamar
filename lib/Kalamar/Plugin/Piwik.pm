@@ -30,6 +30,7 @@ sub register {
 % if (stash('piwik.embed')) {
   %= javascript begin
 window.addEventListener('korapRequest', function(e) {
+  _paq.push(['setDocumentTitle', e.detail.title]);
   _paq.push(['setReferrerUrl', location.href]);
   _paq.push(['setCustomUrl', e.detail.url]);
   _paq.push(['trackPageView']);

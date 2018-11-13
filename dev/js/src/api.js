@@ -9,7 +9,7 @@ define(['util'], function () {
   KorAP.URL = KorAP.URL !== undefined ? KorAP.URL : '';
 
   KorAP.API = KorAP.API || {};
-  
+
   /**
    * Retrieve information about a match
    */
@@ -28,31 +28,39 @@ define(['util'], function () {
 
     // This is for legacy support
     var legacy = legacySigle.exec(match.textSigle);
+    var docFragment = "";
     if (legacy !== null && legacy[0]) {
-      url += '/' + legacy[1] + '/' + legacy[2] + '/' + legacy[3];
+      docFragment = legacy[1] + '/' + legacy[2] + '/' + legacy[3];
     }
     else {
-      url += '/' + match.textSigle;
+      docFragment = match.textSigle;
     }
-    
-    url += '/' + match.matchID;
+
+    docFragment += '/' + match.matchID;
+    url += '/' + docFragment;
 
     // { spans: true, layer:x, foundry : y}
     if (param['spans'] == true) {
       url += '?spans=true';
-      if (param['foundry'] !== undefined)
+      docFragment += ' +spans ';
+      if (param['foundry'] !== undefined) {
 	      url += '&foundry=' + param['foundry'];
-      if (param['layer'] !== undefined)
+        docFragment += param['foundry'];
+      };
+      if (param['layer'] !== undefined) {
 	      url += '&layer=' + param['layer'];
+        docFragment += '/'+param['layer'];
+      }
     }
     
     // { spans : false, layer: [Array of KorAP.InfoLayer] }
     else {
       // TODO
+      docFragment += ' -spans';
       url += '?spans=false';
     }
 
-    KorAP.API.getJSON(url, cb);
+    KorAP.API.getJSON(url, cb, "MatchInfo: " + docFragment);
   };
 
 
@@ -72,7 +80,7 @@ define(['util'], function () {
     else {
       url += '?fields=@all'; // TODO: Maybe '*'?
     }
-    KorAP.API.getJSON(url, cb);
+    KorAP.API.getJSON(url, cb, "TextInfo: " + doc.textSigle);
   };
 
 
@@ -80,7 +88,7 @@ define(['util'], function () {
    * Retrieve information about collections
    */
   KorAP.API.getCollections = function (cb) {
-    KorAP.API.getJSON(KorAP.URL + '/collection', cb);
+    KorAP.API.getJSON(KorAP.URL + '/collection', cb, "CorpusInfo");
   };
 
 
@@ -114,21 +122,24 @@ define(['util'], function () {
    */
   KorAP.API.getCorpStat = function (cq, cb){
   	var url  =  KorAP.URL;
-    url += "/corpus?cq=" + cq;
-  	KorAP.API.getJSON(url, cb);
+    url += "/corpus?cq=" + encodeURIComponent(cq);
+  	KorAP.API.getJSON(url, cb, "CorpusInfo: " + cq);
   };
   
   /**
    * General method to retrieve JSON information
    */
-  KorAP.API.getJSON = function (url, onload) {
+  KorAP.API.getJSON = function (url, onload, title) {
     var req = new XMLHttpRequest();
     req.open("GET", url, true);
 
     // Dispatch global "window" event
     var reqE = new CustomEvent('korapRequest', {
       bubbles : false,
-      detail: { "url" : url }
+      detail: {
+        "url" : url,
+        "title" : title
+      }
     });
     window.dispatchEvent(reqE);
     

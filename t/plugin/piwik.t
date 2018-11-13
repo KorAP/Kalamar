@@ -20,6 +20,9 @@ $t->get_ok('/doc/faq')
   ->element_exists('section[name=piwik-opt-out] iframe')
   ->content_like(qr!var _paq!)
   ->content_like(qr!window\.addEventListener\('korapRequest!)
+  ->content_like(qr!setDocumentTitle!)
+  ->content_like(qr!setCustomUrl!)
+  ->content_like(qr!trackPageView!)
   ;
 
 # No embedding
