@@ -27,13 +27,15 @@ sub register {
   # Add event handler for korap requests
   $mojo->content_block(scripts => {
     inline => <<'SCRIPT'
-%= javascript begin
+% if (stash('piwik.embed')) {
+  %= javascript begin
 window.addEventListener('korapRequest', function(e) {
   _paq.push(['setReferrerUrl', location.href]);
   _paq.push(['setCustomUrl', e.detail.url]);
   _paq.push(['trackPageView']);
 });
-% end
+  % end
+% }
 SCRIPT
   });
 };
