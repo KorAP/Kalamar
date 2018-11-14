@@ -1,3 +1,6 @@
+0.31 2018-11-14
+        - Update to Mojolicious >= 8.06.
+
 0.30 2018-11-13
         - Rewrote backend:
           - Removed dependency of Mojolicious::Plugin::Search.
