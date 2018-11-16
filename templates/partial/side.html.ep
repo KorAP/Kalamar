@@ -1,34 +1,5 @@
-%# # user not logged in
-% if (!stash('documentation') && !$embedded && stash('auth_support') && !$c->auth->token) {
-%   content_for 'sidebar', begin
-%     if (flash('handle_or_email') && !param('handle_or_email')) {
-%       param(handle_or_email => flash('handle_or_email'));
-%     };
-    <fieldset>
-    %= form_for 'login', class => 'login', begin
-      <legend><span><%= loc 'login' %></span></legend>
-      %= csrf_field
-      %= text_field 'handle_or_email', placeholder => loc('userormail')
-      %= hidden_field fwd => $c->url_with
-      <div>
-        %= password_field 'pwd', placeholder => loc('pwd')
-        <button type="submit"><span><%= loc 'go' %></span></button>
-      </div>
-    % end
-
-    %= content_block 'loginInfo', separator => '<hr />'
-
-    %#  <ul>
-    %#    <li><%= link_to loc('register') => 'register' %></li>
-    %#    <li><%= link_to loc('pwdforgotten') => 'pwd_forgotten' %></li>
-    %#  </ul>
-    </fieldset>
-%   end
-% }
-
-% my $aside = content_for('sidebar');
-<aside tabindex="0" class="<% unless (length($aside) > 0) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
+<aside tabindex="0" class="<% unless (content_block_ok('sidebar')) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
   <div>
-    %= $aside
+%= content_block 'sidebar'
   </div>
 </aside>

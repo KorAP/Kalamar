@@ -20,8 +20,10 @@ sub page {
   push(@path, $page);
 
   # Set navigation to sidebar
-  $c->content_for(
-    sidebar => '<nav>' . $c->doc_navi($c->config('navi')) . '</nav>'
+  $c->content_block(
+    sidebar => {
+      inline => '<nav>' . $c->doc_navi($c->config('navi')) . '</nav>'
+    }
   );
 
   # Render template

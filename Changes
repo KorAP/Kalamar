@@ -3,6 +3,7 @@
         - Made Authentication/Authorization a separated Kalamar::Plugin::Auth
           (deprecated moth helpers from Kalamar::Plugin::KalamarUser).
         - Introduced abstract 'korap_request' helper.
+        - Introduce 'sidebar' content_block.
 
 0.30 2018-11-13
         - Rewrote backend:

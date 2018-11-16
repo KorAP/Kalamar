@@ -12,6 +12,8 @@ use Mojo::ByteStream 'b';
 sub register {
   my ($plugin, $app, $param) = @_;
 
+  # Allow data section as template resources
+  push @{$app->renderer->classes}, __PACKAGE__;
 
   # Load parameter from config file
   if (my $config_param = $app->config('Kalamar-Auth')) {
@@ -62,6 +64,14 @@ sub register {
       }
     }
   });
+
+
+  # Add login frame to sidebar
+  $app->content_block(
+    sidebar => {
+      template => 'partial/auth/login'
+    }
+  );
 
 
   # Inject authorization to all korap requests
@@ -269,3 +279,29 @@ sub register {
 };
 
 1;
+
+__DATA__
+@@ partial/auth/login.html.ep
+%# # user not logged in
+% if (!stash('documentation') && !$embedded && !$c->auth->token) {
+%   if (flash('handle_or_email') && !param('handle_or_email')) {
+%     param(handle_or_email => flash('handle_or_email'));
+%   };
+    <fieldset>
+    %= form_for 'login', class => 'login', begin
+      <legend><span><%= loc 'login' %></span></legend>
+      %= csrf_field
+      %= text_field 'handle_or_email', placeholder => loc('userormail')
+      %= hidden_field fwd => $c->url_with
+      <div>
+        %= password_field 'pwd', placeholder => loc('pwd')
+        <button type="submit"><span><%= loc 'go' %></span></button>
+      </div>
+    % end
+
+    %= content_block 'loginInfo', separator => '<hr />'
+
+    </fieldset>
+% }
+
+__END__
