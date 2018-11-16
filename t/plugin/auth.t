@@ -42,7 +42,9 @@ $t->get_ok('/?q=Baum')
   ;
 
 $t->get_ok('/')
-  ->element_exists('form[action=/user/login] input[name=handle_or_email]');
+  ->status_is(200)
+  ->element_exists('form[action=/user/login] input[name=handle_or_email]')
+  ;
 
 $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
   ->status_is(302)
