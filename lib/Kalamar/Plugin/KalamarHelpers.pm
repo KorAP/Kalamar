@@ -2,7 +2,7 @@ package Kalamar::Plugin::KalamarHelpers;
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::JSON qw/decode_json true false/;
 use Mojo::ByteStream 'b';
-use Mojo::Util qw/xml_escape/;
+use Mojo::Util qw/xml_escape deprecated/;
 
 sub register {
   my ($plugin, $mojo) = @_;
@@ -223,6 +223,9 @@ sub register {
     kalamar_test_port => sub {
       my $c = shift;
 
+      # 2018-11-15
+      deprecated 'kalamar_test_port is deprecated and will be removed';
+
       # Test port is defined in the stash
       if (defined $c->stash('kalamar.test_port')) {
         return $c->stash('kalamar.test_port');
@@ -239,6 +242,7 @@ sub register {
       $c->stash('kalamar.test_port' => 0);
       return 0;
     });
+
 
   # Establish 'search_results' taghelper
   # This is based on Mojolicious::Plugin::Search
@@ -270,9 +274,11 @@ sub register {
     }
   );
 
+
+  # Get the KorAP API endpoint
   $mojo->helper(
     'korap.api' => sub {
-      return shift->config('Search')->{api};
+      return shift->config('Kalamar')->{api};
     }
   );
 
@@ -284,14 +290,18 @@ sub register {
 
       # In case the user is not known, it is assumed,
       # the user is not logged in
-      my $user = $c->user->handle;
+      # TODO:
+      #   Make this more general
+      my $user = $c->user_handle;
 
       # Set api request for debugging
       my $cache_str = "$method-$user-" . $url->to_string;
       $c->stash(api_request => $url->to_string);
 
+      # No cache request
       if ($c->no_cache) {
-        return $c->user->auth_request_p($method => $url)->then(
+
+        return $c->korap_request($method => $url)->then(
           sub {
             my $tx = shift;
             # Catch errors and warnings
@@ -305,6 +315,9 @@ sub register {
       my $koral = $c->chi->get($cache_str);
 
       my $promise;
+
+      # TODO:
+      #   emit_hook(after_koral_fetch => $c)
 
       # Cache was found
       if ($koral) {
@@ -324,7 +337,8 @@ sub register {
       };
 
       # Resolve request
-      return $c->user->auth_request_p($method => $url)->then(
+      # Before: user->auth_request_p
+      return $c->korap_request($method => $url)->then(
         sub {
           my $tx = shift;
           return ($c->catch_errors_and_warnings($tx) ||
@@ -340,7 +354,6 @@ sub register {
       );
     }
   );
-
 };
 
 

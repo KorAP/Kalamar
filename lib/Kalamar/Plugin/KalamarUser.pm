@@ -1,12 +1,15 @@
 package Kalamar::Plugin::KalamarUser;
 use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::Util qw/deprecated/;
 use Mojo::Promise;
 use Mojo::ByteStream 'b';
 
 has 'api';
 has 'ua';
 
-# TODO: Merge with meta-button
+# TODO:
+#   This Plugin will be removed in favour of
+#   Kalamar::Plugin::Auth!
 
 sub register {
   my ($plugin, $mojo, $param) = @_;
@@ -34,10 +37,78 @@ sub register {
   # Set app to server
   $plugin->ua->server->app($mojo);
 
+  # Get user handle
+  $mojo->helper(
+    'user_handle' => sub {
+      my $c = shift;
+
+      # Get from stash
+      my $user = $c->stash('user');
+      return $user if $user;
+
+      # Get from session
+      $user = $c->session('user');
+
+      # Set in stash
+      if ($user) {
+        $c->stash(user => $user);
+        return $user;
+      };
+
+      return 'not_logged_in';
+    }
+  );
+
+  # This is a new general korap_request helper,
+  # that can trigger some hooks for, e.g., authentication
+  # or analysis. It returns a promise.
+  $mojo->helper(
+    'korap_request' => sub {
+      my $c      = shift;
+      my $method = shift;
+      my $path   = shift;
+
+      # Get plugin user agent
+      my $ua = $plugin->ua;
+
+      my $url = Mojo::URL->new($path);
+      my $tx = $ua->build_tx(uc($method), $url, @_);
+
+      # Set X-Forwarded for
+      $tx->req->headers->header(
+        'X-Forwarded-For' => $c->client_ip
+      );
+
+
+      # Emit Hook to alter request
+      $c->app->plugins->emit_hook(
+        before_korap_request => ($c, $tx)
+      );
+
+      return $ua->start_p($tx);
+    }
+  );
+
+  #############################################
+  # WARNING!                                  #
+  # The following helpers are all deprecated: #
+  #############################################
+
+  $mojo->helper(
+    'user.handle' => sub {
+
+      # 2018-11-16
+      deprecated 'user.handle is deprecated in favour of user_handle!';
+      return shift->user_handle;
+    });
+
   # Get the user token necessary for authorization
   $mojo->helper(
     'user_auth' => sub {
       my $c = shift;
+
+      # 2018-11-16
+      deprecated 'user_auth is deprecated in favour of auth->token!';
 
       # Get token from stash
       my $token = $c->stash('auth');
@@ -56,6 +127,10 @@ sub register {
 
   $mojo->helper(
     'user.ua' => sub {
+
+      # 2018-11-15
+      deprecated 'user->ua is deprecated!';
+
       my $c = shift;
 
       my $auth = $c->user_auth;
@@ -86,33 +161,15 @@ sub register {
     }
   );
 
-  # Get user handle
-  $mojo->helper(
-    'user.handle' => sub {
-      my $c = shift;
-
-      # Get from stash
-      my $user = $c->stash('user');
-      return $user if $user;
-
-      # Get from session
-      $user = $c->session('user');
-
-      # Set in stash
-      if ($user) {
-        $c->stash(user => $user);
-        return $user;
-      };
-
-      return 'not_logged_in';
-    }
-  );
-
 
   # Request with authorization header
   $mojo->helper(
     'user.auth_request' => sub {
       my $c = shift;
+
+      # 2018-11-15
+      deprecated 'user->auth_request is deprecated!';
+
       my $method = shift;
       my $path = shift;
 
@@ -144,10 +201,14 @@ sub register {
   # return a promise
   $mojo->helper(
     'user.auth_request_p' => sub {
-      my $c = shift;
+      my $c      = shift;
       my $method = shift;
-      my $path = shift;
+      my $path   = shift;
 
+      # 2018-11-16
+      deprecated 'user->auth_request_p is deprecated!';
+
+      # Get plugin user agent
       my $ua = $plugin->ua;
 
       my $tx;
@@ -174,6 +235,9 @@ sub register {
     'user.login' => sub {
       my $c = shift;
       my ($user, $pwd) = @_;
+
+      # 2018-11-16
+      deprecated 'user->login is deprecated!';
 
       return if (index($user, ':') >= 0);
 
@@ -349,6 +413,9 @@ sub register {
   $mojo->helper(
     'user.logout' => sub {
       my $c = shift;
+
+      # 2018-11-16
+      deprecated 'user->logout is deprecated!';
 
       # TODO: csrf-protection!
 

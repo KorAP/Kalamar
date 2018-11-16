@@ -82,6 +82,6 @@
     % };
     %= notifications 'Kalamar::Plugin::Notifications'
 
+    %= content_block 'scripts'
   </body>
-  %= content_block 'scripts'
 </html>

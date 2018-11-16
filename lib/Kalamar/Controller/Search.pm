@@ -112,7 +112,7 @@ sub query {
   if (!$cutoff && !$c->no_cache) {
 
     # Create cache string
-    my $user = $c->user->handle;
+    my $user = $c->user_handle;
     my $cache_url = $url->clone;
     $cache_url->query->remove('context')->remove('count')->remove('cutoff')->remove('offset');
     $total_cache_str = "total-$user-" . $cache_url->to_string;

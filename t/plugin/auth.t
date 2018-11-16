@@ -11,12 +11,16 @@ use Data::Dumper;
 my $mount_point = '/api/';
 $ENV{KALAMAR_API} = $mount_point;
 
-my $t = Test::Mojo->new('Kalamar');
-$t->app->defaults('auth_support' => 1);
+my $t = Test::Mojo->new('Kalamar' => {
+  Kalamar => {
+    auth_support => 1,
+    plugins => ['Auth']
+  }
+});
 
 # Mount fake backend
 # Get the fixture path
-my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'server');
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, '..', 'server');
 my $fake_backend = $t->app->plugin(
   Mount => {
     $mount_point =>
@@ -25,7 +29,6 @@ my $fake_backend = $t->app->plugin(
 );
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
-
 
 $t->get_ok('/api')
   ->status_is(200)
@@ -62,13 +65,13 @@ my $csrf = $t->get_ok('/')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
-
 $t->post_ok('/user/login' => form => {
   handle_or_email => 'test',
   pwd => 'pass',
   csrf_token => $csrf
 })
   ->status_is(302)
+  ->content_is('')
   ->header_is('Location' => '/');
 
 $t->get_ok('/')

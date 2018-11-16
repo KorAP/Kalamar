@@ -4,7 +4,7 @@ use Mojo::ByteStream 'b';
 use Mojo::URL;
 use Mojo::File;
 use Mojo::JSON 'decode_json';
-use Mojo::Util qw/url_escape/;
+use Mojo::Util qw/url_escape deprecated/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
@@ -109,11 +109,6 @@ sub startup {
     push @{$self->static->paths}, 'dev';
   };
 
-  # Check search configuration
-
-  # Set endpoint
-  $self->config('Search')->{api} //= $kalamar_conf->{api};
-
   # Client notifications
   $self->plugin(Notifications => {
     'Kalamar::Plugin::Notifications' => 1,
@@ -178,14 +173,22 @@ sub startup {
     };
   };
 
-  # Deprecated Legacy code -
-  # TODO: Remove 2019-02
+  # Deprecated Legacy code
   if ($self->config('Piwik') &&
         none { $_ eq 'Piwik' } @{$conf->{plugins} // []}) {
-    use Data::Dumper;
-    warn Dumper $self->config('Piwik');
-    $self->log->error('Piwik is no longer considered a mandatory plugin');
-    $self->plugin('Piwik');
+
+    # 2018-11-12
+    deprecated 'Piwik is no longer considered a mandatory plugin';
+    $self->plugin('Kalamar::Plugin::Piwik');
+  };
+
+  # Deprecated Legacy code
+  if ($self->config('Kalamar')->{auth_support} &&
+        none { $_ eq 'Auth' } @{$conf->{plugins} // []}) {
+
+    # 2018-11-16
+    deprecated 'auth_support configuration is deprecated in favor of Plugin loading';
+    $self->plugin('Kalamar::Plugin::Auth')
   };
 
   # Configure documentation navigation
@@ -196,26 +199,6 @@ sub startup {
 
   # Establish routes with authentification
   my $r = $self->routes;
-
-  # Check for auth support
-  $self->defaults(
-    auth_support => $self->config('Kalamar')->{auth_support}
-  );
-
-  # Support auth
-  if ($self->stash('auth_support')) {
-    $r = $r->under(
-      '/' => sub {
-        my $c = shift;
-
-        if ($c->session('auth')) {
-          $c->stash(auth => $c->session('auth'));
-          $c->stash(user => $c->session('user'));
-        };
-        return 1;
-      }
-    );
-  };
 
   # Set footer value
   $self->content_block(footer => {
@@ -241,13 +224,6 @@ sub startup {
   my $doc    = $r->route('/corpus/:corpus_id/:doc_id');
   my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
   my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
-
-  # User Management
-  my $user = $r->any('/user')->to(controller => 'User');
-  $user->post('/login')->to(action => 'login')->name('login');
-  $user->get('/logout')->to(action => 'logout')->name('logout');
-  # $r->any('/register')->to(action => 'register')->name('register');
-  # $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
 };
 
 
