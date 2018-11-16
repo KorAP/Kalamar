@@ -59,14 +59,6 @@ my $THOUSAND_SEP_RE = qr/(
     },
     privacy => 'Datenschutz',
     imprint => 'Impressum',
-    Auth => {
-      loginSuccess => 'Anmeldung erfolgreich',
-      loginFail => 'Anmeldung fehlgeschlagen',
-      logoutSuccess => 'Abmeldung erfolgreich',
-      logoutFail => 'Abmeldung fehlgeschlagen',
-      csrfFail => 'Fehlerhafter CSRF Token',
-      openRedirectFail => 'Weiterleitungsfehler'
-    },
     Template => {
       intro => 'de/intro',
       doc => {
@@ -161,14 +153,6 @@ my $THOUSAND_SEP_RE = qr/(
     },
     privacy => 'Privacy',
     imprint => 'Imprint',
-    Auth => {
-      loginSuccess => 'Login successful',
-      loginFail => 'Access denied',
-      logoutSuccess => 'Logout successful',
-      logoutFail => 'Logout failed',
-      csrfFail => 'Bad CSRF token',
-      openRedirectFail => 'Redirect failure'
-    },
     Template => {
       intro => 'intro',
       doc => {

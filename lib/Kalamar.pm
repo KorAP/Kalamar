@@ -109,11 +109,6 @@ sub startup {
     push @{$self->static->paths}, 'dev';
   };
 
-  # Check search configuration
-
-  # Set endpoint
-  $self->config('Search')->{api} //= $kalamar_conf->{api};
-
   # Client notifications
   $self->plugin(Notifications => {
     'Kalamar::Plugin::Notifications' => 1,
@@ -198,6 +193,8 @@ sub startup {
   my $r = $self->routes;
 
   # Check for auth support
+  # TODO:
+  #   Make this available in Kalamar::Plugin::Auth
   $self->defaults(
     auth_support => $self->config('Kalamar')->{auth_support}
   );
@@ -241,13 +238,6 @@ sub startup {
   my $doc    = $r->route('/corpus/:corpus_id/:doc_id');
   my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
   my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
-
-  # User Management
-  my $user = $r->any('/user')->to(controller => 'User');
-  $user->post('/login')->to(action => 'login')->name('login');
-  $user->get('/logout')->to(action => 'logout')->name('logout');
-  # $r->any('/register')->to(action => 'register')->name('register');
-  # $r->any('/forgotten')->to(action => 'pwdforgotten')->name('pwdforgotten');
 };
 
 

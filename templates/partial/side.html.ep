@@ -1,5 +1,5 @@
 %# # user not logged in
-% if (!stash('documentation') && !$embedded && !user_auth && stash('auth_support')) {
+% if (!stash('documentation') && !$embedded && stash('auth_support') && !$c->auth->token) {
 %   content_for 'sidebar', begin
 %     if (flash('handle_or_email') && !param('handle_or_email')) {
 %       param(handle_or_email => flash('handle_or_email'));

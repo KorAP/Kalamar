@@ -172,6 +172,26 @@ Currently the documented sections are in ```footer```,
 in the bottom line of the user interface,
 and ```loginInfo```, below the login form, if present.
 
+
+### Plugins
+
+Some plugins are bundled as part of Kalamar. Plugins can be loaded
+via configuration file in an array
+
+```perl
+{
+  Kalamar => {
+    plugins => ['Auth']
+  }
+}
+```
+
+Currently bundled plugins are
+- ```Auth```: For integrating user management
+  supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
+- ```Piwik```: For integrating Matomo/Piwik
+
+
 ## COPYRIGHT AND LICENSE
 
 ### Bundled Software
