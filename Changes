@@ -1,9 +1,10 @@
-0.31 2018-11-16
+0.31 2018-11-18
         - Update to Mojolicious >= 8.06.
         - Made Authentication/Authorization a separated Kalamar::Plugin::Auth
           (deprecated moth helpers from Kalamar::Plugin::KalamarUser).
         - Introduced abstract 'korap_request' helper.
         - Introduce 'sidebar' content_block.
+        - Introduce 'headerButtonGroup' content_block.
 
 0.30 2018-11-13
         - Rewrote backend:

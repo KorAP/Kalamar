@@ -171,6 +171,7 @@ by adding new
 Currently the documented sections are in
 ```footer```, in the bottom line of the user interface,
 ```sidebar```, in the left part of the user interface if present,
+```headerButtonGroup```, in the right top part of the user interface,
 and ```loginInfo```, below the login form if present.
 
 
