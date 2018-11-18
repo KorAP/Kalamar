@@ -4,9 +4,9 @@ use Mojo::ByteStream 'b';
 
 # TODO:
 #   Get rid of auth_support for templates!
+
 # TODO:
-#   Make all authentification parts in templates
-#   content_block aware!
+#   CSRF-protect logout!
 
 # Register the plugin
 sub register {
@@ -73,6 +73,13 @@ sub register {
     }
   );
 
+
+  # Add logout button to header button list
+  $app->content_block(
+    header_button_group => {
+      template => 'partial/auth/logout'
+    }
+  );
 
   # Inject authorization to all korap requests
   $app->hook(
@@ -303,5 +310,14 @@ __DATA__
 
     </fieldset>
 % }
+
+@@ partial/auth/logout.html.ep
+% if ($c->auth->token) {
+   %# TODO: CSRF protection
+   <a href="<%= url_for 'logout' %>"
+      class="logout"
+      title="<%= loc 'logout' %>: <%= user_handle %>"><span><%= loc 'logout' %></span></a>
+% };
+
 
 __END__

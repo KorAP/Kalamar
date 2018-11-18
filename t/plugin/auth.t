@@ -39,6 +39,7 @@ $t->get_ok('/?q=Baum')
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
   ->text_like('#total-results', qr/\d+$/)
   ->content_like(qr/\"authorized\"\:null/)
+  ->element_exists_not('div.button.top a')
   ;
 
 $t->get_ok('/')
@@ -54,6 +55,7 @@ $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
   ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists_not('div.button.top a')
   ;
 
 $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'pass' })
@@ -64,6 +66,7 @@ my $csrf = $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
   ->text_is('div.notify-error', 'Bad CSRF token')
+  ->element_exists_not('div.button.top a')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
@@ -91,6 +94,8 @@ $t->get_ok('/?q=Baum')
   ->text_like('#total-results', qr/\d+$/)
   ->element_exists_not('div.notify-error')
   ->content_like(qr/\"authorized\"\:\"test\"/)
+  ->element_exists('div.button.top a')
+  ->element_exists('div.button.top a.logout[title~="test"]')
   ;
 
 # Logout
