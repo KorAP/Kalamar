@@ -346,6 +346,9 @@ $dg-index : 30;
 }
 
 .vc.fragment {
+  > div > div.docGroup {
+    margin-left: 0;
+  }
   .doc {
     margin-right: 2em;
   }

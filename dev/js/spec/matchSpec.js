@@ -58,7 +58,7 @@ define(['match',
     {
       "@type": "koral:field",
       "key": "textClass",
-      "type": "type:keywords",
+      "type": "type:keywords", // May not be necessary
       "value": ["kultur", "film"]
     },
     {
@@ -714,7 +714,8 @@ define(['match',
 		expect(mel.children[0].tagName).toEqual('DIV');
 		expect(mel.children[0].children[0].tagName).toEqual('DT');
 		expect(mel.children[0].children[0].attributes[0].name).toEqual('title');
-		expect(mel.children[0].children[1].tagName).toEqual('DD');
+    expect(mel.children[0].children[1].tagName).toEqual('DD');
+    expect(mel.children[0].children[1].getAttribute('data-type')).toEqual('type:text')
 		
 		expect(mel.children[0].children[0].firstChild.nodeValue).toEqual('author');
 		expect(mel.children[0].children[1].firstChild.nodeValue).toEqual('Sprachpfleger, u.a.');
@@ -727,6 +728,7 @@ define(['match',
 	 it('keywords should be formatted', function(){
 		
 		 //type:string or type:keyword should b not relevant
+     expect(mel.children[1].children[1].getAttribute('data-type')).toEqual('type:string')
 		 expect(mel.children[1].children[1].classList.contains('metakeyvalues')).toBeTruthy;
 		 expect(mel.children[1].children[1].children[0].tagName).toEqual('DIV');
 		 expect(mel.children[1].children[1].children[0].firstChild.nodeValue).toEqual('corenlp');

@@ -60,6 +60,7 @@ div.matchtable > div {
   }
   tr {
     outline: none;
+    // equal to dd.chosen
     td.chosen,
     th.chosen,
     div.chosen {
@@ -215,6 +216,9 @@ div.metatable > dl {
 
   > div {
     border-color: $dark-orange;
+    > * {
+      padding: .2em;
+    }
     > dt {
       background: $darker-orange;
       color: $nearly-white;
@@ -222,6 +226,25 @@ div.metatable > dl {
     }
     > dd {
       background-color: $light-orange;
+      cursor: pointer;
+    }
+    > dd[data-type="type:store"] {
+      background-color: $middle-orange;
+
+      cursor: default;
+    }
+
+    > dd.metakeyvalues {
+      padding:0;
+      > div {
+        padding: .2em;
+      }
+    }
+
+    // equal to td.chosen
+    > dd.chosen, > dd > div.chosen {
+      background-color: $light-green !important;
+      color: $nearly-white;
     }
   }
 }

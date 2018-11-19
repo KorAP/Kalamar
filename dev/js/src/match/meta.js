@@ -81,7 +81,8 @@ define(['match/corpusByMatch','util'], function (cbmClass) {
           dt.setAttribute("title", k);
           
           let metaDescr = field["value"];
-          metaDD =  metaL.addE('dd');
+          metaDD = metaL.addE('dd');
+          metaDD.setAttribute('data-type', field["type"]);
           
           if(metaDescr instanceof Array){
         	  metaDD.classList.add("metakeyvalues");  

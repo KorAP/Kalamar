@@ -9,6 +9,9 @@
 define(['util'], function () {
   "use strict";
 
+  const loc = KorAP.Locale;
+  loc.NEW_CONSTRAINT = loc.NEW_CONSTRAINT || 'New Constraint';
+  
   // Create a VC doc
   function _doc (op) {
     var doc = document.createElement('div');
@@ -91,8 +94,14 @@ define(['util'], function () {
         return this._element;
       };
 
+      // Initialize element
       this._element = document.createElement('div');
       this._element.classList.add('vc', 'fragment');
+
+      // Prepend info text
+      this._element.addE('span').addT(loc.NEW_CONSTRAINT + ':');
+      this._frag = this._element.addE('div');
+      
       return this._element;
     },
 
@@ -125,7 +134,8 @@ define(['util'], function () {
         root = _doc(this._operands[0]);
       };
 
-      const e = this.element();
+      this.element();
+      const e = this._frag;
       if (l === 0) {
         _removeChildren(e);
       }

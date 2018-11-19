@@ -2879,14 +2879,14 @@ define([
       var e = f.element();
       expect(e.classList.contains('vc')).toBeTruthy();
       expect(e.classList.contains('fragment')).toBeTruthy();
-      expect(e.children.length).toEqual(0);
+      expect(e.firstChild.children.length).toEqual(0);
     });
 
     it('should be expansable', function () {
       var f = fragmentClass.create();
       f.add("author", "Peter");
 
-      var root = f.element().firstChild;
+      var root = f.element().lastChild.firstChild;
 
       expect(root.classList.contains("doc")).toBeTruthy();
       expect(root.children[0].tagName).toEqual("SPAN");
@@ -2898,7 +2898,7 @@ define([
 
       f.add("title", "Example");
 
-      root = f.element().firstChild;
+      root = f.element().lastChild.firstChild;
 
       expect(root.classList.contains("docGroup")).toBeTruthy();
 
@@ -2924,14 +2924,14 @@ define([
 
     it('should be reducible', function () {
       var f = fragmentClass.create();
-      expect(f.element().children.length).toEqual(0);
+      expect(f.element().lastChild.children.length).toEqual(0);
 
       f.add("author", "Peter");
       f.add("title", "Example");
 
-      expect(f.element().children.length).toEqual(1);
+      expect(f.element().lastChild.children.length).toEqual(1);
       
-      var root = f.element().firstChild;
+      var root = f.element().lastChild.firstChild;
       
       expect(root.classList.contains("docGroup")).toBeTruthy();
 
@@ -2939,7 +2939,7 @@ define([
 
       f.remove("author","Peter");
 
-      root = f.element().firstChild;
+      root = f.element().lastChild.firstChild;
       expect(root.classList.contains("doc")).toBeTruthy();
 
       expect(root.children[0].tagName).toEqual("SPAN");
@@ -2951,7 +2951,7 @@ define([
 
       f.remove("title","Example");
 
-      expect(f.element().children.length).toEqual(0);
+      expect(f.element().lastChild.children.length).toEqual(0);
     });
   });
 });
