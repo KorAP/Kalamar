@@ -45,24 +45,23 @@ define(['match/corpusByMatch','util'], function (cbmClass) {
 
       this._element = metaDL;
 
-      var fields = this._fields;
+      let fields = this._fields;
 
-      // TODO:
-      // This should only remember array positions by index
-      // and keep all other field information intact
-      var metaInfo = {};
-      for (var i in fields) {
-        var value = fields[i].value;      	
-        metaInfo[fields[i].key] = value;	
+      // Copy original array position to object
+      // before sorting by key title
+      let posInMetaArray = {};
+      for (let i = 0; i < fields.length; i++) {
+        posInMetaArray[fields[i]["key"]] = i;
+
       };
       
-      // console.log(fields);   
-      
       // TODO: Meta fields should be separated
-      var keys = Object.keys(metaInfo);  
-      
-      for (var i in keys.sort()) {
-        var k = keys[i];
+      const keys = Object.keys(posInMetaArray);
+
+      // Sort all meta keys alphabetically
+      for (let i in keys.sort()) {
+        let k = keys[i];                             // This is the title
+        let field = fields[posInMetaArray[keys[i]]]; // This is the object
 
         // Ignore internal IDs
         if (k !== "UID" &&
@@ -75,13 +74,13 @@ define(['match/corpusByMatch','util'], function (cbmClass) {
             */
             k !== "layerInfos") {
 
-          var metaL = document.createElement('div');
+          const metaL = document.createElement('div');
           
-          var dt = metaL.addE('dt');
+          const dt = metaL.addE('dt');
           dt.addT(k);
           dt.setAttribute("title", k);
           
-          var metaDescr = metaInfo[k];
+          let metaDescr = field["value"];
           metaDD =  metaL.addE('dd');
           
           if(metaDescr instanceof Array){
@@ -91,14 +90,16 @@ define(['match/corpusByMatch','util'], function (cbmClass) {
         	  } 
           }
           else{
-            metaDD.addT(metaInfo[k]);
+            metaDD.addT(field["value"]);
           }
           
           metaDL.appendChild(metaL);
         };
       };
 
+      // Add corpusByMatch assistant
       this._corpusByMatch = cbmClass.create(this._element);
+
       return this._element;
     }
   };
