@@ -1,6 +1,6 @@
 /**
  * Create a virtual corpus fragment,
- * that can be shown and merge with the
+ * that can be shown and merged with the
  * main VC.
  *
  * @author Nils Diewald
@@ -29,11 +29,11 @@ define(['util'], function () {
     return doc;
   };
 
-  
+  // Return object
   return {
 
     create : function () {
-      var obj = Object.create(this);
+      const obj = Object.create(this);
       obj._operands = [];
       return obj;
     },
@@ -43,8 +43,8 @@ define(['util'], function () {
      * Add document constraint to fragment
      */
     add : function (key, value, type) {
-      for (var i in this._operands) {
-        var op = this._operands[i];
+      for (let i in this._operands) {
+        let op = this._operands[i];
         if (op[0] === key && op[1] === value) {
           array.splice(index, 1);
         };
@@ -58,8 +58,8 @@ define(['util'], function () {
      * Remove document constraint from fragment
      */
     remove : function (key, value) {
-      for (var i in this._operands) {
-        var op = this._operands[i];
+      for (let i in this._operands) {
+        let op = this._operands[i];
         if (op[0] === key && op[1] === value) {
           this._operands.splice(i, 1);
           this.update();
@@ -69,6 +69,12 @@ define(['util'], function () {
       return;
     },
 
+    /**
+     * Check, if the fragment contains any constraints
+     */
+    isEmpty : function () {
+      return this._operands.length > 0 ? false : true;
+    },
     
     /**
      * Add fragment constraints to VC.
@@ -103,15 +109,15 @@ define(['util'], function () {
       //     <span class="value">Baum</span>
       //   </div>
       // </div>
-      var root;
-      var l = this._operands.length;
+      let root;
+      let l = this._operands.length;
       if (l > 1) {
 
         root = document.createElement('div');
         root.setAttribute('class','docGroup');
         root.setAttribute('data-operation', 'and');
 
-        for (var i in this._operands) {
+        for (let i in this._operands) {
           root.appendChild(_doc(this._operands[i]));
         };
       }
@@ -119,8 +125,11 @@ define(['util'], function () {
         root = _doc(this._operands[0]);
       };
 
-      var e = this.element();
-      if (e.firstChild)
+      const e = this.element();
+      if (l === 0) {
+        _removeChildren(e);
+      }
+      else if (e.firstChild)
         e.replaceChild(root, e.firstChild);
       else
         e.appendChild(root);

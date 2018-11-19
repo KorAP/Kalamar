@@ -2872,6 +2872,7 @@ define([
     });
   });
 
+  // Check fragment handling for corpusByMatch helper
   describe('KorAP.VC.Fragment', function () {
     it('should be initializable', function () {
       var f = fragmentClass.create();
@@ -2923,10 +2924,15 @@ define([
 
     it('should be reducible', function () {
       var f = fragmentClass.create();
+      expect(f.element().children.length).toEqual(0);
+
       f.add("author", "Peter");
       f.add("title", "Example");
 
+      expect(f.element().children.length).toEqual(1);
+      
       var root = f.element().firstChild;
+      
       expect(root.classList.contains("docGroup")).toBeTruthy();
 
       expect(root.children.length).toEqual(2);
@@ -2942,6 +2948,10 @@ define([
       expect(root.children[1].textContent).toEqual("eq");
       expect(root.children[2].tagName).toEqual("SPAN");
       expect(root.children[2].textContent).toEqual("Example");
+
+      f.remove("title","Example");
+
+      expect(f.element().children.length).toEqual(0);
     });
   });
 });
