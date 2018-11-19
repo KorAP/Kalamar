@@ -61,6 +61,8 @@ define([
     );
   };
 
+  KorAP.vc = vcClass.create(vcArray); 
+  
   domReady(function (event) {
     var obj = {};
 
@@ -87,7 +89,7 @@ define([
     var vcname, vcchoose;
     var input = d.getElementById('collection');
 
-    var vc = vcClass.create(vcArray);
+    var vc = KorAP.vc;
 
     // Add vc name object
     if (input) {
