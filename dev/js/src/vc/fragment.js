@@ -6,7 +6,7 @@
  * @author Nils Diewald
  */
 
-define(['util'], function () {
+define(['vc/doc', 'util'], function (docClass) {
   "use strict";
 
   const loc = KorAP.Locale;
@@ -72,6 +72,7 @@ define(['util'], function () {
       return;
     },
 
+
     /**
      * Check, if the fragment contains any constraints
      */
@@ -79,12 +80,6 @@ define(['util'], function () {
       return this._operands.length > 0 ? false : true;
     },
     
-    /**
-     * Add fragment constraints to VC.
-     */
-    mergeWithVC : function () {
-    },
-
 
     /**
      * Get the element associated with the virtual corpus
@@ -105,6 +100,27 @@ define(['util'], function () {
       return this._element;
     },
 
+
+    /**
+     * Return operands as document objects
+     */
+    documents : function () {
+      return this._operands.map(
+        function (item) {
+          let doc = docClass.create();
+          doc.key(item[0]);
+          doc.matchop("eq");
+          doc.value(item[1]);
+          if (item[2] === "date") {
+            doc.type("date");
+          }
+          else {
+            doc.type("string");
+          };
+          return doc;
+        }
+      );
+    },
 
     /**
      * Update the whole object based on the underlying data structure
@@ -147,17 +163,22 @@ define(['util'], function () {
       return this;
     },
 
+    
+    /**
+     * Stringification
+     */
     toQuery : function () {
       if (this._operands.length === 0)
         return '';
 
-      let str = '(' + this._operands.map(
+      return this._operands.map(
         function (item) {
+          if (item[2] === "date") {
+            return item[0] + ' in ' + item[1];
+          };
           return item[0] + ' = "' + new String(item[1]).quote() + '"';
         }
       ).join(" & ");
-      
-      return str + ')';
     }
   }
 });

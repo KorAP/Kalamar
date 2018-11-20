@@ -30,11 +30,45 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
         "click", this.clickOnMeta.bind(this), false
       );
 
-      this._fragment = vcFragmentClass.create();
+      this._fragment = vcFragmentClass.create();      
+
+      this._fragment.element().addEventListener(
+        "click", this.toVcBuilder.bind(this), true
+      );
 
       return this;
     },
 
+    /**
+     * Join fragment with VC
+     */
+    toVcBuilder : function (e) {
+      if (e)
+        e.stopPropagation();
+
+      if (this._fragment.isEmpty())
+        return;
+
+      let vc = KorAP.vc;
+      if (!vc) {
+        console.log("Global VC not established");
+        return;
+      };
+
+      for (let doc of this._fragment.documents()) {
+        vc.addRequired(doc);
+        console.log("Add " + doc.toQuery());
+      };
+
+      if (!vc.isOpen()) {
+        vc.open();
+      };
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    },
+
+    // Event handler for meta constraint creation
     clickOnMeta : function (e) {
       e.stopPropagation();
       if (e.target === e.currentTarget) {
@@ -65,16 +99,16 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
         return;
 
       type = type || "type:string";
-      
+
       // Add or remove the constraint to the fragment
       if (key && value) {
         if (target.classList.contains("chosen")) {
           target.classList.remove("chosen");
-          this._fragment.remove(key, value);
+          this.remove(key, value);
         }
         else {
           target.classList.add("chosen");
-          this._fragment.add(key, value);
+          this.add(key, value, type);
         };
 
         // Check if the fragment is empty
@@ -95,6 +129,17 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       }
     },
 
+    // Add constraint
+    add : function (key, value, type) {
+      type = type.replace(/^type:/, '');
+      this._fragment.add(key, value, type);
+    },
+
+    // Remove constraint
+    remove : function (key, value) {
+      this._fragment.remove(key, value);
+    },
+    
     // Stringify annotation
     toQuery : function () {
       return this._fragment.toQuery();

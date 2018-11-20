@@ -263,19 +263,19 @@ define([
 
       vc.onOpen = function () {
         vcname.classList.add('active');
+
+        var view = d.getElementById('vc-view');
+        if (!view.firstChild)
+          view.appendChild(this.element());
+        
         show['collection'] = true;
       };
       
       var vcclick = function () {
-
         if (vc.isOpen()) {
           vc.minimize()
         }
         else {
-          var view = d.getElementById('vc-view');
-          if (!view.firstChild)
-            view.appendChild(vc.element());
-
           vc.open();
         };
       };
