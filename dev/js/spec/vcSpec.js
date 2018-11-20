@@ -1732,6 +1732,96 @@ define([
       vc = vcClass.create().fromJson(nested);
       expect(vc.wasRewritten()).toBeTruthy();
     });
+
+    it('should add document at virtual corpus', function () {
+      vc = vcClass.create();
+      expect(vc.toQuery()).toEqual("");
+
+      let doc = docClass.create();
+      doc.key("author");
+      doc.type("string");
+      doc.matchop("eq");
+      doc.value("Goethe");
+      expect(doc.toQuery()).toEqual('author = "Goethe"');
+
+      expect(vc.element().firstChild.children.length).toEqual(1);
+      expect(vc.element().firstChild.firstChild.classList.contains("unspecified")).toBeTruthy();
+
+      vc.addRequired(doc);
+      expect(vc.toQuery()).toEqual('author = "Goethe"');
+
+      expect(vc.element().firstChild.children.length).toEqual(1);
+      expect(vc.element().firstChild.firstChild.classList.contains("doc")).toBeTruthy();
+
+      // Add as 'and' to doc
+      let doc2 = docClass.create();
+      doc2.key("author");
+      doc2.type("string");
+      doc2.matchop("eq");
+      doc2.value("Schiller");
+      vc.addRequired(doc2);
+      expect(vc.toQuery()).toEqual('author = "Goethe" & author = "Schiller"');
+
+      expect(vc.element().firstChild.firstChild.classList.contains("docGroup")).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.children[0].classList.contains("doc")).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.children[1].classList.contains("doc")).toBeTruthy();
+
+      
+      // Add as 'and' to 'and'-docGroup
+      let doc3 = docClass.create();
+      doc3.key("author");
+      doc3.type("string");
+      doc3.matchop("eq");
+      doc3.value("Fontane");
+      vc.addRequired(doc3);
+      expect(vc.toQuery()).toEqual('author = "Goethe" & author = "Schiller" & author = "Fontane"');
+
+      expect(vc.element().firstChild.firstChild.classList.contains("docGroup")).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.children[0].classList.contains("doc")).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.children[1].classList.contains("doc")).toBeTruthy();
+      expect(vc.element().firstChild.firstChild.children[2].classList.contains("doc")).toBeTruthy();
+
+      // Add as 'and' to 'or'-docGroup
+      vc = vcClass.create().fromJson({
+        "@type" : 'koral:docGroup',
+        'operation' : 'operation:or',
+        'operands' : [
+          {
+            '@type' : 'koral:doc',
+            'key' : 'title',
+            'value' : 'Hello World!'
+          },
+          {
+            '@type' : 'koral:doc',
+            'key' : 'foo',
+            'value' : 'bar'
+          }
+        ]
+      });
+      expect(vc.toQuery()).toEqual('title = "Hello World!" | foo = "bar"');
+
+      let doc4 = docClass.create();
+      doc4.key("author");
+      doc4.type("string");
+      doc4.matchop("eq");
+      doc4.value("Fontane");
+      vc.addRequired(doc4);
+      expect(vc.toQuery()).toEqual('(title = "Hello World!" | foo = "bar") & author = "Fontane"');
+
+      // Add as 'and' to 'or'-docGroup
+      vc = vcClass.create().fromJson({
+        "@type" : "koral:docGroupRef",
+        "ref" : "@max/myCorpus"
+      })
+      let doc5 = docClass.create();
+      doc5.key("author");
+      doc5.type("string");
+      doc5.matchop("eq");
+      doc5.value("Goethe");
+      expect(doc5.toQuery()).toEqual('author = "Goethe"');
+      vc.addRequired(doc5);
+      expect(vc.toQuery()).toEqual('referTo "@max/myCorpus" & author = "Goethe"');
+    });
   });
 
 

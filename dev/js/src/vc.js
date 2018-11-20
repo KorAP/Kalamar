@@ -413,6 +413,48 @@ define([
       }
     },
 
+    // Add "and" constraint to VC
+    addRequired : function (doc) {
+
+      let root = this.root();
+      let ldType = root.ldType();
+
+      let parent = root.parent();
+      if (ldType === 'non') {
+        parent.root(doc);
+      }
+
+      // root is doc
+      else if (
+        ldType === 'doc' ||
+          ldType === 'docGroupRef' ||
+          (ldType === 'docGroup' &&
+           root.operation() === 'or'
+          )) {
+        let group = require('vc/docgroup').create(
+          parent
+        );
+        group.operation("and");
+        group.append(root);
+        group.append(doc);
+        group.element(); // Init (seems to be necessary)
+        parent.root(group);
+      }
+      
+      // root is a docGroup
+      // and is already an 'and'-Group
+      else if (ldType === 'docGroup') {
+        root.append(doc);
+      }
+
+      // Unknown
+      else {
+        console.log("Unknown root object");
+      };
+
+      // Init element and update
+      this.update();
+    },
     
     /**
      * Get the generated json string
