@@ -145,6 +145,19 @@ define(['util'], function () {
         e.appendChild(root);
         
       return this;
-    }      
+    },
+
+    toQuery : function () {
+      if (this._operands.length === 0)
+        return '';
+
+      let str = '(' + this._operands.map(
+        function (item) {
+          return item[0] + ' = "' + new String(item[1]).quote() + '"';
+        }
+      ).join(" & ");
+      
+      return str + ')';
+    }
   }
 });

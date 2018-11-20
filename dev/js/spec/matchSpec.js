@@ -710,49 +710,48 @@ define(['match',
 	  	  
 	  // Meta information should be parsed into a list
 	  it('should parse in a meta view', function(){
-		expect(mel.tagName).toEqual('DL');
-		expect(mel.children[0].tagName).toEqual('DIV');
-		expect(mel.children[0].children[0].tagName).toEqual('DT');
-		expect(mel.children[0].children[0].attributes[0].name).toEqual('title');
-    expect(mel.children[0].children[1].tagName).toEqual('DD');
-    expect(mel.children[0].children[1].getAttribute('data-type')).toEqual('type:text')
+		  expect(mel.tagName).toEqual('DL');
+		  expect(mel.children[0].tagName).toEqual('DIV');
+		  expect(mel.children[0].children[0].tagName).toEqual('DT');
+		  expect(mel.children[0].children[0].attributes[0].name).toEqual('title');
+      expect(mel.children[0].children[1].tagName).toEqual('DD');
+      expect(mel.children[0].children[1].getAttribute('data-type')).toEqual('type:text')
 		
-		expect(mel.children[0].children[0].firstChild.nodeValue).toEqual('author');
-		expect(mel.children[0].children[1].firstChild.nodeValue).toEqual('Sprachpfleger, u.a.');
-		expect(mel.children[0].children[0].attributes[0].value).toEqual('author');
+		  expect(mel.children[0].children[0].firstChild.nodeValue).toEqual('author');
+		  expect(mel.children[0].children[1].firstChild.nodeValue).toEqual('Sprachpfleger, u.a.');
+		  expect(mel.children[0].children[0].attributes[0].value).toEqual('author');
 	  });
 	  
 	  
-	 /* The keywords in the meta information list should be formatted to be able  
-	 to chose each keyword separately in the corpusByMatch assistant. */
-	 it('keywords should be formatted', function(){
+	  /* The keywords in the meta information list should be formatted to be able  
+	     to chose each keyword separately in the corpusByMatch assistant. */
+	  it('keywords should be formatted', function(){
 		
-		 //type:string or type:keyword should b not relevant
-     expect(mel.children[1].children[1].getAttribute('data-type')).toEqual('type:string')
-		 expect(mel.children[1].children[1].classList.contains('metakeyvalues')).toBeTruthy;
-		 expect(mel.children[1].children[1].children[0].tagName).toEqual('DIV');
-		 expect(mel.children[1].children[1].children[0].firstChild.nodeValue).toEqual('corenlp');
-		 expect(mel.children[1].children[1].children[1].tagName).toEqual('DIV');
-		 expect(mel.children[1].children[1].children[1].firstChild.nodeValue).toEqual('corenlp\/constituency');
-		 
-		 expect(mel.children[2].children[1].classList.contains('metakeyvalues')).toBeTruthy;
-		 expect(mel.children[2].children[1].children[0].tagName).toEqual('DIV');
-		 expect(mel.children[2].children[1].children[0].firstChild.nodeValue).toEqual('kultur');
-		 expect(mel.children[2].children[1].children[1].tagName).toEqual('DIV');
-		 expect(mel.children[2].children[1].children[1].firstChild.nodeValue).toEqual('film');		 
+		  //type:string or type:keyword should b not relevant
+      expect(mel.children[1].children[1].getAttribute('data-type')).toEqual('type:string')
+		  expect(mel.children[1].children[1].classList.contains('metakeyvalues')).toBeTruthy;
+		  expect(mel.children[1].children[1].children[0].tagName).toEqual('DIV');
+		  expect(mel.children[1].children[1].children[0].firstChild.nodeValue).toEqual('corenlp');
+		  expect(mel.children[1].children[1].children[1].tagName).toEqual('DIV');
+		  expect(mel.children[1].children[1].children[1].firstChild.nodeValue).toEqual('corenlp\/constituency');
+		  
+		  expect(mel.children[2].children[1].classList.contains('metakeyvalues')).toBeTruthy;
+		  expect(mel.children[2].children[1].children[0].tagName).toEqual('DIV');
+		  expect(mel.children[2].children[1].children[0].firstChild.nodeValue).toEqual('kultur');
+		  expect(mel.children[2].children[1].children[1].tagName).toEqual('DIV');
+		  expect(mel.children[2].children[1].children[1].firstChild.nodeValue).toEqual('film');		 
 	  }); 
   
   
-	 // Meta information should be sorted alphabetically
-  it('should be alphabetically sorted', function(){
-  	var a = mel.children[0].children[0].firstChild.nodeValue;
-  	var b = mel.children[1].children[0].firstChild.nodeValue;
-  	var c = mel.children[2].children[0].firstChild.nodeValue;
-  	expect(a.localeCompare(b)).toBe(-1);
-  	expect(b.localeCompare(c)).toBe(-1);
+	  // Meta information should be sorted alphabetically
+    it('should be alphabetically sorted', function(){
+  	  var a = mel.children[0].children[0].firstChild.nodeValue;
+  	  var b = mel.children[1].children[0].firstChild.nodeValue;
+  	  var c = mel.children[2].children[0].firstChild.nodeValue;
+  	  expect(a.localeCompare(b)).toBe(-1);
+  	  expect(b.localeCompare(c)).toBe(-1);
+    });  
   });
-  
-});
   // table = view.toTable();
   // table.sortBy('');
   // table.element();

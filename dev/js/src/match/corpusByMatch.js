@@ -49,14 +49,14 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       // Meta information is a single value
       if (target.tagName === 'DD') {
         type = target.getAttribute("data-type");
-        key  = target.previousSibling.innerText;
+        key  = target.previousElementSibling.innerText;
         value = target.innerText;
       }
 
       // Meta information is in a list
       else if (target.tagName === 'DIV') {
         type = target.parentNode.getAttribute("data-type");
-        key = target.parentNode.previousSibling.innerText;
+        key = target.parentNode.previousElementSibling.innerText;
         value = target.innerText;
       };
 
@@ -64,6 +64,8 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       if (type === "type:store")
         return;
 
+      type = type || "type:string";
+      
       // Add or remove the constraint to the fragment
       if (key && value) {
         if (target.classList.contains("chosen")) {
@@ -94,8 +96,8 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
     },
 
     // Stringify annotation
-    toString : function () {
-      return '';
+    toQuery : function () {
+      return this._fragment.toQuery();
     }
   };
 });
