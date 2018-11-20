@@ -33,7 +33,7 @@ function metaTableFactory () {
   return meta;
 };
 
-define(['match/corpusByMatch'], function (cbmClass) {  
+define(['match/corpusByMatch', 'vc'], function (cbmClass, vcClass) {  
   describe('KorAP.CorpusByMatch', function () {
 
     it('should be initializable', function () {
@@ -61,12 +61,48 @@ define(['match/corpusByMatch'], function (cbmClass) {
       metaTable.querySelector("dl dt[title=author] + dd").click();
       expect(metaTable.parentNode.querySelector("div.vc.fragment")).not.toBeNull();
 
-      expect(cbm.toQuery()).toEqual('(author = "Sprachpfleger, u.a.")');
+      expect(cbm.toQuery()).toEqual('author = "Sprachpfleger, u.a."');
 
       // click on list:
       metaTable.querySelector("dl dt[title=foundries] + dd div:nth-of-type(3)").click();
 
-      expect(cbm.toQuery()).toEqual('(author = "Sprachpfleger, u.a." & foundries = "corenlp/morpho")');
+      expect(cbm.toQuery()).toEqual('author = "Sprachpfleger, u.a." & foundries = "corenlp/morpho"');
     });
+
+    it('should be pushed to global VC builder', function () {
+
+      // Create global VC object
+      KorAP.vc = vcClass.create().fromJson({
+        "@type" : 'koral:docGroup',
+        'operation' : 'operation:or',
+        'operands' : [
+          {
+            '@type' : 'koral:doc',
+            'key' : 'title',
+            'value' : 'Hello World!'
+          },
+          {
+            '@type' : 'koral:doc',
+            'key' : 'foo',
+            'value' : 'bar'
+          }
+        ]
+      });
+
+      expect(KorAP.vc.toQuery()).toEqual('title = "Hello World!" | foo = "bar"');
+
+      let cbm = cbmClass.create(metaTableFactory());
+      expect(cbm.toQuery()).toEqual("");
+
+      cbm.add("author", "Peter", "type:string");
+      expect(cbm.toQuery()).toEqual('author = "Peter"');
+
+      cbm.add("pubDate", "2018-11-20", "type:date");
+      expect(cbm.toQuery()).toEqual('author = "Peter" & pubDate in 2018-11-20');
+
+      cbm.toVcBuilder();
+
+      expect(KorAP.vc.toQuery()).toEqual('(title = "Hello World!" | foo = "bar") & author = "Peter" & pubDate in 2018-11-20');
+    })
   });
 });
