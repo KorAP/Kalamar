@@ -53,7 +53,7 @@ define([
   'vc/statistic',
   'datepicker',
   'buttongroup',
-  'panel',
+  'panel/vcpanel',
   'view/corpstatv',
   'buttongroup',
   'util'
@@ -66,7 +66,7 @@ define([
   statClass,
   dpClass,
   buttonGrClass,
-  panelClass,
+  vcPanelClass,
   corpStatVClass,
   buttonGroupClass) {
   "use strict";
@@ -81,8 +81,6 @@ define([
   // KorAP._validDateMatchRE is defined in datepicker.js!
 
   const loc = KorAP.Locale;
-  loc.SHOW_STAT        = loc.SHOW_STAT        || 'Statistics';
-  loc.VERB_SHOWSTAT    = loc.VERB_SHOWSTAT    || 'Corpus Statistics';
   loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
   loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
   loc.MINIMIZE         = loc.MINIMIZE         || 'Minimize';
@@ -362,12 +360,13 @@ define([
     
     /**
      * Update the whole object based on the underlying data structure
-     */
+     */ 
     update : function() {
       this._root.update();
       return this;
     },
-
+    
+ 
     /**
      * Make the vc persistant by injecting the current timestamp as a
      * creation date limit criterion.
@@ -470,26 +469,17 @@ define([
       return this._root.toQuery();
     },
 
-
-    /*
+    
+    /**
      * Add panel to display virtual corpus information
      */
     addVcInfPanel : function() {
-
       var dv = this._element.addE('div');
-      var panel = panelClass.create([ 'vcinfo' ]);
-      dv.appendChild(panel.element());
-      
-      var that = this;
-      var actions = panel.actions;
-      var statView;
-      
-      actions.add(loc.SHOW_STAT, [ 'statistic' ], function() {
-        if (statView === undefined || !statView.shown()) {
-          statView = corpStatVClass.create(that);
-          panel.add(statView);
-        }
-      });
-    }
+      //Create panel  
+      this.panel = vcPanelClass.create(this); 
+      dv.appendChild(this.panel.element());
+    },
+    
+    
   };
 });
