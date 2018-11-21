@@ -26,6 +26,17 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       // Remember the meta table
       this._meta = meta;
 
+      // CorpusByMatch can be disabled per configuration.
+      // This is necessary, as the feature won't work with
+      // indices created before Krill V0.57.
+      // This is an undocumented feature and will be
+      // removed in future versions.
+      // This will also require a change in matchinfo.scss
+      if (KorAP.Conf && KorAP.Conf["CorpusByMatchDisabled"]) {
+        this._meta.classList.add("cbm-disabled");
+        return this;
+      };
+
       this._meta.addEventListener(
         "click", this.clickOnMeta.bind(this), false
       );

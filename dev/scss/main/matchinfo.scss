@@ -230,7 +230,6 @@ div.metatable > dl {
     }
     > dd[data-type="type:store"] {
       background-color: $middle-orange;
-
       cursor: default;
     }
 
@@ -247,6 +246,13 @@ div.metatable > dl {
       color: $nearly-white;
     }
   }
+}
+
+// This is a temporary feature to disable
+// corpusByMatch assistant. See corpusByMatch.js
+// for reasons.
+div.metatable > dl.cbm-disabled > div > dd {
+  cursor: default !important;
 }
 
 div.loading {
