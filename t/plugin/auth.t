@@ -40,11 +40,15 @@ $t->get_ok('/?q=Baum')
   ->text_like('#total-results', qr/\d+$/)
   ->content_like(qr/\"authorized\"\:null/)
   ->element_exists_not('div.button.top a')
+  ->element_exists_not('aside.active')
+  ->element_exists_not('aside.off')
   ;
 
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists('form[action=/user/login] input[name=handle_or_email]')
+  ->element_exists('aside.active')
+  ->element_exists_not('aside.off')
   ;
 
 $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
@@ -84,6 +88,8 @@ $t->get_ok('/')
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Login successful')
+  ->element_exists('aside.off')
+  ->element_exists_not('aside.active')
   ;
 
 # Now the user is logged in and should be able to

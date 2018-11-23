@@ -1,5 +1,7 @@
-<aside tabindex="0" class="<% unless (content_block_ok('sidebar')) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
+% my $side_bar = content_block 'sidebar';
+
+<aside tabindex="0" class="<% unless (length($side_bar) > 1) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
   <div>
-%= content_block 'sidebar'
+    %= $side_bar
   </div>
 </aside>
