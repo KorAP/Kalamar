@@ -57,7 +57,16 @@ div.result.panel .view {
   }
 }
 
-
+/*
+ * TODO:
+ *   This rule should not be dependent on
+ *   whether something is found or not,
+ *   but whether #search contains a result,
+ *   e.g. when a result view is open in the
+ *   result panel. This should probably be
+ *   indicated by a class on the button group
+ *   rather than a class on the resultinfo.
+ */
 #resultinfo.found {
   position: relative;
   // z-index: 20;
@@ -74,14 +83,6 @@ div.result.panel .view {
       border-bottom-right-radius: 0;
     }   
   }
-
-  /*
-  div.result.left {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-  */
 }
 
 

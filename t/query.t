@@ -24,8 +24,6 @@ my $fake_backend = $t->app->plugin(
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
-if (0) {
-
 # Query passed
 $t->get_ok('/?q=baum')
   ->status_is(200)
@@ -78,6 +76,7 @@ $t->get_ok('/?q=baum')
 $t->get_ok('/?q=[orth=das')
   ->status_is(400)
   ->text_is('div.notify-error:nth-of-type(1)', '302: Parantheses/brackets unbalanced.')
+  ->element_exists('#search')
   ->text_like('div.notify-error:nth-of-type(2)', qr!302: Could not parse query .+? \[orth=das.+?!)
   ;
 
@@ -167,6 +166,7 @@ $t->get_ok('/?q=der&p=2&count=2')
   ->status_is(200)
   ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »der« with Poliqarp')
+  ->element_exists('#search')
 
   # Total results
   ->text_is('#total-results', '14,581')
@@ -187,6 +187,7 @@ $t->get_ok('/?q=der&p=2&count=2')
 $t->get_ok('/?q=fantastisch&ql=Fabelsprache')
   ->status_is(400)
   ->text_is('noscript div.notify-error', 'Parameter "ql" invalid')
+  ->element_exists('#search')
   ->element_count_is('noscript div.notify-error', 1)
   ;
 $t->get_ok('/?q=fantastisch&cutoff=no')
@@ -199,8 +200,6 @@ $t->get_ok('/?q=fantastisch&p=hui&o=hui&count=-8')
   ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
   ->element_count_is('noscript div.notify-error', 3)
   ;
-
-};
 
 # Query too long
 my $long_query = 'b' x 2000;

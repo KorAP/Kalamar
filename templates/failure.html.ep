@@ -4,6 +4,8 @@
 
 %= include 'query'
 
+<div id="search"></div>
+
 <p class="no-results"><%= loc('notIssued') %></p>
 % if (stash('err_msg')) {
 <p class="no-results"><%= loc(stash('err_msg'),stash('err_msg')) %></p>
