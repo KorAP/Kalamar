@@ -149,6 +149,7 @@ define([
         e.appendChild(op.element());
       };
       
+      KorAP.vc.checkGrayingStat(this);
       return e;
     },
 
@@ -618,7 +619,7 @@ define([
 
 
     toQuery : function () {
-      if (!this.matchop() || !this.key())
+      if (!this.matchop() || !this.key() || !this.value())
         return "";
 
       // Build doc string based on key

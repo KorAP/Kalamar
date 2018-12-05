@@ -109,7 +109,7 @@ define([
         // Append new operators
         e.appendChild(op.element());
       };  
-
+      KorAP.vc.checkGrayingStat(this);
       return this.element();
     },
 
