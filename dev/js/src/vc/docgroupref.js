@@ -109,7 +109,7 @@ define([
         // Append new operators
         e.appendChild(op.element());
       };  
-
+      KorAP.vc.checkGrayingStat();
       return this.element();
     },
 
@@ -207,7 +207,6 @@ define([
       return this;
     },
 
-
     /**
      * Click on the unspecified object
      */
@@ -261,9 +260,13 @@ define([
       };
     },
 
+
+    incomplete : function () {
+      return !this.ref() ? true : false
+    },
     
     toQuery : function () {
-      if (!this.ref())
+      if (this.incomplete())
         return "";
 
       // Build doc string based on key

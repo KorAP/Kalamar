@@ -99,6 +99,10 @@ define(['vc/operators'], function (operatorsClass) {
       return null;
     },
 
+    incomplete : function () {
+      return false;
+    },
+
     toQuery : function () {
       return '';
     }
