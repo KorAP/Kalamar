@@ -81,6 +81,8 @@ define([
   // KorAP._validDateMatchRE is defined in datepicker.js!
 
   const loc = KorAP.Locale;
+  loc.SHOW_STAT        = loc.SHOW_STAT        || 'Statistics';
+  loc.VERB_SHOWSTAT    = loc.VERB_SHOWSTAT    || 'Corpus Statistics';
   loc.VC_allCorpora    = loc.VC_allCorpora    || 'all corpora';
   loc.VC_oneCollection = loc.VC_oneCollection || 'a virtual corpus';
   loc.MINIMIZE         = loc.MINIMIZE         || 'Minimize';
@@ -360,13 +362,12 @@ define([
     
     /**
      * Update the whole object based on the underlying data structure
-     */ 
+     */    
     update : function() {
       this._root.update();
+      this.checkGrayingStat();
       return this;
     },
-    
- 
     /**
      * Make the vc persistant by injecting the current timestamp as a
      * creation date limit criterion.
@@ -478,8 +479,17 @@ define([
       //Create panel  
       this.panel = vcPanelClass.create(this); 
       dv.appendChild(this.panel.element());
+      
     },
     
-    
+    /**
+     * Checks if corpus statistic has to be greyOut,
+     * and to be updated after clicking at the "reload-button"
+     */
+    checkGrayingStat : function(){
+      if(this.panel !== undefined && this.panel.statView !==undefined){
+        this.panel.statView.checkGrayingStatistic();
+      }
+    }
   };
 });

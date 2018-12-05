@@ -146,6 +146,7 @@ define([
       expect(doc.key()).toBeUndefined();
       expect(doc.value()).toBeUndefined();
       expect(doc.type()).toEqual("string");
+      expect(doc.incomplete()).toBeTruthy();
     });
 
     it('should be definable', function () {
@@ -161,6 +162,7 @@ define([
       expect(doc.key()).toEqual("title");
       expect(doc.type()).toEqual("string");
       expect(doc.value()).toEqual("Der alte Mann");
+      expect(doc.incomplete()).toBeFalsy();
     });
 
 
@@ -173,6 +175,7 @@ define([
       expect(doc.key()).toEqual("author");
       expect(doc.type()).toEqual("string");
       expect(doc.value()).toEqual("Max Birkendale");
+      expect(doc.incomplete()).toBeFalsy();
 
       // No valid string
       doc = stringFactory.create({
@@ -195,6 +198,7 @@ define([
       expect(doc.key()).toEqual("author");
       expect(doc.type()).toEqual("string");
       expect(doc.value()).toEqual("Max Birkendale");
+      expect(doc.incomplete()).toBeFalsy();
 
       // Invalid match type
       doc = stringFactory.create({
@@ -216,6 +220,7 @@ define([
       });
       expect(doc.matchop()).toEqual('ne');
       expect(doc.rewrites()).toBeUndefined();
+      expect(doc.incomplete()).toBeFalsy();
 
       // Invalid matcher
       doc = regexFactory.create({
@@ -344,6 +349,12 @@ define([
       // Serialize string
       doc = stringFactory.create();
       expect(doc.toQuery()).toEqual('author = "Max Birkendale"');
+
+      // Check for incompletion
+      expect(doc.incomplete()).toBeFalsy();
+      doc.value("");
+      expect(doc.incomplete()).toBeTruthy();
+      expect(doc.toQuery()).toEqual('');
 
       // Serialize string with quotes
       doc = stringFactory.create({ "value" : 'Max "Der Coole" Birkendate'});
@@ -570,6 +581,17 @@ define([
           '(pubDate since 2014-05-12 & ' +
           'pubDate until 2014-12-05 & foo != /[a]?bar/)'
       );
+
+
+      // Check for incompletion and only serialize complete operands
+      expect(docGroup.incomplete()).toBeFalsy();
+      var op1 = docGroup.getOperand(0);
+      op1.value("");
+      expect(docGroup.incomplete()).toBeFalsy();
+      expect(docGroup.toQuery()).toEqual(
+        '(pubDate since 2014-05-12 & ' +
+          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+      );
     });
   });
 
@@ -625,6 +647,12 @@ define([
       expect(vcRef.toQuery()).toEqual(
         "referTo \"@peter/myCorpus2\""
       );
+
+      // Check for incompletion and only serialize complete operands
+      expect(vcRef.incomplete()).toBeFalsy();
+      vcRef.ref("");
+      expect(vcRef.incomplete()).toBeTruthy();
+      expect(vcRef.toQuery()).toEqual("");
     });
   });
 
@@ -637,6 +665,7 @@ define([
       expect(docElement.firstChild.firstChild.data).toEqual(KorAP.Locale.EMPTY);
       expect(docElement.lastChild.lastChild.data).toEqual(KorAP.Locale.EMPTY);
       expect(doc.toQuery()).toEqual('');
+      expect(doc.incomplete()).toBeTruthy();
 
       // Only removable
       expect(docElement.lastChild.children.length).toEqual(0);
