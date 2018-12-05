@@ -356,7 +356,9 @@ define([
     toQuery : function (brackets) {
       var list = this._operands
 	        .filter(function (op) {
-	          return op.ldType() !== 'non';
+            if (op.incomplete())
+              return false;
+            return true;
 	        })
 	        .map(function (op) {
 	          return (op.ldType() === 'docGroup') ?

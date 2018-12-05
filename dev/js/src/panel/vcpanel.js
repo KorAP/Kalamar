@@ -44,10 +44,19 @@ define([
       if (this.statView === undefined || !this.statView.shown()) {
         this.statView = corpStatVClass.create(this.vc, this);
         this.add(this.statView);
+        this.vc.oldvcQuery = KorAP.vc.toQuery();
       }
 
     },
     
+    /**
+     * Reload corpus statistic 
+     *
+     */
+    reloadCorpStat: function(){
+      this.statView.close();
+      this.addCorpStat();
+    }
     
   }
 });
