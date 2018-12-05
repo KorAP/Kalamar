@@ -149,6 +149,7 @@ define([
         e.appendChild(op.element());
       };
       
+      KorAP.vc.checkGrayingStat(this);
       return e;
     },
 
@@ -618,6 +619,9 @@ define([
 
 
     toQuery : function () {
+      if(!this.value()){
+        return "";
+      }
       if (!this.matchop() || !this.key())
         return "";
 
