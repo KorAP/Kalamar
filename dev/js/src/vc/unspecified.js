@@ -121,6 +121,11 @@ define([
       return this._element;
     },
 
+
+    incomplete : function () {
+      return true;
+    },
+    
     /**
      * Click on the unspecified object
      */

@@ -122,32 +122,32 @@ require(['vc','vc/fragment','lib/domReady', 'lib/highlight/highlight.pack'], fun
 
     // Create a new virtual collection by passing a based json object and
     // field menu information
-    var vc = vcClass.create([
+    KorAP.vc = vcClass.create([
       ['title', 'string'],
       ['subTitle', 'string'],
       ['pubDate', 'date'],
       ['author', 'text']
     ]).fromJson(json);
 
-    document.getElementById('vc-view').appendChild(vc.element());
+    document.getElementById('vc-view').appendChild(KorAP.vc.element());
 
-    vc.open();
+    KorAP.vc.open();
 
     // show the current JSON serialization
     KorAP.showJSON = function () {
       var json = document.getElementById("json");
-      json.innerHTML = JSON.stringify(vc.root().toJson(), null, '  ');
+      json.innerHTML = JSON.stringify(KorAP.vc.root().toJson(), null, '  ');
       hljs.highlightBlock(json);
     };
 
     // show the current query serialization
     KorAP.showQuery = function () {
-      document.getElementById("query").innerHTML = vc.root().toQuery();
+      document.getElementById("query").innerHTML = KorAP.vc.root().toQuery();
     };
 
     // make the current vc persistant
     KorAP.makeVCPersistant = function () {
-      vc.makePersistant();
+      KorAP.vc.makePersistant();
     };
     
     //get the corpus statistic (demo function)

@@ -149,6 +149,10 @@ define([
         e.appendChild(op.element());
       };
       
+      if(KorAP.vc){
+        KorAP.vc.checkGrayingStat();
+      }
+      
       return e;
     },
 
@@ -616,9 +620,12 @@ define([
       };
     },
 
+    incomplete : function () {
+      return !(this.matchop() && this.key() && this.value());
+    },
 
     toQuery : function () {
-      if (!this.matchop() || !this.key())
+      if (this.incomplete())
         return "";
 
       // Build doc string based on key

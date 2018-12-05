@@ -7,7 +7,7 @@
 
 
 define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, corpStatVClass){
-	 
+  
 	var json = {
    	"@type":"koral:docGroup",
    	"operation":"operation:or",
@@ -77,8 +77,81 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
   	return cb(preDefinedStat);
   }; 
   
- 	
-	describe('KorAP.CorpusStat', function(){
+
+  generateCorpusDocGr = function(){     
+   let vc = vcClass.create().fromJson({
+      "@type" : 'koral:docGroup',
+      'operation' : 'operation:or',
+      'operands' : [
+        {
+          '@type' : 'koral:doc',
+          'key' : 'title', 
+          'match': 'match:eq',
+          'value' : 'Hello World!'
+        },
+        {
+          '@type' : 'koral:doc',   
+          'match': 'match:eq',
+          'key' : 'foo',
+          'value' : 'bar'
+        }
+      ]
+    });  
+   return vc;
+  }
+  
+  generateCorpusDoc = function(){
+    let vc= vcClass.create().fromJson({
+        '@type' : 'koral:doc',
+        'key' : 'title', 
+        'match': 'match:eq',
+        'value' : 'Hello World!',
+        'type'  : 'type:string'      
+    });
+    return vc;
+  };
+  
+  
+  /**
+   * Generate vc with docgroupref
+   */
+  generateCorpusRef = function(){  
+    let vc = vcClass.create().fromJson({
+      "@type" : "koral:docGroupRef",
+      "ref" : "@max/myCorpus"
+    });
+    return vc;
+  };
+  
+  
+  /**
+   * Checks is corpus statistic is active
+   */
+  checkStatActive = function(view, div){   
+    // corpus statistic exists, it is active and reloadStatButton is shown
+    if ((view.firstChild.classList.contains("stattable") === true) 
+      && (view.firstChild.classList.contains("greyOut") === false)
+      && (div.getElementsByClassName("reloadStatB").length == 0) ) { 
+      return true;
+    } 
+    return false;
+  };
+ 
+  
+  /**
+   * Checks if corpus statistic is disabled
+   */
+  checkStatDisabled = function(view, div){
+    if ((view.firstChild.classList.contains("stattable") === true) 
+        && (view.firstChild.classList.contains("greyOut") === true)
+        && (div.getElementsByClassName("reloadStatB").length === 1) ) {
+      return true;
+    }   
+    return false;
+    };
+    
+    
+  describe('KorAP.CorpusStat', function(){
 
 		it('should be initiable', function(){
 		  var stat = statClass.create(preDefinedStat);		
@@ -88,7 +161,7 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 		
 		it('should be parsed in a statistic view and displayed as HTML Description List', function(){
 		  var stat = statClass.create(preDefinedStat);		
-      var descL = stat.element();
+          var descL = stat.element();
 			expect(descL.tagName).toEqual('DL');		
 			expect(descL.children[0].tagName).toEqual('DIV');
 			expect(descL.children[0].children[0].tagName).toEqual('DT');
@@ -113,12 +186,14 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 	      ['author', 'text']
 	    ]).fromJson(json);
 
+		  KorAP.vc = vc;
+		  
 		  statView = corpStatVClass.create(vc);
-		  //corpStatVClass.show(vc);
+		  // corpStatVClass.show(vc);
 		  
 			var testDiv = document.createElement('div');
 			testDiv.appendChild(statView.show());
-			//statClass.showCorpStat(testDiv, vc);
+			// statClass.showCorpStat(testDiv, vc);
 			
 			expect(testDiv.children[0].tagName).toEqual('DIV');
 			expect(testDiv.children[0].getAttribute("class")).toEqual('stattable');   
@@ -232,5 +307,197 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
       panel.lastChild.children[0].click();
       expect(panel.firstChild.children.length).toEqual(1);
     });
-  });		
+    
+   
+  });	
+	
+  
+  
+    /**
+     * Test disabling and reload of corpus statistic if vc is changed 
+     * in vc builder through user-interaction
+     */
+	describe ('KorAP.CorpusStat.Disable', function(){
+	
+	  /**
+	   * If the user defines a new vc, the statistic should be disabled,
+	   * because it is out-of-date.
+	   * 
+	   * The user can choose to display an up-to-date corpus statistic. Here it is tested
+	   * if corpus statistic is disabled after a valid change of corpus statistic and if the corpus statistic is updatable.
+	   */ 	  	 
+      it ('should disable the corpus statistic if corpus definition is changed and display a functional reload  button', function(){
+        
+        KorAP.vc = generateCorpusDocGr();  
+        
+        //Show corpus statistic
+        let show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        let panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        let view = panel.firstChild.firstChild;
+        
+        //corpus statistic is active
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        //change vc, a line in vc builder is deleted
+        KorAP._delete.apply(KorAP.vc.root().getOperand(0));
+        expect(checkStatDisabled(view,show)).toBe(true);
+        
+        //click at reload button
+        let rlbutton = show.getElementsByClassName("refresh").item(0);
+        rlbutton.click();
+        
+        expect(checkStatActive(view,show)).toBe(true);
+      });
+      
+      
+      it('should disable corpus statistic if entries in vc builder are deleted', function(){
+        KorAP.vc = generateCorpusDocGr();
+        
+        // create corpus builder and corpus statistic;
+        let show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());   
+        let panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        let view = panel.firstChild.firstChild;
+
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        //delete foo=bar
+        KorAP._delete.apply(KorAP.vc.root().getOperand(1));
+        expect(checkStatDisabled(view, show)).toBe(true);
+       
+        //refresh corpus statistic
+        let rlbutton = show.getElementsByClassName("refresh").item(0);
+        rlbutton.click();
+        expect(checkStatActive(view,show)).toBe(true);   
+            
+        KorAP._delete.apply(KorAP.vc.root());
+        // fails momentarily, does not fail after next commit with Change-Id: Id44736f134c00e1a1be002bf14e00e6efa26ad02
+        //expect(checkStatDisabled(view, show)).toBe(true);        
+      });
+      
+      
+      it('should disable corpus statistic if key, matchoperator or value is changed', function(){  
+        /*         
+         * Doc change of key, match operator and value 
+         */
+        KorAP.vc= generateCorpusDoc();
+        // show vc builder and open corpus statistic
+        let show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        let panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        let view = panel.firstChild.firstChild;
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        KorAP.vc.root().matchop("ne").update();
+        expect(checkStatDisabled(view, show)).toBe(true);
+        
+        let rlbutton = show.getElementsByClassName("refresh").item(0);
+        rlbutton.click();
+        
+        view = panel.firstChild.firstChild;
+        expect(checkStatActive(view, show)).toBe(true);
+        KorAP.vc.root().value("Hello tester").update();
+        expect(checkStatDisabled(view, show)).toBe(true);
+          
+        //refresh corpus statistic
+        rlbutton = show.getElementsByClassName("refresh").item(0);
+        rlbutton.click();
+        view = panel.firstChild.firstChild;
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        KorAP.vc.root().key("author").update();
+        expect(checkStatDisabled(view, show)).toBe(true);
+        
+        
+        /*
+         * DocGroupRef change of value...
+         */  
+        KorAP.vc = generateCorpusRef();
+        show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        view = panel.firstChild.firstChild;
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        KorAP.vc.root().ref("@anton/secondCorpus").update();
+        expect(checkStatDisabled(view, show)).toBe(true);
+        });
+      
+      
+      it('should not disable corpus statistic if docgroup definition is incomplete', function(){
+        
+        KorAP.vc = generateCorpusDocGr();
+        
+        //Show corpus statistic
+        let show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        let panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        let view = panel.firstChild.firstChild;
+        
+        expect(checkStatActive(view, show)).toBe(true);
+
+        KorAP._and.apply(KorAP.vc.root());
+
+        let andbuild = show.getElementsByClassName("builder");
+        expect(andbuild[0].firstChild.classList.contains('docGroup')).toBeTruthy();
+        expect(andbuild[0].firstChild.getAttribute("data-operation")).toEqual("and");  
+        expect(checkStatActive(view, show)).toBe(true);
+      });
+
+      
+      it('should not disable corpus statistic if doc/docref definition is incomplete', function(){
+        
+        /*
+         * DOC incomplete
+         */
+        KorAP.vc = vcClass.create().fromJson();
+        expect(KorAP.vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
+        
+        // show vc builder and open corpus statistic
+        let show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        let panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        let view = panel.firstChild.firstChild;
+       
+        // corpus statistic should be shown and be up-to-date, reload button is not shown
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        // open the menu
+        KorAP.vc.builder().firstChild.firstChild.click();
+        KorAP._vcKeyMenu._prefix.add("author");
+        let prefElement = KorAP.vc.builder().querySelector('span.pref');
+        // add key 'author' to VC
+        prefElement.click();
+        
+        expect(checkStatActive(view, show)).toBe(true); 
+       
+        
+        /*
+         * DOCREF incomplete
+         */
+        KorAP.vc = vcClass.create().fromJson();
+        expect(KorAP.vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
+        
+        // show vc builder and open corpus statistic
+        show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        view = panel.firstChild.firstChild;
+        expect(checkStatActive(view, show)).toBe(true);
+
+        KorAP.vc.builder().firstChild.firstChild.click();
+        KorAP._vcKeyMenu._prefix.add("referTo");
+        prefElement = KorAP.vc.builder().querySelector('span.pref');
+        prefElement.click();
+        expect(checkStatActive(view, show)).toBe(true);
+        });     
+      });
 });
