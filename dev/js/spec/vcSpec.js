@@ -27,7 +27,7 @@ define([
 
   KorAP._vcKeyMenu = undefined;
 
-
+   
   // Helper method for building factories
   buildFactory = function (objClass, defaults) {
     return {
@@ -146,6 +146,7 @@ define([
       expect(doc.key()).toBeUndefined();
       expect(doc.value()).toBeUndefined();
       expect(doc.type()).toEqual("string");
+      expect(doc.incomplete()).toBeTruthy();
     });
 
     it('should be definable', function () {
@@ -161,6 +162,7 @@ define([
       expect(doc.key()).toEqual("title");
       expect(doc.type()).toEqual("string");
       expect(doc.value()).toEqual("Der alte Mann");
+      expect(doc.incomplete()).toBeFalsy();
     });
 
 
@@ -173,6 +175,7 @@ define([
       expect(doc.key()).toEqual("author");
       expect(doc.type()).toEqual("string");
       expect(doc.value()).toEqual("Max Birkendale");
+      expect(doc.incomplete()).toBeFalsy();
 
       // No valid string
       doc = stringFactory.create({
@@ -195,6 +198,7 @@ define([
       expect(doc.key()).toEqual("author");
       expect(doc.type()).toEqual("string");
       expect(doc.value()).toEqual("Max Birkendale");
+      expect(doc.incomplete()).toBeFalsy();
 
       // Invalid match type
       doc = stringFactory.create({
@@ -216,6 +220,7 @@ define([
       });
       expect(doc.matchop()).toEqual('ne');
       expect(doc.rewrites()).toBeUndefined();
+      expect(doc.incomplete()).toBeFalsy();
 
       // Invalid matcher
       doc = regexFactory.create({
@@ -344,6 +349,12 @@ define([
       // Serialize string
       doc = stringFactory.create();
       expect(doc.toQuery()).toEqual('author = "Max Birkendale"');
+
+      // Check for incompletion
+      expect(doc.incomplete()).toBeFalsy();
+      doc.value("");
+      expect(doc.incomplete()).toBeTruthy();
+      expect(doc.toQuery()).toEqual('');
 
       // Serialize string with quotes
       doc = stringFactory.create({ "value" : 'Max "Der Coole" Birkendate'});
@@ -570,6 +581,17 @@ define([
           '(pubDate since 2014-05-12 & ' +
           'pubDate until 2014-12-05 & foo != /[a]?bar/)'
       );
+
+
+      // Check for incompletion and only serialize complete operands
+      expect(docGroup.incomplete()).toBeFalsy();
+      var op1 = docGroup.getOperand(0);
+      op1.value("");
+      expect(docGroup.incomplete()).toBeFalsy();
+      expect(docGroup.toQuery()).toEqual(
+        '(pubDate since 2014-05-12 & ' +
+          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+      );
     });
   });
 
@@ -625,6 +647,12 @@ define([
       expect(vcRef.toQuery()).toEqual(
         "referTo \"@peter/myCorpus2\""
       );
+
+      // Check for incompletion and only serialize complete operands
+      expect(vcRef.incomplete()).toBeFalsy();
+      vcRef.ref("");
+      expect(vcRef.incomplete()).toBeTruthy();
+      expect(vcRef.toQuery()).toEqual("");
     });
   });
 
@@ -637,6 +665,7 @@ define([
       expect(docElement.firstChild.firstChild.data).toEqual(KorAP.Locale.EMPTY);
       expect(docElement.lastChild.lastChild.data).toEqual(KorAP.Locale.EMPTY);
       expect(doc.toQuery()).toEqual('');
+      expect(doc.incomplete()).toBeTruthy();
 
       // Only removable
       expect(docElement.lastChild.children.length).toEqual(0);
@@ -731,7 +760,9 @@ define([
     });
     
     it('should be replaceable on root', function () {
+      
       var vc = vcClass.create();
+      KorAP.vc = vc;
       expect(vc.toQuery()).toEqual("");
 
       expect(vc.root().ldType()).toEqual("non");
@@ -756,6 +787,8 @@ define([
       var vc = vcClass.create([
         ["pubDate", "date"]
       ]);
+      KorAP.vc = vc;
+
       expect(vc.toQuery()).toEqual("");
       expect(vc.builder().firstChild.textContent).toEqual(KorAP.Locale.EMPTY);
       expect(vc.builder().firstChild.classList.contains('unspecified')).toEqual(true);
@@ -805,6 +838,7 @@ define([
         "value":"Baum",
         "match":"match:eq"
       });
+      KorAP.vc = vc;
       expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
 
       var vcE = vc.builder();
@@ -837,6 +871,7 @@ define([
         "match":"match:eq"
       });
 
+      KorAP.vc = vc;
       expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
 
       var vcE = vc.builder();
@@ -870,6 +905,7 @@ define([
         "match":"match:eq"
       });
 
+      KorAP.vc = vc;
       expect(vc.toQuery()).toEqual("Titel = \"Baum\"");
 
       var vcE = vc.builder();
@@ -911,6 +947,7 @@ define([
         ]
       });
 
+    KorAP.vc = vc;
       expect(vc.toQuery()).toEqual("author = \"Max Birkendale\" & pubDate in 2014-12-05");
 
       var vcE = vc.builder();
@@ -2941,6 +2978,9 @@ define([
         ['b', null],
         ['c', null]
       ]).fromJson();
+      
+      vc = KorAP.vc;
+      
       expect(vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
 
       // This should open up the menu
