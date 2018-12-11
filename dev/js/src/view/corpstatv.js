@@ -133,29 +133,27 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
      * Disabling corpus statistic if in vc builder a different vc is choosen.
      * After clicking at the reload-button the up-to-date corpus statistic is displayed.
      */   
+
     disableStat : function(){
       var statt = this._show;
-      
+  
       if(statt.getElementsByClassName('reloadStatB').length == 0){
-          var reloadspan = document.createElement('span');
-          reloadspan.classList.add('reloadStatB');
-          reloadb = reloadspan.addE('span');
-          reloadb.classList.add('refresh');
+        var reloadspan = document.createElement('div');
+        reloadspan.classList.add('reloadStatB'); 
+        reloadspan.classList.add('button-group');
+        reloadspan.classList.add('button-panel');    
+        reloadb = reloadspan.addE('span');
+        reloadb.classList.add('refresh');
           
-          var that = this;
+        var that = this;          
+        reloadb.addEventListener("click", function (e){    
+        statt.classList.remove('stdisabled');
+        that.panel.reloadCorpStat(); 
+        });
           
-          reloadb.addEventListener("click", function (e){    
-          statt.classList.remove('stdisabled');
-          that.panel.actions.element().querySelector(".statistic").classList.remove('stdisabled');
-          that.panel.reloadCorpStat(); 
-             });
-          
- 
+
         statt.appendChild(reloadspan);
         statt.classList.add('stdisabled');        
-        this.panel.actions.element().querySelector(".statistic").classList.add('stdisabled');
-        
-        console.log("Corpus statistic DISABLED");
         }
     },
 
