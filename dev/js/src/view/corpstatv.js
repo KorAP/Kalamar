@@ -107,10 +107,9 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
     /**
      * Checks if graying necessary
      */
-    checkGrayingStatistic : function (){   
+    checkGrayingStatistic : function (){
      var newString = KorAP.vc.toQuery();
      var oldString = this.vc.oldvcQuery;
-     
      /*
       * Do ignore surrounding round brackets
       * Definining an incomplete docGroup in the vc builder: 
@@ -118,13 +117,16 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
       * leads to 
       * vc.toQuery() -> (foo = bar and author=Goethe)
       */
-     if(newString.startsWith('(')){
-       newString = newString.slice(1, newString.length-1);
+  
+     if(newString || newString === ''){
+       if(newString.startsWith('(')){
+         newString = newString.slice(1, newString.length-1);
+       }
+       if(newString != oldString) {
+        this.grayingStat();
+      }  
      }
      
-      if(newString && newString != oldString) {
-        this.grayingStat();
-      }   
    },
    
     /**
