@@ -242,13 +242,15 @@ define([
 
     
     /**
-     * Clean the virtual document to uspecified doc.
+     * Clean the virtual document to unspecified doc.
      */
     clean : function() {
       if (this._root.ldType() !== "non") {
         this._root.destroy();
         this.root(unspecDocClass.create(this));
       };
+      //update for graying corpus statistic by deleting the first line of the vc builder
+      this.update();
       return this;
     },
 
