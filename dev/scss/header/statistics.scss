@@ -1,31 +1,77 @@
 @charset "utf-8";
 @import "../util";
 
+
+/* 
+Corpus statistic  
+Graying corpus statistic 
+*/
 div.stattable {
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
+}
+div.stattable {
+    > dl {
+        display: flex;
+        flex-flow: row wrap;
+        margin-top:4px;
+        margin-bottom:4px;
+        padding-bottom: 1px;   
+            > div {
+                border-color: $dark-green;
+                > dt {
+                    background-color: $middle-green;
+                    width: 15em;
+                    margin: 0;
+                    &:after {
+                    content: ":";
+                        }
+                    }   
+                > dd {
+                     background-color: $lightest-green;
+                     color: $dark-grey;
+                    }
+                }
+            }
+    &.greyOut {
+        > dl 
+            > div {
+                > dt {
+                    @include vcinfo-inactive;
+                    }
+             > dd {
+                    @include vcinfo-inactive;
+                }
+            }
+        }
 }
 
-div.stattable > dl {
-  display: flex;
-  flex-flow: row wrap;
-  //margin-top: 4 * $border-size !important;
-  margin-top:4px;
-  margin-bottom:4px;
-  padding-bottom: 1px;   
-  > div {
-    border-color: $dark-green;
-    > dt {
-      background-color: $middle-green;
-      width: 15em;
-      margin: 0;
-      &:after {
-  		  content: ":";
-  	  }
+
+/** Corpus statistic reload button */
+div.reloadStatB {
+    font-family: 'FontAwesome';
+    padding-left: 2px;
     }
-   	> dd {
-      background-color: $lightest-green;
-      color: $dark-grey;
-	  }
-  }
+span.refresh::after{
+    line-height: normal;
+    content : $fa-redo;
+    font-size: 15pt;
+    }
+
+
+
+/* Graying statistic button */
+.button-panel{    
+    > span {
+        &.statistic{
+            &.greyOut {
+                @include vcinfo-inactive;
+            }
+        }
+    &:hover{
+         @include vcinfo-inactive;
+         cursor: default;
+        }
+    }
 }
+

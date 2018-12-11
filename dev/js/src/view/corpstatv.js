@@ -140,8 +140,10 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
             
       if(document.getElementsByClassName("reloadStatB").length == 0){
           var statt = this._show;
-          var reloadspan = document.createElement('span');
-          reloadspan.classList.add('reloadStatB');
+          var reloadspan = document.createElement('div');
+          reloadspan.classList.add('reloadStatB'); 
+          reloadspan.classList.add('button-group');
+          reloadspan.classList.add('button-panel');
           reloadb = reloadspan.addE('span');
           reloadb.classList.add('refresh');
           

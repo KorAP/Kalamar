@@ -234,6 +234,15 @@ $logo-left-distance: 230px;
   appearance:none;
 }
 
+/** 
+* Mixin for the appearance of inactive elements in the vcinfo panel
+*/
+@mixin vcinfo-inactive{
+    background-color: #bcc387;
+    color: #8d8d8d;
+    border-color:   #8d8d8d; 
+    text-shadow: none;
+}
 
 /**
  * Font Awesome symbol table
@@ -268,3 +277,4 @@ $fa-to-query:     "\f102";
 $fa-cut:          "\f0c4";
 $fa-plugin:       "\f1e6";
 $fa-referto:      "\f0c5";
+$fa-redo:         "\f01e";
