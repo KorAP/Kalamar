@@ -130,7 +130,7 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
   checkStatActive = function(view, div){   
     // corpus statistic exists, it is active and reloadStatButton is shown
     if ((view.firstChild.classList.contains("stattable") === true) 
-      && (view.firstChild.classList.contains("greyOut") === false)
+      && (view.firstChild.classList.contains("stdisabled") === false)
       && (div.getElementsByClassName("reloadStatB").length == 0) ) { 
       return true;
     } 
@@ -143,7 +143,7 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
    */
   checkStatDisabled = function(view, div){
     if ((view.firstChild.classList.contains("stattable") === true) 
-        && (view.firstChild.classList.contains("greyOut") === true)
+        && (view.firstChild.classList.contains("stdisabled") === true)
         && (div.getElementsByClassName("reloadStatB").length === 1) ) {
       return true;
     }   
@@ -318,7 +318,11 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
      * in vc builder through user-interaction
      */
 	describe ('KorAP.CorpusStat.Disable', function(){
-	
+	  
+	  document.addEventListener('vcChange', function (e) {
+        KorAP.vc.checkStatActive(e.detail);
+        }, false);
+	    
 	  /**
 	   * If the user defines a new vc, the statistic should be disabled,
 	   * because it is out-of-date.

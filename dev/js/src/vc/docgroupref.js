@@ -109,7 +109,10 @@ define([
         // Append new operators
         e.appendChild(op.element());
       };  
-      KorAP.vc.checkGrayingStat();
+
+      var vcchevent = new CustomEvent('vcChange', {'detail':this});
+      document.dispatchEvent(vcchevent);
+      
       return this.element();
     },
 

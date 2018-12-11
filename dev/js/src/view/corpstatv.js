@@ -105,9 +105,9 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
 
     
     /**
-     * Checks if graying necessary
+     * Checks if statistic has to be disabled
      */
-    checkGrayingStatistic : function (){
+    checkStatActive : function (){
      var newString = KorAP.vc.toQuery();
      var oldString = this.vc.oldvcQuery;
      /*
@@ -123,17 +123,17 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
          newString = newString.slice(1, newString.length-1);
        }
        if(newString != oldString) {
-        this.grayingStat();
+        this.disableStat();
       }  
      }
      
    },
    
     /**
-     * Graying corpus statistic if in vc builder a different vc is choosen.
+     * Disabling corpus statistic if in vc builder a different vc is choosen.
      * After clicking at the reload-button the up-to-date corpus statistic is displayed.
      */   
-    grayingStat : function(){
+    disableStat : function(){
       var statt = this._show;
       
       if(statt.getElementsByClassName('reloadStatB').length == 0){
@@ -145,15 +145,15 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
           var that = this;
           
           reloadb.addEventListener("click", function (e){    
-          statt.classList.remove('greyOut');
-          that.panel.actions.element().querySelector(".statistic").classList.remove('greyOut');
+          statt.classList.remove('stdisabled');
+          that.panel.actions.element().querySelector(".statistic").classList.remove('stdisabled');
           that.panel.reloadCorpStat(); 
              });
           
  
         statt.appendChild(reloadspan);
-        statt.classList.add('greyOut');        
-        this.panel.actions.element().querySelector(".statistic").classList.add('greyOut');
+        statt.classList.add('stdisabled');        
+        this.panel.actions.element().querySelector(".statistic").classList.add('stdisabled');
         
         console.log("Corpus statistic DISABLED");
         }

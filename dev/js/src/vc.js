@@ -367,7 +367,9 @@ define([
      */    
     update : function() {
       this._root.update();
-      this.checkGrayingStat();
+      var vcchevent = new CustomEvent('vcChange', {'detail':this});
+      document.dispatchEvent(vcchevent);
+      
       return this;
     },
     /**
@@ -485,12 +487,12 @@ define([
     },
     
     /**
-     * Checks if corpus statistic has to be greyOut,
+     * Checks if corpus statistic has to be disabled,
      * and to be updated after clicking at the "reload-button"
      */
-    checkGrayingStat : function(){
+    checkStatActive : function(){
       if(this.panel !== undefined && this.panel.statView !==undefined){
-        this.panel.statView.checkGrayingStatistic();
+        this.panel.statView.checkStatActive();
       }
     }
   };
