@@ -149,7 +149,16 @@ define([
         e.appendChild(op.element());
       };
       
-      KorAP.vc.checkGrayingStat(this);
+      //Replaced through Event
+      //KorAP.vc.checkGrayingStat(this);
+      
+      /*
+       *  rcvcb stands her for "relevant change in  virtual collection builder"
+       *  (for graying corpus statistic)
+      */
+      var rcevent = new CustomEvent('rcvcb', {'detail':this});
+      document.dispatchEvent(rcevent);
+      
       return e;
     },
 

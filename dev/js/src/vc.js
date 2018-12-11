@@ -367,7 +367,17 @@ define([
      */    
     update : function() {
       this._root.update();
-      this.checkGrayingStat(this);
+      
+      //Replaced through Event
+      //this.checkGrayingStat(this);
+      
+      /*
+       *  rcvcb stands her for "relevant change in  virtual collection builder"
+       *  (for graying corpus statistic)
+      */
+      var rcevent = new CustomEvent('rcvcb', {'detail':this});
+      document.dispatchEvent(rcevent);
+      
       return this;
     },
     /**

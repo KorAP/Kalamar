@@ -90,6 +90,10 @@ define([
     var input = d.getElementById('collection');
 
     var vc = KorAP.vc;
+    
+    document.addEventListener('rcvcb', function (e) {
+      vc.checkGrayingStat(e.detail);
+      }, false);
 
     // Add vc name object
     if (input) {
