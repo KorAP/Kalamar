@@ -38,6 +38,7 @@ $dark-green:     $ids-green-1; // #496000;
 $middle-green:   lighten($ids-green-1, 9%);
 $light-green:    lighten($ids-green-1, 13%); // #7ba400;
 $lightest-green: #d8e38c; // lighten($ids-green-1, 26%);
+$grey-green: #bcc387;
 
 /**
  * Blue Colors
@@ -50,10 +51,10 @@ $darkest-blue:   darken($dark-blue, 40%);
  * Grey Colors
  */
 $middle-grey:  $ids-grey-1; // #999;
+$semilight-grey: #8d8d8d;
 $light-grey:   $ids-grey-2; // #ddd;
 $dark-grey:    darken($middle-grey, 15%);
 $nearly-white: #fefefe;
-
 /**
  * Red Colors (no IDS relation)
  */
@@ -234,7 +235,15 @@ $logo-left-distance: 230px;
   appearance:none;
 }
 
-
+/** 
+* Mixin for the appearance of inactive elements in the vcinfo panel
+*/
+@mixin vcinfo-inactive{
+    background-color: $grey-green;
+    color: $semilight-grey;
+    border-color:   $semilight-grey; 
+    text-shadow: none;
+}
 /**
  * Font Awesome symbol table
  */
@@ -268,3 +277,4 @@ $fa-to-query:     "\f102";
 $fa-cut:          "\f0c4";
 $fa-plugin:       "\f1e6";
 $fa-referto:      "\f0c5";
+$fa-redo:         "\f01e";
