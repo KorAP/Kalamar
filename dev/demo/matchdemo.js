@@ -593,6 +593,12 @@ require(['init'], function () {
         },
         {
           "@type":"koral:field",
+          "key":"link",
+          "type":"type:attachement",
+          "value":"data:application/x.korap-link;title=Wikipedia,https://de.wikipedia.org/wiki/Beispiel"
+        },
+        {
+          "@type":"koral:field",
           "key":"docTitle",
           "type":"type:text",
           "value":"Wikipedia, Artikel mit Anfangszahl 2, Teil 64"
