@@ -106,7 +106,7 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       };
 
       // Ignore stored types
-      if (type === "type:store")
+      if (type === "type:store" || type === "type:attachement")
         return;
 
       type = type || "type:string";

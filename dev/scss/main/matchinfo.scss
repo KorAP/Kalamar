@@ -228,11 +228,16 @@ div.metatable > dl {
       background-color: $light-orange;
       cursor: pointer;
     }
-    > dd[data-type="type:store"] {
+    > dd[data-type="type:store"],
+    > dd[data-type="type:attachement"]{
       background-color: $middle-orange;
       cursor: default;
-    }
 
+      a {
+        color: inherit;
+      }
+    }
+    
     > dd.metakeyvalues {
       padding:0;
       > div {
