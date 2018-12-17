@@ -10,7 +10,7 @@
 
 <section id="intro">
   <h3>Frontend Features</h3>
-  <p>This frontend differs to the <%= doc_ext_link_to 'official frontend', 'http://korap.ids-mannheim.de/app/', target => '_blank', rel => 'noopener noreferrer' %> by providing a serialization view, an integrated tutorial, a comparison view for morphological annotations, and an autocompletion for closed annotations (type in <%= doc_link_to 'foundry prefixes', 'data', 'annotation' %> like <code>cnx/</code>).</p>
+  <p>This frontend differs to the <%= doc_ext_link_to 'official frontend', 'http://korap.ids-mannheim.de/app/', target => '_blank', rel => 'noopener noreferrer' %> by providing a serialization view, an integrated tutorial, a comparison view for morphological annotations, and an autocompletion for closed annotations (type in <%= doc_link_to 'foundry prefixes', 'data', 'annotation' %> like <code>tt/</code>).</p>
 </section>
 
 <section id="examples">
@@ -29,11 +29,11 @@
   <p><em>Be aware</em>: Minor incompatibilities with implemented languages may be announced with warnings.</p>
   %= doc_query cosmas2 => 'd* MORPH(mate/p=ADJA) $Baum #IN #ELEM(s)'
 
-  <p><strong><%= doc_link_to 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Find all nominal phrases as annotated using Connexor, that contain an adverb as annotated by OpenNLP, that is annotated as something starting with an &quot;A&quot; using regular expressions in Treetagger.</p>
-  %= doc_query poliqarp => 'contains(<cnx/c=np>,{[opennlp/p=ADV & tt/p="A.*"]})', cutoff => 1
+  <p><strong><%= doc_link_to 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Find all nominal phrases as annotated using CoreNLP, that contain an adverb as annotated by OpenNLP, that is annotated as something starting with an &quot;A&quot; using regular expressions in Treetagger.</p>
+  %= doc_query poliqarp => 'contains(<corenlp/c=NP>,{[opennlp/p=ADV & tt/p="A.*"]})', cutoff => 1
 
-  <p><strong><%= doc_link_to 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Connexor and the lemma &quot;die&quot; annotated by the <%= doc_link_to 'default foundry', 'data', 'annotation' %>. Highlight both terms of the sequence.</p>
-  %= doc_query poliqarp => 'startswith(<base/s=s>, {1:[cnx/m=PRES]}{2:[base=die]})', cutoff => 1
+  <p><strong><%= doc_link_to 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Find all sentences as annotated by the base foundry that start with a sequence of one token in present tense as annotated by Marmot and the lemma &quot;die&quot; annotated by the <%= doc_link_to 'default foundry', 'data', 'annotation' %>. Highlight both terms of the sequence.</p>
+  %= doc_query poliqarp => 'startswith(<base/s=s>, {1:[marmot/m=tense:pres]}{2:[base=die]})', cutoff => 1
 
   <p><strong><%= doc_link_to 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Find all sequences of an article, followed by three to four adjectives and a noun as annotated by the Treetagger foundry, that finish a sentence. Highlight all parts of the sequence.</p>
   %= doc_query poliqarp => 'focus(3:endswith(<base/s=s>,{3:[tt/p=ART]{1:{2:[tt/p=ADJA]{3,4}}[tt/p=NN]}}))', cutoff => 1
