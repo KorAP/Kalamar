@@ -20,13 +20,14 @@ WriteMakefile(
     'Mojolicious::Plugin::ClosedRedirect' => 0.14,
     'Mojolicious::Plugin::Notifications' => 1.01,
     'Mojolicious::Plugin::MailException' => 0.20,
+    'Mojolicious::Plugin::Util::RandomString' => 0.08,
     'Mojolicious::Plugin::CHI' => 0.20,
     'Mojolicious::Plugin::ClientIP' => 0.01,
     'Cache::FastMmap' => 0,
     'Mojo::JWT' => 0.05,
 
     # Required for bundled plugins
-    'Mojolicious::Plugin::Piwik' => 0.24,
+    'Mojolicious::Plugin::Piwik' => 0.25,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Localize' => 0.20,
