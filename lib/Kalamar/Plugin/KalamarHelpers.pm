@@ -4,6 +4,12 @@ use Mojo::JSON qw/decode_json true false/;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/xml_escape deprecated/;
 
+# TODO:
+#   Add documentation plugin to programmatically
+#   create documentation navigation as a content_block
+#   so custom routes to custom templates can easily
+#   be configured
+
 sub register {
   my ($plugin, $mojo) = @_;
 
@@ -47,12 +53,7 @@ sub register {
 
       ($page, my $fragment) = split '#', $page;
 
-      my $url = $c->url_with(
-        'doc',
-        scope => $scope,
-        page => $page
-      );
-
+      my $url = $c->doc->url($scope, $page);
       $url->fragment($fragment) if $fragment;
 
       return $c->link_to(
@@ -87,7 +88,7 @@ sub register {
       my $scope = shift;
       my $url;
       if ($page) {
-        $url = $c->url_for('doc', page => $page, scope => $scope);
+        $url = $c->doc->url($scope, $page);
         $url->path->canonicalize;
       }
       else {
@@ -97,6 +98,26 @@ sub register {
     }
   );
 
+
+  $mojo->helper(
+    'doc.url' => sub {
+      my $c = shift;
+      my $page = pop;
+      my $scope = shift;
+      if ($scope) {
+        return $c->url_with(
+          'doc2',
+          page => $page,
+          scope => $scope
+        );
+      };
+
+      return $c->url_with(
+        'doc1',
+        page => $page
+      );
+    }
+  );
 
   # Documentation navigation helper
   $mojo->helper(
@@ -122,12 +143,7 @@ sub register {
           my $id = $_->{id};
           $id =~ s/^#//;
 
-          $url = $c->url_with(
-            'doc',
-            'scope' => $part_scope,
-            'page' => $page
-          );
-
+          $url = $c->doc->url($part_scope, $page);
           $url->fragment($id);
         }
 
@@ -140,11 +156,7 @@ sub register {
           };
 
           # Generate url with query parameter inheritance
-          $url = $c->url_with(
-            'doc',
-            'scope' => $scope,
-            'page' => $_->{id}
-          );
+          $url = $c->doc->url($scope, $_->{id});
 
           # Canonicalize (for empty scopes)
           $url->path->canonicalize;

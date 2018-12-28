@@ -27,11 +27,14 @@ sub page {
   );
 
   # Render template
-  return $c->render(
-    sidebar_active => 1,
-    main_class     => 'tutorial',
-    documentation => 1,
-    template       => $c->loc('Template_' . join('_', @path), join('/', @path))
+  $c->stash(sidebar_active => 1);
+  $c->stash(main_class => 'tutorial');
+  $c->stash(documentation => 1);
+
+  return $c->render_maybe(
+    template => $c->loc('Template_' . join('_', @path), join('/', @path))
+  ) || $c->render(
+    template => $c->loc('Template_' . join('_', 'custom', @path), join('/', 'custom', @path))
   );
 };
 

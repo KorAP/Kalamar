@@ -78,11 +78,8 @@ sub startup {
       });
   };
 
-  # Load Kalamar configuration
-  my $kalamar_conf = $self->config('Kalamar');
-
   # Check for API endpoint and set the endpoint accordingly
-  if ($kalamar_conf->{api}) {
+  if ($conf->{api}) {
 
     # The api endpoint should be defined as a separated path
     # and version string
@@ -94,14 +91,14 @@ sub startup {
 
   # Set from environment variable
   elsif ($ENV{'KALAMAR_API'}) {
-    $kalamar_conf->{api} = $ENV{'KALAMAR_API'};
+    $conf->{api} = $ENV{'KALAMAR_API'};
   }
 
   # API is not yet set - define
   else {
 
-    $kalamar_conf->{api} =
-      Mojo::URL->new($kalamar_conf->{api_path})->path('v' . ($kalamar_conf->{api_version} // $API_VERSION) . '/')->to_string;
+    $conf->{api} =
+      Mojo::URL->new($conf->{api_path})->path('v' . ($conf->{api_version} // $API_VERSION) . '/')->to_string;
   };
 
   # Add development path
@@ -193,7 +190,13 @@ sub startup {
 
   # Configure documentation navigation
   my $navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
-  $self->config(navi => decode_json($navi)) if $navi;
+  $navi = $navi ? decode_json($navi) : [];
+
+  if ($conf->{navi_ext}) {
+    push @$navi, @{$conf->{navi_ext}};
+  };
+
+  $self->config(navi => $navi);
 
   $self->log->info('API expected at ' . $self->config->{Kalamar}->{api});
 
@@ -211,8 +214,8 @@ sub startup {
 
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
-  $r->get('/doc/:page')->to('documentation#page', scope => undef);
-  $r->get('/doc/*scope/:page')->to('documentation#page')->name('doc');
+  $r->get('/doc/:page')->to('documentation#page')->name('doc1');
+  $r->get('/doc/*scope/:page')->to('documentation#page')->name('doc2');
 
   # Contact route
   $r->get('/contact')->to('documentation#contact');
