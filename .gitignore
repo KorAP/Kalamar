@@ -37,3 +37,4 @@ t/kalamar_user_client.t
 t/kalamar_user_client.t
 !.gitignore
 npm-debug.log
+package-lock.json
