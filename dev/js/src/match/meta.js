@@ -1,4 +1,4 @@
-define(['match/corpusByMatch','util'], function (cbmClass) {
+define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, attClass) {
 
   // Localization values
   const loc   = KorAP.Locale;
@@ -83,15 +83,30 @@ define(['match/corpusByMatch','util'], function (cbmClass) {
           let metaDescr = field["value"];
           metaDD = metaL.addE('dd');
           metaDD.setAttribute('data-type', field["type"]);
-          
+
           if(metaDescr instanceof Array){
         	  metaDD.classList.add("metakeyvalues");  
-        	  for(i = 0; i < metaDescr.length; i++){
-        	    metaDD.addE('div').addT(metaDescr[i]);
+        	  for (i = 0; i < metaDescr.length; i++){
+
+              if (field["type"] === 'type:attachement') {
+                let att = attClass.create(metaDescr[i]);
+                if (att)
+        	        metaDD.addE('div').appendChild(att.inline());
+              }
+              else {
+        	      metaDD.addE('div').addT(metaDescr[i]);
+              }
         	  } 
           }
           else{
-            metaDD.addT(field["value"]);
+            if (field["type"] === 'type:attachement') {
+              let att = attClass.create(field["value"]);
+              if (att)
+              metaDD.appendChild(att.inline());
+            }
+            else {
+              metaDD.addT(field["value"]);
+            };
           }
           
           metaDL.appendChild(metaL);
