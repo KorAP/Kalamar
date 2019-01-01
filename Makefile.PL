@@ -27,7 +27,7 @@ WriteMakefile(
     'Mojo::JWT' => 0.05,
 
     # Required for bundled plugins
-    'Mojolicious::Plugin::Piwik' => 0.25,
+    'Mojolicious::Plugin::Piwik' => 0.26,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Localize' => 0.20,
