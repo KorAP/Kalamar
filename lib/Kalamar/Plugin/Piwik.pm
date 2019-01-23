@@ -31,7 +31,7 @@ sub register {
   $mojo->content_block(
     'faq' => {
       inline => '<section name="piwik-opt-out">' .
-        '<h3><%= loc("Piwik_HowToOptOut", "How can I opt-out?") %></h3>' .
+        '<h3><%= loc("Piwik_HowToOptOut", "How can I opt-out from Matomo?") %></h3>' .
         '<%= piwik_tag "opt-out" %>' .
         '</section>'
       }
