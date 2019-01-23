@@ -27,16 +27,6 @@ sub register {
     }
   });
 
-  # Add opt-out to FAQ
-  $mojo->content_block(
-    'faq' => {
-      inline => '<section name="piwik-opt-out">' .
-        '<h3><%= loc("Piwik_HowToOptOut", "How can I opt-out?") %></h3>' .
-        '<%= piwik_tag "opt-out" %>' .
-        '</section>'
-      }
-  );
-
   # Add piwik tag to scripts
   $mojo->content_block(scripts => {
     inline => '<%= piwik_tag %>'
