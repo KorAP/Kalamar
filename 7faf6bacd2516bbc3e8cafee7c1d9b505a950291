@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1769b3ae_f88a4d59",
+        "filename": "dev/js/src/vc.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-01-28T09:47:02Z",
+      "side": 1,
+      "message": "I would prefer semantic naming of methods - like checkInvalidStat() or similar.",
+      "revId": "7faf6bacd2516bbc3e8cafee7c1d9b505a950291",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
