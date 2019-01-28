@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c77d8e22_1cd85bf0",
+        "filename": "dev/js/src/view/corpstatv.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-01-28T09:47:02Z",
+      "side": 1,
+      "message": "This is not very effective - it requires to search the whole document for a single element. This should better be part of the view.",
+      "revId": "23afe4726f245ebede20c47b05e62546bc70dd46",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
