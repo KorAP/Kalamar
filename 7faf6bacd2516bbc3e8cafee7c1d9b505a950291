@@ -16,6 +16,24 @@
       "revId": "7faf6bacd2516bbc3e8cafee7c1d9b505a950291",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1257e0d2_7ee0c781",
+        "filename": "dev/js/src/vc.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-01-28T11:11:53Z",
+      "side": 1,
+      "message": "You are completely right by that. \nBut unfortunately I choose a kind of unorthodox commit-order this time, therefore I would like to change this after or amending 2124(Added Event Listener..).",
+      "parentUuid": "1769b3ae_f88a4d59",
+      "revId": "7faf6bacd2516bbc3e8cafee7c1d9b505a950291",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     }
   ]
 }
