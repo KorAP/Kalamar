@@ -173,9 +173,16 @@ sub register {
 
           # There is an error here
           # Dealing with errors here
-          if (my $error = $jwt->{error}) {
+          if (my $error = $jwt->{error} // $jwt->{errors}) {
             if (ref $error eq 'ARRAY') {
-              $c->notify(error => $c->dumper($_));
+              foreach (@$error) {
+                unless ($_->[1]) {
+                  $c->notify(error => $c->loc('Auth_loginFail'));
+                }
+                else {
+                  $c->notify(error => $_->[0] . ($_->[1] ? ': ' . $_->[1] : ''));
+                };
+              };
             }
             else {
               $c->notify(error => 'There is an unknown JWT error');

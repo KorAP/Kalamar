@@ -229,6 +229,16 @@ get '/auth/apiToken' => sub {
           token_type => 'api_token'
         })
       );
+    }
+
+    elsif ($pwd eq 'ldaperr') {
+      return $c->render(
+        format => 'html',
+        status => 401,
+        json => {
+          "errors" => [[2022,"LDAP Authentication failed due to unknown user or password!"]]
+        }
+      );
     };
 
     return $c->render(

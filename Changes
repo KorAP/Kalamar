@@ -1,6 +1,7 @@
-0.32 2018-12-19
+0.32 2019-01-29
         - Support attachements in metadata fields (#77).
         - Added ping request option to Piwik.
+        - Fix handling of login errors.
 
 0.31 2018-11-30
         - Update to Mojolicious >= 8.06.

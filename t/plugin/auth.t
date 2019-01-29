@@ -58,6 +58,7 @@ $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' 
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Bad CSRF token')
   ->element_exists('input[name=handle_or_email][value=test]')
   ->element_exists_not('div.button.top a')
   ;
@@ -70,6 +71,42 @@ my $csrf = $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
   ->text_is('div.notify-error', 'Bad CSRF token')
+  ->element_exists_not('div.button.top a')
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'ldaperr',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->content_is('')
+  ->header_is('Location' => '/');
+
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', '2022: LDAP Authentication failed due to unknown user or password!')
+  ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists_not('div.button.top a')
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'unknown',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->content_is('')
+  ->header_is('Location' => '/');
+
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Access denied')
+  ->element_exists('input[name=handle_or_email][value=test]')
   ->element_exists_not('div.button.top a')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
