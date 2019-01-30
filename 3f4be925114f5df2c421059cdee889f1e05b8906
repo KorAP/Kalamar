@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06de4c0e_511244e9",
+        "filename": "dev/js/src/view/corpstatv.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-01-30T18:10:06Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to fix this in toQuery()?",
+      "revId": "3f4be925114f5df2c421059cdee889f1e05b8906",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
