@@ -372,10 +372,11 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
         let rlbutton = show.getElementsByClassName("refresh").item(0);
         rlbutton.click();
         expect(checkStatActive(view,show)).toBe(true);   
-            
+        
         KorAP._delete.apply(KorAP.vc.root());
-        // fails momentarily, does not fail after next commit with Change-Id: Id44736f134c00e1a1be002bf14e00e6efa26ad02
-        //expect(checkStatDisabled(view, show)).toBe(true);        
+        view = panel.firstChild.firstChild;
+        expect(checkStatDisabled(view, show)).toBe(true);     
+      
       });
       
       
