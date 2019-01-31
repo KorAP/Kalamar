@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19ad8eee_6ce04603",
+        "filename": "dev/js/src/vc.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-01-31T08:57:09Z",
+      "side": 1,
+      "message": "A speaking name would probably be better, as this event may be used by plugins in the future and could be considered a public API. How about \"vcChange\"?",
+      "range": {
+        "startLine": 378,
+        "startChar": 37,
+        "endLine": 378,
+        "endChar": 42
+      },
+      "revId": "b990f6ad18afb79e10e4c88b505e4429aeaa07e2",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
