@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99cea61e_e90c946e",
+        "filename": "dev/scss/header/statistics.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-02-05T14:15:48Z",
+      "side": 1,
+      "message": "This cursor rule seems to be wrong.",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "e119b21153b5bbdc4f3e9a7102dc8cf42497a055",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49ea595c_7dbcafee",
+        "filename": "dev/scss/util.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-02-05T14:15:48Z",
+      "side": 1,
+      "message": "Are these new colors? Otherwise - better refer to colors set in variables.",
+      "range": {
+        "startLine": 241,
+        "startChar": 23,
+        "endLine": 241,
+        "endChar": 29
+      },
+      "revId": "e119b21153b5bbdc4f3e9a7102dc8cf42497a055",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
