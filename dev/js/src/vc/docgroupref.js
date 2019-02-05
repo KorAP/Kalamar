@@ -109,7 +109,7 @@ define([
         // Append new operators
         e.appendChild(op.element());
       };  
-
+     
       var vcchevent = new CustomEvent('vcChange', {'detail':this});
       document.dispatchEvent(vcchevent);
       

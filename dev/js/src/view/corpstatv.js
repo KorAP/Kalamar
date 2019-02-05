@@ -122,6 +122,7 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
        if(newString.startsWith('(')){
          newString = newString.slice(1, newString.length-1);
        }
+       
        if(newString != oldString) {
         this.disableStat();
       }  

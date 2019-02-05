@@ -100,6 +100,43 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
    return vc;
   }
   
+  /**
+   * Generate corpus doc group with more entries
+   */
+  generateBCorpusDocGr = function(){  
+    let vc = vcClass.create().fromJson({
+      "@type": "koral:docGroup",
+      "operation": "operation:or", 
+      "operands": [{
+        "@type" : 'koral:docGroup',
+        'operation' : 'operation:or',
+        'operands' : [
+          {
+            '@type' : 'koral:doc',
+            'key' : 'title', 
+            'match': 'match:eq',
+            'value' : 'Hello World!'
+          },
+          {
+            '@type' : 'koral:doc',   
+            'match': 'match:eq',
+            'key' : 'foo',
+            'value' : 'bar'
+          }
+          ]
+      },
+      {
+        '@type' : 'koral:doc',   
+        'match': 'match:eq',
+        'key' : 'author',
+        'value' : 'Goethe'
+      }
+      ]
+    });
+    
+   return vc;
+  }
+  
   generateCorpusDoc = function(){
     let vc= vcClass.create().fromJson({
         '@type' : 'koral:doc',
@@ -318,11 +355,13 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
      * in vc builder through user-interaction
      */
 	describe ('KorAP.CorpusStat.Disable', function(){
-	  
+	
 	  document.addEventListener('vcChange', function (e) {
+	    if(KorAP.vc){
         KorAP.vc.checkStatActive(e.detail);
+	    }
         }, false);
-	    
+	  
 	  /**
 	   * If the user defines a new vc, the statistic should be disabled,
 	   * because it is out-of-date.
@@ -380,7 +419,20 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
         KorAP._delete.apply(KorAP.vc.root());
         view = panel.firstChild.firstChild;
         expect(checkStatDisabled(view, show)).toBe(true);     
-      
+        
+        KorAP.vc  = generateBCorpusDocGr();
+        // create corpus builder and corpus statistic;
+        show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());   
+        panel = show.firstChild.lastChild.firstChild;
+        panel.lastChild.children[0].click();
+        view = panel.firstChild.firstChild;
+
+        expect(checkStatActive(view, show)).toBe(true);
+        KorAP._delete.apply(KorAP.vc.root().getOperand(1));
+        view = panel.firstChild.firstChild;
+        expect(checkStatDisabled(view, show)).toBe(true); 
+              
       });
       
       
