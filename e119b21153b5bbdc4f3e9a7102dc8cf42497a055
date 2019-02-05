@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b07ac3ee_dd010a90",
+        "filename": "dev/scss/header/statistics.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-02-05T14:20:23Z",
+      "side": 1,
+      "message": "The button is hidden behind the right border, when the windows is not wide enough.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 15
+      },
+      "revId": "e119b21153b5bbdc4f3e9a7102dc8cf42497a055",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99cea61e_e90c946e",
         "filename": "dev/scss/header/statistics.scss",
         "patchSetId": 3
