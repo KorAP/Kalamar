@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a42a807_6b805032",
+        "filename": "dev/demo/vcdemo.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-02-05T14:26:22Z",
+      "side": 1,
+      "message": "It\u0027s probably better to add the eventlistener to the vc on creation.",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 12
+      },
+      "revId": "6885f6e34dd6ae2614713f86e5d28aea2ed832d8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
