@@ -129,6 +129,10 @@ require(['vc','vc/fragment','lib/domReady', 'lib/highlight/highlight.pack'], fun
       ['author', 'text']
     ]).fromJson(json);
 
+    document.addEventListener('vcChange', function (e) {
+      KorAP.vc.checkStatActive(e.detail);
+      }, false);
+    
     document.getElementById('vc-view').appendChild(KorAP.vc.element());
 
     KorAP.vc.open();
