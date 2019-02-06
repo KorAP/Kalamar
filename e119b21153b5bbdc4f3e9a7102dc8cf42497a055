@@ -164,6 +164,30 @@
       "revId": "e119b21153b5bbdc4f3e9a7102dc8cf42497a055",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a83dd25_e057b8a0",
+        "filename": "dev/scss/util.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-02-06T14:11:10Z",
+      "side": 1,
+      "message": "I agree that the design is not very good for button-inactive. Should be optimized (and probably would be, in case it would be used ;)).\n\nPlease define the colors as part of variables, so they can be reused. And it would be nice, if they would be just variants of the base colors (changed with sass-functions). But this can be done in another commit.",
+      "parentUuid": "b27c6700_e994b7c5",
+      "range": {
+        "startLine": 241,
+        "startChar": 23,
+        "endLine": 241,
+        "endChar": 29
+      },
+      "revId": "e119b21153b5bbdc4f3e9a7102dc8cf42497a055",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
     }
   ]
 }
