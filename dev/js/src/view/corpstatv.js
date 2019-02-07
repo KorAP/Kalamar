@@ -142,19 +142,19 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
         var reloadspan = document.createElement('div');
         reloadspan.classList.add('reloadStatB'); 
         reloadspan.classList.add('button-group');
-        reloadspan.classList.add('button-panel');    
+        reloadspan.classList.add('button-panel');
         reloadb = reloadspan.addE('span');
         reloadb.classList.add('refresh');
           
-        var that = this;          
-        reloadb.addEventListener("click", function (e){    
+        var that = this;
+        reloadb.addEventListener("click", function (e){
         statt.classList.remove('stdisabled');
         that.panel.reloadCorpStat(); 
         });
           
 
         statt.appendChild(reloadspan);
-        statt.classList.add('stdisabled');        
+        statt.classList.add('stdisabled');
         }
     },
 

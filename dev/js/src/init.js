@@ -91,10 +91,6 @@ define([
 
     var vc = KorAP.vc;
     
-    document.addEventListener('vcChange', function (e) {
-      vc.checkStatActive(e.detail);
-      }, false);
-
     // Add vc name object
     if (input) {
       input.style.display = 'none';
