@@ -40,4 +40,6 @@ define(function () {
   loc.SHOW_STAT = 'Korpusstatistik';
   //verbose description, for title attributes for example
   //loc.VERB_SHOWSTAT = 'Korpusstatistik';
+
+  loc.NEW_CONSTRAINT = 'Neue Bedingung';
 });
