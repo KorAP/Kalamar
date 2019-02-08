@@ -10,7 +10,7 @@
  * @author Nils Diewald
  */
 define(function () {
-  const uriRE = new RegExp("^data: *([^;,]+?(?: *; *[^,;]+?)*) *, *(.+)$");
+  const uriRE = new RegExp("^data: *([^;,]*?(?: *; *[^,;]+?)*) *, *(.+)$");
   const mapRE = new RegExp("^ *([^=]+?) *= *(.+?) *$");
 
   return {
