@@ -150,10 +150,8 @@ define([
       };
       
       if(KorAP.vc){
-      //Replaced through Event
-      //KorAP.vc.checkGrayingStat(this); 
       var vcchevent = new CustomEvent('vcChange', {'detail':this});
-      document.dispatchEvent(vcchevent);
+      KorAP.vc.element().dispatchEvent(vcchevent);
       }
       
       return e;

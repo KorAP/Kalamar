@@ -329,6 +329,11 @@ define([
       // Add panel to display corpus statistic, ...
       this.addVcInfPanel();
       
+      //Adds EventListener for corpus changes
+      this._element.addEventListener('vcChange', function (e) {
+        that.checkStatActive(e.detail);
+      }, false);
+      
       return this._element;
     },
 
@@ -367,9 +372,10 @@ define([
      */    
     update : function() {
       this._root.update();
-      var vcchevent = new CustomEvent('vcChange', {'detail':this});
-      document.dispatchEvent(vcchevent);
-      
+      if (KorAP.vc){
+        var vcchevent = new CustomEvent('vcChange', {'detail':this});
+        this.element().dispatchEvent(vcchevent);
+      };
       return this;
     },
     /**

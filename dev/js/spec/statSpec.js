@@ -356,11 +356,6 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
      */
 	describe ('KorAP.CorpusStat.Disable', function(){
 	
-	  document.addEventListener('vcChange', function (e) {
-	    if(KorAP.vc){
-        KorAP.vc.checkStatActive(e.detail);
-	    }
-        }, false);
 	  
 	  /**
 	   * If the user defines a new vc, the statistic should be disabled,
