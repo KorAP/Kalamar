@@ -1,9 +1,10 @@
-0.32 2019-01-29
+0.32 2019-02-08
         - Support attachements in metadata fields (#77).
         - Added ping request option to Piwik.
         - Fix handling of login errors.
         - Added Statistics reload option (hebasta, #66).
-        - Fixed VC query serialization.
+        - Fixed VC query serialization (hebasta).
+        - Fix treatment of 'data:,'-attachements.
 
 0.31 2018-11-30
         - Update to Mojolicious >= 8.06.
