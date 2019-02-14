@@ -9,6 +9,7 @@
           "Leibniz Institute for the German Language".
         - Fixed "next"-character in paginations.
         - Added new IDS logo.
+        - Fix timeout cache.
 
 0.31 2018-11-30
         - Update to Mojolicious >= 8.06.

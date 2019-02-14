@@ -78,7 +78,7 @@ $t->get_ok('/corpus/brokenerr/X/X/p0-1')
 
 $t->get_ok('/corpus/brokenwarn/X/X/p0-1')
   ->status_is(200)
-  ->json_is('/notifications/0/0', 'warning')
+  ->json_is('/notifications/0/0', 'warn')
   ->json_is('/notifications/0/1', '1: Warning 1')
   ->json_is('/notifications/1/0', 'error')
   ->json_is('/notifications/1/1', 'Message structure failed')

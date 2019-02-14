@@ -311,7 +311,7 @@ sub register {
       $c->stash(api_request => $url->to_string);
 
       # No cache request
-      if ($c->no_cache) {
+      if ($c->stash('no_cache')) {
 
         return $c->korap_request($method => $url)->then(
           sub {

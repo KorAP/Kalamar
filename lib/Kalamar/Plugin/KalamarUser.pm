@@ -29,7 +29,7 @@ sub register {
   # Set API!
   $plugin->api($param->{api}) or return;
   $plugin->ua(Mojo::UserAgent->new(
-    connect_timeout => 15,
+    connect_timeout => 90,
     inactivity_timeout => 120,
     max_redirects => 3
   ));

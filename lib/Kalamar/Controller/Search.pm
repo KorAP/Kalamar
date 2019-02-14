@@ -5,8 +5,6 @@ use Mojo::ByteStream 'b';
 use Mojo::Util qw/quote/;
 use POSIX 'ceil';
 
-has no_cache => 0;
-
 has items_per_page => 25;
 
 # TODO:
@@ -109,7 +107,7 @@ sub query {
   # Check if total results information is cached
   my $total_results = -1;
 
-  if (!$cutoff && !$c->no_cache) {
+  if (!$cutoff && !$c->stash('no_cache')) {
 
     # Create cache string
     my $user = $c->user_handle;
@@ -124,6 +122,11 @@ sub query {
 
     # Set stash if cache exists
     if (defined $total_results) {
+
+      if ($total_results =~ s/^[!]//) {
+        $c->stash(time_exceeded => 1);
+      };
+
       $c->stash(total_results => $total_results);
 
       $c->app->log->debug('Get total result from cache: ' . $total_results);
@@ -153,7 +156,8 @@ sub query {
       unless (defined $total_results) {
 
         # There are results to remember
-        if (!$cutoff && $json->{meta}->{totalResults} >= 0) {
+        if (!$cutoff &&
+              $json->{meta}->{totalResults} >= 0) {
 
           # Remove cutoff requirement again
           # $url->query([cutoff => 'true']);
@@ -164,7 +168,9 @@ sub query {
           $c->app->log->debug('Set for total results: ' . $total_cache_str);
 
           # Set cache
-          $c->chi->set($total_cache_str => $total_results);
+          $c->chi->set(
+            $total_cache_str => ($json->{meta}->{timeExceeded} ? '!' : '') . $total_results
+            );
         }
 
         # Undefined total results
