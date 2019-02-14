@@ -209,6 +209,20 @@ $t->get_ok('/?q=' . $long_query)
   ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
   ;
 
+# Query with timeout
+$t->get_ok('/?q=timeout')
+  ->status_is(200)
+  ->text_like('noscript div.notify-warn', qr!Response time exceeded!)
+  ->text_is('#total-results', '> 4,274,841');
+;
+
+# Do not cache
+$t->get_ok('/?q=timeout')
+  ->status_is(200)
+  # ->text_like('noscript div.notify-warning', qr!Response time exceeded!)
+  ->text_is('#total-results', '> 4,274,841');
+  ;
+
 
 done_testing;
 __END__

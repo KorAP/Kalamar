@@ -46,7 +46,7 @@ sub register {
   $mojo->helper(
     notify_on_warnings => sub {
       my ($c, $json) = @_;
-      return _notify($c, $json, 'warnings', 'warning');
+      return _notify($c, $json, 'warnings', 'warn');
     }
   );
 
@@ -79,7 +79,7 @@ sub register {
       if (!$json && !$err) {
 
         $c->notify(error => 'JSON response is invalid');
-        return; # Mojo::Promise->new->reject;
+        return;
       };
 
       # There is json
@@ -91,7 +91,7 @@ sub register {
         if ($c->notify_on_errors($json)) {
 
           # Return on errors - ignore warnings
-          return;# Mojo::Promise->new->reject;
+          return;
         };
 
         # Notify on warnings
@@ -101,7 +101,7 @@ sub register {
         if ($json->{status}) {
 
           $c->notify(error => 'Middleware error ' . $json->{'status'});
-          return;# Mojo::Promise->new->reject;
+          return;
         };
       }
 
@@ -110,7 +110,7 @@ sub register {
 
         # Send rejection promise
         $c->notify(error => $err->{code} . ': ' . $err->{message});
-        return; #Mojo::Promise->new->reject;
+        return;
       };
 
       return $json;
