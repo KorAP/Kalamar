@@ -48,7 +48,17 @@ helper 'load_response' => sub {
   };
 
   my $response = $file->slurp;
-  return decode_json($response);
+  my $decode = decode_json($response);
+  unless ($decode) {
+    return {
+      status => 500,
+      json => {
+        errors => [[0, 'Unable to parse JSON']]
+      }
+    }
+  };
+
+  return $decode;
 };
 
 
