@@ -26,11 +26,12 @@ dl.flex {
     > dt {
       text-align: left;
       width: 12.5em;
+      padding: $item-padding;
       margin: 0;
     }
     > dd {
       text-align: left;
-      padding: 2px;
+      padding: $item-padding;
       margin: 0;
       width: 100%;
       max-width: none;
@@ -39,6 +40,7 @@ dl.flex {
       white-space: normal;
       overflow-y: auto;
       overflow-x: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

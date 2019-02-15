@@ -1,7 +1,7 @@
 @import "../util";
 
 div.view.widget {
-  padding-right: $right-match-distance;
+  padding-right: $right-view-distance;
   > iframe {
     margin: 0;
     box-sizing: border-box;
