@@ -38,7 +38,6 @@ define([ 'util' ], function() {
       if (this._element !== undefined) {
         return this._element;
       }
-      ;
 
       // create HTML Description List Element
       var statDL = document.createElement('dl');

@@ -34,7 +34,7 @@ div.matchinfo {
 div.matchtable > div {
   z-index: 20;
   margin-left: $left-distance - ($border-size / 2);
-  margin-right: $right-match-distance;
+  margin-right: $right-view-distance;
   padding: 0;
   overflow-x: auto;
   overflow-y: visible;
@@ -189,7 +189,7 @@ div.matchtree {
     overflow-x: auto;
     margin: $border-size;
     margin-left: $left-distance;
-    margin-right: $right-match-distance;
+    margin-right: $right-view-distance;
 
     background-color: $light-orange;
   }
@@ -211,7 +211,7 @@ div.matchinfo .view + .view {
 
 // Metatable
 div.metatable > dl {
-  margin-right: $right-match-distance;
+  margin-right: $right-view-distance;
   margin-top: $border-size;
 
   > div {
