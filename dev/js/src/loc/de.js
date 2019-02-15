@@ -38,6 +38,7 @@ define(function () {
   
   //Corpus statistic
   loc.SHOW_STAT = 'Korpusstatistik';
+  loc.REFRESH = 'Neu laden';
   //verbose description, for title attributes for example
   //loc.VERB_SHOWSTAT = 'Korpusstatistik';
 

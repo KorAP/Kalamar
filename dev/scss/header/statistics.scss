@@ -9,57 +9,49 @@ Graying corpus statistic
 div.stattable {
     display: flex;
     flex-direction: row;
+    margin-right: $right-view-distance;
 }
 div.stattable {
-    > dl {
-        display: flex;
-        flex-flow: row wrap;
-        margin-top:4px;
-        margin-bottom:4px;
-        padding-bottom: 1px;   
-            > div {
-                border-color: $dark-green;
-                > dt {
-                    background-color: $middle-green;
-                    width: 15em;
-                    margin: 0;
-                    &:after {
-                    content: ":";
-                        }
-                    }   
-                > dd {
-                     background-color: $lightest-green;
-                     color: $dark-grey;
-                    }
-                }
-            }
-    &.stdisabled {
-        > dl 
-            > div {
-                > dt {
-                    @include vcinfo-inactive;
-                    }
-             > dd {
-                    @include vcinfo-inactive;
-                }
-            }
+  > dl {
+    margin-bottom:4px;
+    > div {
+      border-color: $dark-green;
+      > dt {
+        background-color: $middle-green;
+        width: 15em;
+        margin: 0;
+        &:after {
+          content: ":";
         }
+      }   
+      > dd {
+        background-color: $lightest-green;
+        color: $dark-grey;
+      }
+    }
+  }
+  &.stdisabled {
+    dt, dd {
+      @include vcinfo-inactive;
+    }
+  }
 }
 
 
 /* Corpus statistic reload button */
-div.reloadStatB {
-    font-family: 'FontAwesome';
-    padding-left: 2px;
-    z-index: 30;
-    }
-span.refresh::after{
-    line-height: normal;
-    content : $fa-redo;
-    font-size: 15pt;
-    }
+div.reloadStatB > span.refresh {
+  margin-left: 2pt;
+}
 
-/* Close-button should always be seen next to or above reload-button */
-.button-view.vcstatistic {
-    z-index: 30;
-    }
+span.refresh::after{
+  vertical-align: sub;
+  content : $fa-redo;
+}
+
+// Default value 20% doesn't work with < 5 items,
+// which is the default case with corpus statistics
+@media (min-width:1680px) {
+  div.stattable dl.flex > div {
+    width: inherit;
+  }
+}

@@ -4,9 +4,11 @@
  * @author Helge Stallkamp
  */
 
-define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
+define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass, buttonGroup) {
 
-  const d = document;
+  // Localization values
+  const loc   = KorAP.Locale;
+  loc.REFRESH = loc.REFRESH || 'Refresh';
 
   return {
     create : function(vc, panel) {
@@ -139,21 +141,13 @@ define([ 'view', 'vc/statistic' ], function(viewClass, statClass) {
       var statt = this._show;
   
       if(statt.getElementsByClassName('reloadStatB').length == 0){
-        var reloadspan = document.createElement('div');
-        reloadspan.classList.add('reloadStatB'); 
-        reloadspan.classList.add('button-group');
-        reloadspan.classList.add('button-panel');
-        reloadb = reloadspan.addE('span');
-        reloadb.classList.add('refresh');
-          
+        let btg = buttonGroup.create(['reloadStatB', 'button-panel']);
         var that = this;
-        reloadb.addEventListener("click", function (e){
-        statt.classList.remove('stdisabled');
-        that.panel.reloadCorpStat(); 
+        btg.add(loc.REFRESH, ['refresh', 'button-icon'], function (e) {
+          statt.classList.remove('stdisabled');
+          that.panel.reloadCorpStat(); 
         });
-          
-
-        statt.appendChild(reloadspan);
+        statt.appendChild(btg.element());
         statt.classList.add('stdisabled');
         }
     },
