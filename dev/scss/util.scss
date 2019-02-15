@@ -37,8 +37,8 @@ $dark-green:     $ids-green-1; // #496000;
 // $middle-green:   lighten($ids-green-1, 5%);
 $middle-green:   lighten($ids-green-1, 9%);
 $light-green:    lighten($ids-green-1, 13%); // #7ba400;
-$lightest-green: #d8e38c; // lighten($ids-green-1, 26%);
-$grey-green: #bcc387;
+$lightest-green: desaturate(lighten($light-green, 26%), 20%); // #d8e38c;
+$grey-green:     darken(desaturate($lightest-green, 25%), 12%); // #bcc387;
 
 /**
  * Blue Colors
@@ -51,10 +51,11 @@ $darkest-blue:   darken($dark-blue, 40%);
  * Grey Colors
  */
 $middle-grey:  $ids-grey-1; // #999;
-$semilight-grey: #8d8d8d;
+// $semilight-grey: #8d8d8d;
 $light-grey:   $ids-grey-2; // #ddd;
 $dark-grey:    darken($middle-grey, 15%);
 $nearly-white: #fefefe;
+
 /**
  * Red Colors (no IDS relation)
  */
@@ -112,7 +113,7 @@ $font-path: '../font';
  */
 $standard-margin: 40px;
 $right-distance: $standard-margin;
-$right-match-distance: $standard-margin / 2;
+$right-view-distance: $standard-margin / 2;
 $logo-left-distance: 230px;
 
 /**
@@ -240,8 +241,8 @@ $logo-left-distance: 230px;
 */
 @mixin vcinfo-inactive{
     background-color: $grey-green;
-    color: $semilight-grey;
-    border-color:   $semilight-grey; 
+    color: $dark-green; // $semilight-grey;
+    // border-color:   $semilight-grey; 
     text-shadow: none;
 }
 /**
