@@ -80,7 +80,7 @@ module.exports = function(grunt) {
         files: {
           'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss',
           'dev/css/kalamar.css' : 'dev/scss/kalamar.scss',
-          'dev/css/kwic.css' : 'dev/scss/main/kwic.scss'
+          'dev/css/kwic.css' : 'dev/scss/main/kwic.scss',
         }
       }
     },
@@ -148,7 +148,7 @@ module.exports = function(grunt) {
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,statistics,datepicker}.scss',
 		            'dev/scss/main/{alertify,intro,koralquery,highlight,kwic,logos,tagger,' +
 		            'main,matchinfo,panel,tree,pagination,query,'+
-		            'resultinfo,sidebar,tutorial,plugin,buttongroup}.scss'
+		            'resultinfo,sidebar,tutorial,plugin,buttongroup,introjs-ids,introjs}.scss'
 	             ],
 	      tasks: ['sass'],
 	      options: {

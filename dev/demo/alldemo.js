@@ -771,8 +771,8 @@ KorAP.koralQuery["collection"] = {
   "ref" : "This is my name"
 };
 */
-
 require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
+//require([app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   KorAP.hintArray = hintArray;
 
   // Set current virtual collection
@@ -804,6 +804,13 @@ require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
     return cb(statistic);
   };
 
+
+  tourshow =  function(){
+    var tourClass = require('tour/tours');
+    let tour = tourClass.guidedTour();
+    tour.start();
+  };
+  
 
   /**
    * Do some things at the beginning.

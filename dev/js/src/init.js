@@ -26,6 +26,7 @@ define([
   'session',
   'selectMenu',
   'panel/result',
+  'tour/tours',
   'api',
   'mailToChiffre',
   'util'
@@ -38,7 +39,8 @@ define([
              alertifyClass,
              sessionClass,
              selectMenuClass,
-             resultPanelClass) {
+             resultPanelClass,
+             tourClass) {
 
   const d = document;
 
@@ -357,4 +359,12 @@ define([
 
     return obj;
   });
+  
+
+  tourshow =  function(){
+    let tour = tourClass.guidedTour();
+    tour.start();
+  };
+   
+  
 });

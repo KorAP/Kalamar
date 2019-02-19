@@ -151,6 +151,8 @@ define({
     this._mirror.classList.add('hint', 'mirror');
     this._mirror.appendChild(document.createElement("span"));
     this._container = document.createElement("div");
+    this._container.setAttribute('id', 'hint');
+    
     this._mirror.appendChild(this._container);
     this._mirror.style.height = "0px";
     document.getElementsByTagName("body")[0].appendChild(this._mirror);

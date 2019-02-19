@@ -42,6 +42,7 @@
     <link rel="apple-touch-icon" href="<%= url_for '/img/apple-touch-icon.png' %>" />
     <link href="<%= stash 'prefix' %>/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
     <link href="<%= stash 'prefix' %>/css/kalamar-<%= $Kalamar::VERSION %>.css" type="text/css" rel="stylesheet" />
+    
 %= javascript begin  
   window.KorAP = window.KorAP || {};
   % my $api = url_for('index');
@@ -54,6 +55,8 @@
 % } else {
     <script src="<%= (stash('prefix') // '') . '/js/' . loc('jsFile', 'kalamar-' . $Kalamar::VERSION . '-en.js') %>" async="async"></script>
 % };
+      
+    
   </head>
 % my $embedded = 0;
 % $embedded = 1 if stash('embedded');
@@ -81,5 +84,6 @@
     %= notifications 'Kalamar::Plugin::Notifications'
 
     %= content_block 'scripts'
+    
   </body>
 </html>

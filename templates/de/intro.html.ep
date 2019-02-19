@@ -9,6 +9,7 @@
   
   <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <%= doc_opener 'korap', begin %>Einführung<% end %>!</p>
 
+  <!--<p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <a href="#" onclick="tourshow()"> Tour</a> oder mit der <%= doc_opener 'korap', begin %>Einführung<% end %>!</p> -->
   %= include 'announcement', lang => 'de'
 
   <p>KorAP wird am <a href="http://www.ids-mannheim.de">Leibniz-Institut für Deutsche Sprache</a> in Mannheim entwickelt, Mitglied der <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Gemeinschaft</a>. Die einzelnen Module werden als Open Source auf <a href="http://github.com/KorAP">GitHub</a> veröffentlicht.</p>
@@ -21,3 +22,4 @@
     <a href="http://www.leibniz-gemeinschaft.de/" class="logo"><p id="leibniz-logo"><span>Mitglied der Leibniz Gemeinschaft</span></p></a>
   </div>
 </div>
+

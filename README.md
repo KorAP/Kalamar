@@ -220,7 +220,8 @@ is released under the terms of the MIT License.
 is released under the terms of the MIT License.
 [Platform.js](https://mths.be/platform/)
 is released under the terms of the MIT License.
-
+[INTRO.JS] (https://github.com/usablica/intro.js)
+is released under the terms of GNU AFFERO GENERAL PUBLIC LICENSE (GNU AGPLv3).
 
 ### Original Software
 

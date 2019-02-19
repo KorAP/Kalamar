@@ -43,4 +43,23 @@ define(function () {
   //loc.VERB_SHOWSTAT = 'Korpusstatistik';
 
   loc.NEW_CONSTRAINT = 'Neue Bedingung';
+
+  //Guided Tour:Buttonlabels
+  loc.TOUR_lskip = "Abbrechen";
+  loc.TOUR_lprev = "Zurück";
+  loc.TOUR_lnext = "Weiter";
+  loc.TOUR_ldone = "Beenden";
+  
+  //Guided Tour: Steps
+  loc.TOUR_sear1 = "Geben Sie die Suchanfrage hier ein.";
+  loc.TOUR_sear2 = "Zum Beispiel die Suche nach 'Baum'";
+  loc.TOUR_searAnnot ="Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.";
+  loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
+  loc.TOUR_vccho1 = "Öffnen des Korpusassistenten";
+  loc.TOUR_vccho2 = "Eigene Definition von Subkorpora durch Verknüpfung beliebiger Metadatenfelder.";
+  loc.TOUR_vcStat = "Anzeigen der Korpusstatistik";
+  loc.TOUR_qlfield = "Auswahl der Suchanfragesprache";
+  loc.TOUR_glimpse = "Beim Wählen dieser Option wird festgelegt ob nur die ersten Treffer in zufälliger Reihenfolge ausgewählt werden.";
+  loc.TOUR_help = "Hier finden Sie Hilfe zu KorAP.";
+  loc.TOUR_seargo = "Suchanfrage starten";
 });

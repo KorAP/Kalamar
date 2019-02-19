@@ -14,7 +14,8 @@
 @import "buttongroup"; // Button groups
 @import "panel";       // Base panel system
 @import "plugin";      // Plugin mechanism
-
+@import "introjs";     // Guided Tour
+@import "introjs-ids"; // Guided Tour: IDS specific 
 main {
   margin: {
     left: $standard-margin; 

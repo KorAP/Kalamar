@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
     <link type="text/css" rel="stylesheet" href="../css/kwic.css" />
+     
     <script>//<![CDATA[
 
   window.KorAP = window.KorAP || {};
@@ -24,7 +25,7 @@
 -->
       </div>
 
-      <form autocomplete="off" action="/kalamar" id="searchform">
+      <form autocomplete="off" action="/kalamar" id="searchform">      
 	<div id="searchbar">
 	  <input type="search"
 		 placeholder="Find ..."
@@ -56,7 +57,7 @@
 		 name="cutoff"
 		 class="checkbox"
 		 id="q-cutoff-field" />
-	  <label for="q-cutoff-field"><span></span>Glimpse</label>
+	  <label for="q-cutoff-field"><span id="glimpse-intrjs"></span>Glimpse</label>
 
 	  <!-- Todo: open tutorial - like openTutorial() -->
 	  <a href="doc/faq" tabindex="-1" class="question"><span>Question</span></a>
@@ -245,17 +246,21 @@ KorAP.koralQuery = {
       </div>
       <div id="menu"></div>
 
-      <div class="intro">
-	<p><strong>KorAP</strong> is a new Corpus Analysis Platform, suited for large, multiple annotated corpora and complex search queries independent of particular research questions.</p>
+      <div class="intro" >
+	<p ><strong>KorAP</strong> is a new Corpus Analysis Platform, suited for large, multiple annotated corpora and complex search queries independent of particular research questions.</p>
 	<p>This is the new frontend for KorAP, with currently no access to restricted corpora. For full access, please visit the <a href="http://korap.ids-mannheim.de/app">first frontend</a>.</p>
 
-	<p><strong>New to KorAP?</strong> Please check out our <a href="#">tutorial</a>!</p>
+    <p><strong>New to KorAP?</strong> Please check out our <a href="#" onclick="tourshow()"> guided tour </a> or our <a href="#">tutorial</a>!</p>
 
 	<p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Institute for the German Language</a> and funded by the <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
+
       </div>
+   
       <div id="logos">
 	<div>
+
 	  <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Developed at the Institute for the German Language (IDS)</span></p></a>
+
 	</div>
       </div>
     </main>
