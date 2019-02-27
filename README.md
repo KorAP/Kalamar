@@ -230,7 +230,7 @@ Contributor: Susanne Feix (Translations)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the
-[Institute for the German Language (IDS)](http://ids-mannheim.de/),
+[Leibniz Institute for the German Language (IDS)](http://ids-mannheim.de/),
 member of the
 [Leibniz Association](https://www.leibniz-gemeinschaft.de/en/home/)
 and supported by the [KobRA](http://www.kobra.tu-dortmund.de) project,

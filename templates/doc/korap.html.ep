@@ -4,7 +4,7 @@
 
 %= korap_overview 'korap'
 
-<p>The KorAP project was launched in 2011 at the <%= doc_ext_link_to 'Institute for the German Language (IDS)', "http://www.ids-mannheim.de/" %> in Mannheim, Germany. KorAP is a Corpus Analysis Platform, with an extensible and scalable architecture. It consists of multiple components, that are exchangable due to well defined APIs.</p>
+<p>The KorAP project was launched in 2011 at the <%= doc_ext_link_to 'Leibniz Institute for the German Language (IDS)', "http://www.ids-mannheim.de/" %> in Mannheim, Germany. KorAP is a Corpus Analysis Platform, with an extensible and scalable architecture. It consists of multiple components, that are exchangable due to well defined APIs.</p>
 
 <dl>
   <dt><%= doc_link_to('Kalamar', 'korap', 'kalamar') %></dt>

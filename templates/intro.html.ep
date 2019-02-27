@@ -10,13 +10,13 @@
 
   %= include 'announcement', lang => 'en'
 
-  <p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Institute for the German Language</a>, member of the <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
+  <p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Leibniz Institute for the German Language</a>, member of the <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
 
 </div>
 
 <div id="logos">
   <div>
-    <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Developed at the Institute for the German Language (IDS)</span></p></a>
+    <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Developed at the Leibniz Institute for the German Language (IDS)</span></p></a>
     <a href="http://www.leibniz-gemeinschaft.de/" class="logo"><p id="leibniz-logo"><span>Member of the Leibniz Association</span></p></a>
   </div>
 </div>

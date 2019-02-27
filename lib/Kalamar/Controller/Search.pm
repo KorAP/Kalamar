@@ -644,7 +644,7 @@ Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
 Corpus Analysis Platform at the
-L<Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+L<Leibniz Institute for the German Language (IDS)|http://ids-mannheim.de/>,
 member of the
 L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>
 and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,

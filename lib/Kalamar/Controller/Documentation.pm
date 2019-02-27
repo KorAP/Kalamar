@@ -116,7 +116,7 @@ Copyright (C) 2015-2018, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
-Corpus Analysis Platform at the Institute for German Language
+Corpus Analysis Platform at the Leibniz Institute for the German Language
 (L<IDS|http://ids-mannheim.de/>),
 funded by the
 L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/>

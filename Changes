@@ -1,10 +1,12 @@
-0.32 2019-02-08
+0.32 2019-02-27
         - Support attachements in metadata fields (#77).
         - Added ping request option to Piwik.
         - Fix handling of login errors.
         - Added Statistics reload option (hebasta, #66).
         - Fixed VC query serialization (hebasta).
         - Fix treatment of 'data:,'-attachements.
+        - Rename "Institute for the German Language" to
+          "Leibniz Institute for the German Language".
 
 0.31 2018-11-30
         - Update to Mojolicious >= 8.06.
