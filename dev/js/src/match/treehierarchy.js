@@ -214,7 +214,7 @@ define(['lib/dagre'], function (dagre) {
         'g.leaf > rect ' +         '{ display: none }' +
         'g > text > tspan ' +      '{ text-anchor: middle; font-size: 9pt }' +
         'g.leaf > text > tspan ' + '{ font-size: 10pt; overflow: visible; }';
-      
+
       return btoa(unescape(encodeURIComponent(svg.outerHTML)));
     },
     
@@ -279,6 +279,8 @@ define(['lib/dagre'], function (dagre) {
               'transform',
               'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
             );
+
+            v.label = v.label.replace(/&nbsp;/, " ");
             
             if (v.class === "leaf") {
               text.setAttribute('title', v.label);

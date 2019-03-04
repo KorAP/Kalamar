@@ -8,6 +8,7 @@ define(['match',
         'match/infolayer',
         'match/treeitem',
         'match/treearc',
+        'match/treehierarchy',
         'buttongroup/menu',
         'match/attachement',
         'hint/foundries/cnx',
@@ -20,6 +21,7 @@ define(['match',
           infoClass,
           matchTreeItemClass,
           matchRelClass,
+          matchHierClass,
           matchTreeMenuClass,
           attachementClass) {
 
@@ -200,8 +202,10 @@ define(['match',
       "</span>" +
       "<span class=\"context-right\"></span>";
 
+  var treeSnippetHierarchy =
+      "<span class=\"context-left\"><\/span><span class=\"match\"><span title=\"corenlp\/c:MPN\">Leonard Maltin<\/span> schrieb: „<span title=\"corenlp\/c:S\"><span title=\"corenlp\/c:NP\">Plot <span title=\"corenlp\/c:MPN\">contrivance isn‘<mark>t<\/mark> handled badly<\/span><\/span> <span title=\"corenlp\/c:PP\">in above-average programmer<\/span><\/span>“.&lt;<span title=\"corenlp\/c:S\"><span title=\"corenlp\/c:ROOT\"><span title=\"corenlp\/c:NP\">ref&gt;''<span title=\"corenlp\/c:NP\"><span title=\"corenlp\/c:CNP\">Movie &amp;amp; Video<\/span> Guide<\/span><\/span>'', <span title=\"corenlp\/c:VP\">1996 edition, <span title=\"corenlp\/c:NP\"><span title=\"corenlp\/c:CNP\">S. 210<\/span><\/span><\/span>.<\/span><\/span><\/span><span class=\"context-right\"><\/span>";
 
-  function matchElementFactory () {
+          function matchElementFactory () {
     var me = document.createElement('li');
 
     me.setAttribute(
@@ -641,6 +645,16 @@ define(['match',
       expect(tree.children[1].tagName).toEqual('DIV');
     });
 
+    it('should make the tree downloadable', function () {
+      var treeClass = matchHierClass.create(treeSnippetHierarchy);
+      var treeElement = treeClass.element();
+      expect(treeElement.tagName).toEqual("svg");
+
+      var base64 = treeClass.toBase64();
+      var str = atob(base64);
+      expect(str).toMatch(new RegExp('<defs><style>path'));
+      expect(str).not.toMatch(new RegExp('&nbsp;'));
+    });
   });
 
 
