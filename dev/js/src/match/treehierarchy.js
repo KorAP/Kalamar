@@ -214,8 +214,8 @@ define(['lib/dagre'], function (dagre) {
         'g.leaf > rect ' +         '{ display: none }' +
         'g > text > tspan ' +      '{ text-anchor: middle; font-size: 9pt }' +
         'g.leaf > text > tspan ' + '{ font-size: 10pt; overflow: visible; }';
-      
-      return btoa(unescape(encodeURIComponent(svg.outerHTML)));
+
+      return btoa(unescape(encodeURIComponent(svg.outerHTML)).replace(/&nbsp;/g, ' '));
     },
     
     /**
@@ -279,11 +279,16 @@ define(['lib/dagre'], function (dagre) {
               'transform',
               'translate(' + v.width/2 + ',' + ((v.height / 2) + 5) + ')'
             );
+
+            var vLabel = v.label.replace(/&nbsp;/g, " ")
+                .replace(/&amp;/g, '&')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>');
             
             if (v.class === "leaf") {
-              text.setAttribute('title', v.label);
+              text.setAttribute('title', vLabel);
 
-              var labelPart = v.label.split(" ");
+              var labelPart = vLabel.split(" ");
               var n = 0;
               for (var i = 0; i < labelPart.length; i++) {
                 if (labelPart[i].length === 0)
@@ -308,7 +313,7 @@ define(['lib/dagre'], function (dagre) {
             }
             else {
               var tspan = that._c('tspan');
-              tspan.appendChild(d.createTextNode(v.label));
+              tspan.appendChild(d.createTextNode(vLabel));
               tspan.setAttribute('x', v.x - v.width / 2);
               text.appendChild(tspan);
             };
