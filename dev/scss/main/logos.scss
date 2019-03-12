@@ -63,24 +63,13 @@
  */
 #ids-logo {
   display: block;
-  width: (910 / 60) + em;
-  height: (176 / 60) + em;
+  width: (631 / 30) + em;
+  height: (200 / 30) + em;
   background: {
-    image:url('#{$img-path}/ids-institute-for-the-german-language.svg');
+    image:url('#{$img-path}/ids-leibniz-institute-for-the-german-language.svg');
   }
 }
 
-/**
- * Logo: Member of the Leibniz Association
- */
-#leibniz-logo {
-  display: block;
-  width: (199 / 20) + em;
-  height: (130 / 20) + em;
-  background: {
-    image:url('#{$img-path}/member-of-the-leibniz-association.svg');
-  }
-}
 
 /**
  * Logo: KorAP

@@ -118,12 +118,23 @@ $standard-margin: 4px;
     }
   }
 
+  #kalamar-bg {
+    overflow: hidden;
+  }
+  
   #logos {
     margin-left: 0;
     margin-right: 0;
 
     > div {
       border-top-width: 14px;
+      padding-right: 0;
+      .logo > * {
+        background: {
+        size: 60%;
+        position: 0 0;
+      }
+      }
     }
   }
 
