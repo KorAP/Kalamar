@@ -23,7 +23,8 @@ WriteMakefile(
     'Mojolicious::Plugin::Util::RandomString' => 0.08,
     'Mojolicious::Plugin::CHI' => 0.20,
     'Mojolicious::Plugin::ClientIP' => 0.01,
-    'Cache::FastMmap' => 0,
+    'Cache::FastMmap' => 1.47,
+    'Data::Serializer' => 0.60,
     'Mojo::JWT' => 0.05,
 
     # Required for bundled plugins

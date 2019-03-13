@@ -73,6 +73,14 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
   	"paragraphs":45454545
 	};
 
+	var preDefinedStat2={
+  	"documents":20216975,
+  	"tokens":  "5991667065",
+  	"sentences":403923016,
+  	"paragraphs":129385487
+	};
+
+  
   KorAP.API.getCorpStat = function(collQu, cb){
   	return cb(preDefinedStat);
   }; 
@@ -212,6 +220,33 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 			expect(descL.children[1].children[0].firstChild.nodeValue).toEqual('tokens');
 			expect(descL.children[1].children[1].firstChild.nodeValue).toEqual(new Number(2323).toLocaleString());
 			expect(descL.children[1].children[0].attributes[0].value).toEqual('tokens');
+    });
+
+    
+		it('should be parsed in a statistic view and displayed as HTML Description List (2)', function(){
+		  var stat = statClass.create(preDefinedStat2);
+          var descL = stat.element();
+			expect(descL.tagName).toEqual('DL');		
+			expect(descL.children[0].tagName).toEqual('DIV');
+			expect(descL.children[0].children[0].tagName).toEqual('DT');
+			expect(descL.children[0].children[0].attributes[0].name).toEqual('title');
+			expect(descL.children[0].children[1].tagName).toEqual('DD');
+			
+			expect(descL.children[0].children[0].firstChild.nodeValue).toEqual('documents');
+			expect(descL.children[0].children[1].firstChild.nodeValue).toEqual(new Number(20216975).toLocaleString());
+			expect(descL.children[0].children[0].attributes[0].value).toEqual('documents');
+
+			expect(descL.children[1].children[0].firstChild.nodeValue).toEqual('tokens');
+			expect(descL.children[1].children[1].firstChild.nodeValue).toEqual(new Number(5991667065).toLocaleString());
+			expect(descL.children[1].children[0].attributes[0].value).toEqual('tokens');
+
+			expect(descL.children[2].children[0].firstChild.nodeValue).toEqual('sentences');
+			expect(descL.children[2].children[1].firstChild.nodeValue).toEqual(new Number(403923016).toLocaleString());
+			expect(descL.children[2].children[0].attributes[0].value).toEqual('sentences');
+
+      expect(descL.children[3].children[0].firstChild.nodeValue).toEqual('paragraphs');
+			expect(descL.children[3].children[1].firstChild.nodeValue).toEqual(new Number(129385487).toLocaleString());
+			expect(descL.children[3].children[0].attributes[0].value).toEqual('paragraphs');
     });
 		
 		
