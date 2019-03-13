@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.31';
+our $VERSION = '0.33';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -146,15 +146,19 @@ sub startup {
     $self->plugin($_);
   };
 
+  my $serializer = 'JSON';
+
   # Global caching mechanism
   $self->plugin('CHI' => {
     default => {
       driver => 'Memory',
-      global => 1
+      global => 1,
+      serializer => $serializer
     },
     user => {
       driver => 'Memory',
-      global => 1
+      global => 1,
+      serializer => $serializer
     }
   });
 

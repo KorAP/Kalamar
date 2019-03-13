@@ -27,10 +27,11 @@ $fake_backend->pattern->defaults->{app}->log($t->app->log);
 # Query passed
 $t->get_ok('/corpus')
   ->status_is(200)
-  ->json_is('/documents', 11)
-  ->json_is('/tokens', 665842)
-  ->json_is('/sentences', 25074)
-  ->json_is('/paragraphs', 772)
+  ->content_like(qr!"tokens":5991667065!)
+  ->json_is('/documents', 20216975)
+  ->json_is('/tokens', 5991667065)
+  ->json_is('/sentences', 403923016)
+  ->json_is('/paragraphs', 129385487)
   ->header_isnt('X-Kalamar-Cache', 'true')
   ;
 
@@ -51,10 +52,11 @@ $t->get_ok('/corpus?cq=4')
 # Query passed
 $t->get_ok('/corpus')
   ->status_is(200)
-  ->json_is('/documents', 11)
-  ->json_is('/tokens', 665842)
-  ->json_is('/sentences', 25074)
-  ->json_is('/paragraphs', 772)
+  ->content_like(qr!"tokens":5991667065!)
+  ->json_is('/documents', 20216975)
+  ->json_is('/tokens', 5991667065)
+  ->json_is('/sentences', 403923016)
+  ->json_is('/paragraphs', 129385487)
   ->header_is('X-Kalamar-Cache', 'true')
   ;
 
