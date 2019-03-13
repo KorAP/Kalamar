@@ -1,3 +1,12 @@
+0.33 2019-03-18
+        - Fix problem with serialization and deserialization
+          of large numerical values (#87).
+
+        WARNING: This requires complete recaching, so run
+          $ perl script/kalamar chi clear default
+          $ perl script/kalamar chi clear user
+          in your MOJO_MODE environment after update.
+
 0.32 2019-03-12
         - Support attachements in metadata fields (#77).
         - Added ping request option to Piwik.

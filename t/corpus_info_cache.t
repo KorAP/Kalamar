@@ -10,7 +10,24 @@ use Mojo::File qw/path/;
 my $mount_point = '/api/';
 $ENV{KALAMAR_API} = $mount_point;
 
-my $t = Test::Mojo->new('Kalamar');
+# New test with new cache
+my $t = Test::Mojo->new('Kalamar' => {
+  Kalamar => {},
+  CHI => {
+    default => {
+      driver => 'Memory',
+      global => 1,
+    },
+    default => {
+      driver => 'Memory',
+      global => 1,
+    },
+  }
+});
+
+is($t->app->config('CHI')->{default}->{serializer}, 'JSON');
+
+is($t->app->chi->driver_class, 'CHI::Driver::Memory');
 
 # Mount fake backend
 # Get the fixture path
@@ -33,20 +50,6 @@ $t->get_ok('/corpus')
   ->json_is('/sentences', 403923016)
   ->json_is('/paragraphs', 129385487)
   ->header_isnt('X-Kalamar-Cache', 'true')
-  ;
-
-$t->get_ok('/corpus?cq=docSigle+%3D+\"GOE/AGA\"')
-  ->status_is(200)
-  ->json_is('/documents', 5)
-  ->json_is('/tokens', 108557)
-  ->json_is('/sentences', 3835)
-  ->json_is('/paragraphs', 124)
-  ->header_isnt('X-Kalamar-Cache', 'true')
-  ;
-
-$t->get_ok('/corpus?cq=4')
-  ->status_is(400)
-  ->json_is('/notifications/0/1', "302: Could not parse query >>> (4) <<<.")
   ;
 
 # Query passed
