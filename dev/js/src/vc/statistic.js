@@ -52,7 +52,7 @@ define([ 'util' ], function() {
         statDT.addT(k);
         statDT.setAttribute('title', k);
         statDD = statSp.addE('dd');
-        statDD.addT(statistic[k].toLocaleString());
+        statDD.addT(new Number(statistic[k]).toLocaleString());
       }
 
       this._element = statDL;
