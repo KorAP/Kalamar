@@ -4,7 +4,7 @@
   "license": "BSD-2-Clause",
   "version": "0.33.1",
   "pluginVersion": "0.1",
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/KorAP/Kalamar.git"
   },
@@ -16,6 +16,7 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify-es": "^3.3.0",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-shell": "^3.0.1",
     "imagemin": "^5.3.1",
     "optipng-bin": "^4.0.0",
     "vinyl-fs": "^3.0.2"
