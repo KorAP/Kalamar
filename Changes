@@ -1,6 +1,8 @@
-0.33 2019-03-18
+0.33 2019-03-28
         - Fix problem with serialization and deserialization
           of large numerical values (#87).
+        - Added command to generate example HTML file
+          to pick from JS test suite.
 
         WARNING: This requires complete recaching, so run
           $ perl script/kalamar chi clear default
