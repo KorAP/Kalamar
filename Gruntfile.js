@@ -155,6 +155,17 @@ module.exports = function(grunt) {
 	        spawn: false
 	      }
       }
+    },
+    shell: {
+      options: {
+			  stderr: false
+		  },
+      makeDir: {
+        command : 'mkdir -p ./dev/js/spec/src'
+      },
+      createPage: {
+        command : 'perl script/kalamar get / > ./dev/js/spec/src/page.html'
+      }
     }
   });
 
@@ -162,6 +173,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-uglify-es');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.registerTask('img', ['imagemin','copy']);
@@ -169,6 +181,6 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
-    ['requirejs', 'uglify', 'imagemin', 'copy', 'sass']
+    ['requirejs', 'uglify', 'imagemin', 'copy', 'sass','shell:makeDir', 'shell:createPage']
   );
 };
