@@ -22,7 +22,7 @@
     <div class="button right">
       % param(cutoff => 1) unless param 'q';
       %= check_box cutoff => 1, id => 'q-cutoff-field', class => 'checkbox'
-      <label for="q-cutoff-field" title="<%= loc('glimpse_desc') %>"><span id="glimpse-intrjs"></span><%= loc('glimpse') %></label>
+      <label for="q-cutoff-field" title="<%= loc('glimpse_desc') %>"><span id="glimpse"></span><%= loc('glimpse') %></label>
       <%= link_to 'doc_start', title => loc('tutorial'), class => "tutorial", id => "view-tutorial", tabindex => '-1', begin %><span><%= loc 'tutorial' %></span><% end %>
     </div>
     <div class="clear"></div>

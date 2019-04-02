@@ -89,7 +89,7 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
            position: "bottom",
          },  
          {
-           element:'#glimpse-intrjs',
+           element:'#glimpse',
            intro: loc.TOUR_glimpse,
            position: "bottom",
          }, 

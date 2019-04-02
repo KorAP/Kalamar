@@ -23,7 +23,7 @@ define(['tour/tours', 'vc'], function(tourClass, vcClass){
   "</span>" +
   "<div class='button right'>" +
     "<input checked class='checkbox' id='q-cutoff-field' name='cutoff' type='checkbox' value='1'>"+
-    "<label for='q-cutoff-field' title='Just show the first matches in arbitrary order'><span id='glimpse-intrjs'></span>Glimpse</label>" +
+    "<label for='q-cutoff-field' title='Just show the first matches in arbitrary order'><span id='glimpse'></span>Glimpse</label>" +
     "<a class='tutorial' href='/doc' id='view-tutorial' tabindex='-1' title='Tutorial'><span>Tutorial</span></a>" +
   "</div>" +
   "<div class='clear'></div>" +
@@ -44,7 +44,7 @@ define(['tour/tours', 'vc'], function(tourClass, vcClass){
       //expect(intrkorap.querySelector('#vc-choose')).not.toBeNull();     
       expect(intrkorap.querySelector('#vc-view')).not.toBeNull();
       expect(intrkorap.querySelector('#ql-field').parentNode).not.toBeNull();
-      expect(intrkorap.querySelector('#glimpse-intrjs')).not.toBeNull();
+      expect(intrkorap.querySelector('#glimpse')).not.toBeNull();
       expect(intrkorap.querySelector('#view-tutorial')).not.toBeNull();
       expect(intrkorap.querySelector('#searchbar button[type=submit]')).not.toBeNull();
     });

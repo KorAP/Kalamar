@@ -772,7 +772,6 @@ KorAP.koralQuery["collection"] = {
 };
 */
 require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
-//require([app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   KorAP.hintArray = hintArray;
 
   // Set current virtual collection
