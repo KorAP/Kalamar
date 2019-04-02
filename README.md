@@ -220,13 +220,14 @@ is released under the terms of the MIT License.
 is released under the terms of the MIT License.
 [Platform.js](https://mths.be/platform/)
 is released under the terms of the MIT License.
-[INTRO.JS] (https://github.com/usablica/intro.js)
-is released under the terms of GNU AFFERO GENERAL PUBLIC LICENSE (GNU AGPLv3).
+[INTRO.JS](https://github.com/usablica/intro.js)
+is released under the terms of the GNU AFFERO GENERAL
+PUBLIC LICENSE (GNU AGPLv3).
 
 ### Original Software
 
-Copyright (C) 2015-2018, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
-Author: [Nils Diewald](http://nils-diewald.de/)
+Copyright (C) 2015-2019, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
+Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp
 Contributor: Susanne Feix (Translations)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
