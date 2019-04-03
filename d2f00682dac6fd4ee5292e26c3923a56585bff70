@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "293013b5_b29d700c",
+        "filename": "Gruntfile.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-04-03T12:10:58Z",
+      "side": 1,
+      "message": "Don\u0027t we need to delete this line (..loadNpmTasks(\u0027grunt-shell\u0027)..), too?",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 20
+      },
+      "revId": "d2f00682dac6fd4ee5292e26c3923a56585bff70",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
