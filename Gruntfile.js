@@ -181,6 +181,6 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
-    ['requirejs', 'uglify', 'imagemin', 'copy', 'sass','shell:makeDir', 'shell:createPage']
+    ['requirejs', 'uglify', 'imagemin', 'copy', 'sass']
   );
 };
