@@ -1,5 +1,7 @@
-0.34 2019-04-02
-        - Introduced guided tour (hebasta, #19)
+0.34 2019-05-14
+        - Introduced guided tour (hebasta, #19).
+        - Updated dependency on M::P::Notifications to
+          be compatible with recent versions of Mojolicious.
 
 0.33 2019-03-28
         - Fix problem with serialization and deserialization
