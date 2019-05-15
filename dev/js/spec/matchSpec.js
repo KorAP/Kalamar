@@ -97,7 +97,9 @@ define(['match',
   ];
 
 
-  var snippet = "<span title=\"cnx/l:meist\">" +
+  var snippet = "<span class=\"context-left\"><\/span>"+
+      "<span class=\"match\">" +
+      "<span title=\"cnx/l:meist\">" +
       "  <span title=\"cnx/p:ADV\">" +
       "    <span title=\"cnx/syn:@PREMOD\">" +
       "      <span title=\"mate/l:meist\">" +
@@ -141,6 +143,9 @@ define(['match',
       "      </span>" +
       "    </span>" +
       "  </span>" +
+      "</span>" +
+      " und robust sind auch die anderen Traktoren, die hier der Übersicht wegen keine Erwähnung finden können." +
+      "<span class=\"cutted\"><\/span>" +
       "</span>";
 
   var treeSnippet =
@@ -445,7 +450,9 @@ define(['match',
   describe('KorAP.TableView', function () {
     beforeAll(beforeAllFunc);
     afterAll(afterAllFunc);  
-   
+
+    let longString = " und robust sind auch die anderen Traktoren, die hier der Übersicht wegen keine Erwähnung finden können.";
+    
     var table;
 
     var matchObj = matchClass.create(match);
@@ -479,11 +486,12 @@ define(['match',
     it('should parse into a table (async)', function () {
       expect(table).toBeTruthy();
 
-      expect(table.length()).toBe(3);
+      expect(table.length()).toBe(4);
 
       expect(table.getToken(0)).toBe("meist");
       expect(table.getToken(1)).toBe("deutlich");
       expect(table.getToken(2)).toBe("leistungsfähiger");
+      expect(table.getToken(3)).toBe(longString);
 
       expect(table.getValue(0, "cnx", "p")[0]).toBe("ADV");
       expect(table.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
@@ -510,6 +518,9 @@ define(['match',
       expect(tr.children[3].classList.contains('mark')).toBeTruthy();
       expect(tr.children[4].firstChild.nodeValue).toBe('leistungsfähiger');
       expect(tr.children[4].classList.contains('mark')).toBeFalsy();
+      expect(tr.children[4].hasAttribute("title").toBeFalsy();
+      expect(tr.children[5].firstChild.nodeValue).toBe(longString);
+      expect(tr.children[5].getAttribute("title")).toBe(longString);
 
       // first row
       tr = e.children[1].children[0];

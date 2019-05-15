@@ -244,13 +244,19 @@ define([
 
       // Add tokens
       for (var i in this._token) {
-        var c = tr.addCell('th', undefined, this.getToken(i));
+        let surface = this.getToken(i);
+        var c = tr.addCell('th', undefined, surface);
         if (this._mark[i]) {
           c.classList.add('mark');
           if (this._markE === undefined) {
             this._markE = c;
           };
         };
+
+        // In case the title is very long - add a title attribute
+        if (surface.length > 20) {
+          c.setAttribute("title", surface)
+        }
       };
       
       var tbody = table.addE('tbody');
