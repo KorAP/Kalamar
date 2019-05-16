@@ -101,6 +101,40 @@ function matchTableComplexFactory () {
 };
 
 
+function matchTableCuttedFactory () {
+  var table = document.createElement('div');
+  table.className = 'matchtable';
+  table.innerHTML = 
+    "    <table>" +
+    "      <thead>" +
+    "        <tr>" +
+    "          <th>Foundry</th>" +
+    "          <th>Layer</th>" +
+    "          <th>Baum</th>" +
+    "          <th class=\"cutted\"></th>" +
+    "        </tr>" +
+    "      </thead>" +
+    "      <tbody>" +
+    "        <tr tabindex=\"0\">" +
+    "          <th>corenlp</th>" +
+    "          <th>p</th>" +
+    "          <td>NN</td>" +
+    "          <td></td>" +
+    "        </tr>" +
+    "        <tr tabindex=\"0\">" +
+    "          <th>opennlp</th>" +
+    "          <th>p</th>" +
+    "          <td>NN</td>" +
+    "          <td></td>" +
+    "        </tr>" +
+    "      </tbody>" +
+    "    </table>";
+  var info = document.createElement('div');
+  info.appendChild(table);
+  return table;
+};
+
+
 define(['match/querycreator'], function (qcClass) {
 
   describe('KorAP.QueryCreator', function () {
@@ -598,6 +632,25 @@ define(['match/querycreator'], function (qcClass) {
       cell.click();
       expect(cell.classList.contains("mark")).toBeTruthy();
       expect(cell.classList.contains("chosen")).toBeFalsy();
+    });
+
+    it('should ignore cutted columns', function () {
+      var matchTable = matchTableCuttedFactory();
+      var qc = qcClass.create(matchTable);
+      expect(qc.toString()).toEqual("");
+
+      var cell = matchTable.querySelector("thead > tr > th:nth-child(3)");
+      expect(cell.classList.contains("chosen")).toBeFalsy();
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[orth=Baum]");
+
+      cell = matchTable.querySelector("thead > tr > th:nth-child(4)");
+      expect(cell.classList.contains("chosen")).toBeFalsy();
+      expect(cell.classList.contains("cutted")).toBeTruthy();
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeFalsy();
+      expect(qc.toString()).toEqual("[orth=Baum]");
     });
   });
 });

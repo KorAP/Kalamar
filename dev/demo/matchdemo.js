@@ -439,7 +439,9 @@ require(['init'], function () {
   "</span>";
 
   // with cut
-  snippet = "<span title=\"cnx/l:meist\">" +
+  snippet = "<span class=\"context-left\"><\/span>"+
+  "<span class=\"match\">" +
+  "<span title=\"cnx/l:meist\">" +
   "  <span title=\"cnx/p:ADV\">" +
   "    <span title=\"cnx/syn:@PREMOD\">" +
   "      <span title=\"mate/l:meist\">" +
@@ -477,8 +479,9 @@ require(['init'], function () {
   "      </span>" +
   "    </span>" +
   "  </span>" +
-  " und robust sind auch die anderen Traktoren, die hier der Übersicht wegen keine Erwähnung finden können."
-  "<span class=\"cutted\"><\/span>"
+  " und robust sind auch die anderen Traktoren, die hier der Übersicht wegen keine Erwähnung finden können." +
+  "<span class=\"cutted\"><\/span>" +
+  "</span>"+
   "</span>";
   
   var treeSnippet =

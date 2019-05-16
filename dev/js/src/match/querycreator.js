@@ -192,6 +192,11 @@ define(['util'], function () {
           // The head is in the top row
           if (target.parentNode.parentNode.tagName == 'THEAD') {
 
+            // Ignore cutted field
+            if (target.classList.contains("cutted")) {
+              return;
+            }
+
             var i = -2;
             var sib = target;
             while ((sib = sib.previousSibling) != null) {

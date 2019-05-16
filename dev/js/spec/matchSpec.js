@@ -486,7 +486,7 @@ define(['match',
     it('should parse into a table (async)', function () {
       expect(table).toBeTruthy();
 
-      expect(table.length()).toBe(4);
+      expect(table.length()).toBe(5);
 
       expect(table.getToken(0)).toBe("meist");
       expect(table.getToken(1)).toBe("deutlich");
@@ -518,9 +518,10 @@ define(['match',
       expect(tr.children[3].classList.contains('mark')).toBeTruthy();
       expect(tr.children[4].firstChild.nodeValue).toBe('leistungsfähiger');
       expect(tr.children[4].classList.contains('mark')).toBeFalsy();
-      expect(tr.children[4].hasAttribute("title").toBeFalsy();
+      expect(tr.children[4].hasAttribute("title")).toBeFalsy();
       expect(tr.children[5].firstChild.nodeValue).toBe(longString);
       expect(tr.children[5].getAttribute("title")).toBe(longString);
+      expect(tr.children[6].classList.contains('cutted')).toBeTruthy();
 
       // first row
       tr = e.children[1].children[0];

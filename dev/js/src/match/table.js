@@ -35,6 +35,7 @@ define([
       this._token = [];
       this._mark = [];
       this._markE = undefined;
+      this._cutted = -1;
       this._info = [];
       this._foundry = {};
       this._layer = {};
@@ -122,7 +123,7 @@ define([
             newMark = true;
           }
 
-          else if (c.getAttribute("title") &&
+          else if (c.hasAttribute("title") &&
               _TermRE.exec(c.getAttribute("title"))) {
 
             // Fill position with info
@@ -158,7 +159,13 @@ define([
             if (this._layer[layer] === undefined)
               this._layer[layer] = {};
             this._layer[layer][foundry] = 1;
-          };
+          }
+
+          // The current position marks a cut
+          else if (c.hasAttribute("class") && c.getAttribute("class") == "cutted") {
+            this._cutted = this._pos;
+            this._token[this._pos++] = "";            
+          }
 
           // depth search
           if (c.hasChildNodes())
@@ -251,6 +258,9 @@ define([
           if (this._markE === undefined) {
             this._markE = c;
           };
+        }
+        else if (i == this._cutted) {
+          c.classList.add('cutted');
         };
 
         // In case the title is very long - add a title attribute

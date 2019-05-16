@@ -52,7 +52,7 @@ div.matchtable > div {
   // Use matchinfo cells for query creation
   td,
   tbody th,
-  thead th:not(:nth-child(1)):not(:nth-child(2)) {
+  thead th:not(:nth-child(1)):not(:nth-child(2)):not(.cutted) {
     cursor: pointer;
   }
   td:empty {
@@ -80,6 +80,19 @@ div.matchtable > div {
                         }
       &.mark {
         background-color: $darkest-orange; // #f6a800;
+      }
+
+      &.cutted {
+        background-color: $light-orange;
+        &::after {
+          content: $fa-cut;
+          font-family: FontAwesome;
+          padding: {
+            left: 4pt;
+            right: 4pt;
+          }
+          color: $light-green;
+        }
       }
     }
   }
