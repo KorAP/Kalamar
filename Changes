@@ -3,6 +3,8 @@
         - Updated dependency on M::P::Notifications to
           be compatible with recent versions of Mojolicious.
         - Introduce cuts in token views.
+        - Improve QueryCreator to single-quote-escape special
+          characters in orth-line and include more symbols.
 
 0.33 2019-03-28
         - Fix problem with serialization and deserialization
