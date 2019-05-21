@@ -65,7 +65,7 @@ define(['tour/tours', 'vc'], function(tourClass, vcClass){
           "</div>"; 
 
   let template = document.createElement('template');
-  html = introKorAP2.trim(); // Do not return a text node of whitespace as the result
+  html = introKorAP.trim(); // Do not return a text node of whitespace as the result
   template.innerHTML = html;
   intrkorap = template.content;
   
@@ -86,24 +86,32 @@ define(['tour/tours', 'vc'], function(tourClass, vcClass){
    
   
    it('Guided Tour should be started and display steps and labels in the right order', function(){
-     let testTour = tourClass.guidedTour(intrkorap);
-     testTour.start();
-     let totalSteps = testTour.stepCount;
- 
+     let searchTour = tourClass.gTstartSearch(intrkorap);
+     searchTour.start();
+     let totalSteps = searchTour.stepCount;
      expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(loc.TOUR_sear1);
      expect(document.querySelector(".introjs-skipbutton").textContent).toEqual(loc.TOUR_lskip);
      expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
-     testTour.exit();
+     searchTour.exit();
      
      for(let i = 2; i <= totalSteps; i++){
-       testTour.goToStepNumber(i);
-       expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(testTour.testIntros[i-1]);
+       searchTour.goToStepNumber(i);
+       expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(searchTour.testIntros[i-1]);
        if(i == totalSteps){
-         expect(document.querySelector('.introjs-donebutton').textContent).toEqual(loc.TOUR_ldone);
+         expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_seargo);
+         expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
+         expect(document.querySelector(".introjs-nextbutton").classList.contains("introjs-hidden")).toBe(true);
        } 
-       testTour.exit();
-     }   
+       searchTour.exit();
+     } 
+     
+     let resultTour = tourClass.gTshowResults(intrkorap);
+     resultTour.start();
+     expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(loc.TOUR_result);
+     expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldone);   
+     resultTour.exit();
+     
    }); 
   });
 }    

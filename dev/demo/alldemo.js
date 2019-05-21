@@ -806,11 +806,16 @@ require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
 
   tourshow =  function(){
     var tourClass = require('tour/tours');
-    let tour = tourClass.guidedTour();
+    let tour = tourClass.gTstartSearch();
     tour.start();
   };
   
-
+  tourshowR =  function(){
+    var tourClass = require('tour/tours');
+    let tour = tourClass.gTshowResults();
+    tour.start();
+  };
+  
   /**
    * Do some things at the beginning.
    */
