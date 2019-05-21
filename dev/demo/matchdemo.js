@@ -441,6 +441,8 @@ require(['init'], function () {
   // with cut
   snippet = "<span class=\"context-left\"><\/span>"+
   "<span class=\"match\">" +
+  "<span class=\"cutted\"><\/span>" +
+  "Außerdem " +  
   "<span title=\"cnx/l:meist\">" +
   "  <span title=\"cnx/p:ADV\">" +
   "    <span title=\"cnx/syn:@PREMOD\">" +

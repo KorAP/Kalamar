@@ -35,7 +35,7 @@ define([
       this._token = [];
       this._mark = [];
       this._markE = undefined;
-      this._cutted = -1;
+      this._cutted = [];
       this._info = [];
       this._foundry = {};
       this._layer = {};
@@ -163,7 +163,7 @@ define([
 
           // The current position marks a cut
           else if (c.hasAttribute("class") && c.getAttribute("class") == "cutted") {
-            this._cutted = this._pos;
+            this._cutted.push(this._pos);
             this._token[this._pos++] = "";            
           }
 
@@ -259,7 +259,7 @@ define([
             this._markE = c;
           };
         }
-        else if (i == this._cutted) {
+        else if (this._cutted[0] == i || this._cutted[1] == i) {
           c.classList.add('cutted');
         };
 

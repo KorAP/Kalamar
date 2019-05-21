@@ -99,6 +99,8 @@ define(['match',
 
   var snippet = "<span class=\"context-left\"><\/span>"+
       "<span class=\"match\">" +
+      "<span class=\"cutted\"><\/span>" +
+      "Außerdem " +
       "<span title=\"cnx/l:meist\">" +
       "  <span title=\"cnx/p:ADV\">" +
       "    <span title=\"cnx/syn:@PREMOD\">" +
@@ -486,20 +488,22 @@ define(['match',
     it('should parse into a table (async)', function () {
       expect(table).toBeTruthy();
 
-      expect(table.length()).toBe(5);
+      expect(table.length()).toBe(7);
 
-      expect(table.getToken(0)).toBe("meist");
-      expect(table.getToken(1)).toBe("deutlich");
-      expect(table.getToken(2)).toBe("leistungsfähiger");
-      expect(table.getToken(3)).toBe(longString);
+      expect(table.getToken(0)).toBe("");
+      expect(table.getToken(1)).toBe("Außerdem ");
+      expect(table.getToken(2)).toBe("meist");
+      expect(table.getToken(3)).toBe("deutlich");
+      expect(table.getToken(4)).toBe("leistungsfähiger");
+      expect(table.getToken(5)).toBe(longString);
 
-      expect(table.getValue(0, "cnx", "p")[0]).toBe("ADV");
-      expect(table.getValue(0, "cnx", "syn")[0]).toBe("@PREMOD");
-      expect(table.getValue(0, "mate", "l")[0]).toBe("meist");
-      expect(table.getValue(0, "mate", "l")[1]).toBeUndefined();
+      expect(table.getValue(2, "cnx", "p")[0]).toBe("ADV");
+      expect(table.getValue(2, "cnx", "syn")[0]).toBe("@PREMOD");
+      expect(table.getValue(2, "mate", "l")[0]).toBe("meist");
+      expect(table.getValue(2, "mate", "l")[1]).toBeUndefined();
 
-      expect(table.getValue(2, "cnx", "l")[0]).toBe("fähig");
-      expect(table.getValue(2, "cnx", "l")[1]).toBe("leistung");
+      expect(table.getValue(4, "cnx", "l")[0]).toBe("fähig");
+      expect(table.getValue(4, "cnx", "l")[1]).toBe("leistung");
     });
    
     it('should be rendered async', function () {
@@ -512,16 +516,21 @@ define(['match',
 
       expect(tr.children[0].firstChild.nodeValue).toBe('Foundry');
       expect(tr.children[1].firstChild.nodeValue).toBe('Layer');
-      expect(tr.children[2].firstChild.nodeValue).toBe('meist');
-      expect(tr.children[2].classList.contains('mark')).toBeFalsy();
-      expect(tr.children[3].firstChild.nodeValue).toBe('deutlich');
-      expect(tr.children[3].classList.contains('mark')).toBeTruthy();
-      expect(tr.children[4].firstChild.nodeValue).toBe('leistungsfähiger');
+
+      expect(tr.children[2].classList.contains('cutted')).toBeTruthy();
+      expect(tr.children[3].firstChild.nodeValue).toBe('Außerdem ');
+
+      
+      expect(tr.children[4].firstChild.nodeValue).toBe('meist');
       expect(tr.children[4].classList.contains('mark')).toBeFalsy();
-      expect(tr.children[4].hasAttribute("title")).toBeFalsy();
-      expect(tr.children[5].firstChild.nodeValue).toBe(longString);
-      expect(tr.children[5].getAttribute("title")).toBe(longString);
-      expect(tr.children[6].classList.contains('cutted')).toBeTruthy();
+      expect(tr.children[5].firstChild.nodeValue).toBe('deutlich');
+      expect(tr.children[5].classList.contains('mark')).toBeTruthy();
+      expect(tr.children[6].firstChild.nodeValue).toBe('leistungsfähiger');
+      expect(tr.children[6].classList.contains('mark')).toBeFalsy();
+      expect(tr.children[6].hasAttribute("title")).toBeFalsy();
+      expect(tr.children[7].firstChild.nodeValue).toBe(longString);
+      expect(tr.children[7].getAttribute("title")).toBe(longString);
+      expect(tr.children[8].classList.contains('cutted')).toBeTruthy();
 
       // first row
       tr = e.children[1].children[0];
@@ -530,10 +539,10 @@ define(['match',
       expect(tr.children[0].nodeName).toBe('TH');
       expect(tr.children[0].firstChild.nodeValue).toEqual('cnx');
       expect(tr.children[1].firstChild.nodeValue).toEqual('l');
-      expect(tr.children[2].firstChild.nodeValue).toEqual('meist');
-      expect(tr.children[3].firstChild.nodeValue).toEqual('deutlich');
-      expect(tr.children[4].firstChild.firstChild.nodeValue).toEqual('fähig');
-      expect(tr.children[4].lastChild.firstChild.nodeValue).toEqual('leistung');
+      expect(tr.children[4].firstChild.nodeValue).toEqual('meist');
+      expect(tr.children[5].firstChild.nodeValue).toEqual('deutlich');
+      expect(tr.children[6].firstChild.firstChild.nodeValue).toEqual('fähig');
+      expect(tr.children[6].lastChild.firstChild.nodeValue).toEqual('leistung');
 
       // second row
       tr = e.children[1].children[1];
@@ -542,14 +551,13 @@ define(['match',
       expect(tr.children[0].nodeName).toBe('TH');
       expect(tr.children[0].firstChild.nodeValue).toEqual('cnx');
       expect(tr.children[1].firstChild.nodeValue).toEqual('p');
-      expect(tr.children[2].firstChild.nodeValue).toEqual('ADV');
-      expect(tr.children[3].firstChild.nodeValue).toEqual('A');
-      expect(tr.children[4].firstChild.firstChild.nodeValue).toEqual('A');
-      expect(tr.children[4].lastChild.firstChild.nodeValue).toEqual('ADJA');
+      expect(tr.children[4].firstChild.nodeValue).toEqual('ADV');
+      expect(tr.children[5].firstChild.nodeValue).toEqual('A');
+      expect(tr.children[6].firstChild.firstChild.nodeValue).toEqual('A');
+      expect(tr.children[6].lastChild.firstChild.nodeValue).toEqual('ADJA');
 
-      expect(tr.children[4].firstChild.getAttribute("title")).toEqual('Adjective');
-      expect(tr.children[2].getAttribute("title")).toEqual('Adverb');
-
+      expect(tr.children[6].firstChild.getAttribute("title")).toEqual('Adjective');
+      expect(tr.children[4].getAttribute("title")).toEqual('Adverb');
     });
 
 
