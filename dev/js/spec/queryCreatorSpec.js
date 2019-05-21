@@ -63,7 +63,7 @@ function matchTableComplexFactory () {
     "          <th>Layer</th>" +
     "          <th>Der</th>" +
     "          <th>älteste</th>" +
-    "          <th>lebende</th>" +
+    "          <th>lebende und sterbende</th>" +
     "          <th class=\"mark\">Baum</th>" +
     "        </tr>" +
     "      </thead>" +
@@ -90,6 +90,14 @@ function matchTableComplexFactory () {
     "            <div>morphemes:.::_SORSZ \\ZERO::NOM 'period::PUNCT'</div>" +
     "          </td>" +
     "          <td>ADJA</td>" +
+    "          <td></td>" +
+    "          <td class=\"mark\">NN</td>" +
+    "        </tr>" +
+    "        <tr tabindex=\"0\">" +
+    "          <th>tt</th>" +
+    "          <th>l</th>" +
+    "          <td>Lese|Lesen</td>" +
+    "          <td>a b</td>" +
     "          <td></td>" +
     "          <td class=\"mark\">NN</td>" +
     "        </tr>" +
@@ -508,11 +516,11 @@ define(['match/querycreator'], function (qcClass) {
       expect(qc.element().className).toEqual("query fragment");
 
       var cell = matchTable.querySelector("thead > tr > th:nth-child(5)");
-      expect(cell.innerString()).toEqual("lebende");
+      expect(cell.innerString()).toEqual("lebende und sterbende");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
-      expect(qc.toString()).toEqual("[orth=lebende]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende']");
 
       // Check complex cell
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6)");
@@ -520,7 +528,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[orth=lebende]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende']");
 
       // Check complex cell div
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(1)");
@@ -528,7 +536,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(true);
-      expect(qc.toString()).toEqual("[orth=lebende][corenlp/p=case:nom]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende'][corenlp/p=case:nom]");
       var cell = cell;
 
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(3)");
@@ -536,7 +544,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(true);
-      expect(qc.toString()).toEqual("[orth=lebende][corenlp/p=case:nom & corenlp/p=number:sg]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende'][corenlp/p=case:nom & corenlp/p=number:sg]");
       var cell2 = cell;
 
       cell = matchTable.querySelector("tbody > tr:nth-child(1) > td:nth-child(6) > div:nth-child(2)");
@@ -544,7 +552,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(true);
-      expect(qc.toString()).toEqual("[orth=lebende][(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom & corenlp/p=number:sg]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende'][(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom & corenlp/p=number:sg]");
       var cell3 = cell;
 
       // Remove cell again
@@ -553,7 +561,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(true);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[orth=lebende][(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende'][(corenlp/p=gender:fem | corenlp/p=gender:masc) & corenlp/p=case:nom]");
 
       // Remove cell again
       cell = cell3;
@@ -561,7 +569,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(true);
       cell.click();
       expect(cell.classList.contains("chosen")).toBe(false);
-      expect(qc.toString()).toEqual("[orth=lebende][corenlp/p=case:nom]");
+      expect(qc.toString()).toEqual("[orth='lebende und sterbende'][corenlp/p=case:nom]");
     });
 
 
@@ -614,6 +622,27 @@ define(['match/querycreator'], function (qcClass) {
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
       expect(qc.toString()).toEqual("[opennlp/p='morphemes:.::_SORSZ \\\\ZERO::NOM \\\'period::PUNCT\\\'']");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+
+      cell = matchTable.querySelector("tbody > tr:nth-child(3) > td:nth-child(3)");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[tt/l='Lese|Lesen']");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+
+      cell = matchTable.querySelector("tbody > tr:nth-child(3) > td:nth-child(4)");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[tt/l='a b']");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
     });
 
     it('should respect marked elements', function () {

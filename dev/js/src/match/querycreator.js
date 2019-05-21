@@ -19,7 +19,7 @@ define(['util'], function () {
   const loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
-  var esc = RegExp("[ \.\'\\\\]");
+  var esc = RegExp("[ \.\'\\\\\|\&]");
   
   function _getKeyValue (keyValue) {
     if (keyValue.match(esc) != null) {
@@ -108,7 +108,7 @@ define(['util'], function () {
 
     // Realease a click event on the annotation table
     clickOnAnno : function (event) {
-
+      
       // Listen for clicks on table cells
       if (event.target !== event.currentTarget) {
 
@@ -206,7 +206,7 @@ define(['util'], function () {
 
             // Target is an orth
             if (i >= 0) {
-              this.toggleInToken(target, i, 'orth=' + target.innerText);
+              this.toggleInToken(target, i, _getAnnotation("orth=",target));
             }            
           }
 
