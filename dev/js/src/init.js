@@ -65,7 +65,16 @@ define([
 
   KorAP.vc = vcClass.create(vcArray); 
   
+  KorAP.tourshow =  function(){
+    tourClass.gTstartSearch().start();
+  };
+ 
+  KorAP.tourshowR = function(){
+    tourClass.gTshowResults().start();
+  };
+    
   domReady(function (event) {
+      
     var obj = {};
 
     // What should be visible in the beginning?
@@ -343,7 +352,13 @@ define([
         };
       });
     };
-
+ 
+    
+    //Starts the guided tour at the next page
+    if(KorAP.session.get("tour")){
+      tourClass.gTshowResults().start();
+    }
+    
     /**
      * Init hint helper
      * has to be final because of
@@ -359,12 +374,5 @@ define([
 
     return obj;
   });
-  
-
-  tourshow =  function(){
-    let tour = tourClass.guidedTour();
-    tour.start();
-  };
-   
   
 });

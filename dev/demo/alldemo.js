@@ -804,13 +804,6 @@ require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   };
 
 
-  tourshow =  function(){
-    var tourClass = require('tour/tours');
-    let tour = tourClass.guidedTour();
-    tour.start();
-  };
-  
-
   /**
    * Do some things at the beginning.
    */
