@@ -1,6 +1,6 @@
 use Mojolicious::Lite;
 
-my $base = app->home->child('..');
+my $base = app->home->child('..', '..');
 
 push @{app->static->paths}, $base->child('dev');
 
