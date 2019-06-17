@@ -1,17 +1,10 @@
 % layout 'main', title => 'KorAP: Query Languages';
 
-%# https://letsencrypt.org/howitworks/
-
 %# Store the id of an active section in the session, so the system is able to directly scroll to the relevant section
 %# This should be stored when clicking on a specific query
 %# but the remembered section contains the id - not the query
 
 <h2 id="tutorial-top">Query Languages</h2>
-
-<section id="intro">
-  <h3>Frontend Features</h3>
-  <p>This frontend differs to the <%= doc_ext_link_to 'official frontend', 'http://korap.ids-mannheim.de/app/', target => '_blank', rel => 'noopener noreferrer' %> by providing a serialization view, an integrated tutorial, a comparison view for morphological annotations, and an autocompletion for closed annotations (type in <%= doc_link_to 'foundry prefixes', 'data', 'annotation' %> like <code>tt/</code>).</p>
-</section>
 
 <section id="examples">
   <h3>Example Queries</h3>
