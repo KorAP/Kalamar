@@ -3,9 +3,6 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::ByteStream 'b';
 
 # TODO:
-#   Get rid of auth_support for templates!
-
-# TODO:
 #   CSRF-protect logout!
 
 # Register the plugin
@@ -19,11 +16,6 @@ sub register {
   if (my $config_param = $app->config('Kalamar-Auth')) {
     $param = { %$param, %$config_param };
   };
-
-
-  # Temp
-  $app->defaults(auth_support => 1);
-
 
   # Load 'notifications' plugin
   unless (exists $app->renderer->helpers->{notify}) {
