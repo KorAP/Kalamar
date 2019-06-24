@@ -14,6 +14,7 @@ use Mojo::Util qw/slugify/;
 my $secret = 's3cr3t';
 my $fixture_path = path(Mojo::File->new(__FILE__)->dirname)->child('..', 'fixtures');
 
+# Legacy:
 helper jwt_encode => sub {
   shift;
   return Mojo::JWT->new(
@@ -24,6 +25,7 @@ helper jwt_encode => sub {
   );
 };
 
+# Legacy;
 helper jwt_decode => sub {
   my ($c, $auth) = @_;
   $auth =~ s/\s*api_token\s+//;
@@ -106,7 +108,13 @@ get '/search' => sub {
 
   # Check authentification
   if (my $auth = $c->req->headers->header('Authorization')) {
-    if (my $jwt = $c->jwt_decode($auth)) {
+
+    my $jwt;
+    if ($auth =~ /^Bearer/) {
+      # Username unknown in OAuth2
+      $response->{json}->{meta}->{authorized} = 'yes';
+    }
+    elsif ($jwt = $c->jwt_decode($auth)) {
       $response->{json}->{meta}->{authorized} = $jwt->{username} if $jwt->{username};
     };
   };
@@ -264,6 +272,71 @@ get '/auth/apiToken' => sub {
     }
   );
 };
+
+
+# Request API token
+post '/oauth2/token' => sub {
+  my $c = shift;
+
+  # Check for wrong client id
+  if ($c->param('client_id') ne '2') {
+    return $c->render(
+      json => {
+        "error_description" => "Unknown client with " . $_->{client_id},
+        "error" => "invalid_client"
+      },
+      status => 401
+    );
+  }
+
+  # Check for wrong client secret
+  elsif ($c->param('client_secret') ne 'k414m4r-s3cr3t') {
+    return $c->render(
+      json => {
+        "error_description" => "Invalid client credentials",
+        "error" => "invalid_client"
+      },
+      status => 401
+    );
+  }
+
+  # Check for wrong user name
+  elsif ($c->param('username') ne 'test') {
+    return $c->render(json => {
+      error => [[2004, undef]]
+    });
+  }
+
+  # Check for ldap error
+  elsif ($c->param('password') eq 'ldaperr') {
+    return $c->render(
+      format => 'html',
+      status => 401,
+      json => {
+        "errors" => [[2022,"LDAP Authentication failed due to unknown user or password!"]]
+      }
+    );
+  }
+
+  # Check for wrong password
+  elsif ($c->param('password') ne 'pass') {
+    return $c->render(json => {
+      error => [[2004, undef]]
+    });
+  }
+
+  # Return fine access
+  return $c->render(
+    json => {
+      "access_token" => "4dcf8784ccfd26fac9bdb82778fe60e2",
+      "refresh_token" => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
+      "scope" => "all",
+      "token_type" => "Bearer",
+      "expires_in" => 86400
+    });
+};
+
+
 
 app->start;
 

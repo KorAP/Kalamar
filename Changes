@@ -1,4 +1,4 @@
-0.34 2019-06-24
+0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).
         - Updated dependency on M::P::Notifications to
           be compatible with recent versions of Mojolicious.
@@ -6,6 +6,7 @@
         - Improve QueryCreator to single-quote-escape special
           characters in orth-line and include more symbols.
         - Remove deprecated auth_support support.
+        - Add OAuth2 password grand flow.
 
 0.33 2019-03-28
         - Fix problem with serialization and deserialization
