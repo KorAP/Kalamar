@@ -14,7 +14,11 @@ $ENV{KALAMAR_API} = $mount_point;
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth']
-  }
+  },
+  # 'Kalamar-Auth' => {
+  #   client_id => 2,
+  #   client_secret => 'k414m4r-s3cr3t'
+  # }
 });
 
 # Mount fake backend

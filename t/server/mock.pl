@@ -14,6 +14,7 @@ use Mojo::Util qw/slugify/;
 my $secret = 's3cr3t';
 my $fixture_path = path(Mojo::File->new(__FILE__)->dirname)->child('..', 'fixtures');
 
+# Legacy:
 helper jwt_encode => sub {
   shift;
   return Mojo::JWT->new(
@@ -24,6 +25,7 @@ helper jwt_encode => sub {
   );
 };
 
+# Legacy;
 helper jwt_decode => sub {
   my ($c, $auth) = @_;
   $auth =~ s/\s*api_token\s+//;
@@ -264,6 +266,38 @@ get '/auth/apiToken' => sub {
     }
   );
 };
+
+
+# Request API token
+post '/oauth2/token' => sub {
+  my $c = shift;
+
+  my $json = $c->req->json;
+
+  if ($json->{client_id} != 2) {
+    return $c->render(json => {});
+  }
+  elsif ($json->{client_secret} ne 'k414m4r-s3cr3t') {
+    return $c->render(json => {});
+  }
+  elsif ($json->{username} ne 'test') {
+    return $c->render(json => {});
+  }
+  elsif ($json->{password} ne 'pwd') {
+    return $c->render(json => {});
+  }
+
+  return $c->render(
+    json => {
+      "access_token" => "4dcf8784ccfd26fac9bdb82778fe60e2",
+      "refresh_token" => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
+      "scope" => "search",
+      "token_type" => "Bearer",
+      "expires_in" => 259200
+    });
+};
+
+
 
 app->start;
 
