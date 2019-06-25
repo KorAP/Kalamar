@@ -13,7 +13,6 @@ $ENV{KALAMAR_API} = $mount_point;
 
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
-    auth_support => 1,
     plugins => ['Auth']
   }
 });
