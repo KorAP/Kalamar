@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "143928dc_d4bdfda2",
+        "filename": "dev/demo/alldemo.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "Seems to be a useless artifact.",
+      "range": {
+        "startLine": 806,
+        "startChar": 0,
+        "endLine": 818,
+        "endChar": 2
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fbf99ce_e87dec93",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "When globally defined, use namespace \"KorAP.\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 10
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f5411c_dad37e96",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "No reason for instantiating a variable.",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 12
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a4b90f_c9f37ed8",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "This would start the second tour whenever someone searches for /.*intr.*/ like the word \"Eintrag\". Either parse the query parameters for a parameter like \"intro\" or use the session in KorAP.session",
+      "range": {
+        "startLine": 359,
+        "startChar": 34,
+        "endLine": 359,
+        "endChar": 56
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03c31ee3_15240087",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "Do directly: tourClass.gTshowResults().start()",
+      "range": {
+        "startLine": 360,
+        "startChar": 6,
+        "endLine": 360,
+        "endChar": 15
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96cbd564_c290fdfa",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "In the english version it says \"Baum\".",
+      "range": {
+        "startLine": 55,
+        "startChar": 49,
+        "endLine": 55,
+        "endChar": 54
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6aca59d_8de1fc77",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "Not in line with the original query. Better use a localizable query term through all localizations here, that can be changed based on the underlying example corpus.",
+      "range": {
+        "startLine": 130,
+        "startChar": 25,
+        "endLine": 130,
+        "endChar": 31
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d949f88_59a16404",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "There should be a more stable way to see if the targetedElement is the searchbar button, then researching for the element in the dom.",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 80
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29b6d4f7_82a7f98c",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:50:42Z",
+      "side": 1,
+      "message": "Remove when switching to a session based trigger.",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 47
+      },
+      "revId": "fec0b7e64e598dd569699a5feeb802bb181630f3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
