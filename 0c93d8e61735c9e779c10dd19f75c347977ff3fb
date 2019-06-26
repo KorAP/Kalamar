@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5678629_b6f0ed1e",
+        "filename": "dev/js/spec/tourSpec.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-06-26T13:16:25Z",
+      "side": 1,
+      "message": "introKorAP2 needs to me introKorAP.\nThis is patched in the upcoming commit though.",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 20
+      },
+      "revId": "0c93d8e61735c9e779c10dd19f75c347977ff3fb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
