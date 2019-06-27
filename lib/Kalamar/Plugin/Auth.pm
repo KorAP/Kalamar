@@ -24,11 +24,10 @@ sub register {
     });
   };
 
-
-  # unless ($param->{client_id} && $param->{client_secret}) {
-  #   $mojo->log->error('client_id or client_secret not defined');
-  #   return;
-  # };
+  # Get the client id and the client_secret as a requirement
+  unless ($param->{client_id} && $param->{client_secret}) {
+    $app->log->error('client_id or client_secret not defined');
+  };
 
   # TODO:
   #   Define user CHI cache
@@ -80,6 +79,10 @@ sub register {
       my $auth_token = $c->auth->token or return;
       my $h = $tx->req->headers;
       $h->header('Authorization' => $auth_token);
+
+      # TODO:
+      #   When a request fails because the access token timed out,
+      #   rerequest with the refresh token.
     }
   );
 
@@ -107,134 +110,284 @@ sub register {
 
   # Log in to the system
   my $r = $app->routes;
-  $r->post('/user/login')->to(
-    cb => sub {
-      my $c = shift;
 
-      # Validate input
-      my $v = $c->validation;
-      $v->required('handle_or_email', 'trim');
-      $v->required('pwd', 'trim');
-      $v->csrf_protect;
-      $v->optional('fwd')->closed_redirect;
+  if ($param->{oauth2}) {
 
-      my $user = $v->param('handle_or_email');
-      my $fwd = $v->param('fwd');
+    # Password flow
+    $r->post('/user/login')->to(
+      cb => sub {
+        my $c = shift;
 
-      # Set flash for redirect
-      $c->flash(handle_or_email => $user);
+        # Validate input
+        my $v = $c->validation;
+        $v->required('handle_or_email', 'trim');
+        $v->required('pwd', 'trim');
+        $v->csrf_protect;
+        $v->optional('fwd')->closed_redirect;
 
-      if ($v->has_error || index($user, ':') >= 0) {
-        if ($v->has_error('fwd')) {
-          $c->notify(error => $c->loc('Auth_openRedirectFail'));
-        }
-        elsif ($v->has_error('csrf_token')) {
-          $c->notify(error => $c->loc('Auth_csrfFail'));
-        }
-        else {
-          $c->notify(error => $c->loc('Auth_loginFail'));
-        };
+        my $user = $v->param('handle_or_email');
+        my $fwd = $v->param('fwd');
 
-        return $c->relative_redirect_to($fwd // 'index');
-      }
+        # Set flash for redirect
+        $c->flash(handle_or_email => $user);
 
-      my $pwd = $v->param('pwd');
-
-      $c->app->log->debug("Login from user $user:$pwd");
-
-      my $url = Mojo::URL->new($c->korap->api)->path('auth/apiToken');
-
-      # Korap request for login
-      $c->korap_request('get', $url, {
-
-        # Set authorization header
-        Authorization => 'Basic ' . b("$user:$pwd")->b64_encode->trim,
-
-      })->then(
-        sub {
-          my $tx = shift;
-
-          # Get the java token
-          my $jwt = $tx->result->json;
-
-          # No java web token
-          unless ($jwt) {
-            $c->notify(error => 'Response is no valid JWT (remote)');
-            return;
+        if ($v->has_error || index($user, ':') >= 0) {
+          if ($v->has_error('fwd')) {
+            $c->notify(error => $c->loc('Auth_openRedirectFail'));
+          }
+          elsif ($v->has_error('csrf_token')) {
+            $c->notify(error => $c->loc('Auth_csrfFail'));
+          }
+          else {
+            $c->notify(error => $c->loc('Auth_loginFail'));
           };
 
-          # There is an error here
-          # Dealing with errors here
-          if (my $error = $jwt->{error} // $jwt->{errors}) {
-            if (ref $error eq 'ARRAY') {
-              foreach (@$error) {
-                unless ($_->[1]) {
-                  $c->notify(error => $c->loc('Auth_loginFail'));
-                }
-                else {
-                  $c->notify(error => $_->[0] . ($_->[1] ? ': ' . $_->[1] : ''));
-                };
-              };
-            }
-            else {
-              $c->notify(error => 'There is an unknown JWT error');
-            };
-            return;
-          };
-
-          # TODO: Deal with user return values.
-          my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
-
-          $c->app->log->debug(qq!Login successful: "$user" with "$auth"!);
-
-          $user = $jwt->{username} ? $jwt->{username} : $user;
-
-          # Set session info
-          $c->session(user => $user);
-          $c->session(auth => $auth);
-
-          # Set stash info
-          $c->stash(user => $user);
-          $c->stash(auth => $auth);
-
-          # Set cache
-          $c->chi('user')->set($auth => $user);
-          $c->notify(success => $c->loc('Auth_loginSuccess'));
-        }
-      )->catch(
-        sub {
-          my $e = shift;
-
-          # Notify the user
-          $c->notify(
-            error =>
-              ($e->{code} ? $e->{code} . ': ' : '') .
-              $e->{message} . ' for Login (remote)'
-            );
-
-          # Log failure
-          $c->app->log->debug(
-            ($e->{code} ? $e->{code} . ' - ' : '') .
-              $e->{message}
-            );
-
-          $c->app->log->debug(qq!Login fail: "$user"!);
-          $c->notify(error => $c->loc('Auth_loginFail'));
-        }
-      )->finally(
-        sub {
-
-          # Redirect to slash
           return $c->relative_redirect_to($fwd // 'index');
         }
-      )
 
-      # Start IOLoop
-      ->wait;
+        my $pwd = $v->param('pwd');
 
-      return 1;
-    }
-  )->name('login');
+        $c->app->log->debug("Login from user $user:XXXX");
+
+        # <specific>
+
+        # Get OAuth access token
+        my $url = Mojo::URL->new($c->korap->api)->path('oauth2/token');
+
+        # Korap request for login
+        $c->korap_request('post', $url, {}, form => {
+          grant_type => 'password',
+          username => $user,
+          password => $pwd,
+          client_id => $param->{client_id},
+          client_secret => $param->{client_secret}
+        })->then(
+          sub {
+            my $tx = shift;
+
+            # Get the token
+            my $json = $tx->result->json;
+
+            # No json object web token
+            unless ($json) {
+              $c->notify(error => 'Response is no valid Json object (remote)');
+              return;
+            };
+
+            # There is an error here
+            # Dealing with errors here
+            if (my $error = $json->{error} // $json->{errors}) {
+              if (ref $error eq 'ARRAY') {
+                foreach (@$error) {
+                  unless ($_->[1]) {
+                    $c->notify(error => $c->loc('Auth_loginFail'));
+                  }
+                  else {
+                    $c->notify(error => $_->[0] . ($_->[1] ? ': ' . $_->[1] : ''));
+                  };
+                };
+              }
+              else {
+                $c->notify(error => $json->{error} . ($json->{error_description} ? ': ' . $json->{error_description} : ''));
+              };
+              return;
+            };
+
+            my $access_token = $json->{access_token};
+            my $token_type =  $json->{token_type};
+            # my $refresh_token = $json->{refresh_token};
+            # my $scope = $json->{scope};
+            # "expires_in": 259200
+
+            # TODO: Deal with user return values.
+            my $auth = $token_type . ' ' . $access_token;
+
+            # </specific>
+
+            $c->app->log->debug(qq!Login successful: "$user" with "$auth"!);
+
+            # TODO:
+            #   Remember refresh token!
+
+            # Set session info
+            $c->session(user => $user);
+            $c->session(auth => $auth);
+
+            # Set stash info
+            $c->stash(user => $user);
+            $c->stash(auth => $auth);
+
+            # Set cache
+            $c->chi('user')->set($auth => $user);
+            $c->notify(success => $c->loc('Auth_loginSuccess'));
+          }
+        )->catch(
+          sub {
+            my $e = shift;
+
+            # Notify the user
+            $c->notify(
+              error =>
+                ($e->{code} ? $e->{code} . ': ' : '') .
+                $e->{message} . ' for Login (remote)'
+              );
+
+            # Log failure
+            $c->app->log->debug(
+              ($e->{code} ? $e->{code} . ' - ' : '') .
+                $e->{message}
+              );
+
+            $c->app->log->debug(qq!Login fail: "$user"!);
+            $c->notify(error => $c->loc('Auth_loginFail'));
+          }
+        )->finally(
+          sub {
+
+            # Redirect to slash
+            return $c->relative_redirect_to($fwd // 'index');
+          }
+        )
+
+        # Start IOLoop
+        ->wait;
+
+        return 1;
+      }
+    )->name('login');
+  }
+  # Use JWT login
+  else {
+
+    $r->post('/user/login')->to(
+      cb => sub {
+        my $c = shift;
+
+        # Validate input
+        my $v = $c->validation;
+        $v->required('handle_or_email', 'trim');
+        $v->required('pwd', 'trim');
+        $v->csrf_protect;
+        $v->optional('fwd')->closed_redirect;
+
+        my $user = $v->param('handle_or_email');
+        my $fwd = $v->param('fwd');
+
+        # Set flash for redirect
+        $c->flash(handle_or_email => $user);
+
+        if ($v->has_error || index($user, ':') >= 0) {
+          if ($v->has_error('fwd')) {
+            $c->notify(error => $c->loc('Auth_openRedirectFail'));
+          }
+          elsif ($v->has_error('csrf_token')) {
+            $c->notify(error => $c->loc('Auth_csrfFail'));
+          }
+          else {
+            $c->notify(error => $c->loc('Auth_loginFail'));
+          };
+
+          return $c->relative_redirect_to($fwd // 'index');
+        }
+
+        my $pwd = $v->param('pwd');
+
+        $c->app->log->debug("Login from user $user:XXXX");
+
+        my $url = Mojo::URL->new($c->korap->api)->path('auth/apiToken');
+
+        # Korap request for login
+        $c->korap_request('get', $url, {
+
+          # Set authorization header
+          Authorization => 'Basic ' . b("$user:$pwd")->b64_encode->trim,
+
+        })->then(
+          sub {
+            my $tx = shift;
+
+            # Get the java token
+            my $jwt = $tx->result->json;
+
+            # No java web token
+            unless ($jwt) {
+              $c->notify(error => 'Response is no valid JWT (remote)');
+              return;
+            };
+
+            # There is an error here
+            # Dealing with errors here
+            if (my $error = $jwt->{error} // $jwt->{errors}) {
+              if (ref $error eq 'ARRAY') {
+                foreach (@$error) {
+                  unless ($_->[1]) {
+                    $c->notify(error => $c->loc('Auth_loginFail'));
+                  }
+                  else {
+                    $c->notify(error => $_->[0] . ($_->[1] ? ': ' . $_->[1] : ''));
+                  };
+                };
+              }
+              else {
+                $c->notify(error => 'There is an unknown JWT error');
+              };
+              return;
+            };
+
+            # TODO: Deal with user return values.
+            my $auth = $jwt->{token_type} . ' ' . $jwt->{token};
+
+            $c->app->log->debug(qq!Login successful: "$user" with "$auth"!);
+
+            $user = $jwt->{username} ? $jwt->{username} : $user;
+
+            # Set session info
+            $c->session(user => $user);
+            $c->session(auth => $auth);
+
+            # Set stash info
+            $c->stash(user => $user);
+            $c->stash(auth => $auth);
+
+            # Set cache
+            $c->chi('user')->set($auth => $user);
+            $c->notify(success => $c->loc('Auth_loginSuccess'));
+          }
+        )->catch(
+          sub {
+            my $e = shift;
+
+            # Notify the user
+            $c->notify(
+              error =>
+                ($e->{code} ? $e->{code} . ': ' : '') .
+                $e->{message} . ' for Login (remote)'
+              );
+
+            # Log failure
+            $c->app->log->debug(
+              ($e->{code} ? $e->{code} . ' - ' : '') .
+                $e->{message}
+              );
+
+            $c->app->log->debug(qq!Login fail: "$user"!);
+            $c->notify(error => $c->loc('Auth_loginFail'));
+          }
+        )->finally(
+          sub {
+
+            # Redirect to slash
+            return $c->relative_redirect_to($fwd // 'index');
+          }
+        )
+
+        # Start IOLoop
+        ->wait;
+
+        return 1;
+      }
+    )->name('login');
+  };
 
 
   # Log out of the session
@@ -243,6 +396,9 @@ sub register {
       my $c = shift;
 
       # TODO: csrf-protection!
+
+      # TODO:
+      #   Revoke refresh token!
 
       # Log out of the system
       my $url = Mojo::URL->new($c->korap->api)->path('auth/logout');
