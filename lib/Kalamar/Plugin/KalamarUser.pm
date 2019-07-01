@@ -37,6 +37,13 @@ sub register {
   # Set app to server
   $plugin->ua->server->app($mojo);
 
+  # Get a user agent object for Kalamar
+  $mojo->helper(
+    'kalamar_ua' => sub {
+      return $plugin->ua;
+    }
+  );
+
   # Get user handle
   $mojo->helper(
     'user_handle' => sub {

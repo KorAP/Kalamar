@@ -109,7 +109,7 @@ $t->post_ok('/user/login' => form => {
 $csrf = $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
-  ->text_is('div.notify-error', 'Access denied')
+  ->text_is('div.notify-error', '2022: LDAP Authentication failed due to unknown user or password!')
   ->element_exists('input[name=handle_or_email][value=test]')
   ->element_exists_not('div.button.top a')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
@@ -132,7 +132,6 @@ $t->get_ok('/')
   ->element_exists('aside.off')
   ->element_exists_not('aside.active')
   ;
-
 
 # Now the user is logged in and should be able to
 # search with authorization
@@ -199,9 +198,68 @@ $t->post_ok('/user/login' => form => {
   ->status_is(302)
   ->header_is('Location' => '/?q=Baum&ql=poliqarp');
 
+$t->get_ok('/?q=Baum&ql=poliqarp')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Login successful')
+  ;
+
+$t->app->routes->get(
+  '/user/refresh' => sub {
+    my $c = shift;
+
+    my $old_auth = $c->auth->token;
+    my $refresh = $c->chi('user')->get("refr_$old_auth");
+
+    $c->auth->refresh_token($refresh)->then(
+      sub {
+        my $new_auth = $c->auth->token;
+        $c->notify(success => $new_auth . ' vs. ' . $old_auth);
+      }
+    )->catch(
+      sub {
+
+        # Notify the user on login failure
+        unless (@_) {
+          $c->notify(error => $c->loc('Auth_refreshFail'));
+        }
+
+        # There are known errors
+        foreach (@_) {
+          if (ref $_ eq 'HASH') {
+            my $err = ($_->{code} ? $_->{code} . ': ' : '') .
+              $_->{message};
+            $c->notify(error => $err);
+          }
+          else {
+            $c->notify(error => $_);
+          }
+        };
+      }
+    )->finally(
+      sub {
+        return $c->redirect_to('index');
+      }
+    )->wait;
+  }
+);
+
+$t->get_ok('/user/refresh')
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_like('div.notify-success', qr!Bearer abcde vs\. Bearer .{6,}!)
+  ;
+
 
 done_testing;
 __END__
+
 
 
 # Login mit falschem Nutzernamen:

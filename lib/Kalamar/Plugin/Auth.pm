@@ -5,6 +5,8 @@ use Mojo::ByteStream 'b';
 # TODO:
 #   CSRF-protect logout!
 
+our $EXPECTED_EXPIRATION_IN = 259200;
+
 # Register the plugin
 sub register {
   my ($plugin, $app, $param) = @_;
@@ -42,7 +44,8 @@ sub register {
           logoutSuccess => 'Abmeldung erfolgreich',
           logoutFail => 'Abmeldung fehlgeschlagen',
           csrfFail => 'Fehlerhafter CSRF Token',
-          openRedirectFail => 'Weiterleitungsfehler'
+          openRedirectFail => 'Weiterleitungsfehler',
+          refreshFail => 'Fehlerhafter Refresh-Token'
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -50,7 +53,8 @@ sub register {
           logoutSuccess => 'Logout successful',
           logoutFail => 'Logout failed',
           csrfFail => 'Bad CSRF token',
-          openRedirectFail => 'Redirect failure'
+          openRedirectFail => 'Redirect failure',
+          refreshFail => 'Bad refresh token'
         }
       }
     }
@@ -113,6 +117,40 @@ sub register {
 
   if ($param->{oauth2}) {
 
+    my $client_id = $param->{client_id};
+    my $client_secret = $param->{client_secret};
+
+    # This refreshes an oauth2 token and
+    # returns a promise
+    $app->helper(
+      'auth.refresh_token' => sub {
+        my $c = shift;
+        my $refresh_token = shift;
+
+        unless ($refresh_token) {
+          return Mojo::Promise->reject({message => 'Missing refresh token'})
+        };
+
+        # Get OAuth access token
+        my $url = Mojo::URL->new($c->korap->api)->path('oauth2/token');
+
+        return $c->korap_request('POST', $url, {} => form => {
+          grant_type => 'refresh_token',
+          client_id => $client_id,
+          client_secret => $client_secret,
+          refresh_token => $refresh_token
+        })->then(
+          sub {
+            # Set the tokens and return a promise
+            return $plugin->set_tokens(
+              $c,
+              shift->result->json
+            )
+          }
+        );
+      }
+    );
+
     # Password flow
     $r->post('/user/login')->to(
       cb => sub {
@@ -159,91 +197,53 @@ sub register {
           grant_type => 'password',
           username => $user,
           password => $pwd,
-          client_id => $param->{client_id},
-          client_secret => $param->{client_secret}
+          client_id => $client_id,
+          client_secret => $client_secret
         })->then(
           sub {
-            my $tx = shift;
-
-            # Get the token
-            my $json = $tx->result->json;
-
-            # No json object web token
-            unless ($json) {
-              $c->notify(error => 'Response is no valid Json object (remote)');
-              return;
-            };
-
-            # There is an error here
-            # Dealing with errors here
-            if (my $error = $json->{error} // $json->{errors}) {
-              if (ref $error eq 'ARRAY') {
-                foreach (@$error) {
-                  unless ($_->[1]) {
-                    $c->notify(error => $c->loc('Auth_loginFail'));
-                  }
-                  else {
-                    $c->notify(error => $_->[0] . ($_->[1] ? ': ' . $_->[1] : ''));
-                  };
-                };
-              }
-              else {
-                $c->notify(error => $json->{error} . ($json->{error_description} ? ': ' . $json->{error_description} : ''));
-              };
-              return;
-            };
-
-            my $access_token = $json->{access_token};
-            my $token_type =  $json->{token_type};
-            # my $refresh_token = $json->{refresh_token};
-            # my $scope = $json->{scope};
-            # "expires_in": 259200
-
-            # TODO: Deal with user return values.
-            my $auth = $token_type . ' ' . $access_token;
-
-            # </specific>
-
-            $c->app->log->debug(qq!Login successful: "$user" with "$auth"!);
-
-            # TODO:
-            #   Remember refresh token!
-
-            # Set session info
-            $c->session(user => $user);
-            $c->session(auth => $auth);
-
-            # Set stash info
-            $c->stash(user => $user);
-            $c->stash(auth => $auth);
-
-            # Set cache
-            $c->chi('user')->set($auth => $user);
-            $c->notify(success => $c->loc('Auth_loginSuccess'));
+            # Set the tokens and return a promise
+            return $plugin->set_tokens(
+              $c,
+              shift->result->json
+            )
           }
         )->catch(
           sub {
-            my $e = shift;
 
-            # Notify the user
-            $c->notify(
-              error =>
-                ($e->{code} ? $e->{code} . ': ' : '') .
-                $e->{message} . ' for Login (remote)'
-              );
+            # Notify the user on login failure
+            unless (@_) {
+              $c->notify(error => $c->loc('Auth_loginFail'));
+            }
 
-            # Log failure
-            $c->app->log->debug(
-              ($e->{code} ? $e->{code} . ' - ' : '') .
-                $e->{message}
-              );
+            # There are known errors
+            foreach (@_) {
+              if (ref $_ eq 'HASH') {
+                my $err = ($_->{code} ? $_->{code} . ': ' : '') .
+                  $_->{message};
+                $c->notify(error => $err);
+                # Log failure
+                $c->app->log->debug($err);
+              }
+              else {
+                $c->notify(error => $_);
+                $c->app->log->debug($_);
+              };
+            };
 
             $c->app->log->debug(qq!Login fail: "$user"!);
-            $c->notify(error => $c->loc('Auth_loginFail'));
+          }
+        )->then(
+          sub {
+            # Set user info
+            $c->session(user => $user);
+            $c->stash(user => $user);
+
+            # Notify on success
+            $c->app->log->debug(qq!Login successful: "$user"!);
+            $c->notify(success => $c->loc('Auth_loginSuccess'));
           }
         )->finally(
           sub {
-
             # Redirect to slash
             return $c->relative_redirect_to($fwd // 'index');
           }
@@ -410,7 +410,14 @@ sub register {
         sub {
           my $tx = shift;
           # Clear cache
-          $c->chi('user')->remove($c->auth->token);
+          # ?? Necesseary
+          # $c->chi('user')->remove($c->auth->token);
+
+          # TODO:
+          #   Revoke refresh token!
+          #   based on auth token!
+          # my $refresh_token = $c->chi('user')->get('refr_' . $c->auth->token);
+          # $c->auth->revoke_token($refresh_token)
 
           # Expire session
           $c->session(user => undef);
@@ -439,6 +446,62 @@ sub register {
     }
   )->name('logout');
 };
+
+# Sets a requested token and returns
+# an error, if it didn't work
+sub set_tokens {
+  my ($plugin, $c, $json) = @_;
+
+  my $promise = Mojo::Promise->new;
+
+  # No json object
+  unless ($json) {
+    return $promise->reject({message => 'Response is no valid Json object (remote)'});
+  };
+
+  # There is an error here
+  # Dealing with errors here
+  if ($json->{error} && ref $json->{error} ne 'ARRAY') {
+    return $promise->reject(
+      {
+        message => $json->{error} . ($json->{error_description} ? ': ' . $json->{error_description} : '')
+      }
+    );
+  } elsif (my $error = $json->{errors} // $json->{error}) {
+    if (ref $error eq 'ARRAY') {
+      my @errors = ();
+      foreach (@{$error}) {
+        if ($_->[1]) {
+          push @errors, { code => $_->[0], message => $_->[1]}
+        }
+      }
+      return $promise->reject(@errors);
+    }
+
+    return $promise->reject({message => $error});
+  };
+
+  my $access_token = $json->{access_token};
+  my $token_type =  $json->{token_type};
+  my $refresh_token = $json->{refresh_token};
+  # my $scope = $json->{scope};
+  my $expires_in = $json->{"expires_in"} // $EXPECTED_EXPIRATION_IN;
+  my $auth = $token_type . ' ' . $access_token;
+
+  # Set session info
+  $c->session(auth => $auth);
+
+  # Set stash info
+  $c->stash(auth => $auth);
+
+  # Remember refresh token in cache
+  $c->chi('user')->set(
+    "refr_" . $auth => $refresh_token,
+    $expires_in
+  );
+
+  return $promise->resolve;
+}
 
 1;
 

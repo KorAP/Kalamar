@@ -278,62 +278,98 @@ get '/auth/apiToken' => sub {
 post '/oauth2/token' => sub {
   my $c = shift;
 
-  # Check for wrong client id
-  if ($c->param('client_id') ne '2') {
-    return $c->render(
-      json => {
-        "error_description" => "Unknown client with " . $_->{client_id},
-        "error" => "invalid_client"
-      },
-      status => 401
-    );
-  }
+  if ($c->param('grant_type') eq 'password') {
 
-  # Check for wrong client secret
-  elsif ($c->param('client_secret') ne 'k414m4r-s3cr3t') {
-    return $c->render(
-      json => {
-        "error_description" => "Invalid client credentials",
-        "error" => "invalid_client"
-      },
-      status => 401
-    );
-  }
+    # Check for wrong client id
+    if ($c->param('client_id') ne '2') {
+      return $c->render(
+        json => {
+          "error_description" => "Unknown client with " . $_->{client_id},
+          "error" => "invalid_client"
+        },
+        status => 401
+      );
+    }
 
-  # Check for wrong user name
-  elsif ($c->param('username') ne 'test') {
-    return $c->render(json => {
-      error => [[2004, undef]]
-    });
-  }
+    # Check for wrong client secret
+    elsif ($c->param('client_secret') ne 'k414m4r-s3cr3t') {
+      return $c->render(
+        json => {
+          "error_description" => "Invalid client credentials",
+          "error" => "invalid_client"
+        },
+        status => 401
+      );
+    }
 
-  # Check for ldap error
-  elsif ($c->param('password') eq 'ldaperr') {
-    return $c->render(
-      format => 'html',
-      status => 401,
-      json => {
+    # Check for wrong user name
+    elsif ($c->param('username') ne 'test') {
+      return $c->render(json => {
+        error => [[2004, undef]]
+      });
+    }
+
+    # Check for ldap error
+    elsif ($c->param('password') eq 'ldaperr') {
+      return $c->render(
+        format => 'html',
+        status => 401,
+        json => {
+          "errors" => [
+            [
+              2022,
+              "LDAP Authentication failed due to unknown user or password!"
+            ]
+          ]
+        }
+      );
+    }
+
+    # Check for wrong password
+    elsif ($c->param('password') ne 'pass') {
+      return $c->render(json => {
+        format => 'html',
+        status => 401,
         "errors" => [[2022,"LDAP Authentication failed due to unknown user or password!"]]
+      });
+    }
+
+    # Return fine access
+    return $c->render(
+      json => {
+        "access_token" => "4dcf8784ccfd26fac9bdb82778fe60e2",
+        "refresh_token" => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
+        "scope" => "all",
+        "token_type" => "Bearer",
+        "expires_in" => 86400
+      });
+  }
+
+  # Refresh token
+  elsif ($c->param('grant_type') eq 'refresh_token') {
+    return $c->render(
+      status => 200,
+      json => {
+        "access_token" => "abcde",
+        "refresh_token" => "fghijk",
+        "token_type" => "Bearer",
+        "expires_in" => 86400
       }
     );
   }
 
-  # Check for wrong password
-  elsif ($c->param('password') ne 'pass') {
-    return $c->render(json => {
-      error => [[2004, undef]]
-    });
+  # Unknown token grant
+  else {
+    return $c->render(
+      json => {
+        "errors" => [
+          [
+            0, "Grant Type unknown", $c->param("grant_type")
+          ]
+        ]
+      }
+    )
   }
-
-  # Return fine access
-  return $c->render(
-    json => {
-      "access_token" => "4dcf8784ccfd26fac9bdb82778fe60e2",
-      "refresh_token" => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
-      "scope" => "all",
-      "token_type" => "Bearer",
-      "expires_in" => 86400
-    });
 };
 
 
