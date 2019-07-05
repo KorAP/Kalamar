@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.34';
+our $VERSION = '0.35';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -58,9 +58,29 @@ sub startup {
 
   $self->log->info('Mode is ' . $self->mode);
 
-  # Specific path prefixing
+  # Get configuration
   my $conf = $self->config('Kalamar');
-  if ($conf && $conf->{proxy_prefix}) {
+  unless ($conf) {
+    $self->config(Kalamar => {});
+    $conf = $self->config('Kalamar');
+  };
+
+  # Check for API endpoint and set the endpoint accordingly
+  if ($conf->{api}) {
+
+    # The api endpoint should be defined as a separated path
+    # and version string
+    $self->log->warn(
+      'Kalamar.api is no longer supported in configurations '.
+        'in favor of Kalamar.api_path'
+      );
+  };
+
+  unless ($conf->{api_path} || $ENV{KALAMAR_API}) {
+    $self->log->warn('Kalamar-api_path not defined in configuration');
+  };
+
+  if ($conf->{proxy_prefix}) {
 
     for ($self->sessions) {
       $_->cookie_path($conf->{proxy_prefix});
@@ -78,28 +98,9 @@ sub startup {
       });
   };
 
-  # Check for API endpoint and set the endpoint accordingly
-  if ($conf->{api}) {
-
-    # The api endpoint should be defined as a separated path
-    # and version string
-    $self->log->info(
-      'Kalamar.api is deprecated in configurations '.
-        'in favor of Kalamar.api_path'
-      );
-  }
-
-  # Set from environment variable
-  elsif ($ENV{'KALAMAR_API'}) {
-    $conf->{api} = $ENV{'KALAMAR_API'};
-  }
-
   # API is not yet set - define
-  else {
-
-    $conf->{api} =
-      Mojo::URL->new($conf->{api_path})->path('v' . ($conf->{api_version} // $API_VERSION) . '/')->to_string;
-  };
+  $conf->{api_path} //= $ENV{KALAMAR_API};
+  $conf->{api_version} //= $API_VERSION;
 
   # Add development path
   if ($self->mode eq 'development') {
@@ -211,7 +212,7 @@ sub startup {
 
   $self->config(navi => $navi);
 
-  $self->log->info('API expected at ' . $self->config->{Kalamar}->{api});
+  $self->log->info('API expected at ' . $self->korap->api);
 
   # Establish routes with authentification
   my $r = $self->routes;
@@ -233,6 +234,10 @@ sub startup {
   # Contact route
   $r->get('/contact')->to('documentation#contact');
   $r->get('/contact')->mail_to_chiffre('documentation#contact');
+
+  # API proxy route
+  $r->any('/api/v#apiv' => [apiv => ['1.0']])->to('Proxy#pass');
+  $r->any('/api/v#apiv/*path' => [apiv => ['1.0']])->to('Proxy#pass');
 
   # Match route
   # Corpus route
@@ -266,7 +271,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2018, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2019, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>

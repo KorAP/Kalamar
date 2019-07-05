@@ -6,7 +6,7 @@ use utf8;
 
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
-    api => 'xyz',
+    api_path => 'xyz',
     navi_ext => [
       {
         title => 'Privacy',
