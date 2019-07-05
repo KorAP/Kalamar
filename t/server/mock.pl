@@ -65,13 +65,13 @@ helper 'load_response' => sub {
 
 
 # Base page
-get '/' => sub {
+get '/v1.0/' => sub {
   shift->render(text => 'Fake server available');
 };
 
 
 # Search fixtures
-get '/search' => sub {
+get '/v1.0/search' => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('q');
@@ -133,7 +133,7 @@ get '/search' => sub {
 };
 
 # Textinfo fixtures
-get '/corpus/:corpusId/:docId/:textId' => sub {
+get '/v1.0/corpus/:corpusId/:docId/:textId' => sub {
   my $c = shift;
 
   my $file = join('_', (
@@ -152,7 +152,7 @@ get '/corpus/:corpusId/:docId/:textId' => sub {
 
 
 # Matchinfo fixtures
-get '/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
+get '/v1.0/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
   my $c = shift;
 
   my $file = join('_', (
@@ -172,7 +172,7 @@ get '/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
 
 
 # Statistics endpoint
-get '/statistics' => sub {
+get '/v1.0/statistics' => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('corpusQuery');
@@ -193,7 +193,7 @@ get '/statistics' => sub {
 ############
 
 # Request API token
-get '/auth/logout' => sub {
+get '/v1.0/auth/logout' => sub {
   my $c = shift;
 
   if (my $auth = $c->req->headers->header('Authorization')) {
@@ -210,7 +210,7 @@ get '/auth/logout' => sub {
 
 
 # Request API token
-get '/auth/apiToken' => sub {
+get '/v1.0/auth/apiToken' => sub {
   my $c = shift;
 
   # Get auth header
@@ -275,10 +275,12 @@ get '/auth/apiToken' => sub {
 
 
 # Request API token
-post '/oauth2/token' => sub {
+post '/v1.0/oauth2/token' => sub {
   my $c = shift;
 
-  if ($c->param('grant_type') eq 'password') {
+  my $grant_type = $c->param('grant_type') // 'undefined';
+
+  if ($grant_type eq 'password') {
 
     # Check for wrong client id
     if ($c->param('client_id') ne '2') {
@@ -346,7 +348,7 @@ post '/oauth2/token' => sub {
   }
 
   # Refresh token
-  elsif ($c->param('grant_type') eq 'refresh_token') {
+  elsif ($grant_type eq 'refresh_token') {
     return $c->render(
       status => 200,
       json => {
@@ -361,10 +363,11 @@ post '/oauth2/token' => sub {
   # Unknown token grant
   else {
     return $c->render(
+      status => 400,
       json => {
         "errors" => [
           [
-            0, "Grant Type unknown", $c->param("grant_type")
+            0, "Grant Type unknown", $grant_type
           ]
         ]
       }

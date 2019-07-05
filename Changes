@@ -1,3 +1,8 @@
+0.35 2019-07-05
+        - Added EXPERIMENTAL proxy to API route.
+        - Remove deprecated api configuration
+          (requires api_path instead now).
+
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).
         - Updated dependency on M::P::Notifications to
