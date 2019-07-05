@@ -13,6 +13,14 @@ use Mojo::Util qw/xml_escape deprecated/;
 sub register {
   my ($plugin, $mojo) = @_;
 
+  # Get config
+  my $conf = $mojo->config('Kalamar');
+
+  # Define API_URL
+  my $api_url = Mojo::URL->new(
+    $conf->{api_path} // '-'
+  )->path('v' . ($conf->{api_version} // '-') . '/')->to_string;
+
   # Embed the korap architecture image
   $mojo->helper(
     korap_overview => sub {
@@ -290,7 +298,19 @@ sub register {
   # Get the KorAP API endpoint
   $mojo->helper(
     'korap.api' => sub {
-      return shift->config('Kalamar')->{api};
+      my $c = shift;
+
+      # TODO:
+      #   May clone a Mojo::URL object instead
+      return $api_url unless @_;
+
+      my $apiv = shift;
+      if (!$apiv || $apiv eq $conf->{api_version}) {
+        return $api_url;
+      };
+
+      # Return newly created API URL
+      return Mojo::URL->new($conf->{api_path})->path('v' . $apiv . '/')->to_string;
     }
   );
 

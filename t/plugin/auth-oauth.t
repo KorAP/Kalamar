@@ -8,7 +8,7 @@ use Data::Dumper;
 #####################
 # Start Fake server #
 #####################
-my $mount_point = '/api/';
+my $mount_point = '/realapi/';
 $ENV{KALAMAR_API} = $mount_point;
 
 my $t = Test::Mojo->new('Kalamar' => {
@@ -34,7 +34,7 @@ my $fake_backend = $t->app->plugin(
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
-$t->get_ok('/api')
+$t->get_ok('/realapi/v1.0')
   ->status_is(200)
   ->content_is('Fake server available');
 
