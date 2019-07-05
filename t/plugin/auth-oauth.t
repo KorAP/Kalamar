@@ -257,12 +257,38 @@ $t->get_ok('/')
   ;
 
 
+# Test before_korap_request_hook
+my $app = $t->app;
+my $c = $app->build_controller;
+my $tx = $app->build_tx('GET', 'https://korap.ids-mannheim.de/');
+
+# Emit Hook to alter request
+$app->plugins->emit_hook(
+  before_korap_request => ($c, $tx)
+);
+
+ok(!$tx->req->headers->authorization, 'No authorization');
+
+# Set token
+$c->auth->token('abcd');
+
+# Emit Hook to alter request
+$app->plugins->emit_hook(
+  before_korap_request => ($c, $tx)
+);
+
+is($tx->req->headers->authorization, 'abcd', 'authorization');
+
+# Override authorization in header
+$tx->req->headers->authorization('xyz');
+
+# Emit Hook to alter request
+$app->plugins->emit_hook(
+  before_korap_request => ($c, $tx)
+);
+
+is($tx->req->headers->authorization, 'xyz', 'authorization');
+
 done_testing;
 __END__
-
-
-
-# Login mit falschem Nutzernamen:
-# 400 und:
-{"errors":[[2022,"LDAP Authentication failed due to unknown user or password!"]]}
 
