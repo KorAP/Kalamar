@@ -51,6 +51,7 @@ $t->get_ok('/api/v1.0/')
 $t->get_ok('/api/v1.0/search?ql=cosmas3')
   ->status_is(400)
   ->json_is('/errors/0/0','307')
+  ->header_is('connection', 'close')
   ;
 
 $t->post_ok('/api/v1.0/oauth2/token' => {} => form => {
