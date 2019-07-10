@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcc329a8_ce392882",
+        "filename": "lib/Kalamar/Controller/Proxy.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-07-10T14:41:12Z",
+      "side": 1,
+      "message": "This is not really testable, as it requires an embedding proxy to fail.",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 18
+      },
+      "revId": "56b3d0d621fd61de64f7e76ffd53b48bb9ee9d63",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
