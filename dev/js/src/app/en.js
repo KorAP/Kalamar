@@ -1,3 +1,3 @@
 window.KorAP = window.KorAP || {};
 KorAP.Locale = KorAP.Locale || {};
-require(['init']);
+require(['loc/dereko', 'init']);
