@@ -80,34 +80,50 @@ sub register {
   $app->hook(
     before_korap_request => sub {
       my ($c, $tx) = @_;
-      my $auth_token = $c->auth->token or return;
       my $h = $tx->req->headers;
-      $h->header('Authorization' => $auth_token);
+
+      # If the request already has an Authorization
+      # header, respect it
+      unless ($h->authorization) {
+        my $auth_token = $c->auth->token or return;
+        $h->authorization($auth_token);
+
+      }
 
       # TODO:
       #   When a request fails because the access token timed out,
       #   rerequest with the refresh token.
+
+      # TODO:
+      #   Check if the auth_token is timed out
+
     }
   );
 
 
-  # Get the user token necessary for authorization
+  # Get or set the user token necessary for authorization
   $app->helper(
     'auth.token' => sub {
-      my $c = shift;
+      my ($c, $token) = @_;
 
-      # Get token from stash
-      my $token = $c->stash('auth');
+      unless ($token) {
+        # Get token from stash
+        $token = $c->stash('auth');
 
-      return $token if $token;
+        return $token if $token;
 
-      # Get auth from session
-      my $auth = $c->session('auth') or return;
+        # Get auth from session
+        $token = $c->session('auth') or return;
 
-      # Set token to stash
-      $c->stash(auth => $auth);
+        # Set token to stash
+        $c->stash(auth => $token);
 
-      return $auth;
+        return $token;
+      };
+
+      # Set auth token
+      $c->stash('auth' => $token);
+      $c->session('auth' => $token);
     }
   );
 

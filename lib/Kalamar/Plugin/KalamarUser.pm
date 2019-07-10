@@ -89,7 +89,6 @@ sub register {
         'X-Forwarded-For' => $c->client_ip
       );
 
-
       # Emit Hook to alter request
       $c->app->plugins->emit_hook(
         before_korap_request => ($c, $tx)
