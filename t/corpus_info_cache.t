@@ -7,7 +7,7 @@ use Mojo::File qw/path/;
 #####################
 # Start Fake server #
 #####################
-my $mount_point = '/api/';
+my $mount_point = '/realapi/';
 $ENV{KALAMAR_API} = $mount_point;
 
 # New test with new cache
