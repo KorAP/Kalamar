@@ -17,7 +17,7 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
 
   //localization guided tour gTstartSearch
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
-  loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'";
+  loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper: By clicking here, the annotations of the differents layers are displayed and can be selected.";
   loc.TOUR_annotAss =  loc.TOUR_annotAss || "The annoation assistant helps to formulate queries with annotations";
   loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus by clicking here.";  
@@ -88,6 +88,11 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
           position: "bottom",
         }, 
         {
+          element: doe.querySelector('.statistic'),
+          intro: loc.TOUR_vcStat,
+          position: "left",
+        },
+        {
           element: doe.querySelector('#ql-field').parentNode,
           intro: loc.TOUR_qlfield,
           position: "bottom",
@@ -127,6 +132,11 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
       intro.onbeforechange(function(targetedElement){
         switch(targetedElement.id){
         case "searchbar": 
+          /* 
+           * TODO:
+           * #268 is not merged at the time beeing: 
+           * introJs.currentStep() merge requested https://github.com/usablica/intro.js/pull/268/files
+           */
           if(this._currentStep == 1){ 
             input = doe.querySelector('#q-field');
             input.value= loc.TOUR_Qexample;
@@ -141,6 +151,11 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
           KorAP.vc.root().value("1820").update();  
           if(!(vcv.querySelector(".active"))){
             vchoo.click();
+            /*
+             * Intro.js caches elements at the beginning, so element and position has to be set again.
+             */
+            intro._introItems[5].element = doe.querySelector(".statistic");
+            intro._introItems[5].position = "bottom";
           }   
           break;   
           

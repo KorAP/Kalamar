@@ -63,6 +63,8 @@ define(['tour/tours', 'vc', 'session'], function(tourClass, vcClass, sessionClas
             "</ul>" +
            "</div>" +
           "</div>"; 
+  
+  
 
   let template = document.createElement('template');
   html = introKorAP.trim(); // Do not return a text node of whitespace as the result
@@ -81,6 +83,16 @@ define(['tour/tours', 'vc', 'session'], function(tourClass, vcClass, sessionClas
       expect(intrkorap.querySelector('#glimpse')).not.toBeNull();
       expect(intrkorap.querySelector('#view-tutorial')).not.toBeNull();
       expect(intrkorap.querySelector('#qsubmit')).not.toBeNull();
+      let vc= vcClass.create().fromJson({
+        '@type' : 'koral:doc',
+        'key' : 'title', 
+        'match': 'match:eq',
+        'value' : 'TestTour!',
+        'type'  : 'type:string'      
+      });
+      var show = document.createElement('div');
+      show.appendChild(vc.element());
+      expect(show.querySelector('.statistic')).not.toBeNull();
     });
     
    
