@@ -24,7 +24,6 @@ sub pass {
 
   # Get parameters of the request
   my $params = $req->query_params->clone;
-  my $api_url;
 
   # Get API request for proxying
   my $url = Mojo::URL->new($c->korap->api($apiv))->path($path)->query($params);
@@ -40,14 +39,18 @@ sub pass {
     before_korap_request => ($c, $tx)
   );
 
-  # return $c->render(text => 'okay ' . $url);
-
   $c->proxy->start_p($tx)->wait;
-  # $tx->res->content->once(
-  #   body => sub {
-  #     $c->res->headers->header('X-Proxy' => 'Kalamar');
-  #   }
-  # );
+  $tx->res->content->once(
+    body => sub {
+      my $headers = $c->res->headers;
+      $headers->header('X-Proxy' => 'Kalamar');
+
+      # Workaround for a proxy problem when
+      # another proxy, e.g. Apache, manages multiple
+      # connections
+      $headers->connection('close');
+    }
+  );
 };
 
 1;
