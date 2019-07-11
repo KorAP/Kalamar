@@ -671,7 +671,9 @@ define([
       expect(docElement.lastChild.children.length).toEqual(0);
     });
 
-    it('should be removable, when no root', function () {    
+    it('should be removable, when no root', function () {   
+      var vc = vcClass.create();
+      KorAP.vc = vc; 
       var docGroup = docGroupClass.create();
       docGroup.operation('or');
       expect(docGroup.operation()).toEqual('or');
