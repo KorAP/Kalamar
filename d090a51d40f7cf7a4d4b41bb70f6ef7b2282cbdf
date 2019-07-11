@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "160ab93f_9c2b38a9",
+        "filename": "Gruntfile.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-11T09:08:39Z",
+      "side": 0,
+      "message": "perl script/kalamar get / \u003e ./dev/js/spec/src/page.html does not produce a file, that can be used for testing, so this lines can be removed. I plan to give Cypress a try for additonal tour tests instead.",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 6
+      },
+      "revId": "d090a51d40f7cf7a4d4b41bb70f6ef7b2282cbdf",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
