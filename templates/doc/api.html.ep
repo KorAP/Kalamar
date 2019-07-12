@@ -6,7 +6,7 @@
 
 <dl>
   <dt><%= doc_link_to('Search API', 'api', 'search') %></dt>
-  <dd>Initiate queries, create virtual collections.</dd>
+  <dd>Initiate queries, create virtual corpora.</dd>
 
   <dt><%= doc_link_to('Match API', 'api', 'match') %></dt>
   <dd>Retrieve further information like annotations for a certain match.</dd>

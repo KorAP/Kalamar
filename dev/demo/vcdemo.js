@@ -67,7 +67,7 @@ var json = {
   ]
 };
 
-var collections = [
+var corpora = [
   {
     "statistics":{
       "paragraphs":2034752,
@@ -120,7 +120,7 @@ require(['vc','vc/fragment','lib/domReady', 'lib/highlight/highlight.pack'], fun
 
   domReady(function() {
 
-    // Create a new virtual collection by passing a based json object and
+    // Create a new virtual corpus by passing a based json object and
     // field menu information
     KorAP.vc = vcClass.create([
       ['title', 'string'],

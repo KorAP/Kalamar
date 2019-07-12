@@ -1,5 +1,5 @@
 /**
- * An unspecified criterion in a virtual collection.
+ * An unspecified criterion in a virtual corpus.
  * Inherits everything from jsonld
  */
 define([

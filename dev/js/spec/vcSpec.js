@@ -1559,7 +1559,7 @@ define([
       );
     });
 
-    it('should be deserializable from collection 1', function () {
+    it('should be deserializable from collection/corpus 1', function () {
       var kq = {
         "matches":["..."],
         "collection":{
@@ -1622,6 +1622,13 @@ define([
       
       var vc = vcClass.create().fromJson(kq["collection"]);
       expect(vc.toQuery()).toEqual('(title = "Der Birnbaum" & pubPlace = "Mannheim" & (subTitle = "Aufzucht und Pflege" | subTitle = "Gedichte")) | pubDate since 2015-03-05');
+
+      kq["corpus"] = kq["collection"]
+      delete kq["collection"]
+
+      vc = vcClass.create().fromJson(kq["corpus"]);
+      expect(vc.toQuery()).toEqual('(title = "Der Birnbaum" & pubPlace = "Mannheim" & (subTitle = "Aufzucht und Pflege" | subTitle = "Gedichte")) | pubDate since 2015-03-05');
+      
     });
 
     it('should be deserializable from collection 2', function () {
@@ -1690,6 +1697,7 @@ define([
       expect(vc.toQuery()).toEqual('availability = /CC-BY.*/ & author = "Goethe"');
     });
 
+    
     it('shouldn\'t be deserializable from collection with unknown type', function () {
       var kq = {
         "@type" : "koral:doc",

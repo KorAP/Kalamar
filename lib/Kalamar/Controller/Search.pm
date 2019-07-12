@@ -43,6 +43,11 @@ sub query {
     $cutoff = 1;
   };
 
+  # Deal with legacy collection
+  if ($v->param('collection')) {
+    $c->param(cq => $v->param('collection'));
+  };
+
   # No query (Check ignoring validation)
   unless ($c->param('q')) {
     return $c->render($c->loc('Template_intro', 'intro'));
@@ -70,7 +75,8 @@ sub query {
 
 
   $query{count}   = $v->param('count') // $c->items_per_page;
-  $query{cq}      = $v->param('cq') // $v->param('collection');
+  $query{cq}      = $v->param('cq');
+
   $query{cutoff}  = $v->param('cutoff');
   # Before: 'base/s:p'/'paragraph'
   $query{context} = $v->param('context') // '40-t,40-t';

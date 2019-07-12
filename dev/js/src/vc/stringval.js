@@ -1,5 +1,5 @@
 /**
- * Add string values to the virtual collection
+ * Add string values to the virtual corpus
  */
 define(['util'], {
 

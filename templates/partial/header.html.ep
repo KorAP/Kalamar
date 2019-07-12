@@ -9,11 +9,11 @@
       <button type="submit" id="qsubmit" title="<%= loc 'go' %>"><span><%= loc 'go' %></span></button>
     </div>
 
-    <!-- Search in the following virtual collection -->
+    <!-- Search in the following virtual corpus -->
     <div id="vc-view"></div>
     <%= loc 'in' %>
     %# TODO: Create 'align' parameter
-    %= text_field 'collection', id => 'collection'
+    %= text_field 'cq', id => 'cq'
 
     <%= loc 'with' %>
     <span class="select">

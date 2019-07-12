@@ -77,6 +77,7 @@ get '/v1.0/search' => sub {
   $v->optional('q');
   $v->optional('page');
   $v->optional('ql');
+  $v->optional('cq');
   $v->optional('count');
   $v->optional('context');
   $v->optional('offset');
@@ -102,6 +103,7 @@ get '/v1.0/search' => sub {
   push @slug_base, 'o' . $v->param('offset') if defined $v->param('offset');
   push @slug_base, 'c' . $v->param('count') if defined $v->param('count');
   push @slug_base, 'co' . $v->param('cutoff') if defined $v->param('cutoff');
+  push @slug_base, 'cq' if defined $v->param('cq');
 
   # Get response based on query parameter
   my $response = $c->load_response('query_' . slugify(join('_', @slug_base)));

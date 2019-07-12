@@ -774,7 +774,7 @@ KorAP.koralQuery["collection"] = {
 require(['app/en', 'init', 'hint/foundries/cnx'], function (lang) {
   KorAP.hintArray = hintArray;
 
-  // Set current virtual collection
+  // Set current virtual corpus
   // KorAP.currentVC = vcExample;
 
   // Parse and show the table

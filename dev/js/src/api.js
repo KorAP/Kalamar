@@ -85,7 +85,7 @@ define(['util'], function () {
 
 
   /**
-   * Retrieve information about collections
+   * Retrieve information about virtual corpora
    */
   KorAP.API.getCollections = function (cb) {
     KorAP.API.getJSON(KorAP.URL + '/collection', cb, "CorpusInfo");

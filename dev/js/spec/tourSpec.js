@@ -14,11 +14,11 @@ define(['tour/tours', 'vc', 'session'], function(tourClass, vcClass, sessionClas
       "<input autocapitalize='off' autocomplete='off' autocorrect='off' autofocus='autofocus' id='q-field' name='q' placeholder='Finde ...' spellcheck='false' type='search'>" +
       "<button type='submit' id='qsubmit' title='Los!'><span>Los!</span></button>" + 
     "</div>" + 
-    "<!-- Search in the following virtual collection -->"+
+    "<!-- Search in the following virtual corpus -->"+
     "<div id='vc-view'></div>" +
     "in" +
     "<span id='vc-choose' class='select'><span>allen Korpora</span></span>" +
-    "<input id='collection' name='collection' type='text' style='display: none;'>" +
+    "<input id='cq' name='cq' type='text' style='display: none;'>" +
       "mit" +
       "<span class='select'>" +
         "<select id='ql-field' name='ql' style='display: none;'>" +

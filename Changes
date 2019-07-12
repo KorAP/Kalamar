@@ -1,7 +1,9 @@
-0.35 2019-07-05
+0.35 2019-07-12
         - Added EXPERIMENTAL proxy to API route.
         - Remove deprecated api configuration
           (requires api_path instead now).
+        - Deprecated 'collection' parameter in
+          favor of 'cq' (#92).
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).

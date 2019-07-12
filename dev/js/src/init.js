@@ -95,10 +95,10 @@ define([
     };
 
     /**
-     * Replace Virtual Collection field
+     * Replace Virtual Corpus field
      */
     var vcname, vcchoose;
-    var input = d.getElementById('collection');
+    var input = d.getElementById('cq');
 
     var vc = KorAP.vc;
     
@@ -110,9 +110,10 @@ define([
       vcname.classList.add('select');
 
       // Load virtual corpus object
-      if (KorAP.koralQuery !== undefined && KorAP.koralQuery["collection"]) {
+      // Supports "collection" for legacy reasons
+      if (KorAP.koralQuery !== undefined && (KorAP.koralQuery["collection"] || KorAP.koralQuery["corpus"])) {
         try {
-          vc.fromJson(KorAP.koralQuery["collection"]);
+          vc.fromJson(KorAP.koralQuery["collection"] || KorAP.koralQuery["corpus"]);
         }
         catch (e) {
           KorAP.log(0,e);
@@ -264,12 +265,12 @@ define([
 
 
     /*
-     * Toggle the Virtual Collection builder
+     * Toggle the Virtual Corpus builder
      */
     if (vcname) {
       vc.onMinimize = function () {
         vcname.classList.remove('active');
-        delete show['collection'];
+        delete show['vc'];
       };
 
       vc.onOpen = function () {
@@ -279,7 +280,7 @@ define([
         if (!view.firstChild)
           view.appendChild(this.element());
         
-        show['collection'] = true;
+        show['vc'] = true;
       };
       
       var vcclick = function () {
@@ -294,7 +295,7 @@ define([
       vcname.onclick = vcclick;
 
       // Click, if the VC should be shown
-      if (show['collection']) {
+      if (show['vc']) {
         vcclick.apply();
       };
     };
