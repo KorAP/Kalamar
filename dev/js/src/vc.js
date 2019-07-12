@@ -1,6 +1,6 @@
 /**
- * Create virtual collections with a visual user interface. This resembles the
- * collection type objects of a KoralQuery "collection" object.
+ * Create virtual corpora with a visual user interface. This resembles the
+ * corpus/collection type objects of a KoralQuery "collection"/"corpus" object.
  * 
  * KoralQuery v0.3 is expected.
  * 
@@ -115,18 +115,18 @@ define([
   };
 
   /**
-   * Virtual Collection
+   * Virtual corpus
    */
   return {
 
     /**
-     * The JSON-LD type of the virtual collection
+     * The JSON-LD type of the virtual corpus
      */
     ldType : function() {
       return null;
     },
 
-    // Initialize virtual collection
+    // Initialize virtual corpus
     _init : function(keyList) {
 
       // Inject localized css styles
@@ -164,7 +164,7 @@ define([
     },
 
     /**
-     * Create a new virtual collection.
+     * Create a new virtual corpus
      */
     create : function(keyList) {
       var obj = Object.create(this)._init(keyList);
@@ -174,8 +174,8 @@ define([
 
 
     /**
-     * Create and render a new virtual collection based on a KoralQuery
-     * collection document
+     * Create and render a new virtual corpus based on a KoralQuery
+     * corpus document
      */
     fromJson : function(json) {
       if (json !== undefined) {
@@ -255,7 +255,7 @@ define([
     },
 
     /**
-     * Get or set the root object of the virtual collection.
+     * Get or set the root object of the virtual corpus
      */
     root : function(obj) {
       if (arguments.length === 1) {

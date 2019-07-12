@@ -220,9 +220,24 @@ $t->get_ok('/?q=timeout')
 $t->get_ok('/?q=timeout')
   ->status_is(200)
   # ->text_like('noscript div.notify-warning', qr!Response time exceeded!)
+  ->element_exists("input#cq")
+  ->element_exists_not("input#cq[value]")
   ->text_is('#total-results', '> 4,274,841');
   ;
 
+# Query with collection
+$t->get_ok('/?q=baum&collection=availability+%3D+%2FCC-BY.*%2F')
+  ->status_is(200)
+  ->element_exists("input#cq[value='availability = /CC-BY.*/']")
+  ->text_is('#error','')
+  ;
+
+# Query with corpus query
+$t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
+  ->status_is(200)
+  ->element_exists("input#cq[value='availability = /CC-BY.*/']")
+  ->text_is('#error','')
+  ;
 
 done_testing;
 __END__

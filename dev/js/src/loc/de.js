@@ -4,14 +4,7 @@ define(function () {
   loc.AND = 'und';
   // EMPTY, DELETE
 
-  // Virtual collection:
-  /*
-  loc.VC_subTitle = 'Untertitel';
-  loc.VC_title = 'Titel';
-  loc.VC_pubDate = 'Veröffentlichungsdatum';
-  loc.VC_pubPlace = 'Veröffentlichungsort';
-  */
-
+  // Virtual corpus:
   loc.VC_allCorpora = 'allen Korpora';
   loc.VC_oneCollection = 'einem virtuellen Korpus';
 

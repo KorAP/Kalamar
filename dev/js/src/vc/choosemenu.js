@@ -1,5 +1,5 @@
 /**
- * Menu showing all predefined virtual collections.
+ * Menu showing all predefined virtual corpora.
  * THIS IS EXPERIMENTAL AND MAY BE REMOVED!
  */
 define(['vc/menu', 'api'], function (menuClass, itemClass) {
