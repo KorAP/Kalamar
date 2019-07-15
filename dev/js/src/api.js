@@ -104,7 +104,7 @@ define(['util'], function () {
   	//development mode:
   	var url = "http://localhost:8089/api/";
   	url  = url + "statistics";
-  	url = url + "?corpusQuery=";
+  	url = url + "?cq=";
   	url = url + collQu;
   	KorAP.API.getJSON(url, cb);
   };*/

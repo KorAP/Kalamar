@@ -177,11 +177,11 @@ get '/v1.0/corpus/:corpusId/:docId/:textId/:matchId/matchInfo' => sub {
 get '/v1.0/statistics' => sub {
   my $c = shift;
   my $v = $c->validation;
-  $v->optional('corpusQuery');
+  $v->optional('cq');
 
   my @list = 'corpusinfo';
-  if ($v->param('corpusQuery')) {
-    push @list, $v->param('corpusQuery');
+  if ($v->param('cq')) {
+    push @list, $v->param('cq');
   };
   my $slug = slugify(join('_', @list));
 
