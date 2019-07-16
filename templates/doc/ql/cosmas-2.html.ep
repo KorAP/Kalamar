@@ -1,5 +1,68 @@
-% layout 'main', title => 'KorAP: Cosmas II';
+% layout 'main', title => 'KorAP: COSMAS II';
 
-<h2 id="tutorial-top">Cosmas II</h2>
+<h2 id="tutorial-top">COSMAS II</h2>
 
-%= doc_uc
+<p>The following documentation introduces some features provided by our version of the COSMAS II Query Language. For more information, please visit the <%= doc_ext_link_to 'online help of COSMAS II', "http://www.ids-mannheim.de/cosmas2/web-app/hilfe/suchanfrage/eingabe-zeile/syntax/allgemein.html" %>.</p>
+
+<section id="queryterms">
+  <h3>Query Terms and Query Patterns</h3>
+
+  <p>A query term in COSMAS II can be a word, a punctuation symbol, or a number.</p>
+
+  %= doc_query cosmas2 => 'Baum'
+  %= doc_query cosmas2 => '4000'
+  
+  <blockquote class="missing">
+    <p>Currently, punctuations are not supported by KorAP.</p>
+  </blockquote>
+
+  <h4>Placeholder Operators</h4>
+  
+  <p>In addition query terms can contain multiple placeholders like <code>?</code> (for any symbol), <code>+</code> (for any or no symbol), or <code>*</code> (for any sequence of any or no symbols).</p>
+  <%= doc_query cosmas2 => 'Bau?m' %>
+  <%= doc_query cosmas2 => 'Bau+m' %>
+  <%= doc_query cosmas2 => 'Bau*m' %>
+
+%# TODO:
+%#  <p>To escape placeholder symbols (i.e. to prevent these symbols from being interpreted as placeholders), they need to be prepended by a <code>\</code> symbol.</p>
+%#  <%= doc_query cosmas2 => 'Student\*in' %>
+%#  <p>To escape the backslash symbol, another backslash is required (<code>\\</code>).</p>  
+
+  <h4>Lemma Operator</h4>
+  
+  <p>Instead of seurching for the surface form of a word, a lemma (as annotated by the <%= doc_link_to 'default foundry', 'data', 'annotation' %>) can be requested by prepending the term with the <code>&amp;</code> operator. The form of the lemma is dependent on the annotation.</p>
+  <%= doc_query cosmas2 => '&laufen' %>
+
+  <h4>Case Insensitivity Operator</h4>
+  
+  <p>By prepending the term with a <code>$</code> symbol, the search is case insensitive.</p>
+  <%= doc_query cosmas2 => '$Lauf' %>
+
+  <h4>Regular Expression Operator</h4>
+
+  <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= doc_link_to 'regular expressions', 'ql', 'regexp' %>.</p>
+  
+
+  <blockquote class="bug">
+    <p>Regular expressions in COSMAS II are not yet properly implemented in KorAP. If you want to use regular expressions, please refer to <%= doc_link_to 'Poliqarp', 'ql', 'poliqarp-plus#regexp' %></p>
+  </blockquote>
+
+</section>
+
+<section id="logical-operators">
+  <h3>Logical Operators</h3>
+
+  <p>Query terms can be combined in logical operations, using the operators <code>and</code>, <code>or</code>, and <code>not</code>. The german forms are supported as well: <code>und</code>, <code>oder</code> and <code>nicht</code>.</p>
+  <p>These operators work on the text level, so the following query returns matches for all occurrences where both terms occur anywhere in the same text.</p>
+  <%= doc_query cosmas2 => 'anscheinend und scheinbar' %>
+
+  <p>The following query returns matches for all occurrences where at least one of the terms occur anywhere in the text.</p>
+  <%= doc_query cosmas2 => 'anscheinend oder scheinbar' %>
+
+  <p>The following query returns matches for all occurrences of the first term, where the term following the <code>nicht</code> operator does not occur anywhere in the same text.</p>
+  <%= doc_query cosmas2 => 'Kegel nicht Kind' %>
+  
+  <p>To escape terms for logical operators (i.e. to prevent these terms from being interpreted as logical operators), they need to be surrounded by quotations.</p>
+  <%= doc_query cosmas2 => 'Mann "und" Maus' %>
+
+</section>
