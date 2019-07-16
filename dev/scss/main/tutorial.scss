@@ -69,6 +69,14 @@ body.embedded {
 
 main.tutorial {
   margin-left: $logo-left-distance + 15px;
+  p,li {
+    code {
+      background-color: $ids-grey-2;
+      color: $ids-grey-1;
+      padding: 0 .5em;
+      border-radius: $standard-border-radius;
+    }
+  }
 }
 
 dl {
@@ -79,17 +87,17 @@ dl {
     abbr {
       border-width: 0;
       &[data-type=token]::after {
-	color: $ids-blue-1;
+	      color: $ids-blue-1;
       }
       &[data-type=span]::after {
-	color: $ids-pink-1;
+	      color: $ids-pink-1;
       }
       &::after {
-	content: ' (' attr(title) ')';
-	vertical-align: bottom;
-	font-style: italic;
-	font-weight: normal;
-	font-size: 80%;
+	      content: ' (' attr(title) ')';
+	      vertical-align: bottom;
+	      font-style: italic;
+	      font-weight: normal;
+	      font-size: 80%;
       }
     }
   }
