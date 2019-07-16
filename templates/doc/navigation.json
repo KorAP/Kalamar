@@ -31,7 +31,34 @@
     "items" : [
       {
         "title" : "Cosmas II",
-        "id" : "cosmas-2"
+        "id" : "cosmas-2",
+        "class" : "folded",
+        "items" : [
+          {
+            "title" : "Query Terms",
+            "id" : "#queryterms"
+          },
+          {
+            "title" : "Logical Operators",
+            "id" : "#logical-operators"
+          },
+          {
+            "title" : "Distance Operators",
+            "id" : "#distance-operators"
+          },
+          {
+            "title" : "Annotation Operators",
+            "id" : "#annotation-operators"
+          },
+          {
+            "title" : "Combination Operators",
+            "id" : "#combination-operators"
+          },
+          {
+            "title" : "Area Operators",
+            "id" : "#area-operators"
+          }
+        ]
       },
       {
         "title" : "Poliqarp+",

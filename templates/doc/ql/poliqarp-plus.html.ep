@@ -2,7 +2,7 @@
 
 <h2 id="tutorial-top">Poliqarp+</h2>
 
-<p>The following tutorial introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
+<p>The following documentation introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
 
 <section id="segments">
   <h3>Simple Segments</h3>

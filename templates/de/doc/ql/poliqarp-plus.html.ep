@@ -2,7 +2,7 @@
 
 <h2 id="tutorial-top">Poliqarp+</h2>
 
-<p>Das folgende Tutorial präsentiert alle Features, die unsere Version der Poliqarp Abfragesprache zur Verfügung stellt und enthält zusätzlich einige spezifische KorAP Erweiterungen.</p>
+<p>Die folgende Dokumentation präsentiert alle Funktionen, die unsere Version der Poliqarp Abfragesprache zur Verfügung stellt und enthält zusätzlich einige spezifische KorAP Erweiterungen.</p>
 
 <section id="segments">
   <h3>Einfache Segmente</h3>

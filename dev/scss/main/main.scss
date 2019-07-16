@@ -41,4 +41,10 @@ blockquote {
   border-left: 5px solid $ids-blue-1;
   background-color: $ids-blue-2;
   color: $ids-blue-1;
+
+  &.bug, &.missing {
+    border-left-color: $dark-red;
+    background-color: $middle-red;
+    color: $nearly-white;
+  }
 }
