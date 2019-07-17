@@ -58,6 +58,14 @@ $t->get_ok('/doc/ql/poliqarp-plus')
   ->status_is(200)
   ->text_is('#segments pre.query.tutorial:nth-of-type(1) code', 'Baum');
 
+# Check data
+$t->get_ok('/doc/data/annotation' => { 'Accept-Language' => 'en-US, en, de-DE' })
+  ->status_is(200)
+  ->text_is('#tutorial-top', 'Annotations');
+$t->get_ok('/doc/data/annotation' => { 'Accept-Language' => 'de-DE, en-US, en' })
+  ->status_is(200)
+  ->text_is('#tutorial-top', 'Annotationen');
+
 my $app = $t->app;
 
 $app->plugin(
