@@ -1,7 +1,0 @@
-% layout 'main', title => 'KorAP: KoralQuery';
-
-<h2 id="tutorial-top">KoralQuery</h2>
-
-<p><strong>Hauptentwickler:</strong> Nils Diewald, Joachim Bingel</p>
-
-<p>Die Spezifikation für KoralQuery ist auf <%=doc_ext_link_to 'GitHub', "http://korap.github.io/Koral"%> verfügbar.</p>
