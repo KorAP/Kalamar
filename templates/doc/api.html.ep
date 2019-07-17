@@ -2,15 +2,8 @@
 
 <h2 id="tutorial-top">Application Programming Interface</h2>
 
-<p>Internally the communication between the KorAP components is done using the <%= doc_link_to('KoralQuery', 'api', 'koralquery') %> protocol. The following endpoints make use of this protocol or establish additional mechanisms. All described endpoints are (more or lest) REST-ful web APIs.</p>
+<p>Internally the communication between KorAP components is done using the KoralQuery protocol.
+  The specification for KoralQuery is available on <%= doc_ext_link_to 'GitHub', "http://korap.github.io/Koral" %>.
+  All API endpoints either use KoralQuery or are (more or lest) REST-ful web APIs.</p>
 
-<dl>
-  <dt><%= doc_link_to('Search API', 'api', 'search') %></dt>
-  <dd>Initiate queries, create virtual corpora.</dd>
-
-  <dt><%= doc_link_to('Match API', 'api', 'match') %></dt>
-  <dd>Retrieve further information like annotations for a certain match.</dd>
-
-  <dt><%= doc_link_to('User API', 'api', 'user') %></dt>
-  <dd>Log in, log out, and set and retrieve user properties.</dd>
-</dl>
+<p>All publicly available API endpoints including their requests and responses are described in the <%= doc_ext_link_to 'GitHub Wiki', "https://github.com/KorAP/Kustvakt/wiki" %> of <%= doc_link_to 'Kustvakt', 'korap', 'kustvakt' %>.</p>

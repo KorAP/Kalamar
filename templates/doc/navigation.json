@@ -171,25 +171,7 @@
   },
   {
     "title" : "API",
-    "id" : "api",
-    "items" : [
-      {
-        "title" : "KoralQuery",
-        "id" : "koralquery"
-      },
-      {
-        "title" : "Search API",
-        "id" : "search"
-      },
-      {
-        "title" : "Match API",
-        "id" : "match"
-      },
-      {
-        "title" : "User API",
-        "id" : "user"
-      }
-    ]
+    "id" : "api"
   },
   {
     "title" : "F.A.Q.",

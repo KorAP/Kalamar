@@ -1,5 +1,0 @@
-% layout 'main', title => 'KorAP: User API';
-
-<h2 id="tutorial-top">User API</h2>
-
-%= doc_uc

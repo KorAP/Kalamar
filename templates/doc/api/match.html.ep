@@ -1,5 +1,0 @@
-% layout 'main', title => 'KorAP: Match API';
-
-<h2 id="tutorial-top">Match API</h2>
-
-%= doc_uc
