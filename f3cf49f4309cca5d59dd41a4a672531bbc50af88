@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6a8f0c1_1d5c293d",
+        "filename": "dev/js/src/view/corpstatv.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-07-17T15:58:38Z",
+      "side": 1,
+      "message": "It is probably more appropriate to handle notifications, warnings, and messages in KorAP.API.getJSON().",
+      "range": {
+        "startLine": 54,
+        "startChar": 9,
+        "endLine": 54,
+        "endChar": 52
+      },
+      "revId": "f3cf49f4309cca5d59dd41a4a672531bbc50af88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4318d5c1_1a5a6bc3",
+        "filename": "dev/js/src/view/corpstatv.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-07-17T15:58:38Z",
+      "side": 1,
+      "message": "This does not work for \"messages\" and does not throw the informations using KorAP.log()",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 66
+      },
+      "revId": "f3cf49f4309cca5d59dd41a4a672531bbc50af88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5334288e_6558786f",
+        "filename": "dev/js/src/view/corpstatv.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-07-17T15:58:38Z",
+      "side": 1,
+      "message": "Is this here to eventually throw an exception?",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "f3cf49f4309cca5d59dd41a4a672531bbc50af88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
