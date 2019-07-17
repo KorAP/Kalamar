@@ -1,4 +1,4 @@
-0.35 2019-07-17
+0.35 2019-07-18
         - Added EXPERIMENTAL proxy to API route.
         - Remove deprecated api configuration
           (requires api_path instead now).
@@ -6,6 +6,7 @@
           favor of 'cq' (#92).
         - Update API for statistics.
         - Introduced documentation on CQL (margaretha).
+        - Updated documentation on annotations.
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).

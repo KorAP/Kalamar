@@ -6,11 +6,17 @@
 
 <section id="base">
   <h3>Base Foundry</h3>
-  <p>The base foundry is available for all corpora and acts as a common ground for document structure annotation in the layer <code>s</code>. It supports three types of spans: <code>&lt;base/s=s&gt;</code> for sentences, <code>&lt;base/s=p&gt;</code> for paragraphs, and <code>&lt;base/s=t&gt;</code> for the text span</p>
+  <p>The base foundry is available for all corpora and acts as a common ground for document structure annotation in the layer <code>s</code>.</p>
+  <dl>
+    <dt><abbr data-type="token" title="Structure">s</abbr></dt>
+    <dd>Document structure supporting the spans: <code>&lt;base/s=s&gt;</code> for sentences, <code>&lt;base/s=p&gt;</code> for paragraphs, and <code>&lt;base/s=t&gt;</code> for the text span.</dd>
+  </dl>
+
   %= doc_query poliqarp => '<base/s=s>', cutoff => 1
 </section>
 
 
+<!--
 <section id="cnx">
   <h3>Connexor (<code>cnx</code>)</h3>
   <p>Connexor annotations provide the following layer for the <code>cnx</code> prefix:</p>
@@ -28,15 +34,27 @@
   </dl>
   %= doc_query poliqarp => '[cnx/p=CC]', cutoff => 1
 </section>
+-->
+
+<section id="dereko">
+  <h3>DeReKo (<code>dereko</code>)</h3>
+  <p>DeReKo annotations provide the following layer for the <code>dereko</code> prefix:</p>
+  <dl>
+    <dt><abbr data-type="token" title="Structure">s</abbr></dt>
+    <dd>Document structure as encoded in the <%= doc_ext_link_to 'I5 text document', 'http://www1.ids-mannheim.de/kl/projekte/korpora/textmodell.html' %>.</dd>
+  </dl>
+  %= doc_query poliqarp => 'startsWith(<dereko/s=s>, Fragestunde)', cutoff => 1
+</section>
 
 
 <section id="corenlp">
   <h3>CoreNLP (<code>corenlp</code>)</h3>
+  <p>CoreNLP annotations provide the following layer for the <code>corenlp</code> prefix:</p>
   <dl>
     <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
     <dd>Part-of-speech information is written in capital letters and is based on STTS</dd>
     <dt><abbr data-type="token" title="Constituency">c</abbr></dt>
-    <dd>Constituency information follows the annotations of the <a href="http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html">negr@ corpus</a>.</dd>
+    <dd>Constituency information follows the annotations of the <%= doc_ext_link_to 'negr@ corpus', 'http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html' %>.</dd>
     <dt><abbr data-type="token" title="Named Entity">ne</abbr></dt>
     <dd>Contains named entities like <code>I-PER</code>, <code>I-ORG</code> etc.</dd>
     <dt><abbr data-type="token" title="Named Entity">ne_hgc_175m_600</abbr></dt>
@@ -50,6 +68,7 @@
 
 <section id="tt">
   <h3>TreeTagger (<code>tt</code>)</h3>
+  <p>TreeTagger annotations provide the following layer for the <code>tt</code> prefix:</p>
   <dl>
     <dt><abbr data-type="token" title="Lemma">l</abbr></dt>
     <dd>All non-noun lemmas are written in lower case, nouns are written upper case. Composita stay intact (e.g. <code>Normalbedingung</code>)</dd>
@@ -60,6 +79,7 @@
 </section>
 
 
+<!--
 <section id="mate">
   <h3>Mate (<code>mate</code>)</h3>
   <dl>
@@ -72,16 +92,41 @@
   </dl>
   %= doc_query poliqarp => '[mate/m=gender:fem]', cutoff => 1
 </section>
+-->
 
+<section id="malt">
+  <h3>Malt (<code>malt</code>)</h3>
+  <p>Malt annotations provide the following layer for the <code>malt</code> prefix:</p>
+  <dl>
+    <dt><abbr data-type="token" title="Lemma">d</abbr></dt>
+    <dd>Dependency information</dd>
+  </dl>
+  %= doc_query annis => 'tt/p="PPOSAT" ->malt/d[func="DET"] node', cutoff => 1
+</section>
 
 <section id="opennlp">
   <h3>OpenNLP (<code>opennlp</code>)</h3>
+  <p>OpenNLP annotations provide the following layer for the <code>opennlp</code> prefix:</p>
   <dl>
     <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
     <dd>All part-of-speech information is written in capital letters and is based on STTS</dd>
   </dl>
   %= doc_query poliqarp => '[opennlp/p=PDAT]', cutoff => 1
 </section>
+
+
+<section id="marmot">
+  <h3>Marmot (<code>marmot</code>)</h3>
+  <p>Marmot annotations provide the following layer for the <code>marmot</code> prefix:</p>
+  <dl>
+    <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
+    <dd>Part-of-speech information is written in capital letters and is based on STTS</dd>
+    <dt><abbr data-type="token" title="Morphosyntactical information">m</abbr></dt>
+    <dd>Includes information about case (<code>acc</code> ...), degree (<code>pos</code>), gender (<code>fem</code> ...) etc.</dd>
+  </dl>
+  %= doc_query poliqarp => '[marmot/m=degree:sup & marmot/p=ADJA]', cutoff => 1
+</section>
+
 
 <!--
 <section id="xip">
