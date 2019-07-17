@@ -2,4 +2,101 @@
 
 <h2 id="tutorial-top">FCSQL</h2>
 
-%= doc_uc
+<p>FCS-QL is a query language specifically developed to accomodate advanced search in
+  <%= doc_ext_link_to 'Clarin Federated Content Search (FCS)', "https://www.clarin.eu/content/federated-content-search-clarin-fcs" %>,
+  that allows searching through annotated data.
+Accordingly, FCS-QL is primarily intended to represent queries involving annotation layers
+such as part-of-speech and lemma. FCS-QL grammar is fairly similar to <%= doc_link_to 'Poliqarp', 'ql', 'poliqarp-plus' %> since it was
+built heavily based on Poliqarp/CQP.</p>
+
+<p>In FCS-QL, foundries are called qualifiers. A combination of a foundry and a layer is
+separated with a colon, for example the lemma layer of Tree Tagger is represented as
+<code>tt:lemma</code>. KorAP supports the following annotation layers for FCS-QL:</p>
+
+<dl>
+  <dt>text</dt>
+  <dd>surface text</dd>
+  <dt>lemma</dt>
+  <dd>lemmatisation</dd>
+  <dt>pos</dt>
+  <dd>part-of-speech</dd>
+</dl>
+
+<section id="simple-queries">
+	<h3>Simple queries</h3>
+	<p>Querying simple terms</p>
+  %= doc_query fcsql => '"Semmel"', cutoff => 1
+	
+	<p>Querying regular expressions</p>
+  %= doc_query fcsql => '"gie(ss|ß)en"', cutoff => 1
+	
+	<p>Querying case-insensitive terms</p>
+  %= doc_query fcsql => '"essen"/c', cutoff => 1
+</section>
+	
+<section id="complex-queries">
+	<h3>Complex queries</h3>
+	
+	<h4>Querying using layers</h4>
+	
+	<p>Querying a simple term using the layer for surface text</p>
+  %= doc_query fcsql => '[text = "Semmel"]', cutoff => 1
+  %= doc_query fcsql => '[text = "essen"/c]', cutoff => 1
+	
+	<p>Querying adverbs from the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.</p>
+  %= doc_query fcsql => '[pos="ADV"]', cutoff => 1
+	
+
+  <h4>Querying using qualifiers (foundries)</h4>
+	
+	<p>Querying adverbs annotated by Opennlp</p>
+  %= doc_query fcsql => '[opennlp:pos="ADV"]', cutoff => 1
+	
+	<p>Querying tokens with a lemma from Tree tagger</p>
+  %= doc_query fcsql => '[tt:lemma = "leben"]', cutoff => 1
+	
+
+  <h4>Querying using boolean operators</h4>
+	
+	<p>All tokens with lemma <code>&quot;leben&quot;</code> which are also finite verbs</p>
+  %= doc_query fcsql => '[tt:lemma ="leben" & pos="VVFIN"]', cutoff => 1
+	
+	<p>All tokens with lemma <code>&quot;leben&quot;</code> which are also finite verbs or perfect participle</p>
+  %= doc_query fcsql => '[tt:lemma ="leben" & (pos="VVFIN" | pos="VVPP")]', cutoff => 1
+	
+
+  <h4>Sequence queries</h4>
+	
+	<p>Combining two terms in a sequence query</p>
+  %= doc_query fcsql => '[opennlp:pos="ADJA"] "leben"', cutoff => 1
+	
+
+  <h4>Empty token</h4>
+	<p>Like in <%= doc_link_to 'Poliqarp', 'ql', 'poliqarp-plus' %>, an empty token is signified by <code>[]</code>
+    which means any token. Due to the
+	excessive number of results, empty token is not allowed to be used independently, but in
+	combination with other tokens, for instance in a sequence query.</p>
+  %= doc_query fcsql => '[] "Wolke"', cutoff => 1
+	
+	
+	<h4>Negation</h4>
+	<p>Similar to empty token, negation is not allowed to be used independently due to the
+	excessive number of results. However, it can be used in a sequence query.</p>
+  %= doc_query fcsql => '[pos != "ADJA"] "Buch"', cutoff => 1
+	
+	
+	<h4>Querying using quantifier</h4>
+	<p>Quantifiers indicate repetition of a term, for instance it can be used to search for
+	exactly two consecutive occurrences of <code>&quot;die&quot;</code>.</p>
+  %= doc_query fcsql => '"die" {2}', cutoff => 1
+	
+	<p>Quantifiers are also useful to search for the occurrences of any tokens near other
+	specific tokens, for instance two to three occurrences of any token between <code>&quot;wir&quot;</code> and
+	<code>&quot;leben&quot;</code>.</p>
+  %= doc_query fcsql => '"wir" []{2,3} "leben"', cutoff => 1
+	
+
+	<h4>Querying a term within a sentence</h4>
+  %= doc_query fcsql => '"Boot" within s', cutoff => 1
+
+</section>
