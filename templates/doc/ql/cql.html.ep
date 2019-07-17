@@ -2,4 +2,36 @@
 
 <h2 id="tutorial-top">CQL</h2>
 
-%= doc_uc
+<p>CQL stands for Contextual Query Language. The main purpose of CQL is to represent queries
+    to information retrieval systems. In fact, CQL is commonly used together with the Search
+    Retrieve URL (SRU) protocol to represent URL-friendly search queries.</p>
+    
+<p>In KorAP, we support basic CQL as defined in the <a
+href="https://www.clarin.eu/content/federated-content-search-clarin-fcs">CLARIN
+Federated Content Search (FCS)</a> specification for basic search. KorAP does not
+    support other operators and modifiers than AND and OR, such as REL and PROX. </p>
+
+<section id="examples">
+    <h3>Examples</h3>
+    <p>Querying a simple term</p>
+    %= doc_query cql => 'Feuer'
+
+    
+    <p>Querying a phrase</p>
+    %= doc_query cql => '"Öl ins Feuer"'
+    
+    <p>Boolean queries</p>
+    %= doc_query cql => 'giessen OR gießen'
+    %# <p>Feuer and gießen</p>
+</section>
+
+<section id="References">
+    <h3>References: </h3>
+    <p>searchRetrieve: Part 5. CQL: The Contextual Query Language version 1.0, OASIS,
+January 2013, <a
+    href="http://docs.oasis-open.org/search-ws/searchRetrieve/v1.0/os/part5-cql/searchRetrieve-v1.0-os-part5-cql.doc"
+    >http://docs.oasis- open.org/search-ws/searchRetrieve/v1.0/os/part5-cql/
+    searchRetrieve-v1.0-os-part5-cql.doc</a></p>
+    <p>CQL specification, <a href="https://www.loc.gov/standards/sru/cql/"
+    >https://www.loc.gov/standards/sru/cql/</a></p>
+</section>
