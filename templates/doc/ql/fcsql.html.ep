@@ -2,4 +2,93 @@
 
 <h2 id="tutorial-top">FCSQL</h2>
 
-%= doc_uc
+<p>FCS-QL is a query language specifically developed to accomodate advanced search in <a
+href="https://www.clarin.eu/content/federated-content-search-clarin-fcs">Clarin
+Federated Content Search (FCS)</a>, that allows searching to annotated data.
+Accordingly, FCS-QL is primarily intended to represent queries involving annotation layers
+such as part-of-speech and lemma. FCS-QL grammar is fairly similar to Poliqarp since it was
+built heavily based on Poliqarp.</p>
+
+<p>In FCS-QL, foundries are called qualifiers. A combination of a foundry and a layer is
+separated with a colon, for example the lemma layer of Tree Tagger is represented as
+tt:lemma. KorAP supports the following annotation layers for FCS-QL:</p>
+<ul>
+    <li>text: surface text</li>
+    <li>lemma: lemmatisation</li>
+    <li>pos: part-of-speech</li>
+</ul>
+
+<section id="examples">
+	<h3>Simple queries</h3>
+	<p>Querying simple terms</p>
+	<p>"Semmel"</p>
+	
+	<p>Querying regular expressions</p>
+	<p>"gie(ss|ß)en"</p>
+	
+	<p>Querying incase-sensitive terms</p>
+	<p>"essen"/c</p>
+	
+	
+	<h3>Complex queries</h3>
+	
+	<h4>Querying using layers</h4>
+	
+	<p>Querying a simple term using the layer for surface text</p>
+	<p>[text = "Semmel"]</p>
+	<p>[text = "essen"/c]</p>
+	
+	<p>Querying adverbs from the default foundry (Tree tagger)</p>
+	<p>[pos="ADV"]</p>
+	
+	
+	<h4>Querying using qualifiers (foundries)</h4>
+	
+	<p>Querying adverbs annotated by Opennlp</p>
+	<p>[opennlp:pos="ADV"]</p>
+	
+	<p>Querying tokens with a lemma from Tree tagger</p>
+	<p>[tt:lemma = "leben"]</p>
+	
+	
+	<h4>Querying using boolean operators</h4>
+	
+	<p>All tokens with lemma "leben" which are also finite verbs</p>
+	<p>[tt:lemma ="leben" &amp; pos="VVFIN"]</p>
+	
+	<p>All tokens with lemma "leben" which are also finite verbs or perfect participle</p>
+	<p>[tt:lemma ="leben" &amp; (pos="VVFIN" | pos="VVPP")]</p>
+	
+	
+	<h4>Sequence queries</h4>
+	
+	<p>Combining two terms in a sequence query</p>
+	<p>[opennlp:pos="ADJA"] "leben" </p>
+	
+	<h4>Empty token</h4>
+	<p>Like in Poliqarp, an empty token is signified by [] which means any token. Due to the
+	excessive number of results, empty token is not allowed to be used independently, but in
+	combination with other tokens, for instance in a sequence query.</p>
+	<p>[] "Wolke" </p>
+	
+	
+	<h4>Negation</h4>
+	<p>Similar to empty token, negation is not allowed to be used independently due to the
+	excessive number of results. However, it can be used in a sequence query.</p>
+	<p>[pos != "ADJA"] "Buch"</p>
+	
+	
+	<h4>Querying using quantifier</h4>
+	<p>Quantifiers indicates repetition of a term, for instance it can be used to search for
+	exactly two consecutive occurrences of "die" </p>
+	<p>"die" {2}</p>
+	
+	<p>Quantifiers are also useful to search for the occurrences of any tokens near other
+	specific tokens, for instance two to three occurrences of any token between "wir" and
+	"leben"</p>
+	<p>"wir" []{2,3} "leben"</p>
+	
+	<h4>Querying a term within a sentence</h4>
+	<p>"Boot" within s</p>
+
+</section>
