@@ -6,6 +6,7 @@
           favor of 'cq' (#92).
         - Update API for statistics.
         - Introduced documentation on CQL (margaretha).
+        - Introduced documentation on FCS-QL (margaretha).
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).
