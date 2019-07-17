@@ -66,24 +66,49 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
    	]
   };
 
-	var preDefinedStat={
-  	"documents":12,
-  	"tokens":2323,
-  	"sentences":343434,
-  	"paragraphs":45454545
-	};
+	
+      	
+      var preDefinedStat1 = {
+        "documents" : 12,
+        "tokens" : 2323,
+        "sentences" : 343434,
+        "paragraphs" : 45454545
+      };
 
-	var preDefinedStat2={
-  	"documents":20216975,
-  	"tokens":  "5991667065",
-  	"sentences":403923016,
-  	"paragraphs":129385487
-	};
+      var preDefinedStat2 = {
+        "documents" : 20216975,
+        "tokens" : "5991667065",
+        "sentences" : 403923016,
+        "paragraphs" : 129385487
+      };
 
-  
-  KorAP.API.getCorpStat = function(collQu, cb){
-  	return cb(preDefinedStat);
-  }; 
+      var preDefinedStat3 = {
+        "documents" : 6168583,
+        "tokens" : 2495403218,
+        "sentences" : 146166097,
+        "paragraphs" : 62900656,
+        "warnings" : [ [ 115,
+            "Parameter corpusQuery is deprecated in favor of cq." ] ]
+      };
+      
+      //TODO: Is not needed after API proxy is switched
+      var preDefinedStat4 = {
+        "documents" : 6168583,
+        "notifications" : [ [ "warn",
+            "115: Parameter corpusQuery is deprecated in favor of cq." ] ],
+        "tokens" : 2495403218,
+        "sentences" : 146166097,
+        "paragraphs" : 62900656,
+        "warnings" : [ [ 115,
+            "Parameter corpusQuery is deprecated in favor of cq." ] ]
+      };
+
+      
+      let preDefinedStat = preDefinedStat1;
+
+      KorAP.API.getCorpStat = function(collQu, cb) {
+        return cb(preDefinedStat);
+      };  
   
 
   generateCorpusDocGr = function(){     
@@ -193,9 +218,32 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
       return true;
     }   
     return false;
-    };
+  };
+  
+  /**
+   * Checks if preDefinedStat3 and preDefinedStat4 is displayed correctly
+   */
+  checkTable = function(div){
     
+    let keys = Object.keys(preDefinedStat);
     
+    expect(div.children[0].tagName).toEqual('DIV');
+    expect(div.children[0].getAttribute("class")).toEqual('stattable');   
+    expect(div.children[0].children[0].tagName).toEqual('DL');
+    
+    let dl = div.children[0].children[0];
+    expect(dl.children[0].children[0].firstChild.nodeValue).toEqual('documents');
+    expect(dl.children[0].children[1].firstChild.nodeValue).toEqual(new Number(6168583).toLocaleString());
+    expect(dl.children[1].children[0].firstChild.nodeValue).toEqual('tokens');
+    expect(dl.children[1].children[1].firstChild.nodeValue).toEqual(new Number(2495403218).toLocaleString());
+    expect(dl.children[2].children[0].firstChild.nodeValue).toEqual('sentences');
+    expect(dl.children[2].children[1].firstChild.nodeValue).toEqual(new Number(146166097).toLocaleString());
+    expect(dl.children[3].children[0].firstChild.nodeValue).toEqual('paragraphs');
+    expect(dl.children[3].children[1].firstChild.nodeValue).toEqual(new Number(62900656).toLocaleString());
+    expect(dl.children[4]).toBeUndefined();
+       
+    }
+  
   describe('KorAP.CorpusStat', function(){
 
 		it('should be initiable', function(){
@@ -244,7 +292,7 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 			expect(descL.children[2].children[1].firstChild.nodeValue).toEqual(new Number(403923016).toLocaleString());
 			expect(descL.children[2].children[0].attributes[0].value).toEqual('sentences');
 
-      expect(descL.children[3].children[0].firstChild.nodeValue).toEqual('paragraphs');
+            expect(descL.children[3].children[0].firstChild.nodeValue).toEqual('paragraphs');
 			expect(descL.children[3].children[1].firstChild.nodeValue).toEqual(new Number(129385487).toLocaleString());
 			expect(descL.children[3].children[0].attributes[0].value).toEqual('paragraphs');
     });
@@ -263,16 +311,45 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 		  statView = corpStatVClass.create(vc);
 		  // corpStatVClass.show(vc);
 		  
-			var testDiv = document.createElement('div');
-			testDiv.appendChild(statView.show());
-			// statClass.showCorpStat(testDiv, vc);
+		  var testDiv = document.createElement('div');
+		  testDiv.appendChild(statView.show());
+		  // statClass.showCorpStat(testDiv, vc);
 			
-			expect(testDiv.children[0].tagName).toEqual('DIV');
-			expect(testDiv.children[0].getAttribute("class")).toEqual('stattable');   
-			expect(testDiv.children[0].children[0].tagName).toEqual('DL');	
-			expect(testDiv.children[0].children[0].children[0].children[0].firstChild.nodeValue).toEqual('documents');
-			expect(testDiv.children[0].children[0].children[0].children[1].firstChild.nodeValue).toEqual('12');
+		  expect(testDiv.children[0].tagName).toEqual('DIV');
+		  expect(testDiv.children[0].getAttribute("class")).toEqual('stattable');   
+		  expect(testDiv.children[0].children[0].tagName).toEqual('DL');	
+		  expect(testDiv.children[0].children[0].children[0].children[0].firstChild.nodeValue).toEqual('documents');
+		  expect(testDiv.children[0].children[0].children[0].children[1].firstChild.nodeValue).toEqual('12');
 		});
+		
+	      
+        it('Should display corpus statistic despite of warning', function(){
+          preDefinedStat = preDefinedStat3;
+          var vc = vcClass.create([
+          ['title', 'string'],
+          ['subTitle', 'string'],
+          ['pubDate', 'date'],
+          ['author', 'text']
+        ]).fromJson(json);
+
+          KorAP.vc = vc;
+          
+          statView = corpStatVClass.create(vc);
+          
+          let div = document.createElement('div');
+          let statTable = statView.show();
+          div.appendChild(statTable);
+          expect(div.children[0].tagName).toEqual('DIV');
+          expect(div.children[0].getAttribute("class")).toEqual('stattable');   
+          expect(div.children[0].children[0].tagName).toEqual('DL');
+          checkTable(div);
+       
+          preDefinedStat = preDefinedStat4;
+          div.removeChild(statTable);
+          statView2 = corpStatVClass.create(vc);
+          div.appendChild(statView2.show());
+          checkTable(div);  
+        });
 
     it('should display the statistics button in a panel', function () {
 		  var vc = vcClass.create([
@@ -322,7 +399,8 @@ define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, co
 
     
     it('should display and hide corpus statistics view in the panel', function () {
-
+      preDefinedStat = preDefinedStat1;
+      
 		  var vc = vcClass.create([
 	      ['title', 'string'],
 	      ['subTitle', 'string'],

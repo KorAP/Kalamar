@@ -51,16 +51,29 @@ define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass,
             return;
           }
 
-          // catches notifications
           if (statResponse["notifications"] !== null
               && statResponse["notifications"] !== undefined) {
             notif = statResponse["notifications"];
             KorAP.log(0, notif[0][1]);
+          }
+          
+          let resp = {};
+          let keys = Object.keys(statResponse);
+          let key;
+          for(let i = 0; i < keys.length; i++){
+              key = keys[i];
+              if(!((key == "notifications") || key =="warnings")){
+              resp[key] = statResponse[key];
+             }
+          } 
+          
+          if(resp === null || resp === undefined ){
             cb(null);
             return;
           }
-
-          cb(statResponse);
+           
+          JSON.stringify(resp);
+          cb(resp);
         });
       }
 
