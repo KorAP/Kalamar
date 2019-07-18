@@ -228,7 +228,7 @@ PUBLIC LICENSE (GNU AGPLv3).
 
 Copyright (C) 2015-2019, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp
-Contributor: Susanne Feix (Translations)
+Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the
