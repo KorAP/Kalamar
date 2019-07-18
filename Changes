@@ -11,6 +11,7 @@
         - Introduced documentation on FCS-QL (margaretha).
         - Enable experimental proxy via
           configuration option 'experimental_proxy'.
+        - Introduced documentation on Annis QL (margaretha).
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).

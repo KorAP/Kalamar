@@ -69,7 +69,7 @@ body.embedded {
 
 main.tutorial {
   margin-left: $logo-left-distance + 15px;
-  p,li {
+  p,li, dd, dt {
     code {
       background-color: $ids-grey-2;
       color: $ids-grey-1;

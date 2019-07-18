@@ -2,4 +2,117 @@
 
 <h2 id="tutorial-top">Annis QL</h2>
 
-%= doc_uc
+<p><%= doc_ext_link_to 'ANNIS Query Language (Annis QL or AQL)', "https://corpus-tools.org/annis/aql.html" %>
+  is a query language of the <%= doc_ext_link_to 'ANNIS corpus search system', "https://corpus-tools.org/annis/" %>
+  designed particularly to deal with complex linguistic corpora with multiple
+  annotation layers (e.g. morphology) and various annotation types (e.g. attribute-value
+  pairs, relations). The concept of AQL is similar to searching node elements and edges
+  between them, where a node element can be a token or an attribute-value pair.</p>
+
+<p>KorAP supports the following keywords by using the <%= doc_link_to 'default foundries', 'data', 'annotation' %>: </p>
+<dl>
+  <dt><code>node</code></dt>
+  <dd>a node element</dd>
+  <dt><code>tok</code></dt>
+  <dd>a token</dd>
+  <dt><code>cat</code> or <code>c</code></dt>
+  <dd>a constituent</dd>
+  <dt><code>lemma</code> or <code>l</code></dt>
+  <dd>a lemma annotated node</dd>
+  <dt><code>pos</code> or <code>p</code></dt>
+  <dd>a part-of speech annotated node</dd>
+  <dt><code>m</code></dt>
+  <dd>a morphologically annotated node</dd>
+</dl>
+
+<blockquote class="warning">
+  <p>KorAP does not support in-query metadata constraints in AQL yet, namely the prefix &quot;meta::&quot;. In
+    KorAP, metadata constraints should be separated from search queries and be given as corpus
+    queries defining virtual corpora.</p>
+</blockquote>
+
+<section id="examples">
+  <h3>Node elements</h3>
+
+  <p>Simple tokens</p>
+  %= doc_query annis => '"liebe"', cutoff => 1
+
+  <p>Attribute-value pairs</p>
+  %= doc_query annis => 'tok="liebe"', cutoff => 1
+
+  <p>Namespaces in AQL are realized as foundry and layer combinations in KorAP. They can be used
+    to query tokens having a specific layer annotated by a specific parser (foundry), for
+    example coordinating conjunctions (part-of-speech layer) from the TreeTagger foundry.</p>
+  %= doc_query annis => 'tt/p="KON"', cutoff => 1
+
+  <h3>Regular expressions</h3>
+  %= doc_query annis => 'tok =/m.*keit/', cutoff => 1
+
+  <h3>Sequence queries</h3>
+  <p>Two consecutive tokens</p>
+  %= doc_query annis => '"der"."Bär"', cutoff => 1
+
+  <p>Finite verbs indirectly followed by an adverb, where any number of tokens may occur in
+    between.</p>
+  %= doc_query annis => 'pos="VVFIN" .* pos="ADV"', cutoff => 1
+
+  <h3>Negation</h3>
+  <p>Negation, such as negated tokens, is only supported in KorAP in a sequence query. </p>
+  %= doc_query annis => '"Katze" . pos != "VVFIN"', cutoff => 1
+
+  <h3>Pointing relations</h3>
+  <p>Pointing relations describe direct relationships between two node elements, for instance
+    dependency relations.</p>
+
+  <p>Querying all <code>&quot;SUBJ&quot;</code> dependency relations</p>
+  %= doc_query annis => 'node ->malt/d[func="SUBJ"] node', cutoff => 1
+
+  <p>Querying <code>&quot;SUBJ&quot;</code> dependency relations where the source node is token <code>&quot;ich&quot;</code></p>
+  %= doc_query annis => '"ich" ->malt/d[func="SUBJ"] node', cutoff => 1
+
+  <p>Querying <code>&quot;SUBJ&quot;</code> dependency relations where the source node is token
+    <code>&quot;ich&quot;</code> and the target node is a perfect participle</p>
+  %= doc_query annis => '"ich" ->malt/d[func="SUBJ"] pos="VVPP"', cutoff => 1
+
+  <h3>Using references</h3>
+  <p>Node elements may be refered to by using <code>#</code> and the position number of the element. For
+    instance, </p>
+  %= doc_query annis => '"ich" &amp; pos="VVPP" &amp; #1 ->malt/d[func="SUBJ"] #2', cutoff => 1
+  %= doc_query annis => '"ich" &amp; pos="VVPP" &amp; #1 . #2', cutoff => 1
+
+  %# Bug in Krill 
+  %# <p>"ich" & pos="VVFIN" & #1 ->malt/d[func="SUBJ"] #2 & #1 . #2</p>
+
+  <blockquote class="warning">
+    <p>Unary operators like <code>arity</code> or <code>tokenarity</code> are not yet implemented in KorAP.</p>
+  </blockquote>
+
+   
+  <!-- Not implemented in Krill yet
+         
+    <h3>Unary operators</h3>
+    <dl>Arity</dl>
+    <dt>the number of children directly dominated by a node</dt>
+    <p>Querying adverbial phrases having exactly 2 direct childeren</p>
+    <p>cat="AVP"  & #1:arity=2</p>
+    
+    <dl>Tokenarity</dl>
+    <dt>the number of tokens within a node</dt>
+    <p>Querying adverbial phrases consisting of exactly 2 tokens</p>
+    <p>cat="AVP"  & #1:tokenarity=2</p>
+    
+    <h3>Searching within a tree</h3>
+    <h4>Dominance</h4>
+    <p>AQL describes hierarchical relations between nodes in a tree as a concept of dominance.
+        Node A dominates node B when A is located in a higher position than node B in a tree.
+        Moreover, A <strong>directly dominates</strong> B when A is located exactly above B
+        without any other nodes in between.</p>
+        
+    <p>Direct dominance</p>
+    <p></p>
+    
+    <p>Indirect dominance</p>
+    <p></p>
+    
+    -->
+</section>
