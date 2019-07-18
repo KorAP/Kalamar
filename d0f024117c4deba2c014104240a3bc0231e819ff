@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc9d243e_b0203763",
+        "filename": "templates/doc/ql/fcsql.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T08:08:53Z",
+      "side": 1,
+      "message": "to -\u003e through ?",
+      "revId": "d0f024117c4deba2c014104240a3bc0231e819ff",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4539969c_f3f973db",
+        "filename": "templates/doc/ql/fcsql.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T08:08:53Z",
+      "side": 1,
+      "message": "Missing punctuation mark -\u003e  of \u003ccode\u003e\u0026quot;die\u0026quot;\u003c/code\u003e.\u003c/p\u003e",
+      "revId": "d0f024117c4deba2c014104240a3bc0231e819ff",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3286ed6b_94f09571",
+        "filename": "templates/doc/ql/fcsql.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T08:08:53Z",
+      "side": 1,
+      "message": "Missing punctuation mark: -\u003e \u003ccode\u003e\u0026quot;leben\u0026quot;\u003c/code\u003e.\u003c/p\u003e",
+      "revId": "d0f024117c4deba2c014104240a3bc0231e819ff",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
