@@ -13,6 +13,7 @@
           configuration option 'experimental_proxy'.
         - Updated documentation on annotations.
         - Introduced documentation on Annis QL (margaretha).
+        - Improved documentation on data.
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).

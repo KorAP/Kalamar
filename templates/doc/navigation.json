@@ -116,18 +116,8 @@
   {
     "title" : "Data",
     "id" : "data",
+    "class" : "folded",
     "items" : [
-      {
-        "title" : "Corpora",
-        "id" : "corpus",
-        "class" : "folded",
-        "items" : [
-          {
-            "title" : "DeReKo",
-            "id" : "#dereko"
-          }
-        ]
-      },
       {
         "title" : "Annotations",
         "id" : "annotation",
