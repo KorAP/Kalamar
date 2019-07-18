@@ -1,5 +1,0 @@
-% layout 'main', title => 'KorAP: Corpora';
-
-<h2 id="tutorial-top">Corpora</h2>
-
-%= doc_uc

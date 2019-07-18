@@ -1,5 +1,26 @@
 % layout 'main', title => 'KorAP: Data';
 
 <h2 id="tutorial-top">Data</h2>
+<p>KorAP is developed as being the main access point to
+  <%= doc_ext_link_to 'DeReKo', 'http://www1.ids-mannheim.de/kl/projekte/korpora' %>,
+  being the successor of <%= doc_ext_link_to 'COSMAS II', 'https://cosmas2.ids-mannheim.de/cosmas2-web/' %> in that regard.
+  But KorAP is not focussed on any specific corpus, it is, for example, now also used for the Romanian national corpus <%= doc_ext_link_to 'CoRoLa', 'http://corola.racai.ro/' %>.</p>
 
-<p>Under Construction</p>
+<p>In KorAP, corpus texts are allowed to have arbitrary metadata information, that partially can be used to create subcorpora (so-called virtual corpora).</p>
+
+<p>KorAP also supports an arbitrary number of <%= doc_link_to 'Annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
+
+<dl>
+  <p>Annotations of the following kind are supported:</p>
+  <dt>Tokens</dt>
+  <dd>Annotations associated to single tokens (e.g. words or numbers)</dd>
+  
+  <dt>Spans</dt>
+  <dd>Annotations to a sequence of words or nodes (e.g. sentences, phrases, constituency annotations)</dd>
+
+  <dt>Relations</dt>
+  <dd>Annotations of relations between tokens or spans (e.g. dependency annotations)</dd>
+
+  <dt>Attributes</dt>
+  <dd>Attribute information for tokens, spans, or relations (e.g. attributes of HTML elements)</dd>
+</dl>
