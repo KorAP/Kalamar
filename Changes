@@ -12,6 +12,7 @@
         - Enable experimental proxy via
           configuration option 'experimental_proxy'.
         - Updated documentation on annotations.
+        - Introduced documentation on Annis QL (margaretha).
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).
