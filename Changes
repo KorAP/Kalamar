@@ -12,6 +12,7 @@
         - Enable experimental proxy via
           configuration option 'experimental_proxy'.
         - Updated documentation on annotations.
+        - Improved documentation on Data.
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).
