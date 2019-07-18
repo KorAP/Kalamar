@@ -2,4 +2,110 @@
 
 <h2 id="tutorial-top">Annis QL</h2>
 
-%= doc_uc
+<p><a href="https://corpus-tools.org/annis/aql.html">ANNIS Query Language (Annis QL or AQL)</a>
+is a query language of <a href="https://corpus-tools.org/annis/">ANNIS corpus search
+system</a> designed particularly to deal with complex linguistic corpora with multiple
+annotation layers (e.g. morphology) and various annotation types (e.g. attribute-value
+pairs, relations). The concept of AQL is similar to searching node elements and edges
+between them, where a node element can be a token or an attribute-value pair.</p>
+
+<p>KorAP supports the following keywords by using the default foundries: </p>
+<dl>node</dl>
+<dt>a node element</dt>
+<dl>tok</dl>
+<dt>a token</dt>
+<dl>cat or c</dl>
+<dt>a constituent</dt>
+<dl>lemma or l</dl>
+<dt>a lemma annotated node</dt>
+<dl>pos or p</dl>
+<dt>a part-of speech annotated node</dt>
+<dl>m</dl>
+<dt>a morphologically annotated node</dt>
+
+<p>KorAP has not support in-query metadata constraint in AQL yet, namely the prefix "meta::". In
+KorAP, metadata constraints should be separated from search queries and be given as corpus
+queries defining virtual corpora.</p>
+
+<section id="examples">
+
+    <h3>Node elements</h3>
+
+    <p>Simple tokens</p>
+    <p>"liebe"</p>
+
+    <p>Attribute-value pairs</p>
+    <p>tok="liebe"</p>
+
+    <p>Namespaces in AQL are realized as foundry and layer combinations in KorAP. They can be used
+        to query tokens having a specific layer annotated by a specific parser (foundry), for
+        example coordinating conjunctions (part-of-speech layer) from Tree Tagger foundry.</p>
+    <p>tt/p="KON"</p>
+
+    <h3>Regular expressions</h3>
+    <p>tok =/m.*keit/</p>
+
+    <h3>Sequence queries</h3>
+    <p>Two consecutive tokens</p>
+    <p>"der"."Bär"</p>
+
+    <p>Finite verbs indirectly followed by an adverb, where any number of tokens may occur in
+        between.</p>
+    <p>pos="VVFIN" .* pos="ADV" </p>
+
+    <h3>Negation</h3>
+    <p>Negation, such as negated tokens, is only supported in KorAP in a sequence query. </p>
+    <p>"Katze" . pos != "VVFIN" </p>
+
+    <h3>Pointing relations</h3>
+    <p>Pointing relations describes direct relationship between two node elements, for instance
+        dependency relations.</p>
+
+    <p>Querying all "SUBJ" dependency relations</p>
+    <p>node ->malt/d[func="SUBJ"] node</p>
+
+    <p>Querying "SUBJ" dependency relations where the source node is token "ich"</p>
+    <p>"ich" ->malt/d[func="SUBJ"] node</p>
+
+    <p>Querying "SUBJ" dependency relations where the source node is token "ich" and the target node
+        is a perfect participle</p>
+    <p>"ich" ->malt/d[func="SUBJ"] pos="VVPP"</p>
+
+    <h3>Using references</h3>
+    <p>Node elements may be refered to by using # and the position number of the element. For
+        instance, </p>
+    <p>ich" &amp; pos="VVPP" &amp; #1 ->malt/d[func="SUBJ"] #2</p>
+    <p>ich" &amp; pos="VVPP" &amp; #1 . #2</p>
+
+    <!-- Bug in Krill 
+    <p>"ich" & pos="VVFIN" & #1 ->malt/d[func="SUBJ"] #2 & #1 . #2</p>
+    -->
+
+    <!-- Not implemented in Krill yet
+            
+    <h3>Unary operators</h3>
+    <dl>Arity</dl>
+    <dt>the number of children directly dominated by a node</dt>
+    <p>Querying adverbial phrases having exactly 2 direct childeren</p>
+    <p>cat="AVP"  & #1:arity=2</p>
+    
+    <dl>Tokenarity</dl>
+    <dt>the number of tokens within a node</dt>
+    <p>Querying adverbial phrases consisting of exactly 2 tokens</p>
+    <p>cat="AVP"  & #1:tokenarity=2</p>
+    
+    <h3>Searching within a tree</h3>
+    <h4>Dominance</h4>
+    <p>AQL describes hierarchical relations between nodes in a tree as a concept of dominance.
+        Node A dominates node B when A is located in a higher position than node B in a tree.
+        Moreover, A <strong>directly dominates</strong> B when A is located exactly above B
+        without any other nodes in between.</p>
+        
+    <p>Direct dominance</p>
+    <p></p>
+    
+    <p>Indirect dominance</p>
+    <p></p>
+    
+    -->
+</section>
