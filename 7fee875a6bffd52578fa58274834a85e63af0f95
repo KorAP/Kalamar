@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d87288a8_bc64ee8d",
+        "filename": "templates/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T07:27:24Z",
+      "side": 1,
+      "message": "Typo: seurching -\u003e searching",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "7fee875a6bffd52578fa58274834a85e63af0f95",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c69878b_a00e2004",
+        "filename": "templates/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T07:27:24Z",
+      "side": 1,
+      "message": "Missing punctuation mark: poliqarp-plus#regexp\u0027 %\u003e\u003c/p\u003e -\u003e poliqarp-plus#regexp\u0027 %\u003e.\u003c/p\u003e",
+      "revId": "7fee875a6bffd52578fa58274834a85e63af0f95",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e61fb4d_cccbb9b6",
+        "filename": "templates/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T07:27:24Z",
+      "side": 1,
+      "message": "Delete \"only\": When only they shouldn\u0027t occur together -\u003e When they shouldn\u0027t occur together",
+      "revId": "7fee875a6bffd52578fa58274834a85e63af0f95",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "598e8d80_d91d381d",
+        "filename": "templates/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-07-18T07:27:24Z",
+      "side": 1,
+      "message": "I would add an example here as above:\ngiven separated by the \u003ccode\u003e:\u003c/code\u003e symbol, they define \n-\u003egiven separated by the \u003ccode\u003e:\u003c/code\u003e symbol (e.g. in \u003ccode\u003e/+s2:4\u003c/code\u003e), they define",
+      "revId": "7fee875a6bffd52578fa58274834a85e63af0f95",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
