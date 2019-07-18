@@ -13,7 +13,8 @@ $ENV{KALAMAR_API} = $mount_point;
 
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
-    plugins => ['Auth']
+    plugins => ['Auth'],
+    experimental_proxy => 1
   }
 });
 
@@ -31,12 +32,6 @@ $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
 # Globally set server
 $t->app->ua->server->app($t->app);
-
-my $r = $t->app->routes;
-
-# API proxy route
-$r->any('/api/v#apiv' => [apiv => ['1.0']])->to('Proxy#pass');
-$r->any('/api/v#apiv/*path' => [apiv => ['1.0']])->to('Proxy#pass');
 
 $t->get_ok('/realapi/v1.0')
   ->status_is(200)
