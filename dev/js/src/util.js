@@ -9,14 +9,20 @@ if (Event.halt === undefined) {
   };
 };
 
-var _quoteRE = new RegExp("([\"\\\\])", 'g');
+const _quoteRE = new RegExp("([\"\\\\])", 'g');
 String.prototype.quote = function () {
-  return this.replace(_quoteRE, '\\$1');
+  return '"' + this.replace(_quoteRE, '\\$1') + '"';
 };
 
-var _escapeRE = new RegExp("([\/\\\\])", 'g');
+const _escapeRE = new RegExp("([\/\\\\])", 'g');
 String.prototype.escapeRegex = function () {
   return this.replace(_escapeRE, '\\$1');
+};
+
+const _slug1RE = new RegExp("[^-a-zA-Z0-9_\\s]+", 'g');
+const _slug2RE = new RegExp("[-\\s]+", 'g');
+String.prototype.slugify = function () {
+  return this.toLowerCase().replace(_slug1RE, '').replace(_slug2RE, '-');
 };
 
 // Add toggleClass method similar to jquery

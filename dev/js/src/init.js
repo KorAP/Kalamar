@@ -44,7 +44,10 @@ define([
 
   const d = document;
 
-  KorAP.session = sessionClass.create('KalamarJS');
+  // Create suffix if KorAP is run in a subfolder
+  KorAP.session = sessionClass.create(
+    KorAP.URL.length > 0 ? 'kalamarJS-' + KorAP.URL.slugify() : 'kalamarJS'
+  );
 
   // Override KorAP.log
   window.alertify = alertifyClass;

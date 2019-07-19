@@ -667,7 +667,7 @@ define([
         return string + '/' + this.value().escapeRegex() + '/';
       case "string":
       case "text":
-        return string + '"' + this.value().quote() + '"';
+        return string + this.value().quote();
       };
 
       return "";

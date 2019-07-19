@@ -273,7 +273,7 @@ define([
         return "";
 
       // Build doc string based on key
-      return 'referTo "' + this.ref().quote() + '"';
+      return 'referTo ' + this.ref().quote();
     }
   };
 });

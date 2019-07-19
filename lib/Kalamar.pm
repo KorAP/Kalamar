@@ -4,11 +4,11 @@ use Mojo::ByteStream 'b';
 use Mojo::URL;
 use Mojo::File;
 use Mojo::JSON 'decode_json';
-use Mojo::Util qw/url_escape deprecated/;
+use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.35';
+our $VERSION = '0.36';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -18,7 +18,6 @@ our $API_VERSION = '1.0';
 # TODO: Embed collection statistics
 # TODO: Implement tab opener for matches and the tutorial
 # TODO: Implement a "projects" system
-# TODO: Make authentification a plugin
 
 # Start the application and register all routes and plugins
 sub startup {
@@ -80,12 +79,19 @@ sub startup {
     $self->log->warn('Kalamar-api_path not defined in configuration');
   };
 
+  $self->sessions->cookie_name('kalamar');
+
+  # Require HTTPS for cookie transport
+  if ($conf->{secure_cookie}) {
+    $self->sessions->secure(1);
+  };
+
+  # Run the app from a subdirectory
   if ($conf->{proxy_prefix}) {
 
     for ($self->sessions) {
       $_->cookie_path($conf->{proxy_prefix});
-      $_->cookie_name('kalamar');
-      $_->secure(1);
+      $_->cookie_name('kalamar-' . slugify($conf->{proxy_prefix}));
     };
 
     # Set prefix in stash

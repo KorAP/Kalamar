@@ -176,7 +176,7 @@ define(['vc/doc', 'util'], function (docClass) {
           if (item[2] === "date") {
             return item[0] + ' in ' + item[1];
           };
-          return item[0] + ' = "' + new String(item[1]).quote() + '"';
+          return item[0] + ' = ' + new String(item[1]).quote();
         }
       ).join(" & ");
     }

@@ -1,3 +1,11 @@
+0.36 2019-07-19
+        - Rename all cookies to be independent
+          for different instance (#94).
+        - Enable secure cookies via
+          configuration option 'secure_cookie'.
+
+        WARNING: This requires relogin for all users!
+
 0.35 2019-07-19
         - Added EXPERIMENTAL proxy to API route.
         - Remove deprecated api configuration
