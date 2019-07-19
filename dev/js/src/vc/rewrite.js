@@ -87,14 +87,9 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
       str += ' of ' + (
 	      this._scope === null ?
 	        'object' :
-	        '"' +
-	        this.scope().quote() +
-	        '"'
+	        this.scope().quote()
       );
-      str += ' by ' +
-	      '"' +
-	      this.src().quote() +
-	      '"';
+      str += ' by ' + this.src().quote();
       return str;
     }
   };
