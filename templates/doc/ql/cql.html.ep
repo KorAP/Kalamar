@@ -27,11 +27,6 @@ Federated Content Search (FCS)</a> specification for basic search. KorAP does no
 
 <section id="References">
     <h3>References: </h3>
-    <p>searchRetrieve: Part 5. CQL: The Contextual Query Language version 1.0, OASIS,
-January 2013, <a
-    href="http://docs.oasis-open.org/search-ws/searchRetrieve/v1.0/os/part5-cql/searchRetrieve-v1.0-os-part5-cql.doc"
-    >http://docs.oasis- open.org/search-ws/searchRetrieve/v1.0/os/part5-cql/
-    searchRetrieve-v1.0-os-part5-cql.doc</a></p>
-    <p>CQL specification, <a href="https://www.loc.gov/standards/sru/cql/"
-    >https://www.loc.gov/standards/sru/cql/</a></p>
+    <p><%= doc_ext_link_to 'searchRetrieve: Part 5', "http://docs.oasis-open.org/search-ws/searchRetrieve/v1.0/os/part5-cql/searchRetrieve-v1.0-os-part5-cql.doc" %>.
+      <%= doc_ext_link_to 'CQL: The Contextual Query Language version 1.0', "https://www.loc.gov/standards/sru/cql/" %>, OASIS, January 2013</p>
 </section>
