@@ -116,42 +116,7 @@
     "items" : [
       {
         "title" : "Annotations",
-        "id" : "annotation",
-        "class" : "folded",
-        "items" : [
-          {
-            "title" : "Base",
-            "id" : "#base"
-          },
-          {
-            "title" : "Connexor",
-            "id" : "#cnx"
-          },
-          {
-            "title" : "CoreNLP",
-            "id" : "#corenlp"
-          },
-          {
-            "title" : "TreeTagger",
-            "id" : "#tt"
-          },
-          {
-            "title" : "Mate",
-            "id" : "#mate"
-          },
-          {
-            "title" : "OpenNLP",
-            "id" : "#opennlp"
-          },
-          {
-            "title" : "XIP",
-            "id" : "#xip"
-          },
-          {
-            "title" : "Default Foundries",
-            "id" : "#default-foundries"
-          }
-        ]
+        "id" : "annotation"
       }
     ]
   },
