@@ -2,4 +2,54 @@
 
 <h2 id="tutorial-top">Regular Expressions</h2>
 
-%= doc_uc
+<p>Regular expressions are patterns describing a set of strings.</p>
+<p>In the KorAP backend a wide range of operators is supported, but only the following are guaranteed to be stable throughout the system:</p>
+
+<section id="quantifiers">
+  <h3>Operators</h3>
+  <dl>
+    <dt><code>.</code> - Any</dt>
+    <dd>Any symbol</dd>
+    <dt><code>()</code> - Group</dt>
+    <dd>Create a group of operands</dd>
+    <dt><code>|</code> - Alternation</dt>
+    <dd>Create alternative operands</dd>
+    <dt><code>[]</code> - Character Class</dt>
+    <dd>Group alternative characters</dd>
+    <dt><code>\</code> - Escape symbol</dt>
+    <dd>Mark the following character to be interpreted as verbatim, when the character is special (i.e. an operator or quantifier)</dd>
+  </dl>
+
+  %= doc_query poliqarp => '".eine" Frau', cutoff => 1
+  %= doc_query poliqarp => '"Fr..de"', cutoff => 1
+  %= doc_query poliqarp => '"Fr(ie|eu)de" []{,3} Eierkuchen', cutoff => 1
+  %= doc_query poliqarp => '"Fre[um]de"', cutoff => 1
+  %= doc_query poliqarp => '"b.w\."', cutoff => 1
+</section>
+
+<section id="quantifiers">
+  <h3>Quantifiers</h3>
+
+  <p>Operands in regular expressions can be quantified,
+    meaning they are allowed to occur consecutively a specified number of times.
+    The following quantifieres are supported:</p>
+  
+  <dl>
+    <dt><code>?</code></dt>
+    <dd>Match 0 or 1 times</dd>
+    <dt><code>*</code></dt>
+    <dd>Match 0 or more times</dd>
+    <dt><code>+</code></dt>
+    <dd>Match 1 or more times</dd>
+    <dt><code>{n}</code></dt>
+    <dd>Match <code>n</code> times</dd>
+    <dt><code>{n,}</code></dt>
+    <dd>Match at least <code>n</code> times</dd>
+    <dt><code>{n,m}</code></dt>
+    <dd>Match at least <code>n</code> times but no more than <code>m</code> times</dd>
+  </dl>
+  %= doc_query poliqarp => '"Schif+ahrt"', cutoff => 1
+  %= doc_query poliqarp => '"kl?eine" Kinder', cutoff => 1
+  %= doc_query poliqarp => '"Schlos{2,3}traße"', cutoff => 1
+  %= doc_query poliqarp => '"Rha(bar){2}"', cutoff => 1
+</section>

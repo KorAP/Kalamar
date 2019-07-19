@@ -16,6 +16,7 @@
         - Improved documentation on data.
         - Removed documentation stub for wildcards
           (fully integrated in C2 documentation).
+        - Improved documentation on regular expressions.
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).
