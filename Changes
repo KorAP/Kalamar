@@ -1,4 +1,4 @@
-0.35 2019-07-18
+0.35 2019-07-19
         - Added EXPERIMENTAL proxy to API route.
         - Remove deprecated api configuration
           (requires api_path instead now).
@@ -14,6 +14,8 @@
         - Updated documentation on annotations.
         - Introduced documentation on Annis QL (margaretha).
         - Improved documentation on data.
+        - Removed documentation stub for wildcards
+          (fully integrated in C2 documentation).
 
 0.34 2019-06-26
         - Introduced guided tour (hebasta, #19).

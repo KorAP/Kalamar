@@ -106,10 +106,6 @@
       {
         "title" : "Regular Expressions",
         "id" : "regexp"
-      },
-      {
-        "title" : "Wildcards",
-        "id" : "wildcards"
       }
     ]
   },
