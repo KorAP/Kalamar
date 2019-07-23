@@ -9,6 +9,7 @@
           (such as the Piwik plugin).
         - Fix treatment of legacy "collection" parameter.
         - Fix pagination by not repeating page value in URL.
+        - Added auto-refresh of OAuth tokens.
 
         WARNING: This requires relogin for all users!
 
