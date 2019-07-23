@@ -338,7 +338,7 @@ sub register {
             my $tx = shift;
             # Catch errors and warnings
             return ($c->catch_errors_and_warnings($tx) ||
-              Mojo::Promise->new->reject);
+              Mojo::Promise->reject);
           }
         );
       };
@@ -380,6 +380,9 @@ sub register {
         # Cache on success
         sub {
           my $json = shift;
+
+          $c->app->log->debug("Receiving promised results");
+
           $c->chi->set($cache_str => $json);
           return $json;
         }
