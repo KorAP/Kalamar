@@ -9,7 +9,10 @@ has items_per_page => 25;
 
 # TODO:
 #   Support server timing API
-
+#
+# TODO:
+#   use "token" instead of "user"
+#
 # TODO:
 #   Add match_info template for HTML
 #
@@ -152,6 +155,8 @@ sub query {
     sub {
       my $json = shift;
 
+      $c->app->log->debug("Receiving cached promised results");
+
       #######################
       # Cache total results #
       #######################
@@ -246,9 +251,11 @@ sub query {
 
       # Only raised in case of connection errors
       if ($err_msg) {
-        $c->stash('err_msg' => 'backendNotAvailable');
+        # $c->stash('err_msg' => 'backendNotAvailable');
         $c->notify(error => { src => 'Backend' } => $err_msg)
       };
+
+      $c->app->log->debug("Receiving cached promised failure");
 
       # $c->_notify_on_errors(shift);
       return $c->render(

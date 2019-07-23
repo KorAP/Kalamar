@@ -14,7 +14,7 @@ WriteMakefile(
   },
   LICENSE      => 'freebsd',
   PREREQ_PM => {
-    'Mojolicious' => '8.18',
+    'Mojolicious' => '8.22',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.07,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.10,
     'Mojolicious::Plugin::ClosedRedirect' => 0.14,
@@ -26,6 +26,8 @@ WriteMakefile(
     'Cache::FastMmap' => 1.47,
     'Data::Serializer' => 0.60,
     'Mojo::JWT' => 0.05,
+    'Test::Mojo::Session' => 1.05,
+    'Test::Mojo::WithRoles' => 0.02,
 
     # Required for Data::Serializer at the moment
     'JSON' => 4.02,
