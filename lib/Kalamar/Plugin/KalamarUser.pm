@@ -8,10 +8,6 @@ has 'api';
 has 'ua';
 
 # TODO:
-#   This Plugin will be removed in favour of
-#   Kalamar::Plugin::Auth!
-
-# TODO:
 #   Replace plugin-api with korap->api!
 
 sub register {

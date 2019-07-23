@@ -14,6 +14,18 @@ use Mojo::Util qw/slugify/;
 my $secret = 's3cr3t';
 my $fixture_path = path(Mojo::File->new(__FILE__)->dirname)->child('..', 'fixtures');
 
+our %tokens = (
+  "access_token"    => "4dcf8784ccfd26fac9bdb82778fe60e2",
+  "refresh_token"   => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
+  "access_token_2"  => "abcde",
+  "refresh_token_2" => "fghijk"
+);
+
+helper get_token => sub {
+  my ($c, $token) = @_;
+  return $tokens{$token}
+};
+
 # Legacy:
 helper jwt_encode => sub {
   shift;
@@ -32,6 +44,24 @@ helper jwt_decode => sub {
   return Mojo::JWT->new(secret => $secret)->decode($auth);
 };
 
+# Expiration helper
+helper expired => sub {
+  my ($c, $auth, $set) = @_;
+
+
+  $auth =~ s/^[^ ]+? //;
+  if ($set) {
+    $c->app->log->debug("Set $auth for expiration");
+    $c->app->defaults('auth_' . $auth => 1);
+    return 1;
+  };
+
+  $c->app->log->debug("Check $auth for expiration: " . (
+    $c->app->defaults('auth_' . $auth) // '0'
+  ));
+
+  return $c->app->defaults('auth_' . $auth);
+};
 
 # Load fixture responses
 helper 'load_response' => sub {
@@ -111,14 +141,40 @@ get '/v1.0/search' => sub {
   # Check authentification
   if (my $auth = $c->req->headers->header('Authorization')) {
 
+    $c->app->log->debug("There is an authorization header $auth");
     my $jwt;
     if ($auth =~ /^Bearer/) {
       # Username unknown in OAuth2
       $response->{json}->{meta}->{authorized} = 'yes';
     }
-    elsif ($jwt = $c->jwt_decode($auth)) {
+    elsif ($auth =~ /^api_token/ && ($jwt = $c->jwt_decode($auth))) {
       $response->{json}->{meta}->{authorized} = $jwt->{username} if $jwt->{username};
     };
+
+    # Code is expired
+    if ($c->expired($auth)) {
+
+      $c->app->log->debug("The access token has expired");
+
+      return $c->render(
+        status => 401,
+        json => {
+          errors => [[2003,  'Access token is expired']]
+        }
+      );
+    }
+
+    # Auth token is invalid
+    if ($auth =~ /^Bearer inv4lid/) {
+      $c->app->log->debug("The access token is invalid");
+
+      return $c->render(
+        status => 401,
+        json => {
+          errors => [[2011,  'Access token is invalid']]
+        }
+      );
+    }
   };
 
   # Set page parameter
@@ -199,7 +255,13 @@ get '/v1.0/auth/logout' => sub {
   my $c = shift;
 
   if (my $auth = $c->req->headers->header('Authorization')) {
-    if (my $jwt = $c->jwt_decode($auth)) {
+
+    if ($auth =~ /^Bearer/) {
+      $c->app->log->debug('Server-Logout: ' . $auth);
+      return $c->render(json => { msg => [[0, 'Fine!']]});
+    }
+
+    elsif (my $jwt = $c->jwt_decode($auth)) {
       my $user = $jwt->{username} if $jwt->{username};
 
       $c->app->log->debug('Server-Logout: ' . $user);
@@ -341,8 +403,8 @@ post '/v1.0/oauth2/token' => sub {
     # Return fine access
     return $c->render(
       json => {
-        "access_token" => "4dcf8784ccfd26fac9bdb82778fe60e2",
-        "refresh_token" => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
+        "access_token" => $c->get_token('access_token'),
+        "refresh_token" => $c->get_token('refresh_token'),
         "scope" => "all",
         "token_type" => "Bearer",
         "expires_in" => 86400
@@ -351,11 +413,24 @@ post '/v1.0/oauth2/token' => sub {
 
   # Refresh token
   elsif ($grant_type eq 'refresh_token') {
+
+    if ($c->param('refresh_token') eq 'inv4lid') {
+      return $c->render(
+        status => 400,
+        json => {
+          "error_description" => "Refresh token is expired",
+          "error" => "invalid_grant"
+        }
+      );
+    };
+
+    $c->app->log->debug("Refresh the token in the mock server!");
+
     return $c->render(
       status => 200,
       json => {
-        "access_token" => "abcde",
-        "refresh_token" => "fghijk",
+        "access_token" => $c->get_token("access_token_2"),
+        "refresh_token" => $c->get_token("refresh_token_2"),
         "token_type" => "Bearer",
         "expires_in" => 86400
       }
