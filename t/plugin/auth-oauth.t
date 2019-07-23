@@ -1,6 +1,6 @@
 use Mojo::Base -strict;
 use Test::More;
-use Test::Mojo;
+use Test::Mojo::WithRoles 'Session';
 use Mojo::File qw/path/;
 use Data::Dumper;
 
@@ -11,7 +11,7 @@ use Data::Dumper;
 my $mount_point = '/realapi/';
 $ENV{KALAMAR_API} = $mount_point;
 
-my $t = Test::Mojo->new('Kalamar' => {
+my $t = Test::Mojo::WithRoles->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth']
   },
@@ -32,7 +32,28 @@ my $fake_backend = $t->app->plugin(
   }
 );
 # Configure fake backend
-$fake_backend->pattern->defaults->{app}->log($t->app->log);
+my $fake_backend_app = $fake_backend->pattern->defaults->{app};
+
+# Set general app logger for simplicity
+$fake_backend_app->log($t->app->log);
+
+$t->app->routes->get('/x/expire')->to(
+  cb => sub {
+    my $c = shift;
+    $c->session(auth_exp => 0);
+    return $c->render(text => 'okay')
+  }
+);
+
+$t->app->routes->get('/x/expire-no-refresh')->to(
+  cb => sub {
+    my $c = shift;
+    $c->session(auth_exp => 0);
+    $c->session(auth_r => undef);
+    return $c->render(text => 'okay')
+  }
+);
+
 
 $t->get_ok('/realapi/v1.0')
   ->status_is(200)
@@ -198,12 +219,63 @@ $t->post_ok('/user/login' => form => {
   ->status_is(302)
   ->header_is('Location' => '/?q=Baum&ql=poliqarp');
 
+my $access_token = $fake_backend_app->get_token('access_token');
+my $refresh_token = $fake_backend_app->get_token('refresh_token');
+
 $t->get_ok('/?q=Baum&ql=poliqarp')
   ->status_is(200)
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Login successful')
+  ->session_has('/auth')
+  ->session_is('/auth', 'Bearer ' . $access_token)
+  ->session_is('/auth_r', $refresh_token)
+  ->header_isnt('X-Kalamar-Cache', 'true')
   ;
+
+# Expire the session
+# (makes the token be marked as expired - though it isn't serverside)
+$t->get_ok('/x/expire')
+  ->status_is(200)
+  ->content_is('okay')
+  ;
+
+## It may be a problem, but the cache is still valid
+$t->get_ok('/?q=Baum')
+  ->status_is(200)
+  ->text_like('h1 span', qr/KorAP: Find .Baum./i)
+  ->text_like('#total-results', qr/\d+$/)
+  ->content_like(qr/\"authorized\"\:\"yes\"/)
+  ->header_is('X-Kalamar-Cache', 'true')
+  ;
+
+my $access_token_2 = $fake_backend_app->get_token('access_token_2');
+my $refresh_token_2 = $fake_backend_app->get_token('refresh_token_2');
+
+# Query without partial cache (unfortunately) (but no total results)
+$t->get_ok('/?q=baum&cutoff=true')
+  ->status_is(200)
+  ->session_is('/auth', 'Bearer ' . $access_token_2)
+  ->session_is('/auth_r', $refresh_token_2)
+  ->text_is('#error','')
+  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
+  ->content_like(qr/\"authorized\"\:\"yes\"/)
+  ->header_isnt('X-Kalamar-Cache', 'true')
+  ->content_like(qr!\"cutOff":true!)
+  ->element_exists_not('#total-results')
+  ;
+
+
+
+done_testing;
+__END__
+
+# Expire access token
+# $fake_backend_app->expired($access_token => 1);
+
+
 
 $t->app->routes->get(
   '/user/refresh' => sub {
@@ -257,6 +329,9 @@ $t->get_ok('/')
   ;
 
 
+done_testing;
+__END__
+
 # Test before_korap_request_hook
 my $app = $t->app;
 my $c = $app->build_controller;
@@ -270,7 +345,7 @@ $app->plugins->emit_hook(
 ok(!$tx->req->headers->authorization, 'No authorization');
 
 # Set token
-$c->auth->token('abcd');
+$c->auth->token('abcd', 100);
 
 # Emit Hook to alter request
 $app->plugins->emit_hook(

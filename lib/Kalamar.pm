@@ -177,7 +177,9 @@ sub startup {
     $self->plugin('MailException' => $self->config('MailException'));
   };
 
-  # Load further plugins
+  # Load further plugins,
+  # that can override core functions,
+  # therefore order may be of importance
   if (exists $conf->{'plugins'}) {
     foreach (@{$conf->{'plugins'}}) {
       $self->plugin('Kalamar::Plugin::' . $_);
