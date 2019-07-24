@@ -4,7 +4,7 @@
  * @author Helge Stallkamp
  */
 
-define(['lib/intro', 'vc'], function(introClass, vcClass) {
+define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClass, docClass, docGroup) {
 
   //needed for localization of labels and contents of the tour
   const loc   = KorAP.Locale;
@@ -18,11 +18,12 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
   //localization guided tour gTstartSearch
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
   loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
-  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper: By clicking here, the annotations of the differents layers are displayed and can be selected.";
+  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper: By clicking, the annotations of the differents layers are displayed and can be selected.";
   loc.TOUR_annotAss =  loc.TOUR_annotAss || "The annoation assistant helps to formulate queries with annotations";
-  loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus by clicking here.";  
+  loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
-  loc.TOUR_vcStat = loc.TOUR_vcStat || "Display corpus statistic.";
+  loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
+  loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
   loc.TOUR_qlfield = loc.TOUR_qlfield|| "You can use KorAP with different query languages, select the query language here.";  
   loc.TOUR_help = loc.TOUR_help || "Help and more information about KorAP.";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select to show only the first hits in arbitrary order.";
@@ -45,7 +46,6 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
      * Guided Tour gTstartSearch: Explains the search functionality
      */
     gTstartSearch:function(elparam){
-
       let intro = introClass();
       intro.setOptions(labelOptions);
       intro.setOption('doneLabel', loc.TOUR_seargo);
@@ -89,8 +89,13 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
         }, 
         {
           element: doe.querySelector('.statistic'),
-          intro: loc.TOUR_vcStat,
+          intro: loc.TOUR_vcStat1,
           position: "left",
+        },
+        {
+          element: doe.querySelector('.stattable'),
+          intro: loc.TOUR_vcStat2,
+          position: "bottom",
         },
         {
           element: doe.querySelector('#ql-field').parentNode,
@@ -147,15 +152,15 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
           vchoo = doe.querySelector("#vc-choose");
           vcv = doe.querySelector("#vc-view");  
           KorAP._delete.apply(KorAP.vc.root());
-          KorAP.vc.root().key("creationDate").update();
-          KorAP.vc.root().value("1820").update();  
+    
+          KorAP.vc.fromJson(loc.TOUR_vcQuery);
           if(!(vcv.querySelector(".active"))){
             vchoo.click();
             /*
              * Intro.js caches elements at the beginning, so element and position has to be set again.
              */
-            intro._introItems[5].element = doe.querySelector(".statistic");
-            intro._introItems[5].position = "bottom";
+            intro._introItems[5].element = doe.querySelector('.statistic');
+            intro._introItems[5].position = "left";
           }   
           break;   
           
@@ -170,14 +175,20 @@ define(['lib/intro', 'vc'], function(introClass, vcClass) {
             intro.setOption('hideNext', true);
           break;
         } 
+        
+        if(this._currentStep == 6){
+          let statbut = doe.querySelector('.statistic');
+          statbut.click();
+          intro._introItems[6].element = doe.querySelector(".stattable");
+          intro._introItems[6].position = "bottom";
+        }
       });
 
 
       // Execute at the end of the tour (By clicking at the done-Button)
       intro.oncomplete(function(){
         KorAP.session.set("tour", true);
-        let form = doe.getElementById("searchform");
-        form.submit();
+        doe.getElementById("qsubmit").click();
         //input.value="";
         //KorAP._delete.apply(KorAP.vc.root()); 
       });

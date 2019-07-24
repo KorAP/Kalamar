@@ -4,7 +4,18 @@
  * @author Helge Stallkamp
  */
 
-define(function () {
+define(['vc', 'vc/doc'], function (vcClass, docClass) {
   const loc = KorAP.Locale;
-  loc.TOUR_Qexample = loc.TOUR_Qexample || "laufen";
+  
+  //Query example for guided tour
+  loc.TOUR_Qexample = "laufen";
+
+  /* To define vc for guided tour */
+  loc.TOUR_vcQuery = {
+      '@type' : 'koral:doc',
+      'key' : 'docSigle', 
+      'match': 'match:eq',
+      'value' : 'GOE/AGI',   
+    };
+  
 });
