@@ -4,7 +4,16 @@
  * @author Helge Stallkamp
  */
 
-define(function () {
+define(['vc', 'vc/doc'], function (vcClass, docClass) {
   const loc = KorAP.Locale;
-  loc.TOUR_Qexample = loc.TOUR_Qexample || "laufen";
+  
+  //Query example for guided tour
+  loc.TOUR_Qexample = "laufen";
+  
+  //Doc to define virtual corpus in  the guided tour
+  let doc = docClass.create();
+  // Set values
+  doc.key("docSigle");
+  doc.value("GOE/AGI");
+  loc.TOUR_vcQuery = doc;
 });

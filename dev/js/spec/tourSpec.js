@@ -65,13 +65,35 @@ define(['tour/tours', 'vc', 'session'], function(tourClass, vcClass, sessionClas
           "</div>"; 
   
   
+  var preDefinedStat={
+      "documents":12,
+      "tokens":2323,
+      "sentences":343434,
+      "paragraphs":45454545
+      };
+
+  
+  KorAP.API.getCorpStat = function(collQu, cb){
+    return cb(preDefinedStat);
+  }; 
+  
 
   let template = document.createElement('template');
-  html = introKorAP.trim(); // Do not return a text node of whitespace as the result
+  let html = introKorAP.trim(); // Do not return a text node of whitespace as the result
   template.innerHTML = html;
-  intrkorap = template.content;
+  let intrkorap = template.content;
   
+  let vc= vcClass.create().fromJson({
+    '@type' : 'koral:doc',
+    'key' : 'title', 
+    'match': 'match:eq',
+    'value' : 'TestTour!',
+    'type'  : 'type:string'      
+  });
+  
+  KorAP.vc = vc;
   //TODO Add hint and vc-choose, they are not part of the generated file
+  
   describe('KorAP.GuidedTour', function(){
     it('IDs and classes, that are needed for the guided tour should be in existence', function(){
       expect(intrkorap.querySelector('#searchbar')).not.toBeNull();
@@ -83,21 +105,20 @@ define(['tour/tours', 'vc', 'session'], function(tourClass, vcClass, sessionClas
       expect(intrkorap.querySelector('#glimpse')).not.toBeNull();
       expect(intrkorap.querySelector('#view-tutorial')).not.toBeNull();
       expect(intrkorap.querySelector('#qsubmit')).not.toBeNull();
-      let vc= vcClass.create().fromJson({
-        '@type' : 'koral:doc',
-        'key' : 'title', 
-        'match': 'match:eq',
-        'value' : 'TestTour!',
-        'type'  : 'type:string'      
-      });
-      var show = document.createElement('div');
+      let show = document.createElement('div');
       show.appendChild(vc.element());
-      expect(show.querySelector('.statistic')).not.toBeNull();
+      let statbut = show.querySelector('.statistic');
+      expect(statbut).not.toBeNull();
+      statbut.click();
+      expect(show.querySelector('.stattable')).not.toBeNull();
     });
     
    
   
    it('Guided Tour should be started and display steps and labels in the right order', function(){
+   
+     let vcpanel = intrkorap.getElementById("vc-view");
+     vcpanel.appendChild(vc.element());
      let searchTour = tourClass.gTstartSearch(intrkorap);
      searchTour.start();
      let totalSteps = searchTour.stepCount;
@@ -110,6 +131,7 @@ define(['tour/tours', 'vc', 'session'], function(tourClass, vcClass, sessionClas
      for(let i = 2; i <= totalSteps; i++){
        searchTour.goToStepNumber(i);
        expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(searchTour.testIntros[i-1]);
+       
        if(i == totalSteps){
          expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_seargo);
          expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
