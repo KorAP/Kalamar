@@ -6,5 +6,11 @@
 
 define(function () {
   const loc = KorAP.Locale;
-  loc.TOUR_Qexample = loc.TOUR_Qexample || "laufen";
+  
+  //Query example for guided tour
+  loc.TOUR_Qexample = "laufen";
+  
+  //Key and value for definition of virtual corpus as an example for guided tour
+  loc.TOUR_vcKey = "docSigle";  
+  loc.TOUR_vcValue = "GOE/AGI"; 
 });
