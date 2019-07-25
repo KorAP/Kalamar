@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb255984_3edca8f5",
+        "filename": "dev/js/src/loc/dereko.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-07-25T05:14:28Z",
+      "side": 1,
+      "message": "I would suggest to not define a key + value here, but a VC query object - so that a good VC does not have to be defined by a simple key-value pair.",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "92b33e68429eb01efd521e8301bebc5e5b7d03be",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
