@@ -178,19 +178,22 @@ define([
      * corpus document
      */
     fromJson : function(json) {
+
+      let obj;
+      
       if (json !== undefined) {
         // Parse root document
         if (json['@type'] == 'koral:doc') {
-          this._root = docClass.create(this, json);
+          obj = docClass.create(this, json);
         }
         // parse root group
         else if (json['@type'] == 'koral:docGroup') {
-          this._root = docGroupClass.create(this, json);
+          obj = docGroupClass.create(this, json);
         }
 
         // parse root reference
         else if (json['@type'] == 'koral:docGroupRef') {
-          this._root = docGroupRefClass.create(this, json);
+          obj = docGroupRefClass.create(this, json);
         }
         
         // Unknown collection type
@@ -202,12 +205,12 @@ define([
 
       else {
         // Add unspecified object
-        this._root = unspecDocClass.create(this);
+        obj = unspecDocClass.create(this);
       };
 
       // Init element and update
-      this.update();
-
+      this.root(obj);   
+ 
       return this;
     },
 

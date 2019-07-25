@@ -1869,6 +1869,42 @@ define([
       vc.addRequired(doc5);
       expect(vc.toQuery()).toEqual('referTo "@max/myCorpus" & author = "Goethe"');
     });
+
+    it('should be replaceble via JSON', function () {
+      let vc = KorAP.vc = vcClass.create().fromJson({
+        "@type" : 'koral:docGroup',
+        'operation' : 'operation:or',
+        'operands' : [
+          {
+            '@type' : 'koral:doc',
+            'key' : 'title',
+            'value' : 'Hello World!'
+          },
+          {
+            '@type' : 'koral:doc',
+            'key' : 'foo',
+            'value' : 'bar'
+          }
+        ]
+      });
+
+      expect(vc.toQuery()).toEqual('title = "Hello World!" | foo = "bar"')
+
+      let e = vc.element();
+      expect(e.firstChild.firstChild.firstChild.children[0].textContent).toEqual("title");
+      expect(e.firstChild.firstChild.firstChild.children[2].textContent).toEqual("Hello World!");
+
+      vc.fromJson({
+        '@type' : 'koral:doc',
+        'key' : 'foo',
+        'value' : 'bar'
+      });
+
+      expect(vc.toQuery()).toEqual('foo = "bar"');
+      e = vc.element();
+      expect(e.firstChild.firstChild.children[0].textContent).toEqual("foo");
+      expect(e.firstChild.firstChild.children[2].textContent).toEqual("bar");
+    })
   });
 
 

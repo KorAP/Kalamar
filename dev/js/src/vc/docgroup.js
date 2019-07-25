@@ -210,8 +210,10 @@ define([
 
       group.appendChild(op.element());
 
-      var vcchevent = new CustomEvent('vcChange', {'detail':this});
-      KorAP.vc.element().dispatchEvent(vcchevent);
+      if (KorAP.vc) {
+        var vcchevent = new CustomEvent('vcChange', {'detail':this});
+        KorAP.vc.element().dispatchEvent(vcchevent);
+      };
       
       return this;
     },
