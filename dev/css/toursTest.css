@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/*
+* css file for testing the Guided Tour
+*
+* This file is needed, because the buttongroup menu is added 
+* with "document.getElementsByTagName('body')[0].appendChild(e);" -> (see src/buttongroup/menu.js). 
+* Therefore the menu is part of runner/tour.html and has to be hidden.
+*
+* @author Helge Stallkamp
+*/
+
+.button-group-list{
+ display:none;
+}
+
