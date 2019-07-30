@@ -260,17 +260,17 @@ define(['match',
 
   var afterAllFunc = function () {
     KorAP.API.getMatchInfo = undefined;
-    // KorAP.annotationHelper = undefined;
     var body = document.body;
-    for (var i in body.children) {
+    var i = body.children.length - 1;
+    while (i >= 0) {
       if (body.children[i].nodeType && body.children[i].nodeType === 1) {
         if (!body.children[i].classList.contains("jasmine_html-reporter")) {
           body.removeChild(body.children[i]);
         };
       };
+      i--;
     };
   };
-
   
   describe('KorAP.InfoLayer', function () {
     beforeAll(beforeAllFunc);
