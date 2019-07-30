@@ -4,7 +4,8 @@
  * @author Helge Stallkamp
  */
 
-define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClass, docClass, docGroup) {
+
+define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(introClass, vcClass, hintClass, menuClass, docClass, docGroup) {
 
   //needed for localization of labels and contents of the tour
   const loc   = KorAP.Locale;
@@ -28,8 +29,18 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
   loc.TOUR_help = loc.TOUR_help || "Help and more information about KorAP.";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select to show only the first hits in arbitrary order.";
   loc.TOUR_seargo = loc.TOUR_seargo || "Start the search.";
+
   //localization guided Tour gTshowResults
-  loc.TOUR_result = loc.TOUR_result || "Have fun with KorAP!";
+  loc.TOUR_kwic = loc.TOUR_kwic || "KWIC result (keyword in context)";
+  loc.TOUR_snippet = loc.TOUR_snippet ||  "Click on a match to show a larger snippet.";
+  loc.TOUR_snippetb = loc.TOUR_snippetb || "Display of larger snippet";
+  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Click here to display the metadata.";
+  loc.TOUR_metadata = loc.TOUR_metadata || "Metadata";
+  loc.TOUR_tokenb = loc.TOUR_tokenb || "Click here to display the token annotations.";
+  loc.TOUR_token = loc.TOUR_token || "KorAP supports multiple annotations.";
+  loc.TOUR_treeb = loc.TOUR_treeb || "Display further annotations."
+  loc.TOUR_tree = loc.TOUR_tree || "Further annotations can be displayed as tree and arch views."
+  loc.TOUR_tourdone = loc.TOUR_tourdone || "Have fun with KorAP!";
   
   //localization of button labels
   let labelOptions = {
@@ -39,6 +50,8 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
       'doneLabel': loc.TOUR_ldone,
       'showStepNumbers': false,
   };
+  
+  var doe = document;
 
   return{
 
@@ -51,7 +64,6 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
       intro.setOption('doneLabel', loc.TOUR_seargo);
      
       //for testing purposes
-      var doe = document;
       if(elparam){
         doe = elparam;
       }
@@ -120,19 +132,9 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
         ];
 
       //pass in the Steps array created earlier
-      intro.setOptions({steps: Steps});
-
-      //total number of steps, needed for jasmine tests
-      //TODO see also: introJS.totalSteps() merge requested: //github.com/usablica/intro.js/pull/268/files
-      intro.stepCount = Steps.length;
-
-      //array of intro content needed for efficient testing
-      intro.testIntros = [];
-
-      for(let i = 0; i< Steps.length; i++){
-        intro.testIntros.push(Steps[i].intro);
-      }
-
+      intro.setOptions({steps: Steps});      
+      this.testPrerequ(Steps, intro);
+      
       //changes before executing the single steps
       intro.onbeforechange(function(targetedElement){
         switch(targetedElement.id){
@@ -170,7 +172,6 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
         * completion the gTshowResults Tour. Therefore, the skip-button is removed
         * and the label of the done button changed.
          */
-         
         case "qsubmit":
             intro.setOption('hideNext', true);
           break;
@@ -189,8 +190,6 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
       intro.oncomplete(function(){
         KorAP.session.set("tour", true);
         doe.getElementById("qsubmit").click();
-        //input.value="";
-        //KorAP._delete.apply(KorAP.vc.root()); 
       });
 
       return intro;
@@ -198,25 +197,136 @@ define(['lib/intro', 'vc', 'vc/doc', 'vc/docgroup'], function(introClass, vcClas
 
 
     /* Guided Tour to explain the different views of the results */     
-    gTshowResults: function(elparam){  
+    gTshowResults: function(elparam){ 
+      //for testing purposes
       if(elparam){
         doe = elparam;
       }
       let tourR = introClass();
       let StepsSR = [
+        //Step 1, intro_item 0
+        {
+          element: '#search',
+          intro: loc.TOUR_kwic ,
+          position: "auto",
+        },
+        //Step 2, intro_item 1 
+        {
+          element: doe.querySelector("#search > ol > li"),
+          intro: loc.TOUR_snippet,
+          position: "bottom",
+        },
+        //Step 3, intro_item 2 
+        {
+          element: doe.querySelector("#search > ol > li"),
+          intro: loc.TOUR_snippetb,
+          position: "bottom",
+        },
+        //Step 4, intro_item 3
+        {
+          element: doe.querySelector(".action > .metatable"),
+          intro: loc.TOUR_metadatab,
+          position: "bottom",
+        },
+        //Step 5, intro_item 4
+        {
+          element: doe.querySelector(".view.metatable"),
+          intro: loc.TOUR_metadata,
+          position: "auto",
+        },
+        //Step 6, intro_item 5
+        {   
+          element: doe.querySelector(".action > .info"),
+          intro: loc.TOUR_tokenb,
+          position: "bottom",
+        },
+        //Step 7, intro_item 6
+        {   
+          element: doe.querySelector(".view.tokentable"),
+          intro: loc.TOUR_token,
+          position: "auto",
+        },
+        //Step 8, intro_item 7
         {     
-          intro: loc.TOUR_result,
-        }
+          element: doe.querySelector(".tree"),
+          intro: loc.TOUR_treeb,
+          position: "bottom",
+        }, 
+        //Step 9, intro_item 8
+        {     
+          element: doe.querySelector("view.relations"),
+          intro: loc.TOUR_tree,
+          position: "auto",
+        }, 
+        //Step 10, intro_item 9
+        {     
+          intro: loc.TOUR_tourdone, 
+        }    
         ]
-      tourR.setOptions({steps:StepsSR});
-      tourR.setOptions(labelOptions);
       
-      tourR.onbeforechange(function (){ 
+        tourR.setOptions({steps:StepsSR});
+        tourR.setOptions(labelOptions);
+      
+        tourR.onbeforechange(function (){ 
         KorAP.session.set("tour", false);
-      });
+        });
       
+        //See also: https://introjs.com/docs/intro/options/
+        tourR.setOption('scrollToElement', true);
+        tourR.setOption('scrollTo','tooltip');
+        this.testPrerequ(StepsSR, tourR);
+      
+        //TODO see also: introJS.totalSteps() merge requested: //github.com/usablica/intro.js/pull/268/files
+        tourR.onbeforechange(function(targetedElement){
+          
+        if(this._currentStep == 1){
+          KorAP.session.set("tour", false);
+        }
+        
+        if(this._currentStep == 2){
+          doe.querySelector("#search > ol > li").click();
+          tourR._introItems[3].element = doe.querySelector('.action > .metatable');
+          tourR._introItems[3].position = "bottom";
+        }
+  
+        if(this._currentStep == 4){
+          doe.querySelector(".metatable").click();
+          tourR._introItems[4].element = doe.querySelector('.view.metatable');
+          tourR._introItems[5].element = doe.querySelector('.action > .info');
+          tourR._introItems[5].position = "bottom";          
+        }   
+     
+        if(this._currentStep == 6){
+            doe.querySelector(".info").click();
+            tourR._introItems[6].element = doe.querySelector('.view.tokentable');
+            tourR._introItems[7].element = doe.querySelector('.tree');
+            tourR._introItems[7].position = "bottom";
+          }
+      
+        if(this._currentStep == 8){
+          doe.querySelector(".tree").click();
+          document.querySelectorAll(".button-group-list")[0].querySelectorAll('li')[1].click();
+        }
+      });       
+
       return tourR;
     },  
+    /* 
+     * The total number of steps and the text of the tooltips are needed for jasmine testing.
+     */
+    testPrerequ: function(steps, tour){
+      //TODO see also: introJS.totalSteps() merge requested: //github.com/usablica/intro.js/pull/268/files
+      let StepsT = steps;
+      let gtour = tour;      
+      gtour.stepCount = StepsT.length;
+
+      //Array of intro content needed for efficient testing
+      gtour.testIntros = [];
+
+      for(let i = 0; i< StepsT.length; i++){
+      gtour.testIntros.push(StepsT[i].intro);
+      }
+    },
 
   }
 });

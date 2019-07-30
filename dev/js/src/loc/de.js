@@ -58,6 +58,16 @@ define(function () {
   loc.TOUR_seargo = "Suchanfrage starten";
   
   //Guided Tour: explain the result
-  loc.TOUR_result = "Viel Spaß mit KorAP!";
+  loc.TOUR_kwic = "Anzeige des Ergebnisses als KWIC (keyword in context).";
+  loc.TOUR_snippet = "Durch Klicken auf das KWIC kann ein größerer Kontext angezeigt werden.";  
+  loc.TOUR_snippetb = "Anzeige des Snippets";
+  loc.TOUR_metadatab = "Durch die Auswahl des Buttons werden die Metadaten angezeigt.";
+  loc.TOUR_metadata = "Anzeige der Metadaten";
+  loc.TOUR_tokenb = loc.TOUR_tokenb || "Anzeige der Token-Annotationen";
+  loc.TOUR_token = loc.TOUR_token || "KorAP unterstützt multiple Annotationen.";
+  loc.TOUR_treeb = loc.TOUR_tree || "Anzeige weiterer Ansichten"
+  loc.TOUR_tree = loc.TOUR_tree || "Weitere Ansichten können als Baum- oder Bogenansichten angezeigt werden.";
+  loc.TOUR_tourdone = "Viel Spaß mit KorAP!";
+  
   
 });
