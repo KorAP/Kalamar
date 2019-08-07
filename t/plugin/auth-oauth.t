@@ -220,6 +220,7 @@ $t->get_ok('/')
   ->text_is('div.notify-success', 'Logout successful')
   ;
 
+
 $t->get_ok('/?q=Baum')
   ->status_is(200)
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
