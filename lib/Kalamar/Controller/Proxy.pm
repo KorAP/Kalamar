@@ -49,6 +49,8 @@ sub pass {
       # another proxy, e.g. Apache, manages multiple
       # connections
       $headers->connection('close');
+
+      $c->app->plugins->emit_hook(after_render => $c);
     }
   );
 };
