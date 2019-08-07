@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63e91ff2_22e0e724",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-08-07T14:56:54Z",
+      "side": 1,
+      "message": "Metadaten",
+      "range": {
+        "startLine": 65,
+        "startChar": 44,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "e21bfdd832dc5c594ad321b1297bab994173cd98",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5f0f159_8c7352e1",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-08-07T14:56:54Z",
+      "side": 1,
+      "message": "I would suggest to rename this to \"Click on a match\" or something, so people don\u0027t think they have to click in the left textSigle column.",
+      "range": {
+        "startLine": 38,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "e21bfdd832dc5c594ad321b1297bab994173cd98",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0bac08f_3b847e55",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-08-07T14:56:54Z",
+      "side": 1,
+      "message": "What should that mean?",
+      "range": {
+        "startLine": 41,
+        "startChar": 36,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "e21bfdd832dc5c594ad321b1297bab994173cd98",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "088a3f82_e33677ae",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-08-07T14:56:54Z",
+      "side": 1,
+      "message": "I think there should be a step to show the snippet.",
+      "range": {
+        "startLine": 218,
+        "startChar": 10,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "e21bfdd832dc5c594ad321b1297bab994173cd98",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    }
+  ]
+}
