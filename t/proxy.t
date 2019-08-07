@@ -33,21 +33,43 @@ $fake_backend->pattern->defaults->{app}->log($t->app->log);
 # Globally set server
 $t->app->ua->server->app($t->app);
 
+my $rendered = 0;
+$t->app->hook(
+  after_render => sub {
+    $rendered++;
+  }
+);
+
+$t->get_ok('/doc')
+  ->status_is(200)
+  ->text_like('title', qr!KorAP!)
+  ;
+
+is($rendered, 1);
+
 $t->get_ok('/realapi/v1.0')
   ->status_is(200)
   ->content_is('Fake server available')
   ;
+
+is($rendered, 1);
 
 $t->get_ok('/api/v1.0/')
   ->status_is(200)
   ->content_is('Fake server available')
   ;
 
+# Proxy renders
+is($rendered, 2);
+
 $t->get_ok('/api/v1.0/search?ql=cosmas3')
   ->status_is(400)
   ->json_is('/errors/0/0','307')
   ->header_is('connection', 'close')
   ;
+
+# Proxy renders
+is($rendered, 3);
 
 $t->post_ok('/api/v1.0/oauth2/token' => {} => form => {
   username => 'test',

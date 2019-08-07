@@ -1,9 +1,12 @@
-0.36 2019-07-25
+0.36 2019-08-07
         - Rename all cookies to be independent
           for different instance (#94).
         - Enable https only via
           configuration option 'https_only'.
         - Make VC replaceable via KorAP.vc.fromJson().
+        - Emit 'after_render' in proxy responses
+          to make it accessible to post processing
+          (such as the Piwik plugin).
 
         WARNING: This requires relogin for all users!
 
