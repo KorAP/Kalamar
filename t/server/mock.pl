@@ -452,6 +452,26 @@ post '/v1.0/oauth2/token' => sub {
   }
 };
 
+# Revoke API token
+post '/v1.0/oauth2/revoke' => sub {
+  my $c = shift;
+
+  my $refresh_token = $c->param('token');
+
+  if ($c->param('client_secret') ne 'k414m4r-s3cr3t') {
+    return $c->render(
+      json => {
+        "error_description" => "Invalid client credentials",
+        "error" => "invalid_client"
+      },
+      status => 401
+    );
+  };
+
+  return $c->render(
+    text => ''
+  )
+};
 
 
 app->start;

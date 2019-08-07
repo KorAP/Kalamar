@@ -208,7 +208,7 @@ sub register {
         # Get OAuth access token
         state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/token');
 
-        $c->app->log->debug("Refresh at " . $r_url);
+        $c->app->log->debug("Refresh at $r_url");
 
         return $c->kalamar_ua->post_p($r_url, {} => form => {
           grant_type => 'refresh_token',
@@ -510,13 +510,73 @@ sub register {
 
 
     # Log out of the session
-    # $r->get('/user/logout')->to(
-    #  cb => sub {
-    #
-    #    # TODO!
-    #    return shift->redirect_to('index');
-    #  }
-    #)->name('logout');
+    $r->get('/user/logout')->to(
+      cb => sub {
+        my $c = shift;
+
+        # TODO: csrf-protection!
+
+        my $refresh_token = $c->session('auth_r');
+
+        # Revoke the token
+        state $url = Mojo::URL->new($c->korap->api)->path('oauth2/revoke');
+
+        $c->kalamar_ua->post_p($url => {} => form => {
+          client_id => $client_id,
+          client_secret => $client_secret,
+          token => $refresh_token,
+          token_type => 'refresh_token'
+        })->then(
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+
+            my $promise;
+
+            # Response is fine
+            if ($tx->res->is_success) {
+              $c->app->log->info("Revocation was successful");
+              $c->notify(success => $c->loc('Auth_logoutSuccess'));
+
+              $c->stash(auth => undef);
+              $c->stash(auth_exp => undef);
+              $c->flash(handle_or_email => delete $c->session->{user});
+              delete $c->session->{auth};
+              delete $c->session->{auth_r};
+              delete $c->session->{auth_exp};
+              return Mojo::Promise->resolve;
+            }
+
+            # Token may be invalid
+            $c->notify('error', $c->loc('Auth_logoutFail'));
+
+            # There is a client error - refresh fails
+            if ($tx->res->is_client_error && $json) {
+
+              return Mojo::Promise->reject(
+                $json->{error_description}
+              );
+            };
+
+            # Resource may not be found (404)
+            return Mojo::Promise->reject
+
+          }
+        )->catch(
+          sub {
+            my $err = shift;
+
+            # Server may be irresponsible
+            $c->notify('error', $c->loc('Auth_logoutFail'));
+            return Mojo::Promise->reject($err);
+          }
+        )->finally(
+          sub {
+            return $c->redirect_to('index');
+          }
+        )->wait;
+      }
+    )->name('logout');
   }
 
   # Use JWT login
@@ -668,64 +728,62 @@ sub register {
         return 1;
       }
     )->name('login');
+
+
+    # Log out of the session
+    $r->get('/user/logout')->to(
+      cb => sub {
+        my $c = shift;
+
+        # TODO: csrf-protection!
+
+        # Log out of the system
+        my $url = Mojo::URL->new($c->korap->api)->path('auth/logout');
+
+
+        $c->korap_request(
+          'get', $url
+        )->then(
+          # Logged out
+          sub {
+            my $tx = shift;
+            # Clear cache
+            # ?? Necesseary
+            # $c->chi('user')->remove($c->auth->token);
+
+            # TODO:
+            #   Revoke refresh token!
+            #   based on auth token!
+            # my $refresh_token = $c->chi('user')->get('refr_' . $c->auth->token);
+            # $c->auth->revoke_token($refresh_token)
+
+            # Expire session
+            $c->session(user => undef);
+            $c->session(auth => undef);
+            $c->notify(success => $c->loc('Auth_logoutSuccess'));
+          }
+
+        )->catch(
+          # Something went wrong
+          sub {
+            # my $err_msg = shift;
+            $c->notify('error', $c->loc('Auth_logoutFail'));
+          }
+
+        )->finally(
+          # Redirect
+          sub {
+            return $c->redirect_to('index');
+          }
+        )
+
+        # Start IOLoop
+        ->wait;
+
+        return 1;
+      }
+    )->name('logout');
   };
-
-
-  # Log out of the session
-  $r->get('/user/logout')->to(
-    cb => sub {
-      my $c = shift;
-
-      # TODO: csrf-protection!
-
-      # TODO:
-      #   Revoke refresh token!
-
-      # Log out of the system
-      my $url = Mojo::URL->new($c->korap->api)->path('auth/logout');
-
-      $c->korap_request(
-        'get', $url
-      )->then(
-        # Logged out
-        sub {
-          my $tx = shift;
-          # Clear cache
-          # ?? Necesseary
-          # $c->chi('user')->remove($c->auth->token);
-
-          # TODO:
-          #   Revoke refresh token!
-          #   based on auth token!
-          # my $refresh_token = $c->chi('user')->get('refr_' . $c->auth->token);
-          # $c->auth->revoke_token($refresh_token)
-
-          # Expire session
-          $c->session(user => undef);
-          $c->session(auth => undef);
-          $c->notify(success => $c->loc('Auth_logoutSuccess'));
-        }
-
-      )->catch(
-        # Something went wrong
-        sub {
-          # my $err_msg = shift;
-          $c->notify('error', $c->loc('Auth_logoutFail'));
-        }
-
-      )->finally(
-        # Redirect
-        sub {
-          return $c->redirect_to('index');
-        }
-      )
-
-      # Start IOLoop
-      ->wait;
-
-      return 1;
-    }
-  )->name('logout');
 };
 
 

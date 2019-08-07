@@ -1,10 +1,11 @@
-0.36 2019-08-06
+0.36 2019-08-07
         - Rename all cookies to be independent
           for different instance (#94).
         - Enable https only via
           configuration option 'https_only'.
         - Make VC replaceable via KorAP.vc.fromJson().
         - Added auto-refresh of OAuth tokens.
+        - Added token revocation on logout.
 
         WARNING: This requires relogin for all users!
 
