@@ -38,14 +38,16 @@ sub query {
   # $v->optional('action'); # action 'inspect' is no longer valid
   # $v->optional('snippet');
 
-  my $cutoff = 0;
+  my $cutoff;
   if ($v->param('cutoff') && $v->param('cutoff') =~ /^1|true$/i) {
-    $cutoff = 1;
+    $cutoff = 'true';
   };
 
   # Deal with legacy collection
-  if ($v->param('collection')) {
+  my $cq = $v->param('cq');
+  if ($v->param('collection') && !defined $cq) {
     $c->param(cq => $v->param('collection'));
+    $cq = $v->param('collection');
   };
 
   # No query (Check ignoring validation)
@@ -75,9 +77,9 @@ sub query {
 
 
   $query{count}   = $v->param('count') // $c->items_per_page;
-  $query{cq}      = $v->param('cq');
 
-  $query{cutoff}  = $v->param('cutoff');
+  $query{cq}      = $cq;
+  $query{cutoff}  = $cutoff;
   # Before: 'base/s:p'/'paragraph'
   $query{context} = $v->param('context') // '40-t,40-t';
 
@@ -163,6 +165,7 @@ sub query {
 
         # There are results to remember
         if (!$cutoff &&
+              !$c->stash('no_cache') &&
               $json->{meta}->{totalResults} >= 0) {
 
           # Remove cutoff requirement again
