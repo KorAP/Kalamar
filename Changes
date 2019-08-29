@@ -1,9 +1,10 @@
-0.36 2019-07-25
+0.36 2019-08-29
         - Rename all cookies to be independent
           for different instance (#94).
         - Enable https only via
           configuration option 'https_only'.
         - Make VC replaceable via KorAP.vc.fromJson().
+        - Fix pagination by not repeating page value in URL.
 
         WARNING: This requires relogin for all users!
 
