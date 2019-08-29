@@ -161,6 +161,12 @@ $t->get_ok('/?q=der&p=1&count=2')
   ->content_unlike(qr!\"cutOff":true!)
   ;
 
+# Check pagination repetion of page
+my $next_href = $t->get_ok('/?q=der&p=1&count=2')
+  ->tx->res->dom->at('#pagination a[rel=next]')->attr('href');
+like($next_href, qr/p=2/);
+unlike($next_href, qr/p=1/);
+
 # Query with page information - next page
 $t->get_ok('/?q=der&p=2&count=2')
   ->status_is(200)
@@ -242,6 +248,7 @@ $t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
   ->content_like(qr!\"availability\"!)
   ->text_is('#error','')
   ;
+
 
 done_testing;
 __END__

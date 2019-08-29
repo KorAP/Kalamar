@@ -1,4 +1,4 @@
-0.36 2019-08-28
+0.36 2019-08-29
         - Rename all cookies to be independent
           for different instance (#94).
         - Enable https only via
@@ -8,6 +8,7 @@
           to make it accessible to post processing
           (such as the Piwik plugin).
         - Fix treatment of legacy "collection" parameter.
+        - Fix pagination by not repeating page value in URL.
 
         WARNING: This requires relogin for all users!
 
