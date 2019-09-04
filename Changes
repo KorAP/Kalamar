@@ -10,6 +10,7 @@
         - Fix treatment of legacy "collection" parameter.
         - Fix pagination by not repeating page value in URL.
         - Added auto-refresh of OAuth tokens.
+        - Added token revocation on logout.
 
         WARNING: This requires relogin for all users!
 

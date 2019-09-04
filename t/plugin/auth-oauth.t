@@ -200,6 +200,10 @@ $t->get_ok('/')
 # search with authorization
 $t->get_ok('/?q=Baum')
   ->status_is(200)
+  ->session_has('/auth')
+  ->session_is('/auth', 'Bearer ' . $access_token)
+  ->session_is('/auth_r', $refresh_token)
+  ->session_is('/user', 'test')
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
   ->text_like('#total-results', qr/\d+$/)
   ->element_exists_not('div.notify-error')
@@ -211,6 +215,9 @@ $t->get_ok('/?q=Baum')
 # Logout
 $t->get_ok('/user/logout')
   ->status_is(302)
+  ->session_hasnt('/auth')
+  ->session_hasnt('/auth_r')
+  ->session_hasnt('/user')
   ->header_is('Location' => '/');
 
 $t->get_ok('/')
@@ -218,6 +225,8 @@ $t->get_ok('/')
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Logout successful')
+  ->element_exists("input[name=handle_or_email]")
+  ->element_exists("input[name=handle_or_email][value=test]")
   ;
 
 $t->get_ok('/?q=Baum')
