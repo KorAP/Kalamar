@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "25496c0e_6de506fc",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-09-18T07:49:22Z",
+      "side": 1,
+      "message": "Could it be that your comment is slipped four lines down? I changed \"Click here to show a larger snippet\", because I think it is this line you mean are referencing to.",
+      "parentUuid": "e5f0f159_8c7352e1",
+      "range": {
+        "startLine": 38,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "e21bfdd832dc5c594ad321b1297bab994173cd98",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0bac08f_3b847e55",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 3
