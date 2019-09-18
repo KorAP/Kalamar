@@ -260,17 +260,18 @@ define(['match',
 
   var afterAllFunc = function () {
     KorAP.API.getMatchInfo = undefined;
-    // KorAP.annotationHelper = undefined;
+    KorAP.TreeMenu = undefined;
     var body = document.body;
-    for (var i in body.children) {
+    var i = body.children.length - 1;
+    while (i >= 0) {
       if (body.children[i].nodeType && body.children[i].nodeType === 1) {
         if (!body.children[i].classList.contains("jasmine_html-reporter")) {
           body.removeChild(body.children[i]);
         };
       };
+      i--;
     };
   };
-
   
   describe('KorAP.InfoLayer', function () {
     beforeAll(beforeAllFunc);
@@ -404,10 +405,10 @@ define(['match',
 
       expect(e.classList.contains('active')).toBe(false);
       expect(e["_match"]).not.toBe(undefined);
-
+      
       // Open the match
       m.open();
-
+      
       expect(e.classList.contains('active')).toBe(true);
       expect(e["_match"]).not.toBe(undefined);
 
@@ -430,21 +431,20 @@ define(['match',
       var relation = e.querySelector("p.ref > div.action.button-group > span:nth-of-type(3)");
       expect(relation.getAttribute("class")).toEqual("tree");
       expect(document.getElementsByClassName("button-group-list").length).toEqual(0);
-
       expect(document.activeElement.tagName).toEqual("BODY");
-
+ 
       // Show menu
       relation.click();
       expect(document.getElementsByClassName("button-group-list").length).toEqual(1);
-
       expect(document.activeElement.tagName).toEqual("UL");
-
+      
       // Choose first tree
       document.getElementsByClassName("button-group-list")[0].getElementsByTagName("li")[1].click();
       expect(e.querySelector("div.matchinfo div.matchtree h6 span").innerText).toEqual("corenlp");
 
       // This should blur the focus
       expect(document.activeElement.tagName).toEqual("BODY");
+      
     });
 
   });
