@@ -583,12 +583,13 @@ define([
      * Hide the menu and call the onHide callback.
      */
     hide : function () {
-      this.removeItems();
-      this._prefix.clear();
-      this.onHide();
-      this._element.classList.remove('visible');
-
-      /* this._element.blur(); */
+       if(!KorAP.Hint.dontHide && !KorAP.QLmenu.dontHide){
+          this.removeItems();
+          this._prefix.clear();
+          this.onHide();
+          this._element.classList.remove('visible');
+          } 
+       /* this._element.blur(); */
     },
 
     /**

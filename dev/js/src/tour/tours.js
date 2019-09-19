@@ -19,13 +19,14 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   //localization guided tour gTstartSearch
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
   loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
-  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper: By clicking, the annotations of the differents layers are displayed and can be selected.";
-  loc.TOUR_annotAss =  loc.TOUR_annotAss || "The annoation assistant helps to formulate queries with annotations";
+  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
+  loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
   loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
   loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
-  loc.TOUR_qlfield = loc.TOUR_qlfield|| "You can use KorAP with different query languages, select the query language here.";  
+  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language";  
+  loc.TOUR_qlfieldb = loc.TOUR_qlfieldb|| "You can use KorAP with different query languages."
   loc.TOUR_help = loc.TOUR_help || "Help and more information about KorAP.";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select to show only the first hits in arbitrary order.";
   loc.TOUR_seargo = loc.TOUR_seargo || "Start the search.";
@@ -90,6 +91,11 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
           position: 'bottom'
         },
         {
+          element: doe.querySelector("#hint > .menu.hint"),
+          intro: loc.TOUR_annotAss,
+          position: 'bottom',
+          }, 
+        {
           element:'#vc-choose',
           intro: loc.TOUR_vccho1,
           position: "bottom",
@@ -112,6 +118,11 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         {
           element: doe.querySelector('#ql-field').parentNode,
           intro: loc.TOUR_qlfield,
+          position: "bottom",
+        },  
+        {
+          element: doe.querySelector('#ql-field ~ .menu.roll'),
+          intro: loc.TOUR_qlfieldb,
           position: "bottom",
         },  
         {
@@ -161,8 +172,8 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
             /*
              * Intro.js caches elements at the beginning, so element and position has to be set again.
              */
-            intro._introItems[5].element = doe.querySelector('.statistic');
-            intro._introItems[5].position = "left";
+            intro._introItems[6].element = doe.querySelector('.statistic');
+            intro._introItems[6].position = "left";
           }   
           break;   
           
@@ -177,15 +188,58 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
           break;
         } 
         
-        if(this._currentStep == 6){
+        if(this._currentStep == 7){
           let statbut = doe.querySelector('.statistic');
           statbut.click();
-          intro._introItems[6].element = doe.querySelector(".stattable");
-          intro._introItems[6].position = "bottom";
+          intro._introItems[7].element = doe.querySelector(".stattable");
+          intro._introItems[7].position = "bottom";
         }
       });
 
-
+      intro.onbeforeexit(function(){
+        if(KorAP.Hint.dontHide == true){
+          KorAP.Hint.dontHide = false;
+          KorAP.Hint.unshow();
+          }
+        if(KorAP.QLmenu.dontHide == true){
+          KorAP.QLmenu.dontHide = false;
+          KorAP.QLmenu.hide();
+        } 
+        });
+      
+      intro.onchange(function(targetElement) {
+        var that = this; 
+        switch(this._currentStep){
+        case 2:   
+          //hides Hint if back button is pressed 
+          KorAP.Hint.dontHide = false;
+          KorAP.Hint.unshow(); 
+          break;
+        case 3:
+          KorAP.Hint.show(false);
+          KorAP.Hint.dontHide = true;
+          intro._introItems[3].element = doe.querySelector(".menu.roll.hint");
+          intro._introItems[3].position = doe.querySelector("bottom");
+          break;
+        case 4:    
+          KorAP.Hint.dontHide = false;
+          KorAP.Hint.unshow();
+          break;
+        case 8:
+          KorAP.QLmenu.dontHide = false;
+          KorAP.QLmenu.hide();
+          break;
+        case 9:
+          KorAP.QLmenu.showSelected();
+          KorAP.QLmenu.dontHide = true;
+          break;
+        case 10:
+          KorAP.QLmenu.dontHide = false;
+          KorAP.QLmenu.hide(); 
+          break;
+        }
+        });  
+      
       // Execute at the end of the tour (By clicking at the done-Button)
       intro.oncomplete(function(){
         KorAP.session.set("tour", true);

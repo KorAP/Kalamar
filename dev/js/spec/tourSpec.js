@@ -4,8 +4,9 @@
  * @author Helge Stallkamp
  */
 
-define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, sessionClass, matchClass){
+define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', 'selectMenu'], function(tourClass, vcClass, sessionClass, matchClass, hintClass, hintArray, selectMenuClass){
   const loc   = KorAP.Locale;
+  
   var introKorAP =
   	"<form autocomplete='off' action='/' id='searchform'>" + 
     "<div id='searchbar' class=''>" +
@@ -399,7 +400,7 @@ define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, se
   });
   
   KorAP.vc = vc;
-
+  
   describe('KorAP.GuidedTour', function(){
 
     afterAll(function () {
@@ -415,7 +416,10 @@ define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, se
         i--;
       };
     })
-        
+    
+    KorAP.Hint = hintClass.create({inputField: intrkorap.getElementById("q-field")});
+    KorAP.QLmenu = selectMenuClass.create(intrkorap.querySelector('#ql-field').parentNode).limit(5);
+    
     it('IDs and classes, that are needed for the guided tour should be in existence', function(){
       //gTstartSearch
       expect(intrkorap.querySelector('#searchbar')).not.toBeNull();
@@ -447,6 +451,7 @@ define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, se
     });
       
    it('Guided Tour should be started and display steps and labels in the right order', function(){
+
      let vcpanel = intrkorap.getElementById("vc-view");
      vcpanel.appendChild(vc.element());
      let searchTour = tourClass.gTstartSearch(intrkorap);
@@ -461,17 +466,42 @@ define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, se
      for(let i = 2; i <= totalSteps; i++){
        searchTour.goToStepNumber(i);
        expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(searchTour.testIntros[i-1]);
+
+       switch(i){
+       case 4:
+       expect(intrkorap.querySelector('#hint')).not.toBeNull(); 
+       expect(KorAP.Hint).not.toBeNull();
+       expect(KorAP.Hint.dontHide).toBe(true); 
+       expect(KorAP.Hint._active).not.toBeNull();
+       break;
        
-       if(i == totalSteps){
-         expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_seargo);
-         expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
-         expect(document.querySelector(".introjs-nextbutton").classList.contains("introjs-disabled")).toBe(true);
-       } 
+       case 5:
+       expect(KorAP.Hint.dontHide).toBe(false); 
+       expect(KorAP.Hint._active).toBeNull();
+       break;
+       
+       case 10:
+       expect(KorAP.QLmenu.dontHide).toBe(true);
+       expect(KorAP.QLmenu._element.classList).toContain('visible');
+       break;
+       
+       case 11:
+       expect(KorAP.QLmenu.dontHide).toBe(false);                   
+       expect(KorAP.QLmenu._element.classList).not.toContain('visible');
+       break;
+       
+       case totalSteps:
+       expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_seargo);
+       expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
+       expect(document.querySelector(".introjs-nextbutton").classList.contains("introjs-disabled")).toBe(true);
+       break;
+       }
        searchTour.exit();
      } 
      
      let resultTour = tourClass.gTshowResults(resultkor);
      KorAP.session = sessionClass.create('KalamarJSDem'); 
+     
      resultTour.start(resultkor);
      let totalStepsR = resultTour.stepCount;
      expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(loc.TOUR_kwic);
@@ -479,8 +509,7 @@ define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, se
      expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
      resultTour.exit();
-     
-    for(let i = 2; i <= totalStepsR; i++){
+     for(let i = 2; i <= totalStepsR; i++){
        resultTour.goToStepNumber(i);
        expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(resultTour.testIntros[i-1]);
        if(i == totalStepsR){
@@ -488,6 +517,27 @@ define(['tour/tours', 'vc', 'session', 'match'], function(tourClass, vcClass, se
        }   
        resultTour.exit();
      } 
+   });
+
+   it('Guided Tour should hide Hint and QL Menu if aborted',  function(){
+     let tourAbort = tourClass.gTstartSearch(intrkorap);
+     tourAbort.start(); 
+     let valhide = KorAP.Hint.dontHide == undefined || KorAP.Hint.dontHide == false;
+     expect(valhide).toBe(true);
+     expect(KorAP.Hint._active).toBeNull();
+     expect(document.querySelector(".introjs-skipbutton")).not.toBeNull();
+     tourAbort.goToStepNumber(4);
+     expect(KorAP.Hint.dontHide).toBe(true);
+     expect(KorAP.Hint._active).not.toBeNull()
+     tourAbort.exit();
+     expect(KorAP.Hint.dontHide).toBe(false);
+     expect(KorAP.Hint._active).toBeNull();
+     tourAbort.goToStepNumber(10);
+     expect(KorAP.QLmenu.dontHide).toBe(true); 
+     expect(KorAP.QLmenu._element.classList).toContain('visible');
+     tourAbort.exit();
+     expect(KorAP.QLmenu.dontHide).toBe(false);
+     expect(KorAP.QLmenu._element.classList).not.toContain('visible');
    });
   });
 });
