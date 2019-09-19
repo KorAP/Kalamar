@@ -19,13 +19,13 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   //localization guided tour gTstartSearch
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
   loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
-  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper: By clicking, the annotations of the differents layers are displayed and can be selected.";
-  loc.TOUR_annotAss =  loc.TOUR_annotAss || "The annoation assistant helps to formulate queries with annotations";
+  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
+  loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
   loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
   loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
-  loc.TOUR_qlfield = loc.TOUR_qlfield|| "You can use KorAP with different query languages, select the query language here.";  
+  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different languages.";  
   loc.TOUR_help = loc.TOUR_help || "Help and more information about KorAP.";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select to show only the first hits in arbitrary order.";
   loc.TOUR_seargo = loc.TOUR_seargo || "Start the search.";
@@ -75,12 +75,12 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
       //steps of the example tour
       let Steps =[
         {
-          element: '#searchbar',
+          element: '#q-field',
           intro: loc.TOUR_sear1,
           position: 'bottom'
         },
         {
-          element: '#searchbar',
+          element: '#q-field',
           intro: loc.TOUR_sear2,
           position: 'bottom'
         },
@@ -89,6 +89,11 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
           intro: loc.TOUR_searAnnot,
           position: 'bottom'
         },
+        {
+          element: doe.querySelector("#hint > .menu.hint"),
+          intro: loc.TOUR_annotAss,
+          position: 'bottom',
+          }, 
         {
           element:'#vc-choose',
           intro: loc.TOUR_vccho1,
@@ -138,18 +143,16 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
       //changes before executing the single steps
       intro.onbeforechange(function(targetedElement){
         switch(targetedElement.id){
-        case "searchbar": 
+        case "q-field": 
           /* 
            * TODO:
            * #268 is not merged at the time beeing: 
            * introJs.currentStep() merge requested https://github.com/usablica/intro.js/pull/268/files
            */
           if(this._currentStep == 1){ 
-            input = doe.querySelector('#q-field');
-            input.value= loc.TOUR_Qexample;
+            targetedElement.value = loc.TOUR_Qexample;
           }   
           break;
-
         case "vc-view":  
           vchoo = doe.querySelector("#vc-choose");
           vcv = doe.querySelector("#vc-view");  
@@ -161,8 +164,8 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
             /*
              * Intro.js caches elements at the beginning, so element and position has to be set again.
              */
-            intro._introItems[5].element = doe.querySelector('.statistic');
-            intro._introItems[5].position = "left";
+            intro._introItems[6].element = doe.querySelector('.statistic');
+            intro._introItems[6].position = "left";
           }   
           break;   
           
@@ -177,15 +180,41 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
           break;
         } 
         
-        if(this._currentStep == 6){
+        if(this._currentStep == 7){
           let statbut = doe.querySelector('.statistic');
           statbut.click();
-          intro._introItems[6].element = doe.querySelector(".stattable");
-          intro._introItems[6].position = "bottom";
+          intro._introItems[7].element = doe.querySelector(".stattable");
+          intro._introItems[7].position = "bottom";
         }
       });
 
-
+      intro.onbeforeexit(function(){
+          if(KorAP.Hint.active() && KorAP.Hint.active().dontHide){
+            KorAP.Hint.unshow();
+          }
+        });
+      
+      intro.onchange(function(targetElement) {
+        var that = this; 
+        switch(this._currentStep){
+        //hides Hint if back button is pressed 
+        case 2:   
+          if(KorAP.Hint.active()){
+          KorAP.Hint.unshow(); 
+          }
+          break;
+        case 3:
+          KorAP.Hint.show(false);
+          KorAP.Hint.active().dontHide = true;
+          intro._introItems[3].element = doe.querySelector(".menu.roll.hint");
+          intro._introItems[3].position = doe.querySelector("bottom");
+          break;
+        case 4: 
+          KorAP.Hint.unshow();      
+          break;
+        }
+        });  
+      
       // Execute at the end of the tour (By clicking at the done-Button)
       intro.oncomplete(function(){
         KorAP.session.set("tour", true);
@@ -254,9 +283,9 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         }, 
         //Step 9, intro_item 8
         {     
-          element: doe.querySelector("view.relations"),
+          element: doe.querySelector(".view.relations"),
           intro: loc.TOUR_tree,
-          position: "auto",
+          position: "bottom",
         }, 
         //Step 10, intro_item 9
         {     
@@ -266,11 +295,10 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
       
         tourR.setOptions({steps:StepsSR});
         tourR.setOptions(labelOptions);
-      
-        tourR.onbeforechange(function (){ 
-        KorAP.session.set("tour", false);
+     
+        tourR.onbeforeexit(function(){
+          KorAP.session.set("tour", false);
         });
-      
         //See also: https://introjs.com/docs/intro/options/
         tourR.setOption('scrollToElement', true);
         tourR.setOption('scrollTo','tooltip');
@@ -306,9 +334,10 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         if(this._currentStep == 8){
           doe.querySelector(".tree").click();
           document.querySelectorAll(".button-group-list")[0].querySelectorAll('li')[1].click();
+          tourR._introItems[8].element = doe.querySelector(".view.relations");
         }
       });       
-
+  
       return tourR;
     },  
     /* 
