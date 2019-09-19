@@ -1,4 +1,4 @@
-0.36 2019-08-29
+0.36 2019-09-19
         - Rename all cookies to be independent
           for different instance (#94).
         - Enable https only via
@@ -11,6 +11,7 @@
         - Fix pagination by not repeating page value in URL.
         - Added auto-refresh of OAuth tokens.
         - Added token revocation on logout.
+        - Improve visibility of keyword fields in metadata view.
 
         WARNING: This requires relogin for all users!
 

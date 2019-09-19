@@ -255,6 +255,10 @@ div.metatable > dl {
       padding:0;
       > div {
         padding: .2em;
+        &::before {
+          content: "\2022\00A0";
+          color: $dark-orange
+        }
       }
     }
 
