@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfd6c892_fdecdd79",
+        "filename": "dev/js/src/menu.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-10-15T13:12:43Z",
+      "side": 1,
+      "message": "There should be no specific objects in this prototype class!",
+      "revId": "c99af25b23519a42bf616922ab2488f1ac437b50",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
