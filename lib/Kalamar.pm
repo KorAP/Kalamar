@@ -146,6 +146,7 @@ sub startup {
   foreach (
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
+    'KalamarPages',             # Page Helpers for Kalamar
     'KalamarErrors',             # Specific Errors for Kalamar
     'KalamarUser',               # Specific Helpers for Kalamar Users
     'ClientIP',                  # Get client IP from X-Forwarded-For

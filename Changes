@@ -1,4 +1,6 @@
-0.37 2019-09-25
+0.37 2019-10-16
+        - Removed deprecated 'kalamar_test_port' helper.
+        - Separated KalamarHelpers and KalamarPages.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

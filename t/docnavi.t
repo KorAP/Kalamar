@@ -15,7 +15,7 @@ $app->routes->get('/doc/:page')->to(cb => sub {})->name('doc1');
 $app->routes->get('/doc/*scope/:page')->to(cb => sub {})->name('doc2');
 
 # Load plugin to test
-$app->plugin('KalamarHelpers');
+$app->plugin('KalamarPages');
 
 my $languages = [qw/en de/];
 $app->plugin('Localize' => {
