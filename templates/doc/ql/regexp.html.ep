@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Regular Expressions';
 
-<h2 id="tutorial-top">Regular Expressions</h2>
+%= page_title
 
 <p>Regular expressions are patterns describing a set of strings.</p>
 <p>In the KorAP backend a wide range of operators is supported, but only the following are guaranteed to be stable throughout the system:</p>

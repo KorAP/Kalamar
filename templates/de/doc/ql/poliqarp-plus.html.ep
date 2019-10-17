@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Poliqarp+';
 
-<h2 id="tutorial-top">Poliqarp+</h2>
+%= page_title
 
 <p>Die folgende Dokumentation präsentiert alle Funktionen, die unsere Version der Poliqarp Abfragesprache zur Verfügung stellt und enthält zusätzlich einige spezifische KorAP Erweiterungen.</p>
 
@@ -23,7 +23,7 @@
 
   <h4 id="regexp">Reguläre Ausdrücke</h4>
 
-  <p>Segmente können auch durch <%= doc_link_to 'Reguläre Ausdrücke', 'ql', 'regexp' %> abgefragt werden - indem das Segment mit doppelten Anführungszeichen umschlossen wird.</p>
+  <p>Segmente können auch durch <%= embedded_link_to 'Reguläre Ausdrücke', 'ql', 'regexp' %> abgefragt werden - indem das Segment mit doppelten Anführungszeichen umschlossen wird.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_re', '** "r(u|a)n"'), cutoff => 1
 
@@ -72,12 +72,12 @@
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexre', '** [orth="r(u|a)n"/xi]'), cutoff => 1
 
-  <p>Ein weiterer spezieller Schlüssel ist <code>base</code>, bezogen auf die Lemma-Annotation der <%= doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
+  <p>Ein weiterer spezieller Schlüssel ist <code>base</code>, bezogen auf die Lemma-Annotation der <%= embedded_link_to 'Standard-Foundry', 'data', 'annotation'%>.
     Die folgende Abfrage findet alle Vorkommen von Segmenten, die mit dem eingegebenen Lemma in der Standard-Foundry annotiert wurden.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexlemma', '** [base=Tree]'), cutoff => 1
 
-  <p>Der dritte Sonderschlüssel ist <code>pos</code> und bezieht sich auf die Wortarten-Annotation der <%= doc_link_to 'Standard-Foundry', 'data', 'annotation'%>.
+  <p>Der dritte Sonderschlüssel ist <code>pos</code> und bezieht sich auf die Wortarten-Annotation der <%= embedded_link_to 'Standard-Foundry', 'data', 'annotation'%>.
     Die folgende Abfrage findet alle attributiven Adjektive:</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexpos', '** [pos=ADJA]'), cutoff => 1
@@ -99,7 +99,7 @@
 
   <blockquote class="warning">
     <p>Vorsicht: Negierte komplexe Segmente können nicht alleinstehend gesucht werden.
-      Allerdings funktionieren sie, wenn sie Teil einer <%= doc_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%> sind.</p>
+      Allerdings funktionieren sie, wenn sie Teil einer <%= embedded_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%> sind.</p>
   </blockquote>
 
   <h4 id="empty-segments">Leere Segmente</h4>
@@ -108,11 +108,11 @@
 
   %= doc_query poliqarp => '[]', cutoff => 1
 
-  <p>Leere Segmente sind nützlich, um Abstände von Wörtern auszudrücken, indem sie <%= doc_link_to 'Wiederholungen', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %> verwenden.</p>
+  <p>Leere Segmente sind nützlich, um Abstände von Wörtern auszudrücken, indem sie <%= embedded_link_to 'Wiederholungen', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %> verwenden.</p>
 
   <blockquote class="warning">
     <p>Vorsicht: Leere Segmente können nicht alleinstehend gesucht werden. 
-      Allerdings funktionieren sie, wenn sie Teil einer <%= doc_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %> sind.</p>
+      Allerdings funktionieren sie, wenn sie Teil einer <%= embedded_link_to 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %> sind.</p>
   </blockquote>
 </section>
 
@@ -193,7 +193,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   <h4 id="syntagmatic-operators-repetitions">Wiederholungen</h4>
 
-  <p>Wiederholungen in Poliqarp werden wie in <%= doc_link_to 'regulären Ausdrücken', 'ql', 'regexp'%> realisiert, indem Quantifizierer in geschweifte Klammern gesetzt werden.</p>
+  <p>Wiederholungen in Poliqarp werden wie in <%= embedded_link_to 'regulären Ausdrücken', 'ql', 'regexp'%> realisiert, indem Quantifizierer in geschweifte Klammern gesetzt werden.</p>
 
     <p>Um eine Sequenz von drei Vorkommen eines Wortes zu suchen, können Sie Ihre Abfrage auf eine der folgenden Arten formulieren - sie werden die selben Ergebnisse erhalten:</p>
 
@@ -234,7 +234,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
     <p>Denken Sie daran, dass Optionalität auf unterschiedliche Arten <i>vererbt</i> sein kann, zum Beispiel wird eine ganze Abfrage optional, sobald ein Segment der Alternative optional ist.</p>
   </blockquote>
 
-  <p>Die Wiederholung kann auch verwendet werden, um Distanzen zwischen Segmenten auszudrücken, indem Sie <%= doc_link_to 'leere Segmente', 'ql', 'poliqarp-plus # leere Segmente'%> verwenden.</p>
+  <p>Die Wiederholung kann auch verwendet werden, um Distanzen zwischen Segmenten auszudrücken, indem Sie <%= embedded_link_to 'leere Segmente', 'ql', 'poliqarp-plus # leere Segmente'%> verwenden.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_seqdistance1', '** [base=the][][base=Tree]'), cutoff => 1
   %= doc_query poliqarp => loc('Q_poliqarp_seqdistance2', '** [base=the][]{2}[base=Tree]'), cutoff => 1
@@ -249,7 +249,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
     
   <h4>Positionen</h4>
 
-    <p>Sequenzen wie oben können in weiteren komplexen Abfragen verschachtelt und als Unterabfragen behandelt werden (siehe <%= doc_link_to 'Klassenoperatoren', 'ql', 'poliqarp-plus#class-operator' %>, um direkten Zugriff auf Unterabfragen zu erhalten).</p>
+    <p>Sequenzen wie oben können in weiteren komplexen Abfragen verschachtelt und als Unterabfragen behandelt werden (siehe <%= embedded_link_to 'Klassenoperatoren', 'ql', 'poliqarp-plus#class-operator' %>, um direkten Zugriff auf Unterabfragen zu erhalten).</p>
     
     <p>Positionsoperatoren vergleichen zwei Treffer von Unterabfragen und ergeben einen Treffer, falls eine bestimmte Bedingung bezüglich der Position von beiden wahr ist.</p>
 

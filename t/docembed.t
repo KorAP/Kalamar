@@ -19,7 +19,7 @@ my $t = Test::Mojo->new('Kalamar' => {
 $t->get_ok('/doc')
   ->text_is('nav > ul.nav > li.active a', 'KorAP')
   ->text_is('nav > ul.nav > li:last-child a', 'Privacy')
-  ->element_exists('nav > ul.nav > li:last-child a[href=/doc/privacy#tutorial-top]')
+  ->element_exists('nav > ul.nav > li:last-child a[href=/doc/privacy#page-top]')
   ;
 
 done_testing;

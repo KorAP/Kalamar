@@ -61,10 +61,10 @@ $t->get_ok('/doc/ql/poliqarp-plus')
 # Check data
 $t->get_ok('/doc/data/annotation' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
-  ->text_is('#tutorial-top', 'Annotations');
+  ->text_is('#page-top', 'KorAP: Annotations');
 $t->get_ok('/doc/data/annotation' => { 'Accept-Language' => 'de-DE, en-US, en' })
   ->status_is(200)
-  ->text_is('#tutorial-top', 'Annotationen');
+  ->text_is('#page-top', 'KorAP: Annotationen');
 
 my $app = $t->app;
 

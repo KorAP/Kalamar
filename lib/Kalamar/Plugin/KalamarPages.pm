@@ -17,7 +17,7 @@ sub register {
   # TODO: Support opener mechanism, so the link will open the embedded
   # documentation in case it's not there.
   $mojo->helper(
-    doc_link_to => sub {
+    embedded_link_to => sub {
       my $c = shift;
       my $title = shift;
       my $page = pop;
@@ -31,24 +31,60 @@ sub register {
       return $c->link_to(
         $title,
         $url,
-        class => 'doc-link'
+        class => 'embedded-link'
       );
     }
   );
 
+  # DEPRECATED: 2019-10-17
   $mojo->helper(
-    doc_ext_link_to => sub {
+    doc_link_to => sub {
+      my $c = shift;
+      deprecated 'Deprecated "doc_link_to" in favor of "embedded_link_to"';
+      return $c->embedded_link_to(@_)
+    }
+  );
+
+  # Link to an external page
+  $mojo->helper(
+    ext_link_to => sub {
       my $c = shift;
       return $c->link_to(@_, target => '_top');
     }
   );
 
+  # DEPRECATED: 2019-10-17
+  $mojo->helper(
+    doc_ext_link_to => sub {
+      my $c = shift;
+      deprecated 'Deprecated "doc_ext_link_to" in favor of "ext_link_to"';
+      return $c->ext_link_to(@_);
+    }
+  );
 
-  # Documentation alert - Under Construction!
+  # Page alert - Under Construction!
+  $mojo->helper(
+    under_construction => sub {
+      my $c = shift;
+      return $c->tag('p', $c->loc('underConstruction', 'Under Construction!'));
+    }
+  );
+
+  # Page alert - Under Construction!
+  # DEPRECATED: 2019-10-17
   $mojo->helper(
     doc_uc => sub {
       my $c = shift;
-      return $c->tag('p', $c->loc('underConstruction'));
+      deprecated 'Deprecated "doc_uc" in favor of "under_construction"';
+      return $c->under_construction
+    }
+  );
+
+  # Page title helper
+  $mojo->helper(
+    page_title => sub {
+      my $c = shift;
+      return $c->tag('h2' => (id => 'page-top') => $c->stash('title'))
     }
   );
 
@@ -132,7 +168,7 @@ sub register {
 
           # Canonicalize (for empty scopes)
           $url->path->canonicalize;
-          $url->fragment('tutorial-top');
+          $url->fragment('page-top');
         };
 
         my @classes;
@@ -226,21 +262,21 @@ helpers for Mojolicious available.
 
 =head1 HELPERS
 
-=head2 doc_link_to
+=head2 embedded_link_to
 
   %# In templates
-  %= doc_link_to 'Kalamar', 'korap', 'kalamar'
+  %= embedded_link_to 'Kalamar', 'korap', 'kalamar'
 
 Create a link to the documentation. Accepts a name, a scope, and a page.
 
 
-=head2 doc_ext_link_to
+=head2 ext_link_to
 
   %# In templates
-  %= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Koral"
+  %= ext_link_to 'GitHub', "https://github.com/KorAP/Koral"
 
 Creates a link to an external page, that will be opened in the top frame,
-in case it's in an embedded frame (used in the tutorial).
+in case it's in an embedded frame.
 
 =head2 doc_uc
 
