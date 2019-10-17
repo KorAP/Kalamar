@@ -77,6 +77,14 @@ main.tutorial {
       border-radius: $standard-border-radius;
     }
   }
+
+  // Link to documentation
+  a.embedded-link::after {
+    font-family: FontAwesome;
+    white-space: nowrap;
+    content: " " + $fa-tutorial;
+    font-size: 75%;
+  }
 }
 
 dl {

@@ -2,7 +2,7 @@
 
 <h2 id="tutorial-top">COSMAS II</h2>
 
-<p>The following documentation introduces some features provided by our version of the COSMAS II Query Language. For more information, please visit the <%= doc_ext_link_to 'online help of COSMAS II', "http://www.ids-mannheim.de/cosmas2/web-app/hilfe/suchanfrage/eingabe-zeile/syntax/allgemein.html" %>.</p>
+<p>The following documentation introduces some features provided by our version of the COSMAS II Query Language. For more information, please visit the <%= ext_link_to 'online help of COSMAS II', "http://www.ids-mannheim.de/cosmas2/web-app/hilfe/suchanfrage/eingabe-zeile/syntax/allgemein.html" %>.</p>
 
 <section id="queryterms">
   <h3>Query Terms</h3>
@@ -30,7 +30,7 @@
 
   <h4>Lemma Operator</h4>
   
-  <p>Instead of searching for the surface form of a word, a lemma (as annotated by the <%= doc_link_to 'default foundry', 'data', 'annotation' %>) can be requested by prepending the term with the <code>&amp;</code> operator. The form of the lemma is dependent on the annotation.</p>
+  <p>Instead of searching for the surface form of a word, a lemma (as annotated by the <%= embedded_link_to 'default foundry', 'data', 'annotation' %>) can be requested by prepending the term with the <code>&amp;</code> operator. The form of the lemma is dependent on the annotation.</p>
   <%= doc_query cosmas2 => '&laufen' %>
 
   <h4>Case Insensitivity Operator</h4>
@@ -40,11 +40,11 @@
 
   <h4>Regular Expression Operator</h4>
 
-  <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= doc_link_to 'regular expressions', 'ql', 'regexp' %>.</p>
+  <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= embedded_link_to 'regular expressions', 'ql', 'regexp' %>.</p>
   
 
   <blockquote class="bug">
-    <p>Regular expressions in COSMAS II are not yet properly implemented in KorAP. If you want to use regular expressions, please refer to <%= doc_link_to 'Poliqarp', 'ql', 'poliqarp-plus#regexp' %>.</p>
+    <p>Regular expressions in COSMAS II are not yet properly implemented in KorAP. If you want to use regular expressions, please refer to <%= embedded_link_to 'Poliqarp', 'ql', 'poliqarp-plus#regexp' %>.</p>
   </blockquote>
 
 </section>
@@ -81,10 +81,10 @@
   <p>Distance operators accept the definition of a distance interval by appending numerical values. If only a single numerical value is given (e.g. in <code>/+s4</code>), the defined distance is considered a maximum distance. So both operands can or can not occur in a distance equal or lower the given value. If two numerical values are given separated by the <code>:</code> symbol (e.g. in <code>/+s4:2</code>), they define an interval, in which the distance is valid.</p>
 
 %#  <blockquote class="warning">
-%#    <p>Currently, intervals are interpreted as MIN:MAX only, while COSMAS 2 defines intervals as being MAX:MIN, while taking the smaller number as being the minimum value of the interval and the greater number as being the maximum value of the interval. <%= doc_ext_link_to 'KorAP will adopt the behaviour of COSMAS II in the near future', "https://github.com/KorAP/Koral/issues/67" %>.</p>
+%#    <p>Currently, intervals are interpreted as MIN:MAX only, while COSMAS 2 defines intervals as being MAX:MIN, while taking the smaller number as being the minimum value of the interval and the greater number as being the maximum value of the interval. <%= ext_link_to 'KorAP will adopt the behaviour of COSMAS II in the near future', "https://github.com/KorAP/Koral/issues/67" %>.</p>
 %#  </blockquote>
   
-  <p>Distance operators rely on the <%= doc_link_to 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
+  <p>Distance operators rely on the <%= embedded_link_to 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
 
   <h4>Word Distance Operator</h4>
 
@@ -105,7 +105,7 @@
   <h4>Sentence Distance Operator</h4>
 
   <p>The sentence distance operator <code>s</code> defines how many sentences are allowed or are not allowed in-between two search operands.</p>
-  <p>The sentence distance relies on the <%= doc_link_to 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
+  <p>The sentence distance relies on the <%= embedded_link_to 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
 
   <p>Search for two operands occuring in the same or a following sentence in arbitrary order:</p>
   %= doc_query cosmas2 => 'offen /s1 Geschäft'
@@ -119,7 +119,7 @@
   <h4>Paragraph Distance Operator</h4>
 
   <p>The paragraph distance operator <code>p</code> defines how many paragraphs are allowed or are not allowed in-between two search operands.</p>
-  <p>The paragraph distance relies on the <%= doc_link_to 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
+  <p>The paragraph distance relies on the <%= embedded_link_to 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
 
   <p>Search for two operands occuring in the same or a following paragraph in arbitrary order:</p>
   %= doc_query cosmas2 => 'offen /p1 Geschäft'
@@ -136,7 +136,7 @@
 
   <h4>Multiple Distance Operators</h4>
 
-  %= doc_uc
+  %= under_construction
 
   <h4>Nesting of multiple Distance Operations</h4>
   
@@ -147,18 +147,18 @@
 
 <section id="annotation-operators">
   <h3>Annotation Operators</h3>
-  %= doc_uc
+  %= under_construction
   %# MORPH and ELEM
 </section>
 
 <section id="combination-operators">
   <h3>Combination Operators</h3>
-  %= doc_uc
+  %= under_construction
   %# IN and OV
 </section>
 
 <section id="area-operators">
   <h3>Area Operators</h3>
-  %= doc_uc
+  %= under_construction
   %# LINKS, RECHTS, INKLUSIVE, EXKLUSIVE, BED
 </section>

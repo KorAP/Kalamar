@@ -6,6 +6,6 @@
 
 <p><strong>Main developer:</strong> Joachim Bingel</p>
 
-<p>Koral is a library designed for the translation of different corpus query languages to <%= doc_link_to('KoralQuery', 'api', 'koralquery') %>. Currently supported query languages include <%= doc_link_to 'Cosmas II', 'ql', 'cosmas2' %>, <%= doc_link_to('Annis QL', 'ql', 'annis') %>, <%= doc_link_to('Poliqarp+', 'ql', 'poliqarp-plus') %> (an extended version of Poliqarp) and <%= doc_link_to('CQL', 'ql', 'cql') %>.</p>
+<p>Koral is a library designed for the translation of different corpus query languages to <%= embedded_link_to('KoralQuery', 'api', 'koralquery') %>. Currently supported query languages include <%= embedded_link_to 'Cosmas II', 'ql', 'cosmas2' %>, <%= embedded_link_to('Annis QL', 'ql', 'annis') %>, <%= embedded_link_to('Poliqarp+', 'ql', 'poliqarp-plus') %> (an extended version of Poliqarp) and <%= embedded_link_to('CQL', 'ql', 'cql') %>.</p>
 
-<p>Koral is open source and available on <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Koral" %>.</p>
+<p>Koral is open source and available on <%= ext_link_to 'GitHub', "https://github.com/KorAP/Koral" %>.</p>
