@@ -262,8 +262,8 @@ like($render, qr!<a href="/doc/faq(?:#[^"]+)?">Häufige Fragen</a>!,
      'Path matches FAQ');
 
 
-is($app->doc_link_to('privacy', 'privacy'), '<a class="doc-link" href="/doc/privacy">privacy</a>');
-is($app->doc_link_to('privacy', 'korap', 'privacy'), '<a class="doc-link" href="/doc/korap/privacy">privacy</a>');
+is($app->embedded_link_to('privacy', 'privacy'), '<a class="doc-link" href="/doc/privacy">privacy</a>');
+is($app->embedded_link_to('privacy', 'korap', 'privacy'), '<a class="doc-link" href="/doc/korap/privacy">privacy</a>');
 
 done_testing;
 

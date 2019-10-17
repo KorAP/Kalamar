@@ -6,7 +6,7 @@
 
 <section>
   <h3>Where is the source code?</h3>
-  <p>Parts of KorAP are already available on <%= doc_ext_link_to 'GitHub', 'https://github.com/KorAP' %>, and we will publish more components in the future.</p>
+  <p>Parts of KorAP are already available on <%= ext_link_to 'GitHub', 'https://github.com/KorAP' %>, and we will publish more components in the future.</p>
 </section>
 
 <section>
@@ -16,7 +16,7 @@
 
 <section>
   <h3>I want to report an issue, how do I do it?</h3>
-  <p>Please refer to our public ticketing system <%= doc_ext_link_to 'for the frontend at GitHub', 'https://github.com/KorAP/Kalamar/issues' %>, to report on any issues. If you don't have a GitHub account, please send us an <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found an issue', begin %>e-mail<% end %>.</p>
+  <p>Please refer to our public ticketing system <%= ext_link_to 'for the frontend at GitHub', 'https://github.com/KorAP/Kalamar/issues' %>, to report on any issues. If you don't have a GitHub account, please send us an <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found an issue', begin %>e-mail<% end %>.</p>
   %# This option is the preferred one because it gathers some (and will in time gather more) important versioning data.
 </section>
 

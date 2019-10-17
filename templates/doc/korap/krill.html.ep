@@ -6,6 +6,6 @@
 
 <p><strong>Main developer:</strong> Nils Diewald, Eliza Margaretha</p>
 
-<p>Krill is a <%= doc_ext_link_to 'Lucene', "https://lucene.apache.org/" %> based search engine for large annotated corpora, used as a backend component for KorAP. It is the reference implementation for <%= doc_link_to('KoralQuery', 'api', 'koralquery') %>, covering most of the protocols features.</p>
+<p>Krill is a <%= ext_link_to 'Lucene', "https://lucene.apache.org/" %> based search engine for large annotated corpora, used as a backend component for KorAP. It is the reference implementation for <%= embedded_link_to('KoralQuery', 'api', 'koralquery') %>, covering most of the protocols features.</p>
 
-<p>Krill is open source and available on <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Krill" %>.</p>
+<p>Krill is open source and available on <%= ext_link_to 'GitHub', "https://github.com/KorAP/Krill" %>.</p>
