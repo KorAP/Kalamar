@@ -1,15 +1,15 @@
 % layout 'main', title => 'KorAP: Annis QL';
 
-<h2 id="tutorial-top">Annis QL</h2>
+%= page_title
 
-<p><%= doc_ext_link_to 'ANNIS Query Language (Annis QL or AQL)', "https://corpus-tools.org/annis/aql.html" %>
-  is a query language of the <%= doc_ext_link_to 'ANNIS corpus search system', "https://corpus-tools.org/annis/" %>
+<p><%= ext_link_to 'ANNIS Query Language (Annis QL or AQL)', "https://corpus-tools.org/annis/aql.html" %>
+  is a query language of the <%= ext_link_to 'ANNIS corpus search system', "https://corpus-tools.org/annis/" %>
   designed particularly to deal with complex linguistic corpora with multiple
   annotation layers (e.g. morphology) and various annotation types (e.g. attribute-value
   pairs, relations). The concept of AQL is similar to searching node elements and edges
   between them, where a node element can be a token or an attribute-value pair.</p>
 
-<p>KorAP supports the following keywords by using the <%= doc_link_to 'default foundries', 'data', 'annotation' %>: </p>
+<p>KorAP supports the following keywords by using the <%= embedded_link_to 'default foundries', 'data', 'annotation' %>: </p>
 <dl>
   <dt><code>node</code></dt>
   <dd>a node element</dd>

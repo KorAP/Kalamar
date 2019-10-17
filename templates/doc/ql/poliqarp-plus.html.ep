@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Poliqarp+';
 
-<h2 id="tutorial-top">Poliqarp+</h2>
+%= page_title
 
 <p>The following documentation introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
 
@@ -24,7 +24,7 @@
 
   <h4 id="regexp">Regular Expressions</h4>
 
-  <p>Segments can also be queried using <%= doc_link_to 'regular expressions', 'ql', 'regexp' %> - by surrounding the segment with double quotes.</p>
+  <p>Segments can also be queried using <%= embedded_link_to 'regular expressions', 'ql', 'regexp' %> - by surrounding the segment with double quotes.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_re', '** "r(u|a)n"'), cutoff => 1
 
@@ -70,12 +70,12 @@
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexre', '** [orth="r(u|a)n"/xi]'), cutoff => 1
 
-  <p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.
+  <p>Another special key is <code>base</code>, refering to the lemma annotation of the <%= embedded_link_to 'default foundry', 'data', 'annotation' %>.
     The following query finds all occurrences of segments annotated as a specified lemma by the default foundry.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexlemma', '** [base=Tree]'), cutoff => 1
 
-  <p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.
+  <p>The third special key is <code>pos</code>, refering to the part-of-speech annotation of the <%= embedded_link_to 'default foundry', 'data', 'annotation' %>.
     The following query finds all attributive adjectives:</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_complexpos', '** [pos=ADJA]'), cutoff => 1
@@ -97,7 +97,7 @@
 
   <blockquote class="warning">
     <p>Beware: Negated complex segments can't be searched as a single statement.
-      However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
+      However, they work in case they are part of a <%= embedded_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
   </blockquote>
 
   <h4 id="empty-segments">Empty Segments</h4>
@@ -106,11 +106,11 @@
 
   %= doc_query poliqarp => '[]', cutoff => 1
 
-  <p>Empty segments are useful to express distances of words by using <%= doc_link_to 'repetitions', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %>.</p>
+  <p>Empty segments are useful to express distances of words by using <%= embedded_link_to 'repetitions', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions' %>.</p>
 
   <blockquote class="warning">
     <p>Beware: Empty segments can't be searched as a single statement.
-      However, they work in case they are part of a <%= doc_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
+      However, they work in case they are part of a <%= embedded_link_to 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
   </blockquote>
 </section>
 
@@ -191,7 +191,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <h4 id="syntagmatic-operators-repetitions">Repetition</h4>
 
-  <p>Repetitions in Poliqarp are realized as in <%= doc_link_to 'regular expressions', 'ql', 'regexp' %>, by giving quantifieres in curly brackets.</p>
+  <p>Repetitions in Poliqarp are realized as in <%= embedded_link_to 'regular expressions', 'ql', 'regexp' %>, by giving quantifieres in curly brackets.</p>
   <p>To search for a sequence of three occurrences of a defined string, you can formulate your query in any of the following ways - they will have the same results:</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_repmanual', '** the the the'), cutoff => 1
@@ -231,7 +231,7 @@ Terms of the complex segment can be negated as introduced before.</p>
     <p>Keep in mind that optionality may be somehow <i>inherited</i>, for example an entire query becomes optional as soon as one segment of an alternation is optional.</p>
   </blockquote>
 
-  <p>Repetition can also be used to express distances between segments by using <%= doc_link_to 'empty segments', 'ql', 'poliqarp-plus#empty-segments' %>.</p>
+  <p>Repetition can also be used to express distances between segments by using <%= embedded_link_to 'empty segments', 'ql', 'poliqarp-plus#empty-segments' %>.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_seqdistance1', '** [base=the][][base=Tree]'), cutoff => 1
   %= doc_query poliqarp => loc('Q_poliqarp_seqdistance2', '** [base=the][]{2}[base=Tree]'), cutoff => 1
@@ -246,7 +246,7 @@ Terms of the complex segment can be negated as introduced before.</p>
     
   <h4>Position</h4>
 
-  <p>Sequences as shown above can all be nested in further complex queries and treated as subqueries (see <%= doc_link_to 'class operators', 'ql', 'poliqarp-plus#class-operators' %> on how to later access these subqueries directly).</p>
+  <p>Sequences as shown above can all be nested in further complex queries and treated as subqueries (see <%= embedded_link_to 'class operators', 'ql', 'poliqarp-plus#class-operators' %> on how to later access these subqueries directly).</p>
   <p>Positional operators compare two matches of subqueries and will match, in case a certain condition regarding the position of both is true.</p>
   <p>The <code>contains()</code> operation will match, when a second subquery matches inside the span of a first subquery.</p>
 

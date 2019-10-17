@@ -1,5 +1,5 @@
 % layout 'main', title => 'KorAP: Contact us!';
 
-<h2 id="tutorial-top">KorAP: Contact us</h2>
+%= page_title
 
 <p>You can send us an email at <code>korap</code> at the domain <code>ids-mannheim.de</code>!</p>

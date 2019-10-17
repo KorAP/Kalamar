@@ -1,11 +1,11 @@
 % layout 'main', title => 'KorAP: Koral';
 
-<h2 id="tutorial-top">Koral</h2>
+%= page_title
 
 %= korap_overview 'koral'
 
 <p><strong>Hauptentwickler:</strong> Joachim Bingel</p>
 
-<p>Koral ist eine Bibliothek, die für die Übersetzung verschiedener Korpus-Abfragesprachen nach <%= doc_link_to('KoralQuery', 'api', 'koralquery')%> konzipiert ist. Derzeit unterstützte Abfragesprachen sind <%= doc_link_to 'Cosmas II', 'ql', 'cosmas2'%>, <%= doc_link_to('Annis QL', 'ql', 'annis')%>, <%= doc_link_to ( 'Poliqarp +', 'ql', 'poliqarp-plus')%> (eine erweiterte Version von Poliqarp) und <%= doc_link_to('CQL', 'ql', 'cql')%>.
+<p>Koral ist eine Bibliothek, die für die Übersetzung verschiedener Korpus-Abfragesprachen nach <%= embedded_link_to('KoralQuery', 'api', 'koralquery')%> konzipiert ist. Derzeit unterstützte Abfragesprachen sind <%= embedded_link_to 'Cosmas II', 'ql', 'cosmas2'%>, <%= embedded_link_to('Annis QL', 'ql', 'annis')%>, <%= embedded_link_to ( 'Poliqarp +', 'ql', 'poliqarp-plus')%> (eine erweiterte Version von Poliqarp) und <%= embedded_link_to('CQL', 'ql', 'cql')%>.
 
-<p>Koral ist Open Source und steht unter <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Koral"%> zur Verfügung.</p>
+<p>Koral ist Open Source und steht unter <%= ext_link_to 'GitHub', "https://github.com/KorAP/Koral"%> zur Verfügung.</p>
