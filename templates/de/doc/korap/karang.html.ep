@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Karang';
 
-<h2 id="tutorial-top">Karang</h2>
+%= page_title
 
 %= korap_overview 'karang'
 

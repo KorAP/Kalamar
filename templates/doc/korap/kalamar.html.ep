@@ -1,11 +1,11 @@
 % layout 'main', title => 'KorAP: Kalamar';
 
-<h2 id="tutorial-top">Kalamar</h2>
+%= page_title
 
 %= korap_overview 'kalamar'
 
 <p><strong>Main developer:</strong> Nils Diewald, Helge Stallkamp</p>
 
-<p>Kalamar is the main user frontend of KorAP. It is based on <%= doc_ext_link_to 'Mojolicious', "http://mojolicio.us/" %> and written in Perl and JavaScript.</p>
+<p>Kalamar is the main user frontend of KorAP. It is based on <%= ext_link_to 'Mojolicious', "http://mojolicio.us/" %> and written in Perl and JavaScript.</p>
 
-<p>Kalamar is open source and available on <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Kalamar" %>.</p>
+<p>Kalamar is open source and available on <%= ext_link_to 'GitHub', "https://github.com/KorAP/Kalamar" %>.</p>

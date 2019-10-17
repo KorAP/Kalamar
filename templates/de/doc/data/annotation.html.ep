@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Annotationen';
 
-<h2 id="tutorial-top">Annotationen</h2>
+%= page_title
 
 <p>KorAP bietet Zugriff auf mehrere Ebenen von Annotationen, die aus mehreren Ressourcen stammen, so genannten <em>foundries</em>.</p>
 
@@ -41,7 +41,7 @@
   <p>DeReKo Annotationen unterstützen die folgenden Layer für das <code>dereko</code> Präfix:</p>
   <dl>
     <dt><abbr data-type="token" title="Structure">s</abbr></dt>
-    <dd>Dokument Struktur, wie sie im <%= doc_ext_link_to 'I5 Textmodell', 'http://www1.ids-mannheim.de/kl/projekte/korpora/textmodell.html' %> definiert ist.</dd>
+    <dd>Dokument Struktur, wie sie im <%= ext_link_to 'I5 Textmodell', 'http://www1.ids-mannheim.de/kl/projekte/korpora/textmodell.html' %> definiert ist.</dd>
   </dl>
   %= doc_query poliqarp => 'startsWith(<dereko/s=s>, Fragestunde)', cutoff => 1
 </section>
@@ -54,7 +54,7 @@
     <dt><abbr data-type="token" title="Part-of-Speech">p</abbr></dt>
     <dd>Part-of-Speech-Informationen werden in Großbuchstaben geschrieben und basieren auf STTS</dd>
     <dt><abbr data-type="token" title="Constituency">c</abbr></dt>
-    <dd>Konstituenten Informationen folgen den Annotationen des <%= doc_ext_link_to 'negr@ Korpus', 'http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html' %>.</dd>
+    <dd>Konstituenten Informationen folgen den Annotationen des <%= ext_link_to 'negr@ Korpus', 'http://www.coli.uni-saarland.de/projects/sfb378/negra-corpus/negra-corpus.html' %>.</dd>
     <dt><abbr data-type="token" title="Named Entity">ne</abbr></dt>
     <dd>Enthält benannte Entitäten wie <code>I-PER</code>, <code>I-ORG</code> etc.</dd>
     <dt><abbr data-type="token" title="Named Entity">ne_hgc_175m_600</abbr></dt>

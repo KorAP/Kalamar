@@ -1,6 +1,6 @@
 % layout 'main', title => 'KorAP: Kustvakt';
 
-<h2 id="tutorial-top">Kustvakt</h2>
+%= page_title
 
 %= korap_overview 'kustvakt'
 
@@ -8,5 +8,5 @@
 
 <p>Kustvakt is a user and policy management software, that is capable of rewriting queries for policy based document restrictions.</p>
 
-<p>Kustvakt is open source and available on <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Kustvakt" %>.</p>
+<p>Kustvakt is open source and available on <%= ext_link_to 'GitHub', "https://github.com/KorAP/Kustvakt" %>.</p>
 
