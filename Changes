@@ -1,6 +1,10 @@
-0.37 2019-10-16
+0.37 2019-10-17
         - Removed deprecated 'kalamar_test_port' helper.
         - Separated KalamarHelpers and KalamarPages.
+        - Renamed 'doc_link_to' to 'embedded_link_to'
+          and deprecated 'doc_link_to'.
+        - Renamed 'doc_ext_link_to' to 'ext_link_to'
+          and deprecated 'doc_ext_link_to'.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

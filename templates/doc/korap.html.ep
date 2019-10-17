@@ -4,25 +4,25 @@
 
 %= korap_overview 'korap'
 
-<p>The KorAP project was launched in 2011 at the <%= doc_ext_link_to 'Leibniz Institute for the German Language (IDS)', "http://www.ids-mannheim.de/" %> in Mannheim, Germany. KorAP is a Corpus Analysis Platform, with an extensible and scalable architecture. It consists of multiple components, that are exchangable due to well defined APIs.</p>
+<p>The KorAP project was launched in 2011 at the <%= ext_link_to 'Leibniz Institute for the German Language (IDS)', "http://www.ids-mannheim.de/" %> in Mannheim, Germany. KorAP is a Corpus Analysis Platform, with an extensible and scalable architecture. It consists of multiple components, that are exchangable due to well defined APIs.</p>
 
 <dl>
-  <dt><%= doc_link_to('Kalamar', 'korap', 'kalamar') %></dt>
+  <dt><%= embedded_link_to('Kalamar', 'korap', 'kalamar') %></dt>
   <dd>Kalamar is the user frontend. Most users will access the search and analysis capabilities of KorAP through the user frontend. The user will formulate queries in one of several query languages that are passed to Kustvakt.</dd>
 
-  <dt><%= doc_link_to('API', 'api') %></dt>
+  <dt><%= embedded_link_to('API', 'api') %></dt>
   <dd>As an alternative to the user frontend, queries can be initiated using a REST web interface directly with Kustvakt.</dd>
 
-  <dt><%= doc_link_to('Kustvakt', 'korap', 'kustvakt') %></dt>
-  <dd>Kustvakt is the central user and policy management service. It takes a query and rewrites it to restrict the scope of a search to documents the user is allowed to. It may also inject further properties the user has set up, like preferred annotation layers. To transfer a query written in a certain query language to the internal general query protocol <%= doc_link_to('KoralQuery', 'api', 'koralquery') %>, Kustvakt uses <%= doc_link_to('Koral', 'korap', 'koral') %>.</dd>
+  <dt><%= embedded_link_to('Kustvakt', 'korap', 'kustvakt') %></dt>
+  <dd>Kustvakt is the central user and policy management service. It takes a query and rewrites it to restrict the scope of a search to documents the user is allowed to. It may also inject further properties the user has set up, like preferred annotation layers. To transfer a query written in a certain query language to the internal general query protocol <%= embedded_link_to('KoralQuery', 'api', 'koralquery') %>, Kustvakt uses <%= embedded_link_to('Koral', 'korap', 'koral') %>.</dd>
 
-  <dt><%= doc_link_to('Koral', 'korap', 'koral') %></dt>
-  <dd>Koral is a library that translates queries written in one of several implemented query languages into a general query protocol, called <%= doc_link_to('KoralQuery', 'api', 'koralquery') %>.</dd>
+  <dt><%= embedded_link_to('Koral', 'korap', 'koral') %></dt>
+  <dd>Koral is a library that translates queries written in one of several implemented query languages into a general query protocol, called <%= embedded_link_to('KoralQuery', 'api', 'koralquery') %>.</dd>
 
-  <dt><%= doc_link_to('Krill', 'korap', 'krill') %></dt>
-  <dd>Krill is a Lucene based backend engine that can search large corpora for occurrences of search patterns formulated in <%= doc_link_to('KoralQuery', 'api', 'koralquery') %>.</dd>
+  <dt><%= embedded_link_to('Krill', 'korap', 'krill') %></dt>
+  <dd>Krill is a Lucene based backend engine that can search large corpora for occurrences of search patterns formulated in <%= embedded_link_to('KoralQuery', 'api', 'koralquery') %>.</dd>
 
-  <dt><%= doc_link_to('Karang', 'korap', 'karang') %></dt>
+  <dt><%= embedded_link_to('Karang', 'korap', 'karang') %></dt>
   <dd>Karang is a Neo4j based backend engine that can traverse large corpora represented as graphs.</dd>
 </dl>
 
@@ -31,37 +31,37 @@
 <dl>
   <dt>Head</dt>
   <dd>
-    <%= doc_ext_link_to 'Marc Kupietz', "http://www.ids-mannheim.de/direktion/personal/kupietz.html" %>,
-    <%= doc_ext_link_to 'Andreas Witt', "http://www.ids-mannheim.de/direktion/personal/witt.html" %>
+    <%= ext_link_to 'Marc Kupietz', "http://www.ids-mannheim.de/direktion/personal/kupietz.html" %>,
+    <%= ext_link_to 'Andreas Witt', "http://www.ids-mannheim.de/direktion/personal/witt.html" %>
   </dd>
 
   <dt>Scientific Staff</dt>
   <dd>
-    <%= doc_ext_link_to 'Franck Bodmer', "http://www.ids-mannheim.de/direktion/personal/bodmer.html" %>,
-    <%= doc_ext_link_to 'Nils Diewald', "http://nils-diewald.de/" %>,
-    <%= doc_ext_link_to 'Peter Harders', "http://www.ids-mannheim.de/direktion/personal/harders.html" %>,
-    <%= doc_ext_link_to 'Eliza Margaretha', "http://www.ids-mannheim.de/direktion/personal/margaretha/" %>,
-    <%= doc_ext_link_to 'Helge Stallkamp', "http://www.ids-mannheim.de/direktion/personal/krause.html" %>
+    <%= ext_link_to 'Franck Bodmer', "http://www.ids-mannheim.de/direktion/personal/bodmer.html" %>,
+    <%= ext_link_to 'Nils Diewald', "http://nils-diewald.de/" %>,
+    <%= ext_link_to 'Peter Harders', "http://www.ids-mannheim.de/direktion/personal/harders.html" %>,
+    <%= ext_link_to 'Eliza Margaretha', "http://www.ids-mannheim.de/direktion/personal/margaretha/" %>,
+    <%= ext_link_to 'Helge Stallkamp', "http://www.ids-mannheim.de/direktion/personal/krause.html" %>
   </dd>
 
   <dt>Translations</dt>
   <dd>
-    <%= doc_ext_link_to 'Susanne Feix', "http://www.ids-mannheim.de/direktion/personal/bergmann.html" %>
+    <%= ext_link_to 'Susanne Feix', "http://www.ids-mannheim.de/direktion/personal/bergmann.html" %>
   </dd>
 
   <dt>Past Project Members</dt>
   <dd>
-    <%= doc_ext_link_to 'Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
+    <%= ext_link_to 'Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
     Joachim Bingel,
-    <%= doc_ext_link_to 'Elena Frick', "http://www.ids-mannheim.de/direktion/personal/frick/" %>,
+    <%= ext_link_to 'Elena Frick', "http://www.ids-mannheim.de/direktion/personal/frick/" %>,
     Michael Hanl,
-    <%= doc_ext_link_to 'Carsten Schnober', "http://www.ids-mannheim.de/direktion/personal/ehemalige/schnober.html" %>
+    <%= ext_link_to 'Carsten Schnober', "http://www.ids-mannheim.de/direktion/personal/ehemalige/schnober.html" %>
   </dd>
 
   <dt>Consulting</dt>
   <dd>
-    <%= doc_ext_link_to 'Cyril Belica', "http://www.ids-mannheim.de/direktion/personal/belica.html" %>,
+    <%= ext_link_to 'Cyril Belica', "http://www.ids-mannheim.de/direktion/personal/belica.html" %>,
 		Piotr Pęzik,
-    <%= doc_ext_link_to 'Oliver Schonefeld', "http://www.ids-mannheim.de/direktion/personal/schonefeld/" %>
+    <%= ext_link_to 'Oliver Schonefeld', "http://www.ids-mannheim.de/direktion/personal/schonefeld/" %>
   </dd>
 </dl>

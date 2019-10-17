@@ -6,6 +6,6 @@
 
 <p><strong>Hauptentwickler:</strong> Nils Diewald</p>
 
-<p>Kalamar ist das wichtigste User-Frontend von KorAP. Es basiert auf <%= doc_ext_link_to 'Mojolicious', "http://mojolicio.us/" %> und ist in Perl und JavaScript geschrieben.</p>
+<p>Kalamar ist das wichtigste User-Frontend von KorAP. Es basiert auf <%= ext_link_to 'Mojolicious', "http://mojolicio.us/" %> und ist in Perl und JavaScript geschrieben.</p>
 
-<p>Kalamar ist Open Source und steht unter <%= doc_ext_link_to 'GitHub', "https://github.com/KorAP/Kalamar"%> zur Verfügung.</p>
+<p>Kalamar ist Open Source und steht unter <%= ext_link_to 'GitHub', "https://github.com/KorAP/Kalamar"%> zur Verfügung.</p>
