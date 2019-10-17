@@ -230,7 +230,7 @@ sub startup {
 
   # Set footer value
   $self->content_block(footer => {
-    inline => '<%= doc_link_to "V ' . $Kalamar::VERSION . '", "korap", "kalamar" %>',
+    inline => '<%= embedded_link_to "V ' . $Kalamar::VERSION . '", "korap", "kalamar" %>',
     position => 100
   });
 

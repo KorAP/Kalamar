@@ -17,7 +17,7 @@ sub register {
   # TODO: Support opener mechanism, so the link will open the embedded
   # documentation in case it's not there.
   $mojo->helper(
-    doc_link_to => sub {
+    embedded_link_to => sub {
       my $c = shift;
       my $title = shift;
       my $page = pop;
@@ -226,10 +226,10 @@ helpers for Mojolicious available.
 
 =head1 HELPERS
 
-=head2 doc_link_to
+=head2 embedded_link_to
 
   %# In templates
-  %= doc_link_to 'Kalamar', 'korap', 'kalamar'
+  %= embedded_link_to 'Kalamar', 'korap', 'kalamar'
 
 Create a link to the documentation. Accepts a name, a scope, and a page.
 

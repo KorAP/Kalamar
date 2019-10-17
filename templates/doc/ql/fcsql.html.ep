@@ -6,7 +6,7 @@
   <%= doc_ext_link_to 'Clarin Federated Content Search (FCS)', "https://www.clarin.eu/content/federated-content-search-clarin-fcs" %>,
   that allows searching through annotated data.
 Accordingly, FCS-QL is primarily intended to represent queries involving annotation layers
-such as part-of-speech and lemma. FCS-QL grammar is fairly similar to <%= doc_link_to 'Poliqarp', 'ql', 'poliqarp-plus' %> since it was
+such as part-of-speech and lemma. FCS-QL grammar is fairly similar to <%= embedded_link_to 'Poliqarp', 'ql', 'poliqarp-plus' %> since it was
 built heavily based on Poliqarp/CQP.</p>
 
 <p>In FCS-QL, foundries are called qualifiers. A combination of a foundry and a layer is
@@ -43,7 +43,7 @@ separated with a colon, for example the lemma layer of Tree Tagger is represente
   %= doc_query fcsql => '[text = "Semmel"]', cutoff => 1
   %= doc_query fcsql => '[text = "essen"/c]', cutoff => 1
 	
-	<p>Querying adverbs from the <%= doc_link_to 'default foundry', 'data', 'annotation' %>.</p>
+	<p>Querying adverbs from the <%= embedded_link_to 'default foundry', 'data', 'annotation' %>.</p>
   %= doc_query fcsql => '[pos="ADV"]', cutoff => 1
 	
 
@@ -72,7 +72,7 @@ separated with a colon, for example the lemma layer of Tree Tagger is represente
 	
 
   <h4>Empty token</h4>
-	<p>Like in <%= doc_link_to 'Poliqarp', 'ql', 'poliqarp-plus' %>, an empty token is signified by <code>[]</code>
+	<p>Like in <%= embedded_link_to 'Poliqarp', 'ql', 'poliqarp-plus' %>, an empty token is signified by <code>[]</code>
     which means any token. Due to the
 	excessive number of results, empty token is not allowed to be used independently, but in
 	combination with other tokens, for instance in a sequence query.</p>
