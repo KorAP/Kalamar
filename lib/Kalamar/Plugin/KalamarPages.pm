@@ -25,8 +25,9 @@ sub register {
 
       ($page, my $fragment) = split '#', $page;
 
-      my $url = $c->doc->url($scope, $page);
+      my $url = $c->url_with('doc' => page => $page, scope => $scope);
       $url->fragment($fragment) if $fragment;
+      $url->path->canonicalize;
 
       return $c->link_to(
         $title,
@@ -112,17 +113,10 @@ sub register {
       my $c = shift;
       my $page = pop;
       my $scope = shift;
-      if ($scope) {
-        return $c->url_with(
-          'doc2',
-          page => $page,
-          scope => $scope
-        );
-      };
-
       return $c->url_with(
-        'doc1',
-        page => $page
+        'doc',
+        page => $page,
+        scope => $scope
       );
     }
   );
