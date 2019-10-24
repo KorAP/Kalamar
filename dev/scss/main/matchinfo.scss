@@ -31,6 +31,10 @@ div.matchinfo {
   text-align: left;
 }
 
+div.matchtable {
+    background-color: $dark-orange;
+      }
+  
 div.matchtable > div {
   z-index: 20;
   margin-left: $left-distance - ($border-size / 2);
@@ -39,7 +43,7 @@ div.matchtable > div {
   overflow-x: auto;
   overflow-y: visible;
   width: auto;
-
+  
   table {
     display: table;
     border-collapse: separate;
@@ -195,6 +199,7 @@ div.matchtree {
   overflow-y: visible;
   padding: 0;
   margin-top: 1pt;
+  background-color: $dark-orange;
 
   > div {
     position: unset;

@@ -150,6 +150,8 @@ define([
       // Make this separate from _init
       this.readItems(list);
 
+      this.dontHide = false;
+        
       return this;
     },
 
@@ -583,12 +585,13 @@ define([
      * Hide the menu and call the onHide callback.
      */
     hide : function () {
-      this.removeItems();
-      this._prefix.clear();
-      this.onHide();
-      this._element.classList.remove('visible');
-
-      /* this._element.blur(); */
+      if(!this.dontHide){
+          this.removeItems();
+          this._prefix.clear();
+          this.onHide();
+          this._element.classList.remove('visible');
+      } 
+       /* this._element.blur(); */
     },
 
     /**

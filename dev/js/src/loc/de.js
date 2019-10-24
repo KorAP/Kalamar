@@ -52,7 +52,7 @@ define(function () {
   loc.TOUR_vccho2 = "Eigene Definition von Subkorpora durch Verknüpfung beliebiger Metadatenfelder.";
   loc.TOUR_vcStat1 = "Es besteht die Möglichkeit, die Korpusstatistik anzuzeigen.";
   loc.TOUR_vcStat2 = "Korpusstatistik";
-  loc.TOUR_qlfield = "Auswahl der Suchanfragesprache";
+  loc.TOUR_qlfield = "Auswahl der Suchanfragesprache: In KorAP können mehrere Suchanfragesprachen verwendet werden.";
   loc.TOUR_glimpse = "Beim Wählen dieser Option wird festgelegt ob nur die ersten Treffer in zufälliger Reihenfolge ausgewählt werden.";
   loc.TOUR_help = "Hilfe zu KorAP";
   loc.TOUR_seargo = "Suchanfrage starten";
