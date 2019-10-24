@@ -239,8 +239,7 @@ sub startup {
 
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
-  $r->get('/doc/:page')->to('documentation#page')->name('doc1');
-  $r->get('/doc/*scope/:page')->to('documentation#page')->name('doc2');
+  $r->get('/doc/:scope/:page')->to('documentation#page', scope => undef)->name('doc');
 
   # Contact route
   $r->get('/contact')->to('documentation#contact');

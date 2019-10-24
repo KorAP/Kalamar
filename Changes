@@ -1,4 +1,4 @@
-0.37 2019-10-17
+0.37 2019-10-24
         - Removed deprecated 'kalamar_test_port' helper.
         - Separated KalamarHelpers and KalamarPages.
         - Renamed 'doc_link_to' to 'embedded_link_to'
@@ -8,6 +8,7 @@
         - Renamed 'doc_uc' to 'under_construction'
           and deprecated 'doc_uc'.
         - Introduced 'page_title' helper.
+        - Simplified documentation routing.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

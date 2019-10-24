@@ -27,6 +27,7 @@ sub register {
 
       my $url = $c->doc->url($scope, $page);
       $url->fragment($fragment) if $fragment;
+      $url->path->canonicalize;
 
       return $c->link_to(
         $title,
@@ -114,14 +115,14 @@ sub register {
       my $scope = shift;
       if ($scope) {
         return $c->url_with(
-          'doc2',
+          'doc',
           page => $page,
           scope => $scope
         );
       };
 
       return $c->url_with(
-        'doc1',
+        'doc',
         page => $page
       );
     }
