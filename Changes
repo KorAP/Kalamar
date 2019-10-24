@@ -10,6 +10,9 @@
         - Introduced 'page_title' helper.
         - Simplified documentation routing.
         - Added 'realm' parameter to 'embedded_link_to' helper.
+        - Introduced 'navigation' helper with 'realm' parameter.
+        - Deprecated 'doc_navi' helper in favor of 'navigation'
+          helper.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

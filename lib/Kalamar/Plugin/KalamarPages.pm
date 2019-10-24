@@ -104,7 +104,7 @@ sub register {
       my $scope = shift;
       my $url;
       if ($page) {
-        $url = $c->doc->url($scope, $page);
+        $url = $c->url_with('doc', scope => $scope, page => $page);
         $url->path->canonicalize;
       }
       else {
@@ -115,8 +115,10 @@ sub register {
   );
 
 
+  # DEPRECATED: 2019-10-24
   $mojo->helper(
     'doc.url' => sub {
+      deprecated 'Deprecated "doc->url" in favor of direct usage with "url_with"';
       my $c = shift;
       my $page = pop;
       my $scope = shift;
@@ -129,14 +131,25 @@ sub register {
   );
 
   # Documentation navigation helper
+  # DEPRECATED: 2019-10-24
   $mojo->helper(
     doc_navi => sub {
+      deprecated 'Deprecated "docnavi" in favor of "navigation"';
       my $c = shift;
+      return $c->navigation('doc', @_)
+    }
+  );
+
+  # Navigation helper
+  $mojo->helper(
+    'navigation' => sub {
+      my $c = shift;
+      my $realm = shift;
       my $items = pop;
       my $scope = shift;
 
       # Create unordered list
-      my $html = '<ul class="nav">'."\n";
+      my $html = '<ul class="nav nav-'.$realm.'">'."\n";
 
       # Embed all link tags
       foreach (@$items) {
@@ -152,7 +165,10 @@ sub register {
           my $id = $_->{id};
           $id =~ s/^#//;
 
-          $url = $c->doc->url($part_scope, $page);
+          $url = $c->url_with($realm, scope => $part_scope, page => $page);
+
+          # Canonicalize (for empty scopes)
+          $url->path->canonicalize;
           $url->fragment($id);
         }
 
@@ -165,7 +181,7 @@ sub register {
           };
 
           # Generate url with query parameter inheritance
-          $url = $c->doc->url($scope, $_->{id});
+          $url = $c->url_with($realm, scope => $scope, page => $_->{id});
 
           # Canonicalize (for empty scopes)
           $url->path->canonicalize;
@@ -194,7 +210,7 @@ sub register {
         if ($_->{items} && ref($_->{items}) eq 'ARRAY') {
           $html .= "\n";
           my $subscope = $scope ? scalar($scope) . '/' . $_->{id} : $_->{id};
-          $html .= $c->doc_navi($subscope, $_->{items});
+          $html .= $c->navigation($realm, $subscope, $_->{items});
           $html .= "</li>\n";
         }
         else {
@@ -292,9 +308,9 @@ Generates an C<Under Construction> notification.
 Currently not used.
 
 
-=head2 doc_navi
+=head2 navigation
 
-Returns an HTML representation of the documentation navigation,
+Returns an HTML representation of a navigation structure
 based on active navigation items.
 
 
