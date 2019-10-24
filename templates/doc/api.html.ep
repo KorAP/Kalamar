@@ -6,4 +6,4 @@
   The specification for KoralQuery is available on <%= ext_link_to 'GitHub', "http://korap.github.io/Koral" %>.
   All API endpoints either use KoralQuery or are (more or lest) REST-ful web APIs.</p>
 
-<p>All publicly available API endpoints including their requests and responses are described in the <%= ext_link_to 'GitHub Wiki', "https://github.com/KorAP/Kustvakt/wiki" %> of <%= embedded_link_to 'Kustvakt', 'korap', 'kustvakt' %>.</p>
+<p>All publicly available API endpoints including their requests and responses are described in the <%= ext_link_to 'GitHub Wiki', "https://github.com/KorAP/Kustvakt/wiki" %> of <%= embedded_link_to 'doc', 'Kustvakt', 'korap', 'kustvakt' %>.</p>

@@ -9,7 +9,7 @@
 
 <p>In KorAP, corpus texts are allowed to have arbitrary metadata information, that partially can be used to create subcorpora (so-called virtual corpora).</p>
 
-<p>KorAP also supports an arbitrary number of <%= embedded_link_to 'Annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
+<p>KorAP also supports an arbitrary number of <%= embedded_link_to 'doc', 'Annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
 
 <dl>
   <p>Annotations of the following kind are supported:</p>

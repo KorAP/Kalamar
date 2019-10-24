@@ -19,13 +19,20 @@ sub register {
   $mojo->helper(
     embedded_link_to => sub {
       my $c = shift;
+
+      # The embedded link now expects at least 3 parameters:
+      #   - The realm, which is identical to the named route
+      #   - The title of the link
+      #   - An optional scope, which is a first level path for navigation
+      #   - The page to link to (accepting a fragment)
+      my $realm = shift;
       my $title = shift;
       my $page = pop;
       my $scope = shift;
 
       ($page, my $fragment) = split '#', $page;
 
-      my $url = $c->url_with('doc' => page => $page, scope => $scope);
+      my $url = $c->url_with($realm, page => $page, scope => $scope);
       $url->fragment($fragment) if $fragment;
       $url->path->canonicalize;
 
@@ -42,7 +49,7 @@ sub register {
     doc_link_to => sub {
       my $c = shift;
       deprecated 'Deprecated "doc_link_to" in favor of "embedded_link_to"';
-      return $c->embedded_link_to(@_)
+      return $c->embedded_link_to('doc', @_)
     }
   );
 
@@ -259,9 +266,9 @@ helpers for Mojolicious available.
 =head2 embedded_link_to
 
   %# In templates
-  %= embedded_link_to 'Kalamar', 'korap', 'kalamar'
+  %= embedded_link_to 'doc','Kalamar', 'korap', 'kalamar'
 
-Create a link to the documentation. Accepts a name, a scope, and a page.
+Create a link to the documentation. Accepts a realm, a title, a scope, and a page.
 
 
 =head2 ext_link_to

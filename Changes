@@ -9,6 +9,7 @@
           and deprecated 'doc_uc'.
         - Introduced 'page_title' helper.
         - Simplified documentation routing.
+        - Added 'realm' parameter to 'embedded_link_to' helper.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

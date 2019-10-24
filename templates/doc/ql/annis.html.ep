@@ -9,7 +9,7 @@
   pairs, relations). The concept of AQL is similar to searching node elements and edges
   between them, where a node element can be a token or an attribute-value pair.</p>
 
-<p>KorAP supports the following keywords by using the <%= embedded_link_to 'default foundries', 'data', 'annotation' %>: </p>
+<p>KorAP supports the following keywords by using the <%= embedded_link_to 'doc', 'default foundries', 'data', 'annotation' %>: </p>
 <dl>
   <dt><code>node</code></dt>
   <dd>a node element</dd>
