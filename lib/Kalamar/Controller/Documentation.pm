@@ -22,7 +22,7 @@ sub page {
   # Set navigation to sidebar
   $c->content_block(
     sidebar => {
-      inline => '<nav>' . $c->doc_navi($c->config('navi')) . '</nav>'
+      inline => '<nav>' . $c->navigation('doc', $c->config('doc_navi')) . '</nav>'
     }
   );
 

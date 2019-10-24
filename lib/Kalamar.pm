@@ -214,14 +214,14 @@ sub startup {
   };
 
   # Configure documentation navigation
-  my $navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
-  $navi = $navi ? decode_json($navi) : [];
+  my $doc_navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
+  $doc_navi = $doc_navi ? decode_json($doc_navi) : [];
 
   if ($conf->{navi_ext}) {
-    push @$navi, @{$conf->{navi_ext}};
+    push @$doc_navi, @{$conf->{navi_ext}};
   };
 
-  $self->config(navi => $navi);
+  $self->config(doc_navi => $doc_navi);
 
   $self->log->info('API expected at ' . $self->korap->api);
 

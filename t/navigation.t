@@ -40,7 +40,7 @@ my $navi = [
   }
 ];
 
-my $render = $app->doc_navi($navi);
+my $render = $app->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!KorAP!, 'Title matches');
 
@@ -55,7 +55,7 @@ $navi = [
   }
 ];
 
-$render = $app->doc_navi($navi);
+$render = $app->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!KorAP!, 'Title matches');
 like($render, qr!/doc/krill!, 'Path matches doc/krill');
@@ -78,7 +78,7 @@ $navi = [
   }
 ];
 
-$render = $app->doc_navi($navi);
+$render = $app->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!/doc/faq!, 'Path matches doc/faq');
@@ -128,7 +128,7 @@ $navi = [
   }
 ];
 
-$render = $app->doc_navi($navi);
+$render = $app->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!/doc/korap/koral!, 'Path matches korap/koral');
@@ -144,7 +144,7 @@ like($render, qr!/doc/faq!, 'Path matches doc/faq');
 
 my $c = $app->build_controller;
 $c->stash(page => 'korap');
-$render = $c->doc_navi($navi);
+$render = $c->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!/doc/ql!, 'Path matches doc/ql');
@@ -155,7 +155,7 @@ like($render, qr!/doc/ql/poliqarp-plus#complex!,
 like($render, qr!class="active".*?KorAP!, 'Active value for KorAP');
 
 $c->stash(page => 'poliqarp-plus');
-$render = $c->doc_navi($navi);
+$render = $c->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!/doc/ql!, 'Path matches doc/ql');
@@ -211,7 +211,7 @@ $navi = [
     title => 'F.A.Q.'
   }
 ];
-$render = $c->doc_navi($navi);
+$render = $c->navigation('doc', $navi);
 
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
@@ -241,7 +241,7 @@ $navi = [
   }
 ];
 
-$render = $app->doc_navi($navi);
+$render = $app->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
@@ -252,7 +252,7 @@ like($render, qr!<a href="/doc/faq(?:#[^"]+)?">F\.A\.Q\.</a>!,
 # Change preferred language
 $languages = [qw/de en/];
 
-$render = $app->doc_navi($navi);
+$render = $app->navigation('doc', $navi);
 like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
