@@ -59,6 +59,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     privacy => 'Datenschutz',
     imprint => 'Impressum',
+    settings => 'Einstellungen',
     Template => {
       intro => 'de/intro',
       doc => {
@@ -153,6 +154,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     privacy => 'Privacy',
     imprint => 'Imprint',
+    settings => 'Settings',
     Template => {
       intro => 'intro',
       doc => {

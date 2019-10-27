@@ -1,0 +1,17 @@
+% if (param('embedded')) {
+%   stash(embedded => 1);
+% };
+
+% unless (stash('title')) {
+%   stash(title => loc('settings'))
+% }
+
+% content_block(sidebar => {
+%    inline => '<nav>' . navigation('settings') . '</nav>'
+% });
+
+% layout 'main', sidebar_active => 1, main_class => 'page settings';
+
+%= page_title
+
+%= content 'settings'

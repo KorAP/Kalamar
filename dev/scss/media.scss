@@ -163,7 +163,7 @@ $standard-margin: 4px;
       line-height: 1em;
     }
     &.active ~ main div.intro,
-    &.active ~ main.tutorial {
+    &.active ~ main.page {
       margin-left: $standard-margin !important;
     }
 
@@ -205,7 +205,7 @@ $standard-margin: 4px;
     }
   }
 
-  main.tutorial {
+  main.page {
     margin-right: 20px;
   }
 }
@@ -218,7 +218,7 @@ $standard-margin: 4px;
   header, aside {
     display: none;
   }
-  main.tutorial {
+  main.page {
     margin: 1em;
   }
   #kalamar-bg {

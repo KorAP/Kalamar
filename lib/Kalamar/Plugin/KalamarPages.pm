@@ -4,6 +4,7 @@ use Mojo::JSON qw/decode_json true false/;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/xml_escape deprecated/;
 
+our $navi = {};
 
 # TODO:
 #   Add documentation plugin to programmatically
@@ -148,6 +149,11 @@ sub register {
       my $items = pop;
       my $scope = shift;
 
+      # Take items from central list
+      unless ($items) {
+        $items = $navi->{$realm};
+      };
+
       # Create unordered list
       my $html = '<ul class="nav nav-'.$realm.'">'."\n";
 
@@ -191,7 +197,6 @@ sub register {
         my @classes;
         push(@classes, $_->{'class'}) if $_->{'class'};
         push(@classes, 'active') if $active;
-
 
         # New list item
         $html .= '<li';
@@ -254,6 +259,31 @@ sub register {
     }
   );
 
+  # Set a navigation list to a realm
+  $mojo->helper(
+    'navi.set' => sub {
+      my $c = shift;
+      my $realm = shift;
+      my $list = shift;
+
+      $navi->{$realm} = $list;
+    }
+  );
+
+  $mojo->helper(
+    'navi.add' => sub {
+      my $c = shift;
+      my $realm = shift;
+      my $navi_realm = ($navi->{$realm} //= []);
+      my $title = shift;
+      my $id = shift;
+
+      push @$navi_realm, {
+        title => $title,
+        id => $id
+      }
+    }
+  );
 }
 
 1;

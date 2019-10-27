@@ -217,11 +217,17 @@ sub startup {
   my $doc_navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $doc_navi = $doc_navi ? decode_json($doc_navi) : [];
 
+  # TODO:
+  #   Use navi->add()
   if ($conf->{navi_ext}) {
     push @$doc_navi, @{$conf->{navi_ext}};
   };
 
+  # TODO:
+  #   Remove navi entry
   $self->config(doc_navi => $doc_navi);
+
+  $self->navi->set(doc => $doc_navi);
 
   $self->log->info('API expected at ' . $self->korap->api);
 
@@ -240,6 +246,10 @@ sub startup {
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:scope/:page')->to('documentation#page', scope => undef)->name('doc');
+
+  # Settings routes (deactivated)
+  # $r->get('/settings')->to(cb => sub { shift->render('settings') })->name('settings_start');
+  # $r->get('/settings/:scope/:page')->to(scope => undef, page => undef)->name('settings');
 
   # Contact route
   $r->get('/contact')->to('documentation#contact');
