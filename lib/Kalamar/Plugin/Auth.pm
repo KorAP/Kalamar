@@ -1,5 +1,7 @@
 package Kalamar::Plugin::Auth;
 use Mojo::Base 'Mojolicious::Plugin';
+use File::Basename 'dirname';
+use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -61,7 +63,15 @@ sub register {
           tokenExpired => 'Zugriffstoken abgelaufen',
           tokenInvalid => 'Zugriffstoken ungültig',
           refreshFail => 'Fehlerhafter Refresh-Token',
-          responseError => 'Unbekannter Autorisierungsfehler'
+          responseError => 'Unbekannter Autorisierungsfehler',
+          paramError => 'Einige Eingaben sind fehlerhaft',
+          redirectUri => 'Weiterleitungs-Adresse',
+          homepage => 'Webseite',
+          desc => 'Kurzbeschreibung',
+          clientType => 'Art der Client-Applikation',
+          clientName => 'Name der Client-Applikation',
+          clientRegister => 'Neue Client-Applikation registrieren',
+          oauthSettings => 'OAuth',
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -73,7 +83,15 @@ sub register {
           tokenExpired => 'Access token expired',
           tokenInvalid => 'Access token invalid',
           refreshFail => 'Bad refresh token',
-          responseError => 'Unknown authorization error'
+          responseError => 'Unknown authorization error',
+          paramError => 'Some fields are invalid',
+          redirectUri => 'Redirect URI',
+          homepage => 'Homepage',
+          desc => 'Short description',
+          clientType => 'Type of the client application',
+          clientName => 'Name of the client application',
+          clientRegister => 'Register new client application',
+          oauthSettings => 'OAuth',
         }
       }
     }
@@ -95,6 +113,16 @@ sub register {
     }
   );
 
+  # Add settings
+  $app->navi->add(settings => (
+    $app->loc('Auth_oauthSettings'), 'oauth'
+  ));
+
+  # The plugin path
+  my $path = catdir(dirname(__FILE__), 'Auth');
+
+  # Append "templates"
+  push @{$app->renderer->paths}, catdir($path, 'templates');
 
   # Get or set the user token necessary for authorization
   $app->helper(
@@ -577,6 +605,42 @@ sub register {
         )->wait;
       }
     )->name('logout');
+
+    # Route to oauth settings
+    $r->get('/settings/oauth')->to(
+      cb => sub {
+        return shift->render(template => 'auth/tokens')
+      }
+    );
+
+    # Route to oauth settings
+    $r->post('/settings/oauth/register')->to(
+      cb => sub {
+        my $c = shift;
+        my $v = $c->validation;
+
+        $v->required('name', 'trim')->size(3, 255);
+        $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
+        $v->required('description', 'trim')->size(3, 255);
+        $v->optional('url', 'trim')->like(qr/^(http|$)/i);
+        $v->optional('redirectUri', 'trim')->like(qr/^(http|$)/i);
+
+        # Render with error
+        if ($v->has_error) {
+          $c->notify(warn => $c->loc('Auth_paramError'));
+          return $c->render(template => 'auth/tokens')
+        };
+
+        # curl -H "Content-Type: application/json" 
+        #     -H 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=' 
+        #     -d '{"name":"My desktop client","type":"PUBLIC","description":"a 
+        #        desktop client","url":"http://desktop.client.com",
+        #        "redirectURI":"http://desktop.client.com/redirect"}' 
+        #     http://localhost:8089/api/oauth2/client/register
+
+        return shift->render(text => 'Hi!')
+      }
+    )->name('oauth-register')
   }
 
   # Use JWT login
@@ -783,6 +847,8 @@ sub register {
       }
     )->name('logout');
   };
+
+  $app->log->info('Successfully registered Auth plugin');
 };
 
 1;
