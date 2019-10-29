@@ -382,6 +382,9 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->element_exists('p.no-results')
   ;
 
+$t->get_ok('/settings/oauth')
+  ->content_is('')
+  ;
 
 done_testing;
 __END__

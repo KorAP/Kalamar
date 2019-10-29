@@ -15,10 +15,12 @@ my $secret = 's3cr3t';
 my $fixture_path = path(Mojo::File->new(__FILE__)->dirname)->child('..', 'fixtures');
 
 our %tokens = (
-  "access_token"    => "4dcf8784ccfd26fac9bdb82778fe60e2",
-  "refresh_token"   => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
-  "access_token_2"  => "abcde",
-  "refresh_token_2" => "fghijk"
+  'access_token'    => "4dcf8784ccfd26fac9bdb82778fe60e2",
+  'refresh_token'   => "hlWci75xb8atDiq3924NUSvOdtAh7Nlf9z",
+  'access_token_2'  => "abcde",
+  'refresh_token_2' => "fghijk",
+  'new_client_id' => 'fCBbQkA2NDA3MzM1Yw==',
+  'new_client_secret' => 'KUMaFxs6R1WGud4HM22w3HbmYKHMnNHIiLJ2ihaWtB4N5JxGzZgyqs5GTLutrORj',
 );
 
 helper get_token => sub {
@@ -472,6 +474,16 @@ post '/v1.0/oauth2/revoke' => sub {
     text => ''
   )
 };
+
+# Request API token
+post '/v1.0/oauth2/client/register' => sub {
+  my $c = shift;
+
+  return $c->render(json => {
+    "client_id": $tokens{new_client_id},
+    "client_secret" => $tokens{new_client_secret}
+  });
+}
 
 
 app->start;
