@@ -1,0 +1,41 @@
+% extends 'settings', title => 'KorAP: '.loc('Auth_oauthSettings'), page => 'oauth';
+
+%= page_title
+
+%= form_for 'oauth-register', class => 'form-table oauth-register', begin
+  <fieldset>
+    %= csrf_field
+    <legend><%= loc('Auth_clientRegister') %></legend>
+
+    <div>
+      %= label_for name => loc('Auth_clientName'), class => 'field-required', maxlength => 255
+      %= text_field 'name'
+    </div>
+
+    <div>
+      %= label_for type => loc('Auth_clientType'), class => 'field-required'
+      <%= radio_button type => 'PUBLIC', checked => 'checked' %>
+      <label>Public</label>
+      <br />
+      <%= radio_button type => 'CONFIDENTIAL' %>
+      <label>Confidential</label>
+    </div>
+
+    <div>
+      %= label_for name => loc('Auth_desc'), class => 'field-required'
+      %= text_field 'description'
+    </div>
+
+    <div>
+      %= label_for name => loc('Auth_homepage')
+      %= url_field 'url', placeholder => 'https://...'
+    </div>
+
+    <div>
+      %= label_for name => loc('Auth_redirectUri')
+      %= url_field 'redirectURI', placeholder => 'https://...'
+    </div>
+
+    %= submit_button loc('Auth_clientRegister')
+  </fieldset>
+% end

@@ -371,7 +371,7 @@ $t->get_ok('/x/expired-with-wrong-refresh')
 
 
 # The token is invalid and can't be refreshed!
-$t->get_ok('/?q=baum&cutoff=true')
+$csrf = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
   ->session_hasnt('/auth')
   ->session_hasnt('/auth_r')
@@ -380,8 +380,60 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->content_unlike(qr/\"authorized\"\:\"yes\"/)
   ->element_exists('p.no-results')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
   ;
 
+# Login:
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'pass',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->content_is('')
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Login successful')
+  ->element_exists('aside.off')
+  ->element_exists_not('aside.active')
+  ;
+
+$t->get_ok('/settings/oauth')
+  ->text_is('form.form-table legend', 'Register new client application')
+  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ;
+
+$csrf = $t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyApp',
+  type => 'PUBLIC',
+  description => 'This is my application'
+})
+  ->text_is('div.notify-error', 'Bad CSRF token')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
+  ;
+
+$t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyApp',
+  type => 'CONFIDENTIAL',
+  description => 'This is my application',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->header_is('Location', '/settings/oauth/')
+  ->content_is('')
+  ;
+
+$t->get_ok('/settings/oauth/?lang=en')
+  ->status_is(200)
+  ->element_exists('div.notify-success')
+  # ->content_is()
+  ;
 
 done_testing;
 __END__
