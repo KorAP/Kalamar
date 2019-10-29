@@ -16,6 +16,10 @@ $t->get_ok('/')
   ->text_is('div.intro > p > strong', 'KorAP')
   ;
 
+# Only routed when existing
+$t->get_ok('/settings')
+  ->status_is(404);
+
 push @{$t->app->renderer->paths}, path(path(__FILE__)->dirname);
 
 $t->app->plugin(Localize => {

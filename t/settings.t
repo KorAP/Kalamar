@@ -39,13 +39,13 @@ $app->routes->get('/settings/:scope/:page')->to(scope => undef, page => undef)->
 
 $t->get_ok('/settings')
   ->text_is('a[href~/settings/oauth]','OAuth Token Management')
-  ->text_is('h2#page-top', 'Settings')
+#  ->text_is('h2#page-top', 'Settings')
   ;
 
 $t->get_ok('/settings/oauth')
   ->text_is('a[href~/settings/oauth]','OAuth Token Management')
-  ->text_is('h2#page-top', 'Settings')
-  ->text_is('#abc', 'My Settings')
+#  ->text_is('h2#page-top', 'Settings')
+#  ->text_is('#abc', 'My Settings')
   ;
 
 done_testing;
