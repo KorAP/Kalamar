@@ -1,0 +1,87 @@
+// This class defines form views
+
+.form-table {
+  display: block;
+  padding: 0;
+
+  fieldset {
+    border-width: 0;
+    padding: 0;
+    margin: 0;
+    // margin-left: 5em;
+  }
+
+  fieldset > div {
+    white-space: nowrap;
+  }
+
+  legend {
+    background-color: transparent;
+    margin-left: 0;
+    font-weight: bold;
+    border-radius: $standard-border-radius;
+  }
+
+  label, input[type=radio] {
+    font-size: 80%;
+  }
+  
+  label[for] {
+    display: block;
+    text-align: left;
+  }
+  
+  label[for], input[type=submit] {
+    margin-top: 2em;
+  }
+
+  input, textarea, button {
+    border-radius: $standard-border-radius;
+  }
+  
+  input, textarea {
+    border-color: $ids-grey-2;
+    background-color: $nearly-white;
+    border-style: solid;
+  }
+  
+  input, textarea, select {
+    display: inline-block;
+    width: 20%;
+    min-width: 20em;
+    // margin: 0 20pt 0 20pt;
+    padding: $base-padding;
+  }
+
+  input[type=radio] {
+    display: inline;
+    text-aline: right;
+    background-color: red;
+    width: auto;
+    min-width: auto;
+  }
+  
+  input[readonly=readonly],textarea[readonly] {
+    background-color: $light-orange; // rgba(0,0,0,0.5);
+  }
+  
+  .field-with-error {
+    border-color: $ids-pink-1;
+  }
+
+  input:not([type=radio]), button {
+     height: 3em;
+  }
+
+  input[type=submit], button {
+     display: inline-block;
+     text-align: center;
+     background-color: $middle-green;
+     border-color: $dark-green;
+  }
+
+  label.field-required::after {
+    color: $ids-blue-1;
+    content:'*';
+  }
+}

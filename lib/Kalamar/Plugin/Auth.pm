@@ -1,5 +1,7 @@
 package Kalamar::Plugin::Auth;
 use Mojo::Base 'Mojolicious::Plugin';
+use File::Basename 'dirname';
+use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -47,6 +49,7 @@ sub register {
     $app->log->error('client_id or client_secret not defined');
   };
 
+  # Load localize
   $app->plugin('Localize' => {
     dict => {
       Auth => {
@@ -61,7 +64,20 @@ sub register {
           tokenExpired => 'Zugriffstoken abgelaufen',
           tokenInvalid => 'Zugriffstoken ungültig',
           refreshFail => 'Fehlerhafter Refresh-Token',
-          responseError => 'Unbekannter Autorisierungsfehler'
+          responseError => 'Unbekannter Autorisierungsfehler',
+          paramError => 'Einige Eingaben sind fehlerhaft',
+          redirectUri => 'Weiterleitungs-Adresse',
+          homepage => 'Webseite',
+          desc => 'Kurzbeschreibung',
+          clientCredentials => 'Client Daten',
+          clientType => 'Art der Client-Applikation',
+          clientName => 'Name der Client-Applikation',
+          clientID => 'ID der Client-Applikation',
+          clientSecret => 'Client-Secret',
+          clientRegister => 'Neue Client-Applikation registrieren',
+          registerSuccess => 'Registrierung erfolgreich',
+          registerFail => 'Registrierung fehlgeschlagen',
+          oauthSettings => 'OAuth',
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -73,7 +89,20 @@ sub register {
           tokenExpired => 'Access token expired',
           tokenInvalid => 'Access token invalid',
           refreshFail => 'Bad refresh token',
-          responseError => 'Unknown authorization error'
+          responseError => 'Unknown authorization error',
+          paramError => 'Some fields are invalid',
+          redirectUri => 'Redirect URI',
+          homepage => 'Homepage',
+          desc => 'Short description',
+          clientCredentials => 'Client Credentials',
+          clientType => 'Type of the client application',
+          clientName => 'Name of the client application',
+          clientID => 'ID of the client application',
+          clientSecret => 'Client secret',
+          clientRegister => 'Register new client application',
+          registerSuccess => 'Registration successful',
+          registerFail => 'Registration denied',
+          oauthSettings => 'OAuth',
         }
       }
     }
@@ -95,6 +124,11 @@ sub register {
     }
   );
 
+  # The plugin path
+  my $path = catdir(dirname(__FILE__), 'Auth');
+
+  # Append "templates"
+  push @{$app->renderer->paths}, catdir($path, 'templates');
 
   # Get or set the user token necessary for authorization
   $app->helper(
@@ -577,6 +611,110 @@ sub register {
         )->wait;
       }
     )->name('logout');
+
+    # If "experimental_registration" is set, open
+    # OAuth registration dialogues.
+    if ($param->{experimental_client_registration}) {
+
+      # Add settings
+      $app->navi->add(settings => (
+        $app->loc('Auth_oauthSettings'), 'oauth'
+      ));
+
+      # Route to oauth settings
+      $r->get('/settings/oauth')->to(
+        cb => sub {
+          return shift->render(template => 'auth/tokens')
+        }
+      );
+
+      # Route to oauth client registration
+      $r->post('/settings/oauth/register')->to(
+        cb => sub {
+          my $c = shift;
+          my $v = $c->validation;
+
+          unless ($c->auth->token) {
+
+            # TODO: not allowed
+            return $c->reply->not_found;
+          };
+
+          $v->csrf_protect;
+          $v->required('name', 'trim')->size(3, 255);
+          $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
+          $v->required('desc', 'trim')->size(3, 255);
+          $v->optional('url', 'trim')->like(qr/^(http|$)/i);
+          $v->optional('redirectUri', 'trim')->like(qr/^(http|$)/i);
+
+          # Render with error
+          if ($v->has_error) {
+            if ($v->has_error('csrf_token')) {
+              $c->notify(error => $c->loc('Auth_csrfFail'));
+            }
+            else {
+              $c->notify(warn => $c->loc('Auth_paramError'));
+            };
+            return $c->render(template => 'auth/tokens')
+          };
+
+          # Wait for async result
+          $c->render_later;
+
+          # Register on server
+          state $url = Mojo::URL->new($c->korap->api)->path('oauth2/client/register');
+          $c->korap_request('POST', $url => {} => json => {
+            name        => $v->param('name'),
+            type        => $v->param('type'),
+            description => $v->param('desc'),
+            url         => $v->param('url'),
+            redirectURI => $v->param('redirectURI')
+          })->then(
+            sub {
+              my $tx = shift;
+              my $result = $tx->result;
+
+              if ($result->is_error) {
+                return Mojo::Promise->reject;
+              };
+
+              my $json = $result->json;
+
+              # TODO:
+              #   Respond in template
+              my $client_id = $json->{client_id};
+              my $client_secret = $json->{client_secret};
+
+              $c->stash('client_name' => $v->param('name'));
+              $c->stash('client_desc' => $v->param('desc'));
+              $c->stash('client_type' => $v->param('type'));
+              $c->stash('client_url'  => $v->param('url'));
+              $c->stash('client_redirect_uri' => $v->param('redirectURI'));
+              $c->stash('client_id' => $client_id);
+
+              if ($client_secret) {
+                $c->stash('client_secret' => $client_secret);
+              };
+
+              $c->notify(success => $c->loc('Auth_en_registerSuccess'));
+
+              return $c->render(template => 'auth/register-success');
+            }
+          )->catch(
+            sub {
+              # Server may be irresponsible
+              my $err = shift;
+              $c->notify('error' => $c->loc('Auth_en_registerFail'));
+              return Mojo::Promise->reject($err);
+            }
+          )->finally(
+            sub {
+              return $c->redirect_to('settings' => { scope => 'oauth' });
+            }
+          );
+        }
+      )->name('oauth-register');
+    };
   }
 
   # Use JWT login
@@ -783,6 +921,8 @@ sub register {
       }
     )->name('logout');
   };
+
+  $app->log->info('Successfully registered Auth plugin');
 };
 
 1;
@@ -821,3 +961,68 @@ __DATA__
 
 
 __END__
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Kalamar::Plugin::Auth - OAuth-2.0-based authorization plugin
+
+=head1 DESCRIPTION
+
+L<Kalamar::Plugin::Auth> is an OAuth-2.0-based authorization
+plugin for L<Kalamar>. It requires a C<Kustvakt> full server
+with OAuth 2.0 capabilities.
+It is activated by loading C<Auth> as a plugin in the C<Kalamar.plugins>
+parameter in the Kalamar configuration.
+
+=head1 CONFIGURATION
+
+L<Kalamar::Plugin::Auth> supports the following parameter for the
+C<Kalamar-Auth> configuration section in the Kalamar configuration:
+
+=over 2
+
+=item B<client_id>
+
+The client identifier of Kalamar to be send with every OAuth 2.0
+management request.
+
+=item B<client_secret>
+
+The client secret of Kalamar to be send with every OAuth 2.0
+management request.
+
+=item B<oauth2>
+
+Initially L<Kalamar-Plugin-Auth> was based on JWT. This parameter
+is historically used to switch between oauth2 and jwt. It is expected
+to be deprecated in the future, but for the moment it is required
+to be set to a true value.
+
+=item B<experimental_client_registration>
+
+Activates the oauth client registration flow.
+
+=back
+
+=head2 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015-2020, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Author: L<Nils Diewald|http://nils-diewald.de/>
+
+Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
+Corpus Analysis Platform at the
+L<Leibniz Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+member of the
+L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de>
+and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
+funded by the
+L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
+
+Kalamar is free software published under the
+L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
+
+=cut

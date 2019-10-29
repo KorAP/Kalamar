@@ -272,9 +272,18 @@ sub startup {
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:scope/:page')->to('documentation#page', scope => undef)->name('doc');
 
-  # Settings routes (deactivated)
-  # $r->get('/settings')->to(cb => sub { shift->render('settings') })->name('settings_start');
-  # $r->get('/settings/:scope/:page')->to(scope => undef, page => undef)->name('settings');
+  # Settings routes
+  if ($self->navi->exists('settings')) {
+    $r->get('/settings')->to(
+      cb => sub {
+        return shift->render('settings')
+      }
+    )->name('settings_start');
+    $r->get('/settings/:scope/:page')->to(
+      scope => undef,
+      page => undef
+    )->name('settings');
+  };
 
   # Contact route
   $r->get('/contact')->to('documentation#contact');
@@ -318,7 +327,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2019, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2020, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
