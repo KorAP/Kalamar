@@ -272,9 +272,18 @@ sub startup {
   $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
   $r->get('/doc/:scope/:page')->to('documentation#page', scope => undef)->name('doc');
 
-  # Settings routes (deactivated)
-  # $r->get('/settings')->to(cb => sub { shift->render('settings') })->name('settings_start');
-  # $r->get('/settings/:scope/:page')->to(scope => undef, page => undef)->name('settings');
+  # Settings routes
+  if ($self->navi->exists('settings')) {
+    $r->get('/settings')->to(
+      cb => sub {
+        return shift->render('settings')
+      }
+    )->name('settings_start');
+    $r->get('/settings/:scope/:page')->to(
+      scope => undef,
+      page => undef
+    )->name('settings');
+  };
 
   # Contact route
   $r->get('/contact')->to('documentation#contact');

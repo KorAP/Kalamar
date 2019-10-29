@@ -141,6 +141,10 @@ like($render, qr!/doc/ql/poliqarp-plus#complex!,
      'Path matches doc/ql/poliqarp-plus#complex');
 like($render, qr!/doc/faq!, 'Path matches doc/faq');
 
+ok($app->navi->exists('doc'));
+ok(!$app->navi->exists('xy'));
+is($app->navigation('xy'), '');;
+
 
 my $c = $app->build_controller;
 $c->stash(page => 'korap');

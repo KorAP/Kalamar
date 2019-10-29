@@ -12,6 +12,4 @@
 
 % layout 'main', sidebar_active => 1, main_class => 'page settings';
 
-%= page_title
-
 %= content 'settings'

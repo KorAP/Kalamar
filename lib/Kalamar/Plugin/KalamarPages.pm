@@ -152,6 +152,14 @@ sub register {
       # Take items from central list
       unless ($items) {
         $items = $navi->{$realm};
+
+        # Realm has no entries
+        return '' unless $items;
+      }
+
+      # Set realm
+      else {
+        $navi->{$realm} = $items;
       };
 
       # Create unordered list
@@ -270,6 +278,7 @@ sub register {
     }
   );
 
+  # Add an item to the realm
   $mojo->helper(
     'navi.add' => sub {
       my $c = shift;
@@ -282,6 +291,19 @@ sub register {
         title => $title,
         id => $id
       }
+    }
+  );
+
+  # Check for existence
+  $mojo->helper(
+    'navi.exists' => sub {
+      my $c = shift;
+      my $realm = shift;
+      unless (exists $navi->{$realm}) {
+        return 0 ;
+      };
+      return 0 unless ref $navi->{$realm} && @{$navi->{$realm}} > 0;
+      return 1;
     }
   );
 }

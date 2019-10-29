@@ -31,21 +31,15 @@ my $t = Test::Mojo->new('Kalamar' => {
   }
 });
 
-my $app = $t->app;
-
-$app->routes->get('/settings')->to(cb => sub { shift->render('settings') })->name('settings_start');
-$app->routes->get('/settings/:scope/:page')->to(scope => undef, page => undef)->name('settings');
-
-
 $t->get_ok('/settings')
   ->text_is('a[href~/settings/oauth]','OAuth Token Management')
-  ->text_is('h2#page-top', 'Settings')
+  ->text_is('h1 span', 'Settings')
   ;
 
 $t->get_ok('/settings/oauth')
   ->text_is('a[href~/settings/oauth]','OAuth Token Management')
-  ->text_is('h2#page-top', 'Settings')
-  ->text_is('#abc', 'My Settings')
+  ->text_is('h1 span', 'Settings')
+  ->text_is('p#abc', 'My Settings')
   ;
 
 done_testing;
