@@ -1,5 +1,7 @@
 package Kalamar::Plugin::Auth;
 use Mojo::Base 'Mojolicious::Plugin';
+use File::Basename 'dirname';
+use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -47,6 +49,7 @@ sub register {
     $app->log->error('client_id or client_secret not defined');
   };
 
+  # Load localize
   $app->plugin('Localize' => {
     dict => {
       Auth => {
@@ -61,7 +64,20 @@ sub register {
           tokenExpired => 'Zugriffstoken abgelaufen',
           tokenInvalid => 'Zugriffstoken ungültig',
           refreshFail => 'Fehlerhafter Refresh-Token',
-          responseError => 'Unbekannter Autorisierungsfehler'
+          responseError => 'Unbekannter Autorisierungsfehler',
+          paramError => 'Einige Eingaben sind fehlerhaft',
+          redirectUri => 'Weiterleitungs-Adresse',
+          homepage => 'Webseite',
+          desc => 'Kurzbeschreibung',
+          clientCredentials => 'Client Daten',
+          clientType => 'Art der Client-Applikation',
+          clientName => 'Name der Client-Applikation',
+          clientID => 'ID der Client-Applikation',
+          clientSecret => 'Client-Secret',
+          clientRegister => 'Neue Client-Applikation registrieren',
+          registerSuccess => 'Registrierung erfolgreich',
+          registerFail => 'Registrierung fehlgeschlagen',
+          oauthSettings => 'OAuth',
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -73,7 +89,20 @@ sub register {
           tokenExpired => 'Access token expired',
           tokenInvalid => 'Access token invalid',
           refreshFail => 'Bad refresh token',
-          responseError => 'Unknown authorization error'
+          responseError => 'Unknown authorization error',
+          paramError => 'Some fields are invalid',
+          redirectUri => 'Redirect URI',
+          homepage => 'Homepage',
+          desc => 'Short description',
+          clientCredentials => 'Client Credentials',
+          clientType => 'Type of the client application',
+          clientName => 'Name of the client application',
+          clientID => 'ID of the client application',
+          clientSecret => 'Client secret',
+          clientRegister => 'Register new client application',
+          registerSuccess => 'Registration successful',
+          registerFail => 'Registration denied',
+          oauthSettings => 'OAuth',
         }
       }
     }
@@ -95,6 +124,16 @@ sub register {
     }
   );
 
+  # Add settings
+  $app->navi->add(settings => (
+    $app->loc('Auth_oauthSettings'), 'oauth'
+  ));
+
+  # The plugin path
+  my $path = catdir(dirname(__FILE__), 'Auth');
+
+  # Append "templates"
+  push @{$app->renderer->paths}, catdir($path, 'templates');
 
   # Get or set the user token necessary for authorization
   $app->helper(
@@ -577,6 +616,98 @@ sub register {
         )->wait;
       }
     )->name('logout');
+
+    # Route to oauth settings
+    $r->get('/settings/oauth')->to(
+      cb => sub {
+        return shift->render(template => 'auth/tokens')
+      }
+    );
+
+    # Route to oauth settings
+    $r->post('/settings/oauth/register')->to(
+      cb => sub {
+        my $c = shift;
+        my $v = $c->validation;
+
+        unless ($c->auth->token) {
+
+          # TODO: not allowed
+          return $c->reply->not_found;
+        };
+
+        $v->csrf_protect;
+        $v->required('name', 'trim')->size(3, 255);
+        $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
+        $v->required('desc', 'trim')->size(3, 255);
+        $v->optional('url', 'trim')->like(qr/^(http|$)/i);
+        $v->optional('redirectUri', 'trim')->like(qr/^(http|$)/i);
+
+        # Render with error
+        if ($v->has_error) {
+          if ($v->has_error('csrf_token')) {
+            $c->notify(error => $c->loc('Auth_csrfFail'));
+          }
+          else {
+            $c->notify(warn => $c->loc('Auth_paramError'));
+          };
+          return $c->render(template => 'auth/tokens')
+        };
+
+        # Wait for async result
+        $c->render_later;
+
+        # Register on server
+        state $url = Mojo::URL->new($c->korap->api)->path('oauth2/client/register');
+        $c->kalamar_ua->post_p($url => {} => json => {
+          name        => $v->param('name'),
+          type        => $v->param('type'),
+          description => $v->param('desc'),
+          url         => $v->param('url'),
+          redirectURI => $v->param('redirectURI')
+        })->then(
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+
+            # TODO:
+            #   Respond in template
+            my $client_id = $json->{client_id};
+            my $client_secret = $json->{client_secret};
+
+            $c->stash('client_name' => $v->param('name'));
+            $c->stash('client_desc' => $v->param('desc'));
+            $c->stash('client_type' => $v->param('type'));
+            $c->stash('client_url'  => $v->param('url'));
+            $c->stash('client_redirect_uri' => $v->param('redirectURI'));
+            $c->stash('client_id' => $client_id);
+
+            if ($client_secret) {
+              $c->stash('client_secret' => $client_secret);
+            };
+
+            # TODO: Localize
+            $c->notify(success => $c->loc('Auth_en_registerSuccess'));
+
+            return $c->render(template => 'auth/register-success');
+          }
+        )->catch(
+          sub {
+
+            # Server may be irresponsible
+            my $err = shift;
+
+            # TODO: Localize
+            $c->notify('error' => $c->loc('Auth_en_registerFail'));
+            return Mojo::Promise->reject($err);
+          }
+        )->finally(
+          sub {
+            return $c->redirect_to('settings' => { scope => 'oauth' });
+          }
+        );
+      }
+    )->name('oauth-register')
   }
 
   # Use JWT login
@@ -783,6 +914,8 @@ sub register {
       }
     )->name('logout');
   };
+
+  $app->log->info('Successfully registered Auth plugin');
 };
 
 1;
