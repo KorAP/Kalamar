@@ -3,6 +3,7 @@
 @import "base/flextable";
 @import "base/fragment";
 @import "base/load";
+@import "base/form";
 
 /**
  * Basic global CSS rules for Kalamar
@@ -82,6 +83,10 @@ a[onclick$='return PArok(this,false)'] {
       content:'@'
     }
   }
+}
+
+button {
+  cursor: pointer;
 }
 
 button[type=submit] {

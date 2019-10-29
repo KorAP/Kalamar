@@ -1,4 +1,5 @@
-0.38 2020-01-20
+0.38 2020-01-28
+        - Added support for OAuth2 client registration.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.
