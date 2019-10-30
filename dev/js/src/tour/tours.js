@@ -17,6 +17,11 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   loc.TOUR_ldone = loc.TOUR_ldone || "Done";
 
   //localization guided tour gTstartSearch
+  loc.TOUR_welc = loc.TOUR_welc || "<span class='tgreeting'> Welcome to our guided tour!</span>" +
+  		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. </p>" +
+  		                           "<p> Please note, that if you already defined a corpus or query, these definitions are deleted during the guided tour. " +
+  		                           "If you don't want that, you can stop the tour now with <code>" +  
+  		                           loc.TOUR_lskip + "</code>. </p> </div>"; 
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
   loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
@@ -25,20 +30,20 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
   loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
-  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different languages.";  
-  loc.TOUR_help = loc.TOUR_help || "Help and more information about KorAP.";
-  loc.TOUR_glimpse = loc.TOUR_glimpse || "Select to show only the first hits in arbitrary order.";
-  loc.TOUR_seargo = loc.TOUR_seargo || "Start the search.";
+  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different query languages.";  
+  loc.TOUR_help = loc.TOUR_help || "Help and information about KorAP.";
+  loc.TOUR_glimpse = loc.TOUR_glimpse || "Select this to show only the first hits in arbitrary order.";
+  loc.TOUR_seargo = loc.TOUR_seargo || "Start the search";
 
   //localization guided Tour gTshowResults
   loc.TOUR_kwic = loc.TOUR_kwic || "KWIC result (keyword in context)";
   loc.TOUR_snippet = loc.TOUR_snippet ||  "Click on a match to show a larger snippet.";
-  loc.TOUR_snippetb = loc.TOUR_snippetb || "Display of larger snippet";
-  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Click here to display the metadata.";
+  loc.TOUR_snippetb = loc.TOUR_snippetb || "Snippet";
+  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Display of metadata";
   loc.TOUR_metadata = loc.TOUR_metadata || "Metadata";
-  loc.TOUR_tokenb = loc.TOUR_tokenb || "Click here to display the token annotations.";
+  loc.TOUR_tokenb = loc.TOUR_tokenb || "Display of token annotations";
   loc.TOUR_token = loc.TOUR_token || "KorAP supports multiple annotations.";
-  loc.TOUR_treeb = loc.TOUR_treeb || "Display further annotations."
+  loc.TOUR_treeb = loc.TOUR_treeb || "Display further annotations"
   loc.TOUR_tree = loc.TOUR_tree || "Further annotations can be displayed as tree and arch views."
   loc.TOUR_tourdone = loc.TOUR_tourdone || "Have fun with KorAP!";
   
@@ -62,6 +67,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
       let intro = introClass();
       intro.setOptions(labelOptions);
       intro.setOption('doneLabel', loc.TOUR_seargo);
+      intro.setOption('tooltipClass', 'gTstartSearch');
      
       //for testing purposes
       if(elparam){
@@ -74,6 +80,9 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
 
       //steps of the example tour
       let Steps =[
+        {
+          intro: loc.TOUR_welc,
+        },
         {
           element: '#q-field',
           intro: loc.TOUR_sear1,
@@ -149,7 +158,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
            * #268 is not merged at the time beeing: 
            * introJs.currentStep() merge requested https://github.com/usablica/intro.js/pull/268/files
            */
-          if(this._currentStep == 1){ 
+          if(this._currentStep == 2){ 
             targetedElement.value = loc.TOUR_Qexample;
           }   
           break;
@@ -164,8 +173,8 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
             /*
              * Intro.js caches elements at the beginning, so element and position has to be set again.
              */
-            intro._introItems[6].element = doe.querySelector('.statistic');
-            intro._introItems[6].position = "left";
+            intro._introItems[7].element = doe.querySelector('.statistic');
+            intro._introItems[7].position = "left";
           }   
           break;   
           
@@ -180,11 +189,11 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
           break;
         } 
         
-        if(this._currentStep == 7){
+        if(this._currentStep == 8){
           let statbut = doe.querySelector('.statistic');
           statbut.click();
-          intro._introItems[7].element = doe.querySelector(".stattable");
-          intro._introItems[7].position = "bottom";
+          intro._introItems[8].element = doe.querySelector(".stattable");
+          intro._introItems[8].position = "bottom";
         }
       });
 
@@ -198,18 +207,18 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         var that = this; 
         switch(this._currentStep){
         //hides Hint if back button is pressed 
-        case 2:   
+        case 3:   
           if(KorAP.Hint.active()){
           KorAP.Hint.unshow(); 
           }
           break;
-        case 3:
+        case 4:
           KorAP.Hint.show(false);
           KorAP.Hint.active().dontHide = true;
-          intro._introItems[3].element = doe.querySelector(".menu.roll.hint");
-          intro._introItems[3].position = doe.querySelector("bottom");
+          intro._introItems[4].element = doe.querySelector(".menu.roll.hint");
+          intro._introItems[4].position = doe.querySelector("bottom");
           break;
-        case 4: 
+        case 5: 
           KorAP.Hint.unshow();      
           break;
         }

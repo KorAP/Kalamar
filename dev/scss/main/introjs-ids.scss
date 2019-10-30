@@ -1,11 +1,18 @@
 @import "../util";
 
-
-.introjs-helperNumberLayer {
-      background:$ids-orange-2;
-    }
- 
 .introjs-helperLayer {
     background-color:transparent;
      }
  
+.introjs-tooltip.gTstartSearch{
+    max-width: 500px;
+}
+
+.tgreeting {
+    font-weight: bold;
+    color: $darkest-orange;
+}
+
+.pfirstStep{
+    width: 500px;
+}
