@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5efc3e5_33427eb0",
+        "filename": "templates/doc/korap/koral.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-10-30T15:37:15Z",
+      "side": 1,
+      "message": "The link to Cosmas II does not work, but this has nothing to do with the change, it did not work before either.",
+      "revId": "3cfa26d81023f25d38dbe10d62784e4a23401156",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
