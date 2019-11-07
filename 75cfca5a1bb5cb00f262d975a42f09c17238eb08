@@ -70,6 +70,29 @@
       "revId": "75cfca5a1bb5cb00f262d975a42f09c17238eb08",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ea508b9_d4832f6c",
+        "filename": "templates/intro.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-11-07T11:34:19Z",
+      "side": 1,
+      "message": "Isn\u0027t there a nice (Font Awesome?) icon for \"Guided Tour\" to make the innovation visible without being intrusive?",
+      "range": {
+        "startLine": 11,
+        "startChar": 95,
+        "endLine": 11,
+        "endChar": 107
+      },
+      "revId": "75cfca5a1bb5cb00f262d975a42f09c17238eb08",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
     }
   ]
 }
