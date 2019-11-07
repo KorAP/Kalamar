@@ -77,8 +77,8 @@
   <h3>Using references</h3>
   <p>Node elements may be refered to by using <code>#</code> and the position number of the element. For
     instance, </p>
-  %= doc_query annis => '"ich" &amp; pos="VVPP" &amp; #1 ->malt/d[func="SUBJ"] #2', cutoff => 1
-  %= doc_query annis => '"ich" &amp; pos="VVPP" &amp; #1 . #2', cutoff => 1
+  %= doc_query annis => '"ich" & pos="VVPP" & #1 ->malt/d[func="SUBJ"] #2', cutoff => 1
+  %= doc_query annis => '"ich" & pos="VVPP" & #1 . #2', cutoff => 1
 
   %# Bug in Krill 
   %# <p>"ich" & pos="VVFIN" & #1 ->malt/d[func="SUBJ"] #2 & #1 . #2</p>
