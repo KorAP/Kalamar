@@ -44,6 +44,11 @@ define(function () {
   loc.TOUR_ldone = "Beenden";
   
   //Guided Tour: Steps
+  loc.TOUR_welc = "<span class = 'tgreeting'>Willkommen zur KorAP Tour! </span> " +
+  "<p class='pfirstStep'> Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. </p>" + 
+  "<p> Bitte beachten sie: Haben sie bereits eine Suchanfrage oder ein Korpus definiert," +
+  "werden diese während der Tour gelöscht. Falls Sie das nicht wollen, können sie die Tour jetzt mit <code>" +  
+  loc.TOUR_lskip + "</code> beenden.</p>"; 
   loc.TOUR_sear1 = "Geben Sie die Suchanfrage hier ein.";
   loc.TOUR_sear2 = "Zum Beispiel die Suche nach '"+ loc.TOUR_Qexample +  "'.";
   loc.TOUR_searAnnot ="Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.";
