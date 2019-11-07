@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d115e0c_3c73d8a6",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-11-07T11:20:36Z",
+      "side": 1,
+      "message": "Please change this to \"willkürlicher\". It\u0027s important to note that the order is not randomized.",
+      "range": {
+        "startLine": 62,
+        "startChar": 93,
+        "endLine": 62,
+        "endChar": 103
+      },
+      "revId": "75cfca5a1bb5cb00f262d975a42f09c17238eb08",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
