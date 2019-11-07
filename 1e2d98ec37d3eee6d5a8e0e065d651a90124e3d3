@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78c19557_46aadb90",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-11-07T11:30:26Z",
+      "side": 1,
+      "message": "IMHO, this is not important enough. I\u0027d rather delete this (also in the translation). The Guided Tour is about not having to read :)",
+      "range": {
+        "startLine": 22,
+        "startChar": 36,
+        "endLine": 23,
+        "endChar": 98
+      },
+      "revId": "1e2d98ec37d3eee6d5a8e0e065d651a90124e3d3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
