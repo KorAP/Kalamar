@@ -22,6 +22,30 @@
       "revId": "75cfca5a1bb5cb00f262d975a42f09c17238eb08",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2d35b6a_6a90e3c2",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2019-11-07T11:25:39Z",
+      "side": 1,
+      "message": "I would downvote \"willkürlich\" because of the juridical connotation. ;) May be \"beliebiger\" or \"undefinierter\"?",
+      "parentUuid": "7d115e0c_3c73d8a6",
+      "range": {
+        "startLine": 62,
+        "startChar": 93,
+        "endLine": 62,
+        "endChar": 103
+      },
+      "revId": "75cfca5a1bb5cb00f262d975a42f09c17238eb08",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
     }
   ]
 }
