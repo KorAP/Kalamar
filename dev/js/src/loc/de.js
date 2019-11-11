@@ -42,6 +42,7 @@ define(function () {
   loc.TOUR_lprev = "Zurück";
   loc.TOUR_lnext = "Weiter";
   loc.TOUR_ldone = "Beenden";
+  loc.TOUR_ldoneSearch = "Suchen";
   
   //Guided Tour: Steps
   loc.TOUR_welc = "<span class = 'tgreeting'>Willkommen zur KorAP Tour! </span> " +
@@ -58,9 +59,10 @@ define(function () {
   loc.TOUR_vcStat1 = "Es besteht die Möglichkeit, die Korpusstatistik anzuzeigen.";
   loc.TOUR_vcStat2 = "Korpusstatistik";
   loc.TOUR_qlfield = "Auswahl der Suchanfragesprache: In KorAP können mehrere Suchanfragesprachen verwendet werden.";
-  loc.TOUR_glimpse = "Beim Wählen dieser Option wird festgelegt ob nur die ersten Treffer in zufälliger Reihenfolge ausgewählt werden.";
+  loc.TOUR_glimpse = "Beim Wählen dieser Option wird festgelegt ob nur die ersten Treffer in undefinierter Reihenfolge ausgewählt werden.";
   loc.TOUR_help = "Hilfe zu KorAP";
   loc.TOUR_seargo = "Suchanfrage starten";
+
   
   //Guided Tour: explain the result
   loc.TOUR_kwic = "Anzeige des Ergebnisses als KWIC (keyword in context).";

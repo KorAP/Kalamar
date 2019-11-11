@@ -481,9 +481,8 @@ define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', '
        break;
                      
        case totalSteps:
-       expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_seargo);
+       expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldoneSearch);
        expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
-       expect(document.querySelector(".introjs-nextbutton").classList.contains("introjs-disabled")).toBe(true);
        break;
        }
        searchTour.exit();

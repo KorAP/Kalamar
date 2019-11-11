@@ -15,7 +15,8 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   loc.TOUR_lprev = loc.TOUR_lprev || "Back";
   loc.TOUR_lnext = loc.TOUR_lnext || "Next";
   loc.TOUR_ldone = loc.TOUR_ldone || "Done";
-
+  loc.TOUR_ldoneSearch = loc.TOUR_ldoneSearch || "Search";
+  
   //localization guided tour gTstartSearch
   loc.TOUR_welc = loc.TOUR_welc || "<span class='tgreeting'> Welcome to our guided tour!</span>" +
   		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. </p>" +
@@ -66,9 +67,16 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
     gTstartSearch:function(elparam){
       let intro = introClass();
       intro.setOptions(labelOptions);
-      intro.setOption('doneLabel', loc.TOUR_seargo);
       intro.setOption('tooltipClass', 'gTstartSearch');
-     
+      intro.setOption('hideNext', true);
+      intro.setOption('hidePrev', true);
+      /*
+       * Sets button labels for the last step of the tour
+       * Because Kalamar is a multipage webapplication, this tours starts by
+       * completion the gTshowResults Tour. Therefore the label of the done button changed.
+        */
+      intro.setOption('doneLabel', loc.TOUR_ldoneSearch );
+      
       //for testing purposes
       if(elparam){
         doe = elparam;
@@ -148,7 +156,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
       //pass in the Steps array created earlier
       intro.setOptions({steps: Steps});      
       this.testPrerequ(Steps, intro);
-      
+
       //changes before executing the single steps
       intro.onbeforechange(function(targetedElement){
         switch(targetedElement.id){
@@ -178,15 +186,6 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
           }   
           break;   
           
-        /*
-        * Sets button labels for the last step of the tour
-        * Because Kalamar is a multipage webapplication, this tours starts by
-        * completion the gTshowResults Tour. Therefore, the skip-button is removed
-        * and the label of the done button changed.
-         */
-        case "qsubmit":
-            intro.setOption('hideNext', true);
-          break;
         } 
         
         if(this._currentStep == 8){
@@ -235,12 +234,16 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
 
 
     /* Guided Tour to explain the different views of the results */     
-    gTshowResults: function(elparam){ 
+    gTshowResults: function(elparam){     
+    
+      let tourR = introClass();
+      tourR.setOption('hideNext', true);
+      tourR.setOption('hidePrev', true);
+      
       //for testing purposes
       if(elparam){
         doe = elparam;
       }
-      let tourR = introClass();
       let StepsSR = [
         //Step 1, intro_item 0
         {
