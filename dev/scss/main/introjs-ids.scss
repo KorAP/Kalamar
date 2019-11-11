@@ -2,17 +2,27 @@
 
 .introjs-helperLayer {
     background-color:transparent;
-     }
+    }
  
 .introjs-tooltip.gTstartSearch{
     max-width: 500px;
-}
+    }
+
 
 .tgreeting {
     font-weight: bold;
     color: $darkest-orange;
-}
+    }
 
 .pfirstStep{
     width: 500px;
-}
+    }
+
+.introjs-donebutton {
+    float: right;
+    margin-left: 5px;
+    }
+ 
+.introjs-skipbutton{
+    color: $black;
+    }
