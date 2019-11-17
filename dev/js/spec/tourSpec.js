@@ -4,7 +4,7 @@
  * @author Helge Stallkamp
  */
 
-define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', 'selectMenu'], function(tourClass, vcClass, sessionClass, matchClass, hintClass, hintArray, selectMenuClass){
+define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', 'selectMenu', 'loc/dereko'], function(tourClass, vcClass, sessionClass, matchClass, hintClass, hintArray, selectMenuClass){
   const loc   = KorAP.Locale;
   
   var introKorAP =

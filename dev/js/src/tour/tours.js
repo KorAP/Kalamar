@@ -19,10 +19,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   
   //localization guided tour gTstartSearch
   loc.TOUR_welc = loc.TOUR_welc || "<span class='tgreeting'> Welcome to our guided tour!</span>" +
-  		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. </p>" +
-  		                           "<p> Please note, that if you already defined a corpus or query, these definitions are deleted during the guided tour. " +
-  		                           "If you don't want that, you can stop the tour now with <code>" +  
-  		                           loc.TOUR_lskip + "</code>. </p> </div>"; 
+  		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. </p>"; 
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
   loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
@@ -345,7 +342,13 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
       
         if(this._currentStep == 8){
           doe.querySelector(".tree").click();
-          document.querySelectorAll(".button-group-list")[0].querySelectorAll('li')[1].click();
+          let collect =  document.querySelectorAll(".button-group-list")[0].querySelectorAll('li');
+             for(let i = 0;  i < collect.length; i++){
+               if (collect[i].innerHTML == loc.TOUR_Relations) {
+                 collect[i].click();
+                 break;
+               }
+             }
           tourR._introItems[8].element = doe.querySelector(".view.relations");
         }
       });       
