@@ -18,4 +18,6 @@ define(['vc', 'vc/doc'], function (vcClass, docClass) {
       'value' : 'GOE/AGI',   
     };
   
+  loc.TOUR_Relations = "corenlp/c";
+
 });
