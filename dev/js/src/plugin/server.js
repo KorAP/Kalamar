@@ -23,7 +23,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
     match : []
   };
   var panels = {
-    match : 1
+    match : 1,
+    query : 1
   };
   
   // This is a counter to limit acceptable incoming messages
@@ -110,7 +111,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
         var panel = embed["panel"];
 
-        if (!panel || !buttons[panel])
+        if (!panel || !(buttons[panel] || panels[panel]))
           throw new Error("Panel for plugin is invalid");
 
         var onClick = embed["onClick"];
@@ -134,7 +135,14 @@ define(["plugin/widget", "util"], function (widgetClass) {
             plugin["widgets"].push(id);
           };
 
-          buttons[panel].push([title, embed["classes"], cb]);
+          // Add to multi-consulted button list (e.g. for matches)
+          if (buttons[panel]) {
+            buttons[panel].push([title, embed["classes"], cb]);
+          }
+          // Add to static button list (e.g. for query)
+          else {
+            KorAP.Panel[panel].actions.add(title, embed["classes"], cb);
+          }
         };
       };
     },
