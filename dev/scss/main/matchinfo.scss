@@ -31,9 +31,6 @@ div.matchinfo {
   text-align: left;
 }
 
-div.matchtable {
-    background-color: $dark-orange;
-      }
   
 div.matchtable > div {
   z-index: 20;
@@ -162,8 +159,9 @@ div.matchtable > div {
 }
 
 
-div.metatable, div.matchtable {
-  position: relative;
+div.metatable, div.matchtable {    
+    background-color: $dark-orange;
+    position: relative;
 }
 
 /**

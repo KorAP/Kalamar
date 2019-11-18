@@ -374,6 +374,7 @@ define(
         ];
 
         var menu = KorAP.OwnMenu.create(list);
+        expect(menu.dontHide).toBe(false);
         menu._firstActive = true;
         expect(menu.itemClass()).toEqual(KorAP.OwnMenuItem);
         expect(menu.element().nodeName).toEqual('UL');
