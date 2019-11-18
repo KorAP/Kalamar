@@ -2,7 +2,9 @@
 @import "../util";
 
 $border-size: 2px;
+$qmargin: 3px;
 // $right-padding: 60px;
+
 
 
 /**
@@ -11,7 +13,7 @@ $border-size: 2px;
 #q-field {
   width: 100%;
   margin: 0;
-  margin-bottom: 3px;
+  margin-bottom: $qmargin;
   display: block;
 
   &::-webkit-search-cancel-button {
@@ -26,9 +28,11 @@ header input {
 #searchbar {
   position: relative;
   width: 100%;
+  padding: 0;
   padding-right: $right-distance + $button-width;
   button[type=submit] {
     position: absolute;
+    padding: 0;
     right: $right-distance;
     &::after {
       content: $fa-search;
@@ -69,5 +73,23 @@ header input {
     &:after {
       content: $fa-checked;
     }
+  }
+}
+
+
+.query.panel {
+  padding-right: $right-distance + $button-width;
+}
+
+// Specify result button group layout
+
+.query.button-group.button-panel {
+  width: auto;
+  text-align: right;
+  vertical-align: top;
+  display: block;
+  line-height: 1.3em;
+  > span {
+    box-shadow: none;
   }
 }
