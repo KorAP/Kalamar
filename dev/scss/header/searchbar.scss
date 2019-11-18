@@ -2,7 +2,9 @@
 @import "../util";
 
 $border-size: 2px;
+$qmargin: 3px;
 // $right-padding: 60px;
+
 
 
 /**
@@ -11,7 +13,7 @@ $border-size: 2px;
 #q-field {
   width: 100%;
   margin: 0;
-  margin-bottom: 3px;
+  margin-bottom: $qmargin;
   display: block;
 
   &::-webkit-search-cancel-button {
@@ -69,5 +71,43 @@ header input {
     &:after {
       content: $fa-checked;
     }
+  }
+}
+
+
+.query.panel {
+  margin-top: -1 * $qmargin;
+}
+
+// Specify result button group layout
+.query.button-group.button-panel {
+  width: auto;
+  text-align: right;
+  vertical-align: top;
+  display: block;
+  line-height: 1.3em;
+
+  > span {
+    margin-bottom: 0;
+    box-shadow: none;
+
+    border: {
+      width: $border-size;
+      style: solid;
+      color: $nearly-white;
+    }
+
+    border-radius: 0;
+
+    &:last-child {
+      border-right-width: 0
+    }
+
+    &:first-child {
+	    border-bottom-left-radius: $standard-border-radius;
+    }
+
+    
+    line-height: 1.3em;
   }
 }
