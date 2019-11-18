@@ -26,6 +26,7 @@ define([
   'session',
   'selectMenu',
   'panel/result',
+  'panel/query',
   'tour/tours',
   'api',
   'mailToChiffre',
@@ -40,6 +41,7 @@ define([
              sessionClass,
              selectMenuClass,
              resultPanelClass,
+             queryPanelClass,
              tourClass) {
 
   const d = document;
@@ -376,6 +378,22 @@ define([
     // Add the hinthelper to the KorAP object to make it manipulatable globally
     KorAP.Hint = obj.hint;
 
+
+    /**
+     * Add query panel
+     */
+    var queryPanel = queryPanelClass.create();
+
+    // Get input field
+    var sform = d.getElementById("searchform");
+    var vcView = d.getElementById('vc-view')
+    if (sform && vcView) {
+      // The views are below the query bar
+      sform.insertBefore(queryPanel.element(), vcView);
+      KorAP.Panel = KorAP.Panel || {};
+      KorAP.Panel['query'] = queryPanel;
+    }
+    
     return obj;
   });
   

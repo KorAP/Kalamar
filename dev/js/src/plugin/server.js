@@ -11,6 +11,8 @@
 define(["plugin/widget", "util"], function (widgetClass) {
   "use strict";
 
+  KorAP.Panel = KorAP.Panel || {};
+
   // Contains all widgets to address with
   // messages to them
   var widgets = {};
@@ -19,12 +21,18 @@ define(["plugin/widget", "util"], function (widgetClass) {
   // TODO:
   //   These should better be panels and every panel
   //   has a buttonGroup
+
+  // List of panels with dynamic buttons, i.e.
+  // panels that may occur multiple times.
   var buttons = {
     match : []
   };
-  var panels = {
-    match : 1
-  };
+
+  // List of panels with static buttons, i.e.
+  // panels that occur only once.
+  var buttonsSingle = {
+    query : []
+  }
   
   // This is a counter to limit acceptable incoming messages
   // to a certain amount. For every message, this counter will
@@ -110,7 +118,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
         var panel = embed["panel"];
 
-        if (!panel || !buttons[panel])
+        if (!panel || !(buttons[panel] || buttonsSingle[panel]))
           throw new Error("Panel for plugin is invalid");
 
         var onClick = embed["onClick"];
@@ -134,7 +142,20 @@ define(["plugin/widget", "util"], function (widgetClass) {
             plugin["widgets"].push(id);
           };
 
-          buttons[panel].push([title, embed["classes"], cb]);
+          // Add to dynamic button list (e.g. for matches)
+          if (buttons[panel]) {
+            buttons[panel].push([title, embed["classes"], cb]);
+          }
+
+          // Add to static button list (e.g. for query) already loaded
+          else if (KorAP.Panel[panel]) {
+            KorAP.Panel[panel].actions.add(title, embed["classes"], cb);
+          }
+
+          // Add to static button list (e.g. for query) not yet loaded
+          else {
+            buttonsSingle[panel].push([title, embed["classes"], cb]);
+          }
         };
       };
     },
@@ -152,7 +173,23 @@ define(["plugin/widget", "util"], function (widgetClass) {
      * Get named button group - better rename to "action"
      */
     buttonGroup : function (name) {
-      return buttons[name];
+      if (buttons[name] != undefined) {
+        return buttons[name];
+      } else if (buttonsSingle[name] != undefined) {
+        return buttonsSingle[name];
+      };
+      return [];
+    },
+
+    /**
+     * Clear named button group - better rename to "action"
+     */
+    clearButtonGroup : function (name) {
+      if (buttons[name] != undefined) {
+        buttons[name] = [];
+      } else if (buttonsSingle[name] != undefined) {
+        buttonsSingle[name] = [];
+      }
     },
     
     /**
@@ -298,6 +335,12 @@ define(["plugin/widget", "util"], function (widgetClass) {
         widgets[w].close();
       };
       widgets = {};
+      for (let b in buttons) {
+        buttons[b] = [];
+      };
+      for (let b in buttonsSingle) {
+        buttonsSingle[b] = [];
+      };
       this._removeListener();
     }
   };

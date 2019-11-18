@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, widgetClass, panelClass) {
+define(['plugin/server','plugin/widget','panel', 'panel/query'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -7,7 +7,6 @@ define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, w
       expect(manager).toBeTruthy();
       manager.destroy();
     });
-
 
     it('should add a widget', function () {
       var manager = pluginServerClass.create();
@@ -44,7 +43,6 @@ define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, w
       widget.close();
 
       expect(panelE.getElementsByClassName('view').length).toEqual(0);
-
       manager.destroy();
     });
 
@@ -71,9 +69,46 @@ define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, w
           }]
         })}
       ).toThrow(new Error("Panel for plugin is invalid"));
+      manager.destroy();
+    });
+
+    it('should accept valid registrations for matches', function () {
+      var manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'match',
+          title : 'Translate',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+      expect(manager.buttonGroup('match').length).toEqual(1);
+      manager.destroy();
+    });
+
+    it('should accept valid registrations for query temporary', function () {
+      var manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'query',
+          title : 'Translate',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+      expect(manager.buttonGroup('query').length).toEqual(1);
+      manager.destroy();
     });
   });
-
+  
   describe('KorAP.Plugin.Widget', function () {
     it('should be initializable', function () {
       expect(function () { widgetClass.create() }).toThrow(new Error("Widget not well defined"));
@@ -122,6 +157,38 @@ define(['plugin/server','plugin/widget','panel'], function (pluginServerClass, w
       expect(iframe.style.height).toEqual('0px');
       widget.resize({ height : 9 });
       expect(iframe.style.height).toEqual('9px');
+    });
+  });
+
+  describe('KorAP.Plugin.QueryPanel', function () {
+    it('should establish a query plugin', function () {
+      var queryPanel = queryPanelClass.create();
+
+      var div = document.createElement('div');
+
+      div.appendChild(queryPanel.element());
+      KorAP.Panel = KorAP.Panel || {};
+      KorAP.Panel['query'] = queryPanel;
+
+      // Register plugin afterwards
+      var manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'query',
+          title : 'Translate',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+      expect(manager.buttonGroup('query').length).toEqual(0);
+
+      // Clean up
+      KorAP.Panel['query'] = undefined;
+      manager.destroy();
     });
   });
 });
