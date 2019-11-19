@@ -6,7 +6,7 @@
  */
 
 
-define(['vc', 'vc/statistic', 'view/corpstatv'], function(vcClass, statClass, corpStatVClass){
+define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass, corpStatVClass){
   
 	var json = {
    	"@type":"koral:docGroup",

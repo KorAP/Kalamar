@@ -9,7 +9,7 @@
 
 define([
   'panel',
-  'view/corpstatv'
+  'view/vc/corpstatv'
 ], function (panelClass, corpStatVClass) {
   
   const d = document;

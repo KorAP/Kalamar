@@ -53,8 +53,8 @@ define([
   'vc/statistic',
   'datepicker',
   'buttongroup',
-  'panel/vcpanel',
-  'view/corpstatv',
+  'panel/vc',
+  'view/vc/corpstatv',
   'buttongroup',
   'util'
 ], function(
