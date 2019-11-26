@@ -20,7 +20,8 @@ define([
     // Initialize panel
     _init : function (opened) {
       this._opened = opened;
-
+      var a = this.actions;
+      
       // If plugins are enabled, add all buttons for the query panel
       if (KorAP.Plugin) {
         var queryButtons = KorAP.Plugin.buttonGroup("query");
@@ -30,7 +31,7 @@ define([
           a.add.apply(a, queryButtons[i]);
         };
 
-        KorAP.Plugin.clearButtons("query")
+        KorAP.Plugin.clearButtonGroup("query")
       };
       
       return this;

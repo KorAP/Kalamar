@@ -190,5 +190,38 @@ define(['plugin/server','plugin/widget','panel', 'panel/query'], function (plugi
       KorAP.Panel['query'] = undefined;
       manager.destroy();
     });
+  
+    it('Plugin buttons should be cleared after adding to panel', function () {
+      
+      // Register plugin first
+      KorAP.Plugin = pluginServerClass.create();
+
+      KorAP.Plugin.register({
+        name : 'Check',
+        embed : [{
+          panel : 'query',
+          title : 'Translate',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+
+      var queryPanel = queryPanelClass.create();
+      var div = document.createElement('div');
+
+      div.appendChild(queryPanel.element());
+      KorAP.Panel = KorAP.Panel || {};
+      KorAP.Panel['query'] = queryPanel;
+      expect(KorAP.Plugin.buttonGroup('query').length).toEqual(0);
+
+      // Clean up
+      KorAP.Panel['query'] = undefined;
+      KorAP.Plugin.destroy();
+      KorAP.Plugin = undefined;
+    });  
+      
+  
   });
 });
