@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget','panel', 'panel/query'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass) {
+define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -107,6 +107,26 @@ define(['plugin/server','plugin/widget','panel', 'panel/query'], function (plugi
       expect(manager.buttonGroup('query').length).toEqual(1);
       manager.destroy();
     });
+    
+
+    it('should accept valid registrations for result', function () {
+      var manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Translate',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+      expect(manager.buttonGroup('result').length).toEqual(1);
+      manager.destroy();
+    });
+    
   });
   
   describe('KorAP.Plugin.Widget', function () {
@@ -221,7 +241,73 @@ define(['plugin/server','plugin/widget','panel', 'panel/query'], function (plugi
       KorAP.Plugin.destroy();
       KorAP.Plugin = undefined;
     });  
-      
-  
   });
+  
+  describe('KorAP.Plugin.ResultPanel', function () {
+    
+    it('Plugin is registered second: buttons should be added to panel', function () {
+      
+      var resultPanel = resultPanelClass.create();
+      resultPanel.addAlignAction(); 
+      var div = document.createElement('div');
+
+      div.appendChild(resultPanel.element());
+      KorAP.Panel = KorAP.Panel || {};
+      KorAP.Panel['result'] = resultPanel;
+
+      // Register plugin afterwards
+      var manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'ResultPlugin',
+        embed : [{
+          panel : 'result',
+          title : 'Dosomething',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+      expect(manager.buttonGroup('result').length).toEqual(0);
+      expect(KorAP.Panel['result'].actions.element().innerHTML).toContain('Dosomething');
+
+      // Clean up
+      KorAP.Panel['result'] = undefined;
+      manager.destroy();
+  });
+    
+    it('Plugin is registered first: Buttons should be added to panel and cleared', function () {
+      
+      // Register plugin first
+      KorAP.Plugin = pluginServerClass.create();
+
+      KorAP.Plugin.register({
+        name : 'ResultPlugin',
+        embed : [{
+          panel : 'result',
+          title : 'Dosomething',
+          onClick : {
+            template : 'test'
+          }
+        }]
+      });
+
+      expect(KorAP.Plugin.buttonGroup('result').length).toEqual(1);
+      
+      var resultPanel = resultPanelClass.create();
+      var div = document.createElement('div');
+      div.appendChild(resultPanel.element());
+      KorAP.Panel = KorAP.Panel || {};
+      KorAP.Panel['result'] = resultPanel;
+      expect(KorAP.Plugin.buttonGroup('result').length).toEqual(0);
+      expect(KorAP.Panel['result'].actions.element().innerHTML).toContain('Dosomething');
+     
+      // Clean up
+      KorAP.Panel['result'] = undefined;
+      KorAP.Plugin.destroy();
+      KorAP.Plugin = undefined;
+    });  
+  });
+  
 });
