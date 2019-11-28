@@ -23,6 +23,21 @@ define([
     // Initialize panel
     _init : function (opened) {
       this._opened = opened;
+
+      
+      // If plugins are enabled, add all buttons for the result panel
+     if (KorAP.Plugin) {
+        var resultButtons = KorAP.Plugin.buttonGroup("result");
+
+        // Add all result buttons in order
+        for (i in resultButtons) {
+          this.actions.add.apply(this.actions, resultButtons[i]);
+        };
+
+        KorAP.Plugin.clearButtonGroup("result");
+      };
+      
+      
       return this;
     },
 
@@ -82,6 +97,8 @@ define([
           this.button.toggleClass("left", "right");
         };        
       });
+
+      
     }
   }
 });

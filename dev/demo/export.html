@@ -1,0 +1,174 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Export Demo</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="../css/kalamar.css" />
+    <link type="text/css" rel="stylesheet" href="../css/kwic.css" />
+     
+    <script>//<![CDATA[
+
+  window.KorAP = window.KorAP || {};
+  KorAP.URL = '';
+
+    //]]></script>
+    <script data-main="exportdemo.js" src="../js/lib/require.js" async="async"></script>
+  </head>
+  <body>
+
+    <main>
+      <div id="resultinfo" class="found">
+	<div id="pagination">
+	  <a rel="prev"><span><span>&lt;</span></span></a>
+	  <a rel="self"><span>1</span></a>
+	  <a href="#2" tabindex="4"><span>2</span></a>
+	  <a href="#3" tabindex="4"><span>3</span></a>
+	  <a class="ellipsis"><span><span>...</span></span></a>
+	  <a href="#52230" tabindex="4"><span>52230</span></a>
+	  <a rel="next" href="#2" tabindex="4"><span><span>&gt;</span></span></a>
+	</div>
+      </div>
+
+      <script>
+  
+KorAP.koralQuery = {
+  "matches":["..."],
+        "corpus":{
+        "@type": "koral:docGroup",
+        "operation": "operation:or", "operands": [{
+      "@type": "koral:docGroup",
+      "operation": "operation:and",
+      "operands": [
+        {
+          "@type": "koral:doc",
+          "key": "title",
+          "match": "match:eq",
+          "value": "Der Birnbaum",
+          "type": "type:string"
+        },
+        {
+          "@type": "koral:doc",
+          "key": "pubPlace",
+          "match": "match:eq",
+          "value": "Mannheim",
+          "type": "type:string"
+        },
+        {
+          "@type": "koral:docGroup",
+          "operation": "operation:or",
+          "operands": [
+            {
+              "@type": "koral:doc",
+              "key": "subTitle",
+              "match": "match:eq",
+              "value": "Aufzucht und Pflege",
+              "type": "type:string"
+            },
+            {
+              "@type": "koral:doc",
+              "key": "subTitle",
+              "match": "match:eq",
+              "value": "Gedichte",
+              "type": "type:string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "koral:doc",
+      "key": "pubDate",
+      "match": "match:geq",
+      "value": "2015-03-05",
+      "type": "type:date",
+        "rewrites" : [{
+	      "@type" : "koral:rewrite",
+	      "operation" : "operation:modification",
+	      "src" : "querySerializer",
+	      "scope" : "tree"
+        }]
+    }
+  ]
+}, "query":{"wrap":{"layer":"orth","match":"match:eq","foundry":"opennlp","key":"Goethe","@type":"koral:term"},"@type":"koral:token"},"meta":{"serialQuery":"tokens:s:Goethe","startIndex":0,"version":"unknown","itemsPerPage":25,"context":"p","benchmark":"0.103553092 s","totalResults":-1}};
+     </script>
+
+      <div id="search">
+	<ol class="align-left" tabindex="-8">
+	  <li data-corpus-id="WPD"
+	      data-doc-id="WWW"
+	      data-text-id="03313"
+	      data-match-id="p102-103"
+	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans malt/d=rels"
+	      id="WPD-WWW.03313-p102-103"
+	      tabindex="6">
+	    <div class="meta">WPD/WWW/03313</div>
+      <div class="match-main">
+        <div class="match-wrap">
+	        <div class="snippet startMore endMore">
+	          <div class="flag"></div>
+            <span class="context-left">In diesem Beispiel ist zu sehen, dass die beiden Variablen a und b lediglich ihre Werte an die Funktion </span><mark><mark class="class-2 level-1">Dies </mark><mark class="class-1 level-0"><mark class="class-2 level-1"><mark class="class-3 level-2">ist</mark> ein</mark> Test</mark></mark><span class="context-right"> übergeben, aber im Gegensatz zu einem Referenzparamter dabei unverändert bleiben.</span></div>
+        </div>
+	      <!-- only inject via javascript! -->
+	    </div>
+	    <p class="ref"><strong>Wertparameter</strong> by Hubi,Zwobot,4; published on 2005-03-28 as WWW.03313 (WPD)</p>
+	    <!-- only inject via javascript! -->
+	  </li>
+	  <li data-corpus-id="WPD"
+	      data-doc-id="FFF"
+	      data-text-id="01460"
+	      data-match-id="p119-120"
+	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans malt/d=rels"
+	      id="WPD-FFF.01460-p119-120"
+	      tabindex="6">
+	    <div class="meta">WPD/III/78432</div>
+      <div class="match-main">
+        <div class="match-wrap">
+	        <div class="snippet startMore endMore"><span class="context-left">Der Fehler unterläuft häufig bei der direkten Übersetzung aus dem Englischen, wenn im originalen Ausdruck die beiden Wortteile verschiedene Wörter sind und sich das Adjektiv wahlweise auf das erste oder zweite Wort bezieht. Ein Beispiel ist multiples Testproblem für multiple </span><span class="match">test</span><span class="context-right"> problem.</span></div>
+	        <div class="tokenInfo"></div>
+	      </div>
+      </div>
+	    <p class="ref"><strong>Fehlbezogenes Adjektiv</strong> by Joni2,Peterlustig,BWBot; published on 2005-03-28 as FFF.01460 (WPD)</p>
+	  </li>
+
+	  <li data-corpus-id="WPD"
+	      data-doc-id="HHH"
+	      data-text-id="06056"
+	      data-match-id="p2564-2565"
+	      data-available-info="base/s=spans corenlp/c=spans corenlp/ne=tokens corenlp/p=tokens corenlp/s=spans glemm/l=tokens mate/l=tokens mate/m=tokens mate/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens tt/s=spans xip/c=spans malt/d=rels"
+	      id="WPD-HHH.06056-p2564-2565"
+	      tabindex="6">
+	    <div class="meta">WPD/HHH/06056</div>
+      <div class="match-main">
+        <div class="match-wrap">
+	        <div class="snippet startMore endMore">
+	          <div class="flag"></div>
+            <span class="context-left">HDTV Samples from European (and other) broadcasters and </span><span class="match">test</span><span class="context-right"> transmissions in Europe</span></div>
+	      <div class="tokenInfo"></div>
+	      </div>
+      </div>
+	    <p class="ref"><strong>High Definition Television</strong> by ArtMechanic,TheK,Andreas -horn- Hornig; published on 2005-03-28 as HHH.06056 (WPD)</p>
+	  </li>
+
+    <li data-match-id="p367-368"
+        data-text-sigle="Corola-journal/Journalistic/16438_a_17763"
+
+        data-available-info="dereko/s=spans drukola/l=tokens drukola/m=tokens drukola/p=tokens"
+        data-info="{&quot;UID&quot;:0,&quot;author&quot;:&quot;Irina Coroiu&quot;,&quot;availability&quot;:&quot;QAO-NC&quot;,&quot;corpusID&quot;:null,&quot;corpusSigle&quot;:&quot;Corola-journal&quot;,&quot;docID&quot;:null,&quot;docSigle&quot;:&quot;Corola-journal\/Journalistic&quot;,&quot;layerInfos&quot;:&quot;dereko\/s=spans drukola\/l=tokens drukola\/m=tokens drukola\/p=tokens&quot;,&quot;license&quot;:&quot;QAO-NC&quot;,&quot;matchID&quot;:&quot;p367-368&quot;,&quot;pubDate&quot;:&quot;2001&quot;,&quot;textClass&quot;:&quot;Film&quot;,&quot;textID&quot;:null,&quot;textSigle&quot;:&quot;Corola-journal\/Journalistic\/16438_a_17763&quot;,&quot;title&quot;:&quot;DRACULA revine!&quot;}"
+        id="Corola-journal/Journalistic/16438_a_17763#p367-368">
+      <div class="meta flop">Corola-journal/Journalistic/16438_a_17763</div>
+      <div class="match-main">
+        <div class="match-wrap">
+          <div class="snippet startMore endMore"><span class="context-left"><span class="more"></span>ntrînd în joc, Richard Corliss spunea:&quot;Acest film savuros redă personajului noblețea pentru a-l lăsa să se odihnească în pace&quot;. La sfîrșit de veac, în octombrie 2000, la final de psihoză milenaristă, Compania Kushner-Locke oferă această nouă versiune.Scenariul lui Tom </span><span class="match"><mark>Baum</mark></span><span class="context-right"> pretinde a fi cît mai aproape de realitate;regizorul Joe Chappelle a ambiționat o ultramodernă înfățișare a &quot;Patimilor lui Țepeș&quot; o suită de flash-back-uri iscate tot de un interogatoriu la care este supus eroul de către un sinod de preoți ortodocși<span class="more"></span></span></div>
+        </div>
+      </div>
+      <p class="ref"><strong>DRACULA revine!</strong> von Irina Coroiu (<time datetime="2001">2001</time>)  <span class="sigle">[Corola-journal/Journalistic/16438_a_17763]</span> </p>
+    </li>
+
+    
+      </div>
+
+    </main>
+
+    </script>
+  </body>
+</html>

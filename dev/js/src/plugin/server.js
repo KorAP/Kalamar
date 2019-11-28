@@ -31,7 +31,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
   // List of panels with static buttons, i.e.
   // panels that occur only once.
   var buttonsSingle = {
-    query : []
+    query : [],
+    result : []
   }
   
   // This is a counter to limit acceptable incoming messages
@@ -117,10 +118,9 @@ define(["plugin/widget", "util"], function (widgetClass) {
           throw new Error("Embedding of plugin is no object");
 
         var panel = embed["panel"];
-
+        
         if (!panel || !(buttons[panel] || buttonsSingle[panel]))
           throw new Error("Panel for plugin is invalid");
-
         var onClick = embed["onClick"];
 
         // Needs to be localized as well

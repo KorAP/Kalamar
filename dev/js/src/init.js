@@ -84,6 +84,8 @@ define([
 
     // What should be visible in the beginning?
     var show = KorAP.session.get('show') || {};
+    
+    KorAP.Panel = KorAP.Panel || {}
 
     /**
      * Release notifications
@@ -268,7 +270,7 @@ define([
     if (matchCount > 0)
       resultPanel.addAlignAction();
 
-
+    KorAP.Panel['result'] = resultPanel;
     /*
      * Toggle the Virtual Corpus builder
      */
@@ -390,7 +392,6 @@ define([
     if (sform && vcView) {
       // The views are below the query bar
       sform.insertBefore(queryPanel.element(), vcView);
-      KorAP.Panel = KorAP.Panel || {};
       KorAP.Panel['query'] = queryPanel;
     }
     

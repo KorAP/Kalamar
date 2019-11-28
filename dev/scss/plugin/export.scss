@@ -1,0 +1,8 @@
+@import "../util";
+
+span.export {
+    &:after {
+        font-family: FontAwesome;
+        content: $fa-download; 
+    }
+}
