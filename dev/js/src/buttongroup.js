@@ -88,7 +88,52 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
 
       return list;
     },
-    
+
+    /**
+     * Add button that can toggle a state.
+     * The state has to be a state object.
+     */
+    addToggle : function (title, classes, state) {
+      let b = this._element.addE('span');
+      b.setAttribute('title',title);
+      if (classes !== undefined) {
+        b.classList.add.apply(b.classList, classes);
+      };
+
+      // Set check marker
+      let check = b.addE('span');
+      check.classList.add("check", "button-icon");
+      check.addE('span');
+
+      // Associate this object to state
+      // Add setState method to object
+      check.setState = function (value) {
+        if (value) {
+          this.classList.add("checked");
+        } else {
+          this.classList.remove("checked");
+        }
+      };
+      state.associate(check);
+
+      b.addE('span').addT(title);
+      
+      let that = this;
+      b.addEventListener('click', function (e) {
+
+        // Do not bubble
+        e.halt();
+        
+        // Toggle state
+        if (state.get()) {
+          state.set(false)
+        } else {
+          state.set(true);
+        }
+      });
+
+      return b;
+    },
 
     /**
      * Bind an object to all callbacks of the button group.

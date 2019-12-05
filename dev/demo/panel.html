@@ -18,27 +18,46 @@ requirejs.config({
 });
 
 
-require(['buttongroup', 'panel', 'view/result/koralquery'], function (btnClass, panelClass, kqClass) {
+require(['buttongroup', 'panel', 'view/result/koralquery', 'state'], function (btnClass, panelClass, kqClass, stateClass) {
   KorAP.koralQuery = {
     '@type' : "https://beispiel",
     'key' : 'Cool'
   };
 
-  var panel = panelClass.create();
-  var actions = panel.actions;
+  let panel = panelClass.create();
+  let actions = panel.actions;
 
+  // Add simple button
   actions.add('Meta',['meta'], function () {
     console.log(this.button.classList.contains('meta'));
     view = kqClass.create();
     panel.add(view);
   });
 
+  // Add list button
   var list = actions.addList('More', ['list']);
 
   list.readItems([
     ['cool', 'cool', function (e, action) { console.log('really' + this.action()) }],
     ['very cool', 'veryCool', function (e, action) { console.log('very cool') }]
   ]);
+
+  // Add toggle button
+  let s = stateClass.create(true);
+
+  let bgChange = {
+    setState : function (val) {
+      if (val) {
+        document.body.style.backgroundColor = 'red';
+      } else {
+        document.body.style.backgroundColor = 'transparent';
+      }
+    }
+  };
+
+  s.associate(bgChange);
+
+  actions.addToggle('Background',['bg'], s);
 
   document.getElementById('mainButton').appendChild(panel.element());
 });

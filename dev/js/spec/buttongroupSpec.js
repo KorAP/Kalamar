@@ -1,4 +1,4 @@
-define(['buttongroup'], function (buttonGroupClass) {
+define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
 
   var FunObj = {
     count : 0,
@@ -108,6 +108,36 @@ define(['buttongroup'], function (buttonGroupClass) {
 
     it('should open lists', function () {
       
+    });
+
+    it('should support toggle buttons', function () {
+      var group = buttonGroupClass.create();
+
+      let s = stateClass.create();
+
+      expect(s.get()).toBeFalsy();
+      
+      group.addToggle('example',["examplecls"],s);
+
+      let e = group.element();
+
+      expect(e.firstChild.getAttribute("title")).toBe("example");
+      expect(e.firstChild.classList.contains("examplecls")).toBeTruthy();
+
+      expect(e.firstChild.firstChild.classList.contains("check")).toBeTruthy();
+      expect(e.firstChild.firstChild.classList.contains("button-icon")).toBeTruthy();
+      expect(e.firstChild.lastChild.textContent).toBe("example");
+
+      // Check state
+      expect(s.get()).toBeFalsy();
+      expect(e.firstChild.firstChild.classList.contains("checked")).toBeFalsy();
+
+      // Click on the button
+      e.firstChild.click();
+
+      // Check state
+      expect(s.get()).toBeTruthy();
+      expect(e.firstChild.firstChild.classList.contains("checked")).toBeTruthy();
     });
   });
 });

@@ -30,7 +30,8 @@ define([
   'tour/tours',
   'api',
   'mailToChiffre',
-  'util'
+  'util',
+  'state'
 ], function (matchClass,
              hintClass,
              vcClass,
