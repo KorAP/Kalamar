@@ -6,12 +6,92 @@
     <!--
         see https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
--->
-    <script data-main="/demo/plugin-serverdemo.js" src="/js/lib/require.js" async="async"></script>
+    -->
+    <script>//<![CDATA[
+
+    window.KorAP = window.KorAP || {};
+
+    //]]></script>  
+    <script data-main="plugin-serverdemo.js" src="../js/lib/require.js" async="async"></script>
   </head>
   <body>
     <p>Start the demo server with <code>morbo -l 'http://*:3003' t/server/plugin.pl</code> and open <a href="http://localhost:3003/demo/plugin-server.html"><code>this website</code></a>.</p>
-    <main>
+    <main> 
+        <script>
+        KorAP.koralQuery = {
+            "matches" : [ "..." ],
+            "corpus" : {
+              "@type" : "koral:docGroup",
+              "operation" : "operation:or",
+              "operands" : [ {
+                "@type" : "koral:docGroup",
+                "operation" : "operation:and",
+                "operands" : [ {
+                  "@type" : "koral:doc",
+                  "key" : "title",
+                  "match" : "match:eq",
+                  "value" : "Der Birnbaum",
+                  "type" : "type:string"
+                }, {
+                  "@type" : "koral:doc",
+                  "key" : "pubPlace",
+                  "match" : "match:eq",
+                  "value" : "Mannheim",
+                  "type" : "type:string"
+                }, {
+                  "@type" : "koral:docGroup",
+                  "operation" : "operation:or",
+                  "operands" : [ {
+                    "@type" : "koral:doc",
+                    "key" : "subTitle",
+                    "match" : "match:eq",
+                    "value" : "Aufzucht und Pflege",
+                    "type" : "type:string"
+                  }, {
+                    "@type" : "koral:doc",
+                    "key" : "subTitle",
+                    "match" : "match:eq",
+                    "value" : "Gedichte",
+                    "type" : "type:string"
+                  } ]
+                } ]
+              }, {
+                "@type" : "koral:doc",
+                "key" : "pubDate",
+                "match" : "match:geq",
+                "value" : "2015-03-05",
+                "type" : "type:date",
+                "rewrites" : [ {
+                  "@type" : "koral:rewrite",
+                  "operation" : "operation:modification",
+                  "src" : "querySerializer",
+                  "scope" : "tree"
+                } ]
+              } ]
+            },
+            "query" : {
+              "wrap" : {
+                "layer" : "orth",
+                "match" : "match:eq",
+                "foundry" : "opennlp",
+                "key" : "Goethe",
+                "@type" : "koral:term"
+              },
+              "@type" : "koral:token"
+            },
+            "meta" : {
+              "serialQuery" : "tokens:s:Goethe",
+              "startIndex" : 0,
+              "version" : "unknown",
+              "itemsPerPage" : 25,
+              "context" : "p",
+              "benchmark" : "0.103553092 s",
+              "totalResults" : -1
+            }
+          };
+        </script>
+
+    <div id="resultinfo" class="found"></div>
       <div id="search">
         <ol>
           <li data-corpus-id="WPD"
