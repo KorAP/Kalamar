@@ -18,7 +18,14 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       return e;
     }
   };
+  
+  var secViewClass = {
+      create : function () {
+        return Object.create(viewClass)._init(['secview']).upgradeTo(this);
+      },
+  };
 
+  
   describe('KorAP.View', function () {
     it('should be initializable', function () {
       var view = viewClass.create();
@@ -126,6 +133,25 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       expect(viewE.firstChild.tagName).toEqual("SPAN");
       expect(viewE.firstChild.firstChild.data).toEqual("Hello World!");
     });
+    
+    it('views should be appended or prepended', function () {
+      let panel = panelClass.create();
+      let view = helloViewClass.create();
+      let e = panel.element();
+      panel.add(view);      
+      let secview = secViewClass.create();
+      panel.add(secview);
+      let viewFirst = e.firstChild.firstChild;
+      expect(viewFirst.classList.contains('myview')).toBeTruthy();
+      
+      let prependPanel = panelClass.create();
+      prependPanel.prepend = true;
+      prependPanel.add(view);
+      prependPanel.add(secview);
+      viewFirst = prependPanel.element().firstChild.firstChild;
+      expect(viewFirst.classList.contains('secview')).toBeTruthy();
+    });
+    
   });
 
   describe('KorAP.Panel.Result', function () {

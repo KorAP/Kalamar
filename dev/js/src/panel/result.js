@@ -37,6 +37,7 @@ define([
         KorAP.Plugin.clearButtonGroup("result");
       };
       
+      this.prepend = true;
       
       return this;
     },

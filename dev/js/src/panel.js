@@ -29,6 +29,9 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
         c.push.apply(c,classes);
       this.actions = buttonGroupClass.create(c).bind(this);
 
+      //prepend or append views of the panel
+      this.prepend = false;
+      
       // Warning: This is circular
       this.actions.panel = this;
       return this;
@@ -79,12 +82,18 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       // Add view to views list
       this.views.push(view);
 
-      // Append element to panel element
-
+      // Append or prepend element to panel element
+      if(this.prepend){
+        this._viewElement().prepend(
+            view.element()
+          );
+        }
+      else{
       this._viewElement().appendChild(
         view.element()
       );
-
+      }
+      
       if (view.afterEmbed)
         view.afterEmbed();
       
