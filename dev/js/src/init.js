@@ -355,9 +355,12 @@ define([
 
         if (vc !== undefined) {
           input.value = vc.toQuery();
+          if (input.value == '')
+            input.removeAttribute('name');
         }
         else {
-          delete input['value'];
+          input.removeAttribute('value');
+          input.removeAttribute('name');
         };
       });
     };
