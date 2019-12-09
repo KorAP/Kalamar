@@ -13,6 +13,9 @@ define(['app/en','match', 'panel/match', 'panel/result', 'plugin/server','lib/do
  
     //Load Plugin Server first 
     KorAP.Plugin = pluginClass.create();
+
+    // Add services container to head
+    document.head.appendChild(KorAP.Plugin.element());
     
     //Register result plugin
     KorAP.Plugin.register({
@@ -25,6 +28,14 @@ define(['app/en','match', 'panel/match', 'panel/result', 'plugin/server','lib/do
          'classes' : ['export'],
          'onClick' : {
            'action' : 'addWidget',
+           'template' : 'http://localhost:3003/demo/plugin-client.html',
+         }
+       },{
+         'panel' : 'result',
+         'title' : 'Glemm',
+         'onClick' : {
+           'action' : 'toggle',
+           'state' : 'glemm',
            'template' : 'http://localhost:3003/demo/plugin-client.html',
          }
        }]
