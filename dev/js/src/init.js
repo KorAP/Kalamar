@@ -358,6 +358,7 @@ define([
         }
         else {
           delete input['value'];
+          delete input['name'];
         };
       });
     };
