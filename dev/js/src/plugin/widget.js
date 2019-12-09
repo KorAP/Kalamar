@@ -8,7 +8,7 @@
  * @author Nils Diewald
  */
 
-define(["view","util"], function (viewClass) {
+define(["view","plugin/service","util"], function (viewClass, serviceClass) {
   "use strict";
 
   return {
@@ -17,16 +17,12 @@ define(["view","util"], function (viewClass) {
      * Create new widget
      */
     create : function (name, src, id) {
-      return Object.create(viewClass)._init(['widget']).upgradeTo(this)._init(name, src, id);
+      return Object.create(viewClass)._init(['widget']).upgradeTo(serviceClass)._init(name, src, id).upgradeTo(this)._init();
     },
 
     // Initialize widget
-    _init : function (name, src, id) {
-      if (!name || !src || !id)
-        throw Error("Widget not well defined");
-      this.name = name;
-      this.src = src;
-      this.id = id;
+    _init : function () {
+      this.isWidget = true;
       return this;
     },
 
@@ -35,23 +31,16 @@ define(["view","util"], function (viewClass) {
      */
     show : function () {
 
-      if (this._show)
-        return this._show;
+      if (this._load)
+        return this._load;
 
-      // Spawn new iframe
-      var i = document.createElement('iframe');
-      i.setAttribute('allowTransparency',"true");
-      i.setAttribute('frameborder', 0);
-      i.setAttribute('sandbox','allow-scripts');
-      i.style.height = '0px';
-      i.setAttribute('name', this.id);
-      i.setAttribute('src', this.src);
+      let obj = this.load();
 
       // Per default there should at least be a button
       // for settings, if the plugin requires settings.
       // Otherwise a button indicating this is a plugin
       // is a nice idea as well.
-
+      
       this.actions.add(
         this.name, ['button-icon', 'plugin'], function (e) {
 
@@ -59,8 +48,7 @@ define(["view","util"], function (viewClass) {
           window.alert("Basic information about this plugin");
       }.bind(this));
       
-      this._show = i;
-      return i;
+      return obj;
     },
 
     // Resize iframe
@@ -72,7 +60,7 @@ define(["view","util"], function (viewClass) {
     // On closing the widget view
     onClose : function () {
       if (this._mgr) {
-        this._mgr._closeWidget(this._id);
+        this._mgr._closeService(this._id);
         this._mgr = undefined;
       };
     }
