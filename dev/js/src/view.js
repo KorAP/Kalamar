@@ -78,14 +78,17 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * Close the view.
      */
     close : function () {
+
+      // Close embedded things before
+      if (this.onClose)
+        this.onClose();
+
       var e = this.element();
       if (e.parentNode) {
         e.parentNode.removeChild(e);
       };
       this.panel.delView(this);
       this._shown = false;
-      if (this.onClose)
-        this.onClose();
     },
 
     /**

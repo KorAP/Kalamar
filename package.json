@@ -3,7 +3,7 @@
   "description": "Mojolicious-based Frontend for KorAP",
   "license": "BSD-2-Clause",
   "version": "0.37.2",
-  "pluginVersion": "0.1",
+  "pluginVersion": "0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/KorAP/Kalamar.git"
