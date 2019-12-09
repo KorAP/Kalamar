@@ -16,6 +16,7 @@
         - Added 'navi->set' and 'navi->add' helper.
         - Added settings skeleton.
         - Added query panel for query views.
+        - Added result panel for plugin registration (hebasta).
         - Added state object.
         - Added toggle button to buttongroup.
 
