@@ -1,6 +1,6 @@
 /**
  * The plugin system is based
- * on registered widgets (iframes) from
+ * on registered services (iframes) from
  * foreign services.
  * The server component spawns new iframes and
  * listens to them.
@@ -8,15 +8,15 @@
  * @author Nils Diewald
  */
 
-define(["plugin/widget", "util"], function (widgetClass) {
+define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetClass, serviceClass, stateClass) {
   "use strict";
 
   KorAP.Panel = KorAP.Panel || {};
 
-  // Contains all widgets to address with
+  // Contains all servicess to address with
   // messages to them
-  var widgets = {};
-  var plugins = {};
+  var services = {};
+  var plugins  = {};
 
   // TODO:
   //   These should better be panels and every panel
@@ -33,7 +33,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
   var buttonsSingle = {
     query : [],
     result : []
-  }
+  } 
   
   // This is a counter to limit acceptable incoming messages
   // to a certain amount. For every message, this counter will
@@ -85,6 +85,17 @@ define(["plugin/widget", "util"], function (widgetClass) {
      *         'action' : 'addWidget',
      *         'template' : 'https://localhost:5678/?match={matchid}',
      *       }
+     *     },{
+     *       'title' : 'glemm',
+     *       'panel' : 'query',
+     *       'onClick' : {
+     *         'action' : 'toggle',
+     *         'state' : 'glemm',
+     *         'service' : {
+     *           'id' : 'glemm',
+     *           'template' : 'https://localhost:5678/'
+     *         }
+     *       }
      *     }]
      *   });
      *
@@ -103,7 +114,8 @@ define(["plugin/widget", "util"], function (widgetClass) {
         name : name,
         desc : obj["desc"],
         about : obj["about"],
-        widgets : []
+        widgets : [],
+        services : []
       };
 
       if (typeof obj["embed"] !== 'object')
@@ -111,36 +123,40 @@ define(["plugin/widget", "util"], function (widgetClass) {
  
       // Embed all embeddings of the plugin
       var that = this;
-      for (var i in obj["embed"]) {
-        var embed = obj["embed"][i];
+      for (let i in obj["embed"]) {
+        let embed = obj["embed"][i];
 
         if (typeof embed !== 'object')
           throw new Error("Embedding of plugin is no object");
 
-        var panel = embed["panel"];
-        
-        if (!panel || !(buttons[panel] || buttonsSingle[panel]))
-          throw new Error("Panel for plugin is invalid");
-        var onClick = embed["onClick"];
-
         // Needs to be localized as well
-        var title = embed["title"];
+        let title = embed["title"];        
+        let panel = embed["panel"];
+        let onClick = embed["onClick"];
+
+
+        if (!panel || !(buttons[panel] || buttonsSingle[panel]))
+          throw new Error("Panel for plugin is invalid");        
 
         // The embedding will open a widget
         if (!onClick["action"] || onClick["action"] == "addWidget") {
 
-          var cb = function (e) {
+          
+          let cb = function (e) {
 
             // "this" is bind to the panel
 
             // Get the URL of the widget
-            var url = onClick["template"];
+            let url = onClick["template"];
             // that._interpolateURI(onClick["template"], this.match);
 
             // Add the widget to the panel
-            var id = that.addWidget(this, name, url);
+            let id = that.addWidget(this, name, url);
             plugin["widgets"].push(id);
           };
+
+          // TODO:
+          //   Create button class to be stored and loaded in button groups!
 
           // Add to dynamic button list (e.g. for matches)
           if (buttons[panel]) {
@@ -156,10 +172,49 @@ define(["plugin/widget", "util"], function (widgetClass) {
           else {
             buttonsSingle[panel].push([title, embed["classes"], cb]);
           }
+        }
+
+        else if (onClick["action"] == "toggle") {
+
+          // Todo: Initially false
+          let state = stateClass.create(false);
+
+          // TODO:
+          //   Lazy registration (see above!)
+          KorAP.Panel[panel].actions.addToggle("Title",["title"], state);
+
+          // Get the URL of the service
+
+          // TODO:
+          //   Use the "service" keyword
+          let url = onClick["template"];
+          
+          // Add the service
+          let id = this.addService(name, url);
+
+          // TODO:
+          //   This is a bit stupid to get the service window
+          let win = services[id].load().contentWindow;
+
+          // Create object to communicate the toggle state
+          let sendToggle = {
+            setState : function (val) {
+              win.postMessage({
+                action: 'state',
+                state : onClick['state'],
+                value : val
+              }, '*'); // TODO: Set origin correctly!
+              console.log("I sent state");
+            }
+          };
+
+          // Associate object with the state
+          state.associate(sendToggle);          
+          
+          plugin["services"].push(id);
         };
       };
     },
-
 
     // TODO:
     //   Interpolate URIs similar to https://tools.ietf.org/html/rfc6570
@@ -191,17 +246,11 @@ define(["plugin/widget", "util"], function (widgetClass) {
         buttonsSingle[name] = [];
       }
     },
-    
-    /**
-     * Open a new widget view in a certain panel and return
-     * the id.
-     */
-    addWidget : function (panel, name, src) {
 
-      if (!src)
-        return;
+    // Optionally initialize the service mechanism and get an ID
+    _getServiceID : function () {
 
-      // Is it the first widget?
+      // Is it the first service?
       if (!this._listener) {
 
         /*
@@ -210,7 +259,7 @@ define(["plugin/widget", "util"], function (widgetClass) {
         this._listener = this._receiveMsg.bind(this);
         window.addEventListener("message", this._listener);
         
-        // Every second increase the limits of all registered widgets
+        // Every second increase the limits of all registered services
         this._timer = window.setInterval(function () {
           for (var i in limits) {
             if (limits[i]++ >= maxMessages) {
@@ -220,14 +269,51 @@ define(["plugin/widget", "util"], function (widgetClass) {
         }, 1000);
       };
 
-      // Create a unique random ID per widget
-      var id = 'id-' + this._randomID();
+      // Create a unique random ID per service
+      return 'id-' + this._randomID();
+    },
+    
+    /**
+     * Add a service in a certain panel and return the id.
+     */
+    addService : function (name, src) {
+      if (!src)
+        return;
+
+      let id = this._getServiceID();
+
+      // Create a new service
+      let service = serviceClass.create(name, src, id);
+      
+      // TODO!
+      // Store the service based on the identifier
+      services[id] = service;
+      limits[id] = maxMessages;
+
+      // widget._mgr = this;
+
+      // Add service to panel
+      this.element().appendChild(
+        service.load()
+      );
+      
+      return id;
+    },
+
+    
+    /**
+     * Open a new widget view in a certain panel and return
+     * the id.
+     */
+    addWidget : function (panel, name, src) {
+
+      let id = this._getServiceID();
 
       // Create a new widget
       var widget = widgetClass.create(name, src, id);
 
       // Store the widget based on the identifier
-      widgets[id] = widget;
+      services[id] = widget;
       limits[id] = maxMessages;
 
       widget._mgr = this;
@@ -240,14 +326,14 @@ define(["plugin/widget", "util"], function (widgetClass) {
 
 
     /**
-     * Get widget by identifier
+     * Get service by identifier
      */
-    widget : function (id) {
-      return widgets[id];
+    service : function (id) {
+      return services[id];
     },
 
     
-    // Receive a call from an embedded iframe.
+    // Receive a call from an embedded service.
     // The handling needs to be very careful,
     // as this can easily become a security nightmare.
     _receiveMsg : function (e) {
@@ -268,46 +354,60 @@ define(["plugin/widget", "util"], function (widgetClass) {
       if (!id)
         return;
 
-      // Get the widget
-      var widget = widgets[id];
+      // Get the service
+      let service = services[id];
 
-      // If the addressed widget does not exist - fail
-      if (!widget)
+      // If the addressed service does not exist - fail
+      if (!service)
         return;
 
       // Check for message limits
       if (limits[id]-- < 0) {
 
-        // Kill widget
-        KorAP.log(0, 'Suspicious action by widget', widget.src);
+        // Kill service
+        KorAP.log(0, 'Suspicious action by service', service.src);
 
         // TODO:
         //   Potentially kill the whole plugin!
 
-        // This removes all connections before closing the widget 
-        this._closeWidget(widget.id);
-        widget.close();
+        // This removes all connections before closing the service 
+        this._closeService(service.id);
+
+        // if (service.isWidget)
+        service.close();
+     
         return;
       };
 
       // Resize the iframe
-      if (d.action === 'resize') {
-        widget.resize(d);
-      }
+      switch (d.action) {
+      case 'resize':
+        if (service.isWidget)
+          service.resize(d);
+        break;
 
       // Log message from iframe
-      else if (d.action === 'log') {
-        KorAP.log(d.code, d.msg,  widget.src);
+      case 'log':
+        KorAP.log(d.code, d.msg,  service.src);
+        break;
       };
 
       // TODO:
       //   Close
     },
 
-    // Close the widget
-    _closeWidget : function (id) {
+    // Close the service
+    _closeService : function (id) {
       delete limits[id];
-      delete widgets[id];
+
+      // Close the iframe
+      if (services[id] && services[id]._closeIframe) {
+        services[id]._closeIframe();
+
+        // Remove from list
+        delete services[id];
+      };
+
 
       // Remove listeners in case no widget
       // is available any longer
@@ -328,19 +428,39 @@ define(["plugin/widget", "util"], function (widgetClass) {
       this._listener = undefined;
     },
 
+    /**
+     * Return the service element.
+     */
+    element : function () {
+      if (!this._element) {
+        this._element = document.createElement('div');
+        this._element.setAttribute("id", "services");
+      }
+      return this._element;
+    },
+    
     // Destructor, just for testing scenarios
     destroy : function () {
       limits = {};
-      for (let w in widgets) {
-        widgets[w].close();
+      for (let s in services) {
+        services[s].close();
       };
-      widgets = {};
+      services = {};
       for (let b in buttons) {
         buttons[b] = [];
       };
       for (let b in buttonsSingle) {
         buttonsSingle[b] = [];
       };
+
+      if (this._element) {
+        let e = this._element;
+        if (e.parentNode) {
+          e.parentNode.removeChild(e);
+        };
+        this._element = null;
+      };
+      
       this._removeListener();
     }
   };

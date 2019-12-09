@@ -44,6 +44,10 @@ var cs = document.currentScript;
     _init : function () {
       this.widgetID = window.name;
       this.server = cs.getAttribute('data-server') || '*';
+
+      // Establish the 'message' hook.
+      this._listener = this._receiveMsg.bind(this);
+      window.addEventListener("message", this._listener);
       return this;
     },
 
@@ -53,6 +57,35 @@ var cs = document.currentScript;
       window.parent.postMessage(data, this.server);
     },
 
+    // Receive a call from the embedded platform.
+    _receiveMsg : function (e) {
+      // Get event data
+      let d = e.data;
+
+      // If no data given - fail
+      // (probably check that it's an assoc array)
+      if (!d)
+        return;
+
+      // TODO:
+      //   check e.origin and d["originID"]!!!
+      //   probably against window.parent!
+      
+      switch (d.action) {
+      case 'state': {
+
+        // Check for established stateChange function
+        if (this.onStateChange) {
+          // TODO:
+          //   Check the function is correctly implemented!
+          this.onStateChange(d.state, d.value);
+        };
+        
+        break;
+      }
+      }
+    },
+    
     /**
      * Send a log message to the embedding KorAP
      */
@@ -86,7 +119,15 @@ var cs = document.currentScript;
   // Create plugin on windows load
   window.onload = function () {
     window.KorAPlugin = window.KorAPlugin || obj.create();
+
+    // TODO:
+    //   Only do this in case of the client being opened
+    //   as a widget!
     window.KorAPlugin.resize();
+
+    if (window.pluginit)
+      window.pluginit(window.KorAPlugin);
   };
+
 })();
 

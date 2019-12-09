@@ -32,7 +32,13 @@
           });
         };
       };
-    </script>
+
+      function pluginit (p) {
+        p.onStateChange = function(key, value) {
+          console.log("State changed to", key, value);
+        };
+      };
+      </script>
     <ul>
       <li><a onclick="KorAPlugin.log(333, 'Huhu!')">Send log!</a></li>
       <li><a onclick="KorAPlugin.resize()">Resize</a></li>

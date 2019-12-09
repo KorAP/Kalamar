@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass) {
+define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -27,6 +27,29 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result'],
       manager.destroy();
     });
 
+    it('should add a service', function () {
+      var manager = pluginServerClass.create();
+
+      var e = manager.element();
+
+      document.body.appendChild(e);
+
+      expect(document.getElementById("services")).toBeTruthy();
+      
+      expect(e.getAttribute("id")).toBe("services");
+      expect(e.children.length).toBe(0);
+
+      var id = manager.addService('Example 1', 'about:blank');
+      expect(id).toMatch(/^id-/);
+
+      expect(e.children.length).toBe(1);
+
+      manager.destroy();
+
+      expect(document.getElementById("services")).toBeFalsy();
+
+    });
+
     it('should close a widget', function () {
       var manager = pluginServerClass.create();
       var panel = panelClass.create();
@@ -39,7 +62,8 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result'],
 
       expect(panelE.getElementsByClassName('view').length).toEqual(1);
 
-      var widget = manager.widget(id);
+      var widget = manager.service(id);
+      expect(widget.isWidget).toBeTruthy();
       widget.close();
 
       expect(panelE.getElementsByClassName('view').length).toEqual(0);
@@ -131,7 +155,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result'],
   
   describe('KorAP.Plugin.Widget', function () {
     it('should be initializable', function () {
-      expect(function () { widgetClass.create() }).toThrow(new Error("Widget not well defined"));
+      expect(function () { widgetClass.create() }).toThrow(new Error("Service not well defined"));
 
       widget = widgetClass.create("Test", "https://example", 56);
       expect(widget).toBeTruthy();
@@ -180,6 +204,33 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result'],
     });
   });
 
+  describe('KorAP.Plugin.Service', function () {
+    it('should be initializable', function () {
+      expect(function () { serviceClass.create() }).toThrow(new Error("Service not well defined"));
+
+      let service = serviceClass.create("Test", "https://example", 56);
+      expect(service).toBeTruthy();
+      expect(service.id).toEqual(56);
+      expect(service.name).toEqual("Test");
+      expect(service.src).toEqual("https://example");
+    });
+
+    it('should be loadable', function () {
+      expect(function () { serviceClass.create() }).toThrow(new Error("Service not well defined"));
+
+      let service = serviceClass.create("Test", "https://example", 56);
+      expect(service).toBeTruthy();
+
+      let i = service.load();
+      expect(i.tagName).toEqual("IFRAME");
+      expect(i.getAttribute("allowTransparency")).toEqual("true");
+      expect(i.getAttribute("frameborder")).toEqual(''+0);
+      expect(i.getAttribute("name")).toEqual(''+service.id);
+      expect(i.getAttribute("src")).toEqual(service.src);
+    });
+
+  });
+  
   describe('KorAP.Plugin.QueryPanel', function () {
     it('should establish a query plugin', function () {
       var queryPanel = queryPanelClass.create();
