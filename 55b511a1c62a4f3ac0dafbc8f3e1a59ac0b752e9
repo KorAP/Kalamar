@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "972949b4_e512d7af",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2019-12-09T12:43:03Z",
+      "side": 1,
+      "message": "Why do you delete \u0027name\u0027 here?",
+      "range": {
+        "startLine": 361,
+        "startChar": 17,
+        "endLine": 361,
+        "endChar": 22
+      },
+      "revId": "55b511a1c62a4f3ac0dafbc8f3e1a59ac0b752e9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
