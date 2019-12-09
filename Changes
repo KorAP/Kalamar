@@ -1,4 +1,4 @@
-0.37 2019-12-09
+0.37 2019-12-11
         - Removed deprecated 'kalamar_test_port' helper.
         - Separated KalamarHelpers and KalamarPages.
         - Renamed 'doc_link_to' to 'embedded_link_to'
@@ -20,6 +20,8 @@
         - Added state object.
         - Added toggle button to buttongroup.
         - Added pipe object to implement KoralPipes.
+        - Separated "service" from "widget" plugin embeddings.
+        - Implemented preliminary host->plugin communication.
 
 0.36 2019-09-19
         - Rename all cookies to be independent
