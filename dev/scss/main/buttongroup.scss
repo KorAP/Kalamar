@@ -52,6 +52,7 @@
       font-family: 'FontAwesome';
       width: 1.2em;
       display: inline-block;
+      text-align: left;
       &:not(.checked)::after {
         content: $fa-check;
       }
