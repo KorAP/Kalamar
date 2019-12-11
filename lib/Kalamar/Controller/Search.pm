@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Collection 'c';
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/quote/;
+use Mojo::JSON;
 use POSIX 'ceil';
 
 has items_per_page => 25;
@@ -488,8 +489,8 @@ sub _map_match {
 
   # Legacy match id
   if ($match->{matchID}) {
-    $match->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\.[^-]+?-// or
-      $match->{matchID} =~ s!^match\-(?:[^\/]+\/){2}[^-]+?-!!;
+    $match->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\..+?-([pc]\d)/$1/ or
+      $match->{matchID} =~ s!^match\-(?:[^\/]+\/){2}.+?-([pc]\d)!$1!;
   };
 
   return unless $match->{textSigle};
@@ -507,8 +508,6 @@ sub _map_match {
 
 1;
 
-
-__END__
 
 __END__
 
