@@ -2,6 +2,7 @@ use Mojo::Base -strict;
 use Test::Mojo;
 use Test::More;
 use Mojo::File qw/path/;
+use Kalamar::Controller::Search;
 
 
 #####################
@@ -248,6 +249,17 @@ $t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
   ->content_like(qr!\"availability\"!)
   ->text_is('#error','')
   ;
+
+
+
+my $match = {
+  matchID => 'match-FOLK/00070-SE-01/T-04-p5441-5442',
+  textSigle => 'FOLK/00070-SE-01/T-04'
+};
+
+$match = Kalamar::Controller::Search::_map_match($match);
+
+is($match->{matchID}, 'p5441-5442');
 
 
 done_testing;
