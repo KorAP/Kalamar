@@ -6,10 +6,8 @@
   <p><strong>KorAP</strong> ist eine neue Korpusanalyseplattform, optimiert für große, mehrfach annotierte Korpora und komplexe Suchmechanismen. Dabei versucht KorAP unabhängig von spezifischen Forschungsfragen zu sein.</p>
 
   <p><noscript>KorAP erwartet für einige Funktionen die Aktivierung von JavaScript.</noscript></p>
+  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <a href="#" onclick="KorAP.tourshow()"> Tour</a> oder mit der <%= doc_opener 'korap', begin %>Einführung<% end %>!</p>
   
-  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <%= doc_opener 'korap', begin %>Einführung<% end %>!</p>
-
-  <!-- <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <a href="#" onclick="KorAP.tourshow()"> Tour</a> oder mit der <%= doc_opener 'korap', begin %>Einführung<% end %>!</p> -->
   %= include 'announcement', lang => 'de'
 
   <p>KorAP wird am <a href="http://www.ids-mannheim.de">Leibniz-Institut für Deutsche Sprache</a> in Mannheim entwickelt, Mitglied der <a href="http://www.leibniz-gemeinschaft.de/en/about-us/leibniz-competition/projekte-2011/2011-funding-line-2/">Leibniz Gemeinschaft</a>. Die einzelnen Module werden als Open Source auf <a href="http://github.com/KorAP">GitHub</a> veröffentlicht.</p>
