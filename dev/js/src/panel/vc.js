@@ -40,12 +40,23 @@ define([
      * Add corpus statistic view to panel
      */
     addCorpStat: function(){
+      
+      //Refreshes corpus statistic
+      if(this.statView !== undefined &&  this.statView.shown()){
+        let statt = this.statView.show();
+        if (statt.classList.contains('stdisabled')){
+          statt.classList.remove('stdisabled');
+          this.reloadCorpStat(); 
+          }
+      }
+      
+      //Add corpus statistic
       if (this.statView === undefined || !this.statView.shown()) {
         this.statView = corpStatVClass.create(this.vc, this);
         this.add(this.statView);
         this.vc.oldvcQuery = KorAP.vc.toQuery();
       }
-
+      
     },
     
     /**

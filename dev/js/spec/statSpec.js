@@ -424,6 +424,29 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
         expect(checkStatActive(view,show)).toBe(true);
       });
       
+      it ('should refresh a disabled corpus statistic if statistic button is clicked', function(){
+        
+        KorAP.vc = generateCorpusDocGr();  
+        
+        //Show corpus statistic
+        let show = document.createElement('div');
+        show.appendChild(KorAP.vc.element());
+        let panel = show.firstChild.lastChild.firstChild;
+        let statbut =  panel.lastChild.children[0];
+        statbut.click();
+        let view = panel.firstChild.firstChild;
+        
+        //corpus statistic is active
+        expect(checkStatActive(view, show)).toBe(true);
+        
+        //change vc, a line in vc builder is deleted
+        KorAP._delete.apply(KorAP.vc.root().getOperand(0));
+        expect(checkStatDisabled(view,show)).toBe(true);
+        
+        //click at statistic button
+        statbut.click();
+        expect(checkStatActive(view,show)).toBe(true);
+      });
       
       it('should disable corpus statistic if entries in vc builder are deleted', function(){
         KorAP.vc = generateCorpusDocGr();
