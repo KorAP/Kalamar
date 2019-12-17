@@ -36,8 +36,10 @@ define(function () {
      */
     append : function (service) {
       service = _notNull(service);
-      if (service)
+      if (service) {
         this._pipe.push(service);
+        this._update();
+      };
     },
 
     /**
@@ -45,8 +47,10 @@ define(function () {
      */
     prepend : function (service) {
       service = _notNull(service);
-      if (service)
+      if (service) {
         this._pipe.unshift(service);
+        this._update();
+      };
     },
 
     /**
@@ -56,6 +60,7 @@ define(function () {
       let i = this._pipe.indexOf(service);
       if (i != -1) {
         this._pipe.splice(i, 1);
+        this._update();
       };
     },
 
@@ -71,6 +76,28 @@ define(function () {
      */
     toString : function () {
       return this._pipe.join(',');
+    },
+
+    /**
+     * Update the pipe value.
+     */
+    _update : function () {
+      if (this.e != null) {
+        this.e.setAttribute("value", this.toString());
+      };
+    },
+    
+    /**
+     * Return the pipe element.
+     */
+    element : function () {
+      if (this.e == null) {
+        this.e = document.createElement('input');
+        this.e.setAttribute("type","text");
+        this.e.setAttribute("name","pipe");
+        this.e.classList.add("pipe");
+      };
+      return this.e;
     }
   };
 });
