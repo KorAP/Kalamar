@@ -35,13 +35,24 @@
 
       function pluginit (p) {
         p.onMessage = function(msg) {
-          console.log("State changed to", msg.key, msg.value);
+          switch (msg.key) {
+            // console.log("State changed to", msg.key, msg.value);
+            case 'glemm':
+              if (msg.value) {
+                KorAPlugin.addPipe('http://glemm/');
+              }
+              else {
+                KorAPlugin.delPipe('http://glemm/');
+              }
+              break;
+          }
         };
       };
       </script>
     <ul>
       <li><a onclick="KorAPlugin.log(333, 'Huhu!')">Send log!</a></li>
       <li><a onclick="KorAPlugin.resize()">Resize</a></li>
+      <li><a onclick="KorAPlugin.addPipe('Glemm')">Add Glemm</a></li>
       <li><a onclick="flood()">Flood!</a></li>
     </ul>
     <p style="width: 2000px">------------------------------------------------------------------------------------------------------------------------</p>
