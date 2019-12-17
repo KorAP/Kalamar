@@ -37,7 +37,6 @@ sub startup {
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
-
   # Set secrets for signed cookies
   if (-e (my $secret = $self->home->child('kalamar.secret'))) {
 
@@ -113,6 +112,14 @@ sub startup {
   # Add development path
   if ($self->mode eq 'development') {
     push @{$self->static->paths}, 'dev';
+  };
+
+  # Set proxy timeouts
+  if ($conf->{proxy_inactivity_timeout}) {
+    $self->ua->inactivity_timeout($conf->{proxy_inactivity_timeout});
+  };
+  if ($conf->{proxy_connect_timeout}) {
+    $self->ua->connect_timeout($conf->{proxy_connect_timeout});
   };
 
   # Client notifications

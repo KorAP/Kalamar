@@ -14,7 +14,9 @@ $ENV{KALAMAR_API} = $mount_point;
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth'],
-    experimental_proxy => 1
+    experimental_proxy => 1,
+    proxy_inactivity_timeout => 99,
+    proxy_connect_timeout => 66,
   }
 });
 
@@ -103,6 +105,10 @@ $fake_app->routes->get('/v1.0/longwait')->to(
       }
     );
   });
+
+# Set proxy timeout
+is($t->app->ua->inactivity_timeout, 99);
+is($t->app->ua->connect_timeout, 66);
 
 # Set proxy timeout
 $t->app->ua->inactivity_timeout(1);
