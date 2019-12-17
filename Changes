@@ -25,6 +25,9 @@
         - Fixed matchID transformation to deal with textSigles
           having dashes.
         - Catch timeouts in proxy.
+        - Refresh corpus statistics by clicking the
+          statistics button (#107, hebasta)
+        - Fixed links to Leibniz association (hebasta)
 
 0.36 2019-09-19
         - Rename all cookies to be independent
