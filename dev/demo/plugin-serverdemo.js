@@ -8,14 +8,18 @@ requirejs.config({
 
 
 
-define(['app/en','match', 'panel/match', 'panel/result', 'plugin/server','lib/domReady','init'], function (lang, matchClass, matchPanelClass, resultPanelClass, pluginClass, domReady) {
+define(['app/en','match', 'panel/match', 'panel/result', 'plugin/server','pipe','lib/domReady','init'], function (lang, matchClass, matchPanelClass, resultPanelClass, pluginClass, pipeClass, domReady) {
   domReady(function () {
  
-    //Load Plugin Server first 
+    // Load Plugin Server first 
     KorAP.Plugin = pluginClass.create();
 
     // Add services container to head
     document.head.appendChild(KorAP.Plugin.element());
+
+    // Add pipe form
+    KorAP.Pipe = pipeClass.create();
+    document.getElementById("searchform").appendChild(KorAP.Pipe.element());
     
     //Register result plugin
     KorAP.Plugin.register({

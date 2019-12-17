@@ -29,6 +29,7 @@
         - Refresh corpus statistics by clicking the
           statistics button (#107, hebasta)
         - Fixed links to Leibniz association (hebasta)
+        - Added 'addPipe' and 'delPipe' plugin methods.
 
 0.36 2019-09-19
         - Rename all cookies to be independent
