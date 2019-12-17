@@ -14,8 +14,13 @@
     //]]></script>  
     <script data-main="plugin-serverdemo.js" src="../js/lib/require.js" async="async"></script>
   </head>
-  <body>
+  <body>    
     <p>Start the demo server with <code>morbo -l 'http://*:3003' t/server/plugin.pl</code> and open <a href="http://localhost:3003/demo/plugin-server.html"><code>this website</code></a>.</p>
+
+    <header>
+      <form id="searchform" autocomplete="off" action="/kalamar"></form>
+    </header>
+    
     <main> 
         <script>
         KorAP.koralQuery = {

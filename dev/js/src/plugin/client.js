@@ -52,7 +52,7 @@ var cs = document.currentScript;
     },
 
     // Send a message
-    _sendMsg : function (data) {
+    sendMsg : function (data) {
       data["originID"] = this.widgetID;
       window.parent.postMessage(data, this.server);
     },
@@ -79,7 +79,7 @@ var cs = document.currentScript;
      * Send a log message to the embedding KorAP
      */
     log : function (code, msg) {
-      this._sendMsg({
+      this.sendMsg({
         action : 'log',
         code : code,
         msg : msg
@@ -98,7 +98,7 @@ var cs = document.currentScript;
       if (de.scrollWidth > de.clientWidth) {
         height += 14;
       };
-      this._sendMsg({
+      this.sendMsg({
         'action' : 'resize',
         'height' : height
       });

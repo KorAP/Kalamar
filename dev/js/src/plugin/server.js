@@ -393,6 +393,17 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
       case 'log':
         KorAP.log(d.code, d.msg,  service.src);
         break;
+
+      // Modify pipes
+      case 'pipe':
+        if (KorAP.Pipe != undefined) {
+          if (d.job == 'del') {
+            KorAP.Pipe.remove(d.service);
+          } else {
+            KorAP.Pipe.append(d.service);
+          };
+        };
+        break;
       };
 
       // TODO:
