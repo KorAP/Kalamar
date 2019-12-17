@@ -39,7 +39,17 @@ sub pass {
     before_korap_request => ($c, $tx)
   );
 
-  $c->proxy->start_p($tx)->wait;
+  # Start proxy transaction and cache failure
+  $c->proxy->start_p($tx)->catch(
+    sub {
+      my $err = shift;
+      $c->render(
+        text => "Proxy error: $err",
+        status => 400
+      );
+    }
+  )->wait;
+
   $tx->res->content->once(
     body => sub {
       my $headers = $c->res->headers;
@@ -53,6 +63,8 @@ sub pass {
       $c->app->plugins->emit_hook(after_render => $c);
     }
   );
+
+  return 1;
 };
 
 1;
