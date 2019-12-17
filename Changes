@@ -26,6 +26,9 @@
           having dashes.
         - Catch timeouts in proxy.
         - Support non-verbal elements in token table view.
+        - Refresh corpus statistics by clicking the
+          statistics button (#107, hebasta)
+        - Fixed links to Leibniz association (hebasta)
 
 0.36 2019-09-19
         - Rename all cookies to be independent
