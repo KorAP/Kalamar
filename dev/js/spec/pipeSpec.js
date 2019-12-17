@@ -88,5 +88,17 @@ define(['pipe'], function (pipeClass) {
       p.remove('service0')
       expect(p.toString()).toEqual('service1,service2,service3');      
     });
+
+    it('should sync with an element', function () {
+      let p = pipeClass.create();
+      let e = p.element();
+      expect(e.tagName).toEqual("INPUT");
+      p.append('service1');
+      expect(e.getAttribute("value")).toEqual("service1");
+      p.append('service2');
+      expect(e.getAttribute("value")).toEqual("service1,service2");
+      p.remove('service1');
+      expect(e.getAttribute("value")).toEqual("service2");
+    });
   });
 });
