@@ -30,6 +30,7 @@
           statistics button (#107, hebasta)
         - Fixed links to Leibniz association (hebasta)
         - Make proxy timeouts configurable.
+        - Added 'addPipe' and 'delPipe' plugin methods.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

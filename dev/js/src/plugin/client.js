@@ -102,6 +102,27 @@ var cs = document.currentScript;
         'action' : 'resize',
         'height' : height
       });
+    },
+
+    /**
+     * Append a pipe to the embedding KorAP
+     */
+    addPipe : function (service) {
+      this._sendMsg({
+        'action' : 'pipe',
+        'service' : service
+      });
+    },
+
+    /**
+     * Delete a pipe from the embedding KorAP
+     */
+    delPipe : function (service) {
+      this._sendMsg({
+        'action' : 'pipe',
+        'job' : 'del',
+        'service' : service
+      });
     }
   };
 
