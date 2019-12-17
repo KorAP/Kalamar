@@ -175,7 +175,7 @@ define([
         // Leaf node
         // store string on position and go to next string
         else if (c.nodeType === 3) {
-          if (c.nodeValue.match(/[a-z0-9]/i)) {
+          if (c.nodeValue.match(/[a-z0-9\u25ae]/iu)) {
             this._mark[this._pos] = mark ? true : false;
             this._token[this._pos++] = c.nodeValue;
           };
