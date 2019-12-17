@@ -28,7 +28,8 @@ my $fake_backend = $t->app->plugin(
   }
 );
 # Configure fake backend
-$fake_backend->pattern->defaults->{app}->log($t->app->log);
+my $fake_app = $fake_backend->pattern->defaults->{app};
+$fake_app->log($t->app->log);
 
 # Globally set server
 $t->app->ua->server->app($t->app);
@@ -90,6 +91,26 @@ $t->post_ok('/api/v1.0/oauth2/token' => {} => form => {
   ->json_is('/token_type', 'Bearer')
   ;
 
+# Create long-running route
+$fake_app->routes->get('/v1.0/longwait')->to(
+  cb => sub {
+    my $c = shift;
+
+    $c->render_later;
+    Mojo::IOLoop->timer(
+      5 => sub {
+        return $c->render(text => 'okay');
+      }
+    );
+  });
+
+# Set proxy timeout
+$t->app->ua->inactivity_timeout(1);
+
+$t->get_ok('/api/v1.0/longwait')
+  ->status_is(400)
+  ->content_is('Proxy error: Inactivity timeout')
+  ;
 
 done_testing;
 __END__
