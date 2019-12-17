@@ -25,6 +25,7 @@
         - Fixed matchID transformation to deal with textSigles
           having dashes.
         - Catch timeouts in proxy.
+        - Support non-verbal elements in token table view.
 
 0.36 2019-09-19
         - Rename all cookies to be independent

@@ -58,6 +58,11 @@ div.matchtable > div {
   }
   td:empty {
     cursor: default;
+    // Fix for empty annotation lines:
+    &::after {
+      content: " ";
+      white-space: pre;
+    }
   }
   tr {
     outline: none;

@@ -438,7 +438,7 @@ require(['init'], function () {
   "<span class=\"context-right\">" +
   "</span>";
 
-  // with cut
+  // with cut and verbal
   snippet = "<span class=\"context-left\"><\/span>"+
   "<span class=\"match\">" +
   "<span class=\"cutted\"><\/span>" +
@@ -467,6 +467,10 @@ require(['init'], function () {
   "    </span>" +
   "  </span>" +
   "</span>" +
+
+  "<span title=\"dgd/para:incident\">▮</span>" +
+  "<span title=\"dgd/para:vocal\">▮</span>" +
+  
   "<span title=\"cnx/l:fähig\">" +
   "  <span title=\"cnx/l:leistung\">" +
   "    <span title=\"cnx/p:A\">" +

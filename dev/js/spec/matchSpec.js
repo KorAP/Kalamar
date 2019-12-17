@@ -129,6 +129,7 @@ define(['match',
       "  </span>" +
       "</span>" +
       "</mark>" +
+      "<span title=\"dgd/para:incident\">▮</span>" +
       "<span title=\"cnx/l:fähig\">" +
       "  <span title=\"cnx/l:leistung\">" +
       "    <span title=\"cnx/p:A\">" +
@@ -212,7 +213,7 @@ define(['match',
   var treeSnippetHierarchy =
       "<span class=\"context-left\"><\/span><span class=\"match\"><span title=\"corenlp\/c:MPN\">Leonard Maltin<\/span> schrieb: „<span title=\"corenlp\/c:S\"><span title=\"corenlp\/c:NP\">Plot <span title=\"corenlp\/c:MPN\">contrivance isn‘<mark>t<\/mark> handled badly<\/span><\/span> <span title=\"corenlp\/c:PP\">in above-average programmer<\/span><\/span>“.&lt;<span title=\"corenlp\/c:S\"><span title=\"corenlp\/c:ROOT\"><span title=\"corenlp\/c:NP\">ref&gt;''<span title=\"corenlp\/c:NP\"><span title=\"corenlp\/c:CNP\">Movie &amp;amp; Video<\/span> Guide<\/span><\/span>'', <span title=\"corenlp\/c:VP\">1996 edition, <span title=\"corenlp\/c:NP\"><span title=\"corenlp\/c:CNP\">S. 210<\/span><\/span><\/span>.<\/span><\/span><\/span><span class=\"context-right\"><\/span>";
 
-          function matchElementFactory () {
+  function matchElementFactory () {
     var me = document.createElement('li');
 
     me.setAttribute(
@@ -488,22 +489,22 @@ define(['match',
     it('should parse into a table (async)', function () {
       expect(table).toBeTruthy();
 
-      expect(table.length()).toBe(7);
+      expect(table.length()).toBe(8);
 
       expect(table.getToken(0)).toBe("");
       expect(table.getToken(1)).toBe("Außerdem ");
       expect(table.getToken(2)).toBe("meist");
       expect(table.getToken(3)).toBe("deutlich");
-      expect(table.getToken(4)).toBe("leistungsfähiger");
-      expect(table.getToken(5)).toBe(longString);
+      expect(table.getToken(5)).toBe("leistungsfähiger");
+      expect(table.getToken(6)).toBe(longString);
 
       expect(table.getValue(2, "cnx", "p")[0]).toBe("ADV");
       expect(table.getValue(2, "cnx", "syn")[0]).toBe("@PREMOD");
       expect(table.getValue(2, "mate", "l")[0]).toBe("meist");
       expect(table.getValue(2, "mate", "l")[1]).toBeUndefined();
 
-      expect(table.getValue(4, "cnx", "l")[0]).toBe("fähig");
-      expect(table.getValue(4, "cnx", "l")[1]).toBe("leistung");
+      expect(table.getValue(5, "cnx", "l")[0]).toBe("fähig");
+      expect(table.getValue(5, "cnx", "l")[1]).toBe("leistung");
     });
    
     it('should be rendered async', function () {
@@ -525,12 +526,13 @@ define(['match',
       expect(tr.children[4].classList.contains('mark')).toBeFalsy();
       expect(tr.children[5].firstChild.nodeValue).toBe('deutlich');
       expect(tr.children[5].classList.contains('mark')).toBeTruthy();
-      expect(tr.children[6].firstChild.nodeValue).toBe('leistungsfähiger');
-      expect(tr.children[6].classList.contains('mark')).toBeFalsy();
-      expect(tr.children[6].hasAttribute("title")).toBeFalsy();
-      expect(tr.children[7].firstChild.nodeValue).toBe(longString);
-      expect(tr.children[7].getAttribute("title")).toBe(longString);
-      expect(tr.children[8].classList.contains('cutted')).toBeTruthy();
+      expect(tr.children[6].firstChild.nodeValue).toBe('▮');
+      expect(tr.children[7].firstChild.nodeValue).toBe('leistungsfähiger');
+      expect(tr.children[7].classList.contains('mark')).toBeFalsy();
+      expect(tr.children[7].hasAttribute("title")).toBeFalsy();
+      expect(tr.children[8].firstChild.nodeValue).toBe(longString);
+      expect(tr.children[8].getAttribute("title")).toBe(longString);
+      expect(tr.children[9].classList.contains('cutted')).toBeTruthy();
 
       // first row
       tr = e.children[1].children[0];
@@ -541,8 +543,9 @@ define(['match',
       expect(tr.children[1].firstChild.nodeValue).toEqual('l');
       expect(tr.children[4].firstChild.nodeValue).toEqual('meist');
       expect(tr.children[5].firstChild.nodeValue).toEqual('deutlich');
-      expect(tr.children[6].firstChild.firstChild.nodeValue).toEqual('fähig');
-      expect(tr.children[6].lastChild.firstChild.nodeValue).toEqual('leistung');
+      expect(tr.children[6].firstChild).toBeNull();
+      expect(tr.children[7].firstChild.firstChild.nodeValue).toEqual('fähig');
+      expect(tr.children[7].lastChild.firstChild.nodeValue).toEqual('leistung');
 
       // second row
       tr = e.children[1].children[1];
@@ -553,10 +556,11 @@ define(['match',
       expect(tr.children[1].firstChild.nodeValue).toEqual('p');
       expect(tr.children[4].firstChild.nodeValue).toEqual('ADV');
       expect(tr.children[5].firstChild.nodeValue).toEqual('A');
-      expect(tr.children[6].firstChild.firstChild.nodeValue).toEqual('A');
-      expect(tr.children[6].lastChild.firstChild.nodeValue).toEqual('ADJA');
+      expect(tr.children[6].firstChild).toBeNull();
+      expect(tr.children[7].firstChild.firstChild.nodeValue).toEqual('A');
+      expect(tr.children[7].lastChild.firstChild.nodeValue).toEqual('ADJA');
 
-      expect(tr.children[6].firstChild.getAttribute("title")).toEqual('Adjective');
+      expect(tr.children[7].firstChild.getAttribute("title")).toEqual('Adjective');
       expect(tr.children[4].getAttribute("title")).toEqual('Adverb');
     });
 
@@ -616,6 +620,11 @@ define(['match',
       // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
     });
 
+    it('should parse into a table view with non-verbal elements (sync)', function () {
+      var matchElement = matchElementFactory();
+      expect(matchElement.tagName).toEqual('LI');
+    });
+    
   });
 
   describe('KorAP.RelationsView', function () {
