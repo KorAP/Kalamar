@@ -86,6 +86,9 @@
   
   <p>Distance operators rely on the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
 
+  <p>In case a query contains numerous distance operators, they need to be nested in parentheses:</p>
+  %= doc_query cosmas2 => '(Tag /+w2 offenen) /+w1 Tür'
+  
   <h4>Word Distance Operator</h4>
 
   <p>The word distance operator <code>w</code> defines how many words are allowed or are not allowed in-between two search operands.</p>
@@ -134,14 +137,27 @@
     <p>The KWIC result of including paragraph distance queries will likely exceed the supported maximum length of matches in KorAP and will therefore be cut.</p>
   </blockquote>
 
-  <h4>Multiple Distance Operators</h4>
-
-  %= under_construction
-
-  <h4>Nesting of multiple Distance Operations</h4>
+  <h4>Multi-Distance Operators</h4>
+ 
+  <p>Distance operators can be combined to further limit the result set. The distance conditions are separated by comma (without spaces).</p> 
+  <p>Search for &quot;ein Fest&quot; in a sentence:</p>
+  %= doc_query cosmas2 => 'ein /+w1,s0 Fest'
+    
+  <h4>List of results with one word and results with more word hits</h4>
   
-  <p>In case a query contains multiple distance operators, they need to be nested in parentheses.</p>
-  <%= doc_query cosmas2 => '(Tag /+w2 offenen) /+w1 Tür' %>
+  <p>If your are using the <code>/</code> symbol to search for two operands that should occur together, the result set is normally a list of more word hits:</p> 
+  %= doc_query cosmas2 => 'Geist /+w2:10 Zeit'
+  
+  <p> In some cases this kind of search could also lead to one word hits, with this search hits like "Zeitgeist" are also found:</p>
+  %= doc_query cosmas2 => '&Geist /s0 &Zeit'
+  
+  <p>If you do not want that you can define a distance interval, or use a direction parameter instead:</p>
+  %= doc_query cosmas2 => '&Geist /w1:6 &Zeit'
+  %= doc_query cosmas2 => '&Geist /+s0 &Zeit'
+     
+  <h4>Omitted Distance Operator</h4>
+  <p>If the distance operator is omitted between two operands, KorAP is searching for a <code>/+w1</code> distance:</p>
+  %= doc_query cosmas2 => 'runder Tisch'
   
 </section>
 
