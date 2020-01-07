@@ -21,6 +21,12 @@ $qmargin: 3px;
   }
 }
 
+body.progress #q-field {
+  background-color: $light-orange;
+  background-image: none;
+}
+
+
 header input {
   @include input-field;
 }
@@ -34,7 +40,7 @@ header input {
     position: absolute;
     padding: 0;
     right: $right-distance;
-    &::after {
+    &:not(.loading)::after {
       content: $fa-search;
     }
   }

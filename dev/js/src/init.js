@@ -341,7 +341,7 @@ define([
     if (form !== null) {
       form.addEventListener('submit', function (e) {
         var qf = d.getElementById('q-field');
-
+        
         // No query was defined
         if (qf.value === undefined || qf.value === '') {
           qf.focus();
@@ -349,7 +349,7 @@ define([
           KorAP.log(700, "No query given");
           return;
         };
-
+        
         // Store session information
         KorAP.session.set("show", show);
 
@@ -362,6 +362,12 @@ define([
           input.removeAttribute('value');
           input.removeAttribute('name');
         };
+
+        // This would preferably set the query to be "disabled",
+        // but in that case the query wouldn't be submitted
+        // at all.
+        d.getElementById('qsubmit').classList.add("loading");
+        d.body.classList.add("progress");
       });
     };
  
