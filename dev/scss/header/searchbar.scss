@@ -34,7 +34,7 @@ header input {
     position: absolute;
     padding: 0;
     right: $right-distance;
-    &::after {
+    &:not(.loading)::after {
       content: $fa-search;
     }
   }
