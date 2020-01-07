@@ -143,6 +143,7 @@ module.exports = function(grunt) {
 	      files: ['dev/scss/{util,base,fonts,kalamar,media,no-js}.scss',
 		            'dev/scss/base/flextable.scss',
 		            'dev/scss/base/fragment.scss',
+		            'dev/scss/base/load.scss',
 		            'dev/scss/footer/footer.scss',
 		            'dev/scss/sidebar/sidebar.scss',
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,statistics,datepicker}.scss',
