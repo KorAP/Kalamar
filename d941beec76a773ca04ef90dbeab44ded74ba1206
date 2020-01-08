@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "389429d0_b1b1fe0f",
+        "filename": "dev/scss/header/searchbar.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2020-01-08T11:01:30Z",
+      "side": 1,
+      "message": "Have you experimented with  \"cursor: progress;\" and \"cursor: default;\" below?",
+      "revId": "d941beec76a773ca04ef90dbeab44ded74ba1206",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
