@@ -19,6 +19,11 @@ $qmargin: 3px;
   &::-webkit-search-cancel-button {
     display: none;
   }
+
+  &.loading {
+    background-color: $light-orange;
+    background-image: none;
+  }
 }
 
 header input {
@@ -34,7 +39,7 @@ header input {
     position: absolute;
     padding: 0;
     right: $right-distance;
-    &::after {
+    &:not(.loading)::after {
       content: $fa-search;
     }
   }
