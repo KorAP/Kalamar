@@ -39,3 +39,4 @@ t/kalamar_user_client.t
 !.gitignore
 npm-debug.log
 package-lock.json
+/kalamar.code-workspace

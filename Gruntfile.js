@@ -52,7 +52,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     requirejs: reqTasks,
-    uglify: {
+    terser: {
       kalamar : {
         files: uglyFiles,
         options : {
@@ -144,6 +144,7 @@ module.exports = function(grunt) {
 		            'dev/scss/base/flextable.scss',
 		            'dev/scss/base/fragment.scss',
 		            'dev/scss/base/load.scss',
+ 		            'dev/scss/base/form.scss',
 		            'dev/scss/footer/footer.scss',
 		            'dev/scss/sidebar/sidebar.scss',
 		            'dev/scss/header/{header,hint,menu,searchbar,vc,statistics,datepicker}.scss',
@@ -163,13 +164,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-uglify-es');
+  grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.registerTask('img', ['imagemin','copy']);
   grunt.registerTask('js', ['requirejs']);
   grunt.registerTask('css', ['sass']);
   grunt.registerTask(
     'default',
-    ['requirejs', 'uglify', 'imagemin', 'copy', 'sass']
+    ['requirejs', 'terser', 'imagemin', 'copy', 'sass']
   );
 };
