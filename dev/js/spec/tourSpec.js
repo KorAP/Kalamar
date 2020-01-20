@@ -469,14 +469,14 @@ define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', '
        expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(searchTour.testIntros[i-1]);
 
        switch(i){
-       case 5:
+       case 4:
        expect(intrkorap.querySelector('#hint')).not.toBeNull(); 
        expect(KorAP.Hint).not.toBeNull();
        expect(KorAP.Hint.active().dontHide).toBe(true); 
        expect(KorAP.Hint._active).not.toBeNull();
        break;
        
-       case 6:
+       case 5:
        expect(KorAP.Hint._active).toBeNull();
        break;
                      
@@ -513,7 +513,7 @@ define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', '
      tourAbort.start(); 
      expect(KorAP.Hint._active).toBeNull();
      expect(document.querySelector(".introjs-skipbutton")).not.toBeNull();
-     tourAbort.goToStepNumber(5);
+     tourAbort.goToStepNumber(4);
      expect(KorAP.Hint._active).not.toBeNull()
      expect(KorAP.Hint.active().dontHide).toBe(true);
      tourAbort.exit();
