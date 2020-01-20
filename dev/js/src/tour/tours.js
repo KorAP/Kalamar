@@ -19,9 +19,9 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   
   //localization guided tour gTstartSearch
   loc.TOUR_welc = loc.TOUR_welc || "<span class='tgreeting'> Welcome to our guided tour!</span>" +
-  		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. </p>"; 
-  loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your search enquiry here.";
-  loc.TOUR_sear2 = loc.TOUR_sear2 || "For example the search for '" +  loc.TOUR_Qexample + "'.";
+  		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. " +
+  		                           "We lead you step by step through an example. </p>"; 
+  loc.TOUR_sear1 = loc.TOUR_sear1 || "Input field for the query, for example the search for '" +  loc.TOUR_Qexample + "'.";
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
   loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
   loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
@@ -46,12 +46,22 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
   loc.TOUR_tourdone = loc.TOUR_tourdone || "Have fun with KorAP!";
   
   //localization of button labels
-  let labelOptions = {
+  let labelOpts= {
       'skipLabel': loc.TOUR_lskip, 
       'prevLabel': loc.TOUR_lprev,
       'nextLabel': loc.TOUR_lnext,
       'doneLabel': loc.TOUR_ldone,
-      'showStepNumbers': false,
+      'showStepNumbers': false
+  };
+  
+  //usability options of tours
+  let usabilityOpts ={
+      'showBullets': false,
+      'overlayOpacity': 0.7,
+      'exitOnOverlayClick': false,
+      'disableInteraction': true,      
+      'hideNext': true,
+      'hidePrev': true
   };
   
   var doe = document;
@@ -63,16 +73,15 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
      */
     gTstartSearch:function(elparam){
       let intro = introClass();
-      intro.setOptions(labelOptions);
+      intro.setOptions(labelOpts);
       intro.setOption('tooltipClass', 'gTstartSearch');
-      intro.setOption('hideNext', true);
-      intro.setOption('hidePrev', true);
       /*
        * Sets button labels for the last step of the tour
        * Because Kalamar is a multipage webapplication, this tours starts by
        * completion the gTshowResults Tour. Therefore the label of the done button changed.
         */
       intro.setOption('doneLabel', loc.TOUR_ldoneSearch );
+      intro.setOptions(usabilityOpts);
       
       //for testing purposes
       if(elparam){
@@ -91,11 +100,6 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         {
           element: '#q-field',
           intro: loc.TOUR_sear1,
-          position: 'bottom'
-        },
-        {
-          element: '#q-field',
-          intro: loc.TOUR_sear2,
           position: 'bottom'
         },
         {
@@ -163,9 +167,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
            * #268 is not merged at the time beeing: 
            * introJs.currentStep() merge requested https://github.com/usablica/intro.js/pull/268/files
            */
-          if(this._currentStep == 2){ 
             targetedElement.value = loc.TOUR_Qexample;
-          }   
           break;
         case "vc-view":  
           vchoo = doe.querySelector("#vc-choose");
@@ -178,18 +180,18 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
             /*
              * Intro.js caches elements at the beginning, so element and position has to be set again.
              */
-            intro._introItems[7].element = doe.querySelector('.statistic');
-            intro._introItems[7].position = "left";
+            intro._introItems[6].element = doe.querySelector('.statistic');
+            intro._introItems[6].position = "left";
           }   
           break;   
           
         } 
         
-        if(this._currentStep == 8){
+        if(this._currentStep == 7){
           let statbut = doe.querySelector('.statistic');
           statbut.click();
-          intro._introItems[8].element = doe.querySelector(".stattable");
-          intro._introItems[8].position = "bottom";
+          intro._introItems[7].element = doe.querySelector(".stattable");
+          intro._introItems[7].position = "bottom";
         }
       });
 
@@ -203,18 +205,18 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         var that = this; 
         switch(this._currentStep){
         //hides Hint if back button is pressed 
-        case 3:   
+        case 2:   
           if(KorAP.Hint.active()){
           KorAP.Hint.unshow(); 
           }
           break;
-        case 4:
+        case 3:
           KorAP.Hint.show(false);
           KorAP.Hint.active().dontHide = true;
-          intro._introItems[4].element = doe.querySelector(".menu.roll.hint");
-          intro._introItems[4].position = doe.querySelector("bottom");
+          intro._introItems[3].element = doe.querySelector(".menu.roll.hint");
+          intro._introItems[3].position = doe.querySelector("bottom");
           break;
-        case 5: 
+        case 4: 
           KorAP.Hint.unshow();      
           break;
         }
@@ -234,8 +236,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
     gTshowResults: function(elparam){     
     
       let tourR = introClass();
-      tourR.setOption('hideNext', true);
-      tourR.setOption('hidePrev', true);
+      tourR.setOptions(usabilityOpts);
       
       //for testing purposes
       if(elparam){
@@ -303,7 +304,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(in
         ]
       
         tourR.setOptions({steps:StepsSR});
-        tourR.setOptions(labelOptions);
+        tourR.setOptions(labelOpts);
      
         tourR.onbeforeexit(function(){
           KorAP.session.set("tour", false);

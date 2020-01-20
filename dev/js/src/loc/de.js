@@ -46,9 +46,9 @@ define(function () {
   
   //Guided Tour: Steps
   loc.TOUR_welc = "<span class = 'tgreeting'>Willkommen zur KorAP Tour! </span> " +
-  "<p class='pfirstStep'> Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. </p>"; 
-  loc.TOUR_sear1 = "Geben Sie die Suchanfrage hier ein.";
-  loc.TOUR_sear2 = "Zum Beispiel die Suche nach '"+ loc.TOUR_Qexample +  "'.";
+  "<p class='pfirstStep'> Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. " +
+  "Wir führen Sie Schritt bei Schritt anhand eines Beispiels durch die Anwendung. </p>";  
+  loc.TOUR_sear1 = "Eingabe der Suchanfrage, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
   loc.TOUR_searAnnot ="Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.";
   loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
   loc.TOUR_vccho1 = "Öffnen des Korpusassistenten";
