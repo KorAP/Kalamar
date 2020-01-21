@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "342de344_0b38308e",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-01-21T12:55:11Z",
+      "side": 1,
+      "message": "I was a bit confused by this option - until I understood that the \"false\" is assumed implicitely. I would rather set the \"false\" explicitely.",
+      "range": {
+        "startLine": 78,
+        "startChar": 23,
+        "endLine": 78,
+        "endChar": 41
+      },
+      "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "367989b4_35ee06d6",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
@@ -41,6 +64,29 @@
         "startChar": 44,
         "endLine": 79,
         "endChar": 48
+      },
+      "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d35053_4c5d73ee",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-01-21T12:55:11Z",
+      "side": 1,
+      "message": "Maybe these options can be set for all tours only once.",
+      "range": {
+        "startLine": 236,
+        "startChar": 23,
+        "endLine": 236,
+        "endChar": 34
       },
       "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
