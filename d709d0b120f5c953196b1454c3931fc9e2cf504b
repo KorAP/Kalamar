@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e83b5a_0bc17cee",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-01-21T10:15:22Z",
+      "side": 1,
+      "message": "I removed the second step after talking to Susanne. She had problems to grasp that we guide the user trough the application and tried to enter her own query. That makes sense, I wrote \"Geben Sie die Suchanfrage ein\" and that is exactly what she tried to do. \nTherefore I removed the second step, and changed the tooltip texts to make it less confusing.\nIn addition I disabled the interaction with the input field for the query (see below).",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367989b4_35ee06d6",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-01-21T10:15:22Z",
+      "side": 1,
+      "message": "I changed a few options after talking with Susanne. \n* The bullets are removed, Susanne misinterpreted them. She thought that a process is not completed and she has to wait. While talking to her, I figured the bullets had to go anyway, because we have not a single page application but two tours, therefore the bullets show false information anyway.\n* Susanne meant the overlay effect is too dark. I made it a little bit brighter, but I don\u0027t want to overdo this. The brightness it also depended on which settings each users chooses on his/her computer, so I want to stick near to the default, which is 0.8.\n* You can only exit the tour now by choosing \"Abort\", not by clicking at some point at the application.\n* The interaction with the highlighted areas(for example the query input field) is disabled.",
+      "range": {
+        "startLine": 79,
+        "startChar": 44,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
