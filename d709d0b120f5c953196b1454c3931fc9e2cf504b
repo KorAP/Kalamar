@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "78f1608b_e8a8b125",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-01-22T16:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "342de344_0b38308e",
+      "range": {
+        "startLine": 78,
+        "startChar": 23,
+        "endLine": 78,
+        "endChar": 41
+      },
+      "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "367989b4_35ee06d6",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
@@ -91,6 +115,30 @@
       "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcfd2845_527ca8f3",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-01-22T16:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d35053_4c5d73ee",
+      "range": {
+        "startLine": 236,
+        "startChar": 23,
+        "endLine": 236,
+        "endChar": 34
+      },
+      "revId": "d709d0b120f5c953196b1454c3931fc9e2cf504b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     }
   ]
 }
