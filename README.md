@@ -18,7 +18,7 @@ $ git clone https://github.com/KorAP/Kalamar
 ### Generate Static Asset Files
 
 To generate the static asset files (scripts, styles, images ...),
-you need NodeJS > 0.8 and npm (maybe bundled with your version of NodeJS).
+you need NodeJS >= 6.0.0.
 For processing Sass, you will need Ruby with
 the ```sass``` gem in addition.
 This will probably need administration
