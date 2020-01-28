@@ -22,6 +22,30 @@
       "revId": "43c6c26d5187cc3ccf710ddd98fa74536431693f",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db4eb0a_f0399158",
+        "filename": "templates/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-01-28T17:42:38Z",
+      "side": 1,
+      "message": "To quote an answer to Harald on this topic:\n\"Die Cosmas-2-Option zwischen den Verwendungen des weggelassenen Verknüpfungsoperators als /+w1 oder \u0027ODER\u0027 zu wählen unterstützen wir leider nicht. Suchanfragen in Texten werden in KorAP ausschließlich im Suchfeld formuliert, ohne weitere sprachenabhängige Parameter zu berücksichtigen. Auf diese Weise kann ein Anfragestring direkt von der Übersetzungskomponente Koral in das intern verwendete Anfrageprotokoll KoralQuery überführt werden - dieses Design werden wir vorerst beibehalten.\nDie Interpretation des weggelassenen Verknüpfungsoperators entspricht dabei der Default-Einstellung in Cosmas-2 und lässt sich leider nicht ändern.\"",
+      "parentUuid": "222147dc_e2b51a3e",
+      "range": {
+        "startLine": 159,
+        "startChar": 106,
+        "endLine": 159,
+        "endChar": 114
+      },
+      "revId": "43c6c26d5187cc3ccf710ddd98fa74536431693f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
     }
   ]
 }
