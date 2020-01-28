@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "222147dc_e2b51a3e",
+        "filename": "templates/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-01-28T11:40:50Z",
+      "side": 1,
+      "message": "In Cosmas II there is a user option to define what a omitted distance operator means: ODER or /+w1. In KorAP /+w1 always seems to be inserted. Did you decide this because of usability reasons?",
+      "range": {
+        "startLine": 159,
+        "startChar": 106,
+        "endLine": 159,
+        "endChar": 114
+      },
+      "revId": "43c6c26d5187cc3ccf710ddd98fa74536431693f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
