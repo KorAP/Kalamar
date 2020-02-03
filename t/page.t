@@ -18,6 +18,10 @@ my $c = $app->build_controller;
 $c->title('Example');
 is($c->page_title, '<h2 id="page-top">Example</h2>');
 
+$t->get_ok('/' => { 'X-Forwarded-Host' => 'korap2.ids-mannheim.de'})
+  ->attr_is('meta[property="og:url"]', 'content', '//korap2.ids-mannheim.de/')
+  ;
+
 done_testing;
 
 1;

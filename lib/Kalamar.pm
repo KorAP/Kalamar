@@ -105,6 +105,24 @@ sub startup {
       });
   };
 
+  $conf->{proxy_host} //= 1;
+
+  # Take proxy host
+  if ($conf->{proxy_host}) {
+    $self->hook(
+      before_dispatch => sub {
+        my $c = shift;
+        if (my $host = $c->req->headers->header('X-Forwarded-Host')) {
+          foreach ($c->req->url->base) {
+            $_->host($host);
+            $_->scheme(undef);
+            $_->port(undef);
+          };
+        };
+      }
+    );
+  };
+
   # API is not yet set - define
   $conf->{api_path} //= $ENV{KALAMAR_API};
   $conf->{api_version} //= $API_VERSION;
