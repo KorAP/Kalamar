@@ -15,7 +15,7 @@ define(['vc', 'vc/doc'], function (vcClass, docClass) {
       '@type' : 'koral:doc',
       'key' : 'docSigle', 
       'match': 'match:eq',
-      'value' : 'GOE/AGI',   
+      'value' : 'WPD17/D01',   
     };
   
   loc.TOUR_Relations = "corenlp/c";
