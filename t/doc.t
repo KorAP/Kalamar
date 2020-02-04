@@ -4,7 +4,12 @@ use Test::Mojo;
 
 # Test the documentation
 
-my $t = Test::Mojo->new('Kalamar');
+my $t = Test::Mojo->new('Kalamar' => {
+  Kalamar => {
+    experimental_proxy => 1,
+    proxy_prefix => '/test'
+  }
+});
 
 # Embedding
 $t->get_ok('/doc/ql/poliqarp-plus')
@@ -92,5 +97,11 @@ $t->get_ok('/doc/ql/poliqarp-plus')
   ->status_is(200)
   ->text_is('#segments pre.query.tutorial:nth-of-type(1) code', 'Beispiel')
   ->text_is('#segments pre.query.tutorial:nth-of-type(1) span', '*');
+
+# Check API endpoint
+$t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
+  ->status_is(200)
+  ->text_is('#api-service-uri', 'https://korap.ids-mannheim.de/test/api/v1.0/');
+
 
 done_testing();
