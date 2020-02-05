@@ -1,6 +1,7 @@
-0.38 2020-02-04
+0.38 2020-02-05
         - Support X-Forwarded-Host name for proxy.
         - Document API URI.
+        - Improve redirect handling in proxy.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.

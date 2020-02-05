@@ -100,6 +100,20 @@ get '/v1.0/' => sub {
 };
 
 
+get '/v1.0/redirect-target-a' => sub {
+  shift->render(text => 'Redirect Target!');
+} => 'redirect-target';
+
+
+# Base page
+get '/v1.0/redirect' => sub {
+  my $c = shift;
+  $c->res->code(308);
+  $c->res->headers->location($c->url_for('redirect-target')->to_abs);
+  return $c->render(text => '');
+};
+
+
 # Search fixtures
 get '/v1.0/search' => sub {
   my $c = shift;

@@ -118,5 +118,22 @@ $t->get_ok('/api/v1.0/longwait')
   ->content_is('Proxy error: Inactivity timeout')
   ;
 
+$t->get_ok('/api/v1.0/redirect-target-a')
+  ->status_is(200)
+  ->content_is('Redirect Target!')
+  ;
+
+$t->get_ok('/api/v1.0/redirect')
+  ->status_is(308)
+  ->content_is('')
+  ;
+
+$t->ua->max_redirects(2);
+
+$t->get_ok('/api/v1.0/redirect')
+  ->status_is(200)
+  ->content_is('Redirect Target!')
+  ;
+
 done_testing;
 __END__
