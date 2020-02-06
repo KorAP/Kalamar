@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b75c33de_ee668aad",
+        "filename": "lib/Kalamar/Controller/Proxy.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2020-02-06T07:48:16Z",
+      "side": 1,
+      "message": "This could probably be tricky in border cases, but should be safe enough outside aircrafts and nuclear power plants",
+      "revId": "d00b427f377f1f0e127db2cf8b5fcbb8bb851bea",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
