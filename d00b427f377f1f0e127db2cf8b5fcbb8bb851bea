@@ -16,6 +16,24 @@
       "revId": "d00b427f377f1f0e127db2cf8b5fcbb8bb851bea",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97843039_c2cb1164",
+        "filename": "lib/Kalamar/Controller/Proxy.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-02-06T08:13:55Z",
+      "side": 1,
+      "message": "I agree. The sane thing to do would be to replace parts of the URL separately - but that wouldn\u0027t work fine in the test environment. I guess we could do that with some more ifs and elses, but that needs to be tested in the wild, as it can\u0027t be tested in the suite.",
+      "parentUuid": "b75c33de_ee668aad",
+      "revId": "d00b427f377f1f0e127db2cf8b5fcbb8bb851bea",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
     }
   ]
 }
