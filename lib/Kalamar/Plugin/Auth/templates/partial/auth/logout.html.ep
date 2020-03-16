@@ -1,0 +1,6 @@
+% if ($c->auth->token) {
+   %# TODO: CSRF protection
+   <a href="<%= url_for 'logout' %>"
+      class="logout"
+      title="<%= loc 'logout' %>: <%= user_handle %>"><span><%= loc 'logout' %></span></a>
+% };

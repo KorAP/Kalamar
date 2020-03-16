@@ -1,0 +1,21 @@
+%# # user not logged in
+% if (!stash('documentation') && !$embedded && !$c->auth->token) {
+%   if (flash('handle_or_email') && !param('handle_or_email')) {
+%     param(handle_or_email => flash('handle_or_email'));
+%   };
+    <fieldset>
+    %= form_for 'login', class => 'login', begin
+      <legend><span><%= loc 'login' %></span></legend>
+      %= csrf_field
+      %= text_field 'handle_or_email', placeholder => loc('userormail')
+      %= hidden_field fwd => $c->url_with
+      <div>
+        %= password_field 'pwd', placeholder => loc('pwd')
+        <button type="submit"><span><%= loc 'go' %></span></button>
+      </div>
+    % end
+
+    %= content_block 'loginInfo', separator => '<hr />'
+
+    </fieldset>
+% }
