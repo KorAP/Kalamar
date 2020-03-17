@@ -515,6 +515,32 @@ post '/v1.0/oauth2/client/register' => sub {
 };
 
 
+# Register a client
+post '/v1.0/oauth2/client/list' => sub {
+  my $c = shift;
+
+  # $c->param('client_secret');
+  return $c->render(
+    json => [
+      {
+        "clientId" => "9aHsGW6QflV13ixNpez",
+        "clientName" => "R statistical computing tool",
+        "description" => "R is a free software environment for statistical computing and graphics.",
+        "url" => "https://www.r-project.org/"
+      },
+      {
+        "clientId" => "8bIDtZnH6NvRkW2Fq",
+        "clientName" => "EasyPDF Exporter",
+        "description" => "EasyPDF is a tool for exporting data to PDF.",
+        "url" => "https://www.easypdf.org/"
+      }
+    ],
+    status => 200
+  );
+};
+
+
+
 app->start;
 
 

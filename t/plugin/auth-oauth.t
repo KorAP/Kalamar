@@ -407,6 +407,8 @@ $t->get_ok('/')
 $t->get_ok('/settings/oauth')
   ->text_is('form.form-table legend', 'Register new client application')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->text_is('ul.client-list > li > span.client-name', 'R statistical computing tool')
+  ->text_is('ul.client-list > li > span.client-desc', 'R is a free software environment for statistical computing and graphics.')
   ;
 
 $csrf = $t->post_ok('/settings/oauth/register' => form => {

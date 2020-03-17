@@ -2,6 +2,19 @@
 
 %= page_title
 
+% my $list = stash('client_list');
+% if ($list) {
+<ul class="client-list">
+%   foreach (@$list) {
+  <li>
+    <span class="client-name"><%= $_->{clientName} %></span>
+    <span class="client-desc"><%= $_->{description} %></span>
+  </li>
+%   };
+</ul>
+% };
+
+
 %= form_for 'oauth-register', class => 'form-table oauth-register', begin
   <fieldset>
     %= csrf_field

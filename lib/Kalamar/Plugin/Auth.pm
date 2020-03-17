@@ -283,6 +283,37 @@ sub register {
       }
     );
 
+    # Get a list of registered clients
+    $app->helper(
+      'auth.client_list_p' => sub {
+        my $c = shift;
+
+        # Get list of registered clients
+        state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/list');
+
+        return $c->korap_request(post => $r_url, {} => form => {
+          client_id => $client_id,
+          client_secret => $client_secret,
+          authorized_only => 'no'
+        })->then(
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+
+            # Response is fine
+            if ($tx->res->is_success) {
+              return Mojo::Promise->resolve($json);
+            };
+
+            $c->log->error($c->dumper($tx->res->to_string));
+
+            # Failure
+            $c->notify(error => $c->loc('Auth_responseError'));
+            return Mojo::Promise->reject($json // 'No response');
+          }
+        );
+      }
+    );
 
     # Issue a korap request with "oauth"orization
     # This will override the core request helper
@@ -621,7 +652,31 @@ sub register {
       # Route to oauth settings
       $r->get('/settings/oauth')->to(
         cb => sub {
-          return shift->render(template => 'auth/tokens')
+          my $c = shift;
+
+          unless ($c->auth->token) {
+            return $c->render(
+              content => 'Unauthorized',
+              status => 401
+            );
+          };
+
+          # Wait for async result
+          $c->render_later;
+
+          $c->auth->client_list_p->then(
+            sub {
+              $c->stash('client_list' => shift);
+            }
+          )->catch(
+            sub {
+              return;
+            }
+          )->finally(
+            sub {
+              return $c->render(template => 'auth/tokens')
+            }
+          );
         }
       );
 
@@ -632,9 +687,10 @@ sub register {
           my $v = $c->validation;
 
           unless ($c->auth->token) {
-
-            # TODO: not allowed
-            return $c->reply->not_found;
+            return $c->render(
+              content => 'Unauthorized',
+              status => 401
+            );
           };
 
           $v->csrf_protect;

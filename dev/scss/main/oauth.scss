@@ -1,0 +1,23 @@
+ul.client-list {
+  padding-left: 1.5em;
+  li {
+    list-style-type: none;
+    span.client-name {
+      &::before {
+        display: inline-block;
+        width: 1.5em;
+        margin-left: -1.5em;
+        content: $fa-plugin;
+        font-family: 'FontAwesome';
+        color: $ids-blue-1;
+        font-size: 100%;
+      }
+      font-weight: bold;
+      display: block;
+    }
+    span.client-desc {
+      font-size: 70%;
+      display: block;
+    }
+  }
+}

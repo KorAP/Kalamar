@@ -16,6 +16,9 @@
 @import "plugin";      // Plugin mechanism
 @import "introjs";     // Guided Tour
 @import "introjs-ids"; // Guided Tour: IDS specific 
+@import "oauth";       // OAuth Management styles
+
+
 main {
   margin: {
     left: $standard-margin; 
