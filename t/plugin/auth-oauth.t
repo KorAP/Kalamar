@@ -407,9 +407,21 @@ $t->get_ok('/')
 $t->get_ok('/settings/oauth')
   ->text_is('form.form-table legend', 'Register new client application')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
-  ->text_is('ul.client-list > li > span.client-name', 'R statistical computing tool')
+  ->text_is('ul.client-list > li > span.client-name', 'R statistical computing tool ')
   ->text_is('ul.client-list > li > span.client-desc', 'R is a free software environment for statistical computing and graphics.')
+  ->text_is('ul.client-list > li > span.client-url a', 'https://www.r-project.org/')
+  ->text_is('ul.client-list > li a.client-unregister', 'Unregister')
+  ->attr_is('ul.client-list > li a.client-unregister', 'href', '/settings/oauth/unregister/9aHsGW6QflV13ixNpez?name=R+statistical+computing+tool')
   ;
+
+$t->get_ok('/settings/oauth/unregister/9aHsGW6QflV13ixNpez?name=R+statistical+computing+tool')
+  ->content_like(qr!Do you really want to unregister \<strong\>R statistical computing tool\<\/strong\>?!)
+  ->attr_is('form.form-table input[name=client-id]', 'value', '9aHsGW6QflV13ixNpez')
+  ->attr_is('form.form-table input[name=client-name]', 'value', 'R statistical computing tool')
+  ;
+
+done_testing;
+__END__
 
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',

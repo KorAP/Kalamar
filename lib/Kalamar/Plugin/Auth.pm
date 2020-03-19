@@ -75,6 +75,7 @@ sub register {
           registerSuccess => 'Registrierung erfolgreich',
           registerFail => 'Registrierung fehlgeschlagen',
           oauthSettings => 'OAuth',
+          oauthUnregister => 'Möchten sie <strong><%= $clientName %></strong> wirklich löschen?'
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -100,6 +101,7 @@ sub register {
           registerSuccess => 'Registration successful',
           registerFail => 'Registration denied',
           oauthSettings => 'OAuth',
+          oauthUnregister => 'Do you really want to unregister <strong><%= $clientName %></strong>?',
         }
       }
     }
@@ -291,6 +293,7 @@ sub register {
         # Get list of registered clients
         state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/list');
 
+        # Get the list of all clients
         return $c->korap_request(post => $r_url, {} => form => {
           client_id => $client_id,
           client_secret => $client_secret,
@@ -314,6 +317,7 @@ sub register {
         );
       }
     );
+
 
     # Issue a korap request with "oauth"orization
     # This will override the core request helper
@@ -678,7 +682,7 @@ sub register {
             }
           );
         }
-      );
+      )->name('oauth-settings');
 
       # Route to oauth client registration
       $r->post('/settings/oauth/register')->to(
@@ -767,6 +771,53 @@ sub register {
           );
         }
       )->name('oauth-register');
+
+
+      $r->get('/settings/oauth/unregister/:client_id')->to(
+        cb => sub {
+          shift->render(template => 'auth/unregister');
+        }
+      )->name('oauth-unregister');
+
+      # Unregister client
+      $r->post('/settings/oauth/unregister')->to(
+        cb => sub {
+          my $c = shift;
+          my $client_id =     $c->param('client-id');
+          my $client_name =   $c->param('client-name');
+          my $client_secret = $c->param('client-secret');
+
+          # Get list of registered clients
+          my $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/deregister/')->path(
+            $client_id
+          );
+
+          warn $r_url;
+
+          # Get the list of all clients
+          return $c->korap_request(delete => $r_url, {} => form => {
+            client_secret => $client_secret
+          })->then(
+            sub {
+              my $tx = shift;
+
+              warn $tx->res;
+
+              # Response is fine
+              if ($tx->res->is_success) {
+                # Okay
+                $c->notify(success => 'Successfully deleted ' . $c->param('client_name'));
+              }
+              else {
+                # Failure
+                $c->notify(error => $c->loc('Auth_responseError'));
+              };
+
+              return $c->redirect_to('oauth-settings');
+            }
+          );
+        }
+      )->name('oauth-unregister-post');
     };
   }
 

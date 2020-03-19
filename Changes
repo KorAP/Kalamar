@@ -9,6 +9,7 @@
         - Improve error status codes.
         - Support HTML responses for match information.
         - Reuse failure template.
+        - Added support for OAuth2 client unregistration.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.
