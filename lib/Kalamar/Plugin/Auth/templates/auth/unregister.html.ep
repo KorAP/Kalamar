@@ -1,0 +1,13 @@
+% extends 'settings', title => 'KorAP: ' . loc('Auth_oauthSettings'), page => 'oauth';
+
+%= page_title
+
+<p><%== loc('Auth_oauthUnregister', clientName => param('name')) %></p>
+
+%= form_for 'oauth-unregister-post', class => 'form-table', begin
+   %= hidden_field 'client-id' => stash('client_id')
+   %= hidden_field 'client-name' => param('name')
+   %#= hidden_field 'client-secret' 
+   <input type="submit" value="Unregister" />
+   %= link_to 'Abort' => 'oauth-settings' => {} => (class => 'form-button button-abort')
+% end

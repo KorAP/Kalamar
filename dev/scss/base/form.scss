@@ -31,11 +31,11 @@
     text-align: left;
   }
   
-  label[for], input[type=submit] {
+  label[for], input[type=submit], a.form-button {
     margin-top: 2em;
   }
 
-  input, textarea, button {
+  input, textarea, button, a.form-button {
     border-radius: $standard-border-radius;
   }
   
@@ -45,11 +45,11 @@
     border-style: solid;
   }
   
-  input, textarea, select {
+  input, textarea, select, a.form-button {
+    border-style: solid;
     display: inline-block;
     width: 20%;
     min-width: 20em;
-    // margin: 0 20pt 0 20pt;
     padding: $base-padding;
   }
 
@@ -69,19 +69,39 @@
     border-color: $ids-pink-1;
   }
 
-  input:not([type=radio]), button {
+  /*
+  input:not([type=radio]),
+  button,
+  a.form-button {
      height: 3em;
   }
+*/
 
-  input[type=submit], button {
-     display: inline-block;
-     text-align: center;
-     background-color: $middle-green;
-     border-color: $dark-green;
+  input[type=submit],
+  button,
+  a.form-button {
+    display: inline-block;
+    cursor: pointer;
+    border-width: thin;
+    text-align: center;
+    background-color: $middle-green;
+    border-color: $dark-green;
+    font-size: 8pt;
+    color: $dark-green;
   }
 
+  a.form-button:hover {
+    color: default !important;
+  }
+  
   label.field-required::after {
     color: $ids-blue-1;
     content:'*';
   }
+}
+
+.button-abort {
+  background-color: $middle-orange !important;
+  color: $darkest-orange !important;
+  border-color: $darkest-orange !important;
 }
