@@ -5,15 +5,17 @@
 <form class="form-table">
   <fieldset>
     <legend><%= loc 'Auth_clientCredentials' %></legend>
-    <p><strong><%= stash 'client_name' %></strong></p>
-    % if (stash('client_desc')) {
-    <p><%= stash 'client_desc' %></p>
-    % };
-    <p><%= loc 'Auth_clientType' %>: <%= stash 'client_type' %></p>
-    <div>
-      %= label_for 'client_id' => loc('Auth_clientID')
-      %= text_field 'client_id', stash('client_id'), readonly => 'readonly'
-    </div>
+    <ul class="client-list">
+      <li class="client">
+        <span class="client-name"><%= stash 'client_name' %></span>
+        % if (stash('client_desc')) {
+        <span class="client-desc"><%= stash 'client_desc' %></span>
+        % };
+      </li>
+    </ul>
+    <p><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
+    %= label_for 'client_id' => loc('Auth_clientID')
+    %= text_field 'client_id', stash('client_id'), readonly => 'readonly'
     % if (stash('client_type') ne 'PUBLIC') {
     <div>
       %= label_for 'client_secret' => loc('Auth_clientSecret')

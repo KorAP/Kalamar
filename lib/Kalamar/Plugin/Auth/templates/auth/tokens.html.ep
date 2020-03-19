@@ -6,9 +6,13 @@
 % if ($list) {
 <ul class="client-list">
 %   foreach (@$list) {
-  <li>
+  <li class="client">
     <span class="client-name"><%= $_->{clientName} %></span>
     <span class="client-desc"><%= $_->{description} %></span>
+    <span class="button-group button-panel"><%= link_to Unregister => url_for('oauth-unregister', client_id => $_->{clientId})->query('name' => $_->{clientName}) => {} => ( class => 'client-unregister' ) %></span>
+% if ($_->{url}) {
+    <span class="client-url"><a href="<%= $_->{url} %>"><%= $_->{url} %></a></span>
+% }
   </li>
 %   };
 </ul>
@@ -29,9 +33,9 @@
       %= label_for type => loc('Auth_clientType'), class => 'field-required'
       <%= radio_button type => 'PUBLIC', checked => 'checked' %>
       <label>Public</label>
-      <br />
-      <%= radio_button type => 'CONFIDENTIAL' %>
-      <label>Confidential</label>
+%#      <br />
+%#      <%= radio_button type => 'CONFIDENTIAL' %>
+%#      <label>Confidential</label>
     </div>
 
     <div>
@@ -44,10 +48,10 @@
       %= url_field 'url', placeholder => 'https://...'
     </div>
 
-    <div>
-      %= label_for name => loc('Auth_redirectUri')
-      %= url_field 'redirectURI', placeholder => 'https://...'
-    </div>
+%#    <div>
+%#      %= label_for name => loc('Auth_redirectUri')
+%#      %= url_field 'redirectURI', placeholder => 'https://...'
+%#    </div>
 
     %= submit_button loc('Auth_clientRegister')
   </fieldset>

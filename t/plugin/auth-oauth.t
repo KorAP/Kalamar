@@ -407,8 +407,13 @@ $t->get_ok('/')
 $t->get_ok('/settings/oauth')
   ->text_is('form.form-table legend', 'Register new client application')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
-  ->text_is('ul.client-list > li > span.client-name', 'R statistical computing tool')
-  ->text_is('ul.client-list > li > span.client-desc', 'R is a free software environment for statistical computing and graphics.')
+  ->element_exists('ul.client-list')
+  ->element_exists_not('ul.client-list > li')
+#  ->text_is('ul.client-list > li > span.client-name', 'R statistical computing tool ')
+#  ->text_is('ul.client-list > li > span.client-desc', 'R is a free software environment for statistical computing and graphics.')
+#  ->text_is('ul.client-list > li > span.client-url a', 'https://www.r-project.org/')
+#  ->text_is('ul.client-list > li a.client-unregister', 'Unregister')
+#  ->attr_is('ul.client-list > li a.client-unregister', 'href', '/settings/oauth/unregister/9aHsGW6QflV13ixNpez?name=R+statistical+computing+tool')
   ;
 
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
@@ -435,6 +440,55 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->element_exists('input[name=client_secret][readonly][value]')
   ;
 
+$t->get_ok('/settings/oauth')
+  ->text_is('form.form-table legend', 'Register new client application')
+  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->text_is('ul.client-list > li > span.client-name', 'MyApp')
+  ->text_is('ul.client-list > li > span.client-desc', 'This is my application')
+  ->text_is('ul.client-list > li > span.client-url a', '')
+  ->text_is('ul.client-list > li a.client-unregister', 'Unregister')
+  ->attr_is('ul.client-list > li a.client-unregister', 'href', '/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
+  ;
+
+$csrf = $t->get_ok('/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
+  ->content_like(qr!Do you really want to unregister \<span class="client-name"\>MyApp\<\/span\>?!)
+  ->attr_is('form.form-table input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
+  ->attr_is('form.form-table input[name=client-name]', 'value', 'MyApp')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
+  ;
+
+$t->post_ok('/settings/oauth/unregister' => form => {
+  'client-name' => 'MyApp',
+  'client-id' => 'xxxx==',
+  'csrf_token' => $csrf
+})->status_is(302)
+  ->content_is('')
+  ->header_is('Location' => '/settings/oauth')
+  ;
+
+$t->get_ok('/settings/oauth')
+  ->text_is('form.form-table legend', 'Register new client application')
+  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->element_exists('ul.client-list > li')
+  ->text_is('div.notify', 'Unknown client with xxxx==.')
+  ;
+
+$t->post_ok('/settings/oauth/unregister' => form => {
+  'client-name' => 'MyApp',
+  'client-id' => 'fCBbQkA2NDA3MzM1Yw==',
+  'csrf_token' => $csrf
+})->status_is(302)
+  ->content_is('')
+  ->header_is('Location' => '/settings/oauth')
+  ;
+
+$t->get_ok('/settings/oauth')
+  ->text_is('form.form-table legend', 'Register new client application')
+  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->element_exists_not('ul.client-list > li')
+  ->text_is('div.notify-success', 'Successfully deleted MyApp')
+  ;
+
 done_testing;
 __END__
-

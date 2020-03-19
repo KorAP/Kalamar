@@ -9,7 +9,6 @@
     cursor: pointer;
   }
 
-
   span.button-icon {
     font-family: 'FontAwesome';
     > span {
@@ -18,9 +17,10 @@
   }
   
   &.button-panel, &.operators {
-    > span {
+    > span, a {
       box-shadow: $choose-box-shadow;
       font-size: 9pt;
+      font-weight: normal;
       line-height: 1.5em;
       padding: 0 4px;
       display: inline-block;
@@ -48,19 +48,21 @@
   }
 
   &.button-panel {
-    > span > span.check {
-      font-family: 'FontAwesome';
-      width: 1.2em;
-      display: inline-block;
-      text-align: left;
-      &:not(.checked)::after {
-        content: $fa-check;
-      }
-      &.checked::after {
-        content: $fa-checked;
-      }
-      > span {
-        @include blind;
+    > span, a {
+      > span.check {
+        font-family: 'FontAwesome';
+        width: 1.2em;
+        display: inline-block;
+        text-align: left;
+        &:not(.checked)::after {
+          content: $fa-check;
+        }
+        &.checked::after {
+          content: $fa-checked;
+        }
+        > span {
+          @include blind;
+        }
       }
     }
   }

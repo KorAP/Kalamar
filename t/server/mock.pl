@@ -95,6 +95,8 @@ helper 'load_response' => sub {
   return $decode;
 };
 
+app->defaults('oauth.client_list' => []);
+
 
 # Base page
 get '/v1.0/' => sub {
@@ -495,10 +497,19 @@ post '/v1.0/oauth2/client/register' => sub {
   my $json = $c->req->json;
 
   my $name = $json->{name};
-  my $desc = $json->{desc};
+  my $desc = $json->{description};
   my $type = $json->{type};
   my $url  = $json->{url};
   my $redirect_url = $json->{redirectURI};
+
+  my $list = $c->app->defaults('oauth.client_list');
+
+  push @$list, {
+    "clientId" => $tokens{new_client_id},
+    "clientName" => $name,
+    "description" => $desc,
+    "url" => $url
+  };
 
   # Confidential server application
   if ($type eq 'CONFIDENTIAL') {
@@ -520,21 +531,45 @@ post '/v1.0/oauth2/client/list' => sub {
   my $c = shift;
 
   # $c->param('client_secret');
+
+  # Is empty [] when nothing registered
+
   return $c->render(
-    json => [
-      {
-        "clientId" => "9aHsGW6QflV13ixNpez",
-        "clientName" => "R statistical computing tool",
-        "description" => "R is a free software environment for statistical computing and graphics.",
-        "url" => "https://www.r-project.org/"
+    json => $c->stash('oauth.client_list'),
+    status => 200
+  );
+};
+
+del '/v1.0/oauth2/client/deregister/:client_id' => sub {
+  my $c = shift;
+  my $client_id = $c->stash('client_id');
+
+  my $list = $c->app->defaults('oauth.client_list');
+
+  my $break = -1;
+  for (my $i = 0; $i < @$list; $i++) {
+    if ($list->[$i]->{clientId} eq $client_id) {
+      $break = $i;
+      last;
+    };
+  };
+
+  if ($break != -1) {
+    splice @$list, $break, 1;
+  }
+
+  else {
+    return $c->render(
+      json => {
+        error_description => "Unknown client with $client_id.",
+        error => "invalid_client"
       },
-      {
-        "clientId" => "8bIDtZnH6NvRkW2Fq",
-        "clientName" => "EasyPDF Exporter",
-        "description" => "EasyPDF is a tool for exporting data to PDF.",
-        "url" => "https://www.easypdf.org/"
-      }
-    ],
+      status => 401
+    );
+  };
+
+  return $c->render(
+    json => $c->stash('oauth.client_list'),
     status => 200
   );
 };
