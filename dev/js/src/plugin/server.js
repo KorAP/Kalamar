@@ -194,19 +194,19 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
           // TODO:
           //   This is a bit stupid to get the service window
-          let iframe = services[id].load();
-          let win = iframe.contentWindow;
+          let service = services[id];
+          let iframe = service.load();
 
           // Create object to communicate the toggle state
           // once the iframe is loaded.
           iframe.onload = function () {
             let sendToggle = {
               setState : function (val) {
-                win.postMessage({
+                service.sendMsg({
                   action: 'state',
                   key : onClick['state'],
                   value : val
-                }, '*'); // TODO: Fix origin
+                });
               }
             };
 
@@ -404,6 +404,19 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
           };
         };
         break;
+
+      // Get information from the embedding platform
+      case 'get':
+        if (d.key == 'KQ') {
+          if (KorAP.koralQuery !== undefined) {    
+            d["value"] = KorAP.koralQuery;
+          };
+        };
+      };
+
+      // data needs to be mirrored
+      if (d._id) {
+        service.sendMsg(d);
       };
 
       // TODO:

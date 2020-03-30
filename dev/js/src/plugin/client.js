@@ -29,7 +29,18 @@ var cs = document.currentScript;
 (function () {
   "use strict";
 
-  var obj = {
+  // Similar to randomID in server, but a bit cheaper
+  function randomID () {
+    let s = '';
+    for (let i = 0; i < 16; i++) {
+      s += Math.floor((Math.random()*16)%16).toString(16);
+    };
+    return '_' + s;
+  };
+
+  let response = {};
+  
+  let obj = {
 
     /**
      * Create new plugin
@@ -57,7 +68,15 @@ var cs = document.currentScript;
       window.parent.postMessage(data, this.server);
     },
 
-    // Receive a call from the embedded platform.
+    // Request data
+    requestMsg : function (data, cb) {
+      let id = randomID();
+      data["_id"] = id;
+      response[id] = cb;
+      this.sendMsg(data);
+    },
+    
+    // Receive a call from the embedding platform.
     _receiveMsg : function (e) {
       // Get event data
       let d = e.data;
@@ -71,6 +90,17 @@ var cs = document.currentScript;
       //   check e.origin and d["originID"]!!!
       //   probably against window.parent!
 
+      // There is an associated callback registered:
+      // call and remove the function
+      if (d["_id"]) {
+        let id = d["_id"];
+        if (response[id]) {
+          response[id](d);
+          delete response[id];
+        };
+        return;
+      };
+      
       if (this.onMessage)
         this.onMessage(d)
     },
