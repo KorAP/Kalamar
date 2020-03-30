@@ -141,39 +141,53 @@ define([
     /**
      * Add actions to match entries
      */
-    var inactiveLi = d.querySelectorAll(
-      '#search > ol > li:not(.active)'
+    var li = d.querySelectorAll(
+      '#search > ol > li'
     );
     var matchCount = 0;
 
-    for (matchCount = 0; matchCount < inactiveLi.length; matchCount++) {
-      inactiveLi[matchCount].addEventListener('click', function (e) {
-        if (this._match !== undefined)
-          this._match.open();
-        else {
+    for (matchCount = 0; matchCount < li.length; matchCount++) {
+
+      let e = li[matchCount];
+
+      // Define class for active elements
+      if (e.classList.contains('active')) {
+        if (this._match === undefined) {
           // lazyLoad
-          matchClass.create(this).open();
+          matchClass.create(e).init();
         };
-        // This would prevent the sidebar to go back
-        // e.halt();
-      });
-      inactiveLi[matchCount].addEventListener('keydown', function (e) {
-        var code = _codeFromEvent(e);
-        
-        switch (code) {
-        case 32:
+      }
+
+      // Define class for inactive elements
+      else {
+        e.addEventListener('click', function (e) {
           if (this._match !== undefined)
-            this._match.toggle();
+            this._match.open();
           else {
             // lazyLoad
             matchClass.create(this).open();
           };
-          e.halt();
-          break;
-        };
-      });
+          // This would prevent the sidebar to go back
+          // e.halt();
+        });
+        e.addEventListener('keydown', function (e) {
+          var code = _codeFromEvent(e);
+          
+          switch (code) {
+          case 32:
+            if (this._match !== undefined)
+              this._match.toggle();
+            else {
+              // lazyLoad
+              matchClass.create(this).open();
+            };
+            e.halt();
+            break;
+          };
+        });
+      };
     };
-
+    
     // Add focus listener to aside
     var aside = d.getElementsByTagName('aside')[0];
 

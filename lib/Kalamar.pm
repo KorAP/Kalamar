@@ -144,7 +144,7 @@ sub startup {
   $self->plugin(Notifications => {
     'Kalamar::Plugin::Notifications' => 1,
     JSON => 1,
-    'HTML' => 1
+    HTML => 1
   });
 
   # Localization framework
