@@ -86,7 +86,7 @@ $t->get_ok('/?q=[orth=das&ql=poliqarp')
   ->element_exists('.notify-error')
   ->text_is('.notify-error', '302: Parantheses/brackets unbalanced.')
   ->content_like(qr!KorAP\.koralQuery =!)
-  ->text_is('.no-results:nth-of-type(1)', 'Unable to perform the search.')
+  ->text_is('.no-results:nth-of-type(1)', 'Unable to perform the action.')
   ;
 
 

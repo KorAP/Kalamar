@@ -395,6 +395,31 @@ define(['match',
       expect(m.matchID).toEqual("p85183-85184");
     });
 
+    it('should be initializable when active', function () {
+      var e = matchElementFactory();
+      e.setAttribute('class', 'active');
+
+      expect(e.classList.contains('active')).toBe(true);
+      expect(e["_match"]).toBe(undefined);
+
+      var m = matchClass.create(e);
+
+      expect(e["_match"]).not.toBe(undefined);
+      
+      // Open the match
+      m.init();
+      
+      expect(e["_match"]).not.toBe(undefined);
+
+      actions = e.querySelector("p.ref > div.action.button-group").children;
+      
+      expect(actions[0].getAttribute("class")).toEqual("metatable");
+      expect(actions[1].getAttribute("class")).toEqual("info");
+      expect(actions[2].getAttribute("class")).toEqual("tree");
+      
+      // Close the match
+      expect(e.querySelector("div.action.button-group > span.minimize")).toBe(null);
+    });
     
     it('should react to gui actions', function () {
       var e = matchElementFactory();
@@ -418,13 +443,15 @@ define(['match',
       expect(actions[0].getAttribute("class")).toEqual("metatable");
       expect(actions[1].getAttribute("class")).toEqual("info");
       expect(actions[2].getAttribute("class")).toEqual("tree");
+
+      expect(e.querySelector("div.action.button-group > span.minimize")).not.toBe(null);
       
       // Close the match
       m.minimize();
       expect(e.classList.contains('active')).toBe(false);
       expect(e["_match"]).not.toBe(undefined);
     });
-
+   
     it('should open tree menu', function () {      
       var e = matchElementFactory();
       var m = matchClass.create(e);

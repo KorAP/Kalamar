@@ -137,6 +137,44 @@ define([
       return this._avail.rels;
     },
 
+    /**
+     * Initialize match
+     */
+    init : function () {
+      if (this._initialized)
+        return this;
+
+      // Add actions unless it's already activated
+      var element = this._element;
+
+      // There is an element to open
+      if (element === undefined || element === null)
+        return undefined;
+      
+      // Add meta button
+      var refLine = element.querySelector("p.ref");
+
+      // No reference found
+      if (!refLine)
+        return undefined;
+
+      // Create panel
+      this.panel = matchPanelClass.create(this);
+
+      this._element.insertBefore(
+        this.panel.element(),
+        this._element.querySelector("p.ref")
+      );
+
+      // Insert before reference line
+      refLine.insertBefore(
+        this.panel.actions.element(),
+        refLine.firstChild
+      );
+
+      this._initialized = true;
+      return this;
+    },
 
     /**
      * Open match
@@ -157,14 +195,6 @@ define([
       // Add active class to element
       element.classList.add('active');
 
-      // Already there
-      /*
-        if (element.classList.contains('action'))
-        return true;
-      */
-      if (this._initialized)
-        return true;
-      
       var btn = buttonGroupClass.create(
         ['action','button-view']
       );
@@ -174,29 +204,10 @@ define([
         that.minimize();
       });
       element.appendChild(btn.element());
-
-      // Add meta button
-      var refLine = element.querySelector("p.ref");
-
-      // No reference found
-      if (!refLine)
-        return;
-
-      // Create panel
-      this.panel = matchPanelClass.create(this);
-
-      this._element.insertBefore(
-        this.panel.element(),
-        this._element.querySelector("p.ref")
-      );
-
-      // Insert before reference line
-      refLine.insertBefore(
-        this.panel.actions.element(),
-        refLine.firstChild
-      );
-
-      this._initialized = true;
+      
+      if (this.init() == undefined) {
+        return false;
+      };
       
       return true;
     },

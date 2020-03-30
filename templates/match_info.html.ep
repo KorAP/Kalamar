@@ -1,0 +1,11 @@
+% layout 'main', title => 'Match';
+
+<div id="resultinfo" class="found"></div>
+
+%= include 'query'
+
+<div id="search">
+  <ol class="align-left">
+%= include 'match', match => stash('results');
+  </ol>
+</div>

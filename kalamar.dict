@@ -47,7 +47,7 @@ my $THOUSAND_SEP_RE = qr/(
     matchCount => 'Treffer',
     noMatches => 'Es wurden keine Treffer für <%== loc("searchjob") %> gefunden.',
     notFound => '404 - Seite nicht gefunden',
-    notIssued => 'Die Suche konnte nicht durchgeführt werden.',
+    notIssued => 'Die Aktion konnte nicht durchgeführt werden.',
     backendNotAvailable => 'Das Backend ist nicht verfügbar unter <code><%= app->korap->api =></code>!',
     jsFile => 'kalamar-<%= $Kalamar::VERSION %>-de.js',
     underConstruction => 'In Vorbereitung!',
@@ -127,7 +127,7 @@ my $THOUSAND_SEP_RE = qr/(
     matchCount => '<%= quant($found, "match", "matches") %>',
     noMatches => 'There were no matches found for <%== loc("searchjob") %>.',
     notFound => '404 - Page not found',
-    notIssued => 'Unable to perform the search.',
+    notIssued => 'Unable to perform the action.',
     backendNotAvailable => 'The backend is not available at <code><%= app->korap->api %></code>!',
     glimpse => {
       -short => 'Glimpse',
