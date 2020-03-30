@@ -34,7 +34,8 @@ define(function () {
       let e = document.createElement('iframe');
       e.setAttribute('allowTransparency',"true");
       e.setAttribute('frameborder', 0);
-      e.setAttribute('sandbox','allow-scripts');
+      // Allow forms in Plugins
+      e.setAttribute('sandbox','allow-scripts allow-forms');
       e.style.height = '0px';
       e.setAttribute('name', this.id);
       e.setAttribute('src', this.src);

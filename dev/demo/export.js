@@ -13,7 +13,7 @@ requirejs.config({
 });
 
 
-require(['plugin/server', 'panel/result'], function (pluginClass, resultPanelClass){
+require(['plugin/server', 'panel/result', 'init'], function (pluginClass, resultPanelClass){
 
   KorAP.Plugin = pluginClass.create();
 
@@ -48,16 +48,9 @@ require(['plugin/server', 'panel/result'], function (pluginClass, resultPanelCla
     var sb = document.getElementById('search');
     sb.insertBefore(resultPanel.element(), sb.firstChild);
     };
-  
-    resultPanel.addAlignAction();
     
     // There is a koralQuery
     if (KorAP.koralQuery !== undefined) {    
-    
-      // Add KoralQuery view to result panel
-    if (resultInfo !== null) {
-      resultPanel.addKqAction()
-    };
 
     if (KorAP.koralQuery["errors"]) {
       var errors = KorAP.koralQuery["errors"];
