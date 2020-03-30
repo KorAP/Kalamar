@@ -65,6 +65,11 @@ sub query {
 
   $c->stash(q  => $query{q});
   $c->stash(ql => $query{ql});
+  $c->stash(title => $c->loc(
+    'searchtitle',
+    q => $query{'q'},
+    ql => $query{'ql'}
+  ));
 
   # Check validation
   if ($v->has_error) {
@@ -255,7 +260,6 @@ sub query {
 
       # Only raised in case of connection errors
       if ($err_msg) {
-        # $c->stash('err_msg' => 'backendNotAvailable');
         $c->notify(error => { src => 'Backend' } => $err_msg)
       };
 
@@ -263,6 +267,7 @@ sub query {
 
       # $c->_notify_on_errors(shift);
       return $c->render(
+        status => 400,
         template => 'failure'
       );
     }
@@ -408,9 +413,21 @@ sub match_info {
     foreach my $failed_field (@{$v->failed}) {
       $c->notify(error => 'Parameter ' . quote($failed_field) . ' invalid');
     };
-    return $c->render(
-      status => 400,
-      json => $c->notifications('json')
+
+    return $c->respond_to(
+      html => sub {
+        shift->render(
+          status => 400,
+          template => 'failure'
+        );
+      },
+      any => sub {
+        my $c = shift;
+        $c->render(
+          status => 400,
+          json => $c->notifications('json')
+        );
+      }
     );
   };
 
@@ -451,21 +468,54 @@ sub match_info {
       $json = _map_match($json);
       $c->stash(results => $json);
 
-      return $c->render(
-        json => $c->notifications(json => $json),
-        status => 200
+      return $c->respond_to(
+        html => sub {
+          my $c = shift;
+          return $c->render(
+            status => 200,
+            template => 'match_info'
+          );
+        },
+        any => sub {
+          my $c = shift;
+          return $c->render(
+            json => $c->notifications(json => $json),
+            status => 200
+          );
+        }
       );
-
-      return $json;
     }
   )
 
   # Deal with errors
   ->catch(
     sub {
-      return $c->render(
-        json => $c->notifications('json')
-      )
+      my $err_msg = shift;
+
+      # Only raised in case of connection errors
+      if ($err_msg) {
+        $c->notify(error => { src => 'Backend' } => $err_msg)
+      };
+
+      unless ($c->stash('status')) {
+        $c->stash(status => 400);
+      };
+
+      $c->app->log->debug("Receiving cached promised failure");
+
+      return $c->respond_to(
+        html => sub {
+          shift->render(
+            template => 'failure'
+          );
+        },
+        any => sub {
+          my $c = shift;
+          $c->render(
+            json => $c->notifications('json')
+          );
+        }
+      );
     }
   )
 

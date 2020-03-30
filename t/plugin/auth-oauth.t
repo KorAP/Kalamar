@@ -330,7 +330,7 @@ $t->get_ok('/x/invalid-no-refresh')
 # Query without cache
 # The token is invalid and can't be refreshed!
 $t->get_ok('/?q=baum&cutoff=true')
-  ->status_is(200)
+  ->status_is(400)
   ->session_hasnt('/auth')
   ->session_hasnt('/auth_r')
   ->text_is('#error','')
@@ -373,7 +373,7 @@ $t->get_ok('/x/expired-with-wrong-refresh')
 
 # The token is invalid and can't be refreshed!
 $csrf = $t->get_ok('/?q=baum&cutoff=true')
-  ->status_is(200)
+  ->status_is(400)
   ->session_hasnt('/auth')
   ->session_hasnt('/auth_r')
   ->text_is('#error','')
