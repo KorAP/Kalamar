@@ -1,5 +1,6 @@
 define(function () {
   "use strict";
+
   return {
     create : function (name, src, id) {
       return Object.create(this)._init(name, src, id);
@@ -41,6 +42,17 @@ define(function () {
       
       this._load = e;
       return e;
+    },
+
+    /**
+     * Send a message to the embedded service.
+     */
+    sendMsg : function (d) {
+      let iframe = this.load();
+      iframe.contentWindow.postMessage(
+        d,
+        '*'
+      ); // TODO: Fix origin
     },
 
     // onClose : function () {},
