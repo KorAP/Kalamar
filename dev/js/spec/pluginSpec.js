@@ -174,7 +174,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       var iframe = we.firstChild;
       expect(iframe.tagName).toEqual("IFRAME");
-      expect(iframe.getAttribute("sandbox")).toEqual("allow-scripts");
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-scripts allow-forms");
       expect(iframe.getAttribute("src")).toEqual("https://example");
       expect(iframe.getAttribute("name")).toEqual("56");
 
