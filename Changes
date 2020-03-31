@@ -1,9 +1,11 @@
-0.38 2020-03-17
+0.38 2020-03-30
         - Support X-Forwarded-Host name for proxy.
         - Document API URI.
         - Improve redirect handling in proxy.
         - Added support for OAuth2 client registration.
         - Added support for OAuth2 client listing.
+        - Added requestMsg() methods to clients for retrieving
+          data from the embedding server.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.

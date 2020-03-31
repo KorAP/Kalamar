@@ -78,7 +78,7 @@ function _dec2hex (dec) {
  * https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript#8084248
  */
 function randomID (len) {
-  var arr = new Uint8Array((len || 40) / 2)
+  let arr = new Uint8Array((len || 40) / 2)
   window.crypto.getRandomValues(arr)
   return Array.from(arr, _dec2hex).join('')
 };

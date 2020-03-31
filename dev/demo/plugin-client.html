@@ -27,7 +27,7 @@
       function flood () {
         var i = 0;
         for (; i < 90; i++) {
-          KorAPlugin._sendMsg({
+          KorAPlugin.sendMsg({
             'action' : '-'
           });
         };
@@ -57,6 +57,7 @@
       <li><a onclick="KorAPlugin.resize()">Resize</a></li>
       <li><a onclick="KorAPlugin.sendMsg({'action':'pipe','service':'Glemm'})">Add Glemm</a></li>
       <li><a onclick="flood()">Flood!</a></li>
+      <li><a onclick="KorAPlugin.requestMsg({'action':'get', 'key':'KQ'}, function (d) { document.write(JSON.stringify(d.value))})">Get KQ</a></li>
     </ul>
     <p style="width: 2000px">------------------------------------------------------------------------------------------------------------------------</p>
   </body>
