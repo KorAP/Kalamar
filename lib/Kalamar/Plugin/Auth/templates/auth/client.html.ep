@@ -11,8 +11,12 @@
         % if (stash('client_desc')) {
         <span class="client-desc"><%= stash 'client_desc' %></span>
         % };
+        % if (stash('client_url')) {
+        <span class="client-url"><a href="<%= stash('client_url') %>"><%= stash('client_url') %></a></span>
+        % };
       </li>
     </ul>
+    <span class="button-group button-panel"><%= link_to Unregister => url_for('oauth-unregister', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-unregister' ) %></span>
     <p><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
     %= label_for 'client_id' => loc('Auth_clientID')
     %= text_field 'client_id', stash('client_id'), readonly => 'readonly'

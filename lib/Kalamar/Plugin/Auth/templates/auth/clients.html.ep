@@ -1,5 +1,7 @@
 % extends 'settings', title => 'KorAP: '.loc('Auth_oauthSettings'), page => 'oauth';
 
+%# Rename to clients.html.ep
+
 %= page_title
 
 % my $list = stash('client_list');
@@ -7,9 +9,8 @@
 <ul class="client-list">
 %   foreach (@$list) {
   <li class="client">
-    <span class="client-name"><%= $_->{clientName} %></span>
+    <span class="client-name"><%= link_to $_->{clientName} => url_for('oauth-tokens', client_id => $_->{clientId}) %></span>
     <span class="client-desc"><%= $_->{description} %></span>
-    <span class="button-group button-panel"><%= link_to Unregister => url_for('oauth-unregister', client_id => $_->{clientId})->query('name' => $_->{clientName}) => {} => ( class => 'client-unregister' ) %></span>
 % if ($_->{url}) {
     <span class="client-url"><a href="<%= $_->{url} %>"><%= $_->{url} %></a></span>
 % }

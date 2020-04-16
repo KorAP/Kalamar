@@ -415,7 +415,6 @@ $t->get_ok('/settings/oauth')
 #  ->text_is('ul.client-list > li a.client-unregister', 'Unregister')
 #  ->attr_is('ul.client-list > li a.client-unregister', 'href', '/settings/oauth/unregister/9aHsGW6QflV13ixNpez?name=R+statistical+computing+tool')
   ;
-
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
   type => 'PUBLIC',
@@ -443,11 +442,17 @@ $t->post_ok('/settings/oauth/register' => form => {
 $t->get_ok('/settings/oauth')
   ->text_is('form.form-table legend', 'Register new client application')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
-  ->text_is('ul.client-list > li > span.client-name', 'MyApp')
+  ->text_is('ul.client-list > li > span.client-name a', 'MyApp')
   ->text_is('ul.client-list > li > span.client-desc', 'This is my application')
   ->text_is('ul.client-list > li > span.client-url a', '')
-  ->text_is('ul.client-list > li a.client-unregister', 'Unregister')
-  ->attr_is('ul.client-list > li a.client-unregister', 'href', '/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
+  ;
+
+$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->status_is(200)
+  ->text_is('form ul.client-list > li.client > span.client-name', 'MyApp')
+  ->text_is('form ul.client-list > li.client > span.client-desc', 'This is my application')
+  ->text_is('a.client-unregister', 'Unregister')
+  ->attr_is('a.client-unregister', 'href', '/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
   ;
 
 $csrf = $t->get_ok('/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')

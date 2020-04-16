@@ -678,7 +678,7 @@ sub register {
             }
           )->finally(
             sub {
-              return $c->render(template => 'auth/tokens')
+              return $c->render(template => 'auth/clients')
             }
           );
         }
@@ -712,7 +712,7 @@ sub register {
             else {
               $c->notify(warn => $c->loc('Auth_paramError'));
             };
-            return $c->render(template => 'auth/tokens')
+            return $c->render(template => 'auth/clients')
           };
 
           # Wait for async result
@@ -737,8 +737,6 @@ sub register {
 
               my $json = $result->json;
 
-              # TODO:
-              #   Respond in template
               my $client_id = $json->{client_id};
               my $client_secret = $json->{client_secret};
 
@@ -755,7 +753,7 @@ sub register {
 
               $c->notify(success => $c->loc('Auth_en_registerSuccess'));
 
-              return $c->render(template => 'auth/register-success');
+              return $c->render(template => 'auth/client');
             }
           )->catch(
             sub {
@@ -773,11 +771,13 @@ sub register {
       )->name('oauth-register');
 
 
+      # Unregister client
       $r->get('/settings/oauth/unregister/:client_id')->to(
         cb => sub {
           shift->render(template => 'auth/unregister');
         }
       )->name('oauth-unregister');
+
 
       # Unregister client
       $r->post('/settings/oauth/unregister')->to(
@@ -806,7 +806,7 @@ sub register {
             else {
               $c->notify(warn => $c->loc('Auth_paramError'));
             };
-            return $c->render(template => 'auth/tokens')
+            return $c->render(template => 'auth/clients')
           };
 
           my $client_id =     $v->param('client-id');
@@ -850,6 +850,50 @@ sub register {
           );
         }
       )->name('oauth-unregister-post');
+
+
+      # Show information of a client
+      $r->get('/settings/oauth/client/:client_id')->to(
+        cb => sub {
+          my $c = shift;
+
+          $c->render_later;
+
+          $c->auth->client_list_p->then(
+            sub {
+              my $json = shift;
+
+              my ($item) = grep {
+                $c->stash('client_id') eq $_->{clientId}
+              } @$json;
+
+              unless ($item) {
+                return Mojo::Promise->reject;
+              };
+
+              $c->stash(client_name => $item->{clientName});
+              $c->stash(client_desc => $item->{description});
+              $c->stash(client_url  => $item->{url});
+              $c->stash(client_type => 'PUBLIC');
+
+              return Mojo::Promise->resolve;
+            }
+          )->catch(
+            sub {
+              return $c->reply->not_found;
+            }
+          )->finally(
+            sub {
+              # return $c->render(text => 'hui');
+
+
+              return $c->render(template => 'auth/client')
+            }
+          );
+
+          return;
+        }
+      )->name('oauth-tokens');
     };
   }
 
