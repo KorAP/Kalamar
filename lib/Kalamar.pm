@@ -290,10 +290,8 @@ sub startup {
   $r->get('/contact')->mail_to_chiffre('documentation#contact');
 
   # API proxy route
-  if ($conf->{experimental_proxy}) {
-    $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#pass');
-    $r->any('/api/v#apiv/*path' => [apiv => ['1.0']])->to('Proxy#pass');
-  }
+  $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#pass');
+  $r->any('/api/v#apiv/*path' => [apiv => ['1.0']])->to('Proxy#pass');
 
   # Match route
   # Corpus route

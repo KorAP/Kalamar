@@ -6,7 +6,6 @@ use Test::Mojo;
 
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
-    experimental_proxy => 1,
     proxy_prefix => '/test'
   }
 });
