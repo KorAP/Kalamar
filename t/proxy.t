@@ -14,7 +14,6 @@ $ENV{KALAMAR_API} = $mount_point;
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth'],
-    experimental_proxy => 1,
     proxy_inactivity_timeout => 99,
     proxy_connect_timeout => 66,
   }

@@ -8,8 +8,6 @@
 
 <p>All publicly available API endpoints including their requests and responses are described in the <%= ext_link_to 'GitHub Wiki', "https://github.com/KorAP/Kustvakt/wiki" %> of <%= embedded_link_to 'doc', 'Kustvakt', 'korap', 'kustvakt' %>.</p>
 
-% if (app->config('Kalamar')->{experimental_proxy}) {
-%   my $api_url = $c->url_for('proxy' => (apiv => $Kalamar::API_VERSION))->to_abs->scheme('https');
-%   $api_url->path->trailing_slash(1);
+% my $api_url = $c->url_for('proxy' => (apiv => $Kalamar::API_VERSION))->to_abs->scheme('https');
+% $api_url->path->trailing_slash(1);
 <p>The root service can be found at <code id="api-service-uri"><%=  $api_url %></code>.</p>
-% }
