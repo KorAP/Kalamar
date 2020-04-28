@@ -29,4 +29,5 @@
 % } elsif (stash('results')->size == 0) {
 <p class="no-results"><%= loc 'noMatches', q => stash('q'), ql => stash('ql') %></p>
 % }
+%= content_for 'after_search_results'
 </div>

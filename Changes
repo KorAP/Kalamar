@@ -1,4 +1,4 @@
-0.38 2020-04-16
+0.38 2020-04-28
         - Support X-Forwarded-Host name for proxy.
         - Document API URI.
         - Improve redirect handling in proxy.
@@ -13,6 +13,7 @@
         - Remove experimental status of proxy (and therefore
           configuration option 'experimental_proxy') and enable
           proxy by default.
+        - Establish 'after_search_results' content part.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.

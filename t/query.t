@@ -73,7 +73,6 @@ $t->get_ok('/?q=baum')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ;
 
-
 $t->get_ok('/?q=[orth=das')
   ->status_is(400)
   ->text_is('div.notify-error:nth-of-type(1)', '302: Parantheses/brackets unbalanced.')
@@ -242,14 +241,21 @@ $t->get_ok('/?q=baum&collection=availability+%3D+%2FCC-BY.*%2F')
   ->text_is('#error','')
   ;
 
+$t->app->hook(
+  before_dispatch => sub {
+    my $c = shift;
+    $c->content_for('after_search_results' => '<p id="special">Funny</p>');
+  }
+);
+
 # Query with corpus query
 $t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
   ->status_is(200)
   ->element_exists("input#cq[value='availability = /CC-BY.*/']")
   ->content_like(qr!\"availability\"!)
   ->text_is('#error','')
+  ->text_is('#special', 'Funny')
   ;
-
 
 
 my $match = {
