@@ -14,6 +14,7 @@
           configuration option 'experimental_proxy') and enable
           proxy by default.
         - Establish 'after_search_results' content part.
+        - Establish 'after_search' hook.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.

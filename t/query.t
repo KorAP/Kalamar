@@ -242,7 +242,7 @@ $t->get_ok('/?q=baum&collection=availability+%3D+%2FCC-BY.*%2F')
   ;
 
 $t->app->hook(
-  before_dispatch => sub {
+  after_search => sub {
     my $c = shift;
     $c->content_for('after_search_results' => '<p id="special">Funny</p>');
   }

@@ -115,7 +115,6 @@ sub query {
   # Create remote request URL
   my $url = Mojo::URL->new($c->korap->api);
   $url->path('search');
-  # $url->query(%query);
   $url->query(map { $_ => $query{$_}} sort keys %query);
 
   # In case the user is not known, it is assumed, the user is not logged in
@@ -244,13 +243,16 @@ sub query {
       # TODO:
       #   scalar $v->param('snippet') ? 'snippet' : 'search';
 
+      # Set search results in stash
+      $c->stash(results => _map_matches($json->{matches}));
+      $c->stash(start_page => $page);
+      $c->stash(start_index => $json->{meta}->{startIndex});
+
+      # Emit after search hook
+      $c->app->plugins->emit_hook(after_search => $c);
+
       # Render result
-      return $c->render(
-        start_page => $page,
-        start_index => $json->{meta}->{startIndex},
-        results => _map_matches($json->{matches}),
-        template => 'search'
-      );
+      return $c->render(template => 'search');
     }
 
       # Deal with errors
