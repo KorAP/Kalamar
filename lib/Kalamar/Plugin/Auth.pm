@@ -75,7 +75,8 @@ sub register {
           registerSuccess => 'Registrierung erfolgreich',
           registerFail => 'Registrierung fehlgeschlagen',
           oauthSettings => 'OAuth',
-          oauthUnregister => 'Möchten sie <span class="client-name"><%= $clientName %></span> wirklich löschen?'
+          oauthUnregister => 'Möchten sie <span class="client-name"><%= $clientName %></span> wirklich löschen?',
+          loginHint => 'Möglicherweise müssen sie sich zunächst einloggen.'
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -102,6 +103,7 @@ sub register {
           registerFail => 'Registration denied',
           oauthSettings => 'OAuth',
           oauthUnregister => 'Do you really want to unregister <span class="client-name"><%= $clientName %></span>?',
+          loginHint => 'Maybe you need to log in first?'
         }
       }
     }
@@ -120,6 +122,24 @@ sub register {
   $app->content_block(
     headerButtonGroup => {
       template => 'partial/auth/logout'
+    }
+  );
+
+
+  # Add hook after search
+  $app->hook(
+    after_search => sub {
+      my $c = shift;
+
+      # User is not logged in
+      if ($c->stash('results')->size == 0 && !$c->auth->token) {
+        $c->content_for(
+          'after_search_results' =>
+            $c->render_to_string(
+              inline => '<p class="hint"><%= loc "Auth_loginHint" %></p>'
+            )
+          );
+      };
     }
   );
 

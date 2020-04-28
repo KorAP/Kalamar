@@ -1,0 +1,41 @@
+{
+  "status" : 200,
+  "json" : {
+    "@context" : "http://korap.ids-mannheim.de/ns/KoralQuery/v0.3/context.jsonld",
+    "meta" :  {
+      "count" : 25,
+      "startIndex" : 0,
+      "authorized" : null,
+      "timeout" : 120000,
+      "context" : {
+        "left" : ["token",40],
+        "right" : ["token",40]
+      },
+      "fields" : ["pubDate","subTitle","author","pubPlace","title","textSigle","UID","ID","layerInfos","corpusSigle","docSigle","corpusID","textClass"],
+      "version" : "0.55.7",
+      "benchmark" : "0.120577834 s",
+      "totalResults" : 0,
+      "serialQuery" : "tokens:s:Paum",
+      "itemsPerPage" : 25
+    },
+    "query" : {
+      "@type" : "koral:token",
+      "wrap" : {
+        "@type" : "koral:term",
+        "layer" : "orth",
+        "key" : "Baum",
+        "match" : "match:eq",
+        "foundry" : "opennlp",
+        "rewrites" : [
+          {
+            "@type" : "koral:rewrite",
+            "src" : "Kustvakt",
+            "operation" : "operation:injection",
+            "scope" : "foundry"
+          }
+        ]
+      }
+    },
+    "matches" : []
+  }
+}

@@ -213,6 +213,15 @@ $t->get_ok('/?q=Baum')
   ->element_exists('div.button.top a.logout[title~="test"]')
   ;
 
+$t->get_ok('/?q=Paum')
+  ->status_is(200)
+  ->text_like('h1 span', qr/KorAP: Find .Paum./i)
+  ->text_is('#total-results', '')
+  ->content_like(qr/\"authorized\"\:\"yes\"/)
+  ->element_exists_not('p.hint')
+  ;
+
+
 # Logout
 $t->get_ok('/user/logout')
   ->status_is(302)
@@ -236,6 +245,15 @@ $t->get_ok('/?q=Baum')
   ->text_like('#total-results', qr/\d+$/)
   ->content_like(qr/\"authorized\"\:null/)
   ;
+
+$t->get_ok('/?q=Paum')
+  ->status_is(200)
+  ->text_like('h1 span', qr/KorAP: Find .Paum./i)
+  ->text_is('#total-results', '')
+  ->content_like(qr/\"authorized\"\:null/)
+  ->text_is('p.hint', 'Maybe you need to log in first?')
+  ;
+
 
 # Get redirect
 my $fwd = $t->get_ok('/?q=Baum&ql=poliqarp')

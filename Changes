@@ -15,6 +15,8 @@
           proxy by default.
         - Establish 'after_search_results' content part.
         - Establish 'after_search' hook.
+        - Recommend log in on zero matches in search results
+          in case not logged in (addresses #67).
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.
