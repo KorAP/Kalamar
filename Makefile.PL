@@ -14,10 +14,10 @@ WriteMakefile(
   },
   LICENSE      => 'freebsd',
   PREREQ_PM => {
-    'Mojolicious' => '8.34',
+    'Mojolicious' => '8.42',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.07,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.10,
-    'Mojolicious::Plugin::ClosedRedirect' => 0.14,
+    'Mojolicious::Plugin::ClosedRedirect' => 0.15,
     'Mojolicious::Plugin::Notifications' => 1.05,
     'Mojolicious::Plugin::MailException' => 0.20,
     'Mojolicious::Plugin::Util::RandomString' => 0.08,
