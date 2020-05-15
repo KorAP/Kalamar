@@ -545,6 +545,16 @@ sub register {
             # Set the tokens and return a promise
             return $c->auth->set_tokens_p(shift->result->json)
           }
+        )->then(
+          sub {
+            # Set user info
+            $c->session(user => $user);
+            $c->stash(user => $user);
+
+            # Notify on success
+            $c->app->log->debug(qq!Login successful: "$user"!);
+            $c->notify(success => $c->loc('Auth_loginSuccess'));
+          }
         )->catch(
           sub {
 
@@ -569,16 +579,6 @@ sub register {
             };
 
             $c->app->log->debug(qq!Login fail: "$user"!);
-          }
-        )->then(
-          sub {
-            # Set user info
-            $c->session(user => $user);
-            $c->stash(user => $user);
-
-            # Notify on success
-            $c->app->log->debug(qq!Login successful: "$user"!);
-            $c->notify(success => $c->loc('Auth_loginSuccess'));
           }
         )->finally(
           sub {
@@ -1029,7 +1029,6 @@ sub register {
             # Set stash info
             $c->stash(user => $user);
             $c->stash(auth => $auth);
-
             $c->notify(success => $c->loc('Auth_loginSuccess'));
           }
         )->catch(

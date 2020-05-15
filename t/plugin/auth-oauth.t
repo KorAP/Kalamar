@@ -158,6 +158,7 @@ $csrf = $t->get_ok('/')
   ->text_is('div.notify-error', '2022: LDAP Authentication failed due to unknown user or password!')
   ->element_exists('input[name=handle_or_email][value=test]')
   ->element_exists_not('div.button.top a')
+  ->element_exists_not('div.notify-success')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
