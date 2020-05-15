@@ -119,6 +119,13 @@ $t->get_ok('/')
   ->element_exists_not('aside.off')
   ;
 
+# Test for bug with long password
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'kjskjhndkjndqknaskjnakjdnkjdankajdnkjdsankjdsakjdfkjahzroiuqzriudjoijdmlamdlkmdsalkmdl' })
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
 $t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
