@@ -10,7 +10,9 @@ WriteMakefile(
   NAME         => 'Kalamar',
   AUTHOR       => 'Nils Diewald',
   BUILD_REQUIRES => {
-    'Test::More' => 0
+    'Test::More' => 0,
+    'Test::Mojo::Session' => 1.06,
+    'Test::Mojo::WithRoles' => 0.02,
   },
   LICENSE      => 'freebsd',
   PREREQ_PM => {
@@ -26,8 +28,6 @@ WriteMakefile(
     'Cache::FastMmap' => 1.47,
     'Data::Serializer' => 0.60,
     'Mojo::JWT' => 0.05,
-    'Test::Mojo::Session' => 1.06,
-    'Test::Mojo::WithRoles' => 0.02,
 
     # Required for Data::Serializer at the moment
     'JSON' => 4.02,
