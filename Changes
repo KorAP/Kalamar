@@ -1,4 +1,4 @@
-0.38 2020-05-17
+0.38 2020-06-16
         - Support X-Forwarded-Host name for proxy.
         - Document API URI.
         - Improve redirect handling in proxy.
@@ -21,6 +21,7 @@
         - Fix order of promises in login handling.
         - Update Test::Mojo::Session to be compatible with latest
           version of Mojolicious.
+        - Added Dockerfile.
 
 0.37 2020-01-16
         - Removed deprecated 'kalamar_test_port' helper.
