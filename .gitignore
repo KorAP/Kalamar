@@ -1,7 +1,7 @@
-cache
-kalamar.secret
-start-test
-todo.org
+/cache
+/kalamar.secret
+/start-test
+/todo.org
 fixtures.txt
 sandbox
 Sandbox
@@ -37,6 +37,7 @@ t/kalamar_user_client.t
 .*
 t/kalamar_user_client.t
 !.gitignore
+!.dockerignore
 npm-debug.log
 package-lock.json
 /kalamar.code-workspace

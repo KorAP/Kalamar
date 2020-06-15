@@ -1,0 +1,14 @@
+*
+!/Gruntfile.js
+!/kalamar.conf
+!/kalamar.dict
+!/kalamar.queries.dict
+!/LICENSE
+!/Makefile.PL
+!/package.json
+!/dev
+!/lib
+!/script
+!/t
+!/templates
+!.dockerignore
