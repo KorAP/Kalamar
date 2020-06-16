@@ -38,7 +38,7 @@ $t->get_ok('/?q=baum')
   ->text_is('#total-results', 51)
 
   # Total pages
-  ->element_count_is('#pagination a', 5)
+  ->element_count_is('#pagination > a', 5)
 
   # api_response
   ->content_like(qr/\"authorized\":null/)
@@ -148,7 +148,7 @@ $t->get_ok('/?q=der&p=1&count=2')
   ->text_is('#total-results', '14,581')
 
   # Total pages
-  ->element_count_is('#pagination a', 7)
+  ->element_count_is('#pagination > a', 7)
   ->text_is('#pagination a:nth-of-type(6) span', 7291)
   ->content_like(qr!\"count":2!)
   ->content_like(qr!\"startIndex":0!)
@@ -178,7 +178,7 @@ $t->get_ok('/?q=der&p=2&count=2')
   ->text_is('#total-results', '14,581')
 
   # Total pages
-  ->element_count_is('#pagination a', 7)
+  ->element_count_is('#pagination > a', 7)
   ->text_is('#pagination a:nth-of-type(6) span', 7291)
   ->content_like(qr!\"count":2!)
   ->content_like(qr!\"itemsPerPage":2!)
