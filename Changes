@@ -1,3 +1,6 @@
+0.39 2020-06-18
+        - Add information on secret file to Readme.
+
 0.38 2020-06-16
         - Support X-Forwarded-Host name for proxy.
         - Document API URI.

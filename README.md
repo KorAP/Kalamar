@@ -106,6 +106,11 @@ For client-side configurations, a file ```kalamar.conf.js``` can be
 introduced, that will be consulted during the build process, loading
 optional components using a ```require(...)``` directive (see example below).
 
+### Secret file
+
+Kalamar uses (rotating secrets)[https://mojolicious.org/perldoc/Mojolicious#secrets]
+to sign cookies. Put a file called `kalamar.secret` in the root of the application
+with one secret per line.
 
 ### Localization
 
