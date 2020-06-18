@@ -5,9 +5,25 @@ frontend for the [KorAP Corpus Analysis Platform](http://korap.ids-mannheim.de/)
 
 ![Kalamar Screenshots](https://raw.githubusercontent.com/KorAP/Kalamar/master/dev/demo/img/screenshots.png)
 
-## INSTALLATION
+## Setup
 
-### Setup
+The easiest way to install and run Kalamar is using (Docker)[https://www.docker.com/].
+
+```
+$ docker pull korap/kalamar
+```
+
+Then start Kalamar listening on port `64543`.
+
+```
+$ docker run --network="host" --name kalamar korap/kalamar
+```
+
+Kalamar will be available at `http://localhost:64543`.
+See the [description on docker hub](https://hub.docker.com/r/korap/kalamar)
+regarding further information.
+
+## Setup for Development
 
 To fetch the latest version of Kalamar ...
 
