@@ -62,11 +62,15 @@ RUN addgroup -S korap && \
 
 USER kalamar
 
-EXPOSE 64543
+ENV MOJO_PORT   64543
+ENV MOJO_LISTEN http://*:${MOJO_PORT}
+ENV MOJO_MODE   production
+
+EXPOSE ${MOJO_PORT}
 
 ENTRYPOINT [ "perl", "script/kalamar" ]
 
-CMD [ "daemon", "-m", "production", "-l", "http://*:64543" ]
+CMD [ "daemon" ]
 
 LABEL author="korap@ids-mannheim.de"
 LABEL description="Docker Image for Kalamar, the KorAP user frontend"
