@@ -7,15 +7,15 @@ frontend for the [KorAP Corpus Analysis Platform](http://korap.ids-mannheim.de/)
 
 ## Setup
 
-The easiest way to install and run Kalamar is using (Docker)[https://www.docker.com/].
+The easiest way to install and run Kalamar is using [Docker](https://www.docker.com/).
 
-```
+```shell
 $ docker pull korap/kalamar
 ```
 
 Then start Kalamar listening on port `64543`.
 
-```
+```shell
 $ docker run --network="host" --name kalamar korap/kalamar
 ```
 
@@ -27,7 +27,7 @@ regarding further information.
 
 To fetch the latest version of Kalamar ...
 
-```
+```shell
 $ git clone https://github.com/KorAP/Kalamar
 ```
 
@@ -36,28 +36,28 @@ $ git clone https://github.com/KorAP/Kalamar
 To generate the static asset files (scripts, styles, images ...),
 you need NodeJS >= 6.0.0.
 For processing Sass, you will need Ruby with
-the ```sass``` gem in addition.
+the `sass` gem in addition.
 This will probably need administration
 rights, depending on your installation path.
 These tools may also be available with a package manager.
 
 You can check, if all tools are available using
 
-```
+```shell
 $ npm -v
 $ sass -v
 ```
 
 Afterwards you can install grunt and run grunt to create the assets.
 
-```
+```shell
 $ cd Kalamar
 $ npm install -g grunt-cli
 $ npm install
 $ grunt
 ```
 
-Whenever the assets change, just rerun ```grunt```.
+Whenever the assets change, just rerun `grunt`.
 
 ### Start Server
 
@@ -71,7 +71,7 @@ The easiest way to do this is using
 [App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/).
 This will probably need administration rights.
 
-```
+```shell
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
 ```
@@ -81,7 +81,7 @@ Then install the dependencies using
 (there is no need to install Kalamar)
 and run the test suite.
 
-```
+```shell
 $ cd Kalamar
 $ cpanm --installdeps .
 $ perl Makefile.PL
@@ -92,53 +92,53 @@ Kalamar can be deployed like all
 [Mojolicious apps](http://mojolicio.us/perldoc/Mojolicious/Guides/Cookbook#DEPLOYMENT).
 The easiest way is to start the built-in server:
 
-```
+```shell
 $ perl script/kalamar daemon
 ```
 
-Kalamar will then be available at ```localhost:3000``` in your browser.
+Kalamar will then be available at `localhost:3000` in your browser.
 
-By default, Kalamar tries to connect to ```http://localhost:9999/api/```,
+By default, Kalamar tries to connect to `http://localhost:9999/api/`,
 followed by the most current version of the API.
 You may change that endpoint to the KorAP API provider in the configuration
 (see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information)
-or by using the environment variable ```KALAMAR_API```.
+or by using the environment variable `KALAMAR_API`.
 
 
 ## Configuration
 
-The basic configuration file is ```kalamar.conf```. To define derivations,
-create a configuration file with the pattern ```kalamar.myconf.conf``` and
-follow the descriptions in ```kalamar.conf```.
+The basic configuration file is `kalamar.conf`. To define derivations,
+create a configuration file with the pattern `kalamar.myconf.conf` and
+follow the descriptions in `kalamar.conf`.
 
-To start Kalamar with a derivative configuration, set the ```MOJO_MODE```
+To start Kalamar with a derivative configuration, set the `MOJO_MODE`
 environment variable.
 
-```
+```shell
 $ MOJO_MODE=myconf perl script/kalamar daemon
 ```
 
-For client-side configurations, a file ```kalamar.conf.js``` can be
+For client-side configurations, a file `kalamar.conf.js` can be
 introduced, that will be consulted during the build process, loading
-optional components using a ```require(...)``` directive (see example below).
+optional components using a `require(...)` directive (see example below).
 
 ### Secret file
 
-Kalamar uses (rotating secrets)[https://mojolicious.org/perldoc/Mojolicious#secrets]
+Kalamar uses [rotating secrets](https://mojolicious.org/perldoc/Mojolicious#secrets)
 to sign cookies. Put a file called `kalamar.secret` in the root of the application
 with one secret per line.
 
 ### Localization
 
-To create a localized version of Kalamar, start the ```localize``` command
-with the target locale as its argument, e.g. ```pl``` for polish.
+To create a localized version of Kalamar, start the `localize` command
+with the target locale as its argument, e.g. `pl` for polish.
 
-```
+```shell
 $ perl script/kalamar localize pl
 ```
 
 The newly defined dictionary file can then be modified and added to the resources
-definition of the ```Localize``` plugin in the configuration:
+definition of the `Localize` plugin in the configuration:
 
 ```perl
 Localize => {
@@ -153,21 +153,20 @@ define a name of the example corpus in the configuration.
 Kalamar => {
   examplecorpus => 'mycorpus'
 }
-
 ```
 
-Then create a translation file based on ```kalamar.queries.dict```
-as a blueprint and add it to the ```Localize``` resource list.
+Then create a translation file based on `kalamar.queries.dict`
+as a blueprint and add it to the `Localize` resource list.
 
 Templates can be localized and customized by overriding
-the ```Template``` dictionary entries.
+the `Template` dictionary entries.
 
-Currently the JavaScript translations are separated and stored in ```dev/js/src/loc```.
-To generate assets relying on different locales, add the locale to ```Gruntfile.js```.
+Currently the JavaScript translations are separated and stored in `dev/js/src/loc`.
+To generate assets relying on different locales, add the locale to `Gruntfile.js`.
 
 To localize the annotation helper according to a special corpus environment,
-different annotation foundries can be loaded in ```kalamar.conf.js```.
-For example to support ```marmot``` and ```malt```,
+different annotation foundries can be loaded in `kalamar.conf.js`.
+For example to support `marmot` and `malt`,
 the configuration may look like this:
 
 ```js
@@ -177,23 +176,23 @@ require([
 ]);
 ```
 
-See ```dev/js/src/hint/foundries``` for
+See `dev/js/src/hint/foundries` for
 more optional foundries.
 
 
 ### Customization
 
 The landing page can be customized by overriding the
-entry for ```Template_intro``` in the dictionary.
+entry for `Template_intro` in the dictionary.
 
 Some sections of the user interface can be customized
 by adding new
 [content blocks](https://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock).
 Currently the documented sections are in
-```footer```, in the bottom line of the user interface,
-```sidebar```, in the left part of the user interface if present,
-```headerButtonGroup```, in the right top part of the user interface,
-and ```loginInfo```, below the login form if present.
+`footer`, in the bottom line of the user interface,
+`sidebar`, in the left part of the user interface if present,
+`headerButtonGroup`, in the right top part of the user interface,
+and `loginInfo`, below the login form if present.
 
 
 ### Plugins
@@ -210,9 +209,9 @@ via configuration file in an array
 ```
 
 Currently bundled plugins are
-- ```Auth```: For integrating user management
+- `Auth`: For integrating user management
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
-- ```Piwik```: For integrating Matomo/Piwik
+- `Piwik`: For integrating Matomo/Piwik
 
 
 ## COPYRIGHT AND LICENSE
@@ -247,8 +246,8 @@ PUBLIC LICENSE (GNU AGPLv3).
 
 ### Original Software
 
-Copyright (C) 2015-2019, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
-Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp
+Copyright (C) 2015-2020, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
+Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp<br>
 Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
