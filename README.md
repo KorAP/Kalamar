@@ -98,7 +98,7 @@ $ perl script/kalamar daemon
 
 Kalamar will then be available at `localhost:3000` in your browser.
 
-By default, Kalamar tries to connect to `http://localhost:9999/api/`,
+By default, Kalamar tries to connect to `https://korap.ids-mannheim.de/api/`,
 followed by the most current version of the API.
 You may change that endpoint to the KorAP API provider in the configuration
 (see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information)
