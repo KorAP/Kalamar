@@ -181,7 +181,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
           // TODO:
           //   Lazy registration (see above!)
-          KorAP.Panel[panel].actions.addToggle("Title",["title"], state);
+          KorAP.Panel[panel].actions.addToggle(title, ["title"], state);
 
           // Get the URL of the service
 

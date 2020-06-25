@@ -1,5 +1,6 @@
-0.39 2020-06-18
+0.39 2020-06-25
         - Add information on secret file to Readme.
+        - Fix label for toggle plugins.
 
 0.38 2020-06-16
         - Support X-Forwarded-Host name for proxy.
