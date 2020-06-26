@@ -216,6 +216,33 @@ Currently bundled plugins are
 
 ## COPYRIGHT AND LICENSE
 
+### Original Software
+
+Copyright (C) 2015-2019, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
+Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp
+Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
+
+Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
+Corpus Analysis Platform at the
+[Leibniz Institute for the German Language (IDS)](http://ids-mannheim.de/),
+member of the
+[Leibniz Association](https://www.leibniz-gemeinschaft.de/en/home/)
+and supported by the [KobRA](http://www.kobra.tu-dortmund.de) project,
+funded by the
+[Federal Ministry of Education and Research (BMBF)](http://www.bmbf.de/en/).
+
+Kalamar is free software published under the
+[BSD-2 License](https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+
+**To cite this work, please refer to:**<br>
+Diewald, Nils, Barbu Mititelu, Verginica and Kupietz, Marc (2019):
+[The KorAP user interface. Accessing CoRoLa via KorAP](https://www.lingv.ro/images/RRL%203%202019%2006-%20Diewald.pdf).
+In: Cosma, Ruxandra/Kupietz, Marc (eds.),
+On design, creation and use of of the Reference Corpus of Contemporary
+Romanian and its analysis tools. CoRoLa, KorAP, DRuKoLA and EuReCo,
+Revue Roumaine de Linguistique, 64(3). Editura Academiei Române,
+Bucharest, Romania.
+
 ### Bundled Software
 
 [ALERTIFY.js](https://fabien-d.github.io/alertify.js/)
@@ -243,21 +270,3 @@ is released under the terms of the MIT License.
 [INTRO.JS](https://github.com/usablica/intro.js)
 is released under the terms of the GNU AFFERO GENERAL
 PUBLIC LICENSE (GNU AGPLv3).
-
-### Original Software
-
-Copyright (C) 2015-2020, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
-Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp<br>
-Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
-
-Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
-Corpus Analysis Platform at the
-[Leibniz Institute for the German Language (IDS)](http://ids-mannheim.de/),
-member of the
-[Leibniz Association](https://www.leibniz-gemeinschaft.de/en/home/)
-and supported by the [KobRA](http://www.kobra.tu-dortmund.de) project,
-funded by the
-[Federal Ministry of Education and Research (BMBF)](http://www.bmbf.de/en/).
-
-Kalamar is free software published under the
-[BSD-2 License](https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
