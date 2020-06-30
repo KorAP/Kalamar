@@ -2,151 +2,367 @@
 
 %= page_title
 
-<p>The following documentation introduces some features provided by our version of the COSMAS II Query Language. For more information, please visit the <%= ext_link_to 'online help of COSMAS II', "http://www.ids-mannheim.de/cosmas2/web-app/hilfe/suchanfrage/eingabe-zeile/syntax/allgemein.html" %>.</p>
-
+<p> In der folgenden Dokumentation werden einige Funktionen unserer Version der COSMAS II-Abfragesprache vorgestellt. Weitere Informationen finden Sie in der <% = ext_link_to 'Online-Hilfe von COSMAS II' unter http://www.ids-mannheim.de/cosmas2/web-app/hilfe/suchfrage/eingabe-zeile/syntax/allgemein. html "%>. </ p>
+    
 <section id="queryterms">
-  <h3>Query Terms</h3>
+    
 
-  <p>A query term in COSMAS II can be a word, a punctuation symbol, or a number.</p>
+<h3>Abfragebegriffe</h3>
 
-  %= doc_query cosmas2 => 'Baum'
-  %= doc_query cosmas2 => '4000'
+
+<p>Ein Abfragebegriff in COSMAS II kann ein Wort, ein Satzzeichen oder eine Zahl sein.</p>
+    
+    
+
+%= doc_query cosmas2 => 'Baum'
+    
+
+%= doc_query cosmas2 => '4000'
+    
+    
+
+<blockquote class="missing">
+ 
+<p>Interpunktionen werden derzeit von KorAP nicht unterstützt.</p>
+
+
+</blockquote>
   
-  <blockquote class="missing">
-    <p>Currently, punctuations are not supported by KorAP.</p>
-  </blockquote>
 
-  <h4>Placeholder Operators</h4>
-  
-  <p>In addition query terms can contain multiple placeholders like <code>?</code> (for any symbol), <code>+</code> (for any or no symbol), or <code>*</code> (for any sequence of any or no symbols).</p>
-  <%= doc_query cosmas2 => 'Bau?m' %>
-  <%= doc_query cosmas2 => 'Bau+m' %>
-  <%= doc_query cosmas2 => 'Bau*m' %>
+<h4>Platzhalter Operatoren</h4>
+
+<p>Darüber hinaus können Abfragebegriffe mehrere Platzhalter enthalten, z. B. <code>? </ Code> (für ein beliebiges Symbol), <code> + </ code> (für ein beliebiges oder kein Symbol)
+
+oder <code> * </ code> (für eine beliebige Folge beliebiger oder keiner Symbole).</p>
+
+
+
+    
+
+<%= doc_query cosmas2 => 'Bau?m' %>
+    
+
+<%= doc_query cosmas2 => 'Bau+m' %>
+    
+
+<%= doc_query cosmas2 => 'Bau*m' %>
+    
+    
 
 %# TODO:
-%#  <p>To escape placeholder symbols (i.e. to prevent these symbols from being interpreted as placeholders), they need to be prepended by a <code>\</code> symbol.</p>
-%#  <%= doc_query cosmas2 => 'Student\*in' %>
-%#  <p>To escape the backslash symbol, another backslash is required (<code>\\</code>).</p>  
+    
 
-  <h4>Lemma Operator</h4>
-  
-  <p>Instead of searching for the surface form of a word, a lemma (as annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>) can be requested by prepending the term with the <code>&amp;</code> operator. The form of the lemma is dependent on the annotation.</p>
-  <%= doc_query cosmas2 => '&laufen' %>
+%# TODO:
 
-  <h4>Case Insensitivity Operator</h4>
-  
-  <p>By prepending the term with a <code>$</code> symbol, the search is case insensitive.</p>
-  <%= doc_query cosmas2 => '$Lauf' %>
+% # <p> Um Platzhaltersymbole aufzuheben (z. B. damit diese Symbole nicht als Platzhalter interpretiert werden), muss ihnen ein <code>\</ code> -Symbol vorangestellt werden.</ p>
+    
 
-  <h4>Regular Expression Operator</h4>
+%# <%= doc_query cosmas2 => 'Student\*in' %>
 
-  <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= embedded_link_to 'doc', 'regular expressions', 'ql', 'regexp' %>.</p>
-  
+%# <%= doc_query cosmas2 => 'Student\*in' %>
 
-  <blockquote class="bug">
-    <p>Regular expressions in COSMAS II are not yet properly implemented in KorAP. If you want to use regular expressions, please refer to <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus#regexp' %>.</p>
-  </blockquote>
+
+% # <p> Um das Backslash-Symbol aufzuheben, ist ein weiterer Backslash erforderlich (<code>\\</ code>). </ p>
+
+<h4>Lemma Operator</h4>
+
+<p>Anstatt nach der Oberflächenform (?) eines Wortes zu suchen, kann ein Lemma (wenn es durch <% = embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%> annotiert ist) durch Voranstellen des <code>&amp;</code> Operators vor den Begriff angefordert werden.(?) Die Form des Lemmas hängt von der Annotation ab.<p>
+    
+
+<%= doc_query cosmas2 => '&laufen' %>
+    
+
+
+<h4>Groß- und Kleinschreibung Operator</h4>
+
+
+<p>Wenn Sie dem Begriff ein <code>$</code> -Symbol voranstellen, wird bei der Suche die Groß- / Kleinschreibung nicht berücksichtigt.</ p>
+    
+
+<%= doc_query cosmas2 => '$Lauf' %>
+    
+
+<h4>Operator für reguläre Ausdrücke </h4>
+    
+<p>Mit dem Operator <code>#REG(...)</code> können Abfragebegriffe mit <% = embedded_link_to 'doc', 'regular expressions', 'ql', 'regexp'%> formuliert werden.</p>
+    
+    
+    
+
+<blockquote class="bug">
+ 
+<p>Reguläre Ausdrücke in COSMAS II sind in KorAP noch nicht ordnungsgemäß (richtig) implementiert. Wenn Sie reguläre Ausdrücke verwenden möchten, lesen Sie bitte <% = embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus # regexp'%>. </ P>
+    
+
+</blockquote>
+    
+    
 
 </section>
+    
+    
 
 <section id="logical-operators">
-  <h3>Logical Operators</h3>
 
-  <p>Query terms can be combined in logical operations, using the operators <code>and</code>, <code>or</code>, and <code>not</code>. The german forms are supported as well: <code>und</code>, <code>oder</code> and <code>nicht</code>.</p>
-  <p>These operators work on the text level, so the following query returns matches for all occurrences where both terms occur anywhere in the same text.</p>
-  <%= doc_query cosmas2 => 'anscheinend und scheinbar' %>
 
-  <p>The following query returns matches for all occurrences where at least one of the terms occur anywhere in the text.</p>
-  <%= doc_query cosmas2 => 'anscheinend oder scheinbar' %>
+<h3> Logische Operatoren </h3>
+    
 
-  <p>The following query returns matches for all occurrences of the first term, where the term following the <code>nicht</code> operator does not occur anywhere in the same text.</p>
-  <%= doc_query cosmas2 => 'Kegel nicht Kind' %>
-  
-  <p>To escape terms for logical operators (i.e. to prevent these terms from being interpreted as logical operators), they need to be surrounded by quotations.</p>
-  <%= doc_query cosmas2 => 'Mann "und" Maus' %>
+<p> Abfragebegriffe können in logischen Operationen mit den Operatoren <code>and</code>, <code>or</code> und <code>not</code> kombiniert werden. Die deutschen Formen werden ebenfalls unterstützt: <code>und</code>, <code>oder</code> und <code>nicht</code>.</ p>
+
+<p>Diese Operatoren arbeiten auf Textebene, sodass die folgende Abfrage Treffer für alle Vorkommen ausgibt, bei denen beide Begriffe an einer beliebigen Stelle im selben Text vorkommen.</ p>
+    
+
+<%= doc_query cosmas2 => 'anscheinend und scheinbar' %>
+    
+
+<p>Die folgende Abfrage erzielt Treffer für alle Vorkommen, in denen mindestens einer der Begriffe an einer beliebigen Stelle im Text vorkommt.</ p>
+    
+
+<%= doc_query cosmas2 => 'anscheinend oder scheinbar' %>
+    
+
+<p> Die folgende Abfrage gibt Treffer für alle Vorkommen des ersten Begriffs aus, wobei der Begriff nach dem Operator <code>nicht</ code> an keiner Stelle im selben Text vorkommt.</ p>
+    
+
+<%= doc_query cosmas2 => 'Kegel nicht Kind' %>
+
+<p>Um Ausdrücke als logische Operatoren aufzuheben (d. h. zu verhindern, dass diese Ausdrücke als logische Operatoren interpretiert werden), müssen sie in Anführungszeichen gesetzt werden.</ p>
+    
+
+<%= doc_query cosmas2 => 'Mann "und" Maus' %>
+    
+    
+
+</section>
+    
+    
+    
+
+<section id="distance-operators">
+    
+
+<h3>Distance Operators</h3>
+
+<h3>Abstandsoperatoren</ h3>
+
+<p> Mit Abstandsoperatoren können Sie nach zwei Operanden (Suchbegriffen oder komplexen Suchvorgängen) suchen, die in einem Text in einem bestimmten Abstand voneinander vorkommen oder auch nicht. Wenn die beiden Operanden zusammen vorkommen sollen (dem Operator wird ein <code>/</ code> -Symbol vorangestellt), befinden sich beide Operanden in der Ergebnismenge. Wenn sie nicht zusammen auftreten sollen (dem Operator wird ein <code>%</ code> -Symbol vorangestellt), befindet sich nur der erste Operand in der Ergebnismenge.</p>(?)
+    
+
+<p>Abstandsoperatoren akzeptieren einen vorangestellten Richtungsparameter.
+Indem dem Operator ein <code>+</ code> -Symbol vorangestellt wird (z. B. in <code>/+s0</ code>), muss der zweite Operand nach dem ersten Operanden auftreten oder nicht.
+Indem dem Operator ein <code>-</ code> -Symbol vorangestellt wird (z. B. in <code>/-s0</ code>), muss der zweite Operand vor dem ersten Operanden auftreten oder nicht.
+Wenn der Richtungsparameter weggelassen wird, ist die Richtung beider Operanden beliebig.</p>
+
+<p> Abstandsoperatoren akzeptieren die Definition eines Distanzsintervalls durch Anhängen numerischer Werte. Wenn nur ein einzelner numerischer Wert angegeben wird (z. B. in <code>/+ s4</code>), wird der definierte Abstand als maximaler Abstand betrachtet. Beide Operanden können also in einem Abstand auftreten oder auch nicht (?), der dem angegebenen Wert entspricht oder darunter liegt. Wenn zwei Zahlenwerte durch das Symbol <code>:</code> getrennt angegeben werden (z. B. in <code>/s4: 2</ code>), definieren sie ein Intervall, in dem der Abstand verbindlich ist.</p>
+    
+    
+
+%# <blockquote class="warning">
+
+% # <p> Derzeit werden Intervalle nur als MIN:MAX interpretiert, während COSMAS 2 Intervalle als MAX:MIN definiert, wobei die kleinere Zahl als Minimalwert und die größere Zahl als Maximalwert des Intervalls gilt. <% = ext_link_to 'KorAP übernimmt in naher Zukunft das Verhalten von COSMAS II', "https://github.com/KorAP/Koral/issues/67"%>. </ p>
+    
+
+%# </blockquote>
+
+<p> Abstandsoperatoren sind angewiesen (?) auf die Annotation <% = embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%> für Dokumentstrukturen.</p>
+
+
+<p>Wenn eine Abfrage mehrere Abstandsoperatoren enthält, müssen diese in Klammern gesetzt werden:</ p>
+    
+
+%= doc_query cosmas2 => '(Tag /+w2 offenen) /+w1 Tür'
+    
+    
+
+<h4>Word Distance Operator</h4>
+
+<h4>Wortabstandsoperator</ h4>
+
+
+<p>Der Wortabstandsoperator <code>w</code> definiert, wie viele Wörter zwischen zwei Afrageoperanden zulässig oder nicht zulässig sind.</ p>
+
+
+<p>Suche nach zwei Operanden mit bis zu 4 Wörtern in beliebiger Reihenfolge:</ p>
+    
+
+%= doc_query cosmas2 => 'Gegenwart /w4 Zukunft'
+
+
+<p>Suche nach zwei Operanden mit 3 bis 4 Wörtern dazwischen, wobei der erste Operand dem zweiten vorausgeht:</ p>
+    
+
+%= doc_query cosmas2 => 'Gegenwart /+w4:3 Zukunft'
+    
+    
+
+<p>Search for two consecutive operands in the given order:</p>
+
+<p>Suche nach zwei aufeinanderfolgenden Operanden in der angegebenen Reihenfolge:</ p>
+    
+
+%= doc_query cosmas2 => 'Gegenwart /+w1:1 Zukunft'
+    
+
+
+<p>Suche nach einem ersten Operanden, dem kein zweiter Operand vorangeht oder folgt:</ p>
+    
+
+%= doc_query cosmas2 => 'Gegenwart %w1 die'
+    
+    
+
+
+<h4>Satzabstandsoperator</ h4>
+    
+    
+
+
+<p>Der Satzabstandsoperator <code>s</code> definiert, wie viele Sätze zwischen zwei Abfrageoperanden zulässig oder nicht zulässig sind.</ p>
+    
+
+
+<p>Der Satzabstand hängt von der Annotation <% = embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%> für Dokumentstrukturen ab.</p>
+    
+    
+
+
+<p>Suche nach zwei Operanden, die im selben oder in einem folgenden Satz in beliebiger Reihenfolge vorkommen:</p>
+    
+
+%= doc_query cosmas2 => 'offen /s1 Geschäft'
+    
+    
+
+
+<p>Suche nach zwei Operanden, die im selben Satz vorkommen mit dem ersten Operanden vor dem zweiten: </ p>
+    
+
+%= doc_query cosmas2 => 'offen /+s0 Geschäft'
+    
+    
+
+
+<p>Suche nach einem ersten Operanden, der nicht mit einem zweiten Operanden im gleichen Satz vorkommt:</ p>
+    
+
+%= doc_query cosmas2 => 'Gegenwart %s0 Zukunft'
+    
+    
+
+
+<h4>Absatzabstandsoperator</ h4>
+    
+    
+
+
+<p>Der Absatzabstandsoperator <code>p</code> definiert, wie viele Absätze zwischen zwei Suchoperanden zulässig oder nicht zulässig sind.</p>
+    
+
+
+<p>Der Absatzabstand hängt von der Annotation <% = embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%> für Dokumentstrukturen ab.</p>
+    
+    
+
+
+<p>Suche nach zwei Operanden, die im selben oder in einem folgenden Absatz in beliebiger Reihenfolge vorkommen:</ p>
+    
+
+%= doc_query cosmas2 => 'offen /p1 Geschäft'
+    
+    
+
+
+<p>Suche nach zwei Operanden, die im selben vorkommen mit dem ersten Operanden vor dem zweiten:</p>
+    
+
+%= doc_query cosmas2 => 'offen /+p0 Geschäft'
+    
+    
+
+
+<p>Suche nach einem ersten Operanden, der nicht mit einem zweiten Operanden im selben Absatz vorkommt:</p>
+    
+
+%= doc_query cosmas2 => 'Gegenwart %p0 Zukunft'
+    
+    
+
+<blockquote class="warning">
+
+
+<p>Die KWIC-Ergebnisliste von (?) Absatzabstandsabfragen überschreitet wahrscheinlich die unterstützte maximale Länge von Trefffern in KorAP und wird daher gekürzt.</p>
+    
+
+</blockquote>
+    
+    
+
+<h4> Multi-Abstandsoperatoren </ h4>
+    
+    
+
+
+<p>Abstandsoperatoren können kombiniert werden, um die Ergebnismenge weiter einzuschränken. Die Abstandsbedingungen werden durch Komma (ohne Leerzeichen) getrennt.</p>
+    
+
+
+<p>Suche nach &quot;ein Fest&quot; in einem Satz:</p>
+    
+
+%= doc_query cosmas2 => 'ein /+w1,s0 Fest'
+    
+    
+
+
+<h4>Abstandsauslassoperator</ h4>
+    
+
+
+<p>Wenn der Abstandsoperator zwischen zwei Operanden weggelassen wird, sucht KorAP nach einem <code>/+w1</ code> Abstand:</p>
+    
+
+%= doc_query cosmas2 => 'runder Tisch'
+    
+    
 
 </section>
 
+--------------------------------------------------
+    
+    
 
-<section id="distance-operators">
-  <h3>Distance Operators</h3>
+<section id="annotation-operators">
+    
 
-  <p>Distance operators allow you to search for two operands (search terms or complex search operations) that occur or don't occur at a certain distance from each other in a text. When the two operands should occur together (the operator is prepended by a <code>/</code> symbol), both operands are in the result set. When they shouldn't occur together (the operator is prepended by a <code>%</code> symbol), only the first operand is in the result set.</p>
 
-  <p>Distance operators accept a prefixing direction parameter.
-    By prepending the operator with a <code>+</code> symbol (e.g. in <code>/+s0</code>), the second operand is required to occur or not occur after the first operand.
-    By prepending the operator with a <code>-</code> symbol (e.g. in <code>/-s0</code>), the second operand is required to occur or not occur in front of the first operand.
-  In case the direction parameter is omitted, the direction of both operands is arbitrary.</p>
+<h3>Annotationsoperatoren</h3>
+    
 
-  <p>Distance operators accept the definition of a distance interval by appending numerical values. If only a single numerical value is given (e.g. in <code>/+s4</code>), the defined distance is considered a maximum distance. So both operands can or can not occur in a distance equal or lower the given value. If two numerical values are given separated by the <code>:</code> symbol (e.g. in <code>/+s4:2</code>), they define an interval, in which the distance is valid.</p>
+%= under_construction
+    
 
-%#  <blockquote class="warning">
-%#    <p>Currently, intervals are interpreted as MIN:MAX only, while COSMAS 2 defines intervals as being MAX:MIN, while taking the smaller number as being the minimum value of the interval and the greater number as being the maximum value of the interval. <%= ext_link_to 'KorAP will adopt the behaviour of COSMAS II in the near future', "https://github.com/KorAP/Koral/issues/67" %>.</p>
-%#  </blockquote>
-  
-  <p>Distance operators rely on the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
+%# MORPH and ELEM
+    
 
-  <p>In case a query contains numerous distance operators, they need to be nested in parentheses:</p>
-  %= doc_query cosmas2 => '(Tag /+w2 offenen) /+w1 Tür'
-  
-  <h4>Word Distance Operator</h4>
+</section>
+    
+    
 
-  <p>The word distance operator <code>w</code> defines how many words are allowed or are not allowed in-between two search operands.</p>
+<section id="combination-operators">
+    
 
-  <p>Search for two operands with up to 4 words in-between in arbitrary order:</p>
-  %= doc_query cosmas2 => 'Gegenwart /w4 Zukunft'
-  
-  <p>Search for two operands with 3 to 4 words in-between with the first operand preceeding the second one:</p>
-  %= doc_query cosmas2 => 'Gegenwart /+w4:3 Zukunft'
+<h3>Kombinationsoperatoren</h3>
 
-  <p>Search for two consecutive operands in the given order:</p>
-  %= doc_query cosmas2 => 'Gegenwart /+w1:1 Zukunft'
+Kombinationsoperatoren
+    
 
-  <p>Search for a first operand that is neither preceded nor suceeded by a second operand:</p>
-  %= doc_query cosmas2 => 'Gegenwart %w1 die'
-  
-  <h4>Sentence Distance Operator</h4>
+%= under_construction
+    
 
-  <p>The sentence distance operator <code>s</code> defines how many sentences are allowed or are not allowed in-between two search operands.</p>
-  <p>The sentence distance relies on the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
+%# IN and OV
+    
 
-  <p>Search for two operands occuring in the same or a following sentence in arbitrary order:</p>
-  %= doc_query cosmas2 => 'offen /s1 Geschäft'
-
-  <p>Search for two operands occuring in the same sentence with the first operand preceeding the second one:</p>
-  %= doc_query cosmas2 => 'offen /+s0 Geschäft'
-
-  <p>Search for a first operand that does not occur with a second operand in the same sentence:</p>
-  %= doc_query cosmas2 => 'Gegenwart %s0 Zukunft'
-
-  <h4>Paragraph Distance Operator</h4>
-
-  <p>The paragraph distance operator <code>p</code> defines how many paragraphs are allowed or are not allowed in-between two search operands.</p>
-  <p>The paragraph distance relies on the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
-
-  <p>Search for two operands occuring in the same or a following paragraph in arbitrary order:</p>
-  %= doc_query cosmas2 => 'offen /p1 Geschäft'
-
-  <p>Search for two operands occuring in the same paragraph with the first operand preceeding the second one:</p>
-  %= doc_query cosmas2 => 'offen /+p0 Geschäft'
-
-  <p>Search for a first operand that does not occur with a second operand in the same paragraph:</p>
-  %= doc_query cosmas2 => 'Gegenwart %p0 Zukunft'
-
-  <blockquote class="warning">
-    <p>The KWIC result of including paragraph distance queries will likely exceed the supported maximum length of matches in KorAP and will therefore be cut.</p>
-  </blockquote>
-
-  <h4>Multi-Distance Operators</h4>
- 
-  <p>Distance operators can be combined to further limit the result set. The distance conditions are separated by comma (without spaces).</p> 
-  <p>Search for &quot;ein Fest&quot; in a sentence:</p>
-   %= doc_query cosmas2 => 'ein /+w1,s0 Fest'
-         
-  <h4>Omitted Distance Operator</h4>
-  <p>If the distance operator is omitted between two operands, KorAP is searching for a <code>/+w1</code> distance:</p>
-  %= doc_query cosmas2 => 'runder Tisch'
-  
 </section>
 
 <section id="annotation-operators">
