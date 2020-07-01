@@ -53,8 +53,14 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
         cl.add.apply(cl, this._classes);
 
       // TODO: The show may need to be wrapped in another DIV!
-      if (this.show !== undefined)
-        e.appendChild(this.show());
+      if (this.show !== undefined) {
+        let s = this.show();
+        if (s) {
+          e.appendChild(s);
+        } else {
+          return e
+        }
+      }
 
       this._shown = true;
 
