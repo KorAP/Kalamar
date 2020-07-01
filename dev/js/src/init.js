@@ -28,6 +28,8 @@ define([
   'panel/result',
   'panel/query',
   'tour/tours',
+  'plugin/server',
+  'pipe',
   'api',
   'mailToChiffre',
   'util',
@@ -43,7 +45,9 @@ define([
              selectMenuClass,
              resultPanelClass,
              queryPanelClass,
-             tourClass) {
+             tourClass,
+             pluginClass,
+             pipeClass) {
 
   const d = document;
 
@@ -420,7 +424,34 @@ define([
       sform.insertBefore(queryPanel.element(), vcView);
       KorAP.Panel['query'] = queryPanel;
     }
-    
+
+    /**
+     * Initialize Plugin registry.
+     */
+    let p = KorAP.Plugins;
+    if (p && p.length > 0) {
+      // Load Plugin Server first
+      KorAP.Plugin = pluginClass.create();
+
+      // Add services container to head
+      d.head.appendChild(KorAP.Plugin.element());
+
+      // Add pipe form
+      KorAP.Pipe = pipeClass.create();
+      d.getElementById("searchform").appendChild(KorAP.Pipe.element());
+
+      try {
+      
+        // Register all plugins
+        for (var i = 0; i < p.length; i++) {
+          KorAP.Plugin.register(p[i]);
+        }
+      }
+      catch (e) {
+        KorAP.log(0, e);
+      }
+    };
+
     return obj;
   });
   

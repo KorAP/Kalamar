@@ -93,6 +93,7 @@ define(['pipe'], function (pipeClass) {
       let p = pipeClass.create();
       let e = p.element();
       expect(e.tagName).toEqual("INPUT");
+      expect(e.getAttribute("type")).toEqual("text");
       p.append('service1');
       expect(e.getAttribute("value")).toEqual("service1");
       p.append('service2');
