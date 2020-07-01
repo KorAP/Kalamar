@@ -30,7 +30,13 @@ define(function () {
     load : function () {
       if (this._load)
         return this._load;
-      
+
+      if (window.location.protocol == 'https:' &&
+          this.src.toLowerCase().indexOf('https:') != 0) {
+        KorAP.log(0, "Service endpoint is insecure");
+        return;
+      };
+
       // Spawn new iframe
       let e = document.createElement('iframe');
       e.setAttribute('allowTransparency',"true");
