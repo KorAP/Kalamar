@@ -39,6 +39,7 @@ sub query {
   $v->optional('p', 'trim')->num(1, undef); # Start page
   $v->optional('o', 'trim')->num(1, undef); # Offset
   $v->optional('context');
+  $v->optional('pipe', 'trim');
   # $v->optional('action'); # action 'inspect' is no longer valid
   # $v->optional('snippet');
 
@@ -101,6 +102,11 @@ sub query {
   if ($query{count} && $query{count} <= $c->items_per_page ) {
     $items_per_page = delete $query{count};
     $query{count} = $items_per_page;
+  };
+
+  # Forward pipe
+  if ($v->param('pipe')) {
+    $query{pipe} = $v->param('pipe');
   };
 
   $c->stash(items_per_page => $items_per_page);

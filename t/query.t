@@ -257,7 +257,6 @@ $t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
   ->text_is('#special', 'Funny')
   ;
 
-
 my $match = {
   matchID => 'match-FOLK/00070-SE-01/T-04-p5441-5442',
   textSigle => 'FOLK/00070-SE-01/T-04'
@@ -266,6 +265,13 @@ my $match = {
 $match = Kalamar::Controller::Search::_map_match($match);
 
 is($match->{matchID}, 'p5441-5442');
+
+# Query with pipe
+$t->get_ok('/?q=baum&pipe=glemm')
+  ->status_is(200)
+  ->text_is('#error','')
+  ->content_like(qr/\"pipe\":"glemm"/)
+  ;
 
 
 done_testing;
