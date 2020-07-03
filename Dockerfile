@@ -72,6 +72,6 @@ ENTRYPOINT [ "perl", "script/kalamar" ]
 
 CMD [ "daemon" ]
 
-LABEL author="korap@ids-mannheim.de"
+LABEL maintainer="korap@ids-mannheim.de"
 LABEL description="Docker Image for Kalamar, the KorAP user frontend"
 LABEL repository="https://github.com/KorAP/Kalamar"
