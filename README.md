@@ -16,10 +16,11 @@ $ docker pull korap/kalamar
 Then start Kalamar listening on port `64543`.
 
 ```shell
-$ docker run --network="host" --name kalamar korap/kalamar
+$ docker run --network host --name kalamar korap/kalamar
 ```
 
 Kalamar will be available at `http://localhost:64543`.
+
 See the [description on docker hub](https://hub.docker.com/r/korap/kalamar)
 regarding further information.
 
