@@ -1,7 +1,6 @@
 @charset "utf-8";
 @import "../util";
 
-
 #resultinfo {
   clear: both;
   text-align: right;
@@ -42,6 +41,9 @@ div.result.panel .view {
 
   // Define icons for result buttons
   .button-icon {
+
+    // TODO:
+    //   Add icon via data-icon
     &.align.left::after {
       content: $fa-left-align;
     }

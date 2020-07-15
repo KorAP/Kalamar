@@ -14,6 +14,9 @@
     > span {
       @include blind;
     }
+    &[data-plicon]::after {
+      content: attr(data-plicon);
+    }
   }
   
   &.button-panel, &.operators {
