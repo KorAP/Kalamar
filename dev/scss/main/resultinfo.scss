@@ -1,7 +1,6 @@
 @charset "utf-8";
 @import "../util";
 
-
 #resultinfo {
   clear: both;
   text-align: right;
@@ -54,6 +53,13 @@ div.result.panel .view {
     &.show-kq::after {
       content: $fa-code;
     }
+    /*
+    TODO: right now, this only works for 'normal' buttons, but not for toggle buttons
+    */
+     &.plugin[data-plicon]::after {
+        font-family: 'FontAwesome';
+        content: attr(data-plicon);
+        } 
   }
 }
 
