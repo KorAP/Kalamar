@@ -31,9 +31,9 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
 
     
     /**
-     * Upgrade this object to another object,
+     * Upgrade this object to another object, 
      * while private data stays intact.
-     *
+     * 
      * @param {Object} An object with properties.
      */
     upgradeTo : function (props) {
@@ -46,15 +46,21 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     
     /**
      * Add button in order
-     *
+     * 
      * Returns the button element
      */
-    add : function (title, classes, cb) {
+    // TODO: Accept an object instead of a list
+    add : function (title, classes, cb, icon) {
       var b = this._element.addE('span');
       b.setAttribute('title',title);
       if (classes !== undefined) {
         b.classList.add.apply(b.classList, classes);
       };
+     
+      if (icon !== undefined){ 
+        b.setAttribute('data-icon', icon);
+      };
+     
       b.addE('span').addT(title);
 
       var that = this;
@@ -75,7 +81,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     
     /**
      * Add button that spawns a list in order.
-     *
+     * 
      * Returns the list object.
      */
     addList : function (title, classes, itemClass = defaultItemClass) {
@@ -136,8 +142,8 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     },
 
     /**
-     * Bind an object to all callbacks of the button group.
-     * To get the button element inside the callback,
+     * Bind an object to all callbacks of the button group. 
+     * To get the button element inside the callback, 
      * use this.button
      */
     bind : function (obj) {
