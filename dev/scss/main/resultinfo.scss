@@ -98,6 +98,9 @@ div.result.panel .view {
 
 // Define icons for result buttons
 .button-icon {
+
+  // TODO:
+  //   Add icon via data-icon
   &.align.left::after {
     content: $fa-left-align;
   }

@@ -132,4 +132,7 @@ ul.menu.button-group-list {
   > span {
     @include blind;
   }
+  &[data-icon]::after {
+    content: attr(data-icon);
+  }
 }
