@@ -106,6 +106,20 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       expect(fun.count).toEqual(1);
     });
 
+    it('should add icon', function () {
+      var group = buttonGroupClass.create();
+      expect(group.element().classList.contains('button-group')).toBeTruthy();
+
+      group.add('Meta', ['meta'], function (e) {}, 'metaicon');
+
+      var btn = group.element().firstChild;
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.getAttribute('data-icon')).toEqual('metaicon');
+      expect(btn.classList.contains('meta')).toBeTruthy();
+      expect(btn.innerText).toEqual('Meta');
+    });
+
+    
     it('should open lists', function () {
       
     });

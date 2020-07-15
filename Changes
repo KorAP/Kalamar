@@ -1,4 +1,4 @@
-0.39 2020-09-08
+0.39 2020-09-14
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -9,6 +9,7 @@
         - Added query form API to plugin server.
         - Exclude search results from robot indices.
         - Added responsive 'news' style.
+        - Add support for icons in plugin definition (hebasta).
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your

@@ -133,8 +133,8 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
         let title = embed["title"];        
         let panel = embed["panel"];
         let onClick = embed["onClick"];
-
-
+        let icon = embed["icon"];
+        
         if (!panel || !(buttons[panel] || buttonsSingle[panel]))
           throw new Error("Panel for plugin is invalid");        
 
@@ -160,20 +160,20 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
           // Add to dynamic button list (e.g. for matches)
           if (buttons[panel]) {
-            buttons[panel].push([title, embed["classes"], cb]);
+            buttons[panel].push([title, embed["classes"], cb, icon]);
           }
 
           // Add to static button list (e.g. for query) already loaded
           else if (KorAP.Panel[panel]) {
-            KorAP.Panel[panel].actions.add(title, embed["classes"], cb);
+            KorAP.Panel[panel].actions.add(title, embed["classes"], cb, icon);
           }
 
           // Add to static button list (e.g. for query) not yet loaded
           else {
-            buttonsSingle[panel].push([title, embed["classes"], cb]);
+            buttonsSingle[panel].push([title, embed["classes"], cb, icon]);
           }
         }
-
+        //TODO There is no possibility to add icons to an plugin toggle button right now. 
         else if (onClick["action"] == "toggle") {
 
           // Todo: Initially false
