@@ -13,7 +13,8 @@ KorAP.Plugins = [{
   'embed' : [{
     'panel' : 'result',
     'title' : 'Export',
-    'classes' : ['export'],
+    'icon' : "\uf019",
+    'classes' : [ 'button-icon', 'plugin', 'export' ],
     'onClick' : {
       'action' : 'addWidget',
       'template' : 'http://localhost:3003/demo/plugin-client.html',

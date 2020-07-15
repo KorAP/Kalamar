@@ -132,4 +132,7 @@ ul.menu.button-group-list {
   > span {
     @include blind;
   }
+  &[data-plicon]::after {
+    content: attr(data-plicon);
+  }
 }
