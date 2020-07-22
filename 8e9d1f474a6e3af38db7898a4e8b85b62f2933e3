@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e3c2476_b67e5074",
+        "filename": "dev/js/src/buttongroup.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-07-22T17:18:27Z",
+      "side": 1,
+      "message": "Having a \"plicon\" parameter here is very specific.\nI would prefer to either accept a \"data\" object parameter (better before the callback)\nor to add the \"data-icon\" attribute after adding the button (which is possible, because\nthe button is returned). Both approaches would be more general.",
+      "range": {
+        "startLine": 52,
+        "startChar": 40,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "8e9d1f474a6e3af38db7898a4e8b85b62f2933e3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
