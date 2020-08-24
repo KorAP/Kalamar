@@ -83,15 +83,15 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       this.views.push(view);
 
       // Append or prepend element to panel element
-      if(this.prepend){
+      if (this.prepend){
         this._viewElement().prepend(
-            view.element()
-          );
-        }
+          view.element()
+        );
+      }
       else{
-      this._viewElement().appendChild(
-        view.element()
-      );
+        this._viewElement().appendChild(
+          view.element()
+        );
       }
       
       if (view.afterEmbed)

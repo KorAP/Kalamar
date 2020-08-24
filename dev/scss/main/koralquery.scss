@@ -6,9 +6,11 @@ $border-size: 2px;
 #koralquery {
   white-space: pre;
   > div {
+    // TODO:
+    //   Mark this with result-view
+    background-color: $nearly-white;
     overflow-x: auto;
     font-size: 85%;
-    background-color: $nearly-white;
     margin: {
       top: 2pt;
       right: $right-view-distance; // 3em;

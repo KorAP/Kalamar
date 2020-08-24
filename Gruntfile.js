@@ -79,8 +79,10 @@ module.exports = function(grunt) {
         },
         files: {
           'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss',
+          'public/css/kalamar-plugin-<%= pkg.pluginVersion %>.css' : 'dev/scss/base.scss',
           'dev/css/kalamar.css' : 'dev/scss/kalamar.scss',
           'dev/css/kwic.css' : 'dev/scss/main/kwic.scss',
+          'dev/css/kalamar-plugin.css' : 'dev/scss/base.scss'
         }
       }
     },

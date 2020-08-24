@@ -1,9 +1,11 @@
 @charset "utf-8";
 @import "util";
+@import "base/fonts";
 @import "base/flextable";
 @import "base/fragment";
 @import "base/load";
 @import "base/form";
+@import "base/view";
 
 /**
  * Basic global CSS rules for Kalamar
@@ -21,17 +23,6 @@ g > text {
 * {
   @include box-sizing-box;
 }
-
-/*
-html {
-//  @include box-sizing-box;
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-*/
 
 g > text {
   fill: $dark-grey;
