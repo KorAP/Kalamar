@@ -2,37 +2,45 @@
 @import "../util";
 
 
-/* 
-Corpus statistic  
-Graying corpus statistic 
-*/
+/**
+ * Corpus statistic  
+ * Graying corpus statistic 
+ */
 div.stattable {
-    display: flex;
-    flex-direction: row;
-    margin-right: $right-view-distance;
+  display: flex;
+  flex-direction: row;
+  margin-right: $right-view-distance;
 }
+
 div.stattable {
   > dl {
     margin-bottom:4px;
+
     > div {
       border-color: $dark-green;
+
       > dt {
         background-color: $middle-green;
-        width: 15em;
-        margin: 0;
-        &:after {
+        width:            15em;
+        margin:           0;
+
+        &::after {
           content: ":";
         }
       }   
       > dd {
         background-color: $lightest-green;
-        color: $dark-grey;
+        color:            $dark-grey;
       }
     }
   }
+
   &.stdisabled {
-    dt, dd {
-      @include vcinfo-inactive;
+    dt,
+    dd {
+      background-color: $grey-green;
+      color:            $dark-green;
+      text-shadow:      none;
     }
   }
 }
@@ -45,7 +53,7 @@ div.reloadStatB > span.refresh {
 
 span.refresh::after{
   vertical-align: sub;
-  content : $fa-redo;
+  content :       $fa-redo;
 }
 
 // Default value 20% doesn't work with < 5 items,

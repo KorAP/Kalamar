@@ -315,6 +315,10 @@ var vcExample = {
               "match":"match:eq"
             },
             {
+              "@type":"koral:docGroupRef",
+              "ref":"@admin/derekosub"
+            },
+            {
               "@type":"koral:doc",
               "key":"subTitle",
               "value":"Gedichte",
