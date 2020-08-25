@@ -1,13 +1,13 @@
 @charset "utf-8";
-@import "../util";
+@import "../../util";
 
 /**
  * SVG tree
  */
 path.edge {
-  stroke: $darker-orange;
+  stroke:       $darker-orange;
   stroke-width: 2px;
-  fill: none;
+  fill:         none;
 }
 
 g.arc.infocus > path.edge {
@@ -17,37 +17,38 @@ g.arc.infocus > path.edge {
 marker#arr {
   overflow: visible;
   path {
-    stroke: $darkest-orange;
-    fill: $darkest-orange;
-    fill-opacity:1;
+    stroke:       $darkest-orange;
+    fill:         $darkest-orange;
+    fill-opacity: 1;
     stroke-width: 2; 
   }
 }
 
 path.anchor {
-  stroke: $darkest-orange;
-  stroke-width: 3;
+  stroke:         $darkest-orange;
+  stroke-width:   3;
   stroke-linecap: round;
-  z-index: 20;
+  z-index:        20;
 }
 
 g.root rect.empty {
-  stroke: $darker-orange;
-  fill: $darker-orange;
+  stroke:       $darker-orange;
+  fill:         $darker-orange;
   stroke-width: 2px;
 }
 
-g.middle, g.label {
+g.middle,
+g.label {
   rect {
-    stroke: $darker-orange;
+    stroke:       $darker-orange;
     stroke-width: 2px;
-    fill: $middle-orange;
+    fill:         $middle-orange;
   }
 }
 
 g.label.infocus rect {
   stroke: $dark-green;
-  fill: $lightest-green;
+  fill:   $lightest-green;
 }
 
 g.middle.mark {
@@ -56,6 +57,7 @@ g.middle.mark {
   }
   > text {
     fill: $light-orange;
+
     > tspan {
       stroke: $light-orange;
     }
@@ -72,13 +74,13 @@ g.leaf > rect {
 
 g > text > tspan {
   text-anchor: middle;
-  font-size: 9pt;
+  font-size:   9pt;
 }
 
 g.leaf > text,
 text.leaf {
   > tspan {
     font-size: 10pt;
-    overflow: visible;
+    overflow:  visible;
   }
 }

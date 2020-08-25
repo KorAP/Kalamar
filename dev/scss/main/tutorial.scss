@@ -1,45 +1,45 @@
 @charset "utf-8";
 @import "../util";
 
-$border-size: 2px;
+/**
+ * Rules for the embedded documentation.
+ */
 
 #tutorial {
-  position: fixed;
-  z-index: 9999;
-  top:    5%;
-  bottom: 5%;
-  left:   2%;
-  right:  2%;
-  padding-right: $right-view-distance;
-/*
-  padding: 0;
-  margin: 0;
-*/
+  position:         fixed;
+  z-index:          9999;
+  top:              5%;
+  bottom:           5%;
+  left:             2%;
+  right:            2%;
+  padding-right:    $right-view-distance;
   background-color: $nearly-white;
+  box-shadow:       $choose-box-shadow;
 
   .button-group.button-view {
     background-color: $middle-grey;
-    display: block;
-    height: 100%;
+    display:          block;
+    height:           100%;
   }
+
   border: {
-    width: 2 * $border-size;
-//    color: $dark-orange;
-    color: $dark-grey;
-    style: solid;
+    width:  2 * $border-size;
+    color:  $dark-grey;
+    style:  solid;
     radius: $standard-border-radius;
   }
-  box-shadow: $choose-box-shadow;
+
   iframe {
     border-width: 0;
     width: 100%;
+
     // Hack for a Firefox bug
     min-height: 100.1%;
     background: {
-      image:url('#{$img-path}/korap-bg-kalamar.svg');
-      repeat: no-repeat;
+      image:    url('#{$img-path}/korap-bg-kalamar.svg');
+      repeat:   no-repeat;
       position: center center;
-      size: 20%;
+      size:     20%;
     }
   }
 }
@@ -47,59 +47,23 @@ $border-size: 2px;
 body.embedded {
   background-color: $nearly-white;
   aside {
-/*
-    border-right: {
-      width: $border-size;
-      style: solid;
-    }
-*/
-    padding-top: 0;
     @include choose-item;
+    padding-top: 0;
     background-color: $middle-grey;
+
     > div {
-      position: relative;
-      top: 50%;
+      position:         relative;
+      top:               50%;
       -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      // margin-right: -1 * $border-size;
+      -ms-transform:     translateY(-50%);
+      transform:         translateY(-50%);
     }
   }
 }
 
-main.tutorial {
-  // Link to documentation
-  a.embedded-link::after {
-    font-family: FontAwesome;
-    white-space: nowrap;
-    content: " " + $fa-tutorial;
-    font-size: 75%;
-  }
+// Link to documentation
+main.tutorial a.embedded-link::after {
+  @include icon-font;
+  content:   " " + $fa-tutorial;
+  font-size: 75%;
 }
-
-dl {
-  margin: 0;
-  padding-bottom: .5em;
-  dt {
-    font-weight: bold;
-    abbr {
-      border-width: 0;
-      &[data-type=token]::after {
-	      color: $ids-blue-1;
-      }
-      &[data-type=span]::after {
-	      color: $ids-pink-1;
-      }
-      &::after {
-	      content: ' (' attr(title) ')';
-	      vertical-align: bottom;
-	      font-style: italic;
-	      font-weight: normal;
-	      font-size: 80%;
-      }
-    }
-  }
-}
-
-
-
