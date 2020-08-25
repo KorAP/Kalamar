@@ -1,0 +1,87 @@
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+
+/**
+ * Official IDS colors
+ */
+$ids-orange-1: rgb(246, 168,   0);
+$ids-orange-2: rgb(242, 148,   0);
+$ids-grey-1:   rgb(135, 136, 138);
+$ids-grey-2:   rgb(217, 218, 219);
+$ids-blue-1:   rgb(  0, 158, 224); // Pragmatik
+$ids-blue-2:   rgb(188, 228, 247); // Pragmatik
+$ids-green-1:  rgb( 99, 111,   7); // Grammatik
+$ids-green-2:  rgb(227, 232, 163); // Grammatik
+$ids-pink-1:   rgb(193,   0,  43); // Lexik
+$ids-pink-2:   rgb(250, 243, 222); // Lexik
+
+$black:        #333;
+
+
+/**
+ * Orange Colors
+ */
+$light-orange:   #f4eebb;
+$middle-orange:  #ffd080;
+$dark-orange:    $ids-orange-1;
+$darker-orange:  #ff8000;
+$darkest-orange: #e55d00;
+
+
+/**
+ * Green Colors
+ */
+$dark-green:     $ids-green-1; // #496000;
+$middle-green:   lighten($ids-green-1, 9%);
+$light-green:    lighten($ids-green-1, 13%); // #7ba400;
+$lightest-green: desaturate(lighten($light-green, 35%), 20%); // #d8e38c;
+$grey-green:     darken(desaturate($lightest-green, 25%), 12%); // #bcc387;
+
+
+/**
+ * Blue Colors
+ */
+$light-blue:     $ids-blue-2;
+$dark-blue:      $ids-blue-1;
+$darkest-blue:   darken($dark-blue, 40%);
+
+
+/**
+ * Grey Colors
+ */
+$middle-grey:  $ids-grey-1; // #999;
+$light-grey:   $ids-grey-2; // #ddd;
+$dark-grey:    darken($middle-grey, 15%);
+$nearly-white: #fefefe;
+
+
+/**
+ * Red Colors (no IDS relation)
+ */
+$middle-red: #c1002b;
+$light-red:  lighten($middle-red, 40%);
+$dark-red:   darken($middle-red, 40%);
+$alert-red:  rgb(254,26,0);
+
+/**
+ * Basic shadows
+ */
+$dark-shadow:  1px 1px 1px rgba(0,0,0,0.3);
+$light-shadow: 1px 1px     rgba(255,255,255,0.5);
+
+
+/**
+ * KWIC colors
+ */
+$kwic-border:       $middle-grey;
+$kwic-line-noneven: $light-grey;
+$kwic-line-even:    $nearly-white;
+$kwic-match-color:  $dark-grey;
+$kwic-match-shadow: $light-shadow;
+
+$kwic-highlight-1:  $middle-red;
+$kwic-highlight-2:  $dark-blue;
+$kwic-highlight-3:  $dark-orange;
+$kwic-highlight-4:  $light-green;
