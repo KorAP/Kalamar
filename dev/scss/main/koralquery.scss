@@ -1,7 +1,9 @@
 @charset "utf-8";
 @import "../util";
 
-$border-size: 2px;
+/**
+ * Styles for the KoralQuery view.
+ */
 
 #koralquery {
   white-space: pre;
@@ -9,13 +11,14 @@ $border-size: 2px;
     // TODO:
     //   Mark this with result-view
     background-color: $nearly-white;
-    overflow-x: auto;
-    font-size: 85%;
+    overflow-x:       auto;
+    font-size:        85%;
+
     margin: {
-      top: 2pt;
-      right: $right-view-distance; // 3em;
+      top:    2pt;
+      right:  $right-view-distance;
       bottom: 2pt;
-      left: 2pt;
+      left:  2pt;
     }
   }
 }
