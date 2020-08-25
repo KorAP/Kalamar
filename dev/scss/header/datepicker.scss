@@ -7,112 +7,125 @@
  * in Kalamar.
  */
 
-$border-size: 2px;
-
 div.datepicker {
-  display: inline-block;
-  position: absolute;
-  z-index: 90;
-
-  font-size: 80%;
-  padding: 4pt;
   @include choose-item;
+  position:   absolute;
+  display:    inline-block;
+  z-index:    90;
+  font-size:  80%;
+  padding:    4pt;
   box-shadow: $choose-box-shadow;
 
   border: {
-    width: $border-size;
-    style: solid;
+    width:  $border-size;
+    style:  solid;
     radius: $standard-border-radius;
   }
+
   > div {
     font-size: 120%;
-    width: 45%;
+    width:     45%;
+
     &.month {
       float: right;
     }
 
     > span {
-      display: inline-block;
+      display:     inline-block;
+      overflow:    hidden;
+      white-space: nowrap;
+
       &:first-child,
       &:last-child {
-	width: 15%;
-	&::before {
-	  display: inline-block;
-	  text-align: center;
-	  cursor: pointer;
-	  font-family: 'FontAwesome';
-	  min-width: 14px;
-	}
+	      width: 15%;
+	      &::before {
+          @include icon-font;
+	        display:    inline-block;
+	        text-align: center;
+	        cursor:     pointer;
+	        min-width:  14px;
+	      }
       }
+
       &:first-child::before {
-	content: $fa-previous;
+	      content: $fa-previous;
       }
+
       &:last-child::before {
-	content: $fa-next;
+	      content: $fa-next;
       }
-      overflow: hidden;
-      white-space: nowrap;
+
       &:nth-child(2) {
-	cursor: pointer;
-	display: inline-block;
-	width: 70%;
-	text-align: center;
-	text-overflow: ellipsis;
-	border: {
-	  radius: $standard-border-radius;
-	  style: solid;
-	  width: $border-size;
-	  color: transparent;
-	}
-	&:hover {
-	  @include choose-hover;
-	}
-	&.selected {
-	  @include choose-active;
-	}
+	      display:       inline-block;
+	      cursor:        pointer;
+	      width:         70%;
+	      text-align:    center;
+	      text-overflow: ellipsis;
+
+	      border: {
+	        radius: $standard-border-radius;
+	        style:  solid;
+	        width:  $border-size;
+	        color:  transparent;
+	      }
+
+	      &:hover {
+	        @include choose-hover;
+	      }
+
+	      &.selected {
+	        @include choose-active;
+	      }
       }
     }
   }
   
   table {
     border-collapse: separate;
-    border-spacing: 1px;
+    border-spacing:  1px;
   }
 
   input {
+    @include choose-item;
     @include standard-text-padding;
+    background-color: $nearly-white;
+    width:            100%;
+
     border: {
       style: solid;
       width: 1px;
     }
-    @include choose-item;
-    background-color: $nearly-white;
-    width: 100%;
   }
 
   td {
     @include standard-text-padding;
     text-align: center;
+
     border: {
       style: solid;
       width: 1px;
     }
+
     &:not(.out) {
-      cursor: pointer;
       @include choose-item;
+      cursor: pointer;
       background-color: $nearly-white;
+
       &.today {
-	background-color: $light-blue;
-	color: $dark-blue;
-	text-shadow: none;
+	      background-color: $light-blue;
+	      color: $dark-blue;
+	      text-shadow: none;
       }
+
       &.selected {
-	@include choose-active;
+	      @include choose-active;
       }
+
       &:hover {
-	@include choose-hover;
+	      @include choose-hover;
       }
     }
+
     &.out {
       border-color: transparent;
     }

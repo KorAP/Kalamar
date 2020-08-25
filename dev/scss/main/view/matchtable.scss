@@ -1,0 +1,148 @@
+@import "../../util";
+
+/**
+ * Table view
+ *
+ * The table view is complicated, as the
+ * first column has to be static.
+ */
+div.matchtable {
+
+  > div {
+    z-index:      20;
+    margin-left:  $left-distance - ($border-size / 2);
+    margin-right: $right-view-distance;
+    padding:      0;
+    overflow-x:   auto;
+    overflow-y:   visible;
+    width:        auto;
+  }
+
+  table {
+    display:         table;
+    border-collapse: separate;
+    border-spacing:  0px;
+  }
+
+  th {
+    color: $nearly-white;
+  }
+
+  // Use matchinfo cells for query creation
+  td,
+  tbody th,
+  thead th:not(:nth-child(1)):not(:nth-child(2)):not(.cutted) {
+    cursor: pointer;
+  }
+
+  td {
+    &:empty {
+      cursor: default;
+      // Fix for empty annotation lines:
+      &::after {
+        content:     " ";
+        white-space: pre;
+      }
+    }
+
+    // table for key-value pairs
+    &.matchkeyvalues {
+      padding: 0;
+      > div {
+        @include cell-info;
+        > span {
+          color:         $darkest-orange;
+          text-align:    right;
+          padding-right: .5em;
+          &::after {
+            content: ":"
+          }
+        }
+      }
+    }
+  }
+
+  tr {
+    outline: none;
+
+    // equal to dd.chosen
+    td.chosen,
+    th.chosen,
+    div.chosen {
+      background-color: $light-green !important;
+      color:            $nearly-white;
+    }
+
+    /**
+     * The first two columns.
+     */
+    > th:nth-of-type(1),
+    > th:nth-of-type(2) {
+      @include matchinfo-head;
+      position:       absolute;
+      z-index:        80;
+      vertical-align: middle;
+      left:           0px;
+    }
+
+    > th:nth-of-type(2) {
+      left: ($left-width / 2) + $border-size;
+    }
+
+    // Includes header line as well
+    > * {
+      @include cell-info;
+      border: ($border-size / 2) solid $dark-orange;
+    }
+
+    > td {
+      background-color: $middle-orange;
+      white-space:      nowrap;
+      vertical-align:   top;
+      text-align:       center;
+      &.mark {
+        background-color: $light-orange;
+      }
+    }
+
+    &:nth-child(even) > td {
+      background-color: $light-orange;
+      &.mark {
+        background-color: $middle-orange;
+      }
+    }
+  }
+
+  thead th {
+    background-color: $darker-orange;
+    border-top-width: 0px !important;
+    text-align:       center;
+
+    &:nth-of-type(1),
+    &:nth-of-type(2) {
+	    text-align: left;
+    }
+
+    &.mark {
+      background-color: $darkest-orange;
+    }
+
+    &.cutted {
+      background-color: $light-orange;
+
+      &::after {
+        @include icon-font;
+        content: $fa-cut;
+        color:   $light-green;
+        padding: {
+          left:  4pt;
+          right: 4pt;
+        }
+      }
+    }
+  }
+  
+  tbody > tr:nth-of-type(1) > th {
+    border-top-color: transparent;
+  }
+}
