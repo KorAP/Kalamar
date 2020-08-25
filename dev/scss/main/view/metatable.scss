@@ -1,0 +1,64 @@
+@charset "utf-8";
+@import "../../util";
+
+// Metatable
+div.metatable > dl {
+  margin-right: $right-view-distance;
+  margin-top:   $border-size;
+
+  > div {
+    border-color: $dark-orange;
+
+    > * {
+      padding: .2em;
+    }
+
+    > dt {
+      background: $darker-orange;
+      color:      $nearly-white;
+      width:      12.5em;
+    }
+
+    > dd {
+      background-color: $light-orange;
+      cursor: pointer;
+
+      &.metakeyvalues {
+        padding: 0;
+
+        > div {
+          padding: .2em;
+
+          &::before {
+            content: "\2022\00A0";
+            color:   $dark-orange
+          }
+        }
+      }
+
+      // equal to td.chosen
+      &.chosen,
+      > div.chosen {
+        background-color: $light-green !important;
+        color:            $nearly-white;
+      }
+
+      &[data-type="type:store"],
+      &[data-type="type:attachement"] {
+        background-color: $middle-orange;
+        cursor:           default;
+
+        a {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  // This is a temporary feature to disable
+  // corpusByMatch assistant. See corpusByMatch.js
+  // for reasons.
+  &.cbm-disabled > div > dd {
+    cursor: default !important;
+  }
+}
