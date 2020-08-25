@@ -1,5 +1,8 @@
+@import "../util"
+
 // Make cursor helper
-body.helper, body.helper a {
+body.helper,
+body.helper a {
   cursor: help !important;
 }
 
