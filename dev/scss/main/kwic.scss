@@ -1,389 +1,373 @@
 @charset "utf-8";
 @import "../util";
 
-$border-size: 2px;
+/**
+ * Styles for the KWIC view.
+ */
+
 $font-size: 10pt;
 
 #search {
-  position: relative;
+  position:      relative;
   margin-bottom: 30px;
-  overflow: visible;
-//  margin-top: 14pt;
-}
+  overflow:      visible;
 
-#search > ol {
-  overflow-x: hidden;
-  overflow-y: visible;
-  width: auto;
-  text-indent: 0;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: $result-border-size solid $kwic-border;
-  font-size: $font-size;
+  div.matchinfo {
+    display: none;
+  }
 
-  > li {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    align-content: stretch;
+  > ol {
+    overflow-x:      hidden;
+    overflow-y:      visible;
+    width:           auto;
+    text-indent:     0;
+    list-style-type: none;
+    margin:          0;
+    padding:         0;
+    border:          $result-border-size solid $kwic-border;
+    font-size:       $font-size;
 
-    div.meta {
-      position: relative;
-      flex: 1 0;
-      min-width: 12em;
-      max-width: 15em;
+    > li {
+      display:        flex;
+      flex-direction: row;
+      flex-wrap:      nowrap;
+      align-items:    stretch;
+      align-content:  stretch;
+      
+      border: {
+        style: solid;
+        color: $dark-orange;
+        width: 0;
+      }
 
-      // Tiny hack
-      &:before {
-        content:" ";
-        display:inline-block;
-        height:100%;
-        vertical-align:middle;
+      // Actions
+      .button-group.button-view {
+        display: none;
+      }
+
+      // Zebra style
+      &:nth-of-type(even) div.match-main div.match-wrap {
+        background-color: $kwic-line-even;
+      }
+
+      // References
+      p.ref {
+        display: none;
       }
       
-      text-align: left;
-      // cursor: initial;
-      width: 2px;
-      z-index: 5;
-      overflow-y: hidden;
-      overflow-x: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      background-color: lighten($middle-grey, 5%);
-      // @include light-noise;
-      border: {
-        color: $dark-grey;
-        style: solid;
-        width: 2px 1px 0 0;
+      div.meta,
+      div.match-main {
+        position: relative;
+	      cursor:   pointer;
       }
-      &:empty {
-        border-width: 0 1px 0 0;
+
+      div.match-main {
+        display:  block;
+        flex:     7 0;
+        z-index:  4;
+        overflow: hidden;
+
+        > div.match-wrap {
+          width:            99999%;
+	        margin-left:      -49999.5%;
+	        background-color: $kwic-line-noneven;
+	        overflow-x:       hidden;
+	        overflow-y:       visible;
+	        white-space:      normal;
+        }
       }
-      &.flip {
-        background-color: lighten($middle-grey, 17%);
+
+      div.meta {
+        flex:             1 0;
+        min-width:        12em;
+        max-width:        15em;
+        text-align:       left;
+        width:            2px;
+        z-index:          5;
+        overflow-y:       hidden;
+        overflow-x:       hidden;
+        text-overflow:    ellipsis;
+        white-space:      nowrap;
+        background-color: lighten($middle-grey, 5%);
+        color:            $nearly-white;
+        font-size:        75%;
+        padding:          0 5pt;
+
+        border: {
+          color: $dark-grey;
+          style: solid;
+          width: 2px 1px 0 0;
+        }
+
+        // Tiny hack
+        &:before {
+          content:        " ";
+          display:        inline-block;
+          height:         100%;
+          vertical-align: middle;
+        }
+        
+        &:empty {
+          border-width: 0 1px 0 0;
+        }
+
+        &.flip {
+          background-color: lighten($middle-grey, 17%);
+        }
       }
-      color: $nearly-white;
-      font-size: 75%;
-      padding: 0 5pt;
-    }
-    &:first-of-type div.meta {
-      border-top-width: 0;
-    }
-    &:last-of-type div.meta {
-      border-bottom-width: 0;
+
+      &:first-of-type div.meta {
+        border-top-width: 0;
+      }
+
+      &:last-of-type div.meta {
+        border-bottom-width: 0;
+      }
     }
   }
 }
 
-#search > ol > li {
-  border: {
-    style: solid;
-    color: $dark-orange;
-    width: 0;
-  }
-}
 
-#search {
-  div.meta, div.match-main {
-    position: relative;
-	  cursor: pointer;
-  }
-  /*
-	    &:not(.active):not(:target) {
-        &:nth-of-type(even) div.main-col {
+/**
+ * Snippet rules
  */
-  div.match-main {
-    display: block;
-    flex: 7 0;
-    z-index: 4;
-    overflow: hidden;
-
-    > div.match-wrap {
-      width: 99999%;
-	    margin-left: -49999.5%;
-	    background-color: $kwic-line-noneven;
-	    overflow-x: hidden;
-	    overflow-y: visible;
-	    white-space: normal;
-    }
-  }
-}
-
-#search ol li:nth-of-type(even) div.match-main div.match-wrap {
-  background-color: $kwic-line-even;
-}
-
-
 div.snippet {
 	text-overflow: ellipsis;
-	text-indent: 0;
-	text-shadow: $light-shadow;
-  font-size: 0;
-  white-space: nowrap !important;
+	text-indent:   0;
+	text-shadow:   $light-shadow;
+  font-size:     0;
+  white-space:   nowrap !important;
 
   > span, mark {
-	  padding: 5pt 0 6pt 0;
+	  padding:   5pt 0 6pt 0;
     font-size: $font-size;
-    // white-space: nowrap;
-    // > span {
-      // white-space: nowrap;
-    // }
   }
-  > mark, > span.match {
+
+  > mark,
+  > span.match {
     font-weight: bold;
     color: $black;
     text-shadow: none;
     padding-left: 4pt;
     padding-right: 2pt;
   }
+
   > span.match > span.cutted::after {
+    @include icon-font;
     content: $fa-cut;
-    font-family: FontAwesome;
+    color:   $light-green;
+
     padding: {
-      left: 4pt;
+      left:  4pt;
       right: 4pt;
     }
-    color: $light-green;
-  }
-}
-
-
-
-#search div.matchinfo {
-  display: none;
-}
-
-#search {
-  li.active div.matchinfo {
-    display: block;
   }
 
-  li.active + li.active {
-    border-top: $border-size solid $light-grey;
-    padding-top: 3 * $border-size;
-    // > ul.action.right {
-    .button-group.button-view {
-      padding-top: 3 * $border-size;
-    }
+  &.startMore:before,
+  &.endMore:after {
+    content:       "…";
+    padding-left:  2pt;
+    padding-right: 2pt;
   }
-}
 
-
-
-/*
-#search div.match-main {
-  position: relative;
-  z-index: 4;
-  > div.match-wrap {
-    margin-left: -49999.5%;
-    width: 99999%;
-    overflow-x: hidden;
-    overflow-y: visible;
-    position: relative;
-    box-sizing: border-box;
+  // Flags
+  div.flag {
+    position:           absolute;
+    height:             100%;
+    top:                0;
+    left:               0;
+    width:              11px;
+    background-color:   $dark-orange;
+    border-right:       1px solid $darkest-orange;
   }
-}
-*/
-
-div.snippet.startMore:before,
-div.snippet.endMore:after {
-  content: "…";
-  padding-left: 2pt;
-  padding-right: 2pt;
-}
-
-/**
- * flag
- */
-div.snippet div.flag {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  width: 11px;
-  background-color: $dark-orange;
-  border-right-color: $nearly-white;
-  border-right: 1px solid $darkest-orange;
-}
-
-/**
- * References
- */
-
-#search > ol > li p.ref {
-  display: none;
 }
 
 
 /**
- * Active
+ * Active rules
  */
 body.no-js #search > ol > li:active,
 #search > ol > li.active,
 #search > ol > li:target {
+  position:         relative;
+  display:          block;
   background-color: $dark-orange;
-  display: block;
-  text-align: left;
-  position: relative;
-  border-width: 2px;
-  white-space: wrap;
-  height: auto;
-  width: auto;
+  text-align:       left;
+  border-width:     2px;
+  white-space:      wrap;
+  height:           auto;
+  width:            auto;
+  overflow:         hidden;
 
-  div.match-main > div.match-wrap {
-    cursor: default;
+  div.matchinfo {
+    display: block;
   }
-  .snippet {
-    white-space: normal !important;
+
+  + li.active {
+    border-top:  $border-size solid $light-grey;
+    padding-top: 3 * $border-size;
+
+    .button-group.button-view {
+      padding-top: 3 * $border-size;
+    }
   }
   
-  .snippet span {
-    display: inline !important;
+  .snippet {
+    white-space:      normal !important;
+	  padding:          2pt 0 5pt 5pt;
+    background-color: $light-orange;
+
+    span {
+      display: inline !important;
+    }
+
+	  > * {
+	    background-color: transparent;
+	  }
+
+    div.flag {
+      display: none;
+    }
+
+	  margin: {
+	    top:    0;
+	    right:  $right-view-distance;
+	    bottom: 0;
+	    left:   0;
+	  }
+
+	  > span {
+      line-height: 1.4em;
+      width:       auto;
+
+      &.context-left {
+        margin-left: 0;
+        display:     inline;
+        overflow:    visible;
+        text-align:  left;
+        width:       auto;
+      }
+	  }
   }
+  
   .button-group.button-view {
     display: block;
   }
-  div.match-wrap {
-    min-height: 20pt;
-    div.snippet {
-      
-	    background-color: $light-orange;
-	    > * {
-	      background-color: transparent;
-	    }
-      div.flag {
-        display: none;
-      }
-	    padding: 2pt 0 5pt 5pt;
-	    margin: {
-	      top: 0;
-	      right: $right-view-distance;
-	      bottom: 0;
-	      left: 0; // 5pt margin-top
-	    }
-	    > span {
-        line-height: 1.4em;
-        width: auto;
-        &.context-left {
-          margin-left: 0;
-          display: inline;
-          overflow: visible;
-          text-align: left;
-          width: auto;
-        }
-	    }
+
+  div.match-main {
+    display: block;
+    width:   100%;  
+
+    div.match-wrap {
+      cursor:           default;
+      min-height:       20pt;
+      background-color: $dark-orange;
+      width:            100%;
+      margin-left:      0;
+      overflow-x:       visible;
+      white-space:      wrap;
     }
   }
-
-  overflow: hidden;
 
   div.meta {
     display: none;
-    // visibility: hidden;
   }
-  div.match-main {
-    display: block;
-    width: 100%;
-  
-    div.match-wrap {
-      background-color: $dark-orange;
-      width: 100%;
-      margin-left: 0;
-      overflow-x: visible;
-      white-space: wrap;
-    }
-  }
+
   p.ref {
-    display: block;
-	  color: $nearly-white;
-	  padding: 3pt 10pt 3pt 3pt;
+    display:       block;
+	  color:         $nearly-white;
+	  padding:       3pt 10pt 3pt 3pt;
 	  padding-right: $right-view-distance;
-	  margin: 0pt;
-	  width: 100%;
-	  bottom: 0;
-	  z-index: 30;
+	  margin:        0pt;
+	  width:         100%;
+	  bottom:        0;
+	  z-index:       30;
+
 	  > span.sigle {
-	    font-size: 75%;
+	    font-size:      75%;
 	    vertical-align: top;
-	    color: $light-orange;
-	    float: right;
+	    color:          $light-orange;
+	    float:          right;
 	  }
   }
 }
-    
-#search ol span.context-left {
-  display: inline-block;
-  width: 50.01%;
-  text-align: right;
-}
 
 
 /**
- * Right aligned
+ * Alignment rules
  */
-
-#search ol.align-right {
-  text-align: right;
-
-  div.match-main span.context-right {
-    display: inline-block;
-    width: 49.915%;
-    text-align: left;
-  }
-}
-
-/**
- * Center aligned
- */
-#search ol.align-center {
-  div.match-main {
-    width: 100% !important;
-
-    > .match-wrap {
-      margin-left: 0;
-      position: relative;
-    }
+#search ol {
+  span.context-left {
+    display:    inline-block;
+    width:      50.01%;
+    text-align: right;
   }
 
-  li:not(.active) div.snippet {
-    white-space: normal;
-    text-align: center;
-    width: 100000pt;
-    margin-left: -50000pt;
+  // Right aligned
+  &.align-right {
+    text-align: right;
 
-    span.context-left {
-      display: inline-block;
-      text-align: right;
-      width: 40000pt;
-      margin-left: 70vw;
-    }
-
-    span.context-right {
-      display: inline-block;
+    div.match-main span.context-right {
+      display:    inline-block;
+      width:      49.915%;
       text-align: left;
-      width: 40000pt;
+    }
+  }
+
+  // Center aligned
+  &.align-center {
+    div.match-main {
+      width: 100% !important;
+
+      > .match-wrap {
+        position:    relative;
+        margin-left: 0;
+      }
+    }
+
+    li:not(.active) div.snippet {
+      white-space: normal;
+      text-align:  center;
+      width:       100000pt;
+      margin-left: -50000pt;
+
+      span.context-left {
+        display:     inline-block;
+        text-align:  right;
+        width:       40000pt;
+        margin-left: 70vw;
+      }
+
+      span.context-right {
+        display:     inline-block;
+        text-align:  left;
+        width:       40000pt;
+      }
     }
   }
 }
 
 
-// fix empty contexts
-#search ol span.context-left,
-#search ol span.context-right {
-  &:empty::after {
-    content: " ";
-    display: inline-block;
+/**
+ * Fix empty contexts
+ */
+#search ol span {
+  &.context-left,
+  &.context-right {
+    &:empty::after {
+      content: " ";
+      display: inline-block;
+    }
   }
 }
 
+
 /**
- * Highlights
+ * Highlight rules
  */
 mark {
   background-color: inherit;
-  color: inherit;
+  color:            inherit;
 }
 
 mark > mark,
@@ -391,8 +375,8 @@ em,
 .level-0 {
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  padding-bottom: 0px !important;
-  font-style: normal;
+  padding-bottom:      0px !important;
+  font-style:          normal;
 }
 
 mark > mark > mark,
@@ -423,11 +407,3 @@ em > em > em,
 .class-2 { border-color: $kwic-highlight-2; }
 .class-3 { border-color: $kwic-highlight-3; }
 .class-4 { border-color: $kwic-highlight-4; }
-
-
-/**
- * Actions
- */
-#search > ol > li .button-group.button-view {
-  display: none;
-}

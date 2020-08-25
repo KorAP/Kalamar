@@ -1,286 +1,45 @@
 @charset "utf-8";
 @import "../util";
+@import "view/matchtable";
+@import "view/matchtree";
+@import "view/metatable";
 
-$left-width: 176px;
-$border-size: 2px;
-$left-distance: $left-width + ($border-size * 2);
 
 /**
- * Table view
- *
- * The table view is complicated, as the
- * first column has to be static.
+ * General matchinfo styles.
  */
-@mixin matchinfo-head {
-  // border-width: 0px;
-  border-top: $border-size solid $darker-orange; // #ff8000;
-  width: $left-width / 2;
-}
-
-div.matchinfo:empty {
-  display: none !important;
-}
 
 div.matchinfo {
-  position: relative;
-  width: 100%;
+  position:    relative;
+  width:       100%;
   padding-top: $border-size;
-  //  background-color: $dark-orange;
-  height: auto;
-  font-size: 10pt;
-  text-align: left;
-}
+  height:      auto;
+  font-size:   10pt;
+  text-align:  left;
 
-  
-div.matchtable > div {
-  z-index: 20;
-  margin-left: $left-distance - ($border-size / 2);
-  margin-right: $right-view-distance;
-  padding: 0;
-  overflow-x: auto;
-  overflow-y: visible;
-  width: auto;
-  
-  table {
-    display: table;
-    border-collapse: separate;
-    border-spacing: 0px;
-  }
-  th {
-    color: $nearly-white;
+  &:empty {
+    display: none !important;
   }
 
-  // Use matchinfo cells for query creation
-  td,
-  tbody th,
-  thead th:not(:nth-child(1)):not(:nth-child(2)):not(.cutted) {
-    cursor: pointer;
-  }
-  td:empty {
-    cursor: default;
-    // Fix for empty annotation lines:
-    &::after {
-      content: " ";
-      white-space: pre;
-    }
-  }
-  tr {
-    outline: none;
-    // equal to dd.chosen
-    td.chosen,
-    th.chosen,
-    div.chosen {
-      background-color: $light-green !important;
-      color: $nearly-white;
-      // transition: color 0.1s, background-color 0.15s ease-out;
-    }
-  }
-
-  thead {
-    tr th {
-      background-color: $darker-orange;
-      border-top-width: 0px !important;
-      text-align: center;
-      &:nth-of-type(1), &:nth-of-type(2) {
-	                        text-align: left;
-                        }
-      &.mark {
-        background-color: $darkest-orange; // #f6a800;
-      }
-
-      &.cutted {
-        background-color: $light-orange;
-        &::after {
-          content: $fa-cut;
-          font-family: FontAwesome;
-          padding: {
-            left: 4pt;
-            right: 4pt;
-          }
-          color: $light-green;
-        }
-      }
-    }
-  }
-  
-  tbody {
-    > tr:nth-of-type(1) > th {
-      border-top-color: transparent;
-    }
-  }
-  tr {
-    /**
-     * The first two columns.
-     */
-    > th:nth-of-type(1),
-    > th:nth-of-type(2) {
-      position: absolute;
-      z-index: 80;
-      vertical-align: middle;
-      left: 0px;
-      @include matchinfo-head;
-    }
-    > th:nth-of-type(2) {
-      left: ($left-width / 2) + $border-size;
-    }
-
-    // Includes header line as well
-    > * {
-      @include cell-info;
-      border: ($border-size / 2) solid $dark-orange;
-    }
-  }
-  tr > td {
-    background-color: $middle-orange; // $nearly-white;
-    white-space: nowrap;
-    vertical-align: top;
-    text-align: center;
-    &.mark {
-      background-color: $light-orange;
-    }
-  }
-  tr:nth-child(even) > td {
-    background-color: $light-orange;
-    &.mark {
-      background-color: $middle-orange;
-    }
-  }
-
-  // table for key-value pairs
-  td.matchkeyvalues {
-    padding: 0;
-    > div {
-      @include cell-info;
-      > span {
-        color: $darkest-orange;
-        text-align: right;
-        &::after {
-          content: ":"
-        }
-        padding-right: .5em;
-      }
-    }
+  .view + .view {
+    margin-top: 4 * $border-size !important;
   }
 }
 
 
-div.metatable, div.matchtable {    
+div.metatable,
+div.matchtable,
+div.matchtree {    
+    position:         relative;
     background-color: $dark-orange;
-    position: relative;
-}
-
-/**
- * Label
- */
-// The metatable branch was experimental
-div.matchtree {
-  h6 {
-    display: inline;
-    font-size: inherit;
-    color: $nearly-white;
-    margin: 0;
-    padding: 0 !important;
-    float: left;
-    > span { // , > div {
-      @include matchinfo-head;
-      @include cell-info;
-      display: inline-block !important;
-      margin: 0;
-      &:nth-of-type(2) {
-	      margin-left: $border-size;
-      }
-    }
-  }
-}
-
-/**
-  * Tree view
-  */
-div.matchtree {
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: visible;
-  padding: 0;
-  margin-top: 1pt;
-  background-color: $dark-orange;
-
-  > div {
-    position: unset;
-    z-index: 4;
-    overflow-x: auto;
-    margin: $border-size;
-    margin-left: $left-distance;
-    margin-right: $right-view-distance;
-
-    background-color: $light-orange;
-  }
 }
 
 div.button-group.button-panel.button-matchinfo {
-  display: inline-block;
+  display:      inline-block;
   margin-right: .5em;
+
   > span {
-    position: relative;
+    position:   relative;
     box-shadow: none;
   }
-}
-
-div.matchinfo .view + .view {
-  margin-top: 4 * $border-size !important;
-}
-
-
-// Metatable
-div.metatable > dl {
-  margin-right: $right-view-distance;
-  margin-top: $border-size;
-
-  > div {
-    border-color: $dark-orange;
-    > * {
-      padding: .2em;
-    }
-    > dt {
-      background: $darker-orange;
-      color: $nearly-white;
-      width: 12.5em;
-    }
-    > dd {
-      background-color: $light-orange;
-      cursor: pointer;
-    }
-    > dd[data-type="type:store"],
-    > dd[data-type="type:attachement"]{
-      background-color: $middle-orange;
-      cursor: default;
-
-      a {
-        color: inherit;
-      }
-    }
-    
-    > dd.metakeyvalues {
-      padding:0;
-      > div {
-        padding: .2em;
-        &::before {
-          content: "\2022\00A0";
-          color: $dark-orange
-        }
-      }
-    }
-
-    // equal to td.chosen
-    > dd.chosen, > dd > div.chosen {
-      background-color: $light-green !important;
-      color: $nearly-white;
-    }
-  }
-}
-
-// This is a temporary feature to disable
-// corpusByMatch assistant. See corpusByMatch.js
-// for reasons.
-div.metatable > dl.cbm-disabled > div > dd {
-  cursor: default !important;
 }

@@ -2,11 +2,9 @@
 @import "alertify/alertify-core";
 @import "alertify/alertify-default";
 
-/*
-article.alertify-log {
-  text-shadow:none;
-}
-*/
+/**
+ * Alertify styles.
+ */
 
 article.alertify-log-warn {
   background-color: $dark-orange;
@@ -19,4 +17,8 @@ article.alertify-log code.src {
   display: block;
   color: $dark-red;
   font-size: 70%;
+}
+
+.alertify-log-error {
+  background-color: $alert-red;
 }
