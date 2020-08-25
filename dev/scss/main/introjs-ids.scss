@@ -1,28 +1,32 @@
 @import "../util";
 
+/**
+ * Styles overriding introJS styles
+ */
+
 .introjs-helperLayer {
-    background-color:transparent;
-    }
+  background-color: transparent;
+}
  
-.introjs-tooltip.gTstartSearch{
-    max-width: 500px;
-    }
+.introjs-tooltip.gTstartSearch {
+  max-width: 500px;
+}
 
 
 .tgreeting {
-    font-weight: bold;
-    color: $darkest-orange;
-    }
+  font-weight: bold;
+  color:       $darkest-orange;
+}
 
-.pfirstStep{
-    width: 500px;
-    }
+.pfirstStep {
+  width: 500px;
+}
 
 .introjs-donebutton {
-    float: right;
-    margin-left: 5px;
-    }
+  float:       right;
+  margin-left: 5px;
+}
  
-.introjs-skipbutton{
-    color: $black;
-    }
+.introjs-skipbutton {
+  color: $black;
+}

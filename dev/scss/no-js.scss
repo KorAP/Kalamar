@@ -1,50 +1,57 @@
 @import "util";
 
-// Aside in noscript mode
-body.no-js aside {
-  > * {
-    opacity: 1 !important;
-    transition: none;
-  }
-  transition: none;
-  position: relative;
-  margin-left: 0 !important;
-  display: block;
-  padding-top:0;
-  width: 100%;
-  top: 0;
-  form.login {
-    > input, > div {
-      width: auto;
-      margin-top: 0;
-      &:first-of-type {
-        float: left;
-        margin-right: 1em;
+/**
+ * Optimization for no-js behaviour
+ */
+body.no-js {
+
+  // Aside in noscript mode
+  aside {
+    position:    relative;
+    display:     block;
+    transition:  none;
+    margin-left: 0 !important;
+    padding-top: 0;
+    width:       100%;
+    top:         0;
+
+    > * {
+      opacity:    1 !important;
+      transition: none;
+    }
+
+    form.login {
+      > input,
+      > div {
+        width:      auto;
+        margin-top: 0;
+        &:first-of-type {
+          float:        left;
+          margin-right: 1em;
+        }
+      }
+      button {
+        height: 100%
       }
     }
-    button {
-      height: 100%
+
+    p,
+    &::after {
+      display: none;
     }
   }
-  &::after {
-    display: none;
-  }
-  p {
-    display: none;
+
+  main div.intro {
+    margin-left: $base-padding !important;
   }
 }
-
-body.no-js main div.intro {
-  margin-left: $base-padding !important;
-}
-
 
 #activate {
-  text-align: right;
+  text-align:       right;
   background-color: $dark-orange;
-  margin-top: 0;
-  padding: $base-padding;
-  padding-right: $standard-margin;
-  color: $nearly-white;
-  font-size: 80%;
+  margin-top:       0;
+  padding:          $base-padding;
+  padding-right:    $standard-margin;
+  color:            $nearly-white;
+  font-size:        80%;
 }

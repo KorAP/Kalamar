@@ -6,22 +6,24 @@
 @import "base/load";
 @import "base/form";
 @import "base/view";
+@import "base/menu";
 
 /**
  * Basic global CSS rules for Kalamar
  */
 
+
+* {
+  @include box-sizing-box;
+}
+
 body,
 html,
 select,
 g > text {
-  color: $dark-grey;
   font-family: verdana, tahoma, arial, Helvetica, sans-serif;
-  margin: 0;
-}
-
-* {
-  @include box-sizing-box;
+  color:       $dark-grey;
+  margin:      0;
 }
 
 g > text {
@@ -33,96 +35,94 @@ html {
 }
 
 body {
-  position: relative;
+  position:   relative;
   min-height: 100%;
-  font-size: 12pt;
-  margin: 0;
-  padding: 0;
+  font-size:  12pt;
+  margin:     0;
+  padding:    0;
 }
-
 
 a {
   &:link {
-    color: $dark-orange;
     text-decoration: none;
+    color:           $dark-orange;
     &:hover {
-      color: $darkest-orange;
-      @include color-transition;
+      color:      $darkest-orange;
+      transition: color 0.3s ease 0s;
     }
   }
 
   // External links
   &[href^="http://"]::after,
   &[href^="https://"]::after {
-    font-family: FontAwesome;
-    white-space: nowrap;
-    content: " " + $fa-extlink;
+    @include icon-font;
+    content:   " " + $fa-extlink;
     font-size: 75%;
   }
 }
 
 // Styles for Mojolicious::Plugin::TagHelpers::MailToChiffre
 a[onclick$='return PArok(this,false)'] {
-  direction:rtl;
-  unicode-bidi:bidi-override;
-  text-align:left;
+  unicode-bidi: bidi-override;
+  direction:    rtl;
+  text-align:   left;
   & > span {
     &:nth-child(1n+2){
-      display:none
+      display: none
     }
     &:nth-child(1)::after{
-      content:'@'
+      content: '@'
     }
   }
 }
 
-button {
-  cursor: pointer;
+.clear {
+  clear: both;
 }
 
-button[type=submit] {
-  font-weight: normal;
-  @include choose-item;
-  padding: 0;
-  height: 100%;
-  top: 0;
-  width: $button-width;
-  cursor:pointer;
-  > span:nth-of-type(1) {
-    @include blind;
+blockquote {
+  border-radius:    $standard-border-radius;
+  padding:          2pt 5pt 2pt 20pt;
+  margin:           0;
+  border-left:      5px solid $ids-blue-1;
+  background-color: $ids-blue-2;
+  color:            $ids-blue-1;
+
+  &.bug,
+  &.missing {
+    border-left-color: $dark-red;
+    background-color:  $middle-red;
+    color:             $nearly-white;
   }
-  &::after {
-    font-family: "FontAwesome";
-  }
-  border: {
-    width: $border-size;
-    style: solid;
-    color: $nearly-white;
-  }
-  &:hover, &:focus {
-    @include choose-hover;
-  }
-  &::-moz-focus-inner {
-    border: none;
-  }
-  &:active {
-    @include choose-active;
-  }
-  /**
-   * This is just for styling the last button,
-   * in case there are more than one buttons.
-   */
-  &:last-of-type {
-    // @include box-sizing-box();
-    border: {
-      right-width: $border-size;
-      right-style: solid;
-      top-right-radius: $standard-border-radius;
-      bottom-right-radius: $standard-border-radius;
+}
+
+dl {
+  margin:         0;
+  padding-bottom: .5em;
+
+  dt {
+    font-weight: bold;
+
+    abbr {
+      border-width: 0;
+
+      &[data-type=token]::after {
+	      color: $ids-blue-1;
+      }
+
+      &[data-type=span]::after {
+	      color: $ids-pink-1;
+      }
+
+      &::after {
+	      content:        ' (' attr(title) ')';
+	      vertical-align: bottom;
+	      font: {
+          style:  italic;
+	        weight: normal;
+	        size:   80%;
+        }
+      }
     }
   }
-}
-
-button + button {
-  right: 0;
 }
