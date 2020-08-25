@@ -1,14 +1,18 @@
 @import "../util";
 
+/**
+ * Base styles for all panels and views
+ */
+
 div.panel {
   position: relative;
-  width: 100%;
-  display: block;
+  width:    100%;
+  display:  block;
 }
 
 div.view {
-  position: relative;
+  position:    relative;
   padding-top: $border-size;
-  display: block;
-  width: 100%;
+  display:     block;
+  width:       100%;
 }
