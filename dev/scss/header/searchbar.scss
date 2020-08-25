@@ -1,86 +1,45 @@
 @charset "utf-8";
 @import "../util";
 
-$border-size: 2px;
-$qmargin: 3px;
-// $right-padding: 60px;
-
-
 
 /**
- * Input field
+ * Search field
  */
 #q-field {
-  width: 100%;
-  margin: 0;
-  margin-bottom: $qmargin;
-  display: block;
+  display:       block;
+  margin-bottom: 3px;
+  width:         100%;
+  margin:        0;
 
   &::-webkit-search-cancel-button {
     display: none;
   }
 
   &.loading {
-    background-color: $light-orange;
-    background-image: none;
+    background: {
+      color: $light-orange;
+      image: none;
+    }
   }
 }
 
-header input {
-  @include input-field;
-}
 
 #searchbar {
-  position: relative;
-  width: 100%;
-  padding: 0;
+  position:      relative;
+  width:         100%;
+  padding:       0;
   padding-right: $right-distance + $button-width;
+
   button[type=submit] {
     position: absolute;
-    padding: 0;
-    right: $right-distance;
+    padding:  0;
+    right:    $right-distance;
+
     &:not(.loading)::after {
       content: $fa-search;
     }
   }
 }
-
-/**
- * Checkbox styling
- * http://stackoverflow.com/questions/4148499/how-to-style-checkbox-using-css
-*/
-.checkbox {
-  display: none;
-  + label {
-    cursor: pointer;
-    span { 
-      border-radius: 4px;
-      display: inline-block;
-      width: 1em; // 12px
-      height: 1em;
-      line-height: 1em; // 12px;
-      vertical-align: middle;
-      padding: 0;
-      margin-right: .2em;
-/*
-    background-color: $nearly-white;
-    &:hover {
-      border-color: $nearly-white;
-    }
-*/
-      &::after {
-	font-family: "FontAwesome"; 
-	content: $fa-check;
-      }
-    }
-  }
-  &:checked + label span { 
-    &:after {
-      content: $fa-checked;
-    }
-  }
-}
-
 
 .query.panel {
   padding-right: $right-distance + $button-width;
@@ -89,11 +48,12 @@ header input {
 // Specify result button group layout
 
 .query.button-group.button-panel {
-  width: auto;
-  text-align: right;
+  display:        block;
+  width:          auto;
+  text-align:     right;
   vertical-align: top;
-  display: block;
-  line-height: 1.3em;
+  line-height:    1.3em;
+
   > span {
     box-shadow: none;
   }

@@ -1,0 +1,45 @@
+@import "../../util";
+
+/**
+ * Matchtree view
+ */
+
+div.matchtree {
+  position:         relative;
+  overflow-x:       hidden;
+  overflow-y:       visible;
+  padding:          0;
+  margin-top:       1pt;
+  background-color: $dark-orange;
+
+  // Label
+  h6 {
+    display:   inline;
+    font-size: inherit;
+    color:     $nearly-white;
+    margin:    0;
+    padding:   0 !important;
+    float:     left;
+
+    > span {
+      @include matchinfo-head;
+      @include cell-info;
+      display: inline-block !important;
+      margin: 0;
+
+      &:nth-of-type(2) {
+	      margin-left: $border-size;
+      }
+    }
+  }
+  
+  > div {
+    position:         unset;
+    z-index:          4;
+    overflow-x:       auto;
+    margin:           $border-size;
+    margin-left:      $left-distance;
+    margin-right:     $right-view-distance;
+    background-color: $light-orange;
+  }
+}

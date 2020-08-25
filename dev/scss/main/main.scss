@@ -18,58 +18,51 @@
 @import "introjs-ids"; // Guided Tour: IDS specific 
 @import "oauth";       // OAuth Management styles
 
+@import "../util";
+
 
 main {
+  padding-bottom: 20pt;
+
   margin: {
-    left: $standard-margin; 
+    left:  $standard-margin; 
     right: ($standard-margin / 2);
   }
-  padding-bottom: 20pt;
+
   &.embedded {
     margin: {
-      left: 14px;
+      left:  14px;
       right: 14px;
     }
   }
+
   p {
     text-align: justify;
-    hyphens: auto;
+    hyphens:    auto;
   }
 
   h2#page-top {
-    margin-top: 0;
+    margin-top:  0;
     padding-top: 1em;
   }
 
   &.page {
     margin-left: $logo-left-distance + 15px;
-    p,li, dd, dt {
+    p,
+    li,
+    dd,
+    dt {
       code {
         background-color: $ids-grey-2;
-        color: $ids-grey-1;
-        padding: 0 .5em;
-        border-radius: $standard-border-radius;
+        color:            $ids-grey-1;
+        padding:          0 .5em;
+        border-radius:    $standard-border-radius;
       }
     }
   }
 
   p.hint {
-    margin: 0 auto;
+    margin:     0 auto;
     text-align: center;
-  }
-}
-
-blockquote {
-  border-radius: $standard-border-radius;
-  padding: 2pt 5pt 2pt 20pt;
-  margin: 0;
-  border-left: 5px solid $ids-blue-1;
-  background-color: $ids-blue-2;
-  color: $ids-blue-1;
-
-  &.bug, &.missing {
-    border-left-color: $dark-red;
-    background-color: $middle-red;
-    color: $nearly-white;
   }
 }
