@@ -1,5 +1,7 @@
 @charset "utf-8";
-@import "../util";
+@import "choose";
+@import "lengths";
+@import "icons";
 
 $border-size: 2px;
 
@@ -90,9 +92,9 @@ ul.menu {
       width: 10px;
       z-index: 115;
       border: {
-	radius: 4px;
-	width: 2px;
-	style: solid;
+	      radius: 4px;
+	      width: 2px;
+	      style: solid;
       }
     }
     &.active > span {
@@ -103,8 +105,8 @@ ul.menu {
       position: absolute;
       right: 0;
       border: {
-	width: 2px;
-	style: solid;
+	      width: 2px;
+	      style: solid;
       }
       width: 10px;
       @include choose-item;
@@ -124,17 +126,17 @@ ul.menu {
 
     &:first-of-type {
       border-top: {
-	width: $border-size;
-	left-radius: $standard-border-radius;
-	right-radius: $standard-border-radius;
-      }
+	    width: $border-size;
+	    left-radius: $standard-border-radius;
+	    right-radius: $standard-border-radius;
+    }
     }
     &:last-of-type {
       border-bottom: {
-	width: $border-size;
-	left-radius: $standard-border-radius;
-	right-radius: $standard-border-radius;
-      }
+	    width: $border-size;
+	    left-radius: $standard-border-radius;
+	    right-radius: $standard-border-radius;
+    }
     }
     mark {
       text-decoration: underline;

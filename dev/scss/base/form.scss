@@ -1,3 +1,6 @@
+@import "lengths";
+@import "colors";
+
 // This class defines form views
 
 .form-table {
@@ -62,20 +65,12 @@
   }
   
   input[readonly=readonly],textarea[readonly] {
-    background-color: $light-orange; // rgba(0,0,0,0.5);
+    background-color: $light-orange;
   }
   
   .field-with-error {
     border-color: $ids-pink-1;
   }
-
-  /*
-  input:not([type=radio]),
-  button,
-  a.form-button {
-     height: 3em;
-  }
-*/
 
   input[type=submit],
   button,
@@ -104,4 +99,56 @@
   background-color: $middle-orange !important;
   color: $darkest-orange !important;
   border-color: $darkest-orange !important;
+}
+
+
+button {
+  cursor: pointer;
+}
+
+
+button[type=submit] {
+  font-weight: normal;
+  @include choose-item;
+  padding: 0;
+  height: 100%;
+  top: 0;
+  width: $button-width;
+  cursor:pointer;
+  > span:nth-of-type(1) {
+    @include blind;
+  }
+  &::after {
+    font-family: "FontAwesome";
+  }
+  border: {
+    width: $border-size;
+    style: solid;
+    color: $nearly-white;
+  }
+  &:hover, &:focus {
+    @include choose-hover;
+  }
+  &::-moz-focus-inner {
+    border: none;
+  }
+  &:active {
+    @include choose-active;
+  }
+  /**
+   * This is just for styling the last button,
+   * in case there are more than one buttons.
+   */
+  &:last-of-type {
+    border: {
+      right-width: $border-size;
+      right-style: solid;
+      top-right-radius: $standard-border-radius;
+      bottom-right-radius: $standard-border-radius;
+    }
+  }
+}
+
+button + button {
+  right: 0;
 }
