@@ -20,3 +20,7 @@ article.alertify-log code.src {
   color: $dark-red;
   font-size: 70%;
 }
+
+.alertify-log-error {
+  background-color: $alert-red;
+}
