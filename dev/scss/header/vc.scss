@@ -1,14 +1,14 @@
 @charset "utf-8";
 @import "../util";
 
-$left-padding: 4em; // 32pt; // 2.8em;
-$border-size: 2px;
-$bracket-size: .4em; // 4pt;
-
 /**
  * Virtual Collection Builder
  */
 
+$left-padding: 4em;
+$bracket-size: .4em;
+
+// Rules for VC view (including fragments)
 .vc {
   margin-top: 4pt;
 
@@ -17,35 +17,39 @@ $bracket-size: .4em; // 4pt;
   }
 
   .docGroup {
-    position: relative;
+    position:    relative;
+    display:     inline-block;
+    margin-left: $left-padding;
+    padding:     4pt 2pt 4pt 0pt;
 
-    display: inline-block;
-    margin-left: $left-padding; // 28pt
+    .docGroup {
+      display: block;
+    }
 
-    .docGroup { display: block; }
-
-    padding: 4pt 2pt 4pt 0pt;
     border: {
       radius: $standard-border-radius * 2;
-      style: solid;
-      width: 0 $bracket-size; // .6em .5em
+      style:  solid;
+      width:  0 $bracket-size;
     }
 
     &[data-operation] {
+
       > .doc:first-child::before,
       > .docGroup:first-child::before {
         content: none;
       }
+
       > .doc::before,
       > .docGroup::before {
-        display: inline-block;
-        position: absolute;
-        text-align: right;
-        width: $left-padding;
-        margin-left: -1 * ($left-padding + .5em); // -28pt
+        position:    absolute;
+        display:     inline-block;
+        text-align:  right;
+        width:       $left-padding;
+        margin-left: -1 * ($left-padding + .5em);
         line-height: 1.5em;
-        border-top: $border-size solid transparent;
+        border-top:  $border-size solid transparent;
       }
+
       > .docGroup::before {
         margin-left: -1 * ($left-padding + .5em) + (-1 * $bracket-size);
       }
@@ -74,19 +78,20 @@ $bracket-size: .4em; // 4pt;
      * All operators on groups
      */
     > .operators {
-      position: absolute;
-      display: block;
-      top: 10px;
+      position:       absolute;
+      display:        block;
       vertical-align: middle;
-      left: 3px;
+      top:            10px;
+      left:           3px;
+      margin-left:    100%;
+      padding:        0;
+
       > span:first-child {
         border: {
-        top-left-radius: 0;
-        bottom-left-radius: 0;
+          top-left-radius:    0;
+          bottom-left-radius: 0;
+        }
       }
-      }
-      margin-left: 100%;
-      padding: 0;
     }
   }
 
@@ -97,78 +102,78 @@ $bracket-size: .4em; // 4pt;
   .doc {
     line-height: 170%;
     padding-left: $left-padding;
-    > span + span,
-    > span + div + span,
-    > span + ul + span {
-      margin-left: 5pt;
-    }
 
-    > span.key,
-    > span.value {
-      font-weight: bold;
-    }
-    > span.value {
-      &[data-type=regex] {
+    > span {
+
+      + span,
+      + div + span,
+      + ul + span {
+        margin-left: 5pt;
+      }
+
+      &.key,
+      &.value {
+        font-weight: bold;
+      }
+
+      &.value[data-type=regex] {
         font-style: italic;
+
         &::after,
         &::before {
           content: '/';
         }
       }
+
+      &.key {
+        position: relative;
+
+        > ul {
+          margin:      0;
+          margin-left: 3.3em;
+        }
+
+        &.fixed {
+          color: $light-green;
+        }
+      }
     }
 
     // Unspecified value
-    &.unspecified > span, span.unspecified {
-      padding: 0 4px;
+    &.unspecified > span,
+    span.unspecified {
+      @include choose-item;
+      padding:    0 4px;
       box-shadow: $choose-box-shadow;
+
       border: {
-        style: solid;
-        width: $border-size;
+        style:  solid;
+        width:  $border-size;
         radius: $standard-border-radius;
       }
-      @include choose-item;
-      &:hover {
-	      @include choose-hover;
-      }
     }
 
-    > span.key.fixed {
-      color: $light-green;
-    }
-
-    /**
-     * All operators on docs
-     */
+    // All operators on docs
     > .operators {
-      display: inline-block;
+      display:     inline-block;
       margin-left: 10px;
-    }
-    > span.key {
-      position: relative;
-      > ul {
-        margin: 0;
-        margin-left: 3.3em;
-      }
     }
   }
 
-  .rewritten {
-    .rewrite {
-      margin-left: 4pt;
-      display: inline-block;
-      color: $dark-orange;
-      &::after {
-        font: {
-          family: FontAwesome;
-          style: normal;
-          weight: normal;
-        }
-        content: $fa-rewrite;
-        text-decoration: underline;
-      }
-      > span {
-        display: none;
-      }
+  .rewritten .rewrite {
+    display:     inline-block;
+    margin-left: 4pt;
+    color:       $dark-orange;
+    &::after {
+      @include icon-font;
+      font-style:      normal;
+      font-weight:     normal;
+      content:         $fa-rewrite;
+      text-decoration: underline;
+    }
+
+    > span {
+      display: none;
     }
   }
 
@@ -176,12 +181,12 @@ $bracket-size: .4em; // 4pt;
    * All operators
    */
   .operators {
-    opacity: 0;
+    opacity:     0;
     white-space: nowrap;
-    padding: 0;
-    font-size: 0;
+    padding:     0;
+    font-size:   0;
     line-height: 0;
-    text-align: center;
+    text-align:  center;
   }
 
   > .docGroup {
@@ -192,48 +197,50 @@ $bracket-size: .4em; // 4pt;
     display: inline-block;
   }
 
-  .menu li[data-type=ref]:before,
-  span.key.ref:before {
-    content: $fa-referto;
-    font-family: 'FontAwesome';
+  // referTo entries
+  .menu li[data-type=ref]::before,
+  span.key.ref::before {
+    @include icon-font;
+    content:       $fa-referto;
     padding-right: 4pt;
-    style: normal;
-    weight: normal;
+    style:         normal;
+    weight:        normal;
   }  
 
   div.value {
-    position: absolute;
-    display: inline-block;
-    z-index: 8000;
-    padding: 4pt;
+    position:   absolute;
+    display:    inline-block;
+    z-index:    8000;
+    padding:    4pt;
     margin-top: -6pt;
+
     border: {
-      width: $border-size;
-      style: solid;
       radius: $standard-border-radius;
+      width:  $border-size;
+      style:  solid;
     }
+
     input {
       border-width: 0;
     }
+
     > div {
+      @include choose-item;
+      display: inline-block;
       padding: 2pt;
-      cursor: pointer;
+
       font: {
-        size: 80%;
+        size:  80%;
         style: italic;
       }
-      display: inline-block;
-      @include choose-item;
+
       border: {
-        width: $border-size;
-        style: solid;
+        width:  $border-size;
+        style:  solid;
         radius: $standard-border-radius;
       }
-
-      &:hover {
-        @include choose-hover;
-      }
     }
+
     &.regex {
       > input {
         font-style: italic;
@@ -246,12 +253,14 @@ $bracket-size: .4em; // 4pt;
   }
 }
 
+/* Rules for vcs excluding fragments,
+ * i.e. includingy dynamic changes.
+ */
 .vc:not(.fragment) {
-  .docGroup, .doc {
-    // color: $nearly-white;
-    // color: $dark-green;
+
+  .docGroup,
+  .doc {
     color: $dark-grey;
-    // text-shadow: $light-shadow;
   }
   
   /**
@@ -259,26 +268,24 @@ $bracket-size: .4em; // 4pt;
    */
   // Whiten on hover 
   .docGroup:hover {
-    // background-color: rgba(255,255,255,.06);
     background-color: rgba(255,255,255,.3);
   }
-
-  .doc > span.key.fixed {
-    color: $light-green;
-  }  
 
   .doc > span:not(.fixed) {
     cursor: pointer;
     &:hover {
-      // color: $dark-green;
       color: $dark-orange;
     }
   }
 
-  .rewritten .rewrite {
-    color: $dark-orange;
+    // Unspecified value
+  .doc.unspecified > span,
+  span.unspecified {
+    &:hover {
+	    @include choose-hover;
+    }
   }
-
+  
   .doc, .docGroup {
     &:hover > .operators {
       opacity: 1;
@@ -289,7 +296,6 @@ $bracket-size: .4em; // 4pt;
     &[data-operation] {
       > .doc::before,
       > .docGroup::before {
-        // color: $dark-green;
         color: $dark-orange;
       }
     }
@@ -301,6 +307,13 @@ $bracket-size: .4em; // 4pt;
   div.value {
     @include choose-item;
     box-shadow: $choose-box-shadow;
+
+    > div {
+      cursor:  pointer;
+      &:hover {
+        @include choose-hover;
+      }
+    }
   }
 }
 
@@ -359,47 +372,40 @@ $dg-index : 30;
   border-radius: $standard-border-radius;
 }
 
-/*
-header #vc-view > div {
-  margin: 1.3em 0 .5em 0;
-}
-*/
-
-#vc-choose > span.rewritten {
-  &::after {
-    color: $dark-orange;
-    padding: 0;
-    padding-left: 4px;
-    font: {
-      family: FontAwesome;
-      style: normal;
-      weight: normal;
-    }
-    content: $fa-rewrite;
-    text-decoration: underline;
-  }
+#vc-choose > span.rewritten::after {
+  @include icon-font;
+  color:           $dark-orange;
+  padding:         0;
+  padding-left:    4px;
+  content:         $fa-rewrite;
+  text-decoration: underline;
+  font-style:      normal;
+  font-weight:     normal;
 }
 
 div#vc-view {
   position:relative;
+
   > div.vc {
-    display: none;
+    display:          none;
+    margin:           1.3em 0 .5em 0;
+    border:           2px solid $dark-green;
+    background-color: $nearly-white;
+
     &.active {
       display: block;
     }
-    margin: 1.3em 0 .5em 0;
-    border: 2px solid $dark-green;
-    background-color: $nearly-white;
+
     > div:first-child {
-      // margin: 1.3em;
       padding: 1.3em;
     }
   }
 }
 
 div.panel.vcinfo {
-  padding: 3pt 0pt 3pt 3pt;
+  padding:          3pt 0pt 3pt 3pt;
   background-color: $dark-green;
+
   div.button-group > span {
     box-shadow: none;
   }

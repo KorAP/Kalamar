@@ -4,91 +4,94 @@
 /**
  * Rules for the Kalamar hint helper.
  */
-
-$border-size: 2px;
-
 ul.menu.hint {
-  display: inline-block;
+  display:     inline-block;
   white-space: normal;
-  text-align:left;
-  top: 0;
-  max-width: 23em !important;
+  text-align:  left;
+  max-width:   23em !important;
+  top:         0;
 
   > li:first-of-type {
     border-top: {
-      width: 1px;
-      left-radius: 0;
+      width:        1px;
+      left-radius:  0;
       right-radius: 0;
     }
   }
 }
 
+// Alert bubble
 div.alert.hint {
-  position: absolute;
-//  background-color: rgba(254,26,0,.9); // from alertify
-  background-color: rgb(254,26,0); // from alertify
-  color: $nearly-white;
-  padding: $item-padding;
-  margin-top: 8px;
-  box-shadow: $choose-box-shadow;
+  position:         absolute;
+  background-color: $alert-red;
+  color:            $nearly-white;
+  padding:          $item-padding;
+  margin-top:       8px;
+  box-shadow:       $choose-box-shadow;
+  width:            auto;
+  min-width:        10em;
+  max-width:        23em !important;
+  transition:       opacity 0.2s ease 0s;
+
   border: {
-    radius: $standard-border-radius;
+    radius:          $standard-border-radius;
     top-left-radius: 0;
   }
-  width: auto;
-  min-width: 10em;
-  max-width: 23em !important;
-  transition: opacity 0.2s ease 0s;
-}
 
-div.hint.alert::before {
-  position: absolute;
-  content: "";
-  display: block;
-  top: -12px;
-  left: 0;
-  width: 0;
-  white-space: normal; 
-  border: {
-    width: 0 8px 12px 0;
-    style: solid;
-    color: rgb(254,26,0) transparent; // from alertify
+  &::before {
+    position:    absolute;
+    content:     "";
+    display:     block;
+    top:         -12px;
+    left:        0;
+    width:       0;
+    white-space: normal; 
+    border: {
+      width: 0 8px 12px 0;
+      style: solid;
+      color: $alert-red transparent;
+    }
   }
 }
 
+// Mirror element for the hint helper
 .hint.mirror {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 90;
+  position:    absolute;
+  display:     block;
+  left:        0;
+  top:         0;
+  z-index:     90;
   white-space: pre-wrap;
-  height: 0;
-  display: block;
+  height:      0;
+
   > span {
-    opacity: 0;
+    opacity:     0;
     white-space: pre-wrap;
-    overflow: hidden;
+    overflow:    hidden;
   }
+
   // TODO: Only in focus
   > div {
-    position: absolute;
-    display: block;
-    cursor: pointer;
+    position:   absolute;
+    display:    block;
+    cursor:     pointer;
     transition: left 0.2s ease 0s;
-    top: 0;
-    left: 0;
+    top:        0;
+    left:       0;
     text-align: left;
-    padding: 0;
+    padding:    0;
     border-top: 5px solid $dark-orange;
-    height: 10px;
-    width: 1.2em;
+    height:     10px;
+    width:      1.2em;
+
     &:hover:not(.active) {
       border-top: 10px solid $dark-orange;
     }
+
     &.active {
       border-top-width: 0;
-      height: 0;
-      width: 23em;
+      height:           0;
+      width:            23em;
     }
   }
 }
