@@ -1,31 +1,40 @@
 @charset "utf-8";
-@import "../util";
+@import "choose";
+@import "lengths";
+@import "icons";
 
-.vc.fragment, p.query.fragment {
-  position:relative;
+/**
+ * Definitions of fragments for vc and query
+ * builder.
+ */
+
+.vc.fragment,
+p.query.fragment {
   @include choose-item;
+  position: relative;
+  padding:  4pt 6pt !important;
   
   border : {
-    width: $border-size;
-    style: solid;
+    width:  $border-size;
+    style:  solid;
     radius: $standard-border-radius;
   }
-  padding: 4pt 6pt !important;
+
   margin: {
-    // left: $border-size;
-    left: $left-distance;
-    top: .5em;
+    left:   $left-distance;
+    top:    .5em;
     bottom: .5em;
-    right: $right-view-distance;
+    right:  $right-view-distance;
   }
+
   &:hover {
-    cursor:pointer;
     @include choose-hover;
+    cursor: pointer;
   }
 
   // This is the description
   > span:first-of-type {
-    font-weight: bold;
+    font-weight:   bold;
     padding-right: 4pt;
   }
 
@@ -36,9 +45,9 @@
   
   &::after {
 	  font-family: 'FontAwesome';
-	  content: $fa-to-query;
-    position: absolute;
-    right: 4pt;
-    top: $border-size;
+	  content:     $fa-to-query;
+    position:    absolute;
+    right:       4pt;
+    top:         $border-size;
   }
 }
