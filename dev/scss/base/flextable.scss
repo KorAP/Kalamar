@@ -1,6 +1,9 @@
+@import "lengths";
+@import "mixins";
+
 /**
  * This defines flexible table cells
- * for views.
+ * for views (including media queries).
  */
 
 dl.flex {
