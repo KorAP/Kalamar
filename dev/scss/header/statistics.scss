@@ -32,7 +32,9 @@ div.stattable {
   }
   &.stdisabled {
     dt, dd {
-      @include vcinfo-inactive;
+      background-color: $grey-green;
+      color: $dark-green; // $semilight-grey;
+      text-shadow: none;
     }
   }
 }
