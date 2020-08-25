@@ -1,0 +1,61 @@
+@import "colors";
+
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+@mixin blind {
+  position:    absolute;
+  margin-left: -3000px;
+}
+
+
+@mixin cell-info {
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  max-width:     25em;
+  overflow:      hidden;
+  padding:       1px 6px;
+  margin:        0px;
+}
+
+
+/**
+ * Mixin for basic color transition
+ */
+@mixin input-field {
+  outline:   none;
+  font-size: 11pt;
+  border:    $border-size solid $nearly-white;
+  padding:   2px;
+  margin:    0;
+}
+
+
+/**
+ * Mixing for basic text padding
+ */
+@mixin standard-text-padding {
+  padding-left:  .4em;
+  padding-right: .4em;
+}
+
+
+/**
+ * Mixing for icon fonts
+ */
+@mixin icon-font {
+  font-family: 'FontAwesome';
+  white-space: nowrap;
+}
+
+
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+@mixin box-sizing-box() {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing:    border-box; /* Firefox, other Gecko */
+  box-sizing:         border-box; /* Opera/IE 8+ */
+}

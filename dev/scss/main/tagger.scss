@@ -30,22 +30,22 @@ $tagcolor: rgba(0,0,0,0.5);
       box-shadow: $choose-box-shadow;
       cursor: pointer;
       border: {
-	width: $border-size;
-	style:solid;
-	color: rgba(0,0,0,0.3);
-	radius: $standard-border-radius;
+	      width: $border-size;
+	      style:solid;
+	      color: rgba(0,0,0,0.3);
+	      radius: $standard-border-radius;
       }
       > span {
-	cursor: crosshair;
-	&::after {
-	  font-size: 70%;
-	  vertical-align: top;
-	  padding-left: 3px;
-	  color: $tagcolor;
-	  text-shadow: none;
-	  font-family: 'FontAwesome';
-	  content: $fa-close;
-	}
+	      cursor: crosshair;
+	      &::after {
+	        font-size: 70%;
+	        vertical-align: top;
+	        padding-left: 3px;
+	        color: $tagcolor;
+	        text-shadow: none;
+	        font-family: 'FontAwesome';
+	        content: $fa-close;
+	      }
       }
     }
   }

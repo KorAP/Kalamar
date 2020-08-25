@@ -1,0 +1,40 @@
+@import "../util";
+
+/**
+ * Temporary hack for language chooser
+ * http://cssdeck.com/labs/styling-select-box-with-css3
+ * This is only active in no-js environment and before the
+ * javascript is loaded.
+ */
+#ql-field {
+  position:         relative;
+  background-color: yellow; // $light-green;
+  cursor:           pointer;
+  margin:           0;
+  outline:          none;
+  border:           none;
+  display:          inline-block;
+  color:            white;
+  border-width:     0;
+  border-radius:    0;
+
+  // https://css-tricks.com/almanac/properties/a/appearance/
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+
+  &:checked {
+    outline: none;
+  }
+
+  > option {
+    padding: 0pt 2pt;
+    outline: none;
+  }
+
+   // funny hack for firefox
+  &:-moz-focusring {
+    color:       transparent;
+    text-shadow: 0 0 0 white;
+  }
+}
