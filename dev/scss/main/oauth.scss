@@ -1,28 +1,35 @@
+@import "../util";
+
+/**
+ * Styles for OAuth management form.
+ */
+
 ul.client-list {
   padding-left: 1.5em;
+
   li.client {
     list-style-type: none;
-    span.client-name {
-      &::before {
-        margin-left: -1.5em;
-      }
-      font-weight: bold;
+
+    span.client-name::before {
+      margin-left: -1.5em;
     }
+
     span.client-desc {
       font-size: 70%;
-      display: block;
+      display:   block;
     }
   }
 }
 
 span.client-name {
+  font-weight: bold;
+
   &::before {
-    display: inline-block;
-    width: 1.5em;
-    content: $fa-plugin;
-    font-family: 'FontAwesome';
-    color: $ids-blue-1;
+    @include icon-font;
+    display:   inline-block;
+    width:     1.5em;
+    content:   $fa-plugin;
+    color:     $ids-blue-1;
     font-size: 100%;
   }
-  font-weight: bold;
 }

@@ -8,58 +8,61 @@
   > span {
     cursor: pointer;
   }
-
-  span.button-icon {
-    font-family: 'FontAwesome';
-    > span {
-      @include blind;
-    }
-  }
   
-  &.button-panel, &.operators {
-    > span, a {
-      box-shadow: $choose-box-shadow;
-      font-size: 9pt;
-      font-weight: normal;
-      line-height: 1.5em;
-      padding: 0 4px;
-      display: inline-block;
+  &.button-panel,
+  &.operators {
+    > span,
+    a {
       @include choose-item;
+      box-shadow:   $choose-box-shadow;
+      font-size:    9pt;
+      font-weight:  normal;
+      line-height:  1.5em;
+      padding:      0 4px;
+      display:      inline-block;
       border-style: solid;
       border-width: $border-size 0;
+
       &:hover {
 	      @include choose-hover;
       }
+
       &:first-child {
 	      border: {
-	      left-width: $border-size;
-	      top-left-radius: $standard-border-radius;
-	      bottom-left-radius: $standard-border-radius;
-	    }
+	        left-width:          $border-size;
+	        top-left-radius:     $standard-border-radius;
+	        bottom-left-radius:  $standard-border-radius;
+	      }
       }
+
       &:last-child {
 	      border: {
-	      right-width: $border-size;
-	      top-right-radius: $standard-border-radius;
-	      bottom-right-radius: $standard-border-radius;
-      }
+	        right-width:         $border-size;
+	        top-right-radius:    $standard-border-radius;
+	        bottom-right-radius: $standard-border-radius;
+        }
       }
     }
   }
 
   &.button-panel {
-    > span, a {
+    > span,
+    a {
+
       > span.check {
-        font-family: 'FontAwesome';
-        width: 1.2em;
-        display: inline-block;
+        @include icon-font;
+        width:      1.2em;
+        display:    inline-block;
         text-align: left;
+
         &:not(.checked)::after {
           content: $fa-check;
         }
+
         &.checked::after {
           content: $fa-checked;
         }
+
         > span {
           @include blind;
         }
@@ -68,23 +71,27 @@
   }
 
   &.button-view {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 20;
-    margin: 0;
-    padding: 0;
-    width: $right-view-distance;
+    position:  absolute;
+    display:   block;
+    right:     0;
+    top:       0;
+    z-index:   20;
+    margin:    0;
+    padding:   0;
+    width:     $right-view-distance;
+    font-size: 10pt;
+    color:     $nearly-white;
+
     > span:first-child {
       margin-top: $border-size
     }
+
     > span {
-      display: block !important;
-      border-width: 0;
-      text-decoration:none;
-      text-align: center;
-      font-style: normal;
+      display:         block !important;
+      border-width:    0;
+      text-decoration: none;
+      text-align:      center;
+      font-style:      normal;
       
       &.download::after {
 	      content: $fa-download;
@@ -105,22 +112,24 @@
   }
 }
 
-.button-group.button-view {
-  font-size: 10pt;
-  color: $nearly-white;
-}
-
 
 ul.menu.button-group-list {
   border-top-right-radius: 8px;
-  font-size: 10pt;
-  position: fixed;
-  left: 0;
+  position:   fixed;
+  font-size:  10pt;
+  left:       0;
   text-align: left;
-  margin: -1 * $border-size;
+  margin:     -1 * $border-size;
   margin-top: 0;
+
   > li:first-of-type {
 	  border-top-right-radius: 5px;
   }
 }
 
+.button-icon {
+  @include icon-font;
+  > span {
+    @include blind;
+  }
+}
