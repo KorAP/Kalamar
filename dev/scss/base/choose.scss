@@ -1,0 +1,66 @@
+@import "colors";
+
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+$choose-bg:           $light-grey;
+$choose-color:        $dark-grey;
+$choose-blind-color:  $middle-grey;
+$choose-border-color: $middle-grey;
+$choose-border:       2px solid $choose-border-color;
+$choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
+
+
+/**
+ * Chooseable items (default)
+ */
+@mixin choose-item {
+  color:            $choose-color;
+  background-color: $choose-bg;
+  border-color:     $choose-border-color;
+  text-shadow:      $light-shadow;
+}
+
+
+/**
+ * Chooseable items (mouse over)
+ */
+@mixin choose-hover {
+  color:            $nearly-white;
+  text-shadow:      none;
+  background-color: $dark-orange;
+  border-color:     $darker-orange;
+}
+
+
+/**
+ * Chooseable items (not available)
+ */
+@mixin choose-inactive {
+  color:            lighten($choose-color, 20%);
+  background-color: lighten($choose-bg, 20%);
+  border-color:     transparent;
+  text-shadow:      none;
+}
+
+/**
+ * Chooseable items (active)
+ */
+@mixin choose-active {
+  color:            $dark-green;
+  text-shadow:      none;
+  background-color: $light-green;
+  border-color:     $dark-green;
+}
+
+
+/**
+ * Chooseable items (action: remove something)
+ */
+@mixin choose-remove {
+  color:            $nearly-white;
+  text-shadow:      none;
+  background-color: $middle-red;
+  border-color:     $dark-red;
+}
