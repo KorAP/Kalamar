@@ -1,102 +1,113 @@
 @charset "utf-8";
 @import "../util";
 
+/**
+ * Rules applicable for the result panel
+ */
+
+// TODO: This should be moved to panel/result
 
 #resultinfo {
-  clear: both;
-  text-align: right;
+  clear:       both;
+  text-align:  right;
   line-height: 1.5em;
-  min-height: 1.5em;
-  margin-top:.4em;
-  font-size: 10pt;
+  min-height:  1.5em;
+  margin-top:  .4em;
+  font-size:   10pt;
+
   p.found {
-    display: inline;
-    padding: 0;
-    margin: 0;
+    display:    inline;
+    padding:    0;
+    margin:     0;
     text-align: right;
+  }
+
+  /*
+   * TODO:
+   *   This rule should not be dependent on
+   *   whether something is found or not,
+   *   but whether #search contains a result,
+   *   e.g. when a result view is open in the
+   *   result panel. This should probably be
+   *   indicated by a class on the button group
+   *   rather than a class on the resultinfo.
+   */
+  &.found {
+    position:      relative;
+    margin-bottom: 0px;
+
+    .button-group > span {
+      margin-bottom:       0;
+      border-bottom-width: 0;
+      box-shadow:          none;
+
+      &:first-child {
+        border-bottom-left-radius: 0;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 0;
+      }   
+    }
   }
 }
 
+
 div.result.panel .view {
-  border: 1px solid $kwic-border;
+  border:           1px solid $kwic-border;
   background-color: $dark-orange;
 }
 
+
 // Specify result button group layout
 .result.button-group.button-panel {
-  width: auto;
+  display:        inline-block;
+  width:          auto;
   vertical-align: bottom;
-  display: inline-block;
-  line-height: 1.3em;
+  line-height:    1.3em;
 
   > span {
-    line-height: 1.3em;
+    line-height:  1.3em;
     border-width: $result-border-size 0;
+
     &:first-child {
       border-left-width: $result-border-size;
     }
+
     &:last-child {
       border-right-width: $result-border-size;
     }
   }
-
-  // Define icons for result buttons
-  .button-icon {
-    &.align.left::after {
-      content: $fa-left-align;
-    }
-    &.align.right::after {
-      content: $fa-right-align;
-    }
-    &.align.center::after {
-      content: $fa-center-align;
-    }
-    &.show-kq::after {
-      content: $fa-code;
-    }
-  }
 }
-
-/*
- * TODO:
- *   This rule should not be dependent on
- *   whether something is found or not,
- *   but whether #search contains a result,
- *   e.g. when a result view is open in the
- *   result panel. This should probably be
- *   indicated by a class on the button group
- *   rather than a class on the resultinfo.
- */
-#resultinfo.found {
-  position: relative;
-  // z-index: 20;
-  margin-bottom: 0px;
-
-  .button-group > span {
-    margin-bottom: 0;
-    border-bottom-width: 0;
-    box-shadow: none;
-    &:first-child {
-      border-bottom-left-radius: 0;
-    }
-    &:last-child {
-      border-bottom-right-radius: 0;
-    }   
-  }
-}
-
 
 
 #total-results {
-  color: $total-results;
+  color:       $light-green;
   font-weight: bold;
 }
 
+
 .no-results {
-  margin: 0 auto;
+  margin:     0 auto;
   text-align: center;
   code {
     font-weight: bold;
   }
 }
 
+
+// Define icons for result buttons
+.button-icon {
+  &.align.left::after {
+    content: $fa-left-align;
+  }
+  &.align.right::after {
+    content: $fa-right-align;
+  }
+  &.align.center::after {
+    content: $fa-center-align;
+  }
+  &.show-kq::after {
+    content: $fa-code;
+  }
+}

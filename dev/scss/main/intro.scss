@@ -1,4 +1,10 @@
+@import "../util";
+
+/**
+ * Styles for the intro page
+ */
 div.intro {
+
   // Visited links
   a:visited {
     color: $darkest-orange
@@ -6,11 +12,11 @@ div.intro {
 
   div.announcement {
     background-color: $light-orange;
-    padding: $base-padding;
-    border: 5px dashed $dark-orange;
-    border-radius: 1em;
-    width: 90%;
-    margin: auto;
+    padding:          $base-padding;
+    border:           5px dashed $dark-orange;
+    border-radius:    1em;
+    width:            90%;
+    margin:           auto;
   }
 }
 
