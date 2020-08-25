@@ -35,41 +35,41 @@ div.datepicker {
       display: inline-block;
       &:first-child,
       &:last-child {
-	width: 15%;
-	&::before {
-	  display: inline-block;
-	  text-align: center;
-	  cursor: pointer;
-	  font-family: 'FontAwesome';
-	  min-width: 14px;
-	}
+	      width: 15%;
+	      &::before {
+	        display: inline-block;
+	        text-align: center;
+	        cursor: pointer;
+	        font-family: 'FontAwesome';
+	        min-width: 14px;
+	      }
       }
       &:first-child::before {
-	content: $fa-previous;
+	      content: $fa-previous;
       }
       &:last-child::before {
-	content: $fa-next;
+	      content: $fa-next;
       }
       overflow: hidden;
       white-space: nowrap;
       &:nth-child(2) {
-	cursor: pointer;
-	display: inline-block;
-	width: 70%;
-	text-align: center;
-	text-overflow: ellipsis;
-	border: {
-	  radius: $standard-border-radius;
-	  style: solid;
-	  width: $border-size;
-	  color: transparent;
-	}
-	&:hover {
-	  @include choose-hover;
-	}
-	&.selected {
-	  @include choose-active;
-	}
+	      cursor: pointer;
+	      display: inline-block;
+	      width: 70%;
+	      text-align: center;
+	      text-overflow: ellipsis;
+	      border: {
+	        radius: $standard-border-radius;
+	        style: solid;
+	        width: $border-size;
+	        color: transparent;
+	      }
+	      &:hover {
+	        @include choose-hover;
+	      }
+	      &.selected {
+	        @include choose-active;
+	      }
       }
     }
   }
@@ -102,15 +102,15 @@ div.datepicker {
       @include choose-item;
       background-color: $nearly-white;
       &.today {
-	background-color: $light-blue;
-	color: $dark-blue;
-	text-shadow: none;
+	      background-color: $light-blue;
+	      color: $dark-blue;
+	      text-shadow: none;
       }
       &.selected {
-	@include choose-active;
+	      @include choose-active;
       }
       &:hover {
-	@include choose-hover;
+	      @include choose-hover;
       }
     }
     &.out {

@@ -6,10 +6,16 @@
 @import "base/load";
 @import "base/form";
 @import "base/view";
+@import "base/menu";
 
 /**
  * Basic global CSS rules for Kalamar
  */
+
+
+* {
+  @include box-sizing-box;
+}
 
 body,
 html,
@@ -18,10 +24,6 @@ g > text {
   color: $dark-grey;
   font-family: verdana, tahoma, arial, Helvetica, sans-serif;
   margin: 0;
-}
-
-* {
-  @include box-sizing-box;
 }
 
 g > text {
@@ -39,7 +41,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 
 a {
   &:link {
@@ -76,53 +77,6 @@ a[onclick$='return PArok(this,false)'] {
   }
 }
 
-button {
-  cursor: pointer;
-}
-
-button[type=submit] {
-  font-weight: normal;
-  @include choose-item;
-  padding: 0;
-  height: 100%;
-  top: 0;
-  width: $button-width;
-  cursor:pointer;
-  > span:nth-of-type(1) {
-    @include blind;
-  }
-  &::after {
-    font-family: "FontAwesome";
-  }
-  border: {
-    width: $border-size;
-    style: solid;
-    color: $nearly-white;
-  }
-  &:hover, &:focus {
-    @include choose-hover;
-  }
-  &::-moz-focus-inner {
-    border: none;
-  }
-  &:active {
-    @include choose-active;
-  }
-  /**
-   * This is just for styling the last button,
-   * in case there are more than one buttons.
-   */
-  &:last-of-type {
-    // @include box-sizing-box();
-    border: {
-      right-width: $border-size;
-      right-style: solid;
-      top-right-radius: $standard-border-radius;
-      bottom-right-radius: $standard-border-radius;
-    }
-  }
-}
-
-button + button {
-  right: 0;
+.clear {
+  clear: both;
 }
