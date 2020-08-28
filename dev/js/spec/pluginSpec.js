@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass) {
+define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service', 'vc','util'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass, vcClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -358,4 +358,54 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     });  
   });
   
+  describe('KorAP.Plugin communications', function () {
+    it('should reply to query information requests', function () {
+
+      var manager = pluginServerClass.create();
+      var id = manager.addService('Service', 'about:blank');
+
+      expect(id).toMatch(/^id-/);
+
+      var temp = KorAP.vc;
+
+      // Create form for query form information
+      let f = document.createElement('form');
+      var qfield = f.addE('input');
+      qfield.setAttribute("id", "q-field");
+      qfield.value = "[orth=Baum]";
+
+      var qlfield = f.addE('select');
+      qlfield.setAttribute("id", "ql-field");
+      qlfield.addE('option').setAttribute('value', 'cosmas-2');
+      qlfield.addE('option').setAttribute('value', 'poliqarp');
+      qlfield.selectedIndex = 1;
+      
+      KorAP.vc = vcClass.create().fromJson({
+        "key"   : "title",
+        "type"  : "type:regex",
+        "value" : "[^b]ee.+?",
+        "@type" : "koral:doc"
+      });
+      // console.log(KorAP.vc.toQuery());
+      
+      document.body.appendChild(f);
+
+      let data = {
+        "originID" : id,
+        "action" : "get",
+        "key" : "QueryForm"
+      };
+      manager._receiveMsg({
+        "data" : data
+      });
+      manager.destroy();
+      expect(data.value["q"]).toEqual("[orth=Baum]");
+      expect(data.value["ql"]).toEqual("poliqarp");
+      expect(data.value["cq"]).toEqual("title = /[^b]ee.+?/");
+
+      // Recreate initial state
+      KorAP.vc = temp;
+      document.body.removeChild(f);
+    });
+  });
 });
