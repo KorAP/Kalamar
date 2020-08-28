@@ -407,9 +407,28 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
       // Get information from the embedding platform
       case 'get':
+
+        // Get KoralQuery
         if (d.key == 'KQ') {
           if (KorAP.koralQuery !== undefined) {    
             d["value"] = KorAP.koralQuery;
+          };
+        }
+
+        // Get Query form information
+        else if (d.key == 'QueryForm') {
+          let doc = document;
+          let v = d["value"] = {};
+
+          var el;
+          if (el = doc.getElementById('q-field')) {
+            v["q"] = el.value;
+          };
+          if (el = doc.getElementById('ql-field')) {
+            v["ql"] = el.value;
+          };
+          if (el = KorAP.vc) {
+            v["cq"] = el.toQuery();
           };
         };
       };
