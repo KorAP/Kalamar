@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service', 'pipe'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass, pipeClass) {
+define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service', 'pipe', 'vc','util'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass, pipeClass, vcClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -290,8 +290,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     });  
   });
   
-  describe('KorAP.Plugin.ResultPanel', function () {
-    
+  describe('KorAP.Plugin.ResultPanel', function () {    
     it('Plugin is registered second: buttons should be added to panel', function () {
       
       var resultPanel = resultPanelClass.create();
@@ -322,7 +321,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       // Clean up
       KorAP.Panel['result'] = undefined;
       manager.destroy();
-  });
+    });
     
     it('Plugin is registered first: Buttons should be added to panel and cleared', function () {
       
@@ -360,43 +359,32 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
   describe('KorAP.Plugin communications', function () {
     it('should receive messages', function () {
       var manager = pluginServerClass.create();
-
       var id = manager.addService('Example 1', 'about:blank');
       expect(id).toMatch(/^id-/);
-
       var temp = KorAP.koralQuery;
       KorAP.koralQuery = { "@type" : "koral:test" };
-
       let data = {
         "originID" : id,
         "action" : "get",
         "key" : "KQ"
       };
-
       manager._receiveMsg({
         "data" : data
       });
-
       manager.destroy();
-
       expect(data.value["@type"]).toEqual("koral:test");
-
       // Recreate initial state
       KorAP.koralQuery = temp;
     });
 
-
     it('should add to pipe', function () {
       var manager = pluginServerClass.create();
-
       var temp = KorAP.Pipe;
       KorAP.Pipe = pipeClass.create();
-
       expect(KorAP.Pipe.toString()).toEqual("");
       
       var id = manager.addService('Example 2', 'about:blank');
       expect(id).toMatch(/^id-/);
-
       manager._receiveMsg({
         "data" : {
           "originID" : id,
@@ -405,9 +393,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
           "service" : "https://pipe-service.de"
         }
       });
-
       expect(KorAP.Pipe.toString()).toEqual("https://pipe-service.de");
-
       manager._receiveMsg({
         "data" : {
           "originID" : id,
@@ -416,9 +402,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
           "service" : "https://pipe-service-2.de"
         }
       });
-
       expect(KorAP.Pipe.toString()).toEqual("https://pipe-service.de,https://pipe-service-2.de");
-
       manager._receiveMsg({
         "data" : {
           "originID" : id,
@@ -427,13 +411,52 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
           "service" : "https://pipe-service.de"
         }
       });
-
       expect(KorAP.Pipe.toString()).toEqual("https://pipe-service-2.de");
-
       manager.destroy();
-
       // Recreate initial state
       KorAP.Pipe = temp;
+    });
+
+    it('should reply to query information requests', function () {
+      var manager = pluginServerClass.create();
+      var id = manager.addService('Service', 'about:blank');
+      expect(id).toMatch(/^id-/);
+      var temp = KorAP.vc;
+      // Create form for query form information
+      let f = document.createElement('form');
+      var qfield = f.addE('input');
+      qfield.setAttribute("id", "q-field");
+      qfield.value = "[orth=Baum]";
+      var qlfield = f.addE('select');
+      qlfield.setAttribute("id", "ql-field");
+      qlfield.addE('option').setAttribute('value', 'cosmas-2');
+      qlfield.addE('option').setAttribute('value', 'poliqarp');
+      qlfield.selectedIndex = 1;
+      
+      KorAP.vc = vcClass.create().fromJson({
+        "key"   : "title",
+        "type"  : "type:regex",
+        "value" : "[^b]ee.+?",
+        "@type" : "koral:doc"
+      });
+      // console.log(KorAP.vc.toQuery());
+      
+      document.body.appendChild(f);
+      let data = {
+        "originID" : id,
+        "action" : "get",
+        "key" : "QueryForm"
+      };
+      manager._receiveMsg({
+        "data" : data
+      });
+      manager.destroy();
+      expect(data.value["q"]).toEqual("[orth=Baum]");
+      expect(data.value["ql"]).toEqual("poliqarp");
+      expect(data.value["cq"]).toEqual("title = /[^b]ee.+?/");
+      // Recreate initial state
+      KorAP.vc = temp;
+      document.body.removeChild(f);
     });
   });
 });

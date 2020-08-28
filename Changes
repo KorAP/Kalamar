@@ -1,4 +1,4 @@
-0.39 2020-08-25
+0.39 2020-08-28
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -6,6 +6,7 @@
         - Forward 'pipe' parameter to backend.
         - Introduce base css file for plugins.
         - Refactoring of sass files.
+        - Added query form API to plugin server.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your
