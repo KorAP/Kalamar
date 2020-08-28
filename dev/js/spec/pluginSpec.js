@@ -1,4 +1,4 @@
-define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass) {
+define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 'plugin/service', 'pipe'], function (pluginServerClass, widgetClass, panelClass, queryPanelClass, resultPanelClass, serviceClass, pipeClass) {
 
   describe('KorAP.Plugin.Server', function () {
 
@@ -150,7 +150,6 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(manager.buttonGroup('result').length).toEqual(1);
       manager.destroy();
     });
-    
   });
   
   describe('KorAP.Plugin.Widget', function () {
@@ -357,5 +356,84 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Plugin = undefined;
     });  
   });
-  
+
+  describe('KorAP.Plugin communications', function () {
+    it('should receive messages', function () {
+      var manager = pluginServerClass.create();
+
+      var id = manager.addService('Example 1', 'about:blank');
+      expect(id).toMatch(/^id-/);
+
+      var temp = KorAP.koralQuery;
+      KorAP.koralQuery = { "@type" : "koral:test" };
+
+      let data = {
+        "originID" : id,
+        "action" : "get",
+        "key" : "KQ"
+      };
+
+      manager._receiveMsg({
+        "data" : data
+      });
+
+      manager.destroy();
+
+      expect(data.value["@type"]).toEqual("koral:test");
+
+      // Recreate initial state
+      KorAP.koralQuery = temp;
+    });
+
+
+    it('should add to pipe', function () {
+      var manager = pluginServerClass.create();
+
+      var temp = KorAP.Pipe;
+      KorAP.Pipe = pipeClass.create();
+
+      expect(KorAP.Pipe.toString()).toEqual("");
+      
+      var id = manager.addService('Example 2', 'about:blank');
+      expect(id).toMatch(/^id-/);
+
+      manager._receiveMsg({
+        "data" : {
+          "originID" : id,
+          "action" : "pipe",
+          "job" : "add",
+          "service" : "https://pipe-service.de"
+        }
+      });
+
+      expect(KorAP.Pipe.toString()).toEqual("https://pipe-service.de");
+
+      manager._receiveMsg({
+        "data" : {
+          "originID" : id,
+          "action" : "pipe",
+          "job" : "add",
+          "service" : "https://pipe-service-2.de"
+        }
+      });
+
+      expect(KorAP.Pipe.toString()).toEqual("https://pipe-service.de,https://pipe-service-2.de");
+
+      manager._receiveMsg({
+        "data" : {
+          "originID" : id,
+          "action" : "pipe",
+          "job" : "del",
+          "service" : "https://pipe-service.de"
+        }
+      });
+
+      expect(KorAP.Pipe.toString()).toEqual("https://pipe-service-2.de");
+
+      manager.destroy();
+
+      // Recreate initial state
+      KorAP.Pipe = temp;
+    });
+  });
 });
