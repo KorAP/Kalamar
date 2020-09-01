@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfaea4b3_a7ad4636",
+        "filename": "dev/js/spec/pluginSpec.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-09-01T09:28:48Z",
+      "side": 1,
+      "message": "Why is it necessary to recreate the initial state here?",
+      "range": {
+        "startLine": 407,
+        "startChar": 21,
+        "endLine": 407,
+        "endChar": 22
+      },
+      "revId": "bf7b35234bb9e665be554650b73e806094150b1b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
