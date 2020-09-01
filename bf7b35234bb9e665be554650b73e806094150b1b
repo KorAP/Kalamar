@@ -22,6 +22,30 @@
       "revId": "bf7b35234bb9e665be554650b73e806094150b1b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f9a7d00_3b8df799",
+        "filename": "dev/js/spec/pluginSpec.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-09-01T10:27:20Z",
+      "side": 1,
+      "message": "I always do with global variables (or try at least, see https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/3360) to ensure, the tests are fully encapsulated. and can run in arbitrary order.",
+      "parentUuid": "cfaea4b3_a7ad4636",
+      "range": {
+        "startLine": 407,
+        "startChar": 21,
+        "endLine": 407,
+        "endChar": 22
+      },
+      "revId": "bf7b35234bb9e665be554650b73e806094150b1b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
     }
   ]
 }
