@@ -122,20 +122,21 @@ module.exports = function(grunt) {
 	        {
 	          expand: true,
 	          cwd: 'dev/img/',
-	          src: 'favicon.ico',
-	          dest: 'public/',
-	          filter: 'isFile',
-	          nonull:true,
-	          timestamp:true
-	        },
-	        {
-	          expand: true,
-	          cwd: 'dev/img/',
 	          src: '*.svg',
 	          dest: 'public/img/',
 	          filter: 'isFile',
 	          nonull:true,
 	          timestamp:true
+	        },
+	        {
+	          src: 'dev/img/favicon.ico',
+	          dest: 'public/favicon.ico',
+	          timestamp:true
+	        },
+          {
+	          src: 'dev/robots.txt',
+	          dest: 'public/robots.txt',
+	          timestamp: true
 	        }
 	      ]
       }

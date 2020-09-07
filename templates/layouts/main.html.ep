@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta name="msapplication-TileImage" content="<%= url_for '/img/windows-tile.png' %>" />
     <meta name="msapplication-TileColor" content="#9bad0b" />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content="<%= stash('robots') || 'noindex' %>" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="description" content="<%= $desc %>" />
     <meta name="language" content="<%= $lang %>" />
