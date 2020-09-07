@@ -30,6 +30,7 @@ sub page {
   $c->stash(sidebar_active => 1);
   $c->stash(main_class => 'page tutorial');
   $c->stash(documentation => 1);
+  $c->stash('robots' => 'index,follow');
 
   return $c->render_maybe(
     template => $c->loc('Template_' . join('_', @path), join('/', @path))
@@ -42,6 +43,9 @@ sub page {
 # Contact us
 sub contact {
   my $c = shift;
+
+  $c->res->headers->header('X-Robots', 'noindex');
+
   $c->render(
     template => $c->loc('contact', 'doc/contact')
   );

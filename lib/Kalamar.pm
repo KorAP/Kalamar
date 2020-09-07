@@ -276,7 +276,9 @@ sub startup {
   if ($self->navi->exists('settings')) {
     $r->get('/settings')->to(
       cb => sub {
-        return shift->render('settings')
+        my $c = shift;
+        $c->res->headers->header('X-Robots' => 'noindex');
+        return $c->render('settings');
       }
     )->name('settings_start');
     $r->get('/settings/:scope/:page')->to(
