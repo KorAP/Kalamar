@@ -57,8 +57,13 @@ sub query {
 
   # No query (Check ignoring validation)
   unless ($c->param('q')) {
-    return $c->render($c->loc('Template_intro', 'intro'));
+    return $c->render(
+      $c->loc('Template_intro', 'intro'),
+      robots => 'index,follow'
+    );
   };
+
+  $c->res->headers->header('X-Robots', 'noindex');
 
   my %query = ();
   $query{q}  = $v->param('q')  // '';
@@ -317,6 +322,8 @@ sub corpus_info {
   # Async
   $c->render_later;
 
+  $c->res->headers->header('X-Robots', 'noindex');
+
   # Request koral, maybe cached
   $c->cached_koral_p('get', $url)
 
@@ -407,6 +414,8 @@ sub text_info {
 # Match info endpoint
 sub match_info {
   my $c = shift;
+
+  $c->res->headers->header('X-Robots', 'noindex');
 
   # Validate user input
   my $v = $c->validation;

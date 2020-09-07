@@ -58,6 +58,7 @@ sub pass {
     body => sub {
       my $headers = $c->res->headers;
       $headers->header('X-Proxy' => 'Kalamar');
+      $headers->header('X-Robots' => 'noindex');
 
       # Response is a redirect
       if ($c->res->is_redirect) {
