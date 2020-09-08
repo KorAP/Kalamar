@@ -1,4 +1,4 @@
-0.39 2020-09-07
+0.39 2020-09-08
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -8,6 +8,7 @@
         - Refactoring of sass files.
         - Added query form API to plugin server.
         - Exclude search results from robot indices.
+        - Added responsive 'news' style.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your
