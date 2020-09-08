@@ -63,7 +63,7 @@ Whenever the assets change, just rerun `grunt`.
 ### Start Server
 
 Kalamar uses the [Mojolicious](http://mojolicio.us/) framework,
-that expects a Perl version of at least 5.10.1.
+that expects a Perl version of at least 5.16.
 The recommended environment is based on [Perlbrew](http://perlbrew.pl/)
 with [App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/).
 
@@ -219,8 +219,8 @@ Currently bundled plugins are
 
 ### Original Software
 
-Copyright (C) 2015-2019, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
-Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp
+Copyright (C) 2015-2020, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
+Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp<br>
 Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
