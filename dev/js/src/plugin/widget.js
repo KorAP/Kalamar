@@ -35,6 +35,7 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
         return this._load;
 
       let obj = this.load();
+      obj.setAttribute('loading', 'lazy');
 
       // Per default there should at least be a button
       // for settings, if the plugin requires settings.
