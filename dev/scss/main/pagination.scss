@@ -1,54 +1,52 @@
 @charset "utf-8";
 @import "../util";
 
-$border-size : 2px;
-
 /**
  * The pagination view
+ *
+ * <div id="pagination">
+ *   <a rel="prev"><span><i class="fa fa-caret-left"></i></span></a>
+ *   <a rel="self"><span>1</span></a>
+ *   <a href="#p=2"><span>2</span></a>
+ *   <a href="#3"><span>3</span></a>
+ *   <span><i class="fa fa-ellipsis-h"></i></span>
+ *   <a href="#67"><span>67</span></a>
+ *   <a rel="next" href="#2"><span><i class="fa fa-caret-right"></i></span></a>
+ * </div>
  */
-/*
-<div id="pagination">
-  <a rel="prev"><span><i class="fa fa-caret-left"></i></span></a>
-  <a rel="self"><span>1</span></a>
-  <a href="#p=2"><span>2</span></a>
-  <a href="#3"><span>3</span></a>
-  <span><i class="fa fa-ellipsis-h"></i></span>
-  <a href="#67"><span>67</span></a>
-  <a rel="next" href="#2"><span><i class="fa fa-caret-right"></i></span></a>
-</div>
-*/
 #pagination {
-  /**
+  /*
    * Always in fixed position.
    * This may need to be overwritten in case multiple
    * paginations have to be activated.
    */
-  font-size: 0;
-  position: fixed;
-  right: ($standard-margin / 4);
-  bottom: ($standard-margin / 2);
-  z-index: 35;
-  padding: 0;
-  height: auto;
+  position:    fixed;
+  font-size:   0;
+  right:       ($standard-margin / 4);
+  bottom:      ($standard-margin / 2);
+  z-index:     35;
+  padding:     0;
+  height:      auto;
   line-height: 0;
 
   > a {
-    margin: 0;
+    margin:    0;
     font-size: 10pt;
-    padding: 0;
+    padding:   0;
 
     > span {
-      box-shadow: $choose-box-shadow;
       @include standard-text-padding;
       @include choose-item;
-      display: inline-block;
+      box-shadow:  $choose-box-shadow;
+      display:     inline-block;
       line-height: 2em;
-      text-align: center;
+      text-align:  center;
+
       border: {
-	top-width: $border-size;
-	bottom-width:  $border-size;
-	top-style: solid;
-	bottom-style: solid;
+	      top-width:    $border-size;
+	      bottom-width: $border-size;
+	      top-style:    solid;
+	      bottom-style: solid;
       }
     }
 
@@ -58,63 +56,70 @@ $border-size : 2px;
 
     &.ellipsis > span {
       > span {
-	@include blind;
+	      @include blind;
       }
+
       &::after {
-	font-family: 'FontAwesome';
-	content: $fa-elipsis;
-	line-height: 1em;
+	      @include icon-font;
+	      content:     $fa-elipsis;
+	      line-height: 1em;
       }
     }
 
     &[rel=self] > span {
       @include choose-active;
+
       border {
-	left-width: $border-size;
-	right-width: $border-size;
-	left-style: solid;
-	right-style: solid;
+	      left-width:  $border-size;
+	      right-width: $border-size;
+	      left-style:  solid;
+	      right-style: solid;
       }
     }
 
     &[rel=prev] > span {
       border: {
-	top-left-radius: $standard-border-radius;
-	bottom-left-radius: $standard-border-radius;
-	left-width: $border-size;
-	left-style: solid;
+	      top-left-radius:    $standard-border-radius;
+	      bottom-left-radius: $standard-border-radius;
+	      left-width:         $border-size;
+	      left-style:         solid;
       }
+
       > span {
-	@include blind;
+	      @include blind;
       }
+
       &::after {
-	font-family: 'FontAwesome';
-	content: $fa-previous;
-	line-height: 1em;
+        @include icon-font;
+	      content:     $fa-previous;
+	      line-height: 1em;
       }
     }
 
     &[rel=next] > span {
       border: {
-	top-right-radius: $standard-border-radius;
-	bottom-right-radius: $standard-border-radius;
-	right-width: $border-size;
-	right-style: solid;
+	      top-right-radius:    $standard-border-radius;
+	      bottom-right-radius: $standard-border-radius;
+	      right-width:         $border-size;
+	      right-style:         solid;
       }
+
       > span {
-	@include blind;
+	      @include blind;
       }
+
       &::after {
-	font-family: 'FontAwesome';
-	content: $fa-next;
-	line-height: 1em;
+        @include icon-font;
+	      content:     $fa-next;
+	      line-height: 1em;
       }
     }
+
     &:link:hover,
     &:link:focus {
       outline: none;
       span {
-	@include choose-hover;
+	      @include choose-hover;
       }
     }
   }
