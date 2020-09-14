@@ -1,0 +1,16 @@
+/**
+ * Base rules for all plugin related styles,
+ * like widgets.
+ */
+
+div.view.widget {
+  padding-right: $right-view-distance;
+
+  > iframe {
+    margin:     0;
+    box-sizing: border-box;
+    padding:    0;
+    width:      100%;
+    overflow-x: auto;
+  }
+}
