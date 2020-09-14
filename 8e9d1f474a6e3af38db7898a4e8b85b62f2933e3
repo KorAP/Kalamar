@@ -22,6 +22,30 @@
       "revId": "8e9d1f474a6e3af38db7898a4e8b85b62f2933e3",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba570ad_30c1e029",
+        "filename": "dev/js/src/buttongroup.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-09-14T14:46:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e3c2476_b67e5074",
+      "range": {
+        "startLine": 52,
+        "startChar": 40,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "8e9d1f474a6e3af38db7898a4e8b85b62f2933e3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     }
   ]
 }
