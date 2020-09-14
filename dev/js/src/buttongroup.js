@@ -84,6 +84,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * 
      * Returns the list object.
      */
+    // TODO: Support icons by switching to a data object (see add())
     addList : function (title, classes, itemClass = defaultItemClass) {
       var list = treeMenuClass.create([], itemClass);
       this.add(title, classes, function (e) {

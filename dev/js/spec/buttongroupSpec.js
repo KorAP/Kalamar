@@ -121,7 +121,32 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
 
     
     it('should open lists', function () {
+      var group = buttonGroupClass.create();
+      expect(group.element().classList.contains('button-group')).toBeTruthy();
+
+      var list = group.addList('More', ['more']);
+
+      list.readItems([
+        ['cool', 'cool', function () { }],
+        ['very cool', 'veryCool', function () { }]
+      ]);
+
+      var btn = group.element().firstChild;
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('more')).toBeTruthy();
+      expect(btn.innerText).toEqual('More');
+
+      expect(list.element().classList.contains('visible')).toBeFalsy();
       
+      // Click to show menu
+      btn.click();
+
+      expect(list.element().classList.contains('visible')).toBeTruthy();
+
+      expect(list.element().children[1].children[0].innerText).toEqual('cool--');
+      expect(list.element().children[1].children[1].innerText).toEqual('very cool--');
+
+      document.body.removeChild(list.element());
     });
 
     it('should support toggle buttons', function () {
