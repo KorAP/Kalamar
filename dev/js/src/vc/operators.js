@@ -91,17 +91,17 @@ define(['buttongroup'], function (buttonGroupClass) {
       this.clear();
 
       if (this._and === true) {
-        this.add(loc.AND, ['and'], KorAP._and);
+        this.add(loc.AND, {'cls':['and']}, KorAP._and);
       };
 
       // Add or button
       if (this._or === true) {
-        this.add(loc.OR, ['or'], KorAP._or);
+        this.add(loc.OR, {'cls':['or']}, KorAP._or);
       };
 
       // Add delete button
       if (this._del === true) {
-        this.add(loc.DEL, ['delete'], KorAP._delete);
+        this.add(loc.DEL, {'cls':['delete']}, KorAP._delete);
       };
 
       return this.element();

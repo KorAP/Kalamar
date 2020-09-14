@@ -26,7 +26,7 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
 
-      group.add('Meta', ['meta', 'top'], function (e) {});
+      group.add('Meta', { 'cls':['meta', 'top']}, function (e) {});
 
       var btn = group.element().firstChild;
       expect(btn.tagName).toEqual('SPAN');
@@ -39,8 +39,8 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
 
-      group.add('Meta', ['meta', 'top'], function (e) {});
-      group.add('Mate', ['mate'], function (e) {});
+      group.add('Meta', {'cls':['meta', 'top']}, function (e) {});
+      group.add('Mate', {'cls':['mate']}, function (e) {});
 
       var btn = group.element().children[0];
       expect(btn.tagName).toEqual('SPAN');
@@ -59,7 +59,7 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
 
       expect(group.element().children.length).toEqual(0);
 
-      group.add('New', ['new'], function (e) {});
+      group.add('New', {'cls':['new']}, function (e) {});
 
       btn = group.element().children[0];
       expect(btn.tagName).toEqual('SPAN');
@@ -110,7 +110,7 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
 
-      group.add('Meta', ['meta'], function (e) {}, 'metaicon');
+      group.add('Meta', {'cls':['meta'], 'icon': 'metaicon'}, function (e) {});
 
       var btn = group.element().firstChild;
       expect(btn.tagName).toEqual('SPAN');
@@ -124,7 +124,7 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
 
-      var list = group.addList('More', ['more']);
+      var list = group.addList('More', {'cls':['more']});
 
       list.readItems([
         ['cool', 'cool', function () { }],
@@ -156,7 +156,7 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
 
       expect(s.get()).toBeFalsy();
       
-      group.addToggle('example',["examplecls"],s);
+      group.addToggle('example',{'cls':["examplecls"]}, s);
 
       let e = group.element();
 

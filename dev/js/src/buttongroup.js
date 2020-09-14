@@ -49,16 +49,19 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * 
      * Returns the button element
      */
-    // TODO: Accept an object instead of a list
-    add : function (title, classes, cb, icon) {
+    add : function (title, data, cb) {
+      
       var b = this._element.addE('span');
       b.setAttribute('title',title);
-      if (classes !== undefined) {
-        b.classList.add.apply(b.classList, classes);
-      };
+
+      if (data !== undefined) {
+        if (data['cls'] !== undefined) {
+          b.classList.add.apply(b.classList, data['cls']);
+        };
      
-      if (icon !== undefined){ 
-        b.setAttribute('data-icon', icon);
+        if (data['icon'] !== undefined){ 
+          b.setAttribute('data-icon', data['icon']);
+        };
       };
      
       b.addE('span').addT(title);
@@ -84,10 +87,9 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * 
      * Returns the list object.
      */
-    // TODO: Support icons by switching to a data object (see add())
-    addList : function (title, classes, itemClass = defaultItemClass) {
+    addList : function (title, data, itemClass = defaultItemClass) {
       var list = treeMenuClass.create([], itemClass);
-      this.add(title, classes, function (e) {
+      this.add(title, data, function (e) {
         list.show();
         list.button(this.button);
         list.focus();
@@ -100,11 +102,14 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Add button that can toggle a state.
      * The state has to be a state object.
      */
-    addToggle : function (title, classes, state) {
+    addToggle : function (title, data, state) {
       let b = this._element.addE('span');
       b.setAttribute('title',title);
-      if (classes !== undefined) {
-        b.classList.add.apply(b.classList, classes);
+
+      if (data != undefined) {
+        if (data['cls'] !== undefined) {
+          b.classList.add.apply(b.classList, data['cls']);
+        };
       };
 
       // Set check marker

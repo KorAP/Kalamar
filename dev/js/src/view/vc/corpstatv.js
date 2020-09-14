@@ -140,16 +140,16 @@ define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass,
     disableStat : function(){
       var statt = this._show;
   
-      if(statt.getElementsByClassName('reloadStatB').length == 0){
+      if (statt.getElementsByClassName('reloadStatB').length == 0) {
         let btg = buttonGroup.create(['reloadStatB', 'button-panel']);
         var that = this;
-        btg.add(loc.REFRESH, ['refresh', 'button-icon'], function (e) {
+        btg.add(loc.REFRESH, {'cls':['refresh', 'button-icon']}, function (e) {
           statt.classList.remove('stdisabled');
           that.panel.reloadCorpStat(); 
         });
         statt.appendChild(btg.element());
         statt.classList.add('stdisabled');
-        }
+      };
     },
 
     

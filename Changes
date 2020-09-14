@@ -10,6 +10,8 @@
         - Exclude search results from robot indices.
         - Added responsive 'news' style.
         - Add support for icons in plugin definition (hebasta).
+        - Change buttonGroup API to accept class and
+          icon definitions.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your

@@ -200,7 +200,7 @@ define([
       );
 
       var that = this;
-      btn.add(loc.MINIMIZE, ['button-icon','minimize'], function () {
+      btn.add(loc.MINIMIZE, {'cls':['button-icon','minimize']}, function () {
         that.minimize();
       });
       element.appendChild(btn.element());

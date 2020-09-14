@@ -44,21 +44,21 @@ define([
 
       // Add meta button
       a.add(
-        loc.SHOW_META, ['metatable'], function (e) {
+        loc.SHOW_META, {'cls':['metatable']}, function (e) {
           this.addMeta();
         }
       );
 
       // Add token annotation button
       a.add(
-        loc.SHOWANNO, ['info'], function (e) {
+        loc.SHOWANNO, {'cls':['info']}, function (e) {
           this.addTable();
         }
       );
 
       // Add relations button
       a.add(
-        loc.ADDTREE, ['tree'], function (e) {
+        loc.ADDTREE, {'cls':['tree']}, function (e) {
 
           // Get global tree menu
           if (KorAP.TreeMenu === undefined) {

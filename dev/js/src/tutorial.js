@@ -139,7 +139,7 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
         );
 
         var that = this;
-        btn.add(loc.CLOSE, ['button-icon','close'], function () {
+        btn.add(loc.CLOSE, {'cls':['button-icon','close']}, function () {
           element.style.display = 'none';
         });
         element.appendChild(btn.element());

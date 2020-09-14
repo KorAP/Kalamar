@@ -43,7 +43,7 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
       // is a nice idea as well.
       
       this.actions.add(
-        this.name, ['button-icon', 'plugin'], function (e) {
+        this.name, {'cls':['button-icon', 'plugin']}, function (e) {
 
           // Temporary
           window.alert("Basic information about this plugin");

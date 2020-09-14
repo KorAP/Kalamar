@@ -28,7 +28,7 @@ require(['buttongroup', 'panel', 'view/result/koralquery', 'state'], function (b
   let actions = panel.actions;
 
   // Add simple button
-  actions.add('Meta',['meta'], function () {
+  actions.add('Meta',{'cls':['meta']}, function () {
     console.log(this.button.classList.contains('meta'));
     view = kqClass.create();
     panel.add(view);

@@ -90,7 +90,7 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       var panel = panelClass.create();
 
       controlStr = "";
-      panel.actions.add("New", ["new"], function () {
+      panel.actions.add("New", {'cls':["new"]}, function () {
         controlStr = 'New!!!';
       });
 

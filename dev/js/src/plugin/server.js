@@ -160,17 +160,17 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
           // Add to dynamic button list (e.g. for matches)
           if (buttons[panel]) {
-            buttons[panel].push([title, embed["classes"], cb, icon]);
+            buttons[panel].push([title, {'cls':embed["classes"], 'icon': icon }, cb]);
           }
 
           // Add to static button list (e.g. for query) already loaded
           else if (KorAP.Panel[panel]) {
-            KorAP.Panel[panel].actions.add(title, embed["classes"], cb, icon);
+            KorAP.Panel[panel].actions.add(title, {'cls':embed["classes"], 'icon':icon}, cb);
           }
 
           // Add to static button list (e.g. for query) not yet loaded
           else {
-            buttonsSingle[panel].push([title, embed["classes"], cb, icon]);
+            buttonsSingle[panel].push([title, {'cls':embed["classes"], 'icon':icon}, cb]);
           }
         }
         //TODO There is no possibility to add icons to an plugin toggle button right now. 
@@ -181,7 +181,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
           // TODO:
           //   Lazy registration (see above!)
-          KorAP.Panel[panel].actions.addToggle(title, ["title"], state);
+          KorAP.Panel[panel].actions.addToggle(title, {'cls':["title"]}, state);
 
           // Get the URL of the service
 

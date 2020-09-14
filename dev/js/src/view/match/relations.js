@@ -85,7 +85,7 @@ define([
           if (type === "spans") {
 
             // Download link
-            that.actions.add(loc.DOWNLOAD, ['button-icon','download'], function (e) {
+            that.actions.add(loc.DOWNLOAD, {'cls':['button-icon','download']}, function (e) {
               var a = treeObj.downloadLink();
               d.body.appendChild(a);
               a.click();

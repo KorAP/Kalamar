@@ -26,7 +26,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       
       this.actions = buttonGroupClass.create(c).bind(this);
 
-      this.actions.add(loc.CLOSE, ['button-icon','close'], function (e) {
+      this.actions.add(loc.CLOSE, {'cls':['button-icon','close']}, function (e) {
         this.close();
       });
 

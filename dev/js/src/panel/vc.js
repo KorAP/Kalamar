@@ -28,7 +28,7 @@ define([
      this.vc = vc;
      var actions = this.actions;
      var that = this;
-     actions.add(loc.SHOW_STAT, [ 'statistic' ], function() {
+      actions.add(loc.SHOW_STAT, {'cls':['statistic']}, function() {
        that.addCorpStat();
       });
      

@@ -49,7 +49,7 @@ define([
     addKqAction : function () {
 
       // Open KoralQuery view
-      var kqButton = this.actions.add(loc.SHOW_KQ, ['show-kq','button-icon'], function () {
+      var kqButton = this.actions.add(loc.SHOW_KQ, {'cls':['show-kq','button-icon']}, function () {
 
         // Show only once - otherwise toggle
         if (this._kq && this._kq.shown()) {
@@ -80,7 +80,7 @@ define([
       /**
        * Toggle the alignment (left <=> right)
        */
-      this.actions.add(loc.TOGGLE_ALIGN, ['align','right','button-icon'], function (e) {
+      this.actions.add(loc.TOGGLE_ALIGN, {'cls':['align','right','button-icon']}, function (e) {
         var olCl = d.querySelector('#search > ol').classList;
         if (olCl.contains('align-left')) {
           olCl.remove('align-left');
