@@ -415,7 +415,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
           };
         }
 
-        // Get Query form information
+        // Get Query information from from
         else if (d.key == 'QueryForm') {
           let doc = document;
           let v = d["value"] = {};
@@ -430,6 +430,17 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
           if (el = KorAP.vc) {
             v["cq"] = el.toQuery();
           };
+        }
+
+        // Get Query information from parameters
+        else if (d.key == 'QueryParam') {
+
+          // Supported in all modern browsers
+          var p = new URLSearchParams(window.location.search);
+          let v = d["value"] = {};
+          v["q"] = p.get('q');
+          v["ql"] = p.get('ql');
+          v["cq"] = p.get('cq');
         };
       };
 

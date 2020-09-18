@@ -1,4 +1,4 @@
-0.39 2020-09-14
+0.39 2020-09-18
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -12,6 +12,7 @@
         - Add support for icons in plugin definition (hebasta).
         - Change buttonGroup API to accept class and
           icon definitions.
+        - Added query parameter API to plugin server.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your
