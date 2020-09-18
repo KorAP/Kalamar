@@ -14,3 +14,7 @@ div.view.widget {
     overflow-x: auto;
   }
 }
+
+div.panel.result > div > div.widget > iframe {
+  background-color: $nearly-white;
+}
