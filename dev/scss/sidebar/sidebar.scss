@@ -75,7 +75,7 @@ aside {
         }
       }
 
-      li.folded {
+      &.folded {
         &.active ul {
           display: block;
         }
