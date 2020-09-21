@@ -1,0 +1,39 @@
+.banner {
+  position: fixed;
+  width: 10em;
+  height: 10em;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  right: 0px;
+  margin-right: -2.4em;
+  top: 0;
+
+  &::after {
+    content:attr(data-note);
+    display: block;
+    overflow: hidden;
+    width: 12em;
+    font-size: 10pt;
+    font-weight: bold;
+    word-spacing: 2px;
+    text-decoration: none;
+    position: relative;
+    left: 2em;
+    top: -1.6em;
+    line-height: 2em;
+    text-align: center;  
+    -moz-transform-origin: 0 0 ;
+    -moz-transform:rotate(45deg);
+    -webkit-transform-origin: 0 0 ;
+    -webkit-transform:rotate(45deg);
+    -ms-transform-origin: 0 0 ;
+    -ms-transform:rotate(45deg);
+    transform-origin: 0 0 ;
+    transform:rotate(45deg);
+
+    background-color: $light-orange;
+    color: $dark-orange;
+    border: 1px solid $dark-orange;
+  }
+}

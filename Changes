@@ -14,6 +14,7 @@
           icon definitions.
         - Added query parameter API to plugin server.
         - Minor documentation fix in Koral.
+        - Added banner style.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your
