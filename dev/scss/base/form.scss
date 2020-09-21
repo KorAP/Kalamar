@@ -8,11 +8,16 @@
 .form-table {
   display: block;
   padding: 0;
+  font-size: 80%;
 
+  > fieldset {
+    margin-top: 0;
+  }
+  
   fieldset {
     border-width: 0;
     padding: 0;
-    margin: 0;
+    margin-top: 1em;
     > div {
       white-space: nowrap;
     }
@@ -27,7 +32,7 @@
 
   label,
   input[type=radio] {
-    font-size: 80%;
+    // font-size: 80%;
   }
   
   label[for] {
@@ -39,6 +44,28 @@
   input[type=submit],
   a.form-button {
     margin-top: 2em;
+  }
+
+  fieldset.form-line {
+    legend {
+      // float: left;
+      font-size: 100%;
+      display: inline-block;
+    }
+    legend::after {
+      content: ':';
+      color: $ids-green-2;
+    }
+    input, label[for] {
+      display: inline-block;
+      margin: 0;
+    }
+    input {
+      vertical-align: bottom;
+    }
+    label[for] {
+      margin-right: 2em;
+    }
   }
 
   input,
@@ -92,7 +119,7 @@
     text-align:       center;
     background-color: $middle-green;
     border-color:     $dark-green;
-    font-size:        8pt;
+    // font-size:        8pt;
     color:            $dark-green;
   }
 

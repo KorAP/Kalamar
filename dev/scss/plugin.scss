@@ -1,1 +1,20 @@
 @import "base/base";
+
+body {
+  margin: 0;
+  padding: 0;
+  h1 {
+    font-size: 110%;
+    background-color: $ids-orange-1;
+    color: white;
+    margin-top: 0;
+    padding: $base-padding;
+  }
+  section {
+    padding-left: $base-padding;
+    &::before{
+      content:'';
+    }
+    padding-bottom: $base-padding;
+  }
+}
