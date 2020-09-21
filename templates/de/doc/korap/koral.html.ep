@@ -6,6 +6,6 @@
 
 <p><strong>Hauptentwickler:</strong> Joachim Bingel</p>
 
-<p>Koral ist eine Bibliothek, die für die Übersetzung verschiedener Korpus-Abfragesprachen nach <%= embedded_link_to('doc', 'KoralQuery', 'api', 'koralquery')%> konzipiert ist. Derzeit unterstützte Abfragesprachen sind <%= embedded_link_to 'doc', 'Cosmas II', 'ql', 'cosmas-2'%>, <%= embedded_link_to('doc', 'Annis QL', 'ql', 'annis')%>, <%= embedded_link_to('doc',  'Poliqarp+', 'ql', 'poliqarp-plus')%> (eine erweiterte Version von Poliqarp) und <%= embedded_link_to('doc', 'CQL', 'ql', 'cql')%>.
+<p>Koral ist eine Bibliothek, die für die Übersetzung verschiedener Korpus-Abfragesprachen nach <%= ext_link_to 'KoralQuery', 'https://korap.github.io/Koral/' %> konzipiert ist. Derzeit unterstützte Abfragesprachen sind <%= embedded_link_to 'doc', 'Cosmas II', 'ql', 'cosmas-2'%>, <%= embedded_link_to('doc', 'Annis QL', 'ql', 'annis')%>, <%= embedded_link_to('doc',  'Poliqarp+', 'ql', 'poliqarp-plus')%> (eine erweiterte Version von Poliqarp) und <%= embedded_link_to('doc', 'CQL', 'ql', 'cql')%>.
 
 <p>Koral ist Open Source und steht unter <%= ext_link_to 'GitHub', "https://github.com/KorAP/Koral"%> zur Verfügung.</p>
