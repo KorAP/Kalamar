@@ -33,6 +33,7 @@
 *.sqlite
 *.log
 *.db
+*.plugins.json
 *.old
 .*
 /t/kalamar_user_client.t
