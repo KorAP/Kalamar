@@ -1,4 +1,4 @@
-0.39 2020-09-21
+0.39 2020-09-22
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -15,6 +15,8 @@
         - Added query parameter API to plugin server.
         - Minor documentation fix in Koral.
         - Added banner style.
+        - Introduced early 'Plugins' plugin to embed external
+          services.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your
