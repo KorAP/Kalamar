@@ -137,6 +137,16 @@ module.exports = function(grunt) {
 	          src: 'dev/robots.txt',
 	          dest: 'public/robots.txt',
 	          timestamp: true
+	        },
+          {
+	          src: 'public/css/kalamar-plugin-<%= pkg.pluginVersion %>.css',
+	          dest: 'public/css/kalamar-plugin-latest.css',
+	          timestamp: true
+	        },
+          {
+	          src: 'public/js/korap-plugin-<%= pkg.pluginVersion %>.js',
+	          dest: 'public/js/kalamar-plugin-latest.js',
+	          timestamp: true
 	        }
 	      ]
       }
