@@ -111,7 +111,9 @@ sub query {
 
   # Forward pipe
   if ($v->param('pipe')) {
-    $query{pipe} = $v->param('pipe');
+
+    # Temporary, as this is not agreed among the services yet
+    $query{pipes} = $v->param('pipe');
   };
 
   $c->stash(items_per_page => $items_per_page);
