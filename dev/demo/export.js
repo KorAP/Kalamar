@@ -32,7 +32,7 @@ require([ 'plugin/server', 'panel/result', 'init' ], function(pluginClass, resul
       'classes' : [ 'button-icon', 'plugin' ],
       'onClick' : {
         'action' : 'addWidget',
-        'template' : 'http://localhost:7777/res/export.html'
+        'template' : 'http://localhost:7777/export'
       }
     } ]
   });
