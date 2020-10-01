@@ -16,3 +16,7 @@ div.view {
   display:     block;
   width:       100%;
 }
+
+div.view:not(.show) {
+  display: none;
+}

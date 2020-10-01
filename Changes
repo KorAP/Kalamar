@@ -20,6 +20,7 @@
         - Introduced *-latest.css/*-latest.js files for plugin
           assets.
         - Add associates() method to state objects.
+        - Add minimize() method to views.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your

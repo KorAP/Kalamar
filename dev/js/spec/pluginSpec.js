@@ -201,6 +201,14 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       widget.resize({ height : 9 });
       expect(iframe.style.height).toEqual('9px');
     });
+
+    it('should be minimizable', function () {
+      var widget = widgetClass.create("Test", "https://example", 56);
+      var we = widget.element();
+      expect(we.classList.contains('show')).toBeTruthy();
+      widget.minimize();
+      expect(we.classList.contains('show')).toBeFalsy();
+    });
   });
 
   describe('KorAP.Plugin.Service', function () {

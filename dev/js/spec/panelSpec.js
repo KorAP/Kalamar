@@ -64,6 +64,14 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       expect(btn.classList.contains("button-group")).toBeTruthy();
       expect(btn.classList.contains("versuch")).toBeTruthy();
     });
+
+    it('should be minimizable', function () {
+      var view = viewClass.create(['versuch']);
+      var e = view.element();
+      expect(e.classList.contains('show')).toBeTruthy();
+      view.minimize();
+      expect(e.classList.contains('show')).toBeFalsy();
+    });
   });
   
   describe('KorAP.Panel', function () {

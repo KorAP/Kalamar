@@ -31,10 +31,14 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
      */
     show : function () {
 
-      if (this._load)
+      if (this._load) {
+        if (this._element)
+          this._element.classList.add('show');
         return this._load;
+      }
 
       let obj = this.load();
+      this._load.classList.add("widget", "show");
       obj.setAttribute('loading', 'lazy');
 
       // Per default there should at least be a button
