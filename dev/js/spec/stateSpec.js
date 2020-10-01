@@ -34,14 +34,17 @@ define(['state'], function (stateClass) {
           this.x = value;
         }
       };
-      
+
+      expect(s.associates()).toEqual(0);
       expect(s.get()).toBeFalsy();
       expect(obj1.x).toBeFalsy();
       expect(obj2.x).toBeTruthy();
 
       // Associate object with state
       s.associate(obj1);
+      expect(s.associates()).toEqual(1);
       s.associate(obj2);
+      expect(s.associates()).toEqual(2);
 
       expect(s.get()).toBeFalsy();
       expect(obj1.x).toBeFalsy();

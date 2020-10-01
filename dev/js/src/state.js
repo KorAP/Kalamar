@@ -6,6 +6,12 @@
  *
  * @author Nils Diewald
  */
+/*
+ * TODO:
+ *   Add a "roll" parameter, like "roll":["left","right","center"]
+ *   and a roll() method, that will switch through the states in the list
+ *   for flexible toggling.
+ */
 define(function () {
 
   "use strict";
@@ -59,6 +65,14 @@ define(function () {
      */
     get : function () {
       return this.value;
+    },
+
+
+    /**
+     * Get the number of associated objects
+     */
+    associates : function () {
+      return this._assoc.length;
     }
   }
 });

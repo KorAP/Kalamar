@@ -1,4 +1,4 @@
-0.39 2020-09-24
+0.39 2020-10-01
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -19,6 +19,7 @@
           services.
         - Introduced *-latest.css/*-latest.js files for plugin
           assets.
+        - Add associates() method to state objects.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your
