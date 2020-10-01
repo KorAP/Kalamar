@@ -73,6 +73,13 @@ define(function () {
      */
     associates : function () {
       return this._assoc.length;
+    },
+
+    /**
+     * Clear all associated objects
+     */
+    clear : function () {
+      return this._assoc = [];
     }
   }
 });

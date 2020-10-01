@@ -56,5 +56,52 @@ define(['state'], function (stateClass) {
       expect(obj1.x).toBeTruthy();
       expect(obj2.x).toBeTruthy();
     });
+
+    it('should be clearable', function () {
+      let s = stateClass.create();
+
+      // Create
+      let obj1 = {
+        x : false,
+        setState : function (value) {
+          this.x = value;
+        }
+      };
+
+      // Create
+      let obj2 = {
+        x : true,
+        setState : function (value) {
+          this.x = value;
+        }
+      };
+
+      expect(s.associates()).toEqual(0);
+      expect(s.get()).toBeFalsy();
+      expect(obj1.x).toBeFalsy();
+      expect(obj2.x).toBeTruthy();
+
+      // Associate object with state
+      s.associate(obj1);
+      expect(s.associates()).toEqual(1);
+      s.associate(obj2);
+      expect(s.associates()).toEqual(2);
+
+      expect(s.get()).toBeFalsy();
+      expect(obj1.x).toBeFalsy();
+      expect(obj2.x).toBeFalsy();
+
+      s.clear();
+
+      s.set(true);
+      expect(s.get()).toBeTruthy();
+      expect(obj1.x).toBeFalsy();
+      expect(obj2.x).toBeFalsy();
+
+      s.set(false);
+      expect(s.get()).toBeFalsy();
+      expect(obj1.x).toBeFalsy();
+      expect(obj2.x).toBeFalsy();
+    });
   });
 });
