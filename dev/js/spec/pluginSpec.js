@@ -150,6 +150,88 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(manager.buttonGroup('result').length).toEqual(1);
       manager.destroy();
     });
+
+    it('should accept valid registrations for addWidget', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Add',
+          onClick : {
+            template : 'about:blank',
+            action : 'addWidget'
+          }
+        }]
+      });
+
+      let b = p.actions.element().firstChild;
+      expect(b.hasAttribute("data-icon")).toBeFalsy();
+      expect(b.hasAttribute("cls")).toBeFalsy();
+      expect(b.getAttribute("title")).toEqual("Add");
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      b.click();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      b.click();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(2);
+      expect(p.element().querySelectorAll("div.view.widget").length).toEqual(2);
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(2);
+      
+      manager.destroy();
+
+      KorAP.Panel["result"] = undefined;
+    });
+
+
+    it('should accept valid registrations for setWidget', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Add',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget'
+          }
+        }]
+      });
+
+      let b = p.actions.element().firstChild;
+      expect(b.hasAttribute("data-icon")).toBeFalsy();
+      expect(b.hasAttribute("cls")).toBeFalsy();
+      expect(b.getAttribute("title")).toEqual("Add");
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      b.click();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      b.click();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(0);
+      
+      manager.destroy();
+
+      KorAP.Panel["result"] = undefined;
+    });
   });
   
   describe('KorAP.Plugin.Widget', function () {

@@ -21,6 +21,7 @@
           assets.
         - Add associates() method to state objects.
         - Add minimize() method to views.
+        - Add "setWidget" action for plugin registration.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your

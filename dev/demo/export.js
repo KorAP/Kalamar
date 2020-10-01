@@ -31,7 +31,7 @@ require([ 'plugin/server', 'panel/result', 'init' ], function(pluginClass, resul
       'icon' : "\uf019",
       'classes' : [ 'button-icon', 'plugin' ],
       'onClick' : {
-        'action' : 'addWidget',
+        'action' : 'setWidget',
         'template' : 'http://localhost:7777/export'
       }
     } ]

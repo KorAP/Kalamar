@@ -136,44 +136,85 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
         let icon = embed["icon"];
         
         if (!panel || !(buttons[panel] || buttonsSingle[panel]))
-          throw new Error("Panel for plugin is invalid");        
+          throw new Error("Panel for plugin is invalid"); 
 
         // The embedding will open a widget
-        if (!onClick["action"] || onClick["action"] == "addWidget") {
-
+        if (!onClick["action"] ||
+            onClick["action"] == "addWidget" ||
+            onClick["action"] == "setWidget") {
           
           let cb = function (e) {
 
             // "this" is bind to the panel
+            // "this".button is the button
+            // "that" is the server object
 
             // Get the URL of the widget
             let url = onClick["template"];
             // that._interpolateURI(onClick["template"], this.match);
 
+            // The button has a state and the state is associated to the
+            // a intermediate object to toggle the view
+            if ('state' in this.button && this.button.state.associates() > 0) {
+
+              // TODO:
+              //   Use roll() when existing
+              let s = this.button.state;
+              if (s.get()) {
+                s.set(false);
+              } else {
+                s.set(true);
+              };
+              return;
+            };
+
             // Add the widget to the panel
             let id = that.addWidget(this, name, url);
             plugin["widgets"].push(id);
+            
+            // If a state exists, associate with a mediator object
+            if ('state' in this.button) {
+              this.button.state.associate({
+                setState : function (value) {
+                  // Minimize the widget
+                  if (value == false) {
+                    services[id].minimize();
+                  }
+                  else {
+                    services[id].show();                    
+                  };
+                }
+              });
+            }
           };
 
-          // TODO:
-          //   Create button class to be stored and loaded in button groups!
 
+          // Button object
+          let obj = {'cls':embed["classes"], 'icon': icon }
+
+          if (onClick["action"] && onClick["action"] == "setWidget") {
+
+            // Create a boolean state value, that initializes to true == opened
+            obj['state'] = stateClass.create(true);
+          };
+          
           // Add to dynamic button list (e.g. for matches)
           if (buttons[panel]) {
-            buttons[panel].push([title, {'cls':embed["classes"], 'icon': icon }, cb]);
+            buttons[panel].push([title, obj, cb]);
           }
 
           // Add to static button list (e.g. for query) already loaded
           else if (KorAP.Panel[panel]) {
-            KorAP.Panel[panel].actions.add(title, {'cls':embed["classes"], 'icon':icon}, cb);
+            KorAP.Panel[panel].actions.add(title, obj, cb);
           }
 
           // Add to static button list (e.g. for query) not yet loaded
           else {
-            buttonsSingle[panel].push([title, {'cls':embed["classes"], 'icon':icon}, cb]);
+            buttonsSingle[panel].push([title, obj, cb]);
           }
         }
-        //TODO There is no possibility to add icons to an plugin toggle button right now. 
+
+        // TODO There is no possibility to add icons to an plugin toggle button right now. 
         else if (onClick["action"] == "toggle") {
 
           // Todo: Initially false
@@ -288,12 +329,8 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
       // Create a new service
       let service = serviceClass.create(name, src, id);
       
-      // TODO!
-      // Store the service based on the identifier
       services[id] = service;
       limits[id] = maxMessages;
-
-      // widget._mgr = this;
 
       // Add service to panel
       this.element().appendChild(
