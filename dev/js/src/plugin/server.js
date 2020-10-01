@@ -157,15 +157,28 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             // a intermediate object to toggle the view
             if ('state' in this.button && this.button.state.associates() > 0) {
 
-              // TODO:
-              //   Use roll() when existing
               let s = this.button.state;
-              if (s.get()) {
-                s.set(false);
-              } else {
+
+              // The associated service is existent
+              if (services[this.button['widgetID']]) {
+              
+                // TODO:
+                //   Use roll() when existing
+                if (s.get()) {
+                  s.set(false);
+                } else {
+                  s.set(true);
+                };
+                return;
+              }
+
+              // The service is not existent
+              else {
+
+                // Remove broken state associations
+                s.clear();
                 s.set(true);
-              };
-              return;
+              }
             };
 
             // Add the widget to the panel
@@ -174,6 +187,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             
             // If a state exists, associate with a mediator object
             if ('state' in this.button) {
+              this.button['widgetID'] = id;
               this.button.state.associate({
                 setState : function (value) {
                   // Minimize the widget
@@ -493,7 +507,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
     // Close the service
     _closeService : function (id) {
       delete limits[id];
-
+      
       // Close the iframe
       if (services[id] && services[id]._closeIframe) {
         services[id]._closeIframe();

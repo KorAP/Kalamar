@@ -65,7 +65,7 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
     // On closing the widget view
     onClose : function () {
       if (this._mgr) {
-        this._mgr._closeService(this._id);
+        this._mgr._closeService(this.id);
         this._mgr = undefined;
       };
     }

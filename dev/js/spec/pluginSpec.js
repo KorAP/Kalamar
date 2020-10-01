@@ -227,6 +227,16 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(0);
+
+      p.element().querySelector("span.close").click();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      b.click();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
       
       manager.destroy();
 
