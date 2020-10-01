@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 	        },
           {
 	          src: 'public/js/korap-plugin-<%= pkg.pluginVersion %>.js',
-	          dest: 'public/js/kalamar-plugin-latest.js',
+	          dest: 'public/js/korap-plugin-latest.js',
 	          timestamp: true
 	        }
 	      ]
