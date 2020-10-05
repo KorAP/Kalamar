@@ -129,7 +129,7 @@ get '/v1.0/search' => sub {
   $v->optional('count');
   $v->optional('context');
   $v->optional('offset');
-  $v->optional('pipe');
+  $v->optional('pipes');
   $v->optional('cutoff')->in(qw/true false/);
 
   $c->app->log->debug('Receive request');
@@ -153,7 +153,7 @@ get '/v1.0/search' => sub {
   push @slug_base, 'c' . $v->param('count') if defined $v->param('count');
   push @slug_base, 'co' . $v->param('cutoff') if defined $v->param('cutoff');
   push @slug_base, 'cq' if defined $v->param('cq');
-  push @slug_base, 'p' . $v->param('pipe') if defined $v->param('pipe');
+  push @slug_base, 'p' . $v->param('pipes') if defined $v->param('pipes');
 
   # Get response based on query parameter
   my $response = $c->load_response('query_' . slugify(join('_', @slug_base)));
@@ -197,8 +197,8 @@ get '/v1.0/search' => sub {
     }
   };
 
-  if ($v->param('pipe')) {
-    $response->{json}->{meta}->{pipe} = $v->param('pipe');
+  if ($v->param('pipes')) {
+    $response->{json}->{meta}->{pipes} = $v->param('pipes');
   };
 
   # Set page parameter

@@ -270,7 +270,7 @@ is($match->{matchID}, 'p5441-5442');
 $t->get_ok('/?q=baum&pipe=glemm')
   ->status_is(200)
   ->text_is('#error','')
-  ->content_like(qr/\"pipe\":"glemm"/)
+  ->content_like(qr/\"pipes\":"glemm"/)
   ;
 
 

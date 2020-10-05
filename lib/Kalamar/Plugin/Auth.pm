@@ -227,7 +227,7 @@ sub register {
 
         # Everything is fine
         my $access_token  = $json->{access_token};
-        my $token_type    =  $json->{token_type};
+        my $token_type    = $json->{token_type};
         my $refresh_token = $json->{refresh_token};
         my $expires_in    = $json->{"expires_in"} // $EXPECTED_EXPIRATION_IN;
         my $auth          = $token_type . ' ' . $access_token;
