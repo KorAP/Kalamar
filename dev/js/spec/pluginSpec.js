@@ -257,7 +257,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
           onClick : {
             template : 'about:blank',
             action : 'addWidget',
-            permissions: ['allow-scripts', 'allow-forms']
+            permissions: ['scripts', 'forms', 'all']
           }
         }]
       });
@@ -285,7 +285,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
         "name":"Test",
         "src":"https://example",
         "id":56,
-        "permissions":["allow-scripts","allow-forms"]
+        "permissions":["scripts","forms"]
       });
       var we = widget.element();
 

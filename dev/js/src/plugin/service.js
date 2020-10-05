@@ -1,6 +1,16 @@
 define(function () {
   "use strict";
 
+  // Limit the supported sandbox permissions, especially
+  // to disallow 'same-origin'.
+  let allowed = {
+    "scripts" : 1,
+    "presentation" : 1,
+    "forms": 1,
+    "downloads-without-user-activation" : 1,
+    "downloads" : 1
+  };
+
   return {
     create : function (data) {
       return Object.create(this)._init(data);
@@ -14,14 +24,20 @@ define(function () {
       this.name = data["name"];
       this.src = data["src"];
       this.id = data["id"];
-      this._perm = new Set();
-
+      let _perm = new Set();
       let perm = data["permissions"];
       if (perm && Array.isArray(perm)) {
-        perm.forEach(
-          p => this._perm.add(p)
-        );
+        perm.forEach(function (p) {
+          if (p in allowed) {
+            _perm.add(p)
+          }
+          else {
+            KorAP.log(0, "Requested permission not allowed");
+          }
+        });
       };
+
+      this._perm = _perm;
       
       // There is no close method defined yet
       if (!this.close) {
@@ -51,7 +67,7 @@ define(function () {
       e.setAttribute('allowTransparency',"true");
       e.setAttribute('frameborder', 0);
       // Allow forms in Plugins
-      e.setAttribute('sandbox', Array.from(this._perm).sort().join(" "));
+      e.setAttribute('sandbox', Array.from(this._perm).sort().map(function(i){ return "allow-"+i }).join(" "));
       e.style.height = '0px';
       e.setAttribute('name', this.id);
       e.setAttribute('src', this.src);
