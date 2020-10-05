@@ -2,18 +2,26 @@ define(function () {
   "use strict";
 
   return {
-    create : function (name, src, id) {
-      return Object.create(this)._init(name, src, id);
+    create : function (data) {
+      return Object.create(this)._init(data);
     },
 
     // Initialize service
-    _init : function (name, src, id) {
-      if (!name || !src || !id)
+    _init : function (data) {
+      if (!data || !data["name"] || !data["src"] || !data["id"])
         throw Error("Service not well defined");
-      this.name = name;
-      this.src = src;
-      this.id = id;
+
+      this.name = data["name"];
+      this.src = data["src"];
+      this.id = data["id"];
       this._perm = new Set();
+
+      let perm = data["permissions"];
+      if (perm && Array.isArray(perm)) {
+        perm.forEach(
+          p => this._perm.add(p)
+        );
+      };
       
       // There is no close method defined yet
       if (!this.close) {
@@ -43,32 +51,13 @@ define(function () {
       e.setAttribute('allowTransparency',"true");
       e.setAttribute('frameborder', 0);
       // Allow forms in Plugins
-      e.setAttribute('sandbox', this._permString());
+      e.setAttribute('sandbox', Array.from(this._perm).sort().join(" "));
       e.style.height = '0px';
       e.setAttribute('name', this.id);
       e.setAttribute('src', this.src);
       
       this._load = e;
       return e;
-    },
-
-    allow : function (permission) {
-      if (Array.isArray(permission)) {
-        permission.forEach(
-          p => this._perm.add(p)
-        );
-      }
-      else {
-        this._perm.add(permission);
-      };
-
-      if (this._load) {
-        this._load.setAttribute('sandbox', this._permString());
-      }
-    },
-
-    _permString : function () {
-      return Array.from(this._perm).sort().join(" ");
     },
 
     /**

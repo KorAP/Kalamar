@@ -149,12 +149,6 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             // "this".button is the button
             // "that" is the server object
 
-            // Get the URL of the widget
-            let url = onClick["template"];
-            // that._interpolateURI(onClick["template"], this.match);
-
-            let perm = onClick["permissions"];
-
             // The button has a state and the state is associated to the
             // a intermediate object to toggle the view
             if ('state' in this.button && this.button.state.associates() > 0) {
@@ -184,7 +178,11 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             };
 
             // Add the widget to the panel
-            let id = that.addWidget(this, name, url, perm);
+            let id = that.addWidget(this, {
+              "name": name,
+              "src": onClick["template"], // that._interpolateURI(onClick["template"], this.match);
+              "permissions": onClick["permissions"]
+            });
             plugin["widgets"].push(id);
             
             // If a state exists, associate with a mediator object
@@ -240,16 +238,14 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
           //   Lazy registration (see above!)
           KorAP.Panel[panel].actions.addToggle(title, {'cls':["title"]}, state);
 
-          // Get the URL of the service
-
-          // TODO:
-          //   Use the "service" keyword
-          let url = onClick["template"];
-          
           // Add the service
-          let id = this.addService(name, url);
-
-          let perm = onClick["permissions"];
+          let id = this.addService({
+            "name" : name,
+            // TODO:
+            //   Use the "service" keyword
+            "src" : onClick["template"],
+            "permissions" : onClick["permissions"]
+          });
 
           // TODO:
           //   This is a bit stupid to get the service window
@@ -338,17 +334,16 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
     /**
      * Add a service in a certain panel and return the id.
      */
-    addService : function (name, src, permissions) {
-      if (!src)
+    addService : function (data) {
+      if (!data["src"])
         return;
 
       let id = this._getServiceID();
 
+      data["id"] = id;
+
       // Create a new service
-      let service = serviceClass.create(name, src, id);
-      if (permissions != undefined) {
-        service.allow(permissions);
-      };     
+      let service = serviceClass.create(data);
       
       services[id] = service;
       limits[id] = maxMessages;
@@ -366,15 +361,15 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
      * Open a new widget view in a certain panel and return
      * the id.
      */
-    addWidget : function (panel, name, src, permissions) {
+    addWidget : function (panel, data) {
+      // panel, name, src, permissions
 
       let id = this._getServiceID();
 
+      data["id"] = id;
+      
       // Create a new widget
-      var widget = widgetClass.create(name, src, id);
-      if (permissions != undefined) {
-        widget.allow(permissions);
-      };
+      var widget = widgetClass.create(data);
 
       // Store the widget based on the identifier
       services[id] = widget;

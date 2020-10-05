@@ -11,7 +11,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     it('should add a widget', function () {
       var manager = pluginServerClass.create();
       var panel = panelClass.create();
-      var id = manager.addWidget(panel, 'Example 1', 'about:blank');
+      var id = manager.addWidget(panel, {"name": 'Example 1', "src": 'about:blank'});
       expect(id).toMatch(/^id-/);
 
       var panelE = panel.element();
@@ -39,7 +39,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(e.getAttribute("id")).toBe("services");
       expect(e.children.length).toBe(0);
 
-      var id = manager.addService('Example 1', 'about:blank');
+      var id = manager.addService({"name":'Example 1', "src":'about:blank'});
       expect(id).toMatch(/^id-/);
 
       expect(e.children.length).toBe(1);
@@ -53,7 +53,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     it('should close a widget', function () {
       var manager = pluginServerClass.create();
       var panel = panelClass.create();
-      var id = manager.addWidget(panel, 'Example 2', 'about:blank');
+      var id = manager.addWidget(panel, {"name":'Example 2', "src":'about:blank'});
       expect(id).toMatch(/^id-/);
 
       var panelE = panel.element();
@@ -273,7 +273,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     it('should be initializable', function () {
       expect(function () { widgetClass.create() }).toThrow(new Error("Service not well defined"));
 
-      widget = widgetClass.create("Test", "https://example", 56);
+      widget = widgetClass.create({"name" : "Test", "src":"https://example", "id":56});
       expect(widget).toBeTruthy();
       expect(widget.id).toEqual(56);
       expect(widget.name).toEqual("Test");
@@ -281,9 +281,12 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     });
 
     it('should create a view element', function () {
-      var widget = widgetClass.create("Test", "https://example", 56);
-      widget.allow("allow-scripts");
-      widget.allow("allow-forms");
+      var widget = widgetClass.create({
+        "name":"Test",
+        "src":"https://example",
+        "id":56,
+        "permissions":["allow-scripts","allow-forms"]
+      });
       var we = widget.element();
 
       expect(we.tagName).toEqual("DIV");
@@ -295,10 +298,6 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts");
       expect(iframe.getAttribute("src")).toEqual("https://example");
       expect(iframe.getAttribute("name")).toEqual("56");
-
-
-      widget.allow(["allow-downloads","allow-everything"]);
-      expect(iframe.getAttribute("sandbox")).toEqual("allow-downloads allow-everything allow-forms allow-scripts");
       
       var btn = we.lastChild;
       expect(btn.classList.contains("button-group")).toBeTruthy();
@@ -316,21 +315,9 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(btn.lastChild.firstChild.tagName).toEqual("SPAN");
       expect(btn.lastChild.textContent).toEqual("Test");
     })
-
-    it('should have mutable permissions', function () {
-      var widget = widgetClass.create("Test", "https://example", 56);
-      var we = widget.element();
-      var iframe = we.firstChild;
-      expect(iframe.tagName).toEqual("IFRAME");
-      expect(iframe.getAttribute("sandbox")).toEqual("");
-      widget.allow("allow-scripts");
-      widget.allow("allow-forms");
-      expect(iframe.tagName).toEqual("IFRAME");
-      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts");
-    });
     
     it('should be resizable', function () {
-      var widget = widgetClass.create("Test", "https://example", 56);
+      var widget = widgetClass.create({"name":"Test", "src":"https://example", "id":56});
       var iframe = widget.show();
       expect(iframe.style.height).toEqual('0px');
       widget.resize({ height : 9 });
@@ -338,7 +325,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     });
 
     it('should be minimizable', function () {
-      var widget = widgetClass.create("Test", "https://example", 56);
+      var widget = widgetClass.create({"name":"Test", "src":"https://example", "id":56});
       var we = widget.element();
       expect(we.classList.contains('show')).toBeTruthy();
       widget.minimize();
@@ -350,7 +337,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     it('should be initializable', function () {
       expect(function () { serviceClass.create() }).toThrow(new Error("Service not well defined"));
 
-      let service = serviceClass.create("Test", "https://example", 56);
+      let service = serviceClass.create({"name":"Test", "src":"https://example", "id":56});
       expect(service).toBeTruthy();
       expect(service.id).toEqual(56);
       expect(service.name).toEqual("Test");
@@ -358,7 +345,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
     });
 
     it('should be loadable', function () {
-      let service = serviceClass.create("Test", "https://example", 56);
+      let service = serviceClass.create({"name":"Test", "src":"https://example", "id":56});
       expect(service).toBeTruthy();
 
       let i = service.load();
@@ -502,7 +489,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
   describe('KorAP.Plugin communications', function () {
     it('should receive messages', function () {
       var manager = pluginServerClass.create();
-      var id = manager.addService('Example 1', 'about:blank');
+      var id = manager.addService({"name":'Example 1', "src":'about:blank'});
       expect(id).toMatch(/^id-/);
       var temp = KorAP.koralQuery;
       KorAP.koralQuery = { "@type" : "koral:test" };
@@ -526,7 +513,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Pipe = pipeClass.create();
       expect(KorAP.Pipe.toString()).toEqual("");
       
-      var id = manager.addService('Example 2', 'about:blank');
+      var id = manager.addService({"name":'Example 2', "src":'about:blank'});
       expect(id).toMatch(/^id-/);
       manager._receiveMsg({
         "data" : {
@@ -562,7 +549,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
     it('should reply to query information requests', function () {
       var manager = pluginServerClass.create();
-      var id = manager.addService('Service', 'about:blank');
+      var id = manager.addService({"name":'Service', "src":'about:blank'});
       expect(id).toMatch(/^id-/);
       var temp = KorAP.vc;
       // Create form for query form information

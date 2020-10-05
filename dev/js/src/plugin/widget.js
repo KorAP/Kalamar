@@ -16,8 +16,8 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
     /**
      * Create new widget
      */
-    create : function (name, src, id) {
-      return Object.create(viewClass)._init(['widget']).upgradeTo(serviceClass)._init(name, src, id).upgradeTo(this)._init();
+    create : function (data) {
+      return Object.create(viewClass)._init(['widget']).upgradeTo(serviceClass)._init(data).upgradeTo(this)._init();
     },
 
     // Initialize widget
