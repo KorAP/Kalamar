@@ -13,7 +13,8 @@ define(function () {
       this.name = name;
       this.src = src;
       this.id = id;
-
+      this._perm = new Set();
+      
       // There is no close method defined yet
       if (!this.close) {
         this.close = function () {
@@ -42,13 +43,32 @@ define(function () {
       e.setAttribute('allowTransparency',"true");
       e.setAttribute('frameborder', 0);
       // Allow forms in Plugins
-      e.setAttribute('sandbox','allow-scripts allow-forms');
+      e.setAttribute('sandbox', this._permString());
       e.style.height = '0px';
       e.setAttribute('name', this.id);
       e.setAttribute('src', this.src);
       
       this._load = e;
       return e;
+    },
+
+    allow : function (permission) {
+      if (Array.isArray(permission)) {
+        permission.forEach(
+          p => this._perm.add(p)
+        );
+      }
+      else {
+        this._perm.add(permission);
+      };
+
+      if (this._load) {
+        this._load.setAttribute('sandbox', this._permString());
+      }
+    },
+
+    _permString : function () {
+      return Array.from(this._perm).sort().join(" ");
     },
 
     /**

@@ -237,10 +237,35 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('');
       
       manager.destroy();
 
       KorAP.Panel["result"] = undefined;
+    });
+
+    it('should accept widget permissions', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Add',
+          onClick : {
+            template : 'about:blank',
+            action : 'addWidget',
+            permissions: ['allow-scripts', 'allow-forms']
+          }
+        }]
+      });
+
+      let b = p.actions.element().firstChild;
+      b.click();
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts');
     });
   });
   
@@ -257,6 +282,8 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
     it('should create a view element', function () {
       var widget = widgetClass.create("Test", "https://example", 56);
+      widget.allow("allow-scripts");
+      widget.allow("allow-forms");
       var we = widget.element();
 
       expect(we.tagName).toEqual("DIV");
@@ -265,10 +292,14 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       var iframe = we.firstChild;
       expect(iframe.tagName).toEqual("IFRAME");
-      expect(iframe.getAttribute("sandbox")).toEqual("allow-scripts allow-forms");
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts");
       expect(iframe.getAttribute("src")).toEqual("https://example");
       expect(iframe.getAttribute("name")).toEqual("56");
 
+
+      widget.allow(["allow-downloads","allow-everything"]);
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-downloads allow-everything allow-forms allow-scripts");
+      
       var btn = we.lastChild;
       expect(btn.classList.contains("button-group")).toBeTruthy();
       expect(btn.classList.contains("button-view")).toBeTruthy();
@@ -286,6 +317,18 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(btn.lastChild.textContent).toEqual("Test");
     })
 
+    it('should have mutable permissions', function () {
+      var widget = widgetClass.create("Test", "https://example", 56);
+      var we = widget.element();
+      var iframe = we.firstChild;
+      expect(iframe.tagName).toEqual("IFRAME");
+      expect(iframe.getAttribute("sandbox")).toEqual("");
+      widget.allow("allow-scripts");
+      widget.allow("allow-forms");
+      expect(iframe.tagName).toEqual("IFRAME");
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts");
+    });
+    
     it('should be resizable', function () {
       var widget = widgetClass.create("Test", "https://example", 56);
       var iframe = widget.show();

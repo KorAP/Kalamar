@@ -2,7 +2,7 @@
   "name": "Kalamar",
   "description": "Mojolicious-based Frontend for KorAP",
   "license": "BSD-2-Clause",
-  "version": "0.39.3",
+  "version": "0.39.4",
   "pluginVersion": "0.2.2",
   "engines": {
     "node": ">=6.0.0"

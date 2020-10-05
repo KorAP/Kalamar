@@ -153,6 +153,8 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             let url = onClick["template"];
             // that._interpolateURI(onClick["template"], this.match);
 
+            let perm = onClick["permissions"];
+
             // The button has a state and the state is associated to the
             // a intermediate object to toggle the view
             if ('state' in this.button && this.button.state.associates() > 0) {
@@ -182,7 +184,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             };
 
             // Add the widget to the panel
-            let id = that.addWidget(this, name, url);
+            let id = that.addWidget(this, name, url, perm);
             plugin["widgets"].push(id);
             
             // If a state exists, associate with a mediator object
@@ -246,6 +248,8 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
           
           // Add the service
           let id = this.addService(name, url);
+
+          let perm = onClick["permissions"];
 
           // TODO:
           //   This is a bit stupid to get the service window
@@ -334,7 +338,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
     /**
      * Add a service in a certain panel and return the id.
      */
-    addService : function (name, src) {
+    addService : function (name, src, permissions) {
       if (!src)
         return;
 
@@ -342,6 +346,9 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
       // Create a new service
       let service = serviceClass.create(name, src, id);
+      if (permissions != undefined) {
+        service.allow(permissions);
+      };     
       
       services[id] = service;
       limits[id] = maxMessages;
@@ -359,12 +366,15 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
      * Open a new widget view in a certain panel and return
      * the id.
      */
-    addWidget : function (panel, name, src) {
+    addWidget : function (panel, name, src, permissions) {
 
       let id = this._getServiceID();
 
       // Create a new widget
       var widget = widgetClass.create(name, src, id);
+      if (permissions != undefined) {
+        widget.allow(permissions);
+      };
 
       // Store the widget based on the identifier
       services[id] = widget;
