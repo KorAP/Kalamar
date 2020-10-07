@@ -1,5 +1,6 @@
 0.40 2020-10-09
         - Modernize ES and fix in-loops.
+        - add roll() method to state object.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.
