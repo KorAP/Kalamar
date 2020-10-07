@@ -91,7 +91,8 @@ blockquote {
   mix-blend-mode:   soft-light;
 
   &.bug,
-  &.missing {
+  &.missing,
+  &.warning {
     border-left-color: $dark-red;
     background-color:  $middle-red;
     color:             $nearly-white;
