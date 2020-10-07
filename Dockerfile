@@ -18,7 +18,12 @@ RUN cd /kalamar && \
            dev/demo \
            dev/font \
            dev/img  \
-           dev/scss
+           dev/js/bench  \
+           dev/js/runner \
+           dev/js/spec \
+           dev/scss && \
+    rm package-lock.json \
+       dev/robots.txt
 
 # Use alpine linux as base image
 FROM alpine:latest
@@ -54,7 +59,8 @@ RUN apk del git \
             wget \
             curl && \
             rm -rf /root/.cpanm \
-                   /usr/local/share/man
+                   /usr/local/share/man && \
+            rm -rf t
 
 RUN addgroup -S korap && \
     adduser -S kalamar -G korap && \

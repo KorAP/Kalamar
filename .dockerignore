@@ -12,3 +12,6 @@
 !/t
 !/templates
 !.dockerignore
+/templates/announcement.html.ep
+/templates/custom
+/lib/Kalamar/Plugin/Announcements.pm
