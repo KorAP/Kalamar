@@ -8,9 +8,9 @@
  */
 /*
  * TODO:
- *   Add a "roll" parameter, like "roll":["left","right","center"]
- *   and a roll() method, that will switch through the states in the list
- *   for flexible toggling.
+ *   Require names for states, that should be quite short, so they
+ *   can easily be serialized and kept between page turns (via cookie
+ *   and/or query param)
  */
 define(function () {
 
@@ -26,12 +26,20 @@ define(function () {
     },
 
     // Initialize
-    _init : function (value) {
+    _init : function (values) {
       this._assoc = [];
-      this.value = value;
+      if (values == undefined) {
+        this.values = [false,true];
+      }
+      else if (Array.isArray(values)) {
+        this.values = values;
+      }
+      else {
+        this.values = [values];
+      }
+      this.value = this.values[0];
       return this;
     },
-
 
     /**
      * Associate the state with some objects.
@@ -80,6 +88,21 @@ define(function () {
      */
     clear : function () {
       return this._assoc = [];
+    },
+
+    /**
+     * Roll to the next value.
+     * This may be used for toggling.
+     */
+    roll : function () {
+      let next = 0;
+      for (let i = 0; i < this.values.length; i++) {
+        if (this.value == this.values[i]) {
+          next = i+1;
+          break;
+        };
+      };
+      this.set(this.values[next]);
     }
   }
 });
