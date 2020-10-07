@@ -51,7 +51,7 @@
 
       > span.check {
         @include icon-font;
-        width:      1.2em;
+        width:      1em;
         display:    inline-block;
         text-align: left;
 
@@ -129,6 +129,7 @@ ul.menu.button-group-list {
 
 .button-icon {
   @include icon-font;
+  line-height: .7;
   > span {
     @include blind;
   }

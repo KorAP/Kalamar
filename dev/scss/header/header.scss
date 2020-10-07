@@ -129,3 +129,16 @@ header {
     }
   }
 }
+
+
+.query.button-group > span {
+  border-top-width: 0;
+  border-color: white;
+  
+  &:first-child {
+    border-top-left-radius: 0;
+  }
+  &:last-child {
+    border-top-right-radius: 0;
+  }
+}

@@ -49,6 +49,22 @@ require(['plugin/server','panel/query', 'hint','hint/foundries/cnx','lib/domRead
         'title' : 'Glemm',
         'classes' : ['glemm'],
         'onClick' : {
+          "action":"toggle",
+          "template" : "http://localhost:3003/demo/plugin-client.html"
+        }
+      }]
+    });
+
+    // Register match plugin
+    KorAP.Plugin.register({
+      'name' : 'Glimpse',
+      'desc' : 'Shorten all queries',
+      'embed' : [{
+        'panel' : 'query',
+        'title' : 'Glimpse',
+        'classes' : ['glimpse'],
+        'onClick' : {
+          "action" : "toggle",
           "template" : "http://localhost:3003/demo/plugin-client.html"
         }
       }]
