@@ -1,4 +1,4 @@
-0.39 2020-10-05
+0.39 2020-10-07
         - Add information on secret file to Readme.
         - Change default API endpoint to korap.ids-mannheim.de.
         - Fix label for toggle plugins.
@@ -27,6 +27,7 @@
           instead of minimized.
         - Add registrable permissions to widgets and services
           (#112).
+        - Fix plugin info box.
 
         WARNING: If you relied on the former default API endpoint
           being http://localhost:9999/, this will break your

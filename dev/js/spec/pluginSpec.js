@@ -113,7 +113,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(manager.buttonGroup('match').length).toEqual(1);
       manager.destroy();
     });
-
+    
     it('should accept valid registrations for query temporary', function () {
       var manager = pluginServerClass.create();
 
@@ -192,7 +192,6 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Panel["result"] = undefined;
     });
 
-
     it('should accept valid registrations for setWidget', function () {
       let p = KorAP.Panel["result"] = panelClass.create();
       
@@ -243,6 +242,83 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       KorAP.Panel["result"] = undefined;
     });
+
+    it('should alert on plugin info (1)', function () {
+
+      let alertMsg;
+      spyOn(window, 'alert').and.callFake(function(msg) {  
+        alertMsg = msg;  
+      });
+
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Add',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget'
+          }
+        }]
+      });
+
+      expect(alertMsg).toBeUndefined();
+
+      let b = p.actions.element().firstChild;
+      b.click();
+
+      // This may only be temporary and should open the plugin window instead
+      p.element().querySelector("span.plugin").click();
+
+      expect(alertMsg).toEqual('Check');
+      
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+
+    it('should alert on plugin info (2)', function () {
+
+      let alertMsg;
+      spyOn(window, 'alert').and.callFake(function(msg) {  
+        alertMsg = msg;  
+      });
+
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        desc : 'Simple Check plugin',
+        embed : [{
+          panel : 'result',
+          title : 'Add',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget'
+          }
+        }]
+      });
+
+      expect(alertMsg).toBeUndefined();
+
+      let b = p.actions.element().firstChild;
+      b.click();
+
+      // This may only be temporary and should open the plugin window instead
+      p.element().querySelector("span.plugin").click();
+
+      expect(alertMsg).toEqual("Check\n\nSimple Check plugin");
+      
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+    
 
     it('should accept widget permissions', function () {
       let p = KorAP.Panel["result"] = panelClass.create();

@@ -8,7 +8,7 @@
  * @author Nils Diewald
  */
 
-define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetClass, serviceClass, stateClass) {
+define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetClass, serviceClass, stateClass) {
   "use strict";
 
   KorAP.Panel = KorAP.Panel || {};
@@ -109,10 +109,12 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
       if (!name)
         throw new Error("Missing name of plugin");
 
+      var desc = obj["desc"];
+      
       // Register plugin by name
       var plugin = plugins[name] = {
         name : name,
-        desc : obj["desc"],
+        desc : desc,
         about : obj["about"],
         widgets : [],
         services : []
@@ -181,7 +183,8 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
             let id = that.addWidget(this, {
               "name": name,
               "src": onClick["template"], // that._interpolateURI(onClick["template"], this.match);
-              "permissions": onClick["permissions"]
+              "permissions": onClick["permissions"],
+              "desc":desc
             });
             plugin["widgets"].push(id);
             

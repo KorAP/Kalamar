@@ -50,7 +50,11 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
         this.name, {'cls':['button-icon', 'plugin']}, function (e) {
 
           // Temporary
-          window.alert("Basic information about this plugin");
+          let str = this.name;
+          if (this.desc !== undefined) {
+            str += "\n\n" + this.desc;
+          };
+          window.alert(str);
       }.bind(this));
       
       return obj;

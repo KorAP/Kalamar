@@ -24,6 +24,7 @@ define(function () {
       this.name = data["name"];
       this.src = data["src"];
       this.id = data["id"];
+      this.desc = data["desc"];
       let _perm = new Set();
       let perm = data["permissions"];
       if (perm && Array.isArray(perm)) {
