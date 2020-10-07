@@ -157,14 +157,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
 
               // The associated service is existent
               if (services[this.button['widgetID']]) {
-              
-                // TODO:
-                //   Use roll() when existing
-                if (s.get()) {
-                  s.set(false);
-                } else {
-                  s.set(true);
-                };
+                s.roll();
                 return;
               }
 
@@ -209,7 +202,7 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
           if (onClick["action"] && onClick["action"] == "setWidget") {
 
             // Create a boolean state value, that initializes to true == opened
-            obj['state'] = stateClass.create(true);
+            obj['state'] = stateClass.create([true, false]);
           };
           
           // Add to dynamic button list (e.g. for matches)
@@ -231,8 +224,12 @@ define(["plugin/widget", 'plugin/service', 'state', "util"], function (widgetCla
         // TODO There is no possibility to add icons to an plugin toggle button right now. 
         else if (onClick["action"] == "toggle") {
 
-          // Todo: Initially false
-          let state = stateClass.create(false);
+          // TODO:
+          //   Accept a "value" list here for toggling, which should
+          //   also allow for "rolling" through states via CSS classes
+          //   as 'toggle-true', 'toggle-false' etc.
+
+          let state = stateClass.create([true, false]);
 
           // TODO:
           //   Lazy registration (see above!)

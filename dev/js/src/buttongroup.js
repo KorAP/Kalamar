@@ -106,12 +106,6 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Add button that can toggle a state.
      * The state has to be a state object.
      */
-    /*
-     * TODO:
-     *   Do not add a state object here, but embed the
-     *   state in the data and "roll()" through the different
-     *   state options instead.
-     */
     addToggle : function (title, data, state) {
       let b = this._element.addE('span');
       b.setAttribute('title',title);
@@ -147,11 +141,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
         e.halt();
         
         // Toggle state
-        if (state.get()) {
-          state.set(false)
-        } else {
-          state.set(true);
-        }
+        state.roll();
       });
 
       return b;

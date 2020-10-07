@@ -103,5 +103,24 @@ define(['state'], function (stateClass) {
       expect(obj1.x).toBeFalsy();
       expect(obj2.x).toBeFalsy();
     });
+
+    it('should roll', function () {
+      let s = stateClass.create(['der','alte','mann']);
+
+      expect(s.get()).toEqual('der');
+      s.roll();
+      expect(s.get()).toEqual('alte');
+      s.roll();
+      expect(s.get()).toEqual('mann');
+      s.roll();
+      expect(s.get()).toEqual('der');
+      s.roll();
+      expect(s.get()).toEqual('alte');
+
+      s.set('alte');
+      expect(s.get()).toEqual('alte');
+      s.roll();
+      expect(s.get()).toEqual('mann');
+    });
   });
 });
