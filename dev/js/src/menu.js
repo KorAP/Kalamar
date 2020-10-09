@@ -175,14 +175,14 @@ define([
 
       var i = 0;
       // Initialize item list based on parameters
-      for (i in list) {
-        var obj = this._itemClass.create(list[i]);
+      list.forEach(function(i){
+        var obj = this._itemClass.create(i);
 
         // This may become circular
         obj["_menu"] = this;
-        this._lengthField.add(list[i]);
+        this._lengthField.add(i);
         this._items.push(obj);
-      };
+      }, this);
 
       this._slider.length(this.liveLength())
         .limit(this._limit)
@@ -296,9 +296,9 @@ define([
         delete this._element["menu"]; 
 
       // Remove circular reference to "this" in items
-      for (var i = 0; i < this._items.length; i++) {
-        delete this._items[i]["_menu"];
-      };
+      this._items.forEach(function(i) {
+        delete i["_menu"];
+      });
 
       // Remove circular reference to "this" in prefix
       delete this._prefix['_menu'];
@@ -854,11 +854,11 @@ define([
 
     // Unmark all items
     _unmark : function () {
-      for (var i in this._list) {
-        var item = this._items[this._list[i]];
+      this._list.forEach(function(it){
+        var item = this._items[it];
         item.lowlight();
-        item.active(false);  
-      };
+        item.active(false);
+      }, this);
     },
 
     // Set boundary for viewport
@@ -903,7 +903,7 @@ define([
         var shown = 0;
         var i;
 
-        for (i in this._list) {
+        for (let i = 0; i < this._list.length; i++) {
 
           // Don't show - it's before offset
           shown++;

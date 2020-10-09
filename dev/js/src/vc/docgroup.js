@@ -117,14 +117,13 @@ define([
 
 	      // Flatten group
 	      if (docGroup.operation() === this.operation()) {
-	        for (var op in docGroup.operands()) {
-	          op = docGroup.getOperand(op);
+          docGroup.operands().forEach(function(op) {
 	          var dupl = this._duplicate(op);
 	          if (dupl === null) {
 	            this._operands.push(op);
 	            op.parent(this);
 	          };
-	        };
+	        }, this);
 	        docGroup._operands = [];
 	        docGroup.destroy();
 	        return this;
@@ -275,11 +274,10 @@ define([
 	          this._operands.splice(i, 1);
 
 	          // Inject new operands
-	          for (var op in newOp.operands().reverse()) {
-	            op = newOp.getOperand(op);
+            newOp.operands().reverse().forEach(function(op) {
 	            this._operands.splice(i, 0, op);
 	            op.parent(this);
-	          };
+	          }, this);
 	          // Prevent destruction of operands
 	          newOp._operands = [];
 	          newOp.destroy();
@@ -337,10 +335,7 @@ define([
       };
 
       // Add all documents
-      for (var i in json["operands"]) {
-	      var operand = json["operands"][i];
-	      this.append(operand);
-      };
+      json["operands"].forEach(i => this.append(i));
       
       return this;
     },

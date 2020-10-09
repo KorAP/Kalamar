@@ -61,8 +61,7 @@ define([], function () {
       // Iterate over edge lists
       // TODO:
       //   Support spans for anchors!
-      for (var i in edges) {
-        var edge = edges[i];
+      edges.forEach(function(edge) {
 
         // Check the target identifier
         var targetID = edge.targetID;
@@ -88,7 +87,7 @@ define([], function () {
           // console.log(relation);
           this.addRel(relation);
         };
-      };
+      }, this);
 
       // Reset parsing memory
       this.temp = {};
@@ -100,8 +99,7 @@ define([], function () {
     _parse : function (parent, children, mark) {
 
       // Iterate over all child nodes
-      for (var i in children) {
-        var c = children[i];
+      children.forEach(function(c) {
 
         // Element node
         if (c.nodeType == 1) {
@@ -230,8 +228,8 @@ define([], function () {
               this.temp['pos']++;
             };
           };
-        }
-      };
+        };
+      }, this);
 
       // Todo: define edges here!
     },
@@ -612,13 +610,7 @@ define([], function () {
 
       // Add sorted arcs and anchors
       this._sortedArcs    = lengthSort(sortedArcs, false);
-
-      // Translate map to array (there is probably a better JS method)
-      var sortedAnchors = [];
-      for (var i in anchors) {
-        sortedAnchors.push(anchors[i]);
-      };
-      this._sortedAnchors = lengthSort(sortedAnchors, true);
+      this._sortedAnchors = lengthSort(Object.keys(anchors), true);
     },
 
     /**
@@ -671,18 +663,18 @@ define([], function () {
       ws.style.textAnchor = "start";
       
       var lastRight = 0;
-      for (var node_i in this._tokens) {
+      this._tokens.forEach(function(node_i) {
         // Append svg
         // var x = text.appendChild(this._c("text"));
         var tspan = text.appendChild(this._c("tspan"));
-        tspan.appendChild(d.createTextNode(this._tokens[node_i]));
+        tspan.appendChild(d.createTextNode(node_i));
         tspan.setAttribute("text-anchor", "middle");
         
         this._tokenElements.push(tspan);
 
         // Add whitespace!
         tspan.setAttribute("dx", this.tokenSep);
-      };
+      }, this);
 
       // Get some global position data that may change on resize
       var globalBoundingBox = this._rect(g);
@@ -702,15 +694,14 @@ define([], function () {
         this._sortArcs();
 
       // 1. Draw all anchors
-      var i;
-      for (i in this._sortedAnchors) {
-        this._drawAnchor(this._sortedAnchors[i]);
-      };
+      this._sortedAnchors.forEach(
+        i => this._drawAnchor(i)
+      );
 
       // 2. Draw all arcs
-      for (i in this._sortedArcs) {
-        this._drawArc(this._sortedArcs[i]);
-      };
+      this._sortedArcs.forEach(
+        i => this._drawArc(i)
+      );
 
       // Resize the svg with some reasonable margins
       var width = this._rect(text).width;
