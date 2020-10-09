@@ -116,10 +116,10 @@ define({
 
     // Reset position
     var mirrorStyle = this._mirror.style;
-    mirrorStyle.left = inputClientRect.left + "px";
-    mirrorStyle.top  = (inputClientRect.bottom - bodyClientRect.top) + "px";
+    mirrorStyle.left = parseInt(inputClientRect.left) + "px";
+    mirrorStyle.top  = parseInt(inputClientRect.bottom - bodyClientRect.top) + "px";
     mirrorStyle.width = inputStyle.getPropertyValue("width");
-    
+
     // These may be relevant in case of media depending css
     mirrorStyle.paddingLeft     = inputStyle.getPropertyValue("padding-left");
     mirrorStyle.marginLeft      = inputStyle.getPropertyValue("margin-left");

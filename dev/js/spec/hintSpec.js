@@ -61,7 +61,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
   describe('KorAP.InputField', function () {
     beforeAll(beforeAllFunc);
     afterAll(afterAllFunc);
-    var input;
+    let input;
 
     beforeEach(function () {
       input = document.createElement("input");
