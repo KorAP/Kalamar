@@ -104,11 +104,10 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * Delete a closed view from panel
      */
     delView : function (view) {
-      for (i in this.views) {
-        if (this.views[i] === view) {
-          this.views[i] = undefined;
-        }
-      }
+      this.views.forEach(function(e, i, a) {
+        if (e === view)
+          a[i] = undefined;
+      });
     },
 
     /**

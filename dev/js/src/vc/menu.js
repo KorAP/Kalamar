@@ -44,11 +44,9 @@ define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixC
      * VCs and small key lists.
      */
     typeOf : function (key) {
-      for (i in this._items) {
-        if (this._items[i].key() === key) {
-          return this._items[i].type();
-        }
-      };
+      const found = this._items.find(i => i.key() === key);
+      if (found)
+        return found.type();
     }
   };
 });

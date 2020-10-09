@@ -109,8 +109,7 @@ define(['lib/dagre'], function (dagre) {
 
     // Parse the snippet
     _parse : function (parent, children, mark) {
-      for (var i in children) {
-       var c = children[i];
+      children.forEach(function(c) {
 
        // Element node
        if (c.nodeType == 1) {
@@ -164,7 +163,7 @@ define(['lib/dagre'], function (dagre) {
 
            this._addEdge(parent, id);
          };
-      };
+      }, this);
       return this;
     },
 

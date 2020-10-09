@@ -405,13 +405,9 @@ define(['util'], function () {
       };
 
       // Set query language field
-      var qlf = this._ql.options;
-      for (var i in qlf) {
-	      if (qlf[i].value == 'poliqarp') {
-	        qlf[i].selected = true;
-          break;
-	      };
-      };
+      const ql = this._ql.options.find(e => e.value == 'poliqarp');
+      if (ql)
+        ql.selected = true;
 
       // Insert to query bar
       this._q.value = this.toString();

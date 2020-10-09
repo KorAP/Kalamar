@@ -37,9 +37,8 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
       this._element = document.createElement('div');
       this._element.setAttribute('class', 'rewrite');
       var comments = [];
-      for (var x in this._list) {
-	      var rewrite = this._list[x];
-
+      this._list.forEach(function(rewrite) {
+	    
         // This is a blind element
 	      var span = document.createElement('span');
 
@@ -60,7 +59,7 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
         comments.push(rewriteText + ' (' + rewrite.operation() + ')');
         
 	      this._element.appendChild(span);
-      };
+      }, this);
       this._element.setAttribute("title", comments.join("\n"))
       return this._element;
     }
