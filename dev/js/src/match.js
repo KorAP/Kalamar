@@ -85,10 +85,9 @@ define([
       else {
 
         // Iterate over allowed match terms
-        for (var i in _matchTerms) {
-          var term = _matchTerms[i];
+        _matchTerms.forEach(function(term) {
           this[term] = match[term] !== undefined ? match[term] : undefined;
-        };
+        }, this);
       };
       
       this._avail = {

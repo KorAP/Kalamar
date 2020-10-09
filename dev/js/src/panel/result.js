@@ -30,9 +30,7 @@ define([
         var resultButtons = KorAP.Plugin.buttonGroup("result");
 
         // Add all result buttons in order
-        for (i in resultButtons) {
-          this.actions.add.apply(this.actions, resultButtons[i]);
-        };
+       resultButtons.forEach(i => this.actions.add.apply(this.actions, i));
 
         KorAP.Plugin.clearButtonGroup("result");
       };
