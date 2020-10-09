@@ -125,8 +125,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
  
       // Embed all embeddings of the plugin
       var that = this;
-      for (let i in obj["embed"]) {
-        let embed = obj["embed"][i];
+      obj["embed"].forEach(function(embed) {
 
         if (typeof embed !== 'object')
           throw new Error("Embedding of plugin is no object");
@@ -274,7 +273,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
 
           plugin["services"].push(id);
         };
-      };
+      }, this);
     },
 
     // TODO:
@@ -322,7 +321,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
         
         // Every second increase the limits of all registered services
         this._timer = window.setInterval(function () {
-          for (var i in limits) {
+          for (let i = 0; i < limits.length; i++) {
             if (limits[i]++ >= maxMessages) {
               limits[i] = maxMessages;
             }
@@ -558,16 +557,16 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
     // Destructor, just for testing scenarios
     destroy : function () {
       limits = {};
-      for (let s in services) {
-        services[s].close();
-      };
+      Object.keys(services).forEach(
+        s => services[s].close()
+      );
       services = {};
-      for (let b in buttons) {
-        buttons[b] = [];
-      };
-      for (let b in buttonsSingle) {
-        buttonsSingle[b] = [];
-      };
+      Object.keys(buttons).forEach(
+        b => buttons[b] = []
+      );
+      Object.keys(buttonsSingle).forEach(
+        b => buttonsSingle[b] = []
+      );
 
       if (this._element) {
         let e = this._element;
