@@ -104,8 +104,7 @@ define([
     _parse : function (children, mark) {
 
       // Get all children
-      for (var i in children) {
-        var c = children[i];
+      children.forEach(function(c) {
 
         // Create object on position unless it exists
         if (this._info[this._pos] === undefined) {
@@ -180,7 +179,7 @@ define([
             this._token[this._pos++] = c.nodeValue;
           };
         };
-      };
+      }, this);
 
       delete this._info[this._pos];
     },
@@ -250,7 +249,7 @@ define([
       tr.addCell('th', undefined, 'Layer');
 
       // Add tokens
-      for (var i in this._token) {
+      Object.keys(this._token).forEach(function(i) {
         let surface = this.getToken(i);
         var c = tr.addCell('th', undefined, surface);
         if (this._mark[i]) {
@@ -267,7 +266,7 @@ define([
         if (surface.length > 20) {
           c.setAttribute("title", surface)
         }
-      };
+      }, this);
       
       var tbody = table.addE('tbody');
 
