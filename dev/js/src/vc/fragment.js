@@ -142,9 +142,7 @@ define(['vc/doc', 'util'], function (docClass) {
         root.setAttribute('class','docGroup');
         root.setAttribute('data-operation', 'and');
 
-        for (let i in this._operands) {
-          root.appendChild(_doc(this._operands[i]));
-        };
+        this._operands.forEach(i => root.appendChild(_doc(i)));
       }
       else if (l == 1) {
         root = _doc(this._operands[0]);

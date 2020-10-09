@@ -87,9 +87,7 @@ define([
         if (matchButtons) {
 
           // Add all matchbuttons in order
-          for (i in matchButtons) {
-            a.add.apply(a, matchButtons[i]);
-          }
+          matchButtons.forEach(m => a.add.apply(a, m));
         };
       };
 
@@ -142,13 +140,8 @@ define([
       var spans = match.getSpans();
       var rels = match.getRels();
       
-      var i;
-      for (i in spans) {
-        treeLayers.push(spans[i]);
-      };
-      for (i in rels) {
-        treeLayers.push(rels[i]);
-      };
+      spans.forEach(i => treeLayers.push(i));
+      rels.forEach(i => treeLayers.push(i));
 
       // Get spans
       treeLayers = treeLayers.sort(
