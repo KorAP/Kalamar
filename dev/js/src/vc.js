@@ -233,10 +233,10 @@ define([
 
       // Check recursively
       else if (obj.ldType() === 'docGroup') {
-        for (var i in obj.operands()) {
-          if (this.wasRewritten(obj.getOperand(i))) {
-            return true;
-          }
+
+        // If there was a rewritten object
+        if (obj.operands().find(op => this.wasRewritten(op)) !== undefined) {
+          return true;
         };
       };
 
