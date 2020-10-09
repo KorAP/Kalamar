@@ -54,9 +54,7 @@ define(function () {
     set : function (value) {
       if (value != this.value) {
         this.value = value;
-        for (let i in this._assoc) {
-          this._assoc[i].setState(value);
-        }
+        this._assoc.forEach(i => i.setState(value));
       };
     },
 

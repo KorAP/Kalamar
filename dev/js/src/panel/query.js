@@ -27,9 +27,7 @@ define([
         var queryButtons = KorAP.Plugin.buttonGroup("query");
 
         // Add all matchbuttons in order
-        for (i in queryButtons) {
-          a.add.apply(a, queryButtons[i]);
-        };
+        queryButtons.forEach(i => a.add.apply(a, i));
 
         KorAP.Plugin.clearButtonGroup("query")
       };
