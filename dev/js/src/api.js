@@ -167,9 +167,9 @@ define(['util'], function () {
           return;
         };
 	      if (json !== null && json["errors"] !== null) {
-	        for (var i in json["errors"]) {
-	          KorAP.log(json["errors"][i][0], json["errors"][i][1] || "Unknown");
-	        };
+	        json["errors"].forEach(
+            e => KorAP.log(e[0], e[1] || "Unknown")
+	        );
 	      }
         else if (this.status !== 200) {
         	KorAP.log(this.status, this.statusText);
