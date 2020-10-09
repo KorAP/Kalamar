@@ -56,12 +56,9 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
       };
       
       // TODO: Meta fields should be separated
-      const keys = Object.keys(posInMetaArray);
-
       // Sort all meta keys alphabetically
-      for (let i in keys.sort()) {
-        let k = keys[i];                             // This is the title
-        let field = fields[posInMetaArray[keys[i]]]; // This is the object
+      Object.keys(posInMetaArray).sort().forEach(function(k) {
+        let field = fields[posInMetaArray[k]]; // This is the object
 
         // Ignore internal IDs
         if (k !== "UID" &&
@@ -111,7 +108,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
           
           metaDL.appendChild(metaL);
         };
-      };
+      });
 
       // Add corpusByMatch assistant
       this._corpusByMatch = cbmClass.create(this._element);
