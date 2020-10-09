@@ -406,7 +406,7 @@ define(['util'], function () {
 
       // Set query language field
       var qlf = this._ql.options;
-      for (var i in qlf) {
+      for (let i = 0; i < qlf.length; i++) {
 	      if (qlf[i].value == 'poliqarp') {
 	        qlf[i].selected = true;
           break;

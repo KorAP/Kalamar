@@ -50,9 +50,7 @@ define(
 	      obj._container.addEventListener('click', obj.showSelected.bind(obj));
 
 	      // Add index information to each item
-	      for (i in obj._items) {
-	        obj._items[i]._index = i;
-	      };
+	      obj._items.forEach((e,i) => e._index = i);
 
 	      // This is only domspecific
 	      obj.element().addEventListener('blur', function (e) {
@@ -89,8 +87,7 @@ define(
        */
       selectValue : function (vParam) {
         var qlf = this._select.options;
-        var i;
-        for (i in qlf) {
+        for (let i = 0; i < qlf.length; i++) {
 	        if (qlf[i].value == vParam) {
             this.hide();
             this.select(i);
