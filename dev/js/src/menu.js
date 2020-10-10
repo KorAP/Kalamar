@@ -28,13 +28,6 @@ define([
   // Default maximum number of menu items
   var menuLimit = 8;
 
-  function _codeFromEvent (e) {
-    if (e.charCode && (e.keyCode == 0))
-      return e.charCode
-    return e.keyCode;
-  };
-
-
   /**
    * List of items for drop down menu (complete).
    * Only a sublist of the menu is filtered (live).
