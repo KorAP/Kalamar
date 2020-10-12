@@ -681,5 +681,31 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBeFalsy();
       expect(qc.toString()).toEqual("[orth=Baum]");
     });
+
+    it('should add fragment to QueryBar', function () {
+      var matchTable = matchTableCuttedFactory();
+      var qc = qcClass.create(matchTable);
+      expect(qc.toString()).toEqual("");
+
+      var cell = matchTable.querySelector("thead > tr > th:nth-child(3)");
+      expect(cell.classList.contains("chosen")).toBeFalsy();
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[orth=Baum]");
+
+      // May break
+      qc._ql = document.createElement('select');
+      let opt = qc._ql.appendChild(document.createElement('option'));
+      opt.value='cosmas 2';
+      let opt2 = qc._ql.appendChild(document.createElement('option'));
+      opt2.value='poliqarp';
+
+      qc._q = document.createElement('input');
+      
+      qc._element.click();
+
+      expect(qc._ql.selectedIndex).toEqual(1);
+      expect(qc._q.value).toEqual("[orth=Baum]");
+    });
   });
 });

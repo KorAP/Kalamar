@@ -408,7 +408,10 @@ define(['util'], function () {
       };
 
       // Set query language field
-      const ql = this._ql.options.find(e => e.value == 'poliqarp');
+      const ql = Array.from(
+        this._ql.options
+      ).find(e => e.value == 'poliqarp');
+
       if (ql)
         ql.selected = true;
 
