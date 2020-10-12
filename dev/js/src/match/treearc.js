@@ -610,7 +610,7 @@ define([], function () {
 
       // Add sorted arcs and anchors
       this._sortedArcs    = lengthSort(sortedArcs, false);
-      this._sortedAnchors = lengthSort(Object.keys(anchors), true);
+      this._sortedAnchors = lengthSort(Object.values(anchors), true);
     },
 
     /**

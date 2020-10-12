@@ -762,6 +762,56 @@ define(['match',
       var tree = matchRelClass.create(relExample);
       expect(tree.size()).toBe(4);
     });
+
+    it('should accept missing data', function () {
+      var relExample2 = "<span class=\"context-left\"><\/span>"+
+          "<span class=\"match\">"+
+          "{{"+
+          "<span xml:id=\"token-WUD17\/D95\/09441-p180\">"+
+          "<span xlink:title=\"malt\/d:APP\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p179\">Wikiläum<\/span>"+
+          "<\/span>"+
+          "|"+
+          "<span xlink:title=\"malt\/d:APP\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p180\">Silber<\/span>"+
+          "|"+
+          "<span xlink:title=\"malt\/d:DET\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p183\">Dein<\/span>"+
+          " "+
+          "<span xml:id=\"token-WUD17\/D95\/09441-p183\">"+
+          "<span xlink:title=\"malt\/d:ROOT\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p179-196\">Freund<\/span>"+
+          "<\/span>"+
+          " "+
+          "<span xlink:title=\"malt\/d:DET\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p185\">der<\/span>"+
+          " "+
+          "<span xml:id=\"token-WUD17\/D95\/09441-p185-186\">"+
+          "<span xml:id=\"token-WUD17\/D95\/09441-p185\">"+
+          "<mark>"+
+          "<span xlink:title=\"malt\/d:GMOD\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p183\">Baum<\/span>"+
+          "<\/mark>"+
+          "<\/span>"+
+          "|  "+
+          "<span xlink:title=\"malt\/d:APP\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p185-186\">09:38<\/span>"+
+          "<\/span>"+
+          ", "+
+          "<span xlink:title=\"malt\/d:ATTR\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p188\">22.<\/span>"+
+          " "+
+          "<span xml:id=\"token-WUD17\/D95\/09441-p188\">"+
+          "<span xlink:title=\"malt\/d:APP\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p183\">Aug.<\/span>"+
+          "<\/span>"+
+          " "+
+          "<span xml:id=\"token-WUD17\/D95\/09441-p189\">"+
+          "<span xlink:title=\"malt\/d:APP\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p188\">2015<\/span>"+
+          "<\/span>"+
+          " ("+
+          "<span xlink:title=\"malt\/d:PAR\" xlink:show=\"none\" xlink:href=\"#token-WUD17\/D95\/09441-p189\">CEST<\/span>"+
+          ")"+
+          "<\/span>"+
+          "<span class=\"context-right\"><\/span>";
+      var tree = matchRelClass.create(relExample2);
+      expect(tree.size()).toBe(18);
+      var treeElement = tree.element();
+      expect(treeElement.tagName).toEqual("svg");
+      tree.show();
+      expect(treeElement.querySelector("text[text-anchor=\"middle\"]").textContent).toEqual("APP");
+    });
   });
 
   
