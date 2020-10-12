@@ -166,7 +166,7 @@ define(['util'], function () {
           onload(undefined);
           return;
         };
-	      if (json !== null && json["errors"] !== null) {
+	      if (json !== undefined && json["errors"] !== undefined) {
 	        json["errors"].forEach(
             e => KorAP.log(e[0], e[1] || "Unknown")
 	        );
