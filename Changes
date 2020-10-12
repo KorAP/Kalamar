@@ -1,4 +1,4 @@
-0.40 2020-10-09
+0.40 2020-10-12
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
