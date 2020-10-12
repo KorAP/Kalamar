@@ -66,9 +66,10 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
         return;
       };
 
-      for (let doc of this._fragment.documents()) {
+      
+      for (const doc of this._fragment.documents()) {
         vc.addRequired(doc);
-        console.log("Add " + doc.toQuery());
+        // console.log("Add " + doc.toQuery());
       };
 
       if (!vc.isOpen()) {

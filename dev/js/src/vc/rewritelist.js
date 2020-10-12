@@ -15,11 +15,12 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
      */
     fromJson : function (json) {
       this._list = new Array();
-      for (var i = 0; i < json.length; i++) {
-	      this._list.push(
-	        rewriteClass.create(json[i])
-	      );
-      };
+      json.forEach(
+        i => 
+	        this._list.push(
+	          rewriteClass.create(i)
+	        )
+      );
       return this;
     },
 

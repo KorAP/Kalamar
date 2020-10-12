@@ -164,17 +164,15 @@ define([
       var menuList = [];
       
       // Show tree views
-      for (var i = 0; i < treeLayers.length; i++) {
-        var span = treeLayers[i];
-        
-        // Add foundry/layer to menu list
-        menuList.push([
-          span.foundry + '/' + span.layer,
-          span.foundry,
-          span.layer,
-          span.type
-        ]);
-      };
+      treeLayers.forEach(
+        s => 
+          // Add foundry/layer to menu list
+          menuList.push([
+            s.foundry + '/' + s.layer,
+            s.foundry,
+            s.layer,
+            s.type
+          ]));
 
       // Create tree menu
       this._menuList = menuList;

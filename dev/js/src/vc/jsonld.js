@@ -52,8 +52,7 @@ define(['vc/operators'], function (operatorsClass) {
       
       // In case of a group, destroy all operands
       if (this._operands !== undefined) {
-	      for (var i = 0; i < this._operands.length; i++)
-	        this.getOperand(i).destroy();
+        this._operands.forEach(i => i.destroy());
 	      this._operands = [];
       };
     },

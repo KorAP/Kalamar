@@ -287,14 +287,14 @@ define(['lib/dagre'], function (dagre) {
             if (v.class === "leaf") {
               text.setAttribute('title', vLabel);
 
-              var labelPart = vLabel.split(" ");
-              var n = 0;
-              for (var i = 0; i < labelPart.length; i++) {
-                if (labelPart[i].length === 0)
-                  continue;
+              let n = 0;
+              let tspan;
+              vLabel.split(" ").forEach(function(p) {
+                if (p.length === 0)
+                  return;
 
-                var tspan = that._c('tspan');
-                tspan.appendChild(d.createTextNode(labelPart[i]));
+                tspan = that._c('tspan');
+                tspan.appendChild(d.createTextNode(p));
                 if (n !== 0)
                   tspan.setAttribute('dy', LINEHEIGHT + 'pt');
                 else
@@ -302,7 +302,7 @@ define(['lib/dagre'], function (dagre) {
                 tspan.setAttribute('x', v.x - v.width / 2);
                 y += LINEHEIGHT;
                 text.appendChild(tspan);
-              };
+              });
 
               y += LINEHEIGHT;
 

@@ -194,21 +194,22 @@ define({
         var len = 0;
 
         // Iterate over all prefixes and get the best one
-        for (var i = 0; i < prefixes.length; i++) {
+        // for (var i = 0; i < prefixes.length; i++) {
+        prefixes.forEach(function(i) {
 
           // Get first pos of a matching prefix
-          testPos = textlc.indexOf(prefixes[i]);
+          testPos = textlc.indexOf(i);
           if (testPos < 0)
-            continue;
+            return;
 
           if (pos === -1 || testPos < pos) {
             pos = testPos;
-            len = prefixes[i].length;
+            len = i.length;
           }
-          else if (testPos === pos && prefixes[i].length > len) {
-            len = prefixes[i].length;
+          else if (testPos === pos && i.length > len) {
+            len = i.length;
           };
-        };
+        });
 
         // Matches!
         if (pos >= 0) {

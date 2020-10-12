@@ -30,13 +30,13 @@ define([
     },
     
     newAfter : function (obj) {
-      for (var i = 0; i < this._operands.length; i++) {
-	      if (this._operands[i] === obj) {
+      this._operands.forEach(function (op, i) {
+	      if (op === obj) {
 	        var operand = unspecClass.create(this);
 	        this._operands.splice(i + 1, 0, operand);
 	        return this.update();
 	      };
-      };
+      }, this);
     },
 
     // The doc is already set in the group
@@ -48,15 +48,17 @@ define([
       if (operand.ldType() !== 'doc')
 	      return null;
 
-      for (var i = 0; i < this._operands.length; i++) {
-	      var op = this.getOperand(i);
-	      if (op.ldType() === 'doc'
-	          && operand.key() === op.key()
-	          && operand.matchop() === op.matchop()
-	          && operand.value() === op.value()) {
-	        return op;
-	      };
-      };
+      const f = this._operands.find(
+        op => 
+	        op.ldType() === 'doc'
+	        && operand.key() === op.key()
+	        && operand.matchop() === op.matchop()
+	        && operand.value() === op.value()
+      );
+
+      if (f)
+        return f;
+
       return null;
     },
     
@@ -194,11 +196,9 @@ define([
       _removeChildren(group);
 
       // Append operands
-      for (var i = 0; i < this._operands.length; i++) {
-	      group.appendChild(
-	        this.getOperand(i).element()
-	      );
-      };
+      this._operands.forEach(
+        op => group.appendChild(op.element())
+      );
 
       // Set operators
       var op = this.operators(
@@ -342,10 +342,10 @@ define([
 
     toJson : function () {
       var opArray = new Array();
-      for (var i = 0; i < this._operands.length; i++) {
-	      if (this._operands[i].ldType() !== 'non')
-	        opArray.push(this._operands[i].toJson());
-      };
+      this._operands.forEach(function(op) {
+	      if (op.ldType() !== 'non')
+	        opArray.push(op.toJson());
+      });
       return {
 	      "@type"     : "koral:" + this.ldType(),
 	      "operation" : "operation:" + this.operation(),

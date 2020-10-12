@@ -84,8 +84,7 @@ define([
       else {
         
         // Push newly to focus array
-        for (var i = 0; i < tokens.length; i++) {
-          var term = tokens[i];
+        tokens.forEach(function(term) {
           try {
             // Create info layer objects
             var layer = infoLayerClass.create(term);
@@ -93,9 +92,9 @@ define([
             focus.push(layer);
           }
           catch (e) {
-            continue;
+            return;
           };
-        };
+        });
       };
       
       // No tokens chosen

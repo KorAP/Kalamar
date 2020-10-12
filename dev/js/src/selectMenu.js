@@ -12,13 +12,13 @@ define(
 
 	      // Prepare list before object upgras
 	      var list = [];
-	      var options = select.getElementsByTagName('option');
 
         // Iterate through options list
-	      for (var i = 0; i < options.length; i++) {
-
+        Array.from(
+          select.getElementsByTagName('option')
           // Get option item and add to list
-	        var item = options.item(i);
+        ).forEach(function(item) {
+        
 	        var opt = [
 	          item.textContent,
 	          item.getAttribute('value')
@@ -29,7 +29,7 @@ define(
 	          opt.push(item.getAttribute('desc'));
 
 	        list.push(opt);
-	      };
+	      });
 
 	      // Create object with list
 	      var obj = Object.create(menuClass).upgradeTo(this)

@@ -206,7 +206,7 @@ define([
       if (this.prefix().length <= 0) {
 
         // add all items to the list and lowlight
-        var i = 0;
+        let i = 0;
         for (; i < this._items.length; i++) {
           this._list.push(i);
           this._items[i].lowlight();
@@ -228,25 +228,22 @@ define([
 
       // Iterate over all items and choose preferred matching items
       // i.e. the matching happens at the word start
-      for (pos = 0; pos < this._items.length; pos++) {
+      this._items.forEach(function(it, pos){
 
-        var points = 0;
+        let points = 0;
 
-        for (pref = 0; pref < prefixList.length; pref++) {
-          var prefix = " " + prefixList[pref];
+        prefixList.forEach(function(p) {
 
           // Check if it matches at the beginning
-          // if ((this.item(pos).lcField().indexOf(prefix)) >= 0) {
-          if ((this.item(pos).lcField().includes(prefix))) {
+          if ((it.lcField().includes(" " + p))) {
             points += 5;
           }
 
           // Check if it matches anywhere
-          // else if ((this.item(pos).lcField().indexOf(prefix.substring(1))) >= 0) {
-          else if ((this.item(pos).lcField().includes(prefix.substring(1)))) {
+          else if (it.lcField().includes(p)) {
             points += 1;
           };
-        };
+        });
 
         if (points > maxPoints) {
           this._list = [pos];
@@ -255,7 +252,7 @@ define([
         else if (points == maxPoints) {
           this._list.push(pos);
         }
-      };
+      },this);
 
       // The list is empty - so lower your expectations
       // Iterate over all items and choose matching items

@@ -99,7 +99,7 @@ define([], function () {
     _parse : function (parent, children, mark) {
 
       // Iterate over all child nodes
-      children.forEach(function(c) {
+      Array.from(children).forEach(function(c) {
 
         // Element node
         if (c.nodeType == 1) {
@@ -723,8 +723,7 @@ define([], function () {
     var stack = [];
 
     // Iterate over all definitions
-    for (var i = 0; i < list.length; i++) {
-      var current = list[i];
+    list.forEach(function(current) {
 
       // Check the stack order
       var overlaps = 0;
@@ -766,7 +765,7 @@ define([], function () {
       stack.sort(function (a,b) {
         b.overlaps - a.overlaps
       });
-    };
+    });
 
     return stack;
   };

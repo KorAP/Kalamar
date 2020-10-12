@@ -229,9 +229,10 @@ define(['util'], function () {
 
               // Is a key-value-cell
               if (sib.classList.contains('matchkeyvalues')) {
-                var divs = sib.getElementsByTagName('div');
-                for (var j = 0; j < divs.length; j++) {
-                  var keyvaluepair = divs[j];
+
+                Array.from(
+                  sib.getElementsByTagName('div')
+                ).forEach(function(keyvaluepair){
 
                   // Get annotation value from cell
                   var annotation = _getAnnotation(prefix, keyvaluepair);
@@ -242,7 +243,7 @@ define(['util'], function () {
                     this._addToToken(i, annotation);
                     keyvaluepair.classList.add('chosen');
                   };
-                };
+                }, this);
               }
 
               // Normal cell
@@ -371,6 +372,8 @@ define(['util'], function () {
       var str = '';
       var distance = 0;
 
+      // This needs to take undefined tokens into account, therefore
+      // forEach() is not an option
       for (var i = 0; i < this._query.length; i++) {
         var token = this._query[i];
 

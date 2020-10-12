@@ -44,16 +44,14 @@ define([ 'util' ], function() {
       statDL.classList.add("flex");
       var statistic = this._statistic;
 
-      var keys = Object.keys(statistic);
-      for (i = 0; i < keys.length; i++) {
+      Object.keys(statistic).forEach(function(k) {
         statSp = statDL.addE('div')
         statDT = statSp.addE('dt');
-        var k = keys[i];
         statDT.addT(k);
         statDT.setAttribute('title', k);
         statDD = statSp.addE('dd');
         statDD.addT(new Number(statistic[k]).toLocaleString());
-      }
+      });
 
       this._element = statDL;
       return this._element;

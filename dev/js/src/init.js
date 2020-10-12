@@ -96,14 +96,13 @@ define([
      * Release notifications
      */
     if (KorAP.Notifications !== undefined) {
-      var n = KorAP.Notifications;
-      for (var i = 0; i < n.length; i++) {
-        var msg = n[i][1];
-        if (n[i][2]) {
-          msg += '<code class="src">'+n[i][2]+'</code>';
+      KorAP.Notifications.forEach(function(n) {
+        var msg = n[1];
+        if (n[2]) {
+          msg += '<code class="src">'+n[2]+'</code>';
         };
-        alertifyClass.log(msg, n[i][0], 10000);
-      };
+        alertifyClass.log(msg, n[0], 10000);
+      });
     };
 
     /**
@@ -145,14 +144,11 @@ define([
     /**
      * Add actions to match entries
      */
-    var li = d.querySelectorAll(
+    var matchElements = d.querySelectorAll(
       '#search > ol > li'
     );
-    var matchCount = 0;
 
-    for (matchCount = 0; matchCount < li.length; matchCount++) {
-
-      let e = li[matchCount];
+    matchElements.forEach(function(e) {
 
       // Define class for active elements
       if (e.classList.contains('active')) {
@@ -190,7 +186,7 @@ define([
           };
         });
       };
-    };
+    }, this);
     
     // Add focus listener to aside
     var aside = d.getElementsByTagName('aside')[0];
@@ -284,7 +280,7 @@ define([
      * There is more than 0 matches, so allow for
      * alignment toggling (left <=> right)
      */
-    if (matchCount > 0)
+    if (matchElements.length > 0)
       resultPanel.addAlignAction();
 
     KorAP.Panel['result'] = resultPanel;
@@ -441,9 +437,7 @@ define([
       try {
       
         // Register all plugins
-        for (var i = 0; i < p.length; i++) {
-          KorAP.Plugin.register(p[i]);
-        }
+        p.forEach(i => KorAP.Plugin.register(i));
       }
       catch (e) {
         KorAP.log(0, e);

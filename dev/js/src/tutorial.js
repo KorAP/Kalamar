@@ -95,27 +95,27 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
      * Decorate a page with query event handler.
      */
     initQueries : function (d) {
-      var qs = d.querySelectorAll('pre.query.tutorial:not(.unsupported)');
-      var that = this;
-      for (var i = 0; i < qs.length; i++) {
-	      qs[i].onclick = function (e) {
-	        that.useQuery(this,e);
-	      };
-      };
+      let that = this;
+      Array.from(d.querySelectorAll('pre.query.tutorial:not(.unsupported)')).forEach(
+        i =>
+	        i.onclick = function (e) {
+	          that.useQuery(this,e);
+	        }
+      );
     },
 
     /**
      * Decorate a page with documentation links
      */
     initDocLinks : function (d) {
-      var dl = d.getElementsByClassName('doc-link');
-      var that = this;
-      for (var i = 0; i < dl.length; i++) {
-	      dl[i].onclick = function (e) {
-	        that.setPage(this.getAttribute('href'));
-	        return true;
-	      };
-      };      
+      let that = this;
+      Array.from(d.getElementsByClassName('doc-link')).forEach(
+	      i =>
+          i.onclick = function (e) {
+	          that.setPage(this.getAttribute('href'));
+	          return true;
+	        }
+      );    
     },
 
 

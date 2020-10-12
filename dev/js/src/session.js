@@ -54,16 +54,17 @@ define({
   /* Parse cookie */
   _parse : function () {
     var c = document.cookie;
-    var part = document.cookie.split(';');
-    for(var i = 0; i < part.length; i++) {
-      var pair = part[i].split('=');
-      var name = pair[0].trim().toLowerCase();
-      if (name === this._name) {
-	      if (pair.length === 1 || pair[1].length === 0)
+    document.cookie.split(';').forEach(
+      function(i) {
+        var pair = i.split('=');
+        var name = pair[0].trim().toLowerCase();
+        if (name === this._name) {
+	        if (pair.length === 1 || pair[1].length === 0)
+	          return;
+          this._hash = JSON.parse(decodeURIComponent(pair[1]));
 	        return;
-        this._hash = JSON.parse(decodeURIComponent(pair[1]));
-	      return;
-      };
-    };
+        };
+      }
+    );
   }
 });

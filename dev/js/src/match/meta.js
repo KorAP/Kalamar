@@ -50,10 +50,8 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
       // Copy original array position to object
       // before sorting by key title
       let posInMetaArray = {};
-      for (let i = 0; i < fields.length; i++) {
-        posInMetaArray[fields[i]["key"]] = i;
+      fields.forEach((f,i) => posInMetaArray[f["key"]] = i);
 
-      };
       
       // TODO: Meta fields should be separated
       // Sort all meta keys alphabetically
@@ -82,18 +80,17 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
           metaDD.setAttribute('data-type', field["type"]);
 
           if(metaDescr instanceof Array){
-        	  metaDD.classList.add("metakeyvalues");  
-        	  for (i = 0; i < metaDescr.length; i++){
-
+        	  metaDD.classList.add("metakeyvalues");
+            metaDescr.forEach(function(md) {
               if (field["type"] === 'type:attachement') {
-                let att = attClass.create(metaDescr[i]);
+                let att = attClass.create(md);
                 if (att)
         	        metaDD.addE('div').appendChild(att.inline());
               }
               else {
-        	      metaDD.addE('div').addT(metaDescr[i]);
+        	      metaDD.addE('div').addT(md);
               }
-        	  } 
+        	  });
           }
           else{
             if (field["type"] === 'type:attachement') {

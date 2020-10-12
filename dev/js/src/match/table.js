@@ -215,15 +215,17 @@ define([
 
           // There are multiple values to add
           c.classList.add('matchkeyvalues');
-          for (var n = 0; n < value.length; n++) {
-            var e = c.addE('div');
-            e.addT(value[n]);
 
-            var anno = ah.getDesc(key, value[n]);
+          let e, anno;
+          value.forEach(function(v) {
+            e = c.addE('div');
+            e.addT(v);
+
+            anno = ah.getDesc(key, v);
 
             if (anno)
               e.setAttribute("title", anno);
-          };
+          });
         }
 
         else {
@@ -272,29 +274,29 @@ define([
 
       var foundryList = Object.keys(this._foundry).sort();
 
-      for (var f = 0; f < foundryList.length; f++) {
-        var foundry = foundryList[f];
-        var layerList =
+      let layerList, key, v, value, cell;
+      
+      foundryList.forEach(function(foundry) {
+        let layerList =
             Object.keys(this._foundry[foundry]).sort();
 
-        for (var l = 0; l < layerList.length; l++) {
-          var layer = layerList[l];
+        layerList.forEach(function(layer) {
+
           tr = tbody.addE('tr');
           tr.setAttribute('tabindex', 0);
           tr.addCell = addCell;
-
           tr.addCell('th', undefined, foundry);
           tr.addCell('th', undefined, layer);
 
-          var key = foundry + '/' + layer + '=';
+          key = foundry + '/' + layer + '=';
 
-          for (var v = 0; v < this.length(); v++) {
+          for (v = 0; v < this.length(); v++) {
 
             // Get the cell value
-            var value = this.getValue(v, foundry, layer);
+            value = this.getValue(v, foundry, layer);
 
             // Add cell to row
-            var cell = tr.addCell(
+            cell = tr.addCell(
               'td',
               key,
               value 
@@ -304,8 +306,8 @@ define([
               cell.classList.add('mark');
             };
           };
-        };
-      };
+        }, this);
+      }, this);
       
       // Add query creator
       this._matchCreator = matchQueryCreator.create(this._element);

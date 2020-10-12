@@ -97,18 +97,18 @@ define([
       };
 
       // Iterate over info layers
-      for (var i = 0; i < this.available.length; i++) {
-        var term = this.available[i];
+      let layer;
+      this.available.forEach(function(term){
 
         // Create info layer objects
         try {
-          var layer = require('match/infolayer').create(term);
+          layer = require('match/infolayer').create(term);
           this._avail[layer.type].push(layer);
         }
         catch (e) {
-          continue;
+          return;
         };
-      };
+      }, this);
       
       return this;
     },
