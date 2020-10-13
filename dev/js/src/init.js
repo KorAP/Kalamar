@@ -261,7 +261,7 @@ define([
         KorAP.koralQuery["errors"].forEach(function(e) {
 
           // Malformed query
-          if (e[0] === 302 && e[2]) {
+          if (e[0] === 302 && e[2] !== undefined) {
             obj.hint = hintClass.create();
             obj.hint.alert(e[2], e[1]);
           }
