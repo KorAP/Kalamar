@@ -1,14 +1,18 @@
 define(['util'], function () {
-  // TODO: https://github.com/honza/140medley/blob/master/140medley.js
-  // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
-  // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
-  // r.addEventListener("progress", updateProgress, false);
-  // http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
-  // http://stackoverflow.com/questions/6112744/load-javascript-on-demand
+  "use strict";
+
+  // TODO:
+  // - https://github.com/honza/140medley/blob/master/140medley.js
+  // - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+  // - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+  // - r.addEventListener("progress", updateProgress, false);
+  // - http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
+  // - http://stackoverflow.com/questions/6112744/load-javascript-on-demand
 
   KorAP.URL = KorAP.URL !== undefined ? KorAP.URL : '';
-
   KorAP.API = KorAP.API || {};
+
+  const legacySigle = new RegExp('^([^_]+)_([^\\.]+)\\.(.+?)$');
 
   /**
    * Retrieve information about a match
@@ -16,19 +20,16 @@ define(['util'], function () {
   KorAP.API.getMatchInfo = function (match, param, cb) {
 
     // match is a KorAP.Match object
-    var url = KorAP.URL;
-    url += '/corpus';
+    let url = KorAP.URL + '/corpus';
     /*
       url += '/' + match.corpusID;
       url += '/' + match.docID;
       url += '/' + match.textID;
     */
 
-    var legacySigle = new RegExp('^([^_]+)_([^\\.]+)\\.(.+?)$');
-
     // This is for legacy support
-    var legacy = legacySigle.exec(match.textSigle);
-    var docFragment = "";
+    const legacy = legacySigle.exec(match.textSigle);
+    let docFragment = "";
     if (legacy !== null && legacy[0]) {
       docFragment = legacy[1] + '/' + legacy[2] + '/' + legacy[3];
     }
@@ -70,9 +71,7 @@ define(['util'], function () {
   KorAP.API.getTextInfo = function (doc, param, cb) {
 
     // doc is a KorAP.Match object
-    var url = KorAP.URL;
-    url += '/corpus';
-    url += '/' + doc.textSigle;
+    let url = KorAP.URL + '/corpus' + '/' + doc.textSigle;
 
     if (param['fields'] !== undefined) {
       url += '?fields='; // TODO!
@@ -80,6 +79,7 @@ define(['util'], function () {
     else {
       url += '?fields=@all'; // TODO: Maybe '*'?
     }
+
     KorAP.API.getJSON(url, cb, "TextInfo: " + doc.textSigle);
   };
 
@@ -90,24 +90,6 @@ define(['util'], function () {
   KorAP.API.getCollections = function (cb) {
     KorAP.API.getJSON(KorAP.URL + '/collection', cb, "CorpusInfo");
   };
-
-
-  /**
-   * Retrieve information about corpus statistic
-   * 
-   * Development mode:
-   * URL = http://localhost:8089/api 
-   * 
-   * collectionQuery has be changed to corpusQuery 
-   */
-  /* KorAP.API.getCorpStat = function (collQu, cb){
-  	//development mode:
-  	var url = "http://localhost:8089/api/";
-  	url  = url + "statistics";
-  	url = url + "?cq=";
-  	url = url + collQu;
-  	KorAP.API.getJSON(url, cb);
-  };*/
 
   
   /**
@@ -121,20 +103,20 @@ define(['util'], function () {
    * http://localhost:3000/corpus?cq=availability+%3D+%2FCC-BY.*%2F+%26+textClass+%3D+%22kultur%22
    */
   KorAP.API.getCorpStat = function (cq, cb){
-  	var url  =  KorAP.URL;
-    url += "/corpus?cq=" + encodeURIComponent(cq);
+  	let url  =  KorAP.URL + "/corpus?cq=" + encodeURIComponent(cq);
   	KorAP.API.getJSON(url, cb, "CorpusInfo: " + cq);
   };
   
+
   /**
    * General method to retrieve JSON information
    */
   KorAP.API.getJSON = function (url, onload, title) {
-    var req = new XMLHttpRequest();
+    const req = new XMLHttpRequest();
     req.open("GET", url, true);
 
     // Dispatch global "window" event
-    var reqE = new CustomEvent('korapRequest', {
+    const reqE = new CustomEvent('korapRequest', {
       bubbles : false,
       detail: {
         "url" : url,
@@ -156,7 +138,7 @@ define(['util'], function () {
       */
       if (this.readyState == 4) {
 
-        var json;
+        let json;
         try {
           json = JSON.parse(this.responseText);
         }
@@ -166,11 +148,13 @@ define(['util'], function () {
           onload(undefined);
           return;
         };
+
 	      if (json !== undefined && json["errors"] !== undefined) {
 	        json["errors"].forEach(
             e => KorAP.log(e[0], e[1] || "Unknown")
 	        );
 	      }
+
         else if (this.status !== 200) {
         	KorAP.log(this.status, this.statusText);
         };
@@ -178,11 +162,13 @@ define(['util'], function () {
 	      if (this.status === 200) {
 	        onload(json);
 	      }
+
 	      else {
           onload(undefined);
         };
       }
     };
+
     req.ontimeout = function () {
       KorAP.log(0, 'Request Timeout');
     };

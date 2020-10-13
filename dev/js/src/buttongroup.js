@@ -11,8 +11,8 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     
     // Initialize button group
     _init : function (classes) {
-      var e = document.createElement('div');
-      var cl = e.classList;
+      const e = document.createElement('div');
+      const cl = e.classList;
       if (classes) {
         cl.add.apply(cl,classes);
       };
@@ -51,7 +51,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      */
     add : function (title, data, cb) {
       
-      var b = this._element.addE('span');
+      const b = this._element.addE('span');
       b.setAttribute('title',title);
 
       if (data !== undefined) {
@@ -70,14 +70,14 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      
       b.addE('span').addT(title);
 
-      var that = this;
+      let that = this;
       b.addEventListener('click', function (e) {
 
         // Do not bubble
         e.halt();
         
         // Call callback
-        var obj = that._bind || this;
+        let obj = that._bind || this;
         obj.button = b;
         cb.apply(obj, e)
       });
@@ -92,13 +92,12 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Returns the list object.
      */
     addList : function (title, data, itemClass = defaultItemClass) {
-      var list = treeMenuClass.create([], itemClass);
+      const list = treeMenuClass.create([], itemClass);
       this.add(title, data, function (e) {
         list.show();
         list.button(this.button);
         list.focus();
       });
-
       return list;
     },
 
@@ -107,17 +106,20 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * The state has to be a state object.
      */
     addToggle : function (title, data, state) {
-      let b = this._element.addE('span');
+      const b = this._element.addE('span');
       b.setAttribute('title',title);
 
       if (data != undefined) {
         if (data['cls'] !== undefined) {
-          b.classList.add.apply(b.classList, data['cls']);
+          b.classList.add.apply(
+            b.classList,
+            data['cls']
+          );
         };
       };
 
       // Set check marker
-      let check = b.addE('span');
+      const check = b.addE('span');
       check.classList.add("check", "button-icon");
       check.addE('span');
 

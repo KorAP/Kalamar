@@ -16,12 +16,12 @@ define(['menu'], function (menuClass) {
      *   as an array of arrays.
      */
     create : function (list, itemClass) {
-      var obj = Object.create(menuClass)
-	        .upgradeTo(this)
-	        ._init(list, {itemClass : itemClass});
+      const obj = Object.create(menuClass)
+	          .upgradeTo(this)
+	          ._init(list, {itemClass : itemClass});
       obj.limit(6);
 
-      var e = obj.element();
+      const e = obj.element();
 
       // This is only domspecific
       e.addEventListener('blur', function (e) {
@@ -36,6 +36,7 @@ define(['menu'], function (menuClass) {
       return obj;
     },
 
+
     /**
      * The panel object of the menu.
      */
@@ -46,12 +47,12 @@ define(['menu'], function (menuClass) {
       return this._panel;
     },
 
+
     // Attach menu to button
     button : function (btn) {
 
       this._button = btn;
 
-      // this._attached = e;
       this._repos(this._button);
       this.slider().reInit();
 
@@ -70,7 +71,7 @@ define(['menu'], function (menuClass) {
       window.addEventListener('scroll', this._onscroll);
     },
 
-
+    
     // Overwrite onHide method
     onHide : function () {
 
@@ -82,7 +83,7 @@ define(['menu'], function (menuClass) {
     },
 
     _repos : function (e) {
-      var bounding = e.getBoundingClientRect();
+      const bounding = e.getBoundingClientRect();
       this._element.style.left = bounding.left + "px";
       this._element.style.top = (
         bounding.top +
