@@ -7,6 +7,7 @@
  */
 
 define(['vc/doc', 'util'], function (docClass) {
+
   "use strict";
 
   const loc = KorAP.Locale;
@@ -14,27 +15,31 @@ define(['vc/doc', 'util'], function (docClass) {
   
   // Create a VC doc
   function _doc (op) {
-    var doc = document.createElement('div');
+    const doc = document.createElement('div');
     doc.setAttribute('class','doc');
           
-    var key = doc.addE('span');
+    const key = doc.addE('span');
     key.setAttribute('class','key');
     key.addT(op[0]);
 
-    var match = doc.addE('span');
+    const match = doc.addE('span');
     match.setAttribute('class','match');
     match.addT('eq');
 
-    var value = doc.addE('span');
+    const value = doc.addE('span');
     value.setAttribute('class', 'value');
     value.addT(op[1]);
       
     return doc;
   };
 
+
   // Return object
   return {
 
+    /**
+     * Construct a new VC fragment.
+     */
     create : function () {
       const obj = Object.create(this);
       obj._operands = [];
@@ -46,12 +51,11 @@ define(['vc/doc', 'util'], function (docClass) {
      * Add document constraint to fragment
      */
     add : function (key, value, type) {
-      for (let i in this._operands) {
-        let op = this._operands[i];
+      this._operands.forEach(function (op,i,arr) {
         if (op[0] === key && op[1] === value) {
-          array.splice(index, 1);
-        };
-      };
+          arr.splice(i,1);
+        }
+      });
       this._operands.push([key, value, type]);
       this.update();
     },
@@ -61,7 +65,7 @@ define(['vc/doc', 'util'], function (docClass) {
      * Remove document constraint from fragment
      */
     remove : function (key, value) {
-      for (let i in this._operands) {
+      for (let i = 0; i < this._operands.length; i++) {
         let op = this._operands[i];
         if (op[0] === key && op[1] === value) {
           this._operands.splice(i, 1);
@@ -107,7 +111,7 @@ define(['vc/doc', 'util'], function (docClass) {
     documents : function () {
       return this._operands.map(
         function (item) {
-          let doc = docClass.create();
+          const doc = docClass.create();
           doc.key(item[0]);
           doc.matchop("eq");
           doc.value(item[1]);
@@ -135,20 +139,22 @@ define(['vc/doc', 'util'], function (docClass) {
       //   </div>
       // </div>
       let root;
-      let l = this._operands.length;
-      if (l > 1) {
+      const l = this._operands.length;
 
+      if (l > 1) {
         root = document.createElement('div');
         root.setAttribute('class','docGroup');
         root.setAttribute('data-operation', 'and');
-
         this._operands.forEach(i => root.appendChild(_doc(i)));
       }
+
       else if (l == 1) {
         root = _doc(this._operands[0]);
       };
 
+      // Init element
       this.element();
+
       const e = this._frag;
       if (l === 0) {
         _removeChildren(e);
@@ -166,6 +172,7 @@ define(['vc/doc', 'util'], function (docClass) {
      * Stringification
      */
     toQuery : function () {
+
       if (this._operands.length === 0)
         return '';
 

@@ -3129,5 +3129,23 @@ define([
 
       expect(f.element().lastChild.children.length).toEqual(0);
     });
+
+    it('should respect already set attributes', function () {
+      var f = fragmentClass.create();
+      expect(f.element().lastChild.children.length).toEqual(0);
+
+      expect(f.isEmpty()).toBeTruthy();
+
+      f.add("author", "Peter");
+      f.add("title", "Example");
+
+      expect(f.isEmpty()).toBeFalsy();
+      
+      expect(f.toQuery()).toEqual('author = "Peter" & title = "Example"');
+
+      f.add("author", "Peter");
+
+      expect(f.toQuery()).toEqual('title = "Example" & author = "Peter"');
+    });
   });
 });

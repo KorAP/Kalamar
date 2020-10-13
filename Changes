@@ -1,7 +1,8 @@
-0.40 2020-10-12
+0.40 2020-10-13
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
+        - Fix VC fragments for redundant constraints.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.
