@@ -1,19 +1,20 @@
 /**
- * Simple Date picker for the
+ * Date picker for the
  * Virtual Collection builder.
  *
  * @author Nils Diewald
  */
 define(['util'], function () {
+
   "use strict";
 
-  KorAP._validDateMatchRE   = new RegExp("^(?:[lg]?eq|ne)$");
-  KorAP._validDateRE        = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
+  KorAP._validDateMatchRE = new RegExp("^(?:[lg]?eq|ne)$");
+  KorAP._validDateRE      = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");
 
   /*
    * Localizations
    */
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.WDAY = loc.WDAY || [
     'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'
   ];
@@ -24,7 +25,7 @@ define(['util'], function () {
     'December'
   ];
 
-  var d = document;
+  const d = document;
 
   // The datepicker class
   return {
@@ -48,22 +49,23 @@ define(['util'], function () {
      * Get or select a specific date.
      */
     select : function (year, month, day) {
+      const t = this;
       if (arguments.length >= 1) {
-        this._selected = {'year' : year};
-        this._showYear = year;
+        t._selected = {'year' : year};
+        t._showYear = year;
         if (arguments.length >= 2) {
-          this._selected['month'] = month;
-          this._showMonth = month;
+          t._selected['month'] = month;
+          t._showMonth = month;
           if (arguments.length >= 3) {
-            this._selected['day'] = day;
-            this._showDay = day;
+            t._selected['day'] = day;
+            t._showDay = day;
           };
         };
 
-        return this;
+        return t;
       };
 
-      return this._selected;
+      return t._selected;
     },
 
 
@@ -73,11 +75,12 @@ define(['util'], function () {
      */
     set : function (year, month, day) {
       this.select(year, month, day);
-      this.store();
+      this._store();
     },
 
-    
-    store : function () {
+
+    // Store the selected value
+    _store : function () {
       if (this._click !== undefined)
         this._click(this._selected);
       else 
@@ -97,6 +100,9 @@ define(['util'], function () {
     },
 
 
+    /**
+     * The associated input field.
+     */
     input : function () {
       return this._input;
     },
@@ -110,35 +116,36 @@ define(['util'], function () {
      */
     show : function (year, month) {
 
-      var e = this._element = d.createElement('div');
+      const e = this._element = d.createElement('div');
       e.setAttribute('tabindex', 0);
       e.style.outline = 0;
       e.classList.add('datepicker');
       
-      var today = new Date();
+      const today = new Date();
+      const t = this;
 
       // Show year
-      this._showYear = (year !== undefined) ? year :
-        (this._selected['year'] ? this._selected['year'] :
+      t._showYear = (year !== undefined) ? year :
+        (t._selected['year'] ? this._selected['year'] :
          today.getYear() + 1900);
 
       // Show month
-      this._showMonth = month ? month :
-        (this._selected['month'] ? this._selected['month'] :
+      t._showMonth = month ? month :
+        (t._selected['month'] ? t._selected['month'] :
          (today.getMonth() + 1));
 
       // Append all helpers
-      e.appendChild(this._monthHelper());
-      e.appendChild(this._yearHelper());
-      e.appendChild(this._dayHelper());
-      this._input = e.appendChild(this._stringHelper());
+      e.appendChild(t._monthHelper());
+      e.appendChild(t._yearHelper());
+      e.appendChild(t._dayHelper());
+      t._input = e.appendChild(t._stringHelper());
 
       // Always focus
       e.addEventListener(
         'mousedown',
         function (ev) {
           this._inField = true
-        }.bind(this)
+        }.bind(t)
       );
 
       e.addEventListener(
@@ -146,31 +153,31 @@ define(['util'], function () {
         function (ev) {
           this._inField = false;
           this._input.focus();
-        }.bind(this)
+        }.bind(t)
       );
 
-      this._input.addEventListener(
+      t._input.addEventListener(
         'blur',
         function (ev) {
           if (!this._inField) {
             if (this.fromString(this._input.value)) {
-              this.store();
+              this._store();
             };
           };
           ev.halt();
-        }.bind(this)
+        }.bind(t)
       );
 
-      this._input.focus();
+      t._input.focus();
 
-      return this._element;
+      return t._element;
     },
 
     _stringHelper : function () {
 
       // Create element
       // Add input field
-      var input = d.createElement('input');
+      const input = d.createElement('input');
       input.value = this.toString();
       input.setAttribute('tabindex', 0);
 
@@ -190,7 +197,7 @@ define(['util'], function () {
         function (e) {
           if (e.keyCode == 13) {
             if (this.fromString(input.value))
-              this.store();
+              this._store();
 
             e.halt();
             return false;
@@ -200,6 +207,7 @@ define(['util'], function () {
 
       return input;
     },
+
 
     /**
      * Get the HTML element associated with the datepicker.
@@ -213,20 +221,23 @@ define(['util'], function () {
      * Get the current date in string format.
      */
     today : function () {
-      var today = new Date();
-      var str = today.getYear() + 1900;
-      var m = today.getMonth() + 1;
-      var d = today.getDate();
+      const today = new Date();
+      let str = today.getYear() + 1900;
+      const m = today.getMonth() + 1;
+      const d = today.getDate();
       str += '-' + (m < 10 ? '0' + m : m);
       str += '-' + (d < 10 ? '0' + d : d);
       return str;
     },
 
 
+    /**
+     * Stringification
+     */
     toString : function () {
       // There are values selected
-      var v = '';
-      var s = this._selected;
+      let v = '';
+      const s = this._selected;
       if (s['year']) {
         v += s['year'];
         if (s['month']) {
@@ -246,12 +257,13 @@ define(['util'], function () {
      * Increment the year.
      */
     incrYear : function () {
-      if (this._showYear < 9999) {
-        this._showYear++;
-        this._updateYear();
-        this._updateMonth();
-        this._updateDay();
-        return this;
+      const t = this;
+      if (t._showYear < 9999) {
+        t._showYear++;
+        t._updateYear();
+        t._updateMonth();
+        t._updateDay();
+        return t;
       };
       return;
     },
@@ -261,12 +273,13 @@ define(['util'], function () {
      * Decrement the year.
      */
     decrYear : function () {
-      if (this._showYear > 0) {
-        this._showYear--;
-        this._updateYear();
-        this._updateMonth();
-        this._updateDay();
-        return this;
+      const t = this;
+      if (t._showYear > 0) {
+        t._showYear--;
+        t._updateYear();
+        t._updateMonth();
+        t._updateDay();
+        return t;
       };
       return;
     },
@@ -276,16 +289,17 @@ define(['util'], function () {
      * Increment the month.
      */
     incrMonth : function () {
-      this._showMonth++;
-      if (this._showMonth > 12) {
-        this._showMonth = 1;
-        this.incrYear();
+      const t = this;
+      t._showMonth++;
+      if (t._showMonth > 12) {
+        t._showMonth = 1;
+        t.incrYear();
       }
       else {
-        this._updateMonth();
-        this._updateDay();
+        t._updateMonth();
+        t._updateDay();
       };
-      return this;
+      return t;
     },
 
 
@@ -293,43 +307,46 @@ define(['util'], function () {
      * Decrement the month.
      */
     decrMonth : function () {
-      this._showMonth--;
-      if (this._showMonth < 1) {
-        this._showMonth = 12;
-        this.decrYear();
+      const t = this;
+      t._showMonth--;
+      if (t._showMonth < 1) {
+        t._showMonth = 12;
+        t.decrYear();
       }
       else {
-        this._updateMonth();
-        this._updateDay();
+        t._updateMonth();
+        t._updateDay();
       };
 
-      return this;
+      return t;
     },
 
 
     // Create the year helper element.
     _yearHelper : function () {
-      var year = d.createElement('div');
+      const t = this;
+      const year = d.createElement('div');
       year.classList.add('year');
 
       // Decrement year
       year.addE('span')
-        .onclick = this.decrYear.bind(this);
+        .onclick = t.decrYear.bind(t);
 
-      this._yElement = year.addE('span');
-      this._yElement.addT(this._showYear);
+      t._yElement = year.addE('span');
+      t._yElement.addT(t._showYear);
 
-      this._yElement.onclick = function () {
-        this.set(this._showYear);
-      }.bind(this);
-      this._selectYear();
+      t._yElement.onclick = function () {
+        t.set(t._showYear);
+      }.bind(t);
+      t._selectYear();
 
       // Increment year
       year.addE('span')
-        .onclick = this.incrYear.bind(this);
+        .onclick = t.incrYear.bind(t);
 
       return year;
     },
+
 
     // Update the year helper view.
     _updateYear : function () {
@@ -349,24 +366,25 @@ define(['util'], function () {
 
     // Create the month helper element.
     _monthHelper : function () {
-      var month = d.createElement('div');
+      const t = this;
+      const month = d.createElement('div');
       month.classList.add('month');
 
       // Decrement month
       month.addE('span')
-        .onclick = this.decrMonth.bind(this);
+        .onclick = t.decrMonth.bind(t);
       
-      this._mElement = month.addE('span');
-      this._mElement.addT(loc.MONTH[this._showMonth-1]);
-      this._mElement.onclick = function () {
+      t._mElement = month.addE('span');
+      t._mElement.addT(loc.MONTH[t._showMonth-1]);
+      t._mElement.onclick = function () {
         this.set(this._showYear, this._showMonth);
-      }.bind(this);
+      }.bind(t);
 
-      this._selectMonth();
+      t._selectMonth();
       
       // Increment month
       month.addE('span')
-        .onclick = this.incrMonth.bind(this);
+        .onclick = t.incrMonth.bind(t);
 
       return month;
     },
@@ -383,21 +401,22 @@ define(['util'], function () {
 
     // Check if the viewed month is current
     _selectMonth : function () {
-      if (this._showYear === this.select()['year'] &&
-          this._showMonth === this.select()['month'])
-        this._mElement.classList.add('selected');
+      const t = this;
+      if (t._showYear === t.select()['year'] &&
+          t._showMonth === t.select()['month'])
+        t._mElement.classList.add('selected');
       else
-        this._mElement.classList.remove('selected');
+        t._mElement.classList.remove('selected');
     },
 
 
     // Create the day (calendar) helper element.
     _dayHelper : function () {
-      var table = d.createElement('table');
+      const table = d.createElement('table');
 
       // Localized day view
-      var tr = table.addE('thead').addE('tr');
-      for (var i = 0; i < 7; i++) {
+      const tr = table.addE('thead').addE('tr');
+      for (let i = 0; i < 7; i++) {
         tr.addE('th').addT(loc.WDAY[i]);
       };
 
@@ -407,8 +426,10 @@ define(['util'], function () {
       return table;
     },
 
+
+    // Create day body for calendar table
     _dayBody : function () {
-      var showDate = new Date(
+      const showDate = new Date(
         this._showYear,
         this._showMonth - 1,
         1,
@@ -417,7 +438,7 @@ define(['util'], function () {
         0,
         0
       );
-      var date = new Date(
+      const date = new Date(
         this._showYear,
         this._showMonth - 1,
         1,
@@ -426,12 +447,12 @@ define(['util'], function () {
         0,
         0
       );
-      var today = new Date();
-      var that = this;
+      const today = new Date();
+      const that = this;
 
       // What happens, in case someone clicks
       // on a date
-      var click = function () {
+      const click = function () {
         that.set(
           that._showYear,
           that._showMonth,
@@ -442,17 +463,19 @@ define(['util'], function () {
       // Skip back to the previous monday (may be in the last month)
       date.setDate(date.getDate() - ((date.getDay() + 6) % 7));
 
-      var tb = d.createElement('tbody');
+      const tb = d.createElement('tbody');
 
-      var s = this.select();
+      const s = this.select();
+      
+      let tr, i, td;
 
       // Iterate over all days of the table
       while (1) {
 
         // Loop through the week
-        var tr = tb.addE('tr');
-        for (var i = 0; i < 7; i++) {
-          var td = tr.addE('td');
+        tr = tb.addE('tr');
+        for (i = 0; i < 7; i++) {
+          td = tr.addE('td');
           
           // Not part of the current month
           if (date.getMonth() !== showDate.getMonth()) {
@@ -477,14 +500,14 @@ define(['util'], function () {
               td.classList.add('selected');
             };
           };
-
+          
           // Add the current day to the table
           td.addT(date.getDate());
     
           // Next day
           date.setDate(date.getDate() + 1);
         };
-
+        
         if (date.getMonth() !== showDate.getMonth())
           break;
       };
@@ -493,7 +516,7 @@ define(['util'], function () {
 
     // Update the calendar view
     _updateDay : function () {
-      var newBody = this._dayBody();
+      const newBody = this._dayBody();
       this._dBElement.parentNode.replaceChild(
         newBody,
         this._dBElement
@@ -501,6 +524,10 @@ define(['util'], function () {
       this._dBElement = newBody;
     },
 
+
+    /**
+     * Parse date from string.
+     */
     fromString : function (v) {
       if (v === undefined)
         return false;
@@ -508,7 +535,7 @@ define(['util'], function () {
       if (!KorAP._validDateRE.test(v))
         return false;
 
-      var d = v.split('-', 3);
+      const d = v.split('-', 3);
       d[0] = parseInt(d[0]);
       if (d[1]) d[1] = parseInt(d[1]);
       if (d[2]) d[2] = parseInt(d[2]);

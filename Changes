@@ -3,6 +3,8 @@
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
         - Fix VC fragments for redundant constraints.
+        - Modernize ES and improve variable declarations.
+        - Improve JS test coverage for Datepicker.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.

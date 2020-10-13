@@ -142,5 +142,29 @@ define(['datepicker'], function (dpClass) {
       expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('January');
 
     });
+
+    it('should parse from string', function () {
+      var dp = dpClass.create();
+      expect(dp.fromString()).toBeFalsy();
+      expect(dp.fromString("2020-September")).toBeFalsy();
+      expect(dp.fromString("2020")).toBeTruthy();
+      expect(dp.fromString("2020-10")).toBeTruthy();
+      expect(dp.fromString("2020-10-9")).toBeFalsy();
+      expect(dp.fromString("2020-10-09")).toBeTruthy();
+
+      expect(dp._selected['year']).toEqual(2020);
+      expect(dp._selected['month']).toEqual(10);
+      expect(dp._selected['day']).toEqual(9);
+
+      var e = dp.show(2020, 11);
+      
+      expect(e.querySelector('div.year > span:nth-child(2)').firstChild.data).toEqual('2020');
+      expect(e.querySelector('div.year > span:nth-child(2)').classList.contains('selected')).toBeTruthy();
+      expect(e.querySelector('div.month > span:nth-child(2)').firstChild.data).toEqual('November');
+      expect(e.querySelector('div.month > span:nth-child(2)').classList.contains('selected')).toBeFalsy();
+      expect(e.querySelector('div.month > span:nth-child(2)').classList.contains('selected')).toBeFalsy();
+
+      expect(dp.toString()).toEqual("2020-10-09");
+    });
   });
 });
