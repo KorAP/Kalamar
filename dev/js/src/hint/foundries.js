@@ -1,22 +1,20 @@
-window.KorAP = window.KorAP || {};
 KorAP.annotationHelper = KorAP.annotationHelper || { '-' : [] };
 
-define([], function () {
+define(["util"], function () {
   "use strict";
 
   const ah = KorAP.annotationHelper;
 
-  ah["getDesc"] = function (foundryLayer, value) {
+  ah.getDesc = function (foundryLayer, value) {
 
     if (!foundryLayer)
       return;
 
-    var anno = this[foundryLayer];
+    let anno = this[foundryLayer];
 
     if (!anno)
       return;
 
-    // if (value.indexOf(':') < 0) {
     if (!value.includes(':')) {
       value += ' ';
 
@@ -35,16 +33,15 @@ define([], function () {
 
       return;
     }
-    else {
-      var text = '';
-      var v = value.split(":");
-      var l1 = v[0];
-      var l2 = v[1];
 
-      l1 += ':';
+    else {
+      const v = value.split(":");
+      let l1 = v[0] + ':';
+      let l2 = v[1] + ' ';
+      let text = '';
 
       // Add key description
-      for (var i = 0; i < anno.length; i++) {
+      for (let i = 0; i < anno.length; i++) {
         if (anno[i] &&
             anno[i][1] == l1) {
           if (anno[i][2])
@@ -65,10 +62,8 @@ define([], function () {
       if (!anno)
         return;
 
-      l2 += ' ';
-
       // Add value description
-      for (var i = 0; i < anno.length; i++) {
+      for (let i = 0; i < anno.length; i++) {
         if (anno[i] &&
             anno[i][1] == l2) {
           if (anno[i][2])

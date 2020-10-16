@@ -16,6 +16,7 @@
  * TODO: Improve context analyzer from hint!
  * TODO: Marked annotations should be addable to "fragments"
  */
+
 define([
   'hint/input',
   'hint/menu',
@@ -28,10 +29,6 @@ define([
              alertClass) {
   "use strict";
 
-  /**
-   * Return keycode based on event
-   */
-
   // Initialize hint array
 
   /**
@@ -42,16 +39,13 @@ define([
    */
   return {
 
-    // Some variables
-    // _firstTry : true,
-    // active : false,
-
     /**
      * Create new hint helper.
      */
     create : function (param) {
       return Object.create(this)._init(param);
     },
+
 
     // Initialize hint helper
     _init : function (param) {
@@ -60,6 +54,8 @@ define([
       // Holds all menus per prefix context
       this._menu   = {};
       this._alert  = alertClass.create();
+
+      // Active may either hold an alert or a menu
       this._active = null;
 
       // No annotation helper available
@@ -84,41 +80,37 @@ define([
         ")$";
 
       // Get input field
-      var qfield = param["inputField"] || document.getElementById("q-field");
+      const qfield = param["inputField"] || document.getElementById("q-field");
       if (!qfield)
         return null;
 
       // Create input field
       this._inputField = inputClass.create(qfield);
 
-      var inputFieldElement = this._inputField.element();
-
-      var c = this._inputField.container();
-
       // create alert
+      const that = this;
+
+      const c = this._inputField.container();
       c.appendChild(this._alert.element());
-
-      var that = this;
-
-      this._inputField.container().addEventListener('click', function (e) {
+      c.addEventListener('click', function (e) {
         if (!this.classList.contains('active')) {
           that.show(false);
         };
       });
 
-      var _down = function (e) {
-        var code = _codeFromEvent(e);
-        if (code === 40) {
-          this.show(false);
-          e.halt();
-        };
-      };
-      
       // Move infobox
+      const inputFieldElement = this._inputField.element();
       inputFieldElement.addEventListener("keyup", this.update.bind(this));
       inputFieldElement.addEventListener("click", this.update.bind(this));
 
       // Add event listener for key pressed down
+      let _down = function (e) {
+        if (_codeFromEvent(e) === 40) {
+          this.show(false);
+          e.halt();
+        };
+      };
+
       inputFieldElement.addEventListener(
         "keydown", _down.bind(this), false
       );
@@ -160,29 +152,28 @@ define([
      * Altert at a specific character position.
      */
     alert : function (charPos, msg) {
-
+      const t = this;
       if (arguments.length === 0)
-        return this._alert;
+        return t._alert;
 
       // Do not alert if already alerted!
-      if (this._alert.active)
+      if (t._alert.active)
         return false;
 
       // Move to the correct position
-      this._inputField.moveto(charPos);
+      t._inputField.moveto(charPos);
 
       // Set container to active (aka hide the hint helper button)
 
-      this._alert.show(msg);
-      this.active(this._alert);
+      t._alert.show(msg);
+      t.active(t._alert);
       return true;
     },
     
-    _unshowAlert : function () {
-      this._alert.hide();
-      this.active(null);
-    },
 
+    /**
+     * Update input field.
+     */
     update : function () {
       this._inputField.update();
       if (this._alert.hide())
@@ -195,7 +186,7 @@ define([
      */
     menu : function (action) {
       if (this._menu[action] === undefined) {
-
+        
         // No matching hint menu
         if (KorAP.annotationHelper[action] === undefined)
           return;
@@ -210,27 +201,30 @@ define([
       return this._menu[action];
     },
 
+
     /**
      * Get the correct menu based on the context
      */
     contextMenu : function (ifContext) {
+      const noC = ifContext ? undefined : this.menu("-");
       
       // Get context (aka left text)
-      var context = this._inputField.context();
+      let context = this._inputField.context();
 
       if (context === undefined || context.length === 0) {
-        return ifContext ? undefined : this.menu("-");
+        return noC;
       };
 
       // Get context (aka left text matching regex)
       context = this._analyzer.test(context);
 
       if (context === undefined || context.length == 0) {
-        return ifContext ? undefined : this.menu("-");
+        return noC;
       };
 
-      return this.menu(context) || (ifContext ? undefined : this.menu('-'));
+      return this.menu(context) || noC;
     },
+
 
     /**
      * Activate a certain menu.
@@ -239,19 +233,21 @@ define([
      * If nothing is passed, returns the active menu.
      */
     active : function (obj) {
-
+      
       // A menu or null was passed
-      if (arguments.length === 1) {
-        var c = this._inputField.container();
-
+      if (arguments.length === 1) {        
+        const c = this._inputField.container();
+       
         // Make the menu active
         if (obj !== null) {
+          console.log("Add class");
           c.classList.add('active');
           this._active = obj;
         }
 
         // Make the menu inactive
         else {
+          console.log("Remove class");
           c.classList.remove('active');
           this._active = null;
         }
@@ -277,33 +273,35 @@ define([
       this._unshow();
       
       // Get the menu
-      var menu;
+      let menu;
       if (menu = this.contextMenu(ifContext)) {
+
         this.active(menu);
 
-        var c = this._inputField.container();        
-        c.appendChild(menu.element());
+        let e = menu.element();
+        console.log(">>>");
+        console.log("Chrome may send a blur on the old menu here");
+        console.log("Active:");
+        this._active.element().blur();
+        console.log(this._inputField.container());
+        this._inputField.container().appendChild(e);
+        console.log("<<<");
 
         menu.show();
         menu.focus();
         // Focus on input field
         // this.inputField.element.focus();
       }
+
       else {
         this._inputField.element().focus();
       };
     },
     
+
     // This will get the context of the field
     getContext : function () {},
 
-    /**
-     * Deactivate the current menu and focus on the input field.
-     */
-    unshow_old : function () {
-      this.active(null);
-      this.inputField().element().focus();
-    },
 
     /**
      * Deactivate the current menu and focus on the input field.
@@ -316,17 +314,16 @@ define([
 
     // Catch touch events
     _touch : function (e) {
-
       if (e.type === 'touchstart') {
-        var t = e.touches[0];
-        this._lastTouch = t.clientY;
+        this._lastTouch = e.touches[0].clientY;
       }
+
       else if (e.type === 'touchend') {
         this._lastTouch = undefined;
       }
+      
       else if (e.type == 'touchmove') {
-        var t = e.touches[0];
-        if ((this._lastTouch + 10) < t.clientY) {
+        if ((this._lastTouch + 10) < e.touches[0].clientY) {
           this.show();
           this._lastTouch = undefined;
         };
@@ -334,26 +331,36 @@ define([
       }
     },
 
-    
+
+    // Unshow the hint menu
     _unshow : function () {
       if (this.active() !== null) {
-        // var act = this.active();
 
+        console.log("UNSHOW");
+        console.log(this._active.element());
+        // this._active.element().blur();
+        
         // This does not work for alert currently!
-        //if (act._type !== 'alert') {
         if (!this._alert.active) {
 
-          // This does not work for webkit!
-          var c = this._inputField.container();
-          c.removeChild(this._active.element());
+          // TODO: This does not work for webkit?
+          this._inputField
+            .container()
+            .removeChild(this._active.element());
         }
+
         else {
           this._unshowAlert();
         };
         
-        // this._active.hide();
         this.active(null);
       };
+    },
+
+    // Unshow alert
+    _unshowAlert : function () {
+      this._alert.hide();
+      this.active(null);
     }
   };
 });
