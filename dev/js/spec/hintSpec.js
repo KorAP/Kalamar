@@ -241,13 +241,22 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
 
       // Show menu, hide alert!
       hint.show(false);
-
-      // PROBLEM!
-      expect(hint.active()).toBeTruthy();
-      expect(hint.inputField().mirrorValue()).toEqual('abcde');
-      expect(hint.alert().active).toBeFalsy();
     });
 
+    it('should work both in Chrome and Firefox', function () {
+      var hint = hintClass.create({
+        inputField : input
+      });
+      hint.show(false);
+      expect(hint.alert(5, 'That does not work!')).toBeTruthy();
+
+      // Show menu, hide alert!
+      hint.show(false);
+
+      expect(hint.active()).toBeFalsy();
+    });
+
+    
     it('should view main menu on default', function () {
       var hint = hintClass.create({
         inputField : input
