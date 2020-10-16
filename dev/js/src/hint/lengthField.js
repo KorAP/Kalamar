@@ -1,3 +1,5 @@
+"use strict";
+
 define(['menu/lengthField', 'util'], function (lengthFieldClass) {
   return {
 

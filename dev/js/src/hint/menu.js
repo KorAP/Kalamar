@@ -1,6 +1,9 @@
 /**
  * Hint menu
  */
+
+"use strict";
+
 define([
   'menu',
 	'hint/item',

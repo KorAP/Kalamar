@@ -1,6 +1,8 @@
 /**
  * Regex object for checking the context of the hint
  */
+"use strict";
+
 define({
 
   /**
