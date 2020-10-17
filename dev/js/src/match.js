@@ -13,7 +13,7 @@ define([
   'buttongroup',
   'panel/match',
 	'util'
-], function (buttonGroupClass,matchPanelClass) { //, refClass) {
+], function (buttonGroupClass,matchPanelClass) {
 
   // Localization values
   const loc   = KorAP.Locale;
@@ -42,8 +42,9 @@ define([
      * Initialize match.
      */
     _init : function (match) {
-      this._element = null;
-      this._initialized = false;
+      const t= this;
+      t._element = null;
+      t._initialized = false;
 
       // No match defined
       if (arguments.length < 1 ||
@@ -54,31 +55,26 @@ define([
 
       // Match defined as a node
       else if (match instanceof Node) {
-        this._element  = match;
+        t._element  = match;
 
         // Circular reference !!
-        match["_match"] = this;
+        match["_match"] = t;
 
-        /*
-          this.corpusID  = match.getAttribute('data-corpus-id'),
-          this.docID     = match.getAttribute('data-doc-id'),
-          this.textID    = match.getAttribute('data-text-id'),
-        */
         if (match.hasAttribute('data-text-sigle')) {
-          this.textSigle = match.getAttribute('data-text-sigle')
+          t.textSigle = match.getAttribute('data-text-sigle')
         }
         else {
-          this.textSigle = match.getAttribute('data-corpus-id') +
+          t.textSigle = match.getAttribute('data-corpus-id') +
             '/' +
             match.getAttribute('data-doc-id') +
             '/' +
             match.getAttribute('data-text-id');
         };
 
-        this.matchID   = match.getAttribute('data-match-id');
-
+        t.matchID   = match.getAttribute('data-match-id');
+        
         // List of available annotations
-        this.available = match.getAttribute('data-available-info').split(' ');
+        t.available = match.getAttribute('data-available-info').split(' ');
       }
 
       // Match as an object
@@ -87,10 +83,10 @@ define([
         // Iterate over allowed match terms
         _matchTerms.forEach(function(term) {
           this[term] = match[term] !== undefined ? match[term] : undefined;
-        }, this);
+        }, t);
       };
       
-      this._avail = {
+      t._avail = {
         tokens : [],
         spans  : [],
         rels   : []
@@ -98,7 +94,7 @@ define([
 
       // Iterate over info layers
       let layer;
-      this.available.forEach(function(term){
+      t.available.forEach(function(term){
 
         // Create info layer objects
         try {
@@ -108,9 +104,9 @@ define([
         catch (e) {
           return;
         };
-      }, this);
+      }, t);
       
-      return this;
+      return t;
     },
 
     /**
@@ -140,39 +136,40 @@ define([
      * Initialize match
      */
     init : function () {
-      if (this._initialized)
-        return this;
+      const t = this;
+      if (t._initialized)
+        return t;
 
       // Add actions unless it's already activated
-      var element = this._element;
+      const element = t._element;
 
       // There is an element to open
       if (element === undefined || element === null)
         return undefined;
       
       // Add meta button
-      var refLine = element.querySelector("p.ref");
+      const refLine = element.querySelector("p.ref");
 
       // No reference found
       if (!refLine)
         return undefined;
 
       // Create panel
-      this.panel = matchPanelClass.create(this);
+      t.panel = matchPanelClass.create(t);
 
-      this._element.insertBefore(
-        this.panel.element(),
-        this._element.querySelector("p.ref")
+      t._element.insertBefore(
+        t.panel.element(),
+        t._element.querySelector("p.ref")
       );
 
       // Insert before reference line
       refLine.insertBefore(
-        this.panel.actions.element(),
+        t.panel.actions.element(),
         refLine.firstChild
       );
 
-      this._initialized = true;
-      return this;
+      t._initialized = true;
+      return t;
     },
 
     /**
@@ -181,7 +178,7 @@ define([
     open : function () {
       
       // Add actions unless it's already activated
-      var element = this._element;
+      const element = this._element;
 
       // There is an element to open
       if (element === undefined || element === null)
@@ -194,11 +191,11 @@ define([
       // Add active class to element
       element.classList.add('active');
 
-      var btn = buttonGroupClass.create(
+      const btn = buttonGroupClass.create(
         ['action','button-view']
       );
 
-      var that = this;
+      const that = this;
       btn.add(loc.MINIMIZE, {'cls':['button-icon','minimize']}, function () {
         that.minimize();
       });
@@ -212,7 +209,9 @@ define([
     },
 
     
-    // Todo: Test toggle
+    /**
+     * Toggle match view
+     */
     toggle : function () {
       if (this._element.classList.contains('active'))
         this.minimize();

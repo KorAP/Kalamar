@@ -451,7 +451,35 @@ define(['match',
       expect(e.classList.contains('active')).toBe(false);
       expect(e["_match"]).not.toBe(undefined);
     });
-   
+
+    it('should toggle', function () {
+      var e = matchElementFactory();
+
+      expect(e.classList.contains('active')).toBe(false);
+      expect(e["_match"]).toBe(undefined);
+
+      var m = matchClass.create(e);
+
+      expect(e.classList.contains('active')).toBe(false);
+      expect(e["_match"]).not.toBe(undefined);
+      
+      // Open the match
+      m.open();
+      
+      expect(e.classList.contains('active')).toBe(true);
+      expect(e["_match"]).not.toBe(undefined);
+
+      m.toggle();
+
+      expect(e.classList.contains('active')).toBe(false);
+      expect(e["_match"]).not.toBe(undefined);
+
+      m.toggle();
+
+      expect(e.classList.contains('active')).toBe(true);
+      expect(e["_match"]).not.toBe(undefined);
+    });
+    
     it('should open tree menu', function () {      
       var e = matchElementFactory();
       var m = matchClass.create(e);
