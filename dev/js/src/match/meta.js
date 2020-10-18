@@ -1,5 +1,7 @@
 define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, attClass) {
 
+  "use strict";
+
   // Localization values
   const loc   = KorAP.Locale;
   loc.METADATA = loc.METADATA || 'Metadata';
@@ -13,15 +15,16 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
       return Object.create(this)._init(match, fields);
     },
 
+
     /**
      * Initialize object
      */
     _init : function (match, fields) {
       this._match = match;
       this._fields = fields;
-      // this.opened = false;
       return this;
     },
+
 
     /**
      * Get match object
@@ -29,6 +32,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
     match : function () {
       return this._match;
     },
+
 
     /**
      * Create match reference view.
@@ -40,42 +44,40 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
       if (this._fields === null)
         return;
 
-      var metaDL = document.createElement('dl');
+      const metaDL = document.createElement('dl');
       metaDL.classList.add("flex");
 
       this._element = metaDL;
 
-      let fields = this._fields;
+      const fields = this._fields;
 
       // Copy original array position to object
       // before sorting by key title
-      let posInMetaArray = {};
+      const posInMetaArray = {};
       fields.forEach((f,i) => posInMetaArray[f["key"]] = i);
 
-      
       // TODO: Meta fields should be separated
+
       // Sort all meta keys alphabetically
       Object.keys(posInMetaArray).sort().forEach(function(k) {
         let field = fields[posInMetaArray[k]]; // This is the object
+
+        let metaL, dt, metaDescr, metaDD, att;
 
         // Ignore internal IDs
         if (k !== "UID" &&
             k !== "corpusID" &&
             k !== "docID" &&
             k !== "textID" &&
-            /*
-              k !== "corpusSigle" &&
-              k !== "docSigle" &&
-            */
             k !== "layerInfos") {
 
-          const metaL = document.createElement('div');
+          metaL = document.createElement('div');
           
-          const dt = metaL.addE('dt');
+          dt = metaL.addE('dt');
           dt.addT(k);
           dt.setAttribute("title", k);
           
-          let metaDescr = field["value"];
+          metaDescr = field["value"];
           metaDD = metaL.addE('dd');
           metaDD.setAttribute('data-type', field["type"]);
 
@@ -83,7 +85,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
         	  metaDD.classList.add("metakeyvalues");
             metaDescr.forEach(function(md) {
               if (field["type"] === 'type:attachement') {
-                let att = attClass.create(md);
+                att = attClass.create(md);
                 if (att)
         	        metaDD.addE('div').appendChild(att.inline());
               }
@@ -94,9 +96,9 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
           }
           else{
             if (field["type"] === 'type:attachement') {
-              let att = attClass.create(field["value"]);
+              att = attClass.create(field["value"]);
               if (att)
-              metaDD.appendChild(att.inline());
+                metaDD.appendChild(att.inline());
             }
             else {
               metaDD.addT(field["value"]);

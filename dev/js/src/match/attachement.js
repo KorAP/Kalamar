@@ -10,6 +10,9 @@
  * @author Nils Diewald
  */
 define(function () {
+
+  "use strict";
+
   const uriRE = new RegExp("^data: *([^;,]*?(?: *; *[^,;]+?)*) *, *(.+)$");
   const mapRE = new RegExp("^ *([^=]+?) *= *(.+?) *$");
 
@@ -24,6 +27,7 @@ define(function () {
 
     // Parse URI scheme
     _init : function (url) {
+      const t = this;
 
       // Decode
       url = decodeURIComponent(url);
@@ -31,39 +35,40 @@ define(function () {
       if (!uriRE.exec(url))
         return;
 
-      this.payload = RegExp.$2;
+      t.payload = RegExp.$2;
 
       let map = {};
       let start = 0;
-      this.base64 = false;
-      this.isLink = false;
-      this.contentType = "text/plain";
+      t.base64 = false;
+      t.isLink = false;
+      t.contentType = "text/plain";
 
       // Split parameter map
       RegExp.$1.split(/ *; */).map(function (item) {
+        const t = this;
 
         // Check first parameter
         if (!start++ && item.match(/^[-a-z0-9]+?\/.+$/)) {
-          this.contentType = item;
+          t.contentType = item;
 
           if (item === "application/x.korap-link")
-            this.isLink = true;
+            t.isLink = true;
         }
        
         // Decode b64
         else if (item.toLowerCase() == "base64") {
-          this.base64 = true;
-          this.payload = window.atob(this.payload);
+          t.base64 = true;
+          t.payload = window.atob(t.payload);
         }
 
         // Parse arbitrary metadata
         else if (mapRE.exec(item)) {
           map[RegExp.$1] = RegExp.$2;
         };
-      }.bind(this));
+      }.bind(t));
 
-      this.param = map;
-      return this;
+      t.param = map;
+      return t;
     },
 
     /**
@@ -72,8 +77,8 @@ define(function () {
      */ 
     inline : function () {
       if (this.isLink) {
-        let title = this.param["title"] || this.payload;
-        let a = document.createElement('a');
+        const title = this.param["title"] || this.payload;
+        const a = document.createElement('a');
         a.setAttribute('href', this.payload);
         a.setAttribute('rel', 'noopener noreferrer');
         a.addT(title);

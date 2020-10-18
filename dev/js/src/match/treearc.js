@@ -19,53 +19,57 @@ define([], function () {
     // Initialize the state of the object
     _init : function (snippet) {
 
+      const t = this;
+
       // Predefine some values
-      this._tokens  = [];
-      this._arcs    = [];
-      this._tokenElements = [];
-      this._y = 0;
-      this._currentInFocus = undefined;
+      t._tokens  = [];
+      t._arcs    = [];
+      t._tokenElements = [];
+      t._y = 0;
+      t._currentInFocus = undefined;
 
       // Some configurations
-      this.maxArc      = 200; // maximum height of the bezier control point
-      this.overlapDiff = 40;  // Difference on overlaps and minimum height for self-refernces
-      this.arcDiff     = 15;
-      this.anchorDiff  = 8;
-      this.anchorStart = 15;
-      this.tokenSep    = 30;
-      this.xPadding    = 10;
-      this.yPadding    = 5;
+      t.maxArc      = 200; // maximum height of the bezier control point
+      t.overlapDiff = 40;  // Difference on overlaps and minimum height for self-refernces
+      t.arcDiff     = 15;
+      t.anchorDiff  = 8;
+      t.anchorStart = 15;
+      t.tokenSep    = 30;
+      t.xPadding    = 10;
+      t.yPadding    = 5;
 
       // No snippet to process
       if (snippet == undefined || snippet == null)
-        return this;
+        return t;
 
       // Parse the snippet
-      var html = d.createElement("div");
+      const html = d.createElement("div");
       html.innerHTML = snippet;
 
       // Establish temporary parsing memory
-      this.temp = {
+      t.temp = {
         target : {}, // Remember the map id => pos        
         edges  : [], // Remember edge definitions
         pos    : 0   // Keep track of the current token position
       };
 
       // Start parsing from root
-      this._parse(0, html.childNodes, undefined);
+      t._parse(0, html.childNodes, undefined);
 
       // Establish edge list
-      var targetMap = this.temp['target'];
-      var edges = this.temp['edges'];
+      const targetMap = t.temp['target'];
+      const edges = t.temp['edges'];
 
+      let targetID, target, relation;
+      
       // Iterate over edge lists
       // TODO:
       //   Support spans for anchors!
       edges.forEach(function(edge) {
 
         // Check the target identifier
-        var targetID = edge.targetID;
-        var target = targetMap[targetID];
+        targetID = edge.targetID;
+        target = targetMap[targetID];
 
         if (target != undefined) {
 
@@ -78,7 +82,7 @@ define([], function () {
           */
           
           // Add relation
-          var relation = {
+          relation = {
             start : [edge.srcStart, edge.srcEnd],
             end : target,
             direction : 'uni',
@@ -87,10 +91,10 @@ define([], function () {
           // console.log(relation);
           this.addRel(relation);
         };
-      }, this);
+      }, t);
 
       // Reset parsing memory
-      this.temp = {};
+      delete t["temp"];
 
       return this;
     },
@@ -104,7 +108,7 @@ define([], function () {
         // Element node
         if (c.nodeType == 1) {
 
-          var xmlid, target, start, end;
+          let xmlid, target, start, end;
 
           // Node is an identifier
           if (c.hasAttribute('xml:id')) {
@@ -136,7 +140,7 @@ define([], function () {
             // Node is a relation
             // Stricter: c.getAttribute('xlink:show') == "none"
             else {
-              var label;
+              let label;
 
               // Get target id
               target = c.getAttribute('xlink:href').replace(/^#/, "");
@@ -146,6 +150,7 @@ define([], function () {
               };
 
               // Remember the defined edge
+// WRONG!
               var edge = {
                 label    : label,
                 srcStart : this.temp['pos'],
@@ -173,7 +178,7 @@ define([], function () {
 
             // Element already defined
             if (this.temp['target'][xmlid] !== undefined) {
-              var newtarget = this.temp['target'][xmlid];
+              const newtarget = this.temp['target'][xmlid];
               end = this.temp['pos'] - 1;
               newtarget[0] = start < newtarget[0] ? start : newtarget[0];
               newtarget[1] = end > newtarget[1] ? end : newtarget[1];
@@ -218,7 +223,9 @@ define([], function () {
 
           // Check, if there is a non-whitespace token
           if (c.nodeValue !== undefined) {
-            var str = c.nodeValue.trim();
+
+            const str = c.nodeValue.trim();
+
             if (str !== undefined && str.length > 0) {
 
               // Add token to token list
@@ -255,21 +262,23 @@ define([], function () {
       return d.createElementNS(svgNS, tag);
     },
 
+
     // Get bounding box - with workaround for text nodes
     _rect : function (node) {
       if (node.tagName == "tspan" && !navigator.userAgent.match(/Edge/)) {
-        var range = d.createRange();
+        const range = d.createRange();
         range.selectNode(node);
-        var rect = range.getBoundingClientRect();
+        const rect = range.getBoundingClientRect();
         range.detach();
         return rect;
       };
       return node.getBoundingClientRect();
     },
 
+
     // Returns the center point of the requesting token
     _tokenPoint : function (node) {
-	    var box = this._rect(node);
+	    const box = this._rect(node);
 	    return box.left + (box.width / 2);
     },
 
@@ -278,17 +287,22 @@ define([], function () {
     _drawAnchor : function (anchor) {
 
       // Calculate the span of the first and last token, the anchor spans
-      var firstBox = this._rect(this._tokenElements[anchor.first]);
-      var lastBox  = this._rect(this._tokenElements[anchor.last]);
+      const firstBox = this._rect(this._tokenElements[anchor.first]);
+      const lastBox  = this._rect(this._tokenElements[anchor.last]);
 	
-      var startPos = firstBox.left - this.offsetLeft;
-      var endPos   = lastBox.right - this.offsetLeft;
+      const y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
+      const l = this._c('path');
       
-      var y = this._y + (anchor.overlaps * this.anchorDiff) - this.anchorStart;
-
-      var l = this._c('path');
 	    this._arcsElement.appendChild(l);
-	    var pathStr = "M " + startPos + "," + y + " L " + endPos + "," + y;
+
+      const pathStr = "M " +
+          (firstBox.left - this.offsetLeft) +
+          "," +
+          y +
+          " L " +
+          (lastBox.right - this.offsetLeft) +
+          "," + y;
+
       l.setAttribute("d", pathStr);
       l.setAttribute("class", "anchor");
       anchor.element = l;
@@ -301,61 +315,62 @@ define([], function () {
     // Potentially needs a height parameter for stacks
     _drawArc : function (arc) {
 
-      var startPos, endPos;
-      var startY = this._y;
-      var endY = this._y;
+      const t = this;
+      let startPos, endPos;
+      let startY = this._y;
+      let endY = this._y;
 	
       if (arc.startAnchor !== undefined) {
-        startPos = this._tokenPoint(arc.startAnchor.element);
+        startPos = t._tokenPoint(arc.startAnchor.element);
         startY = arc.startAnchor.y;
       }
       else {
-        startPos = this._tokenPoint(this._tokenElements[arc.first]);
+        startPos = t._tokenPoint(t._tokenElements[arc.first]);
       };
 
       if (arc.endAnchor !== undefined) {
-        endPos = this._tokenPoint(arc.endAnchor.element)
+        endPos = t._tokenPoint(arc.endAnchor.element)
         endY = arc.endAnchor.y;
       }
       else {
-        endPos = this._tokenPoint(this._tokenElements[arc.last]);
+        endPos = t._tokenPoint(t._tokenElements[arc.last]);
       };
 
-      startPos -= this.offsetLeft;
-      endPos -= this.offsetLeft;
+      startPos -= t.offsetLeft;
+      endPos -= t.offsetLeft;
 
 	    // Special treatment for self-references
       var overlaps = arc.overlaps;
       if (startPos == endPos) {
-        startPos -= this.overlapDiff / 3;
-        endPos   += this.overlapDiff / 3;
+        startPos -= t.overlapDiff / 3;
+        endPos   += t.overlapDiff / 3;
         overlaps += .5;
       };
 
-      var g = this._c("g");
+      const g = t._c("g");
       g.setAttribute("class", "arc");
-      var p = g.appendChild(this._c("path"));
+      const p = g.appendChild(t._c("path"));
       p.setAttribute('class', 'edge');
       
       // Attach the new arc before drawing, so computed values are available
-      this._arcsElement.appendChild(g);
+      t._arcsElement.appendChild(g);
 
       // Create arc
-      var middle = Math.abs(endPos - startPos) / 2;
+      let middle = Math.abs(endPos - startPos) / 2;
 
       // TODO:
       //   take the number of tokens into account!
-      var cHeight = this.arcDiff + (overlaps * this.overlapDiff) + (middle / 2);
+      let cHeight = t.arcDiff + (overlaps * t.overlapDiff) + (middle / 2);
 
       // Respect the maximum height
-      cHeight = cHeight < this.maxArc ? cHeight : this.maxArc;
+      cHeight = cHeight < t.maxArc ? cHeight : t.maxArc;
 
       var x = Math.min(startPos, endPos);
 
       //var controlY = (startY + endY - cHeight);
-      var controlY = (endY - cHeight);
+      let controlY = (endY - cHeight);
       
-      var arcE = "M "+ startPos + "," + startY +
+      const arcE = "M "+ startPos + "," + startY +
           " C " + startPos + "," + controlY +
           " " + endPos + "," + controlY +
           " " + endPos + "," + endY;
@@ -379,53 +394,58 @@ define([], function () {
        * of course simplified to symmetric arcs ...
        */
       // Interpolate one side of the control polygon
-      var middleY = (((startY + controlY) / 2) + controlY) / 2;
+      let middleY = (((startY + controlY) / 2) + controlY) / 2;
 
       // Create a boxed label
-      var label = this._c("g");
+      const label = this._c("g");
       label.setAttribute("class", "label");
-      this._labelsElement.appendChild(label);
+      t._labelsElement.appendChild(label);
 
       // Set arc reference
       label.arcRef = g;
 
-      var that = this;
+      const that = t;
       label.addEventListener('mouseenter', function () {
         that.inFocus(this);
       });
 
-      var labelE = label.appendChild(this._c("text"));
+      const labelE = label.appendChild(t._c("text"));
       labelE.setAttribute("x", x + middle);
       labelE.setAttribute("y", middleY + 3);
       labelE.setAttribute("text-anchor", "middle");
-      var textNode = d.createTextNode(arc.label);
+      const textNode = d.createTextNode(arc.label);
       labelE.appendChild(textNode);
 
-      var labelBox   = labelE.getBBox();
+      const labelBox   = labelE.getBBox();
 
+      /*
       if (!labelBox)
         console.log("----");
+      */
       
-      var textWidth  = labelBox.width; // labelE.getComputedTextLength();
-      var textHeight = labelBox.height; // labelE.getComputedTextLength();
+      const textWidth  = labelBox.width; // labelE.getComputedTextLength();
+      const textHeight = labelBox.height; // labelE.getComputedTextLength();
 
       // Add box with padding to left and right
-      var labelR = label.insertBefore(this._c("rect"), labelE);
-      var boxWidth = textWidth + 2 * this.xPadding;
+      const labelR = label.insertBefore(t._c("rect"), labelE);
+      const boxWidth = textWidth + 2 * t.xPadding;
       labelR.setAttribute("x", x + middle - (boxWidth / 2));
       labelR.setAttribute("ry", 5);
-      labelR.setAttribute("y", labelBox.y - this.yPadding);
+      labelR.setAttribute("y", labelBox.y - t.yPadding);
       labelR.setAttribute("width", boxWidth);
-      labelR.setAttribute("height", textHeight + 2 * this.yPadding);
+      labelR.setAttribute("height", textHeight + 2 * t.yPadding);
     },
 
-    // Get the svg element
+
+    /**
+     * Get the svg element
+     */
     element : function () {
       if (this._element !== undefined)
         return this._element;
 
       // Create svg
-      var svg = this._c("svg");
+      const svg = this._c("svg");
 
       window.addEventListener("resize", function () {
         // TODO:
@@ -436,13 +456,14 @@ define([], function () {
       }.bind(this));
 
       // Define marker arrows
-      var defs = svg.appendChild(this._c("defs"));
-      var marker = defs.appendChild(this._c("marker"));
+      const defs = svg.appendChild(this._c("defs"));
+      const marker = defs.appendChild(this._c("marker"));
       marker.setAttribute("refX", 9);
       marker.setAttribute("id", "arr");
       marker.setAttribute("orient", "auto-start-reverse");
       marker.setAttribute("markerUnits","userSpaceOnUse");
-      var arrow = this._c("path");
+
+      const arrow = this._c("path");
       arrow.setAttribute("transform", "scale(0.8)");
       arrow.setAttribute("d", "M 0,-5 0,5 10,0 Z");
       marker.appendChild(arrow);
@@ -450,6 +471,7 @@ define([], function () {
       this._element = svg;
       return this._element;
     },
+
 
     // Add a relation with a start, an end,
     // a direction value and an optional label text
@@ -468,7 +490,7 @@ define([], function () {
 
     // Move label and arc in focus
     inFocus : function (element) {
-      var cif;
+      let cif;
 
       if (this._currentInFocus) {
 
@@ -488,6 +510,7 @@ define([], function () {
       cif.arcRef.classList.add('infocus');
     },
     
+
     /*
      * All arcs need to be sorted before shown,
      * to avoid nesting.
@@ -498,7 +521,7 @@ define([], function () {
       //   Keep in mind that the arcs may have long anchors!
       //   1. Iterate over all arcs
       //   2. Sort all multi
-      var anchors = {};
+      let anchors = {};
       
       // 1. Sort by length
       // 2. Tag all spans with the number of overlaps before
@@ -510,7 +533,7 @@ define([], function () {
       //       reorder
 
       // Normalize start and end
-      var sortedArcs = this._arcs.map(function (v) {
+      const sortedArcs = this._arcs.map(function (v) {
 
         // Check for long anchors
         if (v.start instanceof Array) {
@@ -521,16 +544,18 @@ define([], function () {
 
           else {
           
-            var middle = Math.ceil(Math.abs(v.start[1] - v.start[0]) / 2) + v.start[0];
+            const middle = Math.ceil(Math.abs(v.start[1] - v.start[0]) / 2) + v.start[0];
 
             // Calculate signature to avoid multiple anchors
-            var anchorSig = "#" + v.start[0] + "_" + v.start[1];
+            let anchorSig = "#" + v.start[0] + "_" + v.start[1];
+
+            // Reverse signature
             if (v.start[0] > v.start[1]) {
               anchorSig = "#" + v.start[1] + "_" + v.start[0];
             };
             
             // Check if the anchor already exist
-            var anchor = anchors[anchorSig];
+            let anchor = anchors[anchorSig];
             if (anchor === undefined) {
               anchor = {
                 "first":   v.start[0],
@@ -538,7 +563,6 @@ define([], function () {
                 "length" : v.start[1] - v.start[0]
               };
               anchors[anchorSig] = anchor;
-              // anchors.push(v.startAnchor);
             };
 
             v.startAnchor = anchor;
@@ -556,10 +580,12 @@ define([], function () {
 
           else {
 
-            var middle = Math.abs(v.end[0] - v.end[1]) + v.end[0];
+            const middle = Math.abs(v.end[0] - v.end[1]) + v.end[0];
 
             // Calculate signature to avoid multiple anchors
-            var anchorSig = "#" + v.end[0] + "_" + v.end[1];
+            let anchorSig = "#" + v.end[0] + "_" + v.end[1];
+
+            // Reverse signature
             if (v.end[0] > v.end[1]) {
               anchorSig = "#" + v.end[1] + "_" + v.end[0];
             };
@@ -573,27 +599,24 @@ define([], function () {
                 "length" : v.end[1] - v.end[0]
               };
               anchors[anchorSig] = anchor;
-              // anchors.push(v.startAnchor);
             };
             
             v.endAnchor = anchor;
 
             // Add to anchors list
-            // anchors.push(v.endAnchor);
             v.end = middle;
           };
         };
 
         v.first = v.start;
-        v.last = v.end;
+        v.last  = v.end;
 
         // calculate the arch length
         if (v.start < v.end) {
           v.length = v.end - v.start;
         }
+
         else {
-          // v.first = v.end;
-          // v.last = v.start;
           v.length = v.start - v.end;
         };
 
@@ -613,19 +636,20 @@ define([], function () {
       this._sortedAnchors = lengthSort(Object.values(anchors), true);
     },
 
+
     /**
      * Center the viewport of the canvas
      * TODO:
-     *   This is identical to tree
+     *   This is identical to treehierarchy
      */
     center : function () {
       if (this._element === undefined)
        return;
 
-      var treeDiv = this._element.parentNode;
+      const treeDiv = this._element.parentNode;
 
-      var cWidth = parseFloat(window.getComputedStyle(this._element).width);
-      var treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
+      const cWidth = parseFloat(window.getComputedStyle(this._element).width);
+      const treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
       // Reposition:
       if (cWidth > treeWidth) {
        var scrollValue = (cWidth - treeWidth) / 2;
@@ -636,37 +660,38 @@ define([], function () {
 
     // Show the element
     show : function () {
-      var svg = this._element;
-      var height = this.maxArc;
+      const t = this;
+      const svg = this._element;
+      const height = this.maxArc;
 
       // Delete old group
       if (svg.getElementsByTagName("g")[0] !== undefined) {
-        var group = svg.getElementsByTagName("g")[0];
-        svg.removeChild(group);
-        this._tokenElements = [];
+        svg.removeChild(
+          svg.getElementsByTagName("g")[0]
+        );
+        t._tokenElements = [];
       };
 
-      var g = svg.appendChild(this._c("g"));
+      const g = svg.appendChild(t._c("g"));
 
       // Draw token list
-      var text = g.appendChild(this._c("text"));
+      const text = g.appendChild(t._c("text"));
       text.setAttribute('class', 'leaf');
       text.setAttribute("text-anchor", "start");
       text.setAttribute("y", height);
 
       // Calculate the start position
-      this._y = height - (this.anchorStart);
+      t._y = height - (t.anchorStart);
 
       // Introduce some prepending whitespace (yeah - I know ...)
-      var ws = text.appendChild(this._c("tspan"));
+      const ws = text.appendChild(t._c("tspan"));
       ws.appendChild(d.createTextNode('\u00A0'));
       ws.style.textAnchor = "start";
       
-      var lastRight = 0;
-      this._tokens.forEach(function(node_i) {
+      t._tokens.forEach(function(node_i) {
         // Append svg
         // var x = text.appendChild(this._c("text"));
-        var tspan = text.appendChild(this._c("tspan"));
+        const tspan = text.appendChild(this._c("tspan"));
         tspan.appendChild(d.createTextNode(node_i));
         tspan.setAttribute("text-anchor", "middle");
         
@@ -674,38 +699,36 @@ define([], function () {
 
         // Add whitespace!
         tspan.setAttribute("dx", this.tokenSep);
-      }, this);
+      }, t);
 
       // Get some global position data that may change on resize
-      var globalBoundingBox = this._rect(g);
-      this.offsetLeft = globalBoundingBox.left;
+      t.offsetLeft = t._rect(g).left;
 
       // The group of arcs
-      var arcs = g.appendChild(this._c("g"));
-      this._arcsElement = arcs;
+      const arcs = g.appendChild(t._c("g"));
+      t._arcsElement = arcs;
       arcs.classList.add("arcs");
 
-      var labels = g.appendChild(this._c("g"));
-      this._labelsElement = labels;
+      const labels = g.appendChild(t._c("g"));
+      t._labelsElement = labels;
       labels.classList.add("labels");
 
       // Sort arcs if not sorted yet
-      if (this._sortedArcs === undefined)
-        this._sortArcs();
+      if (t._sortedArcs === undefined)
+        t._sortArcs();
 
       // 1. Draw all anchors
-      this._sortedAnchors.forEach(
-        i => this._drawAnchor(i)
+      t._sortedAnchors.forEach(
+        i => t._drawAnchor(i)
       );
 
       // 2. Draw all arcs
-      this._sortedArcs.forEach(
-        i => this._drawArc(i)
+      t._sortedArcs.forEach(
+        i => t._drawArc(i)
       );
 
       // Resize the svg with some reasonable margins
-      var width = this._rect(text).width;
-      svg.setAttribute("width", width + 20);
+      svg.setAttribute("width", t._rect(text).width + 20);
       svg.setAttribute("height", height + 20);
       svg.setAttribute("class", "relTree");
     }
@@ -720,15 +743,16 @@ define([], function () {
      * e.g. if identical start or endpoints mean overlap or not.
      */
     
-    var stack = [];
+    let stack = [];
 
     // Iterate over all definitions
     list.forEach(function(current) {
 
       // Check the stack order
-      var overlaps = 0;
-      for (var j = (stack.length - 1); j >= 0; j--) {
-        var check = stack[j];
+      let overlaps = 0;
+      let check;
+      for (let j = (stack.length - 1); j >= 0; j--) {
+        check = stack[j];
 
         // (a..(b..b)..a)
         if (current.first <= check.first && current.last >= check.last) {

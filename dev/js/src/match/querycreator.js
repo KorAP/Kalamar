@@ -19,7 +19,7 @@ define(['util'], function () {
   const loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
-  var esc = RegExp("[ \.\'\\\\\|\&]");
+  const esc = RegExp("[ \.\'\\\\\|\&]");
   
   function _getKeyValue (keyValue) {
     if (keyValue.match(esc) != null) {
@@ -27,13 +27,12 @@ define(['util'], function () {
     };
     return keyValue;
   };
-
   
   function _getAnnotation (prefix, target) {
 
     // Complex annotation
     if (target.childNodes.length > 1) {
-      var orGroup = [];
+      let orGroup = [];
 
       // Iterate over alternative annotations
       target.childNodes.forEach(function (item) {
@@ -70,39 +69,41 @@ define(['util'], function () {
       else if (!(matchTable instanceof Node))
         throw new Error('Requires element');
 
+      const t = this;
+
       // Collect the token sequence in an array
-      this._query = []
+      t._query = []
 
       // Get the match table
-      this._matchTable = matchTable;
+      t._matchTable = matchTable;
 
       // Listen on the match table
-      this._matchTable.addEventListener(
-        "click", this.clickOnAnno.bind(this), false
+      t._matchTable.addEventListener(
+        "click", t.clickOnAnno.bind(t), false
       );
 
       // Initialize element
-      this._element = document.createElement('p');
-      this._element.classList.add('query','fragment');
+      const e = t._element = document.createElement('p');
+      e.classList.add('query','fragment');
 
       // Prepend info text
-      this._element.addE('span').addT(loc.NEW_QUERY + ':');
+      e.addE('span').addT(loc.NEW_QUERY + ':');
 
       // Append query fragment part
-      this._queryFragment = this._element.addE('span');
+      t._queryFragment = e.addE('span');
 
       // Event when the query fragment is clicked
-      this._element.addEventListener('click', this.toQueryBar.bind(this), 1);
+      e.addEventListener('click', t.toQueryBar.bind(t), 1);
 
       // Get some basic information - see tutorial.js
       // TODO:
       //   It may be better to consultate a global object
       //   like KorAP.Hint, however ...
-      this._ql = document.getElementById("ql-field");
-	    this._q = document.getElementById("q-field")
+      t._ql = document.getElementById("ql-field");
+	    t._q = document.getElementById("q-field")
 
-      this._shown = false;
-      return this;
+      t._shown = false;
+      return t;
     },
 
 
@@ -113,7 +114,9 @@ define(['util'], function () {
       if (event.target !== event.currentTarget) {
 
         // Get target event
-        var target = event.target;
+        const target = event.target;
+
+        let head, foundry, layer, i, sib, annotation;
 
         if (target.tagName == 'TD') {
 
@@ -125,26 +128,23 @@ define(['util'], function () {
 
 
           // Check foundry and layer
-          var head    = target.parentNode.getElementsByTagName('th');
-          var foundry = head[0].innerText;
-          var layer   = head[1].innerText;
+          head    = target.parentNode.getElementsByTagName('th');
+          foundry = head[0].innerText;
+          layer   = head[1].innerText;
 
           // Check index position:
-          var i = -2;
-          var sib = target;
-          while((sib = sib.previousSibling) != null) {
+          i = -2;
+          sib = target;
+          while ((sib = sib.previousSibling) != null) {
             if (sib.nodeType === 1)
               i++;
           };
 
-
-          var prefix = foundry + '/' + layer + '=';
-          var annotation = '';
-
           // Get annotation value from cell
-          var annotation = _getAnnotation(prefix, target);
+          annotation = _getAnnotation(foundry + '/' + layer + '=', target);
 
           if (annotation !== '') {
+
             // Add term
             this.toggleInToken(target, i, annotation);
           };
@@ -152,6 +152,7 @@ define(['util'], function () {
 
         // The annotation is part of a key-value-pair
         else if (target.tagName == 'SPAN' || target.tagName == 'DIV') {
+
           if (target.innerText == '')
             return;
 
@@ -160,24 +161,21 @@ define(['util'], function () {
           };
 
           // Check foundry and layer
-          var parentCell = target.parentNode;
-          var head    = parentCell.parentNode.getElementsByTagName('th');
-          var foundry = head[0].innerText;
-          var layer   = head[1].innerText;
+          const parentCell = target.parentNode;
+          head    = parentCell.parentNode.getElementsByTagName('th');
+          foundry = head[0].innerText;
+          layer   = head[1].innerText;
 
           // Check index position of parent cell
-          var i = -2;
-          var sib = parentCell;
+          i = -2;
+          sib = parentCell;
           while((sib = sib.previousSibling) != null) {
             if (sib.nodeType === 1)
               i++;
           };
 
-          var prefix = foundry + '/' + layer + '=';
-          var annotation = '';
-
           // Get annotation value from cell
-          var annotation = _getAnnotation(prefix, target);
+          annotation = _getAnnotation(foundry + '/' + layer + '=', target);
 
           if (annotation !== '') {
 
@@ -197,8 +195,8 @@ define(['util'], function () {
               return;
             }
 
-            var i = -2;
-            var sib = target;
+            i = -2;
+            sib = target;
             while ((sib = sib.previousSibling) != null) {
               if (sib.nodeType === 1)
                 i++;
@@ -215,14 +213,14 @@ define(['util'], function () {
           else {
 
             // Check foundry and layer
-            var head    = target.parentNode.getElementsByTagName('th');
-            var foundry = head[0].innerText;
-            var layer   = head[1].innerText;
-            var prefix = foundry + '/' + layer + '=';
+            head    = target.parentNode.getElementsByTagName('th');
+            foundry = head[0].innerText;
+            layer   = head[1].innerText;
+            const prefix = foundry + '/' + layer + '=';
 
             // Iterate over all siblings
-            var i = 0;
-            var sib = target;
+            i = 0;
+            sib = target;
             while ((sib = sib.nextSibling) != null) {
               if (sib.nodeType !== 1 || sib.tagName === 'TH')
                 continue;
@@ -235,7 +233,7 @@ define(['util'], function () {
                 ).forEach(function(keyvaluepair){
 
                   // Get annotation value from cell
-                  var annotation = _getAnnotation(prefix, keyvaluepair);
+                  annotation = _getAnnotation(prefix, keyvaluepair);
 
                   if (annotation !== '') {
 
@@ -250,7 +248,7 @@ define(['util'], function () {
               else {
 
                 // Get annotation value from cell
-                var annotation = _getAnnotation(prefix, sib);
+                annotation = _getAnnotation(prefix, sib);
 
                 if (annotation !== '') {
 
@@ -269,10 +267,11 @@ define(['util'], function () {
       event.stopPropagation();
     },
 
+
     // Add term to token
     _addToToken : function (index, term) {
 
-      var token = this._query[index];
+      let token = this._query[index];
 
       // Initialize token
       if (token === undefined) {
@@ -295,18 +294,15 @@ define(['util'], function () {
 
     // Remove term from token
     _removeFromToken : function (index, term) {
-      var token = this._query[index];
+      let token = this._query[index];
 
       if (token === undefined)
         return;
 
       token.splice(token.indexOf(term), 1);
 
-      if (token.length > 0)
-        this._query[index] = token;
-      else
-        this._query[index] = undefined;
-
+      this._query[index] = token.length > 0 ? token : undefined;
+      
       this.show();
     },
 
@@ -326,56 +322,62 @@ define(['util'], function () {
     // Show annotation fragment
     show : function () {
 
-      var str = this.toString();
+      const t = this;
+      const str = t.toString();
+      const m = t._matchTable;
 
       // Fragment is empty
       if (str === '') {
 
         // Hide element
-        if (this._shown === true) {
-          this._matchTable.parentNode.removeChild(this._element);
-          this._shown = false;
+        if (t._shown === true) {
+          m.parentNode.removeChild(t._element);
+          t._shown = false;
         }
       }
 
       // Fragment is defined
       else {
 
-        if (this._shown === false) {
+        if (t._shown === false) {
 
           // Insert after
-          this._matchTable.parentNode.insertBefore(
-            this._element, this._matchTable.nextSibling
+          m.parentNode.insertBefore(
+            t._element, m.nextSibling
           );
-          this._shown = true;
+          t._shown = true;
         };
 
         // set value
-        this._queryFragment.innerText = str;
+        t._queryFragment.innerText = str;
       };
     },
+
 
     // Add term to token if not yet chosen, otherwise remove
     toggleInToken : function (node, index, term) {
-      if (node.classList.contains('chosen')) {
+      const cl = node.classList;
+      if (cl.contains('chosen')) {
         this._removeFromToken(index, term);
-        node.classList.remove('chosen');
+        cl.remove('chosen');
       }
       else {
         this._addToToken(index, term);
-        node.classList.add('chosen');
+        cl.add('chosen');
       };
     },
 
+
     // Stringify annotation
     toString : function () {
-      var str = '';
-      var distance = 0;
+      let str = '';
+      let distance = 0;
 
       // This needs to take undefined tokens into account, therefore
       // forEach() is not an option
-      for (var i = 0; i < this._query.length; i++) {
-        var token = this._query[i];
+      let token;
+      for (let i = 0; i < this._query.length; i++) {
+        token = this._query[i];
 
         // Token is defined
         if (token !== undefined) {
@@ -399,24 +401,26 @@ define(['util'], function () {
       return str;
     },
 
+
     // Add query fragment to query bar
     toQueryBar : function (e) {
+      const t = this;
 
-      if (this._ql === undefined || this._q === undefined || this._ql === null) {
+      if (t._ql === undefined || t._q === undefined || t._ql === null) {
         console.log('No query language object defined');
         return;
       };
 
-      // Set query language field
+      // Find query language field for Poliqarp
       const ql = Array.from(
-        this._ql.options
+        t._ql.options
       ).find(e => e.value == 'poliqarp');
 
       if (ql)
         ql.selected = true;
 
       // Insert to query bar
-      this._q.value = this.toString();
+      t._q.value = t.toString();
 
       // Scroll to top
       window.scrollTo(0, 0);

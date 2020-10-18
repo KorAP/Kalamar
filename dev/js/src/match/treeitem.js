@@ -27,6 +27,7 @@ define(['menu/item'], function (itemClass) {
       return this._content;
     },
     
+
     /**
      * The foundry attribute of the menu item.
      */
@@ -34,12 +35,14 @@ define(['menu/item'], function (itemClass) {
       return this._foundry;
     },
 
+
     /**
      * The layer attribute of the menu item.
      */
     layer : function () {
       return this._layer;
     },
+
 
     /**
      * The type attribute of the menu item.
@@ -49,30 +52,35 @@ define(['menu/item'], function (itemClass) {
       return this._type;
     },
     
+
     /**
      * Override click action of the menu item.
      */
     onclick : function (e) {
-      var menu = this.menu();
+      const menu = this.menu();
       menu.hide();
       e.halt();
+
       if (menu.panel() !== undefined) {
 	      menu.panel().addTree(this._foundry, this._layer, this._type);
       };
     },
+
 
     // Initialize tree menu item.
     _init : function (params) {
       if (params[0] === undefined)
 	      throw new Error("Missing parameters");
 
-      this._name    = params[0];
-      this._foundry = params[1];
-      this._layer   = params[2];
-      this._type    = params[3];
-      this._content = document.createTextNode(this._name);
-      this._lcField = ' ' + this.content().textContent.toLowerCase();
-      return this;
+      const t = this;
+
+      t._name    = params[0];
+      t._foundry = params[1];
+      t._layer   = params[2];
+      t._type    = params[3];
+      t._content = document.createTextNode(t._name);
+      t._lcField = ' ' + t.content().textContent.toLowerCase();
+      return t;
     }
   };
 });

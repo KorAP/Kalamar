@@ -1,7 +1,9 @@
 define(['vc/fragment', 'util'], function (vcFragmentClass) {
+
   "use strict";
   
   return {
+
     /**
      * Constructor
      */
@@ -9,8 +11,10 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       return Object.create(this)._init(meta);
     },
 
+
     // Initialize corpusByMatch
     _init : function (meta) {
+      const t = this;
 
       // Meta is an element <dl />
       if (meta === undefined) {
@@ -21,10 +25,10 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       };
 
       // Collect the meta constraints
-      this._vc = {};
+      t._vc = {};
 
       // Remember the meta table
-      this._meta = meta;
+      t._meta = meta;
 
       // CorpusByMatch can be disabled per configuration.
       // This is necessary, as the feature won't work with
@@ -33,22 +37,23 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       // removed in future versions.
       // This will also require a change in matchinfo.scss
       if (KorAP.Conf && KorAP.Conf["CorpusByMatchDisabled"]) {
-        this._meta.classList.add("cbm-disabled");
-        return this;
+        t._meta.classList.add("cbm-disabled");
+        return t;
       };
 
-      this._meta.addEventListener(
-        "click", this.clickOnMeta.bind(this), false
+      t._meta.addEventListener(
+        "click", t.clickOnMeta.bind(t), false
       );
 
-      this._fragment = vcFragmentClass.create();      
+      t._fragment = vcFragmentClass.create();      
 
-      this._fragment.element().addEventListener(
-        "click", this.toVcBuilder.bind(this), true
+      t._fragment.element().addEventListener(
+        "click", t.toVcBuilder.bind(t), true
       );
 
-      return this;
+      return t;
     },
+
 
     /**
      * Join fragment with VC
@@ -60,25 +65,23 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       if (this._fragment.isEmpty())
         return;
 
-      let vc = KorAP.vc;
+      const vc = KorAP.vc;
       if (!vc) {
         console.log("Global VC not established");
         return;
       };
 
-      
       for (const doc of this._fragment.documents()) {
         vc.addRequired(doc);
-        // console.log("Add " + doc.toQuery());
       };
 
-      if (!vc.isOpen()) {
+      if (!vc.isOpen())
         vc.open();
-      };
 
       // Scroll to top
       window.scrollTo(0, 0);
     },
+
 
     // Event handler for meta constraint creation
     clickOnMeta : function (e) {
@@ -88,7 +91,7 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       };
 
       // Get event target
-      let target = e.target;
+      const target = e.target;
 
       let key, value, type;
 
@@ -114,45 +117,53 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
 
       // Add or remove the constraint to the fragment
       if (key && value) {
+        const t = this;
         if (target.classList.contains("chosen")) {
           target.classList.remove("chosen");
-          this.remove(key, value);
+          t.remove(key, value);
         }
         else {
           target.classList.add("chosen");
-          this.add(key, value, type);
+          t.add(key, value, type);
         };
 
         // Check if the fragment is empty
         // If empty - hide!
-        if (!this._fragment.isEmpty()) {
-          this._meta.parentNode.insertBefore(
-            this._fragment.element(),
-            this._meta.nextSibling
+        if (!t._fragment.isEmpty()) {
+          t._meta.parentNode.insertBefore(
+            t._fragment.element(),
+            t._meta.nextSibling
           );
         }
 
         // Otherwise show!
         else {
-          this._meta.parentNode.removeChild(
-            this._fragment.element()
+          t._meta.parentNode.removeChild(
+            t._fragment.element()
           );
         };
       }
     },
 
-    // Add constraint
+    /**
+     * Add constraint to fragment
+     */
     add : function (key, value, type) {
       type = type.replace(/^type:/, '');
       this._fragment.add(key, value, type);
     },
 
-    // Remove constraint
+
+    /**
+     * Remove constraint from fragment
+     */
     remove : function (key, value) {
       this._fragment.remove(key, value);
     },
     
-    // Stringify annotation
+    /**
+     * Stringify fragment
+     */
     toQuery : function () {
       return this._fragment.toQuery();
     }

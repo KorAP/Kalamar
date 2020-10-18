@@ -6,6 +6,8 @@ define([
   'match/querycreator',
   "util"
 ], function (matchQueryCreator) {
+  "use strict";
+
   /*
    * TODO:
    *   Create base object for all matchinfo classes!
@@ -27,30 +29,34 @@ define([
 
     // Initialize table based on snippet
     _init : function (snippet) {
+
       // Create html for traversal
-      var html = d.createElement("div");
+      const html = d.createElement("div");
+      const t = this;
       html.innerHTML = snippet;
       
-      this._pos = 0;
-      this._token = [];
-      this._mark = [];
-      this._markE = undefined;
-      this._cutted = [];
-      this._info = [];
-      this._foundry = {};
-      this._layer = {};
+      t._pos     = 0;
+      t._token   = [];
+      t._mark    = [];
+      t._markE   = undefined;
+      t._cutted  = [];
+      t._info    = [];
+      t._foundry = {};
+      t._layer   = {};
     
       // Parse the snippet
-      this._parse(html.childNodes, false);      
+      t._parse(html.childNodes, false);      
 
       html.innerHTML = '';
-      return this;
+      return t;
     },
+
 
     // TODO: Destroy match!
     destroy : function () {
       this._matchCreator = undefined;
     },
+
 
     /**
      * Length of the table (columns),
@@ -74,6 +80,7 @@ define([
       });
     },
     
+
     /**
      * Get the token in the snippet
      * At a given position.
@@ -85,6 +92,7 @@ define([
         return this._token;
       return this._token[pos];
     },
+
 
     /**
      * Get the annotation of a token
@@ -105,18 +113,19 @@ define([
 
       // Get all children
       children.forEach(function(c) {
+        const t = this;
 
         // Create object on position unless it exists
-        if (this._info[this._pos] === undefined) {
-          this._info[this._pos] = {};
+        if (t._info[t._pos] === undefined) {
+          t._info[t._pos] = {};
         };
 
         // Store at position in foundry/layer as array
-        var found = this._info[this._pos];
+        const found = t._info[t._pos];
 
         // Element with title
         if (c.nodeType === 1) {
-          var newMark = mark;
+          let newMark = mark;
 
           if (c.tagName === 'MARK') {
             newMark = true;
@@ -126,7 +135,7 @@ define([
               _TermRE.exec(c.getAttribute("title"))) {
 
             // Fill position with info
-            var foundry, layer, value;
+            let foundry, layer, value;
             if (RegExp.$2) {
               foundry = RegExp.$1;
               layer   = RegExp.$2;
@@ -150,33 +159,33 @@ define([
             }
 
             // Set foundry
-            if (this._foundry[foundry] === undefined)
-              this._foundry[foundry] = {};
-            this._foundry[foundry][layer] = 1;
+            if (t._foundry[foundry] === undefined)
+              t._foundry[foundry] = {};
+            t._foundry[foundry][layer] = 1;
 
             // Set layer
-            if (this._layer[layer] === undefined)
-              this._layer[layer] = {};
-            this._layer[layer][foundry] = 1;
+            if (t._layer[layer] === undefined)
+              t._layer[layer] = {};
+            t._layer[layer][foundry] = 1;
           }
 
           // The current position marks a cut
           else if (c.hasAttribute("class") && c.getAttribute("class") == "cutted") {
-            this._cutted.push(this._pos);
-            this._token[this._pos++] = "";            
+            t._cutted.push(t._pos);
+            t._token[t._pos++] = "";            
           }
 
           // depth search
           if (c.hasChildNodes())
-            this._parse(c.childNodes, newMark);
+            t._parse(c.childNodes, newMark);
         }
 
         // Leaf node
         // store string on position and go to next string
         else if (c.nodeType === 3) {
           if (c.nodeValue.match(/[a-z0-9\u25ae]/iu)) {
-            this._mark[this._pos] = mark ? true : false;
-            this._token[this._pos++] = c.nodeValue;
+            t._mark[t._pos] = mark ? true : false;
+            t._token[t._pos++] = c.nodeValue;
           };
         };
       }, this);
@@ -193,20 +202,20 @@ define([
         return this._element;
 
       // First the legend table
-      var wrap = d.createElement('div');
+      const wrap = d.createElement('div');
 
-      var table = wrap.addE('table');
+      const table = wrap.addE('table');
 
       this._element = wrap;
 
       // Single row in head
-      var tr = table.addE('thead').addE('tr');
+      let tr = table.addE('thead').addE('tr');
 
-      var ah = KorAP.annotationHelper || { "getDesc" : function () {}};
-
+      const ah = KorAP.annotationHelper || { "getDesc" : function () {}};
+      
       // Add cell to row
-      var addCell = function (type, key, value) {        
-        var c = this.addE(type);
+      const addCell = function (type, key, value) {        
+        const c = this.addE(type);
 
         if (value === undefined)
           return c;
@@ -236,7 +245,7 @@ define([
           c.addT(value);
 
           // Add tooltip
-          var anno = ah.getDesc(key, value);
+          const anno = ah.getDesc(key, value);
           if (anno)
             c.setAttribute("title", anno);
         };
@@ -252,8 +261,8 @@ define([
 
       // Add tokens
       Object.keys(this._token).forEach(function(i) {
-        let surface = this.getToken(i);
-        var c = tr.addCell('th', undefined, surface);
+        const surface = this.getToken(i);
+        const c = tr.addCell('th', undefined, surface);
         if (this._mark[i]) {
           c.classList.add('mark');
           if (this._markE === undefined) {
@@ -270,13 +279,11 @@ define([
         }
       }, this);
       
-      var tbody = table.addE('tbody');
-
-      var foundryList = Object.keys(this._foundry).sort();
+      const tbody = table.addE('tbody');
 
       let layerList, key, v, value, cell;
       
-      foundryList.forEach(function(foundry) {
+      Object.keys(this._foundry).sort().forEach(function(foundry) {
         let layerList =
             Object.keys(this._foundry[foundry]).sort();
 

@@ -3,7 +3,9 @@
  * about a match's layer annotation.
  */
 define(function () {
-  var _AvailableRE =
+  "use strict";
+
+  const _AvailableRE =
     new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");
 
   return {
@@ -20,31 +22,34 @@ define(function () {
       return Object.create(this)._init(foundry, layer, type);
     },
 
+
     // Initialize Layer 
     _init : function (foundry, layer, type) {
       if (foundry === undefined)
 	      throw new Error("Missing parameters");
+
+      const t = this;
       
       if (layer === undefined) {
 	      if (_AvailableRE.exec(foundry)) {
-	        this.foundry = RegExp.$1;
-	        this.layer = RegExp.$2;
-	        this.type = RegExp.$3;
+	        t.foundry = RegExp.$1;
+	        t.layer = RegExp.$2;
+	        t.type = RegExp.$3;
 	      }
 	      else {
 	        throw new Error("Missing parameters");
 	      };
       }
       else {
-	      this.foundry = foundry;
-	      this.layer = layer;
-	      this.type = type;
+	      t.foundry = foundry;
+	      t.layer = layer;
+	      t.type = type;
       };
       
-      if (this.type === undefined)
-	      this.type = 'tokens';
+      if (t.type === undefined)
+	      t.type = 'tokens';
 
-      return this;
+      return t;
     }
   };
 });
