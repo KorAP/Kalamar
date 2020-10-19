@@ -203,8 +203,10 @@ $bracket-size: .4em;
     @include icon-font;
     content:       $fa-referto;
     padding-right: 4pt;
-    style:         normal;
-    weight:        normal;
+    font: {
+      style:  normal;
+      weight: normal;
+    }
   }  
 
   div.value {

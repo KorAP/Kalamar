@@ -95,7 +95,7 @@
 
   input[type=radio] {
     display:          inline;
-    text-aline:       right;
+    text-align:       right;
     background-color: red;
     width:            auto;
     min-width:        auto;
@@ -124,7 +124,7 @@
   }
 
   a.form-button:hover {
-    color: default !important;
+    color: inherit !important;
   }
   
   label.field-required::after {

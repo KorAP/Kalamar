@@ -194,7 +194,7 @@ body.no-js #search > ol > li:active,
   background-color: $dark-orange;
   text-align:       left;
   border-width:     2px;
-  white-space:      wrap;
+  white-space:      normal;
   height:           auto;
   width:            auto;
   overflow:         hidden;
@@ -265,7 +265,7 @@ body.no-js #search > ol > li:active,
       width:            100%;
       margin-left:      0;
       overflow-x:       visible;
-      white-space:      wrap;
+      white-space:      normal;
     }
   }
 

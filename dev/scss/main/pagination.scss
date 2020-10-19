@@ -69,7 +69,7 @@
     &[rel=self] > span {
       @include choose-active;
 
-      border {
+      border: {
 	      left-width:  $border-size;
 	      right-width: $border-size;
 	      left-style:  solid;
