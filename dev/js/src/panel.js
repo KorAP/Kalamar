@@ -5,6 +5,8 @@
  * The buttons are associated with the panel's views,
  * though they are integrated independently
  */
+"use strict";
+
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
   return {
@@ -15,7 +17,8 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
     // Override by inheriting object
     _init : function (classes) {
-      this.views = [];
+      const t = this;
+      t.views = [];
 
       /**
        * Main action buttons for the panel,
@@ -23,18 +26,20 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
        * or as tabs (for the result).
        */
 
-      this._classes = classes;
-      var c = ['action', 'button-panel'];
+      t._classes = classes;
+      const c = ['action', 'button-panel'];
+
       if (classes)
         c.push.apply(c,classes);
-      this.actions = buttonGroupClass.create(c).bind(this);
+
+      t.actions = buttonGroupClass.create(c).bind(this);
 
       //prepend or append views of the panel
-      this.prepend = false;
+      t.prepend = false;
       
       // Warning: This is circular
-      this.actions.panel = this;
-      return this;
+      t.actions.panel = t;
+      return t;
     },
 
     
@@ -46,8 +51,8 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
         return this._element;
 
       // Create panel element
-      var e = document.createElement('div');
-      var cl = e.classList;
+      const e = document.createElement('div');
+      const cl = e.classList;
       cl.add('panel');
    
       if (this._classes)
@@ -57,7 +62,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       // Per default the action buttons are below the view
       // and integrated
-      var aElem = this.actions.element();
+      const aElem = this.actions.element();
       if (!aElem.parentNode)
         e.appendChild(aElem);
 
@@ -73,6 +78,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       this.element();
       return this._viewE;
     },
+
 
     /**
      * Add a view to the panel
@@ -100,6 +106,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       view.panel = this;
     },
 
+
     /**
      * Delete a closed view from panel
      */
@@ -110,6 +117,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       });
     },
 
+
     /**
      * Upgrade this object to another object,
      * while private data stays intact.
@@ -117,7 +125,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * @param {Object] An object with properties.
      */
     upgradeTo : function (props) {
-      for (var prop in props) {
+      for (let prop in props) {
         this[prop] = props[prop];
       };
       return this;

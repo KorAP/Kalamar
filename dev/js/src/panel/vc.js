@@ -7,6 +7,8 @@
  * @author Helge Stallkamp
  */
 
+"use strict";
+
 define([
   'panel',
   'view/vc/corpstatv'
@@ -26,12 +28,10 @@ define([
     
     _init : function(vc){
      this.vc = vc;
-     var actions = this.actions;
-     var that = this;
+     const actions = this.actions;
       actions.add(loc.SHOW_STAT, {'cls':['statistic']}, function() {
-       that.addCorpStat();
-      });
-     
+        this.addCorpStat();
+      }.bind(this));
       return this;
     },
     
@@ -40,23 +40,23 @@ define([
      * Add corpus statistic view to panel
      */
     addCorpStat: function(){
-      
+      const t = this;
+
       //Refreshes corpus statistic
-      if(this.statView !== undefined &&  this.statView.shown()){
-        let statt = this.statView.show();
+      if (t.statView !== undefined && t.statView.shown()){
+        let statt = t.statView.show();
         if (statt.classList.contains('stdisabled')){
-          this.reloadCorpStat(); 
+          t.reloadCorpStat(); 
           statt.classList.remove('stdisabled');
         }
-      }
+      };
       
       //Add corpus statistic
-      if (this.statView === undefined || !this.statView.shown()) {
-        this.statView = corpStatVClass.create(this.vc, this);
-        this.add(this.statView);
-        this.vc.oldvcQuery = KorAP.vc.toQuery();
-      }
-      
+      if (t.statView === undefined || !t.statView.shown()) {
+        t.statView = corpStatVClass.create(t.vc,t);
+        t.add(t.statView);
+        t.vc.oldvcQuery = KorAP.vc.toQuery();
+      };
     },
     
     /**
@@ -66,7 +66,6 @@ define([
     reloadCorpStat: function(){
       this.statView.close();
       this.addCorpStat();
-    }
-    
+    }    
   }
 });

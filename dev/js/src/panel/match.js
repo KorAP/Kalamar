@@ -3,6 +3,8 @@
  *
  * @author Nils Diewald
  */
+"use strict";
+
 define([
   'panel',
   'match/treeitem',
@@ -34,11 +36,11 @@ define([
 
       this._match = match;
 
-      var a = this.actions;
+      const a = this.actions;
 
       // TODO:
       //   Ugly hack!
-      var cl= a.element().classList;
+      const cl = a.element().classList;
       cl.remove('matchinfo');
       cl.add('button-matchinfo');
 
@@ -66,7 +68,7 @@ define([
             KorAP.TreeMenu.element().setAttribute('id', 'treeMenu');
           };
 
-          var tm = KorAP.TreeMenu;
+          const tm = KorAP.TreeMenu;
 
           // Set panel
           tm.panel(this);
@@ -83,7 +85,7 @@ define([
 
       // If plugins are enabled, add all buttons for the match panel
       if (KorAP.Plugin) {
-        var matchButtons = KorAP.Plugin.buttonGroup("match");
+        const matchButtons = KorAP.Plugin.buttonGroup("match");
         if (matchButtons) {
 
           // Add all matchbuttons in order
@@ -99,10 +101,12 @@ define([
      * Add meta view to panel
      */
     addMeta : function () {
-      if (this._metaView && this._metaView.shown())
+      const t = this;
+      if (t._metaView && t._metaView.shown())
         return;
-      this._metaView = metaView.create(this._match);
-      this.add(this._metaView);
+
+      t._metaView = metaView.create(t._match);
+      t.add(t._metaView);
     },
 
     
@@ -110,11 +114,13 @@ define([
      * Add table view to panel
      */
     addTable : function () {
-      if (this._tableView && this._tableView.shown())
+      const t = this;
+      if (t._tableView && t._tableView.shown())
         return;
-      this._tableView = tableView.create(this._match);
-      this.add(this._tableView);
+      t._tableView = tableView.create(t._match);
+      t.add(t._tableView);
     },
+
 
     /**
      * Add Tree view to panel
@@ -133,15 +139,12 @@ define([
       if (this._menuList)
         return this._menuList;
 
-      var match = this._match;
-
       // Join spans and relations
-      var treeLayers = []
-      var spans = match.getSpans();
-      var rels = match.getRels();
-      
-      spans.forEach(i => treeLayers.push(i));
-      rels.forEach(i => treeLayers.push(i));
+      let treeLayers = []
+
+      const match = this._match;
+      match.getSpans().forEach(i => treeLayers.push(i));
+      match.getRels().forEach(i => treeLayers.push(i));
 
       // Get spans
       treeLayers = treeLayers.sort(
@@ -161,7 +164,7 @@ define([
           return 0;
         });
       
-      var menuList = [];
+      let menuList = [];
       
       // Show tree views
       treeLayers.forEach(
