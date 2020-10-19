@@ -16,6 +16,8 @@ define([
   const loc = KorAP.Locale;
   loc.TOGGLE_ALIGN = loc.TOGGLE_ALIGN || 'toggle alignment';
   loc.SHOW_KQ      = loc.SHOW_KQ      || 'show KoralQuery';
+
+  const aRoll = ['left', 'right','center'];
   
   return {
     create : function (opened) {
@@ -88,23 +90,19 @@ define([
        * Toggle the alignment (left <=> right)
        */
       this.actions.add(loc.TOGGLE_ALIGN, {'cls':['align','right','button-icon']}, function (e) {
-        const olCl = d.querySelector('#search > ol').classList;
-        if (olCl.contains('align-left')) {
-          olCl.remove('align-left');
-          olCl.add('align-right');
-          this.button.toggleClass("right", "center");
-        }
-        else if (olCl.contains('align-right')) {
-          olCl.remove('align-right');
-          olCl.add('align-center');
-          this.button.toggleClass("center", "left");
-        }
-        else if (olCl.contains('align-center')) {
-          olCl.remove('align-center');
-          olCl.add('align-left');
-          this.button.toggleClass("left", "right");
-        };        
-      });
+        var olCl = d.querySelector('#search > ol').classList;
+
+        aRoll.find(function(align, i) {
+          if (olCl.contains('align-' + align)) {
+            const n  = i >= 2 ? 0 : i+1;
+            const nn = n >= 2 ? 0 : n+1;
+            olCl.remove('align-' + align);
+            olCl.add('align-' + aRoll[n]);
+            this.button.toggleClass(aRoll[n], aRoll[nn]);
+            return true;
+          };
+        }, this);
+      });    
     }
   }
 });
