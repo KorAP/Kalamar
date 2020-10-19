@@ -3,6 +3,8 @@
  *
  * @author Nils Diewald
  */
+"use strict";
+
 define([
   'panel'
 ], function (panelClass) {
@@ -20,14 +22,15 @@ define([
     // Initialize panel
     _init : function (opened) {
       this._opened = opened;
-      var a = this.actions;
+      const a = this.actions;
       
       // If plugins are enabled, add all buttons for the query panel
       if (KorAP.Plugin) {
-        var queryButtons = KorAP.Plugin.buttonGroup("query");
 
         // Add all matchbuttons in order
-        queryButtons.forEach(i => a.add.apply(a, i));
+        KorAP.Plugin
+          .buttonGroup("query")
+          .forEach(i => a.add.apply(a, i));
 
         KorAP.Plugin.clearButtonGroup("query")
       };

@@ -3,6 +3,8 @@
  *
  * @author Nils Diewald
  */
+"use strict";
+
 define([
   'panel',
   'view/result/koralquery'
@@ -24,13 +26,13 @@ define([
     _init : function (opened) {
       this._opened = opened;
 
-      
       // If plugins are enabled, add all buttons for the result panel
-     if (KorAP.Plugin) {
-        var resultButtons = KorAP.Plugin.buttonGroup("result");
+      if (KorAP.Plugin) {
 
         // Add all result buttons in order
-       resultButtons.forEach(i => this.actions.add.apply(this.actions, i));
+        KorAP.Plugin
+          .buttonGroup("result")
+          .forEach(i => this.actions.add.apply(this.actions, i));
 
         KorAP.Plugin.clearButtonGroup("result");
       };
@@ -47,29 +49,36 @@ define([
     addKqAction : function () {
 
       // Open KoralQuery view
-      var kqButton = this.actions.add(loc.SHOW_KQ, {'cls':['show-kq','button-icon']}, function () {
+      const kqButton = this.actions.add(
+        loc.SHOW_KQ,
+        {'cls':['show-kq','button-icon']},
+        function () {
 
-        // Show only once - otherwise toggle
-        if (this._kq && this._kq.shown()) {
-          this._kq.close();
-          return;
-        };
+          const t = this;
+
+          // Show only once - otherwise toggle
+          if (t._kq && t._kq.shown()) {
+            t._kq.close();
+            return;
+          };
           
-        this._kq = kqViewClass.create();
+          t._kq = kqViewClass.create();
 
-        // On close, remove session info on KQ
-        this._kq.onClose = function () {
-          delete this._opened['kq'];
-        }.bind(this);
+          // On close, remove session info on KQ
+          t._kq.onClose = function () {
+            delete this._opened['kq'];
+          }.bind(t);
 
-        this._opened['kq'] = true;
-        this.add(this._kq);
-      });
+          t._opened['kq'] = true;
+          t.add(t._kq);
+        }
+      );
 
       // Show KoralQuery in case it's meant to be shown
       if (this._opened['kq'])
         kqButton.click();
     },
+
 
     /**
      * Add align action to panel
@@ -79,7 +88,7 @@ define([
        * Toggle the alignment (left <=> right)
        */
       this.actions.add(loc.TOGGLE_ALIGN, {'cls':['align','right','button-icon']}, function (e) {
-        var olCl = d.querySelector('#search > ol').classList;
+        const olCl = d.querySelector('#search > ol').classList;
         if (olCl.contains('align-left')) {
           olCl.remove('align-left');
           olCl.add('align-right');
@@ -96,8 +105,6 @@ define([
           this.button.toggleClass("left", "right");
         };        
       });
-
-      
     }
   }
 });
