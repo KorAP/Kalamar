@@ -1,3 +1,5 @@
+"use strict";
+
 define(
   ['menu', 'selectMenu/item', 'util'],
   function (menuClass, selectMenuItemClass) {
@@ -5,21 +7,21 @@ define(
     return {
       create : function (element) {
 
-	      var select = element.getElementsByTagName('select')[0];
+	      const select = element.getElementsByTagName('select')[0];
 
         if (select === null)
           return;
 
 	      // Prepare list before object upgras
-	      var list = [];
+	      const list = [];
 
         // Iterate through options list
+        // Get option item and add to list
         Array.from(
           select.getElementsByTagName('option')
-          // Get option item and add to list
         ).forEach(function(item) {
         
-	        var opt = [
+	        const opt = [
 	          item.textContent,
 	          item.getAttribute('value')
 	        ];
@@ -32,19 +34,22 @@ define(
 	      });
 
 	      // Create object with list
-	      var obj = Object.create(menuClass).upgradeTo(this)
-	          ._init(list, {
-	            itemClass : selectMenuItemClass
-	          });
+	      const obj = Object.create(menuClass).upgradeTo(this)
+	            ._init(
+                list, {
+	                itemClass : selectMenuItemClass
+	              }
+              );
         
 	      obj._container = element;
 	      obj._select = select;
-	      obj._select.style.display = 'none';
+	      select.style.display = 'none';
 
 	      // Create title
 	      obj._title = obj._container.addE('span');
 	      obj._title.addT('');
-	      obj._container.appendChild(obj.element());
+
+        obj._container.appendChild(obj.element());
 
         // Show the menu
 	      obj._container.addEventListener('click', obj.showSelected.bind(obj));
@@ -73,12 +78,13 @@ define(
        * Get or set the selection index
        */
       select : function (index) {
+        const t = this;
 	      if (arguments.length > 0) {
-	        this._selected = index;
-	        this._select.selectedIndex = index;
+	        t._selected = index;
+	        t._select.selectedIndex = index;
 	      };
 
-	      return this._selected || this._select.selectedIndex || 0;
+	      return t._selected || t._select.selectedIndex || 0;
       },
 
 
@@ -86,27 +92,30 @@ define(
        * Set the select value
        */
       selectValue : function (vParam) {
-        var qlf = this._select.options;
+        const t = this;
+        const qlf = t._select.options;
         for (let i = 0; i < qlf.length; i++) {
 	        if (qlf[i].value == vParam) {
-            this.hide();
-            this.select(i);
-            this.showTitle();
+            t.hide();
+            t.select(i);
+            t.showTitle();
             break;
 	        };
         };
-        return this;
+        return t;
       },
       
+
       /**
        * Show the select menu
        */
       showSelected : function () {
-	      this._title.style.display = 'none';
-	      this._selected = this._select.selectedIndex;
-	      this.show(this._selected);
-	      this.focus();
+        const t = this;
+	      t._title.style.display = 'none';
+	      t.show(t._selected = t._select.selectedIndex);
+	      t.focus();
       },
+
 
       /**
        * Show the title
@@ -114,11 +123,12 @@ define(
       showTitle : function () {
 
         // Get the selection context
-	      var s = this.select();
-	      this._title.textContent = this.item(
-	        this.select()
+        const t = this;
+	      const s = t.select();
+	      t._title.textContent = t.item(
+	        t.select()
 	      ).title();
-	      this._title.style.display = 'inline';
+	      t._title.style.display = 'inline';
       }
     }
   }
