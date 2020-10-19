@@ -1,3 +1,5 @@
+"use strict";
+
 define({
 
   /**
@@ -7,25 +9,30 @@ define({
     return Object.create(this)._init();
   },
 
+
   // Initialize prefix object
   _init : function () {
-    this._string = '';
+    const t = this;
+
+    t._string = '';
 
     // Add prefix span
-    this._element = document.createElement('span');
-    this._element.classList.add('pref');
+    t._element = document.createElement('span');
+    t._element.classList.add('pref');
     // Connect action
 
-    if (this["onclick"] !== undefined)
-      this._element["onclick"] = this.onclick.bind(this);
+    if (t["onclick"] !== undefined)
+      t._element["onclick"] = t.onclick.bind(t);
     
-    return this;
+    return t;
   },
+
 
   _update : function () {
     return this._element.innerHTML
       = this._string;
   },
+
 
   /**
    * Upgrade this object to another object,
@@ -34,7 +41,7 @@ define({
    * @param {Object} An object with properties.
    */
   upgradeTo : function (props) {
-    for (var prop in props) {
+    for (let prop in props) {
       this[prop] = props[prop];
     };
     return this;
@@ -45,7 +52,7 @@ define({
    * Get or set the activity status of the prefix.
    */
   active : function (bool) {
-    var cl = this.element().classList;
+    const cl = this.element().classList;
     if (bool === undefined)
       return cl.contains("active");
     else if (bool)
@@ -54,6 +61,7 @@ define({
       cl.remove("active");
   },
 
+
   /**
    * Check, if a prefix is given or not.
    */
@@ -61,6 +69,7 @@ define({
     return this._string.length > 0 ?
       true : false;
   },
+
 
   /**
    * Get or set the prefix string.
@@ -81,7 +90,7 @@ define({
     this._string += string;
     return this._update();
   },
-
+  
 
   /**
    * Clear prefix
@@ -98,23 +107,24 @@ define({
    */
   onclick : function () {},
 
-
+  
   /**
    * Remove the last character of the string
    */
   chop : function () {
+    const t = this;
 
     // Prefix is long enough for backspace
-    if (this._string.length > 1) {
-      this._string = this._string.substring(
-	      0, this._string.length - 1
+    if (t._string.length > 1) {
+      t._string = t._string.substring(
+	      0, t._string.length - 1
       );
     }
     else {
-      this._string = '';
+      t._string = '';
     };
     
-    return this._update();
+    return t._update();
   },
 
 

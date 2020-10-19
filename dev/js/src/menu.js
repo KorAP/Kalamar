@@ -25,8 +25,10 @@ define([
              defaultLengthFieldClass,
              sliderClass) {
 
+  "use strict";
+
   // Default maximum number of menu items
-  var menuLimit = 8;
+  const menuLimit = 8;
 
   /**
    * List of items for drop down menu (complete).
@@ -53,166 +55,155 @@ define([
 
     // Initialize list
     _init : function (list, params) {
-
+      
       if (params === undefined)
         params = {};
 
-      this._itemClass = params["itemClass"] || defaultItemClass;
+      const t = this;
+
+      t._itemClass = params["itemClass"] || defaultItemClass;
 
       // Add prefix object
       if (params["prefixClass"] !== undefined) {
-        this._prefix = params["prefixClass"].create();
+        t._prefix = params["prefixClass"].create();
       }
       else {
-        this._prefix = defaultPrefixClass.create();
+        t._prefix = defaultPrefixClass.create();
       };
-      this._prefix._menu = this;
+      t._prefix._menu = t;
 
       // Add lengthField object
       if (params["lengthFieldClass"] !== undefined) {
-        this._lengthField = params["lengthFieldClass"].create();
+        t._lengthField = params["lengthFieldClass"].create();
       }
       else {
-        this._lengthField = defaultLengthFieldClass.create();
+        t._lengthField = defaultLengthFieldClass.create();
       };
-      this._lengthField._menu = this;
+      t._lengthField._menu = t;
 
       // Initialize slider
-      this._slider = sliderClass.create(this);
+      t._slider = sliderClass.create(t);
 
       // Create the element
       var el = document.createElement("ul");
-      with (el) {
-        style.outline = 0;
-        setAttribute('tabindex', 0);
-        classList.add('menu', 'roll');
-        appendChild(this._prefix.element());
-        appendChild(this._lengthField.element());
-        appendChild(this._slider.element());
-      };
+      el.style.outline = 0;
+      el.setAttribute('tabindex', 0);
+      el.classList.add('menu', 'roll');
+      el.appendChild(t._prefix.element());
+      el.appendChild(t._lengthField.element());
+      el.appendChild(t._slider.element());
 
       // This has to be cleaned up later on
-      el["menu"] = this;
+      el["menu"] = t;
 
       // Arrow keys
       el.addEventListener(
         'keydown',
-        this._keydown.bind(this),
+        t._keydown.bind(t),
         false
       );
 
       // Strings
       el.addEventListener(
         'keypress',
-        this._keypress.bind(this),
+        t._keypress.bind(t),
         false
       );
 
       // Mousewheel
       el.addEventListener(
         'wheel',
-        this._mousewheel.bind(this),
+        t._mousewheel.bind(t),
         false
       );
 
-      // Touch
-      el.addEventListener(
-        'touchstart',
-        this._touch.bind(this),
-        false
-      );
-      el.addEventListener(
-        'touchend',
-        this._touch.bind(this),
-        false
-      );
-      el.addEventListener(
-        'touchmove',
-        this._touch.bind(this),
-        false
+      // Touch events
+      ['touchstart', 'touchend', 'touchmove'].forEach(
+        e => el.addEventListener(e, t._touch.bind(t), false)
       );
 
       
-      this._element = el;
+      t._element = el;
 
-      this._limit = menuLimit;
+      t._limit = menuLimit;
       
-      this._items = new Array();
+      t._items = new Array();
 
       // TODO:
       // Make this separate from _init
-      this.readItems(list);
+      t.readItems(list);
 
-      this.dontHide = false;
+      t.dontHide = false;
         
-      return this;
+      return t;
     },
 
     // Read items to add to list
     readItems : function (list) {
+      const t = this;
 
-      this._list = undefined;
+      t._list = undefined;
 
       // Remove circular reference to "this" in items
-      for (var i = 0; i < this._items.length; i++) {
-        delete this._items[i]["_menu"];
-        delete this._items[i];
+      for (let i = 0; i < t._items.length; i++) {
+        delete t._items[i]["_menu"];
+        delete t._items[i];
       };
 
-      this._items = new Array();
-      this.removeItems();
+      t._items = new Array();
+      t.removeItems();
 
 
       // Initialize items
-      this._lengthField.reset();
+      t._lengthField.reset();
 
-      var i = 0;
       // Initialize item list based on parameters
       list.forEach(function(i){
-        var obj = this._itemClass.create(i);
+        const obj = this._itemClass.create(i);
 
         // This may become circular
         obj["_menu"] = this;
         this._lengthField.add(i);
         this._items.push(obj);
-      }, this);
+      }, t);
 
-      this._slider.length(this.liveLength())
-        .limit(this._limit)
+      t._slider.length(t.liveLength())
+        .limit(t._limit)
         .reInit();
       
-      this._firstActive = false;
+      t._firstActive = false;
       // Show the first item active always?
-      this.offset = 0;
-      this.position = 0;
+      t.offset = 0;
+      t.position = 0;
     },
     
     // Initialize the item list
     _initList : function () {
+      const t = this;
 
       // Create a new list
-      if (this._list === undefined) {
-        this._list = [];
+      if (t._list === undefined) {
+        t._list = [];
       }
-      else if (this._list.length !== 0) {
-        this._boundary(false);
-        this._list.length = 0;
+      else if (t._list.length !== 0) {
+        t._boundary(false);
+        t._list.length = 0;
       };
 
       // Offset is initially zero
-      this.offset = 0;
+      t.offset = 0;
 
       // There is no prefix set
-      if (this.prefix().length <= 0) {
+      if (t.prefix().length <= 0) {
 
         // add all items to the list and lowlight
         let i = 0;
-        for (; i < this._items.length; i++) {
-          this._list.push(i);
-          this._items[i].lowlight();
+        for (; i < t._items.length; i++) {
+          t._list.push(i);
+          t._items[i].lowlight();
         };
 
-        this._slider.length(i).reInit();
+        t._slider.length(i).reInit();
 
         return true;
       };
@@ -220,15 +211,15 @@ define([
       /*
        * There is a prefix set, so filter the list!
        */
-      var pos;
-      var prefixList = this.prefix().toLowerCase().split(" ");
+      let pos;
+      const prefixList = t.prefix().toLowerCase().split(" ");
 
-      var items = [];
-      var maxPoints = 1; // minimum 1
+      const items = [];
+      let maxPoints = 1; // minimum 1
 
       // Iterate over all items and choose preferred matching items
       // i.e. the matching happens at the word start
-      this._items.forEach(function(it, pos){
+      t._items.forEach(function(it, pos){
 
         let points = 0;
 
@@ -252,25 +243,12 @@ define([
         else if (points == maxPoints) {
           this._list.push(pos);
         }
-      },this);
+      }, t);
 
-      // The list is empty - so lower your expectations
-      // Iterate over all items and choose matching items
-      // i.e. the matching happens anywhere in the word
-      /*
-      prefix = prefix.substring(1);
-      if (this._list.length == 0) {
-        for (pos = 0; pos < this._items.length; pos++) {
-          if ((this.item(pos).lcField().indexOf(prefix)) >= 0)
-            this._list.push(pos);
-        };
-      };
-      */
-
-      this._slider.length(this._list.length).reInit();
+      t._slider.length(t._list.length).reInit();
 
       // Filter was successful - yeah!
-      return this._list.length > 0 ? true : false;
+      return t._list.length > 0 ? true : false;
     },
 
 
@@ -280,20 +258,21 @@ define([
      * mark and sweep GC)!
      */
     destroy : function () {
+      const t = this;
 
       // Remove circular reference to "this" in menu
-      if (this._element != undefined)
-        delete this._element["menu"]; 
+      if (t._element != undefined)
+        delete t._element["menu"]; 
 
       // Remove circular reference to "this" in items
-      this._items.forEach(function(i) {
+      t._items.forEach(function(i) {
         delete i["_menu"];
       });
 
       // Remove circular reference to "this" in prefix
-      delete this._prefix['_menu'];
-      delete this._lengthField['_menu'];
-      delete this._slider['_menu'];
+      delete t._prefix['_menu'];
+      delete t._lengthField['_menu'];
+      delete t._slider['_menu'];
     },
 
 
@@ -307,8 +286,7 @@ define([
 
     // mouse wheel treatment
     _mousewheel : function (e) {
-      var delta = 0;
-      delta = e.deltaY / 120;
+      const delta = e.deltaY / 120;
       if (delta > 0)
         this.next();
       else if (delta < 0)
@@ -316,33 +294,32 @@ define([
       e.halt();
     },
 
+
     // touchmove treatment
     _touch : function (e) {
-      var s = this.slider();
+      const s = this.slider();
+
       if (e.type === "touchstart") {
-        // s.active(true);
-        var t = e.touches[0];
-        this._lastTouch = t.clientY;
+        this._lastTouch = e.touches[0].clientY;
       }
       else if (e.type === "touchend") {
-        // s.active(false);
         this._lastTouch = undefined;
       }
       else if (e.type === "touchmove") {
-        var t = e.touches[0];
+        const to = e.touches[0];
 
         // TODO:
         // Instead of using 26px, choose the item height
         // or use the menu height // shownItems
         
         // s.movetoRel(t.clientY - this._initTouch);
-        if ((this._lastTouch + 26) < t.clientY) {
+        if ((this._lastTouch + 26) < to.clientY) {
           this.viewDown();
-          this._lastTouch = t.clientY;
+          this._lastTouch = to.clientY;
         }
-        else if ((this._lastTouch - 26) > t.clientY) {
+        else if ((this._lastTouch - 26) > to.clientY) {
           this.viewUp();
-          this._lastTouch = t.clientY;
+          this._lastTouch = to.clientY;
         }
         e.halt();
       };
@@ -350,35 +327,40 @@ define([
 
     // Arrow key and prefix treatment
     _keydown : function (e) {
-      var code = _codeFromEvent(e);
+      const t = this;
 
-      switch (code) {
+      switch (_codeFromEvent(e)) {
+
       case 27: // 'Esc'
         e.halt();
-        this.hide();
+        t.hide();
         break;
 
       case 38: // 'Up'
         e.halt();
-        this.prev();
+        t.prev();
         break;
+
       case 33: // 'Page up'
         e.halt();
-        this.pageUp();
+        t.pageUp();
         break;
+
       case 40: // 'Down'
         e.halt();
-        this.next();
+        t.next();
         break;
+
       case 34: // 'Page down'
         e.halt();
-        this.pageDown();
+        t.pageDown();
         break;
+
       case 39: // 'Right'
-        if (this._prefix.active())
+        if (t._prefix.active())
           break;
 
-        var item = this.liveItem(this.position);
+        const item = t.liveItem(t.position);
         
         if (item["further"] !== undefined) {
           item["further"].bind(item).apply();
@@ -386,42 +368,48 @@ define([
         
         e.halt();
         break;
-      case 13: // 'Enter'
 
+      case 13: // 'Enter'
         // Click on prefix
-        if (this._prefix.active())
-          this._prefix.onclick(e);
+        if (t._prefix.active())
+          t._prefix.onclick(e);
 
         // Click on item
         else
-          this.liveItem(this.position).onclick(e);
+          t.liveItem(t.position).onclick(e);
         e.halt();
         break;
+
       case 8: // 'Backspace'
-        this._prefix.chop();
-        this.show();
+        t._prefix.chop();
+        t.show();
         e.halt();
         break;
       };
     },
+
 
     // Add characters to prefix
     _keypress : function (e) {
       if (e.charCode !== 0) {
         e.halt();
-        var c = String.fromCharCode(_codeFromEvent(e));
         
         // Add prefix
-        this._prefix.add(c);
+        this._prefix.add(
+          String.fromCharCode(_codeFromEvent(e))
+        );
+
         this.show();
       };
     },
+
 
     /**
      * Show a screen with a given offset
      * in the viewport.
      */
     screen : function (nr) {
+      const t = this;
 
       // Normalize negative values
       if (nr < 0) {
@@ -429,20 +417,20 @@ define([
       }
 
       // The shown list already shows everything
-      else if (this.liveLength() < this.limit()) {
+      else if (t.liveLength() < t.limit()) {
         return false;
       }
 
       // Move relatively to the next screen
-      else if (nr > (this.liveLength() - this.limit())) {
-        nr = (this.liveLength() - this.limit());
+      else if (nr > (t.liveLength() - t.limit())) {
+        nr = (t.liveLength() - t.limit());
       };
 
       // no change
-      if (this.offset === nr)
+      if (t.offset === nr)
         return false;
 
-      this._showItems(nr);
+      t._showItems(nr);
 
       return true;
     },
@@ -455,12 +443,14 @@ define([
       return this._element;
     },
 
+
     /**
      * Get the creator class for items
      */
     itemClass : function () {
       return this._itemClass;
     },
+
 
     /**
      * Get and set the numerical value
@@ -499,24 +489,25 @@ define([
      * @param {string} Prefix for filtering the list
      */
     show : function (active) {
+      const t = this;
 
       // show menu based on initial offset
-      this._unmark();     // Unmark everything that was marked before
-      this.removeItems();
+      t._unmark();     // Unmark everything that was marked before
+      t.removeItems();
 
       // Initialize the list
-      if (!this._initList()) {
+      if (!t._initList()) {
 
         // The prefix is not active
-        this._prefix.active(true);
+        t._prefix.active(true);
 
         // finally show the element
-        this._element.classList.add('visible');
+        t._element.classList.add('visible');
         
         return true;
       };
 
-      var offset = 0;
+      let offset = 0;
 
       // Set a chosen value to active and move the viewport
       if (arguments.length === 1) {
@@ -525,47 +516,48 @@ define([
         if (active < 0) {
           active = 0;
         }
-        else if (active >= this.liveLength()) {
-          active = this.liveLength() - 1;
+        else if (active >= t.liveLength()) {
+          active = t.liveLength() - 1;
         };
 
         // Item is outside the first viewport
-        if (active >= this._limit) {
+        if (active >= t._limit) {
           offset = active;
-          if (offset > (this.liveLength() - this._limit)) {
-            offset = this.liveLength() - this._limit;
+          const newOffset = t.liveLength() - t._limit;
+          if (offset > newOffset) {
+            offset = newOffset;
           };
         };
         
-        this.position = active;
+        t.position = active;
       }
 
       // Choose the first item
-      else if (this._firstActive) {
-        this.position = 0;
+      else if (t._firstActive) {
+        t.position = 0;
       }
 
       // Choose no item
       else {
-        this.position = -1;
+        t.position = -1;
       };
 
-      this.offset = offset;
-      this._showItems(offset); // Show new item list
+      t.offset = offset;
+      t._showItems(offset); // Show new item list
 
       // Make chosen value active
-      if (this.position !== -1) {
-        this.liveItem(this.position).active(true);
+      if (t.position !== -1) {
+        t.liveItem(t.position).active(true);
       };
 
       // The prefix is not active
-      this._prefix.active(false);
+      t._prefix.active(false);
 
       // finally show the element
-      this._element.classList.add('visible');
+      t._element.classList.add('visible');
 
       // Add classes for rolling menus
-      this._boundary(true);
+      t._boundary(true);
 
       return true;
     },
@@ -575,20 +567,22 @@ define([
      * Hide the menu and call the onHide callback.
      */
     hide : function () {
-      if(!this.dontHide){
-          this.removeItems();
-          this._prefix.clear();
-          this.onHide();
-          this._element.classList.remove('visible');
-      } 
-       /* this._element.blur(); */
+      if (!this.dontHide) {
+        this.removeItems();
+        this._prefix.clear();
+        this.onHide();
+        this._element.classList.remove('visible');
+      }
+      // this._element.blur();
     },
+
 
     /**
      * Function released when the menu hides.
      * This method is expected to be overridden.
      */
     onHide : function () {},
+
 
     /**
      * Get the prefix for filtering,
@@ -602,12 +596,14 @@ define([
       return this._prefix.value();
     },
 
+    
     /**
      * Get the lengthField object.
      */
     lengthField : function () {
       return this._lengthField;
     },
+
 
     /**
      * Get the associated slider object.
@@ -621,17 +617,17 @@ define([
      * Delete all visible items from the menu element
      */
     removeItems : function () {
-      var child;
-
       // Remove all children
-      var children = this._element.childNodes;
+      const children = this._element.childNodes;
+
       // Leave the prefix and lengthField
-      for (var i = children.length - 1; i >= 3; i--) {
+      for (let i = children.length - 1; i >= 3; i--) {
         this._element.removeChild(
           children[i]
         );
       };
     },
+
 
     /**
      * Get a specific item from the complete list
@@ -667,6 +663,7 @@ define([
     shownItem : function (index) {
       if (index >= this.limit())
         return;
+
       return this.liveItem(this.offset + index);
     },
 
@@ -693,123 +690,127 @@ define([
      * Make the next item in the filtered menu active
      */
     next : function () {
+      const t = this;
 
       // No list
-      if (this.liveLength() === 0)
+      if (t.liveLength() === 0)
         return;
 
       // Deactivate old item
-      if (this.position !== -1 && !this._prefix.active()) {
-        this.liveItem(this.position).active(false);
+      if (t.position !== -1 && !t._prefix.active()) {
+        t.liveItem(t.position).active(false);
       };
 
       // Get new active item
-      this.position++;
-      var newItem = this.liveItem(this.position);
+      t.position++;
+      let newItem = t.liveItem(t.position);
 
       // The next element is undefined - roll to top or to prefix
       if (newItem === undefined) {
 
         // Activate prefix
-        var prefix = this._prefix;
+        const prefix = this._prefix;
 
         // Prefix is set and not active - choose!
         if (prefix.isSet() && !prefix.active()) {
-          this.position--;
+          t.position--;
           prefix.active(true);
           return;
         }
 
         // Choose first item
         else {
-          newItem = this.liveItem(0);
+          newItem = t.liveItem(0);
           // choose first item
-          this.position = 0;
-          this._showItems(0);
+          t.position = 0;
+          t._showItems(0);
         };
       }
 
       // The next element is after the viewport - roll down
-      else if (this.position >= (this.limit() + this.offset)) {
-        this.screen(this.position - this.limit() + 1);
+      else if (t.position >= (t.limit() + t.offset)) {
+        t.screen(t.position - t.limit() + 1);
       }
 
       // The next element is before the viewport - roll up
-      else if (this.position <= this.offset) {
-        this.screen(this.position);
+      else if (t.position <= t.offset) {
+        t.screen(t.position);
       };
 
-      this._prefix.active(false);
+      t._prefix.active(false);
       newItem.active(true);
     },
+
 
     /*
      * Make the previous item in the menu active
      */
     prev : function () {
+      const t = this;
 
       // No list
-      if (this.liveLength() === 0)
+      if (t.liveLength() === 0)
         return;
 
       // Deactivate old item
-      if (!this._prefix.active()) {
+      if (!t._prefix.active()) {
 
         // No active element set
-        if (this.position === -1) {
-          this.position = this.liveLength();
+        if (t.position === -1) {
+          t.position = t.liveLength();
         }
 
         // No active element set
         else {
-          this.liveItem(this.position--).active(false);
+          t.liveItem(t.position--).active(false);
         };
       };
 
       // Get new active item
-      var newItem = this.liveItem(this.position);
+      let newItem = t.liveItem(t.position);
 
       // The previous element is undefined - roll to bottom
       if (newItem === undefined) {
 
         // Activate prefix
-        var prefix = this._prefix;
-        var offset =  this.liveLength() - this.limit();
+        const prefix = t._prefix;
+        let offset =  t.liveLength() - t.limit();
         
         // Normalize offset
         offset = offset < 0 ? 0 : offset;
 
         // Choose the last item
-        this.position = this.liveLength() - 1;
+        t.position = t.liveLength() - 1;
         
         // Prefix is set and not active - choose!
         if (prefix.isSet() && !prefix.active()) {
-          this.position++;
+          t.position++;
           prefix.active(true);
-          this.offset = offset;
+          t.offset = offset;
           return;
         }
 
         // Choose last item
         else {
-          newItem = this.liveItem(this.position);
-          this._showItems(offset);
+          newItem = t.liveItem(t.position);
+          t._showItems(offset);
         };
       }
 
       // The previous element is before the view - roll up
-      else if (this.position < this.offset) {
-        this.screen(this.position);
+      else if (t.position < t.offset) {
+        t.screen(t.position);
       }
 
       // The previous element is after the view - roll down
-      else if (this.position >= (this.limit() + this.offset)) {
-        this.screen(this.position - this.limit() + 2);
+      else if (t.position >= (t.limit() + t.offset)) {
+        t.screen(t.position - t.limit() + 2);
       };
 
-      this._prefix.active(false);
+      t._prefix.active(false);
       newItem.active(true);
     },
+
 
     /**
      * Move the page up by limit!
@@ -842,19 +843,22 @@ define([
       this.screen(this.offset + 1);
     },
 
+
     // Unmark all items
     _unmark : function () {
       this._list.forEach(function(it){
-        var item = this._items[it];
+        const item = this._items[it];
         item.lowlight();
         item.active(false);
       }, this);
     },
 
+
     // Set boundary for viewport
     _boundary : function (bool) {
       if (this._list.length === 0)
         return;
+
       this.item(this._list[0]).noMore(bool);
       this.item(this._list[this._list.length - 1]).noMore(bool);
     },
@@ -862,67 +866,67 @@ define([
 
     // Append Items that should be shown
     _showItems : function (off) {
+      const t = this;
 
       // optimization: scroll down one step
-      if (this.offset === (off - 1)) {
-        this.offset = off;
+      if (t.offset === (off - 1)) {
+        t.offset = off;
 
         // Remove the HTML node from the first item
         // leave lengthField/prefix/slider
-        this._element.removeChild(this._element.children[3]);
-        var pos = this.offset + this.limit() - 1;
-        this._append(this._list[pos]);
+        t._element.removeChild(t._element.children[3]);
+
+        t._append(
+          t._list[t.offset + t.limit() - 1]
+        );
       }
 
       // optimization: scroll up one step
-      else if (this.offset === (off + 1)) {
-        this.offset = off;
+      else if (t.offset === (off + 1)) {
+        t.offset = off;
 
         // Remove the HTML node from the last item
-        this._element.removeChild(this._element.lastChild);
+        t._element.removeChild(t._element.lastChild);
 
-        this._prepend(this._list[this.offset]);
+        t._prepend(t._list[t.offset]);
       }
+
       else {
-        this.offset = off;
+        t.offset = off;
 
         // Remove all items
-        this.removeItems();
+        t.removeItems();
 
         // Use list
-        var shown = 0;
-        var i;
+        let shown = 0;
 
-        for (let i = 0; i < this._list.length; i++) {
+        for (let i = 0; i < t._list.length; i++) {
 
           // Don't show - it's before offset
           shown++;
           if (shown <= off)
             continue;
 
-          var itemNr = this._list[i];
-          var item = this.item(itemNr);
-          this._append(itemNr);
+          t._append(t._list[i]);
           
-          if (shown >= (this.limit() + off))
+          if (shown >= (t.limit() + off))
             break;
         };
       };
 
       // set the slider to the new offset
-      this._slider.offset(this.offset);
+      t._slider.offset(t.offset);
     },
 
 
     // Append item to the shown list based on index
     _append : function (i) {
-      var item = this.item(i);
+      const item = this.item(i);
 
       // Highlight based on prefix
       if (this.prefix().length > 0) {
         item.highlight(this.prefix().toLowerCase());
       };
-
 
       // Append element
       this.element().appendChild(item.element());
@@ -931,14 +935,14 @@ define([
 
     // Prepend item to the shown list based on index
     _prepend : function (i) {
-      var item = this.item(i);
+      const item = this.item(i);
 
       // Highlight based on prefix
       if (this.prefix().length > 0) {
         item.highlight(this.prefix().toLowerCase());
       };
 
-      var e = this.element();
+      const e = this.element();
 
       // Append element after lengthField/prefix/slider
       e.insertBefore(

@@ -1,3 +1,5 @@
+"use strict";
+
 define({
 
   /**
@@ -7,12 +9,14 @@ define({
     return Object.create(this)._init();
   },
 
+
   // Initialize lengthField object
   _init : function () {
     this._element = document.createElement('div');
     this._element.classList.add('lengthField');
     return this;
   },
+
 
   /**
    * Upgrade this object to another object,
@@ -21,11 +25,12 @@ define({
    * @param {Object} An object with properties.
    */
   upgradeTo : function (props) {
-    for (var prop in props) {
+    for (let prop in props) {
       this[prop] = props[prop];
     };
     return this;
   },
+
 
   /**
    * Get the associated dom element.
@@ -34,6 +39,7 @@ define({
     return this._element;
   },
 
+
   /**
    * Add string to lengthField.
    */
@@ -41,6 +47,7 @@ define({
     this._element.appendChild(document.createElement('span'))
       .appendChild(document.createTextNode(param[0] + '--'));
   },
+
 
   /**
    * Remove all initialized values

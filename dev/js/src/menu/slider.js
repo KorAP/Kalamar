@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Create slider for menus.
  * The slider will only be used by mouse - touch support
@@ -79,11 +81,11 @@ define({
   movetoRel : function (relativePos) {
 
     // This is important to find the correct percentage!
-    var diffHeight = (this._rulerHeight - this._sliderHeight);
-    var relativeOffset = (relativePos / diffHeight);
+    const diffHeight = (this._rulerHeight - this._sliderHeight);
+    const relativeOffset = (relativePos / diffHeight);
 
     // Offset is a value 0 to this._screens
-    var off = this.offset(
+    const off = this.offset(
       parseInt(relativeOffset * this._screens) + this._event.initOffset
     );
 
@@ -99,9 +101,9 @@ define({
    * @param {number} absolute position
    */
   movetoAbs : function (absPos) {
-    var absOffset = (absPos / this._rulerHeight);
+    const absOffset = (absPos / this._rulerHeight);
+    const off = this.offset(parseInt(absOffset * (this._screens + 1)));
 
-    var off = this.offset(parseInt(absOffset * (this._screens + 1)));
     if (off !== undefined) {
       this._menu.screen(off);
     };
@@ -148,10 +150,11 @@ define({
    */
   reInit : function () {
 
-    var s = this._element.style;
+    const t = this;
+    const s = t._element.style;
 
     // Do not show the slider, in case there is nothing to scroll
-    if (this._length <= this._limit) {
+    if (t._length <= t._limit) {
       s.display = 'none';
       return;
     }
@@ -159,42 +162,43 @@ define({
       s.display = 'block';
     };
 
-    this._height  = ((this._limit / this._length) * 100);
-    this._screens = this._length - this._limit;
-    this._step    = (100 - this._height) / this._screens;
-    this._slider.style.height = this._height + '%';
+    t._height  = ((t._limit / t._length) * 100);
+    t._screens = t._length - t._limit;
+    t._step    = (100 - t._height) / t._screens;
+    t._slider.style.height = t._height + '%';
   },
 
 
   // Initialize prefix object
   _init : function (menu) {
+    const t = this;
 
-    this._menu = menu;
+    t._menu = menu;
 
-    this._offset = 0;
-    this._event = {};
-    this._active = false;
+    t._offset = 0;
+    t._event = {};
+    t._active = false;
 
-    var el = this._element = document.createElement('div');
+    const el = t._element = document.createElement('div');
     el.setAttribute('class', 'ruler');
 
-    this._slider = el.appendChild(
+    t._slider = el.appendChild(
       document.createElement('span')
     );
 
-    this._ruler = el.appendChild(document.createElement('div'));
+    t._ruler = el.appendChild(document.createElement('div'));
 
     // Do not mark the menu on mousedown
-    this._ruler.addEventListener('mousedown', function (e) {
+    t._ruler.addEventListener('mousedown', function (e) {
       e.halt()
     }, false);
 
     // Move the slider to the click position
-    this._ruler.addEventListener('click', this._mouseclick.bind(this), false);
+    t._ruler.addEventListener('click', t._mouseclick.bind(t), false);
 
-    this._slider.addEventListener('mousedown', this._mousedown.bind(this), false);
+    t._slider.addEventListener('mousedown', t._mousedown.bind(t), false);
 
-    return this;
+    return t;
   },
 
 
@@ -224,7 +228,7 @@ define({
   // Release mousedown event
   _mousedown : function (e) {
     // Bind drag handler
-    var ev = this._event;
+    const ev = this._event;
 
     // _step * _offset is the distance of the ruler to the top
     ev.init = e.clientY;

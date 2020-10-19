@@ -23,6 +23,7 @@ define({
     return Object.create(this)._init(params);
   },
 
+
   /**
    * Upgrade this object to another object,
    * while private data stays intact.
@@ -30,7 +31,7 @@ define({
    * @param {Object] An object with properties.
    */
   upgradeTo : function (props) {
-    for (var prop in props) {
+    for (let prop in props) {
       this[prop] = props[prop];
     };
     return this;
@@ -45,6 +46,7 @@ define({
       this._content = document.createTextNode(content);
     return this._content;
   },
+
 
   /**
    * Get or set the information for action of this item. 
@@ -71,7 +73,7 @@ define({
    * @param {boolean|null} State of activity
    */
   active : function (bool) {
-    var cl = this.element().classList;
+    const cl = this.element().classList;
     if (bool === undefined)
       return cl.contains("active");
     else if (bool)
@@ -79,6 +81,7 @@ define({
     else
       cl.remove("active");
   },
+
 
   /**
    * Check or set if the item is
@@ -88,7 +91,7 @@ define({
    * @param {boolean|null} State of activity
    */
   noMore : function (bool) {
-    var cl = this.element().classList;
+    const cl = this.element().classList;
     if (bool === undefined)
       return cl.contains("no-more");
     else if (bool)
@@ -106,7 +109,7 @@ define({
       return this._element;
     
     // Create list item
-    var li = document.createElement("li");
+    const li = document.createElement("li");
 
     // Connect action
     if (this["onclick"] !== undefined) {
@@ -135,13 +138,14 @@ define({
       this.lowlight();
     }
 
-    var children = this.element().childNodes;
-    for (var i = children.length -1; i >= 0; i--) {
+    const children = this.element().childNodes;
+    for (let i = children.length -1; i >= 0; i--) {
       this._highlight(children[i], prefix);
     };
 
     this._prefix = prefix;
   },
+
 
   /**
    * Remove highlight of the menu item
@@ -150,18 +154,18 @@ define({
     if (this._prefix === null)
       return;
 
-    var e = this.element();
+    const e = this.element();
     
-    var marks = e.getElementsByTagName("mark");
-    for (var i = marks.length - 1; i >= 0; i--) {
-      // Create text node clone
-      var x = document.createTextNode(
-	      marks[i].firstChild.nodeValue
-      );
-      
+    const marks = e.getElementsByTagName("mark");
+
+    for (let i = marks.length - 1; i >= 0; i--) {
+
       // Replace with content
       marks[i].parentNode.replaceChild(
-	      x,
+        // Create text node clone
+	      document.createTextNode(
+	        marks[i].firstChild.nodeValue
+        ),
 	      marks[i]
       );
     };
@@ -176,8 +180,8 @@ define({
   _highlight : function (elem, prefixString) {    
     if (elem.nodeType === 3) {
       
-      var text   = elem.nodeValue;
-      var textlc = text.toLowerCase();
+      const text   = elem.nodeValue;
+      const textlc = text.toLowerCase();
 
       // Split prefixes
       if (prefixString) {
@@ -186,12 +190,12 @@ define({
         //   Doing this in a single line can trigger
         //   a deep-recursion in Firefox 57.01, though I don't know why.
         prefixString = prefixString.trim();
-        var prefixes = prefixString.split(" ");
 
-        var prefix;
-        var testPos;
-        var pos = -1;
-        var len = 0;
+        const prefixes = prefixString.split(" ");
+
+        let testPos,
+            pos = -1,
+            len = 0;
 
         // Iterate over all prefixes and get the best one
         // for (var i = 0; i < prefixes.length; i++) {
@@ -223,17 +227,17 @@ define({
 	        };
 	
 	        // Second element
-	        var hl = document.createElement("mark");
+	        const hl = document.createElement("mark");
 	        hl.appendChild(
 	          document.createTextNode(text.substr(pos, len))
 	        );
 	        elem.parentNode.insertBefore(hl, elem);
 	
 	        // Third element
-	        var third = text.substr(pos + len);
+	        const third = text.substr(pos + len);
 
 	        if (third.length > 0) {
-	          var thirdE = document.createTextNode(third);
+	          const thirdE = document.createTextNode(third);
 	          elem.parentNode.insertBefore(
 	            thirdE,
 	            elem
@@ -241,14 +245,14 @@ define({
 	          this._highlight(thirdE, prefixString);
 	        };
 	
-	        var p = elem.parentNode;
-	        p.removeChild(elem);
+          elem.parentNode.removeChild(elem);
         };
       };
     }
+
     else {
-      var children = elem.childNodes;
-      for (var i = children.length -1; i >= 0; i--) {
+      const children = elem.childNodes;
+      for (let i = children.length -1; i >= 0; i--) {
 	      this._highlight(children[i], prefixString);
       };
     };
@@ -261,17 +265,19 @@ define({
       throw new Error("Missing parameters");
     };
 
-    this.content(params[0]);
+    const t = this;
+
+    t.content(params[0]);
     
     if (params.length > 1) {
-      this._action = params[1];
+      t._action = params[1];
 
       if (params.length > 2)
-        this._onclick = params[2];
+        t._onclick = params[2];
     };
     
-    this._lcField = ' ' + this.content().textContent.toLowerCase();
-    this._prefix = null;
+    t._lcField = ' ' + t.content().textContent.toLowerCase();
+    t._prefix = null;
 
     return this;
   },
@@ -281,7 +287,7 @@ define({
    * The click action of the menu item.
    */
   onclick : function (e) {
-    var m = this.menu();
+    const m = this.menu();
 
     // Reset prefix
     m.prefix("");
