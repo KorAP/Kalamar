@@ -5,10 +5,8 @@
  *
  * @author Nils Diewald
  */
+"use strict";
 define(function () {
-
-  "use strict";
-
   const notNullRe = new RegExp("[a-zA-Z0-9]");
 
   // Trim and check
@@ -18,7 +16,7 @@ define(function () {
       return service;
     };
     return null;
-  }
+  };
   
   return {
 
@@ -26,11 +24,12 @@ define(function () {
      * Constructor
      */
     create : function () {
-      let obj = Object.create(this);
+      const obj = Object.create(this);
       obj._pipe = [];
       return obj;
     },
 
+    
     /**
      * Append service to pipe.
      */
@@ -42,6 +41,7 @@ define(function () {
       };
     },
 
+    
     /**
      * Prepend service to pipe.
      */
@@ -53,16 +53,18 @@ define(function () {
       };
     },
 
+
     /**
      * Remove service from the pipe.
      */
     remove : function (service) {
-      let i = this._pipe.indexOf(service);
+      const i = this._pipe.indexOf(service);
       if (i != -1) {
         this._pipe.splice(i, 1);
         this._update();
       };
     },
+
 
     /**
      * The number of services in the pipe.
@@ -71,12 +73,14 @@ define(function () {
       return this._pipe.length;
     },
 
+
     /**
      * Return the pipe as a string.
      */
     toString : function () {
       return this._pipe.join(',');
     },
+
 
     /**
      * Update the pipe value.
@@ -87,17 +91,19 @@ define(function () {
       };
     },
     
+
     /**
      * Return the pipe element.
      */
     element : function () {
-      if (this.e == null) {
-        this.e = document.createElement('input');
-        this.e.setAttribute("type","text");
-        this.e.setAttribute("name","pipe");
-        this.e.classList.add("pipe");
+      let e = this.e;
+      if (e == null) {
+        e = this.e = document.createElement('input');
+        e.setAttribute("type","text");
+        e.setAttribute("name","pipe");
+        e.classList.add("pipe");
       };
-      return this.e;
+      return e;
     }
   };
 });
