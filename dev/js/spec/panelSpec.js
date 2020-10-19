@@ -195,5 +195,44 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       expect(result.element().querySelector('#koralquery')).toBeFalsy();
       expect(show["kq"]).toBeFalsy();
     });
+
+    it('should open toggler', function () {
+      const show = {};
+
+      const div = document.body.addE("div");
+      div.setAttribute("id","search");
+      const ol = div.addE("ol");
+      ol.classList.add("align-left");
+
+      const result = resultClass.create(show);
+
+      result.addAlignAction();
+
+      const b = result.element().lastChild.firstChild;
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('right')).toBeTruthy();
+      expect(ol.classList.contains('align-left')).toBeTruthy();
+
+      b.click();
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('center')).toBeTruthy();
+      expect(ol.classList.contains('align-right')).toBeTruthy();
+
+      b.click();
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('left')).toBeTruthy();
+      expect(ol.classList.contains('align-center')).toBeTruthy();
+
+      b.click();
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('right')).toBeTruthy();
+      expect(ol.classList.contains('align-left')).toBeTruthy();
+
+      document.body.removeChild(div);
+    });
   });
 });
