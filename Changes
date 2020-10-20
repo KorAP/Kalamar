@@ -1,4 +1,4 @@
-0.40 2020-10-13
+0.40 2020-10-20
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
@@ -6,6 +6,7 @@
         - Modernize ES and improve variable declarations.
         - Improve JS test coverage for Datepicker.
         - Fix character errors in hint helper at position 0.
+        - Improve JS test coverage for tutorial.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.
