@@ -12,10 +12,9 @@
  *   can easily be serialized and kept between page turns (via cookie
  *   and/or query param)
  */
+"use strict";
+
 define(function () {
-
-  "use strict";
-
   return {
 
     /**
@@ -25,21 +24,24 @@ define(function () {
       return Object.create(this)._init(value);
     },
 
+
     // Initialize
     _init : function (values) {
-      this._assoc = [];
+      const t = this;
+      t._assoc = [];
       if (values == undefined) {
-        this.values = [false,true];
+        t.values = [false,true];
       }
       else if (Array.isArray(values)) {
-        this.values = values;
+        t.values = values;
       }
       else {
-        this.values = [values];
+        t.values = [values];
       }
-      this.value = this.values[0];
-      return this;
+      t.value = t.values[0];
+      return t;
     },
+
 
     /**
      * Associate the state with some objects.
@@ -55,6 +57,7 @@ define(function () {
       }
     },
 
+
     /**
      * Set the state to a certain value.
      * This will set the state to all associated objects as well.
@@ -65,6 +68,7 @@ define(function () {
         this._assoc.forEach(i => i.setState(value));
       };
     },
+
 
     /**
      * Get the state value
@@ -81,12 +85,14 @@ define(function () {
       return this._assoc.length;
     },
 
+
     /**
      * Clear all associated objects
      */
     clear : function () {
       return this._assoc = [];
     },
+
 
     /**
      * Roll to the next value.

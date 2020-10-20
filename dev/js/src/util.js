@@ -27,7 +27,7 @@ String.prototype.slugify = function () {
 
 // Add toggleClass method similar to jquery
 HTMLElement.prototype.toggleClass = function (c1, c2) {
-  var cl = this.classList;
+  const cl = this.classList;
   if (cl.contains(c1)) {
     cl.add(c2);
     cl.remove(c1);
@@ -78,7 +78,7 @@ function _dec2hex (dec) {
  * https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript#8084248
  */
 function randomID (len) {
-  let arr = new Uint8Array((len || 40) / 2)
+  const arr = new Uint8Array((len || 40) / 2)
   window.crypto.getRandomValues(arr)
   return Array.from(arr, _dec2hex).join('')
 };
@@ -96,7 +96,7 @@ define(function () {
   // Add new stylesheet object lazily to document
   KorAP.newStyleSheet = function () {
     if (KorAP._sheet === undefined) {
-      var sElem = document.createElement('style');
+      const sElem = document.createElement('style');
       document.head.appendChild(sElem);
       KorAP._sheet = sElem.sheet;
     };
@@ -106,7 +106,8 @@ define(function () {
 
   // Default log message
   KorAP.log = KorAP.log || function (type, msg, src) {
-    if (src) msg += ' from ' + src;
+    if (src)
+      msg += ' from ' + src;
     console.log(type + ": " + msg);
   };
 
