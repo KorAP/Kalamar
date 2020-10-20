@@ -1,10 +1,14 @@
+"use strict";
+
 define([
   'view',
   'lib/highlight/highlight.pack',
 ], function (viewClass) {
   return {
     create : function (classes) {
-      return Object.create(viewClass)._init(classes).upgradeTo(this);
+      return Object.create(viewClass)
+        ._init(classes)
+        .upgradeTo(this);
     },
 
     /**
@@ -14,10 +18,10 @@ define([
       if (this._show)
         return this._show;
 
-      var kq = document.createElement('div');
+      const kq = document.createElement('div');
       kq.setAttribute('id', 'koralquery');
 
-      var kqInner = kq.addE('div');
+      const kqInner = kq.addE('div');
 
       kqInner.addT(
         JSON.stringify(KorAP.koralQuery || {}, null, '  ')

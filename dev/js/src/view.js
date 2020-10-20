@@ -3,6 +3,8 @@
  * like a tree view or the metadata view.
  */
 
+"use strict";
+
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
   const loc = KorAP.Locale;
@@ -20,7 +22,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       this._shown = false;
 
       // The buttonclass is bind to the view
-      var c = ['action', 'button-view'];
+      const c = ['action', 'button-view'];
       if (classes)
         c.push.apply(c,classes);
       
@@ -36,6 +38,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       return this;
     },
 
+
     /**
      * Element of the view
      */
@@ -46,30 +49,28 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       };
 
       // Create panel element
-      var e = document.createElement('div');
+      const e = document.createElement('div');
+      const cl = e.classList;
 
-      var cl = e.classList;
       cl.add('view', 'show');
       if (this._classes)
         cl.add.apply(cl, this._classes);
 
       // TODO: The show may need to be wrapped in another DIV!
       if (this.show !== undefined) {
-        let s = this.show();
+        const s = this.show();
         if (s) {
           e.appendChild(s);
         } else {
           return e
-        }
+        };
       }
 
       this._shown = true;
 
       e.appendChild(this.actions.element());
 
-      this._element = e;
-
-      return e;
+      return this._element = e;
     },
 
 
@@ -90,8 +91,10 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       }
     },
 
+
     // onClose : function () {},
 
+    
     /**
      * Close the view.
      */
@@ -101,13 +104,14 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       if (this.onClose)
         this.onClose();
 
-      var e = this.element();
+      const e = this.element();
       if (e.parentNode) {
         e.parentNode.removeChild(e);
       };
       this.panel.delView(this);
       this._shown = false;
     },
+
 
     /**
      * Upgrade this object to another object,
@@ -116,7 +120,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * @param {Object] An object with properties.
      */
     upgradeTo : function (props) {
-      for (var prop in props) {
+      for (let prop in props) {
         this[prop] = props[prop];
       };
       return this;

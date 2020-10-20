@@ -11,7 +11,10 @@ define([
   
   return {
     create : function (match,foundry,layer,type) {
-      return Object.create(viewClass)._init(['relations']).upgradeTo(this)._init(match, foundry, layer, type);
+      return Object.create(viewClass)
+        ._init(['relations'])
+        .upgradeTo(this)
+        ._init(match, foundry, layer, type);
     },
 
 
@@ -33,20 +36,17 @@ define([
       if (this._show)
         return this._show;
 
-      var matchtree = d.createElement('div');
+      const matchtree = d.createElement('div');
       matchtree.classList.add('matchtree', 'loading');
 
-      // this.element().appendChild(matchtree);
-
       // Add title line
-      var h6 = matchtree.addE('h6');
+      const h6 = matchtree.addE('h6');
       h6.addE('span').addT(this._foundry);
       h6.addE('span').addT(this._layer);      
 
       this._tree = matchtree.addE('div');
 
-      this._show = matchtree;
-      return matchtree;
+      return this._show = matchtree;
     },
 
 
@@ -55,13 +55,13 @@ define([
      */
     afterEmbed : function () {
 
-      var foundry = this._foundry,
-          layer = this._layer,
-          type = this._type;
+      const foundry = this._foundry,
+            layer = this._layer,
+            type = this._type;
 
-      var that = this;
-      var tree = this._tree;
-      var matchtree = this._show;
+      const that = this,
+            tree = this._tree,
+            matchtree = this._show;
 
       // Get tree data async
       this.getData(foundry, layer, type, function (treeObj) {
@@ -85,21 +85,20 @@ define([
           if (type === "spans") {
 
             // Download link
-            that.actions.add(loc.DOWNLOAD, {'cls':['button-icon','download']}, function (e) {
-              var a = treeObj.downloadLink();
-              d.body.appendChild(a);
-              a.click();
-              d.body.removeChild(a)
-            });
+            that.actions.add(
+              loc.DOWNLOAD,
+              {'cls':['button-icon','download']},
+              function (e) {
+                const a = treeObj.downloadLink();
+                d.body.appendChild(a);
+                a.click();
+                d.body.removeChild(a)
+              }
+            );
           };
           
           treeObj.center();
         };
-  
-        /*
-          if (cb)
-          cb(treeObj);
-          */
       });
 
       matchtree.classList.remove('loading');
@@ -163,6 +162,7 @@ define([
       };
     },
   
+
     // Delete circular references
     onClose : function () {
       this._match = undefined;
