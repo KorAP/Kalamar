@@ -1,3 +1,5 @@
+"use strict";
+
 define([
   'view',
   'match/table',
@@ -8,7 +10,10 @@ define([
   
   return {
     create : function (match) {
-      return Object.create(viewClass)._init(['tokentable']).upgradeTo(this)._init(match);
+      return Object.create(viewClass)
+        ._init(['tokentable'])
+        .upgradeTo(this)
+        ._init(match);
     },
 
 
@@ -17,6 +22,7 @@ define([
       return this;
     },
     
+
     /**
      * TokenTable view element
      */
@@ -25,11 +31,12 @@ define([
         return this._show;
 
       // Append default table
-      var matchtable = d.createElement('div');
+      const matchtable = d.createElement('div');
       matchtable.classList.add('matchtable', 'loading');
       this._show = matchtable;
       return matchtable;
     },
+
 
     /**
      * Do after embedding
@@ -43,7 +50,7 @@ define([
       //   matchtable.classList.remove('loading');
 
       // var that = this;
-      var matchtable = this._show;
+      const matchtable = this._show;
 
       // Create the table asynchronous
       this.getData(undefined, function (table) {
@@ -52,7 +59,6 @@ define([
           matchtable.appendChild(table.element());
           table.toMark();
 	      };
-
       });
 
       // Load data
@@ -73,12 +79,12 @@ define([
      * representation
      */
     getData : function (tokens, cb) {
-      var focus = [];
+      let focus = [];
 
       // Get all tokens
       if (tokens === undefined) {
         focus = this._match.getTokens();
-      } 
+      }
 
       // Get only some tokens
       else {
@@ -87,7 +93,7 @@ define([
         tokens.forEach(function(term) {
           try {
             // Create info layer objects
-            var layer = infoLayerClass.create(term);
+            const layer = infoLayerClass.create(term);
             layer.type = "tokens";
             focus.push(layer);
           }
@@ -115,8 +121,9 @@ define([
 
             // Get snippet from match info
             if (matchResponse["snippet"] !== undefined) {
-              this._table = matchTableClass.create(matchResponse["snippet"]);
-              cb(this._table);
+              cb(
+                this._table = matchTableClass.create(matchResponse["snippet"])
+              );
             };
           }.bind(this)
         );
@@ -131,6 +138,7 @@ define([
       return null;
       */
     },
+
 
     // Delete circular references
     onClose : function () {

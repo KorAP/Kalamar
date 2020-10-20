@@ -1,3 +1,5 @@
+"use strict";
+
 define([
   'view',
   'match/meta'
@@ -7,7 +9,10 @@ define([
   
   return {
     create : function (match) {
-      return Object.create(viewClass)._init(['metatable']).upgradeTo(this)._init(match);
+      return Object.create(viewClass)
+        ._init(['metatable'])
+        .upgradeTo(this)
+        ._init(match);
     },
 
 
@@ -24,26 +29,24 @@ define([
       if (this._show)
         return this._show;
 
-      var metaTable = document.createElement('div');
+      const metaTable = document.createElement('div');
       metaTable.classList.add('metatable', 'loading');
 
       this.getData(function (meta) {
-
         if (meta === null)
           return;
 
         // Load data
         metaTable.classList.remove('loading');
-
         metaTable.appendChild(meta.element());
       });
+
 
       // TODO:
       //   Loading should have a timeout on view-level
       //   matchtable.classList.remove('loading');
 
-      this._show = metaTable;
-      return metaTable;
+      return this._show = metaTable;
     },
 
 
@@ -61,7 +64,7 @@ define([
      */
     getData : function (cb) {
 
-      var match = this._match;
+      const match = this._match;
       try {
         KorAP.API.getTextInfo(
           match, {}, function (textResponse) {
@@ -71,14 +74,13 @@ define([
               return;
             };
 
-            var doc = textResponse["document"];
-       
+            const doc = textResponse["document"];
             if (doc === undefined) {
               cb(null);
               return;
             };
 
-            var fields = doc["fields"];
+            const fields = doc["fields"];
             if (fields === undefined) {
               cb(null);
               return;
@@ -96,6 +98,7 @@ define([
         cb(null);
       };
     },
+
 
     // Delete circular references
     onClose : function () {

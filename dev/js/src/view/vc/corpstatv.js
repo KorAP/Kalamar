@@ -4,7 +4,7 @@
  * @author Helge Stallkamp
  */
 
-define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass, buttonGroup) {
+define([ 'view', 'vc/statistic', 'buttongroup' ], function (viewClass, statClass, buttonGroup) {
 
   // Localization values
   const loc   = KorAP.Locale;
@@ -38,7 +38,7 @@ define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass,
      */
     getStatistic : function(cb) {
       // cq = corpusQuery
-      var vc = this.vc;
+      const vc = this.vc;
 
       try {
         KorAP.API.getCorpStat(vc.toQuery(), function(statResponse) {
@@ -79,15 +79,13 @@ define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass,
       if (this._show)
         return this._show; 
       
-      var statTable = document.createElement('div');
+      const statTable = document.createElement('div');
       statTable.classList.add('stattable', 'loading');
   
-      var that = this;
-     
       /*
-      * Get corpus statistic, remove "loading"-image and
-      * append result to statTable
-      */
+       * Get corpus statistic, remove "loading"-image and
+       * append result to statTable
+       */
       this.getStatistic(function(statistic) {
         statTable.classList.remove('loading');
 
@@ -96,57 +94,53 @@ define([ 'view', 'vc/statistic', 'buttongroup' ], function(viewClass, statClass,
 
         statisticobj = statClass.create(statistic);
         statTable.appendChild(statisticobj.element());
-    
       });
 
-      this._show = statTable;
-      return statTable;
-
+      return this._show = statTable;
     },
-    
 
     
     /**
      * Checks if statistic has to be disabled
      */
-    checkStatActive : function (){
-     var newString = KorAP.vc.toQuery();
-     var oldString = this.vc.oldvcQuery;
-     /*
-      * Do ignore surrounding round brackets
-      * Definining an incomplete docGroup in the vc builder: 
-      * (foo = bar and author = Goethe) and ... 
-      * leads to 
-      * vc.toQuery() -> (foo = bar and author=Goethe)
-      */
+    checkStatActive : function () {
+      let newString = KorAP.vc.toQuery();
+      const oldString = this.vc.oldvcQuery;
+      /*
+       * Do ignore surrounding round brackets
+       * Definining an incomplete docGroup in the vc builder: 
+       * (foo = bar and author = Goethe) and ... 
+       * leads to 
+       * vc.toQuery() -> (foo = bar and author=Goethe)
+       */
   
-     if(newString || newString === ''){
-       if(newString.startsWith('(')){
-         newString = newString.slice(1, newString.length-1);
-       }
+      if (newString || newString === '') {
+        if (newString.startsWith('(')) {
+          newString = newString.slice(1, newString.length-1);
+        };
        
-       if(newString != oldString) {
-        this.disableStat();
-      }  
-     }
-     
-   },
+        if (newString != oldString) {
+          this.disableStat();
+        }
+      }
+    },
    
+
     /**
      * Disabling corpus statistic if in vc builder a different vc is choosen.
      * After clicking at the reload-button the up-to-date corpus statistic is displayed.
      */   
-
     disableStat : function(){
-      var statt = this._show;
+      const statt = this._show;
   
       if (statt.getElementsByClassName('reloadStatB').length == 0) {
-        let btg = buttonGroup.create(['reloadStatB', 'button-panel']);
-        var that = this;
+        const btg = buttonGroup.create(['reloadStatB', 'button-panel']);
+
         btg.add(loc.REFRESH, {'cls':['refresh', 'button-icon']}, function (e) {
           statt.classList.remove('stdisabled');
-          that.panel.reloadCorpStat(); 
-        });
+          this.panel.reloadCorpStat(); 
+        }.bind(this));
+
         statt.appendChild(btg.element());
         statt.classList.add('stdisabled');
       };
