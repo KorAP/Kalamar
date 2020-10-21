@@ -1,31 +1,38 @@
 /**
  * Abstract JsonLD criterion object
  */
+"use strict";
+
 define(['vc/operators'], function (operatorsClass) {
+
   return {
+
     __changed : false,
     
     create : function () {
       return Object.create(this);
     },
 
+
     /**
      * Upgrade this object to another object
      * while private data stays intact
      */
     upgradeTo : function (props) {
-      for (var prop in props) {
+      for (let prop in props) {
 	      this[prop] = props[prop];
       };
       return this;
     },
     
+
     ldType : function (type) {
       if (arguments.length === 1)
 	      this._ldType = type;
       return this._ldType;
     },
     
+
     parent : function (obj) {
       if (arguments.length === 1) {
 	      this._parent = obj;
@@ -34,34 +41,35 @@ define(['vc/operators'], function (operatorsClass) {
       return this._parent;
     },
 
+
     // Destroy object - especially for
     // acyclic structures!
     // I'm paranoid!
     destroy : function () {
-      
-      if (this._ops != undefined) {
-	      this._ops._parent = undefined;
-	      if (this._ops._element !== undefined) {
-	        this._ops._element.refTo = undefined;
+      const t = this;
+      if (t._ops != undefined) {
+	      t._ops._parent = undefined;
+	      if (t._ops._element !== undefined) {
+	        t._ops._element.refTo = undefined;
         };
-	      this._ops = undefined;
+	      t._ops = undefined;
       };
 
-      if (this._element !== undefined)
-	      this._element = undefined;
+      if (t._element !== undefined)
+	      t._element = undefined;
       
       // In case of a group, destroy all operands
-      if (this._operands !== undefined) {
-        this._operands.forEach(i => i.destroy());
-	      this._operands = [];
+      if (t._operands !== undefined) {
+        t._operands.forEach(i => i.destroy());
+	      t._operands = [];
       };
     },
     
     // Wrap a new operation around the root group element 
     wrapOnRoot : function (op) {
-      var parent = this.parent();
-      
-      var group = require('vc/docgroup').create(parent);
+      const parent = this.parent();
+      const group = require('vc/docgroup').create(parent);
+
       if (arguments.length === 1)
 	      group.operation(op);
       else
@@ -76,16 +84,20 @@ define(['vc/operators'], function (operatorsClass) {
       return this.parent();
     },
 
+
     // Be aware! This may be cyclic
     operators : function (and, or, del) {
       if (arguments === 0)
 	      return this._ops;
+
       this._ops = operatorsClass.create(
 	      and, or, del
       );
+
       this._ops.parent(this);
       return this._ops;
     },
+
 
     toJson : function () {
       return {
@@ -94,13 +106,16 @@ define(['vc/operators'], function (operatorsClass) {
       };
     },
 
+
     rewrites : function () {
       return null;
     },
 
+
     incomplete : function () {
       return false;
     },
+
 
     toQuery : function () {
       return '';

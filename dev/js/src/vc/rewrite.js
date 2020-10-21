@@ -1,6 +1,8 @@
 /**
  * Implementation of rewrite objects.
  */
+"use strict";
+
 define(['vc/jsonld', 'util'], function (jsonldClass) {
 
   // injection, modification, and deletion should probably be enough
@@ -8,14 +10,15 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
         new RegExp("^(operation:)?(?:injec|inser|modifica|dele)tion|override$");
 
   return {
+
     // Construction method
     create : function (json) {
-      var obj = Object(jsonldClass).
-	        create().
-	        upgradeTo(this).
-	        fromJson(json);
-      return obj;
+      return Object(jsonldClass).
+	      create().
+	      upgradeTo(this).
+	      fromJson(json);
     },
+
 
     // Get or set source
     src : function (string) {
@@ -24,6 +27,7 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
       return this._src;
     },
     
+
     // Get or set operation
     operation : function (op) {
       if (arguments.length === 1) {
@@ -38,12 +42,14 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
       return this._op || 'injection';
     },
 
+
     // Get or set scope
     scope : function (attr) {
       if (arguments.length === 1)
 	      this._scope = attr;
       return this._scope;
     },
+
 
     // Serialize from Json
     fromJson : function (json) {
@@ -68,8 +74,7 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
 
       // Set operation
       if (json["operation"] !== undefined) {
-	      var operation = json["operation"];
-	      this.operation(operation.replace(/^operation:/,''));
+	      this.operation(json["operation"].replace(/^operation:/,''));
       };
 
       // Set scope
@@ -80,9 +85,10 @@ define(['vc/jsonld', 'util'], function (jsonldClass) {
       return this;
     },
     
+
     toString : function () {
-      var str = '';
-      var op = this.operation();
+      let str = '';
+      const op = this.operation();
       str += op.charAt(0).toUpperCase() + op.slice(1);
       str += ' of ' + (
 	      this._scope === null ?

@@ -2,6 +2,8 @@
  * Menu showing all predefined virtual corpora.
  * THIS IS EXPERIMENTAL AND MAY BE REMOVED!
  */
+"use strict";
+
 define(['vc/menu', 'api'], function (menuClass, itemClass) {
   return {
     create : function (params) {

@@ -1,6 +1,8 @@
+"use strict";
+
 define(['menu/item', 'util'], function (itemClass) {
 
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
 
   return {
 
@@ -17,20 +19,24 @@ define(['menu/item', 'util'], function (itemClass) {
 	      ._init(params);
     },
 
+
     // Initialize item object
     _init : function (params) {
+      const t = this;
+
       if (params[0] === undefined)
 	      throw new Error("Missing parameters");
       
-      this._id  = params[0];
-      this._name = params[1];
-      this._desc  = params[2];
+      t._id   = params[0];
+      t._name = params[1];
+      t._desc = params[2];
 
-      this._lcField =  ' ' + this._name.toLowerCase();
-      this._lcField += ' ' + this._desc.toLowerCase();
+      t._lcField =  ' ' + t._name.toLowerCase();
+      t._lcField += ' ' + t._desc.toLowerCase();
 
       return this;
     },
+
 
     /**
      * Override click event by passing all clicks
@@ -44,12 +50,14 @@ define(['menu/item', 'util'], function (itemClass) {
       e.halt();
     },
 
+
     /**
      * Get the name of the item.
      */
     name : function () {
       return this._name;
     },
+
 
     /**
      * Get the identifier of the item.
@@ -58,6 +66,7 @@ define(['menu/item', 'util'], function (itemClass) {
       return this._id;
     },
 
+
     /**
      * Get the description of the item.
      */
@@ -65,25 +74,27 @@ define(['menu/item', 'util'], function (itemClass) {
       return this._desc;
     },
 
+
     /**
      * Get the HTML element associated with the item. 
      */
     element : function () {
+      const t = this;
 
       // already defined
-      if (this._element !== undefined)
-	      return this._element;
+      if (t._element !== undefined)
+	      return t._element;
 
       // Create list item
-      var li = document.createElement("li");
-      li.setAttribute("data-type", this._type);
-      li.setAttribute("data-key",  this._key);
+      const li = document.createElement("li");
+      li.setAttribute("data-type", t._type);
+      li.setAttribute("data-key",  t._key);
 
       // Connect action
-      li["onclick"] = this.onclick.bind(this);
+      li["onclick"] = t.onclick.bind(t);
 
-      li.addT(this._name);
-      return this._element = li;
+      li.addT(t._name);
+      return t._element = li;
     }
   }
 });

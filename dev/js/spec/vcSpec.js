@@ -105,7 +105,7 @@ define([
     ]
   });
 
-  describe('KorAP.Doc', function () {
+  describe('KorAP.VC.Doc', function () {
     // Create example factories
     var stringFactory = buildFactory(docClass, {
       "key"   : "author",
@@ -385,7 +385,7 @@ define([
   });
 
 
-  describe('KorAP.DocGroup', function () {
+  describe('KorAP.VC.DocGroup', function () {
     // Create example factories
     var docFactory = buildFactory(
       docClass,
@@ -595,7 +595,7 @@ define([
     });
   });
 
-  describe('KorAP.DocGroupRef', function () {
+  describe('KorAP.VC.DocGroupRef', function () {
     // Create example factories
     var docRefFactory = buildFactory(
       docGroupRefClass,
@@ -657,7 +657,7 @@ define([
   });
 
   
-  describe('KorAP.UnspecifiedDoc', function () {
+  describe('KorAP.VC.UnspecifiedDoc', function () {
     it('should be initializable', function () {
       var doc = unspecifiedClass.create();
       var docElement = doc.element();
@@ -803,7 +803,7 @@ define([
     });    
   });
 
-  describe('KorAP.Doc element', function () {
+  describe('KorAP.VC.Doc element', function () {
     it('should be initializable', function () {
       var docElement = docClass.create(undefined, {
         "@type" : "koral:doc",
@@ -973,7 +973,7 @@ define([
     });
   });
 
-  describe('KorAP.DocGroup element', function () {
+  describe('KorAP.VC.DocGroup element', function () {
     it('should be initializable', function () {
 
       var docGroup = docGroupClass.create(undefined, {
@@ -1087,7 +1087,7 @@ define([
     });
   });
 
-  describe('KorAP.DocGroupRef element', function () {
+  describe('KorAP.VC.DocGroupRef element', function () {
     it('should be initializable', function () {
       var docGroupRef = docGroupRefClass.create(undefined, {
         "@type" : "koral:docGroupRef",
@@ -1130,7 +1130,7 @@ define([
   });
 
   
-  describe('KorAP.VirtualCorpus', function () {
+  describe('KorAP.VC.VirtualCorpus', function () {
     var simpleGroupFactory = buildFactory(docGroupClass, {
       "@type" : "koral:docGroup",
       "operation" : "operation:and",
@@ -1908,7 +1908,7 @@ define([
   });
 
 
-  describe('KorAP.Operators', function () {
+  describe('KorAP.VC.Operators', function () {
     it('should be initializable', function () {
       var op = operatorsClass.create(true, false, false);
       expect(op.and()).toBeTruthy();
@@ -1945,7 +1945,7 @@ define([
     });
   });
 
-  describe('KorAP._delete (event)', function () {
+  describe('KorAP.VC._delete (event)', function () {
     var complexVCFactory = buildFactory(vcClass,{
       "@type": 'koral:docGroup',
       'operation' : 'operation:and',
@@ -2179,7 +2179,7 @@ define([
     });
   });
 
-  describe('KorAP._add (event)', function () {
+  describe('KorAP.VC._add (event)', function () {
     var complexVCFactory = buildFactory(vcClass,{
       "@type": 'koral:docGroup',
       'operation' : 'operation:and',
@@ -2630,7 +2630,7 @@ define([
   });
 
 
-  describe('KorAP.Rewrite', function () {
+  describe('KorAP.VC.Rewrite', function () {
     it('should be initializable', function () {
       var rewrite = rewriteClass.create({
         "@type" : "koral:rewrite",
@@ -2741,7 +2741,7 @@ define([
     });
   });
 
-  describe('KorAP.stringValue', function () {
+  describe('KorAP.VC.stringValue', function () {
     it('should be initializable', function () {
       var sv = stringValClass.create();
       expect(sv.regex()).toBe(false);

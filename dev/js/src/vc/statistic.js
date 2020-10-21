@@ -6,6 +6,8 @@
  * 
  */
 
+"use strict";
+
 define([ 'util' ], function() {
 
   return {
@@ -13,14 +15,15 @@ define([ 'util' ], function() {
     /**
      * Create new statistic object
      */
-    create : function(statistic) {
+    create : function (statistic) {
       return Object.create(this)._init(statistic);
     },
+
 
     /**
      * Initialize statistic object
      */
-    _init : function(statistic) {
+    _init : function (statistic) {
       if (statistic === undefined) {
         throw new Error("Missing parameter");
       } else {
@@ -29,10 +32,11 @@ define([ 'util' ], function() {
       }
     },
 
+
     /**
      * Display statistic object as HTML Description List Element
      */
-    element : function() {
+    element : function () {
 
       // if this._element already exists return without doing something
       if (this._element !== undefined) {
@@ -40,11 +44,13 @@ define([ 'util' ], function() {
       }
 
       // create HTML Description List Element
-      var statDL = document.createElement('dl');
+      const statDL = document.createElement('dl');
       statDL.classList.add("flex");
-      var statistic = this._statistic;
 
-      Object.keys(statistic).forEach(function(k) {
+      const statistic = this._statistic;
+      let statSp, statDT, statDD;
+
+      Object.keys(statistic).forEach(function (k) {
         statSp = statDL.addE('div')
         statDT = statSp.addE('dt');
         statDT.addT(k);
@@ -55,8 +61,7 @@ define([ 'util' ], function() {
 
       this._element = statDL;
       return this._element;
-    },
-
+    }
   }
 
 });
