@@ -4,6 +4,8 @@
 /*
  * TODO: Let the UPDATE event bubble up through parents!
  */
+"use strict";
+
 define([
   'vc/jsonld',
   'vc/unspecified',
@@ -18,10 +20,11 @@ define([
   const _validGroupOpRE = new RegExp("^(?:and|or)$");
 
   const docGroupClass = {
+
     _ldType : "docGroup",
 
     create : function (parent, json) {
-      var obj = Object.create(jsonldClass).upgradeTo(this);
+      const obj = Object.create(jsonldClass).upgradeTo(this);
       obj._operands = [];
       obj.fromJson(json);
       if (parent !== undefined)
@@ -29,22 +32,23 @@ define([
       return obj;
     },
     
+
     newAfter : function (obj) {
       this._operands.forEach(function (op, i) {
 	      if (op === obj) {
-	        var operand = unspecClass.create(this);
+	        const operand = unspecClass.create(this);
 	        this._operands.splice(i + 1, 0, operand);
 	        return this.update();
 	      };
       }, this);
     },
 
+
     // The doc is already set in the group
     _duplicate : function (operand) {
 
       // TODO:
       //   Also check for duplicate docGroupRefs!
-      
       if (operand.ldType() !== 'doc')
 	      return null;
 
@@ -62,6 +66,7 @@ define([
       return null;
     },
     
+
     append : function (operand) {
       
       // Append unspecified object
@@ -88,7 +93,7 @@ define([
 	        // Be aware of cyclic structures!
 	        operand.parent(this);
 
-	        var dupl = this._duplicate(operand);
+	        const dupl = this._duplicate(operand);
 	        if (dupl === null) {
 	          this._operands.push(operand);
 	          return operand;
@@ -101,10 +106,11 @@ define([
 
       case "koral:doc":
 	      // Be aware of cyclic structures!
-	      var doc = docClass.create(this, operand);
+	      const doc = docClass.create(this, operand);
 	      if (doc === undefined)
 	        return;
-	      var dupl = this._duplicate(doc);
+        
+	      const dupl = this._duplicate(doc);
 	      if (dupl === null) {
 	        this._operands.push(doc);
 	        return doc;
@@ -112,15 +118,16 @@ define([
 	      return dupl;
 
       case "koral:docGroup":
-	      // Be aware of cyclic structures!
-	      var docGroup = docGroupClass.create(this, operand);
+
+        // Be aware of cyclic structures!
+	      const docGroup = docGroupClass.create(this, operand);
 	      if (docGroup === undefined)
 	        return;
 
 	      // Flatten group
 	      if (docGroup.operation() === this.operation()) {
           docGroup.operands().forEach(function(op) {
-	          var dupl = this._duplicate(op);
+	          const dupl = this._duplicate(op);
 	          if (dupl === null) {
 	            this._operands.push(op);
 	            op.parent(this);
@@ -135,11 +142,10 @@ define([
 
       case "koral:docGroupRef":
       
-        var docGroupRef = docGroupRefClass.create(this, operand);
+        const docGroupRef = docGroupRefClass.create(this, operand);
       
-        if (docGroupRef === undefined) {
+        if (docGroupRef === undefined)
           return
-        };
 
         // TODO:
         //   Currently this doesn't do anything meaningful,
@@ -161,25 +167,28 @@ define([
       };
     },
 
+
     update : function () {
+      const t = this;
+
       // There is only one operand in group
       
-      if (this._operands.length === 1) {
+      if (t._operands.length === 1) {
 	      
-	      var parent = this.parent();
-	      var op = this.getOperand(0);
+	      const parent = t.parent();
+	      const op = t.getOperand(0);
 	      
 	      // This will prevent destruction of
 	      // the operand
-	      this._operands = [];
+	      t._operands = [];
 
 	      // Parent is a group
 	      if (parent.ldType() !== null)
-	        return parent.replaceOperand(this, op).update();
+	        return parent.replaceOperand(t, op).update();
 
 	      // Parent is vc
 	      else {
-	        this.destroy();
+	        t.destroy();
 	        // Cyclic madness
 	        parent.root(op);
 	        op.parent(parent);
@@ -187,48 +196,53 @@ define([
 	      };
       };
 
-      if (this._element === undefined)
-	      return this;
+      if (t._element === undefined)
+	      return t;
 
-      var group = this._element;
-      group.setAttribute('data-operation', this.operation());
+      const group = t._element;
+      group.setAttribute('data-operation', t.operation());
 
       _removeChildren(group);
 
       // Append operands
-      this._operands.forEach(
+      t._operands.forEach(
         op => group.appendChild(op.element())
       );
 
       // Set operators
-      var op = this.operators(
-	      this.operation() == 'and' ? false : true,
-	      this.operation() == 'or'  ? false : true,
+      var op = t.operators(
+	      t.operation() == 'and' ? false : true,
+	      t.operation() == 'or'  ? false : true,
 	      true
       );
 
       group.appendChild(op.element());
 
       if (KorAP.vc) {
-        var vcchevent = new CustomEvent('vcChange', {'detail':this});
-        KorAP.vc.element().dispatchEvent(vcchevent);
+        KorAP.vc.element().dispatchEvent(
+          new CustomEvent('vcChange', {'detail' : t})
+        );
       };
       
-      return this;
+      return t;
     },
+
 
     element : function () {
-      if (this._element !== undefined)
-	      return this._element;
+      const t = this;
 
-      this._element = document.createElement('div');
-      this._element.setAttribute('class', 'docGroup');
+      if (t._element !== undefined)
+	      return t._element;
+
+      const e = t._element = document.createElement('div');
+      e.setAttribute('class', 'docGroup');
 
       // Update the object - including optimization
-      this.update();
+      t.update();
 
-      return this._element;
+      return e;
     },
+
 
     operation : function (op) {
       if (arguments.length === 1) {
@@ -243,18 +257,22 @@ define([
       return this._op || 'and';
     },
 
+
     operands : function () {
       return this._operands;
     },
+
 
     getOperand : function (index) {
       return this._operands[index];
     },
 
+
     // Replace operand
     replaceOperand : function (oldOp, newOp) {
       
-      for (var i = 0; i < this._operands.length; i++) {
+      for (let i = 0; i < this._operands.length; i++) {
+
 	      if (this._operands[i] === oldOp) {
 	        
 	        // Just insert a doc or ...
@@ -270,18 +288,24 @@ define([
 
 	        // Flatten group
 	        else {
-	          // Remove old group
+
+            // Remove old group
 	          this._operands.splice(i, 1);
 
 	          // Inject new operands
-            newOp.operands().reverse().forEach(function(op) {
-	            this._operands.splice(i, 0, op);
-	            op.parent(this);
-	          }, this);
+            newOp.operands().reverse().forEach(
+              function(op) {
+	              this._operands.splice(i, 0, op);
+	              op.parent(this);
+	            },
+              this
+            );
+
 	          // Prevent destruction of operands
 	          newOp._operands = [];
 	          newOp.destroy();
 	        };
+
 	        oldOp.destroy();
 	        return this;
 	      }
@@ -289,9 +313,11 @@ define([
       return false;
     },
 
+
     // Delete operand from group
     delOperand : function (obj) {
-      for (var i = 0; i < this._operands.length; i++) {
+
+      for (let i = 0; i < this._operands.length; i++) {
 	      if (this._operands[i] === obj) {
 	        
 	        // Delete identified operand
@@ -308,8 +334,10 @@ define([
       return undefined;
     },
     
+
     // Deserialize from json
     fromJson : function (json) {
+
       if (json === undefined)
 	      return this;
 
@@ -324,7 +352,7 @@ define([
 	      return;
       };
 
-      var operation = json["operation"];
+      const operation = json["operation"];
 
       this.operation(operation.replace(/^operation:/,''));
 
@@ -340,18 +368,21 @@ define([
       return this;
     },
 
+
     toJson : function () {
-      var opArray = new Array();
+      const opArray = new Array();
       this._operands.forEach(function(op) {
 	      if (op.ldType() !== 'non')
 	        opArray.push(op.toJson());
       });
+
       return {
 	      "@type"     : "koral:" + this.ldType(),
 	      "operation" : "operation:" + this.operation(),
 	      "operands"  : opArray
       };
     },
+
 
     toQuery : function (brackets) {
       var list = this._operands
@@ -367,10 +398,11 @@ define([
       if (list.length === 1)
 	      return list.join('');
       else {
-	      var str = list.join(this.operation() === 'or' ? ' | ' : ' & ');
+	      const str = list.join(this.operation() === 'or' ? ' | ' : ' & ');
 	      return brackets ? '(' + str + ')' : str;
       };
     }
   };
+  
   return docGroupClass;
 });

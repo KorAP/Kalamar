@@ -1,22 +1,34 @@
 /**
  * Menu showing all key fields.
  */
-define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixClass) {
+"use strict";
+
+define([
+  'menu',
+  'vc/item',
+  'vc/prefix'
+], function (
+  menuClass,
+  itemClass,
+  prefixClass) {
 
   return {
+
     create : function (params) {
-      var obj = Object.create(menuClass)
-          .upgradeTo(this)
-          ._init(params, {
-            itemClass : itemClass,
-            prefixClass : prefixClass
-          });
+      const obj = Object.create(menuClass)
+            .upgradeTo(this)
+            ._init(params, {
+              itemClass : itemClass,
+              prefixClass : prefixClass
+            });
       obj.limit(6);
 
       // This is only domspecific
-      obj.element().addEventListener('blur', function (e) {
-        this.menu.hide();
-      });
+      obj.element().addEventListener(
+        'blur', function (e) {
+          this.menu.hide();
+        }
+      );
  
       return obj;
     },
@@ -38,6 +50,7 @@ define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixC
         this._cb(key, type);
     },
 
+
     /**
      * Return a key type based on a key.
      * This is a linear search, but should work okay for small
@@ -45,6 +58,7 @@ define(['menu', 'vc/item', 'vc/prefix'], function (menuClass, itemClass, prefixC
      */
     typeOf : function (key) {
       const found = this._items.find(i => i.key() === key);
+
       if (found)
         return found.type();
     }

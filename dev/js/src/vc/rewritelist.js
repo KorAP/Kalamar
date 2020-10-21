@@ -1,12 +1,14 @@
+"use strict";
+
 define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) {
   return {
+
     // Construction method
     create : function (json) {
-      var obj = Object(jsonldClass).
-	        create().
-	        upgradeTo(this).
-	        fromJson(json);
-      return obj;
+      return Object(jsonldClass).
+	      create().
+	      upgradeTo(this).
+	      fromJson(json);
     },
 
 
@@ -24,9 +26,11 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
       return this;
     },
 
+
     length : function () {
       return this._list.length;
     },
+
 
     /**
      * Get element.
@@ -35,19 +39,21 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
       if (this._element !== undefined)
 	      return this._element;
 
-      this._element = document.createElement('div');
-      this._element.setAttribute('class', 'rewrite');
-      var comments = [];
-      this._list.forEach(function(rewrite) {
+      const e = this._element = document.createElement('div');
+      e.setAttribute('class', 'rewrite');
+
+      const comments = [];
+      let span, rewriteText;
+      this._list.forEach(function (rewrite) {
 	    
         // This is a blind element
-	      var span = document.createElement('span');
+	      span = document.createElement('span');
 
 	      // Set class attribute
 	      span.setAttribute('class', rewrite.operation());
 
 	      // Append source information
-	      var rewriteText = rewrite.src();
+	      rewriteText = rewrite.src();
 
 	      // Append scope information
 	      if (rewrite.scope() !== undefined) {
@@ -61,8 +67,10 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
         
 	      this._element.appendChild(span);
       }, this);
-      this._element.setAttribute("title", comments.join("\n"))
-      return this._element;
+
+      e.setAttribute("title", comments.join("\n"))
+
+      return e;
     }
   };
 });
