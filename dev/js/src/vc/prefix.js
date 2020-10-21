@@ -1,3 +1,5 @@
+"use strict";
+
 define(['menu/prefix'], function (prefixClass) {
   return {
 
@@ -8,6 +10,7 @@ define(['menu/prefix'], function (prefixClass) {
       return Object.create(prefixClass).
 	      upgradeTo(this)._init(params);
     },
+
 
     /**
      * Override the prefix action.

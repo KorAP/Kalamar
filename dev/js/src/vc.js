@@ -43,6 +43,7 @@
    
    and various field names with the prefix 'VC_'
  */
+"use strict";
 
 define([
   'vc/unspecified',
@@ -69,7 +70,6 @@ define([
   vcPanelClass,
   corpStatVClass,
   buttonGroupClass) {
-  "use strict";
 
   KorAP._validUnspecMatchRE = new RegExp(
     "^(?:eq|ne|contains(?:not)?|excludes)$");
@@ -114,6 +114,7 @@ define([
     ])
   };
 
+
   /**
    * Virtual corpus
    */
@@ -126,12 +127,14 @@ define([
       return null;
     },
 
+
     // Initialize virtual corpus
     _init : function(keyList) {
 
       // Inject localized css styles
       if (!KorAP._overrideStyles) {
-        var sheet = KorAP.newStyleSheet();
+
+        const sheet = KorAP.newStyleSheet();
 
         // Add css rule for OR operations
         sheet.insertRule('.vc .docGroup[data-operation=or] > .doc::before,'
@@ -147,7 +150,7 @@ define([
         KorAP._overrideStyles = true;
       };
 
-      var l;
+      let l;
       if (keyList) {
         l = keyList.slice();
         l.unshift(['referTo', 'ref']);
@@ -163,11 +166,12 @@ define([
       return this;
     },
 
+
     /**
      * Create a new virtual corpus
      */
-    create : function(keyList) {
-      var obj = Object.create(this)._init(keyList);
+    create : function (keyList) {
+      const obj = Object.create(this)._init(keyList);
       obj._root = unspecDocClass.create(obj);
       return obj;
     },
@@ -182,10 +186,12 @@ define([
       let obj;
       
       if (json !== undefined) {
+
         // Parse root document
         if (json['@type'] == 'koral:doc') {
           obj = docClass.create(this, json);
         }
+
         // parse root group
         else if (json['@type'] == 'koral:docGroup') {
           obj = docGroupClass.create(this, json);
@@ -218,11 +224,7 @@ define([
     // Check if the virtual corpus contains a rerite
     wasRewritten : function (obj) {
 
-      var obj;
-      if (arguments.length === 1) {
-        obj = arguments[0];
-      }
-      else {
+      if (arguments.length !== 1) {
         obj = this._root;
       };
 
@@ -239,7 +241,7 @@ define([
           return true;
         };
       };
-
+      
       return false;
     },
 
@@ -248,22 +250,25 @@ define([
      * Clean the virtual document to unspecified doc.
      */
     clean : function() {
-      if (this._root.ldType() !== "non") {
-        this._root.destroy();
-        this.root(unspecDocClass.create(this));
+      const t = this;
+      if (t._root.ldType() !== "non") {
+        t._root.destroy();
+        t.root(unspecDocClass.create(t));
       };
-      //update for graying corpus statistic by deleting the first line of the vc builder
-      this.update();
-      return this;
+
+      // update for graying corpus statistic by deleting the first line of the vc builder
+      t.update();
+      return t;
     },
+
 
     /**
      * Get or set the root object of the virtual corpus
      */
     root : function(obj) {
       if (arguments.length === 1) {
-        var e = this.builder();
-
+        const e = this.builder();
+        
         if (e.firstChild !== null) {
 
           // Object not yet set
@@ -283,6 +288,7 @@ define([
 
         this.update();
       };
+
       return this._root;
     },
 
@@ -291,53 +297,57 @@ define([
      * Get the wrapper element associated with the vc
      */
     builder : function () {
+      const t = this;
 
       // Initialize if necessary
-      if (this._builder !== undefined)
-        return this._builder;
+      if (t._builder !== undefined)
+        return t._builder;
 
-      this.element();
-      return this._builder;
+      t.element();
+      return t._builder;
     },
     
+
     /**
      * Get the element associated with the virtual corpus
      */
     element : function() {
-      if (this._element !== undefined) {
-        return this._element;
-      };
+      const t = this;
+      let e = t._element;
 
-      this._element = document.createElement('div');
-      this._element.classList.add('vc');
+      if (e !== undefined)
+        return e;
 
 
-      this._builder = this._element.addE('div');
-      this._builder.setAttribute('class', 'builder');
+      e = t._element = document.createElement('div');
+      e.classList.add('vc');
 
-      var btn = buttonGroupClass.create(
+
+      t._builder = e.addE('div');
+      t._builder.setAttribute('class', 'builder');
+
+      const btn = buttonGroupClass.create(
         ['action','button-view']
       );
-      var that = this;
-      btn.add(loc.MINIMIZE, {'cls':['button-icon','minimize']}, function () {
-        that.minimize();
-      });
-      this._element.appendChild(btn.element());
-      
-      
 
+      btn.add(loc.MINIMIZE, {'cls':['button-icon','minimize']}, function () {
+        this.minimize();
+      }.bind(t));
+
+      e.appendChild(btn.element());
+      
       // Initialize root
-      this._builder.appendChild(this._root.element());      
+      t._builder.appendChild(t._root.element());      
       
       // Add panel to display corpus statistic, ...
-      this.addVcInfPanel();
+      t.addVcInfPanel();
       
       //Adds EventListener for corpus changes
-      this._element.addEventListener('vcChange', function (e) {
-        that.checkStatActive(e.detail);
-      }, false);
+      t._element.addEventListener('vcChange', function (e) {
+        this.checkStatActive(e.detail);
+      }.bind(t), false);
       
-      return this._element;
+      return e;
     },
 
 
@@ -350,6 +360,7 @@ define([
       return this._element.classList.contains('active');
     },
     
+
     /**
      * Open the VC view
      */
@@ -375,17 +386,21 @@ define([
      */    
     update : function() {
       this._root.update();
-      if (KorAP.vc){
-        var vcchevent = new CustomEvent('vcChange', {'detail':this});
-        this.element().dispatchEvent(vcchevent);
+      if (KorAP.vc) {
+        this.element().dispatchEvent(
+          new CustomEvent('vcChange', {'detail':this})
+        );
       };
       return this;
     },
+
+
     /**
      * Make the vc persistant by injecting the current timestamp as a
      * creation date limit criterion.
      * THIS IS CURRENTLY NOT USED
      */
+    /*
     makePersistant : function() {
       // this.root().wrapOnRoot('and');
       var todayStr = KorAP._vcDatePicker.today();
@@ -404,13 +419,12 @@ define([
       doc.matchop("leq");
       doc.value(todayStr);
 
-      /*
-       * { "@type" : "koral:doc", "key" : "creationDate", "type" :
-       * "type:date", "match" : "match:leq", "value" : todayStr }
-       * this.root().append(cond);
-       */
+      // { "@type" : "koral:doc", "key" : "creationDate", "type" :
+      // "type:date", "match" : "match:leq", "value" : todayStr }
+      // this.root().append(cond);
       this.update();
     },
+    */
 
 
     // Get the reference name
@@ -426,13 +440,13 @@ define([
       }
     },
 
+
     // Add "and" constraint to VC
     addRequired : function (doc) {
+      const root = this.root();
+      const ldType = root.ldType();
+      const parent = root.parent();
 
-      let root = this.root();
-      let ldType = root.ldType();
-
-      let parent = root.parent();
       if (ldType === 'non') {
         parent.root(doc);
       }
@@ -444,7 +458,7 @@ define([
           (ldType === 'docGroup' &&
            root.operation() === 'or'
           )) {
-        let group = require('vc/docgroup').create(
+        const group = require('vc/docgroup').create(
           parent
         );
         group.operation("and");
@@ -469,17 +483,19 @@ define([
       this.update();
     },
     
+
     /**
      * Get the generated json string
      */
-    toJson : function() {
+    toJson : function () {
       return this._root.toJson();
     },
+
 
     /**
      * Get the generated query string
      */
-    toQuery : function() {
+    toQuery : function () {
       return this._root.toQuery();
     },
 
@@ -487,11 +503,10 @@ define([
     /**
      * Add panel to display virtual corpus information
      */
-    addVcInfPanel : function() {
-      var dv = this._element.addE('div');
-      //Create panel  
+    addVcInfPanel : function () {
+      // Create panel  
       this.panel = vcPanelClass.create(this); 
-      dv.appendChild(this.panel.element());
+      this._element.addE('div').appendChild(this.panel.element());
       
     },
     
@@ -499,10 +514,10 @@ define([
      * Checks if corpus statistic has to be disabled,
      * and to be updated after clicking at the "reload-button"
      */
-    checkStatActive : function(){
-      if(this.panel !== undefined && this.panel.statView !==undefined){
+    checkStatActive : function (){
+      if (this.panel !== undefined && this.panel.statView !== undefined){
         this.panel.statView.checkStatActive();
-      }
+      };
     }
   };
 });

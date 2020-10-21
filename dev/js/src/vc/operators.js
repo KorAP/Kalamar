@@ -1,21 +1,25 @@
 /**
  * Operators for criteria
  */
+"use strict";
+
 define(['buttongroup'], function (buttonGroupClass) {
 
   const loc = KorAP.Locale;
   loc.DEL   = loc.DEL   || '×';
 
-
   // Utility for analysing boolean values
   function _bool (bool) {
-    return (bool === undefined || bool === null || bool === false) ? false : true;
+    return (
+      bool === undefined ||
+        bool === null ||
+        bool === false) ? false : true;
   };
 
 
   // Add new unspecified document
   function _add (obj, type) {
-    var parent = obj.parent();
+    const parent = obj.parent();
 
     if (obj.ldType() === 'docGroup') {
 
@@ -26,19 +30,24 @@ define(['buttongroup'], function (buttonGroupClass) {
       if (parent.ldType() !== null) {
 	      return parent.newAfter(obj);
       }
+
       else {
 	      // The group is on root - wrap
 	      return obj.wrapOnRoot();
       };
     }
-    else if (obj.ldType() === 'doc' || obj.ldType() === 'docGroupRef') {
+
+    else if (obj.ldType() === 'doc' ||
+             obj.ldType() === 'docGroupRef') {
 
       if (parent.ldType() === null) {
 	      return obj.wrapOnRoot(type);
       }
+
       else if (parent.operation() === type) {
 	      return parent.newAfter(obj);
       }
+
       else {
 	      return obj.wrap(type);
       };
@@ -82,30 +91,33 @@ define(['buttongroup'], function (buttonGroupClass) {
       return op;
     },
 
+
     /*
-      * Update the element
+     * Update the element
      */
     update : function () {
+      const t = this;
 
       // Clear button group
-      this.clear();
+      t.clear();
 
-      if (this._and === true) {
-        this.add(loc.AND, {'cls':['and']}, KorAP._and);
+      if (t._and === true) {
+        t.add(loc.AND, {'cls':['and']}, KorAP._and);
       };
 
       // Add or button
-      if (this._or === true) {
-        this.add(loc.OR, {'cls':['or']}, KorAP._or);
+      if (t._or === true) {
+        t.add(loc.OR, {'cls':['or']}, KorAP._or);
       };
 
       // Add delete button
-      if (this._del === true) {
-        this.add(loc.DEL, {'cls':['delete']}, KorAP._delete);
+      if (t._del === true) {
+        t.add(loc.DEL, {'cls':['delete']}, KorAP._delete);
       };
 
-      return this.element();
+      return t.element();
     },
+
 
     // Be aware! This may be cyclic
     // This is somehow redundant with bind, but relevant for ldTypes
@@ -116,8 +128,10 @@ define(['buttongroup'], function (buttonGroupClass) {
         // This is somehow duplicate - but it's not that relevant
         this.bind(obj);
       };
+
       return this._parent;
     },
+
 
     and : function (bool) {
       if (arguments.length === 1)
@@ -125,11 +139,13 @@ define(['buttongroup'], function (buttonGroupClass) {
       return this._and;
     },
 
+
     or : function (bool) {
       if (arguments.length === 1)
 	      this._or = _bool(bool);
       return this._or;
     },
+
 
     del : function (bool) {
       if (arguments.length === 1)

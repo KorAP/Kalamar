@@ -6,9 +6,9 @@
  * @author Nils Diewald
  */
 
-define(['vc/doc', 'util'], function (docClass) {
+"use strict";
 
-  "use strict";
+define(['vc/doc', 'util'], function (docClass) {
 
   const loc = KorAP.Locale;
   loc.NEW_CONSTRAINT = loc.NEW_CONSTRAINT || 'New Constraint';
@@ -29,7 +29,7 @@ define(['vc/doc', 'util'], function (docClass) {
     const value = doc.addE('span');
     value.setAttribute('class', 'value');
     value.addT(op[1]);
-      
+
     return doc;
   };
 
@@ -51,7 +51,7 @@ define(['vc/doc', 'util'], function (docClass) {
      * Add document constraint to fragment
      */
     add : function (key, value, type) {
-      this._operands.forEach(function (op,i,arr) {
+      this._operands.forEach(function (op, i, arr) {
         if (op[0] === key && op[1] === value) {
           arr.splice(i,1);
         }
@@ -94,14 +94,14 @@ define(['vc/doc', 'util'], function (docClass) {
       };
 
       // Initialize element
-      this._element = document.createElement('div');
-      this._element.classList.add('vc', 'fragment');
+      const e = this._element = document.createElement('div');
+      e.classList.add('vc', 'fragment');
 
       // Prepend info text
-      this._element.addE('span').addT(loc.NEW_CONSTRAINT + ':');
-      this._frag = this._element.addE('div');
+      e.addE('span').addT(loc.NEW_CONSTRAINT + ':');
+      this._frag = e.addE('div');
       
-      return this._element;
+      return e;
     },
 
 
@@ -115,16 +115,12 @@ define(['vc/doc', 'util'], function (docClass) {
           doc.key(item[0]);
           doc.matchop("eq");
           doc.value(item[1]);
-          if (item[2] === "date") {
-            doc.type("date");
-          }
-          else {
-            doc.type("string");
-          };
+          doc.type(item[2] === "date" ? "date" : "string");
           return doc;
         }
       );
     },
+
 
     /**
      * Update the whole object based on the underlying data structure

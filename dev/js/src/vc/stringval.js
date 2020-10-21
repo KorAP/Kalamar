@@ -1,31 +1,34 @@
 /**
  * Add string values to the virtual corpus
  */
+"use strict";
+
 define(['util'], {
 
   /**
    * Create new string value helper.
    */
   create : function () {
-    var regexOp = true;
-    var regex = false;
-    var value = '';
+    const a = arguments;
+    let regexOp = true,
+        regex = false,
+        value = '';
 
     // Set value
-    if (arguments.length >= 1) {
-      if (arguments[0] !== undefined)
-        value = arguments[0];
+    if (a.length >= 1) {
+      if (a[0] !== undefined)
+        value = a[0];
     };
 
     // Set regex
-    if (arguments.length >= 2) {
-      if (arguments[1] !== undefined)
-        regex = arguments[1];
+    if (a.length >= 2) {
+      if (a[1] !== undefined)
+        regex = a[1];
     };
 
     // Set regexOp
-    if (arguments.length >= 3) {
-      regexOp = arguments[2];
+    if (a.length >= 3) {
+      regexOp = a[2];
       if (regexOp === false) {
         regex = false;
       }
@@ -50,41 +53,31 @@ define(['util'], {
    */
   regex : function (bool) {
     if (arguments.length === 1) {
-      if (bool) {
-	      this._regex = true;
-      }
-      else {
-	      this._regex = false;
-      };
+	    this._regex = bool ? true : false;
       this._update();
     };
     return this._regex;
   },
 
+
   _regexOp : function (regexOp) {
     if (arguments.length === 1) {
-      if (regexOp) {
-        this.__regexOp = true;
-      }
-      else {
-        this.__regexOp = false;
-      };
+      this.__regexOp = regexOp ? true : false;
       this._update();
     };
     return this.__regexOp;
   },
+
 
   /**
    * Toggle the regex, make it either true,
    * if it is false, or make it false, if it is true.
    */
   toggleRegex : function () {
-    if (this._regex === false)
-      this.regex(true);
-    else
-      this.regex(false);
+    this.regex(this._regex === false ? true : false);
   },
   
+
   /**
    * Get or set the string value.
    */
@@ -97,6 +90,7 @@ define(['util'], {
     return this._value;
   },
 
+
   // Update dom element
   _update : function () {
     if (this._element === undefined)
@@ -104,11 +98,13 @@ define(['util'], {
  
     this._value = this._input.value;
 
+    const cl = this._element.classList;
+
     if (this._regexOp() && this._regex) {
-      this._element.classList.add('regex');
+      cl.add('regex');
     }
     else {
-      this._element.classList.remove('regex');
+      cl.remove('regex');
     };
   },
   
@@ -120,12 +116,14 @@ define(['util'], {
    */
   store : function (v,r) {},
 
+
   /**
    * Put focus on element
    */
   focus : function () {
     this._element.children[0].focus();
   },
+
 
   /**
    * Get the associated dom element.
@@ -135,12 +133,11 @@ define(['util'], {
       return this._element;
 
     // Create element
-    this._element = document.createElement('div');
-    var e = this._element;
+    const e = this._element = document.createElement('div');
     e.setAttribute('tabindex', 0);
     e.style.outline = 0;
 
-    var cl = e.classList;
+    const cl = e.classList;
     cl.add('value');
     if (this.regex() === true)
       cl.add('regex');
@@ -154,10 +151,10 @@ define(['util'], {
 
     // Add regex button
     if (this._regexOp()) {
-      var re = e.addE('div');
+      const re = e.addE('div');
       re.addEventListener(
         'click',
-        function (ev) {
+        function () {
 	        this.toggleRegex();
           // ev.halt();
         }.bind(this),
@@ -170,10 +167,11 @@ define(['util'], {
     // delegate focus to
     this._input.addEventListener(
       'blur',
-      function (ev) {        
-        if (!this._inField) {
-	        this.value(this._input.value);
-          this.store(this.value(), this.regex());
+      function () {
+        const t = this;
+        if (!t._inField) {
+	        t.value(t._input.value);
+          t.store(t.value(), t.regex());
         };
         ev.halt();
       }.bind(this)
@@ -182,14 +180,14 @@ define(['util'], {
     // Workaround to check the click is in the field
     e.addEventListener(
       'mousedown',
-      function (ev) {
+      function () {
         this._inField = true;
       }.bind(this)
     );
 
     e.addEventListener(
       'mouseup',
-      function (ev) {
+      function () {
         this._inField = false;
         this._input.focus();
       }.bind(this)
@@ -198,9 +196,10 @@ define(['util'], {
     this._input.addEventListener(
       'keypress',
       function (ev) {
+        const t = this;
 	      if (ev.keyCode == 13) {
-	        this.value(this._input.value);
-	        this.store(this.value(), this.regex());
+	        t.value(t._input.value);
+	        t.store(t.value(), t.regex());
           return false;
 	      };
       }.bind(this)

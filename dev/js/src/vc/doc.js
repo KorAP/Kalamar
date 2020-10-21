@@ -1,6 +1,7 @@
 /**
  * A new document criterion
  */
+"use strict";
 
 define([
   'vc/jsonld',
@@ -29,6 +30,7 @@ define([
     // The object ... maybe not important
     _obj : function () { return '???'; /*KorAP.Doc*/ },
     
+
     /**
      * Create a new document criterion
      * by passing the parent object and a json construct.
@@ -36,10 +38,10 @@ define([
     create : function (parent, json) {
 
       // Create the object, inheriting from Json-LD class
-      var obj = Object(jsonldClass).
-          create().
-          upgradeTo(this).
-          fromJson(json);
+      const obj = Object(jsonldClass).
+            create().
+            upgradeTo(this).
+            fromJson(json);
 
       if (obj === undefined) {
         console.log(json);
@@ -54,104 +56,106 @@ define([
       return obj;
     },
 
+
     /**
      * Update the elements content.
      */
     update : function () {
-      if (this._element === undefined)
-        return this.element();
+      const t = this;
+
+      if (t._element === undefined)
+        return t.element();
       
       // Get element
-      var e = this._element;
+      const e = t._element;
 
       // Check if there is a change in the underlying data
-      if (!this.__changed)
+      if (!t.__changed)
         return e;
 
       // Set ref - TODO: Cleanup!
-      e.refTo = this;
+      e.refTo = t;
 
 
       // Was rewritten
-      if (this.rewrites() !== undefined) {
+      if (t.rewrites() !== undefined) {
         e.classList.add("rewritten");
       };
 
       // Added key
-      this._keyE = document.createElement('span');
-      this._keyE.setAttribute('class', 'key');
+      const keyE = t._keyE = document.createElement('span');
+      keyE.setAttribute('class', 'key');
 
       // Change key
-      this._keyE.addEventListener('click', this._changeKey.bind(this));
+      keyE.addEventListener('click', t._changeKey.bind(t));
 
-      if (this.key()) {
-        var k = this.key();
+      if (t.key()) {
+        const k = t.key();
         if (loc['VC_' + k] !== undefined)
           k = loc['VC_' + k];
-        this._keyE.addT(k);
+        keyE.addT(k);
       };
 
       // Added match operator
-      this._matchopE = document.createElement('span');
-      this._matchopE.setAttribute('data-type', this.type());
-      this._matchopE.setAttribute('class', 'match');
-      this._matchopE.addT(this.matchop());
+      const matchopE = t._matchopE = document.createElement('span');
+      matchopE.setAttribute('data-type', t.type());
+      matchopE.setAttribute('class', 'match');
+      matchopE.addT(t.matchop());
 
       // Change matchop
-      this._matchopE.addEventListener(
+      t._matchopE.addEventListener(
         'click',
-        this._changeMatchop.bind(this)
+        t._changeMatchop.bind(t)
       );
 
       // Added value operator
-      this._valueE = document.createElement('span');
-      this._valueE.setAttribute('data-type', this.type());
-      this._valueE.setAttribute('class', 'value');
+      const valueE = t._valueE = document.createElement('span');
+      valueE.setAttribute('data-type', t.type());
+      valueE.setAttribute('class', 'value');
 
-      if (this.value()) {
-        this._valueE.addT(this.value());
+      if (t.value()) {
+        valueE.addT(t.value());
       }
       else {
-        this._valueE.addT(loc.EMPTY);
-        this._valueE.classList.add('unspecified');
+        valueE.addT(loc.EMPTY);
+        valueE.classList.add('unspecified');
       };
 
       // Change value
-      this._valueE.addEventListener(
+      valueE.addEventListener(
         'click',
-        this._changeValue.bind(this)
+        t._changeValue.bind(t)
       );
 
       // Remove all element children
       _removeChildren(e);
 
       // Add spans
-      e.appendChild(this._keyE);
-      e.appendChild(this._matchopE);
-      e.appendChild(this._valueE);
+      e.appendChild(keyE);
+      e.appendChild(matchopE);
+      e.appendChild(valueE);
 
-      this.__changed = false;
+      t.__changed = false;
 
-      if (this._rewrites !== undefined) {
-        e.appendChild(this._rewrites.element());
+      if (t._rewrites !== undefined) {
+        e.appendChild(t._rewrites.element());
       };
 
-      if (this._parent !== undefined) {
+      if (t._parent !== undefined) {
         
         // Set operators
-        var op = this.operators(
+        // Append new operators
+        e.appendChild(t.operators(
           true,
           true,
           true
-        );
-
-        // Append new operators
-        e.appendChild(op.element());
+        ).element());
       };
       
-      if(KorAP.vc){
-      var vcchevent = new CustomEvent('vcChange', {'detail':this});
-      KorAP.vc.element().dispatchEvent(vcchevent);
+      if (KorAP.vc){
+        KorAP.vc.element().dispatchEvent(
+          new CustomEvent('vcChange', {'detail' : t})
+        );
       }
       
       return e;
@@ -162,48 +166,53 @@ define([
      * Get the associated element
      */
     element : function () {
-      if (this._element !== undefined)
-        return this._element;
+      const t = this;
+      if (t._element !== undefined)
+        return t._element;
 
-      this._element = document.createElement('div');
-      this._element.setAttribute('class', 'doc');
-
-      this.update();
-      return this._element;
+      t._element = document.createElement('div');
+      t._element.setAttribute('class', 'doc');
+      t.update();
+      return t._element;
     },
+
 
     /**
      * Wrap a new operation around the doc element
      */
     wrap : function (op) {
-      var parent = this.parent();
-      var group = require('vc/docgroup').create(parent);
+      const parent = this.parent();
+      const group = require('vc/docgroup').create(parent);
       group.operation(op);
       group.append(this);
       group.append();
       return parent.replaceOperand(this, group).update();
     },
 
+
     replaceWith : function (op) {
-      var p = this.parent();
+      const p = this.parent();
 
       if (p.ldType() === 'docGroup') {
-        p.replaceOperand(this,op);
+        p.replaceOperand(this, op);
       }
       else if (p.ldType() == null) {
         p.root(op);
       };
+
       p.update();
 
       this.destroy();
     },
     
+
     /**
      * Deserialize from json
      */
     fromJson : function (json) {
+      const t = this;
       if (json === undefined)
-        return this;
+        return t;
 
       if (json["@type"] === undefined) {
         KorAP.log(701, "JSON-LD group has no @type attribute");
@@ -216,20 +225,19 @@ define([
         return;
       };
 
-      var rewrite;
+      let rewrite;
 
       // There is a defined key
       if (json["key"] !== undefined &&
           typeof json["key"] === 'string') {
 
         // Set key
-        this.key(json["key"]);
+        t.key(json["key"]);
 
         // Set match operation
         if (json["match"] !== undefined) {
           if (typeof json["match"] === 'string') {
-
-            this.matchop(json["match"]);
+            t.matchop(json["match"]);
           }
           else {
             KorAP.log(802, errstr802);
@@ -241,7 +249,7 @@ define([
         if (json["type"] === undefined && KorAP._vcKeyMenu) {
 
           // Check the VC list if the field is known
-          var type = KorAP._vcKeyMenu.typeOf(this.key());
+          const type = KorAP._vcKeyMenu.typeOf(t.key());
           if (type != undefined) {
             json["type"] = "type:" + type;
           };
@@ -251,69 +259,69 @@ define([
         if (json["type"] === undefined) {
         
           // Check match type
-          if (!KorAP._validUnspecMatchRE.test(this.matchop())) {
+          if (!KorAP._validUnspecMatchRE.test(t.matchop())) {
             KorAP.log(802, errstr802);
 
             // Rewrite method
-            this.matchop('eq');
+            t.matchop('eq');
             rewrite = 'modification';
           };
 
           // Set string value
-          this.value(json["value"]);
+          t.value(json["value"]);
         }
 
         // Field is string type
         else if (json["type"] == "type:string") {
-          this.type("string");
+          t.type("string");
 
           // Check match type
-          if (!KorAP._validStringMatchRE.test(this.matchop())) {
+          if (!KorAP._validStringMatchRE.test(t.matchop())) {
             KorAP.log(802, errstr802);
 
             // Rewrite method
-            this.matchop('eq');
+            t.matchop('eq');
             rewrite = 'modification';
           };
-
+          
           // Set string value
-          this.value(json["value"]);
+          t.value(json["value"]);
         }
 
         // Field is specified
         else if (json["type"] == "type:text") {
-          this.type("text");
+          t.type("text");
 
           // Check match type
-          if (!KorAP._validTextMatchRE.test(this.matchop())) {
+          if (!KorAP._validTextMatchRE.test(t.matchop())) {
             KorAP.log(802, errstr802);
 
             // Rewrite method
-            this.matchop('eq');
+            t.matchop('eq');
             rewrite = 'modification';
           };
 
           // Set string value
-          this.value(json["value"]);
+          t.value(json["value"]);
         }
 
         // Key is a date
         else if (json["type"] === "type:date") {
-          this.type("date");
+          t.type("date");
 
           if (json["value"] !== undefined &&
               KorAP._validDateRE.test(json["value"])) {
 
-            if (!KorAP._validDateMatchRE.test(this.matchop())) {
+            if (!KorAP._validDateMatchRE.test(t.matchop())) {
               KorAP.log(802, errstr802);
 
               // Rewrite method
-              this.matchop('eq');
+              t.matchop('eq');
               rewrite = 'modification';
             };
 
             // Set value
-            this.value(json["value"]);
+            t.value(json["value"]);
           }
           else {
             KorAP.log(806, "Value is not a valid date string");
@@ -323,49 +331,50 @@ define([
 
         // Key is a regular expression
         else if (json["type"] === "type:regex") {
-          this.type("regex");
+          t.type("regex");
 
           try {
 
             // Try to create a regular expression
-            var check = new RegExp(json["value"]);
+            let check = new RegExp(json["value"]);
 
-            if (!KorAP._validStringMatchRE.test(this.matchop())) {
+            if (!KorAP._validStringMatchRE.test(t.matchop())) {
               KorAP.log(802, errstr802);
 
               // Rewrite method
-              this.matchop('eq');
+              t.matchop('eq');
               rewrite = 'modification';
             };
 
-            this.value(json["value"]);
+            t.value(json["value"]);
           }
 
           catch (e) {
             KorAP.log(807, "Value is not a valid regular expression");
             return;
           };
-          this.type("regex");
+          t.type("regex");
         }
 
         else {
-          KorAP.log(804, errstr804 + ": " + this.type());
-          throw new Error(errstr804 + ": " + this.type());
+          KorAP.log(804, errstr804 + ": " + t.type());
+          throw new Error(errstr804 + ": " + t.type());
         };
       };
 
       // Rewrite coming from the server
       if (json["rewrites"] !== undefined) {
-        this.rewrite(json["rewrites"]);
+        t.rewrite(json["rewrites"]);
       }
 
       // Rewrite coming from Kalamar
       else if (rewrite !== undefined) {
-        this.rewrite(rewrite);
+        t.rewrite(rewrite);
       };
 
-      return this;
+      return t;
     },
+
 
     /**
      * Get or set the key
@@ -379,9 +388,10 @@ define([
       return this._key;
     },
 
+
     // Click on the key, show me the menu
     _changeKey : function (e) {
-      var menu = KorAP._vcKeyMenu;
+      const menu = KorAP._vcKeyMenu;
 
       // Insert menu
       this._element.insertBefore(
@@ -390,16 +400,18 @@ define([
       );
 
       // Release event
-      var that = this;
+      const that = this;
       menu.released(function (key, type) {
 
         if (type === 'ref') {
           // KorAP._delete.bind(that);
-          var ref = docGroupRefClass.create(that.parent());
-          that.replaceWith(ref);
+          that.replaceWith(
+            docGroupRefClass.create(that.parent())
+          );
         }
+
         else {
-          var doc = that.key(key).type(type);
+          const doc = that.key(key).type(type);
 
           // This may not be compatible - then switch to default
           doc.matchop(doc.matchop());
@@ -418,42 +430,45 @@ define([
       menu.focus();
     },
 
+
     /**
      * Get or set the match operator
      */
     matchop : function (match) {
+      const t = this;
 
       if (arguments.length === 1) {
-        var m = match.replace(/^match:/, '');
+        const m = match.replace(/^match:/, '');
 
         if (
-          (this._type == undefined) // && KorAP._validUnspecMatchRE.test(m))
+          (t._type == undefined) // && KorAP._validUnspecMatchRE.test(m))
             ||
             (
-              (this._type === 'string' || this._type === 'regex') &&
+              (t._type === 'string' || t._type === 'regex') &&
                 KorAP._validStringMatchRE.test(m)
             )
             ||
-            (this._type === 'text' && KorAP._validTextMatchRE.test(m))
+            (t._type === 'text' && KorAP._validTextMatchRE.test(m))
             ||
-            (this._type === 'date' && KorAP._validDateMatchRE.test(m))
+            (t._type === 'date' && KorAP._validDateMatchRE.test(m))
         ) {
-          this._matchop = m;
+          t._matchop = m;
         }
         else {
-          this._matchop = "eq";
+          t._matchop = "eq";
         };
 
-        this._changed();
-        return this
+        t._changed();
+        return t;
       };
-      return this._matchop || "eq";
+
+      return t._matchop || "eq";
     },
 
 
     // Click on the match operator, show me the menu
     _changeMatchop : function (e) {
-      var menu = KorAP._vcMatchopMenu[this.type()];
+      const menu = KorAP._vcMatchopMenu[this.type()];
 
       if (menu === undefined) {
         KorAP.log(0, "Unable to init menu for " + this.type());
@@ -467,7 +482,7 @@ define([
       );
 
       // Release event
-      var that = this;
+      const that = this;
       menu.released(function (mo) {
         that.matchop(mo).update();
         this.hide();
@@ -495,29 +510,29 @@ define([
      * Get or set the value
      */
     value : function (value) {
+      const t = this;
       if (arguments.length === 1) {
-        if (this._type === 'date' && !KorAP._validDateRE.test(value)) {
-          delete this._value;
+        if (t._type === 'date' && !KorAP._validDateRE.test(value)) {
+          delete t._value;
         }
         else {
-          this._value = value;
+          t._value = value;
         };
-        this._changed();
-        return this;
+        t._changed();
+        return t;
       };
-      return this._value;
+      return t._value;
     },
 
 
     // Click on the match operator, show me the menu
     _changeValue : function (e) {
-      var v = this.value();
-      var that = this;
+      const that = this;
      
       // Show datepicker
       if (this.type() === 'date') {
-        var dp = KorAP._vcDatePicker;
-        dp.fromString(v);
+        const dp = KorAP._vcDatePicker;
+        dp.fromString(this.value());
 
         // Todo: change this
         dp.onclick(function (selected) {
@@ -535,20 +550,18 @@ define([
           );
         });
 
-        // Get element of the date picker
-        var dpElem = dp.show();
-
         this._element.insertBefore(
-          dpElem,
+          dp.show(), // Get element of the date picker
           this._valueE
         );
 
         dp.input().focus();
       }
+
       else {
-        var regex = this.type() === 'regex' ? true : false;
-        var str = stringValClass.create(this.value(), regex);
-        var strElem = str.element();
+        const regex = this.type() === 'regex' ? true : false;
+        const str = stringValClass.create(this.value(), regex);
+        const strElem = str.element();
 
         str.store = function (value, regex) {
           that.value(value);
@@ -578,6 +591,7 @@ define([
       return this._rewrites;
     },
 
+
     rewrite : function (value) {
       if (typeof value === 'string') {
         value = [{
@@ -589,6 +603,7 @@ define([
       this._rewrites = rewriteListClass.create(value);
     },
 
+
     // Mark the underlying data as being changed.
     // This is important for rerendering the dom.
     // This will also remove rewrite markers, when the data
@@ -599,8 +614,8 @@ define([
       if (this._rewrites === undefined)
         return;
 
-        delete this["_rewrites"];
-
+      delete this["_rewrites"];
+      
       if (this._element === undefined)
         return;
 
@@ -609,28 +624,32 @@ define([
 
 
     toJson : function () {
-      if (!this.matchop() || !this.key())
+      const t = this;
+
+      if (!t.matchop() || !t.key())
         return {};
       
       return {
-        "@type" : "koral:" + this.ldType(),
-        "key"   : this.key(),
-        "match" : "match:" + this.matchop(),
-        "value" : this.value() || '',
-        "type"  : "type:" + this.type()
+        "@type" : "koral:" + t.ldType(),
+        "key"   : t.key(),
+        "match" : "match:" + t.matchop(),
+        "value" : t.value() || '',
+        "type"  : "type:" + t.type()
       };
     },
+
 
     incomplete : function () {
       return !(this.matchop() && this.key() && this.value());
     },
+
 
     toQuery : function () {
       if (this.incomplete())
         return "";
 
       // Build doc string based on key
-      var string = this.key() + ' ';
+      let string = this.key() + ' ';
 
       // Add match operator
       switch (this.matchop()) {

@@ -25,18 +25,17 @@ define([
      * with a link to the parent object
      */
     create : function (parent, json) {
-      var obj = Object(jsonldClass)
-          .create().
-	        upgradeTo(this)
-          .fromJson(json);
-
-      if (obj === undefined) {
+      const obj = Object(jsonldClass).
+            create().
+	          upgradeTo(this).
+            fromJson(json);
+      
+      if (obj === undefined)
         console.log(json);
-      };
 
       if (parent !== undefined)
 	      obj._parent = parent;
-
+      
       obj.__changed = true;
       return obj;
     },
@@ -46,43 +45,46 @@ define([
      * Update the element
      */
     update : function () {
-      if (this._element === undefined)
-        return this.element();
+      const t = this;
 
-      var e = this._element;
+      if (t._element === undefined)
+        return t.element();
+
+      const e = t._element;
 
       // Check if there is a change in the underlying data
-      if (!this.__changed)
+      if (!t.__changed)
         return e;
 
       // Set ref - TODO: Cleanup!
-      e.refTo = this;
+      e.refTo = t;
 
       // Was rewritten
-      if (this.rewrites() !== undefined) {
+      if (t.rewrites() !== undefined) {
         e.classList.add("rewritten");
       };
 
-      var refTitle = document.createElement('span');
+      const refTitle = document.createElement('span');
       refTitle.classList.add('key','fixed', 'ref');
       refTitle.addT('referTo');
 
       // Added value operator
-      this._refE = document.createElement('span');
-      this._refE.setAttribute('data-type', "string");
-      this._refE.setAttribute('class', 'value');
+      const refE = t._refE = document.createElement('span');
+      refE.setAttribute('data-type', "string");
+      refE.setAttribute('class', 'value');
+
       if (this.ref()) {
-        this._refE.addT(this.ref());
+        refE.addT(t.ref());
       }
       else {
-        this._refE.addT(loc.EMPTY);
-        this._refE.classList.add('unspecified');
+        refE.addT(loc.EMPTY);
+        refE.classList.add('unspecified');
       };
 
       // Change value
-      this._refE.addEventListener(
+      refE.addEventListener(
         'click',
-        this._changeRef.bind(this)
+        t._changeRef.bind(t)
       );
 
       // Remove all element children
@@ -90,30 +92,30 @@ define([
 
       // Add spans
       e.appendChild(refTitle);
-      e.appendChild(this._refE);
+      e.appendChild(refE);
 
-      this.__changed = false;
+      t.__changed = false;
 
-      if (this._rewrites !== undefined) {
-        e.appendChild(this._rewrites.element());
+      if (t._rewrites !== undefined) {
+        e.appendChild(t._rewrites.element());
       };
 
-      if (this._parent !== undefined) {
+      if (t._parent !== undefined) {
+
         // Set operators
-        var op = this.operators(
+        // Append new operators
+        e.appendChild(t.operators(
           true,
           true,
           true
-        );
-
-        // Append new operators
-        e.appendChild(op.element());
+        ).element());
       };  
      
-      var vcchevent = new CustomEvent('vcChange', {'detail':this});
-      KorAP.vc.element().dispatchEvent(vcchevent);
+      KorAP.vc.element().dispatchEvent(
+        new CustomEvent('vcChange', { 'detail' : t })
+      );
       
-      return this.element();
+      return t.element();
     },
 
 
@@ -121,12 +123,14 @@ define([
      * Get the associated element
      */
     element : function () {
+
       if (this._element !== undefined)
 	      return this._element;
-      this._element = document.createElement('div');
-      this._element.setAttribute('class', 'doc groupref');
+
+      const e = this._element = document.createElement('div');
+      e.setAttribute('class', 'doc groupref');
       this.update();
-      return this._element;
+      return e;
     },
 
 
@@ -145,10 +149,9 @@ define([
 
     // Click on the reference operator, show me the option
     _changeRef : function (e) {
-      var that = this;
-
-      var str = stringValClass.create(this.ref(), false, false);
-      var strElem = str.element();
+      const that = this;
+      const str = stringValClass.create(this.ref(), false, false);
+      const strElem = str.element();
 
       str.store = function (ref, regex) {
         that.ref(ref);
@@ -174,13 +177,14 @@ define([
      * This is copypasta from doc.js
      */
     wrap : function (op) {
-      var parent = this.parent();
-      var group = require('vc/docgroup').create(parent);
+      const parent = this.parent();
+      const group = require('vc/docgroup').create(parent);
       group.operation(op);
       group.append(this);
       group.append();
       return parent.replaceOperand(this, group).update();
     },
+
 
     /**
      * Deserialize from json
@@ -210,6 +214,7 @@ define([
       return this;
     },
 
+
     /**
      * Click on the unspecified object
      */
@@ -217,10 +222,12 @@ define([
       console.log("Do not support click on this");
     },
 
+
     // TODO: This is identical to doc.js
     rewrites : function () {
       return this._rewrites;
     },
+
 
     // TODO: This is identical to doc.js
     rewrite : function (value) {
@@ -245,7 +252,7 @@ define([
       if (this._rewrites === undefined)
         return;
 
-        delete this["_rewrites"];
+      delete this["_rewrites"];
 
       if (this._element === undefined)
         return;
@@ -253,13 +260,14 @@ define([
       this._element.classList.remove("rewritten");
     },
 
+
     toJson : function () {
       if (!this.ref)
         return {};
       
       return {
         "@type" : "koral:" + this.ldType(),
-        "ref"  : this.ref()
+        "ref"   : this.ref()
       };
     },
 
@@ -268,6 +276,7 @@ define([
       return this.ref() ? false : true
     },
     
+
     toQuery : function () {
       if (this.incomplete())
         return "";

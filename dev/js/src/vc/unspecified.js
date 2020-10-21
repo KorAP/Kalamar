@@ -2,6 +2,8 @@
  * An unspecified criterion in a virtual corpus.
  * Inherits everything from jsonld
  */
+"use strict";
+
 define([
   'vc/jsonld',
   'vc/doc',
@@ -10,7 +12,7 @@ define([
 ], function (jsonldClass, docClass, docGroupRefClass) {
 
   // Localize empty string
-  var loc = KorAP.Locale;
+  const loc = KorAP.Locale;
   loc.EMPTY = loc.EMPTY || '⋯';
 
   return {
@@ -23,7 +25,7 @@ define([
      * with a link to the parent object
      */
     create : function (parent) {
-      var obj = Object.create(jsonldClass).
+      const obj = Object.create(jsonldClass).
 	        upgradeTo(this);
 
       if (parent !== undefined)
@@ -31,6 +33,7 @@ define([
 
       return obj;
     },
+
 
     /**
      * Set the key; this will spawn a new doc
@@ -41,8 +44,8 @@ define([
       if (this._parent === undefined)
 	      return null;
 
-      var newDoc;
-      var keyType = KorAP._vcKeyMenu.typeOf(v);
+      let newDoc;
+      const keyType = KorAP._vcKeyMenu.typeOf(v);
 
       // Set JSON-LD type
       if (keyType && keyType === 'ref') {
@@ -73,39 +76,39 @@ define([
      * Update the element
      */
     update : function () {
+      const t = this;
 
-      if (this._element === undefined)
-	      return this.element();
+      if (t._element === undefined)
+	      return t.element();
 
       // Remove element content
-       _removeChildren(this._element);
+      _removeChildren(t._element);
 
-      var ellipsis = document.createElement('span');
+      const ellipsis = document.createElement('span');
       ellipsis.addT(loc.EMPTY);
 
       // Click on empty criterion
-      ellipsis.addEventListener('click', this.onclick.bind(this));
+      ellipsis.addEventListener('click', t.onclick.bind(t));
 
-      this._element.appendChild(ellipsis);
+      t._element.appendChild(ellipsis);
 
       // Set ref - TODO: Cleanup!
-      this._element.refTo = this;
+      t._element.refTo = t;
 
       // Set operators
-      if (this._parent !== undefined &&
-          this.parent().ldType() !== null) {
-	      var op = this.operators(
-	        false,
-	        false,
-	        true
-	      );
-	      
-	      this._element.appendChild(
-	        op.element()
+      if (t._parent !== undefined &&
+          t.parent().ldType() !== null) {
+
+	      t._element.appendChild(
+	        t.operators(
+	          false,
+	          false,
+	          true
+	        ).element()
 	      );
       };
 
-      return this.element();
+      return t.element();
     },
 
 
@@ -113,12 +116,13 @@ define([
      * Get the associated element
      */
     element : function () {
-      if (this._element !== undefined)
-	      return this._element;
-      this._element = document.createElement('div');
-      this._element.setAttribute('class', 'doc unspecified');
-      this.update();
-      return this._element;
+      const t = this;
+      if (t._element !== undefined)
+	      return t._element;
+      t._element = document.createElement('div');
+      t._element.setAttribute('class', 'doc unspecified');
+      t.update();
+      return t._element;
     },
 
 
@@ -126,13 +130,14 @@ define([
       return true;
     },
     
+
     /**
      * Click on the unspecified object
      */
     onclick : function () {
 
       // Get the key menu
-      var menu = KorAP._vcKeyMenu;
+      const menu = KorAP._vcKeyMenu;
 
       // Add key menu element at the correct position
       this._element.insertBefore(
@@ -140,7 +145,7 @@ define([
 	      this._element.firstChild
       );
 
-      var that = this;
+      const that = this;
 
       // Set released method
       menu.released(function (key) {
