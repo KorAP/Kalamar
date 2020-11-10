@@ -21,7 +21,7 @@ define([
      * Create new hint helper menu.
      */
     create : function (hint, context, params) {
-      var obj = Object.create(menuClass)
+      const obj = Object.create(menuClass)
 	        .upgradeTo(this)
 	        ._init(params, {
 	          itemClass : itemClass,
@@ -41,7 +41,7 @@ define([
 
       // Focus on input field on hide
       obj.onHide = function () {
-        var h = this._hint;
+        const h = this._hint;
         h._inputField.element().focus();
         if (h.active() !== null) {
           if (h._alert.active) {

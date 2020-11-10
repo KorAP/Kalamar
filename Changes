@@ -8,6 +8,8 @@
         - Fix character errors in hint helper at position 0.
         - Improve JS test coverage for tutorial.
         - Move "use strict" to file level.
+        - Fix bug where event bubbles when prefix is clicked
+          in hint menu.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.

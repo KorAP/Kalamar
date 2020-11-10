@@ -1,3 +1,5 @@
+"use strict";
+
 define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'], function (hintClass, inputClass, contextClass, menuClass, menuItemClass) {
 
   function emitKeyboardEvent (element, type, keyCode) {
@@ -149,7 +151,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       // Intialize KorAP.context
       hintClass.create();
 
-      analyzer = contextClass.create(KorAP.context);
+      const analyzer = contextClass.create(KorAP.context);
       expect(analyzer.test("cnx/]cnx/c=")).toEqual("cnx/c=");
       expect(analyzer.test("cnx/c=")).toEqual("cnx/c=");
       expect(analyzer.test("cnx/c=np mate/m=mood:")).toEqual("mate/m=mood:");
@@ -171,6 +173,9 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
 
 
   describe('KorAP.Hint', function () {
+
+    let input;
+    
     beforeAll(beforeAllFunc);
     afterAll(afterAllFunc);
 
@@ -387,6 +392,47 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       hint.active().hide();
       expect(hint.active()).toBeFalsy();
     });
+
+    it('should support prefix', function () {
+      const hint = hintClass.create({
+        inputField : input
+      });
+      hint.inputField().reset();
+
+      expect(hint.active()).toBeFalsy();
+
+      // show with context
+      hint.show(false);
+
+      expect(hint.active()).toBeTruthy();
+
+      const menu = hint.active();
+
+      expect(menu.element().nodeName).toEqual('UL');
+
+      menu.limit(8);
+
+      // view
+      menu.show();
+      
+      expect(menu.prefix()).toBe('');
+      expect(hint.active()).toBeTruthy();
+
+      // Type in prefix
+      hint.active().prefix("cor").show();
+      expect(hint.active().prefix()).toEqual("cor");
+
+      expect(input.value).toEqual("");
+      hint.active()._prefix.element().click();
+      expect(input.value).toEqual("cor");
+      expect(hint.active()).toBeFalsy();
+
+      // view
+      menu.show();
+      expect(menu.prefix()).toBe('');
+      
+    });
+
     
     xit('should remove all menus on escape');
   });
