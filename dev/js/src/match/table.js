@@ -2,11 +2,12 @@
  * Table representation of token-based
  * annotations of a match.
  */
+"use strict";
+
 define([
   'match/querycreator',
   "util"
 ], function (matchQueryCreator) {
-  "use strict";
 
   /*
    * TODO:

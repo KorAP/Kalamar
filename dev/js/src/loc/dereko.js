@@ -4,6 +4,8 @@
  * @author Helge Stallkamp
  */
 
+"use strict";
+
 define(['vc', 'vc/doc'], function (vcClass, docClass) {
   const loc = KorAP.Locale;
   

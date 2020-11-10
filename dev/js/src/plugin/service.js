@@ -1,5 +1,6 @@
+"use strict";
+
 define(function () {
-  "use strict";
 
   // Limit the supported sandbox permissions, especially
   // to disallow 'same-origin'.

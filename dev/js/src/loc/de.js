@@ -1,3 +1,5 @@
+"use strict";
+
 define(function () {
   const loc = KorAP.Locale;
   loc.OR = 'oder';

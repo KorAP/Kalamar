@@ -5,8 +5,9 @@
  *
  * @author Nils Diewald
  */
+"use strict";
+
 define(['util'], function () {
-  "use strict";
 
   /*
    * TODO:

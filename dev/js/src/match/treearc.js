@@ -3,9 +3,9 @@
  *
  * @author Nils Diewald
  */
+"use strict";
 
 define([], function () {
-  "use strict";
 
   const svgNS = "http://www.w3.org/2000/svg";
   const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");

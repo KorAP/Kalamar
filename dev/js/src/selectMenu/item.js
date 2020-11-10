@@ -1,3 +1,5 @@
+"use strict";
+
 define(['menu/item'], function (itemClass) {
   /**
    * Menu item for select menus.

@@ -1,6 +1,6 @@
-define(['vc/fragment', 'util'], function (vcFragmentClass) {
+"use strict";
 
-  "use strict";
+define(['vc/fragment', 'util'], function (vcFragmentClass) {
   
   return {
 

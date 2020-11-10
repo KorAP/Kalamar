@@ -1,6 +1,6 @@
-define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, attClass) {
+"use strict";
 
-  "use strict";
+define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, attClass) {
 
   // Localization values
   const loc   = KorAP.Locale;

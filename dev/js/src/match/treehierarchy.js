@@ -4,8 +4,9 @@
  *
  * This should be lazy loaded!
  */
+"use strict";
+
 define(['lib/dagre'], function (dagre) {
-  "use strict";
 
   const d = document;
   const svgNS = "http://www.w3.org/2000/svg";

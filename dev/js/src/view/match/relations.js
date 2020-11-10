@@ -1,3 +1,5 @@
+"use strict";
+
 define([
   'view',
   'match/treehierarchy',

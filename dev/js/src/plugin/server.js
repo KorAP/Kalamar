@@ -7,9 +7,9 @@
  *
  * @author Nils Diewald
  */
+"use strict";
 
 define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetClass, serviceClass, stateClass) {
-  "use strict";
 
   KorAP.Panel = KorAP.Panel || {};
 

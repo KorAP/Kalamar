@@ -3,8 +3,8 @@
  * 
  * @author Helge Stallkamp
  */
-
-define([ 'view', 'vc/statistic', 'buttongroup' ], function (viewClass, statClass, buttonGroup) {
+define(['view', 'vc/statistic', 'buttongroup'],
+       function (viewClass, statClass, buttonGroup) {
 
   // Localization values
   const loc   = KorAP.Locale;

@@ -9,9 +9,9 @@
  *
  * @author Nils Diewald
  */
-define(function () {
+"use strict";
 
-  "use strict";
+define(function () {
 
   const uriRE = new RegExp("^data: *([^;,]*?(?: *; *[^,;]+?)*) *, *(.+)$");
   const mapRE = new RegExp("^ *([^=]+?) *= *(.+?) *$");

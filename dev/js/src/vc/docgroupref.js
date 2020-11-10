@@ -2,6 +2,8 @@
  * A reference to another VC.
  * Inherits everything from jsonld
  */
+"use strict";
+
 define([
   'vc/jsonld',
   'vc/rewritelist',

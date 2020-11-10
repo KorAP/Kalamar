@@ -1,8 +1,8 @@
-  /**
-   * Menu to choose from in a button group.
-   */
+/**
+ * Menu to choose from in a button group.
+ */
+"use strict";
 define(['menu'], function (menuClass) {
-  "use strict";
 
   return {
 

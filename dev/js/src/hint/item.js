@@ -1,6 +1,8 @@
 /**
  * Hint menu item based on MenuItem
  */
+"use strict";
+
 define(['menu/item', 'util'], function (itemClass) {
   return {
 

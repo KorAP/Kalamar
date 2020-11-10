@@ -23,11 +23,11 @@
  * demand using integrity check:
  * https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
  */
+"use strict";
 
-var cs = document.currentScript;
+const cs = document.currentScript;
 
 (function () {
-  "use strict";
 
   // Similar to randomID in server, but a bit cheaper
   function randomID () {

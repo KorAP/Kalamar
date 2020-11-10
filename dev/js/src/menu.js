@@ -14,6 +14,8 @@
  * TODO: Add static header (for title, sortation fields, but also for menu points like "fragments" and "history".
  * TODO: Support space separated list of prefixes so "co no" will highlight "common noun"
  */
+
+"use strict";
 define([
   'menu/item',
   'menu/prefix',
@@ -24,8 +26,6 @@ define([
              defaultPrefixClass,
              defaultLengthFieldClass,
              sliderClass) {
-
-  "use strict";
 
   // Default maximum number of menu items
   const menuLimit = 8;

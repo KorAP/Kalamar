@@ -15,6 +15,7 @@
  * - obj.alignment() // toggle
  */
 
+"use strict";
 define([
   'match',
   'hint',

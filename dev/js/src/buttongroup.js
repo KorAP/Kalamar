@@ -1,5 +1,6 @@
+"use strict";
+
 define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, defaultItemClass) {
-  "use strict";
   
   return {
     /**

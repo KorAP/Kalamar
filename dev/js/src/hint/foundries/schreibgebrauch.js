@@ -1,5 +1,5 @@
 define(["hint/foundries","hint/foundries/stts"], function (ah, sttsArray) {
-  var sgbrSttsArray = sttsArray.slice(0);
+  let sgbrSttsArray = sttsArray.slice(0);
 
   // Push specific information for Schreibgebrauch
   sgbrSttsArray.push(

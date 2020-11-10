@@ -7,9 +7,9 @@
  *
  * @author Nils Diewald
  */
+"use strict";
 
 define(["view","plugin/service","util"], function (viewClass, serviceClass) {
-  "use strict";
 
   return {
 

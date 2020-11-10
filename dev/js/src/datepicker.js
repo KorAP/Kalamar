@@ -4,9 +4,9 @@
  *
  * @author Nils Diewald
  */
-define(['util'], function () {
+"use strict";
 
-  "use strict";
+define(['util'], function () {
 
   KorAP._validDateMatchRE = new RegExp("^(?:[lg]?eq|ne)$");
   KorAP._validDateRE      = new RegExp("^(?:\\d{4})(?:-\\d\\d(?:-\\d\\d)?)?$");

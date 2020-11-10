@@ -3,9 +3,10 @@
  * 
  * @author Helge Stallkamp
  */
+"use strict";
 
-
-define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'], function(introClass, vcClass, hintClass, menuClass, docClass, docGroup) {
+define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
+       function(introClass, vcClass, hintClass, menuClass, docClass, docGroup) {
 
   //needed for localization of labels and contents of the tour
   const loc   = KorAP.Locale;

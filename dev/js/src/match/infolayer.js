@@ -2,8 +2,9 @@
  * Object representing information
  * about a match's layer annotation.
  */
+"use strict";
+
 define(function () {
-  "use strict";
 
   const _AvailableRE =
     new RegExp("^([^\/]+?)\/([^=]+?)(?:=(spans|rels|tokens))?$");

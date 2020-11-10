@@ -1,5 +1,6 @@
+"use strict";
+
 define(['util'], function () {
-  "use strict";
 
   // TODO:
   // - https://github.com/honza/140medley/blob/master/140medley.js

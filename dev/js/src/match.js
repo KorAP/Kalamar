@@ -9,6 +9,8 @@
  * - Scroll to match vertically per default
  * - A click on a table field and a tree node should at the field description to the fragments list.
  */
+
+"use strict";
 define([
   'buttongroup',
   'panel/match',

@@ -1,3 +1,5 @@
+"use strict";
+
 window.KorAP = window.KorAP || {};
 
 // Don't let events bubble up
