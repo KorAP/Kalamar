@@ -3,17 +3,21 @@
  * 
  * @author Helge Stallkamp
  */
+"use strict";
+
 define(['view', 'vc/statistic', 'buttongroup'],
        function (viewClass, statClass, buttonGroup) {
 
-  // Localization values
+         // Localization values
   const loc   = KorAP.Locale;
   loc.REFRESH = loc.REFRESH || 'Refresh';
 
   return {
     create : function(vc, panel) {
-      return Object.create(viewClass)._init([ 'vcstatistic' ]).upgradeTo(this)
-          ._init(vc, panel);
+      return Object.create(viewClass).
+        _init([ 'vcstatistic' ]).
+        upgradeTo(this).
+        _init(vc, panel);
     },
 
     _init : function(vc, panel) {
@@ -36,8 +40,7 @@ define(['view', 'vc/statistic', 'buttongroup'],
     /**
      * Receive Corpus statistic from the server
      */
-    getStatistic : function(cb) {
-      // cq = corpusQuery
+    getStatistic : function (cb) {
       const vc = this.vc;
 
       try {
@@ -54,7 +57,7 @@ define(['view', 'vc/statistic', 'buttongroup'],
           // catches notifications
           if (statResponse["notifications"] !== null
               && statResponse["notifications"] !== undefined) {
-            notif = statResponse["notifications"];
+            const notif = statResponse["notifications"];
             KorAP.log(0, notif[0][1]);
             cb(null);
             return;
@@ -92,8 +95,9 @@ define(['view', 'vc/statistic', 'buttongroup'],
         if (statistic === null)
           return;
 
-        statisticobj = statClass.create(statistic);
-        statTable.appendChild(statisticobj.element());
+        statTable.appendChild(
+          statClass.create(statistic).element()
+        );
       });
 
       return this._show = statTable;

@@ -6,7 +6,7 @@ define(["hint/foundries","hint/foundries/stts"], function (ah, sttsArray) {
     ["<root-POS>","<root-POS>","Root Part of Speech"]
   );
 
-  let ah = KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
+  // let ah = KorAP.annotationHelper = KorAP.annotationHelper || { "-" : [] };
 
   ah["-"].push(
     ["Mate", "mate/", "Lemma, Morphology, Part-of-Speech"]
