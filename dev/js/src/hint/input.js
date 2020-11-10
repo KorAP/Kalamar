@@ -19,7 +19,7 @@ define(['util'], function () {
 
     // Initialize new input field
     _init : function (element) {
-      this._element = element;
+      this._el = element;
 
       this._container = document.createElement("div");
       this._container.setAttribute('id', 'hint');
@@ -38,7 +38,7 @@ define(['util'], function () {
       // Update position of the mirror
       const re = this.reposition.bind(this);
       window.addEventListener('resize', re);
-      this._element.addEventListener('onfocus', re);
+      this._el.addEventListener('onfocus', re);
       this.reposition();
       return this;
     },
@@ -68,7 +68,7 @@ define(['util'], function () {
      * hint helper is attached to.
      */
     element : function () {
-      return this._element;
+      return this._el;
     },
 
 
@@ -77,7 +77,7 @@ define(['util'], function () {
      * the hint helper is attached to.
      */
     value : function () {
-      return this._element.value;
+      return this._el.value;
     },
 
 
@@ -93,7 +93,7 @@ define(['util'], function () {
      * Reset the input value
      */
     reset : function () {
-      this._element.value = "";
+      this._el.value = "";
     },
 
 
@@ -114,7 +114,7 @@ define(['util'], function () {
      */
     insert : function (text) {
       const splittedText = this._split();
-      const s = this._element;
+      const s = this._el;
       s.value = splittedText[0] + text + splittedText[1];
       s.selectionStart = (splittedText[0] + text).length;
       s.selectionEnd = s.selectionStart;
@@ -129,7 +129,7 @@ define(['util'], function () {
      * Move hinthelper to given character position
      */
     moveto : function (charpos) {
-      const e = this._element;
+      const e = this._el;
       e.selectionStart = charpos;
       e.selectionEnd = charpos;
       e.focus();
@@ -142,8 +142,8 @@ define(['util'], function () {
      * below the input box.
      */
     reposition : function () {
-      const inputClientRect = this._element.getBoundingClientRect();
-      const inputStyle = window.getComputedStyle(this._element, null);
+      const inputClientRect = this._el.getBoundingClientRect();
+      const inputStyle = window.getComputedStyle(this._el, null);
 
       const bodyClientRect = 
             document.getElementsByTagName('body')[0].getBoundingClientRect();
@@ -187,7 +187,7 @@ define(['util'], function () {
      * or at the current cursor position.
      */
     _split : function (start) {
-      const s = this._element;
+      const s = this._el;
       const value = s.value;
 
       // Get start from cursor position

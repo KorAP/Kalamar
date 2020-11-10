@@ -45,7 +45,7 @@ define([
      */
     _init : function (match) {
       const t= this;
-      t._element = null;
+      t._el = null;
       t._initialized = false;
 
       // No match defined
@@ -57,7 +57,7 @@ define([
 
       // Match defined as a node
       else if (match instanceof Node) {
-        t._element  = match;
+        t._el  = match;
 
         // Circular reference !!
         match["_match"] = t;
@@ -143,7 +143,7 @@ define([
         return t;
 
       // Add actions unless it's already activated
-      const element = t._element;
+      const element = t._el;
 
       // There is an element to open
       if (element === undefined || element === null)
@@ -159,9 +159,9 @@ define([
       // Create panel
       t.panel = matchPanelClass.create(t);
 
-      t._element.insertBefore(
+      t._el.insertBefore(
         t.panel.element(),
-        t._element.querySelector("p.ref")
+        t._el.querySelector("p.ref")
       );
 
       // Insert before reference line
@@ -180,7 +180,7 @@ define([
     open : function () {
       
       // Add actions unless it's already activated
-      const element = this._element;
+      const element = this._el;
 
       // There is an element to open
       if (element === undefined || element === null)
@@ -215,7 +215,7 @@ define([
      * Toggle match view
      */
     toggle : function () {
-      if (this._element.classList.contains('active'))
+      if (this._el.classList.contains('active'))
         this.minimize();
       else
         this.open();
@@ -226,7 +226,7 @@ define([
      * Minimize info view
      */
     minimize : function () {
-      this._element.classList.remove('active');
+      this._el.classList.remove('active');
     },
 
     
@@ -234,7 +234,7 @@ define([
      * Get match element.
      */
     element : function () {
-      return this._element; // May be null
+      return this._el; // May be null
     }
   };
 });

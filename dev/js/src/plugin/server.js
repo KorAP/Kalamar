@@ -544,11 +544,11 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
      * Return the service element.
      */
     element : function () {
-      if (!this._element) {
-        this._element = document.createElement('div');
-        this._element.setAttribute("id", "services");
+      if (!this._el) {
+        this._el = document.createElement('div');
+        this._el.setAttribute("id", "services");
       }
-      return this._element;
+      return this._el;
     },
     
     // Destructor, just for testing scenarios
@@ -565,12 +565,12 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
         b => buttonsSingle[b] = []
       );
 
-      if (this._element) {
-        let e = this._element;
+      if (this._el) {
+        let e = this._el;
         if (e.parentNode) {
           e.parentNode.removeChild(e);
         };
-        this._element = null;
+        this._el = null;
       };
       
       this._removeListener();

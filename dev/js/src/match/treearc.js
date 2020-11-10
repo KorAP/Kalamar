@@ -441,8 +441,8 @@ define([], function () {
      * Get the svg element
      */
     element : function () {
-      if (this._element !== undefined)
-        return this._element;
+      if (this._el !== undefined)
+        return this._el;
 
       // Create svg
       const svg = this._c("svg");
@@ -468,8 +468,8 @@ define([], function () {
       arrow.setAttribute("d", "M 0,-5 0,5 10,0 Z");
       marker.appendChild(arrow);
 
-      this._element = svg;
-      return this._element;
+      this._el = svg;
+      return this._el;
     },
 
 
@@ -643,12 +643,12 @@ define([], function () {
      *   This is identical to treehierarchy
      */
     center : function () {
-      if (this._element === undefined)
+      if (this._el === undefined)
        return;
 
-      const treeDiv = this._element.parentNode;
+      const treeDiv = this._el.parentNode;
 
-      const cWidth = parseFloat(window.getComputedStyle(this._element).width);
+      const cWidth = parseFloat(window.getComputedStyle(this._el).width);
       const treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
       // Reposition:
       if (cWidth > treeWidth) {
@@ -661,7 +661,7 @@ define([], function () {
     // Show the element
     show : function () {
       const t = this;
-      const svg = this._element;
+      const svg = this._el;
       const height = this.maxArc;
 
       // Delete old group

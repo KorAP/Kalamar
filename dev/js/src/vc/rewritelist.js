@@ -36,10 +36,10 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
      * Get element.
      */
     element : function () {
-      if (this._element !== undefined)
-	      return this._element;
+      if (this._el !== undefined)
+	      return this._el;
 
-      const e = this._element = document.createElement('div');
+      const e = this._el = document.createElement('div');
       e.setAttribute('class', 'rewrite');
 
       const comments = [];
@@ -65,7 +65,7 @@ define(['vc/jsonld', 'vc/rewrite','util'], function (jsonldClass, rewriteClass) 
 
         comments.push(rewriteText + ' (' + rewrite.operation() + ')');
         
-	      this._element.appendChild(span);
+	      this._el.appendChild(span);
       }, this);
 
       e.setAttribute("title", comments.join("\n"))

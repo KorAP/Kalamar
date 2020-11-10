@@ -702,7 +702,7 @@ define(['match/querycreator'], function (qcClass) {
 
       qc._q = document.createElement('input');
       
-      qc._element.click();
+      qc._el.click();
 
       expect(qc._ql.selectedIndex).toEqual(1);
       expect(qc._q.value).toEqual("[orth=Baum]");

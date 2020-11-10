@@ -1336,14 +1336,14 @@ define([
 
       // Remove operand 1
       expect(docGroup.delOperand(doc).update()).not.toBeUndefined();
-      expect(doc._element).toEqual(undefined);
+      expect(doc._el).toEqual(undefined);
 
       doc = docGroup.getOperand(1);
       expect(doc.key()).toEqual("foo");
 
       // Remove operand 1
       expect(docGroup.delOperand(doc).update()).not.toBeUndefined();
-      expect(doc._element).toEqual(undefined);
+      expect(doc._el).toEqual(undefined);
 
       // Only one operand left ...
       expect(docGroup.getOperand(1)).toBeUndefined();

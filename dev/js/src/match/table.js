@@ -199,15 +199,15 @@ define([
      * Get HTML table view of annotations.
      */
     element : function () {
-      if (this._element !== undefined)
-        return this._element;
+      if (this._el !== undefined)
+        return this._el;
 
       // First the legend table
       const wrap = d.createElement('div');
 
       const table = wrap.addE('table');
 
-      this._element = wrap;
+      this._el = wrap;
 
       // Single row in head
       let tr = table.addE('thead').addE('tr');
@@ -318,9 +318,9 @@ define([
       }, this);
       
       // Add query creator
-      this._matchCreator = matchQueryCreator.create(this._element);
+      this._matchCreator = matchQueryCreator.create(this._el);
       
-      return this._element;
+      return this._el;
     },
   };
 });

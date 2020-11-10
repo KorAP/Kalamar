@@ -313,13 +313,13 @@ define([
      */
     element : function() {
       const t = this;
-      let e = t._element;
+      let e = t._el;
 
       if (e !== undefined)
         return e;
 
 
-      e = t._element = document.createElement('div');
+      e = t._el = document.createElement('div');
       e.classList.add('vc');
 
 
@@ -343,7 +343,7 @@ define([
       t.addVcInfPanel();
       
       //Adds EventListener for corpus changes
-      t._element.addEventListener('vcChange', function (e) {
+      t._el.addEventListener('vcChange', function (e) {
         this.checkStatActive(e.detail);
       }.bind(t), false);
       
@@ -355,9 +355,9 @@ define([
      * Check, if the VC is open
      */
     isOpen : function () {
-      if (!this._element)
+      if (!this._el)
         return false;
-      return this._element.classList.contains('active');
+      return this._el.classList.contains('active');
     },
     
 
@@ -506,7 +506,7 @@ define([
     addVcInfPanel : function () {
       // Create panel  
       this.panel = vcPanelClass.create(this); 
-      this._element.addE('div').appendChild(this.panel.element());
+      this._el.addE('div').appendChild(this.panel.element());
       
     },
     

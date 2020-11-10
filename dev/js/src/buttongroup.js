@@ -18,7 +18,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
         cl.add.apply(cl,classes);
       };
       cl.add('button-group');
-      this._element = e;
+      this._el = e;
       return this;
     },
 
@@ -27,7 +27,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Return main element
      */
     element : function () {
-      return this._element;
+      return this._el;
     },
 
     
@@ -52,7 +52,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      */
     add : function (title, data, cb) {
       
-      const b = this._element.addE('span');
+      const b = this._el.addE('span');
       b.setAttribute('title',title);
 
       if (data !== undefined) {
@@ -107,7 +107,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * The state has to be a state object.
      */
     addToggle : function (title, data, state) {
-      const b = this._element.addE('span');
+      const b = this._el.addE('span');
       b.setAttribute('title',title);
 
       if (data != undefined) {
@@ -168,7 +168,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Remove all defined buttons
      */
     clear : function () {
-      _removeChildren(this._element);
+      _removeChildren(this._el);
       return this;
     }
   }

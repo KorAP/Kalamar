@@ -61,7 +61,7 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
 	      d.getElementsByTagName('body')[0].appendChild(div);
 
 	      t._iframe = null;
-	      t._element = div;
+	      t._el = div;
 
 	      // Some fields
 	      t._ql     = d.getElementById("ql-field");
@@ -137,7 +137,7 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
      */
     show : function () {
       const t = this;
-      const element = t._element;
+      const element = t._el;
       if (element.style.display === 'block')
 	      return;
 
@@ -181,7 +181,7 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
      * Close tutorial window.
      */
     hide : function () {
-      this._element.style.display = 'none';
+      this._el.style.display = 'none';
     },
 
 

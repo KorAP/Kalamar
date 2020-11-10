@@ -15,9 +15,9 @@ define(['menu/prefix'], function (prefixClass) {
      * Override the prefix action.
      */
     onclick : function () {
-      var m = this.menu();
-      var value = this.value();
-      var h = m.hint();
+      const m = this.menu();
+      const value = this.value();
+      const h = m.hint();
       m.hide();
 
       h.inputField().insert(value);

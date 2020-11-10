@@ -60,12 +60,12 @@ define({
     if (arguments.length === 1) {
       if (bool) {
 	      if (!this._active) {
-	        this._element.classList.add('active');
+	        this._el.classList.add('active');
 	        this._active = true;
 	      };
       }
       else if (this._active) {
-	      this._element.classList.remove('active');
+	      this._el.classList.remove('active');
 	      this._active = false;
       }
     };
@@ -140,7 +140,7 @@ define({
    * Get the associated dom element.
    */
   element : function () {
-    return this._element;
+    return this._el;
   },
 
 
@@ -151,7 +151,7 @@ define({
   reInit : function () {
 
     const t = this;
-    const s = t._element.style;
+    const s = t._el.style;
 
     // Do not show the slider, in case there is nothing to scroll
     if (t._length <= t._limit) {
@@ -179,7 +179,7 @@ define({
     t._event = {};
     t._active = false;
 
-    const el = t._element = document.createElement('div');
+    const el = t._el = document.createElement('div');
     el.setAttribute('class', 'ruler');
 
     t._slider = el.appendChild(
@@ -204,7 +204,7 @@ define({
 
   // Reinit height based on dom position
   _initClientHeight : function () {
-    this._rulerHeight  = this._element.clientHeight;
+    this._rulerHeight  = this._el.clientHeight;
     this._sliderHeight = this._slider.clientHeight;
   },
 

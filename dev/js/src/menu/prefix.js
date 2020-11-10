@@ -17,19 +17,19 @@ define({
     t._string = '';
 
     // Add prefix span
-    t._element = document.createElement('span');
-    t._element.classList.add('pref');
+    t._el = document.createElement('span');
+    t._el.classList.add('pref');
     // Connect action
 
     if (t["onclick"] !== undefined)
-      t._element["onclick"] = t.onclick.bind(t);
+      t._el["onclick"] = t.onclick.bind(t);
     
     return t;
   },
 
 
   _update : function () {
-    return this._element.innerHTML
+    return this._el.innerHTML
       = this._string;
   },
 
@@ -132,7 +132,7 @@ define({
    * Get the associated dom element.
    */
   element : function () {
-    return this._element;
+    return this._el;
   },
 
 

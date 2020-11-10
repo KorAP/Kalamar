@@ -74,8 +74,8 @@ define(
       },
       element : function () {
         // already defined
-        if (this._element !== undefined)
-	        return this._element;
+        if (this._el !== undefined)
+	        return this._el;
 
         // Create list item
         var li = document.createElement("li");
@@ -93,7 +93,7 @@ define(
 	        desc.appendChild(document.createTextNode(this._desc));
 	        li.appendChild(desc);
         };
-        return this._element = li;
+        return this._el = li;
       }
     };
 

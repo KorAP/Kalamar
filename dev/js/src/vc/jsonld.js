@@ -49,14 +49,14 @@ define(['vc/operators'], function (operatorsClass) {
       const t = this;
       if (t._ops != undefined) {
 	      t._ops._parent = undefined;
-	      if (t._ops._element !== undefined) {
-	        t._ops._element.refTo = undefined;
+	      if (t._ops._el !== undefined) {
+	        t._ops._el.refTo = undefined;
         };
 	      t._ops = undefined;
       };
 
-      if (t._element !== undefined)
-	      t._element = undefined;
+      if (t._el !== undefined)
+	      t._el = undefined;
       
       // In case of a group, destroy all operands
       if (t._operands !== undefined) {

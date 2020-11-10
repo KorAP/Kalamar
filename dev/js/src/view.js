@@ -43,9 +43,9 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * Element of the view
      */
     element : function () {
-      if (this._element) {
-        this._element.classList.add('show');
-        return this._element;
+      if (this._el) {
+        this._el.classList.add('show');
+        return this._el;
       };
 
       // Create panel element
@@ -70,7 +70,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       e.appendChild(this.actions.element());
 
-      return this._element = e;
+      return this._el = e;
     },
 
 
@@ -86,8 +86,8 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * Hide the widget if shown.
      */
     minimize : function () {
-      if (this._element) {
-        this._element.classList.remove("show");
+      if (this._el) {
+        this._el.classList.remove("show");
       }
     },
 

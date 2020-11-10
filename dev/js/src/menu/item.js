@@ -105,8 +105,8 @@ define({
    */
   element : function () {
     // already defined
-    if (this._element !== undefined)
-      return this._element;
+    if (this._el !== undefined)
+      return this._el;
     
     // Create list item
     const li = document.createElement("li");
@@ -119,7 +119,7 @@ define({
     // Append template
     li.appendChild(this.content());
     
-    return this._element = li;
+    return this._el = li;
   },
 
   /**

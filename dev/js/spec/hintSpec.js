@@ -84,7 +84,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
     it('should be initializable', function () {
       // Supports: context, searchField
       var inputField = inputClass.create(input);
-      expect(inputField._element).not.toBe(undefined);
+      expect(inputField._el).not.toBe(undefined);
     });
 
     it('should have text', function () {

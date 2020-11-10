@@ -49,10 +49,10 @@ define([
     update : function () {
       const t = this;
 
-      if (t._element === undefined)
+      if (t._el === undefined)
         return t.element();
 
-      const e = t._element;
+      const e = t._el;
 
       // Check if there is a change in the underlying data
       if (!t.__changed)
@@ -126,10 +126,10 @@ define([
      */
     element : function () {
 
-      if (this._element !== undefined)
-	      return this._element;
+      if (this._el !== undefined)
+	      return this._el;
 
-      const e = this._element = document.createElement('div');
+      const e = this._el = document.createElement('div');
       e.setAttribute('class', 'doc groupref');
       this.update();
       return e;
@@ -158,14 +158,14 @@ define([
       str.store = function (ref, regex) {
         that.ref(ref);
           
-        that._element.removeChild(
-          this._element
+        that._el.removeChild(
+          this._el
         );
         that.update();
       };
 
       // Insert element
-      this._element.insertBefore(
+      this._el.insertBefore(
         strElem,
         this._refE
       );
@@ -256,10 +256,10 @@ define([
 
       delete this["_rewrites"];
 
-      if (this._element === undefined)
+      if (this._el === undefined)
         return;
 
-      this._element.classList.remove("rewritten");
+      this._el.classList.remove("rewritten");
     },
 
 

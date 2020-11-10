@@ -78,11 +78,11 @@ define([
     update : function () {
       const t = this;
 
-      if (t._element === undefined)
+      if (t._el === undefined)
 	      return t.element();
 
       // Remove element content
-      _removeChildren(t._element);
+      _removeChildren(t._el);
 
       const ellipsis = document.createElement('span');
       ellipsis.addT(loc.EMPTY);
@@ -90,16 +90,16 @@ define([
       // Click on empty criterion
       ellipsis.addEventListener('click', t.onclick.bind(t));
 
-      t._element.appendChild(ellipsis);
+      t._el.appendChild(ellipsis);
 
       // Set ref - TODO: Cleanup!
-      t._element.refTo = t;
+      t._el.refTo = t;
 
       // Set operators
       if (t._parent !== undefined &&
           t.parent().ldType() !== null) {
 
-	      t._element.appendChild(
+	      t._el.appendChild(
 	        t.operators(
 	          false,
 	          false,
@@ -117,12 +117,12 @@ define([
      */
     element : function () {
       const t = this;
-      if (t._element !== undefined)
-	      return t._element;
-      t._element = document.createElement('div');
-      t._element.setAttribute('class', 'doc unspecified');
+      if (t._el !== undefined)
+	      return t._el;
+      t._el = document.createElement('div');
+      t._el.setAttribute('class', 'doc unspecified');
       t.update();
-      return t._element;
+      return t._el;
     },
 
 
@@ -140,9 +140,9 @@ define([
       const menu = KorAP._vcKeyMenu;
 
       // Add key menu element at the correct position
-      this._element.insertBefore(
+      this._el.insertBefore(
 	      menu.element(),	
-	      this._element.firstChild
+	      this._el.firstChild
       );
 
       const that = this;

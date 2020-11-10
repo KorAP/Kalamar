@@ -38,8 +38,8 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
      * Create match reference view.
      */
     element : function () {
-      if (this._element !== undefined)
-        return this._element;
+      if (this._el !== undefined)
+        return this._el;
 
       if (this._fields === null)
         return;
@@ -47,7 +47,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
       const metaDL = document.createElement('dl');
       metaDL.classList.add("flex");
 
-      this._element = metaDL;
+      this._el = metaDL;
 
       const fields = this._fields;
 
@@ -110,9 +110,9 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
       });
 
       // Add corpusByMatch assistant
-      this._corpusByMatch = cbmClass.create(this._element);
+      this._corpusByMatch = cbmClass.create(this._el);
 
-      return this._element;
+      return this._el;
     }
   };
 });

@@ -38,9 +38,9 @@ define([ 'util' ], function() {
      */
     element : function () {
 
-      // if this._element already exists return without doing something
-      if (this._element !== undefined) {
-        return this._element;
+      // if this._el already exists return without doing something
+      if (this._el !== undefined) {
+        return this._el;
       }
 
       // create HTML Description List Element
@@ -59,8 +59,8 @@ define([ 'util' ], function() {
         statDD.addT(new Number(statistic[k]).toLocaleString());
       });
 
-      this._element = statDL;
-      return this._element;
+      this._el = statDL;
+      return this._el;
     }
   }
 

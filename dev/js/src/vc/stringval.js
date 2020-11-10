@@ -93,12 +93,12 @@ define(['util'], {
 
   // Update dom element
   _update : function () {
-    if (this._element === undefined)
+    if (this._el === undefined)
       return;
  
     this._value = this._input.value;
 
-    const cl = this._element.classList;
+    const cl = this._el.classList;
 
     if (this._regexOp() && this._regex) {
       cl.add('regex');
@@ -121,7 +121,7 @@ define(['util'], {
    * Put focus on element
    */
   focus : function () {
-    this._element.children[0].focus();
+    this._el.children[0].focus();
   },
 
 
@@ -129,11 +129,11 @@ define(['util'], {
    * Get the associated dom element.
    */
   element : function () {
-    if (this._element !== undefined)
-      return this._element;
+    if (this._el !== undefined)
+      return this._el;
 
     // Create element
-    const e = this._element = document.createElement('div');
+    const e = this._el = document.createElement('div');
     e.setAttribute('tabindex', 0);
     e.style.outline = 0;
 

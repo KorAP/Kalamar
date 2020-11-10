@@ -196,10 +196,10 @@ define([
 	      };
       };
 
-      if (t._element === undefined)
+      if (t._el === undefined)
 	      return t;
 
-      const group = t._element;
+      const group = t._el;
       group.setAttribute('data-operation', t.operation());
 
       _removeChildren(group);
@@ -231,10 +231,10 @@ define([
     element : function () {
       const t = this;
 
-      if (t._element !== undefined)
-	      return t._element;
+      if (t._el !== undefined)
+	      return t._el;
 
-      const e = t._element = document.createElement('div');
+      const e = t._el = document.createElement('div');
       e.setAttribute('class', 'docGroup');
 
       // Update the object - including optimization

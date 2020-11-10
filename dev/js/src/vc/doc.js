@@ -63,11 +63,11 @@ define([
     update : function () {
       const t = this;
 
-      if (t._element === undefined)
+      if (t._el === undefined)
         return t.element();
       
       // Get element
-      const e = t._element;
+      const e = t._el;
 
       // Check if there is a change in the underlying data
       if (!t.__changed)
@@ -167,13 +167,13 @@ define([
      */
     element : function () {
       const t = this;
-      if (t._element !== undefined)
-        return t._element;
+      if (t._el !== undefined)
+        return t._el;
 
-      t._element = document.createElement('div');
-      t._element.setAttribute('class', 'doc');
+      t._el = document.createElement('div');
+      t._el.setAttribute('class', 'doc');
       t.update();
-      return t._element;
+      return t._el;
     },
 
 
@@ -394,7 +394,7 @@ define([
       const menu = KorAP._vcKeyMenu;
 
       // Insert menu
-      this._element.insertBefore(
+      this._el.insertBefore(
         menu.element(),
         this._keyE
       );
@@ -476,7 +476,7 @@ define([
       };
 
       // Insert menu
-      this._element.insertBefore(
+      this._el.insertBefore(
         menu.element(),
         this._matchopE
       );
@@ -545,12 +545,12 @@ define([
           };
 
           // Remove datepicker
-          that._element.removeChild(
+          that._el.removeChild(
             dp.element()
           );
         });
 
-        this._element.insertBefore(
+        this._el.insertBefore(
           dp.show(), // Get element of the date picker
           this._valueE
         );
@@ -570,14 +570,14 @@ define([
           else
             that.type('string');
           
-          that._element.removeChild(
-            this._element
+          that._el.removeChild(
+            this._el
           );
           that.update();
         };
 
         // Insert element
-        this._element.insertBefore(
+        this._el.insertBefore(
           strElem,
           this._valueE
         );
@@ -616,10 +616,10 @@ define([
 
       delete this["_rewrites"];
       
-      if (this._element === undefined)
+      if (this._el === undefined)
         return;
 
-      this._element.classList.remove("rewritten");
+      this._el.classList.remove("rewritten");
     },
 
 

@@ -29,7 +29,7 @@ define([
 	          lengthFieldClass : lengthFieldClass
 	        });
       obj._context = context;
-      obj._element.classList.add('hint');
+      obj._el.classList.add('hint');
       obj._hint = hint;
 
       // Make the top item always active

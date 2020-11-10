@@ -12,8 +12,8 @@ define({
 
   // Initialize lengthField object
   _init : function () {
-    this._element = document.createElement('div');
-    this._element.classList.add('lengthField');
+    this._el = document.createElement('div');
+    this._el.classList.add('lengthField');
     return this;
   },
 
@@ -36,7 +36,7 @@ define({
    * Get the associated dom element.
    */
   element : function () {
-    return this._element;
+    return this._el;
   },
 
 
@@ -44,7 +44,7 @@ define({
    * Add string to lengthField.
    */
   add : function (param) {
-    this._element.appendChild(document.createElement('span'))
+    this._el.appendChild(document.createElement('span'))
       .appendChild(document.createTextNode(param[0] + '--'));
   },
 
@@ -53,8 +53,8 @@ define({
    * Remove all initialized values
    */
   reset : function () {
-    while (this._element.firstChild) {
-      this._element.firstChild.remove();
+    while (this._el.firstChild) {
+      this._el.firstChild.remove();
     };
   }
 });

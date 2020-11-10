@@ -82,8 +82,8 @@ define(['menu/item', 'util'], function (itemClass) {
       const t = this;
 
       // already defined
-      if (t._element !== undefined)
-	      return t._element;
+      if (t._el !== undefined)
+	      return t._el;
 
       // Create list item
       const li = document.createElement("li");
@@ -94,7 +94,7 @@ define(['menu/item', 'util'], function (itemClass) {
       li["onclick"] = t.onclick.bind(t);
 
       li.addT(t._name);
-      return t._element = li;
+      return t._el = li;
     }
   }
 });

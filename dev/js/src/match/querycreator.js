@@ -84,7 +84,7 @@ define(['util'], function () {
       );
 
       // Initialize element
-      const e = t._element = document.createElement('p');
+      const e = t._el = document.createElement('p');
       e.classList.add('query','fragment');
 
       // Prepend info text
@@ -310,7 +310,7 @@ define(['util'], function () {
     
     // Get element representing annotation line
     element : function () {
-      return this._element;
+      return this._el;
     },
 
 
@@ -332,7 +332,7 @@ define(['util'], function () {
 
         // Hide element
         if (t._shown === true) {
-          m.parentNode.removeChild(t._element);
+          m.parentNode.removeChild(t._el);
           t._shown = false;
         }
       }
@@ -344,7 +344,7 @@ define(['util'], function () {
 
           // Insert after
           m.parentNode.insertBefore(
-            t._element, m.nextSibling
+            t._el, m.nextSibling
           );
           t._shown = true;
         };

@@ -186,11 +186,11 @@ define(['lib/dagre'], function (dagre) {
      *   This is identical to relations
      */
     center : function () {
-      if (this._element === undefined)
+      if (this._el === undefined)
         return;
 
-      const treeDiv = this._element.parentNode;
-      const cWidth = parseFloat(window.getComputedStyle(this._element).width);
+      const treeDiv = this._el.parentNode;
+      const cWidth = parseFloat(window.getComputedStyle(this._el).width);
       const treeWidth = parseFloat(window.getComputedStyle(treeDiv).width);
 
       // Reposition:
@@ -231,14 +231,14 @@ define(['lib/dagre'], function (dagre) {
      */
     element : function () {
 
-      if (this._element !== undefined)
-        return this._element;
+      if (this._el !== undefined)
+        return this._el;
 
       const g = this._graph;
       dagre.layout(g);
       
       const canvas = this._c('svg');
-      this._element = canvas;
+      this._el = canvas;
 
       canvas.appendChild(this._c('defs'));
 
@@ -338,7 +338,7 @@ define(['lib/dagre'], function (dagre) {
 
       canvas.setAttribute('width', g.graph().width);
       canvas.setAttribute('height', height);
-      return this._element;
+      return this._el;
     },
     
     downloadLink : function () {

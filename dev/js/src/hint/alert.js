@@ -19,9 +19,9 @@ define(function () {
       const t = this;
       t._type = 'alert';
       t.active = false;
-      t._element = document.createElement('div');
-      t._element.style.display = 'none';
-      t._element.classList.add('alert', 'hint');
+      t._el = document.createElement('div');
+      t._el.style.display = 'none';
+      t._el.classList.add('alert', 'hint');
       return t;
     },
 
@@ -31,7 +31,7 @@ define(function () {
      */
     show : function (msg) {
       this.active = true;
-      const e = this._element;
+      const e = this._el;
       e.textContent = msg;
       e.style.display = 'block';
     },
@@ -43,7 +43,7 @@ define(function () {
     hide : function () {
       if (!this.active)
 	      return false;
-      this._element.style.display = 'none';
+      this._el.style.display = 'none';
       this.active = false;
       return true;
     },
@@ -53,7 +53,7 @@ define(function () {
      * Get alert object.
      */
     element : function () {
-      return this._element;
+      return this._el;
     }
   }
 });

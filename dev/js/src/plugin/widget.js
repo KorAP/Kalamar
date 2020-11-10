@@ -32,8 +32,8 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
     show : function () {
 
       if (this._load) {
-        if (this._element)
-          this._element.classList.add('show');
+        if (this._el)
+          this._el.classList.add('show');
         return this._load;
       }
 

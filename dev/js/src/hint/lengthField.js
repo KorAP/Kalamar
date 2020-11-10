@@ -15,12 +15,12 @@ define(['menu/lengthField', 'util'], function (lengthFieldClass) {
      * Override the prefix action.
      */
     add : function (param) {
-      this._element.addE('span').addT(param[0] + '--');
+      this._el.addE('span').addT(param[0] + '--');
 
-      var desc = this._element.addE('span');
+      var desc = this._el.addE('span');
       desc.classList.add("desc");
       desc.addT(param[2] + '--');
-      this._element.appendChild(desc);
+      this._el.appendChild(desc);
     }
   };
 });

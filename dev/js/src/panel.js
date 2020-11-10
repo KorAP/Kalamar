@@ -47,8 +47,8 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
      * The element of the panel
      */
     element : function () {
-      if (this._element)
-        return this._element;
+      if (this._el)
+        return this._el;
 
       // Create panel element
       const e = document.createElement('div');
@@ -66,8 +66,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       if (!aElem.parentNode)
         e.appendChild(aElem);
 
-      this._element = e;
-      return e;
+      return this._el = e;
     },
 
 

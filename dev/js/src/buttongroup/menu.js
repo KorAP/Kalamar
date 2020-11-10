@@ -2,6 +2,7 @@
  * Menu to choose from in a button group.
  */
 "use strict";
+
 define(['menu'], function (menuClass) {
 
   return {
@@ -84,11 +85,11 @@ define(['menu'], function (menuClass) {
 
     _repos : function (e) {
       const bounding = e.getBoundingClientRect();
-      this._element.style.left = bounding.left + "px";
-      this._element.style.top = (
+      this._el.style.left = bounding.left + "px";
+      this._el.style.top = (
         bounding.top +
           bounding.height -
-          this._element.clientHeight
+          this._el.clientHeight
       ) + "px";
     }
   };

@@ -123,7 +123,7 @@ define([
       );
 
       
-      t._element = el;
+      t._el = el;
 
       t._limit = menuLimit;
       
@@ -261,8 +261,8 @@ define([
       const t = this;
 
       // Remove circular reference to "this" in menu
-      if (t._element != undefined)
-        delete t._element["menu"]; 
+      if (t._el != undefined)
+        delete t._el["menu"]; 
 
       // Remove circular reference to "this" in items
       t._items.forEach(function(i) {
@@ -280,7 +280,7 @@ define([
      * Focus on this menu.
      */
     focus : function () {
-      this._element.focus();
+      this._el.focus();
     },
 
 
@@ -440,7 +440,7 @@ define([
      * Get the associated dom element.
      */
     element : function () {
-      return this._element;
+      return this._el;
     },
 
 
@@ -502,7 +502,7 @@ define([
         t._prefix.active(true);
 
         // finally show the element
-        t._element.classList.add('visible');
+        t._el.classList.add('visible');
         
         return true;
       };
@@ -554,7 +554,7 @@ define([
       t._prefix.active(false);
 
       // finally show the element
-      t._element.classList.add('visible');
+      t._el.classList.add('visible');
 
       // Add classes for rolling menus
       t._boundary(true);
@@ -571,9 +571,9 @@ define([
         this.removeItems();
         this._prefix.clear();
         this.onHide();
-        this._element.classList.remove('visible');
+        this._el.classList.remove('visible');
       }
-      // this._element.blur();
+      // this._el.blur();
     },
 
 
@@ -618,11 +618,11 @@ define([
      */
     removeItems : function () {
       // Remove all children
-      const children = this._element.childNodes;
+      const children = this._el.childNodes;
 
       // Leave the prefix and lengthField
       for (let i = children.length - 1; i >= 3; i--) {
-        this._element.removeChild(
+        this._el.removeChild(
           children[i]
         );
       };
@@ -874,7 +874,7 @@ define([
 
         // Remove the HTML node from the first item
         // leave lengthField/prefix/slider
-        t._element.removeChild(t._element.children[3]);
+        t._el.removeChild(t._el.children[3]);
 
         t._append(
           t._list[t.offset + t.limit() - 1]
@@ -886,7 +886,7 @@ define([
         t.offset = off;
 
         // Remove the HTML node from the last item
-        t._element.removeChild(t._element.lastChild);
+        t._el.removeChild(t._el.lastChild);
 
         t._prepend(t._list[t.offset]);
       }

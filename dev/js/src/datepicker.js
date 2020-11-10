@@ -116,7 +116,7 @@ define(['util'], function () {
      */
     show : function (year, month) {
 
-      const e = this._element = d.createElement('div');
+      const e = this._el = d.createElement('div');
       e.setAttribute('tabindex', 0);
       e.style.outline = 0;
       e.classList.add('datepicker');
@@ -170,7 +170,7 @@ define(['util'], function () {
 
       t._input.focus();
 
-      return t._element;
+      return t._el;
     },
 
     _stringHelper : function () {
@@ -213,7 +213,7 @@ define(['util'], function () {
      * Get the HTML element associated with the datepicker.
      */
     element : function () {
-      return this._element;
+      return this._el;
     },
 
 

@@ -89,12 +89,12 @@ define(['vc/doc', 'util'], function (docClass) {
      * Get the element associated with the virtual corpus
      */
     element : function () {
-      if (this._element !== undefined) {
-        return this._element;
+      if (this._el !== undefined) {
+        return this._el;
       };
 
       // Initialize element
-      const e = this._element = document.createElement('div');
+      const e = this._el = document.createElement('div');
       e.classList.add('vc', 'fragment');
 
       // Prepend info text
