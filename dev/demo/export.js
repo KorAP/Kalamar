@@ -32,7 +32,8 @@ require([ 'plugin/server', 'panel/result', 'init' ], function(pluginClass, resul
       'classes' : [ 'button-icon', 'plugin' ],
       'onClick' : {
         'action' : 'setWidget',
-        'template' : 'http://localhost:7777/export'
+        'template' : 'http://localhost:7777/export',
+        'permissions': ['scripts', 'forms']
       }
     } ]
   });
