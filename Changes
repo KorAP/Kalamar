@@ -1,4 +1,4 @@
-0.40 2020-11-10
+0.40 2020-11-28
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
@@ -10,6 +10,8 @@
         - Move "use strict" to file level.
         - Fix bug where event bubbles when prefix is clicked
           in hint menu.
+        - Remove email support from login (as is not
+          or no longer supported by LDAP) (#99).
 
 0.39 2020-10-07
         - Add information on secret file to Readme.

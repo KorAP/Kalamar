@@ -12,7 +12,7 @@ my $t = Test::Mojo->new('Kalamar' => {
 
 $t->app->mode('production');
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
+$t->post_ok('/user/login' => form => { handle => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
 
@@ -22,7 +22,7 @@ $t->get_ok('/')
   ->element_exists('script[src^=/js/kalamar-]')
   ->element_exists('div.notify-error')
   ->text_is('div.notify-error', 'Bad CSRF token')
-  ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists('input[name=handle][value=test]')
   ->element_exists_not('div.button.top a')
   ->content_like(qr!KorAP\.URL = ''!)
   ;
@@ -37,7 +37,7 @@ $t = Test::Mojo->new('Kalamar' => {
   }
 });
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
+$t->post_ok('/user/login' => form => { handle => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
 
@@ -68,7 +68,7 @@ $t->get_ok('/')
 is('kalamar-koraptest',$t->app->sessions->cookie_name);
 ok($t->app->sessions->secure);
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
+$t->post_ok('/user/login' => form => { handle => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
 

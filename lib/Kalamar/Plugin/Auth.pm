@@ -499,16 +499,16 @@ sub register {
 
         # Validate input
         my $v = $c->validation;
-        $v->required('handle_or_email', 'trim');
+        $v->required('handle', 'trim');
         $v->required('pwd', 'trim');
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = $v->param('handle_or_email');
+        my $user = $v->param('handle');
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
-        $c->flash(handle_or_email => $user);
+        $c->flash(handle => $user);
 
         if ($v->has_error || index($user, ':') >= 0) {
           if ($v->has_error('fwd')) {
@@ -626,7 +626,7 @@ sub register {
 
               $c->stash(auth => undef);
               $c->stash(auth_exp => undef);
-              $c->flash(handle_or_email => delete $c->session->{user});
+              $c->flash(handle => delete $c->session->{user});
               delete $c->session->{auth};
               delete $c->session->{auth_r};
               delete $c->session->{auth_exp};
@@ -946,16 +946,16 @@ sub register {
 
         # Validate input
         my $v = $c->validation;
-        $v->required('handle_or_email', 'trim');
+        $v->required('handle', 'trim');
         $v->required('pwd', 'trim');
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = $v->param('handle_or_email');
+        my $user = $v->param('handle');
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
-        $c->flash(handle_or_email => $user);
+        $c->flash(handle => $user);
 
         if ($v->has_error || index($user, ':') >= 0) {
           if ($v->has_error('fwd')) {
