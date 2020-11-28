@@ -1,13 +1,16 @@
 %# # user not logged in
 % if (!stash('documentation') && !$embedded && !$c->auth->token) {
-%   if (flash('handle_or_email') && !param('handle_or_email')) {
-%     param(handle_or_email => flash('handle_or_email'));
+%   if (flash('handle') && !param('handle')) {
+%     param(handle => flash('handle'));
+%#  Legacy-Support:
+%   } elsif (flash('handle_or_email') && !param('handle_or_email')) {
+%     param(handle => flash('handle_or_email'));
 %   };
     <fieldset>
     %= form_for 'login', class => 'login', begin
       <legend><span><%= loc 'login' %></span></legend>
       %= csrf_field
-      %= text_field 'handle_or_email', placeholder => loc('userormail')
+      %= text_field 'handle', placeholder => loc('username')
       %= hidden_field fwd => $c->url_with
       <div>
         %= password_field 'pwd', placeholder => loc('pwd')

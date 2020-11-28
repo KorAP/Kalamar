@@ -114,19 +114,19 @@ $t->get_ok('/?q=Baum')
 
 $t->get_ok('/')
   ->status_is(200)
-  ->element_exists('form[action=/user/login] input[name=handle_or_email]')
+  ->element_exists('form[action=/user/login] input[name=handle]')
   ->element_exists('aside.active')
   ->element_exists_not('aside.off')
   ;
 
 # Test for bug with long password
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'kjskjhndkjndqknaskjnakjdnkjdankajdnkjdsankjdsakjdfkjahzroiuqzriudjoijdmlamdlkmdsalkmdl' })
   ->status_is(302)
   ->header_is('Location' => '/');
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'fail' })
+$t->post_ok('/user/login' => form => { handle => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
 
@@ -134,11 +134,11 @@ $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
   ->text_is('div.notify-error', 'Bad CSRF token')
-  ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists('input[name=handle][value=test]')
   ->element_exists_not('div.button.top a')
   ;
 
-$t->post_ok('/user/login' => form => { handle_or_email => 'test', pwd => 'pass' })
+$t->post_ok('/user/login' => form => { handle => 'test', pwd => 'pass' })
   ->status_is(302)
   ->header_is('Location' => '/');
 
@@ -151,7 +151,7 @@ my $csrf = $t->get_ok('/')
   ;
 
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'ldaperr',
   csrf_token => $csrf
 })
@@ -163,14 +163,14 @@ $csrf = $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
   ->text_is('div.notify-error', '2022: LDAP Authentication failed due to unknown user or password!')
-  ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists('input[name=handle][value=test]')
   ->element_exists_not('div.button.top a')
   ->element_exists_not('div.notify-success')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'unknown',
   csrf_token => $csrf
 })
@@ -182,13 +182,13 @@ $csrf = $t->get_ok('/')
   ->status_is(200)
   ->element_exists('div.notify-error')
   ->text_is('div.notify-error', '2022: LDAP Authentication failed due to unknown user or password!')
-  ->element_exists('input[name=handle_or_email][value=test]')
+  ->element_exists('input[name=handle][value=test]')
   ->element_exists_not('div.button.top a')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'pass',
   csrf_token => $csrf
 })
@@ -243,8 +243,8 @@ $t->get_ok('/')
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Logout successful')
-  ->element_exists("input[name=handle_or_email]")
-  ->element_exists("input[name=handle_or_email][value=test]")
+  ->element_exists("input[name=handle]")
+  ->element_exists("input[name=handle][value=test]")
   ;
 
 $t->get_ok('/?q=Baum')
@@ -273,7 +273,7 @@ my $fwd = $t->get_ok('/?q=Baum&ql=poliqarp')
 is($fwd, '/?q=Baum&ql=poliqarp', 'Redirect is valid');
 
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'pass',
   csrf_token => $csrf,
   fwd => 'http://bad.example.com/test'
@@ -289,7 +289,7 @@ $t->get_ok('/')
   ;
 
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'pass',
   csrf_token => $csrf,
   fwd => $fwd
@@ -413,7 +413,7 @@ $csrf = $t->get_ok('/?q=baum&cutoff=true')
 
 # Login:
 $t->post_ok('/user/login' => form => {
-  handle_or_email => 'test',
+  handle => 'test',
   pwd => 'pass',
   csrf_token => $csrf
 })
