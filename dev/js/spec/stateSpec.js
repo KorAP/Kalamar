@@ -1,9 +1,9 @@
 define(['state'], function (stateClass) {
 
-  describe('KorAP.State', function () {
+  describe('KorAP.State', function () { //https://www.bignerdranch.com/blog/why-do-javascript-test-frameworks-use-describe-and-beforeeach/
     it('should be initializable', function () {
       let s = stateClass.create();
-      expect(s.get()).toBeFalsy();
+      expect(s.get()).toBeFalsy(); //Warum ist die Klammerung so?
 
       s = stateClass.create(true);
       expect(s.get()).toBeTruthy();
@@ -30,7 +30,7 @@ define(['state'], function (stateClass) {
       // Create
       let obj2 = {
         x : true,
-        setState : function (value) {
+        setState : function (value) { // throws an error if I were to set setState to a value, not a function, but does that matter?
           this.x = value;
         }
       };
