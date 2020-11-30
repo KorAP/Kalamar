@@ -32,15 +32,16 @@ define({
    */
   upgradeTo : function (props) {
     for (let prop in props) {
-      this[prop] = props[prop];
+      this[prop] = props[prop]; //This seems suspicious
     };
     return this;
   },
 
 
   /**
-   * Get or set the content of the meun item.
+   * Get or set the content of the menu item.
    */
+  //shouldn't we rather split this into 2 functions?
   content : function (content) {
     if (arguments.length === 1)
       this._content = document.createTextNode(content);
@@ -51,6 +52,7 @@ define({
   /**
    * Get or set the information for action of this item. 
    */
+  //shouldn't we rather split this into 2 functions?
   action : function (action) {
     if (arguments.length === 1)
       this._action = action;
@@ -79,7 +81,7 @@ define({
     else if (bool)
       cl.add("active");
     else
-      cl.remove("active");
+      cl.remove("active"); //only sometimes returns???
   },
 
 
@@ -97,7 +99,7 @@ define({
     else if (bool)
       cl.add("no-more");
     else
-      cl.remove("no-more");
+      cl.remove("no-more"); //only sometimes returns???
   },
   
   /**
@@ -119,7 +121,7 @@ define({
     // Append template
     li.appendChild(this.content());
     
-    return this._el = li;
+    return this._el = li; //return expression?
   },
 
   /**
@@ -135,7 +137,7 @@ define({
 
     // There is a prefix but it doesn't match
     if (this._prefix !== null) {
-      this.lowlight();
+      this.lowlight(); //return here?
     }
 
     const children = this.element().childNodes;
@@ -270,7 +272,7 @@ define({
     t.content(params[0]);
     
     if (params.length > 1) {
-      t._action = params[1];
+      t._action = params[1]; //why doesnt this call the action function, but content does
 
       if (params.length > 2)
         t._onclick = params[2];
@@ -303,6 +305,6 @@ define({
    * Return menu list.
    */
   menu : function () {
-    return this._menu;
+    return this._menu; //where is this initialised?
   }
 });
