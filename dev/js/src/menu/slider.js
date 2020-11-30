@@ -22,14 +22,15 @@ define({
 
   /**
    * Length attribute of the slider
-   * (as number of items).
+   * (as number of items). Can be used as a setter or a getter function,
+   * returns this slider object when used as a setter.
    *
    * @param {number} Number of items (optional)
    */
   length : function (i) {
     if (arguments.length === 0)
       return this._length;
-    if (i == this._length)
+    if (i == this._length) // ===
       return this;
     this._length = i;
     return this;
@@ -38,13 +39,15 @@ define({
 
   /**
    * Limit of items per screen.
+   * Can be used as a setter or a a getter function,
+   * returns this slider object when used as a setter.
    *
    * @param {number} Number of items per screen (optional)
    */
   limit : function (i) {
     if (arguments.length === 0)
       return this._limit;
-    if (i == this._limit)
+    if (i == this._limit) // ===
       return this;
     this._limit = i;
     return this;
@@ -53,6 +56,8 @@ define({
 
   /**
    * Is the slider active or not.
+   * Can be used as a setter or a getter function,
+   * returns the _active attribute anyhow.
    *
    * @param {bool} true or false (optional)
    */
@@ -169,7 +174,7 @@ define({
   },
 
 
-  // Initialize prefix object
+  // Initialize prefix object //=> move this next to create for readability?
   _init : function (menu) {
     const t = this;
 

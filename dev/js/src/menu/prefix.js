@@ -21,16 +21,16 @@ define({
     t._el.classList.add('pref');
     // Connect action
 
-    if (t["onclick"] !== undefined)
+    if (t["onclick"] !== undefined) {
       t._el["onclick"] = t.onclick.bind(t);
-    
+    };
     return t;
   },
 
 
   _update : function () {
     return this._el.innerHTML
-      = this._string;
+      = this._string; //return an expression?
   },
 
 
@@ -63,7 +63,7 @@ define({
 
 
   /**
-   * Check, if a prefix is given or not.
+   * Check if a prefix is given or not.
    */
   isSet : function () {
     return this._string.length > 0 ?
@@ -87,8 +87,8 @@ define({
    * Add string to prefix.
    */
   add : function (string) {
-    this._string += string;
-    return this._update();
+    this._string += string; //no check for undefined
+    return this._update(); //where do we get _update from?
   },
   
 

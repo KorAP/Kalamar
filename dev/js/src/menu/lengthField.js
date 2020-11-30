@@ -54,7 +54,7 @@ define({
    */
   reset : function () {
     while (this._el.firstChild) {
-      this._el.firstChild.remove();
+      this._el.firstChild.remove(); //should google if this is the way to clear a tree
     };
   }
 });
