@@ -19,17 +19,50 @@ define({
     return Object.create(this)._init(menu);
   },
 
+  // Initialize prefix object //=> move this next to create for readability?
+  _init : function (menu) {
+    const t = this;
 
+    t._menu = menu;
+
+    t._offset = 0;
+    t._event = {};
+    t._active = false;
+
+    const el = t._el = document.createElement('div');
+    el.setAttribute('class', 'ruler');
+
+    t._slider = el.appendChild(
+      document.createElement('span')
+    );
+
+    t._ruler = el.appendChild(document.createElement('div'));
+
+    // Do not mark the menu on mousedown
+    t._ruler.addEventListener('mousedown', function (e) {
+      e.halt()
+    }, false);
+
+    // Move the slider to the click position
+    t._ruler.addEventListener('click', t._mouseclick.bind(t), false);
+
+    t._slider.addEventListener('mousedown', t._mousedown.bind(t), false);
+
+    return t;
+  },
+
+  
   /**
    * Length attribute of the slider
-   * (as number of items).
+   * (as number of items). Can be used as a setter or a getter function,
+   * returns this slider object when used as a setter.
    *
    * @param {number} Number of items (optional)
    */
   length : function (i) {
     if (arguments.length === 0)
       return this._length;
-    if (i == this._length)
+    if (i == this._length) // ===
       return this;
     this._length = i;
     return this;
@@ -38,6 +71,8 @@ define({
 
   /**
    * Limit of items per screen.
+   * Can be used as a setter or a a getter function,
+   * returns this slider object when used as a setter.
    *
    * @param {number} Number of items per screen (optional)
    */
@@ -53,6 +88,8 @@ define({
 
   /**
    * Is the slider active or not.
+   * Can be used as a setter or a getter function,
+   * returns the _active attribute anyhow.
    *
    * @param {bool} true or false (optional)
    */
@@ -167,40 +204,6 @@ define({
     t._step    = (100 - t._height) / t._screens;
     t._slider.style.height = t._height + '%';
   },
-
-
-  // Initialize prefix object
-  _init : function (menu) {
-    const t = this;
-
-    t._menu = menu;
-
-    t._offset = 0;
-    t._event = {};
-    t._active = false;
-
-    const el = t._el = document.createElement('div');
-    el.setAttribute('class', 'ruler');
-
-    t._slider = el.appendChild(
-      document.createElement('span')
-    );
-
-    t._ruler = el.appendChild(document.createElement('div'));
-
-    // Do not mark the menu on mousedown
-    t._ruler.addEventListener('mousedown', function (e) {
-      e.halt()
-    }, false);
-
-    // Move the slider to the click position
-    t._ruler.addEventListener('click', t._mouseclick.bind(t), false);
-
-    t._slider.addEventListener('mousedown', t._mousedown.bind(t), false);
-
-    return t;
-  },
-
 
   // Reinit height based on dom position
   _initClientHeight : function () {

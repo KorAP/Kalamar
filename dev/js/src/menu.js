@@ -30,6 +30,8 @@ define([
   // Default maximum number of menu items
   const menuLimit = 8;
 
+  //This time we define a function that returns an object instead of an object.
+
   /**
    * List of items for drop down menu (complete).
    * Only a sublist of the menu is filtered (live).
@@ -138,7 +140,11 @@ define([
       return t;
     },
 
-    // Read items to add to list
+    /**
+      * Set the list of contained items.
+      * This updates slider and lengthFile attributes.
+      * @param {any} list 
+      */
     readItems : function (list) {
       const t = this;
 
@@ -178,7 +184,7 @@ define([
     },
     
     // Initialize the item list
-    _initList : function () {
+    _initList : function () { //@N: Why is this not called within _init ? (or readItems?)
       const t = this;
 
       // Create a new list
@@ -455,6 +461,8 @@ define([
     /**
      * Get and set the numerical value
      * for the maximum number of items visible.
+     * Update _slider if necessary.
+     * @param {number} limit Optional: The new limit
      */
     limit : function (limit) {
       if (arguments.length === 1) {
@@ -486,7 +494,7 @@ define([
      * Filter the list and make it visible.
      * This is always called once the prefix changes.
      *
-     * @param {string} Prefix for filtering the list
+     * @param {string} active Prefix for filtering the list
      */
     show : function (active) {
       const t = this;
@@ -585,8 +593,10 @@ define([
 
 
     /**
-     * Get the prefix for filtering,
+     * Get or set the prefix for filtering,
      * e.g. &quot;ve&quot; for &quot;verb&quot;
+     * Returns "this" when used as a setter.
+     * @param {Object} pref Optional: New value for prefix
      */
     prefix : function (pref) {
       if (arguments.length === 1) {
@@ -642,7 +652,7 @@ define([
     /**
      * Get a specific item from the filtered list
      *
-     * @param {number} index of the list item
+     * @param {number} index index of the list item
      *        in the filtered list
      */
     liveItem : function (index) {
@@ -657,7 +667,7 @@ define([
     /**
      * Get a specific item from the viewport list
      *
-     * @param {number} index of the list item
+     * @param {number} index index of the list item
      *        in the visible list
      */
     shownItem : function (index) {
