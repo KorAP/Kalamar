@@ -32,15 +32,16 @@ define({
    */
   upgradeTo : function (props) {
     for (let prop in props) {
-      this[prop] = props[prop];
+      this[prop] = props[prop]; //Similar to Object.assign()
     };
     return this;
   },
 
 
   /**
-   * Get or set the content of the meun item.
+   * Get or set the content of the menu item.
    */
+ 
   content : function (content) {
     if (arguments.length === 1)
       this._content = document.createTextNode(content);
@@ -51,6 +52,7 @@ define({
   /**
    * Get or set the information for action of this item. 
    */
+
   action : function (action) {
     if (arguments.length === 1)
       this._action = action;
@@ -119,7 +121,7 @@ define({
     // Append template
     li.appendChild(this.content());
     
-    return this._el = li;
+    return this._el = li; //returns li
   },
 
   /**
@@ -270,8 +272,8 @@ define({
     t.content(params[0]);
     
     if (params.length > 1) {
-      t._action = params[1];
-
+      //t._action = params[1]; //why doesnt this call the action function, but we do for content
+      t.action(params[1]);
       if (params.length > 2)
         t._onclick = params[2];
     };
@@ -303,6 +305,6 @@ define({
    * Return menu list.
    */
   menu : function () {
-    return this._menu;
+    return this._menu; //This is set by the menu
   }
 });
