@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6c015e7_2696c3ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "Please change this to english and be more specific on what these comments/tests are about.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "045baea5_f5483454",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "The upgradeTo() method is part of quite a lot objects in our code. It is kind of redundant, as nowadays \"Object.assign()\" does more or less the same. But not exactly the same, so it\u0027s still here.",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 55
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816d38cb_17c7cca7",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "(Please write comments like this in Gerrit instead of code.)\n\nYou mean we shouldn\u0027t store the node but the text in here? As this would be natural (I agree), I assume that was the case in the past and got changed as direct access to the text node wasn\u0027t used anymore or dependent objects always stored node content in _content (not necessarily text nodes). But I am not sure. It\u0027s a grown code base and not all features were thought through in the beginning.\n\nOr do you mean having a setter + getter method? I guess that\u0027s a question of style. But also dependent on this being a grown codebase: Newer versions of EcmaScript have native support for getters + setter (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) - but the tooling was lacking behind. Just recently our JS uglifier is capable of working with more recent versions of EcmaScript and we could switch to the native setter and getter style.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 52
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b82fb0_14fb0fd2",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "381d5e48_7e8a7bf0",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "I am fine with changing that.",
+      "range": {
+        "startLine": 84,
+        "startChar": 29,
+        "endLine": 84,
+        "endChar": 54
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c8251b_c4a6ca00",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "This returns li.",
+      "range": {
+        "startLine": 124,
+        "startChar": 26,
+        "endLine": 124,
+        "endChar": 46
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c033593b_dfb8360a",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "No. You can add a \"return\" and run the test suite to see, when this fails and why.",
+      "range": {
+        "startLine": 140,
+        "startChar": 23,
+        "endLine": 140,
+        "endChar": 37
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bfd27a1_1f9b919d",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "I am not sure what you mean by \"but content does\".",
+      "range": {
+        "startLine": 275,
+        "startChar": 31,
+        "endLine": 275,
+        "endChar": 89
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f73b4a_072dcae0",
+        "filename": "dev/js/src/menu/item.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "Good point - that\u0027s a rather questionable way to add a cyclic structure here. Maybe a (one time) setter + getter would be better here. This is set by the menu.",
+      "range": {
+        "startLine": 308,
+        "startChar": 24,
+        "endLine": 308,
+        "endChar": 51
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9b4d496_9a8f7fe2",
+        "filename": "dev/js/src/menu/lengthField.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "Please don\u0027t add comments like this in the code.",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 86
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa012e3_a5380768",
+        "filename": "dev/js/src/menu/prefix.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "This is also a style question, I would say.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1761fccc_20c60c3b",
+        "filename": "dev/js/src/menu/prefix.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "True. I am not sure this can happen, but please add a test and feel free to correct that behaviour.",
+      "range": {
+        "startLine": 90,
+        "startChar": 30,
+        "endLine": 90,
+        "endChar": 52
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6580bc7_a6e6ccd1",
+        "filename": "dev/js/src/menu/prefix.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "I don\u0027t understand that quiestion.",
+      "range": {
+        "startLine": 91,
+        "startChar": 45,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f0b3dc5_2b7ebd5d",
+        "filename": "dev/js/src/menu/slider.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T15:18:42Z",
+      "side": 1,
+      "message": "Yes, maybe that\u0027s better. Sometimes I have the \"public first, private last\" policy for arranging properties and methods, but changing the order here seems valid.",
+      "range": {
+        "startLine": 177,
+        "startChar": 35,
+        "endLine": 177,
+        "endChar": 76
+      },
+      "revId": "ebbc264074b4ba89d66f9e8ecf6082d86f08dff8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
