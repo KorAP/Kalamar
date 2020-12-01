@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee493fee_5d38ed86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "Please change the log message to be english.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52d8a1db_a6e186a0",
+        "filename": "dev/js/spec/stateSpec.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "Because \"toBeFalsy()\" is a test method on the return object of \"expect()\".",
+      "range": {
+        "startLine": 6,
+        "startChar": 35,
+        "endLine": 6,
+        "endChar": 65
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fec203a_bd33a5bb",
+        "filename": "dev/js/spec/stateSpec.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "Maybe not, but I get your point here and it may be a good idea to add a check + test for that. state.js may very well be used by plugins, where input values and objects are not under our control.",
+      "range": {
+        "startLine": 33,
+        "startChar": 41,
+        "endLine": 33,
+        "endChar": 132
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b11849c4_b170787f",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "You are probably right regarding ease of understanding, Though here this captures also null \u003d\u003d undefined, which is fine in result.",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aada493b_7ddf19b9",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "You can ask questions like this directly in Gerrit - without having to comment in the code.\n\nA good adress for the recent state of JS is the Mozilla dev network:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+      "range": {
+        "startLine": 41,
+        "startChar": 42,
+        "endLine": 41,
+        "endChar": 78
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0902dee3_7d06c803",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "Valid point. Please write a failing test and add this check. Normally I am quite hesitant when it comes to internal checks in Frontend-JS (as every bit needs to be send to all clients and this wouldn\u0027t be simplified by our processing pipeline), but here I can see this being used outside of our control.",
+      "range": {
+        "startLine": 58,
+        "startChar": 49,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f15bfe_bcaa9273",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "That\u0027s a bit redundant as the parentheses indicate a function - and \"method\" indicates a method. ;-)",
+      "range": {
+        "startLine": 62,
+        "startChar": 72,
+        "endLine": 62,
+        "endChar": 97
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e4645a_c1b935d3",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "I am not sure what you mean by that. In case you are refering to this.value, this is an inner state and shouldn\u0027t be explained in the method comment (as these are often used for documentation purposes).",
+      "range": {
+        "startLine": 70,
+        "startChar": 26,
+        "endLine": 70,
+        "endChar": 69
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a14456e_f44ad0f8",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "You are right. Please try to create a failing test here - I guess that\u0027s quite easy.",
+      "range": {
+        "startLine": 73,
+        "startChar": 35,
+        "endLine": 73,
+        "endChar": 50
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fbe154_7b346365",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "I don\u0027t see a problem here.",
+      "range": {
+        "startLine": 91,
+        "startChar": 33,
+        "endLine": 91,
+        "endChar": 46
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aed951fe_05a2baba",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "This returns the result of the expression, so in that case this._assoc. Not necessarily helpful here, but maybe it\u0027s used in the tests.",
+      "range": {
+        "startLine": 100,
+        "startChar": 31,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9392bcfc_9101158d",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "O\u0027Reilly?\nNowadays it\u0027s quite common to use either \"let\" or \"const\" instead of \"var\", as block scope is more common in other languages and way easier to understand. Here and there - and especially in tests, I still use \"var\". Most often because it\u0027s old code and it doesn\u0027t matter.",
+      "range": {
+        "startLine": 109,
+        "startChar": 25,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9493a2ed_bc69cb42",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "Can be \u003d\u003d\u003d here as well.",
+      "range": {
+        "startLine": 111,
+        "startChar": 46,
+        "endLine": 111,
+        "endChar": 77
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16e2bc4_a2fb55a5",
+        "filename": "dev/js/src/state.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-12-01T14:40:22Z",
+      "side": 1,
+      "message": "Correct. A better approach than rolling through the actual values would be an index as the inner state. The reason that\u0027s not done here is that \"roll()\" was added later to state.js. But I can see benefits not checking for uniqueness (see above) and rolling through the possible states for cases like [abcb]* (so it rolls back and forth between three values).",
+      "range": {
+        "startLine": 112,
+        "startChar": 24,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "4bab7600c751c750c13900f4055f7cc71e57a12f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
