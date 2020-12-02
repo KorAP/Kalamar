@@ -658,6 +658,9 @@ define([
 
   
   describe('KorAP.VC.UnspecifiedDoc', function () {
+
+    KorAP.vc = undefined;
+    
     it('should be initializable', function () {
       var doc = unspecifiedClass.create();
       var docElement = doc.element();
@@ -1288,7 +1291,7 @@ define([
       expect(vcE.firstChild.children[1].getAttribute('data-type')).toEqual('string');
       expect(vcE.firstChild.children[1].textContent).toEqual("myCorpus");
     });
-
+   
     it('should be based on a nested docGroup', function () {
       var vc = nestedGroupFactory.create();
 
@@ -1323,6 +1326,28 @@ define([
       expect(vc.toQuery()).toEqual('referTo "myCorpus" & Titel = "Baum"');
     });
 
+    it('should accept an undefined KorAP.vc', function () {
+      let temp = KorAP.vc;
+      KorAP.vc = undefined;
+      const vc = vcClass.create().fromJson({
+        "@type" : "koral:docGroup",
+        "operation" : "operation:and",
+        "operands" : [{
+          "@type" : "koral:docGroupRef",
+          "ref":"myCorpus"
+        },{
+          "@type" : "koral:doc",
+          "key":"Titel",
+          "value":"Baum",
+          "match":"match:eq"
+        }]
+      });
+
+      expect(vc._root.ldType()).toEqual("docGroup");
+      expect(vc.toQuery()).toEqual('referTo "myCorpus" & Titel = "Baum"');
+
+      KorAP.vc = temp;
+    });    
     
     it('should be modifiable by deletion in flat docGroups', function () {
       var vc = flatGroupFactory.create();
