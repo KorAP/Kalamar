@@ -60,12 +60,12 @@ define([
 
       // Set ref - TODO: Cleanup!
       e.refTo = t;
-
+     
       // Was rewritten
       if (t.rewrites() !== undefined) {
         e.classList.add("rewritten");
       };
-
+     
       const refTitle = document.createElement('span');
       refTitle.classList.add('key','fixed', 'ref');
       refTitle.addT('referTo');
@@ -101,7 +101,7 @@ define([
       if (t._rewrites !== undefined) {
         e.appendChild(t._rewrites.element());
       };
-
+     
       if (t._parent !== undefined) {
 
         // Set operators
@@ -112,10 +112,12 @@ define([
           true
         ).element());
       };  
-     
-      KorAP.vc.element().dispatchEvent(
-        new CustomEvent('vcChange', { 'detail' : t })
-      );
+
+      if (KorAP.vc !== undefined) {
+        KorAP.vc.element().dispatchEvent(
+          new CustomEvent('vcChange', { 'detail' : t })
+        );
+      };
       
       return t.element();
     },
