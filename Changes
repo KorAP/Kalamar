@@ -1,4 +1,4 @@
-0.40 2020-12-02
+0.40 2020-12-03
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
@@ -14,6 +14,7 @@
           or no longer supported by LDAP) (#99).
         - Fix requirement of KorAP.vc in docgroupref
           (which broke the vc demo).
+        - Improve RegEx-Button in vc builder.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.

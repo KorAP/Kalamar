@@ -212,6 +212,7 @@ $bracket-size: .4em;
   div.value {
     position:   absolute;
     display:    inline-block;
+    min-width:  max-content;
     z-index:    8000;
     padding:    4pt;
     margin-top: -6pt;
@@ -224,12 +225,14 @@ $bracket-size: .4em;
 
     input {
       border-width: 0;
+      outline-width: 0;
     }
 
     > div {
       @include choose-item;
       display: inline-block;
-      padding: 2pt;
+      padding: 0 4pt;
+      margin-left: 4pt;
 
       font: {
         size:  80%;
