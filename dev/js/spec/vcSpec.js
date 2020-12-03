@@ -2799,10 +2799,17 @@ define([
     });
 
     it('should have a classed element', function () {
-      var sv = stringValClass.create();
+      const sv = stringValClass.create();
       expect(sv.element().classList.contains('regex')).toBe(false);
       expect(sv.regex()).toBe(false);
-      sv.toggleRegex();
+
+      const re = sv.element().children[1];
+      expect(re.textContent).toEqual('RegEx');
+      expect(re.getAttribute("title")).toEqual('Use as regular expression');
+
+      // Run event instead toggleRegex()
+      re.click();
+
       expect(sv.element().classList.contains('regex')).toBe(true);
     });
 

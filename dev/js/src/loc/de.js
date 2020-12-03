@@ -10,6 +10,9 @@ define(function () {
   loc.VC_allCorpora = 'allen Korpora';
   loc.VC_oneCollection = 'einem virtuellen Korpus';
 
+  // Regex:
+  loc.REGEX_DESC = loc.REGEX_DESC || 'Regulären Ausdruck verwenden';
+
   // Date picker:
   loc.WDAY = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
   loc.MONTH = [
