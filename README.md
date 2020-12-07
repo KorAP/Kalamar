@@ -26,11 +26,16 @@ regarding further information.
 
 ## Setup for Development
 
-To fetch the latest version of Kalamar ...
+To install the latest version of Kalamar, first fetch the resource ...
 
 ```shell
 $ git clone https://github.com/KorAP/Kalamar
 ```
+
+... and follow the steps below.
+
+If you have any problems with installing Kalamar,
+see the *Troubleshooting* section.
 
 ### Generate Static Asset Files
 
@@ -64,8 +69,10 @@ Whenever the assets change, just rerun `grunt`.
 
 Kalamar uses the [Mojolicious](http://mojolicio.us/) framework,
 that expects a Perl version of at least 5.16.
-The recommended environment is based on [Perlbrew](http://perlbrew.pl/)
-with [App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/).
+On Windows [Strawberry Perl](http://strawberryperl.com/) is recommended.
+An environment based on [Perlbrew](http://perlbrew.pl/) is recommended,
+if available. The installation guide requires
+[App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/) as well.
 
 Some perl modules are not on CPAN yet, so you need to install them from GitHub.
 The easiest way to do this is using
@@ -104,7 +111,6 @@ followed by the most current version of the API.
 You may change that endpoint to the KorAP API provider in the configuration
 (see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information)
 or by using the environment variable `KALAMAR_API`.
-
 
 ## Configuration
 
@@ -214,6 +220,48 @@ Currently bundled plugins are
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
 - `Piwik`: For integrating Matomo/Piwik
 
+
+## Troubleshooting
+
+### `make` not available under Windows
+
+Instead of running
+
+```shell
+$ perl Makefile.PL
+$ make test
+```
+
+it is also possible to run the test suite using `prove`.
+
+```shell
+$ prove -lr t
+```
+
+### Problem installing Crypt::Random::Source on Windows
+
+[Crypt::Random::Source](https://metacpan.org/pod/Crypt::Random::Source)
+recently removed support for C<rand> as a random source,
+which may lead to missing sources in tests under certain operating systems.
+You should be able to force install
+[Crypt::Random::Source](https://metacpan.org/pod/Crypt::Random::Source),
+though this environment is not recommended for production:
+
+```shell
+$ cpanm -f Crypt::Random::Source
+```
+
+### Problem installing Mojolicious::Plugin::MailException on Windows
+
+Some versions of
+[Mojolicious::Plugin::MailException](https://metacpan.org/pod/Mojolicious::Plugin::MailException)
+have a
+[minor bug](https://github.com/dr-co/libmojolicious-plugin-mail_exception/pull/13)
+in the test suite, so a force install may be necessary.
+
+```perl
+$ cpanm -f Mojolicious::Plugin::MailException
+```
 
 ## COPYRIGHT AND LICENSE
 
