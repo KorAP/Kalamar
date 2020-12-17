@@ -1,4 +1,4 @@
-0.40 2020-12-07
+0.40 2020-12-17
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
@@ -16,6 +16,7 @@
           (which broke the vc demo).
         - Improve RegEx-Button in vc builder.
         - Added 'Troubleshooting' section to Readme.
+        - Update for Mojolicious >= 8.66.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.

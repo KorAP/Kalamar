@@ -32,12 +32,12 @@ my $t = Test::Mojo->new('Kalamar' => {
 });
 
 $t->get_ok('/settings')
-  ->text_is('a[href~/settings/oauth]','OAuth Token Management')
+  ->text_is('a[href*=/settings/oauth]','OAuth Token Management')
   ->text_is('h1 span', 'Settings')
   ;
 
 $t->get_ok('/settings/oauth')
-  ->text_is('a[href~/settings/oauth]','OAuth Token Management')
+  ->text_is('a[href*=/settings/oauth]','OAuth Token Management')
   ->text_is('h1 span', 'Settings')
   ->text_is('p#abc', 'My Settings')
   ;
