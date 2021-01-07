@@ -4,7 +4,7 @@
 %     param(handle_or_email => flash('handle_or_email'));
 %   };
     <fieldset>
-    %= form_for 'login', class => 'login', begin
+    %= form_for 'login', 'accept-charset' => 'utf-8', class => 'login', begin
       <legend><span><%= loc 'login' %></span></legend>
       %= csrf_field
       %= text_field 'handle_or_email', placeholder => loc('userormail')

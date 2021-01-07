@@ -3,6 +3,8 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
+use Mojo::Util qw!b64_encode encode!;
+use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
 # It establishes both the JWT as well as the OAuth password
@@ -57,6 +59,7 @@ sub register {
           logoutSuccess => 'Abmeldung erfolgreich',
           logoutFail => 'Abmeldung fehlgeschlagen',
           csrfFail => 'Fehlerhafter CSRF Token',
+          invalidChar => 'Ungültiges Zeichen in Anfrage',
           openRedirectFail => 'Weiterleitungsfehler',
           tokenExpired => 'Zugriffstoken abgelaufen',
           tokenInvalid => 'Zugriffstoken ungültig',
@@ -84,6 +87,7 @@ sub register {
           logoutSuccess => 'Logout successful',
           logoutFail => 'Logout failed',
           csrfFail => 'Bad CSRF token',
+          invalidChar => 'Invalid character in request',
           openRedirectFail => 'Redirect failure',
           tokenExpired => 'Access token expired',
           tokenInvalid => 'Access token invalid',
@@ -504,7 +508,14 @@ sub register {
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = $v->param('handle_or_email');
+        my $user = check_decode($v->param('handle_or_email'));
+
+        unless ($user) {
+          $c->notify(error => $c->loc('Auth_invalidChar'));
+          $c->param(handle_or_email => '');
+          return $c->relative_redirect_to('index');
+        };
+
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
@@ -951,7 +962,14 @@ sub register {
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = $v->param('handle_or_email');
+        my $user = check_decode($v->param('handle_or_email'));
+
+        unless ($user) {
+          $c->notify(error => $c->loc('Auth_invalidChar'));
+          $c->param(handle_or_email => '');
+          return $c->relative_redirect_to('index');
+        };
+
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
@@ -981,7 +999,7 @@ sub register {
         $c->korap_request('get', $url, {
 
           # Set authorization header
-          Authorization => 'Basic ' . b("$user:$pwd")->b64_encode->trim,
+          Authorization => 'Basic ' . b("$user:$pwd")->b64_encode->trim
 
         })->then(
           sub {
@@ -1020,7 +1038,7 @@ sub register {
 
             $c->app->log->debug(qq!Login successful: "$user"!);
 
-            $user = $jwt->{username} ? $jwt->{username} : $user;
+            $user = $jwt->{username} ? b($jwt->{username})->decode->decode : $user;
 
             # Set session info
             $c->session(user => $user);
@@ -1098,7 +1116,6 @@ sub register {
             $c->session(auth => undef);
             $c->notify(success => $c->loc('Auth_logoutSuccess'));
           }
-
         )->catch(
           # Something went wrong
           sub {
@@ -1122,6 +1139,17 @@ sub register {
   };
 
   $app->log->info('Successfully registered Auth plugin');
+};
+
+
+sub check_decode {
+  no warnings 'uninitialized';
+  my $str = shift;
+  my $str2 = is_utf8($str) ? b($str)->decode : $str;
+  if (defined($str2) && $str2 && length($str2) > 1) {
+    return $str2
+  };
+  return;
 };
 
 
@@ -1178,7 +1206,7 @@ Activates the oauth client registration flow.
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2020, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
