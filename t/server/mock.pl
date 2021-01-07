@@ -393,7 +393,7 @@ post '/v1.0/oauth2/token' => sub {
     }
 
     # Check for wrong user name
-    elsif ($c->param('username') ne 'test') {
+    elsif ($c->param('username') !~ /^t.st$/) {
       return $c->render(json => {
         error => [[2004, undef]]
       });

@@ -2,6 +2,7 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 use Mojo::File qw/path/;
+use Mojo::ByteStream 'b';
 use Data::Dumper;
 
 
@@ -128,6 +129,7 @@ $t->get_ok('/')
   ->text_is('div.notify-success', 'Login successful')
   ->element_exists('aside.off')
   ->element_exists_not('aside.active')
+  ->attr_is('a.logout', 'title', "Logout: test")
   ;
 
 # Now the user is logged in and should be able to
@@ -186,8 +188,10 @@ $t->get_ok('/')
   ->text_is('div.notify-error', 'Redirect failure')
   ;
 
+# UTF8 request
+my $username = b('täst')->encode;
 $t->post_ok('/user/login' => form => {
-  handle => 'test',
+  handle => $username,
   pwd => 'pass',
   csrf_token => $csrf,
   fwd => $fwd
@@ -195,8 +199,40 @@ $t->post_ok('/user/login' => form => {
   ->status_is(302)
   ->header_is('Location' => '/?q=Baum&ql=poliqarp');
 
+$t->get_ok('/')
+  ->element_exists('div.notify-success')
+  ->attr_is('a.logout', 'title', "Logout: $username")
+  ;
 
+# Logout
+$t->get_ok('/user/logout')
+  ->status_is(302)
+  ->header_is('Location' => '/');
 
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+# This should fail
+my $wide_char_login = "\x{61}\x{E5}\x{61}"; # "\x{443}\x{434}";
+
+$t->post_ok('/user/login' => form => {
+  handle => $wide_char_login,
+  pwd => 'pass',
+  csrf_token => $csrf,
+  fwd => $fwd
+})
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Invalid character in request')
+  ->element_exists('input[name=handle]:not([value])')
+  ->element_exists_not('div.button.top a')
+  ;
 
 done_testing;
 __END__

@@ -2,7 +2,7 @@
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
 
-0.40 2020-12-17
+0.40 2021-01-07
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
         - Fix wrong hint-mirror behaviour in Firefox.
@@ -21,6 +21,7 @@
         - Improve RegEx-Button in vc builder.
         - Added 'Troubleshooting' section to Readme.
         - Update for Mojolicious >= 8.66.
+        - Improve character handling in login to prevent crash.
 
 0.39 2020-10-07
         - Add information on secret file to Readme.
