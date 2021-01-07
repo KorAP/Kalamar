@@ -2,6 +2,7 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo::WithRoles 'Session';
 use Mojo::File qw/path/;
+use Mojo::ByteStream 'b';
 use Data::Dumper;
 
 
@@ -411,14 +412,37 @@ $csrf = $t->get_ok('/?q=baum&cutoff=true')
   ->attr('value')
   ;
 
-# Login:
+
+# This should fail
+my $wide_char_login = "\x{61}\x{E5}\x{61}"; # "\x{443}\x{434}";
+
 $t->post_ok('/user/login' => form => {
-  handle => 'test',
+  handle => $wide_char_login,
+  pwd => 'pass',
+  csrf_token => $csrf,
+  fwd => $fwd
+})
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Invalid character in request')
+  ->element_exists('input[name=handle]:not([value])')
+  ->element_exists_not('div.button.top a')
+  ;
+
+
+# Login:
+# UTF8 request
+my $username = b('täst')->encode;
+$t->post_ok('/user/login' => form => {
+  handle => $username,
   pwd => 'pass',
   csrf_token => $csrf
 })
   ->status_is(302)
-  ->content_is('')
   ->header_is('Location' => '/');
 
 $t->get_ok('/')
@@ -426,6 +450,7 @@ $t->get_ok('/')
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Login successful')
+  ->attr_is('a.logout', 'title', "Logout: $username")
   ->element_exists('aside.off')
   ->element_exists_not('aside.active')
   ;
