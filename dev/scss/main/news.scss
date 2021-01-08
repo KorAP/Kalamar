@@ -16,11 +16,13 @@ section#news {
     text-align: right;
     font-weight: bold;
   }
-
-  dt.maintenance, dd.maintenance > h4 {
-    color: red;
+  
+  dd.maintenance > h4::after {
+    @include icon-font;
+    color: $ids-pink-1;
+    content: " " + $fa-warn;
   }
-
+  
   dd {
     margin: 0 1ex 0 16ex;
     padding: 0 0 0.5em 1em;
