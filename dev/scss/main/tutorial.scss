@@ -44,6 +44,16 @@
   }
 }
 
+p.bibentry {
+  font-size: 80%;
+  margin-left: 3em;
+  margin-bottom: 3em;
+  cite {
+    font-weight: bold;
+  }
+  text-indent: -1.5em;
+}
+
 body.embedded {
   background-color: $nearly-white;
   aside {
