@@ -1,6 +1,7 @@
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
+use Mojo::File qw/path/;
 
 # Test the documentation
 
@@ -20,6 +21,51 @@ is($c->page_title, '<h2 id="page-top">Example</h2>');
 
 $t->get_ok('/' => { 'X-Forwarded-Host' => 'korap2.ids-mannheim.de'})
   ->attr_is('meta[property="og:url"]', 'content', '//korap2.ids-mannheim.de/')
+  ;
+
+
+# Test additions
+$t = Test::Mojo->new('Kalamar' => {
+  'Localize' => {
+    dict => {
+      en_howToCite => 'Citation Help',
+      de_howToCite => 'Zitierhilfe',
+      en_recentCorpusPub => 'Recent publications to refer to DeReKo as a ressource for research',
+      de_recentCorpusPub => 'Neuere Publikationen zu DeReKo als Korpus Resource',
+      en_recentToolPub => 'Recent publications to refer to KorAP as a tool for research',
+      de_recentToolPub => 'Neuere Publikationen zu KorAP als Forschungswerkzeug',
+    }
+  },
+  'TagHelpers-ContentBlock' => {
+    footer => [
+      {
+        inline => '<%= link_to loc("howToCite") => url_for(doc => { page => "faq" })->fragment("howToCite") %>',
+        position => 75
+      }
+    ],
+    faq => [
+      {
+        position => 50,
+        inline => <<'HOWTOCITE'
+<section>
+  <h3 id="howToCite"><%= loc 'howToCite' %></h3>
+%= include 'custom/partial/citation'
+</section>
+HOWTOCITE
+      }
+    ]
+  }
+});
+
+push @{$t->app->renderer->paths}, path(path(__FILE__)->dirname);
+
+$t->get_ok('/')
+  ->text_is('footer a:nth-child(1)', 'Citation Help')
+  ->attr_like('footer a:nth-child(1)', 'href', qr'/doc/+faq#howToCite');
+
+$t->get_ok('/doc//faq#howToCite')
+  ->text_is('#howToCite', 'Citation Help')
+  ->text_is('section > section h4', 'Recent publications to refer to DeReKo as a ressource for research')
   ;
 
 done_testing;
