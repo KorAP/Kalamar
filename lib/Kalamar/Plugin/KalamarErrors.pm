@@ -94,6 +94,9 @@ sub register {
           return;
         };
 
+
+
+        
         # Notify on warnings
         $c->notify_on_warnings($json);
 
