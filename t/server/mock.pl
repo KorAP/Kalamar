@@ -581,6 +581,125 @@ del '/v1.0/oauth2/client/deregister/:client_id' => sub {
 };
 
 
+#######################
+# Query Reference API #
+#######################
+
+use CHI;
+my $chi = CHI->new(
+  driver => 'Memory',
+  global => 1
+);
+
+# Store query
+put '/v1.0/query/~:user/:query_name' => sub {
+  my $c = shift;
+  my $user = $c->stash('user');
+  my $qname = $c->stash('query_name');
+
+  if ($chi->is_valid($qname)) {
+    return $c->render(
+      json => {
+        errors => [
+          {
+            message => 'Unable to store query reference'
+          }
+        ]
+      }, status => 400
+    );
+  };
+
+  my $json = $c->req->json;
+
+  my $store = {
+    name => $qname,
+    koralQuery => { '@type' => 'Okay' },
+    query => $json->{query},
+    queryType => $json->{queryType},
+    type => $json->{type},
+    queryLanguage => $json->{queryLanguage},
+  };
+
+  if (exists $json->{description}) {
+    $store->{description} = $json->{description}
+  };
+
+  # Set query reference
+  $chi->set($qname => $store);
+
+  my $queries = $chi->get('~queries') // [];
+  push @$queries, $qname;
+  $chi->set('~queries' => $queries);
+
+  return $c->render(
+    status => 201,
+    text => ''
+  );
+};
+
+# Get query
+get '/v1.0/query/~:user/:query_name' => sub {
+  my $c = shift;
+
+  my $user = $c->stash('user');
+  my $qname = $c->stash('query_name');
+
+  my $json = $chi->get($qname);
+
+  if ($json) {
+    return $c->render(
+      json => $json
+    );
+  };
+
+  return $c->render(
+    json => {
+      errors => [
+        {
+          message => 'Query reference not found'
+        }
+      ]
+    }, status => 404
+  );
+};
+
+
+# Get all queries
+get '/v1.0/query/~:user' => sub {
+  my $c = shift;
+  my $user = $c->stash('user');
+  my $qs = $chi->get('~queries') // [];
+  my @queries = ();
+  foreach (@$qs) {
+    push @queries, $chi->get($_);
+  };
+  return $c->render(json => { refs => \@queries });
+};
+
+
+# Store query
+del '/v1.0/query/~:user/:query_name' => sub {
+  my $c = shift;
+  my $user = $c->stash('user');
+  my $qname = $c->stash('query_name');
+
+  $chi->remove($qname);
+
+  my $queries = $chi->get('~queries') // [];
+
+  my @clean = ();
+  foreach (@$queries) {
+    push @clean, $_ unless $_ eq $qname
+  };
+
+  $chi->set('~queries' => \@clean);
+
+  return $c->render(
+    status => 200,
+    text => ''
+  );
+};
+
 
 app->start;
 
