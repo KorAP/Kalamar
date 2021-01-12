@@ -1,4 +1,4 @@
-0.41 2021-02-09
+0.41 2021-02-11
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -24,6 +24,7 @@
         - Fix guided tour to work with CSP.
         - Fix strict-mode in tour.
         - Define resources in Makefile.
+        - Added query reference API.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
