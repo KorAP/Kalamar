@@ -17,6 +17,7 @@
           (lerepp).
         - List tokens of a client.
         - Upgrade Mojolicious dependency to 9.19.
+        - Added query reference API.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.
