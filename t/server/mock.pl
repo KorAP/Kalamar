@@ -581,6 +581,42 @@ del '/v1.0/oauth2/client/deregister/:client_id' => sub {
 };
 
 
+#######################
+# Query Reference API #
+#######################
+
+use CHI;
+my $chi = CHI->new(
+  driver => 'Memory',
+  global => 1
+);
+
+# Store query
+put '/v1.0/query/~:user/:query_name' => sub {
+  my $c = shift;
+  my $user = $c->stash('user');
+  my $qname = $c->stash('query_name');
+  my $json = $c->req->json;
+
+  # Set query reference
+  $chi->($qname => {
+    name => $qname,
+    koralQuery => { '@type' => 'Okay' },
+    q => $json->{query},
+    ql => $json->{queryLanguage},
+    description => $json->{description}
+  });
+
+  my $queries = $chi->get('~queries') // [];
+  push @$queries, $qname;
+  $chi->set('~queries' => $queries);
+
+  return $c->render(
+    status => 201,
+    text => ''
+  );
+};
+
 
 app->start;
 
