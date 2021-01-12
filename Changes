@@ -25,6 +25,7 @@
         - Fix strict-mode in tour.
         - Define resources in Makefile.
         - Support Mojolicious >= 9.
+        - Added query reference API.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
