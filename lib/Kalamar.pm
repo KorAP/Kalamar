@@ -108,6 +108,12 @@ sub startup {
       });
   };
 
+  $self->hook(
+    before_dispatch => sub {
+      shift->res->headers->header('X-Content-Type-Options' => 'nosniff');
+    }
+  );
+
   $conf->{proxy_host} //= 1;
 
   # Take proxy host

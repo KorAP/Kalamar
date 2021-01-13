@@ -10,6 +10,7 @@
         - Added nonce helper to CSP plugin.
         - Remove no-js class in nonced inline script.
         - Introduce HSTS header for https_only conf.
+        - Send 'nosniff' header.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
