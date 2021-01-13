@@ -25,6 +25,8 @@ my $fake_backend = $t->app->plugin(
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
+my $q = qr!(?:\"|&quot;)!;
+
 # Query passed
 $t->get_ok('/?q=baum')
   ->status_is(200)
@@ -41,11 +43,11 @@ $t->get_ok('/?q=baum')
   ->element_count_is('#pagination > a', 5)
 
   # api_response
-  ->content_like(qr/\"authorized\":null/)
-  ->content_like(qr/\"pubDate\",\"subTitle\",\"author\"/)
+  ->content_like(qr/${q}authorized${q}:null/)
+  ->content_like(qr/${q}pubDate${q},${q}subTitle${q},${q}author${q}/)
 
   # No cutOff
-  ->content_unlike(qr!\"cutOff":true!)
+  ->content_unlike(qr!${q}cutOff${q}:true!)
 
   ->element_exists('li[data-text-sigle=GOE/AGI/00000]')
   ->element_exists('li:nth-of-type(1) div.flop')
@@ -84,7 +86,7 @@ $t->get_ok('/?q=[orth=das')
 $t->get_ok('/?q=[orth=das&ql=poliqarp')
   ->element_exists('.notify-error')
   ->text_is('.notify-error', '302: Parantheses/brackets unbalanced.')
-  ->content_like(qr!KorAP\.koralQuery =!)
+  ->content_like(qr!data-koralquery=!)
   ->text_is('.no-results:nth-of-type(1)', 'Unable to perform the action.')
   ;
 
@@ -97,7 +99,7 @@ $t->get_ok('/?q=baum')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_isnt('X-Kalamar-Cache', 'true')
-  ->content_like(qr!\"cutOff":true!)
+  ->content_like(qr!${q}cutOff${q}:true!)
   ->text_is('#total-results', 51)
   ;
 
@@ -109,7 +111,7 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_isnt('X-Kalamar-Cache', 'true')
-  ->content_like(qr!\"cutOff":true!)
+  ->content_like(qr!${q}cutOff${q}:true!)
   ->element_exists_not('#total-results')
   ;
 
@@ -121,7 +123,7 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_is('X-Kalamar-Cache', 'true')
-  ->content_like(qr!\"cutOff":true!)
+  ->content_like(qr!${q}cutOff${q}:true!)
   ->element_exists_not('#total-results')
   ;
 
@@ -133,7 +135,7 @@ $t->get_ok('/?q=baum')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_is('X-Kalamar-Cache', 'true')
-  ->content_like(qr!\"cutOff":true!)
+  ->content_like(qr!${q}cutOff${q}:true!)
   ->text_is('#total-results', 51)
   ;
 
@@ -150,15 +152,15 @@ $t->get_ok('/?q=der&p=1&count=2')
   # Total pages
   ->element_count_is('#pagination > a', 7)
   ->text_is('#pagination a:nth-of-type(6) span', 7291)
-  ->content_like(qr!\"count":2!)
-  ->content_like(qr!\"startIndex":0!)
-  ->content_like(qr!\"itemsPerPage":2!)
+  ->content_like(qr!${q}count${q}:2!)
+  ->content_like(qr!${q}startIndex${q}:0!)
+  ->content_like(qr!${q}itemsPerPage${q}:2!)
 
   # No caching
   ->header_isnt('X-Kalamar-Cache', 'true')
 
   # Not searched for "der" before
-  ->content_unlike(qr!\"cutOff":true!)
+  ->content_unlike(qr!${q}cutOff${q}:true!)
   ;
 
 # Check pagination repetion of page
@@ -180,13 +182,13 @@ $t->get_ok('/?q=der&p=2&count=2')
   # Total pages
   ->element_count_is('#pagination > a', 7)
   ->text_is('#pagination a:nth-of-type(6) span', 7291)
-  ->content_like(qr!\"count":2!)
-  ->content_like(qr!\"itemsPerPage":2!)
-  ->content_like(qr!\"startIndex":2!)
+  ->content_like(qr!${q}count${q}:2!)
+  ->content_like(qr!${q}itemsPerPage${q}:2!)
+  ->content_like(qr!${q}startIndex${q}:2!)
 
   # No caching
   ->header_isnt('X-Kalamar-Cache', 'true')
-  ->content_like(qr!\"cutOff":true!)
+  ->content_like(qr!${q}cutOff${q}:true!)
   ;
 
 # Query with failing parameters
@@ -237,7 +239,7 @@ $t->app->defaults(no_cache => 1);
 $t->get_ok('/?q=baum&collection=availability+%3D+%2FCC-BY.*%2F')
   ->status_is(200)
   ->element_exists("input#cq[value='availability = /CC-BY.*/']")
-  ->content_like(qr!\"availability\"!)
+  ->content_like(qr!${q}availability${q}!)
   ->text_is('#error','')
   ;
 
@@ -252,7 +254,7 @@ $t->app->hook(
 $t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
   ->status_is(200)
   ->element_exists("input#cq[value='availability = /CC-BY.*/']")
-  ->content_like(qr!\"availability\"!)
+  ->content_like(qr!${q}availability${q}!)
   ->text_is('#error','')
   ->text_is('#special', 'Funny')
   ;
@@ -270,7 +272,7 @@ is($match->{matchID}, 'p5441-5442');
 $t->get_ok('/?q=baum&pipe=glemm')
   ->status_is(200)
   ->text_is('#error','')
-  ->content_like(qr/\"pipes\":"glemm"/)
+  ->content_like(qr/${q}pipes${q}:${q}glemm${q}/)
   ;
 
 

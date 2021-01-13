@@ -81,6 +81,10 @@ a[onclick$='return PArok(this,false)'] {
   clear: both;
 }
 
+iframe {
+  border-width: 0;
+}
+
 blockquote {
   border-radius:    $standard-border-radius;
   padding:          2pt 5pt 2pt 20pt;

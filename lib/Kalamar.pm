@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -122,6 +122,22 @@ sub startup {
       }
     );
   };
+
+  my $csp = $conf->{cs_policy} // (
+    "default-src 'self';".
+      "style-src 'self' 'unsafe-inline';".
+      "frame-src *;".
+      "media-src 'none';".
+      "object-src 'self';".
+      "font-src 'self';".
+      "img-src 'self' data:;"
+    );
+
+  $self->hook(
+    before_render => sub {
+      shift->res->headers->header('Content-Security-Policy' => $csp);
+    }
+  );
 
   # API is not yet set - define
   $conf->{api_path} //= $ENV{KALAMAR_API};
