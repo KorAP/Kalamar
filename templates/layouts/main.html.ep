@@ -41,13 +41,6 @@
 
     <link rel="apple-touch-icon" href="<%= url_for '/img/apple-touch-icon.png' %>" />
     <link href="<%= stash 'prefix' %>/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
-    
-%= javascript begin  
-  window.KorAP = window.KorAP || {};
-  % my $api = url_for('index');
-  % $api =~ s!/$!!;
-  KorAP.URL = '<%== $api %>';
-% end
 
 % if ($c->app->mode eq 'development') {
     <link href="<%= stash 'prefix' %>/css/kalamar-<%= $Kalamar::VERSION %>.css?v=<%= random_string %>" type="text/css" rel="stylesheet" />
@@ -61,8 +54,12 @@
   </head>
 % my $embedded = 0;
 % $embedded = 1 if stash('embedded');
-  <body class="no-js<% if ($embedded) { %> embedded<% } %>" itemscope itemtype="http://schema.org/<%= stash('schematype') || 'WebApplication' %>">
-    <script>document.body.classList.remove('no-js');</script>
+  <body class="no-js<% if ($embedded) { %> embedded<% } %>"
+        % my $api = url_for('index');
+        % $api =~ s!/$!!;
+        data-korap-url="<%== $api %>"
+        itemscope
+        itemtype="http://schema.org/<%= stash('schematype') || 'WebApplication' %>">
     <div id="kalamar-bg"></div>
     
     %= include 'partial/side', embedded => $embedded
