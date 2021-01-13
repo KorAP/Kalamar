@@ -123,6 +123,22 @@ sub startup {
     );
   };
 
+  my $csp = $conf->{cs_policy} // (
+    "default-src 'self';".
+      "style-src 'self' 'unsafe-inline';".
+      "frame-src *;".
+      "media-src 'none';".
+      "object-src 'self';".
+      "font-src 'self';".
+      "img-src 'self' data:;"
+    );
+
+  $self->hook(
+    before_render => sub {
+      shift->res->headers->header('Content-Security-Policy' => $csp);
+    }
+  );
+
   # API is not yet set - define
   $conf->{api_path} //= $ENV{KALAMAR_API};
   $conf->{api_version} //= $API_VERSION;
