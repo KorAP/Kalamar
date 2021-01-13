@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -85,6 +85,13 @@ sub startup {
 
     # ... for cookie transport
     $self->sessions->secure(1);
+
+    # For all pages
+    $self->hook(
+      before_dispatch => sub {
+        shift->res->headers->header('Strict-Transport-Security' => 'max-age=3600; includeSubDomains');
+      }
+    );
   };
 
   # Run the app from a subdirectory
