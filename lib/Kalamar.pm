@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -104,6 +104,12 @@ sub startup {
         shift->req->url->base->path($conf->{proxy_prefix} . '/');
       });
   };
+
+  $self->hook(
+    before_dispatch => sub {
+      shift->res->headers->header('X-Content-Type-Options' => 'nosniff');
+    }
+  );
 
   $conf->{proxy_host} //= 1;
 

@@ -22,6 +22,10 @@ $t->get_ok('/' => { 'X-Forwarded-Host' => 'korap2.ids-mannheim.de'})
   ->attr_is('meta[property="og:url"]', 'content', '//korap2.ids-mannheim.de/')
   ;
 
+$t->get_ok('/')
+  ->header_is('X-Content-Type-Options', 'nosniff')
+  ;
+
 done_testing;
 
 1;
