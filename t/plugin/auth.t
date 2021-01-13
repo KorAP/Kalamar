@@ -29,6 +29,8 @@ my $fake_backend = $t->app->plugin(
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
 
+my $q = qr!(?:\"|&quot;)!;
+
 $t->get_ok('/realapi/v1.0')
   ->status_is(200)
   ->content_is('Fake server available');
@@ -37,7 +39,7 @@ $t->get_ok('/?q=Baum')
   ->status_is(200)
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
   ->text_like('#total-results', qr/\d+$/)
-  ->content_like(qr/\"authorized\"\:null/)
+  ->content_like(qr/${q}authorized${q}:null/)
   ->element_exists_not('div.button.top a')
   ->element_exists_not('aside.active')
   ->element_exists_not('aside.off')
@@ -135,7 +137,7 @@ $t->get_ok('/?q=Baum')
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
   ->text_like('#total-results', qr/\d+$/)
   ->element_exists_not('div.notify-error')
-  ->content_like(qr/\"authorized\"\:\"test\"/)
+  ->content_like(qr/${q}authorized${q}:${q}test${q}/)
   ->element_exists('div.button.top a')
   ->element_exists('div.button.top a.logout[title~="test"]')
   ;
@@ -156,7 +158,7 @@ $t->get_ok('/?q=Baum')
   ->status_is(200)
   ->text_like('h1 span', qr/KorAP: Find .Baum./i)
   ->text_like('#total-results', qr/\d+$/)
-  ->content_like(qr/\"authorized\"\:null/)
+  ->content_like(qr/${q}authorized${q}:null/)
   ;
 
 # Get redirect

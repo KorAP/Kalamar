@@ -12,6 +12,8 @@ my $t = Test::Mojo->new('Kalamar' => {
 
 $t->app->mode('production');
 
+my $q = qr!(?:\"|&quot;)!;
+
 $t->post_ok('/user/login' => form => { handle => 'test', pwd => 'fail' })
   ->status_is(302)
   ->header_is('Location' => '/');
@@ -24,7 +26,7 @@ $t->get_ok('/')
   ->text_is('div.notify-error', 'Bad CSRF token')
   ->element_exists('input[name=handle][value=test]')
   ->element_exists_not('div.button.top a')
-  ->content_like(qr!KorAP\.URL = ''!)
+  ->attr_is('body','data-korap-url','')
   ;
 
 is('kalamar',$t->app->sessions->cookie_name);
@@ -76,7 +78,7 @@ $t->post_ok('/user/login' => form => { handle => 'test', pwd => 'fail' })
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists_not('div.notify-error')
-  ->content_like(qr!KorAP\.URL = '/korap/test'!)
+  ->attr_is('body','data-korap-url','/korap/test')
   ;
 
 
