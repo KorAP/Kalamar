@@ -123,6 +123,21 @@ sub startup {
     );
   };
 
+  $self->hook(
+    before_dispatch => sub {
+      my $h = shift->res->headers;
+      $h->content_security_policy(
+        "default-src 'self';".
+          "style-src 'self' 'unsafe-inline';".
+          "frame-src *;".
+          "media-src 'none';".
+          "img-src 'self' data:;"
+        );
+      $h->header("Referrer-Policy" => "strict-origin-when-cross-origin");
+      # Strict-Transport-Security: max-age=2000
+    }
+  );
+
   # API is not yet set - define
   $conf->{api_path} //= $ENV{KALAMAR_API};
   $conf->{api_version} //= $API_VERSION;
