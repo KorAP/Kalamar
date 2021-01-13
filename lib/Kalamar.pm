@@ -85,6 +85,13 @@ sub startup {
 
     # ... for cookie transport
     $self->sessions->secure(1);
+
+    # For all pages
+    $self->hook(
+      before_dispatch => sub {
+        shift->res->headers->header('Strict-Transport-Security' => 'max-age=3600; includeSubDomains');
+      }
+    );
   };
 
   # Run the app from a subdirectory

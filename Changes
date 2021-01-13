@@ -1,6 +1,7 @@
 0.41 2021-01-14
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
+        - Introduce HSTS header for https_only conf.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
