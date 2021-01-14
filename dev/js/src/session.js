@@ -63,7 +63,7 @@ define({
       var date = new Date();
       date.setYear(date.getFullYear() + 1);
     */
-    return this._name + '=' + encodeURIComponent(JSON.stringify(this._hash)) + ';';
+    return this._name + '=' + encodeURIComponent(JSON.stringify(this._hash)) + ';SameSite=Lax';
   },
 
 
