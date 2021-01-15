@@ -125,6 +125,18 @@ environment variable.
 $ MOJO_MODE=myconf perl script/kalamar daemon
 ```
 
+Or in the windows command line with:
+
+```cmd
+> cmd /C "set MOJO_MODE=qr && perl .\script\kalamar daemon"
+```
+
+Or in the windows powershell with:
+
+```powershell
+> $env:MOJO_MODE='myconf'; perl .\script\kalamar daemon; Remove-Item Env:\MOJO_MODE
+```
+
 For client-side configurations, a file `kalamar.conf.js` can be
 introduced, that will be consulted during the build process, loading
 optional components using a `require(...)` directive (see example below).
