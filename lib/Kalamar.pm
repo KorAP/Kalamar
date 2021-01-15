@@ -74,10 +74,6 @@ sub startup {
       );
   };
 
-  unless ($conf->{api_path} || $ENV{KALAMAR_API}) {
-    $self->log->warn('Kalamar-api_path not defined in configuration');
-  };
-
   $self->sessions->cookie_name('kalamar');
 
   # Require HTTPS
@@ -123,8 +119,8 @@ sub startup {
     );
   };
 
-  # API is not yet set - define
-  $conf->{api_path} //= $ENV{KALAMAR_API};
+  # API is not yet set - define the default Kustvakt api endpoint
+  $conf->{api_path} //= $ENV{KALAMAR_API} || 'https://korap.ids-mannheim.de/api/';
   $conf->{api_version} //= $API_VERSION;
 
   # Add development path
