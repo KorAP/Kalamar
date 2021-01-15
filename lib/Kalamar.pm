@@ -74,10 +74,6 @@ sub startup {
       );
   };
 
-  unless ($conf->{api_path} || $ENV{KALAMAR_API}) {
-    $self->log->warn('Kalamar-api_path not defined in configuration');
-  };
-
   $self->sessions->cookie_name('kalamar');
 
   # Require HTTPS
@@ -139,8 +135,8 @@ sub startup {
     }
   );
 
-  # API is not yet set - define
-  $conf->{api_path} //= $ENV{KALAMAR_API};
+  # API is not yet set - define the default Kustvakt api endpoint
+  $conf->{api_path} //= $ENV{KALAMAR_API} || 'https://korap.ids-mannheim.de/api/';
   $conf->{api_version} //= $API_VERSION;
 
   # Add development path
@@ -343,7 +339,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2020, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
