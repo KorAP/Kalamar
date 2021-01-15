@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -74,10 +74,6 @@ sub startup {
       );
   };
 
-  unless ($conf->{api_path} || $ENV{KALAMAR_API}) {
-    $self->log->warn('Kalamar-api_path not defined in configuration');
-  };
-
   $self->sessions->cookie_name('kalamar');
 
   # Require HTTPS
@@ -123,8 +119,8 @@ sub startup {
     );
   };
 
-  # API is not yet set - define
-  $conf->{api_path} //= $ENV{KALAMAR_API};
+  # API is not yet set - define the default Kustvakt api endpoint
+  $conf->{api_path} //= $ENV{KALAMAR_API} || 'https://korap.ids-mannheim.de/api/';
   $conf->{api_version} //= $API_VERSION;
 
   # Add development path
