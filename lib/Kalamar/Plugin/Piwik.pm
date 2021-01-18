@@ -37,14 +37,29 @@ sub register {
       }
   );
 
-  # Add piwik tag to scripts
-  $mojo->content_block(scripts => {
-    inline => '<%= piwik_tag %>'
-  });
+  # Add tracking code as <script/> instead of inline
+  if ($param->{cors_compliant}) {
 
-  # Add event handler for korap requests
-  $mojo->content_block(scripts => {
-    inline => <<'SCRIPT'
+    # Set track script for CORS compliant tracking
+    $mojo->routes->any('/js/tracking.js')->piwik('track_script');
+
+    # Add piwik tag to scripts
+    $mojo->content_block(scripts => {
+      inline => q!<%= piwik_tag 'as-script' %>!
+    });
+  }
+
+  # Add tracking code inline
+  else {
+
+    # Add piwik tag to scripts
+    $mojo->content_block(scripts => {
+      inline => '<%= piwik_tag %>'
+    });
+
+    # Add event handler for korap requests
+    $mojo->content_block(scripts => {
+      inline => <<'SCRIPT'
 % if (stash('piwik.embed')) {
   %= javascript begin
 window.addEventListener('korapRequest', function(e) {
@@ -56,8 +71,8 @@ window.addEventListener('korapRequest', function(e) {
   % end
 % }
 SCRIPT
-  });
-
+    });
+  };
 
   # If all requests should be pinged,
   # establish this hook
