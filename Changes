@@ -7,6 +7,10 @@
         - Added advice in Readme regarding scripts in
           Windows Powershell (lerepp).
         - Establish CSP plugin.
+        - Support CORS in Matomo/Piwik plugin.
+        - Updated Piwik/Matomo plugin to work with CORS.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
