@@ -17,6 +17,9 @@
         - Support CSP in notifications framework.
         - Fetch plugin configs from JSON file to be
           CSP compliant.
+        - Support CSP in Matomo/Piwik plugin.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
