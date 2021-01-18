@@ -25,6 +25,24 @@ $t->get_ok('/doc/faq')
   ->content_like(qr!trackPageView!)
   ;
 
+
+$t->app->plugin('Piwik' => {
+  url => 'https://piwik.korap.ids-mannheim.de/',
+  site_id => 1,
+  embed => 1,
+  as_script => 1
+});
+
+is($t->app->piwik_tag('as-script'), '<script src="https://piwik.korap.ids-mannheim.de/piwik.js" async defer></script><script src="/js/tracking.js"></script>');
+
+$t->get_ok('/doc/faq')
+  ->status_is(200)
+  ->text_like('section[name=piwik-opt-out] h3', qr!can I opt-out!)
+  ->element_exists('section[name=piwik-opt-out] iframe')
+  ->content_unlike(qr!var _paq!)
+  ;
+
+
 # No embedding
 $t->app->plugin('Piwik' => {
   url => 'https://piwik.korap.ids-mannheim.de/',
@@ -39,6 +57,5 @@ $t->get_ok('/doc/faq')
   ->content_unlike(qr!var _paq!)
   ->content_unlike(qr!window\.addEventListener\('korapRequest!)
   ;
-
 
 done_testing();

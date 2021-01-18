@@ -27,6 +27,9 @@ sub register {
     }
   });
 
+  # Set track script for CORS compliant tracking
+  $mojo->routes->any('/js/tracking.js')->piwik('track_script');
+
   # Add opt-out to FAQ
   $mojo->content_block(
     'faq' => {
