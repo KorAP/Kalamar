@@ -164,16 +164,17 @@ sub startup {
   });
 
   # Establish content security policy
+  # This needs to be defined prior to Kalamar::Plugin::Piwik!
   $self->plugin(CSP => {
     'default-src' => 'self',
-    'style-src' => ['self','unsafe-inline'],
-    'script-src' => 'self',
+    'style-src'   => ['self','unsafe-inline'],
+    'script-src'  => 'self',
     'connect-src' => 'self',
-    'frame-src' => '*',
-    'media-src' => 'none',
-    'object-src' => 'self',
-    'font-src' => 'self',
-    'img-src' => ['self', 'data:'],
+    'frame-src'   => '*',
+    'media-src'   => 'none',
+    'object-src'  => 'self',
+    'font-src'    => 'self',
+    'img-src'     => ['self', 'data:'],
     -with_nonce => 1
   });
 
@@ -248,15 +249,6 @@ sub startup {
     foreach (@{$conf->{'plugins'}}) {
       $self->plugin('Kalamar::Plugin::' . $_);
     };
-  };
-
-  # Deprecated Legacy code
-  if ($self->config('Piwik') &&
-        none { $_ eq 'Piwik' } @{$conf->{plugins} // []}) {
-
-    # 2018-11-12
-    deprecated 'Piwik is no longer considered a mandatory plugin';
-    $self->plugin('Kalamar::Plugin::Piwik');
   };
 
   # Deprecated Legacy code
