@@ -1,3 +1,6 @@
+0.41 2021-01-14
+        - Introduce CORS headers to the proxy.
+
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
         - add roll() method to state object.
