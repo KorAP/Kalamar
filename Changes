@@ -1,6 +1,10 @@
-0.41 2021-01-14
+0.41 2021-01-19
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
+        - Support CORS in Matomo/Piwik plugin.
+        - Updated Piwik/Matomo plugin to work with CORS.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
