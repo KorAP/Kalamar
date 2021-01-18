@@ -1,4 +1,4 @@
-0.41 2021-01-27
+0.41 2021-01-28
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -12,6 +12,9 @@
         - Introduce HSTS header for https_only conf.
         - Send 'nosniff' header.
         - defer main script.
+        - Support CSP in Matomo/Piwik plugin.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
