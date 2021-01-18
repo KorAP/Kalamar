@@ -1,9 +1,13 @@
-0.41 2021-01-15
+0.41 2021-01-19
+        - Introduce CORS headers to the proxy.
+        - Introduce Content Security Policy.
         - Remove default api endpoint from config to
           enable changes in the 'Kalamar' config environment
           while keeping the api_path.
-        - Introduce CORS headers to the proxy.
-        - Introduce Content Security Policy.
+        - Support CORS in Matomo/Piwik plugin.
+        - Updated Piwik/Matomo plugin to work with CORS.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
