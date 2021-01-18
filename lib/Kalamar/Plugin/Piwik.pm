@@ -14,6 +14,26 @@ sub register {
     };
   };
 
+  # Add event handler for korap requests
+  my $piwik_conf = $mojo->config('Piwik');
+  if ($piwik_conf) {
+    $piwik_conf->{append} //= '';
+  }
+  else {
+    $piwik_conf = { append => '' };
+    $mojo->config(Piwik => $piwik_conf);
+  };
+
+  $piwik_conf->{append} .= <<APPEND;
+window.addEventListener('korapRequest', function(e) {
+    let _paq=window._paq=window._paq||[];
+    _paq.push(['setDocumentTitle', e.detail.title]);
+    _paq.push(['setReferrerUrl', location.href]);
+    _paq.push(['setCustomUrl', e.detail.url]);
+    _paq.push(['trackPageView']);
+})
+APPEND
+
   # Load Piwik if not yet loaded
   unless (exists $mojo->renderer->helpers->{piwik_tag}) {
     $mojo->plugin('Piwik');
@@ -37,27 +57,26 @@ sub register {
       }
   );
 
-  # Add piwik tag to scripts
-  $mojo->content_block(scripts => {
-    inline => '<%= piwik_tag %>'
-  });
+  # Add tracking code as <script/> instead of inline
+  if ($param->{cors_compliant}) {
 
-  # Add event handler for korap requests
-  $mojo->content_block(scripts => {
-    inline => <<'SCRIPT'
-% if (stash('piwik.embed')) {
-  %= javascript begin
-window.addEventListener('korapRequest', function(e) {
-  _paq.push(['setDocumentTitle', e.detail.title]);
-  _paq.push(['setReferrerUrl', location.href]);
-  _paq.push(['setCustomUrl', e.detail.url]);
-  _paq.push(['trackPageView']);
-});
-  % end
-% }
-SCRIPT
-  });
+    # Set track script for CORS compliant tracking
+    $mojo->routes->any('/js/tracking.js')->piwik('track_script');
 
+    # Add piwik tag to scripts
+    $mojo->content_block(scripts => {
+      inline => q!<%= piwik_tag 'as-script' %>!
+    });
+  }
+
+  # Add tracking code inline
+  else {
+
+    # Add piwik tag to scripts
+    $mojo->content_block(scripts => {
+      inline => '<%= piwik_tag %>'
+    });
+  };
 
   # If all requests should be pinged,
   # establish this hook
