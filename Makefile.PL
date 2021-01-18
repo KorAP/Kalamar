@@ -33,7 +33,7 @@ WriteMakefile(
     'JSON' => 4.02,
 
     # Required for bundled plugins
-    'Mojolicious::Plugin::Piwik' => 0.26,
+    'Mojolicious::Plugin::Piwik' => 0.28,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Localize' => 0.20,
