@@ -251,15 +251,6 @@ sub startup {
   };
 
   # Deprecated Legacy code
-  if ($self->config('Piwik') &&
-        none { $_ eq 'Piwik' } @{$conf->{plugins} // []}) {
-
-    # 2018-11-12
-    deprecated 'Piwik is no longer considered a mandatory plugin';
-    $self->plugin('Kalamar::Plugin::Piwik');
-  };
-
-  # Deprecated Legacy code
   if ($self->config('Kalamar')->{auth_support} &&
         none { $_ eq 'Auth' } @{$conf->{plugins} // []}) {
 

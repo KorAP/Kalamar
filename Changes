@@ -15,6 +15,9 @@
         - Introduce X-Frame-Options header.
         - Introduce X-XSS-Protection header.
         - Support CSP in notifications framework.
+        - Support CSP in Matomo/Piwik plugin.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
