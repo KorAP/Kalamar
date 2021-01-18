@@ -279,7 +279,7 @@ $ cpanm -f Mojolicious::Plugin::MailException
 
 ### Original Software
 
-Copyright (C) 2015-2020, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
+Copyright (C) 2015-2021, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp<br>
 Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
 

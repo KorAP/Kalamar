@@ -39,6 +39,22 @@ sub pass {
     before_korap_request => ($c, $tx)
   );
 
+  my $h = $c->res->headers;
+  $h->access_control_allow_origin('*');
+  $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
+
+  # Retrieve CORS header
+  if ($c->req->method eq 'OPTIONS') {
+
+    # Remember this option for a day
+    $h->header('Access-Control-Max-Age' => '86400');
+    $h->header('Access-Control-Allow-Headers' => '*');
+    return $c->render(
+      status => 204,
+      text => ''
+    );
+  };
+
   # Start proxy transaction and catch failure
   $c->proxy->start_p($tx)->catch(
     sub {
@@ -56,15 +72,17 @@ sub pass {
 
   $tx->res->content->once(
     body => sub {
-      my $headers = $c->res->headers;
-      $headers->header('X-Proxy' => 'Kalamar');
-      $headers->header('X-Robots' => 'noindex');
+      my $h = $c->res->headers;
+      $h->header('X-Proxy' => 'Kalamar');
+      $h->header('X-Robots' => 'noindex');
+      $h->access_control_allow_origin('*');
+      $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
 
       # Response is a redirect
       if ($c->res->is_redirect) {
 
         # Rewrite redirect location to surface URL
-        my $location_url = $c->res->headers->location;
+        my $location_url = $h->location;
         my $base_url = Mojo::URL->new($c->korap->api)->to_abs->to_string;
 
         # Remove the api part
@@ -81,13 +99,13 @@ sub pass {
         my $loc_based = $location_url->base($proxy_url->to_abs);
 
         # Reset location
-        $c->res->headers->location($loc_based->to_abs);
+        $h->location($loc_based->to_abs);
       };
 
       # Workaround for a proxy problem when
       # another proxy, e.g. Apache, manages multiple
       # connections
-      $headers->connection('close');
+      $h->connection('close');
 
       $c->app->plugins->emit_hook(after_render => $c);
     }

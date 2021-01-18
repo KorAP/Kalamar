@@ -58,6 +58,11 @@ is($rendered, 1);
 
 $t->get_ok('/api/v1.0/')
   ->status_is(200)
+  ->header_is('X-Proxy', 'Kalamar')
+  ->header_is('X-Robots', 'noindex')
+  ->header_is('Connection', 'close')
+  ->header_is('Access-Control-Allow-Origin', '*')
+  ->header_is('Access-Control-Allow-Methods', 'GET, OPTIONS')
   ->content_is('Fake server available')
   ;
 
@@ -66,6 +71,8 @@ is($rendered, 2);
 
 $t->get_ok('/api/v1.0/search?ql=cosmas3')
   ->status_is(400)
+  ->header_is('Access-Control-Allow-Origin', '*')
+  ->header_is('Access-Control-Allow-Methods', 'GET, OPTIONS')
   ->json_is('/errors/0/0','307')
   ->header_is('connection', 'close')
   ;
@@ -119,6 +126,8 @@ $t->get_ok('/api/v1.0/longwait')
 
 $t->get_ok('/api/v1.0/redirect-target-a')
   ->status_is(200)
+  ->header_is('Access-Control-Allow-Origin', '*')
+  ->header_is('Access-Control-Allow-Methods', 'GET, OPTIONS')
   ->content_is('Redirect Target!')
   ;
 
@@ -131,8 +140,19 @@ $t->ua->max_redirects(2);
 
 $t->get_ok('/api/v1.0/redirect')
   ->status_is(200)
+  ->header_is('Access-Control-Allow-Origin', '*')
   ->content_is('Redirect Target!')
   ;
+
+# Check CORS
+$t->options_ok('/api/v1.0/search?ql=cosmas3')
+  ->status_is(204)
+  ->content_is('')
+  ->header_is('Access-Control-Allow-Origin', '*')
+  ->header_is('Access-Control-Allow-Methods', 'GET, OPTIONS')
+  ->header_is('Access-Control-Max-Age', '86400')
+  ;
+
 
 done_testing;
 __END__
