@@ -435,28 +435,35 @@ define([
     /**
      * Initialize Plugin registry.
      */
-    let p = KorAP.Plugins;
-    if (p && p.length > 0) {
-      // Load Plugin Server first
-      KorAP.Plugin = pluginClass.create();
+    let pe;
+    if (pe = d.getElementByID("kalamar-plugins")) {
+      let url = pe.getAttribute('data-plugins');
+      if (url !== undefined) {
+        KorAP.API.getPluginList(url, function (json) {
+          if (json && json.length > 0) {
+            // Load Plugin Server first
+            KorAP.Plugin = pluginClass.create();
 
-      // Add services container to head
-      d.head.appendChild(KorAP.Plugin.element());
+            // Add services container to head
+            d.head.appendChild(KorAP.Plugin.element());
 
-      // Add pipe form
-      KorAP.Pipe = pipeClass.create();
-      d.getElementById("searchform").appendChild(KorAP.Pipe.element());
-
-      try {
-      
-        // Register all plugins
-        p.forEach(i => KorAP.Plugin.register(i));
-      }
-      catch (e) {
-        KorAP.log(0, e);
-      }
+            // Add pipe form
+            KorAP.Pipe = pipeClass.create();
+            d.getElementById("searchform").appendChild(KorAP.Pipe.element());
+            
+            try {
+              
+              // Register all plugins
+              p.forEach(i => KorAP.Plugin.register(i));
+            }
+            catch (e) {
+              KorAP.log(0, e);
+            }
+          }
+        });
+      };
     };
-
+      
     return obj;
   });
   
