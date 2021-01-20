@@ -107,7 +107,15 @@ define(['util'], function () {
   	let url  =  KorAP.URL + "/corpus?cq=" + encodeURIComponent(cq);
   	KorAP.API.getJSON(url, cb, "CorpusInfo: " + cq);
   };
-  
+
+
+  /**
+   * Retrieve a list of all plugin objects to
+   * establish in the frontend.
+   */
+  KorAP.API.getPluginList = function (url, cb) {
+    KorAP.API.getJSON(url, cb, "Plugin-List")
+  };
 
   /**
    * General method to retrieve JSON information
