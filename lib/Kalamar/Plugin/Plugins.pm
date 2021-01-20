@@ -1,5 +1,6 @@
 package Kalamar::Plugin::Plugins;
 use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::JSON qw'decode_json';
 
 # Register the plugin
 sub register {
@@ -15,25 +16,36 @@ sub register {
 
     # Read default plugins file
     my $default = Mojo::File->new($param->{default_plugins});
-    my $json_array = $default->slurp;
+    my $json_array = decode_json $default->slurp;
 
     # If any scripts are defined
     if ($json_array) {
 
       # TODO:
-      #   Make this CSP (#72) compliant.
+      #   Add user registered plugins as a path
+
+      # TODO:
+      #   Add sources to CORS.
 
       # Add default plugins, if exist
+      $app->routes->get('/settings/plugin/list.json')->to(
+        cb => sub {
+          my $c = shift;
+          $c->res->headers->cache_control('no-cache');
+          $c->render(
+            json => $json_array
+          );
+        }
+      )->name('plugin_list');
+
       $app->content_block(
         scripts => {
-          inline => "<script>//<![CDATA[\nKorAP.Plugins=" . $json_array . "\n//]]></script>"
+          inline => q!<span id="kalamar-plugins" ! .
+            q!data-plugins="<%== url_for 'plugin_list' %>"></span>!
         }
       );
     };
   };
-
-  # TODO:
-  #   Add user registered plugins as a path
 };
 
 
@@ -73,7 +85,7 @@ frontend.
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2020, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
