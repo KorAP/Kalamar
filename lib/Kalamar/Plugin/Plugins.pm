@@ -21,19 +21,30 @@ sub register {
     if ($json_array) {
 
       # TODO:
-      #   Make this CSP (#72) compliant.
+      #   Add user registered plugins as a path
+
+      # TODO:
+      #   Add sources to CORS.
 
       # Add default plugins, if exist
+      $app->routes->get('/settings/plugin/list.json')->to(
+        cb => sub {
+          my $c = shift;
+          $c->res->headers->cache_control('no-cache');
+          $c->render(
+            json => $json_array
+          );
+        }
+      )->name('plugin_list');
+
       $app->content_block(
         scripts => {
-          inline => "<script>//<![CDATA[\nKorAP.Plugins=" . $json_array . "\n//]]></script>"
+          inline => '<span id="kalamar-plugins" data-plugins="' .
+            $app->url_for('plugins') . '"></span>'
         }
       );
     };
   };
-
-  # TODO:
-  #   Add user registered plugins as a path
 };
 
 
@@ -73,7 +84,7 @@ frontend.
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2020, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
