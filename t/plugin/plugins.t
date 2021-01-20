@@ -31,8 +31,16 @@ $t->app->plugin('Plugins' => {
 
 $t->get_ok('/')
   ->text_is('h1 span', 'KorAP - Corpus Analysis Platform')
-  ->content_like(qr!KorAP\.Plugins\s*=\s*\[!)
-  ->content_like(qr!<script>\/\/<\!\[CDATA\[!)
+  ->content_unlike(qr!KorAP\.Plugins\s*=\s*\[!)
+  ->content_unlike(qr!<script>\/\/<\!\[CDATA\[!)
+  ->content_like(qr!<script src="/js/plugins\.js!)
+  ;
+
+$t->get_ok('/js/plugins.js')
+  ->status_is(200)
+  ->header_is('Content-Type','application/javascript')
+  ->content_like(qr!KorAP\.Plugins=!)
+  ->content_like(qr!button-icon!)
   ;
 
 done_testing;
