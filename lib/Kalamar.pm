@@ -112,6 +112,7 @@ sub startup {
     before_dispatch => sub {
       my $h = shift->res->headers;
       $h->header('X-Content-Type-Options' => 'nosniff');
+      $h->header('X-Frame-Options' => 'sameorigin');
       $h->header(
         'Access-Control-Allow-Methods' =>
           $h->header('Access-Control-Allow-Methods') // 'GET, POST, OPTIONS'
