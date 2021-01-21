@@ -6,6 +6,7 @@
           while keeping the api_path.
         - Added advice in Readme regarding scripts in
           Windows Powershell (lerepp).
+        - Establish CSP plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
