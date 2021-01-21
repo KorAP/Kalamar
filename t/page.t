@@ -34,6 +34,7 @@ $t->get_ok('/')
   ->header_is('X-Content-Type-Options', 'nosniff')
   ->header_is('Access-Control-Allow-Methods','GET, POST, OPTIONS')
   ->header_is('X-Frame-Options', 'sameorigin')
+  ->header_is('X-XSS-Protection', '1; mode=block')
   ;
 
 # Test additions

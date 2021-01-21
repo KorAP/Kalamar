@@ -13,6 +13,7 @@
         - Send 'nosniff' header.
         - defer main script.
         - Introduce X-Frame-Options header.
+        - Introduce X-XSS-Protection header.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

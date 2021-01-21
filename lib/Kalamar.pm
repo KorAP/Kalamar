@@ -113,6 +113,7 @@ sub startup {
       my $h = shift->res->headers;
       $h->header('X-Content-Type-Options' => 'nosniff');
       $h->header('X-Frame-Options' => 'sameorigin');
+      $h->header('X-XSS-Protection' => '1; mode=block');
       $h->header(
         'Access-Control-Allow-Methods' =>
           $h->header('Access-Control-Allow-Methods') // 'GET, POST, OPTIONS'
