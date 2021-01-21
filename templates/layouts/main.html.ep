@@ -44,10 +44,10 @@
 
 % if ($c->app->mode eq 'development') {
     <link href="<%= stash 'prefix' %>/css/kalamar-<%= $Kalamar::VERSION %>.css?v=<%= random_string %>" type="text/css" rel="stylesheet" />
-    <script data-main="/js/src/app/devel" src="/js/lib/require.js" async="async"></script>
+    <script data-main="/js/src/app/devel" src="/js/lib/require.js" async="async" defer="defer"></script>
 % } else {
     <link href="<%= stash 'prefix' %>/css/kalamar-<%= $Kalamar::VERSION %>.css" type="text/css" rel="stylesheet" />
-    <script src="<%= (stash('prefix') // '') . '/js/' . loc('jsFile', 'kalamar-' . $Kalamar::VERSION . '-en.js') %>" async="async"></script>
+    <script src="<%= (stash('prefix') // '') . '/js/' . loc('jsFile', 'kalamar-' . $Kalamar::VERSION . '-en.js') %>" async="async" defer="defer"></script>
 % };
       
     

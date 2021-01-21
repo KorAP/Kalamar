@@ -1,12 +1,20 @@
+<<<<<<< 354f453c540136af87fb4143db385a5641e2ca6f
 0.41 2021-01-25
+=======
+0.41 2021-01-21
+>>>>>>> Defer main script
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
           enable changes in the 'Kalamar' config environment
           while keeping the api_path.
+<<<<<<< 354f453c540136af87fb4143db385a5641e2ca6f
         - Added advice in Readme regarding scripts in
           Windows Powershell (lerepp).
         - Establish CSP plugin.
+=======
+        - defer main script.
+>>>>>>> Defer main script
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
