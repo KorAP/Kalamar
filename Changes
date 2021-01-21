@@ -1,6 +1,7 @@
-0.41 2021-01-14
+0.41 2021-01-21
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
+        - defer main script.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
