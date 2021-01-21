@@ -26,6 +26,7 @@ $t->get_ok('/')
   ->header_like('Content-Security-Policy', qr!default-src 'self';!)
   ->header_like('Content-Security-Policy', qr!media-src 'none';!)
   ->header_like('Content-Security-Policy', qr!object-src 'self';!)
+  ->header_is('Access-Control-Allow-Methods','GET, POST, OPTIONS')
   ;
 
 done_testing;

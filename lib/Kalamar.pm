@@ -126,6 +126,8 @@ sub startup {
   my $csp = $conf->{cs_policy} // (
     "default-src 'self';".
       "style-src 'self' 'unsafe-inline';".
+      "script-src 'self';".
+      "connect-src 'self';".
       "frame-src *;".
       "media-src 'none';".
       "object-src 'self';".
@@ -135,7 +137,12 @@ sub startup {
 
   $self->hook(
     before_render => sub {
-      shift->res->headers->header('Content-Security-Policy' => $csp);
+      my $h = shift->res->headers;
+      $h->header('Content-Security-Policy' => $csp);
+      $h->header(
+        'Access-Control-Allow-Methods' =>
+          $h->header('Access-Control-Allow-Methods') // 'GET, POST, OPTIONS'
+        );
     }
   );
 
