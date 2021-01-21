@@ -32,6 +32,7 @@ $t->get_ok('/')
   ->content_like(qr/<script nonce/)
   ->content_like(qr/document\.body\.classList\.remove\(\'no-js\'\);/)
   ->header_is('X-Content-Type-Options', 'nosniff')
+  ->header_is('Access-Control-Allow-Methods','GET, POST, OPTIONS')
   ;
 
 # Test additions

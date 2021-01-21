@@ -41,7 +41,6 @@ sub pass {
 
   my $h = $c->res->headers;
   $h->access_control_allow_origin('*');
-  $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
 
   # Retrieve CORS header
   if ($c->req->method eq 'OPTIONS') {
@@ -49,6 +48,7 @@ sub pass {
     # Remember this option for a day
     $h->header('Access-Control-Max-Age' => '86400');
     $h->header('Access-Control-Allow-Headers' => '*');
+    $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
     return $c->render(
       status => 204,
       text => ''

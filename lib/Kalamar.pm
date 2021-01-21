@@ -110,7 +110,12 @@ sub startup {
 
   $self->hook(
     before_dispatch => sub {
-      shift->res->headers->header('X-Content-Type-Options' => 'nosniff');
+      my $h = shift->res->headers;
+      $h->header('X-Content-Type-Options' => 'nosniff');
+      $h->header(
+        'Access-Control-Allow-Methods' =>
+          $h->header('Access-Control-Allow-Methods') // 'GET, POST, OPTIONS'
+        );
     }
   );
 
@@ -161,6 +166,7 @@ sub startup {
     'default-src' => 'self',
     'style-src' => ['self','unsafe-inline'],
     'script-src' => 'self',
+    'connect-src' => 'self',
     'frame-src' => '*',
     'media-src' => 'none',
     'object-src' => 'self',
