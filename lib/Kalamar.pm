@@ -131,7 +131,9 @@ sub startup {
 
   $self->hook(
     before_render => sub {
-      shift->res->headers->header('Content-Security-Policy' => $csp);
+      my $h = shift->res->headers;
+      $h->header('Content-Security-Policy' => $csp);
+      $h->header('X-XSS-Protection' => '1; mode=block');
     }
   );
 
