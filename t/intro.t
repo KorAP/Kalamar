@@ -14,6 +14,8 @@ $t->get_ok('/')
   ->text_is('h1 span', 'KorAP - Corpus Analysis Platform')
   ->element_exists('div.intro')
   ->text_is('div.intro > p > strong', 'KorAP')
+  ->content_unlike(qr!onload!)
+  ->text_is('#link-guided-tour', 'guided tour')
   ;
 
 # Only routed when existing
