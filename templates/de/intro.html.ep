@@ -6,7 +6,7 @@
   <p><strong>KorAP</strong> ist eine neue Korpusanalyseplattform, optimiert für große, mehrfach annotierte Korpora und komplexe Suchmechanismen. Dabei versucht KorAP unabhängig von spezifischen Forschungsfragen zu sein.</p>
 
   <p><noscript>KorAP erwartet für einige Funktionen die Aktivierung von JavaScript.</noscript></p>
-  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <a href="#" onclick="KorAP.tourshow()"> Tour</a> oder lesen Sie unsere <%= doc_opener 'korap', begin %>Einführung<% end %>!</p>
+  <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <a id="link-guided-tour">Tour</a> oder lesen Sie unsere <%= doc_opener 'korap', begin %>Einführung<% end %>!</p>
   
   %= include 'announcement', lang => 'de'
 
