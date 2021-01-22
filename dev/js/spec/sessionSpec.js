@@ -55,7 +55,7 @@ define(['session'], function (sessionClass) {
       expect(document.cookie.includes("koraptest=%7B%22test3%22%3A%22works%22%7D")).toBeTruthy();
       s.clear();     
       expect(document.cookie.includes("koraptest=")).toBeTruthy();
-      expect(s.toString()).toEqual("koraptest=%7B%7D;");
+      expect(s.toString()).toEqual("koraptest=%7B%7D;SameSite=Lax");
     });   
   })
 });
