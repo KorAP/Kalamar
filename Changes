@@ -17,6 +17,7 @@
         - Support CSP in notifications framework.
         - Fetch plugin configs from JSON file to be
           CSP compliant.
+        - Fix guided tour to work with CSP.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
