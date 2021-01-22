@@ -6,11 +6,11 @@
 
   <p><noscript>KorAP expects activated JavaScript for some features.</noscript></p>
 
-  <p><strong>New to KorAP?</strong> Please check out our <a href="#" onclick="KorAP.tourshow()">guided tour</a> or our <%= doc_opener 'korap', begin %>tutorial<% end %>!</p>
+  <p><strong>New to KorAP?</strong> Please check out our <a id="link-guided-tour">guided tour</a> or our <%= doc_opener 'korap', begin %>tutorial<% end %>!</p>
   
   %= include 'announcement', lang => 'en'
 
-  <p>KorAP is developed at the <a href="http://www.ids-mannheim.de">Leibniz Institute for the German Language</a>, member of the <a href="http://www.leibniz-gemeinschaft.de">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
+  <p>KorAP is developed at the <a href="https://www.ids-mannheim.de">Leibniz Institute for the German Language</a>, member of the <a href="http://www.leibniz-gemeinschaft.de">Leibniz Association</a>. The separated modules are being published as open source at <a href="http://github.com/KorAP">GitHub</a>.</p>
 
 </div>
 

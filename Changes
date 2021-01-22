@@ -21,6 +21,7 @@
         - Removed deprecated default behaviour
           of the Piwik/Matomo plugin.
         - Support CSP in overview SVG image.
+        - Fix guided tour to work with CSP.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
