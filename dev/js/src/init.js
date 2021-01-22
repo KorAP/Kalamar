@@ -87,13 +87,17 @@ define([
   };
 
   KorAP.vc = vcClass.create(vcArray); 
-  
-  KorAP.tourshow =  function(){
-    tourClass.gTstartSearch().start();
-  };
- 
-  KorAP.tourshowR = function(){
-    tourClass.gTshowResults().start();
+
+  let gt;
+  if (gt = document.getElementById('link-guided-tour')) {
+    gt.setAttribute('href', '#');
+    gt.addEventListener('click', function(){
+      tourClass.gTstartSearch().start();
+    });
+    
+    KorAP.tourshowR = function(){
+      tourClass.gTshowResults().start();
+    };
   };
     
   domReady(function (event) {
