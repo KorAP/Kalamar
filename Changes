@@ -1,4 +1,6 @@
 0.41 2021-01-28
+        - Added further methods for communicating JSON Files
+          with the server to the APIs
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
