@@ -1,5 +1,6 @@
 0.41 2021-01-28
-        - Introduce CORS headers to the proxy.
+        - Added further methods for communicating JSON Files
+          with the server to the API        - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
           enable changes in the 'Kalamar' config environment
