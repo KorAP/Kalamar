@@ -64,6 +64,10 @@ $ grunt
 ```
 
 Whenever the assets change, just rerun `grunt`.
+In case you are having issues with running cripts under Windows, see:
+https://docs.microsoft.com/de-de/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1
+You can set execution policy with "Set-ExecutionPolicy".
+If using the RemoteSigned execution policy, you can use "Unblock-File" to allow specific scripts to run.
 
 ### Start Server
 
