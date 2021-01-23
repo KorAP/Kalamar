@@ -24,6 +24,8 @@
         - Fix guided tour to work with CSP.
         - Fix strict-mode in tour.
         - Define resources in Makefile.
+        - Added further methods for communicating JSON Files
+          with the server to the APIs (lerepp).
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

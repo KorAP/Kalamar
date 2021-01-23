@@ -10,6 +10,8 @@ define(['util'], function () {
   // - http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
   // - http://stackoverflow.com/questions/6112744/load-javascript-on-demand
 
+  // See https://flaviocopes.com/http-request-headers/ for a list of headers
+
   KorAP.URL = KorAP.URL !== undefined ? KorAP.URL : '';
   KorAP.API = KorAP.API || {};
 
@@ -98,7 +100,7 @@ define(['util'], function () {
    * 
    * Example URL:  /corpus?cq=availability+%3D+%2FCC-BY.*%2F+%26+textClass+%3D+%22kultur%22
    * 
-   * cq = corpus query (formerly collectionQuery)
+   * @param cq corpus query (formerly collectionQuery)
    * 
    * Adress the MOJO-Endpoint for example with
    * http://localhost:3000/corpus?cq=availability+%3D+%2FCC-BY.*%2F+%26+textClass+%3D+%22kultur%22
@@ -118,13 +120,19 @@ define(['util'], function () {
   };
 
   /**
-   * General method to retrieve JSON information
-   */
-  KorAP.API.getJSON = function (url, onload, title) {
+   * General method to communicate JS Objects with the server
+   * 
+   * @param {HTTMLRequestType} requestType Should be "GET", "PUT", "POST" or "DELETE"
+   * @param {String} url The url that specifies where the JSON file is ("GET"), will be ("PUT" and "POST") or will have been ("DELETE")
+   * @param {String} title How to store this request in the logs
+   * @param {JSObj} jsObj For "PUT" and "POST". The JS Object that is getting transfered. This function stringifies it.
+   * @param {function} returnValueCB For "GET". The callback function that receives the retrieved JS object (already parsed) as a parameter, or undefined if none is eligible
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */ 
+  _actionJSON = function (requestType, url, title, jsObj, returnValueCB, errorCB) {
     const req = new XMLHttpRequest();
-    req.open("GET", url, true);
-
-    // Dispatch global "window" event
+    req.open(requestType, url, true); 
+    // Dispatch global "window" event. See Kalamar::Plugin::Piwik
     const reqE = new CustomEvent('korapRequest', {
       bubbles : false,
       detail: {
@@ -135,7 +143,8 @@ define(['util'], function () {
     window.dispatchEvent(reqE);
     
     req.setRequestHeader("Accept", "application/json");
-    req.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
+    req.setRequestHeader("Content-Type", "application/json");
+    req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     req.onreadystatechange = function () {
       /*
 	      States:
@@ -147,40 +156,162 @@ define(['util'], function () {
       */
       if (this.readyState == 4) {
 
-        let json;
-        try {
-          json = JSON.parse(this.responseText);
-        }
-        catch (e) {
-          KorAP.log(0, e);
-          console.log(e);
-          onload(undefined);
-          return;
+        if (requestType === "GET") { //GET
+          let retJSObj;
+          try {
+            retJSObj = JSON.parse(this.responseText);
+          }
+          catch (e) {
+            KorAP.log(0, e);
+            console.log(e);
+            returnValueCB(undefined);
+            return;
+          };
+
+          if (retJSObj !== undefined && retJSObj["errors"] !== undefined) {
+            retJSObj["errors"].forEach(
+              e => KorAP.log(e[0], e[1] || "Unknown")
+            );
+          }
+
+          else if (this.status !== 200) {
+            KorAP.log(this.status, this.statusText, "Remote service error (XMLHttpRequest) under URL: " + url);
+          };
+
+          if (this.status === 200) {
+            returnValueCB(retJSObj);
+          }
+
+          else {
+            returnValueCB(undefined);
+          };
+
+        } else { // PUT, POST, DELETE
+          if (this.status >= 300 || this.status < 200) { //Error
+            KorAP.log(this.status, this.statusText, "Remote service error (XMLHttpRequest) under URL: " + url);
+          };
         };
-
-	      if (json !== undefined && json["errors"] !== undefined) {
-	        json["errors"].forEach(
-            e => KorAP.log(e[0], e[1] || "Unknown")
-	        );
-	      }
-
-        else if (this.status !== 200) {
-        	KorAP.log(this.status, this.statusText);
-        };
-
-	      if (this.status === 200) {
-	        onload(json);
-	      }
-
-	      else {
-          onload(undefined);
-        };
-      }
+        // Call the callback function (no matter requestType) if one is given.
+        if (typeof(errorCB) === "function"){
+          errorCB({
+            "status" : this.status,
+            "statusText" : this.statusText
+          });
+        }; 
+      };
     };
 
-    req.ontimeout = function () {
-      KorAP.log(0, 'Request Timeout');
+    /*Set a value for .timeout to use this functionality */
+    //req.ontimeout = function () {
+    //  KorAP.log(0, 'Request Timeout');
+    //};
+    if (requestType === "POST" || requestType === "PUT") {
+      req.send(JSON.stringify(jsObj));
+    } else { //GET, DELETE
+      req.send();
     };
-    req.send();
-  }
+  };
+
+  /**
+   * General method to get JSON information.
+   * 
+   * @param {String} url The url at which the JSON File will be located
+   * @param {function} returnValueCB The callback function that receives the retrieved JS object (already parsed) as a parameter, or undefined if none is eligible
+   * @param {String} title How to store this request in the logs
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */ 
+  KorAP.API.getJSON = function (url, returnValueCB, title, errorCB) {
+    _actionJSON("GET", url, title, undefined, returnValueCB, errorCB);
+  };
+
+  /**
+   * General method to put JSON information.
+   * 
+   * @param {String} url The url at which the JSON File will be located
+   * @param {JSObj} jsObj The JS object that is getting transfered. This will be stringified
+   * @param {String} title How to store this request in the logs
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */ 
+  KorAP.API.putJSON = function (url, jsObj, title, errorCB) {
+    _actionJSON("PUT", url, title, jsObj, undefined, errorCB);
+  };
+
+  /**
+   * General method to post JSON information.
+   * 
+   * @param {String} url The url at which the JSON File will be located
+   * @param {JSObj} jsObj The JS object that is getting transfered. This will be stringified
+   * @param {String} title How to store this request in the logs
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */ 
+  KorAP.API.postJSON = function (url, jsObj, title, errorCB) {
+    _actionJSON("POST", url, title, jsObj, undefined, errorCB);
+  };
+
+  /**
+   * General method to delete a file at a specific URL
+   * 
+   * @param {String} url The url at which the to be deleted file is located
+   * @param {String} title How to store this request in the logs
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */ 
+  KorAP.API.deleteJSON = function (url, title, errorCB) {
+    _actionJSON("DELETE", url, title, undefined, undefined, errorCB);
+  };
+
+
+  // Stored query related functions
+
+  /**
+   * Retrieve saved list of queries
+   * 
+   * @param {function} returnValueCB The callback function that receives the JS object Listof queries, already parsed
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */
+  KorAP.API.getQueryList = function (returnValueCB, errorCB){
+    KorAP.API.getJSON(KorAP.URL + "/query/", returnValueCB, "getSavedQueryList", errorCB);
+  };
+
+  /**
+   * Retrieve specific saved query by query name
+   * 
+   * @param {String} qn The name of the query to be retrieved. Must be a string
+   * @param {function} returnValueCB The callback function that receives the query JS object Object, already parsed
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */
+  KorAP.API.getQuery = function (qn, returnValueCB, errorCB){
+    KorAP.API.getJSON(KorAP.URL + "/query/" + qn, returnValueCB, "getSavedQuery of name "+ qn, errorCB);
+  };
+
+  /**
+   * Put new query by query name
+   * 
+   * @param {String} qn The name of the new query
+   * @param {JSObj} jsObj The query. This will be stringified
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */
+  KorAP.API.putQuery = function (qn, jsObj, errorCB){
+    KorAP.API.putJSON(KorAP.URL + "/query/" + qn, jsObj, "putQuery of name "+ qn, errorCB);
+  };
+
+  /**
+   * Post new query by query name
+   * 
+   * @param {String} qn The name of the new query
+   * @param {JSObj} jsObj The query. This will be stringified
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */
+  KorAP.API.postQuery = function (qn, jsObj, errorCB){
+    KorAP.API.postJSON(KorAP.URL + "/query/" + qn, jsObj, "postQuery of name "+ qn, errorCB);
+  };
+
+  /**
+   * delete query by query name
+   * 
+   * @param {String} qn The name of the to be deleted query
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
+   */
+  KorAP.API.deleteQuery = function (qn, errorCB){
+    KorAP.API.deleteJSON(KorAP.URL + "/query/" + qn, "deleteQuery of name "+ qn, errorCB);
+  };
 });
