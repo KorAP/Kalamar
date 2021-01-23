@@ -275,6 +275,14 @@ in the test suite, so a force install may be necessary.
 $ cpanm -f Mojolicious::Plugin::MailException
 ```
 
+# Problem running scripts on Windows with Powershell
+
+In case you are having issues with running scripts under Windows,
+you can set the execution policy with
+[`Set-ExecutionPolicy`](https://docs.microsoft.com/de-de/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1).
+If using the RemoteSigned execution policy, you can use `Unblock-File`
+to allow specific scripts to run.
+
 ## COPYRIGHT AND LICENSE
 
 ### Original Software
