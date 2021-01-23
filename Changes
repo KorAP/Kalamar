@@ -1,3 +1,7 @@
+0.42 2021-01-29
+        - Added further methods for communicating JSON Files
+          with the server to the API
+
 0.41 2021-01-14
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
