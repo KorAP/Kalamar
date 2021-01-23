@@ -1,6 +1,27 @@
-0.41 2021-01-14
+0.41 2021-01-28
+        - Added further methods for communicating JSON Files
+          with the server to the API
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
+        - Remove default api endpoint from config to
+          enable changes in the 'Kalamar' config environment
+          while keeping the api_path.
+        - Added advice in Readme regarding scripts in
+          Windows Powershell (lerepp).
+        - Establish CSP plugin.
+        - Added nonce helper to CSP plugin.
+        - Remove no-js class in nonced inline script.
+        - Introduce HSTS header for https_only conf.
+        - Send 'nosniff' header.
+        - defer main script.
+        - Introduce X-Frame-Options header.
+        - Introduce X-XSS-Protection header.
+        - Support CSP in notifications framework.
+        - Fetch plugin configs from JSON file to be
+          CSP compliant.
+        - Support CSP in Matomo/Piwik plugin.
+        - Removed deprecated default behaviour
+          of the Piwik/Matomo plugin.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
