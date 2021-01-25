@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da1f3db_13bef2b6",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-01-25T15:22:11Z",
+      "side": 1,
+      "message": "Required to trigger further actions on release, see Kalamar::Plugin::Piwik.",
+      "range": {
+        "startLine": 125,
+        "startChar": 7,
+        "endLine": 125,
+        "endChar": 37
+      },
+      "revId": "1d67b4ee8aad97c0b7177e84c742e220f7dcdc76",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1db04a6_97c5640a",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-01-25T15:22:11Z",
+      "side": 1,
+      "message": "It seems you are right. Maybe there once was a set timeout back in the day, but I agree it\u0027s useless now.",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 78
+      },
+      "revId": "1d67b4ee8aad97c0b7177e84c742e220f7dcdc76",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda6ca7b_5e4aacf7",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-01-25T15:22:11Z",
+      "side": 1,
+      "message": "Should be set for content negotiation, see https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation - so the error message is predictabily send as JSON.",
+      "range": {
+        "startLine": 210,
+        "startChar": 58,
+        "endLine": 210,
+        "endChar": 73
+      },
+      "revId": "1d67b4ee8aad97c0b7177e84c742e220f7dcdc76",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
