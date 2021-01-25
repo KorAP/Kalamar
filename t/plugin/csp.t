@@ -79,6 +79,33 @@ $t->get_ok('/n')
   ->header_is($csp, "img-src 'self' data:;script-src *;style-src 'self' 'unsafe-inline';")
   ;
 
+$t = Test::Mojo->new;
+$t->app->config(
+  CSP => {
+    'style-src' => ['self'],
+    'img-src' => ['self', 'data:'],
+    -with_nonce => 1
+  }
+);
+$t->app->plugin('Kalamar::Plugin::CSP');
+
+$t->app->routes->get('/nonce')->to(
+  cb => sub {
+    shift->render(inline => 'Hallo! <%= csp_nonce_tag %>');
+  }
+);
+
+my $content = $t->get_ok('/nonce')
+  ->status_is(200)
+  ->content_like(qr'Hallo! <script nonce=".{20}">//<')
+  ->header_like($csp, qr!^img-src 'self' data:;script-src 'nonce-.{20}';style-src 'self';!)
+  ->tx->res->to_string;
+;
+
+$content =~ q!<script nonce="(.{20})"!;
+like($content, qr/nonce-\Q$1\E/);
+
+
 
 done_testing;
 __END__
