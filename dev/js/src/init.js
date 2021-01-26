@@ -108,6 +108,14 @@ define([
     /**
      * Release notifications
      */
+    d.querySelectorAll('#notifications div.notify').forEach(
+      function(e) {
+        console.log('***');
+        // code, msg, source
+      }
+    );
+    console.log('##############################################');
+    /*
     if (KorAP.Notifications !== undefined) {
       KorAP.Notifications.forEach(function(n) {
         var msg = n[1];
@@ -117,6 +125,7 @@ define([
         alertifyClass.log(msg, n[0], 10000);
       });
     };
+    */
 
     /**
      * Replace Virtual Corpus field

@@ -22,3 +22,25 @@ article.alertify-log code.src {
 .alertify-log-error {
   background-color: $alert-red;
 }
+
+#notifications {
+//  display: none;
+}
+
+div.notify {
+  position: relative;
+  margin: .5em auto;
+  display: block;
+  padding: .5em;
+  
+  border-radius: $standard-border-radius;
+  max-width: 30em;
+  background-color: $alert-red;
+  color: $nearly-white;
+  &.notify-success {
+    background-color: $ids-green-1
+  }
+  &.notify-warn {
+    background-color: $ids-orange-2
+  }
+}
