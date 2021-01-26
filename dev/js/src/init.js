@@ -92,7 +92,7 @@ define([
   KorAP.tourshowR = function(){
     tourClass.gTshowResults().start();
   };
-    
+
   domReady(function (event) {
       
     var obj = {};
@@ -105,15 +105,19 @@ define([
     /**
      * Release notifications
      */
-    if (KorAP.Notifications !== undefined) {
-      KorAP.Notifications.forEach(function(n) {
-        var msg = n[1];
-        if (n[2]) {
-          msg += '<code class="src">'+n[2]+'</code>';
+    d.querySelectorAll('#notifications div.notify').forEach(
+      function(e) {
+        let msg = e.textContent;
+
+        let src = e.getAttribute('data-src');
+        if (src) {
+          msg += '<code class="src">'+src+'</code>';
         };
-        alertifyClass.log(msg, n[0], 10000);
-      });
-    };
+
+        let type = e.getAttribute('data-type') || "error";
+        alertifyClass.log(msg, type, 10000);
+      }
+    );
 
     /**
      * Replace Virtual Corpus field

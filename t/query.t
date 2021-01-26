@@ -194,19 +194,19 @@ $t->get_ok('/?q=der&p=2&count=2')
 # Query with failing parameters
 $t->get_ok('/?q=fantastisch&ql=Fabelsprache')
   ->status_is(400)
-  ->text_is('noscript div.notify-error', 'Parameter "ql" invalid')
+  ->text_is('#notifications div.notify-error', 'Parameter "ql" invalid')
   ->element_exists('#search')
-  ->element_count_is('noscript div.notify-error', 1)
+  ->element_count_is('#notifications div.notify-error', 1)
   ;
 $t->get_ok('/?q=fantastisch&cutoff=no')
   ->status_is(400)
-  ->text_is('noscript div.notify-error', 'Parameter "cutoff" invalid')
-  ->element_count_is('noscript div.notify-error', 1)
+  ->text_is('#notifications div.notify-error', 'Parameter "cutoff" invalid')
+  ->element_count_is('#notifications div.notify-error', 1)
   ;
 $t->get_ok('/?q=fantastisch&p=hui&o=hui&count=-8')
   ->status_is(400)
-  ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
-  ->element_count_is('noscript div.notify-error', 3)
+  ->text_like('#notifications div.notify-error', qr!Parameter ".+?" invalid!)
+  ->element_count_is('#notifications div.notify-error', 3)
   ;
 
 # Query too long
@@ -214,20 +214,20 @@ my $long_query = 'b' x 2000;
 $t->get_ok('/?q=' . $long_query)
   ->status_is(400)
   ->text_is('#error','')
-  ->text_like('noscript div.notify-error', qr!Parameter ".+?" invalid!)
+  ->text_like('#notifications div.notify-error', qr!Parameter ".+?" invalid!)
   ;
 
 # Query with timeout
 $t->get_ok('/?q=timeout')
   ->status_is(200)
-  ->text_like('noscript div.notify-warn', qr!Response time exceeded!)
+  ->text_like('#notifications div.notify-warn', qr!Response time exceeded!)
   ->text_is('#total-results', '> 4,274,841');
 ;
 
 # Do not cache
 $t->get_ok('/?q=timeout')
   ->status_is(200)
-  # ->text_like('noscript div.notify-warning', qr!Response time exceeded!)
+  # ->text_like('#notifications div.notify-warning', qr!Response time exceeded!)
   ->element_exists("input#cq")
   ->element_exists_not("input#cq[value]")
   ->text_is('#total-results', '> 4,274,841');

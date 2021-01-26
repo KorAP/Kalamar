@@ -14,6 +14,7 @@
         - defer main script.
         - Introduce X-Frame-Options header.
         - Introduce X-XSS-Protection header.
+        - Support CSP in notifications framework.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
