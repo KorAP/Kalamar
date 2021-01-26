@@ -289,7 +289,8 @@ to allow specific scripts to run.
 
 Copyright (C) 2015-2021, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp<br>
-Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation)
+Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation),
+Leo Repp
 
 Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the
