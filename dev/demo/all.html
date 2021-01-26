@@ -14,7 +14,7 @@
     //]]></script>
     <script data-main="alldemo.js" src="../js/lib/require.js" async="async"></script>
   </head>
-  <body>
+  <body class="no-js">
     <div id="kalamar-bg"></div>
     <header>
       <a href="/" class="logo" tabindex="-1"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
@@ -281,11 +281,10 @@ KorAP.koralQuery = {
       var KorAP = KorAP || {};
       KorAP.URL = 'http://localhost:3000';
     </script>
-    <script>//<![CDATA[
-KorAP.Notifications = [];
-KorAP.Notifications.push(["warn","767: Case insensitivity is currently not supported for this layer"]);
-KorAP.Notifications.push(["error","404: Not Found (remote)"]);
-//]]>
-    </script>
+    <div id="notifications">
+      <div class="notify notify-warn" data-type="warn">Error</div>
+      <div class="notify notify-error" data-type="error">Hmmm</div>
+      <div class="notify notify-success" data-type="success" data-src="Kustvakt">Hmmm</div>
+    </div>
   </body>
 </html>
