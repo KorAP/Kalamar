@@ -5,6 +5,10 @@
  */
 body.no-js {
 
+  #notifications {
+    display: block !important;
+  }
+  
   // Aside in noscript mode
   aside {
     position:    relative;
