@@ -28,6 +28,10 @@ $t->get_ok('/')
   ->header_like('Content-Security-Policy', qr!object-src 'self';!)
   ;
 
+$t->get_ok('/')
+  ->content_like(qr/inline js permitted/)
+  ;
+
 done_testing;
 
 1;
