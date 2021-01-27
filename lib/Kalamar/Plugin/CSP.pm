@@ -20,7 +20,7 @@ sub register {
   $app->plugin('Util::RandomString' => {
     nonce => {
       alphabet => '1234567890abcdefghijklmnopqrstuvwxyz' .
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#?(){}<>+-*',
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ+/',
       length   => 20
     }
   });
