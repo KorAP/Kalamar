@@ -28,6 +28,12 @@ $t->get_ok('/')
   ->header_like('Content-Security-Policy', qr!object-src 'self';!)
   ;
 
+$t->get_ok('/')
+  ->header_like('Content-Security-Policy', qr!nonce-!)
+  ->content_like(qr/<script nonce/)
+  ->content_like(qr/document\.body\.classList\.remove\(\'no-js\'\);/)
+  ;
+
 done_testing;
 
 1;
