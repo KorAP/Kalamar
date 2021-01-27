@@ -151,7 +151,8 @@ sub startup {
     'media-src' => 'none',
     'object-src' => 'self',
     'font-src' => 'self',
-    'img-src' => ['self', 'data:']
+    'img-src' => ['self', 'data:'],
+    -with_nonce => 1
   });
 
   # Localization framework
@@ -178,7 +179,7 @@ sub startup {
   foreach (
     'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
-    'KalamarPages',             # Page Helpers for Kalamar
+    'KalamarPages',              # Page Helpers for Kalamar
     'KalamarErrors',             # Specific Errors for Kalamar
     'KalamarUser',               # Specific Helpers for Kalamar Users
     'ClientIP',                  # Get client IP from X-Forwarded-For
@@ -270,6 +271,14 @@ sub startup {
   $self->content_block(footer => {
     inline => '<%= embedded_link_to "doc", "V ' . $Kalamar::VERSION . '", "korap", "kalamar" %>',
     position => 100
+  });
+
+  # Add nonce script
+  $self->content_block(nonce_js => {
+    inline => <<'NONCE_JS'
+      // Remove the no-js class from the body
+      document.body.classList.remove('no-js');
+NONCE_JS
   });
 
   # Base query route
