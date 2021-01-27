@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d1d7bc2_df577cbe",
+        "filename": "t/page.t",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-01-27T17:20:43Z",
+      "side": 1,
+      "message": "as linguistic research data",
+      "revId": "99f1775e158932411cbbcf799f3409bb5f85a380",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcfbf180_b9107d8a",
+        "filename": "t/page.t",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-01-27T17:20:43Z",
+      "side": 1,
+      "message": "\"Korpus Resource\" should better be \"linguistische Forschungsdatengrundlage\"",
+      "revId": "99f1775e158932411cbbcf799f3409bb5f85a380",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ede4fb_29877823",
+        "filename": "t/page.t",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-01-27T17:20:43Z",
+      "side": 1,
+      "message": "linguistic research data",
+      "revId": "99f1775e158932411cbbcf799f3409bb5f85a380",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
