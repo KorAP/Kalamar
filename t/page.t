@@ -23,10 +23,14 @@ $t->get_ok('/' => { 'X-Forwarded-Host' => 'korap2.ids-mannheim.de'})
   ->attr_is('meta[property="og:url"]', 'content', '//korap2.ids-mannheim.de/')
   ;
 
+# Test csp
 $t->get_ok('/')
   ->header_like('Content-Security-Policy', qr!default-src 'self';!)
   ->header_like('Content-Security-Policy', qr!media-src 'none';!)
   ->header_like('Content-Security-Policy', qr!object-src 'self';!)
+  ->header_like('Content-Security-Policy', qr!nonce-!)
+  ->content_like(qr/<script nonce/)
+  ->content_like(qr/document\.body\.classList\.remove\(\'no-js\'\);/)
   ;
 
 # Test additions

@@ -60,6 +60,9 @@
         data-korap-url="<%== $api %>"
         itemscope
         itemtype="http://schema.org/<%= stash('schematype') || 'WebApplication' %>">
+    
+    %= csp_nonce_tag
+
     <div id="kalamar-bg"></div>
     
     %= include 'partial/side', embedded => $embedded

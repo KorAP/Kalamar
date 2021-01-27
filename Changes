@@ -1,4 +1,4 @@
-0.41 2021-01-26
+0.41 2021-01-27
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -8,6 +8,7 @@
           Windows Powershell (lerepp).
         - Establish CSP plugin.
         - Added nonce helper to CSP plugin.
+        - Remove no-js class in nonced inline script.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

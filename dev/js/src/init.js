@@ -52,9 +52,6 @@ define([
 
   const d = document;
 
-  // Remove the no-js class from the body
-  d.body.classList.remove('no-js');
-
   // Set base URL
   KorAP.URL = d.body.getAttribute('data-korap-url') || "";
 
