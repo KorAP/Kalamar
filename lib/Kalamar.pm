@@ -168,7 +168,8 @@ sub startup {
   $self->plugin(CSP => {
     'default-src' => 'self',
     'style-src'   => ['self','unsafe-inline'],
-    'script-src'  => 'self',
+    # Hash for korap-overview.svg script
+    'script-src'  => ['self','sha256-VGXK99kFz+zmAQ0kxgleFrBWZgybFAPOl3GQtS7FQkI='],
     'connect-src' => 'self',
     'frame-src'   => '*',
     'media-src'   => 'none',

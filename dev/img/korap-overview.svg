@@ -203,6 +203,7 @@ tspan {
       <path d="M1099.378 278.286h2.764v-18h-2.764zm5.528 6h2.764v-30h-2.764zm5.528 4h2.764v-38h-2.764zm5.528 0h2.764v-38h-2.764zm5.528 0h2.763v-38h-2.763zm5.527 0h2.764v-38h-2.763zm5.528 0h2.764v-38h-2.765zm5.528 0h2.764v-38h-2.764zm5.528 0h2.765v-38h-2.764zm5.53 0h2.762v-38h-2.763zm5.526 0h2.764v-38h-2.764zm5.528 0h2.764v-38h-2.764z" class="connector"/>
     </g>
   </g>
+  <!-- CSP supported hash 'sha256-VGXK99kFz+zmAQ0kxgleFrBWZgybFAPOl3GQtS7FQkI=' -->
   <script type="text/javascript">
 <![CDATA[
   var query = window.location.search.substring(1);
@@ -211,8 +212,8 @@ tspan {
 
     var p = {};
     for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-	p[pair[0]] = pair[1];
+      var pair = vars[i].split('=');
+	    p[pair[0]] = pair[1];
     };
 
     if (p['base'] !== undefined || p['embedded'] !== undefined) {
@@ -230,10 +231,10 @@ tspan {
           url += '?embedded=true';
 
         anchors[i].setAttributeNS(
-	  'http://www.w3.org/1999/xlink',
-	  'xlink:href',
-	  url
-	);
+	      'http://www.w3.org/1999/xlink',
+	      'xlink:href',
+	      url
+	      );
       };
     };
   };
