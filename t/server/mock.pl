@@ -21,6 +21,7 @@ our %tokens = (
   'refresh_token_2' => "fghijk",
   'new_client_id' => 'fCBbQkA2NDA3MzM1Yw==',
   'new_client_secret' => 'KUMaFxs6R1WGud4HM22w3HbmYKHMnNHIiLJ2ihaWtB4N5JxGzZgyqs5GTLutrORj',
+  'auth_token_1'    => 'mscajfdghnjdfshtkjcuynxahgz5il'
 );
 
 helper get_token => sub {
@@ -578,6 +579,23 @@ del '/v1.0/oauth2/client/deregister/:client_id' => sub {
     json => $c->stash('oauth.client_list'),
     status => 200
   );
+};
+
+post '/v1.0/oauth2/authorize' => sub {
+  my $c = shift;
+  my $type = $c->param('response_type');
+  my $client_id = $c->param('client_id');
+  my $redirect_uri = $c->param('redirect_uri');
+
+  if ($type eq 'code') {
+
+    return $c->redirect_to(
+      Mojo::URL->new($redirect_uri)->query({
+        code => $tokens{auth_token_1},
+        scope => 'match_info search openid'
+      })
+      );
+  }
 };
 
 
