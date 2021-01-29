@@ -196,8 +196,6 @@ $t->post_ok('/user/login' => form => {
   ->header_is('Location' => '/?q=Baum&ql=poliqarp');
 
 
-
-
 done_testing;
 __END__
 

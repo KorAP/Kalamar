@@ -522,5 +522,47 @@ $t->get_ok('/settings/oauth')
   ->text_is('div.notify-success', 'Successfully deleted MyApp')
   ;
 
+$t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyApp2',
+  type => 'PUBLIC',
+  desc => 'This is my application',
+  csrf_token => $csrf
+})->status_is(200)
+  ->element_exists('div.notify-success')
+  ->text_is('legend', 'Client Credentials')
+  ->text_is('label[for=client_id]', 'ID of the client application')
+  ->element_exists('input[name=client_id][readonly][value]')
+  ->element_exists_not('input[name=client_secret][readonly][value]')
+  ;
+
+$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->text_is('.client-name', 'MyApp2')
+  ->text_is('.client-desc', 'This is my application')
+  ->text_is('.client-issue-token', 'IssueToken')
+  ->attr_is('.client-issue-token', 'href', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+  ;
+
+$csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+  ->status_is(200)
+  ->attr_is('#issue-token','action', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token')
+  ->attr_is('input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
+  ->attr_is('input[name=name]', 'value', 'MyApp2')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
+  ;
+
+$t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token' => form => {
+  csrf_token => $csrf,
+  name => 'MyApp2',
+  'client-id' => 'fCBbQkA2NDA3MzM1Yw=='
+})
+  ->status_is(200)
+  ->attr_is('input[name=access_token]', 'value', 'jvgjbvjgzucgdwuiKHJK')
+  ->text_is('p[name=expires] tt', '31536000')
+  ->text_is('p[name=scope] tt', 'match_info search openid')
+  ->text_is('p[name=type] tt', 'Bearer')
+  ;
+
+
 done_testing;
 __END__

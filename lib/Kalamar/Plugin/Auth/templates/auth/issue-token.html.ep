@@ -1,0 +1,14 @@
+% extends 'settings', title => 'KorAP: ' . loc('Auth_oauthSettings'), page => 'oauth';
+
+%= page_title
+
+<p><%== loc('Auth_oauthIssueToken', clientName => param('name')) %></p>
+
+%= form_for 'oauth-issue-token-post', id => 'issue-token', class => 'form-table', begin
+   %= csrf_field
+   %= hidden_field 'client-id' => stash('client_id')
+   %= hidden_field 'name' => param('name')
+   %#= hidden_field 'client-secret' 
+   <input type="submit" value="issue" />
+   %= link_to 'Abort' => url_for('oauth-tokens', client_id => stash('client_id')) => {} => (class => 'form-button button-abort')
+% end
