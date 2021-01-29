@@ -732,7 +732,8 @@ sub register {
             else {
               $c->notify(warn => $c->loc('Auth_paramError'));
             };
-            return $c->render(template => 'auth/clients')
+            # return $c->redirect_to('oauth-settings');
+            return $c->render(template => 'auth/clients');
           };
 
           # Wait for async result
@@ -826,7 +827,7 @@ sub register {
             else {
               $c->notify(warn => $c->loc('Auth_paramError'));
             };
-            return $c->render(template => 'auth/clients')
+            return $c->redirect_to('oauth-settings');
           };
 
           my $client_id =     $v->param('client-id');
@@ -906,7 +907,9 @@ sub register {
             sub {
               # return $c->render(text => 'hui');
 
-
+              # TODO:
+              #   This would better be a redirect to the client page, but in case there is a client_secret
+              # this wouldn't work (unless we flash that).
               return $c->render(template => 'auth/client')
             }
           );
@@ -915,6 +918,69 @@ sub register {
         }
       )->name('oauth-tokens');
     };
+
+
+    # Show information of a client
+    $r->get('/settings/oauth/client/:client_id/token')->to(
+      cb => sub {
+        shift->render(template => 'auth/issue-token');
+      }
+    )->name('oauth-issue-token');
+
+
+    $r->post('/settings/oauth/client/:client_id/token')->to(
+      cb => sub {
+        my $c = shift;
+
+        my $v = $c->validation;
+
+        unless ($c->auth->token) {
+          return $c->render(
+            content => 'Unauthorized',
+            status => 401
+          );
+        };
+
+        $v->csrf_protect;
+        # $v->required('client-id', 'trim')->size(3, 255);
+        $v->optional('client-secret');
+
+        # Render with error
+        if ($v->has_error) {
+          if ($v->has_error('csrf_token')) {
+            $c->notify(error => $c->loc('Auth_csrfFail'));
+          }
+          else {
+            $c->notify(warn => $c->loc('Auth_paramError'));
+          };
+          return $c->redirect_to('oauth-settings')
+        };
+
+        # Get list of registered clients
+        state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
+
+        return $c->korap_request(post => $r_url, {} => form => {
+          response_type => 'code',
+          client_id => $c->stash('client_id'),
+          redirect_uri => $c->url_for,
+          # TODO: State
+        })->then(
+          sub {
+            my $tx = shift;
+            $c->render(text => $tx->headers->header('Location'));
+          }
+        )->catch(
+          sub {
+            return $c->reply->not_found;
+          }
+        )
+
+        # Start IOLoop
+        ->wait;
+
+        return 1;
+      }
+    )->name('oauth-issue-token-post');
   }
 
   # Use JWT login
