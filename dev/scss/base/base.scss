@@ -44,6 +44,10 @@ body {
 }
 
 a {
+  &:visited {
+    color: $darkest-orange;
+  }
+  
   &:link {
     text-decoration: none;
     color:           $dark-orange;
