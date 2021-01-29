@@ -732,7 +732,8 @@ sub register {
             else {
               $c->notify(warn => $c->loc('Auth_paramError'));
             };
-            return $c->render(template => 'auth/clients')
+            # return $c->redirect_to('oauth-settings');
+            return $c->render(template => 'auth/clients');
           };
 
           # Wait for async result
@@ -826,7 +827,7 @@ sub register {
             else {
               $c->notify(warn => $c->loc('Auth_paramError'));
             };
-            return $c->render(template => 'auth/clients')
+            return $c->redirect_to('oauth-settings');
           };
 
           my $client_id =     $v->param('client-id');
@@ -906,7 +907,9 @@ sub register {
             sub {
               # return $c->render(text => 'hui');
 
-
+              # TODO:
+              #   This would better be a redirect to the client page, but in case there is a client_secret
+              # this wouldn't work (unless we flash that).
               return $c->render(template => 'auth/client')
             }
           );
@@ -915,6 +918,45 @@ sub register {
         }
       )->name('oauth-tokens');
     };
+
+
+    # Show information of a client
+    $r->get('/settings/oauth/client/:client_id/token')->to(
+      sub {
+        shift->render(template => 'auth/issue-token');
+      }
+    )->name('oauth-issue-token');
+
+
+    $r->post('/settings/oauth/client/:client_id/token')->to(
+      sub {
+        my $c = shift;
+
+        my $v = $c->validation;
+
+        unless ($c->auth->token) {
+          return $c->render(
+            content => 'Unauthorized',
+            status => 401
+          );
+        };
+
+        $v->csrf_protect;
+        $v->required('client-id', 'trim')->size(3, 255);
+        $v->optional('client-secret');
+
+        # Render with error
+        if ($v->has_error) {
+          if ($v->has_error('csrf_token')) {
+            $c->notify(error => $c->loc('Auth_csrfFail'));
+          }
+          else {
+            $c->notify(warn => $c->loc('Auth_paramError'));
+          };
+          return $c->redirect_to('oauth-settings')
+        };
+      }
+    )->name('oauth-issue-token-post');
   }
 
   # Use JWT login
