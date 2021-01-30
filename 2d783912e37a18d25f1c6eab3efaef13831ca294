@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4d85d2d_219dbf9b",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68e098ee_a550250d",
+      "range": {
+        "startLine": 126,
+        "startChar": 30,
+        "endLine": 126,
+        "endChar": 66
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32b6ae28_da5892e4",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -68,6 +92,54 @@
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71fa7651_694f435b",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "https://www.w3docs.com/learn-javascript/working-with-json.html#json-stringify\nIs it not necessary to stringify JavaScript Objects before sending them to the server? (JSON.stringify as the reverse operation for JOSN.parse). I thought it might be useful to denote this here",
+      "parentUuid": "6e0c5ddb_b8546dbd",
+      "range": {
+        "startLine": 128,
+        "startChar": 114,
+        "endLine": 128,
+        "endChar": 123
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960043f9_ea71ef77",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32b6ae28_da5892e4",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 27
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "612f7eb1_7dc14cae",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "I changed the order to be a bit more intuitive (hopefully), the callbacks at the end, the mandatory parameters at the beginning and the situational parameters in the middle. The funcitons are now called returnValueCB and errorCB. (though not in the older functions not made by me).",
+      "parentUuid": "6da4601e_b20d8dc0",
+      "range": {
+        "startLine": 132,
+        "startChar": 36,
+        "endLine": 132,
+        "endChar": 77
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa983cb6_ebba3ed0",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -137,6 +233,30 @@
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad634593_59a82a6b",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa983cb6_ebba3ed0",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 52
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "9da56e74_9bc3e11e",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "992a9ec4_c01219db",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c4874f3_dce56db5",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -174,6 +318,30 @@
       "writtenOn": "2021-01-29T17:23:14Z",
       "side": 1,
       "message": "Alternatively check on the definition of json here.",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 20
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c14d94f1_c1e0a665",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Checking on the json parameters type would make it so that we notice the error of calling the function with a JSON at the wrong time more often, checking requestType makes it less vulnerable to errors. I think your solution of checking a JSON is bad though in case we ever want to send undefined to the server (do we want that? does that call an error?).",
+      "parentUuid": "5c4874f3_dce56db5",
       "range": {
         "startLine": 209,
         "startChar": 6,
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "4c117399_853b0f84",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a666a3d_e9d7053e",
+      "range": {
+        "startLine": 221,
+        "startChar": 74,
+        "endLine": 221,
+        "endChar": 82
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b3b33d_f494b7f7",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -229,6 +421,30 @@
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798aea27_972ecfea",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59b3b33d_f494b7f7",
+      "range": {
+        "startLine": 247,
+        "startChar": 2,
+        "endLine": 247,
+        "endChar": 19
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "9712430a_5607505a",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d68cf336_f9eaf01b",
+      "range": {
+        "startLine": 271,
+        "startChar": 4,
+        "endLine": 271,
+        "endChar": 17
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6c0d4f_16620213",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -275,6 +515,30 @@
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb0268c6_8ff402e1",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6c0d4f_16620213",
+      "range": {
+        "startLine": 281,
+        "startChar": 4,
+        "endLine": 281,
+        "endChar": 17
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "74c8e8a4_d768c6c9",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "985d51e7_cd03e181",
+      "range": {
+        "startLine": 291,
+        "startChar": 4,
+        "endLine": 291,
+        "endChar": 17
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e4e0b4f_1a06397e",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -324,6 +612,30 @@
     },
     {
       "key": {
+        "uuid": "28a46285_646000dc",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e4e0b4f_1a06397e",
+      "range": {
+        "startLine": 301,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 18
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf7eaa83_7e49df36",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -344,6 +656,30 @@
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abc02c6c_58b77f2f",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-01-30T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf7eaa83_7e49df36",
+      "range": {
+        "startLine": 311,
+        "startChar": 4,
+        "endLine": 311,
+        "endChar": 20
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
     }
   ]
 }
