@@ -123,13 +123,13 @@ define(['util'], function () {
    * General method to communicate JSON files with the server
    * 
    * @param {HTTMLRequestType} requestType Should be "GET", "PUT", "POST" or "DELETE"
-   * @param {String} url The url at which the JSON File is located
-   * @param {function} onload For "GET". The callback function that recieves the retrieved JSON as a parameter, or undefined if none is eligible
-   * @param {JSON} json FOr "PUT" and "POST". The JSON that is getting transfered. Be sure to have this be a JSON (stringify)
+   * @param {String} url The url that specifies where the JSON file is ("GET"), will be ("PUT" and "POST") or will have been ("DELETE")
    * @param {String} title How to store this request in the logs
-   * @param {function} cb Optional. Callback function for error handling, recieves JS object with status and statusText attribute
+   * @param {JSON} json For "PUT" and "POST". The JSON that is getting transfered. Be sure to have this be a JSON (stringify)
+   * @param {function} returnValueCB For "GET". The callback function that receives the retrieved JSON as a parameter, or undefined if none is eligible
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */ 
-  KorAP.API._actionJSON = function (requestType, url, onload, json, title, cb) {
+  KorAP.API._actionJSON = function (requestType, url, title, json, returnValueCB, errorCB) {
     const req = new XMLHttpRequest();
     req.open(requestType, url, true); 
     // Dispatch global "window" event. See Kalamar::Plugin::Piwik
@@ -164,7 +164,7 @@ define(['util'], function () {
           catch (e) {
             KorAP.log(0, e);
             console.log(e);
-            onload(undefined);
+            returnValueCB(undefined);
             return;
           };
 
@@ -175,25 +175,25 @@ define(['util'], function () {
           }
 
           else if (this.status !== 200) {
-            KorAP.log(this.status, this.statusText);
+            KorAP.log(this.status, this.statusText, "KorAP.API._actionJSON function, Type: " + requestType);
           };
 
           if (this.status === 200) {
-            onload(json);
+            returnValueCB(json);
           }
 
           else {
-            onload(undefined);
+            returnValueCB(undefined);
           };
 
         } else { // PUT, POST, DELETE
           if (this.status >= 300 || this.status < 200) { //Error
-            KorAP.log(this.status, this.statusText)
+            KorAP.log(this.status, this.statusText, "KorAP.API._actionJSON function, Type: " + requestType)
           };
         };
         // Call the callback function (no matter requestType) if one is given.
-        if (typeof(cb) === "function"){
-          cb({
+        if (typeof(errorCB) === "function"){
+          errorCB({
             "status" : this.status,
             "statusText" : this.statusText
           });
@@ -216,12 +216,12 @@ define(['util'], function () {
    * General method to get JSON information.
    * 
    * @param {String} url The url at which the JSON File will be located
-   * @param {function} onload The callback function that recieves the retrieved JSON as a parameter, or undefined if none is eligible
+   * @param {function} returnValueCB The callback function that receives the retrieved JSON as a parameter, or undefined if none is eligible
    * @param {String} title How to store this request in the logs
-   * @param {function} cb Optional. Callback function for error handling, recieves JS object with status and statusText attribute
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */ 
-  KorAP.API.getJSON = function (url, onload, title, cb) {
-    KorAP.API._actionJSON("GET", url, onload, undefined, title, cb);
+  KorAP.API.getJSON = function (url, returnValueCB, title, errorCB) {
+    KorAP.API._actionJSON("GET", url, title, undefined, returnValueCB, errorCB);
   };
 
   /**
@@ -230,10 +230,10 @@ define(['util'], function () {
    * @param {String} url The url at which the JSON File will be located
    * @param {JSON} json The JSON that is getting transfered. Be sure to have this be a JSON (stringify)
    * @param {String} title How to store this request in the logs
-   * @param {function} cb Optional. Callback function for error handling, recieves JS object with status and statusText attribute
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */ 
-  KorAP.API.putJSON = function (url, json, title, cb) {
-    KorAP.API._actionJSON("PUT", url, undefined, json, title, cb);
+  KorAP.API.putJSON = function (url, json, title, errorCB) {
+    KorAP.API._actionJSON("PUT", url, title, json, undefined, errorCB);
   };
 
   /**
@@ -242,10 +242,10 @@ define(['util'], function () {
    * @param {String} url The url at which the JSON File will be located
    * @param {JSON} json The JSON that is getting transfered. Be sure to have this be a JSON (stringify)
    * @param {String} title How to store this request in the logs
-   * @param {function} cb Optional. Callback function for error handling, recieves JS object with status and statusText attribute
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */ 
-  KorAP.API.putJSON = function (url, json, title, cb) {
-    KorAP.API._actionJSON("POST", url, undefined, json, title, cb);
+  KorAP.API.postJSON = function (url, json, title, errorCB) {
+    KorAP.API._actionJSON("POST", url, title, json, undefined, errorCB);
   };
 
   /**
@@ -253,10 +253,10 @@ define(['util'], function () {
    * 
    * @param {String} url The url at which the to be deleted file is located
    * @param {String} title How to store this request in the logs
-   * @param {function} cb Optional. Callback function for error handling, recieves JS object with status and statusText attribute
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */ 
-  KorAP.API.deleteJSON = function (url, title, cb) {
-    KorAP.API._actionJSON("DELETE", url, undefined, undefined, title, cb);
+  KorAP.API.deleteJSON = function (url, title, errorCB) {
+    KorAP.API._actionJSON("DELETE", url, title, undefined, undefined, errorCB);
   };
 
 
@@ -265,20 +265,22 @@ define(['util'], function () {
   /**
    * Retrieve saved list of queries
    * 
-   * @param {function} cb The callback function that recieves the JSON Listof queries
+   * @param {function} returnValueCB The callback function that receives the JSON Listof queries
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */
-  KorAP.API.getQueryList = function (cb){
-    KorAP.getJSON(KorAP.URL + "/query/", cb, "getSavedQueryList");
+  KorAP.API.getQueryList = function (returnValueCB, errorCB){
+    KorAP.API.getJSON(KorAP.URL + "/query/", returnValueCB, "getSavedQueryList", errorCB);
   };
 
   /**
    * Retrieve specific saved query by query name
    * 
    * @param {String} qn The name of the query to be retrieved. Must be a string
-   * @param {function} cb The callback function that recieves the query JSON Object
+   * @param {function} returnValueCB The callback function that receives the query JSON Object
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */
-  KorAP.API.getQuery = function (qn, cb){
-    KorAP.getJSON(KorAP.URL + "/query/" + qn, cb, "getSavedQuery of name "+ qn);
+  KorAP.API.getQuery = function (qn, returnValueCB, errorCB){
+    KorAP.API.getJSON(KorAP.URL + "/query/" + qn, returnValueCB, "getSavedQuery of name "+ qn, errorCB);
   };
 
   /**
@@ -286,9 +288,10 @@ define(['util'], function () {
    * 
    * @param {String} qn The name of the new query
    * @param {function} json The query. Be sure to have this be a JSON (stringify)
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */
-  KorAP.API.putQuery = function (qn, json){
-    KorAP.putJSON(KorAP.URL + "/query/" + qn, json, "putQuery of name "+ qn);
+  KorAP.API.putQuery = function (qn, json, errorCB){
+    KorAP.API.putJSON(KorAP.URL + "/query/" + qn, json, "putQuery of name "+ qn, errorCB);
   };
 
   /**
@@ -296,18 +299,19 @@ define(['util'], function () {
    * 
    * @param {String} qn The name of the new query
    * @param {function} json The query. Be sure to have this be a JSON (stringify)
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */
-  KorAP.API.postQuery = function (qn, json){
-    KorAP.postJSON(KorAP.URL + "/query/" + qn, json, "putQuery of name "+ qn);
+  KorAP.API.postQuery = function (qn, json, errorCB){
+    KorAP.API.postJSON(KorAP.URL + "/query/" + qn, json, "putQuery of name "+ qn, errorCB);
   };
 
   /**
    * delete query by query name
    * 
    * @param {String} qn The name of the to be deleted query
-   * @param {function} cb Optional. Callback function for error handling, recieves JS object with status and statusText attribute
+   * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */
-  KorAP.API.deleteQuery = function (qn, cb){
-    KorAP.deleteJSON(KorAP.URL + "/query/" + qn, "deleteQuery of name "+ qn, cb);
+  KorAP.API.deleteQuery = function (qn, errorCB){
+    KorAP.API.deleteJSON(KorAP.URL + "/query/" + qn, "deleteQuery of name "+ qn, errorCB);
   };
 });
