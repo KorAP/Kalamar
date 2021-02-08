@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "f4b3778c_427c543d",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-02-08T17:09:56Z",
+      "side": 1,
+      "message": "But wouldn\u0027t it be better to expect an object here and stringify in `_actionJSON()`?",
+      "parentUuid": "53cbd036_77b88059",
+      "range": {
+        "startLine": 128,
+        "startChar": 114,
+        "endLine": 128,
+        "endChar": 123
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39bd402a_604a8bdd",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -261,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "7b876a22_8f8cded2",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-02-08T17:09:56Z",
+      "side": 1,
+      "message": "Sorry - my comment was wrong. I meant to write \"I wouldn\u0027t\". Just make it `_actionJSON()`, available only to the function scope of api.js.",
+      "parentUuid": "d1fdd39a_2a14de5f",
+      "range": {
+        "startLine": 132,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa983cb6_ebba3ed0",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -308,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "5ac4a522_c0a5b09b",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-02-08T17:09:56Z",
+      "side": 1,
+      "message": "I was refering to the src of the error, i.e. the remote service in this case.",
+      "parentUuid": "ad634593_59a82a6b",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 52
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "992a9ec4_c01219db",
         "filename": "dev/js/src/api.js",
         "patchSetId": 6
@@ -343,6 +415,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "992a9ec4_c01219db",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4177808_861a5449",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-02-08T17:09:56Z",
+      "side": 1,
+      "message": "see above.",
+      "parentUuid": "9da56e74_9bc3e11e",
       "range": {
         "startLine": 191,
         "startChar": 12,
@@ -414,6 +510,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "c14d94f1_c1e0a665",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 20
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34a20bec_4fb71263",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-02-08T17:09:56Z",
+      "side": 1,
+      "message": "You may be right. Let\u0027s keep your solution.",
+      "parentUuid": "cf108b0e_786ff90c",
       "range": {
         "startLine": 209,
         "startChar": 6,

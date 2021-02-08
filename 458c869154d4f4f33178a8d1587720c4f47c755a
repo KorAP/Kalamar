@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0dd0fc4_a82763ac",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-02-08T17:09:56Z",
+      "side": 1,
+      "message": "Should be \"post\".",
+      "range": {
+        "startLine": 305,
+        "startChar": 58,
+        "endLine": 305,
+        "endChar": 61
+      },
+      "revId": "458c869154d4f4f33178a8d1587720c4f47c755a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
+      "unresolved": true
+    }
+  ]
+}
