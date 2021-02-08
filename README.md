@@ -287,14 +287,14 @@ to allow specific scripts to run.
 
 ### Original Software
 
-Copyright (C) 2015-2021, [IDS Mannheim](http://www.ids-mannheim.de/)<br>
-Author: [Nils Diewald](http://nils-diewald.de/), Helge Stallkamp<br>
+Copyright (C) 2015-2021, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
+Author: [Nils Diewald](https://www.nils-diewald.de/), Helge Stallkamp<br>
 Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation),
 Leo Repp
 
-Kalamar is developed as part of the [KorAP](http://korap.ids-mannheim.de/)
+Kalamar is developed as part of the [KorAP](https://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the
-[Leibniz Institute for the German Language (IDS)](http://ids-mannheim.de/),
+[Leibniz Institute for the German Language (IDS)](https://www.ids-mannheim.de/),
 member of the
 [Leibniz Association](https://www.leibniz-gemeinschaft.de/en/home/)
 and supported by the [KobRA](http://www.kobra.tu-dortmund.de) project,
@@ -302,7 +302,7 @@ funded by the
 [Federal Ministry of Education and Research (BMBF)](http://www.bmbf.de/en/).
 
 Kalamar is free software published under the
-[BSD-2 License](https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE).
+[BSD-2 License](https://opensource.org/licenses/BSD-2-Clause).
 
 **To cite this work, please refer to:**<br>
 Diewald, Nils, Barbu Mititelu, Verginica and Kupietz, Marc (2019):
