@@ -351,18 +351,18 @@ Kalamar
 =head1 DESCRIPTION
 
 L<Kalamar> is a L<Mojolicious|http://mojolicio.us/> based user interface
-frontend for the L<KorAP Corpus Analysis Platform|http://korap.ids-mannheim.de/>.
+frontend for the L<KorAP Corpus Analysis Platform|https://korap.ids-mannheim.de/>.
 
 B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
-Author: L<Nils Diewald|http://nils-diewald.de/>
+Copyright (C) 2015-2021, L<IDS Mannheim|https://www.ids-mannheim.de/>
+Author: L<Nils Diewald|https://www.nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
 Corpus Analysis Platform at the
-L<Leibniz Institute for the German Language (IDS)|http://ids-mannheim.de/>,
+L<Leibniz Institute for the German Language (IDS)|https://www.ids-mannheim.de/>,
 member of the
 L<Leibniz-Gemeinschaft|http://www.leibniz-gemeinschaft.de>
 and supported by the L<KobRA|http://www.kobra.tu-dortmund.de> project,
@@ -370,6 +370,6 @@ funded by the
 L<Federal Ministry of Education and Research (BMBF)|http://www.bmbf.de/en/>.
 
 Kalamar is free software published under the
-L<BSD-2 License|https://raw.githubusercontent.com/KorAP/Kalamar/master/LICENSE>.
+L<BSD-2 License|https://opensource.org/licenses/BSD-2-Clause>.
 
 =cut

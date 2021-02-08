@@ -39,6 +39,23 @@ WriteMakefile(
     'Mojolicious::Plugin::Localize' => 0.20,
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.08,
   },
+
+  META_MERGE   => {
+    'meta-spec' => { version => 2 },
+    requires  => { perl => '5.010001' },
+    resources => {
+      license     => 'https://opensource.org/licenses/BSD-2-Clause',
+      repository  => {
+        type => 'git',
+        url => 'https://github.com/KorAP/Kalamar.git',
+        web => 'https://github.com/KorAP/Kalamar',
+      },
+      bugtracker => {
+        web => 'https://github.com/KorAP/Kalamar/issues'
+      }
+    }
+  },
+
   test => {
     TESTS => 't/*.t'
   }

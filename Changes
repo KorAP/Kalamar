@@ -1,4 +1,4 @@
-0.41 2021-01-28
+0.41 2021-02-08
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -20,6 +20,7 @@
         - Support CSP in Matomo/Piwik plugin.
         - Removed deprecated default behaviour
           of the Piwik/Matomo plugin.
+        - Define resources in Makefile.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
