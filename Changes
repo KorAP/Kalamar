@@ -1,4 +1,4 @@
-0.41 2021-01-29
+0.41 2021-02-09
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -22,6 +22,7 @@
           of the Piwik/Matomo plugin.
         - Support CSP in overview SVG image.
         - Fix guided tour to work with CSP.
+        - Fix strict-mode in tour.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

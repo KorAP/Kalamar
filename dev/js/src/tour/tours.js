@@ -171,8 +171,8 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
             targetedElement.value = loc.TOUR_Qexample;
           break;
         case "vc-view":  
-          vchoo = doe.querySelector("#vc-choose");
-          vcv = doe.querySelector("#vc-view");  
+          let vchoo = doe.querySelector("#vc-choose");
+          let vcv = doe.querySelector("#vc-view");  
           KorAP._delete.apply(KorAP.vc.root());
     
           KorAP.vc.fromJson(loc.TOUR_vcQuery);
