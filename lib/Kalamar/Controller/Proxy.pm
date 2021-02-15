@@ -6,7 +6,7 @@ sub pass {
   my $c = shift;
 
   my $apiv = $c->stash('apiv');
-  my $path = $c->stash('path') // '';
+  my $path = $c->stash('api_path') // '';
 
   # Get the original request
   my $req = $c->req;

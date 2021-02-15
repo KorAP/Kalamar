@@ -324,7 +324,7 @@ NONCE_JS
 
   # API proxy route
   $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#pass');
-  $r->any('/api/v#apiv/*path' => [apiv => ['1.0']])->to('Proxy#pass');
+  $r->any('/api/v#apiv/*api_path' => [apiv => ['1.0']])->to('Proxy#pass');
 
   # Match route
   # Corpus route
