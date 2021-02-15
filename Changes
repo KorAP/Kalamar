@@ -25,6 +25,7 @@
         - Fix strict-mode in tour.
         - Define resources in Makefile.
         - Support Mojolicious >= 9.
+        - Remove deprecated helper methods.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
