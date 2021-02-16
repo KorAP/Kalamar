@@ -1,4 +1,4 @@
-0.41 2021-02-15
+0.41 2021-02-16
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -26,6 +26,8 @@
         - Define resources in Makefile.
         - Support Mojolicious >= 9.
         - Remove deprecated helper methods.
+        - Introduce Kalamar::Request and
+          kalamar->request helper.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

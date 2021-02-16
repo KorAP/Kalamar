@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Util qw/deprecated/;
 use Mojo::Promise;
 use Mojo::ByteStream 'b';
+use Kalamar::Request;
 
 has 'api';
 has 'ua';
@@ -10,16 +11,10 @@ has 'ua';
 sub register {
   my ($plugin, $mojo, $param) = @_;
 
+
   # Load parameter from config file
   if (my $config_param = $mojo->config('Kalamar')) {
     $param = { %$param, %$config_param };
-  };
-
-  # Load 'notifications' plugin
-  unless (exists $mojo->renderer->helpers->{notify}) {
-    $mojo->plugin(Notifications => {
-      HTML => 1
-    });
   };
 
   # Set API!
@@ -33,12 +28,14 @@ sub register {
   # Set app to server
   $plugin->ua->server->app($mojo);
 
+
   # Get a user agent object for Kalamar
   $mojo->helper(
     'kalamar_ua' => sub {
       return $plugin->ua;
     }
   );
+
 
   # Get user handle
   $mojo->helper(
@@ -61,6 +58,7 @@ sub register {
       return 'not_logged_in';
     }
   );
+
 
   # This is a new general korap_request helper,
   # that can trigger some hooks for, e.g., authentication
@@ -90,7 +88,21 @@ sub register {
       return $ua->start_p($tx);
     }
   );
+
+
+  # Return KorAP-Request object helper
+  $mojo->helper(
+    'kalamar.request' => sub {
+      return Kalamar::Request->new(
+        controller => shift,
+        method => shift,
+        url => shift,
+        ua => $plugin->ua
+      )->param(@_);
+    }
+  );
 };
+
 
 1;
 
