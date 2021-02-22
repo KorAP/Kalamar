@@ -23,7 +23,7 @@ $t->get_ok('/doc/faq')
   ->content_unlike(qr!setDocumentTitle!)
   ->content_unlike(qr!setCustomUrl!)
   ->content_unlike(qr!trackPageView!)
-  ->element_exists('script[src$="/js/tracking.js"]')
+  ->element_exists('script[src$="/settings/assets/tracking.js"]')
   ;
 
 $t = Test::Mojo->new('Kalamar' => {
@@ -37,21 +37,21 @@ $t = Test::Mojo->new('Kalamar' => {
 
 $t->app->plugin('Kalamar::Plugin::Piwik');
 
-is($t->app->piwik_tag('as-script'), '<script src="/js/tracking.js"></script>' .
+is($t->app->piwik_tag('as-script'), '<script src="/settings/assets/tracking.js"></script>' .
      '<script src="https://piwik.korap.ids-mannheim.de/piwik.js" async defer></script>');
 
 $t->get_ok('/doc/faq')
   ->status_is(200)
   ->text_like('section[name=piwik-opt-out] h3', qr!can I opt-out!)
   ->element_exists('section[name=piwik-opt-out] iframe')
-  ->element_exists('script[src$="/js/tracking.js"]')
+  ->element_exists('script[src$="/settings/assets/tracking.js"]')
   ->content_unlike(qr!_paq!)
   ->header_like('Content-Security-Policy',qr!connect-src 'self' [^;]*?https://piwik\.korap\.ids-mannheim\.de/!)
   ->header_like('Content-Security-Policy',qr!img-src 'self' [^;]*?https://piwik\.korap\.ids-mannheim\.de/!)
   ->header_like('Content-Security-Policy',qr!script-src 'self' [^;]*?https://piwik.korap.ids-mannheim.de/!)
   ;
 
-$t->get_ok('/js/tracking.js')
+$t->get_ok('/settings/assets/tracking.js')
   ->status_is(200)
   ->content_like(qr!var _paq!)
   ->content_like(qr!;console\.log\("fun"\)!)
@@ -74,7 +74,7 @@ $t->get_ok('/doc/faq')
   ->element_exists_not('section[name=piwik-opt-out] iframe')
   ->content_unlike(qr!_paq!)
   ->content_unlike(qr!window\.addEventListener\('korapRequest!)
-  ->element_exists_not('script[src$="/js/tracking.js"]')
+  ->element_exists_not('script[src$="/settings/assets/tracking.js"]')
   ;
 
 done_testing;

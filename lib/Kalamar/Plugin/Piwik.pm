@@ -66,7 +66,7 @@ APPEND
   $mojo->csp->add('img-src' => $url);
 
   # Set track script for CSP compliant tracking
-  $mojo->routes->any('/js/tracking.js')->piwik('track_script');
+  $mojo->routes->any('/settings/assets/tracking.js')->piwik('track_script');
 
   # Add piwik tag to scripts
   $mojo->content_block(scripts => {
