@@ -66,26 +66,10 @@ sub register {
   $mojo->helper(
     'korap_request' => sub {
       my $c      = shift;
-      my $method = shift;
-      my $path   = shift;
 
-      # Get plugin user agent
-      my $ua = $plugin->ua;
+      # deprecated '2021-02-16 This method is deprecated in favor of kalamar->request';
 
-      my $url = Mojo::URL->new($path);
-      my $tx = $ua->build_tx(uc($method), $url, @_);
-
-      # Set X-Forwarded for
-      $tx->req->headers->header(
-        'X-Forwarded-For' => $c->client_ip
-      );
-
-      # Emit Hook to alter request
-      $c->app->plugins->emit_hook(
-        before_korap_request => ($c, $tx)
-      );
-
-      return $ua->start_p($tx);
+      return $c->kalamar->request(@_)->start;
     }
   );
 
@@ -93,12 +77,18 @@ sub register {
   # Return KorAP-Request object helper
   $mojo->helper(
     'kalamar.request' => sub {
-      return Kalamar::Request->new(
+      my $req = Kalamar::Request->new(
         controller => shift,
         method => shift,
         url => shift,
         ua => $plugin->ua
-      )->param(@_);
+      );
+
+      if (scalar(@_) > 0) {
+        return $req->param(@_);
+      };
+
+      return $req;
     }
   );
 };
