@@ -314,11 +314,13 @@ sub register {
         state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/list');
 
         # Get the list of all clients
-        return $c->korap_request(post => $r_url, {} => form => {
+        my $req = $c->kalamar->request(post => $r_url, {} => form => {
           client_id => $client_id,
           client_secret => $client_secret,
           authorized_only => 'no'
-        })->then(
+        });
+
+        return $req->start->then(
           sub {
             my $tx = shift;
             my $json = $tx->result->json;
@@ -335,6 +337,166 @@ sub register {
             return Mojo::Promise->reject($json // 'No response');
           }
         );
+      }
+    );
+
+    $app->helper(
+      'kalamar.request' => sub {
+        my $c = shift;
+
+        my $req = Kalamar::Request->new(
+          controller => $c,
+          method => shift,
+          url => shift,
+          ua => $plugin->ua
+        );
+
+        ###
+
+        # Set callback after the transaction is build.
+        # This may decorate the request with authorization headers
+        # and returns a promise, that may either be issued directly
+        # (NO_AUTO_REFRESH) or with the option to auto refresh
+        # the token (AUTO_REFRESH)
+        $req->on_start(
+          sub {
+            my ($c, $tx, $obj) = @_;
+
+            my $h = $tx->req->headers;
+
+            # If the request already has an Authorization
+            # header, respect it!
+            if ($h->authorization) {
+              # return return;
+              $obj->{skip} = 1;
+              return Mojo::Promise->resolve($tx, $obj);
+            };
+
+            # Get auth token
+            my $auth_token = $c->auth->token;
+
+            # No token set
+            unless ($auth_token) {
+              # Return unauthorized request
+              # return $ua->start_p($tx);
+              $obj->{skip} = 1;
+              return Mojo::Promise->resolve($tx, $obj);
+            };
+
+
+            # The token is already expired!
+            my $exp = $c->session('auth_exp');
+            if (defined $exp && $exp < time) {
+
+              # Remove auth ...
+              $c->stash(auth => undef);
+
+              # And get refresh token from session
+              if (my $refresh_token = $c->session('auth_r')) {
+
+                $c->app->log->debug("Refresh is required");
+
+                # Refresh
+                return $c->auth->refresh_p($refresh_token)->then(
+                  sub {
+                    $c->app->log->debug("Search with refreshed tokens");
+
+                    # Tokens were set - now send the request the first time!
+                    $tx->req->headers->authorization($c->stash('auth'));
+                    #                  return $ua->start_p($tx);
+                    return Mojo::Promise->resolve($tx, {skip => 1});
+                  }
+                );
+              }
+
+              # The token is expired and no refresh token is
+              # available - issue an unauthorized request!
+              else {
+                $c->stash(auth => undef);
+                $c->stash(auth_exp => undef);
+                delete $c->session->{user};
+                delete $c->session->{auth};
+                delete $c->session->{auth_r};
+                delete $c->session->{auth_exp};
+
+                # Warn on Error!
+                $c->notify(warn => $c->loc('Auth_tokenExpired'));
+                # return $ua->start_p($tx);
+                # return Mojo::Promise->resolve;
+              };
+            }
+
+            # Auth token is fine
+            else {
+
+              # Set auth
+              $h->authorization($auth_token);
+            };
+
+            return Mojo::Promise->resolve($tx, $obj);
+          });
+
+
+        
+
+
+### ^^ This can be in a simple before_korap_request hook
+### vv This needs to be in a default 'then' construct
+
+        # Issue an authorized request and automatically
+        # refresh the token on expiration!
+        $req->{_then} = sub {
+          my $tx = shift;
+
+          # Response is fine
+          if ($tx->res->is_success) {
+            return Mojo::Promise->resolve($tx);
+          }
+
+          # There is a client error - maybe refresh!
+          elsif ($tx->res->is_client_error) {
+
+            # Check the error
+            my $json = $tx->res->json('/errors/0/1');
+            if ($json && ($json =~ /expired|invalid/)) {
+              $c->stash(auth => undef);
+              $c->stash(auth_exp => undef);
+              delete $c->session->{user};
+              delete $c->session->{auth};
+
+              # And get refresh token from session
+              if (my $refresh_token = $c->session('auth_r')) {
+
+                # Refresh
+                return $c->auth->refresh_p($refresh_token)->then(
+                  sub {
+                    $c->app->log->debug("Search with refreshed tokens");
+
+                    my $tx = $ua->build_tx(uc($method), $url->clone, @param);
+
+                    # Set X-Forwarded for
+                    $tx->req->headers->header(
+                      'X-Forwarded-For' => $c->client_ip
+                    );
+
+                    # Tokens were set - now send the request the first time!
+                    $tx->req->headers->authorization($c->stash('auth'));
+                    return $ua->start_p($tx);
+                  }
+                )
+              };
+
+              # Reject the invalid token
+              $c->notify(error => $c->loc('Auth_tokenInvalid'));
+              return Mojo::Promise->reject;
+            };
+
+            return Mojo::Promise->resolve($tx);
+          };
+
+          $c->notify(error => $c->loc('Auth_responseError'));
+          return Mojo::Promise->reject;
+        };
       }
     );
 

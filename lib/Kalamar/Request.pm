@@ -1,8 +1,12 @@
 package Kalamar::Request;
-use Mojo::Base -base;
 use Mojo::Promise;
 
-has [qw!controller ua!];
+has [qw!controller ua on_start!];
+
+# on_build() accepts a callback returning a promise, that
+# will either force direct start of the request (in case the second
+# parameter passt in the promise is C<1>) or allowing the
+# on_start() parameter to trigger.
 
 has url => sub {
   my $self = shift;
@@ -22,6 +26,16 @@ has method => sub {
   return $self->{method} // 'GET';
 };
 
+# Set a start routine that will overwrite start_p
+sub set_start_routine {
+  my $self = shift;
+  if (ref $_[0] eq 'SUB') {
+    $self->{_callback} = shift;
+  }
+  else {
+    warn 'Expected subroutine';
+  }
+}
 
 # Get or set parameters for the transaction
 sub param {
@@ -36,6 +50,13 @@ sub param {
     return $self;
   };
   return $self->{param} // [];
+};
+
+
+sub on_start {
+  my $self = shift;
+  $self->{_on_start} //= [];
+  push @{$self->{_on_start}}, shift;
 };
 
 
@@ -75,8 +96,36 @@ sub start {
     before_korap_request => ($c, $tx)
   );
 
-  # Return promise
-  return $self->ua->start_p($tx);
+  my $start = $self->{_on_start};
+
+  my $p = Mojo::Promise->resolve($tx, {});
+  foreach (@$start) {
+    $p = $p->then($_)
+  };
+
+  my $ua = $start->ua;
+  return $p->then(
+    sub {
+      my ($tx, $obj) = @_;
+
+      my $skip = $obj->{skip};
+
+      # Default start routine
+      return $ua->start_p($tx)->then(
+        sub {
+          my $tx = shift;
+          return Mojo::Promise->resolve($tx, { skip => $skip });
+        }
+      );
+    }
+  );
+
+  # Overwritten start routine
+  if ($self->{_then}) {
+    return $p->then($self->{_then});
+  };
+
+  return $p;
 };
 
 1;
