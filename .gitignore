@@ -17,7 +17,7 @@
 /.sass-cache
 /dev/css
 /dev/js/spec/src
-/templates/announcement.html.ep
+/templates/announcement.html.ep*
 /templates/custom
 /lib/Kalamar/Plugin/Announcements.pm
 /log
