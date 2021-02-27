@@ -1,4 +1,4 @@
-0.41 2021-02-22
+0.41 2021-02-27
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -30,6 +30,7 @@
           kalamar->request helper.
         - Move /js/tracking.js to /settings/asset/tracking.js
           to simplify asset configuration in proxy servers.
+        - Fix working directory for plugin configuration.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

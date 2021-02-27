@@ -1,6 +1,7 @@
 package Kalamar::Plugin::Plugins;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::JSON qw'decode_json';
+use Mojo::JSON 'decode_json';
+use Mojo::File 'path';
 
 # Register the plugin
 sub register {
@@ -15,7 +16,11 @@ sub register {
   if ($param->{default_plugins}) {
 
     # Read default plugins file
-    my $default = Mojo::File->new($param->{default_plugins});
+    my $default = path($param->{default_plugins});
+
+    # Use correct working directory
+    $default = $app->home->child($default) unless $default->is_abs;
+
     my $json_array = decode_json $default->slurp;
 
     # If any scripts are defined
