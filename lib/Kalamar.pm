@@ -199,9 +199,15 @@ sub startup {
     page      => '<span>{page}</span>'
   });
 
+  # Obfuscate email addresses
+  $self->plugin('TagHelpers::MailToChiffre' => {
+    method_name => 'PArok',
+    pattern_rotate => 673,
+    no_inline => 1
+  });
+
   # Load plugins
   foreach (
-    'TagHelpers::MailToChiffre', # Obfuscate email addresses
     'KalamarHelpers',            # Specific Helpers for Kalamar
     'KalamarPages',              # Page Helpers for Kalamar
     'KalamarErrors',             # Specific Errors for Kalamar

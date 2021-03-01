@@ -103,4 +103,8 @@ $t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
   ->text_is('#api-service-uri', 'https://korap.ids-mannheim.de/test/api/v1.0/');
 
 
+# Check mail_to_chiffre
+like($t->app->mail_to_chiffre('korap@korap.example'),qr!rel="nofollow"!);
+like($t->app->mail_to_chiffre('korap@korap.example'),qr!class="PArok"!);
+
 done_testing();

@@ -18,7 +18,7 @@ WriteMakefile(
   PREREQ_PM => {
     'Mojolicious' => '8.42',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.08,
-    'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.11,
+    'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.13,
     'Mojolicious::Plugin::ClosedRedirect' => 0.15,
     'Mojolicious::Plugin::Notifications' => 1.06,
     'Mojolicious::Plugin::MailException' => 0.24,

@@ -1,4 +1,4 @@
-0.41 2021-02-27
+0.41 2021-03-01
         - Introduce CORS headers to the proxy.
         - Introduce Content Security Policy.
         - Remove default api endpoint from config to
@@ -31,6 +31,7 @@
         - Move /js/tracking.js to /settings/asset/tracking.js
           to simplify asset configuration in proxy servers.
         - Fix working directory for plugin configuration.
+        - Make mailto: embedding CSP compliant.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
