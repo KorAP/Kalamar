@@ -60,10 +60,9 @@ APPEND
   );
 
   # Add tracking code as <script/> instead of inline
-
-  $mojo->csp->add('script-src' => $url);
-  $mojo->csp->add('connect-src' => $url);
-  $mojo->csp->add('img-src' => $url);
+  foreach (qw!script connect img frame!) {
+    $mojo->csp->add("$_-src" => $url);
+  };
 
   # Set track script for CSP compliant tracking
   $mojo->routes->any('/settings/assets/tracking.js')->piwik('track_script');

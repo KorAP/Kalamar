@@ -48,7 +48,8 @@ $t->get_ok('/doc/faq')
   ->content_unlike(qr!_paq!)
   ->header_like('Content-Security-Policy',qr!connect-src 'self' [^;]*?https://piwik\.korap\.ids-mannheim\.de/!)
   ->header_like('Content-Security-Policy',qr!img-src 'self' [^;]*?https://piwik\.korap\.ids-mannheim\.de/!)
-  ->header_like('Content-Security-Policy',qr!script-src 'self' [^;]*?https://piwik.korap.ids-mannheim.de/!)
+  ->header_like('Content-Security-Policy',qr!script-src 'self' [^;]*?https://piwik\.korap\.ids-mannheim\.de/!)
+  ->header_like('Content-Security-Policy',qr!frame-src [^;]*?(?:\*|https://piwik\.korap\.ids-mannheim\.de/)!)
   ;
 
 $t->get_ok('/settings/assets/tracking.js')

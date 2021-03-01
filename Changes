@@ -32,6 +32,8 @@
           to simplify asset configuration in proxy servers.
         - Fix working directory for plugin configuration.
         - Make mailto: embedding CSP compliant.
+        - Add frame-src to Piwik plugin as '*' may be
+          overwritten.
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.
