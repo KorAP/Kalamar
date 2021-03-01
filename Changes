@@ -34,6 +34,7 @@
         - Make mailto: embedding CSP compliant.
         - Add frame-src to Piwik plugin as '*' may be
           overwritten.
+        - Fix tutorial queries (reported by margaretha).
 
 0.40 2020-12-17
         - Modernize ES and fix in-loops.

@@ -209,6 +209,13 @@ define(['tutorial','util'], function (tutClass) {
     });
 
     it('should initialize queries', function () {
+
+      // qField
+      const qField = document.createElement('input');
+      qField.setAttribute('id','q-field');
+      qField.value = 'xxx';
+      document.body.appendChild(qField);
+      
       const tutE = document.createElement('div');
       tutE.setAttribute('href', '/doc/ql');
       let tut = tutClass.create(tutE);
@@ -222,6 +229,7 @@ define(['tutorial','util'], function (tutClass) {
       
       let pre1 = document.createElement('pre');
       pre1.classList.add('query','tutorial');
+      pre1.setAttribute('data-query', 'yyy');
       queries.appendChild(pre1);
       
       let pre2 = document.createElement('pre');
@@ -248,6 +256,11 @@ define(['tutorial','util'], function (tutClass) {
       expect(pre2.onclick).toBeNull();
       expect(pre3.onclick).toBeNull();
       expect(pre4.onclick).not.toBeNull();      
+
+      expect(document.getElementById('q-field').value).toBe("xxx")
+      pre1.click();
+      expect(document.getElementById('q-field').value).toBe("yyy")
+
       tut._session.clear();
     });
 

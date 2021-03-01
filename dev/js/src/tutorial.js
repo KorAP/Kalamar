@@ -109,12 +109,13 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
      * Decorate a page with query event handler.
      */
     initQueries : function (d) {
-      Array.from(d.querySelectorAll('pre.query.tutorial:not(.unsupported)')).forEach(
-        i =>
-	        i.onclick = function (e) {
-	          this.useQuery(this,e);
-	        }.bind(this)
-      );
+      let qs = d.querySelectorAll('pre.query.tutorial:not(.unsupported)');
+      const that = this;
+      for (var i = 0; i < qs.length; i++) {
+	      qs[i].onclick = function (e) {
+	        that.useQuery(this,e);
+	      };
+      };
     },
 
     /**
