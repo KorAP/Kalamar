@@ -4,6 +4,8 @@
           with the server to the APIs (lerepp).
         - Remove ruby-sass requirement (fixes #123).
         - Added support to issue new OAuth2 tokens.
+        - Replace old Kalamar logo with new KorAP logo
+          (designed by Norbert Cußler-Volz)
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.

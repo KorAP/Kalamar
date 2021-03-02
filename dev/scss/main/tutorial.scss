@@ -36,10 +36,10 @@
     // Hack for a Firefox bug
     min-height: 100.1%;
     background: {
-      image:    url('#{$img-path}/korap-bg-kalamar.svg');
+      image:    url('#{$img-path}/korap-bg.svg');
       repeat:   no-repeat;
       position: center center;
-      size:     20%;
+      size:     15%;
     }
   }
 }
