@@ -22,26 +22,6 @@
   }
 }
 
-
-/**
- * Background image for the front page
- */
-#kalamar-bg {
-  position: fixed;
-  height:   110%;
-  width:    175%;
-  top:      0;
-  z-index:  -5000;
-  opacity:  .1;
-  background: {
-    image:    url('#{$img-path}/korap-bg-kalamar.svg');
-    size:     50%;
-    repeat:   no-repeat;
-    position: 50% 50%;
-  }
-}
-
-
 /**
  * Logo table of the front page
  */
@@ -82,15 +62,15 @@
 h1 {
   position:    absolute;
   margin:      0;
-  margin-left: 15px;
+  margin-left: 10pt;
   left:        0;
   top:         0;
   width:       7.8em;
   height:      2.4em;
   z-index:     105;
   background: {
-    size:  72%;
-    image: url('#{$img-path}/korap-logo-kalamar.svg');
+    size:  78% !important;
+    image: url('#{$img-path}/korap-logo.svg');
   }
 }
 
