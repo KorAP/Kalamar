@@ -313,8 +313,11 @@ Romanian and its analysis tools. CoRoLa, KorAP, DRuKoLA and EuReCo,
 Revue Roumaine de Linguistique, 64(3). Editura Academiei Române,
 Bucharest, Romania.
 
-### Bundled Software
+### Bundled Assets
 
+The KorAP logo was designed by Norbert Cußler-Volz
+is released under the terms of the Creative Commons
+License BY-NC-ND 4.0.
 [ALERTIFY.js](https://fabien-d.github.io/alertify.js/)
 is released under the terms of the MIT License.
 [Almond](https://github.com/jrburke/almond)
