@@ -1,0 +1,33 @@
+name: CI Perl Linux
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+jobs:
+  perl:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        perl-version:
+          - '5.20'
+          - '5.22'
+          - '5.30'
+          - '5.32'
+    name: Perl ${{ matrix.perl-version }} on Linux
+    container:
+      image: perl:${{ matrix.perl-version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: perl -V
+        run: perl -V
+      - name: Install dependencies
+        run: |
+          cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+          cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
+          cpanm -n --installdeps .
+          cpanm -n Cpanel::JSON::XS EV
+      - name: Run tests
+        run: prove -lr t/
