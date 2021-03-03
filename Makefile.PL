@@ -32,6 +32,9 @@ WriteMakefile(
     # Required for Data::Serializer at the moment
     'JSON' => 4.03,
 
+    # Required for older perl bundles
+    'List::Util' => 1.45,
+
     # Required for bundled plugins
     'Mojolicious::Plugin::Piwik' => 0.28,
 
