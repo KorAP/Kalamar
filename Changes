@@ -18,9 +18,16 @@
         - List tokens of a client.
         - Upgrade Mojolicious dependency to 9.19.
         - Added query reference API.
+        - Use AutoSecrets plugin to improve security.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.
+        
+        WARNING: Even testing this distribution will rewrite your
+          kalamar.secret file to migrate to kalamar.secret.json.
+          It will keep kalamar.secret - but you'll advise to
+          delete the file after checking the integrity with
+          kalamar.secret.json.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.

@@ -25,6 +25,7 @@ WriteMakefile(
     'Mojolicious::Plugin::Util::RandomString' => 0.09,
     'Mojolicious::Plugin::CHI' => 0.20,
     'Mojolicious::Plugin::ClientIP' => 0.02,
+    'Mojolicious::Plugin::AutoSecrets' => 0.006,
     'Cache::FastMmap' => 1.56,
     'Data::Serializer' => 0.65,
     'Mojo::JWT' => 0.09,

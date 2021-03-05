@@ -3,12 +3,12 @@ use Mojo::Base 'Mojolicious';
 use Mojo::ByteStream 'b';
 use Mojo::URL;
 use Mojo::File;
-use Mojo::JSON 'decode_json';
+use Mojo::JSON qw/decode_json encode_json/;
 use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.41';
+our $VERSION = '0.42';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -38,18 +38,40 @@ sub startup {
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
 
   # Set secrets for signed cookies
-  if (-e (my $secret = $self->home->child('kalamar.secret'))) {
+  my $secret_file = $self->home->rel_file('kalamar.secret.json');
+
+  # Support old secrets file
+  # This is deprecated 2021-03-05
+  if (-e (my $old_secret = $self->home->child('kalamar.secret'))) {
 
     # Load file and split lines for multiple secrets
-    $self->secrets([b($secret->slurp)->split("\n")]);
+    my $secrets = [b($old_secret->slurp)->split("\n")];
+    $self->secrets($secrets);
+
+    eval {
+      $secret_file->spurt(encode_json(@$secrets));
+      $secret_file->chmod(0600);
+      if (-w $secret_file) {
+        $self->log->warn(
+          "Please delete $old_secret file " .
+            "- $secret_file was created instead"
+          );
+      }
+    };
+    if ($@) {
+      $self->log->error("Please make $secret_file accessible");
+    };
   }
 
   # File not found ...
   # Kalamar needs secrets in a file to be easily deployable
   # and publishable at the same time.
   else {
-    $self->log->warn('Please create a kalamar.secret file');
+    $self->plugin(AutoSecrets => {
+      path => $secret_file
+    });
   };
+
 
   # Configuration framework
   $self->plugin('Config');
