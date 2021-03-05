@@ -15,6 +15,13 @@
         - Overhaul of menuSpec to use getElementsByClassName
           and getElementsById instead of child accessors
           (lerepp).
+        - Use AutoSecrets plugin to improve security.
+        
+        WARNING: Even testing this distribution will rewrite your
+          kalamar.secret file to migrate to kalamar.secret.json.
+          It will keep kalamar.secret - but you'll advise to
+          delete the file after checking the integrity with
+          kalamar.secret.json.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
