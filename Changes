@@ -3,6 +3,13 @@
         - Added further methods for communicating JSON Files
           with the server to the APIs (lerepp).
         - Remove ruby-sass requirement (fixes #123).
+        - Use AutoSecrets plugin to improve security.
+        
+        WARNING: Even testing this distribution will rewrite your
+          kalamar.secret file to migrate to kalamar.secret.json.
+          It will keep kalamar.secret - but you'll advise to
+          delete the file after checking the integrity with
+          kalamar.secret.json.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
