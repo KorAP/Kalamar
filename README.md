@@ -143,9 +143,10 @@ optional components using a `require(...)` directive (see example below).
 
 ### Secret file
 
-Kalamar uses [rotating secrets](https://mojolicious.org/perldoc/Mojolicious#secrets)
-to sign cookies. Put a file called `kalamar.secret` in the root of the application
-with one secret per line.
+Kalamar uses auto rotating secrets. Allow access to a file called
+`kalamar.secret.json` in the home directory of kalamar. It will
+automatically be created, if it doesn't exist.
+(`kalamar.secret` is deprecated.)
 
 ### Localization
 
