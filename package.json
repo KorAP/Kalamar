@@ -17,14 +17,18 @@
     "grunt-contrib-imagemin": "^3.1.0",
     "grunt-contrib-requirejs": "^1.0.0",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-terser": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-shell": "^3.0.1",
+    "grunt-terser": "^1.0.0",
     "imagemin": "^7.0.1",
+    "jasmine": "^3.6.4",
     "optipng-bin": "^6.0.0",
     "vinyl-fs": "^3.0.3"
   },
   "optionalDependencies": {
     "fsevents": "*"
+  },
+  "scripts": {
+    "test": "jasmine --config=dev/js/jasmine.json"
   }
 }
