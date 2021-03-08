@@ -3,8 +3,7 @@ FROM node:12 as assetbuilder
 
 # This follows the "multi-stage build" pattern
 
-RUN npm install -g sass && \
-    npm install grunt && \
+RUN npm install grunt && \
     npm install -g grunt-cli
 
 # Copy repository respecting .dockerignore

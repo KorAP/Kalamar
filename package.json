@@ -2,7 +2,7 @@
   "name": "Kalamar",
   "description": "Mojolicious-based Frontend for KorAP",
   "license": "BSD-2-Clause",
-  "version": "0.41.3",
+  "version": "0.41.4",
   "pluginVersion": "0.2.2",
   "engines": {
     "node": ">=6.0.0"
@@ -14,17 +14,20 @@
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-imagemin": "^3.1.0",
     "grunt-contrib-requirejs": "^1.0.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-terser": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "^3.1.0",
     "grunt-shell": "^3.0.1",
+    "grunt-terser": "^1.0.0",
     "imagemin": "^7.0.1",
     "optipng-bin": "^6.0.0",
+    "sass": "^1.32.8",
     "vinyl-fs": "^3.0.3"
   },
   "optionalDependencies": {
     "fsevents": "*"
+  },
+  "dependencies": {
+    "grunt-contrib-imagemin": "^4.0.0"
   }
 }

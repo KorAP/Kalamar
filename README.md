@@ -41,20 +41,17 @@ see the *Troubleshooting* section.
 
 To generate the static asset files (scripts, styles, images ...),
 you need NodeJS >= 6.0.0.
-For processing Sass, you will need Ruby with
-the `sass` gem in addition.
 This will probably need administration
 rights, depending on your installation path.
 These tools may also be available with a package manager.
 
-You can check, if all tools are available using
+You can check your version using
 
 ```shell
 $ npm -v
-$ sass -v
 ```
 
-Afterwards you can install grunt and run grunt to create the assets.
+Afterwards you can install the dependencies and run `grunt` to create the assets.
 
 ```shell
 $ cd Kalamar
@@ -63,7 +60,7 @@ $ npm install
 $ grunt
 ```
 
-Whenever the assets change, just rerun `grunt`.
+Whenever the assets change, just rerun `npm install` and `grunt`.
 
 ### Start Server
 
@@ -111,6 +108,19 @@ followed by the most current version of the API.
 You may change that endpoint to the KorAP API provider in the configuration
 (see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information)
 or by using the environment variable `KALAMAR_API`.
+
+## Updates
+
+To update Kalamar, just run
+
+```shell
+$ git pull origin master
+$ cpanm --installdeps .
+$ npm install
+$ grunt
+```
+
+And both the server and client dependencies should be up to date.
 
 ## Configuration
 
@@ -275,7 +285,7 @@ in the test suite, so a force install may be necessary.
 $ cpanm -f Mojolicious::Plugin::MailException
 ```
 
-# Problem running scripts on Windows with Powershell
+### Problem running scripts on Windows with Powershell
 
 In case you are having issues with running scripts under Windows,
 you can set the execution policy with
