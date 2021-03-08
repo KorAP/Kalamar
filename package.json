@@ -16,12 +16,13 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-imagemin": "^3.1.0",
     "grunt-contrib-requirejs": "^1.0.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-terser": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "^3.1.0",
     "grunt-shell": "^3.0.1",
+    "grunt-terser": "^1.0.0",
     "imagemin": "^7.0.1",
     "optipng-bin": "^6.0.0",
+    "sass": "^1.32.8",
     "vinyl-fs": "^3.0.3"
   },
   "optionalDependencies": {
