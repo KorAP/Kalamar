@@ -41,17 +41,14 @@ see the *Troubleshooting* section.
 
 To generate the static asset files (scripts, styles, images ...),
 you need NodeJS >= 6.0.0.
-For processing Sass, you will need Ruby with
-the `sass` gem in addition.
 This will probably need administration
 rights, depending on your installation path.
 These tools may also be available with a package manager.
 
-You can check, if all tools are available using
+You can check your version using
 
 ```shell
 $ npm -v
-$ sass -v
 ```
 
 Afterwards you can install grunt and run grunt to create the assets.
