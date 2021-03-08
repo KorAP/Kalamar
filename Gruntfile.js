@@ -14,6 +14,8 @@
  * TODO: Implement a LaTeX generator for a pdf of the dokumentation 
  */
 
+const sass = require('node-sass');
+
 module.exports = function(grunt) {
   var config;
   var includeFile = 'default';
@@ -75,7 +77,9 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          style: 'compressed'
+          implementation: sass,
+          style: 'compressed',
+          sourceMap: true
         },
         files: {
           'public/css/kalamar-<%= pkg.version %>.css' : 'dev/scss/kalamar.scss',
@@ -164,7 +168,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
