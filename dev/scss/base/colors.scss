@@ -6,16 +6,39 @@
 /**
  * Official IDS colors
  */
-$ids-orange-1: rgb(246, 168,   0);
-$ids-orange-2: rgb(242, 148,   0);
+
+// Zentrale Forschung
+// $ids-orange-1: rgb(246, 168,   0);
+// $ids-orange-2: rgb(242, 148,   0);
+$ids-orange-1: rgb(241, 135,   0);
+$ids-orange-2: rgb(248, 114,   3);
+$ids-orange-3: rgb(251, 244, 233);
+
+// Pragmatik
+// $ids-blue-1:   rgb(  0, 158, 224);
+// $ids-blue-2:   rgb(188, 228, 247);
+$ids-blue-1:   rgb(  0, 159, 227);
+$ids-blue-2:   rgb(188, 228, 250);
+
+// Digitale Sprachwissenschaft
+$ids-blue-3:   rgb(  31, 39, 99);
+$ids-blue-4:   rgb(167, 195, 211);
+
+// Grammatik
+// $ids-green-1:  rgb( 99, 111,   7);
+// $ids-green-2:  rgb(227, 232, 163);
+$ids-green-1:  rgb(107, 120,   3);
+$ids-green-2:  rgb(226, 233, 164);
+
+// Lexik
+// $ids-pink-1:   rgb(193,   0,  43);
+// $ids-pink-2:   rgb(250, 243, 222);
+$ids-pink-1:   rgb(193,   11,  37);
+$ids-pink-2:   rgb(207, 188, 189);
+
 $ids-grey-1:   rgb(135, 136, 138);
-$ids-grey-2:   rgb(217, 218, 219);
-$ids-blue-1:   rgb(  0, 158, 224); // Pragmatik
-$ids-blue-2:   rgb(188, 228, 247); // Pragmatik
-$ids-green-1:  rgb( 99, 111,   7); // Grammatik
-$ids-green-2:  rgb(227, 232, 163); // Grammatik
-$ids-pink-1:   rgb(193,   0,  43); // Lexik
-$ids-pink-2:   rgb(250, 243, 222); // Lexik
+// $ids-grey-2:   rgb(217, 218, 219);
+$ids-grey-2:   rgb(218, 218, 218);
 
 $black:        #333;
 $darker-black: rgb(20,20,20); // official footer
@@ -24,7 +47,7 @@ $darker-black: rgb(20,20,20); // official footer
 /**
  * Orange Colors
  */
-$light-orange:   #f4eebb;
+$light-orange:   $ids-orange-3; // #f4eebb;
 $middle-orange:  #ffd080;
 $dark-orange:    $ids-orange-1;
 $darker-orange:  #ff8000;
@@ -46,7 +69,7 @@ $grey-green:     darken(desaturate($lightest-green, 25%), 12%); // #bcc387;
  */
 $light-blue:     $ids-blue-2;
 $dark-blue:      $ids-blue-1;
-$darkest-blue:   darken($dark-blue, 40%);
+$darkest-blue:   $ids-blue-3; // darken($dark-blue, 40%);
 
 
 /**

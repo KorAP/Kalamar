@@ -15,6 +15,7 @@
         - Overhaul of menuSpec to use getElementsByClassName
           and getElementsById instead of child accessors
           (lerepp).
+        - Update colors to match 2020 corporate design.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
