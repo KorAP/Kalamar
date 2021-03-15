@@ -7,6 +7,7 @@
         - Added tests for Mojolicious >= 9.11 compatibility.
         - Replace old Kalamar logo with new KorAP logo
           (designed by Norbert Cußler-Volz)
+        - Added large footer.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.

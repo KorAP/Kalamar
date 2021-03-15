@@ -7,15 +7,37 @@
 footer {
   background-color: $dark-grey;
   position:         absolute;
+  
   bottom:           0;
   padding-bottom:   2px;
   font-size:        70%;
   width:            100%;
   text-align:       right;
 
+  display: flex;
+  align-items: center;
+  height: $footer-height;
+
+  nav {
+    margin-left: $button-width;
+    padding: $item-padding;
+    text-align: left;
+    flex-grow: 2;
+    a {
+      white-space: nowrap;
+    }
+  }
+
+  div.logos {
+    font-size: 0;
+    flex-grow: 1;
+  }
+
+
   a {
+    font-size: 10pt;
     &:link {
-      margin: 0 .5em;
+      // margin: 0 .5em;
       color:  $light-grey;
     }
     &:visited {
@@ -29,10 +51,34 @@ footer {
       content: none
     }
   }
+
   span.separator {
     &:after {
-      content: "-";
-      color:   $light-grey;
+      font-size: bold;
+      content: " | ";
+      color:   $dark-orange;
     }
   }
+}
+
+/**
+ * Logo table of the front page
+ */
+#logos {
+  margin-right: $standard-margin;
+}
+
+/**
+ * Logo: Institute for German Language
+ */
+#ids-logo {
+  display:          inline-block;
+  width:            (631 / 30) + em;
+  height:           (200 / 30) + em;
+  background-image: url('#{$img-path}/ids-institute-for-the-german-language-white.svg');
+}
+
+aside.active ~ footer {
+  padding-left: $logo-left-distance;
+  transition:  all .3s ease-in-out;
 }
