@@ -1,10 +1,12 @@
 0.42 2021-03-22
+0.42 2021-03-18
         - Added GitHub based CI for perl.
         - Added further methods for communicating JSON Files
           with the server to the APIs (lerepp).
         - Remove ruby-sass requirement (fixes #123).
         - Added support to issue new OAuth2 tokens.
         - Added tests for Mojolicious >= 9.11 compatibility.
+        - Added large footer.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
