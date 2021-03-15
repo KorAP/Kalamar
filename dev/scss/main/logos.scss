@@ -43,40 +43,6 @@
 
 
 /**
- * Logo table of the front page
- */
-#logos {
-  position:    relative;
-  text-align:  right;
-  font-size:   85%;
-  right:       0;
-  width:       100%;
-  margin-left: ($standard-margin / 2);
-  padding-left: 60%;
-
-  > div {
-    border-top:    26px solid $dark-orange;
-    padding-right: 2em;
-  }
-  p {
-    text-align: left;
-    display:    inline-block;
-  }
-}
-
-
-/**
- * Logo: Institute for German Language
- */
-#ids-logo {
-  display:          block;
-  width:            (631 / 30) + em;
-  height:           (200 / 30) + em;
-  background-image: url('#{$img-path}/ids-leibniz-institute-for-the-german-language.svg');
-}
-
-
-/**
  * Logo: KorAP
  */
 h1 {
