@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e7857c8_50f2fb10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-03-16T15:10:48Z",
+      "side": 1,
+      "message": "Actually I have never tried running Kalamar on MacOS - wouldn\u0027t be surprised this fails.",
+      "revId": "f6296f3c404e5c8c5ece94b6aa161a520ede8734",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
