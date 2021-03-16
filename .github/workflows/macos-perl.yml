@@ -1,0 +1,25 @@
+name: CI Per MacOS
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+jobs:
+  perl:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Perl
+        run: brew install perl
+      - name: perl -V
+        run: perl -V
+      - name: Install dependencies
+        run: |
+          curl -L https://cpanmin.us > cpanm
+          perl cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+          perl cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
+          perl cpanm --installdeps .
+      - name: Run Tests
+        run: prove -lr t/

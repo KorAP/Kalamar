@@ -27,7 +27,7 @@ jobs:
         run: |
           cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
           cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
-          cpanm -n --installdeps .
+          cpanm --installdeps .
           cpanm -n Cpanel::JSON::XS EV
       - name: Run tests
         run: prove -lr t/
