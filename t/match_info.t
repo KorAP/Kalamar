@@ -27,6 +27,7 @@ $fake_backend->pattern->defaults->{app}->log($t->app->log);
 # Query passed
 $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*&format=json')
   ->status_is(200)
+  ->content_type_is('application/json;charset=UTF-8')
   ->json_is('/textSigle', 'WPD15/232/39681')
   ->json_like('/snippet', qr!<span class=\"context-left\">!)
   ->header_isnt('X-Kalamar-Cache', 'true')
@@ -101,6 +102,14 @@ $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no&format=json')
   ;
 
 $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no&format=html')
+  ->content_type_is('text/html;charset=UTF-8')
+  ->status_is(400)
+  ->text_is('p.no-results', 'Unable to perform the action.')
+  ->text_is('div.notify', 'Parameter "spans" invalid')
+  ;
+
+$t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no')
+  ->content_type_is('text/html;charset=UTF-8')
   ->status_is(400)
   ->text_is('p.no-results', 'Unable to perform the action.')
   ->text_is('div.notify', 'Parameter "spans" invalid')

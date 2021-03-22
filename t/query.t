@@ -31,6 +31,7 @@ my $q = qr!(?:\"|&quot;)!;
 $t->get_ok('/?q=baum')
   ->status_is(200)
   ->text_is('#error','')
+  ->content_type_is('text/html;charset=UTF-8')
 
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
