@@ -395,6 +395,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
     // The handling needs to be very careful,
     // as this can easily become a security nightmare.
     _receiveMsg : function (e) {
+
       // Get event data
       var d = e.data;
 
@@ -404,7 +405,11 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
         return;
 
       // e.origin is probably set and okay - CHECK!
+      // TODO: Check e.origin is in the list of registered participants
+      // if (e.origin !== "http://example.com:8080")
+      //   return;
 
+      
       // Get origin ID
       var id = d["originID"];
 

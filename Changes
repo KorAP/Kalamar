@@ -15,6 +15,7 @@
         - Overhaul of menuSpec to use getElementsByClassName
           and getElementsById instead of child accessors
           (lerepp).
+        - List tokens of a client.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
