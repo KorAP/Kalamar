@@ -556,11 +556,12 @@ $t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token' => form => {
   name => 'MyApp2',
   'client-id' => 'fCBbQkA2NDA3MzM1Yw=='
 })
-  ->status_is(200)
-  ->attr_is('input[name=access_token]', 'value', 'jvgjbvjgzucgdwuiKHJK')
-  ->text_is('p[name=expires] tt', '31536000')
-  ->text_is('p[name=scope] tt', 'match_info search openid')
-  ->text_is('p[name=type] tt', 'Bearer')
+  ->status_is(302)
+  ->header_is('Location','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ;
+
+$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->text_is('div.notify-success', 'New access token created')
   ;
 
 

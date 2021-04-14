@@ -544,8 +544,8 @@ post '/v1.0/oauth2/client/register' => sub {
   push @$list, {
     "client_id" => $tokens{new_client_id},
     "client_name" => $name,
-    "description" => $desc,
-    "url" => $url
+    "client_description" => $desc,
+    "client_url" => $url
   };
 
   # Confidential server application
@@ -575,6 +575,29 @@ post '/v1.0/oauth2/client/list' => sub {
     json => $c->stash('oauth.client_list'),
     status => 200
   );
+};
+
+
+# Get token list
+post '/v1.0/oauth2/token/list' => sub {
+  my $c = shift;
+  return $c->render(json => [
+    {
+      "client_description" => "Nur ein Beispiel",
+      "client_id" => $tokens{new_client_id},
+      "client_name" => "Beispiel",
+      "client_url" => "",
+      "created_date" => "2021-04-14T19:40:26.742+02:00[Europe\/Berlin]",
+      "expires_in" => "31533851",
+      "scope" => [
+        "match_info",
+        "search",
+        "openid"
+      ],
+      "token" => "jhkhkjhk_hjgjsfz67i",
+      "user_authentication_time" => "2021-04-14T19:39:41.81+02:00[Europe\/Berlin]"
+    }
+  ]);
 };
 
 del '/v1.0/oauth2/client/deregister/:client_id' => sub {
