@@ -341,6 +341,47 @@ sub register {
     );
 
 
+    # Get a list of registered clients
+    $app->helper(
+      'auth.token_list_p' => sub {
+        my $c = shift;
+        my $user_client_id = shift;
+
+        # Revoke the token
+        state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/token/list');
+
+        my $form = {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          token_type => 'access_token',
+        };
+
+        if ($user_client_id) {
+          $form->{client_id} = $user_client_id;
+        };
+
+        # Get the list of all clients
+        return $c->korap_request(post => $r_url, {} => form => $form)->then(
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+
+            # Response is fine
+            if ($tx->res->is_success) {
+              return Mojo::Promise->resolve($json);
+            };
+
+            $c->log->error($c->dumper($tx->res->to_string));
+
+            # Failure
+            $c->notify(error => $c->loc('Auth_responseError'));
+            return Mojo::Promise->reject($json // 'No response');
+          }
+        );
+      }
+    );
+
+
     # Issue a korap request with "oauth"orization
     # This will override the core request helper
     $app->helper(
@@ -895,9 +936,17 @@ sub register {
               };
 
               $c->stash(client_name => $item->{client_name});
-              $c->stash(client_desc => $item->{description});
-              $c->stash(client_url  => $item->{url});
+              $c->stash(client_desc => $item->{client_description});
+              $c->stash(client_url  => $item->{client_url});
               $c->stash(client_type => 'PUBLIC');
+
+              $c->auth->token_list_p($c->stash('client_id'));
+            }
+          )->then(
+            sub {
+              my $json = shift;
+
+              $c->stash(tokens => $json);
 
               return Mojo::Promise->resolve;
             }
@@ -907,11 +956,6 @@ sub register {
             }
           )->finally(
             sub {
-              # return $c->render(text => 'hui');
-
-              # TODO:
-              #   This would better be a redirect to the client page, but in case there is a client_secret
-              # this wouldn't work (unless we flash that).
               return $c->render(template => 'auth/client')
             }
           );
@@ -1024,11 +1068,7 @@ sub register {
 
                 $c->notify(success => 'New access token created');
 
-                return $c->render(
-                  template => 'auth/client',
-                  client_name => $name,
-                  %$json
-                );
+                $c->redirect_to('oauth-tokens' => { client_id => $client_id })
               }
             )->catch(
               sub {

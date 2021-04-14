@@ -10,9 +10,9 @@
 %   foreach (@$list) {
   <li class="client">
     <span class="client-name"><%= link_to $_->{client_name} => url_for('oauth-tokens', client_id => $_->{client_id}) %></span>
-    <span class="client-desc"><%= $_->{description} %></span>
-% if ($_->{url}) {
-    <span class="client-url"><a href="<%= $_->{url} %>"><%= $_->{url} %></a></span>
+    <span class="client-desc"><%= $_->{client_description} %></span>
+% if ($_->{client_url}) {
+    <span class="client-url"><a href="<%= $_->{client_url} %>"><%= $_->{client_url} %></a></span>
 % }
   </li>
 %   };

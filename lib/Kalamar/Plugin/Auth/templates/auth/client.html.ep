@@ -14,28 +14,50 @@
         % if (stash('client_url')) {
         <span class="client-url"><a href="<%= stash('client_url') %>"><%= stash('client_url') %></a></span>
         % };
+
+        <p><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
+        %= label_for 'client_id' => loc('Auth_clientID')
+        %= text_field 'client_id', stash('client_id'), readonly => 'readonly'
+        % if (stash('client_type') && stash('client_type') ne 'PUBLIC') {
+        <div>
+          %= label_for 'client_secret' => loc('Auth_clientSecret')
+          %= password_field 'client_secret', value => stash('client_secret'), readonly => 'readonly'
+        </div>
+        % };
+
       </li>
     </ul>
+
     <span class="button-group button-panel">
       %= link_to Unregister => url_for('oauth-unregister', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-unregister' )
       %= link_to IssueToken => url_for('oauth-issue-token', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-issue-token' )
     </span>
-    <p><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
-    %= label_for 'client_id' => loc('Auth_clientID')
-    %= text_field 'client_id', stash('client_id'), readonly => 'readonly'
-    % if (stash('client_type') && stash('client_type') ne 'PUBLIC') {
-    <div>
-      %= label_for 'client_secret' => loc('Auth_clientSecret')
-      %= password_field 'client_secret', value => stash('client_secret'), readonly => 'readonly'
-    </div>
-    % };
+    
 
-    % if (stash('access_token')) {
-    %= label_for 'access_token' => 'Access Token'
-    %= text_field 'access_token', stash('access_token'), readonly => 'readonly'
-    <p name="expires">Expires in: <tt><%= stash 'expires_in' %></tt></p>
-    <p name="scope">Scope: <tt><%= stash 'scope' %></tt></p>
-    <p name="type">Token-Type: <tt><%= stash 'token_type' %></tt></p>
-    % }
+    % if ($c->stash('tokens')) {
+    <h4>Tokens</h3>
+    <ul class="token-list">
+      % foreach (@{$c->stash('tokens')}) {
+      <li>
+      %= label_for 'token' => loc('Auth_accessToken')
+      %= text_field '', $_->{token}, readonly => 'readonly'
+      <p name="created">Created at: <%= $_->{created_date} %></p>
+      <p name="expires">Expires in: <%= $_->{expires_in} %></p>
+      % if ($_->{scope}) {
+      <p name="scope">Scope: <tt><%= join ',', @{$_->{scope}} %></tt></p>
+      % };
+      </li>
+      % }
+    </ul>
+    % };
+    
+    %# New access token:
+    %# if (stash('access_token')) {
+    %#= label_for 'access_token' => 'Access Token'
+    %#= text_field 'access_token', stash('access_token'), readonly => 'readonly'
+    %# <p name="expires">Expires in: <tt><%= stash 'expires_in' %></tt></p>
+    %# <p name="scope">Scope: <tt><%= stash 'scope' %></tt></p>
+    %# <p name="type">Token-Type: <tt><%= stash 'token_type' %></tt></p>
+    %# }
   </fieldset>
 </form>

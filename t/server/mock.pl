@@ -577,6 +577,29 @@ post '/v1.0/oauth2/client/list' => sub {
   );
 };
 
+
+# Get token list
+post '/v1.0/oauth2/token/list' => sub {
+  my $c = shift;
+  return $c->render(json => [
+    {
+      "clientDescription" => "Nur ein Beispiel",
+      "clientId" => $tokens{new_client_id},
+      "clientName" => "Beispiel",
+      "clientUrl" => "",
+      "createdDate" => "2021-04-14T19:40:26.742+02:00[Europe\/Berlin]",
+      "expiryDate" => "2022-04-14T19:40:26.742+02:00[Europe\/Berlin]",
+      "scopes" => [
+        "match_info",
+        "search",
+        "openid"
+      ],
+      "token" => "jhkhkjhk_hjgjsfz67i",
+      "userAuthenticationTime" => "2021-04-14T19:39:41.81+02:00[Europe\/Berlin]"
+    }
+  ]);
+};
+
 del '/v1.0/oauth2/client/deregister/:client_id' => sub {
   my $c = shift;
   my $client_id = $c->stash('client_id');
