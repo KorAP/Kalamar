@@ -40,6 +40,11 @@ h1 {
   }
 }
 
+aside.active ~ header h1 {
+  position: fixed;
+}
+
+
 #overview {
   text-align: center;
   width:      100%;
