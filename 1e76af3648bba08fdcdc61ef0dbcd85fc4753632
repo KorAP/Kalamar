@@ -16,6 +16,24 @@
       "message": "Footer looks good, but is overlapped by the sidebar.",
       "revId": "1e76af3648bba08fdcdc61ef0dbcd85fc4753632",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26c1757_f1e73eb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-04-20T10:24:51Z",
+      "side": 1,
+      "message": "+1 exactly my impression, maybe merge it first and have a look at the sidebar overlap (not so important, I guess) later",
+      "parentUuid": "bcf6aeb4_db87f3ce",
+      "revId": "1e76af3648bba08fdcdc61ef0dbcd85fc4753632",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
