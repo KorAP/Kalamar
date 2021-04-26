@@ -2,15 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Spec Runner for Kalamar</title>
+  <title>Spec Runner for Menu Helper</title>
   <link rel="shortcut icon" type="image/png" href="../lib/jasmine-2.1.1/jasmine_favicon.png">
   <link rel="stylesheet" href="../lib/jasmine-2.1.1/jasmine.css">
   <script src="../lib/require.js"></script>
-  <!--
-  <script src="../lib/jasmine-2.1.1/jasmine.js"></script>
-  <script src="../lib/jasmine-2.1.1/jasmine-html.js"></script>
-  <script src="../lib/jasmine-2.1.1/boot.js"></script>
-  -->
   <script>
     require.config({
       baseUrl: "../src",
@@ -31,35 +26,16 @@
         }
       }
     });
-
     require(['jasmine-boot'], function () {
       require([
-        'spec/matchSpec',
-        'spec/hintSpec',
-        'spec/buttongroupSpec',
-        'spec/datepickerSpec',
-        'spec/menuSpec',
-        'spec/alwaysMenuSpec',
-        'spec/selectMenuSpec',
-        'spec/panelSpec',
-        'spec/viewSpec',
-        'spec/pluginSpec',
-        'spec/queryCreatorSpec',
-        'spec/corpusByMatchSpec',
-        'spec/statSpec',
-        'spec/vcSpec',
-        'spec/tourSpec',
-        'spec/utilSpec',
-        'spec/stateSpec',
-        'spec/pipeSpec',
-        'spec/sessionSpec',
-        'spec/tutSpec'
-      ],
+        'spec/alwaysMenuSpec'
+     ],
       function () {
         window.onload();
       });
     });
     </script>
-  </head>
-  <body></body>
+</head>
+<body>
+</body>
 </html>
