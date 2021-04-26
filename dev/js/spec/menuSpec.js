@@ -380,6 +380,7 @@ define(
         expect(menu.element().nodeName).toEqual('UL');
         expect(menu.element().classList.contains('visible')).toBeFalsy();
         expect(menu.limit()).toEqual(8);
+        expect(menu._notItemElements).toEqual(3);
 
         menu.limit(9);
         expect(menu.limit()).toEqual(9);
