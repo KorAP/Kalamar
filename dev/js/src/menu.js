@@ -127,7 +127,7 @@ define([
 
       t._limit = menuLimit;
       
-      t._items = new Array();
+      t._items = new Array(); //all childNodes, i.e. ItemClass, prefixClass
 
       // TODO:
       // Make this separate from _init
@@ -142,7 +142,7 @@ define([
     readItems : function (list) {
       const t = this;
 
-      t._list = undefined;
+      t._list = undefined; //filtered List containing all itemClass items
 
       // Remove circular reference to "this" in items
       for (let i = 0; i < t._items.length; i++) {
@@ -179,6 +179,7 @@ define([
     
     // Initialize the item list
     _initList : function () {
+      // Upon change also update alwaysmenu.js please
       const t = this;
 
       // Create a new list
@@ -258,6 +259,7 @@ define([
      * mark and sweep GC)!
      */
     destroy : function () {
+      // Upon change also update alwaysmenu.js please
       const t = this;
 
       // Remove circular reference to "this" in menu
@@ -327,6 +329,7 @@ define([
 
     // Arrow key and prefix treatment
     _keydown : function (e) {
+      //Upon change also update alwaysmenu.js please
       const t = this;
 
       switch (_codeFromEvent(e)) {
@@ -489,6 +492,7 @@ define([
      * @param {string} Prefix for filtering the list
      */
     show : function (active) {
+      //Upon change please also update alwaysmenu.js (only two lines new there)
       const t = this;
 
       // show menu based on initial offset
@@ -617,6 +621,7 @@ define([
      * Delete all visible items from the menu element
      */
     removeItems : function () {
+      // Upon change please also update alwaysmenu.js removeItems
       // Remove all children
       const children = this._el.childNodes;
 
@@ -690,6 +695,7 @@ define([
      * Make the next item in the filtered menu active
      */
     next : function () {
+      //Upon change please update alwaysmenu.js next
       const t = this;
 
       // No list
@@ -746,6 +752,7 @@ define([
      * Make the previous item in the menu active
      */
     prev : function () {
+      //Upon Change please update alwaysmenu.js prev
       const t = this;
 
       // No list
@@ -861,6 +868,7 @@ define([
 
       this.item(this._list[0]).noMore(bool);
       this.item(this._list[this._list.length - 1]).noMore(bool);
+      console.log("boundary",this.item(this._list[0]),this.item(this._list[this._list.length - 1]));
     },
 
 
@@ -874,6 +882,7 @@ define([
 
         // Remove the HTML node from the first item
         // leave lengthField/prefix/slider
+        console.log("remove at 3",t._el.children[3]);
         t._el.removeChild(t._el.children[3]);
 
         t._append(
@@ -886,6 +895,7 @@ define([
         t.offset = off;
 
         // Remove the HTML node from the last item
+        console.log("remove last one",t._el.lastChild);
         t._el.removeChild(t._el.lastChild);
 
         t._prepend(t._list[t.offset]);
