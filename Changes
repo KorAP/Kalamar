@@ -1,4 +1,4 @@
-0.42 2021-04-20
+0.42 2021-04-28
         - Added GitHub based CI for perl.
         - Added further methods for communicating JSON Files
           with the server to the APIs (lerepp).
@@ -10,6 +10,8 @@
         - Added large footer.
         - Make KorAP logo stay when side menu is active
           (fixes #133).
+        - Change samesite to 'None' to temporarily
+          allow for session riding by plugins.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.

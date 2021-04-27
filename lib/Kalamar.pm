@@ -82,6 +82,9 @@ sub startup {
     # ... for cookie transport
     $self->sessions->secure(1);
 
+    # Temporary for session riding
+    $self->sessions->samesite('None');
+
     # For all pages
     $self->hook(
       before_dispatch => sub {
