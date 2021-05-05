@@ -16,6 +16,23 @@
       "message": "Please test, you did that with grunt right?",
       "revId": "1a728327fff60c0a497aa027a607caf20a9c03bc",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "341e8c44_f5b4fb0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-05-05T13:55:25Z",
+      "side": 1,
+      "message": "You can simply run `dev/js/runner/menu.html` in the browser for the test suite. There is a single (?) test that fails on Chrome (due to different JS handling throughout browsers) but has no significance in real world use, but Firefox is a reliable test bed.\nYou could remove the commented console out, otherwise - looks good!",
+      "revId": "1a728327fff60c0a497aa027a607caf20a9c03bc",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
