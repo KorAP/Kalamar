@@ -2,7 +2,7 @@
 
 %= page_title
 
-<p><%== loc('Auth_oauthIssueToken', clientName => param('name')) %></p>
+<p><%== loc('Auth_oauthIssueToken', client_name => param('name')) %></p>
 
 %= form_for 'oauth-issue-token-post', id => 'issue-token', class => 'form-table', begin
    %= csrf_field

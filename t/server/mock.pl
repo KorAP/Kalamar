@@ -519,17 +519,31 @@ post '/v1.0/oauth2/client/register' => sub {
   my $c = shift;
   my $json = $c->req->json;
 
+  if ($json->{redirectURI}) {
+    return $c->render(
+      status => 400,
+      json => {
+        errors => [
+          [
+            201,
+            "Unrecognized field \"redirectURI\" (class de.ids_mannheim.korap.web.input.OAuth2ClientJson), not marked as ignorable (5 known properties: \"redirect_uri\", \"type\", \"name\", \"description\", \"url\"])\n at [Source: (org.eclipse.jetty.server.HttpInputOverHTTP); line: 1, column: 94] (through reference chain: de.ids_mannheim.korap.web.input.OAuth2ClientJson[\"redirectURI\"])"
+          ]
+        ]
+      }
+    );
+  };
+
   my $name = $json->{name};
   my $desc = $json->{description};
   my $type = $json->{type};
   my $url  = $json->{url};
-  my $redirect_url = $json->{redirectURI};
+  my $redirect_url = $json->{redirect_uri};
 
   my $list = $c->app->defaults('oauth.client_list');
 
   push @$list, {
-    "clientId" => $tokens{new_client_id},
-    "clientName" => $name,
+    "client_id" => $tokens{new_client_id},
+    "client_name" => $name,
     "description" => $desc,
     "url" => $url
   };
@@ -571,7 +585,7 @@ del '/v1.0/oauth2/client/deregister/:client_id' => sub {
 
   my $break = -1;
   for (my $i = 0; $i < @$list; $i++) {
-    if ($list->[$i]->{clientId} eq $client_id) {
+    if ($list->[$i]->{client_id} eq $client_id) {
       $break = $i;
       last;
     };
