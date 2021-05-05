@@ -9,7 +9,7 @@
 <ul class="client-list">
 %   foreach (@$list) {
   <li class="client">
-    <span class="client-name"><%= link_to $_->{clientName} => url_for('oauth-tokens', client_id => $_->{clientId}) %></span>
+    <span class="client-name"><%= link_to $_->{client_name} => url_for('oauth-tokens', client_id => $_->{client_id}) %></span>
     <span class="client-desc"><%= $_->{description} %></span>
 % if ($_->{url}) {
     <span class="client-url"><a href="<%= $_->{url} %>"><%= $_->{url} %></a></span>
@@ -51,7 +51,7 @@
 
 %#    <div>
 %#      %= label_for name => loc('Auth_redirectUri')
-%#      %= url_field 'redirectURI', placeholder => 'https://...'
+%#      %= url_field 'redirect_uri', placeholder => 'https://...'
 %#    </div>
 
     %= submit_button loc('Auth_clientRegister')

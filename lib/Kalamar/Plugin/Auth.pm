@@ -75,9 +75,9 @@ sub register {
           registerSuccess => 'Registrierung erfolgreich',
           registerFail => 'Registrierung fehlgeschlagen',
           oauthSettings => 'OAuth',
-          oauthUnregister => 'Möchten sie <span class="client-name"><%= $clientName %></span> wirklich löschen?',
+          oauthUnregister => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
           loginHint => 'Möglicherweise müssen sie sich zunächst einloggen.',
-          oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $clientName %></span>',
+          oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -103,9 +103,9 @@ sub register {
           registerSuccess => 'Registration successful',
           registerFail => 'Registration denied',
           oauthSettings => 'OAuth',
-          oauthUnregister => 'Do you really want to unregister <span class="client-name"><%= $clientName %></span>?',
+          oauthUnregister => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
           loginHint => 'Maybe you need to log in first?',
-          oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $clientName %></span>',
+          oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
         }
       }
     }
@@ -724,7 +724,7 @@ sub register {
           $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
           $v->required('desc', 'trim')->size(3, 255);
           $v->optional('url', 'trim')->like(qr/^(http|$)/i);
-          $v->optional('redirectUri', 'trim')->like(qr/^(http|$)/i);
+          $v->optional('redirect_uri', 'trim')->like(qr/^(http|$)/i);
 
           # Render with error
           if ($v->has_error) {
@@ -748,7 +748,7 @@ sub register {
             type        => $v->param('type'),
             description => $v->param('desc'),
             url         => $v->param('url'),
-            redirectURI => $v->param('redirectURI')
+            redirect_uri => $v->param('redirect_uri')
           })->then(
             sub {
               my $tx = shift;
@@ -767,7 +767,7 @@ sub register {
               $c->stash('client_desc' => $v->param('desc'));
               $c->stash('client_type' => $v->param('type'));
               $c->stash('client_url'  => $v->param('url'));
-              $c->stash('client_redirect_uri' => $v->param('redirectURI'));
+              $c->stash('client_redirect_uri' => $v->param('redirect_uri'));
               $c->stash('client_id' => $client_id);
 
               if ($client_secret) {
@@ -887,14 +887,14 @@ sub register {
               my $json = shift;
 
               my ($item) = grep {
-                $c->stash('client_id') eq $_->{clientId}
+                $c->stash('client_id') eq $_->{client_id}
               } @$json;
 
               unless ($item) {
                 return Mojo::Promise->reject;
               };
 
-              $c->stash(client_name => $item->{clientName});
+              $c->stash(client_name => $item->{client_name});
               $c->stash(client_desc => $item->{description});
               $c->stash(client_url  => $item->{url});
               $c->stash(client_type => 'PUBLIC');
