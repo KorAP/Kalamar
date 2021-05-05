@@ -616,17 +616,14 @@ define([
     /**
      * Delete all visible items from the menu element
      */
-    removeItems : function () {
-      // Remove all children
-      const children = this._el.childNodes;
-
-      // Leave the prefix and lengthField
-      for (let i = children.length - 1; i >= 3; i--) {
-        this._el.removeChild(
-          children[i]
-        );
+    
+     removeItems : function () {
+      const liElements=this._el.getElementsByTagName("LI");
+      while (liElements.length>0){
+        //console.log(liElements[0]);
+        this._el.removeChild(liElements[0]);
       };
-    },
+     },
 
 
     /**
