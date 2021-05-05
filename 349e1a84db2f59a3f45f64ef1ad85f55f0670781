@@ -16,6 +16,29 @@
       "message": "Thanks for your work! The demo doesn\u0027t work for me, but I guess I understand your approach.\n\nSome thoughts about that:\n\nIntroducing a alwaysentry.js object is a good idea, though I would not base it on the prefix class but rather on the buttongroup to have the flexibility of it.\n\nThe copy+paste approach of alwaysmenu.js is very fragile and introduces more code than necessary imho. As you note correctly in the comments in menu.js some changes there are inevitable - so maybe changing menu.js to be more generally usable than now is a better approach?\n\nJust to explain my idea (as a base for discussions):\nI would have started with the smallest example code that comes as close to a sticky menu point as possible, something like:\n\n  define(\n    [\u0027menu\u0027,\u0027menu/item\u0027, \u0027menu/prefix\u0027, \u0027menu/lengthField\u0027,\u0027buttongroup\u0027],\n    function (menuClass, menuItemClass, prefixClass, lengthFieldClass, btngClass) {\n      return {\n        create : function (hmm) {\n          const obj \u003d Object.create(menuClass)\n              .upgradeTo(this)\n            ._init(hmm, {\n\t            itemClass : menuItemClass,\n\t            prefixClass : prefixClass,\n\t            lengthFieldClass : lengthFieldClass\n            });\n\n          btng \u003d btngClass.create([\"buttons\"]);\n          btng.add(\"Save\", {}, function () { console.log(\"save\") });\n          btng.add(\"Retrieve\", {}, function () { console.log(\"load\") });\n        \n          obj._prefix.element().append(\n            btng.element()\n          );\n\n          return obj;\n        }\n      }\n    }\n  );\n\nAs said last week, I would have looked how much I could bend \"prefix\" to do what I want. Turns out: Not very much.\nBut as you noted in the comments in menu.js: Maybe \"prefix\" is not a good implementation in menu.js to start with (I guess it was introduced when the menu was done already). It would be more usable to have a \"footer\" object (and later on maybe a \"header\" object) in the menu, and the prefix (and probably the length field) being part of the footer. Then the above example would be close to what is necessary to make sticky entries work, right?\n\nThere are some disadvantages, of course: To keep the API intact the menu constructor would become a bit more complex to distinguish between prefix classes and footer classes. And I guess quite a lot of tests will break because of different index numbers for some items (but these are probably not the best tests at all).\n\nWhat do you think?",
       "revId": "349e1a84db2f59a3f45f64ef1ad85f55f0670781",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5c01ca8_49e8b9cf",
+        "filename": "dev/demo/alwaysmenudemo.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-05-05T15:06:05Z",
+      "side": 1,
+      "message": "Throws Error: this is not a function. That can only be if create doesnt work properly. I have added console text to the start of every create: we dont get past this one, i.e. we dont complete alwaysMenuClass create or menuClass create! The upgrading doesnt seem to be working.",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "349e1a84db2f59a3f45f64ef1ad85f55f0670781",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
