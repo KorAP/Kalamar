@@ -46,6 +46,8 @@
           It will keep kalamar.secret - but you'll advise to
           delete the file after checking the integrity with
           kalamar.secret.json.
+        - Separate prefix style from non-item style
+          in menus.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
