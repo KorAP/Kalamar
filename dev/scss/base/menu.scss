@@ -24,7 +24,7 @@ ul.menu {
   }
 
   &,
-  > span.pref:not(:empty) {
+  > span.non-item:not(:empty) {
     box-sizing:  border-box;
     text-shadow: none;
     font-weight: normal;
@@ -32,12 +32,12 @@ ul.menu {
   }
   
   > li,
-  > span.pref:not(.active) {
+  > span.non-item:not(.active) {
     @include choose-item;
   }
 
   > li,
-  > span.pref:not(:empty) {
+  > span.non-item:not(:empty) {
     @include choose-item;
     box-shadow:  $choose-box-shadow;
     cursor:      pointer;
@@ -158,19 +158,26 @@ ul.menu {
   }
 
   > li.active,
-  > span.pref.active {
+  span.non-item.active {
     @include choose-active;
   }
 
   > li:hover,
-  > span.pref:hover {
+  span.non-item:hover {
     @include choose-hover;
   }
 
+  span.non-item {
+    border: {
+      radius: $standard-border-radius;
+      width:  $border-size !important;
+    }
+  }
+  
   /**
    * Default prefix view
    */
-  > span.pref:not(:empty) {
+  span.pref:not(:empty) {
     position:      absolute;
     min-width:     5px;
     font-size:     80%;
@@ -179,10 +186,6 @@ ul.menu {
     display:       block;
     margin-bottom: -2.1em;
     padding:       2px 6px;
-    border: {
-      radius: $standard-border-radius;
-      width:  $border-size;
-    }
   }
 }
 
