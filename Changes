@@ -16,6 +16,8 @@
           and getElementsById instead of child accessors
           (lerepp).
         - List tokens of a client.
+        - Separate prefix style from non-item style
+          in menus.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.
