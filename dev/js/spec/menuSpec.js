@@ -475,7 +475,6 @@ define(
         expect(menu.element().getElementsByTagName("li")[5]).toBe(undefined);
       });
 
-
       it('should be nextable', function () {
         var menu = KorAP.HintMenu.create("cnx/", list);
         menu._firstActive = true;
@@ -1497,6 +1496,7 @@ define(
       it('should be initializable', function () {
         var p = prefixClass.create();
         expect(p.element().classList.contains('pref')).toBeTruthy();
+        expect(p.element().classList.contains('non-item')).toBeTruthy();
         expect(p.isSet()).not.toBeTruthy();
 
         /*
