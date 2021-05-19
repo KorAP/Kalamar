@@ -18,6 +18,7 @@ define({
 
     // Add prefix span
     t._el = document.createElement('span');
+    t._el.classList.add('non-item');
     t._el.classList.add('pref');
     // Connect action
 
