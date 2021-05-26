@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1617a3_768f9f38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-05-26T12:31:51Z",
+      "side": 1,
+      "message": "Hat mit dem Follow Up Change gut funktioniert",
+      "revId": "1a4e2618599d44111043477993db6022f485b418",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
