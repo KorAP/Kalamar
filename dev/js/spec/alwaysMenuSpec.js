@@ -200,8 +200,9 @@ define(
         menu._firstActive = true;
         expect(menu.itemClass()).toEqual(OwnAlwaysMenuItem);
         expect(menu._notItemElements).toEqual(4);
-        expect(menu.element().getElementsByClassName("pref").length).toEqual(2); //TODO: new scss = new class
-        expect(menu.element().getElementsByClassName("pref")[1].innerHTML).toEqual("Speichern");
+        expect(menu.element().getElementsByClassName("entry").length).toEqual(1); 
+        expect(menu.element().getElementsByClassName("entry").length).toEqual(1);
+        expect(menu.element().getElementsByClassName("entry")[0].innerHTML).toEqual("Speichern");
         expect(menu.alwaysEntry().element().innerHTML).toEqual("Speichern");
         //expect(menu.element().childNodes[3].innerHTML).toEqual("Speichern"); //?
         // getElementsByClassName funktioniert bei allen Kindern.
@@ -1242,7 +1243,8 @@ define(
     describe('KorAP.AlwaysMenu.Entry', function () {
       it('should be initializable', function () {
         var p = alwaysEntryClass.create();
-        expect(p.element().classList.contains('pref')).toBeTruthy();
+        expect(p.element().classList.contains('pref')).toBeFalsy();
+        expect(p.element().classList.contains('entry')).toBeTruthy();
         expect(p.isSet()).not.toBeTruthy();
         expect(p.element().innerHTML).toEqual("Speichern");
         expect(p.value()).toEqual("");
@@ -1255,7 +1257,8 @@ define(
 
       it('should be initializable with a different name', function () {
         var p = alwaysEntryClass.create("Save");
-        expect(p.element().classList.contains('pref')).toBeTruthy();
+        expect(p.element().classList.contains('pref')).toBeFalsy();
+        expect(p.element().classList.contains('entry')).toBeTruthy();
         expect(p.isSet()).not.toBeTruthy();
         expect(p.element().innerHTML).toEqual("Save");
         expect(p.value()).toEqual("");
