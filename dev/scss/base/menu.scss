@@ -187,6 +187,24 @@ ul.menu {
     margin-bottom: -2.1em;
     padding:       2px 6px;
   }
+  /**
+   * Default entry view
+   */
+  span.entry:not(:empty) {
+    position:      absolute;
+    min-width:     5px;
+    font-size:     80%;
+    left:          0;
+    bottom:        0;
+    display:       block;
+    margin-bottom: -2.1em;
+    padding:       2px 6px;
+  }
+  span.pref:not(:empty) +  span.entry:not(:empty){
+    bottom:       -27px;
+    left: 50px;
+    display:grid;
+  }
 }
 
 
