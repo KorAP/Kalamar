@@ -68,7 +68,7 @@ $t->get_ok('/corpus')
   ->header_is('X-Robots', 'noindex')
   ;
 
-$t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*&format=json')
+$t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*&_format=json')
   ->status_is(200)
   ->header_is('X-Robots', 'noindex')
   ;
