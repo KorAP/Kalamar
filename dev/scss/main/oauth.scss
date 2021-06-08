@@ -19,6 +19,10 @@ ul.client-list {
       display:   block;
     }
   }
+
+  input[readonly] {
+      margin: 6pt 0;
+  }
 }
 
 span.client-name {
@@ -31,5 +35,26 @@ span.client-name {
     content:   $fa-plugin;
     color:     $ids-blue-1;
     font-size: 100%;
+  }
+}
+
+li.token {
+    list-style-type: none;
+}
+
+
+label[for=token] {
+    font-weight: bold;
+
+  &::before {
+    @include icon-font;
+    font-feature-settings: "ss01" on;
+    margin-left: -1.5em;
+    display:   inline-block;
+    width:     1.5em;
+    content:   $fa-token;
+    color:     $ids-blue-1 !important;
+    font-size: 100%;
+    font-weight: 900;
   }
 }

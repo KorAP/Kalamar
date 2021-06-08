@@ -78,6 +78,7 @@ sub register {
           oauthUnregister => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
           loginHint => 'Möglicherweise müssen sie sich zunächst einloggen.',
           oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
+          accessToken => 'Access Token',
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -106,6 +107,7 @@ sub register {
           oauthUnregister => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
           loginHint => 'Maybe you need to log in first?',
           oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
+          accessToken => 'Access Token',
         }
       }
     }
