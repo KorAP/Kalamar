@@ -2,7 +2,7 @@
 
 %= page_title
 
-<form class="form-table">
+<div class="form-table">
   <fieldset>
     <legend><%= loc 'Auth_clientCredentials' %></legend>
     <ul class="client-list">
@@ -35,7 +35,7 @@
     
 
     % if ($c->stash('tokens')) {
-    <h4>Tokens</h3>
+    <h4>Tokens</h4>
     <ul class="token-list">
       % foreach (@{$c->stash('tokens')}) {
       <li>
@@ -46,6 +46,14 @@
       % if ($_->{scope}) {
       <p name="scope">Scope: <tt><%= join ',', @{$_->{scope}} %></tt></p>
       % };
+      <span class="button-group button-panel">
+        %= form_for 'oauth-revoke-token' => {} => ( class => 'token-revoke' ), begin
+          %= csrf_field
+          <input type="hidden" name="name" value="<%= stash('client_name') %>" />
+          <input type="hidden" name="token" value="<%= $_->{token} %>" />
+          <input type="submit" value="<%= loc 'Auth_revoke' %>" />
+        % end
+      </span>
       </li>
       % }
     </ul>
@@ -60,4 +68,4 @@
     %# <p name="type">Token-Type: <tt><%= stash 'token_type' %></tt></p>
     %# }
   </fieldset>
-</form>
+</div>
