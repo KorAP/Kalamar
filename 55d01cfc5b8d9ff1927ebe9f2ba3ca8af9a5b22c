@@ -33,6 +33,23 @@
       "message": "Looks good - I can\u0027t find any serious issues!",
       "revId": "55d01cfc5b8d9ff1927ebe9f2ba3ca8af9a5b22c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "524e02a7_ac69fe35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-06-09T11:51:01Z",
+      "side": 1,
+      "message": "And the \"Speichern\" shouldn\u0027t be fixed in alwaysentry.js before submission.",
+      "revId": "55d01cfc5b8d9ff1927ebe9f2ba3ca8af9a5b22c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
