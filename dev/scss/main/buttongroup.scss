@@ -13,6 +13,7 @@
   &.button-panel,
   &.operators {
     > span,
+    input[type=submit],  
     a {
       @include choose-item;
       box-shadow:   $choose-box-shadow;
@@ -48,7 +49,11 @@
 
   &.button-panel {
     > span,
+    input[type=submit],  
     a {
+      margin-top: 0;
+      width: auto;
+      min-width: auto;
 
       > span.check {
         @include icon-font;
