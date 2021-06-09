@@ -21,6 +21,7 @@
         - Use AutoSecrets plugin to improve security.
         - Fixed bug where missing documentation pages raise
           exceptions in Mojo >= 9.0.
+        - Support revocation of tokens.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

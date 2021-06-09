@@ -62,10 +62,13 @@ sub register {
           tokenInvalid => 'Zugriffstoken ungültig',
           refreshFail => 'Fehlerhafter Refresh-Token',
           responseError => 'Unbekannter Autorisierungsfehler',
+          revokeFail => 'Der Token kann nicht widerrufen werden',
+          revokeSuccess => 'Der Token wurde erfolgreich widerrufen',
           paramError => 'Einige Eingaben sind fehlerhaft',
           redirectUri => 'Weiterleitungs-Adresse',
           homepage => 'Webseite',
           desc => 'Kurzbeschreibung',
+          revoke => 'Widerrufen',
           clientCredentials => 'Client Daten',
           clientType => 'Art der Client-Applikation',
           clientName => 'Name der Client-Applikation',
@@ -79,6 +82,7 @@ sub register {
           loginHint => 'Möglicherweise müssen sie sich zunächst einloggen.',
           oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
           accessToken => 'Access Token',
+          oauthRevokeToken => 'Widerrufe einen Token für <span class="client-name"><%= $client_name %></span>',
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -91,10 +95,13 @@ sub register {
           tokenInvalid => 'Access token invalid',
           refreshFail => 'Bad refresh token',
           responseError => 'Unknown authorization error',
+          revokeFail => 'Token can\'t be revoked',
+          revokeSuccess => 'Token was revoked successfully',
           paramError => 'Some fields are invalid',
           redirectUri => 'Redirect URI',
           homepage => 'Homepage',
           desc => 'Short description',
+          revoke => 'Revoke',
           clientCredentials => 'Client Credentials',
           clientType => 'Type of the client application',
           clientName => 'Name of the client application',
@@ -106,8 +113,9 @@ sub register {
           oauthSettings => 'OAuth',
           oauthUnregister => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
           loginHint => 'Maybe you need to log in first?',
-          oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
+          oauthIssueToken => 'Issue a new token for <span class="client-name"><%= $client_name %></span>',
           accessToken => 'Access Token',
+          oauthRevokeToken => 'Revoka a token for <span class="client-name"><%= $client_name %></span>',
         }
       }
     }
@@ -775,7 +783,7 @@ sub register {
               $c->notify(error => $c->loc('Auth_csrfFail'));
             }
             else {
-              $c->notify(warn => $c->loc('Auth_paramError'));
+              $c->notify(error => $c->loc('Auth_paramError'));
             };
             # return $c->redirect_to('oauth-settings');
             return $c->render(template => 'auth/clients');
@@ -870,7 +878,7 @@ sub register {
               $c->notify(error => $c->loc('Auth_csrfFail'));
             }
             else {
-              $c->notify(warn => $c->loc('Auth_paramError'));
+              $c->notify(error => $c->loc('Auth_paramError'));
             };
             return $c->redirect_to('oauth-settings');
           };
@@ -968,14 +976,23 @@ sub register {
     };
 
 
-    # Show information of a client
-    $r->get('/settings/oauth/client/:client_id/token')->to(
+    # Ask if new token should be issued
+    $r->get('/settings/oauth/client/:client_id/token/issue')->to(
       cb => sub {
         shift->render(template => 'auth/issue-token');
       }
     )->name('oauth-issue-token');
 
 
+    # Ask if a token should be revoked
+    $r->post('/settings/oauth/client/:client_id/token/revoke')->to(
+      cb => sub {
+        shift->render(template => 'auth/revoke-token');
+      }
+    )->name('oauth-revoke-token');
+
+
+    # Issue new token
     $r->post('/settings/oauth/client/:client_id/token')->to(
       cb => sub {
         my $c = shift;
@@ -990,7 +1007,6 @@ sub register {
         };
 
         $v->csrf_protect;
-        # $v->required('client-id', 'trim')->size(3, 255);
         $v->optional('client-secret');
         $v->required('name', 'trim');
 
@@ -1000,7 +1016,7 @@ sub register {
             $c->notify(error => $c->loc('Auth_csrfFail'));
           }
           else {
-            $c->notify(warn => $c->loc('Auth_paramError'));
+            $c->notify(error => $c->loc('Auth_paramError'));
           };
           return $c->redirect_to('oauth-settings')
         };
@@ -1114,6 +1130,79 @@ sub register {
         return 1;
       }
     )->name('oauth-issue-token-post');
+
+
+    # Revoke token
+    $r->delete('/settings/oauth/client/:client_id/token')->to(
+      cb => sub {
+        my $c = shift;
+
+        my $v = $c->validation;
+
+        unless ($c->auth->token) {
+          return $c->render(
+            content => 'Unauthorized',
+            status => 401
+          );
+        };
+
+        $v->csrf_protect;
+        $v->required('token', 'trim');
+        $v->optional('name', 'trim');
+        my $private_client_id = $c->stash('client_id');
+
+        # Render with error
+        if ($v->has_error) {
+          if ($v->has_error('csrf_token')) {
+            $c->notify(error => $c->loc('Auth_csrfFail'));
+          }
+          else {
+            $c->notify(error => $c->loc('Auth_paramError'));
+          };
+          return $c->redirect_to('oauth-tokens', client_id => $private_client_id);
+        };
+
+        # Revoke token using super client privileges
+        state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/revoke/super');
+
+        my $token = $v->param('token');
+
+        return $c->korap_request(post => $r_url, {} => form => {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          token => $token
+        })->then(
+          sub {
+            my $tx = shift;
+
+            # Response is fine
+            if ($tx->res->is_success) {
+              $c->notify(success => $c->loc('Auth_revokeSuccess'));
+              return Mojo::Promise->resolve;
+            };
+
+            return Mojo::Promise->reject;
+          }
+        )->catch(
+          sub {
+            my $err_msg = shift;
+            if ($err_msg) {
+              $c->notify(error => { src => 'Backend' } => $err_msg );
+            }
+            else {
+              $c->notify(error => $c->loc('Auth_revokeFail'));
+            };
+          }
+        )->finally(
+          sub {
+            return $c->redirect_to('oauth-tokens', client_id => $private_client_id);
+          }
+        )
+
+        # Start IOLoop
+        ->wait;
+      }
+    )->name('oauth-revoke-token-delete');
   }
 
   # Use JWT login

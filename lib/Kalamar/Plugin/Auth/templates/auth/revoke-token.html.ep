@@ -1,0 +1,13 @@
+% extends 'settings', title => 'KorAP: ' . loc('Auth_oauthSettings'), page => 'oauth';
+
+%= page_title
+
+<p><%== loc('Auth_oauthRevokeToken', client_name => param('name')) %></p>
+
+%= form_for url_for('oauth-revoke-token-delete', client_id => stash('client_id'))->query('_method' => 'DELETE'), id => 'revoke-token', class => 'form-table', method => "POST", begin
+   %= csrf_field
+   %= hidden_field 'name' => param('name')
+   %= hidden_field 'token' => param('token')
+   <input type="submit" value="<%= loc 'Auth_revoke' %>" />
+   %= link_to 'Abort' => url_for('oauth-tokens', client_id => stash('client_id')) => {} => (class => 'form-button button-abort')
+% end
