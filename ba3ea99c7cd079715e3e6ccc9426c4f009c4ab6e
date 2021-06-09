@@ -16,6 +16,23 @@
       "message": "By testing it I recognized that the tests are failing. There is a problem with MatchSpec.\nThis problem is not a result of the change,  but is already included in the master branch. ",
       "revId": "ba3ea99c7cd079715e3e6ccc9426c4f009c4ab6e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e68e117c_6f8d6db5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-06-09T11:46:02Z",
+      "side": 1,
+      "message": "I can\u0027t verify that. There is a known (timing?) bug that sometimes occurs in Hint with Firefox. And there is a session problem in newer versions of Chrome (that should be fixed ... don\u0027t know when this occurred).\n\nCan you give more information?",
+      "revId": "ba3ea99c7cd079715e3e6ccc9426c4f009c4ab6e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
