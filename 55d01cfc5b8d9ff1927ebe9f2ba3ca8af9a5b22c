@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6595533b_0a808562",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-06-09T11:27:06Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a good idea to reuse the global variables \"KorAP.HintMenu\" etc. in the always menu spec. It hinders the test suites to run in parallel.",
+      "revId": "55d01cfc5b8d9ff1927ebe9f2ba3ca8af9a5b22c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
