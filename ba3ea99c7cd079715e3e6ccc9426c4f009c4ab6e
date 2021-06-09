@@ -33,6 +33,23 @@
       "message": "I can\u0027t verify that. There is a known (timing?) bug that sometimes occurs in Hint with Firefox. And there is a session problem in newer versions of Chrome (that should be fixed ... don\u0027t know when this occurred).\n\nCan you give more information?",
       "revId": "ba3ea99c7cd079715e3e6ccc9426c4f009c4ab6e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a7c360_a5ab149c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-06-09T11:58:57Z",
+      "side": 1,
+      "message": "It was a Firefox problem. I updated to 89.0. Now it works.",
+      "revId": "ba3ea99c7cd079715e3e6ccc9426c4f009c4ab6e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
