@@ -1,4 +1,4 @@
-0.42 2021-05-19
+0.42 2021-06-09
         - Added GitHub based CI for perl.
         - Added further methods for communicating JSON Files
           with the server to the APIs (lerepp).
@@ -16,6 +16,7 @@
           and getElementsById instead of child accessors
           (lerepp).
         - List tokens of a client.
+        - Support revocation of tokens.
 
 0.41 2021-03-01
         - Introduce CORS headers to the proxy.

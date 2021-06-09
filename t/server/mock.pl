@@ -652,6 +652,17 @@ post '/v1.0/oauth2/authorize' => sub {
 };
 
 
+post '/v1.0/oauth2/revoke/super' => sub {
+  my $c = shift;
+
+  my $s_client_id = $c->param('super_client_id');
+  my $s_client_secret = $c->param('super_client_secret');
+  my $token = $c->param('token');
+
+  return $c->render(text => 'SUCCESS');
+};
+
+
 
 app->start;
 
