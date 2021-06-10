@@ -18,6 +18,7 @@
         - List tokens of a client.
         - Upgrade Mojolicious dependency to 9.19.
         - Added query reference API.
+        - Disable caching in auth routes.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

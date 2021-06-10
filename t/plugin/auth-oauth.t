@@ -436,12 +436,11 @@ $t->get_ok('/settings/oauth')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
   ->element_exists('ul.client-list')
   ->element_exists_not('ul.client-list > li')
-#  ->text_is('ul.client-list > li > span.client-name', 'R statistical computing tool ')
-#  ->text_is('ul.client-list > li > span.client-desc', 'R is a free software environment for statistical computing and graphics.')
-#  ->text_is('ul.client-list > li > span.client-url a', 'https://www.r-project.org/')
-#  ->text_is('ul.client-list > li a.client-unregister', 'Unregister')
-#  ->attr_is('ul.client-list > li a.client-unregister', 'href', '/settings/oauth/unregister/9aHsGW6QflV13ixNpez?name=R+statistical+computing+tool')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
+
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
   type => 'PUBLIC',
@@ -464,6 +463,9 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->text_is('label[for=client_id]', 'ID of the client application')
   ->element_exists('input[name=client_id][readonly][value]')
   ->element_exists('input[name=client_secret][readonly][value]')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 $t->get_ok('/settings/oauth')
@@ -472,6 +474,9 @@ $t->get_ok('/settings/oauth')
   ->text_is('ul.client-list > li > span.client-name a', 'MyApp')
   ->text_is('ul.client-list > li > span.client-desc', 'This is my application')
   ->text_is('ul.client-list > li > span.client-url a', '')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
@@ -486,6 +491,9 @@ $csrf = $t->get_ok('/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
   ->content_like(qr!Do you really want to unregister \<span class="client-name"\>MyApp\<\/span\>?!)
   ->attr_is('form.form-table input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
   ->attr_is('form.form-table input[name=client-name]', 'value', 'MyApp')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ->tx->res->dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
@@ -504,6 +512,9 @@ $t->get_ok('/settings/oauth')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
   ->element_exists('ul.client-list > li')
   ->text_is('div.notify', 'Unknown client with xxxx==.')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 $t->post_ok('/settings/oauth/unregister' => form => {
@@ -520,6 +531,9 @@ $t->get_ok('/settings/oauth')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
   ->element_exists_not('ul.client-list > li')
   ->text_is('div.notify-success', 'Successfully deleted MyApp')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 $t->post_ok('/settings/oauth/register' => form => {
@@ -533,6 +547,9 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->text_is('label[for=client_id]', 'ID of the client application')
   ->element_exists('input[name=client_id][readonly][value]')
   ->element_exists_not('input[name=client_secret][readonly][value]')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
@@ -540,6 +557,9 @@ $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('.client-desc', 'This is my application')
   ->text_is('.client-issue-token', 'IssueToken')
   ->attr_is('.client-issue-token', 'href', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 $csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
@@ -547,6 +567,9 @@ $csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp
   ->attr_is('#issue-token','action', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token')
   ->attr_is('input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
   ->attr_is('input[name=name]', 'value', 'MyApp2')
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ->tx->res->dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
@@ -562,6 +585,10 @@ $t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token' => form => {
 
 $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('div.notify-success', 'New access token created')
+  ->status_is(200)
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
   ;
 
 
