@@ -707,6 +707,7 @@ sub register {
       }
     )->name('logout');
 
+
     # If "experimental_registration" is set, open
     # OAuth registration dialogues.
     if ($param->{experimental_client_registration}) {
@@ -720,6 +721,8 @@ sub register {
       $r->get('/settings/oauth')->to(
         cb => sub {
           my $c = shift;
+
+          _set_no_cache($c->res->headers);
 
           unless ($c->auth->token) {
             return $c->render(
@@ -751,6 +754,9 @@ sub register {
       $r->post('/settings/oauth/register')->to(
         cb => sub {
           my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
           my $v = $c->validation;
 
           unless ($c->auth->token) {
@@ -838,7 +844,9 @@ sub register {
       # Unregister client
       $r->get('/settings/oauth/unregister/:client_id')->to(
         cb => sub {
-          shift->render(template => 'auth/unregister');
+          my $c = shift;
+          _set_no_cache($c->res->headers);
+          $c->render(template => 'auth/unregister');
         }
       )->name('oauth-unregister');
 
@@ -847,6 +855,7 @@ sub register {
       $r->post('/settings/oauth/unregister')->to(
         cb => sub {
           my $c = shift;
+          _set_no_cache($c->res->headers);
 
           my $v = $c->validation;
 
@@ -921,6 +930,8 @@ sub register {
         cb => sub {
           my $c = shift;
 
+          _set_no_cache($c->res->headers);
+
           $c->render_later;
 
           $c->auth->client_list_p->then(
@@ -969,7 +980,9 @@ sub register {
     # Show information of a client
     $r->get('/settings/oauth/client/:client_id/token')->to(
       cb => sub {
-        shift->render(template => 'auth/issue-token');
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        $c->render(template => 'auth/issue-token');
       }
     )->name('oauth-issue-token');
 
@@ -977,6 +990,7 @@ sub register {
     $r->post('/settings/oauth/client/:client_id/token')->to(
       cb => sub {
         my $c = shift;
+        _set_no_cache($c->res->headers);
 
         my $v = $c->validation;
 
@@ -1319,6 +1333,15 @@ sub register {
   };
 
   $app->log->info('Successfully registered Auth plugin');
+};
+
+
+# Set 'no caching' headers
+sub _set_no_cache {
+  my $h = shift;
+  $h->cache_control('max-age=0, no-cache, no-store, must-revalidate');
+  $h->expires('Thu, 01 Jan 1970 00:00:00 GMT');
+  $h->header('Pragma','no-cache');
 };
 
 
