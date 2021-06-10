@@ -23,6 +23,9 @@
           exceptions in Mojo >= 9.0.
         - Support revocation of tokens.
         - Disable caching in auth routes.
+        - Deprecate JWT flow. In the future only OAuth2
+          flow will be supported and will be the default
+          option for authentication and authorization.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

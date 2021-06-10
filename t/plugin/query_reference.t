@@ -14,6 +14,11 @@ $ENV{QUERY_REF_MOCKUP} = 1;
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth','QueryReference']
+  },
+  'Kalamar-Auth' => {
+    client_id => 2,
+    client_secret => 'k414m4r-s3cr3t',
+    oauth2 => 1
   }
 });
 
