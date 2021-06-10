@@ -1,4 +1,4 @@
-0.42 2021-06-09
+0.42 2021-06-10
         - Added GitHub based CI for perl.
         - Added further methods for communicating JSON Files
           with the server to the APIs (lerepp).
@@ -18,6 +18,9 @@
         - List tokens of a client.
         - Upgrade Mojolicious dependency to 9.19.
         - Added query reference API.
+        - Deprecate JWT flow. In the future only OAuth2
+          flow will be supported and will be the default
+          option for authentication and authorization.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

@@ -16,6 +16,11 @@ my $t = Test::Mojo->new('Kalamar' => {
     plugins => ['Auth'],
     proxy_inactivity_timeout => 99,
     proxy_connect_timeout => 66,
+  },
+  'Kalamar-Auth' => {
+    client_id => 2,
+    client_secret => 'k414m4r-s3cr3t',
+    oauth2 => 1
   }
 });
 

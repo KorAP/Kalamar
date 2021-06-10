@@ -7,6 +7,11 @@ use utf8;
 my $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth']
+  },
+  'Kalamar-Auth' => {
+    client_id => 2,
+    client_secret => 'k414m4r-s3cr3t',
+    oauth2 => 1
   }
 });
 
@@ -37,6 +42,11 @@ $t = Test::Mojo->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth'],
     https_only => 1
+  },
+  'Kalamar-Auth' => {
+    client_id => 2,
+    client_secret => 'k414m4r-s3cr3t',
+    oauth2 => 1
   }
 });
 
@@ -59,6 +69,11 @@ $t = Test::Mojo->new('Kalamar' => {
     plugins => ['Auth'],
     proxy_prefix => '/korap/test',
     https_only => 1
+  },
+  'Kalamar-Auth' => {
+    client_id => 2,
+    client_secret => 'k414m4r-s3cr3t',
+    oauth2 => 1
   }
 });
 
