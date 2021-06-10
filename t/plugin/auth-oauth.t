@@ -474,25 +474,23 @@ $t->get_ok('/settings/oauth')
   ->text_is('ul.client-list > li > span.client-url a', '')
   ;
 
-$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+$t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->status_is(200)
   ->text_is('form ul.client-list > li.client > span.client-name', 'MyApp')
   ->text_is('form ul.client-list > li.client > span.client-desc', 'This is my application')
   ->text_is('a.client-unregister', 'Unregister')
-  ->attr_is('a.client-unregister', 'href', '/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
+  ->attr_is('a.client-unregister', 'href', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/unregister?name=MyApp')
   ;
 
-$csrf = $t->get_ok('/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
+$csrf = $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/unregister?name=MyApp')
   ->content_like(qr!Do you really want to unregister \<span class="client-name"\>MyApp\<\/span\>?!)
-  ->attr_is('form.form-table input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
   ->attr_is('form.form-table input[name=client-name]', 'value', 'MyApp')
   ->tx->res->dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
 
-$t->post_ok('/settings/oauth/unregister' => form => {
+$t->post_ok('/settings/oauth/xxxx==/unregister' => form => {
   'client-name' => 'MyApp',
-  'client-id' => 'xxxx==',
   'csrf_token' => $csrf
 })->status_is(302)
   ->content_is('')
@@ -506,9 +504,8 @@ $t->get_ok('/settings/oauth')
   ->text_is('div.notify', 'Unknown client with xxxx==.')
   ;
 
-$t->post_ok('/settings/oauth/unregister' => form => {
+$t->post_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/unregister' => form => {
   'client-name' => 'MyApp',
-  'client-id' => 'fCBbQkA2NDA3MzM1Yw==',
   'csrf_token' => $csrf
 })->status_is(302)
   ->content_is('')
@@ -535,32 +532,33 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->element_exists_not('input[name=client_secret][readonly][value]')
   ;
 
-$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+$t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('.client-name', 'MyApp2')
   ->text_is('.client-desc', 'This is my application')
   ->text_is('.client-issue-token', 'IssueToken')
-  ->attr_is('.client-issue-token', 'href', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+  ->attr_is('.client-issue-token', 'href', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
   ;
 
-$csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+$csrf = $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
   ->status_is(200)
-  ->attr_is('#issue-token','action', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token')
+  ->attr_is('#issue-token','action', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token')
   ->attr_is('input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
   ->attr_is('input[name=name]', 'value', 'MyApp2')
   ->tx->res->dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
 
-$t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token' => form => {
+$t->post_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token' => form => {
   csrf_token => $csrf,
   name => 'MyApp2',
   'client-id' => 'fCBbQkA2NDA3MzM1Yw=='
 })
   ->status_is(302)
-  ->header_is('Location','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->header_is('Location','/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ;
 
-$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+$t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
+  ->status_is(200)
   ->text_is('div.notify-success', 'New access token created')
   ;
 
