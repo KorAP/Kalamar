@@ -732,6 +732,8 @@ sub register {
         cb => sub {
           my $c = shift;
 
+          _set_no_cache($c->res->headers);
+
           unless ($c->auth->token) {
             return $c->render(
               content => 'Unauthorized',
@@ -762,6 +764,9 @@ sub register {
       $r->post('/settings/oauth/register')->to(
         cb => sub {
           my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
           my $v = $c->validation;
 
           unless ($c->auth->token) {
@@ -849,7 +854,9 @@ sub register {
       # Unregister client page
       $r->get('/settings/oauth/:client_id/unregister')->to(
         cb => sub {
-          shift->render(template => 'auth/unregister');
+          my $c = shift;
+          _set_no_cache($c->res->headers);
+          $c->render(template => 'auth/unregister');
         }
       )->name('oauth-unregister');
 
@@ -858,6 +865,7 @@ sub register {
       $r->post('/settings/oauth/:client_id/unregister')->to(
         cb => sub {
           my $c = shift;
+          _set_no_cache($c->res->headers);
 
           my $v = $c->validation;
 
@@ -930,6 +938,8 @@ sub register {
         cb => sub {
           my $c = shift;
 
+          _set_no_cache($c->res->headers);
+
           $c->render_later;
 
           $c->auth->client_list_p->then(
@@ -978,7 +988,9 @@ sub register {
     # Ask if new token should be issued
     $r->get('/settings/oauth/:client_id/token')->to(
       cb => sub {
-        shift->render(template => 'auth/issue-token');
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        $c->render(template => 'auth/issue-token');
       }
     )->name('oauth-issue-token');
 
@@ -995,6 +1007,7 @@ sub register {
     $r->post('/settings/oauth/:client_id/token')->to(
       cb => sub {
         my $c = shift;
+        _set_no_cache($c->res->headers);
 
         my $v = $c->validation;
 
@@ -1409,6 +1422,15 @@ sub register {
   };
 
   $app->log->info('Successfully registered Auth plugin');
+};
+
+
+# Set 'no caching' headers
+sub _set_no_cache {
+  my $h = shift;
+  $h->cache_control('max-age=0, no-cache, no-store, must-revalidate');
+  $h->expires('Thu, 01 Jan 1970 00:00:00 GMT');
+  $h->header('Pragma','no-cache');
 };
 
 

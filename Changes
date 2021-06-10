@@ -22,6 +22,7 @@
         - Fixed bug where missing documentation pages raise
           exceptions in Mojo >= 9.0.
         - Support revocation of tokens.
+        - Disable caching in auth routes.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.
