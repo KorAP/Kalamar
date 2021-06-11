@@ -552,11 +552,14 @@ $t->post_ok('/settings/oauth/register' => form => {
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('.client-name', 'MyApp2')
   ->text_is('.client-desc', 'This is my application')
-  ->text_is('.client-issue-token', 'IssueToken')
+  ->text_is('.client-issue-token', 'Issue new token')
   ->attr_is('.client-issue-token', 'href', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
+  ->text_is('ul.token-list label[for=token]', 'Access Token')
+  ->text_is('p[name=created]', 'Created at ')
+  ->text_is('p[name=expires]', 'Expires in 31533851 seconds.')
   ;
 
 $csrf = $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
@@ -567,6 +570,9 @@ $csrf = $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
+  ->text_is('a.button-abort', 'Abort')
+  ->attr_is('#issue-token input[type=submit]', 'value', 'Issue new token')
+  ->content_like(qr!Issue a new token for!)
   ->tx->res->dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
@@ -607,6 +613,9 @@ $t->post_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token/revoke' => form => {
   ->attr_is('form#revoke-token','action','/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE')
   ->attr_is('form#revoke-token','method','POST')
   ->attr_is('form#revoke-token input[name=token]','value','jhkhkjhk_hjgjsfz67i')
+  ->text_is('a.button-abort', 'Abort')
+  ->attr_is('#revoke-token input[type=submit]', 'value', 'Revoke')
+  ->content_like(qr!Revoke a token for!)
 ;
 
 

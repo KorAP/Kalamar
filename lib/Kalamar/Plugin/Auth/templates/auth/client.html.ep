@@ -28,21 +28,21 @@
         <br />
 
         <span class="button-group button-panel">
-          %= link_to Unregister => url_for('oauth-unregister', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-unregister' )
-          %= link_to IssueToken => url_for('oauth-issue-token', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-issue-token' )
+          %= link_to loc('Auth_oauthUnregister_short') => url_for('oauth-unregister', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-unregister' )
+          %= link_to loc('Auth_oauthIssueToken_short') => url_for('oauth-issue-token', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-issue-token' )
         </span>        
       </li>
     </ul>    
 
-    % if ($c->stash('tokens')) {
+    % if ($c->stash('tokens') && @{$c->stash('tokens')}) {
     <legend>Tokens</legend>
     <ul class="token-list">
       % foreach (@{$c->stash('tokens')}) {
       <li class="token">
       %= label_for 'token' => loc('Auth_accessToken')
       %= text_field '', value => $_->{token}, readonly => 'readonly', class => 'show-pwd copy-to-clipboard'
-      <p name="created">Created at: <%= $_->{created_date} %></p>
-      <p name="expires">Expires in: <%= $_->{expires_in} %></p>
+      <p name="created"><%== loc('Auth_createdAt', date => $_->{created_date}) %></p>
+      <p name="expires"><%== loc('Auth_expiresIn', seconds => $_->{expires_in}) %></p>
       % if ($_->{scope}) {
       <p name="scope">Scope: <tt><%= join ',', @{$_->{scope}} %></tt></p>
       % };
@@ -51,7 +51,7 @@
           %= csrf_field
           <input type="hidden" name="name" value="<%= stash('client_name') %>" />
           <input type="hidden" name="token" value="<%= $_->{token} %>" />
-          <input type="submit" value="<%= loc 'Auth_revoke' %>" />
+          <input type="submit" value="<%= loc 'Auth_oauthRevokeToken_short' %>" />
         % end
       </span>
       </li>

@@ -8,6 +8,6 @@
    %= csrf_field
    %= hidden_field 'name' => param('name')
    %= hidden_field 'token' => param('token')
-   <input type="submit" value="<%= loc 'Auth_revoke' %>" />
-   %= link_to 'Abort' => url_for('oauth-tokens', client_id => stash('client_id')) => {} => (class => 'form-button button-abort')
+   <input type="submit" value="<%= loc 'Auth_oauthRevokeToken_short' %>" />
+   %= link_to loc('abort') => url_for('oauth-tokens', client_id => stash('client_id')) => {} => (class => 'form-button button-abort')
 % end
