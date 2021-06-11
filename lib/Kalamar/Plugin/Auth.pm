@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
+use Mojo::Util 'deprecated';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
 # It establishes both the JWT as well as the OAuth password
@@ -1218,8 +1219,9 @@ sub register {
   }
 
   # Use JWT login
-  # (should be deprecated)
   else {
+
+    deprecated 'JWT flow is deprecated in favor of OAuth2 flow';
 
     # Inject authorization to all korap requests
     $app->hook(
