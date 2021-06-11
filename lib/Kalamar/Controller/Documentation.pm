@@ -34,9 +34,9 @@ sub page {
 
   return $c->render_maybe(
     template => $c->loc('Template_' . join('_', @path), join('/', @path))
-  ) || $c->render(
+  ) || $c->render_maybe(
     template => $c->loc('Template_' . join('_', 'custom', @path), join('/', 'custom', @path))
-  );
+  ) || $c->reply->not_found;
 };
 
 
