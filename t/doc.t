@@ -10,6 +10,11 @@ my $t = Test::Mojo->new('Kalamar' => {
   }
 });
 
+# Bug 2021-06-11
+$t->get_ok('/doc/ql/wildcards?cat=1')
+  ->status_is(404)
+  ;
+
 # Embedding
 $t->get_ok('/doc/ql/poliqarp-plus')
   ->status_is(200)
@@ -51,7 +56,6 @@ $t->get_ok('/doc/ql/poliqarp-plus' => { 'Accept-Language' => 'de-DE, en-US, en' 
   ->status_is(200)
   ->text_is("title", "KorAP: Poliqarp+")
   ->text_is('main section > h3', 'Einfache Segmente');
-
 
 $t->get_ok('/doc/ql/annis' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
