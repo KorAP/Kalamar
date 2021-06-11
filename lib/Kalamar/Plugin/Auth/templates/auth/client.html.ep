@@ -46,14 +46,14 @@
       % if ($_->{scope}) {
       <p name="scope">Scope: <tt><%= join ',', @{$_->{scope}} %></tt></p>
       % };
-      <span class="button-group button-panel">
-        %= form_for 'oauth-revoke-token' => {} => ( class => 'token-revoke' ), begin
-          %= csrf_field
-          <input type="hidden" name="name" value="<%= stash('client_name') %>" />
-          <input type="hidden" name="token" value="<%= $_->{token} %>" />
+      %= form_for 'oauth-revoke-token' => {} => ( class => 'token-revoke' ), begin
+        %= csrf_field
+        <input type="hidden" name="name" value="<%= stash('client_name') %>" />
+        <input type="hidden" name="token" value="<%= $_->{token} %>" />
+        <span class="button-group button-panel">
           <input type="submit" value="<%= loc 'Auth_oauthRevokeToken_short' %>" />
-        % end
-      </span>
+        </span>
+      % end
       </li>
       % }
     </ul>
