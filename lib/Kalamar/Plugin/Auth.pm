@@ -717,6 +717,7 @@ sub register {
       }
     )->name('logout');
 
+
     # If "experimental_registration" is set, open
     # OAuth registration dialogues.
     if ($param->{experimental_client_registration}) {
@@ -845,8 +846,8 @@ sub register {
       )->name('oauth-register');
 
 
-      # Unregister client
-      $r->get('/settings/oauth/unregister/:client_id')->to(
+      # Unregister client page
+      $r->get('/settings/oauth/:client_id/unregister')->to(
         cb => sub {
           shift->render(template => 'auth/unregister');
         }
@@ -854,7 +855,7 @@ sub register {
 
 
       # Unregister client
-      $r->post('/settings/oauth/unregister')->to(
+      $r->post('/settings/oauth/:client_id/unregister')->to(
         cb => sub {
           my $c = shift;
 
@@ -869,8 +870,6 @@ sub register {
 
           $v->csrf_protect;
           $v->required('client-name', 'trim')->size(3, 255);
-          $v->required('client-id', 'trim')->size(3, 255);
-          $v->optional('client-secret');
 
           # Render with error
           if ($v->has_error) {
@@ -883,7 +882,7 @@ sub register {
             return $c->redirect_to('oauth-settings');
           };
 
-          my $client_id =     $v->param('client-id');
+          my $client_id =     $c->stash('client_id');
           my $client_name =   $v->param('client-name');
           my $client_secret = $v->param('client-secret');
 
@@ -927,7 +926,7 @@ sub register {
 
 
       # Show information of a client
-      $r->get('/settings/oauth/client/:client_id')->to(
+      $r->get('/settings/oauth/:client_id')->to(
         cb => sub {
           my $c = shift;
 
@@ -977,7 +976,7 @@ sub register {
 
 
     # Ask if new token should be issued
-    $r->get('/settings/oauth/client/:client_id/token/issue')->to(
+    $r->get('/settings/oauth/:client_id/token')->to(
       cb => sub {
         shift->render(template => 'auth/issue-token');
       }
@@ -985,7 +984,7 @@ sub register {
 
 
     # Ask if a token should be revoked
-    $r->post('/settings/oauth/client/:client_id/token/revoke')->to(
+    $r->post('/settings/oauth/:client_id/token/revoke')->to(
       cb => sub {
         shift->render(template => 'auth/revoke-token');
       }
@@ -993,7 +992,7 @@ sub register {
 
 
     # Issue new token
-    $r->post('/settings/oauth/client/:client_id/token')->to(
+    $r->post('/settings/oauth/:client_id/token')->to(
       cb => sub {
         my $c = shift;
 
@@ -1133,7 +1132,7 @@ sub register {
 
 
     # Revoke token
-    $r->delete('/settings/oauth/client/:client_id/token')->to(
+    $r->delete('/settings/oauth/:client_id/token')->to(
       cb => sub {
         my $c = shift;
 
