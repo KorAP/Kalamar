@@ -7,6 +7,6 @@
 %= form_for 'oauth-unregister-post', class => 'form-table', begin
    %= csrf_field
    %= hidden_field 'client-name' => param('name')
-   <input type="submit" value="Unregister" />
-   %= link_to 'Abort' => 'oauth-settings' => {} => (class => 'form-button button-abort')
+   <input type="submit" value="<%= loc 'Auth_oauthUnregister_short' %>" />
+   %= link_to loc('abort') => 'oauth-settings' => {} => (class => 'form-button button-abort')
 % end

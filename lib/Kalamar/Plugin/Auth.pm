@@ -50,6 +50,12 @@ sub register {
   # Load localize
   $app->plugin('Localize' => {
     dict => {
+      de => {
+        abort => 'Abbrechen'
+      },
+      -en => {
+        abort => 'Abort'
+      },
       Auth => {
         _ => sub { $_->locale },
         de => {
@@ -79,11 +85,22 @@ sub register {
           registerSuccess => 'Registrierung erfolgreich',
           registerFail => 'Registrierung fehlgeschlagen',
           oauthSettings => 'OAuth',
-          oauthUnregister => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
+          oauthUnregister => {
+            -long => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
+            short => 'Löschen'
+          },
           loginHint => 'Möglicherweise müssen sie sich zunächst einloggen.',
-          oauthIssueToken => 'Erzeuge einen neuen Token für <span class="client-name"><%= $client_name %></span>',
+          oauthIssueToken => {
+            -long => 'Stelle einen neuen Token für <span class="client-name"><%= $client_name %></span> aus',
+            short => 'Neuen Token ausstellen'
+          },
           accessToken => 'Access Token',
-          oauthRevokeToken => 'Widerrufe einen Token für <span class="client-name"><%= $client_name %></span>',
+          oauthRevokeToken => {
+            -long => 'Widerrufe einen Token für <span class="client-name"><%= $client_name %></span>',
+            short => 'Widerrufe'
+          },
+          createdAt => 'Erstellt am <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
+          expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.'
         },
         -en => {
           loginSuccess => 'Login successful',
@@ -112,11 +129,22 @@ sub register {
           registerSuccess => 'Registration successful',
           registerFail => 'Registration denied',
           oauthSettings => 'OAuth',
-          oauthUnregister => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
+          oauthUnregister => {
+            -long => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
+            short => 'Unregister'
+          },
           loginHint => 'Maybe you need to log in first?',
-          oauthIssueToken => 'Issue a new token for <span class="client-name"><%= $client_name %></span>',
+          oauthIssueToken => {
+            -long => 'Issue a new token for <span class="client-name"><%= $client_name %></span>',
+            short => 'Issue new token'
+          },
           accessToken => 'Access Token',
-          oauthRevokeToken => 'Revoka a token for <span class="client-name"><%= $client_name %></span>',
+          oauthRevokeToken => {
+            -long => 'Revoke a token for <span class="client-name"><%= $client_name %></span>',
+            short => 'Revoke'
+          },
+          createdAt => 'Created at <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
+          expiresIn => 'Expires in <%= stash("seconds") %> seconds.'
         }
       }
     }

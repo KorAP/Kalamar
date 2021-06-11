@@ -1,7 +1,5 @@
 % extends 'settings', title => 'KorAP: '.loc('Auth_oauthSettings'), page => 'oauth';
 
-%# Rename to clients.html.ep
-
 %= page_title
 
 % my $list = stash('client_list');

@@ -9,6 +9,6 @@
    %= hidden_field 'client-id' => stash('client_id')
    %= hidden_field 'name' => param('name')
    %#= hidden_field 'client-secret' 
-   <input type="submit" value="issue" />
-   %= link_to 'Abort' => url_for('oauth-tokens', client_id => stash('client_id')) => {} => (class => 'form-button button-abort')
+   <input type="submit" value="<%= loc 'Auth_oauthIssueToken_short' %>" />
+   %= link_to loc('abort') => url_for('oauth-tokens', client_id => stash('client_id')) => {} => (class => 'form-button button-abort')
 % end
