@@ -19,6 +19,7 @@
         - Upgrade Mojolicious dependency to 9.19.
         - Added query reference API.
         - Support revocation of tokens.
+        - Disable caching in auth routes.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.
