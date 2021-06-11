@@ -467,8 +467,8 @@ $t->post_ok('/settings/oauth/register' => form => {
   ;
 
 $t->get_ok('/settings/oauth')
-  ->text_is('form.form-table legend', 'Register new client application')
-  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->text_is('.form-table legend', 'Register new client application')
+  ->attr_is('.oauth-register','action', '/settings/oauth/register')
   ->text_is('ul.client-list > li > span.client-name a', 'MyApp')
   ->text_is('ul.client-list > li > span.client-desc', 'This is my application')
   ->text_is('ul.client-list > li > span.client-url a', '')
@@ -476,16 +476,16 @@ $t->get_ok('/settings/oauth')
 
 $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
   ->status_is(200)
-  ->text_is('form ul.client-list > li.client > span.client-name', 'MyApp')
-  ->text_is('form ul.client-list > li.client > span.client-desc', 'This is my application')
+  ->text_is('ul.client-list > li.client > span.client-name', 'MyApp')
+  ->text_is('ul.client-list > li.client > span.client-desc', 'This is my application')
   ->text_is('a.client-unregister', 'Unregister')
   ->attr_is('a.client-unregister', 'href', '/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
   ;
 
 $csrf = $t->get_ok('/settings/oauth/unregister/fCBbQkA2NDA3MzM1Yw==?name=MyApp')
   ->content_like(qr!Do you really want to unregister \<span class="client-name"\>MyApp\<\/span\>?!)
-  ->attr_is('form.form-table input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
-  ->attr_is('form.form-table input[name=client-name]', 'value', 'MyApp')
+  ->attr_is('.form-table input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
+  ->attr_is('.form-table input[name=client-name]', 'value', 'MyApp')
   ->tx->res->dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
@@ -500,8 +500,8 @@ $t->post_ok('/settings/oauth/unregister' => form => {
   ;
 
 $t->get_ok('/settings/oauth')
-  ->text_is('form.form-table legend', 'Register new client application')
-  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->text_is('.form-table legend', 'Register new client application')
+  ->attr_is('.oauth-register','action', '/settings/oauth/register')
   ->element_exists('ul.client-list > li')
   ->text_is('div.notify', 'Unknown client with xxxx==.')
   ;
@@ -516,8 +516,8 @@ $t->post_ok('/settings/oauth/unregister' => form => {
   ;
 
 $t->get_ok('/settings/oauth')
-  ->text_is('form.form-table legend', 'Register new client application')
-  ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->text_is('.form-table legend', 'Register new client application')
+  ->attr_is('.oauth-register','action', '/settings/oauth/register')
   ->element_exists_not('ul.client-list > li')
   ->text_is('div.notify-success', 'Successfully deleted MyApp')
   ;
@@ -539,10 +539,10 @@ $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('.client-name', 'MyApp2')
   ->text_is('.client-desc', 'This is my application')
   ->text_is('.client-issue-token', 'IssueToken')
-  ->attr_is('.client-issue-token', 'href', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+  ->attr_is('.client-issue-token', 'href', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token/issue?name=MyApp2')
   ;
 
-$csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
+$csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token/issue?name=MyApp2')
   ->status_is(200)
   ->attr_is('#issue-token','action', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token')
   ->attr_is('input[name=client-id]', 'value', 'fCBbQkA2NDA3MzM1Yw==')
@@ -560,10 +560,71 @@ $t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token' => form => {
   ->header_is('Location','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
   ;
 
+
 $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('div.notify-success', 'New access token created')
   ;
 
+$csrf = $t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->status_is(200)
+  ->attr_is('form.token-revoke', 'action', '/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token/revoke')
+  ->attr_is('form.token-revoke input[name=token]', 'value', 'jhkhkjhk_hjgjsfz67i')
+  ->attr_is('form.token-revoke input[name=name]', 'value', 'MyApp2')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
+  ;
+
+$t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token/revoke' => form => {
+  csrf_token => $csrf,
+  name => 'MyApp2',
+  token => 'jhkhkjhk_hjgjsfz67i'
+})
+  ->status_is(200)
+  ->attr_is('form#revoke-token','action','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE')
+  ->attr_is('form#revoke-token','method','POST')
+  ->attr_is('form#revoke-token input[name=token]','value','jhkhkjhk_hjgjsfz67i')
+;
+
+
+# CSRF missing
+$t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE' => form => {
+  name => 'MyApp2',
+  token => 'jhkhkjhk_hjgjsfz67i'
+})->status_is(302)
+  ->header_is('Location','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ;
+
+$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->element_exists_not('div.notify-success')
+  ->text_is('div.notify-error', 'Bad CSRF token')
+  ;
+
+# Token missing
+$t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE' => form => {
+  name => 'MyApp2',
+  csrf_token => $csrf,
+})->status_is(302)
+  ->header_is('Location','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ;
+
+$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->element_exists_not('div.notify-success')
+  ->text_is('div.notify-error', 'Some fields are invalid')
+  ;
+
+$t->post_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE' => form => {
+  name => 'MyApp2',
+  csrf_token => $csrf,
+  token => 'jhkhkjhk_hjgjsfz67i'
+})->status_is(302)
+  ->header_is('Location','/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ;
+
+
+$t->get_ok('/settings/oauth/client/fCBbQkA2NDA3MzM1Yw==')
+  ->element_exists_not('div.notify-error')
+  ->text_is('div.notify-success', 'Token was revoked successfully')
+  ;
 
 done_testing;
 __END__
