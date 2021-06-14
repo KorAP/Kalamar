@@ -1,13 +1,20 @@
 @import "icons";
 
-a.showPWD::after {
+input.show-pwd {
+    padding-right: 2em;
+}
+
+a.show-pwd::after {
     position: absolute;
     @include icon-font;
     width: 1em;
     content: $fa-show;
     cursor: pointer;
-    margin-left: -1em;
+    margin-left: -1.5em;
+    margin-top: .6em;
+    font-size: 130%;
 }
-a.showPWD.hide::after {
+
+a.show-pwd.hide::after {
     content: $fa-hide;
 }
