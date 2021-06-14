@@ -356,8 +356,8 @@ sub register {
 
         # Get the list of all clients
         return $c->korap_request(post => $r_url, {} => form => {
-          client_id => $client_id,
-          client_secret => $client_secret,
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
           authorized_only => 'no'
         })->then(
           sub {

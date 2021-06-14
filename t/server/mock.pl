@@ -567,6 +567,18 @@ post '/v1.0/oauth2/client/register' => sub {
 post '/v1.0/oauth2/client/list' => sub {
   my $c = shift;
 
+  my $v = $c->validation;
+
+  $v->required('super_client_id');
+  $v->required('super_client_secret');
+
+  if ($v->has_error) {
+    return $c->render(
+      json => [],
+      status => 400
+    );
+  };
+
   # $c->param('client_secret');
 
   # Is empty [] when nothing registered
