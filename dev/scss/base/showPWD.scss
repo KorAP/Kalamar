@@ -1,0 +1,13 @@
+@import "icons";
+
+a.showPWD::after {
+    position: absolute;
+    @include icon-font;
+    width: 1em;
+    content: $fa-show;
+    cursor: pointer;
+    margin-left: -1em;
+}
+a.showPWD.hide::after {
+    content: $fa-hide;
+}

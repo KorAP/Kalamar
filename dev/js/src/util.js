@@ -86,6 +86,30 @@ function randomID (len) {
 };
 
 
+/**
+ * Add option to show passwords.
+ */
+function initTogglePwdVisibility () {
+    const el = document.querySelectorAll("input[type=password].show-pwd");
+    for (let x = 0; x < el.length; x++) {     
+        const pwd = el[x];
+
+        const a = document.createElement('a');
+        a.classList.add('showPWD');         
+        a.addEventListener('click', function () {
+            if (pwd.getAttribute("type") === "password") {
+                pwd.setAttribute("type", "text");
+                a.classList.add('hide');
+                return;
+            };
+            pwd.setAttribute("type", "password");
+            a.classList.remove('hide');
+        });
+        pwd.parentNode.insertBefore(a, pwd.nextSibling);
+    };
+};
+
+
 define(function () {
   // Todo: That's double now!
   KorAP.API = KorAP.API || {};
