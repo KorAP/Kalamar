@@ -440,7 +440,7 @@ define([
     /**
      * Initialize password toggle.
      */
-    initTogglePwdVisibility();
+    initTogglePwdVisibility(d);
       
     /**
      * Initialize Plugin registry.

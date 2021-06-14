@@ -89,13 +89,13 @@ function randomID (len) {
 /**
  * Add option to show passwords.
  */
-function initTogglePwdVisibility () {
-    const el = document.querySelectorAll("input[type=password].show-pwd");
+function initTogglePwdVisibility (element) {
+    const el = element.querySelectorAll("input[type=password].show-pwd");
     for (let x = 0; x < el.length; x++) {     
         const pwd = el[x];
 
         const a = document.createElement('a');
-        a.classList.add('showPWD');         
+        a.classList.add('show-pwd');         
         a.addEventListener('click', function () {
             if (pwd.getAttribute("type") === "password") {
                 pwd.setAttribute("type", "text");
