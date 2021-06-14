@@ -438,6 +438,11 @@ define([
     }
 
     /**
+     * Initialize password toggle.
+     */
+    initTogglePwdVisibility();
+      
+    /**
      * Initialize Plugin registry.
      */
     let pe;

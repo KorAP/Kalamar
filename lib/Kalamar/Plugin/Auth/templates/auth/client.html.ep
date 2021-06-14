@@ -40,7 +40,7 @@
       % foreach (@{$c->stash('tokens')}) {
       <li class="token">
       %= label_for 'token' => loc('Auth_accessToken')
-      %= text_field '', value => $_->{token}, readonly => 'readonly', class => 'show-pwd copy-to-clipboard'
+      %= password_field '', value => $_->{token}, readonly => 'readonly', class => 'show-pwd copy-to-clipboard'
       <p name="created"><%== loc('Auth_createdAt', date => $_->{created_date}) %></p>
       <p name="expires"><%== loc('Auth_expiresIn', seconds => $_->{expires_in}) %></p>
       % if ($_->{scope}) {
