@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "529785bf_126f63e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-06-15T15:11:24Z",
+      "side": 1,
+      "message": "Ok, I will ignore 4485.",
+      "revId": "e628ab2b6d62418bfafd2b300a606c5e27d35408",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
