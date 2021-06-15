@@ -120,6 +120,11 @@ $t->get_ok('/')
   ->element_exists_not('aside.off')
   ;
 
+$t->get_ok('/settings/oauth')
+  ->status_is(401)
+  ->text_is('p.no-results', 'Not authenticated')
+  ;
+
 # Test for bug with long password
 $t->post_ok('/user/login' => form => {
   handle => 'test',
