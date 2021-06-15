@@ -1,4 +1,5 @@
 0.42 2021-06-17
+0.42 2021-06-15
         - Added GitHub based CI for perl.
         - Added further methods for communicating JSON Files
           with the server to the APIs (lerepp).
@@ -29,6 +30,7 @@
         - Added settings navigation by default.
         - Fix rendering bug in unauthenticated oauth route.
         - Add option to toggle password fields.
+        - Add "copy to clipboard" feature for input fields.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

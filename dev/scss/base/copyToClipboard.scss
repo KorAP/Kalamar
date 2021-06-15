@@ -1,0 +1,12 @@
+@import "icons";
+
+a.copy-to-clipboard::after {
+    position: absolute;
+    @include icon-font;
+    width: 1em;
+    content: $fa-copy;
+    cursor: pointer;
+    margin-left: .2em;
+    margin-top: .6em;
+    font-size: 130%;
+}
