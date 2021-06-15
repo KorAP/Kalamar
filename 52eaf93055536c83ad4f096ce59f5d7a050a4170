@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b3d8ada_0a644895",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-06-15T09:45:46Z",
+      "side": 1,
+      "message": "There should be an announcement using KorAP.log() that the content was copied to the clipboard, but currently KorAP.log() only throws errors. I guess we should introduce KorAP.error(), KorAP.warn() and KorAP.success().",
+      "revId": "52eaf93055536c83ad4f096ce59f5d7a050a4170",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
