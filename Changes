@@ -27,6 +27,7 @@
           flow will be supported and will be the default
           option for authentication and authorization.
         - Added settings navigation by default.
+        - Fix rendering bug in unauthenticated oauth route.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

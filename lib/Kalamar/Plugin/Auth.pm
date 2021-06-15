@@ -63,6 +63,7 @@ sub register {
           loginFail => 'Anmeldung fehlgeschlagen',
           logoutSuccess => 'Abmeldung erfolgreich',
           logoutFail => 'Abmeldung fehlgeschlagen',
+          authenticationFail => 'Nicht authentifiziert',
           csrfFail => 'Fehlerhafter CSRF Token',
           openRedirectFail => 'Weiterleitungsfehler',
           tokenExpired => 'Zugriffstoken abgelaufen',
@@ -107,6 +108,7 @@ sub register {
           loginFail => 'Access denied',
           logoutSuccess => 'Logout successful',
           logoutFail => 'Logout failed',
+          authenticationFail => 'Not authenticated',
           csrfFail => 'Bad CSRF token',
           openRedirectFail => 'Redirect failure',
           tokenExpired => 'Access token expired',
@@ -765,7 +767,8 @@ sub register {
 
           unless ($c->auth->token) {
             return $c->render(
-              content => 'Unauthorized',
+              template => 'exception',
+              msg => $c->loc('Auth_authenticationFail'),
               status => 401
             );
           };
