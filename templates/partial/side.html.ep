@@ -1,6 +1,22 @@
 % my $side_bar = content_block 'sidebar';
 
-<aside tabindex="0" class="<% unless (length($side_bar) > 1) { %>off<% } elsif (stash('sidebar_active')) { %>active<% } %>">
+% my $classes = '';
+%
+% if (length($side_bar) == 0) {
+%   if (my $nav = navigation('settings')) {
+%     $side_bar = b('<nav>' . $nav . '</nav>');
+%     $classes = 'settings ';
+%   };
+% }
+
+% unless (length($side_bar) > 1) {
+%   $classes .= ' off';
+% } elsif (stash('sidebar_active')) {
+%   $classes .= ' active';
+% };
+
+
+<aside tabindex="0" class="<%= $classes %>">
   <div>
     %= $side_bar
   </div>

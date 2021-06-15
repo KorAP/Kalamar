@@ -131,6 +131,7 @@ $t->get_ok('/')
   ->text_is('div.notify-success', 'Login successful')
   ->element_exists('aside.off')
   ->element_exists_not('aside.active')
+  ->element_exists_not('aside.settings')
   ;
 
 # Now the user is logged in and should be able to

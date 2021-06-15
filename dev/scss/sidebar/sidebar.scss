@@ -44,6 +44,10 @@ aside {
     margin-right: -1 * ($standard-margin / 2);
   }
 
+  &.settings::after {
+    content:   $fa-settings;
+  }
+
   h2,
   legend {
     line-height: 2em;
