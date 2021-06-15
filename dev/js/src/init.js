@@ -437,6 +437,13 @@ define([
       KorAP.Panel['query'] = queryPanel;
     }
 
+
+    /**
+     * Initialize password toggle.
+     */
+    initCopyToClipboard(d);
+
+      
     /**
      * Initialize Plugin registry.
      */

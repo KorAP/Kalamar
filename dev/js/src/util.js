@@ -86,6 +86,25 @@ function randomID (len) {
 };
 
 
+/**
+ * Add option to copy to clipboard.
+ */
+function initCopyToClipboard (element) {
+    const el = element.querySelectorAll("input.copy-to-clipboard");
+    for (let x = 0; x < el.length; x++) {     
+        const text = el[x];
+        const a = document.createElement('a');
+        a.classList.add('copy-to-clipboard');         
+        a.addEventListener('click', function () {
+            text.select();
+            text.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+        });
+        text.parentNode.insertBefore(a, text.nextSibling);
+    };
+};
+
+
 define(function () {
   // Todo: That's double now!
   KorAP.API = KorAP.API || {};
