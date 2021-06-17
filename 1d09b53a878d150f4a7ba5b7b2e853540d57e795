@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec73920_aee482cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-06-17T10:11:52Z",
+      "side": 1,
+      "message": "Nice :)! \n\nThere is only one minor issue, that could probably be improved:\nIf the tutorial is open first and then the settings are opened the tutorial overlaps the settings. It is not a big issue, because the tutorial can be closed by the user. So in my opinion we could submit it and improve this later.",
+      "revId": "1d09b53a878d150f4a7ba5b7b2e853540d57e795",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
