@@ -31,6 +31,7 @@
         - Add option to toggle password fields.
         - Add "copy to clipboard" feature for input fields.
         - Add "copy to clipboard" for client id.
+        - Show settings only on demand.
 
         WARNING: Upgrading to Mojolicious 9.19 will
           invalidate all sessions. This is a security update.

@@ -1,4 +1,4 @@
-% layout 'main', sidebar_active => 1;
+% layout 'main', login_active => 1;
 
 
 <div class="intro">
