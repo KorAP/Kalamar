@@ -17,7 +17,7 @@
 
         <p><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
         %= label_for 'client_id' => loc('Auth_clientID')
-        %= text_field 'client_id', stash('client_id'), readonly => 'readonly'
+        %= text_field 'client_id', stash('client_id'), readonly => 'readonly', class => 'copy-to-clipboard'
         % if (stash('client_type') && stash('client_type') ne 'PUBLIC') {
         <div>
           %= label_for 'client_secret' => loc('Auth_clientSecret')
