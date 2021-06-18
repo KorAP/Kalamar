@@ -1,4 +1,4 @@
-% layout 'main', sidebar_active => 1;
+% layout 'main', login_active => 1;
 
 <div class="intro">
   <p><strong>KorAP</strong> ist eine neue Korpusanalyseplattform, optimiert für große, mehrfach annotierte Korpora und komplexe Suchmechanismen. Dabei versucht KorAP unabhängig von spezifischen Forschungsfragen zu sein.</p>
