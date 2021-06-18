@@ -208,7 +208,7 @@ $t->get_ok('/')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Login successful')
   ->element_exists_not('aside.off')
-  ->element_exists('aside.active')
+  ->element_exists_not('aside.active')
   ->element_exists('aside.settings')
   ;
 
@@ -434,7 +434,7 @@ $t->get_ok('/')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Login successful')
   ->element_exists_not('aside.off')
-  ->element_exists('aside.active')
+  ->element_exists_not('aside.active')
   ->element_exists('aside.settings')
   ;
 
