@@ -120,9 +120,17 @@ function initCopyToClipboard (element) {
         const a = document.createElement('a');
         a.classList.add('copy-to-clipboard');         
         a.addEventListener('click', function () {
+            let back = false;
+            if (text.getAttribute("type") === 'password') {
+                text.setAttribute("type", "text");
+                back = true;
+            };
             text.select();
             text.setSelectionRange(0, 99999);
             document.execCommand("copy");
+            if (back) {
+                text.setAttribute("type", "password");
+            };
         });
         text.parentNode.insertBefore(a, text.nextSibling);
     };
