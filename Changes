@@ -1,4 +1,6 @@
 0.43 2021-06-28
+        - Remove 'X-Frame-Options' in favor of 'frame-ancestors'
+          as a CSP rule.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
