@@ -137,7 +137,6 @@ sub startup {
     before_dispatch => sub {
       my $h = shift->res->headers;
       $h->header('X-Content-Type-Options' => 'nosniff');
-      $h->header('X-Frame-Options' => 'sameorigin');
       $h->header('X-XSS-Protection' => '1; mode=block');
       $h->header(
         'Access-Control-Allow-Methods' =>
@@ -197,6 +196,7 @@ sub startup {
     'script-src'  => ['self','sha256-VGXK99kFz+zmAQ0kxgleFrBWZgybFAPOl3GQtS7FQkI='],
     'connect-src' => 'self',
     'frame-src'   => '*',
+    'frame-ancestors' => 'self',
     'media-src'   => 'none',
     'object-src'  => 'self',
     'font-src'    => 'self',
