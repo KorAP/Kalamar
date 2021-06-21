@@ -29,11 +29,11 @@ $t->get_ok('/')
   ->header_like('Content-Security-Policy', qr!media-src 'none';!)
   ->header_like('Content-Security-Policy', qr!object-src 'self';!)
   ->header_like('Content-Security-Policy', qr!nonce-!)
+  ->header_like('Content-Security-Policy', qr!frame-ancestors 'self';!)
   ->content_like(qr/<script nonce/)
   ->content_like(qr/document\.body\.classList\.remove\(\'no-js\'\);/)
   ->header_is('X-Content-Type-Options', 'nosniff')
   ->header_is('Access-Control-Allow-Methods','GET, POST, OPTIONS')
-  ->header_is('X-Frame-Options', 'sameorigin')
   ->header_is('X-XSS-Protection', '1; mode=block')
   ;
 
