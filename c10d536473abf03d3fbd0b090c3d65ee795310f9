@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "555afdf1_bcd9ee27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-06-22T10:56:17Z",
+      "side": 1,
+      "message": "I have implemented obvious changes in response to cour comments. What do you suggest to do instead of \"Speichern\"? A function that allows us to change the text seems ugly.",
+      "revId": "c10d536473abf03d3fbd0b090c3d65ee795310f9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
