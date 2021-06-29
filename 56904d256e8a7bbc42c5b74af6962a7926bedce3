@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4e3df8a_7a25e343",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-06-29T08:31:26Z",
+      "side": 1,
+      "message": "I changed the variables for proper scoping and the descriptions so they fit into the all runner. Looks good now! Thank you!",
+      "revId": "56904d256e8a7bbc42c5b74af6962a7926bedce3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
