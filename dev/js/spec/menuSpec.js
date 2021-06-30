@@ -410,6 +410,15 @@ define(
         menu = KorAP.HintMenu.create("cnx/", list);
         expect(menu.element().menu).toEqual(menu);
       });
+      
+      it('should only remove direct descendants with removeItems', function () {
+        var menu = KorAP.HintMenu.create("cnx/", list);
+        const newItem = document.createElement("li");
+        //This is a very constructed example, but this actually happens within containerMenu
+        menu._prefix.element().appendChild(newItem); //or a different document element
+        menu.prefix("a"); //to call show
+        expect(menu._prefix.element().childNodes.length).toEqual(1);
+      });
 
 
       it('should be visible', function () {
