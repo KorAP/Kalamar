@@ -6,6 +6,8 @@
           response.
         - Added utility funcition to menu that gets all direct
           childNodes by a tag. Used in menu-style specs. (lerepp)
+        - Update to menu.js's removeItems function to only delete
+          direct childNodes aswell as a specification to test for it (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
