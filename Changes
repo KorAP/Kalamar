@@ -2,6 +2,8 @@
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available (lerepp).
+        - Update to menu.js's removeItems function to only delete
+          direct childNodes aswell as a specification to test for it (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
