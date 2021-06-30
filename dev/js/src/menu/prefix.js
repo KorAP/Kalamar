@@ -77,9 +77,11 @@ define({
    */
   value : function (string) {
     if (arguments.length === 1) {
+      console.log("Prefix set to ",this._string);
       this._string = string;
       return this._update();
     };
+    console.log("Prefix is ",this._string);
     return this._string;
   },
 
@@ -89,6 +91,7 @@ define({
    */
   add : function (string) {
     this._string += string;
+    console.log("add ",string);
     return this._update();
   },
   
