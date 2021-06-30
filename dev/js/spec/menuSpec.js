@@ -1529,7 +1529,7 @@ define(
         let obj = menu.itemClass().create(
           ['dddd','',function () { entryData = 'dddd'} ]
         );
-        menu.append(obj)
+        menu.append(obj);
 
         expect(menu.limit(2).show(1)).toBe(true);
         expect(menu.shownItem(0).lcField()).toEqual(' a');
