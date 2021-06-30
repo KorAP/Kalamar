@@ -622,10 +622,12 @@ define([
      * Delete all visible items from the menu element
      */
     
-     removeItems : function () {
+    removeItems : function () {
       const liElements=this._el.getElementsByTagName("LI");
-      while (liElements.length>0){
-        this._el.removeChild(liElements[0]);
+      for (let ii = liElements.length-1; ii >= 0; ii-- ) {
+        if (liElements[ii].parentNode === this._el){
+          this._el.removeChild(liElements[ii]);
+        };
       };
      },
       
