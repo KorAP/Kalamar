@@ -55,7 +55,6 @@ define([
 
     // Initialize list
     _init : function (list, params) {
-      
       if (params === undefined)
         params = {};
 
@@ -130,8 +129,6 @@ define([
       
       t._items = new Array(); //all childNodes, i.e. ItemClass, prefixClass
 
-      // TODO:
-      // Make this separate from _init
       t.readItems(list);
 
       t.dontHide = false;
@@ -639,10 +636,13 @@ define([
     
     removeItems : function () {
       const liElements=this._el.getElementsByTagName("LI");
-      for (let ii = liElements.length-1; ii >= 0; ii-- ) {
-        if (liElements[ii].parentNode === this._el){
-          this._el.removeChild(liElements[ii]);
-        };
+      var ignoredCount = 0; //counts how many LI tag elements are not actually direct children
+      while (liElements.length>ignoredCount){
+        if (liElements[ignoredCount].parentNode === this._el){
+          this._el.removeChild(liElements[ignoredCount]);
+        } else {
+          ignoredCount++;
+        }
       };
      },
       
@@ -895,6 +895,7 @@ define([
 
         // Remove the HTML node from the first item
         // leave lengthField/prefix/slider
+        //console.log("_showItems, at _notItemElements is: ",t._el.children[this._notItemElements]);
         t._el.removeChild(t._el.children[this._notItemElements]);
 
         t._append(
@@ -907,6 +908,7 @@ define([
         t.offset = off;
 
         // Remove the HTML node from the last item
+        //console.log("_showItems, at lastChild is: ",t._el.lastChild);
         t._el.removeChild(t._el.lastChild);
 
         t._prepend(t._list[t.offset]);
