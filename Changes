@@ -11,6 +11,8 @@
         - Fix CSS compression for new SASS compiler.
         - Support dynamic menu extensions.
         - Dynamically extend buttongroup menus.
+        - New menu class that has a container for further
+          entries at the very end that is always available (lerepp).
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
