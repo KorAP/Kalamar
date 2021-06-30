@@ -170,7 +170,7 @@ ul.menu {
   /**
    * Default prefix view
    */
-  > span.pref:not(:empty) {
+  span.pref:not(:empty) {
     position:      absolute;
     min-width:     5px;
     font-size:     80%;
@@ -179,10 +179,6 @@ ul.menu {
     display:       block;
     margin-bottom: -2.1em;
     padding:       2px 6px;
-    border: {
-      radius: $standard-border-radius;
-      width:  $border-size;
-    }
   }
 }
 
