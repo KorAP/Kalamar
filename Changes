@@ -1,9 +1,11 @@
-0.43 2021-07-02
+0.43 2021-07-14
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available (lerepp).
         - Fix error message in case of server error (500)
           response.
+        - New menu class that has a container for further
+          entries at the very end that is always available (lerepp).
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
