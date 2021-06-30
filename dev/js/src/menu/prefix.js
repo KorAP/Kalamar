@@ -22,9 +22,9 @@ define({
     t._el.classList.add('pref');
     // Connect action
 
-    if (t["onclick"] !== undefined)
+    if (t["onclick"] !== undefined) {
       t._el["onclick"] = t.onclick.bind(t);
-    
+    }
     return t;
   },
 
