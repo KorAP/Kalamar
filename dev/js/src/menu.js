@@ -624,8 +624,13 @@ define([
     
      removeItems : function () {
       const liElements=this._el.getElementsByTagName("LI");
-      while (liElements.length>0){
-        this._el.removeChild(liElements[0]);
+      var ignoredCount = 0; //counts how many LI tag elements are not actually direct children
+      while (liElements.length>ignoredCount){
+        if (liElements[0].parentNode === this._el){
+          this._el.removeChild(liElements[0]);
+        } else {
+          ignoredCount++;
+        }
       };
      },
       
