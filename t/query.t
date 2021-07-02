@@ -225,6 +225,12 @@ $t->get_ok('/?q=timeout')
   ->text_is('#total-results', '> 4,274,841');
 ;
 
+# Query with error
+$t->get_ok('/?q=error')
+  ->status_is(400)
+  ->text_is('#notifications .notify-error','500: Internal Server Error')
+;
+
 # Do not cache
 $t->get_ok('/?q=timeout')
   ->status_is(200)

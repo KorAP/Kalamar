@@ -70,6 +70,7 @@ sub register {
           tokenInvalid => 'Zugriffstoken ungültig',
           refreshFail => 'Fehlerhafter Refresh-Token',
           responseError => 'Unbekannter Autorisierungsfehler',
+          serverError => 'Unbekannter Serverfehler',
           revokeFail => 'Der Token kann nicht widerrufen werden',
           revokeSuccess => 'Der Token wurde erfolgreich widerrufen',
           paramError => 'Einige Eingaben sind fehlerhaft',
@@ -115,6 +116,7 @@ sub register {
           tokenInvalid => 'Access token invalid',
           refreshFail => 'Bad refresh token',
           responseError => 'Unknown authorization error',
+          serverError => 'Unknown server error',
           revokeFail => 'Token can\'t be revoked',
           revokeSuccess => 'Token was revoked successfully',
           paramError => 'Some fields are invalid',
@@ -339,6 +341,12 @@ sub register {
               return Mojo::Promise->reject(
                 $json->{error_description} // $c->loc('Auth_refreshFail')
               );
+            };
+
+            if ($tx->res->is_server_error) {
+              return Mojo::Promise->reject(
+                '600'
+              )
             };
 
             $c->notify(error => $c->loc('Auth_responseError'));
@@ -567,6 +575,18 @@ sub register {
               };
 
               return Mojo::Promise->resolve($tx);
+            }
+
+            # There is a server error - just report
+            elsif ($tx->res->is_server_error) {
+              my $err = $tx->res->error;
+              if ($err) {
+                return Mojo::Promise->reject($err->{code} . ': ' . $err->{message});
+              }
+              else {
+                $c->notify(error => $c->loc('Auth_serverError'));
+                return Mojo::Promise->reject;
+              };
             };
 
             $c->notify(error => $c->loc('Auth_responseError'));

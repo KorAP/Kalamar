@@ -150,6 +150,13 @@ get '/v1.0/search' => sub {
     return $c->render(%{$c->load_response('query_no_query')});
   };
 
+  if ($v->param('q') eq 'error') {
+    return $c->render(
+      status => 500,
+      inline => '<html><head>ERROR</head></html>'
+    );
+  };
+
   my @slug_base = ($v->param('q'));
   push @slug_base, 'o' . $v->param('offset') if defined $v->param('offset');
   push @slug_base, 'c' . $v->param('count') if defined $v->param('count');

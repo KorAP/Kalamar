@@ -236,6 +236,11 @@ $t->get_ok('/?q=Paum')
   ->element_exists_not('p.hint')
   ;
 
+# Query with error
+$t->get_ok('/?q=error')
+  ->status_is(400)
+  ->text_is('#notifications .notify-error','500: Internal Server Error')
+;
 
 # Logout
 $t->get_ok('/user/logout')
