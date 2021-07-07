@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e2a3efa_f9c7570f",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T09:01:56Z",
+      "side": 1,
+      "message": "I have made it so that it is clear a JS Object is passed everywhere, not a JSON object, since I added the stringify after your request. Renaming all of the functions would be the next step and more consistent with what happens, but I don\u0027t like the look of \"KorAP.API.getJSObj\". Is this OK?",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "b68e5709ab7d2f91a1c3b30dd049ebe40c85e66b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}

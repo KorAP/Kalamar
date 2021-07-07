@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "68e098ee_a550250d",
         "filename": "dev/js/src/api.js",
@@ -20,10 +21,10 @@
         "endChar": 66
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f4d85d2d_219dbf9b",
         "filename": "dev/js/src/api.js",
@@ -44,10 +45,10 @@
         "endChar": 66
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "32b6ae28_da5892e4",
         "filename": "dev/js/src/api.js",
@@ -67,10 +68,10 @@
         "endChar": 27
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6e0c5ddb_b8546dbd",
         "filename": "dev/js/src/api.js",
@@ -90,10 +91,10 @@
         "endChar": 123
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "71fa7651_694f435b",
         "filename": "dev/js/src/api.js",
@@ -114,10 +115,10 @@
         "endChar": 123
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "960043f9_ea71ef77",
         "filename": "dev/js/src/api.js",
@@ -138,10 +139,10 @@
         "endChar": 27
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "53cbd036_77b88059",
         "filename": "dev/js/src/api.js",
@@ -162,10 +163,10 @@
         "endChar": 123
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f4b3778c_427c543d",
         "filename": "dev/js/src/api.js",
@@ -186,10 +187,34 @@
         "endChar": 123
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe5060e_0ee8b222",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T09:01:56Z",
+      "side": 1,
+      "message": "Done. Theoretically we would have to rename every function form xxxJSON to xxxJSObj but that looks really bad.",
+      "parentUuid": "f4b3778c_427c543d",
+      "range": {
+        "startLine": 128,
+        "startChar": 114,
+        "endLine": 128,
+        "endChar": 123
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "39bd402a_604a8bdd",
         "filename": "dev/js/src/api.js",
@@ -209,10 +234,10 @@
         "endChar": 23
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6da4601e_b20d8dc0",
         "filename": "dev/js/src/api.js",
@@ -232,10 +257,10 @@
         "endChar": 77
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "612f7eb1_7dc14cae",
         "filename": "dev/js/src/api.js",
@@ -256,10 +281,10 @@
         "endChar": 77
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d1fdd39a_2a14de5f",
         "filename": "dev/js/src/api.js",
@@ -280,10 +305,10 @@
         "endChar": 23
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7b876a22_8f8cded2",
         "filename": "dev/js/src/api.js",
@@ -304,10 +329,34 @@
         "endChar": 23
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49aebbd3_60ef2d89",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T09:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b876a22_8f8cded2",
+      "range": {
+        "startLine": 132,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "fa983cb6_ebba3ed0",
         "filename": "dev/js/src/api.js",
@@ -327,10 +376,10 @@
         "endChar": 52
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ad634593_59a82a6b",
         "filename": "dev/js/src/api.js",
@@ -351,10 +400,10 @@
         "endChar": 52
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5ac4a522_c0a5b09b",
         "filename": "dev/js/src/api.js",
@@ -375,10 +424,34 @@
         "endChar": 52
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59cbed90_0696f30a",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T09:01:56Z",
+      "side": 1,
+      "message": "Like this?",
+      "parentUuid": "5ac4a522_c0a5b09b",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 52
+      },
+      "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "992a9ec4_c01219db",
         "filename": "dev/js/src/api.js",
@@ -398,10 +471,10 @@
         "endChar": 51
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9da56e74_9bc3e11e",
         "filename": "dev/js/src/api.js",
@@ -422,10 +495,10 @@
         "endChar": 51
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a4177808_861a5449",
         "filename": "dev/js/src/api.js",
@@ -446,10 +519,10 @@
         "endChar": 51
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5c4874f3_dce56db5",
         "filename": "dev/js/src/api.js",
@@ -469,10 +542,10 @@
         "endChar": 20
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c14d94f1_c1e0a665",
         "filename": "dev/js/src/api.js",
@@ -493,10 +566,10 @@
         "endChar": 20
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "cf108b0e_786ff90c",
         "filename": "dev/js/src/api.js",
@@ -517,10 +590,10 @@
         "endChar": 20
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "34a20bec_4fb71263",
         "filename": "dev/js/src/api.js",
@@ -541,10 +614,10 @@
         "endChar": 20
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7a666a3d_e9d7053e",
         "filename": "dev/js/src/api.js",
@@ -564,10 +637,10 @@
         "endChar": 82
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4c117399_853b0f84",
         "filename": "dev/js/src/api.js",
@@ -588,10 +661,10 @@
         "endChar": 82
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "59b3b33d_f494b7f7",
         "filename": "dev/js/src/api.js",
@@ -611,10 +684,10 @@
         "endChar": 19
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "798aea27_972ecfea",
         "filename": "dev/js/src/api.js",
@@ -635,10 +708,10 @@
         "endChar": 19
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d68cf336_f9eaf01b",
         "filename": "dev/js/src/api.js",
@@ -658,10 +731,10 @@
         "endChar": 17
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9712430a_5607505a",
         "filename": "dev/js/src/api.js",
@@ -682,10 +755,10 @@
         "endChar": 17
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "da6c0d4f_16620213",
         "filename": "dev/js/src/api.js",
@@ -705,10 +778,10 @@
         "endChar": 17
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "cb0268c6_8ff402e1",
         "filename": "dev/js/src/api.js",
@@ -729,10 +802,10 @@
         "endChar": 17
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "985d51e7_cd03e181",
         "filename": "dev/js/src/api.js",
@@ -752,10 +825,10 @@
         "endChar": 17
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "74c8e8a4_d768c6c9",
         "filename": "dev/js/src/api.js",
@@ -776,10 +849,10 @@
         "endChar": 17
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8e4e0b4f_1a06397e",
         "filename": "dev/js/src/api.js",
@@ -799,10 +872,10 @@
         "endChar": 18
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "28a46285_646000dc",
         "filename": "dev/js/src/api.js",
@@ -823,10 +896,10 @@
         "endChar": 18
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cf7eaa83_7e49df36",
         "filename": "dev/js/src/api.js",
@@ -846,10 +919,10 @@
         "endChar": 20
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "abc02c6c_58b77f2f",
         "filename": "dev/js/src/api.js",
@@ -870,8 +943,7 @@
         "endChar": 20
       },
       "revId": "2d783912e37a18d25f1c6eab3efaef13831ca294",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": false
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }

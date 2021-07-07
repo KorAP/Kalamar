@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "a0dd0fc4_a82763ac",
         "filename": "dev/js/src/api.js",
@@ -20,8 +21,31 @@
         "endChar": 61
       },
       "revId": "458c869154d4f4f33178a8d1587720c4f47c755a",
-      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c",
-      "unresolved": true
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "696a1763_4a31ce5b",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T09:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0dd0fc4_a82763ac",
+      "range": {
+        "startLine": 305,
+        "startChar": 58,
+        "endLine": 305,
+        "endChar": 61
+      },
+      "revId": "458c869154d4f4f33178a8d1587720c4f47c755a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
