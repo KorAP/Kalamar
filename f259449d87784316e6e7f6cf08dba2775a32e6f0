@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d482a4fe_2d6f6f35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T14:46:09Z",
+      "side": 1,
+      "message": "Also: how does one let the new menu be under the old one?",
+      "revId": "f259449d87784316e6e7f6cf08dba2775a32e6f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44e09ce_5ca89d6f",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T14:46:09Z",
+      "side": 1,
+      "message": "For some reason using this causes require.js to exit with script error. BUt without is fine so it can\u0027t be a syntax error?",
+      "revId": "f259449d87784316e6e7f6cf08dba2775a32e6f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234d5635_69f6b749",
+        "filename": "dev/js/src/containermenu.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-07T14:46:09Z",
+      "side": 1,
+      "message": "Better Idea Nils?",
+      "revId": "f259449d87784316e6e7f6cf08dba2775a32e6f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
