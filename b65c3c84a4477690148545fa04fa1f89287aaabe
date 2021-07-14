@@ -16,6 +16,23 @@
       "message": "Need this for the containerSpec and thought it might be useful this way. Could also add it as a function within the Spec itself if you prefer that.\n:)",
       "revId": "b65c3c84a4477690148545fa04fa1f89287aaabe",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "270b6125_82549f76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-14T11:38:37Z",
+      "side": 1,
+      "message": "No objections to adding this here. May even by a general utility function.\n\nBut again (like in the other commit) I can\u0027t really follow the approach. Here it seems it would be easier to just add nodes that meet the requirement to a new list then to first create a clone and remove all items not meeting the requirements ...",
+      "revId": "b65c3c84a4477690148545fa04fa1f89287aaabe",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
