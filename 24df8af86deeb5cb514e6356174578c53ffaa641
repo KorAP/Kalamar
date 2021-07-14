@@ -16,6 +16,23 @@
       "message": "I guess you are refering to the test suite - yes it passes, so that\u0027s fine. Because it slightly changes the behaviour, it would be good to add a test, that this implementation passes and the old one fails.",
       "revId": "24df8af86deeb5cb514e6356174578c53ffaa641",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68b47609_759f56fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-14T11:29:37Z",
+      "side": 1,
+      "message": "And could you explain this approach? It seems to be fairly complicated. Can\u0027t you just iterate through the list reversely?",
+      "revId": "24df8af86deeb5cb514e6356174578c53ffaa641",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
