@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae98669_b6af7f72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-14T13:48:48Z",
+      "side": 1,
+      "message": "Technically this still copies without the need, but it looks clean now - so +2.\n\n  const t \u003d this;\n\nDoesn\u0027t do anything useful though.",
+      "revId": "7b0fbf900ed26fabbdcc13344234aca417feccbe",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
