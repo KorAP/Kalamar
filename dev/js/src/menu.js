@@ -958,6 +958,24 @@ define([
         item.element(),
         e.children[this._notItemElements]
       );
+    },
+
+    /**
+     * A Method for generating an array of nodes, that are direct descendants of the menus
+     * element node, using a tag tagName as a parameter. Supposed to be used by the specification only.
+     * @param {String} tagName The tag the children are looked for by
+     * @returns An array of children nodes with tag tagName
+     */
+    directElementChildrenByTagName : function (tagName) {
+      const tagElementsCollection=this._el.getElementsByTagName(tagName);
+      //var tagElements = Array.from(tagElementsCollection);
+      //var tagElements = [...tagElementsCollection];
+      //This one has the best compatability:
+      var tagElements = Array.prototype.slice.call(tagElementsCollection);
+      const t = this;
+      //filter by actually being direct child node
+      tagElements = tagElements.filter(element => element.parentNode === t._el);
+      return tagElements;
     }
   };
 });
