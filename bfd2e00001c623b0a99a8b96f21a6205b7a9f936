@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28ca4d05_f84e1c50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-14T17:36:42Z",
+      "side": 1,
+      "message": "Maybe it makes sense to move buttongroup to base instead?",
+      "revId": "bfd2e00001c623b0a99a8b96f21a6205b7a9f936",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
