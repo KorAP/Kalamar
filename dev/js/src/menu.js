@@ -953,6 +953,30 @@ define([
         item.element(),
         e.children[this._notItemElements]
       );
+    },
+
+    /**
+     * A Method for generating an array of nodes, that are direct descendants of the menus
+     * element node, using a tag tagName as a parameter. Supposed to be used by the specification only.
+     * @param {String} tagName The tag the children are looked for by
+     * @returns An array of children nodes with tag tagName
+     */
+    directElementChildrenByTagName : function (tagName) {
+      const tagElementsCollection=this._el.getElementsByTagName(tagName);
+      //var tagElements = Array.from(tagElementsCollection); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from for compatability
+      //This one has the best compatability:
+      var tagElements = Array.prototype.slice.call(tagElementsCollection); //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+      //var tagElements = [...tagElementsCollection]; //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+      
+      var correctCount = 0; //counts how many children of the tag are actually direct children
+      while (tagElements.length>correctCount) {
+        if (tagElements[correctCount].parentNode === this._el){
+          correctCount++;
+        } else {
+          tagElements.remove(tagElement[correctCount]);
+        }
+      }
+      return tagElements;
     }
   };
 });
