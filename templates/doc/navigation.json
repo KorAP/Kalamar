@@ -1,31 +1,5 @@
 [
   {
-    "title": "KorAP",
-    "id" : "korap",
-    "items" : [
-      {
-        "title" : "Kalamar",
-        "id" : "kalamar"
-      },
-      {
-        "title" : "Kustvakt",
-        "id" : "kustvakt"
-      },
-      {
-        "title" : "Koral",
-        "id" : "koral"
-      },
-      {
-        "title" : "Krill",
-        "id" : "krill"
-      },
-      {
-        "title" : "Karang",
-        "id" : "karang"
-      }
-    ]
-  },
-  {
     "title" : "Query Languages",
     "id" : "ql",
     "items" : [
@@ -120,6 +94,32 @@
       }
     ]
   },
+    {
+    "title": "Architecture",
+    "id" : "korap",
+    "items" : [
+      {
+        "title" : "Kalamar",
+        "id" : "kalamar"
+      },
+      {
+        "title" : "Kustvakt",
+        "id" : "kustvakt"
+      },
+      {
+        "title" : "Koral",
+        "id" : "koral"
+      },
+      {
+        "title" : "Krill",
+        "id" : "krill"
+      },
+      {
+        "title" : "Karang",
+        "id" : "karang"
+      }
+    ]
+  },  
   {
     "title" : "API",
     "id" : "api"
