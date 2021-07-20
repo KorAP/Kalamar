@@ -1,131 +1,131 @@
 [
   {
-    "title": "KorAP",
-    "id" : "korap",
-    "items" : [
+    "title": "Query Languages",
+    "id": "ql",
+    "items": [
       {
-        "title" : "Kalamar",
-        "id" : "kalamar"
-      },
-      {
-        "title" : "Kustvakt",
-        "id" : "kustvakt"
-      },
-      {
-        "title" : "Koral",
-        "id" : "koral"
-      },
-      {
-        "title" : "Krill",
-        "id" : "krill"
-      },
-      {
-        "title" : "Karang",
-        "id" : "karang"
-      }
-    ]
-  },
-  {
-    "title" : "Query Languages",
-    "id" : "ql",
-    "items" : [
-      {
-        "title" : "Cosmas II",
-        "id" : "cosmas-2",
-        "class" : "folded",
-        "items" : [
+        "title": "Cosmas II",
+        "id": "cosmas-2",
+        "class": "folded",
+        "items": [
           {
-            "title" : "Query Terms",
-            "id" : "#queryterms"
+            "title": "Query Terms",
+            "id": "#queryterms"
           },
           {
-            "title" : "Logical Operators",
-            "id" : "#logical-operators"
+            "title": "Logical Operators",
+            "id": "#logical-operators"
           },
           {
-            "title" : "Distance Operators",
-            "id" : "#distance-operators"
+            "title": "Distance Operators",
+            "id": "#distance-operators"
           },
           {
-            "title" : "Annotation Operators",
-            "id" : "#annotation-operators"
+            "title": "Annotation Operators",
+            "id": "#annotation-operators"
           },
           {
-            "title" : "Combination Operators",
-            "id" : "#combination-operators"
+            "title": "Combination Operators",
+            "id": "#combination-operators"
           },
           {
-            "title" : "Area Operators",
-            "id" : "#area-operators"
+            "title": "Area Operators",
+            "id": "#area-operators"
           }
         ]
       },
       {
-        "title" : "Poliqarp+",
-        "id" : "poliqarp-plus",
-        "class" : "folded",
-        "items" : [
+        "title": "Poliqarp+",
+        "id": "poliqarp-plus",
+        "class": "folded",
+        "items": [
           {
-            "title" : "Simple Segments",
-            "id" : "#segments"
+            "title": "Simple Segments",
+            "id": "#segments"
           },
           {
-            "title" : "Complex Segments",
-            "id" : "#complex"
+            "title": "Complex Segments",
+            "id": "#complex"
           },
           {
-            "title" : "Span Segments",
-            "id" : "#spans"
+            "title": "Span Segments",
+            "id": "#spans"
           },
           {
-            "title" : "Paradigmatic Operators",
-            "id" : "#paradigmatic-operators"
+            "title": "Paradigmatic Operators",
+            "id": "#paradigmatic-operators"
           },
           {
-            "title" : "Syntagmatic Operators",
-            "id" : "#syntagmatic-operators"
+            "title": "Syntagmatic Operators",
+            "id": "#syntagmatic-operators"
           },
           {
-            "title" : "Class Operators",
-            "id" : "#class-operators"
+            "title": "Class Operators",
+            "id": "#class-operators"
           }
         ]
       },
       {
-        "title" : "Annis QL",
-        "id" : "annis"
+        "title": "Annis QL",
+        "id": "annis"
       },
       {
-        "title" : "CQL",
-        "id" : "cql"
+        "title": "CQL",
+        "id": "cql"
       },
       {
-        "title" : "FCSQL",
-        "id" : "fcsql"
+        "title": "FCSQL",
+        "id": "fcsql"
       },
       {
-        "title" : "Regular Expressions",
-        "id" : "regexp"
+        "title": "Regular Expressions",
+        "id": "regexp"
       }
     ]
   },
   {
-    "title" : "Data",
-    "id" : "data",
-    "class" : "folded",
-    "items" : [
+    "title": "Data",
+    "id": "data",
+    "class": "folded",
+    "items": [
       {
-        "title" : "Annotations",
-        "id" : "annotation"
+        "title": "Annotations",
+        "id": "annotation"
       }
     ]
   },
   {
-    "title" : "API",
-    "id" : "api"
+    "title": "F.A.Q.",
+    "id": "faq"
   },
   {
-    "title" : "F.A.Q.",
-    "id" : "faq"
+    "title": "API",
+    "id": "api"
+  },
+  {
+    "title": "Development",
+    "id": "dev",
+    "items": [
+      {
+        "title": "Kalamar",
+        "id": "kalamar"
+      },
+      {
+        "title": "Kustvakt",
+        "id": "kustvakt"
+      },
+      {
+        "title": "Koral",
+        "id": "koral"
+      },
+      {
+        "title": "Krill",
+        "id": "krill"
+      },
+      {
+        "title": "Karang",
+        "id": "karang"
+      }
+    ]
   }
 ]
