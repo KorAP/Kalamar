@@ -95,6 +95,7 @@ my $THOUSAND_SEP_RE = qr/(
       'corpus' => 'Korpora',
       'annotation' => 'Annotationen',
       '#default-foundries' => 'Standard Foundries',
+      'korap' => 'Entwicklung',
       'faq' => 'Häufig gestellte Fragen'
     }
   },
@@ -191,6 +192,7 @@ my $THOUSAND_SEP_RE = qr/(
       'corpus' => 'Corpora',
       'annotation' => 'Annotations',
       '#default-foundries' => 'Default Foundries',
+      'korap' => 'Development',
       'faq' => 'F.A.Q.'
     }
   },
