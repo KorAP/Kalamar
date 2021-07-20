@@ -6,7 +6,7 @@
 
   <p><noscript>KorAP expects activated JavaScript for some features.</noscript></p>
 
-  <p><strong>New to KorAP?</strong> Please check out our <a id="link-guided-tour">guided tour</a> or our <%= doc_opener 'korap', begin %>tutorial<% end %>!</p>
+  <p><strong>New to KorAP?</strong> Please check out our <a id="link-guided-tour">guided tour</a> or our <%= doc_opener 'ql', begin %>tutorial<% end %>!</p>
   
   %= include 'announcement', lang => 'en'
 
