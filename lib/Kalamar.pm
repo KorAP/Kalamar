@@ -331,7 +331,7 @@ NONCE_JS
   $r->get('/')->to('search#query')->name('index');
 
   # Documentation routes
-  $r->get('/doc')->to('documentation#page', page => 'korap')->name('doc_start');
+  $r->get('/doc')->to('documentation#page', page => 'ql')->name('doc_start');
   $r->get('/doc/:scope/:page')->to('documentation#page', scope => undef)->name('doc');
 
   # Settings routes
