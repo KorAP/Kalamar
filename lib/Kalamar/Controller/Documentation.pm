@@ -13,6 +13,7 @@ sub page {
 
   # There is a scope defined
   my $scope = $c->stash('scope');
+
   push(@path, $scope) if $scope;
 
   # Use the defined page
@@ -32,11 +33,24 @@ sub page {
   $c->stash(documentation => 1);
   $c->stash('robots' => 'index,follow');
 
-  return $c->render_maybe(
+  my $render = $c->render_maybe(
     template => $c->loc('Template_' . join('_', @path), join('/', @path))
   ) || $c->render_maybe(
     template => $c->loc('Template_' . join('_', 'custom', @path), join('/', 'custom', @path))
-  ) || $c->reply->not_found;
+  );
+
+  return $render if $render;
+
+  # Legacy links
+  if ($scope) {
+    if ($scope eq 'korap') {
+      return $c->redirect_to('doc', scope => 'dev');
+    };
+  } elsif ($page eq 'korap') {
+      return $c->redirect_to('doc', page => 'dev');
+  };
+
+  return $c->reply->not_found;
 };
 
 
