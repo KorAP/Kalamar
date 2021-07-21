@@ -1,4 +1,4 @@
-0.43 2021-07-02
+0.43 2021-07-21
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available (lerepp).
@@ -8,6 +8,8 @@
           childNodes by a tag. Used in menu-style specs. (lerepp)
         - Remove 'X-Frame-Options' in favor of 'frame-ancestors'
           as a CSP rule.
+        - Add support for "adopted" button groups and anchor children
+          to prepend to.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
