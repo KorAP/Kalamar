@@ -249,3 +249,9 @@ span.menu.select {
     }
   }
 }
+
+ul.containermenu > ul.menu.container {
+    bottom: 0;
+    transform: translateY(100%);
+    margin-bottom: -.3em;
+}
