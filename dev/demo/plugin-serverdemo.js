@@ -44,4 +44,14 @@ KorAP.Plugins = [{
 }]; 
 
 
-require(['app/en','init']);
+define(['plugin/server', 'lib/domReady', 'app/en', 'init'], function(pluginClass, domReady) {
+    domReady(function (event) {
+        if (KorAP.Plugin === undefined) {
+            // Load Plugin Server first
+            KorAP.Plugin = pluginClass.create();
+            // Add services container to head
+            document.head.appendChild(KorAP.Plugin.element());
+        };
+        KorAP.Plugins.forEach(i => KorAP.Plugin.register(i));
+    });
+});
