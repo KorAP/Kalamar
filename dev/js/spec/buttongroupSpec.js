@@ -227,5 +227,62 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       expect(s.get()).toBeTruthy();
       expect(e.firstChild.firstChild.classList.contains("checked")).toBeTruthy();
     });
+
+    it('should allow adoption', function () {
+
+      const el = document.createElement('div');
+      
+      const group = buttonGroupClass.adopt(el);
+
+      group.add('Meta', {'cls':['meta', 'top']}, function (e) {});
+      group.add('Mate', {'cls':['mate']}, function (e) {});
+
+      var btn = group.element().children[0];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('meta')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeTruthy();
+      expect(btn.innerText).toEqual('Meta');
+
+      btn = group.element().children[1];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('mate')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeFalsy();
+      expect(btn.innerText).toEqual('Mate');
+    });
+
+    it('should make anchor element definable', function () {
+
+      const el = document.createElement('div');
+      const c1 = el.appendChild(document.createElement('c1'));
+      const c2 = el.appendChild(document.createElement('c2'));
+      const c3 = el.appendChild(document.createElement('c3'));
+      
+      const group = buttonGroupClass.adopt(el);
+      expect(group.anchor(c3)).toBeTruthy();
+
+      group.add('Meta', {'cls':['meta', 'top']}, function (e) {});
+      group.add('Mate', {'cls':['mate']}, function (e) {});
+
+      let btn = group.element().children[0];
+      expect(btn.tagName).toEqual('C1');
+
+      btn = group.element().children[1];
+      expect(btn.tagName).toEqual('C2');
+      
+      btn = group.element().children[2];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('meta')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeTruthy();
+      expect(btn.innerText).toEqual('Meta');
+
+      btn = group.element().children[3];
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('mate')).toBeTruthy();
+      expect(btn.classList.contains('top')).toBeFalsy();
+      expect(btn.innerText).toEqual('Mate');
+
+      btn = group.element().children[4];
+      expect(btn.tagName).toEqual('C3');
+    });
   });
 });

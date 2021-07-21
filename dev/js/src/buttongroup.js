@@ -9,7 +9,16 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     create : function (classes) {
       return Object.create(this)._init(classes);
     },
-    
+
+    /**
+     * Adopt existing button group element
+     */
+    adopt : function (element) {
+      const obj = Object.create(this);
+      obj._el = element;
+      return obj;
+    },
+
     // Initialize button group
     _init : function (classes) {
       const e = document.createElement('div');
@@ -21,7 +30,6 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       this._el = e;
       return this;
     },
-
     
     /**
      * Return main element
@@ -30,6 +38,16 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       return this._el;
     },
 
+    /**
+     * Define element following newly added buttons.
+     */
+    anchor : function (anchor) {
+      if (anchor.parentNode == this._el) {
+        this._anchor = anchor;
+        return true;
+      };
+      return false;
+    },
     
     /**
      * Upgrade this object to another object, 
@@ -44,6 +62,14 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       return this;
     },
 
+    _insert : function (tag = 'span') {
+      const span = document.createElement(tag);
+      if (this._anchor) {
+        this._el.insertBefore(span, this._anchor);
+        return span;
+      }
+      return this._el.appendChild(span);
+    },
     
     /**
      * Add button in order
@@ -51,8 +77,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Returns the button element
      */
     add : function (title, data, cb) {
-      
-      const b = this._el.addE('span');
+      const b = this._insert('span');
       b.setAttribute('title',title);
 
       if (data !== undefined) {
@@ -112,7 +137,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * for use as action plugins.
      */
     addToggle : function (title, data, state) {
-      const b = this._el.addE('span');
+      const b = this._insert('span');
       b.setAttribute('title',title);
 
       if (data != undefined) {
