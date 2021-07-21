@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b4963a2_58d476a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-21T21:30:03Z",
+      "side": 1,
+      "message": "This is a change in preparation to https://github.com/KorAP/Kalamar/issues/141",
+      "revId": "9470df4c8d67c390fcfd90bfea6a2dec326acb14",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
