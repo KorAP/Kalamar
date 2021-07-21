@@ -15,6 +15,8 @@
           direct childNodes aswell as a specification to test for it (lerepp)
         - Make actions private in panels and views.
         - Move pagination out of resultinfo.
+        - Add support for "adopted" button groups and anchor children
+          to prepend to.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
