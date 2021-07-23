@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f60c933_b4859c15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-23T10:49:53Z",
+      "side": 1,
+      "message": "I somehow missed that the compression option changed for the new SASS compiler, so all compilations were uncompressed since some times. I added the new option now.",
+      "revId": "ba21f6d940ec54991757fcc5fcfc35b5ac213262",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
