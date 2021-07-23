@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1a98b0_7dacfb95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-23T09:35:46Z",
+      "side": 1,
+      "message": "This change makes it possible to extend a menu by a plugin dynamically.",
+      "revId": "aafe286aedfd5024fe615587c0aba7494d7e195f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
