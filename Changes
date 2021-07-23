@@ -9,6 +9,7 @@
         - Remove 'X-Frame-Options' in favor of 'frame-ancestors'
           as a CSP rule.
         - Fix CSS compression for new SASS compiler.
+        - Support dynamic menu extensions.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

@@ -177,6 +177,21 @@ define([
       t.offset = 0;
       t.position = 0;
     },
+
+    // Append item to list
+    append : function (item) {
+      const t = this;
+      // This is cyclic!
+      item["_menu"] = t;
+      t._list = undefined;
+      t.removeItems();
+      t._items.push(item);
+      t._lengthField.add([item.content().data]);
+      t._slider.length(t.liveLength()).reInit();
+      t._firstActive = false;
+      t.offset = 0;
+      t.position = 0;
+    },
     
     // Initialize the item list
     _initList : function () {

@@ -1491,6 +1491,43 @@ define(
       });
 
       xit('should scroll to a chosen value after prefixing, if the chosen value is live');
+
+      it('should be expendable', function () {
+        var menu = menuClass.create([]);
+        let entryData = 'empty';
+        menu.readItems([
+          ['a', '', function () { entryData = 'a' }],
+          ['bb', '', function () { entryData = 'bb' }],
+          ['ccc', '', function () { entryData = 'ccc' }],
+        ]);
+
+        expect(menu.limit(3).show(3)).toBe(true);
+        expect(menu.shownItem(0).lcField()).toEqual(' a');
+        expect(menu.shownItem(1).lcField()).toEqual(' bb');
+        expect(menu.shownItem(2).lcField()).toEqual(' ccc');
+        expect(entryData).toEqual('empty');
+        menu.shownItem(1).element().click();
+        expect(entryData).toEqual('bb');
+        expect(menu.lengthField().element().innerText).toEqual("a--bb--ccc--")
+        expect(menu.slider().length()).toEqual(3);
+
+        let obj = menu.itemClass().create(
+          ['dddd','',function () { entryData = 'dddd'} ]
+        );
+        menu.append(obj)
+
+        expect(menu.limit(2).show(1)).toBe(true);
+        expect(menu.shownItem(0).lcField()).toEqual(' a');
+        expect(menu.shownItem(1).lcField()).toEqual(' bb');
+        menu.next();
+        expect(menu.shownItem(1).lcField()).toEqual(' ccc');
+        menu.next();
+        expect(menu.shownItem(1).lcField()).toEqual(' dddd');
+        menu.next();
+        expect(menu.shownItem(0).lcField()).toEqual(' a');
+        expect(menu.lengthField().element().innerText).toEqual("a--bb--ccc--dddd--")
+        expect(menu.slider().length()).toEqual(4);
+      });
     });
 
     describe('KorAP.Prefix', function () {
