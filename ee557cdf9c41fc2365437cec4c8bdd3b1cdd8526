@@ -16,6 +16,24 @@
       "message": "This currently\na) Changes the order in the navigation\nb) Renames the KorAP-Part to \"Architecture\"\nc) Opens the QL in case the tutorial is opened from the intro page.\n\nI am fine with the changes, but I have questions:\n- Should the tutorial icon lead to the QL page as well?\n- Should localhost:3000/doc lewad to the query language page as well?\n- Should /doc/architecture be introduced and /doc/korap leads to it?\n\nThe change in kalamar.dict is not clear to me.",
       "revId": "ee557cdf9c41fc2365437cec4c8bdd3b1cdd8526",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f82fcb5_424390dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-07-26T14:30:46Z",
+      "side": 1,
+      "message": "I\u0027m fine with the changes, too. I\u0027d only ad a) prefer \"Architecture \u0026 Development\" to have the buzzword in it.\n\nI\u0027m not sure if I quite understand all questions. As a general remark: We can add an intro the QL page later (https://github.com/KorAP/Kalamar/issues/140 ). Concerning Architecture \u0026 Development: I think it\u0027s not so important here, any more. Maybe we can reduce the sub-menu entries here later.",
+      "parentUuid": "4dad66a4_37ddec2e",
+      "revId": "ee557cdf9c41fc2365437cec4c8bdd3b1cdd8526",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
