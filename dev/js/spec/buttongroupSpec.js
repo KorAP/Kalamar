@@ -123,7 +123,8 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
 
-      var list = group.addList('More', {'cls':['more']});
+      var b = group.addList('More', {'cls':['more']});
+      var list = b.list;
 
       list.readItems([
         ['cool', 'cool', function () { }],
@@ -152,7 +153,8 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
 
-      var list = group.addList('More', {'cls':['more']});
+      var b = group.addList('More', {'cls':['more']});
+      var list = b.list;
 
       let x = 'empty';
       list.add('Meta1', {'cls':['meta'], 'icon': 'metaicon'}, function (e) {
