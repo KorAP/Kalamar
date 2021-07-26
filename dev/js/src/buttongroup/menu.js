@@ -9,12 +9,7 @@ define(['menu'], function (menuClass) {
 
     /**
      * Create new menu object.
-     * Pass the panel object
-     * and the item parameters.
-     *
-     * @param panel The panel object
-     * @param params The match menu items
-     *   as an array of arrays.
+     * Pass the list of items and the itemClass.
      */
     create : function (list, itemClass) {
       const obj = Object.create(menuClass)
@@ -26,7 +21,7 @@ define(['menu'], function (menuClass) {
 
       // This is only domspecific
       e.addEventListener('blur', function (e) {
-	      this.menu.hide();
+	this.menu.hide();
       });
 
       e.classList.add('button-group-list');
@@ -39,9 +34,10 @@ define(['menu'], function (menuClass) {
 
 
     /**
-     * The panel object of the menu.
+     * The panel object of the menu,
+     * in case the menu was spawned by a panel.
      */
-    panel :function (panelVar) {
+    panel : function (panelVar) {
       if (panelVar !== undefined)
         this._panel = panelVar;
 
@@ -72,6 +68,30 @@ define(['menu'], function (menuClass) {
       window.addEventListener('scroll', this._onscroll);
     },
 
+
+    /**
+     * Add button in order
+     * 
+     * Returns the button element
+     */
+    add : function (title, data, cb) {
+
+      let that = this;
+
+      const cbWrap = function (e) {
+
+        // Call callback
+        let obj = that._bind || this;
+        obj.button = b;
+        cb.apply(obj)
+      };
+
+      // TODO:
+      //   support classes, data-icon and state in itemClass!
+      const b = this.itemClass().create([title, title, cbWrap]);
+      this.append(b);
+      return b;
+    },
     
     // Overwrite onHide method
     onHide : function () {
