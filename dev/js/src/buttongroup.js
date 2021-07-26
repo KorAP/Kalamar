@@ -129,12 +129,13 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
         this._omOutside ? true : false,
       );
       
-      this.add(title, data, function (e) {
+      let b = this.add(title, data, function (e) {
         list.show();
         list.button(this.button);
         list.focus();
       });
-      return list;
+      b.list = list;
+      return b;
     },
 
     /**
