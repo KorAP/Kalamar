@@ -119,12 +119,13 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      */
     addList : function (title, data, itemClass = defaultItemClass) {
       const list = treeMenuClass.create([], itemClass);
-      this.add(title, data, function (e) {
+      let b = this.add(title, data, function (e) {
         list.show();
         list.button(this.button);
         list.focus();
       });
-      return list;
+      b.list = list;
+      return b;
     },
 
     /**
