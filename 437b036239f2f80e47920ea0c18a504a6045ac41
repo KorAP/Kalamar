@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "029e107a_542e99f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-26T15:07:03Z",
+      "side": 1,
+      "message": "This depends on https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/4600 - I made the commits independent though.",
+      "revId": "437b036239f2f80e47920ea0c18a504a6045ac41",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
