@@ -119,7 +119,6 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       expect(btn.innerText).toEqual('Meta');
     });
 
-    
     it('should open lists', function () {
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
@@ -149,6 +148,56 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       document.body.removeChild(list.element());
     });
 
+    it('should add to lists', function () {
+      var group = buttonGroupClass.create();
+      expect(group.element().classList.contains('button-group')).toBeTruthy();
+
+      var list = group.addList('More', {'cls':['more']});
+
+      let x = 'empty';
+      list.add('Meta1', {'cls':['meta'], 'icon': 'metaicon'}, function (e) {
+        x = 'meta1';
+      });
+      list.add('Meta2', {'cls':['meta'], 'icon': 'metaicon'}, function (e) {
+        x = 'meta2'
+      });
+
+      var btn = group.element().firstChild;
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.classList.contains('more')).toBeTruthy();
+      expect(btn.innerText).toEqual('More');
+
+      expect(list.element().classList.contains('visible')).toBeFalsy();
+      
+      // Click to show menu
+      btn.click();
+
+      expect(list.element().classList.contains('visible')).toBeTruthy();
+      expect(list.directElementChildrenByTagName("li")[0].innerHTML).toEqual('Meta1');
+      expect(list.directElementChildrenByTagName("li")[1].innerHTML).toEqual('Meta2');
+
+      expect(x).toEqual('empty');
+      list.directElementChildrenByTagName("li")[0].click();
+      expect(x).toEqual('meta1');
+
+      expect(list.element().classList.contains('visible')).toBeFalsy();
+
+      // Click to show menu
+      btn.click();
+
+      expect(list.element().classList.contains('visible')).toBeTruthy();
+      list.directElementChildrenByTagName("li")[1].click();
+      expect(x).toEqual('meta2');
+
+      expect(list.element().classList.contains('visible')).toBeFalsy();
+
+      expect(list.element().children[1].children[0].innerText).toEqual('Meta1--');
+      expect(list.element().children[1].children[1].innerText).toEqual('Meta2--');
+
+      document.body.removeChild(list.element());
+    });
+
+    
     it('should support toggle buttons', function () {
       var group = buttonGroupClass.create();
 
