@@ -16,6 +16,25 @@
   </head>
   <body class="no-js">
     <div id="kalamar-bg"></div>
+
+    <aside tabindex="0">
+      <div>
+	<fieldset>
+	  <form>
+	    <legend><span>Anmelden</span></legend>
+ 	    <input type="text" name="handle" placeholder="Benutzername" />
+	    <div>
+	      <input type="password" name="pwd" placeholder="Passwort" />
+	      <button type="submit"><span>Go</span></button>
+	    </div>
+	  </form>
+	  <ul style="font-size: 80%">
+	    <li><a href="#">Registrieren</a></li>
+	    <li><a href="#">Passwort vergessen?</a></li>
+	  </ul>
+	</fieldset>
+      </div>
+
     <header>
       <a href="/" class="logo" tabindex="-1"><h1><span>KorAP - Corpus Analysis Platform</span></h1></a>
 
@@ -66,24 +85,6 @@
       </form>
     </header>
 
-    <aside tabindex="0">
-      <div>
-	<fieldset>
-	  <form>
-	    <legend><span>Anmelden</span></legend>
- 	    <input type="text" name="handle" placeholder="Benutzername" />
-	    <div>
-	      <input type="password" name="pwd" placeholder="Passwort" />
-	      <button type="submit"><span>Go</span></button>
-	    </div>
-	  </form>
-	  <ul style="font-size: 80%">
-	    <li><a href="#">Registrieren</a></li>
-	    <li><a href="#">Passwort vergessen?</a></li>
-	  </ul>
-	</fieldset>
-      </div>
-
 <!--
       <h2>Einstellungen</h2>
       <a>Deutsch|Englisch</a>
@@ -91,7 +92,11 @@
     </aside>
 
     <main>
-      <div id="pagination" class="button-group button-panel">
+      <div id="pagination"
+           class="button-group button-panel"
+           data-page="1"
+           data-total="52230"
+           data-count="25">
 	<a rel="prev"><span><span>&lt;</span></span></a>
 	<a rel="self"><span>1</span></a>
 	<a href="#2" tabindex="4"><span>2</span></a>

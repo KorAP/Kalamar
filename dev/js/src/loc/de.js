@@ -77,6 +77,7 @@ define(function () {
   loc.TOUR_treeb = loc.TOUR_tree || "Anzeige weiterer Ansichten"
   loc.TOUR_tree = loc.TOUR_tree || "Weitere Ansichten können als Baum- oder Bogenansichten angezeigt werden.";
   loc.TOUR_tourdone = "Viel Spaß mit KorAP!";
-  
-  
+
+  // Pagination panel
+  loc.RANDOM_PAGE = 'Zufallsseite';
 });
