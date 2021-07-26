@@ -34,6 +34,23 @@
       "parentUuid": "4dad66a4_37ddec2e",
       "revId": "ee557cdf9c41fc2365437cec4c8bdd3b1cdd8526",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a8512bc_fdd56843",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-26T14:41:19Z",
+      "side": 1,
+      "message": "I think the major question is: Should the query language overview be the default entrypoint to the documentation. If yes, some additional changes need to be done.",
+      "revId": "ee557cdf9c41fc2365437cec4c8bdd3b1cdd8526",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
