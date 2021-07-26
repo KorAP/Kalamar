@@ -38,6 +38,7 @@
         - Added DemoServer plugin.
         - Support CSP disabling.
         - Update intro.js (#109; hebasta)
+        - Introduce pagination panel.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

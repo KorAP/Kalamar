@@ -1,4 +1,4 @@
-define(['panel','view','panel/result','util'], function (panelClass,viewClass, resultClass) {
+define(['panel','view','panel/result','panel/pagination','util'], function (panelClass,viewClass,resultClass,paginationClass) {
 
   var controlStr = "";
 
@@ -184,6 +184,42 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       expect(ol.classList.contains('align-left')).toBeTruthy();
 
       document.body.removeChild(div);
+    });
+  });
+
+  describe('KorAP.Panel.Pagination', function () {
+    it('should be initializable', function () {
+      // Create pagination element for pagination information
+      let p = document.createElement('div');
+      p.setAttribute('id', 'pagination')
+      p.setAttribute('data-page',3);
+      p.setAttribute('data-total',30);
+      p.setAttribute('data-count',25);
+
+      document.body.appendChild(p);
+
+      // Create pagination class object
+      var pagination = paginationClass.create();
+      let list = pagination.actions().element();
+      expect(list.classList.contains('button-group-list')).toBeTruthy();
+      expect(list.classList.contains('visible')).toBeFalsy();
+
+      pagination.addRandomPage();
+
+      let clicked = false;
+      pagination.actions().add(
+        "test", {}, function () { clicked = true }
+      );
+      
+      pagination.buttonGroup().element().firstChild.click();
+      expect(list.classList.contains('visible')).toBeTruthy();
+
+      expect(clicked).toBeFalsy();
+      pagination.actions().element().children[4].click();
+      expect(clicked).toBeTruthy();
+      
+      document.body.removeChild(p);
+      document.body.removeChild(pagination.actions().element());
     });
   });
 });
