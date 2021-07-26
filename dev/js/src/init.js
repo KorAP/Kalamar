@@ -28,6 +28,7 @@ define([
   'selectMenu',
   'panel/result',
   'panel/query',
+  'panel/pagination',
   'tour/tours',
   'plugin/server',
   'pipe',
@@ -46,6 +47,7 @@ define([
              selectMenuClass,
              resultPanelClass,
              queryPanelClass,
+             paginationPanelClass,
              tourClass,
              pluginClass,
              pipeClass) {
@@ -255,7 +257,7 @@ define([
      * Add result panel
      */
     var resultPanel = resultPanelClass.create(show);
-
+   
     if (resultInfo != null) {
 
       // Move buttons to resultinfo
@@ -435,7 +437,18 @@ define([
       // The views are below the query bar
       sform.insertBefore(queryPanel.element(), vcView);
       KorAP.Panel['query'] = queryPanel;
-    }
+    };
+
+
+    /**
+     * Add pagination panel
+     */
+    const paginationPanel = paginationPanelClass.create();
+
+    if (paginationPanel) {
+      paginationPanel.addRandomPage();
+      KorAP.Panel['pagination'] = paginationPanel;
+    };
 
 
     /**
