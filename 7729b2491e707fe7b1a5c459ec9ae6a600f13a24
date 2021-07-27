@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dcb2787_8f73bcc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-07-27T14:53:04Z",
+      "side": 1,
+      "message": "Breaks at specs KorAP.ButtonGroup, but works with https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/4600.",
+      "revId": "7729b2491e707fe7b1a5c459ec9ae6a600f13a24",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
