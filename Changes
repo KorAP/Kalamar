@@ -1,4 +1,4 @@
-0.43 2021-07-23
+0.43 2021-07-27
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available (lerepp).
@@ -10,6 +10,7 @@
           as a CSP rule.
         - Fix CSS compression for new SASS compiler.
         - Support dynamic menu extensions.
+        - Move pagination out of resultinfo.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
