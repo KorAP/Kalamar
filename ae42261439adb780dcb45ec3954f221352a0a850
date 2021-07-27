@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d8f068_b21e9e02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-27T14:21:46Z",
+      "side": 1,
+      "message": "This looks like a rather stupid change, but as the result and the pagination are now separate panels it\u0027s conflicting to have them nested. In addition, the CSS is easier to style.",
+      "revId": "ae42261439adb780dcb45ec3954f221352a0a850",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
