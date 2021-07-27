@@ -43,6 +43,8 @@ $t->get_ok('/?q=baum')
   # Total pages
   ->element_count_is('#pagination > a', 5)
 
+  ->element_exists_not('#resultinfo > #pagination')
+
   # api_response
   ->content_like(qr/${q}authorized${q}:null/)
   ->content_like(qr/${q}pubDate${q},${q}subTitle${q},${q}author${q}/)

@@ -14,6 +14,7 @@
         - Update to menu.js's removeItems function to only delete
           direct childNodes aswell as a specification to test for it (lerepp)
         - Make actions private in panels and views.
+        - Move pagination out of resultinfo.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
