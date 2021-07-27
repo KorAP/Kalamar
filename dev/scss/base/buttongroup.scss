@@ -26,7 +26,8 @@
       border-width: $border-size 0;
 
       &:hover {
-	      @include choose-hover;
+	@include choose-hover;
+        transition: none;
       }
 
       &:first-child {
