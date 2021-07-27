@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd5f9a09_51c4de6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-27T14:09:30Z",
+      "side": 1,
+      "message": "Not yet finished and still requires some changes in other corners of the system.",
+      "revId": "0940b509b45a51e00d8523c2c66c8a6e8b0505aa",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
