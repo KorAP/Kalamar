@@ -41,7 +41,7 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       expect(e.lastChild.classList.contains("button-group")).toBeTruthy();
       expect(e.lastChild.firstChild).toBeFalsy();
 
-      expect(panel.actions).toBeTruthy();
+      expect(panel.actions()).toBeTruthy();
     });
 
     
@@ -49,7 +49,7 @@ define(['panel','view','panel/result','util'], function (panelClass,viewClass, r
       var panel = panelClass.create();
 
       controlStr = "";
-      panel.actions.add("New", {'cls':["new"]}, function () {
+      panel.actions().add("New", {'cls':["new"]}, function () {
         controlStr = 'New!!!';
       });
 

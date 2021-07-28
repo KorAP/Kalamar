@@ -87,7 +87,7 @@ define([
           if (type === "spans") {
 
             // Download link
-            that.actions.add(
+            that.actions().add(
               loc.DOWNLOAD,
               {'cls':['button-icon','download']},
               function (e) {

@@ -3,6 +3,9 @@
  */
 "use strict";
 
+// TODO:
+//   Add addToggle() method
+
 define(['menu'], function (menuClass) {
 
   return {

@@ -22,7 +22,7 @@ define([
     // Initialize panel
     _init : function (opened) {
       this._opened = opened;
-      const a = this.actions;
+      const a = this.actions();
       
       // If plugins are enabled, add all buttons for the query panel
       if (KorAP.Plugin) {

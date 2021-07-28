@@ -46,7 +46,7 @@ define(["view","plugin/service","util"], function (viewClass, serviceClass) {
       // Otherwise a button indicating this is a plugin
       // is a nice idea as well.
       
-      this.actions.add(
+      this.actions().add(
         this.name, {'cls':['button-icon', 'plugin']}, function (e) {
 
           // Temporary
