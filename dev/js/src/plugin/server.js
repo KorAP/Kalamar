@@ -214,7 +214,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
 
           // Add to static button list (e.g. for query) already loaded
           else if (KorAP.Panel[panel]) {
-            KorAP.Panel[panel].actions.add(title, obj, cb);
+            KorAP.Panel[panel].actions().add(title, obj, cb);
           }
 
           // Add to static button list (e.g. for query) not yet loaded
@@ -235,7 +235,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
 
           // TODO:
           //   Lazy registration (see above!)
-          KorAP.Panel[panel].actions.addToggle(title, {'cls':["title"]}, state);
+          KorAP.Panel[panel].actions().addToggle(title, {'cls':["title"]}, state);
 
           // Add the service
           let id = this.addService({

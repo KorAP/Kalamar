@@ -106,6 +106,11 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Add button that can toggle a state.
      * The state has to be a state object.
      */
+    /*
+     * addToggle() should be removed in favor of add(toggleObj)
+     * or similar, so the API of buttongroups and lists is similar
+     * for use as action plugins.
+     */
     addToggle : function (title, data, state) {
       const b = this._el.addE('span');
       b.setAttribute('title',title);

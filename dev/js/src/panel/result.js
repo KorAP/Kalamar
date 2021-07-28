@@ -34,7 +34,7 @@ define([
         // Add all result buttons in order
         KorAP.Plugin
           .buttonGroup("result")
-          .forEach(i => this.actions.add.apply(this.actions, i));
+          .forEach(i => this.actions().add.apply(this.actions(), i));
 
         KorAP.Plugin.clearButtonGroup("result");
       };
@@ -51,7 +51,7 @@ define([
     addKqAction : function () {
 
       // Open KoralQuery view
-      const kqButton = this.actions.add(
+      const kqButton = this.actions().add(
         loc.SHOW_KQ,
         {'cls':['show-kq','button-icon']},
         function () {
@@ -89,7 +89,7 @@ define([
       /**
        * Toggle the alignment (left <=> right)
        */
-      this.actions.add(loc.TOGGLE_ALIGN, {'cls':['align','right','button-icon']}, function (e) {
+      this.actions().add(loc.TOGGLE_ALIGN, {'cls':['align','right','button-icon']}, function (e) {
         var olCl = d.querySelector('#search > ol').classList;
 
         aRoll.find(function(align, i) {

@@ -26,14 +26,14 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       if (classes)
         c.push.apply(c,classes);
       
-      this.actions = buttonGroupClass.create(c).bind(this);
+      this._actions = buttonGroupClass.create(c).bind(this);
 
-      this.actions.add(loc.CLOSE, {'cls':['button-icon','close']}, function (e) {
+      this._actions.add(loc.CLOSE, {'cls':['button-icon','close']}, function (e) {
         this.close();
       });
 
       // Warning: This is circular
-      this.actions.view = this;
+      this._actions.view = this;
 
       return this;
     },
@@ -68,11 +68,20 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       this._shown = true;
 
-      e.appendChild(this.actions.element());
+      e.appendChild(this.actions().element());
 
       return this._el = e;
     },
 
+
+    /**
+     * The actions of the view.
+     * Can be represented as a buttongroup,
+     * a list, ..., requires an "add()" minimum at least.
+     */
+    actions : function () {
+      return this._actions;
+    },
 
     /**
      * Is the object shown?

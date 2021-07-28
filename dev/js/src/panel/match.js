@@ -36,7 +36,7 @@ define([
 
       this._match = match;
 
-      const a = this.actions;
+      const a = this.actions();
 
       // TODO:
       //   Ugly hack!
