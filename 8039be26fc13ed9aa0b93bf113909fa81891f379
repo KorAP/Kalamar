@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f01c0e4_c6eec504",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-28T08:43:53Z",
+      "side": 1,
+      "message": "The advantage of this change is, that we can abstract away the need for buttonGroups as action items in panels and views. The only requirement for action objects will be to support an \"add()\" method for new actions. Currently an \"addToggle()\" method would also be required, but I guess we can abstract this away somehow.",
+      "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
