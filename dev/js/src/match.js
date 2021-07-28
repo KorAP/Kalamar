@@ -166,7 +166,7 @@ define([
 
       // Insert before reference line
       refLine.insertBefore(
-        t.panel.actions.element(),
+        t.panel.actions().element(),
         refLine.firstChild
       );
 

@@ -259,7 +259,7 @@ define([
     if (resultInfo != null) {
 
       // Move buttons to resultinfo
-      resultInfo.appendChild(resultPanel.actions.element());
+      resultInfo.appendChild(resultPanel.actions().element());
 
       // The views are at the top of the search results
       var sb = d.getElementById('search');

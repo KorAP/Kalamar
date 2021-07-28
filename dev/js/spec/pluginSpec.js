@@ -168,7 +168,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
         }]
       });
 
-      let b = p.actions.element().firstChild;
+      let b = p.actions().element().firstChild;
       expect(b.hasAttribute("data-icon")).toBeFalsy();
       expect(b.hasAttribute("cls")).toBeFalsy();
       expect(b.getAttribute("title")).toEqual("Add");
@@ -209,7 +209,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
         }]
       });
 
-      let b = p.actions.element().firstChild;
+      let b = p.actions().element().firstChild;
       expect(b.hasAttribute("data-icon")).toBeFalsy();
       expect(b.hasAttribute("cls")).toBeFalsy();
       expect(b.getAttribute("title")).toEqual("Add");
@@ -268,7 +268,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       expect(alertMsg).toBeUndefined();
 
-      let b = p.actions.element().firstChild;
+      let b = p.actions().element().firstChild;
       b.click();
 
       // This may only be temporary and should open the plugin window instead
@@ -307,7 +307,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       expect(alertMsg).toBeUndefined();
 
-      let b = p.actions.element().firstChild;
+      let b = p.actions().element().firstChild;
       b.click();
 
       // This may only be temporary and should open the plugin window instead
@@ -338,7 +338,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
         }]
       });
 
-      let b = p.actions.element().firstChild;
+      let b = p.actions().element().firstChild;
       b.click();
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
       expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts');
@@ -522,7 +522,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       });
 
       expect(manager.buttonGroup('result').length).toEqual(0);
-      expect(KorAP.Panel['result'].actions.element().innerHTML).toContain('Dosomething');
+      expect(KorAP.Panel['result'].actions().element().innerHTML).toContain('Dosomething');
 
       // Clean up
       KorAP.Panel['result'] = undefined;
@@ -553,7 +553,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Panel = KorAP.Panel || {};
       KorAP.Panel['result'] = resultPanel;
       expect(KorAP.Plugin.buttonGroup('result').length).toEqual(0);
-      expect(KorAP.Panel['result'].actions.element().innerHTML).toContain('Dosomething');
+      expect(KorAP.Panel['result'].actions().element().innerHTML).toContain('Dosomething');
      
       // Clean up
       KorAP.Panel['result'] = undefined;

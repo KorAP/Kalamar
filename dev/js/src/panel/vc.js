@@ -28,7 +28,7 @@ define([
     
     _init : function(vc){
      this.vc = vc;
-     const actions = this.actions;
+      const actions = this.actions();
       actions.add(loc.SHOW_STAT, {'cls':['statistic']}, function() {
         this.addCorpStat();
       }.bind(this));

@@ -32,17 +32,27 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
       if (classes)
         c.push.apply(c,classes);
 
-      t.actions = buttonGroupClass.create(c).bind(this);
+      t._actions = buttonGroupClass.create(c).bind(this);
 
       //prepend or append views of the panel
       t.prepend = false;
       
       // Warning: This is circular
-      t.actions.panel = t;
+      t._actions.panel = t;
       return t;
     },
 
+
+    /**
+     * The actions of the panel.
+     * Can be represented as a buttongroup,
+     * a list, ..., requires an "add()" minimum at least.
+     */
+    actions : function () {
+      return this._actions;
+    },
     
+
     /**
      * The element of the panel
      */
@@ -62,7 +72,7 @@ define(['buttongroup', 'util'], function (buttonGroupClass) {
 
       // Per default the action buttons are below the view
       // and integrated
-      const aElem = this.actions.element();
+      const aElem = this.actions().element();
       if (!aElem.parentNode)
         e.appendChild(aElem);
 
