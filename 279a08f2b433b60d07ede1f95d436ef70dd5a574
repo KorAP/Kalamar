@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9398be5c_e9465dca",
+        "filename": "dev/demo/plugin-serverdemo.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-07-28T13:40:49Z",
+      "side": 1,
+      "message": "There is a redundancy: line 50 and 52",
+      "revId": "279a08f2b433b60d07ede1f95d436ef70dd5a574",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
