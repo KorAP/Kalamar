@@ -16,6 +16,23 @@
       "message": "The advantage of this change is, that we can abstract away the need for buttonGroups as action items in panels and views. The only requirement for action objects will be to support an \"add()\" method for new actions. Currently an \"addToggle()\" method would also be required, but I guess we can abstract this away somehow.",
       "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc88d610_59cf7c80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-28T09:07:59Z",
+      "side": 1,
+      "message": "I guess the best approach would be to have buttons of different types, that can be part of a buttongroup or a list. The button can be created early and will be initialized whenever visible (so there are not hundreds of button elements created for match plugins without any need). Buttons could then also be togglebuttons, that can directly be added and could appear in buttongroups as well as lists. And buttons could also have a heartbeat mechanism as described in https://github.com/KorAP/Kalamar/issues/145 . What do you think?",
+      "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
