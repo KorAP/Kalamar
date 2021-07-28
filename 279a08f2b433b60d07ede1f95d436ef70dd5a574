@@ -34,6 +34,24 @@
       "parentUuid": "9398be5c_e9465dca",
       "revId": "279a08f2b433b60d07ede1f95d436ef70dd5a574",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db86135_5744d524",
+        "filename": "dev/demo/plugin-serverdemo.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-28T14:43:08Z",
+      "side": 1,
+      "message": "Thank you! Sorry - I guess I didn\u0027t checked this properly. Fixed in patch.",
+      "parentUuid": "9398be5c_e9465dca",
+      "revId": "279a08f2b433b60d07ede1f95d436ef70dd5a574",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
