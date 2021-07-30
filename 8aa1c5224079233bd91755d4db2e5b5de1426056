@@ -39,6 +39,30 @@
       },
       "revId": "8aa1c5224079233bd91755d4db2e5b5de1426056",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e08d805_c24b2f4d",
+        "filename": "dev/js/spec/menuSpec.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-07-30T10:43:49Z",
+      "side": 1,
+      "message": "Oh - right. I guess I meant \"expandable\". :-) But already merged. Will prepare a new commit.",
+      "parentUuid": "db154f86_71b4dbae",
+      "range": {
+        "startLine": 1495,
+        "startChar": 20,
+        "endLine": 1495,
+        "endChar": 30
+      },
+      "revId": "8aa1c5224079233bd91755d4db2e5b5de1426056",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
