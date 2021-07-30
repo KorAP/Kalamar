@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9892160_bcafa860",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-30T13:34:52Z",
+      "side": 1,
+      "message": "Strawbery Perl does not allow changing your perl version easily for development purposes. If an installation as close as possible to a Perlbrew installation unter Linux is wanted, install Berrybrew (https://github.com/stevieb9/berrybrew), a windows version of Perlbrew, to allow for Perl version switching. Installing Strawberry Perl can then be done via Berrybrew. Install cpanminus here then too.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 72
+      },
+      "revId": "282e1e2f22d5b257487d613ee83ee6f37b1d53ae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74fc4f49_4f268140",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-07-30T13:34:52Z",
+      "side": 1,
+      "message": "Diese Sachen habe ich noch nicht getestet, aber ich nehme mal an, dass das geht.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 18
+      },
+      "revId": "282e1e2f22d5b257487d613ee83ee6f37b1d53ae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
