@@ -33,6 +33,23 @@
       "message": "I guess the best approach would be to have buttons of different types, that can be part of a buttongroup or a list. The button can be created early and will be initialized whenever visible (so there are not hundreds of button elements created for match plugins without any need). Buttons could then also be togglebuttons, that can directly be added and could appear in buttongroups as well as lists. And buttons could also have a heartbeat mechanism as described in https://github.com/KorAP/Kalamar/issues/145 . What do you think?",
       "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c28afb_e2b93f93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-08-03T10:03:00Z",
+      "side": 1,
+      "message": "Sounds good :)!",
+      "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
