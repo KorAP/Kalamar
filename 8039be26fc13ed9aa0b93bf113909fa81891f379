@@ -67,6 +67,24 @@
       "message": "Maybe we should add here that right now addToggle() is required too and delete it later(when the implement the abstraction).",
       "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bcd1787_4a7de8ed",
+        "filename": "dev/js/src/view.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-08-03T16:57:11Z",
+      "side": 1,
+      "message": "Good idea! I have added a comment directly to \"addToggle()\", saying it should be removed.",
+      "parentUuid": "8bc610a6_2b9f8ab2",
+      "revId": "8039be26fc13ed9aa0b93bf113909fa81891f379",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
