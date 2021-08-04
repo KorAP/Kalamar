@@ -1,6 +1,6 @@
 % layout 'main', schematype => 'SearchResultsPage';
 
-<div id="pagination"><%= pagination(stash('start_page'), stash('total_pages'), url_with->query({'p' => '{page}'})) =%></div>
+<div id="pagination" class="button-group button-panel"><%= pagination(stash('start_page'), stash('total_pages'), url_with->query({'p' => '{page}'})) =%></div>
 
 <div id="resultinfo" <% if (stash('results')->size) { %> class="found"<%} %>>
 % my $found = stash('total_results') // 0;
