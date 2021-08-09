@@ -1507,7 +1507,7 @@ define(
 
       xit('should scroll to a chosen value after prefixing, if the chosen value is live');
 
-      it('should be expendable', function () {
+      it('should be expandable', function () {
         var menu = menuClass.create([]);
         let entryData = 'empty';
         menu.readItems([
