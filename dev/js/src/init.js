@@ -170,7 +170,7 @@ define([
 
       // Define class for active elements
       if (e.classList.contains('active')) {
-        if (this._match === undefined) {
+        if (e._match === undefined) {
           // lazyLoad
           matchClass.create(e).init();
         };
@@ -204,7 +204,7 @@ define([
           };
         });
       };
-    }, this);
+    });
     
     // Add focus listener to aside
     var aside = d.getElementsByTagName('aside')[0];
