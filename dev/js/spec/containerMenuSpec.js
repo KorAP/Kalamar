@@ -45,31 +45,13 @@ define(
         this.value = this.value + this.value;
       },
       onclick : function () {
-      },
-      element : function () {
-        // already defined
-        if (this._el !== undefined) return this._el;
-        
-        // Create list item
-        const li = document.createElement("li");
-        li.innerHTML="CI";
-    
-        // Connect action
-        if (this["onclick"] !== undefined) {
-          li["onclick"] = this.onclick.bind(this);
-        };    
-        return this._el = li;
       }
     };
 
     //List of items.
     var ExampleItemList = new Array;
-    ExampleItemList.push(OwnContainerItemClass.create());
-    ExampleItemList.push(OwnContainerItemClass.create());
-    ExampleItemList[0].value = "CIValue1 ";
-    ExampleItemList[1].value = "CIValue2 ";
-    ExampleItemList[0].element().innerHTML = "CIText1 ";
-    ExampleItemList[1].element().innerHTML = "CIText2 ";
+    ExampleItemList.push({value : "CIValue1" , defaultTextValue : "CIText1 "});
+    ExampleItemList.push({value : "CIValue2" , defaultTextValue : "CIText2 "});
 
     //Own container class.
     const OwnContainerClass = {
@@ -228,9 +210,9 @@ define(
         expect(liElements[2].classList.contains("no-more")).toBe(false);
 
         var items = menu.container().items;
-        expect(items[0].element().innerHTML).toEqual("CIText1 ");
-        expect(items[1].element().innerHTML).toEqual("CIText2 ");
-        expect(items[2].element().innerHTML).toEqual("");
+        expect(items[0].content().nodeValue).toEqual("CIText1 ");
+        expect(items[1].content().nodeValue).toEqual("CIText2 ");
+        expect(items[2].element().innerHTML).toEqual(""); //prefix!
         expect(items[3]).toBe(undefined);
       });
 
@@ -2026,11 +2008,11 @@ define(
         expect(container.element().nodeName).toEqual("UL");
         expect(container.element().classList.contains("menu")).toBeTruthy();
         expect(container.element().classList.contains("visible")).toBeFalsy();
-        expect(menu._prefix).toEqual(container._prefix);
+        expect(menu._prefix).toEqual(container._cItemPrefix);
         expect(container.length()).toEqual(1);
         expect(container.length()).toEqual(container.items.length);
         expect(container.liveLength()).toEqual(0);
-        expect(container.item(0)).toEqual(container._prefix);
+        expect(container.item(0)).toEqual(container._cItemPrefix);
         expect(container.active()).toBeFalsy();
         expect(directElementChildrenByTagName(menu.element(),"pref")).toEqual([]);
         expect(container.element().getElementsByClassName("pref").length).toEqual(1);
@@ -2042,6 +2024,99 @@ define(
         menu.prev();
         expect(container.active()).toBeTruthy();
 
+        
+      });
+
+      it("should support dynamic changing of text content", function () {
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        var container = menu.container();
+        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).content()).toEqual(undefined);
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(0).content("New1").nodeValue).toEqual("New1");
+        expect(container.item(1).content("New2").nodeValue).toEqual("New2");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).content()).toEqual(undefined);
+        
+        
+      });
+
+      it("should support dynamic adding of items", function () {
+
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        var container = menu.container();
+        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2)).toBeDefined();
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        container.addItem({defaultTextValue : "CIText2 "});
+        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(2).content().nodeValue).toEqual("CIText2 ");
+        expect(container.item(3)).toBeDefined();
+        expect(container.item(3).content()).toEqual(undefined);
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        container.add("a");
+
+        menu.next();
+        menu.next();
+        menu.next();
+        menu.next();
+        menu.next();
+        expect(container.item(0).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(1).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(2).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(3).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(3).active()).toBeFalsy();
+        menu.prev();
+        expect(container.item(3).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(2).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(1).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(0).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(0).active()).toBeFalsy();
+
+        
         
       });
 
