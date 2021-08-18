@@ -148,12 +148,16 @@ my $content = $t->get_ok('/nonce')
 $content =~ q!<script nonce="(.{20})"!;
 like($content, qr/nonce-\Q$1\E/);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Use containerMenu as a base for HintMenu instead of regular menu
 # Disable csp
 $t = Test::Mojo->new(Mojolicious::Lite->new);
 $t->app->plugin('Kalamar::Plugin::CSP' => {
   '-disable' => 1
 });
+<<<<<<< HEAD
 
 $t->app->routes->get('/' => sub {
   shift->render(text => 'hello world');
@@ -162,6 +166,13 @@ $t->app->routes->get('/' => sub {
 $t->app->csp->add('script-src', '*');
 is($t->app->csp_nonce_tag,'');
 
+=======
+$t->app->routes->get('/' => sub {
+  shift->render(text => 'hello world');
+});
+$t->app->csp->add('script-src', '*');
+is($t->app->csp_nonce_tag,'');
+>>>>>>> Use containerMenu as a base for HintMenu instead of regular menu
 $t->get_ok('/')
   ->status_is(200)
   ->content_is('hello world')
