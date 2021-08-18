@@ -18,7 +18,8 @@
         - Add support for "adopted" button groups and anchor children
           to prepend to.
         - New menu class that has a container for further
-          entries at the very end that is always available. (lerepp)
+          entries at the very end that is always available (lerepp).
+        - HintMenu is now based on containerMenu instead of regular menu (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

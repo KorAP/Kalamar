@@ -272,7 +272,6 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       hint.inputField().insert('der Baum corenlp/');
 
       var cont = hint.inputField().container();
-      
       expect(cont.getElementsByTagName('div').length).toBe(1);
       expect(cont.getElementsByTagName('ul').length).toBe(0);
       expect(cont.firstChild).toEqual(cont.firstChild);
@@ -281,34 +280,34 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       // There is a menu for corenlp/
       hint.show(false);
 
-      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
-      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(3);
+      expect(cont.getElementsByTagName('ul').length).toEqual(1+1); //+1 from containermenu (see container/container.js)
+      expect(cont.getElementsByTagName('li').length).toEqual(3);
       
       // Hide the menu and focus on the input
       hint.unshow();
       
-      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(1);
-      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(0);
+      expect(cont.getElementsByTagName('div').length).toEqual(1);
+      expect(cont.getElementsByTagName('li').length).toEqual(0);
 
       hint.unshow();
 
       hint.inputField().insert(' hhhh');
 
-      // show with context
+      // show with context if possible
       hint.show(false);
       
-      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(4);
-      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(1);
-      expect(hint.inputField().container().getElementsByTagName('li').length).toEqual(2);
+      expect(cont.getElementsByTagName('div').length).toEqual(4);
+      expect(cont.getElementsByTagName('ul').length).toEqual(1+1);//+1 from containermenu (see container/container.js)
+      expect(cont.getElementsByTagName('li').length).toEqual(2);
 
       hint.unshow();
       hint.inputField().insert(' aaaa/');
 
-      // show with context
+      // show with context necessarily
       hint.show(true);
 
-      expect(hint.inputField().container().getElementsByTagName('div').length).toEqual(1);
-      expect(hint.inputField().container().getElementsByTagName('ul').length).toEqual(0);
+      expect(cont.getElementsByTagName('div').length).toEqual(1);
+      expect(cont.getElementsByTagName('ul').length).toEqual(0); //here not +1: context doesnt fit
     });
 
 
@@ -324,25 +323,25 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       hint.show(false);
 
       expect(hint.active()).toBeTruthy();
-      
-      expect(hint.inputField().container().getElementsByTagName('li')[0].firstChild.innerText).toEqual("Base Annotation");
+      var cont = hint.inputField().container();
+      expect(cont.getElementsByTagName('li')[0].firstChild.innerText).toEqual("Base Annotation");
 
       // Type in prefix
       hint.active().prefix("cor").show();
       expect(hint.active().prefix()).toEqual("cor");
 
       // Click first step
-      expect(hint.inputField().container().getElementsByTagName('li')[0].firstChild.firstChild.innerText).toEqual("Cor");
-      hint.inputField().container().getElementsByTagName('li')[0].click();
+      expect(cont.getElementsByTagName('li')[0].firstChild.firstChild.innerText).toEqual("Cor");
+      cont.getElementsByTagName('li')[0].click();
 
       expect(hint.active()).toBeTruthy();
       
       // Click second step
-      expect(hint.inputField().container().getElementsByTagName('li')[0].firstChild.innerText).toEqual("Named Entity");
-      hint.inputField().container().getElementsByTagName('li')[0].click()
+      expect(cont.getElementsByTagName('li')[0].firstChild.innerText).toEqual("Named Entity");
+      cont.getElementsByTagName('li')[0].click()
 
       // Invisible menu
-      expect(hint.inputField().container().getElementsByTagName('li')[0]).toBeUndefined();
+      expect(cont.getElementsByTagName('li')[0]).toBeUndefined();
 
       // Inactive menu
       expect(hint.active()).toBeFalsy();
@@ -420,10 +419,13 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
 
       // Type in prefix
       hint.active().prefix("cor").show();
+      console.log(hint.active());//.prefix());
       expect(hint.active().prefix()).toEqual("cor");
 
       expect(input.value).toEqual("");
       hint.active()._prefix.element().click();
+      //console.log(hint.active()._prefix.element().click);
+      
       expect(input.value).toEqual("cor");
       expect(hint.active()).toBeFalsy();
 
