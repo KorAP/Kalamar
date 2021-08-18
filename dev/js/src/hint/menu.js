@@ -5,12 +5,12 @@
 "use strict";
 
 define([
-  'menu',
+  'containermenu',
 	'hint/item',
 	'hint/prefix',
 	'hint/lengthField'
 ], function (
-  menuClass,
+  containerMenuClass,
   itemClass,
   prefixClass,
   lengthFieldClass) {
@@ -21,13 +21,11 @@ define([
      * Create new hint helper menu.
      */
     create : function (hint, context, params) {
-      const obj = Object.create(menuClass)
-	        .upgradeTo(this)
-	        ._init(params, {
-	          itemClass : itemClass,
-	          prefixClass : prefixClass,
-	          lengthFieldClass : lengthFieldClass
-	        });
+      const obj = containerMenuClass.create(params, {
+        itemClass : itemClass,
+        prefixClass : prefixClass,
+        lengthFieldClass : lengthFieldClass})
+	      .upgradeTo(this);
       obj._context = context;
       obj._el.classList.add('hint');
       obj._hint = hint;
@@ -36,7 +34,7 @@ define([
       obj._firstActive = true;
 
       obj.element().addEventListener('blur', function (e) {
-        this.menu.hide(); // WithoutDestruction();
+        this.menu.hide(); // WithoutDestruction(); //REMOVE???
       });
 
       // Focus on input field on hide
