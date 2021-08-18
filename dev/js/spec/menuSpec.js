@@ -3,9 +3,9 @@ define(
   function (menuClass, menuItemClass, prefixClass, lengthFieldClass) {
  
     // The OwnMenu item
-    KorAP.OwnMenuItem = {
+    const OwnMenuItem = {
       create : function (params) {
-        return Object.create(menuItemClass).upgradeTo(KorAP.OwnMenuItem)._init(params);
+        return Object.create(menuItemClass).upgradeTo(this)._init(params);
       },
       content : function (content) {
         if (arguments.length === 1) {
@@ -25,20 +25,20 @@ define(
     };
 
     // The OwnMenu
-    KorAP.OwnMenu = {
+    const OwnMenu = {
       create : function (list) {
         return Object.create(menuClass)
-	        .upgradeTo(KorAP.OwnMenu)
-	        ._init(list, { itemClass : KorAP.OwnMenuItem });
+	        .upgradeTo(this)
+	        ._init(list, { itemClass : OwnMenuItem });
       }
     };
 
 
     // HintMenuItem
-    KorAP.HintMenuItem = {
+    const HintMenuItem = {
       create : function (params) {
         return Object.create(menuItemClass)
-	        .upgradeTo(KorAP.HintMenuItem)
+	        .upgradeTo(this)
 	        ._init(params);
       },
       content : function (content) {
@@ -99,11 +99,11 @@ define(
 
 
     // HintMenu
-    KorAP.HintMenu = {
+    const HintMenu = {
       create : function (context, list) {
         var obj = Object.create(menuClass)
-	          .upgradeTo(KorAP.HintMenu)
-	          ._init(list, {itemClass : KorAP.HintMenuItem});
+	          .upgradeTo(this)
+	          ._init(list, {itemClass : HintMenuItem});
         obj._context = context;
         return obj;
       }
@@ -111,10 +111,10 @@ define(
 
 
     // The ComplexMenuItem
-    KorAP.ComplexMenuItem = {
+    const ComplexMenuItem = {
       create : function (params) {
         return Object.create(menuItemClass)
-	        .upgradeTo(KorAP.ComplexMenuItem)
+	        .upgradeTo(this)
 	        ._init(params);
       },
       content : function (content) {
@@ -149,21 +149,21 @@ define(
         ).toThrow(new Error("Missing parameters"));
 
         expect(
-	        function() { KorAP.OwnMenuItem.create([]) }
+	        function() { OwnMenuItem.create([]) }
         ).toThrow(new Error("Missing parameters"));
 
-        var mi = KorAP.OwnMenuItem.create(["Baum"]);
+        var mi = OwnMenuItem.create(["Baum"]);
         expect(mi.element().firstChild.nodeValue).toEqual('Baum');
         expect(mi.lcField()).toEqual(' baum');
       });
 
       it('shouldn\'t have a reference to the menu', function () {
-        var menuItem = KorAP.OwnMenuItem.create(['Test']);
+        var menuItem = OwnMenuItem.create(['Test']);
         expect(menuItem.menu()).toBe(undefined);
       });
 
       it('should be activatable and deactivateable by class', function () {
-        var menuItem = KorAP.OwnMenuItem.create(['Test']);
+        var menuItem = OwnMenuItem.create(['Test']);
 
         expect(menuItem.active()).toBe(false);
         expect(menuItem.element().getAttribute("class")).toBe(null);
@@ -177,7 +177,7 @@ define(
         expect(menuItem.active()).toBe(true);
         expect(menuItem.element().getAttribute("class")).toEqual("active");
 
-        menuItem = KorAP.OwnMenuItem.create(['Spiegel']);
+        menuItem = OwnMenuItem.create(['Spiegel']);
         expect(menuItem.active()).toBe(false);
         expect(menuItem.element().getAttribute("class")).toBe(null);
         menuItem.active(false); // Is not active
@@ -186,7 +186,7 @@ define(
       });
 
       it('should be set to boundary', function () {
-        var menuItem = KorAP.OwnMenuItem.create(['CoreNLP']);
+        var menuItem = OwnMenuItem.create(['CoreNLP']);
         expect(menuItem.active()).toBe(false);
         expect(menuItem.element().getAttribute("class")).toBe(null);
 
@@ -225,7 +225,7 @@ define(
 
       it('should be highlightable', function () {
         // Highlight in the middle
-        var menuItem = KorAP.OwnMenuItem.create(['CoreNLP']);
+        var menuItem = OwnMenuItem.create(['CoreNLP']);
         menuItem.highlight("ren");
         expect(menuItem.element().innerHTML).toEqual("Co<mark>reN</mark>LP");
 
@@ -235,7 +235,7 @@ define(
         var plain = "<div><h1>CoreNLP</h1><h2>corenlp/</h2></div>";
 
         // Starting highlight
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
         menuItem.highlight("cor");
         expect(menuItem.element().innerHTML).toEqual("<div><h1><mark>Cor</mark>eNLP</h1><h2><mark>cor</mark>enlp/</h2></div>");
 
@@ -243,7 +243,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Starting highlight - short
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
         menuItem.highlight("c");
         expect(menuItem.element().innerHTML).toEqual("<div><h1><mark>C</mark>oreNLP</h1><h2><mark>c</mark>orenlp/</h2></div>");
 
@@ -251,7 +251,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight at the end
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
         menuItem.highlight("nlp");
         expect(menuItem.element().innerHTML).toEqual("<div><h1>Core<mark>NLP</mark></h1><h2>core<mark>nlp</mark>/</h2></div>");
 
@@ -259,7 +259,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight at the end - short
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
         menuItem.highlight("p");
         expect(menuItem.element().innerHTML).toEqual("<div><h1>CoreNL<mark>P</mark></h1><h2>corenl<mark>p</mark>/</h2></div>");
 
@@ -267,7 +267,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // No highlight
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/']);
         menuItem.highlight("xp");
         expect(menuItem.element().innerHTML).toEqual(plain);
 
@@ -275,7 +275,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight in the middle - first
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
         menuItem.highlight("ren");
         expect(menuItem.element().innerHTML).toEqual("<div><h1>Co<mark>reN</mark>LP</h1><h2>co<mark>ren</mark>lp/</h2><h3>This is my Example</h3></div>");
 
@@ -285,7 +285,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight in the middle - second
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
         menuItem.highlight("ampl");
         expect(menuItem.element().innerHTML).toEqual("<div><h1>CoreNLP</h1><h2>corenlp/</h2><h3>This is my Ex<mark>ampl</mark>e</h3></div>");
 
@@ -293,7 +293,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight in the middle - both
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
         menuItem.highlight("e");
 
         expect(menuItem.element().innerHTML).toEqual("<div><h1>Cor<mark>e</mark>NLP</h1><h2>cor<mark>e</mark>nlp/</h2><h3>This is my <mark>E</mark>xampl<mark>e</mark></h3></div>");
@@ -302,7 +302,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight in the end - second
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
         menuItem.highlight("le");
         expect(menuItem.element().innerHTML).toEqual("<div><h1>CoreNLP</h1><h2>corenlp/</h2><h3>This is my Examp<mark>le</mark></h3></div>");
 
@@ -310,7 +310,7 @@ define(
         expect(menuItem.element().innerHTML).toEqual(plain);
 
         // Highlight at the beginning - second
-        menuItem = KorAP.ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
+        menuItem = ComplexMenuItem.create(['CoreNLP', 'corenlp/', 'This is my Example']);
         menuItem.highlight("this");
         expect(menuItem.element().innerHTML).toEqual("<div><h1>CoreNLP</h1><h2>corenlp/</h2><h3><mark>This</mark> is my Example</h3></div>");
 
@@ -373,10 +373,10 @@ define(
 	        ["Syntax"]
         ];
 
-        var menu = KorAP.OwnMenu.create(list);
+        var menu = OwnMenu.create(list);
         expect(menu.dontHide).toBe(false);
         menu._firstActive = true;
-        expect(menu.itemClass()).toEqual(KorAP.OwnMenuItem);
+        expect(menu.itemClass()).toEqual(OwnMenuItem);
         expect(menu.element().nodeName).toEqual('UL');
         expect(menu.element().classList.contains('visible')).toBeFalsy();
         expect(menu.limit()).toEqual(8);
@@ -404,15 +404,15 @@ define(
       });
 
       it('should have a reference to the menu', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         expect(menu.item(0).menu()).toEqual(menu);
 
-        menu = KorAP.HintMenu.create("cnx/", list);
+        menu = HintMenu.create("cnx/", list);
         expect(menu.element().menu).toEqual(menu);
       });
       
       it('should only remove direct descendants with removeItems', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         var newUL = document.createElement("ul");
         var newLI = document.createElement("li");
         newUL.appendChild(newLI);
@@ -428,7 +428,7 @@ define(
 
 
       it('should be visible', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         expect(menu.removeItems()).toBe(undefined);
         menu.limit(3);
 
@@ -447,7 +447,7 @@ define(
       });
 
       it('should be filterable', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu.limit(3);
         expect(menu.prefix("o").show()).toBe(true);
         expect(menu.element().getElementsByClassName("pref")[0].innerHTML).toEqual("o");
@@ -492,7 +492,7 @@ define(
       });
 
       it('should be nextable', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu._firstActive = true;
 
         // Show only 3 items
@@ -569,7 +569,7 @@ define(
       });
 
       it('should be nextable without active field', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu.limit(3);
         expect(menu.show()).toBe(true);
         menu.next();
@@ -578,7 +578,7 @@ define(
 
 
       it('should be prevable', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu._firstActive = true;
         menu.limit(3);
         expect(menu.show()).toBe(true);
@@ -666,7 +666,7 @@ define(
       });
 
       it('should be prevable without active field', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu.limit(3);
         expect(menu.show()).toBe(true);
         menu.prev();
@@ -675,7 +675,7 @@ define(
       });
 
       it('should be navigatable and filterable (prefix = "o")', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu._firstActive = true;
         menu.limit(2);
 
@@ -730,7 +730,7 @@ define(
 
 
       it('should be navigatable and filterable (prefix = "ex", "e")', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu._firstActive = true;
 
         menu.limit(2);
@@ -817,7 +817,7 @@ define(
       });
 
       it('should be filterable (multiple prefix = "pro sin")', function () {
-        var menu = KorAP.HintMenu.create("drukola/p=", listMultiPrefix);
+        var menu = HintMenu.create("drukola/p=", listMultiPrefix);
         menu._firstActive = true;
 
         menu.limit(2);
@@ -836,7 +836,7 @@ define(
       });
 
       it('should be filterable (trimming = " p")', function () {
-        var menu = KorAP.HintMenu.create("/p=", listMultiPrefix);
+        var menu = HintMenu.create("/p=", listMultiPrefix);
         // menu._firstActive = true;
 
         menu.limit(2);
@@ -854,7 +854,7 @@ define(
 
       
       it('should choose prefix with failing prefix (1)', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu.limit(2);
         expect(menu.prefix("exit").show()).toBe(true);
         expect(menu.element().querySelector('li')).toBe(null);
@@ -864,7 +864,7 @@ define(
 
 
       it('should choose prefix with failing prefix (2)', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu.limit(2);
         expect(menu.show()).toBe(true);
         expect(menu.prefix("exit").show()).toBe(true);
@@ -874,7 +874,7 @@ define(
       });
 
       it('should ignore navigation with failing prefix', function () {
-        var menu = KorAP.HintMenu.create("cnx/", list);
+        var menu = HintMenu.create("cnx/", list);
         menu.limit(2);
         expect(menu.show()).toBe(true);
 
@@ -894,7 +894,7 @@ define(
       });
 
       it('should be navigatable with prefix', function () {
-        var menu = KorAP.HintMenu.create("cnx/", demolist);
+        var menu = HintMenu.create("cnx/", demolist);
         menu._firstActive = true;
 
         menu.limit(3);
@@ -1031,7 +1031,7 @@ define(
 
 
       it('should be navigatable with a prefix (1)', function () {
-        var menu = KorAP.HintMenu.create("cnx/", demolist);
+        var menu = HintMenu.create("cnx/", demolist);
         menu._firstActive = true;
 
         menu.limit(3);
@@ -1093,7 +1093,7 @@ define(
 
 
       it('should be navigatable with a prefix (2)', function () {
-        var menu = KorAP.HintMenu.create("cnx/", demolist);
+        var menu = HintMenu.create("cnx/", demolist);
         menu._firstActive = true;
 
         menu.limit(3);
@@ -1138,7 +1138,7 @@ define(
       });
 
       it('should be navigatable with a prefix (3)', function () {
-        var menu = KorAP.HintMenu.create("cnx/", demolist);
+        var menu = HintMenu.create("cnx/", demolist);
         menu._firstActive = true;
         menu.limit(3);
         expect(menu.show()).toBe(true);
@@ -1183,7 +1183,7 @@ define(
       });
 
       it('should show screens by offset', function () {
-        var menu = KorAP.HintMenu.create('cnx/', demolist);
+        var menu = HintMenu.create('cnx/', demolist);
         menu.limit(3);
         expect(menu.show()).toBe(true);
 
@@ -1242,7 +1242,7 @@ define(
       });
 
       it('should show screens by offset when prefixed', function () {
-        var menu = KorAP.HintMenu.create('cnx/', demolist);
+        var menu = HintMenu.create('cnx/', demolist);
         menu.limit(3);
         expect(menu.prefix("e").show()).toBe(true);
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1256,7 +1256,7 @@ define(
 
 
       it('should be page downable', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
         menu.limit(3);
 
         expect(menu.show(0)).toBe(true);
@@ -1291,7 +1291,7 @@ define(
       });
 
       it('should be page downable with prefix', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
         menu.limit(3);
 
         expect(menu.prefix('e').show(0)).toBe(true);
@@ -1326,7 +1326,7 @@ define(
 
 
       it('should be page upable', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
         menu.limit(3);
 
         // Choose the final value
@@ -1362,7 +1362,7 @@ define(
       });
 
       it('should be page upable with prefix', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
         menu.limit(3);
 
         // Choose the final value
@@ -1397,7 +1397,7 @@ define(
       });
 
       it('should be view upable and downable (1)', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
         menu.limit(7);
 
         // Choose the final value
@@ -1441,7 +1441,7 @@ define(
       it('should be view upable and downable (2)', function () {
 
         // List is longer than limit
-        var menu = KorAP.OwnMenu.create(demolist);
+        var menu = OwnMenu.create(demolist);
         menu.limit(7);
 
         // Choose the final value
@@ -1471,7 +1471,7 @@ define(
 
       
       it('should scroll to a chosen value (1)', function () {
-        var menu = KorAP.OwnMenu.create(demolist);
+        var menu = OwnMenu.create(demolist);
         menu.limit(3);
 
         // Choose value 1
@@ -1494,7 +1494,7 @@ define(
       });
 
       it('should scroll to a chosen value (2)', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
 
         // Choose value 3
         expect(menu.limit(3).show(3)).toBe(true);
@@ -1645,7 +1645,7 @@ define(
 	        ["Syntax"]
         ];
 
-        var menu = KorAP.OwnMenu.create(list);
+        var menu = OwnMenu.create(list);
 
         expect(menu.lengthField().element().children.length).toEqual(5);
       });
@@ -1674,7 +1674,7 @@ define(
 	        ["Syntax"]
         ];
 
-        var menu = KorAP.OwnMenu.create(list);
+        var menu = OwnMenu.create(list);
 
         menu._firstActive = true;
         menu.limit(3);
@@ -1697,7 +1697,7 @@ define(
 	        ["Syntax"]
         ];
 
-        var menu = KorAP.OwnMenu.create(list);
+        var menu = OwnMenu.create(list);
 
         menu._firstActive = true;
         menu.limit(3);
@@ -1743,7 +1743,7 @@ define(
       });
 
       it('should correctly resize on prefixing', function () {
-        var menu = KorAP.OwnMenu.create(demolonglist);
+        var menu = OwnMenu.create(demolonglist);
         menu._firstActive = true;
         menu.limit(3);
 
@@ -1774,7 +1774,7 @@ define(
 	        ["Syntax"]
         ];
 
-        var menu = KorAP.OwnMenu.create(list);
+        var menu = OwnMenu.create(list);
 
         menu._firstActive = true;
         menu.limit(3);
