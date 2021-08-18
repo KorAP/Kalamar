@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d3a369b_e9b6ecd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-08-18T11:17:35Z",
+      "side": 1,
+      "message": "I guess this was dependent to KorAP.HintMenu at some point in time - however - it\u0027s not anymore.",
+      "revId": "85584550ec7ab21ffb7832d355bc951e8cdafa73",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
