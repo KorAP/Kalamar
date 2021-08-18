@@ -1,3 +1,5 @@
+window.KorAP = window.KorAP || {};
+
 KorAP.annotationHelper = KorAP.annotationHelper || { '-' : [] };
 
 "use strict";
