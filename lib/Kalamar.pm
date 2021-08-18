@@ -142,6 +142,13 @@ sub startup {
         'Access-Control-Allow-Methods' =>
           $h->header('Access-Control-Allow-Methods') // 'GET, POST, OPTIONS'
         );
+      #This is only for testing
+      $h->header('Access-Control-Allow-Origin' => '*'); #https://stackoverflow.com/questions/61161128/allow-cors-with-mojoliciouspluginsecurecors
+      $h->access_control_allow_origin('*');
+      $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS, POST, DELETE, PUT');
+      $h->header('Access-Control-Allow-Headers' => 'Content-Type' => 'application/json');
+      $h->header('Access-Control-Allow-Headers' => 'Origin, X-Requested-With, Accept, Authorization, Content-Type');
+      #end test
     }
   );
 

@@ -25,11 +25,12 @@ sub register {
 
   $r->add_type('qname' => qr![-_\.a-zA-Z0-9]+!);
 
-
+  
   # List queries
   $r->get('/query')->to(
     cb => sub {
       my $c = shift;
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
 
       # Use mock up
       if ($ENV{QUERY_REF_MOCKUP}) {
@@ -104,6 +105,7 @@ sub register {
   $r->put('/query/<qname:qname>')->to(
     cb => sub {
       my $c = shift;
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
       my $v = $c->validation;
 
       # Missing: definition
@@ -239,6 +241,7 @@ sub register {
   $r->delete('/query/<qname:qname>')->to(
     cb => sub {
       my $c = shift;
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
       my $qname = $c->stash('qname');
 
       # Use mock up
@@ -324,6 +327,7 @@ sub register {
   $r->get('/query/<qname:qname>')->to(
     cb => sub {
       my $c = shift;
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
       my $qname = $c->stash('qname');
 
       # Use mock up
