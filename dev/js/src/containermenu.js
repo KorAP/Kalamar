@@ -41,13 +41,13 @@ define([
       } else {
         obj._container = defaultContainerClass.create(containerList, params);
       }
-      obj.container().addMenu(obj);
+      obj.container().addMenu(obj); //this is your menu, container!
 
       // add entry to HTML element
       obj._el.appendChild(obj.container().element());
-      obj._el.removeChild(obj._prefix.element());
+      obj._el.removeChild(obj._prefix.element()); //different HTML element relationship required
       //Keep prefix as 'pref' style. The additional distance is fine.
-      obj.container().addPrefix(obj._prefix);
+      obj.container().addPrefix(obj._prefix); //creates containeritem as base for prefix that then is upgraded to prefix. Also ajust _menu chains.
       return obj;
     },
 
@@ -165,7 +165,7 @@ define([
      * @param {string} Prefix for filtering the list
      */
     show : function (active) {
-      //There are only four new lines, marked with NEW
+      //There are only five new lines, marked with NEW
       const t = this;
 
       // show menu based on initial offset
@@ -177,7 +177,7 @@ define([
       if (!t._initList()) {
 
         // The prefix is not active
-        t._prefix.active(true);        
+        //t._prefix.active(true);     //NEW: not used   
         t.container().makeActive(); //NEW Incase the own
         // list becomes empty we need to make container active for line 129 to work
 
@@ -249,6 +249,7 @@ define([
      * Hide the menu and call the onHide callback.
      */
     hide : function () { //only one new line
+      console.log("hide");
       if (!this.dontHide) {
         this.removeItems();
         this._prefix.clear();

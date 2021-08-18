@@ -7,7 +7,7 @@
 
 "use strict";
 define([
-  'container/containeritem'   //TODO why does this not work!!!
+  'container/containeritem'
 ], function (
   defaultContainerItemClass
 ) {
@@ -37,7 +37,7 @@ define([
       el.classList.add('menu', 'container'); //container class allows for more stylesheet changes
 
       this._el = el;
-      this._prefix = undefined; //required for re-setting the menus pointer correctly
+      this._cItemPrefix = undefined; //required for re-setting the menus pointer correctly
       // after having upgraded a new item scss style to the prefix object.
 
       this.items = new Array();
@@ -61,18 +61,41 @@ define([
 
     },
 
+    /**
+     * Adds a static item to this container by creating a standard containerItem as specified when this container was created,
+     * then upgrading it to the item passed to this function, and calling element() and content(). For a full list of supported functions see
+     * containeritem.js .
+     * Example:
+     * 
+     * menu.container().addItem(
+     *  {defaultTextValue : "dynamic", onClick : function (e) { ... }
+     * )
+     * 
+     *  For a full demo see containermenudemo.js.
+     * 
+     * @param {Object} item An object with any number of functions like in containeritem.js or an attribute defaultTextValue,
+     * as well as any number of own properties.
+     * @returns the new use-ready containerItem
+     */
     addItem : function (item) {
+      //Call Order: First _containerItemClass is created and then upgraded To whatever object is passed to this function
+      //Then container calls first element() and then container()
       var cItem = this._containerItemClass.create().upgradeTo(item);
       cItem._menu = this._menu; //if not set then undefined, but thats OK
       this.items.push(cItem);
+      if (this._cItemPrefix !== undefined){ //this must be dynamic adding of CIs, move prefix to the back
+        this.items.splice(this.items.indexOf(this._cItemPrefix) , 1); //remove cItemPrefix
+        this.items.push(this._cItemPrefix); //and move it to the end;
+      };
       this._el.appendChild(cItem.element());
+      cItem.content(); // create its textNode
       return cItem;
     },
 
     addMenu : function (menu) {
       this._menu = menu;
-      if (this._prefix !== undefined) {
-        this._menu._prefix = this._prefix; // better than going via classList or something
+      if (this._cItemPrefix !== undefined) {
+        this._menu._prefix = this._cItemPrefix; // better than going via classList or something
       };
       for (let item of this.items) {
         item._menu=menu;
@@ -84,8 +107,10 @@ define([
         return this.isSet(); //TODO check!
       }
       this._prefixPosition = this.items.length;
+      prefix.content = function (t) {}; //Does not need a textNode Child!
       var prefItem = this.addItem(prefix);
-      this._prefix = prefItem;
+      this._cItemPrefix = prefItem;
+      prefItem._el["onclick"] = prefItem.onclick.bind(prefItem);
       if (this._menu !== undefined){
         this._menu._prefix=prefItem;
       }
@@ -139,12 +164,12 @@ define([
      */
      makeActive : function () {
       if (this.position === undefined) {
-        if (this._prefix.isSelectable()) {
+        if (this._cItemPrefix.isSelectable()) {
           this.position = this._prefixPosition; //make prefix active if it exists
           this.item().active(true);
         } else if (this.liveLength() > 0) {
           this.position = 0;
-          this._prefix.active(false); // usually the menu makes the prefix active anyway.
+          this._cItemPrefix.active(false); // usually the menu makes the prefix active anyway.
           this.item().active(true);
         }
       }

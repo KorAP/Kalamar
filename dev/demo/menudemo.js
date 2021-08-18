@@ -21,8 +21,9 @@ require(['menu','menu/item', 'menu/prefix', 'menu/lengthField', 'selectMenu', 'h
     },
 
     // enter or click
-    onclick : function () {
+    onclick : function (event) {
       console.log(this._name);
+      event.halt();
     },
 
     // right arrow
