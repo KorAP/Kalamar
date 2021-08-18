@@ -17,7 +17,6 @@ sub register {
 
   my $with_nonce = delete $param->{-with_nonce};
   my $disabled   = delete $param->{-disable};
-
   if ($disabled) {
     $app->log->warn('CSP DISABLED!','NEVER USE IN PRODUCTION!');
   };
@@ -49,7 +48,7 @@ sub register {
   my $csp = \( generate(%directives) );
 
   # Add csp header
-  unless ($disabled) {
+    unless ($disabled) {
     $app->hook(
       before_dispatch => sub {
         my $c = shift;
@@ -92,7 +91,7 @@ sub register {
 
   $app->helper(
     csp_nonce_tag => sub {
-      my $c = shift;
+      my $c = shift;      
       if ($disabled || !$c->content_block_ok('nonce_js')) {
         return '';
       };
