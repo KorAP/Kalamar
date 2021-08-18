@@ -47,6 +47,8 @@
           lead to server crash.
         - Fix query-by-match for multiple colons.
         - Fix "menu below hint marker" bug.
+        - HintMenu is now based on containerMenu instead of regular
+          menu (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
