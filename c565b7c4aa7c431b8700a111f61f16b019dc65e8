@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "630fdb0b_4bc1ae3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-08-18T16:55:07Z",
+      "side": 1,
+      "message": "Fixes initialization problem in the hint demo.",
+      "revId": "c565b7c4aa7c431b8700a111f61f16b019dc65e8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
