@@ -1,24 +1,24 @@
 0.43 2021-07-28
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
-          that is always available (lerepp).
+          that is always available. (lerepp)
         - Fix error message in case of server error (500)
           response.
-        - Added utility funcition to menu that gets all direct
-          childNodes by a tag. Used in menu-style specs. (lerepp)
+        - Added utility funcition to util that gets all direct
+          childNodes of a given element by a tag or class. (lerepp)
         - Remove 'X-Frame-Options' in favor of 'frame-ancestors'
           as a CSP rule.
         - Fix CSS compression for new SASS compiler.
         - Support dynamic menu extensions.
         - Dynamically extend buttongroup menus.
         - Update to menu.js's removeItems function to only delete
-          direct childNodes aswell as a specification to test for it (lerepp)
+          direct childNodes aswell as a specification to test for it. (lerepp)
         - Make actions private in panels and views.
         - Move pagination out of resultinfo.
         - Add support for "adopted" button groups and anchor children
           to prepend to.
         - New menu class that has a container for further
-          entries at the very end that is always available (lerepp).
+          entries at the very end that is always available. (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
