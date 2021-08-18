@@ -37,7 +37,7 @@ define([
       el.classList.add('menu', 'container'); //container class allows for more stylesheet changes
 
       this._el = el;
-      this._prefix = undefined; //required for re-setting the menus pointer correctly
+      this._cItemPrefix = undefined; //required for re-setting the menus pointer correctly
       // after having upgraded a new item scss style to the prefix object.
 
       this.items = new Array();
@@ -77,8 +77,8 @@ define([
 
     addMenu : function (menu) {
       this._menu = menu;
-      if (this._prefix !== undefined) {
-        this._menu._prefix = this._prefix; // better than going via classList or something
+      if (this._cItemPrefix !== undefined) {
+        this._menu._prefix = this._cItemPrefix; // better than going via classList or something
       };
       for (let item of this.items) {
         item._menu=menu;
@@ -90,7 +90,8 @@ define([
         return this.isSet(); //TODO check!
       }
       var prefItem = this.addItem(prefix);
-      this._prefix = prefItem;
+      this._cItemPrefix = prefItem;
+      prefItem._el["onclick"] = prefItem.onclick.bind(prefItem);
       if (this._menu !== undefined){
         this._menu._prefix=prefItem;
       }
