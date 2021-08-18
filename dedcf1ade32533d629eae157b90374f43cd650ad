@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b556c0ed_95bf4148",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-08-18T17:00:44Z",
+      "side": 1,
+      "message": "Brauche das doch noch woanders. Die Specs gehen damit schonmal. Ist das OK, wenn ich die Stelle in Changes rückwirkend anpasse (immernoch im selben update)?",
+      "revId": "dedcf1ade32533d629eae157b90374f43cd650ad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
