@@ -166,3 +166,39 @@ define(function () {
 
   return KorAP;
 });
+
+/**
+ * A Method for generating an array of nodes, that are direct descendants of the passed
+ * element node, using a tag tagName as a parameter. Supposed to be used by the specification only.
+ * @param {HTMLNode} element The HTMLNode / element object whose children we are fetching
+ * @param {String} tagName The tag the children are looked for by
+ * @returns An array of children nodes with tag tagName
+ */
+function directElementChildrenByTagName (element, tagName) {
+  const tagElementsCollection=element.getElementsByTagName(tagName);
+  //var tagElements = Array.from(tagElementsCollection);
+  //var tagElements = [...tagElementsCollection];
+  //This one has the best compatability:
+  var tagElements = Array.prototype.slice.call(tagElementsCollection);
+  //filter by actually being direct child node
+  tagElements = tagElements.filter(subElement => subElement.parentNode === element);
+  return tagElements;
+};
+
+/**
+ * A Method for generating an array of nodes, that are direct descendants of the passed
+ * element node, using a class className as a parameter. Supposed to be used by the specification only.
+ * @param {HTMLNode} element The HTMLNode / element object whose children we are fetching
+ * @param {String} className The class the children are looked for by
+ * @returns An array of children nodes with class className
+ */
+ function directElementChildrenByClassName (element, className) {
+  const classElementsCollection=element.getElementsByTagName(className);
+  //var classElements = Array.from(classElementsCollection);
+  //var classElements = [...classElementsCollection];
+  //This one has the best compatability:
+  var classElements = Array.prototype.slice.call(classElementsCollection);
+  //filter by actually being direct child node
+  classElements = classElements.filter(subElement => subElement.parentNode === element);
+  return classElements;
+};

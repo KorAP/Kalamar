@@ -173,11 +173,11 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       btn.click();
 
       expect(list.element().classList.contains('visible')).toBeTruthy();
-      expect(list.directElementChildrenByTagName("li")[0].innerHTML).toEqual('Meta1');
-      expect(list.directElementChildrenByTagName("li")[1].innerHTML).toEqual('Meta2');
+      expect(directElementChildrenByTagName(list.element(),"li")[0].innerHTML).toEqual('Meta1');
+      expect(directElementChildrenByTagName(list.element(),"li")[1].innerHTML).toEqual('Meta2');
 
       expect(x).toEqual('empty');
-      list.directElementChildrenByTagName("li")[0].click();
+      directElementChildrenByTagName(list.element(),"li")[0].click();
       expect(x).toEqual('meta1');
 
       expect(list.element().classList.contains('visible')).toBeFalsy();
@@ -186,7 +186,7 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
       btn.click();
 
       expect(list.element().classList.contains('visible')).toBeTruthy();
-      list.directElementChildrenByTagName("li")[1].click();
+      directElementChildrenByTagName(list.element(),"li")[1].click();
       expect(x).toEqual('meta2');
 
       expect(list.element().classList.contains('visible')).toBeFalsy();

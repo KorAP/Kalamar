@@ -216,7 +216,7 @@ define(
         menu.limit(3);
 
         expect(menu.show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(liElements[1].innerHTML).toEqual("Lemma");
         expect(liElements[2].innerHTML).toEqual("Morphology");
@@ -238,7 +238,7 @@ define(
         var menu = OwnContainerMenu.create(list,ExampleItemList);
         menu.limit(3);
         expect(menu.prefix("o").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.element().getElementsByClassName("pref")[0].innerHTML).toEqual("o");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -253,7 +253,7 @@ define(
         menu.limit(2);
         
         expect(menu.prefix("o").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.element().getElementsByClassName("pref")[0].innerHTML).toEqual("o");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -267,14 +267,14 @@ define(
         expect(liElements[2]).toBe(undefined);
 
         expect(menu.prefix("e").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.element().getElementsByClassName("pref")[0].innerHTML).toEqual("e");
         expect(liElements[0].innerHTML).toEqual("Constitu<mark>e</mark>ncy");
         expect(liElements[2]).toBe(undefined);
 
         menu.limit(5);
         expect(menu.prefix("a").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.element().getElementsByClassName("pref")[0].innerHTML).toEqual("a");
         expect(liElements[0].innerHTML).toEqual("Lemm<mark>a</mark>");
         expect(liElements[1].innerHTML).toEqual("P<mark>a</mark>rt-of-Speech");
@@ -290,7 +290,7 @@ define(
         // Show only 3 items
         menu.limit(3);
         expect(menu.show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -301,7 +301,7 @@ define(
 
         // Activate next (1)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -312,7 +312,7 @@ define(
 
         // Activate next (2)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -324,7 +324,7 @@ define(
         // Activate next (3)
         // scroll!
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Lemma");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Morphology");
@@ -335,7 +335,7 @@ define(
 
         // Activate next (4)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -346,7 +346,7 @@ define(
 
         // Activate next (5) - ROLL
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -357,7 +357,7 @@ define(
 
         // Active next (6)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -374,7 +374,7 @@ define(
         // Show only 3 items
         menu.limit(3);
         expect(menu.show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -388,7 +388,7 @@ define(
 
         // Activate next (1)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -402,7 +402,7 @@ define(
 
         // Activate next (2)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -417,7 +417,7 @@ define(
         // Activate next (3)
         // scroll!
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Lemma");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Morphology");
@@ -431,7 +431,7 @@ define(
 
         // Activate next (4)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -445,7 +445,7 @@ define(
 
         // Activate next (4.1) - Jump to container part
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -459,7 +459,7 @@ define(
 
         // Activate next (4.2)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -474,7 +474,7 @@ define(
         /** Prefix is not set
         // Activate next (4.3)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -489,7 +489,7 @@ define(
 
         // Activate next (5) - ROLL
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -503,7 +503,7 @@ define(
 
         // Active next (6)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -531,7 +531,7 @@ define(
         menu.limit(3);
         expect(menu.show()).toBe(true);
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -542,7 +542,7 @@ define(
 
         // Activate prev (1) - roll to bottom
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -553,7 +553,7 @@ define(
 
         // Activate prev (2)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -564,7 +564,7 @@ define(
 
         // Activate prev (3)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -575,7 +575,7 @@ define(
 
         // Activate prev (4)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Lemma");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Morphology");
@@ -586,7 +586,7 @@ define(
 
         // Activate prev (5)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -597,7 +597,7 @@ define(
 
         // Activate next (1)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -611,7 +611,7 @@ define(
 
         // Activate prev (7)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -626,7 +626,7 @@ define(
         menu._firstActive = true;
         menu.limit(3);
         expect(menu.show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -640,7 +640,7 @@ define(
 
         // Activate prev (1) - roll to bottom - base items stay, now container
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -654,7 +654,7 @@ define(
 
         // Activate prev(2) - next container item
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -668,7 +668,7 @@ define(
 
         // Activate prev (3) - roll to bottom of normal list
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -682,7 +682,7 @@ define(
 
         // Activate prev (4)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -696,7 +696,7 @@ define(
 
         // Activate prev (5)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -710,7 +710,7 @@ define(
 
         // Activate prev (6)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Lemma");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Morphology");
@@ -724,7 +724,7 @@ define(
 
         // Activate prev (7)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -738,7 +738,7 @@ define(
 
         // Activate next (8)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Lemma");
@@ -757,7 +757,7 @@ define(
 
         // Activate prev (10)
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Morphology");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-of-Speech");
@@ -785,7 +785,7 @@ define(
         menu.limit(2);
 
         expect(menu.prefix("o").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -794,7 +794,7 @@ define(
 
         // Next (1)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -803,7 +803,7 @@ define(
 
         // Next (2)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-<mark>o</mark>f-Speech");
@@ -812,7 +812,7 @@ define(
 
         // Next (3) - to prefix
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-<mark>o</mark>f-Speech");
@@ -820,7 +820,7 @@ define(
         expect(menu.shownItem(2)).toBe(undefined);
 
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -834,7 +834,7 @@ define(
         menu.limit(2);
 
         expect(menu.prefix("o").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -846,7 +846,7 @@ define(
 
         // Next (1)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -858,7 +858,7 @@ define(
 
         // Next (2)
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-<mark>o</mark>f-Speech");
@@ -870,7 +870,7 @@ define(
 
         // Next (3) - to first container Item
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-<mark>o</mark>f-Speech");
@@ -882,7 +882,7 @@ define(
 
           // Next (4) - to second container Item
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-<mark>o</mark>f-Speech");
@@ -894,7 +894,7 @@ define(
 
         // Next (5) - to prefix
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Part-<mark>o</mark>f-Speech");
@@ -905,7 +905,7 @@ define(
         expect(menu.container().items[2].active()).toBe(true); //prefix
 
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("C<mark>o</mark>nstituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("M<mark>o</mark>rph<mark>o</mark>l<mark>o</mark>gy");
@@ -923,7 +923,7 @@ define(
 
         expect(menu.prefix("ex").show()).toBe(true);
         expect(menu.prefix()).toEqual('ex');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>ex</mark>ample 1 Constituency");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("<mark>ex</mark>ample 2 Morphology");
@@ -936,7 +936,7 @@ define(
         // Next (1)
         menu.next();
         expect(menu.prefix()).toEqual('ex');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>ex</mark>ample 1 Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("<mark>ex</mark>ample 2 Morphology");
@@ -949,7 +949,7 @@ define(
         // Next (2)
         menu.next();
         expect(menu.prefix()).toEqual('ex');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>ex</mark>ample 1 Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("<mark>ex</mark>ample 2 Morphology");
@@ -963,7 +963,7 @@ define(
         menu.next();
         menu.next();
         expect(menu.prefix()).toEqual('ex');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>ex</mark>ample 1 Constituency");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("<mark>ex</mark>ample 2 Morphology");
@@ -980,7 +980,7 @@ define(
         expect(menu.prefix("e").show()).toBe(true);
         expect(menu._prefix.active()).toBe(false);
         expect(menu.prefix()).toEqual('e');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 1 Constitu<mark>e</mark>ncy");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 2 Morphology");
@@ -994,7 +994,7 @@ define(
         menu.next();
         expect(menu._prefix.active()).toBe(false);
         expect(menu.prefix()).toEqual('e');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 1 Constitu<mark>e</mark>ncy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 2 Morphology");
@@ -1008,7 +1008,7 @@ define(
         menu.next();
         expect(menu._prefix.active()).toBe(false);
         expect(menu.prefix()).toEqual('e');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 1 Constitu<mark>e</mark>ncy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 2 Morphology");
@@ -1024,7 +1024,7 @@ define(
         menu.next();
         expect(menu._prefix.active()).toBe(true);
         expect(menu.prefix()).toEqual('e');
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 1 Constitu<mark>e</mark>ncy");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("<mark>e</mark>xampl<mark>e</mark> 2 Morphology");
@@ -1042,7 +1042,7 @@ define(
 
         menu.limit(2);
         expect(menu.prefix("pro sin").show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual(
           "Personal <mark>Pro</mark>noun, <mark>Sin</mark>gular"
         );
@@ -1064,7 +1064,7 @@ define(
         expect(menu.show()).toBe(true);
         menu._prefix.add("p")
         expect(menu.show()).toBe(true);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>P</mark>ersonal <mark>P</mark>ronoun");
       });
 
@@ -1118,7 +1118,7 @@ define(
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("");
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1130,25 +1130,25 @@ define(
         menu._prefix.add('a');
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("a");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>A</mark>utor");
 
         menu._prefix.add('u');
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("au");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>Au</mark>tor");
 
         menu._prefix.chop();
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("a");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>A</mark>utor");
 
         menu._prefix.chop();
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1161,7 +1161,7 @@ define(
         menu._prefix.chop();
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1172,7 +1172,7 @@ define(
         // Forward
         menu.next();
         expect(menu.prefix()).toEqual("");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1183,7 +1183,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1195,7 +1195,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Untertitel");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1207,7 +1207,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Veröffentlichungsdatum");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1219,7 +1219,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
@@ -1238,7 +1238,7 @@ define(
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("");
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1253,7 +1253,7 @@ define(
         menu._prefix.add('a');
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("a");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>A</mark>utor");
         expect(menu.container().items[0].active()).toBe(false);
         expect(menu.container().items[1].active()).toBe(false);
@@ -1262,7 +1262,7 @@ define(
         menu._prefix.add('u');
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("au");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>Au</mark>tor");
         expect(menu.container().items[0].active()).toBe(false);
         expect(menu.container().items[1].active()).toBe(false);
@@ -1271,7 +1271,7 @@ define(
         menu._prefix.chop();
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("a");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("<mark>A</mark>utor");
         expect(menu.container().items[0].active()).toBe(false);
         expect(menu.container().items[1].active()).toBe(false);
@@ -1280,7 +1280,7 @@ define(
         menu._prefix.chop();
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1296,7 +1296,7 @@ define(
         menu._prefix.chop();
         expect(menu.show()).toBe(true);
         expect(menu.prefix()).toEqual("");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1310,7 +1310,7 @@ define(
         // Forward
         menu.next();
         expect(menu.prefix()).toEqual("");
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Untertitel");
@@ -1324,7 +1324,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1339,7 +1339,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Untertitel");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1354,7 +1354,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Veröffentlichungsdatum");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1369,7 +1369,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Veröffentlichungsdatum");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1384,7 +1384,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Veröffentlichungsdatum");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1399,7 +1399,7 @@ define(
         
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("");
         expect(liElements[0].innerHTML).toEqual("Titel");
         expect(menu.shownItem(0).active()).toBe(true);
@@ -1425,7 +1425,7 @@ define(
         menu.prefix('El');
         expect(menu.show()).toBe(true);
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("El");
         expect(menu._prefix.active()).toEqual(false);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
@@ -1439,7 +1439,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("El");
         expect(menu._prefix.active()).toEqual(false);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
@@ -1453,7 +1453,7 @@ define(
 
         // Forward
         menu.next();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("El");
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1467,7 +1467,7 @@ define(
         menu.next();
         menu.next();
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("El");
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1482,7 +1482,7 @@ define(
         menu.prev();
         menu.prev();
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("El");
         expect(menu._prefix.active()).toEqual(false);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
@@ -1506,7 +1506,7 @@ define(
         menu.prefix('el');
         expect(menu.show()).toBe(true);
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("el");
         expect(menu._prefix.active()).toEqual(false);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
@@ -1522,7 +1522,7 @@ define(
         menu.prev();
         expect(menu._prefix.active()).toEqual(true);
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
         expect(menu.shownItem(0).active()).toBe(false);
         expect(liElements[1].innerHTML).toEqual("Untertit<mark>el</mark>");
@@ -1536,7 +1536,7 @@ define(
         menu.prev();
         menu.prev();
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu._prefix.active()).toEqual(false);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1557,7 +1557,7 @@ define(
         menu.prefix('el');
         expect(menu.show()).toBe(true);
 
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu.prefix()).toEqual("el");
         expect(menu._prefix.active()).toEqual(false);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
@@ -1571,7 +1571,7 @@ define(
 
         // Backward
         menu.prev();
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(menu._prefix.active()).toEqual(true);
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
         expect(menu.shownItem(0).active()).toBe(false);
@@ -1587,7 +1587,7 @@ define(
         menu.next();
         expect(menu.prefix()).toEqual("el");
         expect(menu._prefix.active()).toEqual(false);
-        var liElements = menu.directElementChildrenByTagName("li");
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
         expect(liElements[0].innerHTML).toEqual("Tit<mark>el</mark>");
         expect(menu.shownItem(0).active()).toBe(true);
         expect(liElements[1].innerHTML).toEqual("Untertit<mark>el</mark>");
@@ -2032,7 +2032,7 @@ define(
         expect(container.liveLength()).toEqual(0);
         expect(container.item(0)).toEqual(container._prefix);
         expect(container.active()).toBeFalsy();
-        expect(menu.directElementChildrenByTagName("pref")).toEqual([]);
+        expect(directElementChildrenByTagName(menu.element(),"pref")).toEqual([]);
         expect(container.element().getElementsByClassName("pref").length).toEqual(1);
         
 
