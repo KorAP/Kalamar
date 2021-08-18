@@ -180,7 +180,7 @@ define([
         t._prefix.active(true);
 
         // finally show the element
-        t._el.classList.add('visible'); // TODO do I need this for container?
+        t._el.classList.add('visible');
         t.container()._el.classList.add('visible');
 
         return true;
@@ -365,6 +365,19 @@ define([
         newItem.active(true);
       };
     },
+    
+    /**
+    * Upgrade this object to another object,
+    * while private data stays intact.
+    *
+    * @param {Object} An object with properties.
+    */
+   upgradeTo : function (props) {
+     for (var prop in props) {
+       this[prop] = props[prop];
+     };
+     return this;
+   },
 
     /**
      * Get the container object
