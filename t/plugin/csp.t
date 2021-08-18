@@ -150,10 +150,10 @@ like($content, qr/nonce-\Q$1\E/);
 
 
 # Disable csp
-$t = Test::Mojo->new(Mojolicious::Lite->new);
-$t->app->plugin('Kalamar::Plugin::CSP' => {
-  '-disable' => 1
-});
+#$t = Test::Mojo->new(Mojolicious::Lite->new);
+#$t->app->plugin('Kalamar::Plugin::CSP' => {
+#  '-disable' => 1
+#});
 
 $t->app->routes->get('/' => sub {
   shift->render(text => 'hello world');

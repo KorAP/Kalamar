@@ -145,6 +145,7 @@ define(['util'], function () {
     req.setRequestHeader("Accept", "application/json");
     req.setRequestHeader("Content-Type", "application/json");
     req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    //req.setRequestHeader('Origin',"API");
     req.onreadystatechange = function () {
       /*
 	      States:
