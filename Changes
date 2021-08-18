@@ -28,6 +28,8 @@
         - Introduce legacy redirects for tutorial links.
         - Improve QueryParam response.
         - Fold all top-level navigation items.
+        - HintMenu is now based on containerMenu instead of regular
+          menu (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

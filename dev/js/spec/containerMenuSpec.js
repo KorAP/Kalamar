@@ -2026,11 +2026,11 @@ define(
         expect(container.element().nodeName).toEqual("UL");
         expect(container.element().classList.contains("menu")).toBeTruthy();
         expect(container.element().classList.contains("visible")).toBeFalsy();
-        expect(menu._prefix).toEqual(container._prefix);
+        expect(menu._prefix).toEqual(container._cItemPrefix);
         expect(container.length()).toEqual(1);
         expect(container.length()).toEqual(container.items.length);
         expect(container.liveLength()).toEqual(0);
-        expect(container.item(0)).toEqual(container._prefix);
+        expect(container.item(0)).toEqual(container._cItemPrefix);
         expect(container.active()).toBeFalsy();
         expect(directElementChildrenByTagName(menu.element(),"pref")).toEqual([]);
         expect(container.element().getElementsByClassName("pref").length).toEqual(1);
