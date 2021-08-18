@@ -15,6 +15,14 @@ require(['plugin/server','panel/query', 'hint','hint/foundries/cnx','lib/domRead
 
     KorAP.Hint = hintClass.create();
 
+    var newItem = {
+      onclick : function (e) { console.log("CI click"); console.log(this.element()); console.log("'" + this._menu.prefix() + "'" + " <-- If this returns the empty string when\
+ it should not, we know that the click event listener in container.js gets called too early and overwrites the prefix before we can read it.");},
+      chop : function () { console.log("chop"); },
+      defaultTextValue : "Text Example"
+    };
+    KorAP.Hint.menu("-").container().addItem(newItem); //must be added to a specific context menu.
+
     /**
      * Add query panel
      */
@@ -69,10 +77,13 @@ require(['plugin/server','panel/query', 'hint','hint/foundries/cnx','lib/domRead
         }
       }]
     });
+    
+    console.log(KorAP.Hint);
   });
 });
 
 function demoAlert (pos, msg) {
   if (KorAP.hint !== undefined)
     KorAP.Hint.alert(pos, msg);
+    console.log(KorAP.Hint);
 }
