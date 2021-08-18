@@ -1,0 +1,5 @@
+ul.containermenu {
+  > ul.container:not(.visible) {
+//    display: none;
+  }
+}

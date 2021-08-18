@@ -41,13 +41,13 @@ define([
       } else {
         obj._container = defaultContainerClass.create(containerList, params);
       }
-      obj.container().addMenu(obj);
+      obj.container().addMenu(obj); //this is your menu, container!
 
       // add entry to HTML element
       obj._el.appendChild(obj.container().element());
-      obj._el.removeChild(obj._prefix.element());
+      obj._el.removeChild(obj._prefix.element()); //different HTML element relationship required
       //Keep prefix as 'pref' style. The additional distance is fine.
-      obj.container().addPrefix(obj._prefix);
+      obj.container().addPrefix(obj._prefix); //creates containeritem as base for prefix that then is upgraded to prefix. Also ajust _menu chains.
       return obj;
     },
 
@@ -367,6 +367,19 @@ define([
         newItem.active(true);
       };
     },
+    
+    /**
+    * Upgrade this object to another object,
+    * while private data stays intact.
+    *
+    * @param {Object} An object with properties.
+    */
+   upgradeTo : function (props) {
+     for (var prop in props) {
+       this[prop] = props[prop];
+     };
+     return this;
+   },
 
     /**
      * Get the container object

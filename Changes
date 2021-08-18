@@ -38,6 +38,8 @@
         - Added DemoServer plugin.
         - Support CSP disabling.
         - Update intro.js (#109; hebasta)
+        - HintMenu is now based on containerMenu instead of regular
+          menu (lerepp)
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

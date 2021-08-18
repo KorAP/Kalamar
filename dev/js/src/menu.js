@@ -491,7 +491,7 @@ define([
      * @param {string} Prefix for filtering the list
      */
     show : function (active) {
-      //Upon change please also update alwaysmenu.js (only two lines new there)
+      //Upon change please also update alwaysmenu.js and containermenu.js (only two lines new there)
       const t = this;
 
       // show menu based on initial offset
