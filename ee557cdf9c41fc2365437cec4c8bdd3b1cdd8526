@@ -51,6 +51,24 @@
       "message": "I think the major question is: Should the query language overview be the default entrypoint to the documentation. If yes, some additional changes need to be done.",
       "revId": "ee557cdf9c41fc2365437cec4c8bdd3b1cdd8526",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f40d848_e244a73c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-09-06T12:21:31Z",
+      "side": 1,
+      "message": "Patches 2 to 4: \n- renames the KorAP-Part to \"Architecture \u0026 Development\" and the navigation entry to \"Development\"(\"Entwicklung\")\n- localhost:3000/doc AND tutorial icon lead now to the query language page",
+      "parentUuid": "3f82fcb5_424390dc",
+      "revId": "ee557cdf9c41fc2365437cec4c8bdd3b1cdd8526",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
