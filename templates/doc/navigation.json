@@ -105,6 +105,7 @@
   {
     "title": "Development",
     "id": "development",
+    "class": "folded",
     "items": [
       {
         "title": "Kalamar",
