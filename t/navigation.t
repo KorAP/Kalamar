@@ -22,11 +22,11 @@ $app->plugin('Localize' => {
     Nav => {
       _ => sub { $languages },
       -en => {
-        faq => 'F.A.Q.',
+        faq => 'FAQ',
         '#default-foundries' => 'Default Foundries',
       },
       de => {
-        faq => 'Häufige Fragen',
+        faq => 'FAQ',
         '#default-foundries' => 'Standard Foundries'
       }
     }
@@ -74,7 +74,7 @@ $navi = [
   },
   {
     id => 'faq',
-    title => 'F.A.Q.'
+    title => 'FAQ'
   }
 ];
 
@@ -124,7 +124,7 @@ $navi = [
   },
   {
     id => 'faq',
-    title => 'F.A.Q.'
+    title => 'FAQ'
   }
 ];
 
@@ -212,7 +212,7 @@ $navi = [
   },
   {
     id => 'faq',
-    title => 'F.A.Q.'
+    title => 'FAQ'
   }
 ];
 $render = $c->navigation('doc', $navi);
@@ -241,7 +241,7 @@ $navi = [
   },
   {
     id => 'faq',
-    title => 'F.A.Q.'
+    title => 'FAQ'
   }
 ];
 
@@ -250,7 +250,7 @@ like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
      'Path matches korap/krill');
-like($render, qr!<a href="/doc/faq(?:#[^"]+)?">F\.A\.Q\.</a>!,
+like($render, qr!<a href="/doc/faq(?:#[^"]+)?">FAQ</a>!,
      'Path matches FAQ');
 
 # Change preferred language
@@ -261,7 +261,7 @@ like($render, qr!/doc/korap!, 'Path matches doc/korap');
 like($render, qr!/doc/korap/krill!, 'Path matches korap/krill');
 like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
      'Path matches korap/krill');
-like($render, qr!<a href="/doc/faq(?:#[^"]+)?">Häufige Fragen</a>!,
+like($render, qr!<a href="/doc/faq(?:#[^"]+)?">FAQ</a>!,
      'Path matches FAQ');
 
 done_testing;

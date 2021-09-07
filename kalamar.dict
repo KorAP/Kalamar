@@ -41,7 +41,7 @@ my $THOUSAND_SEP_RE = qr/(
       desc => 'Zeige nur die ersten Treffer in beliebiger Reihenfolge'
     },
     activateJS => 'Für den vollen Funktionsumfang aktivieren Sie bitte JavaScript!',
-    faq => 'Häufige Fragen',
+    faq => 'FAQ',
     tutorial => 'Einführung',
     notAvailInCorpus => 'Im vorliegenden Korpus nicht verfügbar',
     pubOn => 'veröffentlicht am',
@@ -96,7 +96,7 @@ my $THOUSAND_SEP_RE = qr/(
       'annotation' => 'Annotationen',
       '#default-foundries' => 'Standard Foundries',
       'korap' => 'Entwicklung',
-      'faq' => 'Häufig gestellte Fragen'
+      'faq' => 'FAQ'
     }
   },
   -en => {
@@ -137,7 +137,7 @@ my $THOUSAND_SEP_RE = qr/(
       desc => 'Just show the first matches in arbitrary order'
     },
     activateJS => 'To make use of all features, please activate JavaScript!',
-    faq => 'F.A.Q.',
+    faq => 'FAQ',
     underConstruction => 'Under Construction!',
     tutorial => 'Tutorial',
     korap => {
@@ -193,7 +193,7 @@ my $THOUSAND_SEP_RE = qr/(
       'annotation' => 'Annotations',
       '#default-foundries' => 'Default Foundries',
       'korap' => 'Development',
-      'faq' => 'F.A.Q.'
+      'faq' => 'FAQ'
     }
   },
   Piwik => {
