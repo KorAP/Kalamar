@@ -1,4 +1,4 @@
-% layout 'main', title => 'KorAP: Data';
+% layout 'main', title => 'KorAP: Corpus Data';
 
 %= page_title
 
