@@ -6,6 +6,15 @@
 
 %= page_title
 
+<p>
+  KorAP supports multiple query languages, of which <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %>
+  is currently supported best. Poliqarp is very similar to the query languages of the
+  <%= ext_link_to 'IMS Open Corpus Workbench (CWB)', "http://cwb.sourceforge.net/" %> and the
+  <%= ext_link_to 'SketchEngine', "https://www.sketchengine.eu/documentation/corpus-querying/" %>.
+  It was originally developed to query the
+  <%= ext_link_to 'Polish National Corpus', "http://nkjp.pl/poliqarp/" %>.
+</p>
+
 <section id="examples">
   <h3>Example Queries</h3>
   
