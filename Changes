@@ -23,6 +23,7 @@
           default entry point. (hebasta)
         - Fix init of matches.
         - Fix tests on text method to accept undef for Mojo >= 9.21.
+        - Plugin::TagHelpers::ContenBlock now on CPAN.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

@@ -26,6 +26,7 @@ WriteMakefile(
     'Mojolicious::Plugin::CHI' => 0.20,
     'Mojolicious::Plugin::ClientIP' => 0.02,
     'Mojolicious::Plugin::AutoSecrets' => 0.006,
+    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.11,
     'Cache::FastMmap' => 1.56,
     'Data::Serializer' => 0.65,
     'Mojo::JWT' => 0.09,
@@ -40,8 +41,7 @@ WriteMakefile(
     'Mojolicious::Plugin::Piwik' => 0.28,
 
     # Currently on GitHub only (github.com/akron)
-    'Mojolicious::Plugin::Localize' => 0.21,
-    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.09,
+    'Mojolicious::Plugin::Localize' => 0.21
   },
 
   META_MERGE   => {
