@@ -104,28 +104,6 @@
   },
   {
     "title": "Development",
-    "id": "development",
-    "items": [
-      {
-        "title": "Kalamar",
-        "id": "kalamar"
-      },
-      {
-        "title": "Kustvakt",
-        "id": "kustvakt"
-      },
-      {
-        "title": "Koral",
-        "id": "koral"
-      },
-      {
-        "title": "Krill",
-        "id": "krill"
-      },
-      {
-        "title": "Karang",
-        "id": "karang"
-      }
-    ]
+    "id": "development"
   }
 ]
