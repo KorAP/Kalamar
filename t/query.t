@@ -28,9 +28,8 @@ $fake_backend->pattern->defaults->{app}->log($t->app->log);
 my $q = qr!(?:\"|&quot;)!;
 
 # Query passed
-$t->get_ok('/?q=baum')
+my $err = $t->get_ok('/?q=baum')
   ->status_is(200)
-  ->text_is('#error','')
   ->content_type_is('text/html;charset=UTF-8')
 
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
@@ -76,7 +75,10 @@ $t->get_ok('/?q=baum')
   ->text_is('li:nth-of-type(1) p.ref time[datetime=1982]', 1982)
   ->text_is('li:nth-of-type(1) p.ref span.sigle', '[GOE/AGI/00000]')
   ->header_isnt('X-Kalamar-Cache', 'true')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
+
 
 $t->get_ok('/?q=[orth=das')
   ->status_is(400)
@@ -95,58 +97,62 @@ $t->get_ok('/?q=[orth=das&ql=poliqarp')
 
 
 # Query with partial cache (for total results)
-$t->get_ok('/?q=baum')
+$err = $t->get_ok('/?q=baum')
   ->status_is(200)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
   ->text_is('#total-results', 51)
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 # Query without partial cache (unfortunately) (but no total results)
-$t->get_ok('/?q=baum&cutoff=true')
+$err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
   ->element_exists_not('#total-results')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 # Query with partial cache (but no total results)
-$t->get_ok('/?q=baum&cutoff=true')
+$err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_is('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
   ->element_exists_not('#total-results')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
+
 
 # Query with full cache
-$t->get_ok('/?q=baum')
+$err = $t->get_ok('/?q=baum')
   ->status_is(200)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_is('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
   ->text_is('#total-results', 51)
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 
 # Query with page information
-$t->get_ok('/?q=der&p=1&count=2')
+$err = $t->get_ok('/?q=der&p=1&count=2')
   ->status_is(200)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »der« with Poliqarp')
 
   # Total results
@@ -164,7 +170,10 @@ $t->get_ok('/?q=der&p=1&count=2')
 
   # Not searched for "der" before
   ->content_unlike(qr!${q}cutOff${q}:true!)
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
+
 
 # Check pagination repetion of page
 my $next_href = $t->get_ok('/?q=der&p=1&count=2')
@@ -173,9 +182,8 @@ like($next_href, qr/p=2/);
 unlike($next_href, qr/p=1/);
 
 # Query with page information - next page
-$t->get_ok('/?q=der&p=2&count=2')
+$err = $t->get_ok('/?q=der&p=2&count=2')
   ->status_is(200)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »der« with Poliqarp')
   ->element_exists('#search')
 
@@ -192,7 +200,10 @@ $t->get_ok('/?q=der&p=2&count=2')
   # No caching
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
+
 
 # Query with failing parameters
 $t->get_ok('/?q=fantastisch&ql=Fabelsprache')
@@ -214,11 +225,12 @@ $t->get_ok('/?q=fantastisch&p=hui&o=hui&count=-8')
 
 # Query too long
 my $long_query = 'b' x 2000;
-$t->get_ok('/?q=' . $long_query)
+$err = $t->get_ok('/?q=' . $long_query)
   ->status_is(400)
-  ->text_is('#error','')
   ->text_like('#notifications div.notify-error', qr!Parameter ".+?" invalid!)
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 # Query with timeout
 $t->get_ok('/?q=timeout')
@@ -245,12 +257,14 @@ $t->get_ok('/?q=timeout')
 $t->app->defaults(no_cache => 1);
 
 # Query with collection
-$t->get_ok('/?q=baum&collection=availability+%3D+%2FCC-BY.*%2F')
+$err = $t->get_ok('/?q=baum&collection=availability+%3D+%2FCC-BY.*%2F')
   ->status_is(200)
   ->element_exists("input#cq[value='availability = /CC-BY.*/']")
   ->content_like(qr!${q}availability${q}!)
-  ->text_is('#error','')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
+
 
 $t->app->hook(
   after_search => sub {
@@ -260,13 +274,14 @@ $t->app->hook(
 );
 
 # Query with corpus query
-$t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
+$err = $t->get_ok('/?q=baum&cq=availability+%3D+%2FCC-BY.*%2F')
   ->status_is(200)
   ->element_exists("input#cq[value='availability = /CC-BY.*/']")
   ->content_like(qr!${q}availability${q}!)
-  ->text_is('#error','')
   ->text_is('#special', 'Funny')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 my $match = {
   matchID => 'match-FOLK/00070-SE-01/T-04-p5441-5442',
@@ -278,11 +293,12 @@ $match = Kalamar::Controller::Search::_map_match($match);
 is($match->{matchID}, 'p5441-5442');
 
 # Query with pipe
-$t->get_ok('/?q=baum&pipe=glemm')
+$err = $t->get_ok('/?q=baum&pipe=glemm')
   ->status_is(200)
-  ->text_is('#error','')
   ->content_like(qr/${q}pipes${q}:${q}glemm${q}/)
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 
 done_testing;
