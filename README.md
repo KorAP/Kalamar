@@ -78,7 +78,6 @@ This will probably need administration rights.
 
 ```shell
 $ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
-$ cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
 ```
 
 Then install the dependencies using
