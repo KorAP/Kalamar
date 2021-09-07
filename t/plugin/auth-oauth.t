@@ -337,11 +337,10 @@ $t->get_ok('/?q=Baum')
   ;
 
 # Query without partial cache (unfortunately) (but no total results)
-$t->get_ok('/?q=baum&cutoff=true')
+my $err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
   ->session_is('/auth', 'Bearer ' . $access_token_2)
   ->session_is('/auth_r', $refresh_token_2)
-  ->text_is('#error','')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
@@ -349,7 +348,9 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
   ->element_exists_not('#total-results')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 # Expire the session and remove the refresh option
 $t->get_ok('/x/expire-no-refresh')
@@ -367,11 +368,10 @@ $t->get_ok('/x/invalid-no-refresh')
 
 # Query without cache
 # The token is invalid and can't be refreshed!
-$t->get_ok('/?q=baum&cutoff=true')
+$err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(400)
   ->session_hasnt('/auth')
   ->session_hasnt('/auth_r')
-  ->text_is('#error','')
   ->text_is('div.notify-error','Access token invalid')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
@@ -379,7 +379,10 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->content_unlike(qr/${q}authorized${q}:${q}yes${q}/)
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->element_exists('p.no-results')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
+
 
 $t->get_ok('/x/invalid')
   ->status_is(200)
@@ -388,11 +391,10 @@ $t->get_ok('/x/invalid')
 
 # Query without cache
 # The token is invalid and can't be refreshed!
-$t->get_ok('/?q=baum&cutoff=true')
+$err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
   ->session_is('/auth', 'Bearer ' . $access_token_2)
   ->session_is('/auth_r', $refresh_token_2)
-  ->text_is('#error','')
   ->element_exists_not('div.notify-error','Access token invalid')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
@@ -400,7 +402,9 @@ $t->get_ok('/?q=baum&cutoff=true')
   ->content_like(qr/${q}authorized${q}:${q}yes${q}/)
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->element_exists_not('p.no-results')
+  ->tx->res->dom->at('#error')
   ;
+is(defined $err ? $err->text : '', '');
 
 
 $t->get_ok('/x/expired-with-wrong-refresh')
@@ -410,18 +414,23 @@ $t->get_ok('/x/expired-with-wrong-refresh')
 
 
 # The token is invalid and can't be refreshed!
-$csrf = $t->get_ok('/?q=baum&cutoff=true')
+my $dom = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(400)
   ->session_hasnt('/auth')
   ->session_hasnt('/auth_r')
-  ->text_is('#error','')
   ->text_is('div.notify-error','Refresh token is expired')
   ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
   ->content_unlike(qr/${q}authorized${q}:${q}yes${q}/)
   ->element_exists('p.no-results')
-  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->tx->res->dom;
+
+$csrf = $dom->at('input[name="csrf_token"]')
   ->attr('value')
   ;
+
+$err = $dom->at('#error');
+is(defined $err ? $err->text : '', '');
+
 
 # Login:
 $t->post_ok('/user/login' => form => {
@@ -480,16 +489,17 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->header_is('Pragma','no-cache')
   ;
 
-$t->get_ok('/settings/oauth')
+my $anchor = $t->get_ok('/settings/oauth')
   ->text_is('.form-table legend', 'Register new client application')
   ->attr_is('.oauth-register','action', '/settings/oauth/register')
   ->text_is('ul.client-list > li > span.client-name a', 'MyApp')
   ->text_is('ul.client-list > li > span.client-desc', 'This is my application')
-  ->text_is('ul.client-list > li > span.client-url a', '')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
+  ->tx->res->dom->at('ul.client-list > li > span.client-url a')
   ;
+is(defined $anchor ? $anchor->text : '', '');
 
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->status_is(200)

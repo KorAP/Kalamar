@@ -20,7 +20,7 @@ WriteMakefile(
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.08,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.13,
     'Mojolicious::Plugin::ClosedRedirect' => 0.15,
-    'Mojolicious::Plugin::Notifications' => 1.06,
+    'Mojolicious::Plugin::Notifications' => 1.07,
     'Mojolicious::Plugin::MailException' => 0.24,
     'Mojolicious::Plugin::Util::RandomString' => 0.09,
     'Mojolicious::Plugin::CHI' => 0.20,
