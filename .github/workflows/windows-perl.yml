@@ -27,7 +27,6 @@ jobs:
           perl cpanm -n -f Crypt::Random::Source
           perl cpanm -n -f Mojolicious::Plugin::MailException
           perl cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
-          perl cpanm git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git
           perl cpanm --installdeps .
       - name: Run Tests
         run: prove -lr t/
