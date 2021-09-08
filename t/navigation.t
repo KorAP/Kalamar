@@ -188,6 +188,7 @@ $navi = [
   {
     title => 'Query Languages',
     id => 'ql',
+    class => 'folded',
     items => [
       {
         title => 'Cosmas II',
@@ -227,6 +228,14 @@ like($render, qr!/doc/ql/poliqarp-plus#complex!,
 like($render, qr!class="folded active".*?Poliqarp\+!, 'Active and folded value for Poliqarp+');
 
 
+$c->stash(page => 'cosmas2');
+$render = $c->navigation('doc', $navi);
+
+like($render, qr!\<li class=\"folded\">\s*<a href="/doc/ql\#page-top">Query Languages</a>\s*<ul class="nav nav-doc active">\s*<li class="active"><a href="/doc/ql/cosmas2\#page-top">Cosmas II</a></li>!);
+
+delete $c->stash->{cosmas2};
+
+
 # Test for translations
 $navi = [
   {
@@ -263,6 +272,8 @@ like($render, qr!<a href="/doc/korap/krill(?:#[^"]+)?">Krill</a>!,
      'Path matches korap/krill');
 like($render, qr!<a href="/doc/faq(?:#[^"]+)?">FAQ</a>!,
      'Path matches FAQ');
+
+
 
 done_testing;
 

@@ -163,7 +163,9 @@ sub register {
       };
 
       # Create unordered list
-      my $html = '<ul class="nav nav-'.$realm.'">'."\n";
+      my $html = '<ul class="nav nav-'.$realm;
+      my $men_active = 0;
+      my $item_str = '';
 
       # Embed all link tags
       foreach (@$items) {
@@ -192,6 +194,7 @@ sub register {
           # The item is active
           if ($c->stash('page') && $c->stash('page') eq $_->{id}) {
             $active = 1;
+            $men_active = 1;
           };
 
           # Generate url with query parameter inheritance
@@ -207,29 +210,33 @@ sub register {
         push(@classes, 'active') if $active;
 
         # New list item
-        $html .= '<li';
+        $item_str .= '<li';
         if (@classes) {
-          $html .= ' class="' . join(' ', @classes) . '"';
+          $item_str .= ' class="' . join(' ', @classes) . '"';
         };
-        $html .= '>';
+        $item_str .= '>';
 
         # Translate title
         my $title = $c->loc('Nav_' . $_->{id}, $_->{title});
 
         # Generate link
-        $html .= $c->link_to($title, $url);
+        $item_str .= $c->link_to($title, $url);
 
         # Set sub entries
         if ($_->{items} && ref($_->{items}) eq 'ARRAY') {
-          $html .= "\n";
+          $item_str .= "\n";
           my $subscope = $scope ? scalar($scope) . '/' . $_->{id} : $_->{id};
-          $html .= $c->navigation($realm, $subscope, $_->{items});
-          $html .= "</li>\n";
+          $item_str .= $c->navigation($realm, $subscope, $_->{items});
+          $item_str .= "</li>\n";
         }
         else {
-          $html .= "</li>\n";
+          $item_str .= "</li>\n";
         };
       };
+
+      $html .= ' active' if $men_active;
+      $html .= '">'."\n";
+      $html .= $item_str;
       return $html . "</ul>\n";
     }
   );
