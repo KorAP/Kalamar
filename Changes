@@ -1,4 +1,4 @@
-0.43 2021-08-16
+0.43 2021-09-08
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -19,6 +19,8 @@
           to prepend to.
         - New menu class that has a container for further
           entries at the very end that is always available. (lerepp)
+        - Reorder documentation menu and make query languages the
+          default entry point. (hebasta)
         - Fix init of matches.
 
 0.42 2021-06-18
