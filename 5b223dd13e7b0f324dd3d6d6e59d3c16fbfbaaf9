@@ -34,6 +34,24 @@
       "parentUuid": "5806e970_30886b57",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90fa479b_4561a655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-08T09:22:43Z",
+      "side": 1,
+      "message": "I guess there was a reason we didn\u0027t fold by default and made that optional - but I am fine with folding all subtrees in the documentation.",
+      "parentUuid": "84b5cc29_1c5e1437",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
