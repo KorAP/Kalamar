@@ -74,11 +74,11 @@ my $THOUSAND_SEP_RE = qr/(
           'annotation' => 'de/doc/data/annotation'
         },
         korap => {
-          'kalamar' => 'de/doc/korap/kalamar',
-          'karang' => 'de/doc/korap/karang',
-          'koral' => 'de/doc/korap/koral',
-          'krill' => 'de/doc/korap/krill',
-          'kustvakt' => 'de/doc/korap/kustvakt'
+          'kalamar' => 'de/doc/development/kalamar',
+          'karang' => 'de/doc/development/karang',
+          'koral' => 'de/doc/development/koral',
+          'krill' => 'de/doc/development/krill',
+          'kustvakt' => 'de/doc/development/kustvakt'
         }
       }
     },
@@ -95,7 +95,7 @@ my $THOUSAND_SEP_RE = qr/(
       'corpus' => 'Korpora',
       'annotation' => 'Annotationen',
       '#default-foundries' => 'Standard Foundries',
-      'korap' => 'Entwicklung',
+      'development' => 'Entwicklung',
       'faq' => 'FAQ'
     }
   },
@@ -171,11 +171,11 @@ my $THOUSAND_SEP_RE = qr/(
           'annotation' => 'doc/data/annotation'
         },
         korap => {
-          'kalamar' => 'doc/korap/kalamar',
-          'karang' => 'doc/korap/karang',
-          'koral' => 'doc/korap/koral',
-          'krill' => 'doc/korap/krill',
-          'kustvakt' => 'doc/korap/kustvakt'
+          'kalamar' => 'doc/development/kalamar',
+          'karang' => 'doc/development/karang',
+          'koral' => 'doc/development/koral',
+          'krill' => 'doc/development/krill',
+          'kustvakt' => 'doc/development/kustvakt'
         }
       }
     },
@@ -192,7 +192,7 @@ my $THOUSAND_SEP_RE = qr/(
       'corpus' => 'Corpora',
       'annotation' => 'Annotations',
       '#default-foundries' => 'Default Foundries',
-      'korap' => 'Development',
+      'development' => 'Development',
       'faq' => 'FAQ'
     }
   },

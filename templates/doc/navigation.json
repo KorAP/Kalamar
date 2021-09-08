@@ -1,109 +1,103 @@
-[
-  {
-    "title": "Query Languages",
-    "id": "ql",
-    "items": [
-      {
-        "title": "Cosmas II",
-        "id": "cosmas-2",
-        "class": "folded",
-        "items": [
-          {
-            "title": "Query Terms",
-            "id": "#queryterms"
-          },
-          {
-            "title": "Logical Operators",
-            "id": "#logical-operators"
-          },
-          {
-            "title": "Distance Operators",
-            "id": "#distance-operators"
-          },
-          {
-            "title": "Annotation Operators",
-            "id": "#annotation-operators"
-          },
-          {
-            "title": "Combination Operators",
-            "id": "#combination-operators"
-          },
-          {
-            "title": "Area Operators",
-            "id": "#area-operators"
-          }
+[{
+        "title": "Query Languages",
+        "id": "ql",
+        "items": [{
+                "title": "Cosmas II",
+                "id": "cosmas-2",
+                "class": "folded",
+                "items": [{
+                        "title": "Query Terms",
+                        "id": "#queryterms"
+                    },
+                    {
+                        "title": "Logical Operators",
+                        "id": "#logical-operators"
+                    },
+                    {
+                        "title": "Distance Operators",
+                        "id": "#distance-operators"
+                    },
+                    {
+                        "title": "Annotation Operators",
+                        "id": "#annotation-operators"
+                    },
+                    {
+                        "title": "Combination Operators",
+                        "id": "#combination-operators"
+                    },
+                    {
+                        "title": "Area Operators",
+                        "id": "#area-operators"
+                    }
+                ]
+            },
+            {
+                "title": "Poliqarp+",
+                "id": "poliqarp-plus",
+                "class": "folded",
+                "items": [{
+                        "title": "Simple Segments",
+                        "id": "#segments"
+                    },
+                    {
+                        "title": "Complex Segments",
+                        "id": "#complex"
+                    },
+                    {
+                        "title": "Span Segments",
+                        "id": "#spans"
+                    },
+                    {
+                        "title": "Paradigmatic Operators",
+                        "id": "#paradigmatic-operators"
+                    },
+                    {
+                        "title": "Syntagmatic Operators",
+                        "id": "#syntagmatic-operators"
+                    },
+                    {
+                        "title": "Class Operators",
+                        "id": "#class-operators"
+                    }
+                ]
+            },
+            {
+                "title": "Annis QL",
+                "id": "annis"
+            },
+            {
+                "title": "CQL",
+                "id": "cql"
+            },
+            {
+                "title": "FCSQL",
+                "id": "fcsql"
+            },
+            {
+                "title": "Regular Expressions",
+                "id": "regexp"
+            }
         ]
-      },
-      {
-        "title": "Poliqarp+",
-        "id": "poliqarp-plus",
+    },
+    {
+        "title": "Corpus Data",
+        "id": "data",
         "class": "folded",
-        "items": [
-          {
-            "title": "Simple Segments",
-            "id": "#segments"
-          },
-          {
-            "title": "Complex Segments",
-            "id": "#complex"
-          },
-          {
-            "title": "Span Segments",
-            "id": "#spans"
-          },
-          {
-            "title": "Paradigmatic Operators",
-            "id": "#paradigmatic-operators"
-          },
-          {
-            "title": "Syntagmatic Operators",
-            "id": "#syntagmatic-operators"
-          },
-          {
-            "title": "Class Operators",
-            "id": "#class-operators"
-          }
-        ]
-      },
-      {
-        "title": "Annis QL",
-        "id": "annis"
-      },
-      {
-        "title": "CQL",
-        "id": "cql"
-      },
-      {
-        "title": "FCSQL",
-        "id": "fcsql"
-      },
-      {
-        "title": "Regular Expressions",
-        "id": "regexp"
-      }
-    ]
-  },
-  {
-    "title": "Corpus Data",
-    "id": "data",
-    "class": "folded",
-    "items": [
-      {
-        "title": "Annotations",
-        "id": "annotation"
-      }
-    ]
-  },
-  {
-    "title": "FAQ",
-    "id": "faq"
-  },
-  {
-    "title": "API",
-    "id": "api"
-  },
-  {
-    "title": "Development",
-    "id": "korap"
-  }
+        "items": [{
+            "title": "Annotations",
+            "id": "annotation"
+        }]
+    },
+    {
+        "title": "FAQ",
+        "id": "faq"
+    },
+    {
+        "title": "API",
+        "id": "api"
+    },
+    {
+        "title": "Development",
+        "id": "development"
+    }
 ]
