@@ -16,6 +16,24 @@
       "message": "What is missing now is reasonable legacy link support. We shouldn\u0027t let links just vanish or have different contents for no reason.",
       "revId": "41c78984e9eb15f9dfe881c3288a3249e5ad4975",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54596bc_e6663234",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T08:50:58Z",
+      "side": 1,
+      "message": "That would also be an argument to carry this out in two steps with the renaming in a second one. Andreas probably can\u0027t imagine the consequences of his little issue.",
+      "parentUuid": "9d96e093_ab808d73",
+      "revId": "41c78984e9eb15f9dfe881c3288a3249e5ad4975",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
