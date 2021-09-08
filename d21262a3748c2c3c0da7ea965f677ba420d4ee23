@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "241a3ddf_2f9d5b6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-08T10:49:28Z",
+      "side": 1,
+      "message": "Doesn\u0027t work yet - will be rebased to the \"develeopment\" changes",
+      "revId": "d21262a3748c2c3c0da7ea965f677ba420d4ee23",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
