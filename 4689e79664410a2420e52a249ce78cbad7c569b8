@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc308a6d_118951fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-08T20:31:16Z",
+      "side": 1,
+      "message": "I guess we should rename \"Corpora\" then for the DeReKo Instance. It\u0027s a bit confusing to have \"Corpus Data\" and \"Corpora\".",
+      "revId": "4689e79664410a2420e52a249ce78cbad7c569b8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
