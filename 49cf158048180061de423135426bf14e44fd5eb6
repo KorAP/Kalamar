@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ce2b81a_782ebd8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T08:13:46Z",
+      "side": 1,
+      "message": "I was quicker :) https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/4615\n\nbut I do prefer dev over development",
+      "revId": "49cf158048180061de423135426bf14e44fd5eb6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
