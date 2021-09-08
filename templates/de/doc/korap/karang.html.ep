@@ -1,9 +1,0 @@
-% layout 'main', title => 'KorAP: Karang';
-
-%= page_title
-
-%= korap_overview 'karang'
-
-<p><strong>Hauptentwickler:</strong> Piotr Pęzik</p>
-
-<p>Karang ist ein Neo4j-basiertes Such-Backend für KorAP.</p>
