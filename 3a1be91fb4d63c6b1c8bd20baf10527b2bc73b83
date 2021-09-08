@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbdf8869_05613dad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-08T08:36:39Z",
+      "side": 1,
+      "message": "I didn\u0027 see that, sorry. I don\u0027t think it\u0027s error prone to have it in the same commit, as we need to support /korap/ nonetheless.",
+      "revId": "3a1be91fb4d63c6b1c8bd20baf10527b2bc73b83",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
