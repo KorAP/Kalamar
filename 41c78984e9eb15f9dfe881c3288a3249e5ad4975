@@ -52,6 +52,24 @@
       "parentUuid": "d54596bc_e6663234",
       "revId": "41c78984e9eb15f9dfe881c3288a3249e5ad4975",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4b9eb9_3d68e95e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T09:48:11Z",
+      "side": 1,
+      "message": "I think we have to and can live with legacy links pointing to /doc. The necessary workaround would not be nice.",
+      "parentUuid": "5bf239d1_471b087a",
+      "revId": "41c78984e9eb15f9dfe881c3288a3249e5ad4975",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
