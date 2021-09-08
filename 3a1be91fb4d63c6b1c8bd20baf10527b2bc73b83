@@ -33,6 +33,24 @@
       "message": "That currently breaks the translated documentation.",
       "revId": "3a1be91fb4d63c6b1c8bd20baf10527b2bc73b83",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147d34ae_f15edc33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T14:52:53Z",
+      "side": 1,
+      "message": "Where is the translated documentation broken?",
+      "parentUuid": "06209933_ee9e2a62",
+      "revId": "3a1be91fb4d63c6b1c8bd20baf10527b2bc73b83",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
