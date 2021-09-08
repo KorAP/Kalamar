@@ -1,4 +1,4 @@
-0.43 2021-09-08
+0.43 2021-09-09
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -25,6 +25,7 @@
         - Fix tests on text method to accept undef for Mojo >= 9.21.
         - Plugin::TagHelpers::ContenBlock now on CPAN.
         - Fix navigation behaviour for folded subdirectories.
+        - Introduce legacy redirects for tutorial links.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

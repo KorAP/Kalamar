@@ -32,11 +32,23 @@ sub page {
   $c->stash(documentation => 1);
   $c->stash('robots' => 'index,follow');
 
-  return $c->render_maybe(
+  my $render = $c->render_maybe(
     template => $c->loc('Template_' . join('_', @path), join('/', @path))
   ) || $c->render_maybe(
     template => $c->loc('Template_' . join('_', 'custom', @path), join('/', 'custom', @path))
-  ) || $c->reply->not_found;
+  );
+  return $render if $render;
+
+  # Legacy links
+  if ($scope) {
+    if ($scope eq 'korap') {
+      return $c->redirect_to('doc', scope => 'development');
+    };
+  } elsif ($page eq 'korap') {
+    return $c->redirect_to('doc', page => 'development');
+  };
+
+  return $c->reply->not_found;
 };
 
 
@@ -116,7 +128,7 @@ will probably contain a form field for feedback in the future.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2018, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2015-2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
