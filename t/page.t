@@ -12,7 +12,7 @@ my $app = $t->app;
 is($app->under_construction, '<p>Under Construction!</p>');
 
 is($app->embedded_link_to('doc', 'privacy', 'privacy'), '<a class="embedded-link" href="/doc/privacy">privacy</a>');
-is($app->embedded_link_to('doc', 'privacy', 'korap', 'privacy'), '<a class="embedded-link" href="/doc/korap/privacy">privacy</a>');
+is($app->embedded_link_to('doc', 'privacy', 'development', 'privacy'), '<a class="embedded-link" href="/doc/development/privacy">privacy</a>');
 
 
 my $c = $app->build_controller;
