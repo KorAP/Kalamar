@@ -108,6 +108,18 @@ $t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
   ->text_is('#api-service-uri', 'https://korap.ids-mannheim.de/test/api/v1.0/');
 
 
+# Languages of dev pages
+$t->get_ok('/doc/development/kalamar')
+  ->status_is(200)
+  ->text_is("title", "KorAP: Kalamar")
+  ->content_like(qr!Main developer!);
+
+$t->get_ok('/doc/development/kalamar' => { 'Accept-Language' => 'de-DE, en-US, en' })
+  ->status_is(200)
+  ->text_is("title", "KorAP: Kalamar")
+  ->content_like(qr!Hauptentwickler!);
+
+
 # Check mail_to_chiffre
 like($t->app->mail_to_chiffre('korap@korap.example'),qr!rel="nofollow"!);
 like($t->app->mail_to_chiffre('korap@korap.example'),qr!class="PArok"!);

@@ -4,7 +4,7 @@
 
 %= korap_overview 'kalamar'
 
-<p><strong>Hauptentwickler:</strong> Nils Diewald</p>
+<p><strong>Hauptentwickler:</strong> Nils Diewald, Helge Stallkamp</p>
 
 <p>Kalamar ist das wichtigste User-Frontend von KorAP. Es basiert auf <%= ext_link_to 'Mojolicious', "http://mojolicio.us/" %> und ist in Perl und JavaScript geschrieben.</p>
 
