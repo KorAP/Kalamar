@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6efe4ae_8649a813",
+        "filename": "t/doc_legacy.t",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T14:55:59Z",
+      "side": 1,
+      "message": "the redirect works, but I get 200 here",
+      "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f5364cb_5505490d",
+        "filename": "t/doc_legacy.t",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T14:55:59Z",
+      "side": 1,
+      "message": "here I get undef, but the redirect works",
+      "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
