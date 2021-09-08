@@ -85,6 +85,9 @@ aside {
         }
         ul {
           display: none;
+          &.active {
+            display: block !important;
+          }
         }
       }
 
