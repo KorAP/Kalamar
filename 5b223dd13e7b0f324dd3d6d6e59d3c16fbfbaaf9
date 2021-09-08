@@ -16,6 +16,24 @@
       "message": "I don\u0027t think that\u0027s the right way. It would be better to class the subtree as being \"folded\".",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84b5cc29_1c5e1437",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T08:48:27Z",
+      "side": 1,
+      "message": "OK, I didn\u0027t know, but this might explain some strange behaviour with top entry not being visibly selected and subitems not disappearing when a new top entry is opened.",
+      "parentUuid": "5806e970_30886b57",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
