@@ -170,7 +170,7 @@ my $THOUSAND_SEP_RE = qr/(
         data => {
           'annotation' => 'doc/data/annotation'
         },
-        korap => {
+        development => {
           'kalamar' => 'doc/development/kalamar',
           'karang' => 'doc/development/karang',
           'koral' => 'doc/development/koral',
