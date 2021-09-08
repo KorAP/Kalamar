@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d96e093_ab808d73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-08T08:34:16Z",
+      "side": 1,
+      "message": "What is missing now is reasonable legacy link support. We shouldn\u0027t let links just vanish or have different contents for no reason.",
+      "revId": "41c78984e9eb15f9dfe881c3288a3249e5ad4975",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
