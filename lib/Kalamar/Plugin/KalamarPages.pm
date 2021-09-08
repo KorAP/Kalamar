@@ -334,7 +334,7 @@ helpers for Mojolicious available.
 =head2 embedded_link_to
 
   %# In templates
-  %= embedded_link_to 'doc','Kalamar', 'korap', 'kalamar'
+  %= embedded_link_to 'doc','Kalamar', 'development', 'kalamar'
 
 Create a link to the documentation. Accepts a realm, a title, a scope, and a page.
 
