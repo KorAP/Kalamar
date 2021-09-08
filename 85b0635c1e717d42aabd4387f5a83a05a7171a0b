@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96622f78_b2600427",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-08T16:29:13Z",
+      "side": 1,
+      "message": "However, this makes getting rid of the Development sub-entries more urgent.",
+      "revId": "85b0635c1e717d42aabd4387f5a83a05a7171a0b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
