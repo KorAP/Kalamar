@@ -52,6 +52,24 @@
       "parentUuid": "84b5cc29_1c5e1437",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c543bd_41bc0252",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-08T09:55:45Z",
+      "side": 1,
+      "message": "I guess we decided to make the top-level non-folding and the sublevels folding. That was the reason we changed that.",
+      "parentUuid": "90fa479b_4561a655",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
