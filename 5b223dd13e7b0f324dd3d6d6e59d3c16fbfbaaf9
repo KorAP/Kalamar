@@ -124,6 +124,24 @@
       "parentUuid": "3227f2b3_7e32eb68",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b7e7b0e_e4f5cd87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-09T09:33:01Z",
+      "side": 1,
+      "message": "I\u0027d say that only the always expanded option is not appropriate for a user tutorial, so that we have three options left:\n\n1) keep it as it is with expandable entries\n2) just remove the sub-entries\n3) make a single page on development\n\nFrom these I\u0027d favour option (2) being my sweet spot: fixed relevance, low effort, all information still reachable because of the various addition links in the content, but I\u0027m also OK with (1) and (3). Where (3) costs most work and the effect with one large page is not so nice.\nMaybe we can then just start with (1) and not merge your expansion fix, for now",
+      "parentUuid": "aa9a8d90_c47dbc8c",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
