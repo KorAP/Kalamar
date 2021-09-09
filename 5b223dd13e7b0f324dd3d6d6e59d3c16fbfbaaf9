@@ -106,6 +106,24 @@
       "parentUuid": "aad2e4db_a242cfbb",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9a8d90_c47dbc8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-09T07:45:35Z",
+      "side": 1,
+      "message": "If the section is irrelevant now, I would say we either turn it into a single page or delete its content. However - in the documentation we may still want an \"about\"-section that somehow repeats what the intro page says (which may be different from instance to instance) - and there the contents may fit.\nWhy the subentries should be removed instead of being folded I don\u0027t understand.",
+      "parentUuid": "3227f2b3_7e32eb68",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
