@@ -18,6 +18,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6090a70_0db0fd38",
+        "filename": "t/doc_legacy.t",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-09T11:50:47Z",
+      "side": 1,
+      "message": "resolved",
+      "parentUuid": "a6efe4ae_8649a813",
+      "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f5364cb_5505490d",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "I copied the code from the old included korap-\u003edevelopment renaming patch. In the last patch the dictionary entries weren\u0027t correct. I missed that.",
       "parentUuid": "1f5364cb_5505490d",
+      "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cadf76a_ccde0e18",
+        "filename": "t/doc_legacy.t",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-09T11:50:47Z",
+      "side": 1,
+      "message": "ah, sorry",
+      "parentUuid": "a84a8094_cc7e6a28",
       "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
