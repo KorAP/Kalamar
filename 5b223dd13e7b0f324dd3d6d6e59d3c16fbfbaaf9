@@ -196,6 +196,24 @@
       "parentUuid": "b590bd55_d151b20c",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97940e7d_b67d994b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-09T11:23:26Z",
+      "side": 1,
+      "message": "By adding ```\"class\": \"folded\"```, see, e.g., corpusdata.",
+      "parentUuid": "c9a7b084_ddadd3cd",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
