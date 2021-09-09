@@ -52,6 +52,24 @@
       "parentUuid": "a02e5f2e_48f38e21",
       "revId": "85b0635c1e717d42aabd4387f5a83a05a7171a0b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b890462_5397f7c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-09T10:03:22Z",
+      "side": 1,
+      "message": "Ah, it\u0027s also expanded without the fix",
+      "parentUuid": "195ef838_8c111d2d",
+      "revId": "85b0635c1e717d42aabd4387f5a83a05a7171a0b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
