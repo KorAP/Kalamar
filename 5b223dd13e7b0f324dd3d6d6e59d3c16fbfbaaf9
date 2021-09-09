@@ -160,6 +160,24 @@
       "parentUuid": "5b7e7b0e_e4f5cd87",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b590bd55_d151b20c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-09T09:57:13Z",
+      "side": 1,
+      "message": "The second link was wrong - it\u0027s https://korap.ids-mannheim.de/doc/data/annotation?embedded\u003dtrue#page-top",
+      "parentUuid": "4a1c92a5_4a7b9a6e",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
