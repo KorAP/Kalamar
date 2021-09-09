@@ -33,6 +33,24 @@
       "message": "here I get undef, but the redirect works",
       "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84a8094_cc7e6a28",
+        "filename": "t/doc_legacy.t",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-09T10:47:06Z",
+      "side": 1,
+      "message": "I copied the code from the old included korap-\u003edevelopment renaming patch. In the last patch the dictionary entries weren\u0027t correct. I missed that.",
+      "parentUuid": "1f5364cb_5505490d",
+      "revId": "fbd904610af2f7b1282dbebe3d5ea85d18597c4e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
