@@ -142,6 +142,24 @@
       "parentUuid": "aa9a8d90_c47dbc8c",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a1c92a5_4a7b9a6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-09T09:41:53Z",
+      "side": 1,
+      "message": "The expansion fix is necessary to keep the List open when a sub item is opened. The problem occurs in the corpus data section:\n\nhttps://korap.ids-mannheim.de/doc/data?embedded\u003dtrue#page-top\n\nshows the submenu.\n\nhttps://korap.ids-mannheim.de/doc/data?embedded\u003dtrue#page-top\n\nDoesn\u0027t show the submenu. And that\u0027s a bug the patch fixes. And that\u0027s obviously required for 1).\n\n1) or 3) are my preferred solution, as for 2) there is no indication to which category the pages belong to.\n\nI would even vote for making all list items foldable now, as there may be way more items set by plugins etc. Or like the \"corpus\" section for DeReKo. Having entries always expanded is not scalable in that sense anymore.",
+      "parentUuid": "5b7e7b0e_e4f5cd87",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
