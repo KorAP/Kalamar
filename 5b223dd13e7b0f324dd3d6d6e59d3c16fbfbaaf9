@@ -178,6 +178,24 @@
       "parentUuid": "4a1c92a5_4a7b9a6e",
       "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a7b084_ddadd3cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-09-09T10:18:24Z",
+      "side": 1,
+      "message": "With option (1) I meant a by default folded development. How can we achieve this?",
+      "parentUuid": "b590bd55_d151b20c",
+      "revId": "5b223dd13e7b0f324dd3d6d6e59d3c16fbfbaaf9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
