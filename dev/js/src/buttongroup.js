@@ -25,6 +25,21 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       const cl = e.classList;
       if (classes) {
         cl.add.apply(cl,classes);
+        classes.forEach(i => {
+          switch (i) {
+          case "open-menu-below" : {
+            this._omBelow = true;
+            break;
+          }
+          case "open-menu-outside" : {
+            this._omOutside = true;
+            break;
+          }
+          case "open-menu-left" : {
+            this._omLeft = true;
+          }
+          }
+        })
       };
       cl.add('button-group');
       this._el = e;
@@ -119,6 +134,13 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      */
     addList : function (title, data, itemClass = defaultItemClass) {
       const list = treeMenuClass.create([], itemClass);
+
+      list.openAt(
+        this._omLeft ? true : false,
+        this._omBelow ? true : false,
+        this._omOutside ? true : false,
+      );
+      
       this.add(title, data, function (e) {
         list.show();
         list.button(this.button);
