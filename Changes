@@ -28,6 +28,7 @@
         - Introduce legacy redirects for tutorial links.
         - Improve QueryParam response.
         - Fold all top-level navigation items.
+        - Buttongroup menus can be opened at different positions.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
