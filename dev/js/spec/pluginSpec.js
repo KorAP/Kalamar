@@ -623,7 +623,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Pipe = temp;
     });
 
-    it('should reply to query information requests', function () {
+    it('should reply to query information requests (queryform)', function () {
       var manager = pluginServerClass.create();
       var id = manager.addService({"name":'Service', "src":'about:blank'});
       expect(id).toMatch(/^id-/);
@@ -663,6 +663,38 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       // Recreate initial state
       KorAP.vc = temp;
       document.body.removeChild(f);
+    });
+
+    it('should reply to query information requests (queryform)', function () {
+      var manager = pluginServerClass.create();
+      var id = manager.addService({"name":'Service', "src":'about:blank'});
+      expect(id).toMatch(/^id-/);
+      var temp = KorAP.vc;
+
+      // Create pagination element for pagination information
+      let p = document.createElement('div');
+      p.setAttribute('id', 'pagination')
+      p.setAttribute('data-page',3);
+      p.setAttribute('data-total',30);
+      p.setAttribute('data-count',25);
+
+      document.body.appendChild(p);
+
+      let data = {
+        "originID" : id,
+        "action" : "get",
+        "key" : "Pagination"
+      };
+      manager._receiveMsg({
+        "data" : data
+      });
+      manager.destroy();
+      expect(data.value["count"]).toEqual(25);
+      expect(data.value["page"]).toEqual(3);
+      expect(data.value["total"]).toEqual(30);
+
+      // Recreate initial state
+      document.body.removeChild(p);
     });
   });
 });
