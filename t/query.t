@@ -75,6 +75,9 @@ my $err = $t->get_ok('/?q=baum')
   ->text_is('li:nth-of-type(1) p.ref time[datetime=1982]', 1982)
   ->text_is('li:nth-of-type(1) p.ref span.sigle', '[GOE/AGI/00000]')
   ->header_isnt('X-Kalamar-Cache', 'true')
+  ->attr_is('#pagination','data-page','1')
+  ->attr_is('#pagination','data-total','3')
+  ->attr_is('#pagination','data-count','25')
   ->tx->res->dom->at('#error')
   ;
 is(defined $err ? $err->text : '', '');
@@ -170,6 +173,11 @@ $err = $t->get_ok('/?q=der&p=1&count=2')
 
   # Not searched for "der" before
   ->content_unlike(qr!${q}cutOff${q}:true!)
+
+  ->attr_is('#pagination','data-page','1')
+  ->attr_is('#pagination','data-total','7291')
+  ->attr_is('#pagination','data-count','2')
+
   ->tx->res->dom->at('#error')
   ;
 is(defined $err ? $err->text : '', '');
@@ -196,6 +204,10 @@ $err = $t->get_ok('/?q=der&p=2&count=2')
   ->content_like(qr!${q}count${q}:2!)
   ->content_like(qr!${q}itemsPerPage${q}:2!)
   ->content_like(qr!${q}startIndex${q}:2!)
+
+  ->attr_is('#pagination','data-page','2')
+  ->attr_is('#pagination','data-total','7291')
+  ->attr_is('#pagination','data-count','2')
 
   # No caching
   ->header_isnt('X-Kalamar-Cache', 'true')
