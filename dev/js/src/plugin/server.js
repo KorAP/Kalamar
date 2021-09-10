@@ -9,7 +9,7 @@
  */
 "use strict";
 
-define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetClass, serviceClass, stateClass) {
+define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], function (widgetClass, serviceClass, stateClass, pageInfoClass) {
 
   KorAP.Panel = KorAP.Panel || {};
 
@@ -475,7 +475,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
           };
         }
 
-        // Get Query information from from
+        // Get Query information from form
         else if (d.key == 'QueryForm') {
           let doc = document;
           let v = d["value"] = {};
@@ -502,6 +502,15 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
           v["q"] = p.get('q');
           v["ql"] = p.get('ql');
           v["cq"] = p.get('cq');
+        }
+
+        // Get pagination information
+        else if (d.key == 'Pagination') {
+          const pi = pageInfoClass.create();
+          let v = d["value"] = {};
+          v["page"] = pi.page();
+          v["total"] = pi.total();
+          v["count"] = pi.count();
         };
 
         // data needs to be mirrored

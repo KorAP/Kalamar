@@ -29,6 +29,7 @@
         - Improve QueryParam response.
         - Fold all top-level navigation items.
         - Add plugin service to redirect to a certain location.
+        - Add support for pagination information to retrieve by plugins.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
