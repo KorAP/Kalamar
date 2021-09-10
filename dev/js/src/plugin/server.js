@@ -475,7 +475,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
           };
         }
 
-        // Get Query information from from
+        // Get Query information from form
         else if (d.key == 'QueryForm') {
           let doc = document;
           let v = d["value"] = {};
@@ -501,6 +501,15 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
           v["q"] = p.get('q');
           v["ql"] = p.get('ql');
           v["cq"] = p.get('cq');
+        }
+
+        // Get pagination information
+        else if (d.key == 'Pagination') {
+          const p = document.getElementById('pagination');
+          if (p) {
+            v["page"] = p.dataset.page;
+            v["total"] = p.dataset.total;
+          };
         };
       };
 
