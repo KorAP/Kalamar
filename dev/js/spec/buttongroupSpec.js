@@ -1,4 +1,4 @@
-define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
+define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonGroupClass, buttonGroupMenuClass, defaultItemClass, stateClass) {
 
   var FunObj = {
     count : 0,
@@ -283,6 +283,47 @@ define(['buttongroup','state'], function (buttonGroupClass, stateClass) {
 
       btn = group.element().children[4];
       expect(btn.tagName).toEqual('C3');
+    });
+  });
+
+  describe('KorAP.ButtonGroup.Menu', function () {
+    it('should reposition', function () {
+      const menu = buttonGroupMenuClass.create([["hallo", undefined, function () {}]], defaultItemClass);
+      const div = document.createElement('div');
+
+      document.body.appendChild(div);
+
+      div.style.position = 'absolute';
+      div.style.display = 'block';
+      div.style.left = '14px';
+      div.style.top = '20px';
+      div.style.width = '40px';
+      div.style.height = '30px';
+
+      menu.show();
+
+      // 000
+      menu._repos(div);
+      let elem = menu.element();
+      const fffl = elem.style.left;
+      const ffft = elem.style.top;
+
+      // 100
+      menu.openAt(true, false, false);
+      menu._repos(div);
+      elem = menu.element();
+      const tffl = elem.style.left;
+      expect(tffl).not.toEqual(fffl);
+
+
+      // 011
+      menu.openAt(false, true, true);
+      menu._repos(div);
+      elem = menu.element();
+      const fttt = elem.style.top;
+      expect(fttt).not.toEqual(ffft);
+
+      document.body.removeChild(div);
     });
   });
 });
