@@ -32,9 +32,22 @@ define(['menu'], function (menuClass) {
       // Add menu to body
       document.getElementsByTagName('body')[0].appendChild(e);
 
+      this._left = false;
+      this._below = false;
+      this._outside = false;
+
       return obj;
     },
 
+    /**
+     * Open the menu at a certain position
+     * relative to the button.
+     */
+    openAt : function (left, below, outside) {
+      this._left = left ? true : false;
+      this._below = below ? true : false;
+      this._outside = outside ? true : false;
+    },
 
     /**
      * The panel object of the menu,
@@ -108,12 +121,38 @@ define(['menu'], function (menuClass) {
 
     _repos : function (e) {
       const bounding = e.getBoundingClientRect();
-      this._el.style.left = bounding.left + "px";
-      this._el.style.top = (
-        bounding.top +
-          bounding.height -
-          this._el.clientHeight
-      ) + "px";
+      const s = this._el.style;
+
+      let left = window.pageXOffset;
+      let top = 0;
+
+      s.right = 'auto';
+      s.bottom = 'auto';
+
+      left += bounding.left;
+      
+      if (this._left) {
+        left += bounding.width - this._el.clientWidth
+      };
+
+      if (this._below) {
+        top += bounding.bottom;
+        
+        if (!this._outside) {
+          top -= bounding.height;
+        };
+
+      } else {
+        top -= this._el.clientHeight;
+        if (this._outside) {
+          top += bounding.top;
+        } else {
+          top += bounding.bottom;
+        };
+      };
+
+      s.left = left + "px";
+      s.top = top + "px";
     }
   };
 });
