@@ -2,6 +2,7 @@
   {
     "title": "Query Languages",
     "id": "ql",
+    "class": "folded",
     "items": [
       {
         "title": "Cosmas II",
@@ -96,11 +97,13 @@
   },
   {
     "title": "FAQ",
-    "id": "faq"
+    "id": "faq",
+    "class": "folded"
   },
   {
     "title": "API",
-    "id": "api"
+    "id": "api",
+    "class": "folded"
   },
   {
     "title": "Development",

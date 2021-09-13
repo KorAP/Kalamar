@@ -80,10 +80,10 @@ aside {
       }
 
       &.folded {
-        &.active ul {
+        &.active > ul {
           display: block;
         }
-        ul {
+        > ul {
           display: none;
           &.active {
             display: block !important;
