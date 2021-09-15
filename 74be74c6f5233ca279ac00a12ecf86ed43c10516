@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb75e744_a22bca68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-15T12:23:22Z",
+      "side": 1,
+      "message": "This improvement just helps to get all parameters - and is therefore more future proof then the split parameter fetch.",
+      "revId": "74be74c6f5233ca279ac00a12ecf86ed43c10516",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
