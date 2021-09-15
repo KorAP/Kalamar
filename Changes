@@ -27,6 +27,7 @@
         - Fix navigation behaviour for folded subdirectories.
         - Introduce legacy redirects for tutorial links.
         - Improve QueryParam response.
+        - Add plugin service to redirect to a certain location.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
