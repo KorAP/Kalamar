@@ -223,7 +223,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
           }
         }
 
-        // TODO There is no possibility to add icons to an plugin toggle button right now. 
+        // TODO There is no possibility to add icons to a plugin toggle button right now. 
         else if (onClick["action"] == "toggle") {
 
           // TODO:
@@ -502,12 +502,26 @@ define(['plugin/widget', 'plugin/service', 'state', 'util'], function (widgetCla
           v["q"] = p.get('q');
           v["ql"] = p.get('ql');
           v["cq"] = p.get('cq');
-        }
-      };
+        };
 
-      // data needs to be mirrored
-      if (d._id) {
-        service.sendMsg(d);
+        // data needs to be mirrored
+        if (d._id) {
+          service.sendMsg(d);
+        };
+
+        break;
+
+        // Redirect to a different page relative to the current
+      case 'redirect':
+        const url = new URL(window.location);
+
+        // Currently this only accepts search parameters
+        if (d["queryParam"]) {
+          url.search = new URLSearchParams(d["queryParam"]);
+        };
+
+        window.location = url.toString();
+        break;
       };
 
       // TODO:
