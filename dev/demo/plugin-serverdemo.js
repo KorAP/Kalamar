@@ -18,6 +18,11 @@ KorAP.Plugins = [{
     'onClick' : {
       'action' : 'addWidget',
       'template' : 'http://localhost:3003/demo/plugin-client.html',
+      "permissions": [
+        "forms",
+        "scripts",
+        "downloads"
+      ],
     }
   },{
     'panel' : 'result',
