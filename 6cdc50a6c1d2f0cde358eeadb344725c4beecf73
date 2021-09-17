@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb05626_206d40cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-17T15:34:24Z",
+      "side": 1,
+      "message": "Bind is interesting. Have a nice weekend!",
+      "revId": "6cdc50a6c1d2f0cde358eeadb344725c4beecf73",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
