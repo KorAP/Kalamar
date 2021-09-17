@@ -423,9 +423,9 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(hint.active().prefix()).toEqual("cor");
       expect(input.value).toEqual("");
       expect(hint.active()._prefix["isSelectable"]).not.toBeNull();
-      expect(hint._menu['-']._prefix["isSelectable"]).not.toBeNull();
-      expect(hint.active()._prefix).toBe(hint._menu['-']._prefix);
-      expect(hint.active()._prefix.element()).toBe(hint._menu['-']._prefix.element());
+      expect(hint._menuCollection['-']._prefix["isSelectable"]).not.toBeNull();
+      expect(hint.active()._prefix).toBe(hint._menuCollection['-']._prefix);
+      expect(hint.active()._prefix.element()).toBe(hint._menuCollection['-']._prefix.element());
       hint.active()._prefix.element().click();
       
       
