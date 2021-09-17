@@ -53,7 +53,7 @@ define([
       param = param || {};
 
       // Holds all menus per prefix context
-      this._menu   = {};
+      this._menuCollection   = {};
       this._alert  = alertClass.create();
 
       // Active may either hold an alert or a menu
@@ -186,20 +186,20 @@ define([
      * Return hint menu and probably init based on an action
      */
     menu : function (action) {
-      if (this._menu[action] === undefined) {
+      if (this._menuCollection[action] === undefined) {
         
         // No matching hint menu
         if (KorAP.annotationHelper[action] === undefined)
           return;
 
         // Create matching hint menu
-        this._menu[action] = menuClass.create(
+        this._menuCollection[action] = menuClass.create(
           this, action, KorAP.annotationHelper[action]
         );
       };
 
       // Return matching hint menu
-      return this._menu[action];
+      return this._menuCollection[action];
     },
 
 
