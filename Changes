@@ -1,8 +1,9 @@
 0.44 2022-01-04
         - Fixed autosecrets migration. (diewald)
         - Format page numbers in pagination (diewald).
+        - Introduce tei2korapxml command via plugin.
 
-0.43 2021-12-01
+0.43 2021-11-05
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
