@@ -1,3 +1,6 @@
+0.44 2021-11-15
+        - Introduce korapxml2tei command via plugin.
+
 0.43 2021-11-05
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
