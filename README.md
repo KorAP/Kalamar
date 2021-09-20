@@ -242,6 +242,8 @@ Currently bundled plugins are
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
 - `Piwik`: For integrating Matomo/Piwik
 - `Tei2KorAPXML`: For integrated calls to [tei2korapxml](https://github.com/KorAP/KorAP-XML-TEI), if installed
+- `KorAPXML2Krill`: For integrated calls to [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill), if installed
+
 
 ## Troubleshooting
 
