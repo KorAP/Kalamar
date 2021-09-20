@@ -241,6 +241,7 @@ Currently bundled plugins are
 - `Auth`: For integrating user management
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
 - `Piwik`: For integrating Matomo/Piwik
+- `KorAPXML2Krill`: For integrated calls to [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill), if installed
 
 
 ## Troubleshooting

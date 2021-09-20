@@ -13,6 +13,7 @@ WriteMakefile(
     'Test::More' => 0,
     'Test::Mojo::Session' => 1.06,
     'Test::Mojo::WithRoles' => 0.02,
+    'Test::Output' => 0,
   },
   LICENSE      => 'freebsd',
   PREREQ_PM => {
