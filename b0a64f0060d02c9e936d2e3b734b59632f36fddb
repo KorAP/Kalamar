@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1942837_80cedaad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-20T12:22:16Z",
+      "side": 1,
+      "message": "Required for the next step towards 1-click-installations (see milestones).",
+      "revId": "b0a64f0060d02c9e936d2e3b734b59632f36fddb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
