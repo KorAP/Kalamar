@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f19c69_34586306",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-21T15:45:49Z",
+      "side": 1,
+      "message": "Granted, this only works in case util.js is loaded once in the environment, but I guess that\u0027s given in all realworld circumstances our libraries are used.",
+      "revId": "88e73a734721d2e3f333283f6f83e58961dd17e6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
