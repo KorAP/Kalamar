@@ -27,6 +27,20 @@ String.prototype.slugify = function () {
   return this.toLowerCase().replace(_slug1RE, '').replace(_slug2RE, '-');
 };
 
+/**
+ * Upgrade this object to another object,
+ * while private data stays intact.
+ *
+ * @param {Object} An object with properties.
+ */
+Object.prototype.upgradeTo  = function (props) {
+  for (let prop in props) {
+    this[prop] = props[prop];
+  };
+  return this;
+};
+
+
 // Add toggleClass method similar to jquery
 HTMLElement.prototype.toggleClass = function (c1, c2) {
   const cl = this.classList;

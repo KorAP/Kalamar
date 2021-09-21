@@ -18,19 +18,6 @@ define({
   },
 
   /**
-   * Upgrade this object to another object,
-   * while private data stays intact.
-   *
-   * @param {Object} An object with properties.
-   */
-  upgradeTo : function (props) {
-    for (let prop in props) {
-      this[prop] = props[prop];
-    };
-    return this;
-  },
-
-  /**
    * Check or set if the item is active
    *
    * @param {boolean|null} State of activity

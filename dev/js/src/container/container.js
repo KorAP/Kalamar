@@ -54,18 +54,6 @@ define([
 
 
     },
-    /**
-     * Upgrade this object to another object,
-     * while private data stays intact.
-     *
-    * @param {Object} An object with properties.
-    */
-    upgradeTo : function (props) {
-      for (let prop in props) {
-        this[prop] = props[prop];
-      };
-      return this;
-    },
 
     addItem : function (item) {
       var cItem = this._containerItemClass.create().upgradeTo(item);

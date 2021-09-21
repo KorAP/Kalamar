@@ -14,18 +14,6 @@ define(['vc/operators'], function (operatorsClass) {
     },
 
 
-    /**
-     * Upgrade this object to another object
-     * while private data stays intact
-     */
-    upgradeTo : function (props) {
-      for (let prop in props) {
-	      this[prop] = props[prop];
-      };
-      return this;
-    },
-    
-
     ldType : function (type) {
       if (arguments.length === 1)
 	      this._ldType = type;

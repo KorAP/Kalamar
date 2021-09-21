@@ -33,6 +33,7 @@
         - Buttongroup menus can be opened at different positions.
         - Fix buttongroup anchoring if anchor doesn't exist.
         - Fix blind header titles.
+        - Turn "upgradeTo" into an object prototype.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
