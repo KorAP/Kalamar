@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4cf685_0e975a83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-09-21T14:50:21Z",
+      "side": 1,
+      "message": "I found only a minor issue.",
+      "revId": "bdb806a874c47e454137b8d3fc0b657828124428",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46178c33_7e0f0aba",
+        "filename": "dev/js/spec/pluginSpec.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-09-21T14:50:21Z",
+      "side": 1,
+      "message": "I do not understand why we need KorAP.vc here. Is it a copy and paste mistake or am I misunderstand something?",
+      "range": {
+        "startLine": 672,
+        "startChar": 10,
+        "endLine": 672,
+        "endChar": 14
+      },
+      "revId": "bdb806a874c47e454137b8d3fc0b657828124428",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
