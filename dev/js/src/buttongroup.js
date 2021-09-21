@@ -49,18 +49,6 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       return false;
     },
     
-    /**
-     * Upgrade this object to another object, 
-     * while private data stays intact.
-     * 
-     * @param {Object} An object with properties.
-     */
-    upgradeTo : function (props) {
-      for (var prop in props) {
-        this[prop] = props[prop];
-      };
-      return this;
-    },
 
     _insert : function (tag = 'span') {
       const span = document.createElement(tag);

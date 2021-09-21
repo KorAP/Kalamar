@@ -1,4 +1,4 @@
-0.43 2021-09-15
+0.43 2021-09-21
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -29,6 +29,7 @@
         - Improve QueryParam response.
         - Fold all top-level navigation items.
         - Add plugin service to redirect to a certain location.
+        - Turn "upgradeTo" into an object prototype.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
