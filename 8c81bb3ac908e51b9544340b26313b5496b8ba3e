@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7d3ac9_662bfc45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-09-21T16:15:22Z",
+      "side": 1,
+      "message": "buttongroupSpec is in need of \"cleaning up\". Displays \"hallo\"-entries after running the expectation \"should reposition\" in .../runner/buttongroup.html.",
+      "revId": "8c81bb3ac908e51b9544340b26313b5496b8ba3e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
