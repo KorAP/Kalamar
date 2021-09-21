@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "568ca2a2_493140d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-21T12:24:05Z",
+      "side": 1,
+      "message": "Would the same thing like with prefix happen again?",
+      "revId": "ebdcb21997c1b614ecac3d46e858a87b53352953",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "132fd2a0_016d45f5",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-21T12:24:05Z",
+      "side": 1,
+      "message": "Is a bind like this:\n      cItem._el[\"onclick\"] \u003d cItem.onclick.bind(cItem);\nnot necessary?",
+      "range": {
+        "startLine": 96,
+        "startChar": 44,
+        "endLine": 97,
+        "endChar": 45
+      },
+      "revId": "ebdcb21997c1b614ecac3d46e858a87b53352953",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
