@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc342b1_ccec2bef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-21T14:59:12Z",
+      "side": 1,
+      "message": "You are right - that\u0027s a useless line. Removed.",
+      "revId": "26d57f2a0b8d9648385b2683788280d66750e07c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
