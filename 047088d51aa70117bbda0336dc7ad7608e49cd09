@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76060180_1596be73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-22T16:48:19Z",
+      "side": 1,
+      "message": "This is not tested yet, but should work, as long as the paths in the demo files are adjusted. Just add `DemoServer` to he plugin list in the config file.",
+      "revId": "047088d51aa70117bbda0336dc7ad7608e49cd09",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
