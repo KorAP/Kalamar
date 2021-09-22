@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd075aa3_872958fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-09-22T08:51:54Z",
+      "side": 1,
+      "message": "buttonspec issue is fixed :)!\n\nI found another issue, that only emerges at second glance.\nAfter scrolling in Kalamar the buttongroup can be misplaced (screenshot in Slack).\n",
+      "revId": "7295fc8a45a06b6da20562f41c88920cc8687a27",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
