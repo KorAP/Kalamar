@@ -63,6 +63,30 @@
       },
       "revId": "ebdcb21997c1b614ecac3d46e858a87b53352953",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9c9868_287ab590",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-22T10:42:19Z",
+      "side": 1,
+      "message": "This initialises the textNode. I let it do that this late, so that the user has enough time to overwrite \"defaultTextValue\" or maybe the \"content\" function, without having to worry about the \"element\" function",
+      "parentUuid": "aff7748d_b6ecac73",
+      "range": {
+        "startLine": 96,
+        "startChar": 44,
+        "endLine": 97,
+        "endChar": 45
+      },
+      "revId": "ebdcb21997c1b614ecac3d46e858a87b53352953",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
