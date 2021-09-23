@@ -34,6 +34,24 @@
       "parentUuid": "b8f19c69_34586306",
       "revId": "88e73a734721d2e3f333283f6f83e58961dd17e6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e2bf8bd_bb1e81f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-23T08:40:42Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s relevant. There are quite a lot prototypes not explicitely loading util.js, but as it is loaded in the meaningful environment, there shouldn\u0027t be an issue. And when there is an issue, the error will be pretty obvious. There may be single spec runners failing, but otherwise there should be no problem. Especially not in production, as long as we don\u0027t provide the code as external libraries.",
+      "parentUuid": "be9e78d6_e6db9292",
+      "revId": "88e73a734721d2e3f333283f6f83e58961dd17e6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
