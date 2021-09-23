@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec472c45_a0242123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-23T09:15:38Z",
+      "side": 1,
+      "message": "There is now a pretty weird single-pixel-shift in the pagination line, otherwise I am quite happy with the integration now. Localisation should be improved, but ...\n\nMissing: pagination panel spec.",
+      "revId": "ea156adcab7b4dfae941be89e204f98574806e2c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
