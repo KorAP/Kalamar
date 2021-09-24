@@ -36,6 +36,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "017313c2_7bca6b6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-24T11:16:02Z",
+      "side": 1,
+      "message": "Ad 1)\nWhen running hint demo and opening the menu, when I navigate using the arrow buttons and press \"enter\", the console logs \"click\" (but the menu doesn\u0027t hide which may or may not be wanted). When I open the menu by clicking on the orange bar and then on the container item , the hint disappears, but nothing is logged. When I open the menu with the arrow key and then click the item, sometimes it logs, sometimes not.\n\nAd 2)\nI am sorry, I don\u0027t understand your answer.\nThe dialogue was:\n\n\u003e Leo Repp  13:23 Uhr\n\u003e Wenn man ein containerItem dynamisch hinzufügt ist das Präfix visuell am Ende der Liste, das neue Item aber stattdessen von der Funktionalität her. Soll das Präfix immer am Ende sein?\n\u003e 13:24 Uhr\n\u003e Ich denke ja.\n\u003e \n\u003e Nils Diewald  13:29 Uhr\n\u003e Für die Navigation wäre es irgendwie nachvollziehbarer, wenn das Präfix immer direkt unter der Liste wäre, würde ich sagen.\n\u003e \n\u003e Helge Stallkamp  13:31 Uhr\n\u003e Würde das wie Nils sehen.\n\u003e ...\n\u003e \n\u003e Nils Diewald  13:43 Uhr\n\u003e Ich denke, das Präfix grundsätzlich an erster Stelle zu haben, wäre sinnvoll. Die dynamischen items dann in der Reihenfolge, in der sie hinzugefügt werden. Hoffen wir mal, dass das immer deterministisch sein wird.\n\u003e \n\u003e Leo Repp  13:46 Uhr\n\u003e Ich nehme an du meinst an letzter Stelle das Präfix. Und ja es müsste immer in Hinzugefüge-Reihenfolge sein. Außer push macht etwas ungewohntes. Habe es hochgeladen, werde jetzt noch den Test für content() schreiben.\n\u003e \n\u003e Nils Diewald  13:47 Uhr\n\u003e An erster Stelle hinter der Liste.",
+      "parentUuid": "1902033c_b80644a9",
+      "revId": "a14a4c6a84ab638f52aff4faff5d35e7377a9df4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d438592_c9360ae9",
