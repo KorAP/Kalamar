@@ -57,7 +57,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      * Define element following newly added buttons.
      */
     anchor : function (anchor) {
-      if (anchor.parentNode == this._el) {
+      if (anchor !== null && anchor.parentNode == this._el) {
         this._anchor = anchor;
         return true;
       };

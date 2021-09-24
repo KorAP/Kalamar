@@ -256,8 +256,11 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       const c1 = el.appendChild(document.createElement('c1'));
       const c2 = el.appendChild(document.createElement('c2'));
       const c3 = el.appendChild(document.createElement('c3'));
+
+      let group = buttonGroupClass.adopt(el);
+      expect(group.anchor(null)).toBeFalsy();
       
-      const group = buttonGroupClass.adopt(el);
+      group = buttonGroupClass.adopt(el);
       expect(group.anchor(c3)).toBeTruthy();
 
       group.add('Meta', {'cls':['meta', 'top']}, function (e) {});
