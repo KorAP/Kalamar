@@ -16,6 +16,24 @@
       "message": "This allows for disabling CSP by adding \u0027-disabled \u003d\u003e 1\u0027 to config.",
       "revId": "0b1c3167535d0997f81984589448210beb4bad4f",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7bcaa13_8cf800e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-24T14:42:28Z",
+      "side": 1,
+      "message": "Sorry - it\u0027s `-disable \u003d\u003e 1`.",
+      "parentUuid": "d1ce5497_5eacd44c",
+      "revId": "0b1c3167535d0997f81984589448210beb4bad4f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
