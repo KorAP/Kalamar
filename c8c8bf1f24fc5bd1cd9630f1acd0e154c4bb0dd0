@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e2991c3_d504fe66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-24T09:31:40Z",
+      "side": 1,
+      "message": "This bug can occur now when the pagination can\u0027t be found on init phase.",
+      "revId": "c8c8bf1f24fc5bd1cd9630f1acd0e154c4bb0dd0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
