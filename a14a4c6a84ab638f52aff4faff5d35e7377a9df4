@@ -18,6 +18,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1902033c_b80644a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-24T11:01:36Z",
+      "side": 1,
+      "message": "1) Cannot recreate.\n2) Assuming you mean the displayed location, I had asked you wether the prefix should be an li or a pref style in css, and you had said that the distance between the list and the prefix seems usefull/intuititve.",
+      "parentUuid": "3a43fbcb_2ec5e5f3",
+      "revId": "a14a4c6a84ab638f52aff4faff5d35e7377a9df4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d438592_c9360ae9",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-09-24T10:50:54Z",
       "side": 1,
       "message": "I am not sure what \"chop\" is meaningful for in container items (other than prefix).",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "a14a4c6a84ab638f52aff4faff5d35e7377a9df4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8f2538_ba1591b9",
+        "filename": "dev/demo/hintdemo.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-24T11:01:36Z",
+      "side": 1,
+      "message": "It doesnt harm to support it. Also it might be necessary if we want to create another prefix like containerItem. Also containerItems supporting all of the prefix funcitons container may or may not call allows for container to call it for all containerItems instead of having to distinguish between those with or without chop (e.g. prefix).",
+      "parentUuid": "0d438592_c9360ae9",
       "range": {
         "startLine": 20,
         "startChar": 6,
