@@ -16,6 +16,11 @@ sub register {
   };
 
   my $with_nonce = delete $param->{-with_nonce};
+  my $disabled   = delete $param->{-disable};
+
+  if ($disabled) {
+    $app->log->warn('CSP DISABLED!','NEVER USE IN PRODUCTION!');
+  };
 
   $app->plugin('Util::RandomString' => {
     nonce => {
@@ -44,19 +49,21 @@ sub register {
   my $csp = \( generate(%directives) );
 
   # Add csp header
-  $app->hook(
-    before_dispatch => sub {
-      my $c = shift;
-      if ($$csp) {
-        my $line = $$csp;
-        if ($with_nonce) {
-          $c->stash('csp.nonce' => my $nonce = $c->random_string('nonce'));
-          $line =~ s/\'nonce-\{\{nonce_js\}\}\'/\'nonce-$nonce\'/;
+  unless ($disabled) {
+    $app->hook(
+      before_dispatch => sub {
+        my $c = shift;
+        if ($$csp) {
+          my $line = $$csp;
+          if ($with_nonce) {
+            $c->stash('csp.nonce' => my $nonce = $c->random_string('nonce'));
+            $line =~ s/\'nonce-\{\{nonce_js\}\}\'/\'nonce-$nonce\'/;
+          };
+          $c->res->headers->header('Content-Security-Policy' => $line);
         };
-        $c->res->headers->header('Content-Security-Policy' => $line);
-      };
-    }
-  );
+      }
+    );
+  };
 
   # Add csp directives
   $app->helper(
@@ -86,7 +93,7 @@ sub register {
   $app->helper(
     csp_nonce_tag => sub {
       my $c = shift;
-      unless ($c->content_block_ok('nonce_js')) {
+      if ($disabled || !$c->content_block_ok('nonce_js')) {
         return '';
       };
 
