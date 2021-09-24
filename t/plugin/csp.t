@@ -149,6 +149,24 @@ $content =~ q!<script nonce="(.{20})"!;
 like($content, qr/nonce-\Q$1\E/);
 
 
+# Disable csp
+$t = Test::Mojo->new(Mojolicious::Lite->new);
+$t->app->plugin('Kalamar::Plugin::CSP' => {
+  '-disable' => 1
+});
+
+$t->app->routes->get('/' => sub {
+  shift->render(text => 'hello world');
+});
+
+$t->app->csp->add('script-src', '*');
+is($t->app->csp_nonce_tag,'');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->content_is('hello world')
+  ->header_is($csp, undef)
+  ;
 
 done_testing;
 __END__
