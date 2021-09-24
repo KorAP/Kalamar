@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a43fbcb_2ec5e5f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-24T10:50:54Z",
+      "side": 1,
+      "message": "Just 2 questions:\n\n- It seems that the \"onclick\" is not released when clicking on the item - only when pressing enter. At least in the demo.\n- The prefix is attached at the end - this should be directly below the list, as talked about in Slack.",
+      "revId": "a14a4c6a84ab638f52aff4faff5d35e7377a9df4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d438592_c9360ae9",
+        "filename": "dev/demo/hintdemo.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-24T10:50:54Z",
+      "side": 1,
+      "message": "I am not sure what \"chop\" is meaningful for in container items (other than prefix).",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "a14a4c6a84ab638f52aff4faff5d35e7377a9df4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
