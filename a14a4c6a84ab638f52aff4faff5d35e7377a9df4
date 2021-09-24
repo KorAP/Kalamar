@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f76f29a_61addf94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-24T11:30:30Z",
+      "side": 1,
+      "message": "1) Ich habe den Fehler denke ich gefunden: bei dem clicken mit der Maustaste wird kein \"e.halt()\" aufgerufen. Bei den Pfeiltasten schon. Weißt du, wie ich das ergänzen kann, ohne dass das innerhalb der onclick Methode jedes mal notiert werden muss? Oder ist es OK, wenn das der spätere Nutzer in onclick jedes mal aufschreibt?\n\n2) Wir hatten sehr früh schon ausgemacht, dass das Präfix unter den ContainerItems angezeigt werden soll. Daher war ich in diesem Gespräch davon ausgegangen, dass du mit \"Liste\" die Liste an ContainerItems meinst. Wenn das Präfix nun an erster Stelle unter den regulären Menu Einträgen stehen sollte, dann wäre das eine Menge Code, den ich ändern müsste.",
+      "parentUuid": "017313c2_7bca6b6d",
+      "revId": "a14a4c6a84ab638f52aff4faff5d35e7377a9df4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d438592_c9360ae9",
         "filename": "dev/demo/hintdemo.js",
         "patchSetId": 9
