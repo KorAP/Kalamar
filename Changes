@@ -35,6 +35,7 @@
         - Fix blind header titles.
         - Turn "upgradeTo" into an object prototype.
         - Fix QueryParam response to work with Chrome (#149).
+        - Support CSP disabling.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
