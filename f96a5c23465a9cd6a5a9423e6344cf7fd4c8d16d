@@ -16,6 +16,24 @@
       "message": "CSP deactivation does not work for Firefox, but I can still run the demo server.",
       "revId": "f96a5c23465a9cd6a5a9423e6344cf7fd4c8d16d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49826bf0_d092895d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-29T13:12:35Z",
+      "side": 1,
+      "message": "What do you mean it doesn\u0027t work in FF? Does it show CSP headers or does the CSP disablement don\u0027t change the errors?",
+      "parentUuid": "1a912761_becff9c8",
+      "revId": "f96a5c23465a9cd6a5a9423e6344cf7fd4c8d16d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
