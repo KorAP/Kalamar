@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "716065bc_f031a471",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-29T12:49:15Z",
+      "side": 1,
+      "message": "https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request",
+      "revId": "315a65ecfc1c57b680e310588470884e80150cfc",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
