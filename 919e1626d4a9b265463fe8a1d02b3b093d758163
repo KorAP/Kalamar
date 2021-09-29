@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e041097_0fe2e77e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-29T13:06:36Z",
+      "side": 1,
+      "message": "Der Fehler besteht weiterhin in Firefox.",
+      "revId": "919e1626d4a9b265463fe8a1d02b3b093d758163",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
