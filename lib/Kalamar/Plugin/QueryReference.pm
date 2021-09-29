@@ -25,6 +25,45 @@ sub register {
 
   $r->add_type('qname' => qr![-_\.a-zA-Z0-9]+!);
 
+  $r->options('/query')->to( #https://stackoverflow.com/questions/53298478/has-been-blocked-by-cors-policy-response-to-preflight-request-doesn-t-pass-acce
+    cb => sub {
+      my $c = shift;
+
+      #https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request
+
+      #These all seem to just cause more problems. I thought they might be necessary
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '*');
+      #$c->res->headers->header('Access-Control-Allow-Methods' => 'GET, OPTIONS, POST, DELETE, PUT');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'Content-Type' => 'application/json');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'Accept' => 'application/json');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'X-Requested-With' => 'XMLHttpRequest');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'Origin'=>"API");
+      return $c->render(
+        status => 200,
+        text => "Options OK"
+      );
+    }
+  );
+
+  $r->options('/query/<qname:qname>')->to( #https://stackoverflow.com/questions/53298478/has-been-blocked-by-cors-policy-response-to-preflight-request-doesn-t-pass-acce
+    cb => sub {
+      my $c = shift;
+
+      #https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request
+
+      #These all seem to just cause more problems. I thought they might be necessary
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '*');
+      #$c->res->headers->header('Access-Control-Allow-Methods' => 'GET, OPTIONS, POST, DELETE, PUT');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'Content-Type' => 'application/json');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'Accept' => 'application/json');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'X-Requested-With' => 'XMLHttpRequest');
+      #$c->res->headers->header('Access-Control-Allow-Headers' => 'Origin'=>"API");
+      return $c->render(
+        status => 200,
+        text => "Options OK"
+      );
+    }
+  );
 
   # List queries
   $r->get('/query')->to(
