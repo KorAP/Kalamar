@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c4b3d88_b0e5b5fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-29T13:08:33Z",
+      "side": 1,
+      "message": "Der Demo Server scheint nun erreichbar zu sein...",
+      "revId": "e46ad06576fadac5abbfbfbc04e5608e9f7d360f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
