@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a912761_becff9c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-09-29T13:10:16Z",
+      "side": 1,
+      "message": "CSP deactivation does not work for Firefox, but I can still run the demo server.",
+      "revId": "f96a5c23465a9cd6a5a9423e6344cf7fd4c8d16d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
