@@ -16,6 +16,24 @@
       "message": "I was sceptical at first, because of the two clicks required to get to the random page, but it seems to work out in practice for me on instance/test. So the advantages outweigh the little disadvantage.\n\nHow can I activate the menu in my own instance?\n\nMaybe add to the commit message:\n\nResolves #141",
       "revId": "da21139c998396cb241493dd655b5bf67aa8c7e3",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f9808a_0c1e72a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-29T13:32:26Z",
+      "side": 1,
+      "message": "I think the main advantage is, that we can easily resolve https://github.com/KorAP/Kalamar/issues/5 too now. Just having a long line of weird icons in the pagination bar would be extremely weird.\n\nThe menu should automatically be active when the commit is merged and the js is built.",
+      "parentUuid": "9376291b_9cf3769c",
+      "revId": "da21139c998396cb241493dd655b5bf67aa8c7e3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
