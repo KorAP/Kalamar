@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "692b9dfd_ba1bf90e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-09-30T12:13:47Z",
+      "side": 1,
+      "message": "This at least improves a situation where a very long query string can reach the window frame, e.g. like with `https://korap.ids-mannheim.de/instance/test?q\u003dBodycam+or+Bodycams+or+Body-Cam+or+Body-Cams+or+Body-cam+or+Body-cams+or+bodycam+or+bodycams+or+%28Body+%2F%2Bw1+%28Cam+OR+Cams%29%29+OR+%28Body+%2F%2Bw1+%28cam+OR+cams%29%29+OR+%28body+%2F%2Bw1+%28cam+OR+cams%29%29\u0026ql\u003dcosmas2\u0026cutoff\u003d1\u0026pipe\u003dhttps%3A%2F%2Fkorap.ids-mannheim.de%2Fproxy%2Fc0r4ft%2FwformServices-0.1-SNAPSHOT%2FwformServices%2Fquery` ...",
+      "revId": "ff7de6964e279d93aa13d05b43d9c0be77182a17",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
