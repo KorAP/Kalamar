@@ -1,4 +1,4 @@
-0.43 2021-09-24
+0.43 2021-09-30
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -32,6 +32,7 @@
         - Add support for pagination information to retrieve by plugins.
         - Buttongroup menus can be opened at different positions.
         - Fix buttongroup anchoring if anchor doesn't exist.
+        - Fix blind header titles.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
