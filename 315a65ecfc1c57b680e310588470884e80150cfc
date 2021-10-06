@@ -16,6 +16,23 @@
       "message": "https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request",
       "revId": "315a65ecfc1c57b680e310588470884e80150cfc",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55a4b5e7_c88d9dc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-10-06T08:11:54Z",
+      "side": 1,
+      "message": "Can you give an example setup where this is required? I mean - where CORS is in effect for Query Reference Handling aside of the API?",
+      "revId": "315a65ecfc1c57b680e310588470884e80150cfc",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
