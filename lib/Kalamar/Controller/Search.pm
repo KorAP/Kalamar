@@ -175,6 +175,11 @@ sub query {
     sub {
       my $json = shift;
 
+      if ($page % 1000 == 0) {
+        $c->res->code(302);
+        return $c->redirect_to('https://youtu.be/xvFZjo5PgG0');
+      }
+
       $c->app->log->debug("Receiving cached promised results");
 
       #######################
