@@ -16,6 +16,24 @@
       "message": "I recognize the usefulness for particularly stressed users, ;-) but this commit lacks tests - and perhaps the deployment should be configurable to account for cultural differences.",
       "revId": "a94dddd7b449ed18db28313863e9787ffb5a4951",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe48445f_a4546e9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-10-11T11:01:27Z",
+      "side": 1,
+      "message": "Right, it needs a test. I\u0027d also relax the current winning criterion slightly and introduce a date criterion in addition.",
+      "parentUuid": "9f75d95d_ea1a9c76",
+      "revId": "a94dddd7b449ed18db28313863e9787ffb5a4951",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
