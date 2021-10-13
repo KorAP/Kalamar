@@ -16,6 +16,24 @@
       "message": "Aren\u0027t there also quotation marks missing?",
       "revId": "467edd8bd19572e4490cae08fc6bdd4819c48ee2",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b004c319_ef021c03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-10-13T16:27:06Z",
+      "side": 1,
+      "message": "Yes, you are right. I did not saw it, because I focused on the typo. Modern browser mostly work without the quotation marks, but we should not got in the habit not using them. Thanks!",
+      "parentUuid": "adc1f079_ea94c7e6",
+      "revId": "467edd8bd19572e4490cae08fc6bdd4819c48ee2",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
