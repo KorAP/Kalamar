@@ -59,7 +59,7 @@
           "key": 'QueryParam'
         }, function (d) {
 
-          const par = d.value.param;
+          const par = new URLSearchParams(d.value.search);
           par.set("q",56);
           
           KorAPlugin.sendMsg({
@@ -67,14 +67,24 @@
             'queryParam' : par.toString()
           })
         });
-        
       }
+
+      function getQueryParam() {
+        KorAPlugin.requestMsg({
+          "action":"get",
+          "key": 'QueryParam'
+        }, function (d) {
+          KorAPlugin.log(0, d.value.search);
+        });
+      }
+
       
       </script>
     <ul>
       <li><a onclick="KorAPlugin.log(333, 'Huhu!')">Send log!</a></li>
       <li><a onclick="KorAPlugin.resize()">Resize</a></li>
       <li><a onclick="KorAPlugin.sendMsg({'action':'pipe','service':'Glemm'})">Add Glemm</a></li>
+      <li><a onclick="getQueryParam()">GetQueryParam</a></li>
       <li><a onclick="redirect()">Redirect</a></li>
       <li><a onclick="flood()">Flood!</a></li>
       <li><a onclick="KorAPlugin.requestMsg({'action':'get', 'key':'KQ'}, function (d) { document.write(JSON.stringify(d.value))})">Get KQ</a></li>
