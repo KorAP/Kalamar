@@ -498,7 +498,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
           // Supported in all modern browsers
           var p = new URLSearchParams(window.location.search);
           let v = d["value"] = {};
-          v["param"] = p; // readonly
+          v["search"] = window.location.search; // readonly
           v["q"] = p.get('q');
           v["ql"] = p.get('ql');
           v["cq"] = p.get('cq');
