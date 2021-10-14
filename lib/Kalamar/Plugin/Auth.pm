@@ -3,7 +3,8 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
-use Mojo::Util 'deprecated';
+use Mojo::Util qw!deprecated b64_encode encode!;
+use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
 # It establishes both the JWT as well as the OAuth password
@@ -65,6 +66,7 @@ sub register {
           logoutFail => 'Abmeldung fehlgeschlagen',
           authenticationFail => 'Nicht authentifiziert',
           csrfFail => 'Fehlerhafter CSRF Token',
+          invalidChar => 'Ungültiges Zeichen in Anfrage',
           openRedirectFail => 'Weiterleitungsfehler',
           tokenExpired => 'Zugriffstoken abgelaufen',
           tokenInvalid => 'Zugriffstoken ungültig',
@@ -111,6 +113,7 @@ sub register {
           logoutFail => 'Logout failed',
           authenticationFail => 'Not authenticated',
           csrfFail => 'Bad CSRF token',
+          invalidChar => 'Invalid character in request',
           openRedirectFail => 'Redirect failure',
           tokenExpired => 'Access token expired',
           tokenInvalid => 'Access token invalid',
@@ -608,7 +611,13 @@ sub register {
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = $v->param('handle');
+        my $user = check_decode($v->param('handle'));
+        unless ($user) {
+          $c->notify(error => $c->loc('Auth_invalidChar'));
+          $c->param(handle_or_email => '');
+          return $c->relative_redirect_to('index');
+        };
+
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
@@ -1304,7 +1313,13 @@ sub register {
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = $v->param('handle');
+        my $user = check_decode($v->param('handle'));
+        unless ($user) {
+          $c->notify(error => $c->loc('Auth_invalidChar'));
+          $c->param(handle_or_email => '');
+          return $c->relative_redirect_to('index');
+        };
+
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
@@ -1484,6 +1499,17 @@ sub _set_no_cache {
   $h->cache_control('max-age=0, no-cache, no-store, must-revalidate');
   $h->expires('Thu, 01 Jan 1970 00:00:00 GMT');
   $h->header('Pragma','no-cache');
+};
+
+
+sub check_decode {
+  no warnings 'uninitialized';
+  my $str = shift;
+  my $str2 = is_utf8($str) ? b($str)->decode : $str;
+  if (defined($str2) && $str2 && length($str2) > 1) {
+    return $str2
+  };
+  return;
 };
 
 

@@ -52,7 +52,6 @@ helper jwt_decode => sub {
 helper expired => sub {
   my ($c, $auth, $set) = @_;
 
-
   $auth =~ s/^[^ ]+? //;
   if ($set) {
     $c->app->log->debug("Set $auth for expiration");
@@ -402,7 +401,7 @@ post '/v1.0/oauth2/token' => sub {
     }
 
     # Check for wrong user name
-    elsif ($c->param('username') ne 'test') {
+    elsif ($c->param('username') !~ /^t.st$/) {
       return $c->render(json => {
         error => [[2004, undef]]
       });
