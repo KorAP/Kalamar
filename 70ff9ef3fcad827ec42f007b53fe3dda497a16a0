@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa50fd8_e5c8d1a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-10-14T13:59:38Z",
+      "side": 1,
+      "message": "This is an adoption of #3762 . I think this is still better than a server crash - and I would suggest we wait until someone really has a problem with wide characters in usernames.",
+      "revId": "70ff9ef3fcad827ec42f007b53fe3dda497a16a0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
