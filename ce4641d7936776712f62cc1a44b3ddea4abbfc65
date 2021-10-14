@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d7b574d_b2d76ea0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-10-14T12:51:56Z",
+      "side": 1,
+      "message": "I think now, that even the logos are not updated on the website, we can forget about this.",
+      "revId": "ce4641d7936776712f62cc1a44b3ddea4abbfc65",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
