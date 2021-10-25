@@ -2115,11 +2115,11 @@ define(
         expect(container.element().nodeName).toEqual("UL");
         expect(container.element().classList.contains("menu")).toBeTruthy();
         expect(container.element().classList.contains("visible")).toBeFalsy();
-        expect(menu._prefix).toEqual(container._prefix);
+        expect(menu._prefix).toEqual(container._cItemPrefix);
         expect(container.length()).toEqual(1);
         expect(container.length()).toEqual(container.items.length);
         expect(container.liveLength()).toEqual(0);
-        expect(container.item(0)).toEqual(container._prefix);
+        expect(container.item(0)).toEqual(container._cItemPrefix);
         expect(container.active()).toBeFalsy();
         expect(directElementChildrenByTagName(menu.element(),"pref")).toEqual([]);
         expect(container.element().getElementsByClassName("pref").length).toEqual(1);
@@ -2130,6 +2130,41 @@ define(
         expect(container.liveLength()).toEqual(1);
         menu.prev();
         expect(container.active()).toBeTruthy();
+      });
+
+
+      it("should support dynamic changing of text content", function () {
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        var container = menu.container();
+        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).content()).toEqual(undefined);
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(0).content("New1").nodeValue).toEqual("New1");
+        expect(container.item(1).content("New2").nodeValue).toEqual("New2");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).content()).toEqual(undefined);
+        
+        
       });
 
     });
