@@ -210,8 +210,8 @@ define(
         expect(liElements[2].classList.contains("no-more")).toBe(false);
 
         var items = menu.container().items;
-        expect(items[0].content().nodeValue).toEqual("CIText1 ");
-        expect(items[1].content().nodeValue).toEqual("CIText2 ");
+        expect(items[0].initContent().nodeValue).toEqual("CIText1 ");
+        expect(items[1].initContent().nodeValue).toEqual("CIText2 ");
         expect(items[2].element().innerHTML).toEqual(""); //prefix!
         expect(items[3]).toBe(undefined);
       });
@@ -2129,21 +2129,21 @@ define(
         
         var menu = OwnContainerMenu.create(list,ExampleItemList2);
         var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
         expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2).initContent()).toEqual(undefined);
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(0).content("New1").nodeValue).toEqual("New1");
-        expect(container.item(1).content("New2").nodeValue).toEqual("New2");
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(0).initContent("New1").nodeValue).toEqual("New1");
+        expect(container.item(1).initContent("New2").nodeValue).toEqual("New2");
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2).initContent()).toEqual(undefined);
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).initContent()).toEqual(undefined);
         
         
       });
@@ -2164,18 +2164,45 @@ define(
         
         var menu = OwnContainerMenu.create(list,ExampleItemList2);
         var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content()).toEqual(undefined);
+
+        var testElement = container.element().children[0]; // Use this to test wether the HTML elements are in the correct order.
+
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(testElement).toEqual(container.item(0).element())
+
+        testElement = testElement.nextElementSibling;
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(testElement).toEqual(container.item(1).element())
+
+        testElement = testElement.nextElementSibling;
+        expect(container.item(2).initContent()).toEqual(undefined);
         expect(container.item(2)).toBeDefined();
+        expect(testElement).toEqual(container.item(2).element()) // = prefix
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.element().lastChild).toEqual(container._cItemPrefix.element());
+
         container.addItem({defaultTextValue : "CIText2 "});
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content().nodeValue).toEqual("CIText2 ");
+        
+        var testElement = container.element().children[0]; // Use this to test wether the HTML elements are in the correct order.
+
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(testElement).toEqual(container.item(0).element())
+
+        testElement = testElement.nextElementSibling;
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(testElement).toEqual(container.item(1).element())
+
+        testElement = testElement.nextElementSibling;
+        expect(container.item(2).initContent().nodeValue).toEqual("CIText2 ");
+        expect(testElement).toEqual(container.item(2).element())
+
+        testElement = testElement.nextElementSibling;
         expect(container.item(3)).toBeDefined();
-        expect(container.item(3).content()).toEqual(undefined);
+        expect(container.item(3).initContent()).toEqual(undefined);
+        expect(testElement).toEqual(container.item(3).element())
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.element().lastChild).toEqual(container._cItemPrefix.element()); //Prefix must always be at the very back.
+        
         container.add("a");
 
         menu.next();
@@ -2207,98 +2234,6 @@ define(
         
       });
 
-      it("should support dynamic changing of text content", function () {
-        var list = [
-          ["Constituency"],
-          ["Lemma"],
-          ["Morphology"],
-          ["Part-of-Speech"],
-          ["Syntax"]
-        ];
-        
-        var ExampleItemList2 = new Array;
-        ExampleItemList2.push({defaultTextValue : "CIText1 "});
-        ExampleItemList2.push({});
-        
-        var menu = OwnContainerMenu.create(list,ExampleItemList2);
-        var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(0).content("New1").nodeValue).toEqual("New1");
-        expect(container.item(1).content("New2").nodeValue).toEqual("New2");
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
-        
-        
-      });
-
-      it("should support dynamic adding of items", function () {
-
-        var list = [
-          ["Constituency"],
-          ["Lemma"],
-          ["Morphology"],
-          ["Part-of-Speech"],
-          ["Syntax"]
-        ];
-        
-        var ExampleItemList2 = new Array;
-        ExampleItemList2.push({defaultTextValue : "CIText1 "});
-        ExampleItemList2.push({});
-        
-        var menu = OwnContainerMenu.create(list,ExampleItemList2);
-        var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content()).toEqual(undefined);
-        expect(container.item(2)).toBeDefined();
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        container.addItem({defaultTextValue : "CIText2 "});
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content().nodeValue).toEqual("CIText2 ");
-        expect(container.item(3)).toBeDefined();
-        expect(container.item(3).content()).toEqual(undefined);
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        container.add("a");
-
-        menu.next();
-        menu.next();
-        menu.next();
-        menu.next();
-        menu.next();
-        expect(container.item(0).active()).toBeTruthy();
-        menu.next();
-        expect(container.item(1).active()).toBeTruthy();
-        menu.next();
-        expect(container.item(2).active()).toBeTruthy();
-        menu.next();
-        expect(container.item(3).active()).toBeTruthy();
-        menu.next();
-        expect(container.item(3).active()).toBeFalsy();
-        menu.prev();
-        expect(container.item(3).active()).toBeTruthy();
-        menu.prev();
-        expect(container.item(2).active()).toBeTruthy();
-        menu.prev();
-        expect(container.item(1).active()).toBeTruthy();
-        menu.prev();
-        expect(container.item(0).active()).toBeTruthy();
-        menu.prev();
-        expect(container.item(0).active()).toBeFalsy();
-
-        
-        
-      });
 
     });
   });
