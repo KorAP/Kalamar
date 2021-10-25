@@ -165,7 +165,7 @@ define([
      * @param {string} Prefix for filtering the list
      */
     show : function (active) {
-      //there are only two new lines, marked with NEW
+      //There are only four new lines, marked with NEW
       const t = this;
 
       // show menu based on initial offset
@@ -177,11 +177,13 @@ define([
       if (!t._initList()) {
 
         // The prefix is not active
-        t._prefix.active(true);
+        t._prefix.active(true);        
+        t.container().makeActive(); //NEW Incase the own
+        // list becomes empty we need to make container active for line 129 to work
 
         // finally show the element
-        t._el.classList.add('visible'); // TODO do I need this for container?
-        t.container()._el.classList.add('visible');
+        t._el.classList.add('visible');
+        t.container()._el.classList.add('visible'); //NEW
 
         return true;
       };
