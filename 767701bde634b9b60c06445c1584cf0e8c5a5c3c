@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9ae797f_04a69ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-10-25T09:10:22Z",
+      "side": 1,
+      "message": "Fixed an error where entering something into prefix (like \"1\") that turns the menus list into an empty list while having selected an item from this list would cause nothing to be active, thus making e.g. \"ENTER\" cause an error (liveItem undefined).",
+      "revId": "767701bde634b9b60c06445c1584cf0e8c5a5c3c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
