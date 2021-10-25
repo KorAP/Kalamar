@@ -210,8 +210,8 @@ define(
         expect(liElements[2].classList.contains("no-more")).toBe(false);
 
         var items = menu.container().items;
-        expect(items[0].content().nodeValue).toEqual("CIText1 ");
-        expect(items[1].content().nodeValue).toEqual("CIText2 ");
+        expect(items[0].initContent().nodeValue).toEqual("CIText1 ");
+        expect(items[1].initContent().nodeValue).toEqual("CIText2 ");
         expect(items[2].element().innerHTML).toEqual(""); //prefix!
         expect(items[3]).toBe(undefined);
       });
@@ -2129,21 +2129,21 @@ define(
         
         var menu = OwnContainerMenu.create(list,ExampleItemList2);
         var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
         expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2).initContent()).toEqual(undefined);
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(0).content("New1").nodeValue).toEqual("New1");
-        expect(container.item(1).content("New2").nodeValue).toEqual("New2");
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(0).initContent("New1").nodeValue).toEqual("New1");
+        expect(container.item(1).initContent("New2").nodeValue).toEqual("New2");
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2).initContent()).toEqual(undefined);
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).initContent()).toEqual(undefined);
         
         
       });
@@ -2164,17 +2164,17 @@ define(
         
         var menu = OwnContainerMenu.create(list,ExampleItemList2);
         var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container.item(2).initContent()).toEqual(undefined);
         expect(container.item(2)).toBeDefined();
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         container.addItem({defaultTextValue : "CIText2 "});
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content().nodeValue).toEqual("CIText2 ");
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container.item(2).initContent().nodeValue).toEqual("CIText2 ");
         expect(container.item(3)).toBeDefined();
-        expect(container.item(3).content()).toEqual(undefined);
+        expect(container.item(3).initContent()).toEqual(undefined);
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         container.add("a");
 
@@ -2222,21 +2222,21 @@ define(
         
         var menu = OwnContainerMenu.create(list,ExampleItemList2);
         var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
         expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2).initContent()).toEqual(undefined);
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(0).content("New1").nodeValue).toEqual("New1");
-        expect(container.item(1).content("New2").nodeValue).toEqual("New2");
-        expect(container._cItemPrefix.element().innerHTML).toEqual("");
-        expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
+        expect(container.item(0).initContent("New1").nodeValue).toEqual("New1");
+        expect(container.item(1).initContent("New2").nodeValue).toEqual("New2");
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         expect(container.item(2)).toBeDefined();
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(2).initContent()).toEqual(undefined);
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        expect(container.item(2)).toBeDefined();
+        expect(container.item(2).initContent()).toEqual(undefined);
         
         
       });
@@ -2257,17 +2257,17 @@ define(
         
         var menu = OwnContainerMenu.create(list,ExampleItemList2);
         var container = menu.container();
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content()).toEqual(undefined);
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container.item(2).initContent()).toEqual(undefined);
         expect(container.item(2)).toBeDefined();
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         container.addItem({defaultTextValue : "CIText2 "});
-        expect(container.item(0).content().nodeValue).toEqual("CIText1 ");
-        expect(container.item(1).content().nodeValue).toEqual("");
-        expect(container.item(2).content().nodeValue).toEqual("CIText2 ");
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container.item(2).initContent().nodeValue).toEqual("CIText2 ");
         expect(container.item(3)).toBeDefined();
-        expect(container.item(3).content()).toEqual(undefined);
+        expect(container.item(3).initContent()).toEqual(undefined);
         expect(container._cItemPrefix.element().innerHTML).toEqual("");
         container.add("a");
 
