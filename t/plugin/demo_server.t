@@ -20,6 +20,6 @@ $t->get_ok('/demo/alldemo.js')
   ->content_type_is('application/javascript')
   ->content_like(qr!'app/en'!)
   ;
-  
+
 done_testing;
 __END__

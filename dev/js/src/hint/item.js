@@ -51,13 +51,19 @@ define(['menu/item', 'util'], function (itemClass) {
       var m = this.menu();
       // m.hide();
 
-      // Reset prefix and update the input field
-      m.reset(this._action);
+      // Reset prefix
+      m.prefix("");
+
+      var h = m.hint();
+
+      // Update input field
+      var input = h.inputField();
+      input.insert(this._action).update();
 
       e.halt();
      
       // show alt
-      m.hint().show(true);
+      h.show(true);
     },
 
     /**

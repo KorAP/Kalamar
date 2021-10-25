@@ -18,7 +18,6 @@ define(['menu/prefix'], function (prefixClass) {
       const m = this.menu();
       const value = this.value();
       const h = m.hint();
-
       h.inputField().insert(value);
       h.active(null);
       m.hide();

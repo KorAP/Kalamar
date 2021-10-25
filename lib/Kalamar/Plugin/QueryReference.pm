@@ -25,7 +25,7 @@ sub register {
 
   $r->add_type('qname' => qr![-_\.a-zA-Z0-9]+!);
 
-  
+
   # List queries
   $r->get('/query')->to(
     cb => sub {

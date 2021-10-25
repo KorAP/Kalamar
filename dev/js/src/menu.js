@@ -191,6 +191,8 @@ define([
     },
     
     // Initialize the item list
+    // returns true if the length of the resulting list is at least 1
+    // and there was a prefix value. Returns true if there was no prefix value set.
     _initList : function () {
       // Upon change also update alwaysmenu.js please
       const t = this;
@@ -491,7 +493,7 @@ define([
      * @param {string} Prefix for filtering the list
      */
     show : function (active) {
-      //Upon change please also update alwaysmenu.js and containermenu.js (only two lines new there)
+      //Upon change please also update alwaysmenu.js (only two lines new there)
       const t = this;
 
       // show menu based on initial offset
@@ -850,12 +852,6 @@ define([
       this.screen(this.offset + 1);
     },
 
-    /**
-     * Reset the prefix. Currently not used in regular menu.
-     */
-    reset : function () {
-      this.prefix("");
-    },
 
     // Unmark all items
     _unmark : function () {
