@@ -14,11 +14,11 @@ define([
 
   return {
     /**
-     * 
-     * @param {Array<object>} listOfContainerItems List of items that will be placed within the container and that realise some of the functions supplied in containeritem.js
-     * @param {object} params May contain attribute containerItemClass for a base class all containerItems build upon
-     * @returns The container object
-     */
+    * 
+    * @param {Array<object>} listOfContainerItems List of items that will be placed within the container and that realise some of the functions supplied in containeritem.js
+    * @param {object} params May contain attribute containerItemClass for a base class all containerItems build upon
+    * @returns The container object
+    */
     create : function (listOfContainerItems, params) {
       var obj = Object.create(this);
       obj._init(listOfContainerItems, params);
@@ -37,7 +37,7 @@ define([
       el.classList.add('menu', 'container'); //container class allows for more stylesheet changes
 
       this._el = el;
-      this._prefix = undefined; //required for re-setting the menus pointer correctly
+      this._cItemPrefix = undefined; //required for re-setting the menus pointer correctly
       // after having upgraded a new item scss style to the prefix object.
 
       this.items = new Array();
@@ -55,18 +55,41 @@ define([
 
     },
 
+    /**
+    * Adds a static item to this container by creating a standard containerItem as specified when this container was created,
+    * then upgrading it to the item passed to this function, and calling element() and content(). For a full list of supported functions see
+    * containeritem.js .
+    * Example:
+    * 
+    * menu.container().addItem(
+    *  {defaultTextValue : "dynamic", onClick : function (e) { ... }
+    * )
+    * 
+    *  For a full demo see containermenudemo.js.
+    * 
+    * @param {Object} item An object with any number of functions like in containeritem.js or an attribute defaultTextValue,
+    * as well as any number of own properties.
+    * @returns the new use-ready containerItem
+    */
     addItem : function (item) {
+      //Call Order: First _containerItemClass is created and then upgraded To whatever object is passed to this function
+      //Then container calls first element() and then container()
       var cItem = this._containerItemClass.create().upgradeTo(item);
       cItem._menu = this._menu; //if not set then undefined, but thats OK
       this.items.push(cItem);
+      if (this._cItemPrefix !== undefined){ //this must be dynamic adding of CIs, move prefix to the back
+        this.items.splice(this.items.indexOf(this._cItemPrefix) , 1); //remove cItemPrefix
+        this.items.push(this._cItemPrefix); //and move it to the end;
+      };
       this._el.appendChild(cItem.element());
+      cItem.content(); // create its textNode
       return cItem;
     },
 
     addMenu : function (menu) {
       this._menu = menu;
-      if (this._prefix !== undefined) {
-        this._menu._prefix = this._prefix; // better than going via classList or something
+      if (this._cItemPrefix !== undefined) {
+        this._menu._prefix = this._cItemPrefix; // better than going via classList or something
       };
       for (let item of this.items) {
         item._menu=menu;
@@ -77,18 +100,21 @@ define([
       prefix.isSelectable =  function () {
         return this.isSet(); //TODO check!
       }
+      prefix.content = function (t) {}; //Does not need a textNode Child!
       var prefItem = this.addItem(prefix);
-      this._prefix = prefItem;
+      this._cItemPrefix = prefItem;
+      prefItem._el["onclick"] = prefItem.onclick.bind(prefItem);
       if (this._menu !== undefined){
         this._menu._prefix=prefItem;
       }
     },
 
+
     /**
-     * Exit the container unconditionally. Required so that active returns the
-     * correct result. Called when the prefix or similar resets the currently visual
-     * field.
-     */
+    * Exit the container unconditionally. Required so that active returns the
+    * correct result. Called when the prefix or similar resets the currently visual
+    * field.
+    */
     exit : function () {
       if (this.position !== undefined) {
         this.item().active(false);
@@ -107,25 +133,25 @@ define([
     },
 
     /**
-     * @returns whether an item within the container is active (by checking this.position)
-     */
+    * @returns whether an item within the container is active (by checking this.position)
+    */
     active : function () {
       return this.position !== undefined;
     },
 
     /**
-     * Getter for items
-     * @param {Integer} index [optional] Index of to select item. If left blank this.position.
-     * @returns item at location index
-     */
+    * Getter for items
+    * @param {Integer} index [optional] Index of to select item. If left blank this.position.
+    * @returns item at location index
+    */
     item : function (index) {
       if (index === undefined) return this.items[this.position];
       return this.items[index];
     },
 
     /**
-     * Move on to the next item in container. Returns true if we then leave the container, false otherwise.
-     */
+    * Move on to the next item in container. Returns true if we then leave the container, false otherwise.
+    */
     next : function() {
       if (this.position !== undefined){
         this.item().active(false);
@@ -149,8 +175,8 @@ define([
     },
 
     /**
-     * Move on to the previous item in container. Returns true if we then leave the container, false otherwise.
-     */
+    * Move on to the previous item in container. Returns true if we then leave the container, false otherwise.
+    */
     prev : function() {
       if (this.position !== undefined){
         this.item().active(false);
@@ -201,9 +227,9 @@ define([
     },
 
     /**
-     * 
-     * @returns The number of items that are selectable. Is the actual length of the list.
-     */
+    * 
+    * @returns The number of items that are selectable. Is the actual length of the list.
+    */
     liveLength : function () {
       var ll = 0;
       for (let item of this.items){
