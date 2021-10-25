@@ -12,7 +12,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
    */
   var OwnMenuItemClass = {
     create : function (params) {
-      return Object.create(itemClass).upgradeTo(this)._init(params);
+      return Object.create(itemClass).upgradeTo(this)._newLimitnit(params);
     },
 
     // content function
@@ -24,9 +24,8 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
     },
 
     // enter or click
-    onclick : function (event) {
+    onclick : function () {
       console.log(this._name);
-      event.halt();
     },
 
     // right arrow
@@ -35,14 +34,14 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
     },
 
     // initialize item
-    _init : function (params) {
+    _newLimitnit : function (params) {
       if (params[0] === undefined)
     throw new Error("Missing parameters");
 
       this._name = params[0];
       this._content = document.createTextNode(this._name);
       this._lcField = ' ' + this.content().textContent.toLowerCase();
-      this._i=0;
+      this._newLimit=0;
       return this;
     }
   };
@@ -55,7 +54,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
     create : function () {
       var obj = containerItemClass.create()
         .upgradeTo(this);
-        //._init();
+        //._newLimitnit();
       obj.value="";
       obj.defaultTextValue = "CI";
       return obj;
@@ -69,17 +68,10 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
     further : function () {
       this.value = this.value + this.value;
     },
-    isSelectable : function () {
-      return (this.value !== "");
-    },
-    chop : function () {
-      console.log("chop");
-      console.log(this.content(this.value));
-    },
     onclick : function () {
       console.log('ContainerItem ' + this.value);
-      console.log(this._i);
-      this._menu.limit(this._i);
+      console.log(this._newLimit);
+      this._menu.limit(this._newLimit);
       this._menu.show();
     }
   };
@@ -89,13 +81,14 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   ExampleItemList.push(OwnContainerItemClass.create());
   ExampleItemList.push(OwnContainerItemClass.create());
   ExampleItemList[0].value = "Example Item 1";
-  ExampleItemList[0]._i = 3;
-  ExampleItemList[1]._i = 4;
+  ExampleItemList[0]._newLimit = 3;
+  ExampleItemList[1]._newLimit = 4;
   ExampleItemList[2].value = "Remove the Prefix Test";
-  ExampleItemList[2]._i=5;
+  ExampleItemList[2]._newLimit=5;
   ExampleItemList[2].onclick = function (e) {
-    this._menu.container().removeItemByIndex(3);
-    //Should fail, that's ok. You can also try index 0 for testing functionality.
+    this._menu.container().addItem({defaultTextValue: "new", _newLimit:4 })
+    this.initContent("I created a new item");
+    this._menu.container().removeItemByIndex(0);
   };
 
   //Own container class.
@@ -126,7 +119,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
       console.log(ExampleItemList); // we learn, that it definetly has all the functions defined in alwaysmenu.js
       var obj = containerMenuClass.create(list,params,ExampleItemList)
           .upgradeTo(this);
-          //._init(list, params);
+          //._newLimitnit(list, params);
       obj._firstActive = true;
       console.log("OwnMenu Element",obj._el);
       return obj;
@@ -220,7 +213,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   document.getElementById('menu').appendChild(menu.element());
   //document.getElementById('largemenu').appendChild(largeMenu.element());
 
-  menu.container().addItem({ value : "Dynamically added", defaultTextValue : "dynamic", _i : 5})
+  menu.container().addItem({ value : "Dynamically added", defaultTextValue : "dynamic", _newLimit : 5})
 
   menu.limit(3).show(3);
   menu.focus();
