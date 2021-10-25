@@ -2113,6 +2113,64 @@ define(
         menu.prev();
         expect(container.active()).toBeTruthy();
       });
+      it("should support dynamic adding of items", function () {
+
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        var container = menu.container();
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container.item(2).initContent()).toEqual(undefined);
+        expect(container.item(2)).toBeDefined();
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        container.addItem({defaultTextValue : "CIText2 "});
+        expect(container.item(0).initContent().nodeValue).toEqual("CIText1 ");
+        expect(container.item(1).initContent().nodeValue).toEqual("");
+        expect(container.item(2).initContent().nodeValue).toEqual("CIText2 ");
+        expect(container.item(3)).toBeDefined();
+        expect(container.item(3).initContent()).toEqual(undefined);
+        expect(container._cItemPrefix.element().innerHTML).toEqual("");
+        container.add("a");
+
+        menu.next();
+        menu.next();
+        menu.next();
+        menu.next();
+        menu.next();
+        expect(container.item(0).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(1).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(2).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(3).active()).toBeTruthy();
+        menu.next();
+        expect(container.item(3).active()).toBeFalsy();
+        menu.prev();
+        expect(container.item(3).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(2).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(1).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(0).active()).toBeTruthy();
+        menu.prev();
+        expect(container.item(0).active()).toBeFalsy();
+
+        
+        
+      });
 
       it("should support dynamic changing of text content", function () {
         var list = [
