@@ -37,7 +37,7 @@ define([
       el.classList.add('menu', 'container'); //container class allows for more stylesheet changes
 
       this._el = el;
-      this._prefix = undefined; //required for re-setting the menus pointer correctly
+      this._cItemPrefix = undefined; //required for re-setting the menus pointer correctly
       // after having upgraded a new item scss style to the prefix object.
 
       this.items = new Array();
@@ -60,34 +60,65 @@ define([
 
   },
 
+    /**
+    * Adds a static item to this container by creating a standard containerItem as specified when this container was created,
+    * then upgrading it to the item passed to this function, and calling element() and content(). For a full list of supported functions see
+    * containeritem.js .
+    * Example:
+    * 
+    * menu.container().addItem(
+    *  {defaultTextValue : "dynamic", onClick : function (e) { ... }
+    * )
+    * 
+    *  For a full demo see containermenudemo.js.
+    * 
+    * @param {Object} item An object with any number of functions like in containeritem.js or an attribute defaultTextValue,
+    * as well as any number of own properties.
+    * @returns the new use-ready containerItem
+    */
     addItem : function (item) {
+      //Call Order: First _containerItemClass is created and then upgraded To whatever object is passed to this function
+      //Then container calls first element() and then container()
       var cItem = this._containerItemClass.create().upgradeTo(item);
       cItem._menu = this._menu; //if not set then undefined, but thats OK
       this.items.push(cItem);
-      this._el.appendChild(cItem.element());
+      this.element().appendChild(cItem.element());
+      cItem.initContent(); // create its textNode
+      if (this._cItemPrefix !== undefined){ //this must be dynamic adding of CIs, move prefix to the back
+        //adjust the prefix' position within .items to be in the back
+        this.items.splice(this.items.indexOf(this._cItemPrefix) , 1); //remove cItemPrefix
+        this.items.push(this._cItemPrefix); //and move it to the end;
+        //adjust the prefix' HTML elements position
+        this.element().removeChild(this._cItemPrefix.element());
+        this.element().appendChild(this._cItemPrefix.element());
+        //adjust the prefix' stored position
+        this._prefixPosition = this.items.length;
+      };
       return cItem;
     },
 
     addMenu : function (menu) {
       this._menu = menu;
-      if (this._prefix !== undefined) {
-        this._menu._prefix = this._prefix; // better than going via classList or something
+      if (this._cItemPrefix !== undefined) {
+        this._menu._prefix = this._cItemPrefix; // better than going via classList or something
       };
       for (let item of this.items) {
         item._menu=menu;
-      }
+      };
     },
 
     addPrefix : function (prefix) {
       prefix.isSelectable =  function () {
         return this.isSet(); //TODO check!
-      }
+      };
       this._prefixPosition = this.items.length;
+      prefix.initContent = function (t) {}; //Does not need a textNode Child!
       var prefItem = this.addItem(prefix);
-      this._prefix = prefItem;
+      this._cItemPrefix = prefItem;
+      prefItem._el["onclick"] = prefItem.onclick.bind(prefItem);
       if (this._menu !== undefined){
         this._menu._prefix=prefItem;
-      }
+      };
     },
     
     /**
@@ -100,9 +131,10 @@ define([
         KorAP.log(0,"Invalid item in containers removeItemByIndex: This containerItem is not contained", "container.js");
         return;
       };
-      if (item === this._prefix) {//CHANGE TO _cItemPrefix later!!!
-        KorAP.log(0,"Tried to remove the prefix item by calling removeItem. Please cut all connections from the menu to prefix and then\
- the connection container._prefix before calling this function if you really want to remove the prefix.","container.js");
+      if (item === this._cItemPrefix) {
+        console.log("Tried to remove the prefix item by calling removeItem. Please cut all connections from the menu to prefix and then\
+ the connection container._cItemPrefix before calling this function if you really want to remove the prefix.");
+        KorAP.log(0,"Tried to remove the prefix item by calling removeItem.","container.js");
         return;
       };
       if (item.active()) {
@@ -112,6 +144,7 @@ define([
       this._el.removeChild(item.element());
       this.items.splice(this.items.indexOf(item) , 1);
     },
+
 
     /**
      * Remove a containeritem from the container by its index. Should not be used with prefix.
@@ -173,17 +206,20 @@ define([
      * menus list empty while we had it selected.
      * This potentially requires adjusting this.position.
      */
-     makeActive : function () {
+    makeActive : function () {
       if (this.position === undefined) {
-        if (this._prefix.isSelectable()) {
+        if (this._cItemPrefix.isSelectable()) {
           this.position = this._prefixPosition; //make prefix active if it exists
           this.item().active(true);
         } else if (this.liveLength() > 0) {
           this.position = 0;
-          this._prefix.active(false); // usually the menu makes the prefix active anyway.
+          this._cItemPrefix.active(false); // usually the menu makes the prefix active anyway.
           this.item().active(true);
-        }
-      }
+        } else {
+          KorAP.log(0,"It appears that both containermenu and its container contain no selectable items.\
+ Let us hope there is no problem.","container.js");
+        };
+      };
     },
     
     /**
