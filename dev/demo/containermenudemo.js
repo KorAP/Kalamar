@@ -82,6 +82,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
       this._menu.limit(this._i);
       this._menu.show();
     }
+     */
   };
   //List of items.
   var ExampleItemList = new Array;
@@ -94,8 +95,9 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   ExampleItemList[2].value = "Remove the Prefix Test";
   ExampleItemList[2]._i=5;
   ExampleItemList[2].onclick = function (e) {
-    this._menu.container().removeItemByIndex(3);
-    //Should fail, that's ok. You can also try index 0 for testing functionality.
+    this._menu.container().addItem({defaultTextValue: "new", _i:4 })
+    this.initContent("I created a new item");
+    this._menu.container().removeItemByIndex(0);
   };
 
   //Own container class.
