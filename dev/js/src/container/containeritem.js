@@ -29,11 +29,13 @@ define({
     else cl.remove("active"); //allows for setting it to inactive if not (equal to undefined or truthy)
   },
 
-  /**
+ /**
    * Get/create the document element of the container item. Can be overwritten. Standard class: li
+   * If you wish to change the textNode please overwrite the content function instead.
    */
   element : function () {
-    // already defined
+    //Call Order: First this class is created and then upgraded To whatever object is passed to container
+    //Then container calls first element() and then container()
     if (this._el !== undefined) return this._el;
     
     // Create list item
@@ -45,6 +47,32 @@ define({
     };    
     return this._el = li;
   },
+
+  /**
+   * Set the items text content to "content". If content is left blank it gets set to this.defaultTextValue,
+   * or the empty string if a default value does not exists. Also decides how the text is represented.
+   * @param {String} content String to which to set the text
+   * @returns textNode with content or undefined
+   */
+  content : function (content) {
+    var newText; //set textNode to this
+    if (arguments.length === 1) { //new value!
+      newText = content;
+    } else { //use default
+      if (this.defaultTextValue === undefined) { //default default is ""
+        this.defaultTextValue = "";
+      }
+      newText = this.defaultTextValue;
+    };
+    if (this._content === undefined) { //no Element until now
+      this._content = document.createTextNode(newText); //create one
+      this.element().appendChild(this._content);
+    } else { //just change it
+      this._content.nodeValue = newText; // use nodeValue instead of _innerHTML
+    };
+    return this._content;
+  },
+
 
   /**
    * Expected to be overwritten

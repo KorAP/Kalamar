@@ -191,6 +191,8 @@ define([
     },
     
     // Initialize the item list
+    // returns true if the length of the resulting list is at least 1
+    // and there was a prefix value. Returns true if there was no prefix value set.
     _initList : function () {
       // Upon change also update alwaysmenu.js please
       const t = this;
