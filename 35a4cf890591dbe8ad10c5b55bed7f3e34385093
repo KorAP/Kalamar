@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff540e71_c852cf2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-10-25T10:23:35Z",
+      "side": 1,
+      "message": "I decided to upload something we had worked on for the querystoring demo. See also the comment.",
+      "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f375e1b_802a8b70",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-10-25T10:23:35Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this wouldn\u0027t work quite yet. We should also decide whether we want, that the prefix is always in the back.",
+      "range": {
+        "startLine": 80,
+        "startChar": 104,
+        "endLine": 83,
+        "endChar": 8
+      },
+      "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
