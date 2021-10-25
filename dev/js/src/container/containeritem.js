@@ -29,7 +29,7 @@ define({
     else cl.remove("active"); //allows for setting it to inactive if not (equal to undefined or truthy)
   },
 
-  /**
+ /**
    * Get/create the document element of the container item. Can be overwritten. Standard class: li
    * If you wish to change the textNode please overwrite the content function instead.
    */
@@ -49,12 +49,12 @@ define({
   },
 
   /**
-   * Get/create a TextNode with text "content". If content is left blank it gets set to this.defaultTextValue,
-   * or the empty string if it does not exists
+   * Set the items text content to "content". If content is left blank it gets set to this.defaultTextValue,
+   * or the empty string if a default value does not exists. Also decides how the text is represented.
    * @param {String} content String to which to set the text
    * @returns textNode with content or undefined
    */
-  content : function (content) {
+  initContent : function (content) {
     var newText; //set textNode to this
     if (arguments.length === 1) { //new value!
       newText = content;
