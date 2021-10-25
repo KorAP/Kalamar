@@ -41,6 +41,7 @@ define([
       // after having upgraded a new item scss style to the prefix object.
 
       this.items = new Array();
+      //items are stored in the order they are added in. This includes the prefix.
       if (listOfContainerItems !== undefined) {
         for (let item of listOfContainerItems) {
           this.addItem(item);
@@ -48,6 +49,9 @@ define([
       }
 
       this.position = undefined; //undefined = not in container, 0 to length-1 = in container
+
+      this._prefixPosition = undefined; //Required so that switching to prefix by default is supported
+
 
       
       //t._el.classList.add('visible'); //Done by containermenu
@@ -77,6 +81,7 @@ define([
       prefix.isSelectable =  function () {
         return this.isSet(); //TODO check!
       }
+      this._prefixPosition = this.items.length;
       var prefItem = this.addItem(prefix);
       this._prefix = prefItem;
       if (this._menu !== undefined){
@@ -121,6 +126,24 @@ define([
     item : function (index) {
       if (index === undefined) return this.items[this.position];
       return this.items[index];
+    },
+
+    /**
+     * 
+     * Make the container active without having called prev or next. Occurs whenever the prefix makes the
+     * menus list empty while we had it selected. This potentially requires adjusting this.position.
+     */
+     makeActive : function () {
+      if (this.position === undefined) {
+        if (this._prefix.isSelectable()) {
+          this.position = this._prefixPosition; //make prefix active if it exists
+          this.item().active(true);
+        } else if (this.liveLength() > 0) {
+          this.position = 0;
+          this._prefix.active(false); // usually the menu makes the prefix active anyway.
+          this.item().active(true);
+        }
+      }
     },
 
     /**

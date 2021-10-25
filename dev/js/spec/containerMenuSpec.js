@@ -282,6 +282,48 @@ define(
         expect(liElements[3]).toBe(undefined);
 
       });
+      
+      it('should switch to the containers prefix whenever the prefix filters the regular list to be empty', function () {
+        /**var list = [
+	        ["Constituency"],
+	        ["Lemma"],
+	        ["Morphology"],
+	        ["Part-of-Speech"],
+	        ["Syntax"]
+        ];
+        */
+        var menu = OwnContainerMenu.create(list,ExampleItemList);
+        menu.container().add("1");
+        menu.show(); // simulates Buttonpress 1, see function _keypress in containermenu.js (line 147)
+        // no elements in list match "1"
+        expect(menu.liveItem()).toBeUndefined();
+        expect(menu.container().active()).toBeTruthy();
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
+        expect(liElements).toEqual([]);
+        expect(menu.container().liveLength()).toEqual(3); //CI1 and 2, prefix
+        expect(menu._prefix.active()).toBeTruthy(); //  HERE ONLY
+        // we want whichever container item was active before to stay active, DEFAULT prefix if none
+
+        //simulate _keydown(...) see containermenu.js line 137
+        menu.container().chop();
+        menu.show();
+        menu.prev();
+        expect(menu._prefix.active()).toBeFalsy();
+        expect(menu.container().item(1).active().toBeTruthy); // at location 1: CIItem 2
+        expect(menu.liveLength()).toEqual(5);
+
+        menu.container().add("1");
+        menu.show(); // simulates Buttonpress 1, see function _keypress in containermenu.js (line 147)
+        // no elements in list match "1"
+        expect(menu.liveItem()).toBeUndefined();
+        expect(menu.container().active()).toBeTruthy();
+        var liElements = directElementChildrenByTagName(menu.element(),"li");
+        expect(liElements).toEqual([]);
+        expect(menu.container().liveLength()).toEqual(3); //CI1 and 2, prefix
+        expect(menu.container().item(1).active().toBeTruthy); // at location 1: CIItem 2
+        // we want whichever container item was active before to stay active, DEFAULT prefix if none
+
+      });
 
       it('should be nextable', function () {
         var menu = OwnContainerMenu.create(list);
