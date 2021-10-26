@@ -459,7 +459,6 @@ define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', '
      let welc = document.createElement("DIV");
      welc.innerHTML = loc.TOUR_welc;
      expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(welc.textContent);
-     expect(document.querySelector(".introjs-skipbutton").textContent).toEqual(loc.TOUR_lskip);
      expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
      searchTour.exit();
@@ -494,7 +493,6 @@ define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', '
      resultTour.start(resultkor);
      let totalStepsR = resultTour.stepCount;
      expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(loc.TOUR_kwic);
-     expect(document.querySelector(".introjs-skipbutton").textContent).toEqual(loc.TOUR_lskip);
      expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
      resultTour.exit();
