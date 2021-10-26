@@ -427,7 +427,7 @@ define(['tour/tours', 'vc', 'session', 'match', 'hint',  'hint/foundries/cnx', '
       expect(intrkorap.querySelector('#vc-choose')).not.toBeNull();     
       expect(intrkorap.querySelector('#vc-view')).not.toBeNull();
       expect(intrkorap.querySelector('#ql-field').parentNode).not.toBeNull();
-      expect(intrkorap.querySelector('#glimpse')).not.toBeNull();
+      expect(intrkorap.querySelector('#glimpse').parentNode).not.toBeNull();
       expect(intrkorap.querySelector('#view-tutorial')).not.toBeNull();
       expect(intrkorap.querySelector('#qsubmit')).not.toBeNull();
       let show = document.createElement('div');
