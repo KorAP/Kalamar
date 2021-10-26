@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c427a7_4d93ee6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-10-26T20:20:56Z",
+      "side": 1,
+      "message": "We used a very old intro.js library so I updated it and changed the sourcecode accordingly.\n\nThis fixes #109\n\nI reduced the opacity, so it would be nice of you to check if the background of the tour is not too bright or too dark.\n\nThe new intro.js design leaves more space, so some of the explanations now seem to be very short. I think they could probably more elaborate anyway, so I think about changing that in an additional commit.",
+      "revId": "18f9b68c2bafef44af3c77dc05314ebcc6efcc3d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
