@@ -37,22 +37,19 @@ define(function () {
   //Corpus statistic
   loc.SHOW_STAT = 'Korpusstatistik';
   loc.REFRESH = 'Neu laden';
-  //verbose description, for title attributes for example
-  //loc.VERB_SHOWSTAT = 'Korpusstatistik';
-
+ 
   loc.NEW_CONSTRAINT = 'Neue Bedingung';
 
   //Guided Tour:Buttonlabels
-  loc.TOUR_lskip = "Abbrechen";
   loc.TOUR_lprev = "Zurück";
   loc.TOUR_lnext = "Weiter";
   loc.TOUR_ldone = "Beenden";
   loc.TOUR_ldoneSearch = "Suchen";
   
   //Guided Tour: Steps
-  loc.TOUR_welc = "<span class = 'tgreeting'>Willkommen zur KorAP Tour! </span> " +
-  "<p class='pfirstStep'> Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. " +
-  "Wir führen Sie Schritt bei Schritt anhand eines Beispiels durch die Anwendung. </p>";  
+  loc.TOUR_welcti = " <span class='tgreeting'> Willkommen zur KorAP Tour! </span>";
+  loc.TOUR_welc = "Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. " +
+  		"Wir führen Sie Schritt bei Schritt anhand eines Beispiels durch die Anwendung.";  
   loc.TOUR_sear1 = "Eingabe der Suchanfrage, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
   loc.TOUR_searAnnot ="Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.";
   loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";

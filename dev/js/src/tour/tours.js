@@ -11,17 +11,16 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   //needed for localization of labels and contents of the tour
   const loc   = KorAP.Locale;
 
-  //labels for nextStep, previousStep, done and abort
-  loc.TOUR_lskip = loc.TOUR_lskip || "Abort";
+  //labels for nextStep, previousStep and done
   loc.TOUR_lprev = loc.TOUR_lprev || "Back";
   loc.TOUR_lnext = loc.TOUR_lnext || "Next";
   loc.TOUR_ldone = loc.TOUR_ldone || "Done";
   loc.TOUR_ldoneSearch = loc.TOUR_ldoneSearch || "Search";
   
   //localization guided tour gTstartSearch
-  loc.TOUR_welc = loc.TOUR_welc || "<span class='tgreeting'> Welcome to our guided tour!</span>" +
-  		                           "<p class='pfirstStep'> This tour should give you a quick introduction to KorAP. " +
-  		                           "We lead you step by step through an example. </p>"; 
+  loc.TOUR_welcti = loc.TOUR_welcti || "<span class='tgreeting'> Welcome to our guided tour! </span>";
+  loc.TOUR_welc = loc.TOUR_welc || "This tour should give you a quick introduction to KorAP. " +
+  		                           "We lead you step by step through an example."; 
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Input field for the query, for example the search for '" +  loc.TOUR_Qexample + "'.";
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
   loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
@@ -48,7 +47,6 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   
   //localization of button labels
   let labelOpts= {
-      'skipLabel': loc.TOUR_lskip, 
       'prevLabel': loc.TOUR_lprev,
       'nextLabel': loc.TOUR_lnext,
       'doneLabel': loc.TOUR_ldone,
@@ -58,10 +56,10 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   //usability options of tours
   let usabilityOpts ={
       'showBullets': false,
-      'overlayOpacity': 0.7,
+      'overlayOpacity': 0.5,
       'exitOnOverlayClick': false,
-      'disableInteraction': true,      
-      'hideNext': true,
+      'disableInteraction': true,  
+      'tooltipClass': 'customTooltip',
       'hidePrev': true
   };
   
@@ -75,7 +73,6 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
     gTstartSearch:function(elparam){
       let intro = introClass();
       intro.setOptions(labelOpts);
-      intro.setOption('tooltipClass', 'gTstartSearch');
       /*
        * Sets button labels for the last step of the tour
        * Because Kalamar is a multipage webapplication, this tours starts by
@@ -96,6 +93,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
       //steps of the example tour
       let Steps =[
         {
+          title: loc.TOUR_welcti,
           intro: loc.TOUR_welc,
         },
         {
@@ -139,7 +137,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           position: "bottom",
         },  
         {
-          element:'#glimpse',
+          element: '#glimpse',
           intro: loc.TOUR_glimpse,
           position: "bottom",
         }, 

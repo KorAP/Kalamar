@@ -5,28 +5,21 @@
  */
 
 .introjs-helperLayer {
-  background-color: transparent;
+    background-color: transparent;
 }
- 
-.introjs-tooltip.gTstartSearch {
-  max-width: 500px;
+
+.introjs-tooltip{    
+    max-width: 500px; 
+    min-width: 400px;   
+}
+
+.customTooltip .introjs-tooltip-title {
+    font-size: 12pt;
+    padding: 20px;
+    white-space:  nowrap;
 }
 
 
 .tgreeting {
-  font-weight: bold;
-  color:       $darkest-orange;
-}
-
-.pfirstStep {
-  width: 500px;
-}
-
-.introjs-donebutton {
-  float:       right;
-  margin-left: 5px;
-}
- 
-.introjs-skipbutton {
-  color: $black;
-}
+    color: $darkest-orange;
+    }
