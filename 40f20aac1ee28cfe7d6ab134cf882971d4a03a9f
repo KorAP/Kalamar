@@ -34,6 +34,24 @@
       "parentUuid": "b453e8ab_1415b81a",
       "revId": "40f20aac1ee28cfe7d6ab134cf882971d4a03a9f",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c9f5dda_159663e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-10-27T11:19:50Z",
+      "side": 1,
+      "message": "But only cleaning it up. I really like that you try to comment the sourcecode. Thanks for that :)!",
+      "parentUuid": "b453e8ab_1415b81a",
+      "revId": "40f20aac1ee28cfe7d6ab134cf882971d4a03a9f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
