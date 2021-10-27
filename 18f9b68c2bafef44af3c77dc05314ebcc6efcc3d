@@ -16,6 +16,23 @@
       "message": "We used a very old intro.js library so I updated it and changed the sourcecode accordingly.\n\nThis fixes #109\n\nI reduced the opacity, so it would be nice of you to check if the background of the tour is not too bright or too dark.\n\nThe new intro.js design leaves more space, so some of the explanations now seem to be very short. I think they could probably more elaborate anyway, so I think about changing that in an additional commit.",
       "revId": "18f9b68c2bafef44af3c77dc05314ebcc6efcc3d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "576621b8_e26b923b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-10-27T12:42:46Z",
+      "side": 1,
+      "message": "I like the design of the new library and think the new dimming is fine.\n\nThe test suite should check for the existence of the skip button though (not for the content). Preferably in the search step, so the fix of #109 is solid.",
+      "revId": "18f9b68c2bafef44af3c77dc05314ebcc6efcc3d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
