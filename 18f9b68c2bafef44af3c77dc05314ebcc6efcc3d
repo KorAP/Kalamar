@@ -33,6 +33,24 @@
       "message": "I like the design of the new library and think the new dimming is fine.\n\nThe test suite should check for the existence of the skip button though (not for the content). Preferably in the search step, so the fix of #109 is solid.",
       "revId": "18f9b68c2bafef44af3c77dc05314ebcc6efcc3d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94d83062_6bda5989",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-10-27T12:50:15Z",
+      "side": 1,
+      "message": "I agree - all steps should make use of the title and have more information in there.",
+      "parentUuid": "95c427a7_4d93ee6c",
+      "revId": "18f9b68c2bafef44af3c77dc05314ebcc6efcc3d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
