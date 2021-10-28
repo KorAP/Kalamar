@@ -327,6 +327,50 @@ define(
 
       });
 
+      it('should allow removing an item', function () {/**var list = [
+        ["Constituency"],
+        ["Lemma"],
+        ["Morphology"],
+        ["Part-of-Speech"],
+        ["Syntax"]
+      ];
+      */
+        var menu = OwnContainerMenu.create(list,ExampleItemList);
+        menu._firstActive = true;
+        menu.limit(3);
+        expect(menu.show()).toBe(true);
+        menu.next();
+        menu.next();
+        menu.next();
+        menu.next();
+        expect(menu.shownItem(2).active()).toBe(true);
+        expect(menu.container().item(0).active()).toBe(false);
+        expect(menu.container().item(1).active()).toBe(false);
+        expect(menu.container().item(2).active()).toBe(false); //prefix
+        expect(menu.container().item(2)).toEqual(menu._prefix);
+        expect(menu.container().length()).toBe(3);
+        menu.container().removeItemByIndex(0);
+        expect(menu.shownItem(2).active()).toBe(true);
+        expect(menu.container().item(0).active()).toBe(false);
+        expect(menu.container().item(1).active()).toBe(false); //prefix
+        expect(menu.container().item(1)).toEqual(menu._prefix);
+        expect(menu.container().length()).toBe(2);
+        menu.next();
+        expect(menu.shownItem(2).active()).toBe(false);
+        expect(menu.container().item(0).active()).toBe(true);
+        expect(menu.container().item(1).active()).toBe(false); //prefix
+        expect(menu.container().item(1)).toEqual(menu._prefix);
+        expect(menu.container().length()).toBe(2);
+        menu.container().removeItemByIndex(0);
+        expect(menu.shownItem(2).active()).toBe(false);
+        expect(menu.shownItem(0).active()).toBe(true);
+        expect(menu.container().item(0).active()).toBe(false); //prefix //would be selected, if it were not ""
+        expect(menu.container().item(0)).toEqual(menu._prefix);
+        expect(menu.container().length()).toBe(1);
+
+        
+
+      });
       it('should be nextable', function () {
         var menu = OwnContainerMenu.create(list);
         menu._firstActive = true;
