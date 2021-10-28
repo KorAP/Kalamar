@@ -14,11 +14,11 @@ define([
 
   return {
     /**
-     * 
-     * @param {Array<object>} listOfContainerItems List of items that will be placed within the container and that realise some of the functions supplied in containeritem.js
-     * @param {object} params May contain attribute containerItemClass for a base class all containerItems build upon
-     * @returns The container object
-     */
+    * 
+    * @param {Array<object>} listOfContainerItems List of items that will be placed within the container and that realise some of the functions supplied in containeritem.js
+    * @param {object} params May contain attribute containerItemClass for a base class all containerItems build upon
+    * @returns The container object
+    */
     create : function (listOfContainerItems, params) {
       var obj = Object.create(this);
       obj._init(listOfContainerItems, params);
@@ -37,7 +37,7 @@ define([
       el.classList.add('menu', 'container'); //container class allows for more stylesheet changes
 
       this._el = el;
-      this._prefix = undefined; //required for re-setting the menus pointer correctly
+      this._cItemPrefix = undefined; //required for re-setting the menus pointer correctly
       // after having upgraded a new item scss style to the prefix object.
 
       this.items = new Array();
@@ -58,8 +58,7 @@ define([
       
       //t._el.classList.add('visible'); //Done by containermenu
 
-
-    },
+  },
 
     addItem : function (item) {
       var cItem = this._containerItemClass.create().upgradeTo(item);
@@ -90,12 +89,36 @@ define([
         this._menu._prefix=prefItem;
       }
     },
+    
+    /**
+    * Remove a containeritem from the container by identity. Should not be used with prefix.
+    * If the active item is removed, this calls menu.next().
+    * @param {containerItemClass} item The item to be removed.
+    */
+    removeItem : function (item) {
+      if (item.active()) {
+        this._menu.next();
+      }
+      item._menu=undefined;
+      this._el.removeChild(item.element());
+      this.items.splice(this.items.indexOf(item) , 1);
+    },
 
     /**
-     * Exit the container unconditionally. Required so that active returns the
-     * correct result. Called when the prefix or similar resets the currently visual
-     * field.
+     * Remove a containeritem from the container by its index. Should not be used with prefix.
+     * CAUTION liveIndex, so what you see, is not the actual index within the containerItem list.
+     * This can be accessed with container.items . If the active item is removed, this calls menu.next().
+     * @param {Int} index The index of the item to be removed.
      */
+    removeItemByIndex : function (index) {
+      this.removeItem(this.items[index]); //CAUTION liveIndex (what you see) != index within the list!
+    },
+
+    /**
+    * Exit the container unconditionally. Required so that active returns the
+    * correct result. Called when the prefix or similar resets the currently visual
+    * field.
+    */
     exit : function () {
       if (this.position !== undefined) {
         this.item().active(false);
@@ -114,17 +137,17 @@ define([
     },
 
     /**
-     * @returns whether an item within the container is active (by checking this.position)
-     */
+    * @returns whether an item within the container is active (by checking this.position)
+    */
     active : function () {
       return this.position !== undefined;
     },
 
     /**
-     * Getter for items
-     * @param {Integer} index [optional] Index of to select item. If left blank this.position.
-     * @returns item at location index
-     */
+    * Getter for items
+    * @param {Integer} index [optional] Index of to select item. If left blank this.position.
+    * @returns item at location index
+    */
     item : function (index) {
       if (index === undefined) return this.items[this.position];
       return this.items[index];
@@ -149,10 +172,11 @@ define([
         }
       }
     },
-
+    
     /**
-     * Move on to the next item in container. Returns true if we then leave the container, false otherwise.
-     */
+     * 
+    * Move on to the next item in container. Returns true if we then leave the container, false otherwise.
+    */
     next : function() {
       if (this.position !== undefined){
         this.item().active(false);
@@ -176,8 +200,8 @@ define([
     },
 
     /**
-     * Move on to the previous item in container. Returns true if we then leave the container, false otherwise.
-     */
+    * Move on to the previous item in container. Returns true if we then leave the container, false otherwise.
+    */
     prev : function() {
       if (this.position !== undefined){
         this.item().active(false);
@@ -228,9 +252,9 @@ define([
     },
 
     /**
-     * 
-     * @returns The number of items that are selectable. Is the actual length of the list.
-     */
+    * 
+    * @returns The number of items that are selectable. Is the actual length of the list.
+    */
     liveLength : function () {
       var ll = 0;
       for (let item of this.items){
