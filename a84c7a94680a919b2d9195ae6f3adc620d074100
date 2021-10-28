@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4697b5a_6b3a7539",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-10-28T11:34:01Z",
+      "side": 1,
+      "message": "Tour Spec patched according your suggestion to test the existence of the skipbutton.",
+      "revId": "a84c7a94680a919b2d9195ae6f3adc620d074100",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
