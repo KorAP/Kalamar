@@ -51,6 +51,23 @@
       "message": "Maybe my explanation for the configuration was not clear enough. It needs to be\n\n  CSP \u003d\u003e {\n    -disable \u003d\u003e 1\n  }\n\nin the called config.",
       "revId": "f96a5c23465a9cd6a5a9423e6344cf7fd4c8d16d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9fcbed_522f8d72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-10-28T09:32:42Z",
+      "side": 1,
+      "message": "After Merge conflict fixing looks good. Maybe add an in code comment for the disable?",
+      "revId": "f96a5c23465a9cd6a5a9423e6344cf7fd4c8d16d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
