@@ -92,9 +92,15 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   var ExampleItemList = new Array;
   ExampleItemList.push(OwnContainerItemClass.create());
   ExampleItemList.push(OwnContainerItemClass.create());
+  ExampleItemList.push(OwnContainerItemClass.create());
   ExampleItemList[0].value = "Example Item 1";
   ExampleItemList[0]._i = 3;
   ExampleItemList[1]._i = 4;
+  ExampleItemList[2].value = "Remove the Prefix Test";
+  ExampleItemList[2]._i=5;
+  ExampleItemList[2].onclick = function (e) {
+    this._menu.container().removeItemByIndex(3);
+  };
 
   //Own container class.
   var OwnContainerClass = {
