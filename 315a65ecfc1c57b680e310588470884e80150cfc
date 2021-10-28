@@ -33,6 +33,23 @@
       "message": "Can you give an example setup where this is required? I mean - where CORS is in effect for Query Reference Handling aside of the API?",
       "revId": "315a65ecfc1c57b680e310588470884e80150cfc",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd6b486e_91177990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-10-28T09:34:14Z",
+      "side": 1,
+      "message": "To summarize what we discussed on Wednesday: When disabling CSP properly and calling the API on the same hostname (localhost!) Preflight handling is not required. We should keep this around for later use though.",
+      "revId": "315a65ecfc1c57b680e310588470884e80150cfc",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
