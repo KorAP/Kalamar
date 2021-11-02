@@ -53,8 +53,12 @@ define(function () {
   loc.TOUR_sear1 = "Eingabe der Suchanfrage, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
   loc.TOUR_searAnnot ="Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.";
   loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
-  loc.TOUR_vccho1 = "Öffnen des Korpusassistenten";
-  loc.TOUR_vccho2 = "Eigene Definition von Subkorpora durch Verknüpfung beliebiger Metadatenfelder.";
+  loc.TOUR_vccho1 = "Hier gelangen Sie zum Korpusassistenten";
+  loc.TOUR_vccho2ti = "Korpusassistent (1)";
+  loc.TOUR_vccho2 = "Im Korpusassistenten ist die Definition von Subkorpora durch die Verknüpfung beliebiger Metadatenfelder möglich.";
+  loc.TOUR_vccho3ti = "Korpusassistent (2)";
+  loc.TOUR_vccho3 = "Die vorhandenen Metadatenfelder werden in einem DropDown-Menü angezeigt.";
+  loc.TOUR_vccho4ti = "Korpusassistent (3)";
   loc.TOUR_vcStat1 = "Es besteht die Möglichkeit, die Korpusstatistik anzuzeigen.";
   loc.TOUR_vcStat2 = "Korpusstatistik";
   loc.TOUR_qlfield = "Auswahl der Suchanfragesprache: In KorAP können mehrere Suchanfragesprachen verwendet werden.";
@@ -74,6 +78,6 @@ define(function () {
   loc.TOUR_treeb = loc.TOUR_tree || "Anzeige weiterer Ansichten"
   loc.TOUR_tree = loc.TOUR_tree || "Weitere Ansichten können als Baum- oder Bogenansichten angezeigt werden.";
   loc.TOUR_tourdone = "Viel Spaß mit KorAP!";
-  
+  */
   
 });

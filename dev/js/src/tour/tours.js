@@ -25,7 +25,12 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
   loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
   loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
+  loc.TOUR_vccho2ti = loc.TOUR_vccho2ti || "Corpus Assistant (1)";
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
+  loc.TOUR_vccho3ti = loc.TOUR_vccho3ti || "Corpus Assistant (2)";
+  loc.TOUR_vccho3 = loc.TOUR_vccho3 || "The metadata can be choosen in a drop down box.";
+  loc.TOUR_vccho4ti =  loc.TOUR_vccho4ti || "Corpus Assistant (3)";
+  loc.TOUR_vccho4 = loc.TOUR_vccho4 || "One example for defining a virtual corpus"; 
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
   loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
   loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different query languages.";  
@@ -92,45 +97,71 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
 
       //steps of the example tour
       let Steps =[
+        //Step 1, intro_item 0
         {
           title: loc.TOUR_welcti,
           intro: loc.TOUR_welc,
+          position: 'bottom',
         },
+        //Step 2, intro_item 1
         {
           element: '#q-field',
           intro: loc.TOUR_sear1,
           position: 'bottom'
         },
+        //Step 3, intro_item 2
         {
           element: '#hint',
           intro: loc.TOUR_searAnnot,
-          position: 'bottom'
+          position: 'auto'
         },
+        //Step 4, intro_item 3
         {
           element: doe.querySelector("#hint > .menu.hint"),
           intro: loc.TOUR_annotAss,
           position: 'bottom',
           }, 
+        //Step 5, intro_item 4
         {
+          title: loc.TOUR_vccho1ti, 
           element:'#vc-choose',
           intro: loc.TOUR_vccho1,
           position: "bottom",
         },
+        //Step 6, intro_item 5
         {
+          title: loc.TOUR_vccho2ti,
           element:'#vc-view',
           intro: loc.TOUR_vccho2,
           position: "bottom",
         }, 
+        //Step 7, intro_item 6
+        {  
+          title: loc.TOUR_vccho3ti,
+          element: doe.querySelector('#vc-view * .doc > menu'),
+          intro: loc.TOUR_vccho3,
+          position: "left",
+        }, 
+        //Step 8, intro_item 7
+        {
+          title: loc.TOUR_vccho4ti,
+          element: doe.querySelector('#vc-view * .doc'),
+          intro: loc.TOUR_vccho4,
+          position: "left",
+        }, 
+        //Step 9, intro_item 8
         {
           element: doe.querySelector('.statistic'),
           intro: loc.TOUR_vcStat1,
           position: "left",
         },
+        //Step 10, intro_item 9
         {
           element: doe.querySelector('.stattable'),
           intro: loc.TOUR_vcStat2,
           position: "bottom",
         },
+        //Step 11, intro_item 10
         {
           element: doe.querySelector('#ql-field').parentNode,
           intro: loc.TOUR_qlfield,
@@ -172,31 +203,33 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           let vchoo = doe.querySelector("#vc-choose");
           let vcv = doe.querySelector("#vc-view");  
           KorAP._delete.apply(KorAP.vc.root());
-    
-          KorAP.vc.fromJson(loc.TOUR_vcQuery);
           if(!(vcv.querySelector(".active"))){
             vchoo.click();
             /*
              * Intro.js caches elements at the beginning, so element and position has to be set again.
              */
-            intro._introItems[6].element = doe.querySelector('.statistic');
-            intro._introItems[6].position = "left";
+            intro._introItems[8].element = doe.querySelector('.statistic');
+            intro._introItems[8].position = "left";
           }   
-          break;   
-          
+          intro._introItems[7].element = doe.querySelector('#vc-view * .doc');
+          intro._introItems[7].position = "left";
+          break;    
         } 
-        
-        if(this._currentStep == 7){
+        if(this._currentStep == 8){
           let statbut = doe.querySelector('.statistic');
           statbut.click();
-          intro._introItems[7].element = doe.querySelector(".stattable");
-          intro._introItems[7].position = "bottom";
+          intro._introItems[9].element = doe.querySelector(".stattable");
+          intro._introItems[9].position = "bottom";
         }
       });
 
       intro.onbeforeexit(function(){
           if(KorAP.Hint.active() && KorAP.Hint.active().dontHide){
             KorAP.Hint.unshow();
+          }
+          if (KorAP._vcKeyMenu.dontHide){
+          KorAP._vcKeyMenu.dontHide = false;
+          KorAP._vcKeyMenu.hide();
           }
         });
       
@@ -216,8 +249,22 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           intro._introItems[3].position = doe.querySelector("bottom");
           break;
         case 4: 
-          KorAP.Hint.unshow();      
+          KorAP.Hint.unshow();    
+          KorAP._vcKeyMenu.dontHide = false;
           break;
+        case 6:
+          let vccbut = doe.querySelector('#vc-view * .doc > span');  
+          vccbut.click();
+          KorAP._vcKeyMenu.dontHide = true;
+          intro._introItems[6].element = doe.querySelector('#vc-view * .menu.roll');
+          intro._introItems[6].position = "left";
+          break;
+        case 7: 
+          KorAP._vcKeyMenu.dontHide = false;
+          KorAP._vcKeyMenu.hide();
+          KorAP.vc.fromJson(loc.TOUR_vcQuery);
+          intro._introItems[7].element = doe.querySelector('#vc-view * .doc');
+          intro._introItems[7].position = "left";
         }
         });  
       
