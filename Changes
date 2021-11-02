@@ -1,4 +1,4 @@
-0.43 2021-11-22
+0.43 2021-12-1
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -51,6 +51,8 @@
           menu (lerepp)
         - Replace deprecated slash division in favor of math
           division in Sass
+        - Detailed explanation of vc creation (#147) in guided
+          tour (hebasta).
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
