@@ -35,6 +35,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ae3108_53df4262",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-02T17:03:32Z",
+      "side": 1,
+      "message": "What is the use case of this method?",
+      "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f375e1b_802a8b70",
@@ -53,6 +70,29 @@
         "startChar": 104,
         "endLine": 83,
         "endChar": 8
+      },
+      "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3f6cb44_d8942293",
+        "filename": "dev/js/src/container/containeritem.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-02T17:03:32Z",
+      "side": 1,
+      "message": "This is an implementation specific comment, that should be in the method. Method descriptions should be rather abstract and implementation independent.",
+      "range": {
+        "startLine": 52,
+        "startChar": 18,
+        "endLine": 52,
+        "endChar": 26
       },
       "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
