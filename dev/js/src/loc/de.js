@@ -49,7 +49,6 @@ define(function () {
   loc.TOUR_welcti = " <span class='tgreeting'> Willkommen zur KorAP Tour! </span>";
   loc.TOUR_welc = "Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. " +
                   "Wir führen Sie Schritt für Schritt anhand eines Beispiels durch die Anwendung.";
-  
   loc.TOUR_sear1ti = "Suchanfrage";
   loc.TOUR_sear1 = "Hier können Sie die Suchanfrage eingeben, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
   loc.TOUR_searAnnotti = "Annotationsassistent (1)";
@@ -58,10 +57,15 @@ define(function () {
             "oder die Pfeiltaste nach unten &darr; betätigen. </p>";
   loc.TOUR_annotAssti = "Annotationsassistent (2)";
   loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
+  
   loc.TOUR_vccho1ti = "Auswahl der Korpora",
   loc.TOUR_vccho1 = "Hier gelangen Sie zum Korpusassistenten.";
-  loc.TOUR_vccho2ti = "Korpusassistent",
+  loc.TOUR_vccho2ti = "Korpusassistent (1)";
   loc.TOUR_vccho2 = "Im Korpusassistenten ist die Definition von Subkorpora durch die Verknüpfung beliebiger Metadatenfelder möglich.";
+  loc.TOUR_vccho3ti = "Korpusassistent (2)";
+  loc.TOUR_vccho3 = "Einige der bekannten Metadatenfelder werden in einem DropDown-Menü angezeigt.";
+  loc.TOUR_vccho4ti = "Korpusassistent (3)";
+  loc.TOUR_vccho4 = "Ein Beispiel: Bilden eines virtuellen Korpus, der alle Texte mit der Dokumentsigle " + loc.TOUR_DocSigle + " enthält.";
   loc.TOUR_vcStat1ti =  "Korpusstatistik (1)",
   loc.TOUR_vcStat1 = "Anzeige der Korpusstatistik.";
   loc.TOUR_vcStat2ti = "Korpusstatistik (2)",
@@ -89,4 +93,5 @@ define(function () {
 
   // Pagination panel
   loc.RANDOM_PAGE = 'Zufallsseite';
+
 });
