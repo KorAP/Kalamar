@@ -1,4 +1,4 @@
-0.43 2021-11-16
+0.43 2021-11-24
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -49,6 +49,8 @@
         - Fix "menu below hint marker" bug.
         - HintMenu is now based on containerMenu instead of regular
           menu (lerepp)
+        - Detailed explanation of vc creation (#147) in guided
+          tour (hebasta).
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
