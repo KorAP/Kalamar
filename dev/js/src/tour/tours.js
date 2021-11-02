@@ -92,9 +92,11 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
 
       //steps of the example tour
       let Steps =[
-        {
+        {  
+          element: '#link-guided-tour',
           title: loc.TOUR_welcti,
           intro: loc.TOUR_welc,
+          position: 'right',
         },
         {
           element: '#q-field',
