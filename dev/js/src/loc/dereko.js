@@ -22,4 +22,5 @@ define(['vc', 'vc/doc'], function (vcClass, docClass) {
   
   loc.TOUR_Relations = "corenlp/c";
 
+  loc.TOUR_DocSigle = "WPD17/D01"; 
 });
