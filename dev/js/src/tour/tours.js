@@ -99,56 +99,67 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           position: 'right',
         },
         {
+          title: loc.TOUR_sear1ti,
           element: '#q-field',
           intro: loc.TOUR_sear1,
           position: 'bottom'
         },
         {
+          title: loc.TOUR_searAnnotti,
           element: '#hint',
           intro: loc.TOUR_searAnnot,
           position: 'bottom'
         },
         {
+          title: loc.TOUR_annotAssti,
           element: doe.querySelector("#hint > .menu.hint"),
           intro: loc.TOUR_annotAss,
           position: 'bottom',
-          }, 
+          },
         {
+          title:loc.TOUR_vccho1ti,
           element:'#vc-choose',
           intro: loc.TOUR_vccho1,
           position: "bottom",
         },
         {
+          title: loc.TOUR_vccho2ti,
           element:'#vc-view',
           intro: loc.TOUR_vccho2,
           position: "bottom",
         }, 
         {
+          title: loc.TOUR_vcStat1ti,
           element: doe.querySelector('.statistic'),
           intro: loc.TOUR_vcStat1,
           position: "left",
         },
         {
+          title: loc.TOUR_vcStat2ti,
           element: doe.querySelector('.stattable'),
           intro: loc.TOUR_vcStat2,
           position: "bottom",
         },
         {
+          title: loc.TOUR_qlfieldti,
           element: doe.querySelector('#ql-field').parentNode,
           intro: loc.TOUR_qlfield,
           position: "bottom",
         },  
         {
+          title: loc.TOUR_glimpseti,
           element: doe.querySelector('#glimpse').parentNode,
           intro: loc.TOUR_glimpse,
           position: "bottom",
         }, 
         {
+          title: loc.TOUR_helpti,
           element:'#view-tutorial',
           intro: loc.TOUR_help,
           position: "bottom",
         },
         {
+          title: loc.TOUR_seargoti,
           element: '#qsubmit',
           intro: loc.TOUR_seargo,
           position: "bottom",
