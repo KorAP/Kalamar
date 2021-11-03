@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca497e8e_14a35f00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-03T22:26:29Z",
+      "side": 1,
+      "message": "Ich finde die Verbesserungen für das Deutsche schon sehr gut, denke aber, dass sie kohärenter sein könnten. Beispielsweise wird nur auf der ersten Tafel der Nutzer direkt mit \"Sie\" angesprochen - danach wird die perspektive gewechselt.\n\nIch denke, dass - weil es gerade der kritikpunkt von Andreas war - das Textsiglen-Metafeld erklärt werden sollte.",
+      "revId": "93756cbd4986664b29e6d9fc7c560c6c5c874074",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
