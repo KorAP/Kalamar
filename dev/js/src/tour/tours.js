@@ -20,15 +20,15 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   //localization guided tour gTstartSearch
   loc.TOUR_welcti = loc.TOUR_welcti || "<span class='tgreeting'> Welcome to our guided tour! </span>";
   loc.TOUR_welc = loc.TOUR_welc || "This tour should give you a quick introduction to KorAP. " +
-  		                           "We lead you step by step through an example."; 
+  		                           "We lead you step by step through an example.";
   loc.TOUR_sear1 = loc.TOUR_sear1 || "Input field for the query, for example the search for '" +  loc.TOUR_Qexample + "'.";
   loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
   loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
-  loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
+  loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
   loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
-  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different query languages.";  
+  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different query languages.";
   loc.TOUR_help = loc.TOUR_help || "Help and information about KorAP.";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select this to show only the first hits in undefined order.";
   loc.TOUR_seargo = loc.TOUR_seargo || "Start the search";
@@ -99,56 +99,67 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           position: 'right',
         },
         {
+          title: loc.TOUR_sear1ti,
           element: '#q-field',
           intro: loc.TOUR_sear1,
           position: 'bottom'
         },
         {
+          title: loc.TOUR_searAnnotti,
           element: '#hint',
           intro: loc.TOUR_searAnnot,
           position: 'bottom'
         },
         {
+          title: loc.TOUR_annotAssti,
           element: doe.querySelector("#hint > .menu.hint"),
           intro: loc.TOUR_annotAss,
           position: 'bottom',
-          }, 
+          },
         {
+          title:loc.TOUR_vccho1ti,
           element:'#vc-choose',
           intro: loc.TOUR_vccho1,
           position: "bottom",
         },
         {
+          title: loc.TOUR_vccho2ti,
           element:'#vc-view',
           intro: loc.TOUR_vccho2,
           position: "bottom",
         }, 
         {
+          title: loc.TOUR_vcStat1ti,
           element: doe.querySelector('.statistic'),
           intro: loc.TOUR_vcStat1,
           position: "left",
         },
         {
+          title: loc.TOUR_vcStat2ti,
           element: doe.querySelector('.stattable'),
           intro: loc.TOUR_vcStat2,
           position: "bottom",
         },
         {
+          title: loc.TOUR_qlfieldti,
           element: doe.querySelector('#ql-field').parentNode,
           intro: loc.TOUR_qlfield,
           position: "bottom",
         },  
         {
+          title: loc.TOUR_glimpseti,
           element: doe.querySelector('#glimpse').parentNode,
           intro: loc.TOUR_glimpse,
           position: "bottom",
         }, 
         {
+          title: loc.TOUR_helpti,
           element:'#view-tutorial',
           intro: loc.TOUR_help,
           position: "bottom",
         },
         {
+          title: loc.TOUR_seargoti,
           element: '#qsubmit',
           intro: loc.TOUR_seargo,
           position: "bottom",

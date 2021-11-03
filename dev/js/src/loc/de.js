@@ -45,24 +45,36 @@ define(function () {
   loc.TOUR_lnext = "Weiter";
   loc.TOUR_ldone = "Beenden";
   loc.TOUR_ldoneSearch = "Suchen";
-  
   //Guided Tour: Steps
   loc.TOUR_welcti = " <span class='tgreeting'> Willkommen zur KorAP Tour! </span>";
   loc.TOUR_welc = "Hier zeigen wir Ihnen einige wichtige Funktionalitäten von KorAP. " +
-  		"Wir führen Sie Schritt bei Schritt anhand eines Beispiels durch die Anwendung.";  
-  loc.TOUR_sear1 = "Eingabe der Suchanfrage, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
-  loc.TOUR_searAnnot ="Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.";
-  loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
-  loc.TOUR_vccho1 = "Öffnen des Korpusassistenten";
-  loc.TOUR_vccho2 = "Eigene Definition von Subkorpora durch Verknüpfung beliebiger Metadatenfelder.";
-  loc.TOUR_vcStat1 = "Es besteht die Möglichkeit, die Korpusstatistik anzuzeigen.";
-  loc.TOUR_vcStat2 = "Korpusstatistik";
-  loc.TOUR_qlfield = "Auswahl der Suchanfragesprache: In KorAP können mehrere Suchanfragesprachen verwendet werden.";
-  loc.TOUR_glimpse = "Beim Wählen dieser Option wird festgelegt ob nur die ersten Treffer in undefinierter Reihenfolge ausgewählt werden.";
-  loc.TOUR_help = "Hilfe zu KorAP";
-  loc.TOUR_seargo = "Suchanfrage starten";
-
+                  "Wir führen Sie Schritt für Schritt anhand eines Beispiels durch die Anwendung.";
   
+  loc.TOUR_sear1ti = "Suchanfrage";
+  loc.TOUR_sear1 = "Hier können Sie die Suchanfrage eingeben, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
+  loc.TOUR_searAnnotti = "Annotationsassistent (1)";
+  loc.TOUR_searAnnot ="<p> Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung. </p> " +
+            "<p> Er wird ausgewählt, in dem Sie auf den kleinen orangen Balken unter dem Sucheingabefenster klicken " +
+            "oder die Pfeiltaste nach unten &darr; betätigen. </p>";
+  loc.TOUR_annotAssti = "Annotationsassistent (2)";
+  loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
+  loc.TOUR_vccho1ti = "Auswahl der Korpora",
+  loc.TOUR_vccho1 = "Hier gelangen Sie zum Korpusassistenten.";
+  loc.TOUR_vccho2ti = "Korpusassistent",
+  loc.TOUR_vccho2 = "Im Korpusassistenten ist die Definition von Subkorpora durch die Verknüpfung beliebiger Metadatenfelder möglich.";
+  loc.TOUR_vcStat1ti =  "Korpusstatistik (1)",
+  loc.TOUR_vcStat1 = "Anzeige der Korpusstatistik.";
+  loc.TOUR_vcStat2ti = "Korpusstatistik (2)",
+  loc.TOUR_vcStat2 = "Hier sehen sie die Korpusstatistik.";
+  loc.TOUR_qlfieldti =  "Suchanfragen",
+  loc.TOUR_qlfield = "In KorAP können mehrere Suchanfragesprachen verwendet werden. Welche Sie verwenden wollen, wählen Sie hier aus.";
+  loc.TOUR_glimpseti = "Glimpse",
+  loc.TOUR_glimpse = "Durch das Aktivieren dieser Option legen Sie fest, dass nur die ersten Treffer in undefinierter Reihenfolge ausgewählt werden.";
+  loc.TOUR_helpti = "Hilfe",
+  loc.TOUR_help = "Hier finden Sie die Hilfe zu KorAP.";
+  loc.TOUR_seargoti = "Suche",
+  loc.TOUR_seargo = "Durch das Klicken auf das Lupensymbol wird die Suchanfrage gestartet.";
+    
   //Guided Tour: explain the result
   loc.TOUR_kwic = "Anzeige des Ergebnisses als KWIC (keyword in context).";
   loc.TOUR_snippet = "Durch Klicken auf das KWIC kann ein größerer Kontext angezeigt werden.";  
