@@ -233,6 +233,10 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
 
           let state = stateClass.create([true, false]);
 
+          if (onClick["default"] !== undefined) {
+            state.setIfNotYet(onClick["default"]);
+          };
+
           // TODO:
           //   Lazy registration (see above!)
           KorAP.Panel[panel].actions().addToggle(title, {'cls':["title"]}, state);

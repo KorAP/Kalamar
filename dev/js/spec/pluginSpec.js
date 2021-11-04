@@ -243,6 +243,72 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Panel["result"] = undefined;
     });
 
+    it('should accept valid registrations for toggle', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Glemm',
+          onClick : {
+            template : 'about:blank',
+            action : 'toggle',
+            'default' : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+      expect(b.hasAttribute("data-icon")).toBeFalsy();
+      expect(b.hasAttribute("cls")).toBeFalsy();
+      expect(b.getAttribute("title")).toEqual("Glemm");
+      expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
+      expect(b.firstChild.classList.contains('check')).toBeTruthy();
+      expect(b.firstChild.classList.contains('checked')).toBeFalsy();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      b.click();
+
+      expect(b.getAttribute("title")).toEqual("Glemm");
+      expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
+      expect(b.firstChild.classList.contains('check')).toBeTruthy();
+      expect(b.firstChild.classList.contains('checked')).toBeTruthy();
+
+      // Check with true default
+      p = KorAP.Panel["result"] = panelClass.create();
+      
+      manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Glemm',
+          onClick : {
+            template : 'about:blank',
+            action : 'toggle',
+            'default' : true
+          }
+        }]
+      });
+
+      b = p.actions().element().firstChild;
+      expect(b.hasAttribute("data-icon")).toBeFalsy();
+      expect(b.hasAttribute("cls")).toBeFalsy();
+      expect(b.getAttribute("title")).toEqual("Glemm");
+      expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
+      expect(b.firstChild.classList.contains('check')).toBeTruthy();
+      expect(b.firstChild.classList.contains('checked')).toBeTruthy();
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    
     it('should alert on plugin info (1)', function () {
 
       let alertMsg;
