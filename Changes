@@ -42,6 +42,7 @@
         - Support for inactive buttongroup items.
         - Support default values for state.
         - Introduce state manager (#119).
+        - Support default value for plugin toggle embeddings.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
