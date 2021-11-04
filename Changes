@@ -1,4 +1,4 @@
-0.43 2021-10-28
+0.43 2021-11-04
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -39,6 +39,7 @@
         - Support CSP disabling.
         - Update intro.js (#109; hebasta)
         - Introduce pagination panel.
+        - Introduce state manager (#119).
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.

@@ -1,4 +1,4 @@
-define(['state'], function (stateClass) {
+define(['state','state/manager'], function (stateClass, stateManagerClass) {
 
   describe('KorAP.State', function () {
     it('should be initializable', function () {
@@ -121,6 +121,49 @@ define(['state'], function (stateClass) {
       expect(s.get()).toEqual('alte');
       s.roll();
       expect(s.get()).toEqual('mann');
+    });
+  });
+
+  describe('KorAP.State.Manager', function () {
+
+    const el = document.createElement('input');
+
+    it('should be initializable', function () {
+
+      let sm = stateManagerClass.create(el);
+      expect(sm).toBeTruthy();
+
+      expect(sm.toString()).toEqual("{}");
+    });
+
+
+    it('should be extensible', function () {
+      const sm = stateManagerClass.create(el);
+      expect(sm).toBeTruthy();
+
+      const s1 = sm.newState('test', [1,2,3]);
+      
+      expect(sm.toString()).toEqual("{\"test\":1}");
+
+      s1.set(2);
+
+      expect(sm.toString()).toEqual("{\"test\":2}");
+
+      s1.set(3);
+
+      expect(sm.toString()).toEqual("{\"test\":3}");
+
+      const s2 = sm.newState('glemm', [true,false]);
+
+      let serial = JSON.parse(sm.toString());   
+      expect(serial["test"]).toEqual(3);
+      expect(serial["glemm"]).toEqual(true);
+
+      s2.set(false);
+
+      serial = JSON.parse(sm.toString());   
+      expect(serial["test"]).toEqual(3);
+      expect(serial["glemm"]).toEqual(false);
     });
   });
 });
