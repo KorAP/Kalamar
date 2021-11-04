@@ -1,4 +1,4 @@
-0.43 2021-10-28
+0.43 2021-11-04
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -38,6 +38,7 @@
         - Added DemoServer plugin.
         - Support CSP disabling.
         - Update intro.js (#109; hebasta)
+        - Support default value for plugin toggle embeddings.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
