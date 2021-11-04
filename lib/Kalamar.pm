@@ -218,7 +218,7 @@ sub startup {
   $self->plugin('TagHelpers::Pagination' => {
     prev      => '<span><span>&lt;</span></span>',
     next      => '<span><span>&gt;</span></span>',
-    ellipsis  => '<a class="ellipsis"><span><span>...</span></span></a>',
+    ellipsis  => '<a class="ellipsis inactive"><span><span>...</span></span></a>',
     separator => '',
     current   => '<span>{current}</span>',
     page      => '<span>{page}</span>'

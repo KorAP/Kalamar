@@ -25,7 +25,7 @@
       border-style: solid;
       border-width: $border-size 0;
 
-      &:hover {
+      &:not(.inactive):hover {
 	@include choose-hover;
         transition: none;
       }
