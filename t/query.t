@@ -164,6 +164,7 @@ $err = $t->get_ok('/?q=der&p=1&count=2')
   # Total pages
   ->element_count_is('#pagination > a', 7)
   ->text_is('#pagination a:nth-of-type(6) span', 7291)
+  ->element_exists('#pagination a.ellipsis.inactive')
   ->content_like(qr!${q}count${q}:2!)
   ->content_like(qr!${q}startIndex${q}:0!)
   ->content_like(qr!${q}itemsPerPage${q}:2!)
