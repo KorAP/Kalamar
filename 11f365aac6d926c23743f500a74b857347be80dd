@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f0ae3bc_172a0fcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-05T09:49:31Z",
+      "side": 1,
+      "message": "This should use setIfNotYet() from #5159 instead, to respect values from the state manager, see #5158. So - this needs to be changed after the submission of #5159.",
+      "revId": "11f365aac6d926c23743f500a74b857347be80dd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
