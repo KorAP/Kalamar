@@ -16,6 +16,20 @@ define(['state'], function (stateClass) {
       expect(s.get()).toBeTruthy();
     });
 
+    it('should accept a default value', function () {
+      let s = stateClass.create([true, false]);
+      expect(s.get()).toBeTruthy();
+      s.set(false);
+      expect(s.get()).toBeFalsy();
+
+      s = stateClass.create([true, false]);
+      s.setIfNotYet(false);
+      expect(s.get()).toBeFalsy();
+
+      s.setIfNotYet(true);
+      expect(s.get()).toBeFalsy();
+    });
+    
     it('should be associatable', function () {
       let s = stateClass.create();
 

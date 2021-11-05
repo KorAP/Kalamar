@@ -20,8 +20,8 @@ define(function () {
     /**
      * Constructor
      */
-    create : function (value) {
-      return Object.create(this)._init(value);
+    create : function (values) {
+      return Object.create(this)._init(values);
     },
 
 
@@ -38,7 +38,6 @@ define(function () {
       else {
         t.values = [values];
       }
-      t.value = t.values[0];
       return t;
     },
 
@@ -71,9 +70,24 @@ define(function () {
 
 
     /**
+     * Set the state to a default value.
+     * This will only be set, if no other value is set yet.
+     */
+    setIfNotYet : function (value) {
+      if (this.value == undefined) {
+        this.set(value);
+      };
+    },
+
+
+    /**
      * Get the state value
      */
     get : function () {
+      if (this.value == undefined) {
+        this.value = this.values[0];
+      };
+
       return this.value;
     },
 
@@ -101,7 +115,7 @@ define(function () {
     roll : function () {
       let next = 0;
       for (let i = 0; i < this.values.length - 1; i++) {
-        if (this.value == this.values[i]) {
+        if (this.get() == this.values[i]) {
           next = i+1;
           break;
         };
