@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0aa104_5906e16a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-05T09:55:43Z",
+      "side": 1,
+      "message": "The JSON stringification is not really necessary, and looks quite ugly serialized in URLs (especially the surrounding brackets and the quotes). We could write our own serialization instead - the JSON stringification just simplifies cases, where the state values are numbers or boolean values.",
+      "revId": "99d65f903b6db96c74a6dba2bcf574b2c5c3f61c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
