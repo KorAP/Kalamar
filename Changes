@@ -1,4 +1,4 @@
-0.43 2021-11-04
+0.43 2021-11-05
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -40,6 +40,7 @@
         - Update intro.js (#109; hebasta)
         - Introduce pagination panel.
         - Support for inactive buttongroup items.
+        - Support default values for state.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
