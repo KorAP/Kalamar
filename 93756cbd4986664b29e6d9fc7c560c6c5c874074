@@ -34,6 +34,24 @@
       "parentUuid": "ca497e8e_14a35f00",
       "revId": "93756cbd4986664b29e6d9fc7c560c6c5c874074",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a369ec0a_03fb7eff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-08T11:01:31Z",
+      "side": 1,
+      "message": "Sollte dann die Perspektive noch einheitlicher sein?",
+      "parentUuid": "5b9eabd4_7baee7cd",
+      "revId": "93756cbd4986664b29e6d9fc7c560c6c5c874074",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
