@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a173d6_c064909d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-09T16:42:55Z",
+      "side": 1,
+      "message": "Du hast Patch 2 überschrieben.",
+      "revId": "3cdce17f7b6a7cd96897ed0b53077483c03ffa63",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
