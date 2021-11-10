@@ -16,6 +16,24 @@
       "message": "Du hast Patch 2 überschrieben.",
       "revId": "3cdce17f7b6a7cd96897ed0b53077483c03ffa63",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7763ffaa_ac8e36eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-11-10T20:39:46Z",
+      "side": 1,
+      "message": "Änderungen des 2. Patch wieder hinzugefügt",
+      "parentUuid": "f7a173d6_c064909d",
+      "revId": "3cdce17f7b6a7cd96897ed0b53077483c03ffa63",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
