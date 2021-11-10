@@ -28,22 +28,32 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
   loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
-  loc.TOUR_qlfield = loc.TOUR_qlfield|| "Selection of the query language: You can use KorAP with different query languages.";  
-  loc.TOUR_help = loc.TOUR_help || "Help and information about KorAP.";
+  loc.TOUR_qlfield = loc.TOUR_qlfield|| "You can use KorAP with different query languages. You can choose your preferred query language here. ";  
+  loc.TOUR_help = loc.TOUR_help || "Here you can find help and information about KorAP.";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select this to show only the first hits in undefined order.";
   loc.TOUR_seargo = loc.TOUR_seargo || "Start the search";
 
   //localization guided Tour gTshowResults
+  loc.TOUR_kwicti = loc.TOUR_kwicti || "Results";
   loc.TOUR_kwic = loc.TOUR_kwic || "KWIC result (keyword in context)";
+  loc.TOUR_snippetti = loc.TOUR_snippetti ||  "KWIC(2)";
   loc.TOUR_snippet = loc.TOUR_snippet ||  "Click on a match to show a larger snippet.";
-  loc.TOUR_snippetb = loc.TOUR_snippetb || "Snippet";
-  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Display of metadata";
-  loc.TOUR_metadata = loc.TOUR_metadata || "Metadata";
+  loc.TOUR_snippetbti = loc.TOUR_snippetbti || "Snippet";
+  loc.TOUR_snippetb = loc.TOUR_snippetb || "Display of snippet";
+  loc.TOUR_metadatabti =  loc.TOUR_metadatabti || "Metadata(1)";
+  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Click here to display metadata.";
+  loc.TOUR_metadatati = loc.TOUR_metadatati || "Metadata(2)";
+  loc.TOUR_metadata = loc.TOUR_metadata || "Display of metadata";
+  loc.TOUR_tokenbti = loc.TOUR_tokenbti || "Token Annotations";
   loc.TOUR_tokenb = loc.TOUR_tokenb || "Display of token annotations";
+  loc.TOUR_tokenti = loc.TOUR_tokenti || "Annotations";
   loc.TOUR_token = loc.TOUR_token || "KorAP supports multiple annotations.";
-  loc.TOUR_treeb = loc.TOUR_treeb || "Display further annotations"
+  loc.TOUR_treebti = loc.TOUR_treebti || "Further Annotations(1)";
+  loc.TOUR_treeb = loc.TOUR_treeb || "Display further annotations";
+  loc.TOUR_treeti = loc.TOUR_treeti || "Further Annotations(2)"
   loc.TOUR_tree = loc.TOUR_tree || "Further annotations can be displayed as tree and arch views."
   loc.TOUR_tourdone = loc.TOUR_tourdone || "Have fun with KorAP!";
+
   
   //localization of button labels
   let labelOpts= {
@@ -245,55 +255,64 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
       }
       let StepsSR = [
         //Step 1, intro_item 0
-        {
+        { 
+          title: loc.TOUR_kwicti,
           element: '#search',
           intro: loc.TOUR_kwic ,
           position: "auto",
         },
         //Step 2, intro_item 1 
-        {
+        { 
+          title: loc.TOUR_snippetti,
           element: doe.querySelector("#search > ol > li"),
           intro: loc.TOUR_snippet,
           position: "bottom",
         },
         //Step 3, intro_item 2 
-        {
+        { 
+          title: loc.TOUR_snippetbti,
           element: doe.querySelector("#search > ol > li"),
           intro: loc.TOUR_snippetb,
           position: "bottom",
         },
         //Step 4, intro_item 3
-        {
+        { 
+          title: loc.TOUR_metadatabti,
           element: doe.querySelector(".action > .metatable"),
           intro: loc.TOUR_metadatab,
           position: "bottom",
         },
         //Step 5, intro_item 4
-        {
+        { 
+          title: loc.TOUR_metadatati,
           element: doe.querySelector(".view.metatable"),
           intro: loc.TOUR_metadata,
           position: "auto",
         },
         //Step 6, intro_item 5
-        {   
+        { 
+          title: loc.TOUR_tokenbti,
           element: doe.querySelector(".action > .info"),
           intro: loc.TOUR_tokenb,
           position: "bottom",
         },
         //Step 7, intro_item 6
-        {   
+        { 
+          title: loc.TOUR_tokenti,
           element: doe.querySelector(".view.tokentable"),
           intro: loc.TOUR_token,
           position: "auto",
         },
         //Step 8, intro_item 7
-        {     
+        {      
+          title: loc.TOUR_treebti,
           element: doe.querySelector(".tree"),
           intro: loc.TOUR_treeb,
           position: "bottom",
         }, 
         //Step 9, intro_item 8
-        {     
+        {    
+          title: loc.TOUR_treeti,  
           element: doe.querySelector(".view.relations"),
           intro: loc.TOUR_tree,
           position: "bottom",

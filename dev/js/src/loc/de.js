@@ -64,15 +64,26 @@ define(function () {
 
   
   //Guided Tour: explain the result
-  loc.TOUR_kwic = "Anzeige des Ergebnisses als KWIC (keyword in context).";
-  loc.TOUR_snippet = "Durch Klicken auf das KWIC kann ein größerer Kontext angezeigt werden.";  
-  loc.TOUR_snippetb = "Anzeige des Snippets";
-  loc.TOUR_metadatab = "Durch die Auswahl des Buttons werden die Metadaten angezeigt.";
+  loc.TOUR_kwicti = "Ergebnisse";
+  loc.TOUR_kwic = "Ergebnis der Suche nach '" + loc.TOUR_Qexample + "' im definierten Korpus: " +
+  		          "Die Ergebnisse werden hier als KWIC (keyword in context) angezeigt. Vor dem KWIC steht die jeweilige Textsigle des Treffers.";
+  loc.TOUR_snippetti = "KWIC";
+  loc.TOUR_snippet = "Durch das Klicken auf das KWIC kann ein größerer Kontext angezeigt werden.";  
+  loc.TOUR_snippetbti ="Snippet";
+  loc.TOUR_snippetb = "Unter der Anzeige des Snippets finden sie vor dem  Quellennachweis eine Buttonleiste um weitere Ansichten des Ergebnis zu generieren.";
+  loc.TOUR_metadatabti = "Metadaten(1)";
+  loc.TOUR_metadatab = "Durch die Auswahl dieses Buttons werden die Metadaten angezeigt.";
+  loc.TOUR_metadatati = "Metadaten(2)";
   loc.TOUR_metadata = "Anzeige der Metadaten";
-  loc.TOUR_tokenb = loc.TOUR_tokenb || "Anzeige der Token-Annotationen";
-  loc.TOUR_token = loc.TOUR_token || "KorAP unterstützt multiple Annotationen.";
-  loc.TOUR_treeb = loc.TOUR_tree || "Anzeige weiterer Ansichten"
-  loc.TOUR_tree = loc.TOUR_tree || "Weitere Ansichten können als Baum- oder Bogenansichten angezeigt werden.";
+  loc.TOUR_tokenbti ="Token-Annotationen";
+  loc.TOUR_tokenb = "KorAP untertstützt multiple Annotationen. Um die Token-Annotationen anzuzeigen, wählen Sie diesen Button.";
+  loc.TOUR_tokenti = "Annotationen"; 
+  loc.TOUR_token = "Anzeige der Annotationen.";
+  //HK TODO kein schöner Titel
+  loc.TOUR_treebti ="Relationen(1)";
+  loc.TOUR_treeb = "Unter \"" + loc.ADDTREE + "\" ist eine Auswahl weitere Ansichten möglich.";
+  loc.TOUR_treeti = "Relationen(2)";
+  loc.TOUR_tree = "Diese können können als Baum- oder Bogenansichten angezeigt werden.";
   loc.TOUR_tourdone = "Viel Spaß mit KorAP!";
 
   // Pagination panel
