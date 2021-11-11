@@ -52,6 +52,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3439ce53_0d61d7d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-11T13:10:46Z",
+      "side": 1,
+      "message": "It is used to:\nDynamically change the text of the item in an orderly fashion.\nBy overwriting this method one can decide how to represent the text (which type of HTML node to use)\nImplement default text values\nSplit the \"li\" HTML element from the text node, so that accessing the text is more orderly and chanigng the \"li\" element by overwriting the \"element\" function does not require thinking about default text values. Basically the text representation and the SASS representation can be changed without having to think about the other one respectively.",
+      "parentUuid": "72ae3108_53df4262",
+      "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f375e1b_802a8b70",
@@ -88,6 +106,30 @@
       "writtenOn": "2021-11-02T17:03:32Z",
       "side": 1,
       "message": "This is an implementation specific comment, that should be in the method. Method descriptions should be rather abstract and implementation independent.",
+      "range": {
+        "startLine": 52,
+        "startChar": 18,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "35a4cf890591dbe8ad10c5b55bed7f3e34385093",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41ff26a7_f4b0f74d",
+        "filename": "dev/js/src/container/containeritem.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-11T13:10:46Z",
+      "side": 1,
+      "message": "I think this is better?",
+      "parentUuid": "a3f6cb44_d8942293",
       "range": {
         "startLine": 52,
         "startChar": 18,
