@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff652d6_a442977b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-11T12:08:37Z",
+      "side": 1,
+      "message": "I made it so that the container does not allow removing the prefix until its attribute container._prefix (and thus presumably the menus attribute ._prefix) has been removed. Calling removeItem with prefix would work in theory, but then the menu still has an attribute prefix that does not have a representation within the GUI, which I think should be illegal (and is now).",
+      "revId": "c66268e26fbc05079a01c6eeea26b1a50012e5ed",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
