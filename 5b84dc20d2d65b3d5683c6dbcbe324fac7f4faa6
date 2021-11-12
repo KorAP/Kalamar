@@ -16,6 +16,23 @@
       "message": "I have no good idea how to write a test for that ...\n\nThis refers to the bug often seen and documented by Leo in Slack where the hint menu appears below the hint marker. See https://ids-korap.slack.com/files/U9AHU2M9P/F02LXKDNJAJ/hint-bug-replay.mp4 .",
       "revId": "5b84dc20d2d65b3d5683c6dbcbe324fac7f4faa6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d2962d_7199fb05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-12T15:25:35Z",
+      "side": 1,
+      "message": "It would e interesting if this also resolves the occasional hint-bug alarm in the test suite, I wasn\u0027t able to reproduce.",
+      "revId": "5b84dc20d2d65b3d5683c6dbcbe324fac7f4faa6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
