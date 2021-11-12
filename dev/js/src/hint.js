@@ -97,6 +97,7 @@ define([
         if (!this.classList.contains('active')) {
           that.show(false);
         };
+        e.halt();
       });
 
       // Move infobox
@@ -150,7 +151,7 @@ define([
 
 
     /**
-     * Altert at a specific character position.
+     * Alert at a specific character position.
      */
     alert : function (charPos, msg) {
       const t = this;
@@ -186,6 +187,7 @@ define([
      * Return hint menu and probably init based on an action
      */
     menu : function (action) {
+
       if (this._menuCollection[action] === undefined) {
         
         // No matching hint menu
@@ -238,7 +240,7 @@ define([
       // A menu or null was passed
       if (arguments.length === 1) {        
         const c = this._inputField.container();
-       
+
         // Make the menu active
         if (obj !== null) {
           c.classList.add('active');
@@ -278,7 +280,7 @@ define([
         this.active(menu);
 
         let e = menu.element();
-        // console.log("Chrome may send a blur on the old menu here");
+        // Chrome may send a blur on the old menu here
         this._active.element().blur();
         this._inputField.container().appendChild(e);
 
