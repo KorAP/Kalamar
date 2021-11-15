@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7067a0_e1f47295",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-15T08:29:59Z",
+      "side": 1,
+      "message": "Ich finde an einigen Stellen den Perspektivwechsel wieder störend. Außerdem sollte eine inhaltliche Dopplung von Titel und Beschreibung vermieden werden.\n\nDie Formulierung \"Auswahl des Buttons\" ist in meinen Ohren schräg.",
+      "revId": "83d81ca161f74867922158615d5fc5b50217934d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
