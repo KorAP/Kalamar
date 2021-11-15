@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d312047_5f93b7de",
+        "filename": "dev/js/src/loc/dereko_de.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-15T10:53:02Z",
+      "side": 1,
+      "message": "I think it\u0027s better to refer to key and value defined in the language agnostic corpus specific localization instead of having separate language and corpus dependent localizations.",
+      "range": {
+        "startLine": 11,
+        "startChar": 104,
+        "endLine": 11,
+        "endChar": 113
+      },
+      "revId": "3520fb592f2fbc164a520e135bf899aefd7578e9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
