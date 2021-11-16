@@ -9,10 +9,16 @@
  */
 "use strict";
 
-define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], function (widgetClass, serviceClass, stateClass, pageInfoClass) {
+define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo', 'util'], function (widgetClass, serviceClass, stateClass, stateManagerClass, pageInfoClass) {
 
   KorAP.Panel = KorAP.Panel || {};
 
+  // State manager undefined
+  const states = KorAP.States ? KorAP.States :
+
+        // Not serialized state manager
+        stateManagerClass.create(document.createElement('input'));
+  
   // Contains all servicess to address with
   // messages to them
   var services = {};
@@ -104,7 +110,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
       // TODO:
       //   These fields need to be localized for display by a structure like
       //   { de : { name : '..' }, en : { .. } }
-      var name = obj["name"];
+      const name = obj["name"];
 
       if (!name)
         throw new Error("Missing name of plugin");
@@ -154,7 +160,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
             // a intermediate object to toggle the view
             if ('state' in this.button && this.button.state.associates() > 0) {
 
-              let s = this.button.state;
+              const s = this.button.state;
 
               // The associated service is existent
               if (services[this.button['widgetID']]) {
@@ -203,8 +209,10 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
 
           if (onClick["action"] && onClick["action"] == "setWidget") {
 
-            // Create a boolean state value, that initializes to true == opened
+            // Create a boolean state value,
+            // that initializes to true == opened
             obj['state'] = stateClass.create([true, false]);
+            obj['state'].setIfNotYet(true);
           };
           
           // Add to dynamic button list (e.g. for matches)
@@ -230,8 +238,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
           //   Accept a "value" list here for toggling, which should
           //   also allow for "rolling" through states via CSS classes
           //   as 'toggle-true', 'toggle-false' etc.
-
-          let state = stateClass.create([true, false]);
+          let state = states.newState((onClick["state"] ? onClick["state"] : name), [true, false]);
 
           if (onClick["default"] !== undefined) {
             state.setIfNotYet(onClick["default"]);
@@ -544,12 +551,12 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
     // Close the service
     _closeService : function (id) {
       delete limits[id];
-      
+
       // Close the iframe
       if (services[id] && services[id]._closeIframe) {
+
         services[id]._closeIframe();
 
-        // Remove from list
         delete services[id];
       };
 
@@ -583,7 +590,13 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
       }
       return this._el;
     },
-    
+
+
+    // Return states object
+    states : function () {
+      return states;
+    },
+
     // Destructor, just for testing scenarios
     destroy : function () {
       limits = {};
@@ -605,7 +618,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
         };
         this._el = null;
       };
-      
+
       this._removeListener();
     }
   };

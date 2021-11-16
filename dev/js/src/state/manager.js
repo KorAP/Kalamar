@@ -59,20 +59,21 @@ define(['state'], function(stateClass) {
 
       const t = this;
       let s = stateClass.create(values);
+      
+      // Associate with dummy object
+      s.associate({
+        setState : function (value) {
+          console.log("setState", name, value);
+          t._states[name] = value;
+          t._update();
+        }
+      });
 
       // Load state
       if (t._states[name] !== undefined) {
         s.set(t._states[name]);
       };
-      
-      // Associate with dummy object
-      s.associate({
-        setState : function (value) {
-          t._states[name] = value;
-          t._update();
-        }
-      });
-      
+
       return s;
     }
   };
