@@ -63,19 +63,6 @@ define(['state'], function(stateClass) {
       const t = this;
       let s = stateClass.create(values);
 
-      // Load state
-      if (t._states[name] !== undefined) {
-        s.set(t._states[name]);
-      };
-
-      // Set default value
-      // TODO: It would be better to make this part
-      // of the state and serialize correctly using TOJSON()
-      if (defValue !== undefined) {
-        s.setIfNotYet(defValue);
-        t._defaults[name] = defValue;
-      };
-      
       // Associate with dummy object
       s.associate({
         setState : function (value) {
@@ -88,6 +75,24 @@ define(['state'], function(stateClass) {
         }
       });
       
+      // Load state
+      if (t._states[name] !== undefined) {
+        s.set(t._states[name]);
+      };
+
+      // Set default value
+      // TODO: It would be better to make this part
+      // of the state and serialize correctly using TOJSON()
+      if (defValue !== undefined) {
+        s.setIfNotYet(defValue);
+        t._defaults[name] = defValue;
+      };
+
+      // Load state
+      if (t._states[name] !== undefined) {
+        s.set(t._states[name]);
+      };
+
       return s;
     }
   };
