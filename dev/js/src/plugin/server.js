@@ -9,10 +9,16 @@
  */
 "use strict";
 
-define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], function (widgetClass, serviceClass, stateClass, pageInfoClass) {
+define(['plugin/widget', 'plugin/service', 'state/manager', 'pageInfo', 'util'], function (widgetClass, serviceClass, stateManagerClass, pageInfoClass) {
 
   KorAP.Panel = KorAP.Panel || {};
 
+  // State manager undefined
+  const states = KorAP.States ? KorAP.States :
+
+        // Not serialized state manager
+        stateManagerClass.create(document.createElement('input'));
+  
   // Contains all servicess to address with
   // messages to them
   var services = {};
@@ -104,7 +110,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
       // TODO:
       //   These fields need to be localized for display by a structure like
       //   { de : { name : '..' }, en : { .. } }
-      var name = obj["name"];
+      const name = obj["name"];
 
       if (!name)
         throw new Error("Missing name of plugin");
@@ -154,21 +160,37 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
             // a intermediate object to toggle the view
             if ('state' in this.button && this.button.state.associates() > 0) {
 
-              let s = this.button.state;
+              console.log("toggle state", this.button['widgetID']);
+              
+              const s = this.button.state;
+              let id = this.button['widgetID'];
 
               // The associated service is existent
-              if (services[this.button['widgetID']]) {
+              if (services[id]) {
                 s.roll();
                 return;
               }
 
               // The service is not existent
-              else {
+              else if (id !== undefined) {
+                console.log("No service available", id);
 
                 // Remove broken state associations
-                s.clear();
-                s.set(true);
+                // s.clear();
+
+                let del = [];
+                s.associateList().forEach(function (e, i) {
+                  if (e['widgetID'] === id) {
+                    console.log("Delete:",e);
+                    del.push(i);
+                  } else {
+                    console.log("Keep:",i);
+                  }
+                });
+                console.log("Clean button states:",del);
+                del.reverse().forEach(x => s.remove(x));
               }
+              s.set(true);
             };
 
             // Add the widget to the panel
@@ -182,8 +204,10 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
             
             // If a state exists, associate with a mediator object
             if ('state' in this.button) {
-              this.button['widgetID'] = id;
+              console.log("Add widgetID");
+              // this.button['widgetID'] = id;
               this.button.state.associate({
+                'widgetID' : id,
                 setState : function (value) {
                   // Minimize the widget
                   if (value == false) {
@@ -203,8 +227,16 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
 
           if (onClick["action"] && onClick["action"] == "setWidget") {
 
-            // Create a boolean state value, that initializes to true == opened
-            obj['state'] = stateClass.create([true, false]);
+            const s = onClick["state"];
+
+            // Create a boolean state value,
+            // that initializes to false == closed
+            console.log("Initialize state",s,name);
+            obj['state'] = states.newState(
+              (s === undefined ? name : s), [true, false]
+            );
+
+            obj['state'].setIfNotYet(false);
           };
           
           // Add to dynamic button list (e.g. for matches)
@@ -230,8 +262,8 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
           //   Accept a "value" list here for toggling, which should
           //   also allow for "rolling" through states via CSS classes
           //   as 'toggle-true', 'toggle-false' etc.
-
-          let state = stateClass.create([true, false]);
+            console.log("2 Initialize state",onClick["state"]);
+          let state = states.newState(onClick["state"], [true, false]);
 
           // TODO:
           //   Lazy registration (see above!)
@@ -540,12 +572,14 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
     // Close the service
     _closeService : function (id) {
       delete limits[id];
-      
+
       // Close the iframe
       if (services[id] && services[id]._closeIframe) {
+
+        console.log("Close service",id);
+
         services[id]._closeIframe();
 
-        // Remove from list
         delete services[id];
       };
 
@@ -579,7 +613,13 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
       }
       return this._el;
     },
-    
+
+
+    // Return states object
+    states : function () {
+      return states;
+    },
+
     // Destructor, just for testing scenarios
     destroy : function () {
       limits = {};
@@ -601,7 +641,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'pageInfo', 'util'], functio
         };
         this._el = null;
       };
-      
+
       this._removeListener();
     }
   };

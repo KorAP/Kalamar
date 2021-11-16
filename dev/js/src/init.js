@@ -25,6 +25,7 @@ define([
   'vc/array',
   'lib/alertify',
   'session',
+  'state/manager',
   'selectMenu',
   'panel/result',
   'panel/query',
@@ -44,6 +45,7 @@ define([
              vcArray,
              alertifyClass,
              sessionClass,
+             stateManagerClass,
              selectMenuClass,
              resultPanelClass,
              queryPanelClass,
@@ -471,6 +473,13 @@ define([
       if (url !== undefined) {
         KorAP.API.getPluginList(url, function (json) {
           if (json && json.length > 0) {
+
+            // Add state manager
+            const input = d.getElementById("searchform").addE("input");
+            input.setAttribute("name","state");
+            KorAP.States = stateManagerClass.create(input);
+            
+            
             // Load Plugin Server first
             KorAP.Plugin = pluginClass.create();
 
@@ -480,7 +489,7 @@ define([
             // Add pipe form
             KorAP.Pipe = pipeClass.create();
             d.getElementById("searchform").appendChild(KorAP.Pipe.element());
-            
+
             try {
               
               // Register all plugins
