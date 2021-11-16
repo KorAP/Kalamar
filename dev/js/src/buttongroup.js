@@ -94,6 +94,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
 
         if (data['state'] !== undefined) {
           b['state'] = data['state'];
+          console.log("Button state passed");
         }
       };
      

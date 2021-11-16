@@ -47,10 +47,16 @@ define(function () {
      */
     associate : function (obj) {
 
+      console.log("Associate state with obj");
+      
       // Check if the object has a setState() method
       if (obj.hasOwnProperty("setState")) {
+        console.log("Has setState, set obj to", this.value);
+
         this._assoc.push(obj);
-        obj.setState(this.value);
+        // if (this.value != undefined) {
+          obj.setState(this.value);
+        // };
       } else {
         console.log("Object " + obj + " has no setState() method");
       }
@@ -62,9 +68,15 @@ define(function () {
      * This will set the state to all associated objects as well.
      */
     set : function (value) {
+      console.log("SET1", value, this.associates());
       if (value != this.value) {
+        console.log("SET2", value);
+        // this._assoc.forEach(i => i.setState(value));
+        this._assoc.forEach(function (i) {
+          i.setState(value);
+          console.log("Set state!",value);
+        });
         this.value = value;
-        this._assoc.forEach(i => i.setState(value));
       };
     },
 
@@ -101,10 +113,28 @@ define(function () {
 
 
     /**
+     * Get the list of associated objects
+     * TODO: This should be renamed to associates().
+     */
+    associateList : function () {
+      return this._assoc;
+    },
+
+
+    /**
      * Clear all associated objects
      */
     clear : function () {
       return this._assoc = [];
+    },
+
+
+    /**
+     * Remove a single associated object
+     * based on index
+     */
+    remove : function (i) {
+      delete this._assoc[i];
     },
 
 
