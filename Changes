@@ -1,4 +1,4 @@
-0.43 2021-11-05
+0.43 2021-11-16
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -42,6 +42,7 @@
         - Support for inactive buttongroup items.
         - Support default values for state.
         - Introduce state manager (#119).
+        - Fix query-by-match for multiple colons.
 
 0.42 2021-06-18
         - Added GitHub based CI for perl.
