@@ -49,8 +49,11 @@ define(function () {
 
       // Check if the object has a setState() method
       if (obj.hasOwnProperty("setState")) {
+
         this._assoc.push(obj);
-        obj.setState(this.value);
+        if (this.value != undefined) {
+          obj.setState(this.value);
+        };
       } else {
         console.log("Object " + obj + " has no setState() method");
       }
