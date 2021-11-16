@@ -230,14 +230,14 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       p.element().querySelector("span.close").click();
 
       expect(p.element().querySelectorAll("iframe").length).toEqual(0);
-
+      
       b.click();
 
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
       expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('');
-      
+
       manager.destroy();
 
       KorAP.Panel["result"] = undefined;
@@ -271,8 +271,12 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       expect(p.element().querySelectorAll("iframe").length).toEqual(0);
 
+      expect(manager.states().toString()).toEqual("{\"Check\":false}");
+      
       b.click();
 
+      expect(manager.states().toString()).toEqual("{\"Check\":true}");
+      
       expect(b.getAttribute("title")).toEqual("Glemm");
       expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
       expect(b.firstChild.classList.contains('check')).toBeTruthy();
