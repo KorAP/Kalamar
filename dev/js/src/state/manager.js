@@ -63,11 +63,6 @@ define(['state'], function(stateClass) {
       const t = this;
       let s = stateClass.create(values);
 
-      // Load state
-      if (t._states[name] !== undefined) {
-        s.set(t._states[name]);
-      };
-
       // Set default value
       // TODO: It would be better to make this part
       // of the state and serialize correctly using TOJSON()
@@ -88,6 +83,11 @@ define(['state'], function(stateClass) {
         }
       });
       
+      // Load state
+      if (t._states[name] !== undefined) {
+        s.set(t._states[name]);
+      };
+
       return s;
     }
   };
