@@ -16,6 +16,23 @@
       "message": "This is a fix for annotations in HNC.",
       "revId": "43218798ad5bd93a70e4f3bd2a930af10d2d587d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f0be081_eb4370fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2021-11-17T11:19:29Z",
+      "side": 1,
+      "message": "No time to test and allegedly a merge conflict, therefore only +1",
+      "revId": "43218798ad5bd93a70e4f3bd2a930af10d2d587d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
