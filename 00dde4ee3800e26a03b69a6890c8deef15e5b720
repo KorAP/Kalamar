@@ -16,6 +16,24 @@
       "message": "The container is now not displayed if not visible - otherwise it can still affect hovering. You can see the difference if you click on the hint menu marker then click any where alse and then move the mouse back in the area where the container was displayed.",
       "revId": "00dde4ee3800e26a03b69a6890c8deef15e5b720",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ee6f301_3870d70a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-18T13:36:04Z",
+      "side": 1,
+      "message": "Can confirm this works.",
+      "parentUuid": "ab356f8b_bb94bf8d",
+      "revId": "00dde4ee3800e26a03b69a6890c8deef15e5b720",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
