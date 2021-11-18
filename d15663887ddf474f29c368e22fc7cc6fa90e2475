@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9652875_8faefd0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-18T12:26:41Z",
+      "side": 1,
+      "message": "https://ids-korap.slack.com/files/U01DWQN8WHK/F02NHQXJ2D6/hint_demo_-_mozilla_firefox_2021-11-18_13-23-44.mp4",
+      "revId": "d15663887ddf474f29c368e22fc7cc6fa90e2475",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
