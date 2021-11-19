@@ -16,6 +16,24 @@
       "message": "I think everything works now.\nSee\nhttps://stackoverflow.com/questions/10652852/jquery-fire-click-before-blur-event\nfor why it was not working.\nThe SCSS fixes were perfect too.",
       "revId": "b80946aa3542d59ac442b2d226da651375dc62fa",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9927fcd7_5faf59a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-19T13:01:55Z",
+      "side": 1,
+      "message": "That\u0027s a great finding! I probably got that wrong quite often!",
+      "parentUuid": "b0413ed6_4ecabf6f",
+      "revId": "b80946aa3542d59ac442b2d226da651375dc62fa",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
