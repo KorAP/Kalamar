@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa0738fe_5afbee80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-20T00:48:56Z",
+      "side": 1,
+      "message": "This reduces the hint mirror height completely so it isn\u0027t transparently laying over other active menu items (like the VC button) and disturbing their mouse activities.",
+      "revId": "8aa1045821cbc8da72283a857988c2874bb82f23",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
