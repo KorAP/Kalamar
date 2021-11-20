@@ -131,6 +131,7 @@ define([
           //NEW: reset some things. These are reset for hint menu style items
           // so I believe we need to do the same when pressing on items in the container
           t.reset("");
+          //TODO fix this in regular containermenus!!!! Does not belong in regular containermenu!
           t.hide();
           t.hint().unshow();
           //for clicking this is done in container.js with an eventListener for click.
