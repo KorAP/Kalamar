@@ -80,14 +80,24 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   ExampleItemList.push(OwnContainerItemClass.create());
   ExampleItemList.push(OwnContainerItemClass.create());
   ExampleItemList.push(OwnContainerItemClass.create());
-  ExampleItemList[0].value = "Example Item 1";
+  ExampleItemList.push(OwnContainerItemClass.create());
+  ExampleItemList.push(OwnContainerItemClass.create());
+  ExampleItemList[0].defaultTextValue = "Set limit to 3";
   ExampleItemList[0].newLimit = 3;
   ExampleItemList[1].newLimit = 4;
-  ExampleItemList[2].value = "Remove the Prefix Test";
-  ExampleItemList[2].newLimit=5;
+  ExampleItemList[2].defaultTextValue = "Add dynamic Item";
+  ExampleItemList[1].defaultTextValue = "Set limit to 4";
   ExampleItemList[2].onclick = function (e) {
-    this._menu.container().addItem({defaultTextValue: "new", newLimit:4 })
+    this._menu.container().addItem({defaultTextValue: "new - Set limit to 5", newLimit:5 })
     this.initContent("I created a new item");
+  };
+  ExampleItemList[3].defaultTextValue = "Prefix number 2";
+  ExampleItemList[3].onclick = function(e) {
+    console.log(this.value);
+
+  };
+  ExampleItemList[4].defaultTextValue = "Remove at 0";
+  ExampleItemList[4].onclick = function(e) {
     this._menu.container().removeItemByIndex(0);
   };
 
@@ -213,7 +223,6 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   document.getElementById('menu').appendChild(menu.element());
   //document.getElementById('largemenu').appendChild(largeMenu.element());
 
-  menu.container().addItem({ value : "Dynamically added", defaultTextValue : "dynamic", newLimit : 5})
 
   menu.limit(3).show(3);
   menu.focus();
