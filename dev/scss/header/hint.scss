@@ -68,6 +68,8 @@ div.alert.hint {
     opacity:     0;
     white-space: pre-wrap;
     overflow:    hidden;
+    display:     inline-block;
+    height:      0;
   }
 
   // TODO: Only in focus
