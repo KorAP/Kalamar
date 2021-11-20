@@ -56,6 +56,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
         .upgradeTo(this);
         //._init();
       obj.value="";
+      obj.defaultTextValue = "CI";
       return obj;
     },
     add : function (letter) {
@@ -68,18 +69,21 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
       this.value = this.value + this.value;
     },
     onclick : function () {
-      console.log('ContainerItem' + this.value);
+      console.log('ContainerItem ' + this.value);
       console.log(this._i);
       this._menu.limit(this._i);
       this._menu.show();
     },
+    
+    //This becomes unnecessary thanks to the content function. Instead we only need the defaultTextValue attribute.
+    /**
     element : function () {
       // already defined
       if (this._el !== undefined) return this._el;
       
       // Create list item
       const li = document.createElement("li");
-      li.innerHTML="CI";
+      li.innerHTML="CI"; 
   
       // Connect action
       if (this["onclick"] !== undefined) {
@@ -87,6 +91,7 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
       };    
       return this._el = li;
     }
+     */
   };
   //List of items.
   var ExampleItemList = new Array;
@@ -99,7 +104,9 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   ExampleItemList[2].value = "Remove the Prefix Test";
   ExampleItemList[2]._i=5;
   ExampleItemList[2].onclick = function (e) {
-    this._menu.container().removeItemByIndex(3);
+    this._menu.container().addItem({defaultTextValue: "new", _i:4 })
+    this.content("I created a new item");
+    this._menu.container().removeItemByIndex(0);
   };
 
   //Own container class.
@@ -223,6 +230,8 @@ function (containerMenuClass, itemClass, prefixClass, lengthFieldClass, selectMe
   */
   document.getElementById('menu').appendChild(menu.element());
   //document.getElementById('largemenu').appendChild(largeMenu.element());
+
+  menu.container().addItem({ value : "Dynamically added", defaultTextValue : "dynamic", _i : 5})
 
   menu.limit(3).show(3);
   menu.focus();
