@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "../../util";
 
 /**
@@ -10,7 +11,7 @@ div.matchtable {
 
   > div {
     z-index:      20;
-    margin-left:  $left-distance - ($border-size / 2);
+    margin-left:  $left-distance - math.div($border-size,2);
     margin-right: $right-view-distance;
     padding:      0;
     overflow-x:   auto;
@@ -86,13 +87,13 @@ div.matchtable {
     }
 
     > th:nth-of-type(2) {
-      left: ($left-width / 2) + $border-size;
+      left: math.div($left-width,2) + $border-size;
     }
 
     // Includes header line as well
     > * {
       @include cell-info;
-      border: ($border-size / 2) solid $dark-orange;
+      border: math.div($border-size,2) solid $dark-orange;
     }
 
     > td {

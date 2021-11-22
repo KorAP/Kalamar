@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "colors";
 
 /**
@@ -64,5 +65,5 @@
 
 @mixin matchinfo-head {
   border-top: $border-size solid $darker-orange; // #ff8000;
-  width:      $left-width / 2;
+  width:      math.div($left-width, 2);
 }

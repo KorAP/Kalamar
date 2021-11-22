@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "lengths";
 @import "mixins";
 
@@ -20,7 +21,7 @@ dl.flex {
     flex-direction: row;
     text-align: center;
     width: 100%;
-    border-width: $border-size / 2;
+    border-width: math.div($border-size,2);
     border-style: solid;
     align-items: stretch;
     > * {
