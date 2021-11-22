@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "379b85a0_bc876eac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-22T10:53:50Z",
+      "side": 1,
+      "message": "Aside from these comments, I have no objections.",
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f5fa98_ccc758f4",
+        "filename": "dev/demo/containermenudemo.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-22T10:53:50Z",
+      "side": 1,
+      "message": "I think it\u0027s better to remove it then.",
+      "range": {
+        "startLine": 78,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 115
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ac88a0_06f1a5ea",
+        "filename": "dev/demo/containermenudemo.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-22T10:53:50Z",
+      "side": 1,
+      "message": "What is _i?",
+      "range": {
+        "startLine": 107,
+        "startChar": 61,
+        "endLine": 107,
+        "endChar": 65
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501f81fd_939b0904",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-22T10:53:50Z",
+      "side": 1,
+      "message": "I understand that this sets content to the default value. But is this a good approach? Wouldn\u0027t it be better to set the default once the content is requested and no other value is set?",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 22
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a07e080_c30fcf19",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-22T10:53:50Z",
+      "side": 1,
+      "message": "As KorAP.log() messages are shown to users, this is too long and not helpful.",
+      "range": {
+        "startLine": 218,
+        "startChar": 22,
+        "endLine": 218,
+        "endChar": 64
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
