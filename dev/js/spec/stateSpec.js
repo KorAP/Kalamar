@@ -179,5 +179,37 @@ define(['state','state/manager'], function (stateClass, stateManagerClass) {
       expect(serial["test"]).toEqual(3);
       expect(serial["glemm"]).toEqual(false);
     });
+
+
+    it('should serialize correctly', function () {
+      const sm = stateManagerClass.create(el);
+      expect(sm).toBeTruthy();
+
+      const s1 = sm.newState('test', [1,2,3]);
+      
+      expect(sm.toString()).toEqual("");
+
+      s1.set(2);
+
+      expect(sm.toString()).toEqual("test:2");
+
+      s1.set(3);
+
+      expect(sm.toString()).toEqual("test:3");
+
+      const s2 = sm.newState('glemm', [true,false]);
+/*
+      let serial = JSON.parse(sm.toString());   
+      expect(serial["test"]).toEqual(3);
+      expect(serial["glemm"]).toBeUndefined();
+
+      s2.set(false);
+
+      serial = JSON.parse(sm.toString());   
+      expect(serial["test"]).toEqual(3);
+      expect(serial["glemm"]).toEqual(false);
+*/
+    });
+
   });
 });

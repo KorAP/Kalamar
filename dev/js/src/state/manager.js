@@ -43,6 +43,23 @@ define(['state'], function(stateClass) {
 
     // Return the string representation of all states
     toString : function () {
+
+      if (this._states.size === 0)
+        return undefined;
+      
+      let s = "";
+      for (let name in this._states) {
+        if (this._states[name] === 'boolean' || this._states[name] === 'number') {
+          s += name + ':' + this._states[name];
+        } else if (this._states[name] === 'string') {
+
+          // util.js' quote should be available
+          s += name + ':' + this._states[name].quote();
+        } else {
+          console.log("Unserializable type");
+        };
+        s += ',';
+      };
       return JSON.stringify(this._states);
     },
 
@@ -56,6 +73,8 @@ define(['state'], function(stateClass) {
     // Create new state that is automatically associated
     // with the state manager
     newState : function (name, values) {
+
+      // Todo: Slugify name!
 
       const t = this;
       let s = stateClass.create(values);
