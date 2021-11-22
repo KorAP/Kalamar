@@ -37,13 +37,17 @@ define(['state'], function(stateClass) {
 
       
       
-      this._states = JSON.parse(value);
+      this._states = JSON.parse('{' + value + '}');
     },
 
 
     // Return the string representation of all states
     toString : function () {
-      return JSON.stringify(this._states);
+
+      if (this._states.size === 0)
+        return undefined;
+      
+      return JSON.stringify(this._states).slice(1,-1);
     },
 
 
@@ -56,6 +60,8 @@ define(['state'], function(stateClass) {
     // Create new state that is automatically associated
     // with the state manager
     newState : function (name, values) {
+
+      // Todo: Slugify name!
 
       const t = this;
       let s = stateClass.create(values);
