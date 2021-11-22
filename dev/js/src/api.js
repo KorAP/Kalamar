@@ -130,6 +130,7 @@ define(['util'], function () {
    * @param {function} errorCB Optional. Callback function for error handling, receives JS object with status and statusText attribute
    */ 
   function _actionJSON (requestType, url, title, jsObj, returnValueCB, errorCB) {
+    //console.log(arguments);
     const req = new XMLHttpRequest();
     req.open(requestType, url, true); 
     // Dispatch global "window" event. See Kalamar::Plugin::Piwik
@@ -194,9 +195,26 @@ define(['util'], function () {
         };
         // Call the callback function (no matter requestType) if one is given.
         if (typeof(errorCB) === "function"){
+          var statusTextErrors = ""; // For some reason, the errors created in QueryReference.pm have their text stored in this.responseText.
+          // Here we try to extract this information
+          try {
+              JSON.parse(this.responseText).errors.forEach(
+                e => statusTextErrors = statusTextErrors + e["message"] || ""
+              );
+          } catch {
+            try {
+              if (requestType !== "GET"){
+                statusTextErrors += JSON.parse(this.responseText);
+              }
+            } catch {
+              //Nothing
+            }
+          }
           errorCB({
             "status" : this.status,
-            "statusText" : this.statusText
+            "statusText" : this.statusText + " - " + (statusTextErrors || "")
+            //responseText: A DOMString which contains either the textual data received using the 
+            // XMLHttpRequest or null if the request failed or "" if the request has not yet been sent by calling send(). 
           });
         }; 
       };
@@ -297,6 +315,10 @@ define(['util'], function () {
 
   /**
    * Post new query by query name
+<<<<<<< HEAD
+=======
+   * CAUTION: Currently not supported by the QueryReference Plugin.
+>>>>>>> Demo for query storing
    * 
    * @param {String} qn The name of the new query
    * @param {JSObj} jsObj The query. This will be stringified
