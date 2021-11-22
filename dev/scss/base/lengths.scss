@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /*
  * Defined lengths and sizes for the
  * Kalamar layout.
@@ -17,6 +19,6 @@ $left-distance:          $left-width + ($border-size * 2);
  */
 $standard-margin:     40px;
 $right-distance:      $standard-margin;
-$right-view-distance: $standard-margin / 2;
+$right-view-distance: math.div($standard-margin,2);
 $logo-left-distance:  230px;
 $footer-height:       100pt;

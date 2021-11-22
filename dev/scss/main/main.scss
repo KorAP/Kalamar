@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "highlight";   // JSON highlighting
 @import "kwic";        // Kwic view information
 @import "logos";       // Logo images
@@ -21,11 +22,11 @@
 
 
 main {
-  padding-bottom: $footer-height + ($standard-margin / 2);
+  padding-bottom: $footer-height + math.div($standard-margin,2);
 
   margin: {
     left:  $standard-margin; 
-    right: ($standard-margin / 2);
+    right: math.div($standard-margin,2);
   }
 
   &.embedded {
