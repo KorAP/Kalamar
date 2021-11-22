@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d19eb1f8_0b7dee37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-22T15:03:35Z",
+      "side": 1,
+      "message": "Could you just check if this initContent is how you meant it and if the new log message is acceptable.",
+      "revId": "edb8c0ea68f9d73b09912a21912830121482e8cc",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}

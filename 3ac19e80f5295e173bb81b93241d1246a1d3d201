@@ -41,6 +41,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74fec1c0_5974f8fe",
+        "filename": "dev/demo/containermenudemo.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-22T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91f5fa98_ccc758f4",
+      "range": {
+        "startLine": 78,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 115
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8ac88a0_06f1a5ea",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-11-22T10:53:50Z",
       "side": 1,
       "message": "What is _i?",
+      "range": {
+        "startLine": 107,
+        "startChar": 61,
+        "endLine": 107,
+        "endChar": 65
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab12147_abb40510",
+        "filename": "dev/demo/containermenudemo.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-22T15:03:35Z",
+      "side": 1,
+      "message": "Renamed",
+      "parentUuid": "f8ac88a0_06f1a5ea",
       "range": {
         "startLine": 107,
         "startChar": 61,
@@ -87,6 +135,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3153c5e3_a32b98e9",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-22T15:03:35Z",
+      "side": 1,
+      "message": "The content never gets requested: It only gets displayed as a textNode. If we were not to call this no textNode would exist at all. (This is so that it is easy to overwrite how to create the textNode.)",
+      "parentUuid": "501f81fd_939b0904",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 22
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a07e080_c30fcf19",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-11-22T10:53:50Z",
       "side": 1,
       "message": "As KorAP.log() messages are shown to users, this is too long and not helpful.",
+      "range": {
+        "startLine": 218,
+        "startChar": 22,
+        "endLine": 218,
+        "endChar": 64
+      },
+      "revId": "3ac19e80f5295e173bb81b93241d1246a1d3d201",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a08deb92_43552ce3",
+        "filename": "dev/js/src/container/container.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-22T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a07e080_c30fcf19",
       "range": {
         "startLine": 218,
         "startChar": 22,
