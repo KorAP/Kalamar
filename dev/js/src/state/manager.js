@@ -37,13 +37,17 @@ define(['state'], function(stateClass) {
 
       
       
-      this._states = JSON.parse(value);
+      this._states = JSON.parse('{' + value + '}');
     },
 
 
     // Return the string representation of all states
     toString : function () {
-      return JSON.stringify(this._states);
+
+      if (this._states.size === 0)
+        return undefined;
+      
+      return JSON.stringify(this._states).slice(1,-1);
     },
 
 

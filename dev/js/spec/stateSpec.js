@@ -140,44 +140,71 @@ define(['state','state/manager'], function (stateClass, stateManagerClass) {
 
   describe('KorAP.State.Manager', function () {
 
-    const el = document.createElement('input');
-
     it('should be initializable', function () {
 
+      const el = document.createElement('input');
       let sm = stateManagerClass.create(el);
       expect(sm).toBeTruthy();
 
-      expect(sm.toString()).toEqual("{}");
+      expect(sm.toString()).toEqual("");
     });
 
 
     it('should be extensible', function () {
+
+      const el = document.createElement('input');
       const sm = stateManagerClass.create(el);
       expect(sm).toBeTruthy();
 
       const s1 = sm.newState('test', [1,2,3]);
       
-      expect(sm.toString()).toEqual("{}");
+      expect(sm.toString()).toEqual("");
 
       s1.set(2);
 
-      expect(sm.toString()).toEqual("{\"test\":2}");
+      expect(sm.toString()).toEqual("\"test\":2");
 
       s1.set(3);
 
-      expect(sm.toString()).toEqual("{\"test\":3}");
+      expect(sm.toString()).toEqual("\"test\":3");
 
       const s2 = sm.newState('glemm', [true,false]);
 
-      let serial = JSON.parse(sm.toString());   
+      let serial = JSON.parse('{' + sm.toString() + '}');   
       expect(serial["test"]).toEqual(3);
       expect(serial["glemm"]).toBeUndefined();
 
       s2.set(false);
 
-      serial = JSON.parse(sm.toString());   
+      serial = JSON.parse('{' + sm.toString() + '}');   
       expect(serial["test"]).toEqual(3);
       expect(serial["glemm"]).toEqual(false);
+    });
+
+
+    it('should serialize correctly', function () {
+      const el = document.createElement('input');
+      const sm = stateManagerClass.create(el);
+      expect(sm).toBeTruthy();
+
+      const s1 = sm.newState('x', [1,2,3]);
+      
+      expect(sm.toString()).toEqual("");
+
+      s1.set(2);
+
+      expect(sm.toString()).toEqual("\"x\":2");
+
+      const s2 = sm.newState('y', [true,false]);
+      s2.set(false)
+
+      const s3 = sm.newState('z', ['a','b','c']);
+      s3.set('b')
+
+      expect(sm.toString().indexOf("\"x\":2")).not.toEqual(-1);
+      expect(sm.toString().indexOf("\"y\":false")).not.toEqual(-1);
+      expect(sm.toString().indexOf("\"z\":\"b\"")).not.toEqual(-1);
+      expect(sm.toString().indexOf("\"a\":\"d\"")).toEqual(-1);
     });
   });
 });
