@@ -1,0 +1,8854 @@
+@charset "UTF-8";
+/**
+ * Aggregate separated Sass files for Kalamar
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Load web fonts for Kalamar
+ */
+@font-face {
+  font-family: "FontAwesome";
+  src: url("../font/fontawesome-webfont.eot?v=4.3.0");
+  src: url("../font/fontawesome-webfont.eot?#iefix&v=4.3.0") format("embedded-opentype"), url("../font/fontawesome-webfont.woff2?v=4.3.0") format("woff2"), url("../font/fontawesome-webfont.woff?v=4.3.0") format("woff"), url("../font/fontawesome-webfont.ttf?v=4.3.0") format("truetype"), url("../font/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * This defines flexible table cells
+ * for views (including media queries).
+ */
+dl.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: auto;
+  padding-bottom: 0;
+}
+dl.flex > div {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  align-items: stretch;
+}
+dl.flex > div > * {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 25em;
+  overflow: hidden;
+  padding: 1px 6px;
+  margin: 0px;
+}
+dl.flex > div > dt {
+  text-align: left;
+  width: 12.5em;
+  padding: 3pt 6pt;
+  margin: 0;
+}
+dl.flex > div > dd {
+  text-align: left;
+  padding: 3pt 6pt;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  max-height: 6em;
+  margin-left: 2px;
+  white-space: normal;
+  overflow-y: auto;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 640px) {
+  dl.flex > div {
+    width: 50%;
+  }
+}
+@media (min-width: 800px) {
+  dl.flex > div {
+    width: 33.3333333333%;
+  }
+}
+@media (min-width: 1200px) {
+  dl.flex > div {
+    width: 25%;
+  }
+}
+@media (min-width: 1680px) {
+  dl.flex > div {
+    width: 20%;
+  }
+}
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Definitions of fragments for vc and query
+ * builder.
+ */
+.vc.fragment,
+p.query.fragment {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  position: relative;
+  padding: 4pt 6pt !important;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6px;
+  margin-left: 180px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 20px;
+}
+.vc.fragment:hover,
+p.query.fragment:hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+  cursor: pointer;
+}
+.vc.fragment > span:first-of-type,
+p.query.fragment > span:first-of-type {
+  font-weight: bold;
+  padding-right: 4pt;
+}
+.vc.fragment > span:nth-of-type(2),
+p.query.fragment > span:nth-of-type(2) {
+  padding-right: 1.2em;
+}
+.vc.fragment::after,
+p.query.fragment::after {
+  font-family: "FontAwesome";
+  content: "";
+  position: absolute;
+  right: 4pt;
+  top: 2px;
+}
+
+/**
+ * Load indicator.
+ */
+div.loading {
+  background-color: transparent !important;
+  height: 16px !important;
+  width: 16px !important;
+  margin: 0 auto !important;
+}
+
+.loading {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("data:image/gif;base64,R0lGODlhEAAQAIABAP///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAABACwAAAAAEAAQAAACKYQPobt44QyM01VW0cVNPq48Hzh2UngyGvet6OpmKWmBb5TI+LlTOlAAACH5BAkEAAEALAAAAAAQABAAAAIohA+hu3gMnXyBqnkNw1XDnHThZ32bd6LUg0SOOIJsCaPmtOJvrctHAQAh+QQJBAABACwAAAAAEAAQAAACKYQPobt44QyM01VW0cVNPq48nxZKGLkxqGiungmyCXh9nRUleSZrO10AACH5BAkEAAEALAAAAAAQABAAAAIohA8RyKwN04pSWdumufp0niHghnkPyaWmqZLsKL3QWXUrJdpo66RKAQAh+QQJBAABACwAAAAAEAAQAAACJoQPEcisDdOKUlnbrp4IH989n1iBJUhK47itxkbGsEvRtXq/8B4UACH5BAkEAAEALAAAAAAQABAAAAIphA8RyKwN04pSWdvuNPto1HEX6G1YOYrain5im0pQ/GSnTIFr7eyhUQAAIfkECQQAAQAsAAAAABAAEAAAAiqMf6ALwWoelJFS5CbESTdeNUu3jWP4IWe2qS0TsmC8cuZFsrAkWrgtKQAAIfkECQQAAQAsAAAAABAAEAAAAiiMf6AL6LwMnDFQVG9SkrveWN6XjR82Mmi4cdMTvWsjnyIV4rIOgUwBACH5BAkEAAEALAAAAAAQABAAAAImjH+gC8HrXpNTxoeuzkltrkFg6BnMiJxpaYpWV76jDFKujV14LBUAIfkEAR4AAQAsAAAAABAAEAAAAiSEDxHIrA3TilJZ266eaN/8HJixdd4nailXgafrwSUVUqltQgUAOw==");
+}
+
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Definition of form elements for Kalamar.
+ */
+.form-table {
+  display: block;
+  padding: 0;
+  font-size: 80%;
+}
+.form-table > fieldset {
+  margin-top: 0;
+}
+.form-table fieldset {
+  border-width: 0;
+  padding: 0;
+  margin-top: 1em;
+}
+.form-table fieldset > div {
+  white-space: nowrap;
+}
+.form-table legend {
+  background-color: transparent;
+  margin-left: 0;
+  font-weight: bold;
+  border-radius: 6px;
+}
+.form-table label[for] {
+  display: block;
+  text-align: left;
+}
+.form-table label[for],
+.form-table input[type=submit],
+.form-table a.form-button {
+  margin-top: 2em;
+}
+.form-table fieldset.form-line legend {
+  font-size: 100%;
+  display: inline-block;
+}
+.form-table fieldset.form-line legend::after {
+  content: ":";
+  color: #e3e8a3;
+}
+.form-table fieldset.form-line input, .form-table fieldset.form-line label[for] {
+  display: inline-block;
+  margin: 0;
+}
+.form-table fieldset.form-line input {
+  vertical-align: bottom;
+}
+.form-table fieldset.form-line label[for] {
+  margin-right: 2em;
+}
+.form-table input,
+.form-table textarea,
+.form-table button,
+.form-table a.form-button {
+  border-radius: 6px;
+}
+.form-table input,
+.form-table textarea {
+  border-color: #d9dadb;
+  background-color: #fefefe;
+  border-style: solid;
+}
+.form-table input,
+.form-table textarea,
+.form-table select,
+.form-table a.form-button {
+  border-style: solid;
+  display: inline-block;
+  width: 20%;
+  min-width: 20em;
+  padding: 8px;
+}
+.form-table input[type=radio] {
+  display: inline;
+  text-align: right;
+  background-color: red;
+  width: auto;
+  min-width: auto;
+}
+.form-table input[readonly=readonly],
+.form-table textarea[readonly] {
+  background-color: #f4eebb;
+}
+.form-table .field-with-error {
+  border-color: #c1002b;
+}
+.form-table input[type=submit],
+.form-table button,
+.form-table a.form-button {
+  display: inline-block;
+  cursor: pointer;
+  border-width: thin;
+  text-align: center;
+  background-color: #8a9a0a;
+  border-color: #636f07;
+  color: #636f07;
+}
+.form-table a.form-button:hover {
+  color: inherit !important;
+}
+.form-table label.field-required::after {
+  color: #009ee0;
+  content: "*";
+}
+
+.button-abort {
+  background-color: #ffd080 !important;
+  color: #e55d00 !important;
+  border-color: #e55d00 !important;
+}
+
+button {
+  cursor: pointer;
+}
+button + button {
+  right: 0;
+}
+button[type=submit] {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  font-weight: normal;
+  padding: 0;
+  height: 100%;
+  top: 0;
+  width: 30px;
+  border: 2px solid #fefefe;
+  /*
+   * This is just for styling the last button,
+   * in case there are more than one buttons.
+   */
+}
+button[type=submit] > span:nth-of-type(1) {
+  position: absolute;
+  margin-left: -3000px;
+}
+button[type=submit]::after {
+  font-family: "FontAwesome";
+}
+button[type=submit]:hover, button[type=submit]:focus {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+button[type=submit]::-moz-focus-inner {
+  border: none;
+}
+button[type=submit]:active {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+button[type=submit]:last-of-type {
+  border-right-width: 2px;
+  border-right-style: solid;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/**
+ * Checkbox styling
+ * http://stackoverflow.com/questions/4148499/how-to-style-checkbox-using-css
+ */
+.checkbox {
+  display: none;
+}
+.checkbox + label {
+  cursor: pointer;
+}
+.checkbox + label span {
+  display: inline-block;
+  border-radius: 4px;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  vertical-align: middle;
+  padding: 0;
+  margin-right: 0.2em;
+}
+.checkbox + label span::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+}
+.checkbox:checked + label span::after {
+  content: "";
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+.result-view {
+  background-color: #fefefe;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Definitions for menu design.
+ */
+ul.menu {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+  opacity: 0;
+  list-style-type: none;
+  list-style-position: outside;
+  /**
+   * Ruler
+   */
+  /**
+   * List items
+   */
+  /**
+   * Default prefix view
+   */
+}
+ul.menu.visible {
+  opacity: 1;
+}
+ul.menu,
+ul.menu > span.pref:not(:empty) {
+  box-sizing: border-box;
+  text-shadow: none;
+  font-weight: normal;
+  z-index: 120;
+}
+ul.menu > li,
+ul.menu > span.pref:not(.active) {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+}
+ul.menu > li,
+ul.menu > span.pref:not(:empty) {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 3pt 6pt;
+  white-space: normal;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+  border-style: solid;
+}
+ul.menu span.desc {
+  display: block;
+  font-size: 75%;
+}
+ul.menu div.lengthField {
+  border-color: transparent;
+  border-width: 2px;
+  padding: 3pt 6pt;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+ul.menu div.lengthField span {
+  display: block !important;
+  line-height: 0;
+  color: transparent;
+}
+ul.menu > div.ruler {
+  position: absolute;
+  right: 0px;
+  margin-right: -14px;
+  background-color: transparent;
+  width: 14px;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.5s ease 1s;
+}
+ul.menu > div.ruler > span {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+  position: absolute;
+  display: block;
+  right: 0;
+  width: 10px;
+  z-index: 115;
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+}
+ul.menu > div.ruler.active > span {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+ul.menu > div.ruler > div {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+}
+ul.menu:active > div.ruler, ul.menu:hover > div.ruler,
+ul.menu > div.ruler.active {
+  transition: opacity 0.1s ease;
+  opacity: 1;
+}
+ul.menu > li,
+ul.menu div.lengthField {
+  padding-right: 1.6em;
+}
+ul.menu > li:first-of-type {
+  border-top-width: 2px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+ul.menu > li:last-of-type {
+  border-bottom-width: 2px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+ul.menu > li mark {
+  text-decoration: underline;
+  background-color: transparent;
+  color: inherit;
+  font-weight: bold;
+}
+ul.menu > li.active,
+ul.menu > span.pref.active {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+ul.menu > li:hover,
+ul.menu > span.pref:hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+ul.menu > span.pref:not(:empty) {
+  position: absolute;
+  min-width: 5px;
+  font-size: 80%;
+  left: 0;
+  bottom: 0;
+  display: block;
+  margin-bottom: -2.1em;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border-width: 2px;
+}
+
+/**
+ * Rolling menu
+ */
+ul.menu.roll > li:first-of-type:not(.no-more):before {
+  position: absolute;
+  font-family: "FontAwesome";
+  content: "";
+  right: 0.5em;
+  top: 0.4em;
+}
+ul.menu.roll > li:last-of-type:not(.no-more):before {
+  position: absolute;
+  font-family: "FontAwesome";
+  content: "";
+  right: 0.5em;
+  bottom: 0.4em;
+}
+ul.menu.roll:not(.visible) {
+  height: 0;
+}
+
+/**
+ * Sorting menu
+ */
+ul.menu.sort {
+  position: relative;
+  display: inline-block;
+}
+ul.menu.sort > li::before {
+  content: "";
+}
+ul.menu.sort > li.active:hover {
+  color: #fefefe;
+  background-color: #c1002b;
+  border-color: black;
+  text-shadow: none;
+}
+
+/**
+ * select menu
+ */
+span.menu.select > span {
+  z-index: 105;
+}
+span.menu.select > ul.menu.roll {
+  display: none;
+  z-index: -100;
+}
+span.menu.select > ul.menu.roll.visible {
+  display: block;
+  z-index: 110;
+}
+
+.banner {
+  position: fixed;
+  width: 10em;
+  height: 10em;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  right: 0px;
+  margin-right: -2.4em;
+  top: 0;
+}
+.banner::after {
+  content: attr(data-note);
+  display: block;
+  overflow: hidden;
+  width: 12em;
+  font-size: 10pt;
+  font-weight: bold;
+  word-spacing: 2px;
+  text-decoration: none;
+  position: relative;
+  left: 2em;
+  top: -1.6em;
+  line-height: 2em;
+  text-align: center;
+  -moz-transform-origin: 0 0;
+  -moz-transform: rotate(45deg);
+  -webkit-transform-origin: 0 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform-origin: 0 0;
+  -ms-transform: rotate(45deg);
+  transform-origin: 0 0;
+  transform: rotate(45deg);
+  background-color: #f4eebb;
+  color: #f6a800;
+  border: 1px solid #f6a800;
+}
+
+/**
+ * Basic global CSS rules for Kalamar
+ */
+* {
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+}
+
+body,
+html,
+select,
+g > text {
+  font-family: verdana, tahoma, arial, Helvetica, sans-serif;
+  color: #616263;
+  margin: 0;
+}
+
+g > text {
+  fill: #616263;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  font-size: 12pt;
+  margin: 0;
+  padding: 0;
+}
+
+a:link {
+  text-decoration: none;
+  color: #f6a800;
+}
+a:link:hover {
+  color: #e55d00;
+  transition: color 0.3s ease 0s;
+}
+a[href^="http://"]::after, a[href^="https://"]::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: " ";
+  font-size: 75%;
+}
+
+a[onclick$="return PArok(this,false)"] {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+}
+a[onclick$="return PArok(this,false)"] > span:nth-child(1n+2) {
+  display: none;
+}
+a[onclick$="return PArok(this,false)"] > span:nth-child(1)::after {
+  content: "@";
+}
+
+.clear {
+  clear: both;
+}
+
+iframe {
+  border-width: 0;
+}
+
+blockquote {
+  border-radius: 6px;
+  padding: 2pt 5pt 2pt 20pt;
+  margin: 0;
+  border-left: 5px solid #009ee0;
+  background-color: #bce4f7;
+  color: #009ee0;
+  mix-blend-mode: soft-light;
+}
+blockquote.bug, blockquote.missing, blockquote.warning {
+  border-left-color: black;
+  background-color: #c1002b;
+  color: #fefefe;
+  mix-blend-mode: multiply;
+}
+
+dl {
+  margin: 0;
+  padding-bottom: 0.5em;
+}
+dl dt {
+  font-weight: bold;
+}
+dl dt abbr {
+  border-width: 0;
+}
+dl dt abbr[data-type=token]::after {
+  color: #009ee0;
+}
+dl dt abbr[data-type=span]::after {
+  color: #c1002b;
+}
+dl dt abbr::after {
+  content: " (" attr(title) ")";
+  vertical-align: bottom;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 80%;
+}
+
+/*
+ * Based on github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+ */
+.hljs {
+  display: block;
+  padding: 0.5em;
+}
+
+.hljs-comment,
+.hljs-template_comment,
+.diff .hljs-header,
+.hljs-javadoc {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.css .rule .hljs-keyword,
+.hljs-winutils,
+.javascript .hljs-title,
+.nginx .hljs-title,
+.hljs-subst,
+.hljs-request,
+.hljs-status {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-hexcolor,
+.ruby .hljs-constant {
+  color: #099;
+}
+
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-phpdoc,
+.tex .hljs-formula {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-id,
+.coffeescript .hljs-params,
+.scss .hljs-preprocessor {
+  color: #900;
+  font-weight: bold;
+}
+
+.javascript .hljs-title,
+.lisp .hljs-title,
+.clojure .hljs-title,
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-class .hljs-title,
+.haskell .hljs-type,
+.vhdl .hljs-literal,
+.tex .hljs-command {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-rules .hljs-property,
+.django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-attribute,
+.hljs-variable,
+.lisp .hljs-body {
+  color: #008080;
+}
+
+.hljs-regexp {
+  color: #009926;
+}
+
+.hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.lisp .hljs-keyword,
+.tex .hljs-special,
+.hljs-prompt {
+  color: #990073;
+}
+
+.hljs-built_in,
+.lisp .hljs-title,
+.clojure .hljs-built_in {
+  color: #0086b3;
+}
+
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-pi,
+.hljs-doctype,
+.hljs-shebang,
+.hljs-cdata {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.diff .hljs-change {
+  background: #0086b3;
+}
+
+.hljs-chunk {
+  color: #aaa;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Styles for the KWIC view.
+ */
+#search {
+  position: relative;
+  margin-bottom: 30px;
+  overflow: visible;
+}
+#search div.matchinfo {
+  display: none;
+}
+#search > ol {
+  overflow-x: hidden;
+  overflow-y: visible;
+  width: auto;
+  text-indent: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #87888a;
+  font-size: 10pt;
+}
+#search > ol > li {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  border-style: solid;
+  border-color: #f6a800;
+  border-width: 0;
+}
+#search > ol > li .button-group.button-view {
+  display: none;
+}
+#search > ol > li:nth-of-type(even) div.match-main div.match-wrap {
+  background-color: #fefefe;
+}
+#search > ol > li p.ref {
+  display: none;
+}
+#search > ol > li div.meta,
+#search > ol > li div.match-main {
+  position: relative;
+  cursor: pointer;
+}
+#search > ol > li div.match-main {
+  display: block;
+  flex: 7 0;
+  z-index: 4;
+  overflow: hidden;
+}
+#search > ol > li div.match-main > div.match-wrap {
+  width: 99999%;
+  margin-left: -49999.5%;
+  background-color: #d9dadb;
+  overflow-x: hidden;
+  overflow-y: visible;
+  white-space: normal;
+}
+#search > ol > li div.meta {
+  flex: 1 0;
+  min-width: 12em;
+  max-width: 15em;
+  text-align: left;
+  width: 2px;
+  z-index: 5;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: #949597;
+  color: #fefefe;
+  font-size: 75%;
+  padding: 0 5pt;
+  border-color: #616263;
+  border-style: solid;
+  border-width: 2px 1px 0 0;
+}
+#search > ol > li div.meta:before {
+  content: " ";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+#search > ol > li div.meta:empty {
+  border-width: 0 1px 0 0;
+}
+#search > ol > li div.meta.flip {
+  background-color: #b3b4b5;
+}
+#search > ol > li:first-of-type div.meta {
+  border-top-width: 0;
+}
+#search > ol > li:last-of-type div.meta {
+  border-bottom-width: 0;
+}
+
+/**
+ * Snippet rules
+ */
+div.snippet {
+  text-overflow: ellipsis;
+  text-indent: 0;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  font-size: 0;
+  white-space: nowrap !important;
+}
+div.snippet > span, div.snippet mark {
+  padding: 5pt 0 6pt 0;
+  font-size: 10pt;
+}
+div.snippet > mark,
+div.snippet > span.match {
+  font-weight: bold;
+  color: #333;
+  text-shadow: none;
+  padding-left: 4pt;
+  padding-right: 2pt;
+}
+div.snippet > span.match > span.cutted::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+  color: #9bad0b;
+  padding-left: 4pt;
+  padding-right: 4pt;
+}
+div.snippet.startMore:before, div.snippet.endMore:after {
+  content: "…";
+  padding-left: 2pt;
+  padding-right: 2pt;
+}
+div.snippet div.flag {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 11px;
+  background-color: #f6a800;
+  border-right: 1px solid #e55d00;
+}
+
+/**
+ * Active rules
+ */
+body.no-js #search > ol > li:active,
+#search > ol > li.active,
+#search > ol > li:target {
+  position: relative;
+  display: block;
+  background-color: #f6a800;
+  text-align: left;
+  border-width: 2px;
+  white-space: normal;
+  height: auto;
+  width: auto;
+  overflow: hidden;
+}
+body.no-js #search > ol > li:active div.matchinfo,
+#search > ol > li.active div.matchinfo,
+#search > ol > li:target div.matchinfo {
+  display: block;
+}
+body.no-js #search > ol > li:active + li.active,
+#search > ol > li.active + li.active,
+#search > ol > li:target + li.active {
+  border-top: 2px solid #d9dadb;
+  padding-top: 6px;
+}
+body.no-js #search > ol > li:active + li.active .button-group.button-view,
+#search > ol > li.active + li.active .button-group.button-view,
+#search > ol > li:target + li.active .button-group.button-view {
+  padding-top: 6px;
+}
+body.no-js #search > ol > li:active .snippet,
+#search > ol > li.active .snippet,
+#search > ol > li:target .snippet {
+  white-space: normal !important;
+  padding: 2pt 0 5pt 5pt;
+  background-color: #f4eebb;
+  margin-top: 0;
+  margin-right: 20px;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+body.no-js #search > ol > li:active .snippet span,
+#search > ol > li.active .snippet span,
+#search > ol > li:target .snippet span {
+  display: inline !important;
+}
+body.no-js #search > ol > li:active .snippet > *,
+#search > ol > li.active .snippet > *,
+#search > ol > li:target .snippet > * {
+  background-color: transparent;
+}
+body.no-js #search > ol > li:active .snippet div.flag,
+#search > ol > li.active .snippet div.flag,
+#search > ol > li:target .snippet div.flag {
+  display: none;
+}
+body.no-js #search > ol > li:active .snippet > span,
+#search > ol > li.active .snippet > span,
+#search > ol > li:target .snippet > span {
+  line-height: 1.4em;
+  width: auto;
+}
+body.no-js #search > ol > li:active .snippet > span.context-left,
+#search > ol > li.active .snippet > span.context-left,
+#search > ol > li:target .snippet > span.context-left {
+  margin-left: 0;
+  display: inline;
+  overflow: visible;
+  text-align: left;
+  width: auto;
+}
+body.no-js #search > ol > li:active .button-group.button-view,
+#search > ol > li.active .button-group.button-view,
+#search > ol > li:target .button-group.button-view {
+  display: block;
+}
+body.no-js #search > ol > li:active div.match-main,
+#search > ol > li.active div.match-main,
+#search > ol > li:target div.match-main {
+  display: block;
+  width: 100%;
+}
+body.no-js #search > ol > li:active div.match-main div.match-wrap,
+#search > ol > li.active div.match-main div.match-wrap,
+#search > ol > li:target div.match-main div.match-wrap {
+  cursor: default;
+  min-height: 20pt;
+  background-color: #f6a800;
+  width: 100%;
+  margin-left: 0;
+  overflow-x: visible;
+  white-space: normal;
+}
+body.no-js #search > ol > li:active div.meta,
+#search > ol > li.active div.meta,
+#search > ol > li:target div.meta {
+  display: none;
+}
+body.no-js #search > ol > li:active p.ref,
+#search > ol > li.active p.ref,
+#search > ol > li:target p.ref {
+  display: block;
+  color: #fefefe;
+  padding: 3pt 10pt 3pt 3pt;
+  padding-right: 20px;
+  margin: 0pt;
+  width: 100%;
+  bottom: 0;
+  z-index: 30;
+}
+body.no-js #search > ol > li:active p.ref > span.sigle,
+#search > ol > li.active p.ref > span.sigle,
+#search > ol > li:target p.ref > span.sigle {
+  font-size: 75%;
+  vertical-align: top;
+  color: #f4eebb;
+  float: right;
+}
+
+/**
+ * Alignment rules
+ */
+#search ol span.context-left {
+  display: inline-block;
+  width: 50.01%;
+  text-align: right;
+}
+#search ol.align-right {
+  text-align: right;
+}
+#search ol.align-right div.match-main span.context-right {
+  display: inline-block;
+  width: 49.915%;
+  text-align: left;
+}
+#search ol.align-center div.match-main {
+  width: 100% !important;
+}
+#search ol.align-center div.match-main > .match-wrap {
+  position: relative;
+  margin-left: 0;
+}
+#search ol.align-center li:not(.active) div.snippet {
+  white-space: normal;
+  text-align: center;
+  width: 100000pt;
+  margin-left: -50000pt;
+}
+#search ol.align-center li:not(.active) div.snippet span.context-left {
+  display: inline-block;
+  text-align: right;
+  width: 40000pt;
+  margin-left: 70vw;
+}
+#search ol.align-center li:not(.active) div.snippet span.context-right {
+  display: inline-block;
+  text-align: left;
+  width: 40000pt;
+}
+
+/**
+ * Fix empty contexts
+ */
+#search ol span.context-left:empty::after, #search ol span.context-right:empty::after {
+  content: " ";
+  display: inline-block;
+}
+
+/**
+ * Highlight rules
+ */
+mark {
+  background-color: inherit;
+  color: inherit;
+}
+
+mark > mark,
+em,
+.level-0 {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  padding-bottom: 0px !important;
+  font-style: normal;
+}
+
+mark > mark > mark,
+em > em,
+.level-1 {
+  padding-bottom: 3px !important;
+}
+
+mark > mark > mark > mark,
+em > em > em,
+.level-2 {
+  padding-bottom: 6px !important;
+}
+
+#search > ol > li:not(.active) mark > mark > mark > mark, #search > ol > li:not(.active) em > em > em {
+  line-height: 180%;
+}
+#search > ol > li.active mark > mark > mark > mark, #search > ol > li.active em > em > em {
+  line-height: 250%;
+}
+
+.class-1 {
+  border-color: #c1002b;
+}
+
+.class-2 {
+  border-color: #009ee0;
+}
+
+.class-3 {
+  border-color: #f6a800;
+}
+
+.class-4 {
+  border-color: #9bad0b;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Rules for logos.
+ */
+.logo::after {
+  content: "" !important;
+}
+.logo > * {
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-position: 50% 50%;
+}
+.logo > * > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+
+/**
+ * Background image for the front page
+ */
+#kalamar-bg {
+  position: fixed;
+  height: 110%;
+  width: 175%;
+  top: 0;
+  z-index: -5000;
+  opacity: 0.1;
+  background-image: url("../img/korap-bg-kalamar.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+/**
+ * Logo table of the front page
+ */
+#logos {
+  position: relative;
+  text-align: right;
+  font-size: 85%;
+  right: 0;
+  width: 100%;
+  margin-left: 20px;
+  padding-left: 60%;
+}
+#logos > div {
+  border-top: 26px solid #f6a800;
+  padding-right: 2em;
+}
+#logos p {
+  text-align: left;
+  display: inline-block;
+}
+
+/**
+ * Logo: Institute for German Language
+ */
+#ids-logo {
+  display: block;
+  width: 21.0333333333em;
+  height: 6.6666666667em;
+  background-image: url("../img/ids-leibniz-institute-for-the-german-language.svg");
+}
+
+/**
+ * Logo: KorAP
+ */
+h1 {
+  position: absolute;
+  margin: 0;
+  margin-left: 15px;
+  left: 0;
+  top: 0;
+  width: 7.8em;
+  height: 2.4em;
+  z-index: 105;
+  background-size: 72%;
+  background-image: url("../img/korap-logo-kalamar.svg");
+}
+
+#overview {
+  text-align: center;
+  width: 100%;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Table view
+ *
+ * The table view is complicated, as the
+ * first column has to be static.
+ */
+div.matchtable > div {
+  z-index: 20;
+  margin-left: 179px;
+  margin-right: 20px;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  width: auto;
+}
+div.matchtable table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0px;
+}
+div.matchtable th {
+  color: #fefefe;
+}
+div.matchtable td,
+div.matchtable tbody th,
+div.matchtable thead th:not(:nth-child(1)):not(:nth-child(2)):not(.cutted) {
+  cursor: pointer;
+}
+div.matchtable td:empty {
+  cursor: default;
+}
+div.matchtable td:empty::after {
+  content: " ";
+  white-space: pre;
+}
+div.matchtable td.matchkeyvalues {
+  padding: 0;
+}
+div.matchtable td.matchkeyvalues > div {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 25em;
+  overflow: hidden;
+  padding: 1px 6px;
+  margin: 0px;
+}
+div.matchtable td.matchkeyvalues > div > span {
+  color: #e55d00;
+  text-align: right;
+  padding-right: 0.5em;
+}
+div.matchtable td.matchkeyvalues > div > span::after {
+  content: ":";
+}
+div.matchtable tr {
+  outline: none;
+  /**
+   * The first two columns.
+   */
+}
+div.matchtable tr td.chosen,
+div.matchtable tr th.chosen,
+div.matchtable tr div.chosen {
+  background-color: #9bad0b !important;
+  color: #fefefe;
+}
+div.matchtable tr > th:nth-of-type(1),
+div.matchtable tr > th:nth-of-type(2) {
+  border-top: 2px solid #ff8000;
+  width: 88px;
+  position: absolute;
+  z-index: 80;
+  vertical-align: middle;
+  left: 0px;
+}
+div.matchtable tr > th:nth-of-type(2) {
+  left: 90px;
+}
+div.matchtable tr > * {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 25em;
+  overflow: hidden;
+  padding: 1px 6px;
+  margin: 0px;
+  border: 1px solid #f6a800;
+}
+div.matchtable tr > td {
+  background-color: #ffd080;
+  white-space: nowrap;
+  vertical-align: top;
+  text-align: center;
+}
+div.matchtable tr > td.mark {
+  background-color: #f4eebb;
+}
+div.matchtable tr:nth-child(even) > td {
+  background-color: #f4eebb;
+}
+div.matchtable tr:nth-child(even) > td.mark {
+  background-color: #ffd080;
+}
+div.matchtable thead th {
+  background-color: #ff8000;
+  border-top-width: 0px !important;
+  text-align: center;
+}
+div.matchtable thead th:nth-of-type(1), div.matchtable thead th:nth-of-type(2) {
+  text-align: left;
+}
+div.matchtable thead th.mark {
+  background-color: #e55d00;
+}
+div.matchtable thead th.cutted {
+  background-color: #f4eebb;
+}
+div.matchtable thead th.cutted::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+  color: #9bad0b;
+  padding-left: 4pt;
+  padding-right: 4pt;
+}
+div.matchtable tbody > tr:nth-of-type(1) > th {
+  border-top-color: transparent;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * SVG tree
+ */
+path.edge {
+  stroke: #ff8000;
+  stroke-width: 2px;
+  fill: none;
+}
+
+g.arc.infocus > path.edge {
+  stroke: #636f07;
+}
+
+marker#arr {
+  overflow: visible;
+}
+marker#arr path {
+  stroke: #e55d00;
+  fill: #e55d00;
+  fill-opacity: 1;
+  stroke-width: 2;
+}
+
+path.anchor {
+  stroke: #e55d00;
+  stroke-width: 3;
+  stroke-linecap: round;
+  z-index: 20;
+}
+
+g.root rect.empty {
+  stroke: #ff8000;
+  fill: #ff8000;
+  stroke-width: 2px;
+}
+
+g.middle rect,
+g.label rect {
+  stroke: #ff8000;
+  stroke-width: 2px;
+  fill: #ffd080;
+}
+
+g.label.infocus rect {
+  stroke: #636f07;
+  fill: #dce883;
+}
+
+g.middle.mark rect {
+  fill: #ff8000;
+}
+g.middle.mark > text {
+  fill: #f4eebb;
+}
+g.middle.mark > text > tspan {
+  stroke: #f4eebb;
+}
+
+g.leaf.mark text > tspan {
+  font-weight: bold;
+}
+
+g.leaf > rect {
+  display: none;
+}
+
+g > text > tspan {
+  text-anchor: middle;
+  font-size: 9pt;
+}
+
+g.leaf > text > tspan,
+text.leaf > tspan {
+  font-size: 10pt;
+  overflow: visible;
+}
+
+/**
+ * Matchtree view
+ */
+div.matchtree {
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding: 0;
+  margin-top: 1pt;
+}
+div.matchtree h6 {
+  display: inline;
+  font-size: inherit;
+  color: #fefefe;
+  margin: 0;
+  padding: 0 !important;
+  float: left;
+}
+div.matchtree h6 > span {
+  border-top: 2px solid #ff8000;
+  width: 88px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 25em;
+  overflow: hidden;
+  padding: 1px 6px;
+  margin: 0px;
+  display: inline-block !important;
+  margin: 0;
+}
+div.matchtree h6 > span:nth-of-type(2) {
+  margin-left: 2px;
+}
+div.matchtree > div {
+  position: unset;
+  z-index: 4;
+  overflow-x: auto;
+  margin: 2px;
+  margin-left: 180px;
+  margin-right: 20px;
+  background-color: #f4eebb;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+div.metatable > dl {
+  margin-right: 20px;
+  margin-top: 2px;
+}
+div.metatable > dl > div {
+  border-color: #f6a800;
+}
+div.metatable > dl > div > * {
+  padding: 0.2em;
+}
+div.metatable > dl > div > dt {
+  background: #ff8000;
+  color: #fefefe;
+  width: 12.5em;
+}
+div.metatable > dl > div > dd {
+  background-color: #f4eebb;
+  cursor: pointer;
+}
+div.metatable > dl > div > dd.metakeyvalues {
+  padding: 0;
+}
+div.metatable > dl > div > dd.metakeyvalues > div {
+  padding: 0.2em;
+}
+div.metatable > dl > div > dd.metakeyvalues > div::before {
+  content: "• ";
+  color: #f6a800;
+}
+div.metatable > dl > div > dd.chosen,
+div.metatable > dl > div > dd > div.chosen {
+  background-color: #9bad0b !important;
+  color: #fefefe;
+}
+div.metatable > dl > div > dd[data-type="type:store"], div.metatable > dl > div > dd[data-type="type:attachement"] {
+  background-color: #ffd080;
+  cursor: default;
+}
+div.metatable > dl > div > dd[data-type="type:store"] a, div.metatable > dl > div > dd[data-type="type:attachement"] a {
+  color: inherit;
+}
+div.metatable > dl.cbm-disabled > div > dd {
+  cursor: default !important;
+}
+
+/**
+ * General matchinfo styles.
+ */
+div.matchinfo {
+  position: relative;
+  width: 100%;
+  padding-top: 2px;
+  height: auto;
+  font-size: 10pt;
+  text-align: left;
+}
+div.matchinfo:empty {
+  display: none !important;
+}
+div.matchinfo .view + .view {
+  margin-top: 8px !important;
+}
+
+div.metatable,
+div.matchtable,
+div.matchtree {
+  position: relative;
+  background-color: #f6a800;
+}
+
+div.button-group.button-panel.button-matchinfo {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+div.button-group.button-panel.button-matchinfo > span {
+  position: relative;
+  box-shadow: none;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * The pagination view
+ *
+ * <div id="pagination">
+ *   <a rel="prev"><span><i class="fa fa-caret-left"></i></span></a>
+ *   <a rel="self"><span>1</span></a>
+ *   <a href="#p=2"><span>2</span></a>
+ *   <a href="#3"><span>3</span></a>
+ *   <span><i class="fa fa-ellipsis-h"></i></span>
+ *   <a href="#67"><span>67</span></a>
+ *   <a rel="next" href="#2"><span><i class="fa fa-caret-right"></i></span></a>
+ * </div>
+ */
+#pagination {
+  /*
+   * Always in fixed position.
+   * This may need to be overwritten in case multiple
+   * paginations have to be activated.
+   */
+  position: fixed;
+  font-size: 0;
+  right: 10px;
+  bottom: 20px;
+  z-index: 35;
+  padding: 0;
+  height: auto;
+  line-height: 0;
+}
+#pagination > a {
+  margin: 0;
+  font-size: 10pt;
+  padding: 0;
+}
+#pagination > a > span {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  line-height: 2em;
+  text-align: center;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+}
+#pagination > a:not(:link):not([rel=self]) span {
+  color: #87888a;
+}
+#pagination > a.ellipsis > span > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+#pagination > a.ellipsis > span::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+  line-height: 1em;
+}
+#pagination > a[rel=self] > span {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  border-left-style: solid;
+  border-right-style: solid;
+}
+#pagination > a[rel=prev] > span {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-left-width: 2px;
+  border-left-style: solid;
+}
+#pagination > a[rel=prev] > span > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+#pagination > a[rel=prev] > span::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+  line-height: 1em;
+}
+#pagination > a[rel=next] > span {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-right-width: 2px;
+  border-right-style: solid;
+}
+#pagination > a[rel=next] > span > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+#pagination > a[rel=next] > span::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+  line-height: 1em;
+}
+#pagination > a:link:hover, #pagination > a:link:focus {
+  outline: none;
+}
+#pagination > a:link:hover span, #pagination > a:link:focus span {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+pre.query {
+  overflow-x: hidden;
+  padding: 0.5em;
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  position: relative;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+pre.query:not(.unsupported) {
+  cursor: pointer;
+}
+pre.query:not(.unsupported):hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+pre.query:not(.unsupported):active {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+pre.query.unsupported span {
+  vertical-align: super;
+  color: #009ee0;
+  font-size: 90%;
+  font-weight: bold;
+  cursor: help;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Rules applicable for the result panel
+ */
+#resultinfo {
+  clear: both;
+  text-align: right;
+  line-height: 1.5em;
+  min-height: 1.5em;
+  margin-top: 0.4em;
+  font-size: 10pt;
+  /*
+   * TODO:
+   *   This rule should not be dependent on
+   *   whether something is found or not,
+   *   but whether #search contains a result,
+   *   e.g. when a result view is open in the
+   *   result panel. This should probably be
+   *   indicated by a class on the button group
+   *   rather than a class on the resultinfo.
+   */
+}
+#resultinfo p.found {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+#resultinfo.found {
+  position: relative;
+  margin-bottom: 0px;
+}
+#resultinfo.found .button-group > span {
+  margin-bottom: 0;
+  border-bottom-width: 0;
+  box-shadow: none;
+}
+#resultinfo.found .button-group > span:first-child {
+  border-bottom-left-radius: 0;
+}
+#resultinfo.found .button-group > span:last-child {
+  border-bottom-right-radius: 0;
+}
+
+div.result.panel .view {
+  border: 1px solid #87888a;
+  background-color: #f6a800;
+}
+
+.result.button-group.button-panel {
+  display: inline-block;
+  width: auto;
+  vertical-align: bottom;
+  line-height: 1.5em;
+}
+.result.button-group.button-panel > span {
+  line-height: 1.5em;
+  border-width: 1px 0;
+}
+.result.button-group.button-panel > span:first-child {
+  border-left-width: 1px;
+}
+.result.button-group.button-panel > span:last-child {
+  border-right-width: 1px;
+}
+
+#total-results {
+  color: #9bad0b;
+  font-weight: bold;
+}
+
+.no-results {
+  margin: 0 auto;
+  text-align: center;
+}
+.no-results code {
+  font-weight: bold;
+}
+
+.button-icon.align.left::after {
+  content: "";
+}
+.button-icon.align.right::after {
+  content: "";
+}
+.button-icon.align.center::after {
+  content: "";
+}
+.button-icon.show-kq::after {
+  content: "";
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Rules for the embedded documentation.
+ */
+#tutorial {
+  position: fixed;
+  z-index: 9999;
+  top: 5%;
+  bottom: 5%;
+  left: 2%;
+  right: 2%;
+  padding-right: 20px;
+  background-color: #fefefe;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-width: 4px;
+  border-color: #616263;
+  border-style: solid;
+  border-radius: 6px;
+}
+#tutorial .button-group.button-view {
+  background-color: #87888a;
+  display: block;
+  height: 100%;
+}
+#tutorial iframe {
+  border-width: 0;
+  width: 100%;
+  min-height: 100.1%;
+  background-image: url("../img/korap-bg-kalamar.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20%;
+}
+
+p.bibentry {
+  font-size: 80%;
+  margin-left: 3em;
+  margin-bottom: 3em;
+  text-indent: -1.5em;
+}
+p.bibentry cite {
+  font-weight: bold;
+}
+
+body.embedded {
+  background-color: #fefefe;
+}
+body.embedded aside {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  padding-top: 0;
+  background-color: #87888a;
+}
+body.embedded aside > div {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+main.tutorial a.embedded-link::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: " ";
+  font-size: 75%;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Styles for the KoralQuery view.
+ */
+#koralquery {
+  white-space: pre;
+}
+#koralquery > div {
+  background-color: #fefefe;
+  overflow-x: auto;
+  font-size: 85%;
+  margin-top: 2pt;
+  margin-right: 20px;
+  margin-bottom: 2pt;
+  margin-left: 2pt;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+.alertify,
+.alertify-show,
+.alertify-log {
+  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -ms-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* easeOutBack */
+}
+
+.alertify-hide {
+  -webkit-transition: all 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-transition: all 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-transition: all 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-transition: all 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  transition: all 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  /* easeInBack */
+}
+
+.alertify-log-hide {
+  -webkit-transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  /* easeInBack */
+}
+
+.alertify-cover {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  filter: opacity(0);
+  opacity: 0;
+}
+
+.alertify-cover-hidden {
+  display: none;
+}
+
+.alertify {
+  position: fixed;
+  z-index: 99999;
+  top: 50px;
+  left: 50%;
+  width: 550px;
+  margin-left: -275px;
+  opacity: 1;
+}
+
+.alertify-hidden {
+  -webkit-transform: translate(0, -150px);
+  -moz-transform: translate(0, -150px);
+  -ms-transform: translate(0, -150px);
+  -o-transform: translate(0, -150px);
+  transform: translate(0, -150px);
+  opacity: 0;
+  display: none;
+}
+
+/* overwrite display: none; for everything except IE6-8 */
+:root * > .alertify-hidden {
+  display: block;
+  visibility: hidden;
+}
+
+.alertify-logs {
+  position: fixed;
+  z-index: 5000;
+  bottom: 10px;
+  right: 10px;
+  width: 300px;
+}
+
+.alertify-logs-hidden {
+  display: none;
+}
+
+.alertify-log {
+  display: block;
+  margin-top: 10px;
+  position: relative;
+  right: -300px;
+  opacity: 0;
+}
+
+.alertify-log-show {
+  right: 0;
+  opacity: 1;
+}
+
+.alertify-log-hide {
+  -webkit-transform: translate(300px, 0);
+  -moz-transform: translate(300px, 0);
+  -ms-transform: translate(300px, 0);
+  -o-transform: translate(300px, 0);
+  transform: translate(300px, 0);
+  opacity: 0;
+}
+
+.alertify-dialog {
+  padding: 25px;
+}
+
+.alertify-resetFocus {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.alertify-inner {
+  text-align: center;
+}
+
+.alertify-text {
+  margin-bottom: 15px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+.alertify-button,
+.alertify-button:hover,
+.alertify-button:active,
+.alertify-button:visited {
+  background: none;
+  text-decoration: none;
+  border: none;
+  /* line-height and font-size for input button */
+  line-height: 1.5;
+  font-size: 100%;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+@media only screen and (max-width: 680px) {
+  .alertify,
+.alertify-logs {
+    width: 90%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .alertify {
+    left: 5%;
+    margin: 0;
+  }
+}
+/**
+ * Default Look and Feel
+ */
+.alertify,
+.alertify-log {
+  font-family: sans-serif;
+}
+
+.alertify {
+  background: #FFF;
+  border: 10px solid #333;
+  /* browsers that don't support rgba */
+  border: 10px solid rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding;
+  /* Safari 4? Chrome 6? */
+  -moz-background-clip: padding;
+  /* Firefox 3.6 */
+  background-clip: padding-box;
+  /* Firefox 4, Safari 5, Opera 10, IE 9 */
+}
+
+.alertify-text {
+  border: 1px solid #CCC;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.alertify-button {
+  border-radius: 4px;
+  color: #FFF;
+  font-weight: bold;
+  padding: 6px 15px;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background-image: -ms-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+}
+
+.alertify-button:hover,
+.alertify-button:focus {
+  outline: none;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+}
+
+.alertify-button:focus {
+  box-shadow: 0 0 15px #2B72D5;
+}
+
+.alertify-button:active {
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.alertify-button-cancel,
+.alertify-button-cancel:hover,
+.alertify-button-cancel:focus {
+  background-color: #FE1A00;
+  border: 1px solid #D83526;
+}
+
+.alertify-button-ok,
+.alertify-button-ok:hover,
+.alertify-button-ok:focus {
+  background-color: #5CB811;
+  border: 1px solid #3B7808;
+}
+
+.alertify-log {
+  background: #1F1F1F;
+  background: black;
+  padding: 15px;
+  border-radius: 4px;
+  color: #FFF;
+}
+
+/*
+.alertify-log-error {
+  background: #FE1A00;
+  //  background: rgba(254,26,0,.9);
+    background: rgb(254,26,0);
+}
+*/
+.alertify-log-success {
+  background: #5CB811;
+  background: #5cb811;
+}
+
+/**
+ * Alertify styles.
+ */
+article.alertify-log-warn {
+  background-color: #f6a800;
+}
+article.alertify-log-warn code.src {
+  color: #e55d00;
+}
+
+article.alertify-log code.src {
+  display: block;
+  color: black;
+  font-size: 70%;
+}
+
+.alertify-log-error {
+  background-color: #fe1a00;
+}
+
+#notifications {
+  display: none;
+}
+
+div.notify {
+  position: relative;
+  margin: 0.5em auto;
+  display: block;
+  padding: 0.5em;
+  border-radius: 6px;
+  max-width: 30em;
+  background-color: #fe1a00;
+  color: #fefefe;
+}
+div.notify.notify-success {
+  background-color: #636f07;
+}
+div.notify.notify-warn {
+  background-color: #f29400;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Styles for the intro page
+ */
+div.intro a:visited {
+  color: #e55d00;
+}
+div.intro div.announcement {
+  background-color: #f4eebb;
+  padding: 8px;
+  border: 5px dashed #f6a800;
+  border-radius: 1em;
+  width: 90%;
+  margin: auto;
+}
+
+aside.active ~ main div.intro {
+  margin-left: 198px;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/*
+ * Define the base layout of horizontal button groups
+ */
+.button-group > span {
+  cursor: pointer;
+}
+.button-group.button-panel > span,
+.button-group.button-panel a, .button-group.operators > span,
+.button-group.operators a {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  font-size: 9pt;
+  font-weight: normal;
+  line-height: 1.5em;
+  padding: 0 4px;
+  display: inline-block;
+  border-style: solid;
+  border-width: 2px 0;
+}
+.button-group.button-panel > span:hover,
+.button-group.button-panel a:hover, .button-group.operators > span:hover,
+.button-group.operators a:hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+.button-group.button-panel > span:first-child,
+.button-group.button-panel a:first-child, .button-group.operators > span:first-child,
+.button-group.operators a:first-child {
+  border-left-width: 2px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.button-group.button-panel > span:last-child,
+.button-group.button-panel a:last-child, .button-group.operators > span:last-child,
+.button-group.operators a:last-child {
+  border-right-width: 2px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.button-group.button-panel > span > span.check,
+.button-group.button-panel a > span.check {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  width: 1em;
+  display: inline-block;
+  text-align: left;
+}
+.button-group.button-panel > span > span.check:not(.checked)::after,
+.button-group.button-panel a > span.check:not(.checked)::after {
+  content: "";
+}
+.button-group.button-panel > span > span.check.checked::after,
+.button-group.button-panel a > span.check.checked::after {
+  content: "";
+}
+.button-group.button-panel > span > span.check > span,
+.button-group.button-panel a > span.check > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+.button-group.button-view {
+  position: absolute;
+  display: block;
+  right: 0;
+  top: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  font-size: 10pt;
+  color: #fefefe;
+}
+.button-group.button-view > span:first-child {
+  margin-top: 2px;
+}
+.button-group.button-view > span {
+  display: block !important;
+  border-width: 0;
+  text-decoration: none;
+  text-align: center;
+  font-style: normal;
+}
+.button-group.button-view > span.download::after {
+  content: "";
+}
+.button-group.button-view > span.close::after {
+  content: "";
+}
+.button-group.button-view > span.minimize::after {
+  content: "";
+}
+.button-group.button-view > span.plugin::after {
+  content: "";
+}
+
+ul.menu.button-group-list {
+  border-top-right-radius: 8px;
+  position: fixed;
+  font-size: 10pt;
+  left: 0;
+  text-align: left;
+  margin: -2px;
+  margin-top: 0;
+}
+ul.menu.button-group-list > li:first-of-type {
+  border-top-right-radius: 5px;
+}
+
+.button-icon {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.button-icon > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+.button-icon[data-icon]::after {
+  content: attr(data-icon);
+}
+
+.button-panel .button-icon {
+  line-height: 0.7;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Base styles for all panels and views
+ */
+div.panel {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+div.view {
+  position: relative;
+  padding-top: 2px;
+  display: block;
+  width: 100%;
+}
+
+div.view:not(.show) {
+  display: none;
+}
+
+.introjs-overlay {
+  position: absolute;
+  box-sizing: content-box;
+  z-index: 999999;
+  background-color: #000;
+  opacity: 0;
+  background: -moz-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.9)));
+  background: -webkit-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: -o-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: -ms-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#66000000',endColorstr='#e6000000',GradientType=1)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.introjs-fixParent {
+  z-index: auto !important;
+  opacity: 1 !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  transform: none !important;
+}
+
+.introjs-showElement,
+tr.introjs-showElement > td,
+tr.introjs-showElement > th {
+  z-index: 9999999 !important;
+}
+
+.introjs-disableInteraction {
+  z-index: 99999999 !important;
+  position: absolute;
+  background-color: white;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.introjs-relativePosition,
+tr.introjs-showElement > td,
+tr.introjs-showElement > th {
+  position: relative;
+}
+
+.introjs-helperLayer {
+  box-sizing: content-box;
+  position: absolute;
+  z-index: 9999998;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #777;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.introjs-tooltipReferenceLayer {
+  box-sizing: content-box;
+  position: absolute;
+  visibility: hidden;
+  z-index: 100000000;
+  background-color: transparent;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.introjs-helperLayer *,
+.introjs-helperLayer *:before,
+.introjs-helperLayer *:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  -o-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.introjs-helperNumberLayer {
+  box-sizing: content-box;
+  position: absolute;
+  visibility: visible;
+  top: -16px;
+  left: -16px;
+  z-index: 9999999999 !important;
+  padding: 2px;
+  font-family: Arial, verdana, tahoma;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  background: #ff3019;
+  /* Old browsers */
+  background: -webkit-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404));
+  /* Chrome,Safari4+ */
+  background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* IE10+ */
+  background: -o-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
+  /* W3C */
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border: 3px solid white;
+  border-radius: 50%;
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0)";
+  /* IE6-9 */
+  filter: "progid:DXImageTransform.Microsoft.Shadow(direction=135, strength=2, color=ff0000)";
+  /* IE10 text shadows */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.introjs-arrow {
+  border: 5px solid transparent;
+  content: "";
+  position: absolute;
+}
+
+.introjs-arrow.top {
+  top: -10px;
+  border-bottom-color: white;
+}
+
+.introjs-arrow.top-right {
+  top: -10px;
+  right: 10px;
+  border-bottom-color: white;
+}
+
+.introjs-arrow.top-middle {
+  top: -10px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom-color: white;
+}
+
+.introjs-arrow.right {
+  right: -10px;
+  top: 10px;
+  border-left-color: white;
+}
+
+.introjs-arrow.right-bottom {
+  bottom: 10px;
+  right: -10px;
+  border-left-color: white;
+}
+
+.introjs-arrow.bottom {
+  bottom: -10px;
+  border-top-color: white;
+}
+
+.introjs-arrow.bottom-right {
+  bottom: -10px;
+  right: 10px;
+  border-top-color: white;
+}
+
+.introjs-arrow.bottom-middle {
+  bottom: -10px;
+  left: 50%;
+  margin-left: -5px;
+  border-top-color: white;
+}
+
+.introjs-arrow.left {
+  left: -10px;
+  top: 10px;
+  border-right-color: white;
+}
+
+.introjs-arrow.left-bottom {
+  left: -10px;
+  bottom: 10px;
+  border-right-color: white;
+}
+
+.introjs-tooltip {
+  box-sizing: content-box;
+  position: absolute;
+  visibility: visible;
+  padding: 10px;
+  background-color: white;
+  min-width: 200px;
+  max-width: 300px;
+  border-radius: 3px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  -webkit-transition: opacity 0.1s ease-out;
+  -moz-transition: opacity 0.1s ease-out;
+  -ms-transition: opacity 0.1s ease-out;
+  -o-transition: opacity 0.1s ease-out;
+  transition: opacity 0.1s ease-out;
+}
+
+.introjs-tooltipbuttons {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/*
+ Buttons style by http://nicolasgallagher.com/lab/css3-github-buttons/
+ Changed by Afshin Mehrabani
+*/
+.introjs-button {
+  box-sizing: content-box;
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border: 1px solid #d4d4d4;
+  margin: 0;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+  font: 11px/normal sans-serif;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  background-color: #ececec;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+  background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+  background-image: -o-linear-gradient(#f4f4f4, #ececec);
+  background-image: linear-gradient(#f4f4f4, #ececec);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  /*background-clip: padding-box;*/
+  /* commented out due to Opera 11.10 bug */
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  /* IE hacks */
+  zoom: 1;
+  *display: inline;
+  margin-top: 10px;
+}
+
+.introjs-button:hover {
+  border-color: #bcbcbc;
+  text-decoration: none;
+  box-shadow: 0px 1px 1px #e3e3e3;
+}
+
+.introjs-button:focus,
+.introjs-button:active {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ececec), to(#f4f4f4));
+  background-image: -moz-linear-gradient(#ececec, #f4f4f4);
+  background-image: -o-linear-gradient(#ececec, #f4f4f4);
+  background-image: linear-gradient(#ececec, #f4f4f4);
+}
+
+/* overrides extra padding on button elements in Firefox */
+.introjs-button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+.introjs-skipbutton {
+  box-sizing: content-box;
+  margin-right: 5px;
+  color: #7a7a7a;
+}
+
+.introjs-prevbutton {
+  -webkit-border-radius: 0.2em 0 0 0.2em;
+  -moz-border-radius: 0.2em 0 0 0.2em;
+  border-radius: 0.2em 0 0 0.2em;
+  border-right: none;
+}
+
+.introjs-prevbutton.introjs-fullbutton {
+  border: 1px solid #d4d4d4;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+
+.introjs-nextbutton {
+  -webkit-border-radius: 0 0.2em 0.2em 0;
+  -moz-border-radius: 0 0.2em 0.2em 0;
+  border-radius: 0 0.2em 0.2em 0;
+}
+
+.introjs-nextbutton.introjs-fullbutton {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+
+.introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus {
+  color: #9a9a9a;
+  border-color: #d4d4d4;
+  box-shadow: none;
+  cursor: default;
+  background-color: #f4f4f4;
+  background-image: none;
+  text-decoration: none;
+}
+
+.introjs-hidden {
+  display: none;
+}
+
+.introjs-bullets {
+  text-align: center;
+}
+
+.introjs-bullets ul {
+  box-sizing: content-box;
+  clear: both;
+  margin: 15px auto 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.introjs-bullets ul li {
+  box-sizing: content-box;
+  list-style: none;
+  float: left;
+  margin: 0 2px;
+}
+
+.introjs-bullets ul li a {
+  box-sizing: content-box;
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.introjs-bullets ul li a:hover {
+  background: #999;
+}
+
+.introjs-bullets ul li a.active {
+  background: #999;
+}
+
+.introjs-progress {
+  box-sizing: content-box;
+  overflow: hidden;
+  height: 10px;
+  margin: 10px 0 5px 0;
+  border-radius: 4px;
+  background-color: #ecf0f1;
+}
+
+.introjs-progressbar {
+  box-sizing: content-box;
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+  background-color: #08c;
+}
+
+.introjsFloatingElement {
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 50%;
+  top: 50%;
+}
+
+.introjs-fixedTooltip {
+  position: fixed;
+}
+
+.introjs-hint {
+  box-sizing: content-box;
+  position: absolute;
+  background: transparent;
+  width: 20px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.introjs-hint:focus {
+  border: 0;
+  outline: 0;
+}
+
+.introjs-hidehint {
+  display: none;
+}
+
+.introjs-fixedhint {
+  position: fixed;
+}
+
+.introjs-hint:hover > .introjs-hint-pulse {
+  border: 5px solid rgba(60, 60, 60, 0.57);
+}
+
+.introjs-hint-pulse {
+  box-sizing: content-box;
+  width: 10px;
+  height: 10px;
+  border: 5px solid rgba(60, 60, 60, 0.27);
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  background-color: rgba(136, 136, 136, 0.24);
+  z-index: 10;
+  position: absolute;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.introjs-hint-no-anim .introjs-hint-dot {
+  -webkit-animation: none;
+  -moz-animation: none;
+  animation: none;
+}
+
+.introjs-hint-dot {
+  box-sizing: content-box;
+  border: 10px solid rgba(146, 146, 146, 0.36);
+  background: transparent;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 60px;
+  height: 50px;
+  width: 50px;
+  -webkit-animation: introjspulse 3s ease-out;
+  -moz-animation: introjspulse 3s ease-out;
+  animation: introjspulse 3s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  z-index: 1;
+  opacity: 0;
+}
+
+@-webkit-keyframes introjspulse {
+  0% {
+    -webkit-transform: scale(0);
+    opacity: 0;
+  }
+  25% {
+    -webkit-transform: scale(0);
+    opacity: 0.1;
+  }
+  50% {
+    -webkit-transform: scale(0.1);
+    opacity: 0.3;
+  }
+  75% {
+    -webkit-transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
+@-moz-keyframes introjspulse {
+  0% {
+    -moz-transform: scale(0);
+    opacity: 0;
+  }
+  25% {
+    -moz-transform: scale(0);
+    opacity: 0.1;
+  }
+  50% {
+    -moz-transform: scale(0.1);
+    opacity: 0.3;
+  }
+  75% {
+    -moz-transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    -moz-transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes introjspulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(0);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(0.1);
+    opacity: 0.3;
+  }
+  75% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Styles overriding introJS styles
+ */
+.introjs-helperLayer {
+  background-color: transparent;
+}
+
+.introjs-tooltip.gTstartSearch {
+  max-width: 500px;
+}
+
+.tgreeting {
+  font-weight: bold;
+  color: #e55d00;
+}
+
+.pfirstStep {
+  width: 500px;
+}
+
+.introjs-donebutton {
+  float: right;
+  margin-left: 5px;
+}
+
+.introjs-skipbutton {
+  color: #333;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Styles for OAuth management form.
+ */
+ul.client-list {
+  padding-left: 1.5em;
+}
+ul.client-list li.client {
+  list-style-type: none;
+}
+ul.client-list li.client span.client-name::before {
+  margin-left: -1.5em;
+}
+ul.client-list li.client span.client-desc {
+  font-size: 70%;
+  display: block;
+}
+
+span.client-name {
+  font-weight: bold;
+}
+span.client-name::before {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  display: inline-block;
+  width: 1.5em;
+  content: "";
+  color: #009ee0;
+  font-size: 100%;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+section#news {
+  background-color: #e3e8a3;
+  mix-blend-mode: soft-light;
+  padding: 1em;
+  padding-right: 2em;
+  border-radius: 6px;
+  border-left: 5px solid #636f07;
+}
+section#news dt {
+  float: left;
+  clear: left;
+  width: 15ex;
+  text-align: right;
+  font-weight: bold;
+}
+section#news dd.maintenance > h4::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  color: #c1002b;
+  content: " ";
+}
+section#news dd {
+  margin: 0 1ex 0 16ex;
+  padding: 0 0 0.5em 1em;
+}
+section#news dd > p {
+  max-width: 80ex;
+  margin-block-start: 0ex;
+}
+section#news dd > h4 {
+  margin-block-start: 0ex;
+  margin-block-end: 0.33ex;
+}
+
+@media all and (max-width: 42.5em) {
+  section#news dt {
+    text-align: left;
+    float: none;
+    width: auto;
+    padding-bottom: 0.2em;
+  }
+  section#news dd {
+    margin-left: 1em;
+  }
+}
+/**
+ * Base rules for all plugin related styles,
+ * like widgets.
+ */
+div.view.widget {
+  padding-right: 20px;
+}
+div.view.widget > iframe {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+div.panel.result > div > div.widget > iframe {
+  background-color: #fefefe;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+main {
+  padding-bottom: 20pt;
+  margin-left: 40px;
+  margin-right: 20px;
+}
+main.embedded {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+main p {
+  text-align: justify;
+  hyphens: auto;
+}
+main h2#page-top {
+  margin-top: 0;
+  padding-top: 1em;
+}
+main.page {
+  margin-left: 245px;
+}
+main.page p code,
+main.page li code,
+main.page dd code,
+main.page dt code {
+  background-color: #d9dadb;
+  color: #87888a;
+  padding: 0 0.5em;
+  border-radius: 6px;
+}
+main p.hint {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Rules for the Kalamar hint helper.
+ */
+ul.menu.hint {
+  display: inline-block;
+  white-space: normal;
+  text-align: left;
+  max-width: 23em !important;
+  top: 0;
+}
+ul.menu.hint > li:first-of-type {
+  border-top-width: 1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+div.alert.hint {
+  position: absolute;
+  background-color: #fe1a00;
+  color: #fefefe;
+  padding: 3pt 6pt;
+  margin-top: 8px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  width: auto;
+  min-width: 10em;
+  max-width: 23em !important;
+  transition: opacity 0.2s ease 0s;
+  border-radius: 6px;
+  border-top-left-radius: 0;
+}
+div.alert.hint::before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: -12px;
+  left: 0;
+  width: 0;
+  white-space: normal;
+  border-width: 0 8px 12px 0;
+  border-style: solid;
+  border-color: #fe1a00 transparent;
+}
+
+.hint.mirror {
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  z-index: 90;
+  white-space: pre-wrap;
+  height: 0;
+}
+.hint.mirror > span {
+  opacity: 0;
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+.hint.mirror > div {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  transition: left 0.2s ease 0s;
+  top: 0;
+  left: 0;
+  text-align: left;
+  padding: 0;
+  border-top: 5px solid #f6a800;
+  height: 10px;
+  width: 1.2em;
+}
+.hint.mirror > div:hover:not(.active) {
+  border-top: 10px solid #f6a800;
+}
+.hint.mirror > div.active {
+  border-top-width: 0;
+  height: 0;
+  width: 23em;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Search field
+ */
+#q-field {
+  display: block;
+  margin-bottom: 3px;
+  width: 100%;
+  margin: 0;
+}
+#q-field::-webkit-search-cancel-button {
+  display: none;
+}
+#q-field.loading {
+  background-color: #f4eebb;
+  background-image: none;
+}
+
+#searchbar {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  padding-right: 70px;
+}
+#searchbar button[type=submit] {
+  position: absolute;
+  padding: 0;
+  right: 40px;
+}
+#searchbar button[type=submit]:not(.loading)::after {
+  content: "";
+}
+
+.query.panel {
+  padding-right: 70px;
+}
+
+.query.button-group.button-panel {
+  display: block;
+  width: auto;
+  text-align: right;
+  vertical-align: top;
+  line-height: 1.3em;
+}
+.query.button-group.button-panel > span {
+  box-shadow: none;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Virtual Collection Builder
+ */
+.vc {
+  margin-top: 4pt;
+  /**
+   * All document rules
+   */
+  /**
+   * All operators
+   */
+}
+.vc .builder {
+  position: initial;
+}
+.vc .docGroup {
+  position: relative;
+  display: inline-block;
+  margin-left: 4em;
+  padding: 4pt 2pt 4pt 0pt;
+  border-radius: 12px;
+  border-style: solid;
+  border-width: 0 0.4em;
+  /**
+   * All operators on groups
+   */
+}
+.vc .docGroup .docGroup {
+  display: block;
+}
+.vc .docGroup[data-operation] > .doc:first-child::before,
+.vc .docGroup[data-operation] > .docGroup:first-child::before {
+  content: none;
+}
+.vc .docGroup[data-operation] > .doc::before,
+.vc .docGroup[data-operation] > .docGroup::before {
+  position: absolute;
+  display: inline-block;
+  text-align: right;
+  width: 4em;
+  margin-left: -4.5em;
+  line-height: 1.5em;
+  border-top: 2px solid transparent;
+}
+.vc .docGroup[data-operation] > .docGroup::before {
+  margin-left: -4.9em;
+}
+.vc .docGroup[data-operation=or] > .doc::before,
+.vc .docGroup[data-operation=or] > .docGroup::before {
+  content: "or";
+}
+.vc .docGroup[data-operation=and] > .doc::before,
+.vc .docGroup[data-operation=and] > .docGroup::before {
+  content: "and";
+}
+.vc .docGroup > .operators {
+  position: absolute;
+  display: block;
+  vertical-align: middle;
+  top: 10px;
+  left: 3px;
+  margin-left: 100%;
+  padding: 0;
+}
+.vc .docGroup > .operators > span:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.vc .doc {
+  line-height: 170%;
+  padding-left: 4em;
+}
+.vc .doc > span + span,
+.vc .doc > span + div + span,
+.vc .doc > span + ul + span {
+  margin-left: 5pt;
+}
+.vc .doc > span.key, .vc .doc > span.value {
+  font-weight: bold;
+}
+.vc .doc > span.value[data-type=regex] {
+  font-style: italic;
+}
+.vc .doc > span.value[data-type=regex]::after, .vc .doc > span.value[data-type=regex]::before {
+  content: "/";
+}
+.vc .doc > span.key {
+  position: relative;
+}
+.vc .doc > span.key > ul {
+  margin: 0;
+  margin-left: 3.3em;
+}
+.vc .doc > span.key.fixed {
+  color: #9bad0b;
+}
+.vc .doc.unspecified > span,
+.vc .doc span.unspecified {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  padding: 0 4px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+}
+.vc .doc > .operators {
+  display: inline-block;
+  margin-left: 10px;
+}
+.vc .rewritten .rewrite {
+  display: inline-block;
+  margin-left: 4pt;
+  color: #f6a800;
+}
+.vc .rewritten .rewrite::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: normal;
+  content: "";
+  text-decoration: underline;
+}
+.vc .rewritten .rewrite > span {
+  display: none;
+}
+.vc .operators {
+  opacity: 0;
+  white-space: nowrap;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  text-align: center;
+}
+.vc > .docGroup {
+  margin-left: 0;
+}
+.vc .menu {
+  display: inline-block;
+}
+.vc .menu li[data-type=ref]::before,
+.vc span.key.ref::before {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  content: "";
+  padding-right: 4pt;
+  font-style: normal;
+  font-weight: normal;
+}
+.vc div.value {
+  position: absolute;
+  display: inline-block;
+  min-width: max-content;
+  z-index: 8000;
+  padding: 4pt;
+  margin-top: -6pt;
+  border-radius: 6px;
+  border-width: 2px;
+  border-style: solid;
+}
+.vc div.value input {
+  border-width: 0;
+  outline-width: 0;
+}
+.vc div.value > div {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  padding: 0 4pt;
+  margin-left: 4pt;
+  font-size: 80%;
+  font-style: italic;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6px;
+}
+.vc div.value.regex > input {
+  font-style: italic;
+}
+.vc div.value.regex > div {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+
+/* Rules for vcs excluding fragments,
+ * i.e. includingy dynamic changes.
+ */
+.vc:not(.fragment) {
+  /**
+   * Rules for all docGroups
+   */
+}
+.vc:not(.fragment) .docGroup,
+.vc:not(.fragment) .doc {
+  color: #616263;
+}
+.vc:not(.fragment) .docGroup:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.vc:not(.fragment) .doc > span:not(.fixed) {
+  cursor: pointer;
+}
+.vc:not(.fragment) .doc > span:not(.fixed):hover {
+  color: #f6a800;
+}
+.vc:not(.fragment) .doc.unspecified > span:hover,
+.vc:not(.fragment) span.unspecified:hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+.vc:not(.fragment) .doc:hover > .operators, .vc:not(.fragment) .docGroup:hover > .operators {
+  opacity: 1;
+}
+.vc:not(.fragment) .docGroup[data-operation] > .doc::before,
+.vc:not(.fragment) .docGroup[data-operation] > .docGroup::before {
+  color: #f6a800;
+}
+.vc:not(.fragment) .docGroup[data-operation=or] {
+  border-color: #f6a800;
+}
+.vc:not(.fragment) div.value {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.vc:not(.fragment) div.value > div {
+  cursor: pointer;
+}
+.vc:not(.fragment) div.value > div:hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+
+/**
+ * The z-index cascade for groups.
+ */
+.docGroup > .operators {
+  z-index: 30;
+}
+.docGroup .docGroup > .operators {
+  z-index: 31;
+}
+.docGroup .docGroup .docGroup > .operators {
+  z-index: 32;
+}
+.docGroup .docGroup .docGroup .docGroup > .operators {
+  z-index: 33;
+}
+.docGroup .docGroup .docGroup .docGroup .docGroup > .operators {
+  z-index: 34;
+}
+.docGroup .docGroup .docGroup .docGroup .docGroup .docGroup > .operators {
+  z-index: 35;
+}
+.docGroup .docGroup .docGroup .docGroup .docGroup .docGroup .docGroup > .operators {
+  z-index: 36;
+}
+
+.vc.fragment > div > div.docGroup {
+  margin-left: 0;
+}
+.vc.fragment .doc {
+  margin-right: 2em;
+}
+
+#collection {
+  line-height: 1em;
+  border-radius: 6px;
+}
+
+#vc-choose > span.rewritten::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  color: #f6a800;
+  padding: 0;
+  padding-left: 4px;
+  content: "";
+  text-decoration: underline;
+  font-style: normal;
+  font-weight: normal;
+}
+
+div#vc-view {
+  position: relative;
+}
+div#vc-view > div.vc {
+  display: none;
+  margin: 1.3em 0 0.5em 0;
+  border: 2px solid #636f07;
+  background-color: #fefefe;
+}
+div#vc-view > div.vc.active {
+  display: block;
+}
+div#vc-view > div.vc > div:first-child {
+  padding: 1.3em;
+}
+
+div.panel.vcinfo {
+  padding: 3pt 0pt 3pt 3pt;
+  background-color: #636f07;
+}
+div.panel.vcinfo div.button-group > span {
+  box-shadow: none;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Corpus statistic  
+ * Graying corpus statistic 
+ */
+div.stattable {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
+div.stattable > dl {
+  margin-bottom: 4px;
+}
+div.stattable > dl > div {
+  border-color: #636f07;
+}
+div.stattable > dl > div > dt {
+  background-color: #8a9a0a;
+  width: 15em;
+  margin: 0;
+}
+div.stattable > dl > div > dt::after {
+  content: ":";
+}
+div.stattable > dl > div > dd {
+  background-color: #dce883;
+  color: #616263;
+}
+div.stattable.stdisabled dt,
+div.stattable.stdisabled dd {
+  background-color: #b9c46a;
+  color: #636f07;
+  text-shadow: none;
+}
+
+/* Corpus statistic reload button */
+div.reloadStatB > span.refresh {
+  margin-left: 2pt;
+}
+
+span.refresh::after {
+  vertical-align: sub;
+  content: "";
+}
+
+@media (min-width: 1680px) {
+  div.stattable dl.flex > div {
+    width: inherit;
+  }
+}
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Rules for the datepicker widget
+ * (used in the Virtual Collection creator)
+ * in Kalamar.
+ */
+div.datepicker {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  position: absolute;
+  display: inline-block;
+  z-index: 90;
+  font-size: 80%;
+  padding: 4pt;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6px;
+}
+div.datepicker > div {
+  font-size: 120%;
+  width: 45%;
+}
+div.datepicker > div.month {
+  float: right;
+}
+div.datepicker > div > span {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.datepicker > div > span:first-child, div.datepicker > div > span:last-child {
+  width: 15%;
+}
+div.datepicker > div > span:first-child::before, div.datepicker > div > span:last-child::before {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  min-width: 14px;
+}
+div.datepicker > div > span:first-child::before {
+  content: "";
+}
+div.datepicker > div > span:last-child::before {
+  content: "";
+}
+div.datepicker > div > span:nth-child(2) {
+  display: inline-block;
+  cursor: pointer;
+  width: 70%;
+  text-align: center;
+  text-overflow: ellipsis;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+}
+div.datepicker > div > span:nth-child(2):hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+div.datepicker > div > span:nth-child(2).selected {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+div.datepicker table {
+  border-collapse: separate;
+  border-spacing: 1px;
+}
+div.datepicker input {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  background-color: #fefefe;
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+}
+div.datepicker td {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+}
+div.datepicker td:not(.out) {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  background-color: #fefefe;
+}
+div.datepicker td:not(.out).today {
+  background-color: #bce4f7;
+  color: #009ee0;
+  text-shadow: none;
+}
+div.datepicker td:not(.out).selected {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+div.datepicker td:not(.out):hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+}
+div.datepicker td.out {
+  border-color: transparent;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Temporary hack for language chooser
+ * http://cssdeck.com/labs/styling-select-box-with-css3
+ * This is only active in no-js environment and before the
+ * javascript is loaded.
+ */
+#ql-field {
+  position: relative;
+  background-color: #9bad0b;
+  cursor: pointer;
+  margin: 0;
+  outline: none;
+  border: none;
+  display: inline-block;
+  color: white;
+  border-width: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#ql-field:checked {
+  outline: none;
+}
+#ql-field > option {
+  padding: 0pt 2pt;
+  outline: none;
+}
+#ql-field:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}
+
+/**
+ * The pipe input field
+ */
+input.pipe {
+  display: none;
+}
+
+header {
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  position: relative;
+  background-color: #9bad0b;
+  padding: 8px 0 0 8px;
+  font-size: 10pt;
+  color: #fefefe;
+}
+header span.select {
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1.8em;
+  border-width: 0;
+  border-bottom-width: 3px;
+  border-style: solid;
+  border-color: transparent;
+}
+header span.select > span {
+  font-weight: bold;
+}
+header span.select:hover {
+  color: #636f07;
+  border-color: #636f07;
+}
+header span.select::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  pointer-events: none;
+  text-align: center;
+  content: "";
+  padding-left: 4pt;
+  padding-right: 4pt;
+}
+header span.select.active {
+  border-color: #f6a800;
+}
+header span.select.active::after {
+  content: "";
+}
+header form {
+  position: relative;
+  display: block;
+  padding-left: 230px;
+  min-height: 2.7em;
+  margin: 0px;
+}
+header input {
+  outline: none;
+  font-size: 11pt;
+  border: 2px solid #fefefe;
+  padding: 2px;
+  margin: 0;
+}
+header .button {
+  color: #fefefe;
+  line-height: 2em;
+  margin-right: 40px;
+}
+header .button.right {
+  float: right;
+  display: inline-block;
+}
+header .button.top {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  margin-right: 0;
+  width: 20px;
+  background-color: #636f07;
+  text-align: center;
+  height: 100%;
+  z-index: 20;
+}
+header .button.top > a:hover {
+  color: #fefefe;
+}
+header .button > a {
+  color: #fefefe;
+  cursor: pointer;
+  position: relative;
+  font-size: 120%;
+}
+header .button > a > span {
+  position: absolute;
+  margin-left: -3000px;
+}
+header .button > a::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+}
+header .button > a.tutorial::after {
+  content: "";
+}
+header .button > a.question::after {
+  content: "";
+}
+header .button > a.login::after {
+  content: "";
+}
+header .button > a.logout::after {
+  content: "";
+}
+
+.query.button-group > span {
+  border-top-width: 0;
+  border-color: white;
+}
+.query.button-group > span:first-child {
+  border-top-left-radius: 0;
+}
+.query.button-group > span:last-child {
+  border-top-right-radius: 0;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Rules for the footer section of Kalamar
+ */
+footer {
+  background-color: #616263;
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 2px;
+  font-size: 70%;
+  width: 100%;
+  text-align: right;
+}
+footer a:link {
+  margin: 0 0.5em;
+  color: #d9dadb;
+}
+footer a:visited {
+  color: #d9dadb;
+}
+footer a:hover {
+  color: #fefefe;
+}
+footer a[href^="http://"]::after, footer a[href^="https://"]::after {
+  content: none;
+}
+footer span.separator:after {
+  content: "-";
+  color: #d9dadb;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+aside {
+  background-color: #636f07;
+  color: #fefefe;
+  width: 230px;
+  position: fixed;
+  display: block;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  font-size: 10pt;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding-top: 65px;
+  /**
+   * Navigation menu
+   */
+}
+aside > div {
+  overflow-y: auto;
+  overflow-x: visible;
+  max-height: 100%;
+}
+aside > * {
+  opacity: 1;
+}
+aside::after {
+  font-family: "FontAwesome";
+  white-space: nowrap;
+  position: absolute;
+  display: block;
+  opacity: 0;
+  cursor: pointer;
+  right: 0;
+  bottom: 0;
+  content: "";
+  font-size: 16pt;
+  width: 16pt;
+  height: 17pt;
+  padding: 6pt;
+  background-color: #636f07;
+  border-top-right-radius: 6px;
+  margin-right: -20px;
+}
+aside h2,
+aside legend {
+  line-height: 2em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  font-weight: bold;
+}
+aside ul.nav {
+  list-style-type: none;
+  margin: 0;
+  font-size: 10pt;
+  text-indent: 0;
+  padding: 0;
+}
+aside ul.nav li {
+  padding: 0;
+}
+aside ul.nav li > a {
+  padding: 3pt 6pt;
+}
+aside ul.nav li > a:visited {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+}
+aside ul.nav li.folded.active ul {
+  display: block;
+}
+aside ul.nav li.folded ul {
+  display: none;
+}
+aside ul.nav li.active > a:link {
+  color: #636f07;
+  background-color: #9bad0b;
+  border-color: #636f07;
+  text-shadow: none;
+}
+aside ul.nav li > a:link {
+  color: #616263;
+  background-color: #d9dadb;
+  border-color: #87888a;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  display: block;
+  border-right-width: 2px;
+  border-right-style: solid;
+}
+aside ul.nav li > a:link:hover {
+  color: #fefefe;
+  background-color: #f6a800;
+  border-color: #ff8000;
+  text-shadow: none;
+  transition: none;
+}
+aside ul.nav li h3 {
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  font-size: 100%;
+}
+aside ul.nav li > a {
+  padding-left: 6pt;
+}
+aside ul.nav li li > a {
+  padding-left: 18pt;
+}
+aside ul.nav li li li > a {
+  padding-left: 36pt;
+}
+aside nav > ul > li > a {
+  font-weight: bold;
+}
+aside fieldset {
+  position: relative;
+  border-width: 0;
+}
+aside fieldset legend {
+  display: none;
+}
+aside fieldset input[type=text],
+aside fieldset input[type=password] {
+  outline: none;
+  font-size: 11pt;
+  border: 2px solid #fefefe;
+  padding: 2px;
+  margin: 0;
+  width: 100%;
+}
+aside fieldset > form > div {
+  position: relative;
+  width: 100%;
+  margin-top: 4px;
+  padding-right: 30px;
+}
+aside fieldset > p {
+  color: #9bad0b;
+}
+aside fieldset > p.announcement {
+  color: #fefefe;
+}
+aside fieldset > p.announcement > time {
+  display: block;
+  font-size: 70%;
+}
+aside fieldset hr {
+  border: none;
+  border-top: 2px solid #d9dadb;
+}
+aside fieldset ul {
+  display: block;
+  font-size: 80%;
+  text-align: right;
+  padding: 0;
+  margin-top: 0;
+}
+aside fieldset ul > li {
+  display: inline;
+}
+aside fieldset ul > li:first-child::after {
+  content: " | ";
+}
+aside fieldset button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+aside fieldset button::after {
+  content: "";
+}
+aside.off, aside:not(:focus):not(.active) {
+  margin-left: -210px;
+}
+aside.off::after, aside:not(:focus):not(.active)::after {
+  opacity: 1;
+}
+aside.off > *, aside:not(:focus):not(.active) > * {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+}
+aside.off::after {
+  display: none;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Optimization for no-js behaviour
+ */
+body.no-js #notifications {
+  display: block !important;
+}
+body.no-js aside {
+  position: relative;
+  display: block;
+  transition: none;
+  margin-left: 0 !important;
+  padding-top: 0;
+  width: 100%;
+  top: 0;
+}
+body.no-js aside > * {
+  opacity: 1 !important;
+  transition: none;
+}
+body.no-js aside form.login > input,
+body.no-js aside form.login > div {
+  width: auto;
+  margin-top: 0;
+}
+body.no-js aside form.login > input:first-of-type,
+body.no-js aside form.login > div:first-of-type {
+  float: left;
+  margin-right: 1em;
+}
+body.no-js aside form.login button {
+  height: 100%;
+}
+body.no-js aside p, body.no-js aside::after {
+  display: none;
+}
+body.no-js main div.intro {
+  margin-left: 8px !important;
+}
+
+#activate {
+  text-align: right;
+  background-color: #f6a800;
+  margin-top: 0;
+  padding: 8px;
+  padding-right: 40px;
+  color: #fefefe;
+  font-size: 80%;
+}
+
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Font Awesome symbol table.
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Mixin for blind elements
+ * (e.g., spans in elements with an icon background)
+ */
+/**
+ * Mixin for basic color transition
+ */
+/**
+ * Mixing for basic text padding
+ */
+/**
+ * Mixing for icon fonts
+ */
+/**
+ * Mixing for correct box sizing (probably not necessary)
+ * DEPRECATED
+ */
+/**
+ * Some colors and shadow definitions
+ * for Kalamar,
+ */
+/**
+ * Official IDS colors
+ */
+/**
+ * Orange Colors
+ */
+/**
+ * Green Colors
+ */
+/**
+ * Blue Colors
+ */
+/**
+ * Grey Colors
+ */
+/**
+ * Red Colors (no IDS relation)
+ */
+/**
+ * Basic shadows
+ */
+/**
+ * KWIC colors
+ */
+/**
+ * Some color definitions and mixins for
+ * buttons and menus.
+ */
+/**
+ * Chooseable items (default)
+ */
+/**
+ * Chooseable items (mouse over)
+ */
+/**
+ * Chooseable items (not available)
+ */
+/**
+ * Chooseable items (active)
+ */
+/**
+ * Chooseable items (action: remove something)
+ */
+/*
+ * Defined lengths and sizes for the
+ * Kalamar layout.
+ */
+/**
+ * Margins
+ */
+/**
+ * Path information - relative to css!
+ */
+/**
+ * Media rules for different screen sizes.
+ * This will override some basic rules.
+ */
+@media all and (max-width: 42.5em) {
+  body,
+#search > ol,
+#search div.snippet > span,
+header,
+header input,
+div#resultinfo,
+#pagination > a {
+    font-size: 9pt;
+  }
+
+  header {
+    padding-right: 8px;
+  }
+
+  header form {
+    padding-left: 0;
+    padding-top: 33px;
+  }
+
+  .vc {
+    font-size: 9pt;
+  }
+  .vc .builder .doc {
+    padding-left: 3em;
+  }
+  .vc .builder * .docGroup {
+    margin-left: 3em;
+  }
+  .vc .builder > .doc {
+    padding-left: 0.5em;
+  }
+  .vc .builder > .docGroup {
+    margin-left: 0.5em;
+  }
+
+  h1 {
+    margin-left: 10px;
+    width: 130px;
+    height: 40px;
+    background-size: 100%;
+    background-position: 50% 0;
+    z-index: 110;
+  }
+
+  #searchbar {
+    padding-right: 30px;
+  }
+  #searchbar input {
+    font-size: 9pt;
+  }
+  #searchbar button[type=submit] {
+    right: 0;
+  }
+
+  .level-1 {
+    padding-bottom: 2px;
+  }
+
+  .level-2 {
+    padding-bottom: 4px;
+  }
+
+  main {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  header .button {
+    margin-right: 4px;
+  }
+  header .button.top {
+    height: auto;
+  }
+
+  #search ol > li:target > div > div.snippet, #search ol > li.active > div > div.snippet {
+    margin: 2px 2em 2px 4px;
+  }
+  #search ol > li div.meta {
+    display: none;
+  }
+
+  div.matchinfo {
+    font-size: 9pt;
+  }
+
+  div.matchtable tr > * {
+    padding: 1pt 3pt;
+  }
+
+  div.matchtree h6 {
+    display: block;
+    float: none;
+  }
+  div.matchtree > div {
+    margin-left: 2px;
+  }
+
+  #kalamar-bg {
+    overflow: hidden;
+  }
+
+  #logos {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #logos > div {
+    border-top-width: 14px;
+    padding-right: 0;
+  }
+  #logos > div .logo > * {
+    background-size: 60%;
+    background-position: 0 0;
+  }
+
+  div.intro {
+    width: 100%;
+  }
+
+  body.embedded aside > div {
+    top: 0;
+    transform: translateY(0);
+  }
+
+  aside:not(:focus):not(.active) {
+    margin-left: -230px;
+  }
+  aside:not(:focus):not(.active)::after {
+    font-size: 12pt;
+    height: 11pt;
+    text-align: right;
+    padding-right: 3pt;
+    padding-top: 2pt;
+  }
+  aside ul {
+    font-size: 9pt;
+    line-height: 1em;
+  }
+  aside.active ~ main div.intro, aside.active ~ main.page {
+    margin-left: 4px !important;
+  }
+  aside.active {
+    position: relative;
+    display: block;
+    padding-top: 0;
+    width: 100%;
+    top: 0;
+    border-width: 0;
+  }
+  aside.active fieldset input {
+    font-size: 9pt;
+  }
+  aside.active::after {
+    display: none;
+  }
+  aside.active p, aside.active hr {
+    display: none;
+  }
+
+  #tutorial {
+    border-radius: 0;
+    border-width: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    padding: 0;
+  }
+  #tutorial iframe {
+    border-radius: 0;
+  }
+  #tutorial > ul.action.right {
+    height: 1.5em;
+    right: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  main.page {
+    margin-right: 20px;
+  }
+}
+@media print {
+  body, html, select, g > text {
+    color: black;
+  }
+
+  header, aside {
+    display: none;
+  }
+
+  main.page {
+    margin: 1em;
+  }
+
+  #kalamar-bg {
+    display: none;
+  }
+
+  a.embedded-link {
+    color: black;
+    text-decoration: underline;
+  }
+
+  pre.query.tutorial {
+    background-color: white;
+    color: black;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  blockquote.warning {
+    background-color: grey;
+    color: white;
+    border-left-color: black;
+    border-left-width: 1em;
+  }
+}
+
+/*# sourceMappingURL=kalamar-0.41.3.css.map */

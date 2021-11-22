@@ -30,6 +30,10 @@ sub register {
   $r->get('/query')->to(
     cb => sub {
       my $c = shift;
+<<<<<<< HEAD
+=======
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
+>>>>>>> Demo for query storing
 
       # Use mock up
       if ($ENV{QUERY_REF_MOCKUP}) {
@@ -104,6 +108,10 @@ sub register {
   $r->put('/query/<qname:qname>')->to(
     cb => sub {
       my $c = shift;
+<<<<<<< HEAD
+=======
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
+>>>>>>> Demo for query storing
       my $v = $c->validation;
 
       # Missing: definition
@@ -118,7 +126,11 @@ sub register {
           json => {
             errors => [
               {
+<<<<<<< HEAD
                 message => 'Unable to store query reference'
+=======
+                message => 'Unable to store query reference1'
+>>>>>>> Demo for query storing
               }
             ]
           }, status => 400
@@ -133,7 +145,11 @@ sub register {
             json => {
               errors => [
                 {
+<<<<<<< HEAD
                   message => 'Unable to store query reference'
+=======
+                  message => 'Unable to store query reference2'
+>>>>>>> Demo for query storing
                 }
               ]
             }, status => 400
@@ -239,6 +255,10 @@ sub register {
   $r->delete('/query/<qname:qname>')->to(
     cb => sub {
       my $c = shift;
+<<<<<<< HEAD
+=======
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
+>>>>>>> Demo for query storing
       my $qname = $c->stash('qname');
 
       # Use mock up
@@ -324,6 +344,10 @@ sub register {
   $r->get('/query/<qname:qname>')->to(
     cb => sub {
       my $c = shift;
+<<<<<<< HEAD
+=======
+      #$c->res->headers->header('Access-Control-Allow-Origin' => '127.0.0.1:3000'); #Does not seem to be necessary
+>>>>>>> Demo for query storing
       my $qname = $c->stash('qname');
 
       # Use mock up

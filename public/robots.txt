@@ -1,0 +1,10 @@
+# robots.txt only applies, when KorAP is accessible
+# from the domain root.
+
+User-agent: *
+Disallow: /api/
+Disallow: /css/
+Disallow: /font/
+Disallow: /js/
+Disallow: /settings/
+Disallow: /corpus/
