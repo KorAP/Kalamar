@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a9bd768_0e32adec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-22T14:47:43Z",
+      "side": 1,
+      "message": "This is fine now, though I will change 2 things before requesting a review:\n1. Not serializing default values\n2. Improving serialization",
+      "revId": "739f274d6843741b4b28f26681344fc31caeef16",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
