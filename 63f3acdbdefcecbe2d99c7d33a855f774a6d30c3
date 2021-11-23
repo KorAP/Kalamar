@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ac1bd40_f5f8a768",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-23T10:07:04Z",
+      "side": 1,
+      "message": "As {} are ugly in URL stringification, these are removed now.",
+      "revId": "63f3acdbdefcecbe2d99c7d33a855f774a6d30c3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
