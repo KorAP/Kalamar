@@ -181,7 +181,6 @@ define(['state','state/manager'], function (stateClass, stateManagerClass) {
       expect(serial["glemm"]).toEqual(false);
     });
 
-
     it('should serialize correctly', function () {
       const el = document.createElement('input');
       const sm = stateManagerClass.create(el);
@@ -205,6 +204,32 @@ define(['state','state/manager'], function (stateClass, stateManagerClass) {
       expect(sm.toString().indexOf("\"y\":false")).not.toEqual(-1);
       expect(sm.toString().indexOf("\"z\":\"b\"")).not.toEqual(-1);
       expect(sm.toString().indexOf("\"a\":\"d\"")).toEqual(-1);
+    });
+    
+    it('should accept and not serialize default values', function () {
+      const el = document.createElement('input');
+      const sm = stateManagerClass.create(el);
+      expect(sm).toBeTruthy();
+
+      const s1 = sm.newState('test', [1,2,3], 1);
+      
+      expect(sm.toString()).toEqual("");
+
+      s1.set(2);
+
+      expect(sm.toString()).toEqual("\"test\":2");
+
+      s1.set(3);
+
+      expect(sm.toString()).toEqual("\"test\":3");
+
+      s1.set(1);
+
+      expect(sm.toString()).toEqual("");
+
+      s1.set(2);
+
+      expect(sm.toString()).toEqual("\"test\":2");
     });
   });
 });
