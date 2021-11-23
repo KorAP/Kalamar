@@ -24,6 +24,7 @@ define(['state'], function(stateClass) {
     _init : function (element) {
       this._e = element;
       this._states = {};
+      this._defaults = {};
       this._parse(element.value);
 
       return this;
@@ -34,8 +35,6 @@ define(['state'], function(stateClass) {
     _parse : function (value) {
       if (value === undefined || value === '')
         return;
-
-      
       
       this._states = JSON.parse(value);
     },
@@ -55,7 +54,7 @@ define(['state'], function(stateClass) {
 
     // Create new state that is automatically associated
     // with the state manager
-    newState : function (name, values) {
+    newState : function (name, values, defValue) {
 
       const t = this;
       let s = stateClass.create(values);
@@ -64,11 +63,23 @@ define(['state'], function(stateClass) {
       if (t._states[name] !== undefined) {
         s.set(t._states[name]);
       };
+
+      // Set default value
+      // TODO: It would be better to make this part
+      // of the state and serialize correctly using TOJSON()
+      if (defValue !== undefined) {
+        s.setIfNotYet(defValue);
+        t._defaults[name] = defValue;
+      };
       
       // Associate with dummy object
       s.associate({
         setState : function (value) {
-          t._states[name] = value;
+          if (t._defaults[name] !== undefined && t._defaults[name] == value) {
+            delete t._states[name];
+          } else {
+            t._states[name] = value;
+          };
           t._update();
         }
       });
