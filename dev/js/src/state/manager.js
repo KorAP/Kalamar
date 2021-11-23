@@ -37,7 +37,7 @@ define(['state'], function(stateClass) {
 
       
       
-      this._states = JSON.parse(value);
+      this._states = JSON.parse('{' + value + '}');
     },
 
 
@@ -47,20 +47,7 @@ define(['state'], function(stateClass) {
       if (this._states.size === 0)
         return undefined;
       
-      let s = "";
-      for (let name in this._states) {
-        if (this._states[name] === 'boolean' || this._states[name] === 'number') {
-          s += name + ':' + this._states[name];
-        } else if (this._states[name] === 'string') {
-
-          // util.js' quote should be available
-          s += name + ':' + this._states[name].quote();
-        } else {
-          console.log("Unserializable type");
-        };
-        s += ',';
-      };
-      return JSON.stringify(this._states);
+      return JSON.stringify(this._states).slice(1,-1);
     },
 
 
