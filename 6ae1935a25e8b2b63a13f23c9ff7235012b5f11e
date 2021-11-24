@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebf77df_f3f199c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-11-24T17:04:46Z",
+      "side": 1,
+      "message": "Ist immer noch ein bisschen redundant bei den Metadaten(Title/Text). Da dies aber bei der baldigen Erläuterungen zu \"Corpus By Match\" erweitert wird, kann man das, wie ich finde, momentan tolerieren.",
+      "revId": "6ae1935a25e8b2b63a13f23c9ff7235012b5f11e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
