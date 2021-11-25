@@ -16,6 +16,52 @@
       "message": "Ist immer noch ein bisschen redundant bei den Metadaten(Title/Text). Da dies aber bei der baldigen Erläuterungen zu \"Corpus By Match\" erweitert wird, kann man das, wie ich finde, momentan tolerieren.",
       "revId": "6ae1935a25e8b2b63a13f23c9ff7235012b5f11e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93405176_1fb0f9d8",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-25T12:53:53Z",
+      "side": 1,
+      "message": "Maybe that\u0027s not really necessary. Just write \"Die Ergebnisse der Suche nach .. werden hier als ...\".",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 94
+      },
+      "revId": "6ae1935a25e8b2b63a13f23c9ff7235012b5f11e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "321f8f97_87efabb7",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-11-25T12:53:53Z",
+      "side": 1,
+      "message": "Ergebnisses",
+      "range": {
+        "startLine": 73,
+        "startChar": 133,
+        "endLine": 73,
+        "endChar": 141
+      },
+      "revId": "6ae1935a25e8b2b63a13f23c9ff7235012b5f11e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
