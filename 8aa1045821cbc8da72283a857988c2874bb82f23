@@ -16,6 +16,24 @@
       "message": "This reduces the hint mirror height completely so it isn\u0027t transparently laying over other active menu items (like the VC button) and disturbing their mouse activities.",
       "revId": "8aa1045821cbc8da72283a857988c2874bb82f23",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25df8cd6_3e909dac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-11-26T10:54:20Z",
+      "side": 1,
+      "message": "I do not know how to test this, as the orange hint bar is not visible in the complete/all demo.",
+      "parentUuid": "fa0738fe_5afbee80",
+      "revId": "8aa1045821cbc8da72283a857988c2874bb82f23",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
