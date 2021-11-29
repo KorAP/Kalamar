@@ -24,6 +24,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c69a965_6f3c3b20",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-11-29T13:18:03Z",
+      "side": 1,
+      "message": "Danke für den Hinweis.",
+      "parentUuid": "d8d9fa96_9052e33d",
+      "range": {
+        "startLine": 66,
+        "startChar": 21,
+        "endLine": 66,
+        "endChar": 37
+      },
+      "revId": "e4b62ed210d0a2438be430cdf7cfd9b0efdae656",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4007e385_91a728b8",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-25T12:45:10Z",
       "side": 1,
       "message": "See my comment to the german translation.",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 52
+      },
+      "revId": "e4b62ed210d0a2438be430cdf7cfd9b0efdae656",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18d1d1a2_84f9fd76",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-11-29T13:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4007e385_91a728b8",
       "range": {
         "startLine": 31,
         "startChar": 40,
