@@ -41,6 +41,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eafc4fc9_72fa01f0",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-11-29T13:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93405176_1fb0f9d8",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 94
+      },
+      "revId": "6ae1935a25e8b2b63a13f23c9ff7235012b5f11e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "321f8f97_87efabb7",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-11-25T12:53:53Z",
       "side": 1,
       "message": "Ergebnisses",
+      "range": {
+        "startLine": 73,
+        "startChar": 133,
+        "endLine": 73,
+        "endChar": 141
+      },
+      "revId": "6ae1935a25e8b2b63a13f23c9ff7235012b5f11e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad250f74_bfd77915",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-11-29T13:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "321f8f97_87efabb7",
       "range": {
         "startLine": 73,
         "startChar": 133,
