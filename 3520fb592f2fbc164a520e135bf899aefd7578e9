@@ -22,6 +22,30 @@
       },
       "revId": "3520fb592f2fbc164a520e135bf899aefd7578e9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e006be7d_3bba294b",
+        "filename": "dev/js/src/loc/dereko_de.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-01T15:27:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d312047_5f93b7de",
+      "range": {
+        "startLine": 11,
+        "startChar": 104,
+        "endLine": 11,
+        "endChar": 113
+      },
+      "revId": "3520fb592f2fbc164a520e135bf899aefd7578e9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
