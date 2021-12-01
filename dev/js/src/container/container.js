@@ -64,7 +64,8 @@ define([
 
     /**
     * Adds a static item to this container by creating a standard containerItem as specified when this container was created,
-    * then upgrading it to the item passed to this function, and calling element() and content(). For a full list of supported functions see
+    * then upgrading it to the item passed to this function, and calling element() and content(). The item is always added to the
+    * bottom of the list. It gets slightly more complicated if you want to add it in between. For a full list of supported functions see
     * containeritem.js .
     * Example:
     * 
@@ -87,6 +88,15 @@ define([
       this.element().appendChild(cItem.element());
       cItem.initContent(); // create its textNode
       if (this._cItemPrefix !== undefined){ //this must be dynamic adding of CIs, move prefix to the back
+
+        //If an item gets added and the prefix was active, we need to adjust this.position, otherwise
+        //the new item is now active and not the prefix
+        if (this.item() === this._cItemPrefix) {
+          this.position++; //Do not use menu.next(), as ONLY adjustments of this.position are necessary. isSelectable has already been taken care of,
+          //otherwise we would not have this item be active
+        }//^^This must happen before we change the "items" list to not contain prefix at the active position, i.e. before removing prefix, but
+        //it can happen after adding the new item as it gets added to the back
+
         //adjust the prefix' position within .items to be in the back
         this.items.splice(this.items.indexOf(this._cItemPrefix) , 1); //remove cItemPrefix
         this.items.push(this._cItemPrefix); //and move it to the end;
@@ -94,8 +104,10 @@ define([
         this.element().removeChild(this._cItemPrefix.element());
         this.element().appendChild(this._cItemPrefix.element());
         //adjust the prefix' stored position
-        this._prefixPosition = this.items.length;
+        this._prefixPosition = this.items.length-1; // otherwise after list due to 0 index
       };
+      //If an item was active and we add another we do not need to adjust this.position, because
+      //the new item ALWAYS gets added to the bottom of the list
       return cItem;
     },
 
@@ -113,7 +125,7 @@ define([
       prefix.isSelectable =  function () {
         return this.isSet(); //TODO check!
       };
-      this._prefixPosition = this.items.length;
+      this._prefixPosition = this.items.length; // not -1 because prefix will still get added
       prefix.initContent = function () {}; //Does not need a textNode Child!
       var prefItem = this.addItem(prefix);
       this._cItemPrefix = prefItem;
@@ -131,7 +143,7 @@ define([
     */
     removeItem : function (item) {
       if (this.items.indexOf(item) === -1){ // This is returned if indexOf cannot find the item.
-        KorAP.log(0,"Invalid item in containers removeItemByIndex: This containerItem is not contained", "container.js");
+        KorAP.log(0,"Invalid item in containers removeItem: This containerItem is not contained", "container.js");
         return;
       };
       if (item === this._cItemPrefix) {
@@ -140,19 +152,29 @@ define([
  the connection container._cItemPrefix before calling this function if you really want to remove the prefix.","container.js");
         return;
       };
-      if (item.active()) {
+      if (this.items.indexOf(item) < this.position) {
+        this.position--; // otherwise might go over length of list. If this.position != 0, then there must
+        // be at least one item left, thus this would not create an invalid position. If position == 0 then
+        // either a) we remove an item after the active entry or b) we are removing the active entry. a) no problem
+        // b) see below
+        //Do not use menu.prev(), as ONLY adjustments of this.position are necessary. isSelectable has already been taken care of,
+        //otherwise we would not have this item be active
+      } else if (item.active()) { // === position
         this._menu.next();
+        //Now we still need to reduce the position, as next was still working with a longer items list. And now we shorten it straight afterwards
+        this.position--;
       };
       item._menu=undefined;
       this._el.removeChild(item.element());
       this.items.splice(this.items.indexOf(item) , 1);
+      this._prefixPosition=this.length()-1;
     },
 
 
     /**
      * Remove a containeritem from the container by its index. Should not be used with prefix.
      * CAUTION liveIndex, so what you see, is not the actual index within the containerItem list.
-     * This can be accessed with container.items . If the active item is removed, this calls menu.next().
+     * This can be accessed with container.items.indexOf(item) . If the active item is removed, this calls menu.next().
      * @param {Int} index The index of the item to be removed.
      */
     removeItemByIndex : function (index) {

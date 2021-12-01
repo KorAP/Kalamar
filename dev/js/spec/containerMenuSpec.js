@@ -2080,6 +2080,76 @@ define(
         expect(menu.lengthField().element().innerText).toEqual("a--bb--ccc--dddd--")
         expect(menu.slider().length()).toEqual(4);
       });
+      
+      it("should make the prefix active if nothing else can be", function () {
+
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        menu.container().addItem({ value : "Dynamically added", defaultTextValue : "dynamic"})
+        menu.limit(3).show(3);
+        menu.focus(); //I don't know which of these above three lines are necessary for the error to occur, but at least one of them is.
+        menu.container().add("a"); //These two simulate a keypress of a
+        menu.show();
+        menu.container().add("s");
+        menu.show();
+        //item() gets the active item.
+        expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
+      });
+
+      it("removeItem and addItem should adjust storage of the currently active items position accordingly", function () {
+
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        menu.focus();
+        menu.show();
+        menu.container().add("s"); //make sure the prefix is selectable
+        menu.show();
+        //item() gets the active item.
+        menu.next();//Const
+        menu.next();//Lemma
+        menu.next();//Morph
+        menu.next();//PoS
+        menu.next();//Syn
+        menu.next();//CIText1
+        menu.next();//""
+        menu.next();//Prefix
+        //menu.container()._cItemPrefix.isPrefix=true; //For debugging the Spec      
+        expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
+        menu.container().removeItemByIndex(0);
+        expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
+        expect(menu.container()._prefixPosition).toEqual(menu.container().items.indexOf(menu.container()._cItemPrefix));
+        menu.container().addItem({defaultTextValue:"Number 3"});
+        expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
+        expect(menu.container()._prefixPosition).toEqual(menu.container().items.indexOf(menu.container()._cItemPrefix));
+        menu.prev();//make the new item active
+        expect(menu.container().item()).toEqual(menu.container().item(menu.container().length()-2));
+        menu.container().removeItemByIndex(menu.container().length()-2); //remove the item we just added
+        //As this should make the prefix active again.
+        expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
+        expect(menu.container()._prefixPosition).toEqual(menu.container().items.indexOf(menu.container()._cItemPrefix));
+      });
     });
 
     describe('KorAP.ContainerMenu.Container', function () {
