@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e1f511_bc93e54b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-12-01T12:36:13Z",
+      "side": 1,
+      "message": "Habe noch eine zweite Variante hinzugefügt, welche nur im Container vorliegt, was wahrscheinlich eher gewünscht war.",
+      "revId": "d0fab3aed726d38914fd2fb2fd0801441a1ee354",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
