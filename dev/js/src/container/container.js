@@ -94,7 +94,7 @@ define([
         this.element().removeChild(this._cItemPrefix.element());
         this.element().appendChild(this._cItemPrefix.element());
         //adjust the prefix' stored position
-        this._prefixPosition = this.items.length;
+        this._prefixPosition = this.items.length-1; // otherwise after list due to 0 index
       };
       return cItem;
     },
@@ -113,7 +113,7 @@ define([
       prefix.isSelectable =  function () {
         return this.isSet(); //TODO check!
       };
-      this._prefixPosition = this.items.length;
+      this._prefixPosition = this.items.length; // not -1 because prefix will still get added
       prefix.initContent = function () {}; //Does not need a textNode Child!
       var prefItem = this.addItem(prefix);
       this._cItemPrefix = prefItem;

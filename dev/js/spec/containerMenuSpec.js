@@ -2080,6 +2080,29 @@ define(
         expect(menu.lengthField().element().innerText).toEqual("a--bb--ccc--dddd--")
         expect(menu.slider().length()).toEqual(4);
       });
+      
+      it("should make the prefix active if nothing else can be", function () {
+
+        var list = [
+          ["Constituency"],
+          ["Lemma"],
+          ["Morphology"],
+          ["Part-of-Speech"],
+          ["Syntax"]
+        ];
+        
+        var ExampleItemList2 = new Array;
+        ExampleItemList2.push({defaultTextValue : "CIText1 "});
+        ExampleItemList2.push({});
+        
+        var menu = OwnContainerMenu.create(list,ExampleItemList2);
+        menu.container().add("a"); //These two simulate a keypress of a
+        menu.show();
+        menu.container().add("s");
+        menu.show();
+        //item() gets the active item.
+        expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
+      });
     });
 
     describe('KorAP.ContainerMenu.Container', function () {
