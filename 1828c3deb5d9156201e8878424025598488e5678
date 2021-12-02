@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14de6c74_07dc719a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-02T10:06:34Z",
+      "side": 1,
+      "message": "All-demo should be repaired. But it\u0027s testable with the hint demo.",
+      "revId": "1828c3deb5d9156201e8878424025598488e5678",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
