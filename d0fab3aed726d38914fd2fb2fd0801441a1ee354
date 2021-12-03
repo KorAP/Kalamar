@@ -79,6 +79,29 @@
       },
       "revId": "d0fab3aed726d38914fd2fb2fd0801441a1ee354",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "418c9591_40a8ec9c",
+        "filename": "dev/js/src/api.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-03T11:45:52Z",
+      "side": 1,
+      "message": "This seems to be unparsable by Esprima for me, so it may require a more recent version of terser in package.json if it works fine for you.",
+      "range": {
+        "startLine": 204,
+        "startChar": 9,
+        "endLine": 204,
+        "endChar": 19
+      },
+      "revId": "d0fab3aed726d38914fd2fb2fd0801441a1ee354",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
