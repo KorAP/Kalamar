@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce03c6e_55496f1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-03T11:35:07Z",
+      "side": 1,
+      "message": "Needs a rebase, I guess, so initContent() is available.",
+      "revId": "5b5fe35aa855fb6004ddbdfa2372b5e8636bf7e5",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
