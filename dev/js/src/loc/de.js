@@ -52,9 +52,9 @@ define(function () {
   loc.TOUR_sear1ti = "Suchanfrage";
   loc.TOUR_sear1 = "Hier können Sie die Suchanfrage eingeben, zum Beispiel die Suche nach '" + loc.TOUR_Qexample + "'." ;
   loc.TOUR_searAnnotti = "Annotationsassistent (1)";
-  loc.TOUR_searAnnot ="<p> Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung. </p> " +
-            "<p> Er wird ausgewählt, in dem Sie auf den kleinen orangen Balken unter dem Sucheingabefenster klicken " +
-            "oder die Pfeiltaste nach unten &darr; betätigen. </p>";
+  loc.TOUR_searAnnot ="<p>Für die Suche nach Annotationen steht der Annotationsassistent zur Verfügung.</p>" +
+            "<p>Er wird ausgewählt, in dem Sie auf den kleinen orangen Balken unter dem Sucheingabefenster klicken " +
+            "oder die Pfeiltaste nach unten &darr; betätigen.</p>";
   loc.TOUR_annotAssti = "Annotationsassistent (2)";
   loc.TOUR_annotAss = "Der Annotationsassistent erleichert die Formulierung von Suchanfragen mit Annotationen.";
   
