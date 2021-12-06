@@ -21,41 +21,53 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   loc.TOUR_welcti = loc.TOUR_welcti || "<span class='tgreeting'> Welcome to our guided tour! </span>";
   loc.TOUR_welc = loc.TOUR_welc || "This tour should give you a quick introduction to KorAP. " +
   		                           "We lead you step by step through an example.";
-  loc.TOUR_sear1 = loc.TOUR_sear1 || "Input field for the query, for example the search for '" +  loc.TOUR_Qexample + "'.";
-  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "Annotation helper";
-  loc.TOUR_annotAss =  loc.TOUR_annotAss || "The assistant displays the annotations of the different layers and helps to formulate queries.";
-  loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Choose corpus";  
+  loc.TOUR_sear1ti = loc.TOUR_sear1ti || "Query";
+  loc.TOUR_sear1 = loc.TOUR_sear1 || "Enter your query here, for example the search for '" +  loc.TOUR_Qexample + "'.";
+  loc.TOUR_searAnnotti =   loc.TOUR_searAnnotti || "Annotation Assistant (1)";
+  loc.TOUR_searAnnot = loc.TOUR_searAnnot || "<p> For querying annotations you can use the annotation assistant. </p> " +
+                                             "<p>  Click the orange bar " +
+                                             "or press the down array key &darr; for display. </p>";
+  loc.TOUR_annotAssti =  loc.TOUR_annotAssti || "Annotation Assistant (2)";
+  loc.TOUR_annotAss =  loc.TOUR_annotAss || "The annotation assistant helps in formulating queries by listing various annotation foundries and layers.";
+  loc.TOUR_vccho1ti = loc.TOUR_vccho1ti || "Corpora Selection",
+  loc.TOUR_vccho1 = loc.TOUR_vccho1 || "Click here to show the corpus assistant.";  
   loc.TOUR_vccho2ti = loc.TOUR_vccho2ti || "Corpus Assistant (1)";
-  loc.TOUR_vccho2 = loc.TOUR_vccho2 || "Define your corpus here.";
+  loc.TOUR_vccho2 = loc.TOUR_vccho2 || "With the help of the assistant you can define virtual corpora on the basis of metadata.";
   loc.TOUR_vccho3ti = loc.TOUR_vccho3ti || "Corpus Assistant (2)";
   loc.TOUR_vccho3 = loc.TOUR_vccho3 || "Several of the available metadata can be choosen in a drop down box.";
   loc.TOUR_vccho4ti =  loc.TOUR_vccho4ti || "Corpus Assistant (3)";
-  loc.TOUR_vccho4 = loc.TOUR_vccho4 || "For example to request all documents with the document sigle " + loc.TOUR_DocSigle + " .";
-  loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display corpus statistic.";
-  loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Corpus statistic";
-  loc.TOUR_qlfield = loc.TOUR_qlfield|| "You can use KorAP with different query languages. You can choose your preferred query language here. ";  
+  loc.TOUR_vccho4 = loc.TOUR_vccho4 || "This example defines a virtual corpus consisting of all documents with the document sigle " + loc.TOUR_DocSigle + ".";
+  loc.TOUR_vcStat1ti = loc.TOUR_vcStat1ti || "Corpus Statistics (1)";
+  loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display the corpus statistics.";
+  loc.TOUR_vcStat2ti = loc.TOUR_vcStat2ti || "Corpus Statistics (2)";
+  loc.TOUR_vcStat2 = loc.TOUR_vcStat2 || "Here you can see the corpus statistics.";
+  loc.TOUR_qlfieldti = loc.TOUR_qlfieldti ||"Query Languages";
+  loc.TOUR_qlfield = loc.TOUR_qlfield|| "You can use KorAP with different query languages. Choose your preferred query language here. ";  
+  loc.TOUR_helpti = loc.TOUR_helpti || "Help";
   loc.TOUR_help = loc.TOUR_help || "Here you can find help and information about KorAP.";
+  loc.TOUR_glimpseti = loc.TOUR_glimpseti || "Glimpse";
   loc.TOUR_glimpse = loc.TOUR_glimpse || "Select this to show only the first hits in undefined order.";
-  loc.TOUR_seargo = loc.TOUR_seargo || "Start the search";
+  loc.TOUR_seargoti = loc.TOUR_seargoti || "Query";
+  loc.TOUR_seargo = loc.TOUR_seargo || "Start the search by clicking the magnifying glass.";
 
   //localization guided Tour gTshowResults
   loc.TOUR_kwicti = loc.TOUR_kwicti || "Results";
-  loc.TOUR_kwic = loc.TOUR_kwic || "KWIC result (keyword in context)";
-  loc.TOUR_snippetti = loc.TOUR_snippetti ||  "KWIC(2)";
+  loc.TOUR_kwic = loc.TOUR_kwic || "The results of the query are displayed as KWIC (keyword in context). On the left side, you can see the according text sigle.";
+  loc.TOUR_snippetti = loc.TOUR_snippetti ||  "KWIC (2)";
   loc.TOUR_snippet = loc.TOUR_snippet ||  "Click on a match to show a larger snippet.";
   loc.TOUR_snippetbti = loc.TOUR_snippetbti || "Snippet";
-  loc.TOUR_snippetb = loc.TOUR_snippetb || "Display of snippet";
-  loc.TOUR_metadatabti =  loc.TOUR_metadatabti || "Metadata(1)";
-  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Click here to display metadata.";
-  loc.TOUR_metadatati = loc.TOUR_metadatati || "Metadata(2)";
+  loc.TOUR_snippetb = loc.TOUR_snippetb || "At the bottom of the snippet, there is a group of buttons to show more result views.";
+  loc.TOUR_metadatabti =  loc.TOUR_metadatabti || "Metadata (1)";
+  loc.TOUR_metadatab =  loc.TOUR_metadatab || "Click here to display the metadata.";
+  loc.TOUR_metadatati = loc.TOUR_metadatati || "Metadata (2)";
   loc.TOUR_metadata = loc.TOUR_metadata || "Display of metadata";
   loc.TOUR_tokenbti = loc.TOUR_tokenbti || "Token Annotations";
-  loc.TOUR_tokenb = loc.TOUR_tokenb || "Display of token annotations";
+  loc.TOUR_tokenb = loc.TOUR_tokenb || "Click here to show the token annotations.";
   loc.TOUR_tokenti = loc.TOUR_tokenti || "Annotations";
   loc.TOUR_token = loc.TOUR_token || "KorAP supports multiple annotations.";
-  loc.TOUR_treebti = loc.TOUR_treebti || "Further Annotations(1)";
+  loc.TOUR_treebti = loc.TOUR_treebti || "Further Annotations (1)";
   loc.TOUR_treeb = loc.TOUR_treeb || "Display further annotations";
-  loc.TOUR_treeti = loc.TOUR_treeti || "Further Annotations(2)"
+  loc.TOUR_treeti = loc.TOUR_treeti || "Further Annotations (2)"
   loc.TOUR_tree = loc.TOUR_tree || "Further annotations can be displayed as tree and arch views."
   loc.TOUR_tourdone = loc.TOUR_tourdone || "Have fun with KorAP!";
 
