@@ -495,7 +495,14 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
      
      for(let i = 2; i <= totalSteps; i++){
        searchTour.goToStepNumber(i);
-       expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(searchTour.testIntros[i-1]);
+       if(i ==3){
+         //Test for equality. Ignore HTML-Tags, replace down arrow.
+         expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual((searchTour.testIntros[i-1]).replace(/(<([^>]+)>)/ig,"").replace("&darr;","↓"));
+       }
+       else{
+         //Test for equality. Ignore HTML-Tags.
+         expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual((searchTour.testIntros[i-1]).replace(/(<([^>]+)>)/ig,""));
+       }
        switch(i){
        case 4:
          expect(intrkorap.querySelector('#hint')).not.toBeNull(); 
