@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ed9aeb2_cc7d55ed",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Finde \"searching for\" passt nicht zum Anfang des Satzes.",
+      "parentUuid": "60debde7_089e631d",
+      "range": {
+        "startLine": 25,
+        "startChar": 73,
+        "endLine": 25,
+        "endChar": 83
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3bcf522_8bbe7d0f",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-08T12:38:39Z",
       "side": 1,
       "message": "I würde ohne \"at\" sagen.",
+      "range": {
+        "startLine": 28,
+        "startChar": 57,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6aebfd_a2605cd4",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3bcf522_8bbe7d0f",
       "range": {
         "startLine": 28,
         "startChar": 57,
@@ -70,6 +118,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e542c3b3_d7e624e7",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f4ba63e_f31b8be8",
+      "range": {
+        "startLine": 29,
+        "startChar": 49,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3183500c_b567aae2",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-12-08T12:38:39Z",
       "side": 1,
       "message": "Suggestion:\nThe annotation assistant helps in formulating queries by listing various annotation foundries and layers.",
+      "range": {
+        "startLine": 31,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 136
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "922699d6_a5eb8d23",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3183500c_b567aae2",
       "range": {
         "startLine": 31,
         "startChar": 45,
@@ -162,6 +258,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73770afe_ddfc53a5",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "144ca567_f6e6438c",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 74
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c4201f5_042f76e0",
@@ -175,6 +295,30 @@
       "writtenOn": "2021-12-08T12:38:39Z",
       "side": 1,
       "message": "Ich meine ist es da besser in Plural-Form: Statistics. Bei der anderen Sätze auch.",
+      "range": {
+        "startLine": 40,
+        "startChar": 53,
+        "endLine": 40,
+        "endChar": 62
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "331fe7fa_39f31c35",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c4201f5_042f76e0",
       "range": {
         "startLine": 40,
         "startChar": 53,
@@ -231,6 +375,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4266b8_c34bfcc5",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eefd1388_e2d9136e",
+      "range": {
+        "startLine": 51,
+        "startChar": 69,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85cfd597_891d403e",
@@ -267,6 +435,30 @@
       "writtenOn": "2021-12-08T12:38:39Z",
       "side": 1,
       "message": "At the bottom of the snippet, there is a group of buttons to show more result views.",
+      "range": {
+        "startLine": 59,
+        "startChar": 44,
+        "endLine": 59,
+        "endChar": 130
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76a52fef_c851c1c1",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2a87bb7_081ab182",
       "range": {
         "startLine": 59,
         "startChar": 44,
