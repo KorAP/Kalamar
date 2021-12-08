@@ -354,6 +354,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5c20cf9_b96b34bd",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:09:57Z",
+      "side": 1,
+      "message": "We had quite an discussion about this term at the first version of the tour. Marc explicitly pointed out, that it is technically not randomized. So I will leave the term \"undefined\" untouched.",
+      "parentUuid": "eaa4163e_8da91024",
+      "range": {
+        "startLine": 49,
+        "startChar": 85,
+        "endLine": 49,
+        "endChar": 94
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eefd1388_e2d9136e",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
@@ -494,6 +518,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c50c9468_4f7869b7",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:09:57Z",
+      "side": 1,
+      "message": "Klingt besser. Da ich nicht Computerlinguistin bin: Ist das fachlich korrekt?",
+      "parentUuid": "89a3985d_d6ec6e90",
+      "range": {
+        "startLine": 68,
+        "startChar": 42,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c82ea363_46e6171b",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
@@ -505,6 +553,30 @@
       "writtenOn": "2021-12-08T12:38:39Z",
       "side": 1,
       "message": "Es sieht ein bisschen kommisch aus weil da eine leere Zeile gibt.",
+      "range": {
+        "startLine": 72,
+        "startChar": 44,
+        "endLine": 72,
+        "endChar": 64
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd0c983c_d9dbae25",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-08T18:09:57Z",
+      "side": 1,
+      "message": "Ist der einzige Eintrag ohne Titel. Hmm, man könnte natürlich End of Tour als Titel nehmen, aber das fand ich so offensichtlich....",
+      "parentUuid": "c82ea363_46e6171b",
       "range": {
         "startLine": 72,
         "startChar": 44,
