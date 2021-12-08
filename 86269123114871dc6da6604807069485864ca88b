@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60debde7_089e631d",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "searching?",
+      "range": {
+        "startLine": 25,
+        "startChar": 73,
+        "endLine": 25,
+        "endChar": 83
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3bcf522_8bbe7d0f",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "I würde ohne \"at\" sagen.",
+      "range": {
+        "startLine": 28,
+        "startChar": 57,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f4ba63e_f31b8be8",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "press?",
+      "range": {
+        "startLine": 29,
+        "startChar": 49,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3183500c_b567aae2",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "Suggestion:\nThe annotation assistant helps in formulating queries by listing various annotation foundries and layers.",
+      "range": {
+        "startLine": 31,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 136
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa3eef1_efa146cb",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "Suggestion:\n\nThe corpus assistant helps in defining virtual corpora based on metadata or using existing virtual corpora.",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 126
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "341cd713_b59b2296",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "Ich meine klingt der Satz als ob man mehrere Metadaten gleichzeitig vom Dropdown-menu auswählen kann.\n\nSuggestion:\n\nThe corpus assistant lists available metadata fields, that can be used multiple times to define a virtual corpus.",
+      "range": {
+        "startLine": 37,
+        "startChar": 40,
+        "endLine": 37,
+        "endChar": 108
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "144ca567_f6e6438c",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "This example defines a virtual corpus consisting of",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 74
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c4201f5_042f76e0",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "Ich meine ist es da besser in Plural-Form: Statistics. Bei der anderen Sätze auch.",
+      "range": {
+        "startLine": 40,
+        "startChar": 53,
+        "endLine": 40,
+        "endChar": 62
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa4163e_8da91024",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "random?",
+      "range": {
+        "startLine": 49,
+        "startChar": 85,
+        "endLine": 49,
+        "endChar": 94
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eefd1388_e2d9136e",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "without at?",
+      "range": {
+        "startLine": 51,
+        "startChar": 69,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85cfd597_891d403e",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "On the left side, you can see the text sigles of the match documents.",
+      "range": {
+        "startLine": 55,
+        "startChar": 105,
+        "endLine": 55,
+        "endChar": 153
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2a87bb7_081ab182",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "At the bottom of the snippet, there is a group of buttons to show more result views.",
+      "range": {
+        "startLine": 59,
+        "startChar": 44,
+        "endLine": 59,
+        "endChar": 130
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a3985d_d6ec6e90",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "Passt \"relational annotations\" vielleicht besser?",
+      "range": {
+        "startLine": 68,
+        "startChar": 42,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82ea363_46e6171b",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-08T12:38:39Z",
+      "side": 1,
+      "message": "Es sieht ein bisschen kommisch aus weil da eine leere Zeile gibt.",
+      "range": {
+        "startLine": 72,
+        "startChar": 44,
+        "endLine": 72,
+        "endChar": 64
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
