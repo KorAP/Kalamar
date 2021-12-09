@@ -48,6 +48,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72fd0adc_829c6d59",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-09T08:20:37Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "1ed9aeb2_cc7d55ed",
+      "range": {
+        "startLine": 25,
+        "startChar": 73,
+        "endLine": 25,
+        "endChar": 83
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3bcf522_8bbe7d0f",
@@ -376,6 +400,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "081c27e6_0c20809d",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-09T08:20:37Z",
+      "side": 1,
+      "message": "I see.",
+      "parentUuid": "a5c20cf9_b96b34bd",
+      "range": {
+        "startLine": 49,
+        "startChar": 85,
+        "endLine": 49,
+        "endChar": 94
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eefd1388_e2d9136e",
@@ -530,6 +578,30 @@
       "side": 1,
       "message": "Klingt besser. Da ich nicht Computerlinguistin bin: Ist das fachlich korrekt?",
       "parentUuid": "89a3985d_d6ec6e90",
+      "range": {
+        "startLine": 68,
+        "startChar": 42,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97ec5221_ca79fec7",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2021-12-09T08:20:37Z",
+      "side": 1,
+      "message": "Syntactic annotations is genauer. Vielleicht hat @Nils noch eine besser Idee?",
+      "parentUuid": "c50c9468_4f7869b7",
       "range": {
         "startLine": 68,
         "startChar": 42,
