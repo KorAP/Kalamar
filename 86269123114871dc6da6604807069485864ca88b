@@ -261,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d3ee663_cf5e0da9",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-10T12:12:30Z",
+      "side": 1,
+      "message": "Then \"lists some available metadata fields\", otherwise it again sounds wrong.",
+      "parentUuid": "341cd713_b59b2296",
+      "range": {
+        "startLine": 37,
+        "startChar": 40,
+        "endLine": 37,
+        "endChar": 108
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "144ca567_f6e6438c",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
@@ -602,6 +626,30 @@
       "side": 1,
       "message": "Syntactic annotations is genauer. Vielleicht hat @Nils noch eine besser Idee?",
       "parentUuid": "c50c9468_4f7869b7",
+      "range": {
+        "startLine": 68,
+        "startChar": 42,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad55d81b_5ee276e2",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-10T12:12:30Z",
+      "side": 1,
+      "message": "\"Syntactic annotations\" is more limited. This would be the area for RST and similar annotations as well, so \"relational annotations\" sounds fine to me.",
+      "parentUuid": "97ec5221_ca79fec7",
       "range": {
         "startLine": 68,
         "startChar": 42,

@@ -16,6 +16,29 @@
       "message": "Vielen Dank, Eliza,  für Deine Korrekturen :)!",
       "revId": "2d56229cae83e2cdeaa875295bccdf277b9456e5",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7ca1d7_b8f802f2",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-10T12:12:30Z",
+      "side": 1,
+      "message": "arrow",
+      "range": {
+        "startLine": 29,
+        "startChar": 64,
+        "endLine": 29,
+        "endChar": 69
+      },
+      "revId": "2d56229cae83e2cdeaa875295bccdf277b9456e5",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
