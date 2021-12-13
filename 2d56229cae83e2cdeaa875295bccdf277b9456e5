@@ -39,6 +39,30 @@
       },
       "revId": "2d56229cae83e2cdeaa875295bccdf277b9456e5",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67cf7d6c_6c74de7d",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-13T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7ca1d7_b8f802f2",
+      "range": {
+        "startLine": 29,
+        "startChar": 64,
+        "endLine": 29,
+        "endChar": 69
+      },
+      "revId": "2d56229cae83e2cdeaa875295bccdf277b9456e5",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }

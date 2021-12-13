@@ -236,6 +236,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70215507_39e04105",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-13T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa3eef1_efa146cb",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 126
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "341cd713_b59b2296",
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "Then \"lists some available metadata fields\", otherwise it again sounds wrong.",
       "parentUuid": "341cd713_b59b2296",
+      "range": {
+        "startLine": 37,
+        "startChar": 40,
+        "endLine": 37,
+        "endChar": 108
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c09150a_274739a8",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-13T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d3ee663_cf5e0da9",
       "range": {
         "startLine": 37,
         "startChar": 40,
@@ -518,6 +566,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b503464e_a86be76d",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-13T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85cfd597_891d403e",
+      "range": {
+        "startLine": 55,
+        "startChar": 105,
+        "endLine": 55,
+        "endChar": 153
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2a87bb7_081ab182",
@@ -660,6 +732,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "155f8408_2e6f16fe",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-13T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad55d81b_5ee276e2",
+      "range": {
+        "startLine": 68,
+        "startChar": 42,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c82ea363_46e6171b",
@@ -697,6 +793,30 @@
       "side": 1,
       "message": "Ist der einzige Eintrag ohne Titel. Hmm, man könnte natürlich End of Tour als Titel nehmen, aber das fand ich so offensichtlich....",
       "parentUuid": "c82ea363_46e6171b",
+      "range": {
+        "startLine": 72,
+        "startChar": 44,
+        "endLine": 72,
+        "endChar": 64
+      },
+      "revId": "86269123114871dc6da6604807069485864ca88b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02a605b8_1d5822a1",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2021-12-13T11:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd0c983c_d9dbae25",
       "range": {
         "startLine": 72,
         "startChar": 44,
