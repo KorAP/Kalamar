@@ -41,4 +41,9 @@ div.matchtree {
     margin-right:     $right-view-distance;
     background-color: $light-orange;
   }
+
+  svg {
+    overflow: visible;
+    margin: 1em;
+  }
 }
