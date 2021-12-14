@@ -17,7 +17,7 @@ WriteMakefile(
   LICENSE      => 'freebsd',
   PREREQ_PM => {
     'Mojolicious' => '9.19',
-    'Mojolicious::Plugin::TagHelpers::Pagination' => 0.08,
+    'Mojolicious::Plugin::TagHelpers::Pagination' => 0.10,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.13,
     'Mojolicious::Plugin::ClosedRedirect' => 0.15,
     'Mojolicious::Plugin::Notifications' => 1.07,
