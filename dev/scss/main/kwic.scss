@@ -275,20 +275,24 @@ body.no-js #search > ol > li:active,
 
   p.ref {
     display:       block;
-	  color:         $nearly-white;
-	  padding:       3pt 10pt 3pt 3pt;
-	  padding-right: $right-view-distance;
-	  margin:        0pt;
-	  width:         100%;
-	  bottom:        0;
-	  z-index:       30;
+    color:         $nearly-white;
+    padding:       3pt 10pt 3pt 3pt;
+    padding-right: $right-view-distance;
+    margin:        0pt;
+    width:         100%;
+    bottom:        0;
+    z-index:       30;
 
-	  > span.sigle {
-	    font-size:      75%;
-	    vertical-align: top;
-	    color:          $light-orange;
-	    float:          right;
-	  }
+    > span.sigle {
+      font-size:      75%;
+      vertical-align: top;
+      color:          $light-orange;
+      float:          right;
+    }
+
+    > div.button-panel + * {
+      margin-left: .5em;
+    }
   }
 }
 
