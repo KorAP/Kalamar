@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7367473f_22f4d2a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-14T09:24:27Z",
+      "side": 1,
+      "message": "With this commit I would tag a new release in GitHub and deploy on master and instance/test.",
+      "revId": "c7816da4d13744e7f301dd9c67cfa156c415dfb1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
