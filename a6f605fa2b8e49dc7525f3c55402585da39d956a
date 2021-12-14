@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc13087_51ae21f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2021-12-14T11:46:41Z",
+      "side": 1,
+      "message": "I am unsure if this can leak memory a bit tbh.\n\nThis requires M::P::TagHelpers::Pagination 0.10 - so make sure to update the dependencies.",
+      "revId": "a6f605fa2b8e49dc7525f3c55402585da39d956a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
