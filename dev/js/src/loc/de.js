@@ -98,7 +98,7 @@ define(function () {
   loc.TOUR_treebti ="Relationen (1)";
   loc.TOUR_treeb = "Unter \"" + loc.ADDTREE + "\" ist eine Auswahl weiterer Ansichten möglich.";
   loc.TOUR_treeti = "Relationen (2)";
-  loc.TOUR_tree = "Diese können können als Baum- oder Bogenansichten angezeigt werden.";
+  loc.TOUR_tree = "Diese können als Baum- oder Bogenansichten angezeigt werden.";
   loc.TOUR_tourdone = "Viel Spaß mit KorAP!";
 
   // Pagination panel
