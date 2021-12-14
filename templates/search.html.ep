@@ -1,11 +1,12 @@
 % layout 'main', schematype => 'SearchResultsPage';
+% my $numf = sub { return loc('numf', number => $_[0]) };
 
 <div id="pagination"
      class="button-group button-panel"
      data-page="<%= stash('start_page') %>"
      data-total="<%= stash('total_pages') %>"
      data-count="<%= stash('items_per_page') %>"
-     ><%= pagination(stash('start_page'), stash('total_pages'), url_with->query({'p' => '{page}'})) =%></div>
+     ><%= pagination(stash('start_page'), stash('total_pages'), url_with->query({'p' => '{page}'}), { num_format => $numf }) =%></div>
 
 <div id="resultinfo" <% if (stash('results')->size) { %> class="found"<%} %>>
 % my $found = stash('total_results') // 0;

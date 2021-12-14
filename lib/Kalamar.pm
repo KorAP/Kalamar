@@ -400,7 +400,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2021, L<IDS Mannheim|https://www.ids-mannheim.de/>
+Copyright (C) 2015-2022, L<IDS Mannheim|https://www.ids-mannheim.de/>
 Author: L<Nils Diewald|https://www.nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>

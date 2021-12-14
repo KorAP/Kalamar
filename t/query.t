@@ -154,7 +154,7 @@ is(defined $err ? $err->text : '', '');
 
 
 # Query with page information
-$err = $t->get_ok('/?q=der&p=1&count=2')
+$err = $t->get_ok('/?q=der&p=1&count=2' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
   ->text_is('title', 'KorAP: Find »der« with Poliqarp')
 
@@ -163,7 +163,7 @@ $err = $t->get_ok('/?q=der&p=1&count=2')
 
   # Total pages
   ->element_count_is('#pagination > a', 7)
-  ->text_is('#pagination a:nth-of-type(6) span', 7291)
+  ->text_is('#pagination a:nth-of-type(6) span', '7,291')
   ->element_exists('#pagination a.ellipsis.inactive')
   ->content_like(qr!${q}count${q}:2!)
   ->content_like(qr!${q}startIndex${q}:0!)
@@ -191,17 +191,17 @@ like($next_href, qr/p=2/);
 unlike($next_href, qr/p=1/);
 
 # Query with page information - next page
-$err = $t->get_ok('/?q=der&p=2&count=2')
+$err = $t->get_ok('/?q=der&p=2&count=2' => { 'Accept-Language' => 'de-DE, en-US, en' })
   ->status_is(200)
-  ->text_is('title', 'KorAP: Find »der« with Poliqarp')
+  ->text_is('title', 'KorAP: Finde »der« mit Poliqarp')
   ->element_exists('#search')
 
   # Total results
-  ->text_is('#total-results', '14,581')
+  ->text_is('#total-results', '14.581')
 
   # Total pages
   ->element_count_is('#pagination > a', 7)
-  ->text_is('#pagination a:nth-of-type(6) span', 7291)
+  ->text_is('#pagination a:nth-of-type(6) span', '7.291')
   ->content_like(qr!${q}count${q}:2!)
   ->content_like(qr!${q}itemsPerPage${q}:2!)
   ->content_like(qr!${q}startIndex${q}:2!)

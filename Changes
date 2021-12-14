@@ -1,7 +1,8 @@
 0.44 2022-01-04
         - Fixed autosecrets migration. (diewald)
+        - Format page numbers in pagination (diewald).
 
-0.43 2021-12-14
+0.43 2021-12-01
         - New menu class that has an entry at the very end,
           similar to the input text prefix,
           that is always available. (lerepp)
@@ -460,8 +461,8 @@
         - Improved menu using sliders.
         - Improved menu to make prefixes chooseable,
           even if list can't be filtered.
-          - Improve pageup/pagedown behaviour in menus.
-          - Fixed multiple bugs in menu.
+        - Improve pageup/pagedown behaviour in menus.
+        - Fixed multiple bugs in menu.
 
 0.19 2016-04-28
         - Improved datepicker to enter date strings.
@@ -525,7 +526,7 @@
 
 0.06 2014-09-22
         - Updated certain Notifications and AssetPack plugins
-  - Updated pagination plugin
+        - Updated pagination plugin
 
 0.05 2014-07-15
         - Improved tutorial support

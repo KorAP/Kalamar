@@ -297,7 +297,7 @@ to allow specific scripts to run.
 
 ### Original Software
 
-Copyright (C) 2015-2021, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
+Copyright (C) 2015-2022, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](https://www.nils-diewald.de/), Helge Stallkamp<br>
 Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation),
 Leo Repp
