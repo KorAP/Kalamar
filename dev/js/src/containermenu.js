@@ -130,9 +130,9 @@ define([
           t.container().enter(e);
           //NEW: reset some things. These are reset for hint menu style items
           // so I believe we need to do the same when pressing on items in the container
-          t.reset("");
-          t.hide();
-          t.hint().unshow();
+          //t.reset("");
+          //t.hide();
+          //t.hint().unshow(); Moved this line into hint/menu.js because it is hint containermenu specific!
           //for clicking this is done in container.js with an eventListener for click.
         } else { // Click on item
           t.liveItem(t.position).onclick(e);

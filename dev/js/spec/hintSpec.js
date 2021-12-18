@@ -2,14 +2,19 @@
 
 define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'], function (hintClass, inputClass, contextClass, menuClass, menuItemClass) {
 
-  function emitKeyboardEvent (element, type, keyCode) {
+  function emitKeyboardEvent (element, type, letter, keyCode) {
     // event type : keydown, keyup, keypress
     // http://stackoverflow.com/questions/596481/simulate-javascript-key-events
     // http://stackoverflow.com/questions/961532/firing-a-keyboard-event-in-javascript
-    var keyboardEvent = document.createEvent("KeyboardEvent");
+    /**
+     * Nils Version. Does not work due to bug noted below
+    var keyboardEvent = document.createEvent("KeyboardEvent",);
     var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ?
         "initKeyboardEvent" : "initKeyEvent";
     keyboardEvent[initMethod](
+     
+      
+     
       type, 
       true,    // bubbles
       true,    // cancelable
@@ -19,10 +24,30 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       false,   // shiftKeyArg
       false,   // metaKeyArg
       keyCode, // keyCodeArg : unsigned long the virtual key code, else 0
-      0        // charCodeArgs : unsigned long the Unicode character
+      charCode || 0        // charCodeArgs : unsigned long the Unicode character
       // associated with the depressed key, else 0
+      
     );
     element.dispatchEvent(keyboardEvent);
+    */
+    //Leos Version
+    //https://stackoverflow.com/a/59113178
+          
+      //might not work on Chromium
+    element.dispatchEvent(new KeyboardEvent(type, {
+      key: letter,
+      keyCode: keyCode,
+      code: "Key"+letter,
+      which: keyCode, //This is a hack
+      shiftKey: false,
+      ctrlKey: false,
+      metaKey: false,
+      bubbles: true,
+      view: window,
+      charCode: keyCode //This is a hack https://bugs.webkit.org/show_bug.cgi?id=16735
+      // charCodeArgs : unsigned long the Unicode character
+    // associated with the depressed key, else 0
+    }));
   };
 
   var afterAllFunc = function () {
@@ -125,13 +150,13 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(inputField.context()).toEqual("abcde");
     });
 
-    /*
+    
       it('should be correctly triggerable', function () {
       // https://developer.mozilla.org/samples/domref/dispatchEvent.html
       var hint = KorAP.Hint.create({ "inputField" : input });
-      emitKeyboardEvent(hint.inputField.element, "keypress", 20);
+      emitKeyboardEvent(hint.inputField()._el, "keypress", "E", 69);
       });
-    */
+    
   });
 
 
@@ -438,6 +463,41 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       
     });
 
+    
+    it('should highlight the prefix if no item matches.', function () {
+      const hint = hintClass.create({
+        inputField : input
+      });
+      hint.inputField().reset();
+
+      expect(hint.active()).toBeFalsy();
+
+      // show with context
+      hint.show(false);
+
+      expect(hint.active()).toBeTruthy();
+
+      const menu = hint.active();
+      expect(menu.limit(3).show(3)).toBe(true);
+      menu.element().focus();
+          
+      
+
+      emitKeyboardEvent(menu.element(), 'keypress', "E", 69);
+      emitKeyboardEvent(menu.element(), 'keypress', "E", 69);
+      emitKeyboardEvent(menu.element(), 'keypress', "E", 69);
+      expect(menu.container()._cItemPrefix.active()).toBeTruthy();
+      expect(menu.prefix()).toEqual("EEE");
+      expect(menu.element().classList.contains("visible")).toBeTruthy();
+      expect(menu.container().element().classList.contains("visible")).toBeTruthy();
+
+      emitKeyboardEvent(menu.element(),'keydown'," ",13);
+      //Should call reset() and hide()
+      // hint containermenu should do something different.
+      expect(menu.prefix()).toEqual("");
+      expect(menu.element().classList.contains("visible")).toBeFalsy();
+      expect(menu.container().element().classList.contains("visible")).toBeFalsy();
+    });
 
     
     xit('should remove all menus on escape');
