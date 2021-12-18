@@ -2045,10 +2045,10 @@ define(
       xit('should scroll to a chosen value after prefixing, if the chosen value is live');
       
       it('should be extendable', function () {
-          var menu = OwnContainerMenu.create([],ExampleItemList);
-          let entryData = 'empty';
-          menu._itemClass = menuItemClass;
-          menu.readItems([
+        var menu = OwnContainerMenu.create([],ExampleItemList);
+        let entryData = 'empty';
+        menu._itemClass = menuItemClass;
+        menu.readItems([
           ['a', '', function () { entryData = 'a' }],
           ['bb', '', function () { entryData = 'bb' }],
           ['ccc', '', function () { entryData = 'ccc' }],
@@ -2079,6 +2079,73 @@ define(
         expect(menu.shownItem(0).lcField()).toEqual(' a');
         expect(menu.lengthField().element().innerText).toEqual("a--bb--ccc--dddd--")
         expect(menu.slider().length()).toEqual(4);
+      });
+
+      it('should be correctly function when pressing enter in the container', function () {
+        var menu = OwnContainerMenu.create(demolist,ExampleItemList);
+        expect(menu.limit(3).show(3)).toBe(true);
+        /**
+        var keyboardEvent = document.createEvent('KeyboardEvent');
+        delete keyboardEvent.which;
+        var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent'; 
+        keyboardEvent[initMethod]('keydown', // event type : keydown, keyup, keypress
+             true, // bubbles
+             true, // cancelable
+             window, // viewArg: should be window
+             false, // ctrlKeyArg
+             false, // altKeyArg
+             false, // shiftKeyArg
+             false, // metaKeyArg
+             //13 = Enter
+             13, // keyCodeArg : unsigned long the virtual key code, else 0
+             13 // charCodeArgs : unsigned long the Unicode character associated with the depressed key, else 0
+        );
+        menu.element().dispatchEvent(keyboardEvent);
+        */
+              
+        window.dispatchEvent(new KeyboardEvent('keydown', {
+          key: "e",
+          keyCode: 69,
+          code: "KeyE",
+          which: 69,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false
+        }));
+        window.dispatchEvent(new KeyboardEvent('keydown', {
+          key: "e",
+          keyCode: 69,
+          code: "KeyE",
+          which: 69,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false
+        }));
+        window.dispatchEvent(new KeyboardEvent('keydown', {
+          key: "e",
+          keyCode: 69,
+          code: "KeyE",
+          which: 69,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false
+        }));
+        expect(menu.container()._cItemPrefix.active()).toBeTruthy();
+        expect(menu.prefix()).toEqual("eee");
+        window.dispatchEvent(new KeyboardEvent('keydown', {
+          key: " ",
+          keyCode: 13,
+          code: "Enter",
+          which: 13,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false
+        }));
+        //Should call reset() and hide()
+        expect(menu.prefix()).toEqual("");
+        expect(menu.element().classList.contains("visible")).toBeFalsy();
+        expect(menu.container().element().classList.contains("visible")).toBeFalsy();
+        
       });
     });
 
