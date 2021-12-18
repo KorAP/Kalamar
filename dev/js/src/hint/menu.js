@@ -51,7 +51,7 @@ define([
       obj.container().element().addEventListener("click", function (e) {
         this.reset("");
         this.element().blur();
-        this.hint().unshow(); //hide the containermenu, not with hide but with blur, because blur would usually happen in default mousedown behaviour
+        //NOW IN RESET: this.hint().unshow(); //hide the containermenu, not with hide but with blur, because blur would usually happen in default mousedown behaviour
         e.halt(); // Question: my impression is that this click event handler is called after all the others and thus this should be absolutely no problem.
         // Are we sure there are no things that do not happen now thanks to this?
 
@@ -87,6 +87,7 @@ define([
      reset : function (action) {
       this.prefix("");
       this.hint().inputField().insert(action).update();
+      this.hint().unshow()
     },
   };
 });

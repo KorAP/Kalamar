@@ -2045,10 +2045,10 @@ define(
       xit('should scroll to a chosen value after prefixing, if the chosen value is live');
       
       it('should be extendable', function () {
-          var menu = OwnContainerMenu.create([],ExampleItemList);
-          let entryData = 'empty';
-          menu._itemClass = menuItemClass;
-          menu.readItems([
+        var menu = OwnContainerMenu.create([],ExampleItemList);
+        let entryData = 'empty';
+        menu._itemClass = menuItemClass;
+        menu.readItems([
           ['a', '', function () { entryData = 'a' }],
           ['bb', '', function () { entryData = 'bb' }],
           ['ccc', '', function () { entryData = 'ccc' }],
@@ -2149,6 +2149,91 @@ define(
         //As this should make the prefix active again.
         expect(menu.container().item()).toEqual(menu.container()._cItemPrefix);
         expect(menu.container()._prefixPosition).toEqual(menu.container().items.indexOf(menu.container()._cItemPrefix));
+      });
+      
+      it('should highlight the prefix if no item matches.', function () {
+        var menu = OwnContainerMenu.create(demolist,ExampleItemList);
+        expect(menu.limit(3).show(3)).toBe(true);
+        menu.element().focus();
+        /**
+        var keyboardEvent = document.createEvent('KeyboardEvent');
+        delete keyboardEvent.which;
+        var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent'; 
+        keyboardEvent[initMethod]('keydown', // event type : keydown, keyup, keypress
+             true, // bubbles
+             true, // cancelable
+             window, // viewArg: should be window
+             false, // ctrlKeyArg
+             false, // altKeyArg
+             false, // shiftKeyArg
+             false, // metaKeyArg
+             //13 = Enter
+             13, // keyCodeArg : unsigned long the virtual key code, else 0
+             13 // charCodeArgs : unsigned long the Unicode character associated with the depressed key, else 0
+        );
+        menu.element().dispatchEvent(keyboardEvent);
+        */
+            
+        //might not work on Chromium
+        //source: https://stackoverflow.com/questions/596481/is-it-possible-to-simulate-key-press-events-programmatically
+
+        menu._keypress(new KeyboardEvent('keypress', {
+          key: "E",
+          keyCode: 69,
+          code: "KeyE",
+          which: 69,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false,
+          bubbles: true,
+          view: window,
+          charCode: 69, //This is a hack
+          target: menu.element()
+        }));
+        menu._keypress(new KeyboardEvent('keypress', {
+          key: "E",
+          keyCode: 69,
+          code: "KeyE ",
+          which: 69,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false,
+          bubbles: true,
+          view: window,
+          charCode: 69, //This is a hack,
+          target: menu.element()
+        }));
+        
+        menu._keypress(new KeyboardEvent('keypress', {
+          key: "E",
+          keyCode: 69,
+          code: "KeyE",
+          which: 69,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false,
+          bubbles: true,
+          view: window,
+          charCode: 69 //This is a hack
+        }));
+        expect(menu.container()._cItemPrefix.active()).toBeTruthy();
+        expect(menu.prefix()).toEqual("EEE");
+        expect(menu.element().classList.contains("visible")).toBeTruthy();
+        expect(menu.container().element().classList.contains("visible")).toBeTruthy();
+        menu._keydown(new KeyboardEvent('keydown', {
+          key: " ",
+          keyCode: 13,
+          code: "Enter",
+          which: 13,
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false
+        }));
+        //Should call reset() and hide()
+        // hint containermenu should do something different.
+        expect(menu.prefix()).toEqual("EEE");
+        expect(menu.element().classList.contains("visible")).toBeTruthy();
+        expect(menu.container().element().classList.contains("visible")).toBeTruthy();
       });
     });
 
