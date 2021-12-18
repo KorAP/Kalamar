@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11fbf3cb_f3236cc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2021-12-18T15:07:22Z",
+      "side": 1,
+      "message": "Oopsidaisy. This is annotationHelper specific and breaks regular containermenu.",
+      "revId": "5715e27e355899132f67e8a107331193b91fbb0d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
