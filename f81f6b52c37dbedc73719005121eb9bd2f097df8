@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a245fefd_4133db13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2022-01-03T13:01:11Z",
+      "side": 1,
+      "message": "Requires 5222 to work properly.\n",
+      "revId": "f81f6b52c37dbedc73719005121eb9bd2f097df8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
