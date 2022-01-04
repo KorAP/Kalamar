@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2fc1bc6_ae5cc6bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-01-04T13:41:49Z",
+      "side": 1,
+      "message": "No test as this is only code in a deprecated migration path.",
+      "revId": "c484a8a935f936aaa6b5132d4135a5c281c74d53",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
