@@ -33,6 +33,23 @@
       "message": "Maybe tell me in case this is not the desired behaviour or if you have better names for the tests.",
       "revId": "c48a54c27afbf34b58f16b95edcbf20dbaf2c1be",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bd26018_9e8dbce0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-01-04T09:21:43Z",
+      "side": 1,
+      "message": "The beaviour is okay, I guess. If it is really necessary to use KeyboardEvents (instead of method calls), please use emitKeyboardEvent() in hintSpec and write a similar function in other specs to simplify the testing.",
+      "revId": "c48a54c27afbf34b58f16b95edcbf20dbaf2c1be",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
