@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.43';
+our $VERSION = '0.44';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -46,7 +46,17 @@ sub startup {
 
     # Load file and split lines for multiple secrets
     my $secrets = [b($old_secret->slurp)->split("\n")];
+
     $self->secrets($secrets);
+
+    for (@$secrets) {
+      if (length($secrets) > 22) {
+        $self->log->warn(
+          'Unable to automatically switch to Autosecrets, as secret is too long (> 22 chars)'
+        );
+        goto CONF;
+      };
+    }
 
     eval {
       $secret_file->spurt(encode_json(@$secrets));
@@ -72,6 +82,7 @@ sub startup {
     });
   };
 
+ CONF:
 
   # Configuration framework
   $self->plugin('Config');
