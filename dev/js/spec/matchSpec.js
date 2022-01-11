@@ -90,6 +90,12 @@ define(['match',
     },
     {
       "@type": "koral:field",
+      "key": "xlink2",
+      "type": "type:attachement",
+      "value": "data:application/x.korap-link;example=%20Das%20war%20einfach;title=Hallo%21,https%3A%2F%2Fwww.test.de"
+    },
+    {
+      "@type": "koral:field",
       "key": "z-reference",
       "type": "type:attachement",
       "value": "data:,This is a reference"
@@ -906,19 +912,27 @@ define(['match',
 	  }); 
 
     it('attachements should be formatted', function(){
-		  //type:attachement with a link
+      //type:attachement with a link (legacy)
       expect(mel.children[3].children[1].getAttribute('data-type')).toEqual('type:attachement')
-		  expect(mel.children[3].children[1].classList.contains('metakeyvalues')).toBeFalsy;
-		  expect(mel.children[3].children[0].firstChild.nodeValue).toEqual('xlink');
-		  expect(mel.children[3].children[1].firstChild.textContent).toEqual('Cool');
-		  expect(mel.children[3].children[1].firstChild.tagName).toEqual('A');
+      expect(mel.children[3].children[1].classList.contains('metakeyvalues')).toBeFalsy;
+      expect(mel.children[3].children[0].firstChild.nodeValue).toEqual('xlink');
+      expect(mel.children[3].children[1].firstChild.textContent).toEqual('Cool');
+      expect(mel.children[3].children[1].firstChild.tagName).toEqual('A');
       expect(mel.children[3].children[1].firstChild.getAttribute('href')).toEqual('https://de.wikipedia.org/wiki/Beispiel');
 
-		  //type:attachement with plain text
+      //type:attachement with a link (uri encoded)
       expect(mel.children[4].children[1].getAttribute('data-type')).toEqual('type:attachement')
-		  expect(mel.children[4].children[1].classList.contains('metakeyvalues')).toBeFalsy;
-      expect(mel.children[4].children[0].firstChild.nodeValue).toEqual('z-reference');
-      expect(mel.children[4].children[1].firstChild.nodeValue).toEqual('This is a reference');
+      expect(mel.children[4].children[1].classList.contains('metakeyvalues')).toBeFalsy;
+      expect(mel.children[4].children[0].firstChild.nodeValue).toEqual('xlink2');
+      expect(mel.children[4].children[1].firstChild.textContent).toEqual('Hallo!');
+      expect(mel.children[4].children[1].firstChild.tagName).toEqual('A');
+      expect(mel.children[4].children[1].firstChild.getAttribute('href')).toEqual('https://www.test.de');
+      
+      //type:attachement with plain text
+      expect(mel.children[5].children[1].getAttribute('data-type')).toEqual('type:attachement')
+      expect(mel.children[5].children[1].classList.contains('metakeyvalues')).toBeFalsy;
+      expect(mel.children[5].children[0].firstChild.nodeValue).toEqual('z-reference');
+      expect(mel.children[5].children[1].firstChild.nodeValue).toEqual('This is a reference');
     }); 
  
     
