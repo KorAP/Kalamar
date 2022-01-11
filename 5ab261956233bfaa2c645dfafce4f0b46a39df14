@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55118ea4_7838604d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-01-11T16:23:37Z",
+      "side": 1,
+      "message": "At least in the test environment, this already works - so we may want to check this for Gingko once it\u0027s indexed with https://korap.ids-mannheim.de/gerrit/c/KorAP/KorAP-XML-Krill/+/5319",
+      "revId": "5ab261956233bfaa2c645dfafce4f0b46a39df14",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
