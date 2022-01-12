@@ -192,9 +192,9 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
         //Step 11, intro_item 10
         {
           title: loc.TOUR_qlfieldti,
-          element: doe.querySelector('#ql-field').parentNode,
+          element: doe.querySelector('#ql-field ~ .menu'),
           intro: loc.TOUR_qlfield,
-          position: "bottom",
+          position: "right",
         },  
         {
           title: loc.TOUR_glimpseti,
@@ -260,8 +260,12 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
             KorAP.Hint.unshow();
           }
           if (KorAP._vcKeyMenu.dontHide){
-          KorAP._vcKeyMenu.dontHide = false;
-          KorAP._vcKeyMenu.hide();
+            KorAP._vcKeyMenu.dontHide = false;
+            KorAP._vcKeyMenu.hide();
+          } 
+          if(KorAP.QLmenu.dontHide){
+            KorAP.QLmenu.dontHide = false; 
+            KorAP.QLmenu.hide();
           }
         });
       
@@ -297,6 +301,18 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           KorAP.vc.fromJson(loc.TOUR_vcQuery);
           intro._introItems[7].element = doe.querySelector('#vc-view * .doc');
           intro._introItems[7].position = "left";
+          break;
+        case 9:
+          KorAP.QLmenu.dontHide = false;
+          KorAP.QLmenu.hide();
+          break;
+         case 10:
+           KorAP.QLmenu.showSelected();
+          KorAP.QLmenu.dontHide = true;
+          break;
+         case 11: 
+           KorAP.QLmenu.dontHide = false;
+           KorAP.QLmenu.hide();    
         }
         });  
       

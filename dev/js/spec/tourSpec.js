@@ -430,7 +430,12 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
     })
     
     KorAP.Hint = hintClass.create({inputField: intrkorap.getElementById("q-field")});
-    
+   
+    let qlfl = intrkorap.getElementById("q-field");
+    if (qlfl !== null) { 
+      KorAP.QLmenu =  selectMenuClass.create(intrkorap.getElementById('ql-field').parentNode).limit(5);
+    };
+
 
     it('IDs and classes, that are needed for the guided tour should be in existence', function(){
       //gTstartSearch
@@ -440,7 +445,7 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
       expect(intrkorap.querySelector('#vc-choose')).not.toBeNull();     
       expect(intrkorap.querySelector('#vc-view')).not.toBeNull();
       expect(intrkorap.querySelector('#vc-view * .doc')).not.toBeNull();
-      expect(intrkorap.querySelector('#ql-field').parentNode).not.toBeNull();
+      expect(intrkorap.querySelector('#ql-field ~ .menu')).not.toBeNull();
       expect(intrkorap.querySelector('#glimpse').parentNode).not.toBeNull();
       expect(intrkorap.querySelector('#view-tutorial')).not.toBeNull();
       expect(intrkorap.querySelector('#qsubmit')).not.toBeNull();
