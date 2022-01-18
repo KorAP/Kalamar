@@ -33,6 +33,23 @@
       "message": "Should this be abandoned?",
       "revId": "355a0d4ef295a68f1f3e1d3b6781e8238cc88875",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e7e1ff0_248a2ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-01-18T15:49:54Z",
+      "side": 1,
+      "message": "No, it is still work in progress.",
+      "revId": "355a0d4ef295a68f1f3e1d3b6781e8238cc88875",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
