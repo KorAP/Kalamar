@@ -153,7 +153,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
     
       it('should be correctly triggerable', function () {
       // https://developer.mozilla.org/samples/domref/dispatchEvent.html
-      var hint = KorAP.Hint.create({ "inputField" : input });
+      var hint = hintClass.create({ "inputField" : input });
       emitKeyboardEvent(hint.inputField()._el, "keypress", "E", 69);
       });
     
