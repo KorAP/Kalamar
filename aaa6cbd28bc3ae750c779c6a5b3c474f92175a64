@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede19bae_e771c207",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-01-19T17:10:16Z",
+      "side": 1,
+      "message": "Expectations für die Spec \"should be correctly triggerable\" müssen noch definiert werden.",
+      "revId": "aaa6cbd28bc3ae750c779c6a5b3c474f92175a64",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
