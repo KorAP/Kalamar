@@ -16,6 +16,24 @@
       "message": "This should preferably only contain demo data.\nThe changes to api.js should be in a separate commit.\nIf querystoringitem.js is only demo relevant, it shouldn\u0027t be in src/hint/querystoringitem.js.\n\nAnd - is the manual change to the source data still necessary? Isn\u0027t it possible to add these objects now to the container?",
       "revId": "a1b9c7fa3b09a850d3be846c8a21e2ffdd5cc821",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e136ead_a63eba99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 47
+      },
+      "writtenOn": "2022-01-21T13:10:52Z",
+      "side": 1,
+      "message": "Api changes now seperate.\nquerystoringitem.js is only necessary for the first querystoringdemo variant. Maybe we should just get rid of that version and then we don\u0027t need to worry about how to keep it clean. Because for variant 1 to work we need to make changes to the source code of the item, and currently there is no good way of overwriting the corresponding class via a create call.",
+      "parentUuid": "e813fb1e_0080cecd",
+      "revId": "a1b9c7fa3b09a850d3be846c8a21e2ffdd5cc821",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
