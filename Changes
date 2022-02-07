@@ -7,6 +7,7 @@
           manager and can therefore survive URL changes. (diewald)
         - Add KorAP::XML::Krill and KorAP::XML::TEI to
           Dockerfile. (diewald)
+        - Improve handling of invalid URIs in attachements. (diewald)
 
 0.43 2021-11-05
         - New menu class that has an entry at the very end,
