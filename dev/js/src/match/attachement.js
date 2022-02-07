@@ -29,8 +29,18 @@ define(function () {
     _init : function (url) {
       const t = this;
 
+      t.base64 = false;
+      t.isLink = false;
+      t.contentType = "text/plain";
+      
       // Decode
-      url = decodeURIComponent(url);
+      var url;
+      try {
+        url = decodeURIComponent(url);
+      } catch {
+        t.payload = '[INVALID URI]'
+        return t;
+      }
 
       if (!uriRE.exec(url))
         return;
@@ -39,9 +49,6 @@ define(function () {
 
       let map = {};
       let start = 0;
-      t.base64 = false;
-      t.isLink = false;
-      t.contentType = "text/plain";
 
       // Split parameter map
       RegExp.$1.split(/ *; */).map(function (item) {

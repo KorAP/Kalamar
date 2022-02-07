@@ -1,10 +1,11 @@
-0.44 2022-01-18
+0.44 2022-02-07
         - Fixed autosecrets migration. (diewald)
         - Format page numbers in pagination. (diewald)
         - Introduce tei2korapxml command via plugin. (diewald)
         - Introduce korapxml2tei command via plugin. (diewald)
         - Plugin toggle states are now managed by the state
           manager and can therefore survive URL changes. (diewald)
+        - Improve handling of invalid URIs in attachements. (diewald)
 
 0.43 2021-11-05
         - New menu class that has an entry at the very end,
