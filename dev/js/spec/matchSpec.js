@@ -92,14 +92,20 @@ define(['match',
       "@type": "koral:field",
       "key": "xlink2",
       "type": "type:attachement",
-      "value": "data:application/x.korap-link;example=%20Das%20war%20einfach;title=Hallo%21,https%3A%2F%2Fwww.test.de"
+      "value" : "data:application/x.korap-link;example=%20Das%20war%20einfach;title=Hallo%21,https%3A%2F%2Fwww.test.de",
+    },
+    {
+      "@type": "koral:field",
+      "key": "xlink3",
+      "type": "type:attachement",
+      "value": "data:application/x.korap-link;title=Gingko-Webseite%20an%20der%20Universit%E4t%20Leipzig,http%3A%2F%2Fwww.uni-leipzig.de%2Fgingko%2F"
     },
     {
       "@type": "koral:field",
       "key": "z-reference",
       "type": "type:attachement",
       "value": "data:,This is a reference"
-    }
+    },
   ];
 
 
@@ -927,12 +933,18 @@ define(['match',
       expect(mel.children[4].children[1].firstChild.textContent).toEqual('Hallo!');
       expect(mel.children[4].children[1].firstChild.tagName).toEqual('A');
       expect(mel.children[4].children[1].firstChild.getAttribute('href')).toEqual('https://www.test.de');
-      
+
       //type:attachement with plain text
       expect(mel.children[5].children[1].getAttribute('data-type')).toEqual('type:attachement')
       expect(mel.children[5].children[1].classList.contains('metakeyvalues')).toBeFalsy;
-      expect(mel.children[5].children[0].firstChild.nodeValue).toEqual('z-reference');
-      expect(mel.children[5].children[1].firstChild.nodeValue).toEqual('This is a reference');
+      expect(mel.children[5].children[0].firstChild.nodeValue).toEqual('xlink3');
+      expect(mel.children[5].children[1].firstChild.nodeValue).toEqual('[INVALID URI]');
+      
+      //type:attachement with plain text
+      expect(mel.children[6].children[1].getAttribute('data-type')).toEqual('type:attachement')
+      expect(mel.children[6].children[1].classList.contains('metakeyvalues')).toBeFalsy;
+      expect(mel.children[6].children[0].firstChild.nodeValue).toEqual('z-reference');
+      expect(mel.children[6].children[1].firstChild.nodeValue).toEqual('This is a reference');
     }); 
  
     
