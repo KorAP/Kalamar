@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a776d9_aaf244f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-02-07T19:14:17Z",
+      "side": 1,
+      "message": "Could be improved further by introducing an error content type or similar - but at least this doesn\u0027t crash anymore.",
+      "revId": "a1f608b21d784368cbf958c8d74845eab2381142",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
