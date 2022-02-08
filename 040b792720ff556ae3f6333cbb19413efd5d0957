@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be607517_5e927c7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-02-08T15:09:44Z",
+      "side": 1,
+      "message": "Currently the state input is displayed - see instance/test.",
+      "revId": "040b792720ff556ae3f6333cbb19413efd5d0957",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
