@@ -43,8 +43,7 @@ RUN apk update && \
             curl && \
     set -o pipefail && \
     curl -L https://cpanmin.us | perl - App::cpanminus && \
-    cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git \
-          git://github.com/Akron/Mojolicious-Plugin-TagHelpers-ContentBlock.git && \
+    cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git && \
     cpanm Cpanel::JSON::XS \
           EV \
           IO::Socket::Socks && \
