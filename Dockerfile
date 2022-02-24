@@ -41,7 +41,6 @@ RUN apk update && \
             g++ \
             make \
             wget \
-            openjdk11-jre \
             libxml2-dev \
             unzip \
             curl && \
