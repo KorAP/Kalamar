@@ -42,6 +42,7 @@ RUN apk update && \
             make \
             wget \
             libxml2-dev \
+            libxml2 \
             unzip \
             curl && \
     set -o pipefail && \
@@ -49,10 +50,11 @@ RUN apk update && \
     cpanm File::ShareDir::Install \
           Cpanel::JSON::XS \
           EV \
-          IO::Socket::Socks \
-          git://github.com/Akron/Mojolicious-Plugin-Localize.git \
-          git://github.com/KorAP/KorAP-XML-TEI.git \
-          git://github.com/KorAP/KorAP-XML-Krill.git
+          IO::Socket::Socks
+
+RUN cpanm https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.21.tar.gz \
+   https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.3.2b.tar.gz \
+   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.45.tar.gz
 
 # Install Kalamar including all dependencies
 RUN cpanm --installdeps . -M https://cpan.metacpan.org
