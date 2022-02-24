@@ -80,6 +80,8 @@ ENV MOJO_PORT   64543
 ENV MOJO_LISTEN http://*:${MOJO_PORT}
 ENV MOJO_MODE   production
 
+RUN echo "{Kalamar=>{plugins=>['KorAPXML2Krill','Tei2KorAPXML']}}" > kalamar.production.conf
+
 EXPOSE ${MOJO_PORT}
 
 ENTRYPOINT [ "perl", "script/kalamar" ]
