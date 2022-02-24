@@ -43,6 +43,7 @@ RUN apk update && \
             wget \
             openjdk11-jre \
             libxml2-dev \
+            libxml2 \
             unzip \
             curl && \
     set -o pipefail && \
