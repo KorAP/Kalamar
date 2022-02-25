@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e0ad3a_32fca51a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-02-25T08:42:38Z",
+      "side": 1,
+      "message": "This will at least require https://korap.ids-mannheim.de/gerrit/c/KorAP/KorAP-XML-TEI/+/5432 - maybe even more adjustments.",
+      "revId": "900fe8c93eaad83c6a5b14c6fdeb5e1fe7cbdd25",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
