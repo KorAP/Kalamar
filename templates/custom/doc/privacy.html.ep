@@ -1,0 +1,72 @@
+% layout 'main', title => 'KorAP: Datenschutzerklärung';
+
+<h2 id="tutorial-top">Datenschutzerklärung</h2>
+
+Für die Nutzung von KorAP gilt die <%= link_to 'Datenschutzerklärung des IDS', 'https://www.ids-mannheim.de/allgemein/datenschutz/' %>. Darüber hinaus weisen wir auf folgende Punkte hin, die spezifisch für die Nutzung von KorAP sind:</p>
+
+<section>
+  <h3>Verwendung technisch nicht notwendiger Cookies</h3>
+
+  <h4>Beschreibung und Umfang der Datenverarbeitung</h4>
+
+  <p>Wir verwenden auf unserer Website Cookies, die eine Analyse des Surfverhaltens der Nutzer ermöglichen. Auf diese Weise können folgende Daten übermittelt werden:</p>
+
+  <ol>
+    <li>Suchanfragen</li>
+    <li>Korpusanfragen</li>
+    <li>Inanspruchnahme von Funktionen</li>
+  </ol>
+  
+  <p>Die auf diese Weise erhobenen Daten der Nutzerinnen/Nutzer werden durch technische Vorkehrungen anonymisiert. Daher ist eine Zuordnung der Daten zum aufrufenden Nutzer nicht mehr möglich. Die Daten werden nicht gemeinsam mit sonstigen personenbezogenen Daten der Nutzer gespeichert.</p>
+
+  <h4>Rechtsgrundlage für die Datenverarbeitung</h4>
+
+  <p>Die Rechtsgrundlage für die Verarbeitung personenbezogener Daten unter Verwendung technisch nicht notwendiger Cookies ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <h4>Zweck der Datenverarbeitung</h4>
+
+  <p>Die Verwendung der Analyse-Cookies erfolgt zu dem Zweck, die Qualität unserer Website und ihre Inhalte zu verbessern. Durch die Analyse-Cookies erfahren wir, wie die Website genutzt wird und können so unser Angebot stetig optimieren. In diesen Zwecken liegt auch unser berechtigtes Interesse in der Verarbeitung der personenbezogenen Daten nach Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <h4>Dauer der Speicherung, Widerspruchs- und Beseitigungsmöglichkeit</h4>
+
+  <p>Cookies werden auf dem Rechner des Nutzers gespeichert und von diesem an unsere Seite übermittelt. Daher haben Sie als Nutzer auch die volle Kontrolle über die Verwendung von Cookies. Durch eine Änderung der Einstellungen in Ihrem Internetbrowser können Sie die Übertragung von Cookies deaktivieren oder einschränken. Bereits gespeicherte Cookies können jederzeit gelöscht werden. Dies kann auch automatisiert erfolgen. Werden Cookies für unsere Website deaktiviert, können möglicherweise nicht mehr alle Funktionen der Website vollumfänglich genutzt werden.</p>
+
+</section>
+
+<section>
+  <h3>Webanalyse durch Matomo</h3>
+
+  <h4>Umfang der Verarbeitung personenbezogener Daten</h4>
+
+  <p>Wir nutzen auf unserer Website das Open-Source-Software-Tool Matomo (ehemals PIWIK) zur Analyse des Surfverhaltens unserer Nutzer. Die Software setzt ein Cookie auf dem Rechner der Nutzer (zu Cookies siehe bereits oben). Werden Einzelseiten unserer Website aufgerufen, so werden folgende Daten gespeichert:</p>
+
+  <ol>
+    <li>Die um das letzte Byte gekürzte IP-Adresse des aufrufenden Systems des Nutzers</li>
+    <li>Die aufgerufene Webseite</li>
+    <li>Die Website, von der der Nutzer auf die aufgerufene Webseite gelangt ist, sofern diese Information übertragen wird (Referrer)</li>
+    <li>Die Unterseiten und Funktionen, die von der aufgerufenen Webseite aus aufgerufen werden</li>
+    <li>Die Verweildauer auf der Webseite</li>
+    <li>Die Häufigkeit des Aufrufs der Webseite</li>
+    <li>Suchbegriffe, mittels derer der Nutzer die Seite gefunden und aufgerufen hat, sofern diese Information übertragen wird</li>
+  </ol>
+
+  <p>Matomo läuft ausschließlich auf den Servern des Instituts für Deutsche Sprache. Eine Speicherung der personenbezogenen Daten der Nutzer findet nur dort statt. Eine Weitergabe der Daten an Dritte erfolgt nicht. Die Software ist so eingestellt, dass die IP-Adressen nicht vollständig gespeichert werden, sondern 1 Byte der IP-Adresse maskiert wird (Bsp.: 192.168.0.xxx). Auf diese Weise ist eine Zuordnung der gekürzten IP-Adresse zum aufrufenden Rechner nicht mehr möglich. Nähere Informationen zu den Privatsphäreeinstellungen der Matomo Software finden Sie unter folgendem Link: <%= link_to 'https://matomo.org/docs/privacy/', 'https://matomo.org/docs/privacy/' %>.</p>
+
+  <h4>Rechtsgrundlage für die Verarbeitung personenbezogener Daten</h4>
+
+  <p>Die Rechtsgrundlage für die Verarbeitung personenbezogener Daten unter Verwendung technisch nicht notwendiger Cookies ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <h4>Zweck der Datenverarbeitung</h4>
+
+  <p>Die Verarbeitung der personenbezogenen Daten der Nutzer ermöglicht uns eine Analyse des Surfverhaltens unserer Nutzer. Wir sind durch die Auswertung der gewonnen Daten in der Lage, Informationen über die Nutzung der einzelnen Komponenten unseres Dienstes zusammenzustellen. Dies hilft uns dabei unseren Dienst und dessen Nutzerfreundlichkeit stetig zu verbessern. In diesen Zwecken liegt auch unser berechtigtes Interesse in der Verarbeitung der Daten nach Art. 6 Abs. 1 lit. f DSGVO. Durch die Anonymisierung der IP-Adresse wird dem Interesse der Nutzer an deren Schutz personenbezogener Daten hinreichend Rechnung getragen.</p>
+
+  <h4>Dauer der Speicherung</h4>
+
+  <p>Die Daten werden gelöscht, sobald sie für unsere Aufzeichnungszwecke nicht mehr benötigt werden, spätestens nach 12 Monaten.</p>
+
+  <h4>Widerspruchs- und Beseitigungsmöglichkeit</h4>
+
+  <p>Cookies werden auf dem Rechner des Nutzers gespeichert und von diesem an unsere Seite übermittelt. Daher haben Sie als Nutzer auch die volle Kontrolle über die Verwendung von Cookies. Durch eine Änderung der Einstellungen in Ihrem Internetbrowser können Sie die Übertragung von Cookies deaktivieren oder einschränken. Bereits gespeicherte Cookies können jederzeit gelöscht werden. Dies kann auch automatisiert erfolgen. Werden Cookies für unsere Website deaktiviert, können möglicherweise nicht mehr alle Funktionen der Website vollumfänglich genutzt werden.</p>
+
+  %= piwik_tag 'opt-out'
+</section>
