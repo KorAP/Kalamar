@@ -78,6 +78,8 @@ RUN addgroup -S korap && \
 
 USER kalamar
 
+RUN mkdir /kalamar/data
+
 ENV MOJO_PORT   64543
 ENV MOJO_LISTEN http://*:${MOJO_PORT}
 ENV MOJO_MODE   production
