@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           curl -L https://cpanmin.us > cpanm
-          perl cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+          perl cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
           perl cpanm --installdeps .
       - name: Run Tests
         run: prove -lr t/
