@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78965519_5a119b42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-03-28T14:59:48Z",
+      "side": 1,
+      "message": "If this doesn\u0027t work, https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.21.tar.gz is an alternative working with cpanm.",
+      "revId": "a19734dbec813e036f5dc9ed44a6d682377f3d5e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
