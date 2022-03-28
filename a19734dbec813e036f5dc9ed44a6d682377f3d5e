@@ -51,6 +51,24 @@
       "parentUuid": "eec6a8b5_d2c0d1bf",
       "revId": "a19734dbec813e036f5dc9ed44a6d682377f3d5e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0acb90fd_df66b0ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2022-03-28T19:59:48Z",
+      "side": 1,
+      "message": "Doesn\u0027t matter, the next build was successful.",
+      "parentUuid": "2ac2374c_3bb3f807",
+      "revId": "a19734dbec813e036f5dc9ed44a6d682377f3d5e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
