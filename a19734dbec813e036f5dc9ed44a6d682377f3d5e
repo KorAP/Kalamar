@@ -16,6 +16,23 @@
       "message": "If this doesn\u0027t work, https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.21.tar.gz is an alternative working with cpanm.",
       "revId": "a19734dbec813e036f5dc9ed44a6d682377f3d5e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec6a8b5_d2c0d1bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2022-03-28T16:13:16Z",
+      "side": 1,
+      "message": "Hmm, linux build still fails because of CHI, which is installed here:\n\nhttps://github.com/KorAP/Kalamar/runs/5722478786?check_suite_focus\u003dtrue#step:5:215\n\nThe problem is found later, here:\n\nhttps://github.com/KorAP/Kalamar/runs/5722478786?check_suite_focus\u003dtrue#step:5:446",
+      "revId": "a19734dbec813e036f5dc9ed44a6d682377f3d5e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
