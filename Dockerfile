@@ -25,7 +25,7 @@ RUN cd /kalamar && \
        dev/robots.txt
 
 # Use alpine linux as base image
-FROM alpine:latest
+FROM alpine:latest as kalamar-base
 
 # Copy assets from former container
 COPY --from=assetbuilder /kalamar /kalamar
@@ -37,27 +37,69 @@ RUN apk update && \
             perl \
             perl-io-socket-ssl \
             perl-dev \
-            perl-doc \
             g++ \
             make \
             wget \
-            libxml2-dev \
-            libxml2 \
-            unzip \
             curl && \
     set -o pipefail && \
     curl -L https://cpanmin.us | perl - App::cpanminus && \
-    cpanm File::ShareDir::Install \
+    cpanm https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.21.tar.gz \
           Cpanel::JSON::XS \
           EV \
           IO::Socket::Socks
 
-RUN cpanm https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.21.tar.gz \
-   https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.3.2b.tar.gz \
-   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.45.tar.gz
-
 # Install Kalamar including all dependencies
 RUN cpanm --installdeps . -M https://cpan.metacpan.org
+
+LABEL maintainer="korap@ids-mannheim.de"
+LABEL repository="https://github.com/KorAP/Kalamar"
+
+FROM kalamar-base AS kalamar
+
+# Remove all build dependencies
+RUN apk del git \
+            perl-dev \
+            g++ \
+            make \
+            wget \
+            curl && \
+            rm -rf /root/.cpanm \
+                   /usr/local/share/man && \
+            rm -rf t
+
+RUN addgroup -S korap && \
+    adduser -S kalamar -G korap && \
+    chown -R kalamar.korap /kalamar
+
+USER kalamar
+
+ENV MOJO_PORT   64543
+ENV MOJO_LISTEN http://*:${MOJO_PORT}
+ENV MOJO_MODE   production
+
+EXPOSE ${MOJO_PORT}
+
+ENTRYPOINT [ "perl", "script/kalamar" ]
+
+CMD [ "daemon" ]
+
+LABEL description="Docker Image for Kalamar, the KorAP user frontend"
+
+
+FROM kalamar-base AS kalamar-convert
+
+RUN apk update && \
+    apk add --no-cache \
+            perl-doc \
+            libxml2-dev \
+            libxml2 \
+            unzip && \
+    set -o pipefail && \
+    cpanm File::ShareDir::Install
+          
+RUN cpanm \
+   https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.3.2b.tar.gz \
+   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.45.tar.gz
 
 # Remove all build dependencies
 RUN apk del git \
@@ -71,6 +113,7 @@ RUN apk del git \
             rm -rf /root/.cpanm \
                    /usr/local/share/man && \
             rm -rf t
+
 
 RUN addgroup -S korap && \
     adduser -S kalamar -G korap && \
@@ -92,6 +135,7 @@ ENTRYPOINT [ "perl", "script/kalamar" ]
 
 CMD [ "daemon" ]
 
-LABEL maintainer="korap@ids-mannheim.de"
-LABEL description="Docker Image for Kalamar, the KorAP user frontend"
-LABEL repository="https://github.com/KorAP/Kalamar"
+LABEL description="Docker Image for Kalamar, the KorAP user frontend, including Conversion"
+
+# docker build -f Dockerfile -t korap/kalamar-conv:0.44 --target kalamar-convert .
+# docker build -f Dockerfile -t korap/kalamar:0.44 --target kalamar .
