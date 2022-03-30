@@ -77,7 +77,7 @@ The easiest way to do this is using
 This will probably need administration rights.
 
 ```shell
-$ cpanm git://github.com/Akron/Mojolicious-Plugin-Localize.git
+$ cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
 ```
 
 Then install the dependencies using
