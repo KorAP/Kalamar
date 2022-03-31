@@ -32,9 +32,9 @@
       %= label_for type => loc('Auth_clientType'), class => 'field-required'
       <%= radio_button type => 'PUBLIC', checked => 'checked' %>
       <label>Public</label>
-%#      <br />
-%#      <%= radio_button type => 'CONFIDENTIAL' %>
-%#      <label>Confidential</label>
+      <br />
+      <%= radio_button type => 'CONFIDENTIAL' %>
+      <label>Confidential</label>
     </div>
 
     <div>
@@ -47,10 +47,10 @@
       %= url_field 'url', placeholder => 'https://...'
     </div>
 
-%#    <div>
-%#      %= label_for name => loc('Auth_redirectUri')
-%#      %= url_field 'redirect_uri', placeholder => 'https://...'
-%#    </div>
+    <div>
+      %= label_for name => loc('Auth_redirectUri')
+      %= url_field 'redirect_uri', placeholder => 'https://...'
+    </div>
 
     %= submit_button loc('Auth_clientRegister')
   </fieldset>
