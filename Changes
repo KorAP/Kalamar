@@ -1,4 +1,7 @@
-0.44 2022-02-24
+0.45 2022-04-06
+        - Added confidential client support to OAuth. (diewald)
+
+0.44 2022-02-31
         - Fixed autosecrets migration. (diewald)
         - Format page numbers in pagination. (diewald)
         - Introduce tei2korapxml command via plugin. (diewald)

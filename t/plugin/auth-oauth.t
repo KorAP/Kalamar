@@ -516,18 +516,18 @@ my $anchor = $t->get_ok('/settings/oauth')
   ->text_is('.form-table legend', 'Register new client application')
   ->attr_is('.oauth-register','action', '/settings/oauth/register')
   ->text_is('ul.client-list > li > span.client-name a', 'MyApp')
-  ->text_is('ul.client-list > li > span.client-desc', 'This is my application')
+  ->text_is('ul.client-list > li > p.client-desc', 'This is my application')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
-  ->tx->res->dom->at('ul.client-list > li > span.client-url a')
+  ->tx->res->dom->at('ul.client-list > li > p.client-url a')
   ;
 is(defined $anchor ? $anchor->text : '', '');
 
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->status_is(200)
   ->text_is('ul.client-list > li.client > span.client-name', 'MyApp')
-  ->text_is('ul.client-list > li.client > span.client-desc', 'This is my application')
+  ->text_is('ul.client-list > li.client > p.client-desc', 'This is my application')
   ->text_is('a.client-unregister', 'Unregister')
   ->attr_is('a.client-unregister', 'href', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/unregister?name=MyApp')
   ;
@@ -592,6 +592,7 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
+  ->element_exists('.client-issue-token')
   ;
 
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
@@ -605,6 +606,7 @@ $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('ul.token-list label[for=token]', 'Access Token')
   ->text_is('p[name=created]', 'Created at ')
   ->text_is('p[name=expires]', 'Expires in 31533851 seconds.')
+  ->element_exists('.client-issue-token')
   ;
 
 $csrf = $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
@@ -698,11 +700,58 @@ $t->post_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE' => form 
   ->header_is('Location','/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ;
 
-
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->element_exists_not('div.notify-error')
   ->text_is('div.notify-success', 'Token was revoked successfully')
   ;
+
+$t->app->routes->get('/x/redirect-target')->to(
+  cb => sub {
+    my $c = shift;
+    return $c->render(text => 'redirected');
+  }
+);
+
+$csrf = $t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyConfApp',
+  type => 'CONFIDENTIAL',
+  desc => 'This is my application',
+})
+  ->text_is('div.notify-error', 'Bad CSRF token')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
+  ;
+
+$t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyConfApp',
+  type => 'CONFIDENTIAL',
+  desc => 'This is my confidential application',
+  csrf_token => $csrf,
+  redirect_uri => 'http://localhost/redirect-target'
+})
+  ->text_is('div.notify-error', undef)
+  ->text_is('li.client span.client-name', 'MyConfApp')
+  ->text_is('li.client p.client-desc', 'This is my confidential application')
+  ->text_is('li.client .client-redirect-uri tt', 'http://localhost/redirect-target')
+  ->text_is('li.client .client-type tt', 'CONFIDENTIAL')
+  ->element_exists_not('.client-issue-token')
+  ;
+
+$t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyConfApp2',
+  type => 'CONFIDENTIAL',
+  desc => 'This is my second confidential application',
+  csrf_token => $csrf,
+  redirect_uri => 'http://localhost/FAIL'
+})
+  ->status_is(302)
+  ->header_is('location','/settings/oauth/')
+  ;
+
+$t->get_ok('/settings/oauth/')
+  ->text_is('div.notify-error', 'invalid_request: http://localhost/FAIL is invalid.')
+  ;
+
 
 done_testing;
 __END__

@@ -9,19 +9,23 @@
       <li class="client">
         <span class="client-name"><%= stash 'client_name' %></span>
         % if (stash('client_desc')) {
-        <span class="client-desc"><%= stash 'client_desc' %></span>
+        <p class="client-desc"><%= stash 'client_desc' %></p>
         % };
         % if (stash('client_url')) {
-        <span class="client-url"><a href="<%= stash('client_url') %>"><%= stash('client_url') %></a></span>
+        <p class="client-url"><a href="<%= stash('client_url') %>"><%= stash('client_url') %></a></p>
+        % };
+      
+        % if (stash('client_redirect_uri')) {
+        <p class="client-redirect-uri"><%= loc 'Auth_redirectUri' %>: <tt><%= stash('client_redirect_uri') %></tt></p>
         % };
 
-        <p><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
+        <p class="client-type"><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
         %= label_for 'client_id' => loc('Auth_clientID')
         %= text_field 'client_id', stash('client_id'), readonly => 'readonly', class => 'copy-to-clipboard'
-        % if (stash('client_type') && stash('client_type') ne 'PUBLIC') {
+        % if (stash('client_type') && stash('client_type') ne 'PUBLIC' && stash('client_secret')) {
         <div>
           %= label_for 'client_secret' => loc('Auth_clientSecret')
-          %= password_field 'client_secret', value => stash('client_secret'), readonly => 'readonly'
+          %= password_field 'client_secret', value => stash('client_secret'), readonly => 'readonly', class => 'show-pwd copy-to-clipboard'
         </div>
         % };
 
@@ -29,7 +33,9 @@
 
         <span class="button-group button-panel">
           %= link_to loc('Auth_oauthUnregister_short') => url_for('oauth-unregister', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-unregister' )
-          %= link_to loc('Auth_oauthIssueToken_short') => url_for('oauth-issue-token', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-issue-token' )
+          % if (stash('client_type') && stash('client_type') eq 'PUBLIC') {
+            %= link_to loc('Auth_oauthIssueToken_short') => url_for('oauth-issue-token', client_id => stash('client_id'))->query('name' => stash('client_name')) => {} => ( class => 'client-issue-token' )
+          % };
         </span>        
       </li>
     </ul>    

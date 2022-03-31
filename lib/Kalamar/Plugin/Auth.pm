@@ -873,6 +873,14 @@ sub register {
               my $result = $tx->result;
 
               if ($result->is_error) {
+                my $json = $result->json;
+                if ($json && $json->{error}) {
+                  $c->notify(
+                    error => $json->{error} .
+                      ($json->{error_description} ? ': ' . $json->{error_description} : '')
+                  )
+                };
+
                 return Mojo::Promise->reject;
               };
 
@@ -898,10 +906,7 @@ sub register {
             }
           )->catch(
             sub {
-              # Server may be irresponsible
-              my $err = shift;
               $c->notify('error' => $c->loc('Auth_en_registerFail'));
-              return Mojo::Promise->reject($err);
             }
           )->finally(
             sub {
@@ -1018,7 +1023,7 @@ sub register {
               $c->stash(client_name => $item->{client_name});
               $c->stash(client_desc => $item->{client_description});
               $c->stash(client_url  => $item->{client_url});
-              $c->stash(client_type => 'PUBLIC');
+              $c->stash(client_type => ($item->{client_type} // 'PUBLIC'));
 
               $c->auth->token_list_p($c->stash('client_id'));
             }

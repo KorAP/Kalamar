@@ -21,6 +21,7 @@ our %tokens = (
   'access_token_3' => 'jvgjbvjgzucgdwuiKHJK',
   'refresh_token_2' => "fghijk",
   'new_client_id' => 'fCBbQkA2NDA3MzM1Yw==',
+  'new_client_id_2' => 'hghGHhjhFRz_gJhjrd==',
   'new_client_secret' => 'KUMaFxs6R1WGud4HM22w3HbmYKHMnNHIiLJ2ihaWtB4N5JxGzZgyqs5GTLutrORj',
   'auth_token_1'    => 'mscajfdghnjdfshtkjcuynxahgz5il'
 );
@@ -543,7 +544,7 @@ post '/v1.0/oauth2/client/register' => sub {
   my $desc = $json->{description};
   my $type = $json->{type};
   my $url  = $json->{url};
-  my $redirect_url = $json->{redirect_uri};
+  my $redirect_uri = $json->{redirect_uri};
 
   my $list = $c->app->defaults('oauth.client_list');
 
@@ -551,13 +552,25 @@ post '/v1.0/oauth2/client/register' => sub {
     "client_id" => $tokens{new_client_id},
     "client_name" => $name,
     "client_description" => $desc,
-    "client_url" => $url
+    "client_url" => $url,
+    "client_redirect_uri" => $redirect_uri
+  };
+
+  if ($redirect_uri && $redirect_uri =~ /FAIL$/) {
+    return $c->render(
+      status => 400,
+      json => {
+        "error_description" => $redirect_uri . " is invalid.",
+        "error" => "invalid_request"
+      }
+    )
   };
 
   # Confidential server application
   if ($type eq 'CONFIDENTIAL') {
+
     return $c->render(json => {
-      client_id => $tokens{new_client_id},
+      client_id => $tokens{new_client_id_2},
       client_secret => $tokens{new_client_secret}
     });
   };
