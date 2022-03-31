@@ -698,11 +698,42 @@ $t->post_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?_method=DELETE' => form 
   ->header_is('Location','/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ;
 
-
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->element_exists_not('div.notify-error')
   ->text_is('div.notify-success', 'Token was revoked successfully')
   ;
+
+$t->app->routes->get('/x/redirect-target')->to(
+  cb => sub {
+    my $c = shift;
+    return $c->render(text => 'redirected');
+  }
+);
+
+$csrf = $t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyConfApp',
+  type => 'CONFIDENTIAL',
+  desc => 'This is my application',
+})
+  ->text_is('div.notify-error', 'Bad CSRF token')
+  ->tx->res->dom->at('input[name="csrf_token"]')
+  ->attr('value')
+  ;
+
+$t->post_ok('/settings/oauth/register' => form => {
+  name => 'MyConfApp',
+  type => 'CONFIDENTIAL',
+  desc => 'This is my confidential application',
+  csrf_token => $csrf,
+  redirect_uri => 'http://localhost/redirect-target'
+})
+  ->text_is('div.notify-error', undef)
+  ->text_is('li.client span.client-name', 'MyConfApp')
+  ->text_is('li.client span.client-desc', 'This is my confidential application')
+  ->text_is('li.client .client-redirect-uri tt', 'http://localhost/redirect-target')
+  ->text_is('li.client .client-type tt', 'CONFIDENTIAL')
+  ;
+
 
 done_testing;
 __END__
