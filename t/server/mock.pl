@@ -543,7 +543,7 @@ post '/v1.0/oauth2/client/register' => sub {
   my $desc = $json->{description};
   my $type = $json->{type};
   my $url  = $json->{url};
-  my $redirect_url = $json->{redirect_uri};
+  my $redirect_uri = $json->{redirect_uri};
 
   my $list = $c->app->defaults('oauth.client_list');
 
@@ -551,7 +551,8 @@ post '/v1.0/oauth2/client/register' => sub {
     "client_id" => $tokens{new_client_id},
     "client_name" => $name,
     "client_description" => $desc,
-    "client_url" => $url
+    "client_url" => $url,
+    "client_redirect_uri" => $redirect_uri
   };
 
   # Confidential server application
