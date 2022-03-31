@@ -9,14 +9,17 @@ ul.client-list {
 
   li.client {
     list-style-type: none;
+    margin-bottom: 1.5em;
 
     span.client-name::before {
       margin-left: -1.5em;
     }
 
-    span.client-desc {
-      font-size: 70%;
-      display:   block;
+    p.client-desc, p.client-url {
+      font-weight: normal;
+      font-size: 80%;
+      margin-top: .2em;
+      margin-bottom: .2em;
     }
   }
 
