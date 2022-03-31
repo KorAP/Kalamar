@@ -1,5 +1,5 @@
 %# # user not logged in
-% if (!stash('documentation') && !$embedded && !$c->auth->token) {
+% if (!stash('documentation') && !param('embedded') && !$c->auth->token) {
 %   if (flash('handle') && !param('handle')) {
 %     param(handle => flash('handle'));
 %#  Legacy-Support:
@@ -12,9 +12,9 @@
       %= csrf_field
       %= text_field 'handle', placeholder => loc('username')
       %= hidden_field fwd => $c->url_with
-      <div>
+      <div class="form-one-line">
         %= password_field 'pwd', placeholder => loc('pwd')
-        <button type="submit"><span><%= loc 'go' %></span></button>
+        <button type="submit" class="login"><span><%= loc 'go' %></span></button>
       </div>
     % end
 

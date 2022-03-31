@@ -64,9 +64,11 @@
     %= csp_nonce_tag
 
     <div id="kalamar-bg"></div>
-    
-    %= include 'partial/side', embedded => $embedded
-    
+
+    % unless (stash('no_side')) {
+      %= include 'partial/side', embedded => $embedded
+    % }
+
     % unless ($embedded) {
       %= include 'partial/header'
     % }

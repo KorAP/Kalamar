@@ -1,0 +1,7 @@
+% layout 'main', main_class => 'popup', no_side => 1, no_search => 1;
+
+%= page_title
+
+<div class="form-table">
+%= include 'partial/auth/login'
+</div>

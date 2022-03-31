@@ -1,4 +1,5 @@
 @charset "utf-8";
+@use 'sass:math';
 @import "util";
 
 /**
@@ -14,6 +15,7 @@ $standard-margin: 4px;
   #search > ol,
   #search div.snippet > span,
   header,
+  footer a,
   header input,
   div#resultinfo,
   #pagination > a {
@@ -22,6 +24,7 @@ $standard-margin: 4px;
 
   header {
     padding-right: 8px;
+    min-height: 3.5em;
   }
   
   header form {
@@ -209,6 +212,7 @@ $standard-margin: 4px;
 
   footer {
     padding-left: 0 !important;
+    height: math.div($footer-height, 2);
   }
 }
 

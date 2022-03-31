@@ -18,6 +18,7 @@ header {
   padding:          $base-padding 0 0 $base-padding;
   font-size:        10pt;
   color:            $nearly-white;
+  min-height:       5em;
   
   span.select {
     display:     inline-block;

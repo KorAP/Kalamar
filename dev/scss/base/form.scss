@@ -30,10 +30,12 @@
     border-radius: $standard-border-radius;
   }
 
+  /*
   label,
   input[type=radio] {
     // font-size: 80%;
   }
+  */
   
   label[for] {
     display: block;
@@ -133,6 +135,25 @@
   }
 }
 
+fieldset div.form-one-line {
+  position:      relative;
+  width:         100%;
+  margin-top:    4px;
+  padding-right: $button-width;
+  button {
+    @include choose-item;
+    height:      2.3em;
+    border-color: inherited;
+  }
+}
+
+button.login {
+  &::after {
+    content: $fa-login;
+  }
+}
+
+
 .button-abort {
   background-color: $middle-orange !important;
   color:            $darkest-orange !important;
@@ -159,10 +180,10 @@ button {
     }
 
     &::after {
-      font-family: "FontAwesome";
+      @include icon-font;
     }
     
-    border: $border-size solid $nearly-white;
+    // border: $border-size solid $nearly-white;
 
     &:hover,
     &:focus {

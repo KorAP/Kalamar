@@ -1045,6 +1045,16 @@ sub register {
       )->name('oauth-tokens');
     };
 
+    # Authorize client
+    $r->get('/settings/oauth/:client_id/authorize')->to(
+      cb => sub {
+        my $c = shift;
+        unless ($c->auth->token) {
+          return $c->render(template => 'auth/login');
+        }
+        return $c->redirect_to('index');
+      }
+    )->name('oauth-authorize-client');
 
     # Ask if new token should be issued
     $r->get('/settings/oauth/:client_id/token')->to(

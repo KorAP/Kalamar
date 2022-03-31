@@ -3,6 +3,7 @@
   <div class="button top">
     %= content_block 'headerButtonGroup'
   </div>
+  % unless (stash('no_search')) {
   <form autocomplete="off" action="<%= url_for 'index' %>" id="searchform">
     <div id="searchbar">
       %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder'), spellcheck => 'false', autocomplete => 'off', autocorrect => 'off', autocapitalize => 'off'
@@ -27,4 +28,5 @@
     </div>
     <div class="clear"></div>
   </form>
+  % }
 </header>

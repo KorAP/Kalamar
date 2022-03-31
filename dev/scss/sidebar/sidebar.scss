@@ -151,13 +151,15 @@ aside {
       @include input-field;
       width: 100%;
     }
-    
+
+    /*
     > form > div {
       position:      relative;
       width:         100%;
       margin-top:    4px;
       padding-right: $button-width
     }
+    */
 
     > p {
       color: $light-green;
@@ -195,9 +197,6 @@ aside {
       position: absolute;
       top:      0;
       right:    0;
-      &::after {
-        content: $fa-login;
-      }
     }
   }
 
@@ -221,4 +220,9 @@ aside {
   &.off::after {
     display:none;
   }
+}
+
+aside button {
+  height: 100% !important;
+  border: $border-size solid $nearly-white !important
 }
