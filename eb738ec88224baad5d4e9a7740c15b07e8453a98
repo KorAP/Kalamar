@@ -16,6 +16,23 @@
       "message": "Not ready yet.",
       "revId": "eb738ec88224baad5d4e9a7740c15b07e8453a98",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1094e16_cc54182b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-03-31T11:21:17Z",
+      "side": 1,
+      "message": "Maybe it\u0027s more appropriate to not focus on the popup solution but on the general applicable main window solution.",
+      "revId": "eb738ec88224baad5d4e9a7740c15b07e8453a98",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
