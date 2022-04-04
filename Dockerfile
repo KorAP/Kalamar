@@ -137,5 +137,5 @@ CMD [ "daemon" ]
 
 LABEL description="Docker Image for Kalamar, the KorAP user frontend, including Conversion"
 
-# docker build -f Dockerfile -t korap/kalamar-conv:0.44 --target kalamar-convert .
+# docker build -f Dockerfile -t korap/kalamar:0.44-conv --target kalamar-convert .
 # docker build -f Dockerfile -t korap/kalamar:0.44 --target kalamar .
