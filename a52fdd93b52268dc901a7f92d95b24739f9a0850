@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41be81e6_1a98acf5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-04-06T10:26:12Z",
+      "side": 1,
+      "message": "Looks good! Link for redirect is now much more clearly represented.\n\nOnly not +2 because we have to delete the \"Neuen Token erstellen\" button before submitting.\n",
+      "revId": "a52fdd93b52268dc901a7f92d95b24739f9a0850",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
