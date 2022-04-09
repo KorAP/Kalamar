@@ -34,6 +34,15 @@ sub register {
       ($page, my $fragment) = split '#', $page;
 
       my $url = $c->url_with($realm, page => $page, scope => $scope);
+      my $p = $url->query;
+
+      # Remove oauth-specific psarameters
+      # (Maybe only allowing specific parameters is better though)
+      $p->remove('client_id')
+        ->remove('client_secret')
+        ->remove('state')
+        ->remove('scope')
+        ->remove('redirect_uri');
       $url->fragment($fragment) if $fragment;
       $url->path->canonicalize;
 
