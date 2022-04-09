@@ -2,6 +2,7 @@ use Mojo::Base -strict;
 use Test::More;
 use Mojo::ByteStream 'b';
 use Test::Mojo::WithRoles 'Session';
+use Mojo::Util qw!xor_encode b64_encode b64_decode!;
 use Mojo::File qw/path/;
 use Data::Dumper;
 
@@ -751,6 +752,9 @@ $t->post_ok('/settings/oauth/register' => form => {
 $t->get_ok('/settings/oauth/')
   ->text_is('div.notify-error', 'invalid_request: http://localhost/FAIL is invalid.')
   ;
+
+is(b64_encode(xor_encode('abcde','xyz')),"GRsZHBw=\n");
+is(xor_encode(b64_decode("GRsZHBw=\n"),'xyz'),'abcde');
 
 
 done_testing;

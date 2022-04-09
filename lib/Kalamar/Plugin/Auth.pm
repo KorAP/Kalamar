@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
-use Mojo::Util qw!deprecated b64_encode encode!;
+use Mojo::Util qw!deprecated b64_encode encode xor_encode!;
 use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -46,6 +46,23 @@ sub register {
   # Get the client id and the client_secret as a requirement
   unless ($param->{client_id} && $param->{client_secret}) {
     $app->log->error('client_id or client_secret not defined');
+  };
+
+  # Load CHI for client_secret cache
+  my $cache = $app->chi('oauth');
+
+  my $cache_expiration = $param->{'secret_cache_expiration'} // '10 min';
+
+  unless ($cache) {
+    $app->plugin(
+      CHI => {
+        'oauth' => {
+          driver => 'Memory',
+          global => 1
+        }
+      }
+    );
+    $app->log->error('Please register global OAuth cache');
   };
 
   # Load localize
@@ -156,6 +173,16 @@ sub register {
       }
     }
   });
+
+  # Create random string generator for state parameters
+  $app->plugin(
+    'Util::RandomString' => {
+      oauth => {
+        alphabet => '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        length   => 16
+      }
+    }
+  );
 
 
   # Add login frame to sidebar
@@ -997,6 +1024,57 @@ sub register {
           );
         }
       )->name('oauth-unregister-post');
+
+      # Route to oauth registration
+      # This will return a location information including some info
+      $r->post('/settings/oauth/:client_id/authorize')->to(
+        sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          my $v = $c->validation;
+          $v->required('client-secret');
+          $v->optional('scope');
+
+          # Render with error
+          if ($v->has_error) {
+            return $c->render(text => 'failure!');
+          };
+
+          # The client secret is cached for a short time and
+          # stored with a random key, that is passed to the user.
+          # This means that the cache can be seen as
+          # a database of unhashed passwords. To mitigate this problem,
+          # we encrypt the secret before using a one-time pad
+          # and pass the cache key and the otp to the user.
+          # We do not store the otp.
+          my $client_secret = $v->param('client-secret');
+          my $cache_key = $c->random_string('oauth');
+          my $otp = $c->random_string('oauth', length => length($client_secret));
+          my $client_secret_encoded = xor_encode $client_secret, $otp;
+
+          $cache->set($cache_key => $client_secret_encoded, $cache_expiration);
+
+          $c->stash('client_otp', $otp);
+          $c->stash('client_key', $cache_key);
+          $c->stash('scope', $v->param('scope'));
+
+          # Get auth token
+          my $auth_token = $c->auth->token;
+
+          # User is not logged in - log in before!
+          unless ($auth_token) {
+            return $c->render(text => 'User not logged in!');
+          };
+
+          # TODO:
+          # - Retrieve more information about the client
+
+          # Grant authorization
+          return $c->render(template => 'auth/grant_scope');
+        }
+      );
 
 
       # Show information of a client
