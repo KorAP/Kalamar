@@ -752,6 +752,133 @@ $t->get_ok('/settings/oauth/')
   ->text_is('div.notify-error', 'invalid_request: http://localhost/FAIL is invalid.')
   ;
 
+# OAuth client authorization flow
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize'))
+  ->status_is(302)
+  ->header_is('location','/settings/oauth/authorize')
+  ;
+
+# Logout
+$t->get_ok('/x/expired-with-wrong-refresh');
+
+$t->get_ok('/user/logout')
+  ->status_is(302)
+  ->session_hasnt('/auth')
+  ->session_hasnt('/auth_r')
+  ->session_hasnt('/user')
+  ->header_is('Location' => '/');
+
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Logout successful')
+  ->element_exists("input[name=handle]")
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri => 'http://test.com/',
+}))
+  ->status_is(200)
+  ->attr_is('input[name=client_id]','value','xyz')
+  ->attr_is('input[name=state]','value','abcde')
+  ->attr_is('input[name=name]','value','xyz')
+  ->attr_like('input[name=fwd]','value',qr!test\.com!)
+  ->text_is('span.client-name','xyz')
+  ->text_is('div.intro p:nth-child(2)', 'Please log in!')
+  ->tx->res->dom->at('input[name=fwd]')->attr('value')
+  ;
+
+$fwd = $t->post_ok(Mojo::URL->new('/user/login')->query({
+  csrf_token => $csrf,
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri => 'http://test.com/',
+  handle => 'test',
+  pwd => 'pass',
+  fwd => $fwd
+}))
+  ->status_is(302)
+  ->header_like('location', qr!/settings/oauth/authorize!)
+  ->tx->res->headers->header('location')
+  ;
+
+$t->get_ok($fwd)
+  ->status_is(200)
+  ->attr_is('input[name=client_id]','value','xyz')
+  ->attr_is('input[name=state]','value','abcde')
+  ->attr_is('input[name=name]','value','xyz')
+  ->text_is('ul#scopes li:nth-child(1)','search')
+  ->text_is('ul#scopes li:nth-child(2)','match')
+  ->text_is('span.client-name','xyz')
+  ->attr_is('a.form-button','href','http://test.com/')
+  ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
+  ;
+
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri => 'http://test.com/'
+}))
+  ->status_is(200)
+  ->attr_is('input[name=client_id]','value','xyz')
+  ->attr_is('input[name=state]','value','abcde')
+  ->attr_is('input[name=name]','value','xyz')
+  ->text_is('ul#scopes li:nth-child(1)','search')
+  ->text_is('ul#scopes li:nth-child(2)','match')
+  ->text_is('span.client-name','xyz')
+  ->attr_is('a.form-button','href','http://test.com/')
+  ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
+  ;
+
+$t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri => 'http://test.com/'
+}))
+  ->status_is(302)
+  ->header_is('location', '/?error_description=Bad+CSRF+token')
+  ;
+
+$fwd = $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri_server => 'http://example.com/',
+  redirect_uri => $fake_backend_app->url_for('return_uri')->to_abs,
+  csrf_token => $csrf,
+}))
+  ->status_is(302)
+  ->header_like('location', qr!/realapi/fakeclient/return!)
+  ->tx->res->headers->header('location')
+  ;
+
+$t->get_ok($fwd)
+  ->status_is(200)
+  ->content_like(qr'welcome back! \[(.+?)\]')
+  ;
+
+$t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'fail',
+  scope => 'search match',
+  redirect_uri_server => 'http://example.com/',
+  redirect_uri => $fake_backend_app->url_for('return_uri')->to_abs,
+  csrf_token => $csrf,
+}))
+  ->status_is(302)
+  ->header_is('location', 'http://example.com/?error_description=FAIL')
+  ;
+
 
 done_testing;
 __END__
+
+
