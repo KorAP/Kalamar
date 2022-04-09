@@ -1,0 +1,25 @@
+% extends 'settings', title => 'KorAP: ' . loc('Auth_oauthSettings'), page => 'oauth';
+
+%= page_title
+
+<p><%== loc('Auth_oauthGrantScope', client_name => stash('name')) %></p>
+
+%= form_for 'oauth-grant-scope-post', id => 'grant-scope', class => 'form-table', begin
+   %= csrf_field
+   %= hidden_field 'client_id' => stash('client_id')
+   %= hidden_field 'name' => stash('name')
+   %= hidden_field 'state' => stash('state')
+   %= hidden_field 'redirect_uri' => stash('redirect_uri')
+   %= hidden_field 'redirect_uri_server' => stash('redirect_uri_server')
+   % if (stash('scope')) {
+   <ul id="scopes">
+   %   foreach (split(/\s+/, stash('scope'))) {
+     <li><%= $_ %></li>
+   %   };
+   </ul>
+   %= hidden_field 'scope' => stash('scope')
+   % };
+
+   <input type="submit" value="<%= loc 'Auth_oauthGrantScope_short' %>" />
+   %= link_to loc('abort') => stash('redirect_uri_server') => {} => (class => 'form-button button-abort')
+% end

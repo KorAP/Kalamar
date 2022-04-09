@@ -669,9 +669,31 @@ post '/v1.0/oauth2/authorize' => sub {
   my $c = shift;
   my $type = $c->param('response_type');
   my $client_id = $c->param('client_id');
-  my $redirect_uri = $c->param('redirect_uri');
+  my $scope = $c->param('scope');
+  my $state = $c->param('state');
+  my $redirect_uri = $c->param('redirect_uri') // 'NO';
 
-  if ($type eq 'code') {
+  if ($type eq 'code' && $client_id eq 'xyz') {
+
+    if ($state eq 'fail') {
+      $c->res->headers->location(
+        Mojo::URL->new($redirect_uri)->query({
+          error_description => 'FAIL'
+        })
+        );
+      $c->res->code(400);
+      return $c->rendered;
+    };
+
+    return $c->redirect_to(
+      Mojo::URL->new($redirect_uri)->query({
+        code => $tokens{auth_token_1},
+        scope => $scope,
+      })
+      );
+  }
+
+  elsif ($type eq 'code') {
 
     return $c->redirect_to(
       Mojo::URL->new($redirect_uri)->query({
@@ -811,6 +833,13 @@ post '/v1.0/oauth2/revoke/super' => sub {
 
   return $c->render(text => 'SUCCESS');
 };
+
+get '/fakeclient/return' => sub {
+  my $c = shift;
+  $c->render(
+    text => 'welcome back! [' . $c->param('code') . ']'
+  );
+} => 'return_uri';
 
 
 app->start;
