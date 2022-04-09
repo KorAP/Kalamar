@@ -1,0 +1,6 @@
+% layout 'main', login_active => 1;
+
+<div class="intro">
+  <p><%== loc('Auth_oauthGrantScope', client_name => stash('name')) %></p>
+  <p><%== loc('Auth_loginPlease') %></p>
+</div>

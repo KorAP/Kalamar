@@ -60,6 +60,7 @@ sub register {
       Auth => {
         _ => sub { $_->locale },
         de => {
+          loginPlease => 'Bitte melden Sie sich an!',
           loginSuccess => 'Anmeldung erfolgreich',
           loginFail => 'Anmeldung fehlgeschlagen',
           logoutSuccess => 'Abmeldung erfolgreich',
@@ -103,10 +104,15 @@ sub register {
             -long => 'Widerrufe einen Token für <span class="client-name"><%= $client_name %></span>',
             short => 'Widerrufe'
           },
+          oauthGrantScope => {
+            -long => '<span class="client-name"><%= $client_name %></span> möchte Zugriffsrechte',
+            short => 'Zugriffsrechte erteilen'
+          },
           createdAt => 'Erstellt am <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.'
         },
         -en => {
+          loginPlease => 'Please log in!',
           loginSuccess => 'Login successful',
           loginFail => 'Access denied',
           logoutSuccess => 'Logout successful',
@@ -149,6 +155,10 @@ sub register {
           oauthRevokeToken => {
             -long => 'Revoke a token for <span class="client-name"><%= $client_name %></span>',
             short => 'Revoke'
+          },
+          oauthGrantScope => {
+            -long => '<span class="client-name"><%= $client_name %></span> wants to have access',
+            short => 'Grant access'
           },
           createdAt => 'Created at <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Expires in <%= stash("seconds") %> seconds.'
@@ -467,6 +477,7 @@ sub register {
         # If the request already has an Authorization
         # header, respect it!
         if ($h->authorization) {
+
           return $ua->start_p($tx);
         };
 
@@ -500,6 +511,7 @@ sub register {
             # The token is expired and no refresh token is
             # available - issue an unauthorized request!
             else {
+
               $c->stash(auth => undef);
               $c->stash(auth_exp => undef);
               delete $c->session->{user};
@@ -997,6 +1009,144 @@ sub register {
           );
         }
       )->name('oauth-unregister-post');
+
+
+      # OAuth Client authorization
+      $r->get('/settings/oauth/authorize')->to(
+        cb => sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          my $v = $c->validation;
+          $v->required('client_id');
+          $v->optional('scope');
+          $v->optional('state');
+          $v->optional('redirect_uri');
+
+          # Redirect with error
+          if ($v->has_error) {
+            $c->notify(error => $c->loc('Auth_paramError'));
+            return $c->redirect_to;
+          };
+
+          foreach (qw!scope client_id state redirect_uri!) {
+            $c->stash($_, $v->param($_));
+          };
+
+          # Get auth token
+          my $auth_token = $c->auth->token;
+
+          # TODO: Fetch client information from Server
+          $c->stash(name => $v->param('client_id'));
+          # my $redirect_uri_server = $c->url_for('index')->to_abs;
+          $c->stash(type => 'CONFIDENTIAL');
+
+          $c->stash(redirect_uri_server => $c->stash('redirect_uri'));
+
+          # User is not logged in - log in before!
+          unless ($auth_token) {
+            return $c->render(template => 'auth/login');
+          };
+
+          # Grant authorization
+          return $c->render(template => 'auth/grant_scope');
+        }
+      )->name('oauth-grant-scope');
+
+
+      # OAuth Client authorization
+      # This will return a location information including some info
+      $r->post('/settings/oauth/authorize')->to(
+        cb => sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          # It's necessary that it's clear this was triggered by
+          # KorAP and not by the client!
+          my $v = $c->validation;
+          $v->csrf_protect;
+          $v->required('client_id');
+          $v->optional('scope');
+          $v->optional('state');
+          $v->optional('redirect_uri');
+
+          # WARN! SIGN THIS TO PREVENT OPEN REDIRECT ATTACKS!
+          $v->required('redirect_uri_server');
+
+          # Render with error
+          if ($v->has_error) {
+            my $url = Mojo::URL->new($v->param('redirect_uri_server') // $c->url_for('index'));
+
+            if ($v->has_error('csrf_token')) {
+              $url->query([error_description => $c->loc('Auth_csrfFail')]);
+            }
+            else {
+              $url->query([error_description => $c->loc('Auth_paramError')]);
+            };
+
+            return $c->redirect_to($url);
+          };
+
+          state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
+          $c->stash(redirect_uri_server => Mojo::URL->new($v->param('redirect_uri_server')));
+
+          return $c->korap_request(post => $r_url, {} => form => {
+            response_type => 'code',
+            client_id => $v->param('client_id'),
+            redirect_uri => $v->param('redirect_uri'),
+            state => $v->param('state'),
+            scope => $v->param('scope'),
+          })->then(
+            sub {
+              my $tx = shift;
+
+              # Check for location header with code in redirects
+              my $loc;
+              foreach (@{$tx->redirects}) {
+                $loc = $_->res->headers->header('Location');
+
+                my $url = Mojo::URL->new($loc);
+
+                if ($url->query->param('code')) {
+                  last;
+                } elsif (my $err = $url->query->param('error_description')) {
+                  return Mojo::Promise->reject($err);
+                }
+              };
+
+              return Mojo::Promise->resolve($loc) if $loc;
+
+              # Failed redirect, but location set
+              if ($tx->res->headers->location) {
+                my $url = Mojo::URL->new($tx->res->headers->location);
+                if (my $err = $url->query->param('error_description'))  {
+                  return Mojo::Promise->reject($err);
+                };
+              };
+
+              # No location code
+              return Mojo::Promise->reject('no location response');
+            }
+          )->catch(
+            sub {
+              my $err_msg = shift;
+              my $url = 'haha'; # $c->stash('redirect_uri_server');
+              if ($err_msg) {
+                $url = $url->query([error_description => $err_msg]);
+              };
+              return Mojo::Promise->resolve($url);
+            }
+          )->then(
+            sub {
+              my $loc = shift;
+              return $c->redirect_to($loc);
+            }
+          )->wait;
+          return $c->rendered;
+        }
+      )->name('oauth-grant-scope-post');
 
 
       # Show information of a client
