@@ -752,6 +752,25 @@ $t->get_ok('/settings/oauth/')
   ->text_is('div.notify-error', 'invalid_request: http://localhost/FAIL is invalid.')
   ;
 
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri => 'http://test.com'
+}))
+  ->status_is(200)
+  ->text_is('div.notify-error', undef)
+  ->attr_is('input[name=client_id]','value','xyz')
+  ->attr_is('input[name=state]','value','abcde')
+  ->attr_is('input[name=name]','value','Temporary client name')
+  ->text_is('ul#scopes li:nth-child(1)','search')
+  ->text_is('ul#scopes li:nth-child(2)','match')
+  ->text_is('span.client-name','Temporary client name')
+  ->attr_is('a.form-button','href','http://google.com/')
+  ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
+  ;
+
+
 
 done_testing;
 __END__

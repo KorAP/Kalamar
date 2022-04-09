@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
-use Mojo::Util qw!deprecated b64_encode encode!;
+use Mojo::Util qw!deprecated b64_encode encode xor_encode!;
 use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -60,6 +60,7 @@ sub register {
       Auth => {
         _ => sub { $_->locale },
         de => {
+          loginPlease => 'Bitte melden Sie sich an!',
           loginSuccess => 'Anmeldung erfolgreich',
           loginFail => 'Anmeldung fehlgeschlagen',
           logoutSuccess => 'Abmeldung erfolgreich',
@@ -103,10 +104,15 @@ sub register {
             -long => 'Widerrufe einen Token für <span class="client-name"><%= $client_name %></span>',
             short => 'Widerrufe'
           },
+          oauthGrantScope => {
+            -long => '<span class="client-name"><%= $client_name %></span> möchte Zugriffsrechte',
+            short => 'Zugriffsrechte erteilen'
+          },
           createdAt => 'Erstellt am <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.'
         },
         -en => {
+          loginPlease => 'Please log in!',
           loginSuccess => 'Login successful',
           loginFail => 'Access denied',
           logoutSuccess => 'Logout successful',
@@ -149,6 +155,10 @@ sub register {
           oauthRevokeToken => {
             -long => 'Revoke a token for <span class="client-name"><%= $client_name %></span>',
             short => 'Revoke'
+          },
+          oauthGrantScope => {
+            -long => '<span class="client-name"><%= $client_name %></span> wants to have access',
+            short => 'Grant access'
           },
           createdAt => 'Created at <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Expires in <%= stash("seconds") %> seconds.'
@@ -997,6 +1007,136 @@ sub register {
           );
         }
       )->name('oauth-unregister-post');
+
+
+      # OAuth Client authorization
+      $r->get('/settings/oauth/authorize')->to(
+        cb => sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          my $v = $c->validation;
+          $v->required('client_id');
+          $v->optional('scope');
+          $v->optional('state');
+          $v->optional('redirect_uri');
+
+          # Render with error
+          if ($v->has_error) {
+            return $c->render(text => 'failure!');
+          };
+
+          foreach (qw!scope client_id state redirect_uri!) {
+            $c->stash($_, $v->param($_));
+          };
+
+          # Get auth token
+          my $auth_token = $c->auth->token;
+
+          # Fetch client information from Server
+          $c->stash(name => 'Temporary client name');
+          unless ($c->stash('redirect_uri')) {
+            $c->stash(redirect_uri_server => 'http://google.com/'); # temp
+          } else {
+            $c->stash(redirect_uri_server => $c->stash('redirect_uri'));
+          };
+
+          # User is not logged in - log in before!
+          unless ($auth_token) {
+            return $c->render(template => 'auth/login');
+          };
+
+          # Grant authorization
+          return $c->render(template => 'auth/grant_scope');
+        }
+      )->name('oauth-grant-scope');
+
+
+      # OAuth Client authorization
+      # This will return a location information including some info
+      $r->post('/settings/oauth/authorize')->to(
+        cb => sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          my $v = $c->validation;
+          $v->csrf_protect;
+          $v->required('client_id');
+          $v->optional('scope');
+          $v->optional('state');
+          $v->optional('redirect_uri');
+
+          # WARN! SIGN THIS TO PREVENT OPEN REDIRECT ATTACKS!
+          $v->required('redirect_uri_server');
+
+          # Render with error
+          if ($v->has_error) {
+            if ($v->has_error('csrf_token')) {
+              $c->notify(error => $c->loc('Auth_csrfFail'));
+            }
+            else {
+              $c->notify(error => $c->loc('Auth_paramError'));
+            };
+            return $c->redirect_to('oauth-settings')
+          };
+
+          state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
+
+          return $c->korap_request(post => $r_url, {} => form => {
+            response_type => 'code',
+            client_id => $v->param('client_id'),
+            redirect_uri => $v->param('redirect_uri'),
+            state => $v->param('state'),
+            scope => $v->param('scope'),
+          })->then(
+            sub {
+              my $tx = shift;
+
+              # Check for location header with code in redirects
+              my $loc;
+              foreach (@{$tx->redirects}) {
+                $loc = $_->res->headers->header('Location');
+
+                my $url = Mojo::URL->new($loc);
+
+                if ($url->query->param('code')) {
+                  last;
+                } elsif (my $err = $url->query->param('error_description')) {
+                  return Mojo::Promise->reject($err);
+                }
+              };
+
+              return $c->redirect_to($loc) if $loc;
+
+              # Failed redirect, but location set
+              if ($tx->res->headers->location) {
+                my $url = Mojo::URL->new($tx->res->headers->location);
+                if (my $err = $url->query->param('error_description'))  {
+                  return Mojo::Promise->reject($err);
+                };
+              };
+
+              # No location code
+              return Mojo::Promise->reject('no location response');
+            }
+          )->catch(
+            sub {
+              my $err_msg = shift;
+
+              $c->app->log->error('Error is ' . $err_msg);
+
+              my $url = Mojo::URL->new($v->param('redirect_uri_server'));
+              if ($err_msg) {
+                $url = $url->query([error => $err_msg]);
+              };
+
+              $c->redirect_to($url);
+            }
+          )
+        }
+      )->name('oauth-grant-scope-post');
 
 
       # Show information of a client
