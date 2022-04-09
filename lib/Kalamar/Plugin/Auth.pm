@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
-use Mojo::Util qw!deprecated b64_encode encode!;
+use Mojo::Util qw!deprecated b64_encode encode xor_encode!;
 use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -103,6 +103,10 @@ sub register {
             -long => 'Widerrufe einen Token für <span class="client-name"><%= $client_name %></span>',
             short => 'Widerrufe'
           },
+          oauthGrantScope => {
+            -long => '<span class="client-name"><%= $client_name %></span> möchte Zugriffsrechte',
+            short => 'Zugriffsrechte erteilen'
+          },
           createdAt => 'Erstellt am <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.'
         },
@@ -149,6 +153,10 @@ sub register {
           oauthRevokeToken => {
             -long => 'Revoke a token for <span class="client-name"><%= $client_name %></span>',
             short => 'Revoke'
+          },
+          oauthGrantScope => {
+            -long => '<span class="client-name"><%= $client_name %></span> wants to have access',
+            short => 'Grant access'
           },
           createdAt => 'Created at <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Expires in <%= stash("seconds") %> seconds.'
@@ -997,6 +1005,62 @@ sub register {
           );
         }
       )->name('oauth-unregister-post');
+
+      # Route to oauth registration
+      # This will return a location information including some info
+      $r->get('/settings/oauth/:client_id/authorize')->to(
+        sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          my $v = $c->validation;
+          $v->required('client_id');
+          $v->optional('scope');
+          $v->optional('state');
+
+          # Render with error
+          if ($v->has_error) {
+            return $c->render(text => 'failure!');
+          };
+
+          foreach (qw!scope client_id state redirect_uri!) {
+            $c->stash($_, $v->param($_));
+          };
+
+          # Get auth token
+          my $auth_token = $c->auth->token;
+
+          # User is not logged in - log in before!
+          unless ($auth_token) {
+            return $c->render(text => 'User not logged in!');
+          };
+
+          # Fetch client information from Server
+          $c->stash(name => 'Temporary client name');
+          unless ($c->stash('redirect_uri')) {
+            $c->stash(redirect_uri_server => 'http://google.com/');
+          } else {
+            $c->stash(redirect_uri_server => $c->stash('redirect_uri'));
+          };
+
+          # Grant authorization
+          return $c->render(template => 'auth/grant_scope');
+        }
+      )->name('oauth-grant-scope');
+
+      $r->post('/settings/oauth/:client_id/authorize')->to(
+        sub {
+          my $c = shift;
+
+          _set_no_cache($c->res->headers);
+
+          # - Send auth request to API
+          # Return redirect uri
+
+          $c->render(text => 'fine!');
+        }
+      )->name('oauth-grant-scope-post');
 
 
       # Show information of a client
