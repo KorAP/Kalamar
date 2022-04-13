@@ -16,6 +16,23 @@
       "message": "This is open to review now, I guess.\n\nParts I will commit separately:\n- Add note that a client is confidential/public\n- Receive client information before asking for grants (like name, registered redirect_uri, ...)\n- sign redirect to remove OpenRedirect attack vector\n",
       "revId": "0a715902f4ffd33e99fae5d508ed871d81557546",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c7c821c_ba6ee55b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-04-13T14:55:18Z",
+      "side": 1,
+      "message": "Ah - and of course it still uses the POST API.",
+      "revId": "0a715902f4ffd33e99fae5d508ed871d81557546",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
