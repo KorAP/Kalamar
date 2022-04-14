@@ -33,6 +33,23 @@
       "message": "Ah - and of course it still uses the POST API.",
       "revId": "0a715902f4ffd33e99fae5d508ed871d81557546",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5e06262_a8a21f19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-04-14T07:44:25Z",
+      "side": 1,
+      "message": "Also, as eliza pointed out, error handling needs to be adjusted following  4.1.2.1 in https://www.ietf.org/rfc/rfc6749.txt",
+      "revId": "0a715902f4ffd33e99fae5d508ed871d81557546",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
