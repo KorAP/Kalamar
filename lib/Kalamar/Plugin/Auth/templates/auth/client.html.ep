@@ -7,7 +7,7 @@
     <legend><%= loc 'Auth_clientCredentials' %></legend>
     <ul class="client-list">
       <li class="client">
-        <span class="client-name"><%= stash 'client_name' %></span>
+        <span class="client-name client-type-<%= lc(stash('client_type') // 'PUBLIC') %>"><%= stash 'client_name' %></span>
         % if (stash('client_desc')) {
         <p class="client-desc"><%= stash 'client_desc' %></p>
         % };
