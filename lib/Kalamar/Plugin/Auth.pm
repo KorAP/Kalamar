@@ -108,6 +108,7 @@ sub register {
             -long => '<span class="client-name"><%= $client_name %></span> möchte Zugriffsrechte',
             short => 'Zugriffsrechte erteilen'
           },
+          oauthGrantPublicWarn => 'Achtung - dies ist ein öffentlicher Client!',
           createdAt => 'Erstellt am <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.'
         },
@@ -160,6 +161,7 @@ sub register {
             -long => '<span class="client-name"><%= $client_name %></span> wants to have access',
             short => 'Grant access'
           },
+          oauthGrantPublicWarn => 'Warning - this is a public client!',
           createdAt => 'Created at <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
           expiresIn => 'Expires in <%= stash("seconds") %> seconds.'
         }
@@ -1034,23 +1036,46 @@ sub register {
             $c->stash($_, $v->param($_));
           };
 
-          # Get auth token
-          my $auth_token = $c->auth->token;
+          # Wait for async result
+          $c->render_later;
 
-          # TODO: Fetch client information from Server
-          $c->stash(name => $v->param('client_id'));
-          # my $redirect_uri_server = $c->url_for('index')->to_abs;
-          $c->stash(type => 'CONFIDENTIAL');
+          my $client_id = $v->param('client_id');
 
-          $c->stash(redirect_uri_server => $c->stash('redirect_uri'));
+          my $client_information = $c->auth->client_list_p->then(
+            sub {
+              my $clients = shift;
+              foreach (@$clients) {
+                if ($_->{client_id} eq $client_id) {
+                  $c->stash(client_name => $_->{'client_name'});
+                  $c->stash(client_type => $_->{'client_type'});
+                  $c->stash(client_desc => $_->{'client_description'});
+                  $c->stash(client_url => $_->{'client_url'});
+                  $c->stash(redirect_uri_server => $_->{'client_redirect_uri'});
+                  last;
+                };
+              };
+            }
+          )->catch(
+            sub {
+              $c->stash(client_type => 'PUBLIC');
+              $c->stash(client_name => $v->param('client_id'));
+              return;
+            }
+          )->finally(
+            sub {
 
-          # User is not logged in - log in before!
-          unless ($auth_token) {
-            return $c->render(template => 'auth/login');
-          };
+              # Get auth token
+              my $auth_token = $c->auth->token;
 
-          # Grant authorization
-          return $c->render(template => 'auth/grant_scope');
+              # User is not logged in - log in before!
+              unless ($auth_token) {
+                return $c->render(template => 'auth/login');
+              };
+
+              # Grant authorization
+              return $c->render(template => 'auth/grant_scope');
+            }
+          );
         }
       )->name('oauth-grant-scope');
 

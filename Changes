@@ -3,6 +3,7 @@
         - Added OAuth client authorization handling. (diewald)
         - Mark public clients as slightly more insecure. (diewald)
         - Reintroduce email handle support. (fixes #165; diewald)
+        - Fetch client information before grant request. (diewald)
 
 0.44 2022-02-31
         - Fixed autosecrets migration. (diewald)

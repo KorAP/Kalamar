@@ -777,6 +777,15 @@ $csrf = $t->get_ok('/')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
+$fake_backend_app->add_client({
+  "client_id" => 'xyz',
+  "client_name" => 'New added client',
+  "client_description" => 'This is a new client',
+  "client_url" => 'http://example.com',
+  "client_type" => 'CONFIDENTIAL'
+#  "client_redirect_uri" => $redirect_uri
+});
+
 $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
   state => 'abcde',
@@ -786,9 +795,8 @@ $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   ->status_is(200)
   ->attr_is('input[name=client_id]','value','xyz')
   ->attr_is('input[name=state]','value','abcde')
-  ->attr_is('input[name=name]','value','xyz')
   ->attr_like('input[name=fwd]','value',qr!test\.com!)
-  ->text_is('span.client-name','xyz')
+  ->text_is('span.client-name','New added client')
   ->text_is('div.intro p:nth-child(2)', 'Please log in!')
   ->tx->res->dom->at('input[name=fwd]')->attr('value')
   ;
@@ -812,10 +820,9 @@ $t->get_ok($fwd)
   ->status_is(200)
   ->attr_is('input[name=client_id]','value','xyz')
   ->attr_is('input[name=state]','value','abcde')
-  ->attr_is('input[name=name]','value','xyz')
   ->text_is('ul#scopes li:nth-child(1)','search')
   ->text_is('ul#scopes li:nth-child(2)','match')
-  ->text_is('span.client-name','xyz')
+  ->text_is('span.client-name','New added client')
   ->attr_is('a.form-button','href','http://test.com/')
   ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
   ;
@@ -829,10 +836,9 @@ $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   ->status_is(200)
   ->attr_is('input[name=client_id]','value','xyz')
   ->attr_is('input[name=state]','value','abcde')
-  ->attr_is('input[name=name]','value','xyz')
   ->text_is('ul#scopes li:nth-child(1)','search')
   ->text_is('ul#scopes li:nth-child(2)','match')
-  ->text_is('span.client-name','xyz')
+  ->text_is('span.client-name','New added client')
   ->attr_is('a.form-button','href','http://test.com/')
   ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
   ;
