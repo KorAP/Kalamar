@@ -2,12 +2,25 @@
 
 %= page_title
 
-<p><%== loc('Auth_oauthGrantScope', client_name => stash('name')) %></p>
+<p><%== loc('Auth_oauthGrantScope', client_name => stash('client_name')) %></p>
+
+<ul class="client-list">
+  <li class="client">
+    % if (stash('client_desc')) {
+    <p class="client-desc"><%= stash 'client_desc' %></p>
+    % };
+    % if (stash('client_url')) {
+    <p class="client-url"><a href="<%= stash('client_url') %>"><%= stash('client_url') %></a></p>
+    % };
+    % if (stash('client_type') eq 'PUBLIC') {
+    <blockquote class="warning"><%= loc 'oauthGrantPublicWarn' %></blockquote>
+    % };
+  </li>
+</ul>
 
 %= form_for 'oauth-grant-scope-post', id => 'grant-scope', class => 'form-table', begin
    %= csrf_field
    %= hidden_field 'client_id' => stash('client_id')
-   %= hidden_field 'name' => stash('name')
    %= hidden_field 'state' => stash('state')
    %= hidden_field 'redirect_uri' => stash('redirect_uri')
    %= hidden_field 'redirect_uri_server' => stash('redirect_uri_server')
@@ -21,5 +34,5 @@
    % };
 
    <input type="submit" class="form-submit" value="<%= loc 'Auth_oauthGrantScope_short' %>" />
-   %= link_to loc('abort') => stash('redirect_uri_server') => {} => (class => 'form-button button-abort form-submit')
+   %= link_to loc('abort') => (stash('redirect_uri_server') // stash('redirect_uri')) => {} => (class => 'form-button button-abort form-submit')
 % end
