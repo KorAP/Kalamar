@@ -67,6 +67,15 @@ helper expired => sub {
   return $c->app->defaults('auth_' . $auth);
 };
 
+
+helper 'add_client' => sub {
+  my $c = shift;
+  my $client = shift;
+  my $list = $c->app->defaults('oauth.client_list');
+  push @$list, $client;
+};
+
+
 # Load fixture responses
 helper 'load_response' => sub {
   my $c = shift;

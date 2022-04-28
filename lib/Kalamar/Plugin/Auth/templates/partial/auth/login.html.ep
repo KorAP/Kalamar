@@ -14,7 +14,7 @@
       %= hidden_field fwd => $c->url_with
       % if (stash('client_id')) {
         %= hidden_field 'client_id' => stash('client_id')
-        %= hidden_field 'name' => stash('name')
+        %= hidden_field 'client_name' => stash('client_name')
         %= hidden_field 'state' => stash('state')
         %= hidden_field 'scope' => stash('scope')
         %= hidden_field 'redirect_uri' => stash('redirect_uri')
