@@ -36,10 +36,31 @@ span.client-name {
     @include icon-font;
     display:   inline-block;
     width:     1.5em;
-    content:   $fa-plugin;
+    content:   $fa-client;
     color:     $ids-blue-1;
     font-size: 100%;
   }
+}
+
+.client-type-public::after,
+.client-type-confidential::after {
+  @include icon-font;
+  margin-left: .3em;
+  display:   inline-block;
+  width:     1.5em;
+  font-size: 70%;
+  line-hight: top;
+  vertical-align: text-top;
+}
+
+.client-type-public::after {
+  content:   $fa-public;
+  color:     $ids-pink-1;
+}
+
+.client-type-confidential::after {
+  content:   $fa-confidential;
+  color:     $ids-blue-1;
 }
 
 li.token {

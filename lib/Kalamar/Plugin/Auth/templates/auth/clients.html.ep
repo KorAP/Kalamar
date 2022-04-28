@@ -7,7 +7,7 @@
 <ul class="client-list">
 %   foreach (@$list) {
   <li class="client">
-    <span class="client-name"><%= link_to $_->{client_name} => url_for('oauth-tokens', client_id => $_->{client_id}) %></span>
+    <span class="client-name client-type-<%= lc($_->{'client_type'} // 'PUBLIC') %>"><%= link_to $_->{client_name} => url_for('oauth-tokens', client_id => $_->{client_id}) %></span>
     % if ($_->{client_description}) {
       <p class="client-desc"><%= $_->{client_description} %></p>
     % };
@@ -33,10 +33,10 @@
     <div>
       %= label_for type => loc('Auth_clientType'), class => 'field-required'
       <%= radio_button type => 'PUBLIC', checked => 'checked' %>
-      <label>Public</label>
+      <label class="client-type-public">Public</label>
       <br />
       <%= radio_button type => 'CONFIDENTIAL' %>
-      <label>Confidential</label>
+      <label class="client-type-confidential">Confidential</label>
     </div>
 
     <div>
