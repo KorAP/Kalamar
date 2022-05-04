@@ -20,11 +20,13 @@
 % };
 
 
-%= form_for 'oauth-register', class => 'form-table oauth-register', begin
+%= form_for 'oauth-register', class => 'form-table oauth-register', enctype => 'multipart/form-data', begin
   <fieldset>
     %= csrf_field
     <legend><%= loc('Auth_clientRegister') %></legend>
 
+    <p><%== loc 'Auth_oauthHint' %></p>
+    
     <div>
       %= label_for name => loc('Auth_clientName'), class => 'field-required', maxlength => 255
       %= text_field 'name'
@@ -45,15 +47,23 @@
     </div>
 
     <div>
-      %= label_for name => loc('Auth_homepage')
+      %= label_for url => loc('Auth_homepage')
       %= url_field 'url', placeholder => 'https://...'
     </div>
 
     <div>
-      %= label_for name => loc('Auth_redirectUri')
+      %= label_for redirect_uri => loc('Auth_redirectUri')
       %= url_field 'redirect_uri', placeholder => 'https://...'
     </div>
 
-    %= submit_button loc('Auth_clientRegister')
+    <div>
+      %= label_for src => loc('Auth_pluginSrc')
+      <span class="file-upload">
+        <span><%= loc('upload') %></span>
+        %= file_field 'src'
+      </span>
+    </div>
+    
+    %= submit_button loc('Auth_clientRegister'), class => 'form-submit'
   </fieldset>
 % end

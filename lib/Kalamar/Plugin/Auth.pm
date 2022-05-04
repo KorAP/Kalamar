@@ -4,6 +4,7 @@ use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw!deprecated b64_encode encode!;
+use Mojo::JSON 'decode_json';
 use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -78,6 +79,7 @@ sub register {
           revokeSuccess => 'Der Token wurde erfolgreich widerrufen',
           paramError => 'Einige Eingaben sind fehlerhaft',
           redirectUri => 'Weiterleitungs-Adresse',
+          pluginSrc => 'Beschreibung des Plugins (*.json-Datei)',
           homepage => 'Webseite',
           desc => 'Kurzbeschreibung',
           revoke => 'Widerrufen',
@@ -94,6 +96,7 @@ sub register {
             -long => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
             short => 'Löschen'
           },
+          oauthHint => 'Die folgende Registrierung (und alle Angaben) für API-Clients folgen der <a href="https://oauth.net/" class="external">OAuth-2.0-Spezifikation</a>.',
           loginHint => 'Möglicherweise müssen sie sich zunächst einloggen.',
           oauthIssueToken => {
             -long => 'Stelle einen neuen Token für <span class="client-name"><%= $client_name %></span> aus',
@@ -109,7 +112,8 @@ sub register {
             short => 'Zugriffsrechte erteilen'
           },
           createdAt => 'Erstellt am <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
-          expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.'
+          expiresIn => 'Läuft in <%= stash("seconds") %> Sekunden ab.',
+          fileSizeExceeded => 'Dateigröße überschritten'
         },
         -en => {
           loginPlease => 'Please log in!',
@@ -130,6 +134,7 @@ sub register {
           revokeSuccess => 'Token was revoked successfully',
           paramError => 'Some fields are invalid',
           redirectUri => 'Redirect URI',
+          pluginSrc => 'Declaration of the plugin (*.json file)',
           homepage => 'Homepage',
           desc => 'Short description',
           revoke => 'Revoke',
@@ -146,6 +151,7 @@ sub register {
             -long => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
             short => 'Unregister'
           },
+          oauthHint => 'The following registration of API clients follows the <a href="https://oauth.net/" class="external">OAuth 2.0 specification</a>.',
           loginHint => 'Maybe you need to log in first?',
           oauthIssueToken => {
             -long => 'Issue a new token for <span class="client-name"><%= $client_name %></span>',
@@ -161,7 +167,10 @@ sub register {
             short => 'Grant access'
           },
           createdAt => 'Created at <time datetime="<%= stash("date") %>"><%= stash("date") %></date>.',
-          expiresIn => 'Expires in <%= stash("seconds") %> seconds.'
+          expiresIn => 'Expires in <%= stash("seconds") %> seconds.',
+          fileSizeExceeded => 'File size exceeded',
+          confidentialRequired => 'Plugins need to be confidential',
+          jsonRequired => 'Plugin declarations need to be json files',
         }
       }
     }
@@ -233,7 +242,6 @@ sub register {
       return $token;
     }
   );
-
 
   # Log in to the system
   my $r = $app->routes;
@@ -850,11 +858,14 @@ sub register {
           };
 
           $v->csrf_protect;
-          $v->required('name', 'trim')->size(3, 255);
+          $v->required('name', 'trim', 'not_empty')->size(3, 255);
           $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
-          $v->required('desc', 'trim')->size(3, 255);
-          $v->optional('url', 'trim')->like(qr/^(http|$)/i);
-          $v->optional('redirect_uri', 'trim')->like(qr/^(http|$)/i);
+          $v->required('desc', 'trim', 'not_empty')->size(3, 255);
+          $v->optional('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+          $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+          $v->optional('src', 'not_empty');
+
+          $c->stash(template => 'auth/clients');
 
           # Render with error
           if ($v->has_error) {
@@ -864,8 +875,62 @@ sub register {
             else {
               $c->notify(error => $c->loc('Auth_paramError'));
             };
-            # return $c->redirect_to('oauth-settings');
-            return $c->render(template => 'auth/clients');
+            return $c->render;
+          } elsif ($c->req->is_limit_exceeded) {
+            $c->notify(error => $c->loc('Auth_fileSizeExceeded'));
+            return $c->render;
+          };
+
+          my $type = $v->param('type');
+          my $src = $v->param('src');
+          my $src_json;
+
+          my $json_obj = {
+            name         => $v->param('name'),
+            type         => $type,
+            description  => $v->param('desc'),
+            url          => $v->param('url'),
+            redirect_uri => $v->param('redirect_uri')
+          };
+
+          # Check plugin source
+          if ($src) {
+
+            # Plugins need to be confidential
+            if ($type ne 'CONFIDENTIAL') {
+              $c->notify(error => $c->loc('Auth_confidentialRequired'));
+              return $c->render;
+            }
+
+            # Source need to be a file upload
+            elsif (!ref $src || !$src->isa('Mojo::Upload')) {
+              $c->notify(error => $c->loc('Auth_jsonRequired'));
+              return $c->render;
+            };
+
+            # Uploads can't be too large
+            if ($src->size > 1_000_000) {
+              $c->notify(error => $c->loc('Auth_fileSizeExceeded'));
+              return $c->render;
+            };
+
+            # Check upload is not empty
+            if ($src->size > 0 && $src->filename ne '') {
+
+              my $asset = $src->asset;
+
+              # Check for json
+              eval {
+                $src_json = decode_json($asset->slurp);
+              };
+
+              if ($@ || !ref $src_json || ref $src_json ne 'HASH') {
+                $c->notify(error => $c->loc('Auth_jsonRequired'));
+                return $c->render;
+              };
+
+              $json_obj->{source} = $src_json;
+            };
           };
 
           # Wait for async result
@@ -873,13 +938,7 @@ sub register {
 
           # Register on server
           state $url = Mojo::URL->new($c->korap->api)->path('oauth2/client/register');
-          $c->korap_request('POST', $url => {} => json => {
-            name        => $v->param('name'),
-            type        => $v->param('type'),
-            description => $v->param('desc'),
-            url         => $v->param('url'),
-            redirect_uri => $v->param('redirect_uri')
-          })->then(
+          $c->korap_request('POST', $url => {} => json => $json_obj)->then(
             sub {
               my $tx = shift;
               my $result = $tx->result;
