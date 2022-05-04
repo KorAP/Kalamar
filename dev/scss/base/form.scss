@@ -123,6 +123,45 @@
     color:            $dark-green;
   }
 
+  span.file-upload {
+    @include choose-item;
+    box-shadow:   $choose-box-shadow;
+    border: $choose-border;
+    border-radius:     $standard-border-radius;
+    padding: $item-padding;
+    position: relative;
+    overflow: hidden;
+    right: 0;
+    display: inline-block;
+
+    &:hover {
+      @include choose-hover;
+      transition: none;
+    }
+   
+    > input[type=file] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 3em;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      &.field-with-error {
+        background-color: $ids-pink-1;
+        opacity: .3;
+        filter: alpha(opacity=.3);
+      }
+    }
+
+    &::after {
+      @include icon-font;
+      content: $fa-upload;
+    }
+  }
+  
   a.form-button:hover {
     color: inherit !important;
   }
@@ -139,7 +178,7 @@
   border-color:     $darkest-orange !important;
 }
 
-button {
+button, input[type=submit] {
   cursor: pointer;
 
   + button {
@@ -162,8 +201,6 @@ button {
       font-family: "FontAwesome";
     }
     
-    border: $border-size solid $nearly-white;
-
     &:hover,
     &:focus {
       @include choose-hover;
@@ -190,6 +227,17 @@ button {
       }
     }
   }
+}
+
+button[type=submit] {
+  border: $border-size solid $nearly-white;
+}
+
+*[type=submit].form-submit {
+  box-shadow:   $choose-box-shadow;
+  border-radius:     $standard-border-radius;
+  border-width: 2px !important;
+  padding: $base-padding !important;
 }
 
 /**

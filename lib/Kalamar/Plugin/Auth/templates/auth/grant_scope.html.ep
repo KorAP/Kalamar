@@ -20,6 +20,6 @@
    %= hidden_field 'scope' => stash('scope')
    % };
 
-   <input type="submit" value="<%= loc 'Auth_oauthGrantScope_short' %>" />
-   %= link_to loc('abort') => stash('redirect_uri_server') => {} => (class => 'form-button button-abort')
+   <input type="submit" class="form-submit" value="<%= loc 'Auth_oauthGrantScope_short' %>" />
+   %= link_to loc('abort') => stash('redirect_uri_server') => {} => (class => 'form-button button-abort form-submit')
 % end

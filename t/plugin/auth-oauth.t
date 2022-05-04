@@ -478,6 +478,12 @@ $t->get_ok('/')
 $t->get_ok('/settings/oauth')
   ->text_is('form.form-table legend', 'Register new client application')
   ->attr_is('form.oauth-register','action', '/settings/oauth/register')
+  ->text_is('label[for=name]','Name of the client application')
+  ->text_is('label[for=type]','Type of the client application')
+  ->text_is('label[for=desc]','Short description')
+  ->text_is('label[for=url]','Homepage')
+  ->text_is('label[for=redirect_uri]','Redirect URI')
+  ->text_is('label[for=src]','Declaration of the plugin (*.json file)')
   ->element_exists('ul.client-list')
   ->element_exists_not('ul.client-list > li')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
@@ -499,7 +505,11 @@ $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
   type => 'CONFIDENTIAL',
   desc => 'This is my application',
-  csrf_token => $csrf
+  csrf_token => $csrf,
+  src => {
+    filename => '',
+    content => ''
+  }
 })
   ->status_is(200)
   ->element_exists('div.notify-success')
@@ -876,6 +886,52 @@ $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   ->status_is(302)
   ->header_is('location', 'http://example.com/?error_description=FAIL')
   ;
+
+my $json_post = {
+  name => 'Funny',
+  type => 'PUBLIC',
+  desc => 'This is my application',
+  csrf_token => $csrf,
+  src => 'hMMM'
+};
+
+$t->post_ok('/settings/oauth/register' => form => $json_post)
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Plugins need to be confidential')
+  ;
+
+$json_post->{type} = 'CONFIDENTIAL';
+
+$t->post_ok('/settings/oauth/register' => form => $json_post)
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Plugin declarations need to be json files')
+  ;
+
+$json_post->{src} = {
+  content => 'jjjjjj',
+  filename => 'fun.txt'
+};
+
+$t->post_ok('/settings/oauth/register' => form => $json_post)
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Plugin declarations need to be json files')
+  ;
+
+$json_post->{src} = {
+  content => '{"name":"example"}',
+  filename => 'fun.txt'
+};
+
+$t->post_ok('/settings/oauth/register' => form => $json_post)
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Registration successful')
+  ;
+
 
 
 done_testing;
