@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6be62304_64cae1af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-04T14:20:14Z",
+      "side": 1,
+      "message": "The JSON blob is not shown after registration. This will be done in a follow-up commit.",
+      "revId": "d599c52add667e9a0a7d59850c9f16ea38108176",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
