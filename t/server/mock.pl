@@ -544,6 +544,7 @@ post '/v1.0/oauth2/client/register' => sub {
   my $desc = $json->{description};
   my $type = $json->{type};
   my $url  = $json->{url};
+  my $src  = $json->{source};
   my $redirect_uri = $json->{redirect_uri};
 
   my $list = $c->app->defaults('oauth.client_list');
@@ -553,7 +554,8 @@ post '/v1.0/oauth2/client/register' => sub {
     "client_name" => $name,
     "client_description" => $desc,
     "client_url" => $url,
-    "client_redirect_uri" => $redirect_uri
+    "client_redirect_uri" => $redirect_uri,
+    "client_source" => $src
   };
 
   if ($redirect_uri && $redirect_uri =~ /FAIL$/) {

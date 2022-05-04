@@ -1,6 +1,7 @@
-0.45 2022-04-13
+0.45 2022-05-04
         - Added confidential client support to OAuth. (diewald)
         - Added OAuth client authorization handling. (diewald)
+        - Support plugin declarations on registration. (diewald)
 
 0.44 2022-02-31
         - Fixed autosecrets migration. (diewald)
