@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f089078_2441110d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-05-05T12:10:19Z",
+      "side": 1,
+      "message": "The open locks appear in Firefox 99 as pink squares (see Slack)\n\nI think, it would be nice, if we would explain somewhere(as tooltip or as legend) why there are blue locks und pink open locks displayed.",
+      "revId": "aeb9ae8b3ca9315954197de40e77c5985382487e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
