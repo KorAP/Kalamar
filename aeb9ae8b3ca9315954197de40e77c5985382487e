@@ -16,6 +16,24 @@
       "message": "The open locks appear in Firefox 99 as pink squares (see Slack)\n\nI think, it would be nice, if we would explain somewhere(as tooltip or as legend) why there are blue locks und pink open locks displayed.",
       "revId": "aeb9ae8b3ca9315954197de40e77c5985382487e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec1d8800_89baee43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-05T13:46:42Z",
+      "side": 1,
+      "message": "Thank you - the problem was in a mismatch of a web vs local font. I now changed this commit to inform about confidential clients by marking them only. I guess, that\u0027s better than \"warning\" the users aboput public clients.",
+      "parentUuid": "3f089078_2441110d",
+      "revId": "aeb9ae8b3ca9315954197de40e77c5985382487e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
