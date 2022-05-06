@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6908375e_abd8b634",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-06T11:44:23Z",
+      "side": 1,
+      "message": "Following this article https://www.matuzo.at/blog/2022/please-stop-disabling-zoom/ there seems to be good arguments to re-enable zooming again. I thought that zooming is ignored based on the screen-size and it was recommended to disable zooming for mobile clients back in the day, but it seems to be discouraged now.",
+      "revId": "6d86af1c6378f9f67f379ff6e1939e2414ff4e1d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
