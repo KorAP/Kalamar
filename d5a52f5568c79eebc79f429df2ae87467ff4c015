@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477608ca_58c4c78d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-06T09:23:07Z",
+      "side": 1,
+      "message": "In a follow up commit this should use client_info and correct scope handling (that is not yet available).",
+      "revId": "d5a52f5568c79eebc79f429df2ae87467ff4c015",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
