@@ -1,7 +1,8 @@
-0.45 2022-04-28
+0.45 2022-05-06
         - Added confidential client support to OAuth. (diewald)
         - Added OAuth client authorization handling. (diewald)
         - Mark public clients as slightly more insecure. (diewald)
+        - Enable Zooming on mobile clients. (diewald)
 
 0.44 2022-02-31
         - Fixed autosecrets migration. (diewald)
