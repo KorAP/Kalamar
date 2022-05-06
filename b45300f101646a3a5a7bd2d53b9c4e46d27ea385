@@ -16,6 +16,23 @@
       "message": "A tooltip (alt/title) is - afaik - not possible here using CSS.",
       "revId": "b45300f101646a3a5a7bd2d53b9c4e46d27ea385",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bede8ec_37a3f965",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-05-06T08:08:14Z",
+      "side": 1,
+      "message": "Looks good!",
+      "revId": "b45300f101646a3a5a7bd2d53b9c4e46d27ea385",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
