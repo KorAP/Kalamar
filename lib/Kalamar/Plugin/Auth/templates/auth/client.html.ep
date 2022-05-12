@@ -19,7 +19,7 @@
         <p class="client-redirect-uri"><%= loc 'Auth_redirectUri' %>: <tt><%= stash('client_redirect_uri') %></tt></p>
         % };
 
-        <p class="client-type"><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
+        <p class="client-type client-type-<%= lc(stash('client_type') // 'PUBLIC') %>"><%= loc 'Auth_clientType' %>: <tt><%= stash 'client_type' %></tt></p>
         %= label_for 'client_id' => loc('Auth_clientID')
         %= text_field 'client_id', stash('client_id'), readonly => 'readonly', class => 'copy-to-clipboard'
         % if (stash('client_type') && stash('client_type') ne 'PUBLIC' && stash('client_secret')) {
