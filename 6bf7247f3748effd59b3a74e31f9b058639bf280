@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf8e7f3d_cb64c17f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-12T16:17:55Z",
+      "side": 1,
+      "message": "This is the workaround for the ldap issue. I am not sure it should be in master.",
+      "revId": "6bf7247f3748effd59b3a74e31f9b058639bf280",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
