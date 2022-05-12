@@ -618,12 +618,12 @@ sub register {
 
         # Validate input
         my $v = $c->validation;
-        $v->required('handle', 'trim');
+        $v->required('handle_or_email', 'trim');
         $v->required('pwd', 'trim');
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = check_decode($v->param('handle'));
+        my $user = check_decode($v->param('handle_or_email'));
         unless ($user) {
           $c->notify(error => $c->loc('Auth_invalidChar'));
           $c->param(handle_or_email => '');
@@ -633,7 +633,7 @@ sub register {
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
-        $c->flash(handle => $user);
+        $c->flash(handle_or_email => $user);
 
         if ($v->has_error || index($user, ':') >= 0) {
           if ($v->has_error('fwd')) {
@@ -751,7 +751,7 @@ sub register {
 
               $c->stash(auth => undef);
               $c->stash(auth_exp => undef);
-              $c->flash(handle => delete $c->session->{user});
+              $c->flash(handle_or_email => delete $c->session->{user});
               delete $c->session->{auth};
               delete $c->session->{auth_r};
               delete $c->session->{auth_exp};
@@ -1463,12 +1463,12 @@ sub register {
 
         # Validate input
         my $v = $c->validation;
-        $v->required('handle', 'trim');
+        $v->required('handle_or_email', 'trim');
         $v->required('pwd', 'trim');
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
-        my $user = check_decode($v->param('handle'));
+        my $user = check_decode($v->param('handle_or_email'));
         unless ($user) {
           $c->notify(error => $c->loc('Auth_invalidChar'));
           $c->param(handle_or_email => '');
@@ -1478,7 +1478,7 @@ sub register {
         my $fwd = $v->param('fwd');
 
         # Set flash for redirect
-        $c->flash(handle => $user);
+        $c->flash(handle_or_email => $user);
 
         if ($v->has_error || index($user, ':') >= 0) {
           if ($v->has_error('fwd')) {
