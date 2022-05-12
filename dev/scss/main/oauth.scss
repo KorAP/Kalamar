@@ -57,6 +57,14 @@ span.client-name {
   color:     $ids-blue-1;
 }
 
+#client_source {
+  white-space: pre;
+  border-radius: $standard-border-radius;
+  border-color:     $ids-grey-2;
+  border-style:     solid;
+  background-color: $light-orange;
+}
+
 li.token {
     list-style-type: none;
 }

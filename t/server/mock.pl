@@ -22,6 +22,7 @@ our %tokens = (
   'refresh_token_2' => "fghijk",
   'new_client_id' => 'fCBbQkA2NDA3MzM1Yw==',
   'new_client_id_2' => 'hghGHhjhFRz_gJhjrd==',
+  'new_client_id_3' => 'jh0gfjhjbfdsgzjghj==',
   'new_client_secret' => 'KUMaFxs6R1WGud4HM22w3HbmYKHMnNHIiLJ2ihaWtB4N5JxGzZgyqs5GTLutrORj',
   'auth_token_1'    => 'mscajfdghnjdfshtkjcuynxahgz5il'
 );
@@ -558,14 +559,22 @@ post '/v1.0/oauth2/client/register' => sub {
 
   my $list = $c->app->defaults('oauth.client_list');
 
-  push @$list, {
+  my $obj = {
     "client_id" => $tokens{new_client_id},
     "client_name" => $name,
     "client_description" => $desc,
     "client_url" => $url,
     "client_redirect_uri" => $redirect_uri,
-    "client_source" => $src
+    "client_type" => $type
   };
+
+  # Plugin!
+  if ($src) {
+    $obj->{source} = $src;
+    $obj->{client_id} = $tokens{new_client_id_3};
+  };
+
+  push @$list, $obj;
 
   if ($redirect_uri && $redirect_uri =~ /FAIL$/) {
     return $c->render(
