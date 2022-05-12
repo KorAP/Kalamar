@@ -564,7 +564,10 @@ post '/v1.0/oauth2/client/register' => sub {
     "client_description" => $desc,
     "client_url" => $url,
     "client_redirect_uri" => $redirect_uri,
-    "client_source" => $src
+    "client_source" => $src,
+    "source" => {   # temporary
+      "src" => "example"
+    }
   };
 
   if ($redirect_uri && $redirect_uri =~ /FAIL$/) {

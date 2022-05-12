@@ -4,7 +4,7 @@ use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw!deprecated b64_encode encode!;
-use Mojo::JSON 'decode_json';
+use Mojo::JSON qw'decode_json encode_json';
 use Encode 'is_utf8';
 
 # This is a plugin to deal with the Kustvakt OAuth server.
@@ -966,6 +966,7 @@ sub register {
               $c->stash('client_desc' => $v->param('desc'));
               $c->stash('client_type' => $v->param('type'));
               $c->stash('client_url'  => $v->param('url'));
+              $c->stash('client_src'  => $v->param('source'));
               $c->stash('client_redirect_uri' => $v->param('redirect_uri'));
               $c->stash('client_id' => $client_id);
 
@@ -1258,6 +1259,7 @@ sub register {
               $c->stash(client_desc => $item->{client_description});
               $c->stash(client_url  => $item->{client_url});
               $c->stash(client_type => ($item->{client_type} // 'PUBLIC'));
+              $c->stash(client_src  => encode_json($item->{source})) if $item->{source};
 
               $c->auth->token_list_p($c->stash('client_id'));
             }

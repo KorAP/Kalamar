@@ -494,7 +494,7 @@ $t->get_ok('/settings/oauth')
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
   type => 'PUBLIC',
-  desc => 'This is my application'
+  desc => 'This is my plugin application'
 })
   ->text_is('div.notify-error', 'Bad CSRF token')
   ->tx->res->dom->at('input[name="csrf_token"]')
@@ -504,7 +504,7 @@ $csrf = $t->post_ok('/settings/oauth/register' => form => {
 $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
   type => 'CONFIDENTIAL',
-  desc => 'This is my application',
+  desc => 'This is my plugin application',
   csrf_token => $csrf,
   src => {
     filename => '',
@@ -526,7 +526,7 @@ my $anchor = $t->get_ok('/settings/oauth')
   ->text_is('.form-table legend', 'Register new client application')
   ->attr_is('.oauth-register','action', '/settings/oauth/register')
   ->text_is('ul.client-list > li > span.client-name a', 'MyApp')
-  ->text_is('ul.client-list > li > p.client-desc', 'This is my application')
+  ->text_is('ul.client-list > li > p.client-desc', 'This is my plugin application')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
@@ -537,7 +537,7 @@ is(defined $anchor ? $anchor->text : '', '');
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->status_is(200)
   ->text_is('ul.client-list > li.client > span.client-name', 'MyApp')
-  ->text_is('ul.client-list > li.client > p.client-desc', 'This is my application')
+  ->text_is('ul.client-list > li.client > p.client-desc', 'This is my plugin application')
   ->text_is('a.client-unregister', 'Unregister')
   ->attr_is('a.client-unregister', 'href', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/unregister?name=MyApp')
   ;
@@ -591,7 +591,7 @@ $t->get_ok('/settings/oauth')
 $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp2',
   type => 'PUBLIC',
-  desc => 'This is my application',
+  desc => 'This is my plugin application',
   csrf_token => $csrf
 })->status_is(200)
   ->element_exists('div.notify-success')
@@ -607,7 +607,7 @@ $t->post_ok('/settings/oauth/register' => form => {
 
 $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->text_is('.client-name', 'MyApp2')
-  ->text_is('.client-desc', 'This is my application')
+  ->text_is('.client-desc', 'This is my plugin application')
   ->text_is('.client-issue-token', 'Issue new token')
   ->attr_is('.client-issue-token', 'href', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token?name=MyApp2')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
@@ -725,7 +725,7 @@ $t->app->routes->get('/x/redirect-target')->to(
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyConfApp',
   type => 'CONFIDENTIAL',
-  desc => 'This is my application',
+  desc => 'This is my plugin application',
 })
   ->text_is('div.notify-error', 'Bad CSRF token')
   ->tx->res->dom->at('input[name="csrf_token"]')
@@ -938,6 +938,16 @@ $t->post_ok('/settings/oauth/register' => form => $json_post)
   ->text_is('div.notify-success', 'Registration successful')
   ;
 
+
+$t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
+  ->status_is(200)
+  ->text_is('div.notify-error', undef)
+  ->text_is('li.client #client_source', '{"src":"example"}')
+  ->text_is('li.client span.client-name', 'MyApp2')
+  ->text_is('li.client p.client-desc', 'This is my plugin application')
+  ->element_exists_not('li.client .client-redirect-uri tt')
+  ->text_is('li.client .client-type tt', 'PUBLIC')
+  ;
 
 
 done_testing;
