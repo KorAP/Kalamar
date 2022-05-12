@@ -619,7 +619,7 @@ sub register {
         # Validate input
         my $v = $c->validation;
         $v->required('handle', 'trim');
-        $v->required('pwd', 'trim');
+        $v->required('pwd', 'trim')->size(2, undef);
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 
@@ -1464,7 +1464,7 @@ sub register {
         # Validate input
         my $v = $c->validation;
         $v->required('handle', 'trim');
-        $v->required('pwd', 'trim');
+        $v->required('pwd', 'trim')->size(2, undef);;
         $v->csrf_protect;
         $v->optional('fwd')->closed_redirect;
 

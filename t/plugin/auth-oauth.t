@@ -157,6 +157,21 @@ my $csrf = $t->get_ok('/')
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
 
+# Test for too short passwords
+$t->post_ok('/user/login' => form => {
+  handle => 'test',
+  pwd => 'k',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->header_is('Location' => '/');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Access denied')
+  ;
+
 $t->post_ok('/user/login' => form => {
   handle => 'test',
   pwd => 'ldaperr',
