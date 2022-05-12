@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "854deec5_bf8b490c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-12T16:17:09Z",
+      "side": 1,
+      "message": "This looks a bit weird, because the commit for plugin registration is not yet merged.",
+      "revId": "484a4718d6a0136e84d94b2af1288317316dd773",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
