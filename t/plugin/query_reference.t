@@ -106,7 +106,7 @@ my $csrf = $t->get_ok('/')
   ;
 
 $t->post_ok('/user/login' => form => {
-  handle => 'test',
+  handle_or_email => 'test',
   pwd => 'pass',
   csrf_token => $csrf
 })
