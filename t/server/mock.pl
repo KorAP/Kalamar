@@ -553,6 +553,9 @@ post '/v1.0/oauth2/client/register' => sub {
     "client_name" => $name,
     "client_description" => $desc,
     "client_url" => $url,
+    "source" => {   # temporary
+      "src" => "example"
+    },
     "client_redirect_uri" => $redirect_uri
   };
 

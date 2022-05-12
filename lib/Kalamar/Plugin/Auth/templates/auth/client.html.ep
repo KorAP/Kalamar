@@ -29,6 +29,19 @@
         </div>
         % };
 
+        % if (stash('client_src')) {
+        %= label_for 'client_source' => 'Source Code'
+        <div id="client_source"><%= stash('client_src') %></div>
+        %   content_block('nonce_js' => {
+        %     inline => 'window.addEventListener("load",function(){
+        %       let e = document.getElementById("client_source");
+        %       let src = e.textContent;
+        %       e.textContent = JSON.stringify(JSON.parse(src) || {}, null, "  ");
+        %       hljs.highlightBlock(e);
+        %     })'
+        %   });
+        % }
+        
         <br />
 
         <span class="button-group button-panel">
