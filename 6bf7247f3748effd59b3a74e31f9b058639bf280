@@ -16,6 +16,23 @@
       "message": "This is the workaround for the ldap issue. I am not sure it should be in master.",
       "revId": "6bf7247f3748effd59b3a74e31f9b058639bf280",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "947413d2_d4c40f8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2022-05-13T07:26:18Z",
+      "side": 1,
+      "message": "It\u0027s not necessary anymore, since: https://korap.ids-mannheim.de/gerrit/c/KorAP/Kustvakt/+/5687",
+      "revId": "6bf7247f3748effd59b3a74e31f9b058639bf280",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
