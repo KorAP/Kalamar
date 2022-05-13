@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e39445_fdd53831",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-13T10:13:22Z",
+      "side": 1,
+      "message": "Fixed source requirement for confidential clients (I misunderstood what Browsers send when no file is given). Thanks to Eliza for pointing that out!",
+      "revId": "4a029ca238284874369cc145a684453e5aedd06e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
