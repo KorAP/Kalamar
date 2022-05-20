@@ -44,6 +44,11 @@ sub register {
     });
   };
 
+  # Set session default timeout
+  for ($app->sessions) {
+    $_->default_expiration(60*60*24*3); # Session expires after 3 days of non-use
+  };
+
   # Get the client id and the client_secret as a requirement
   unless ($param->{client_id} && $param->{client_secret}) {
     $app->log->error('client_id or client_secret not defined');
@@ -487,7 +492,6 @@ sub register {
         # If the request already has an Authorization
         # header, respect it!
         if ($h->authorization) {
-
           return $ua->start_p($tx);
         };
 
