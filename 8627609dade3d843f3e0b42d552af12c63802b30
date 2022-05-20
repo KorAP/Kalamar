@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1cd881d_96e0f0be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-20T13:38:04Z",
+      "side": 1,
+      "message": "I guess unknowingly the default expiration time for the cookies was changed ... I am not sure ... or I removed it somewhere. However - this sets the expiration time to 3 days and will be resettet every time the cookie is used.",
+      "revId": "8627609dade3d843f3e0b42d552af12c63802b30",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
