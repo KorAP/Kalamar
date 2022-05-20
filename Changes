@@ -1,4 +1,4 @@
-0.45 2022-05-11
+0.45 2022-05-20
         - Added confidential client support to OAuth. (diewald)
         - Added OAuth client authorization handling. (diewald)
         - Mark public clients as slightly more insecure. (diewald)
@@ -6,6 +6,8 @@
         - Support plugin declarations on registration. (diewald)
         - Fetch client information before grant request. (diewald)
         - Enable Zooming on mobile clients. (diewald)
+        - Remove JWT Auth flow, which was deprecated since 0.42.
+          (diewald)
 
 0.44 2022-02-31
         - Fixed autosecrets migration. (diewald)
