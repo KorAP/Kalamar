@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a6a4af6_a8b6ac6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-05-25T10:13:11Z",
+      "side": 1,
+      "message": "The diff is a bit confusing - actually it just removes the second half of the module as it deals with a deprecated flow.",
+      "revId": "82c4b1df2269e8b64fb792077721ec77e61a2885",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
