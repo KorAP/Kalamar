@@ -903,14 +903,8 @@ sub register {
         # Check plugin source
         if ($src) {
 
-          # Plugins need to be confidential
-          if ($type ne 'CONFIDENTIAL') {
-            $c->notify(error => $c->loc('Auth_confidentialRequired'));
-            return $c->render;
-          }
-
           # Source need to be a file upload
-          elsif (!ref $src || !$src->isa('Mojo::Upload')) {
+          if (!ref $src || !$src->isa('Mojo::Upload')) {
             $c->notify(error => $c->loc('Auth_jsonRequired'));
             return $c->render;
           };
@@ -923,6 +917,12 @@ sub register {
 
           # Check upload is not empty
           if ($src->size > 0 && $src->filename ne '') {
+
+            # Plugins need to be confidential
+            if ($type ne 'CONFIDENTIAL') {
+              $c->notify(error => $c->loc('Auth_confidentialRequired'));
+              return $c->render;
+            }
 
             my $asset = $src->asset;
 

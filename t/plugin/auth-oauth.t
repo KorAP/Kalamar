@@ -503,7 +503,7 @@ $csrf = $t->post_ok('/settings/oauth/register' => form => {
 
 $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
-  type => 'CONFIDENTIAL',
+  type => 'PUBLIC',
   desc => 'This is my plugin application',
   csrf_token => $csrf,
   src => {
@@ -516,7 +516,7 @@ $t->post_ok('/settings/oauth/register' => form => {
   ->text_is('legend', 'Client Credentials')
   ->text_is('label[for=client_id]', 'ID of the client application')
   ->element_exists('input[name=client_id][readonly][value]')
-  ->element_exists('input[name=client_secret][readonly][value]')
+  ->element_exists_not('input[name=client_secret][readonly][value]')
   ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
   ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
   ->header_is('Pragma','no-cache')
@@ -904,17 +904,23 @@ my $json_post = {
 $t->post_ok('/settings/oauth/register' => form => $json_post)
   ->status_is(200)
   ->element_exists('div.notify-error')
+  ->text_is('div.notify-error', 'Plugin declarations need to be json files')
+  ;
+
+$json_post->{src} = {
+  content => 'jjjjjj',
+  filename => 'fun.txt'
+};
+
+$t->post_ok('/settings/oauth/register' => form => $json_post)
+  ->status_is(200)
+  ->element_exists('div.notify-error')
   ->text_is('div.notify-error', 'Plugins need to be confidential')
   ;
 
 $json_post->{type} = 'CONFIDENTIAL';
 
-$t->post_ok('/settings/oauth/register' => form => $json_post)
-  ->status_is(200)
-  ->element_exists('div.notify-error')
-  ->text_is('div.notify-error', 'Plugin declarations need to be json files')
-  ;
-
+# This somehow gets removed in the last form send ...
 $json_post->{src} = {
   content => 'jjjjjj',
   filename => 'fun.txt'
