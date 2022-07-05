@@ -30,7 +30,7 @@ sub query {
   # Validate user input
   my $v = $c->validation;
 
-  $v->optional('q', 'trim')->size(1,1000);
+  $v->optional('q', 'trim')->size(1,4096);
   $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
   $v->optional('collection', 'trim'); # Legacy
   $v->optional('cq', 'trim');         # New
