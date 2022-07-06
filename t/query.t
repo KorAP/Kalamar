@@ -236,9 +236,17 @@ $t->get_ok('/?q=fantastisch&p=hui&o=hui&count=-8')
   ->element_count_is('#notifications div.notify-error', 3)
   ;
 
-# Query too long
-my $long_query = 'b' x 2000;
+# Long, but not too long query
+my $long_query = 'b' x 4096;
 $err = $t->get_ok('/?q=' . $long_query)
+  ->status_is(400)
+  ->text_like('#notifications div.notify-error', qr!Unable to load query response from!)
+  ->tx->res->dom->at('#error')
+  ;
+
+# Query too long
+my $too_long_query = 'b' x 4097;
+$err = $t->get_ok('/?q=' . $too_long_query)
   ->status_is(400)
   ->text_like('#notifications div.notify-error', qr!Parameter ".+?" invalid!)
   ->tx->res->dom->at('#error')
