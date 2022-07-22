@@ -37,7 +37,8 @@ div.matchtable {
   }
 
   td {
-    &:empty {
+    empty-cells: hide;
+    &.not-empty:empty {
       cursor: default;
       // Fix for empty annotation lines:
       &::after {
@@ -115,7 +116,10 @@ div.matchtable {
   }
 
   thead th {
-    background-color: $darker-orange;
+    &:not(.no-anno) {
+      background-color: $darker-orange;
+    }
+
     border-top-width: 0px !important;
     text-align:       center;
 
@@ -127,7 +131,7 @@ div.matchtable {
     &.mark {
       background-color: $darkest-orange;
     }
-
+    
     &.cutted {
       background-color: $light-orange;
 

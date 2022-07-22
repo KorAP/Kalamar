@@ -38,6 +38,7 @@ define([
       
       t._pos     = 0;
       t._token   = [];
+      t._anno    = [];
       t._mark    = [];
       t._markE   = undefined;
       t._cutted  = [];
@@ -119,6 +120,7 @@ define([
         // Create object on position unless it exists
         if (t._info[t._pos] === undefined) {
           t._info[t._pos] = {};
+          t._anno[t._pos] = false;
         };
 
         // Store at position in foundry/layer as array
@@ -168,6 +170,8 @@ define([
             if (t._layer[layer] === undefined)
               t._layer[layer] = {};
             t._layer[layer][foundry] = 1;
+
+            t._anno[t._pos] = true;
           }
 
           // The current position marks a cut
@@ -184,7 +188,7 @@ define([
         // Leaf node
         // store string on position and go to next string
         else if (c.nodeType === 3) {
-          if (c.nodeValue.match(/[a-z0-9\u25ae]/iu)) {
+          if (!c.nodeValue.match(/^\s+$/)) {
             t._mark[t._pos] = mark ? true : false;
             t._token[t._pos++] = c.nodeValue;
           };
@@ -274,6 +278,10 @@ define([
           c.classList.add('cutted');
         };
 
+        if (!this._anno[i]) {
+          c.classList.add('no-anno');
+        };
+        
         // In case the title is very long - add a title attribute
         if (surface.length > 20) {
           c.setAttribute("title", surface)
@@ -312,6 +320,10 @@ define([
 
             if (this._mark[v]) {
               cell.classList.add('mark');
+            };
+
+            if (value === undefined && this._anno[v]) {
+              cell.classList.add("not-empty");
             };
           };
         }, this);
