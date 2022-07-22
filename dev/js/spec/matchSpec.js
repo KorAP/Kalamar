@@ -222,6 +222,55 @@ define(['match',
       "</span>" +
       "<span class=\"context-right\"></span>";
 
+  var snippetDiffToken = "<span class=\"context-left\"><\/span>"+
+      "<span class=\"match\">" +
+      "<span class=\"cutted\"><\/span>" +
+      "Außerdem " +
+      "<span title=\"cnx/l:meist\">" +
+      "  <span title=\"cnx/p:ADV\">" +
+      "    <span title=\"cnx/syn:@PREMOD\">" +
+      "      <span title=\"mate/l:meist\">" +
+      "        <span title=\"mate/l:meist\">" +
+      "          <span title=\"mate/p:ADV\">" +
+      "            <span title=\"opennlp/p:ADV\">Диес</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>" +
+      "<mark>" + 
+      "<span title=\"cnx/l:deutlich\">" +
+      "  <span title=\"cnx/p:A\">" +
+      "    <span title=\"cnx/syn:@PREMOD\">" +
+      "      <span title=\"mate/l:deutlich\">" +
+      "        <span title=\"mate/m:degree:pos\">" +
+      "          <span title=\"mate/p:ADJD\">" +
+      "            <span title=\"opennlp/p:ADJD\">ист</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>" +
+      "<span title=\"cnx/l:deutlich\">" +
+      "  <span title=\"cnx/p:A\">" +
+      "    <span title=\"cnx/syn:@PREMOD\">" +
+      "      <span title=\"mate/l:deutlich\">" +
+      "        <span title=\"mate/m:degree:pos\">" +
+      "          <span title=\"mate/p:ADJD\">" +
+      "            <span title=\"opennlp/p:ADJD\">Беиспиел</span>" +
+      "          </span>" +
+      "        </span>" +
+      "      </span>" +
+      "    </span>" +
+      "  </span>" +
+      "</span>" +
+      "</mark>" +
+      "<span class=\"cutted\"><\/span>" +
+      "</span>";
+
+          
   var treeSnippetHierarchy =
       "<span class=\"context-left\"><\/span><span class=\"match\"><span title=\"corenlp\/c:MPN\">Leonard Maltin<\/span> schrieb: „<span title=\"corenlp\/c:S\"><span title=\"corenlp\/c:NP\">Plot <span title=\"corenlp\/c:MPN\">contrivance isn‘<mark>t<\/mark> handled badly<\/span><\/span> <span title=\"corenlp\/c:PP\">in above-average programmer<\/span><\/span>“.&lt;<span title=\"corenlp\/c:S\"><span title=\"corenlp\/c:ROOT\"><span title=\"corenlp\/c:NP\">ref&gt;''<span title=\"corenlp\/c:NP\"><span title=\"corenlp\/c:CNP\">Movie &amp;amp; Video<\/span> Guide<\/span><\/span>'', <span title=\"corenlp\/c:VP\">1996 edition, <span title=\"corenlp\/c:NP\"><span title=\"corenlp\/c:CNP\">S. 210<\/span><\/span><\/span>.<\/span><\/span><\/span><span class=\"context-right\"><\/span>";
 
@@ -573,7 +622,7 @@ define(['match',
       expect(table.getValue(5, "cnx", "l")[0]).toBe("fähig");
       expect(table.getValue(5, "cnx", "l")[1]).toBe("leistung");
     });
-   
+    
     it('should be rendered async', function () {
       var e = table.element().firstChild;
       expect(e.nodeName).toBe('TABLE');
@@ -692,6 +741,98 @@ define(['match',
       expect(matchElement.tagName).toEqual('LI');
     });
     
+    it('should parse into a table with non-latin characters', function () {
+      var matchElement = matchElementFactory();
+      expect(matchElement.tagName).toEqual('LI');
+
+      // Match
+      expect(matchElement.children[0].tagName).toEqual('DIV');
+
+      // snippet
+      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+      // reference
+      expect(matchElement.children[1].classList.contains('ref')).toBeTruthy();
+      expect(matchElement.children[1].firstChild.nodeValue).toEqual('me');
+
+      // not yet
+      expect(matchElement.children[0].children[1]).toBe(undefined);
+
+      /*
+      var info = matchClass.create(matchElement).info();
+      info.showTable();
+      */
+      var matchObj = matchClass.create(matchElement);
+      matchObj.open();
+
+      // Match
+      expect(matchElement.children[0].tagName).toEqual('DIV');
+
+      // snippet
+      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+
+      expect(matchElement.children[0].children[0].classList.contains('snippet')).toBeTruthy();
+
+      expect(matchElement.children[0].children[0].firstChild.nodeValue).toEqual('check');
+
+      // reference
+
+      expect(matchElement.children[2].classList.contains('ref')).toBeTruthy();
+      expect(matchElement.children[2].childNodes[1].nodeValue).toEqual('me');
+
+      // Add table
+      matchObj.panel.addTable();
+
+      // now
+      var infotable = matchElement.children[1];
+      expect(infotable.tagName).toEqual('DIV');
+
+      expect(infotable.classList.contains('matchinfo')).toBeTruthy();
+    
+      expect(infotable.firstChild.firstChild.firstChild.classList.contains('matchtable')).toBeTruthy();
+
+      // expect(infotable.children[1].classList.contains('addtree')).toBeTruthy();
+    });
+
+    it('should parse into a table view with all non-latin characters (sync)', function () {
+
+      // Override getMatchInfo API call
+      KorAP.API.getMatchInfo = function (x, param, cb) {
+        cb({ "snippet": snippetDiffToken });
+      };
+
+      var matchElement = matchElementFactory();
+      expect(matchElement.tagName).toEqual('LI');
+
+      // Match
+      expect(matchElement.children[0].tagName).toEqual('DIV');
+
+      var matchObj = matchClass.create(matchElement);
+      matchObj.open();
+
+      // Match
+      expect(matchElement.children[0].tagName).toEqual('DIV');
+
+      // snippet
+      expect(matchElement.children[0].children[0].tagName).toEqual('DIV');
+
+      // Add table
+      matchObj.panel.addTable();
+
+      // now
+      var infotable = matchElement.children[1];
+      expect(infotable.tagName).toEqual('DIV');
+
+      expect(infotable.classList.contains('matchinfo')).toBeTruthy();
+    
+      expect(infotable.firstChild.firstChild.firstChild.classList.contains('matchtable')).toBeTruthy();
+
+      console.log(infotable.firstChild.firstChild.outerHTML);
+      
+    });
+
   });
 
   describe('KorAP.RelationsView', function () {
