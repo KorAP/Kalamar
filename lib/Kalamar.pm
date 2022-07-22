@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.45';
+our $VERSION = '0.46';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
