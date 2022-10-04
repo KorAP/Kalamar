@@ -41,9 +41,10 @@
   <h4>Regular Expression Operator</h4>
 
   <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= embedded_link_to 'doc', 'regular expressions', 'ql', 'regexp' %>.</p>
-  
 
-  <blockquote class="bug">
+  <%= doc_query cosmas2 => '#REG(Archi.*ung)' %>
+
+  <blockquote class="missing">
     <p>Regular expressions in COSMAS II are not yet properly implemented in KorAP. If you want to use regular expressions, please refer to <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus#regexp' %>.</p>
   </blockquote>
 
@@ -71,20 +72,16 @@
 <section id="distance-operators">
   <h3>Distance Operators</h3>
 
-  <p>Distance operators allow you to search for two operands (search terms or complex search operations) that occur or don't occur at a certain distance from each other in a text. When the two operands should occur together (the operator is prepended by a <code>/</code> symbol), both operands are in the result set. When they shouldn't occur together (the operator is prepended by a <code>%</code> symbol), only the first operand is in the result set.</p>
+  <p>Distance operators allow you to search for two operands (search terms or complex search operations) that occur or don&apos;t occur at a certain distance from each other in a text. When the two operands should occur together (the operator is prepended by a <code>/</code> symbol), both operands are in the result set. When they shouldn&apos;t occur together (the operator is prepended by a <code>%</code> symbol), only the first operand is in the result set.</p>
 
-  <p>Distance operators accept a prefixing direction parameter.
+  <p>Distance operators accept an additional direction parameter.
     By prepending the operator with a <code>+</code> symbol (e.g. in <code>/+s0</code>), the second operand is required to occur or not occur after the first operand.
     By prepending the operator with a <code>-</code> symbol (e.g. in <code>/-s0</code>), the second operand is required to occur or not occur in front of the first operand.
   In case the direction parameter is omitted, the direction of both operands is arbitrary.</p>
 
   <p>Distance operators accept the definition of a distance interval by appending numerical values. If only a single numerical value is given (e.g. in <code>/+s4</code>), the defined distance is considered a maximum distance. So both operands can or can not occur in a distance equal or lower the given value. If two numerical values are given separated by the <code>:</code> symbol (e.g. in <code>/+s4:2</code>), they define an interval, in which the distance is valid.</p>
-
-%#  <blockquote class="warning">
-%#    <p>Currently, intervals are interpreted as MIN:MAX only, while COSMAS 2 defines intervals as being MAX:MIN, while taking the smaller number as being the minimum value of the interval and the greater number as being the maximum value of the interval. <%= ext_link_to 'KorAP will adopt the behaviour of COSMAS II in the near future', "https://github.com/KorAP/Koral/issues/67" %>.</p>
-%#  </blockquote>
   
-  <p>Distance operators rely on the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
+  <p>Distance operators rely on the tokenization and <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotation for document structures.</p>
 
   <p>In case a query contains numerous distance operators, they need to be nested in parentheses:</p>
   %= doc_query cosmas2 => '(Tag /+w2 offenen) /+w1 Tür'
@@ -140,7 +137,7 @@
   <h4>Multi-Distance Operators</h4>
  
   <p>Distance operators can be combined to further limit the result set. The distance conditions are separated by comma (without spaces).</p> 
-  <p>Search for &quot;ein Fest&quot; in a sentence:</p>
+  <p>Search for a defined two-word phrase in a sentence:</p>
    %= doc_query cosmas2 => 'ein /+w1,s0 Fest'
          
   <h4>Omitted Distance Operator</h4>
