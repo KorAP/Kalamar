@@ -67,7 +67,8 @@ my $THOUSAND_SEP_RE = qr/(
       intro => 'de/intro',
       doc => {
         ql => {
-          'poliqarp-plus' => 'de/doc/ql/poliqarp-plus'
+          'poliqarp-plus' => 'de/doc/ql/poliqarp-plus',
+          'cosmas-2' => 'de/doc/ql/cosmas-2'
         },
         api => {
           'koralquery' => 'de/doc/api/koralquery'
@@ -86,6 +87,12 @@ my $THOUSAND_SEP_RE = qr/(
     },
     Nav => {
       'ql' => 'Anfragesprachen',
+      '#queryterms' => 'Suchbegriffe',
+      '#logical-operators' => 'Logische Operatoren',
+      '#distance-operators' =>  'Abstandsoperatoren',
+      '#annotation-operators' =>  'Annotationsoperatoren',
+      '#combination-operators'=>  'Kombinationsoperatoren',
+      '#area-operators' =>  'Textbereich-Operatoren',
       '#segments' => 'Einfache Segmente',
       '#complex' => 'Komplexe Segmente',
       '#spans' => 'Span-Segmente',
@@ -166,7 +173,8 @@ my $THOUSAND_SEP_RE = qr/(
       intro => 'intro',
       doc => {
         ql => {
-          'poliqarp-plus' => 'doc/ql/poliqarp-plus'
+          'poliqarp-plus' => 'doc/ql/poliqarp-plus',
+          'cosmas-2' => 'doc/ql/cosmas-2'
         },
         api => {
           'koralquery' => 'doc/api/koralquery'
@@ -185,6 +193,12 @@ my $THOUSAND_SEP_RE = qr/(
     },
     Nav => {
       'ql' => 'Query Languages',
+      '#queryterms' => 'Query Terms',
+      '#logical-operators' => 'Logical Operators',
+      '#distance-operators' =>  'Distance Operators',
+      '#annotation-operators' =>  'Annotation Operators',
+      '#combination-operators'=>  'Combination Operators',
+      '#area-operators' =>  'Area Operators',
       '#segments' => 'Simple Segments',
       '#complex' => 'Complex Segments',
       '#spans' => 'Span Segments',
