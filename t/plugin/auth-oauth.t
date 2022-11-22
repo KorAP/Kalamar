@@ -2,7 +2,7 @@ use Mojo::Base -strict;
 use Test::More;
 use Mojo::ByteStream 'b';
 use Test::Mojo::WithRoles 'Session';
-use Mojo::File qw/path/;
+use Mojo::File qw/path tempfile/;
 use Data::Dumper;
 
 
@@ -952,6 +952,56 @@ $t->get_ok('/settings/oauth/jh0gfjhjbfdsgzjghj==')
   ->text_is('li.client p.client-desc', 'This is my plugin application 2')
   ->element_exists_not('li.client .client-redirect-uri tt')
   ->text_is('li.client .client-type tt', 'CONFIDENTIAL')
+  ;
+
+
+# Retest client with super_client_file
+my $client_file = tempfile;
+
+$client_file->spurt(
+  '{"client_id":"2","client_secret":"k414m4r-s3cr3t"}'
+);
+
+$t = Test::Mojo::WithRoles->new('Kalamar' => {
+  Kalamar => {
+    plugins => ['Auth']
+  },
+  'Kalamar-Auth' => {
+    client_file => $client_file,
+    oauth2 => 1
+  }
+});
+
+$t->app->plugin(
+  Mount => {
+    $mount_point =>
+      $fixtures_path->child('mock.pl')
+  }
+);
+
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.button.top a')
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'pass',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->header_is('Location' => '/')
+  ->content_is('');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Login successful')
+  ->element_exists_not('aside.off')
+  ->element_exists_not('aside.active')
+  ->element_exists('aside.settings')
   ;
 
 

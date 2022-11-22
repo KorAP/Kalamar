@@ -1,3 +1,7 @@
+0.47 2022-11-22
+        - Support 'client_file' parameter as an alternative to 'client_id'
+          and 'client_secret'. (diewald)
+
 0.46 2022-08-08
         - Increased max query length from 1000 to 4096 characters. (kupietz)
         - Fix handling of public clients. (diewald)

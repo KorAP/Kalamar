@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use File::Basename 'dirname';
 use File::Spec::Functions qw/catdir/;
 use Mojo::ByteStream 'b';
+use Mojo::File qw!path!;
 use Mojo::Util qw!b64_encode encode!;
 use Mojo::JSON qw'decode_json encode_json';
 use Encode 'is_utf8';
@@ -50,6 +51,13 @@ sub register {
   # Set session default timeout
   for ($app->sessions) {
     $_->default_expiration(60*60*24*3); # Session expires after 3 days of non-use
+  };
+
+  # Get client_id and client_secret from client file
+  if ($param->{client_file}) {
+    my $client_json = decode_json(path($param->{client_file})->slurp);
+    $param->{client_id} //= $client_json->{client_id};
+    $param->{client_secret} //= $client_json->{client_secret};
   };
 
   # Get the client id and the client_secret as a requirement
