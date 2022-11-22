@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "140d16b2_a1466b3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-11-22T11:21:51Z",
+      "side": 1,
+      "message": "This will mainly be used by KorAP-Docker to initialize the super_client_info file for Kalamar and Kustvakt.",
+      "revId": "fd2e2d00516b4c153793b35531dc8e832ce52eba",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
