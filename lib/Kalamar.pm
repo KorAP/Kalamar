@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util 'none';
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.46';
+our $VERSION = '0.47';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -36,6 +36,9 @@ sub startup {
 
   # Add additional plugin path
   push(@{$self->plugins->namespaces}, __PACKAGE__ . '::Plugin');
+
+  # Add additional commands
+  push(@{$self->commands->namespaces}, __PACKAGE__ . '::Command');
 
   # Set secrets for signed cookies
   my $secret_file = $self->home->rel_file('kalamar.secret.json');

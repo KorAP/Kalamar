@@ -22,6 +22,7 @@
 /lib/Kalamar/Plugin/Announcements.pm
 /log
 /blib
+/super_client_info
 /script*
 /MYMETA*
 /Makefile
