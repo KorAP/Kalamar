@@ -17,28 +17,28 @@ WriteMakefile(
   },
   LICENSE      => 'freebsd',
   PREREQ_PM => {
-    'Mojolicious' => '9.19',
+    'Mojolicious' => '9.30',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.10,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.13,
     'Mojolicious::Plugin::ClosedRedirect' => 0.15,
-    'Mojolicious::Plugin::Notifications' => 1.07,
+    'Mojolicious::Plugin::Notifications' => 1.08,
     'Mojolicious::Plugin::MailException' => 0.24,
     'Mojolicious::Plugin::Util::RandomString' => 0.09,
     'Mojolicious::Plugin::CHI' => 0.20,
     'Mojolicious::Plugin::ClientIP' => 0.02,
     'Mojolicious::Plugin::AutoSecrets' => 0.006,
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.11,
-    'Cache::FastMmap' => 1.56,
-    'Data::Serializer' => 0.65,
+    'Cache::FastMmap' => 1.57,
 
-    # Required for Data::Serializer at the moment
-    'JSON' => 4.03,
+    # Required for Mojolicious::Plugin::CHI
+    'Data::Serializer' => 0.65,
+    'JSON' => 4.10,
 
     # Required for older perl bundles
-    'List::Util' => 1.45,
+    'List::Util' => 1.63,
 
     # Required for bundled plugins
-    'Mojolicious::Plugin::Piwik' => 0.28,
+    'Mojolicious::Plugin::Piwik' => 1.00,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Localize' => 0.21
