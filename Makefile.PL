@@ -30,7 +30,6 @@ WriteMakefile(
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.11,
     'Cache::FastMmap' => 1.56,
     'Data::Serializer' => 0.65,
-    'Mojo::JWT' => 0.09,
 
     # Required for Data::Serializer at the moment
     'JSON' => 4.03,
