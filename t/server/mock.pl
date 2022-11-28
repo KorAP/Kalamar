@@ -5,7 +5,6 @@ use Mojo::Date;
 use Mojo::JSON qw/true false encode_json decode_json/;
 use strict;
 use warnings;
-use Mojo::JWT;
 use Mojo::File qw/path/;
 use Mojo::Util qw/slugify/;
 
@@ -30,24 +29,6 @@ our %tokens = (
 helper get_token => sub {
   my ($c, $token) = @_;
   return $tokens{$token}
-};
-
-# Legacy:
-helper jwt_encode => sub {
-  shift;
-  return Mojo::JWT->new(
-    secret => $secret,
-    token_type => 'api_token',
-    expires => time + (3 * 34 * 60 * 60),
-    claims => { @_ }
-  );
-};
-
-# Legacy;
-helper jwt_decode => sub {
-  my ($c, $auth) = @_;
-  $auth =~ s/\s*api_token\s+//;
-  return Mojo::JWT->new(secret => $secret)->decode($auth);
 };
 
 # Expiration helper
@@ -181,13 +162,9 @@ get '/v1.0/search' => sub {
   if (my $auth = $c->req->headers->header('Authorization')) {
 
     $c->app->log->debug("There is an authorization header $auth");
-    my $jwt;
     if ($auth =~ /^Bearer/) {
       # Username unknown in OAuth2
       $response->{json}->{meta}->{authorized} = 'yes';
-    }
-    elsif ($auth =~ /^api_token/ && ($jwt = $c->jwt_decode($auth))) {
-      $response->{json}->{meta}->{authorized} = $jwt->{username} if $jwt->{username};
     };
 
     # Code is expired
@@ -302,13 +279,6 @@ get '/v1.0/auth/logout' => sub {
     if ($auth =~ /^Bearer/) {
       $c->app->log->debug('Server-Logout: ' . $auth);
       return $c->render(json => { msg => [[0, 'Fine!']]});
-    }
-
-    elsif (my $jwt = $c->jwt_decode($auth)) {
-      my $user = $jwt->{username} if $jwt->{username};
-
-      $c->app->log->debug('Server-Logout: ' . $user);
-      return $c->render(json => { msg => [[0, 'Fine!']]});
     };
   };
 
@@ -337,26 +307,7 @@ get '/v1.0/auth/apiToken' => sub {
 
   # the password is 'pass'
   if ($pwd) {
-
-    # the password is 'pass'
-    if ($pwd eq 'pass') {
-
-      # Render info with token
-      my $jwt = $c->jwt_encode(username => $username);
-
-      # Render in the Kustvakt fashion:
-      return $c->render(
-        format => 'html',
-        text => encode_json({
-          %{$jwt->claims},
-          expires    => $jwt->expires,
-          token      => $jwt->encode,
-          token_type => 'api_token'
-        })
-      );
-    }
-
-    elsif ($pwd eq 'ldaperr') {
+    if ($pwd eq 'ldaperr') {
       return $c->render(
         format => 'html',
         status => 401,
