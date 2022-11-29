@@ -126,6 +126,11 @@ $t->get_ok('/settings/oauth')
   ->text_is('p.no-results', 'Not authenticated')
   ;
 
+$t->get_ok('/settings/marketplace')
+  ->status_is(401)
+  ->text_is('p.no-results', 'Not authenticated')
+  ;
+
 # Test for bug with long password
 $t->post_ok('/user/login' => form => {
   handle_or_email => 'test',
@@ -491,6 +496,12 @@ $t->get_ok('/settings/oauth')
   ->header_is('Pragma','no-cache')
   ;
 
+
+$t->get_ok('/settings/marketplace')
+  ->status_is(200)
+  ->text_is('html head title' => 'Marketplace')
+  ;
+
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
   type => 'PUBLIC',
@@ -843,6 +854,7 @@ $fake_backend_app->add_client({
 #  "client_redirect_uri" => $redirect_uri
 });
 
+
 $fake_backend_app->add_client({
   "client_id" => 'xyz2',
   "client_name" => 'New added client',
@@ -877,6 +889,21 @@ $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   ->element_exists("input[name=handle_or_email]")
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;
+
+
+$fake_backend_app->add_plugin({
+"source" => {"key1" => 'wert1', "key2" => 'wert2'},
+"client_id" => "52abc",
+"permitted" => 'true',
+"client_id" => '52abc',
+"client_name" => 'Plugin 1',
+"client_type" => 'CONFIDENTIAL',
+"client_description" =>"Description Plugin 1",
+"client_url" => "http://example.client.de",
+"registration_date" => "2022-05-31T14:30:09+02:00[Europe/Berlin]",
+"registered_by" => "system"
+});
+
 
 $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
@@ -922,6 +949,49 @@ $t->get_ok($fwd)
   ->element_exists_not('div.notify-warn')
   ->element_exists_not('blockquote.warning')
   ;
+
+$t->get_ok('/settings/marketplace')
+  ->status_is(200)
+  ->text_is('html head title' => 'Marketplace')
+  ->element_exists('ul.plugin-list')
+  ->element_exists('ul.plugin-list > li')
+  ->element_exists('p.registration_date')
+  ->element_exists('p.registered_by')
+  ->text_is('span.client-name','Plugin 1')
+  ->text_is('p.plugin-desc','Description Plugin 1')
+  ;
+
+$fake_backend_app->add_plugin({
+"source" => {"one" => '1', "two" => '2'},
+"permitted" => 'false',
+"client_id" => '53abc',
+"client_name" => 'Plugin 2',
+"client_type" => 'CONFIDENTIAL',
+"client_description" =>'Description Plugin 2'
+});
+
+$fake_backend_app->add_plugin({
+"source" => {"answer" => '42', "hello" => 'world'},
+"permitted" => 'true',
+"client_id" => '54abc',
+"client_name" => 'Plugin 3',
+"client_type" => 'CONFIDENTIAL',
+"client_description" =>'Description Plugin 3'
+});
+
+$t->get_ok('/settings/marketplace')
+  ->status_is(200)
+  ->element_exists('ul.plugin-list')
+  ->element_exists('ul.plugin-list > li')
+  ->text_is('span.client-name','Plugin 1')
+  ->text_is('p.plugin-desc','Description Plugin 1')
+  ->element_exists('ul.plugin-list > li + li')
+  ->text_isnt('ul.plugin-list > li + li >span.client-name','Plugin 2')
+  ->text_isnt('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
+  ->text_is('ul.plugin-list > li + li >span.client-name','Plugin 3')
+  ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 3')
+  ;
+
 
 $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
