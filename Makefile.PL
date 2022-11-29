@@ -62,6 +62,6 @@ WriteMakefile(
   },
 
   test => {
-    TESTS => 't/*.t'
+    TESTS => 't/*.t t/plugin/*.t'
   }
 );
