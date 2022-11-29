@@ -100,6 +100,13 @@ sub register {
           registerSuccess => 'Registrierung erfolgreich',
           registerFail => 'Registrierung fehlgeschlagen',
           oauthSettings => 'OAuth',
+          
+          #for marketplace settings
+          marketplace => 'Marktplatz',
+          mp_desc => "Hier können Sie zusätzliche Plugins für KorAP installieren.",
+          mp_regby => "Registriert von",
+          mp_regdate => "Registrierungsdatum",
+
           oauthUnregister => {
             -long => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
             short => 'Löschen'
@@ -156,6 +163,11 @@ sub register {
           registerSuccess => 'Registration successful',
           registerFail => 'Registration denied',
           oauthSettings => 'OAuth',
+          #for marketplace settings
+          marketplace => 'Marketplace',
+          mp_desc => 'Here you can install additional plugins for KorAP.',
+          mp_regby =>"Registered by",
+          mp_regdate =>"Registration date",
           oauthUnregister => {
             -long => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
             short => 'Unregister'
@@ -385,10 +397,12 @@ sub register {
     }
   );
 
+
   # Get a list of registered clients
   $app->helper(
     'auth.client_list_p' => sub {
       my $c = shift;
+
 
       # Get list of registered clients
       state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/list');
@@ -805,6 +819,8 @@ sub register {
   )->name('logout');
 
 
+
+
   # If "experimental_registration" is set, open
   # OAuth registration dialogues.
   if ($param->{experimental_client_registration}) {
@@ -812,7 +828,113 @@ sub register {
     # Add settings
     $app->navi->add(settings => (
       $app->loc('Auth_oauthSettings'), 'oauth'
+    )
+    );
+    $app->navi->add(settings => (
+      $app->loc('Auth_marketplace'), 'marketplace'
     ));
+
+
+    # Lists all permitted registered plugins
+    $app->helper(
+    'auth.plugin_list_m' => sub {
+
+      my $c = shift;
+      state $r_url = Mojo::URL->new($c->korap->api)->path('plugins');
+      return $c->korap_request(post => $r_url, {} => form => {
+        super_client_id => $client_id,
+        super_client_secret => $client_secret,
+        #list only permitted plugins
+        permitted_only => 'true'
+      })->then( 
+          sub {
+          my $tx = shift;
+          my $json = $tx->result->json;
+
+          # Response is fine
+          if ($tx->res->is_success) {
+            return Mojo::Promise->resolve($json);
+          };
+          
+          $c->log->error($c->dumper($tx->res->to_string));
+
+          # Failure
+          $c->notify(error => $c->loc('Auth_responseError'));
+          return Mojo::Promise->reject($json // 'No response');
+        }
+      );
+     }
+   );
+
+    
+    # Route to marketplace settings
+    $r->get('/settings/marketplace')->to(
+      cb => sub {
+      my $c = shift; 
+
+        _set_no_cache($c->res->headers);
+
+        unless ($c->auth->token) {
+          #TODO: Handle authorization (forward to Login for example)
+          return $c->render(
+            template => 'exception',
+            msg => $c->loc('Auth_authenticationFail'),
+            status => 401
+          );
+        };
+
+      $c->render_later;
+      $c->auth->plugin_list_m->then(
+        sub {
+          $c->stash('plugin_list' => shift);
+          }
+        )->catch(
+         sub {
+            return;
+          }
+       )->finally(
+         sub {
+           return $c->render(template => 'auth/marketplace');
+         }
+       );
+      }
+     )->name('marketplace');
+
+
+
+    # Route to OAuth settings
+    $r->get('/settings/oauth')->to(
+      cb => sub {
+        my $c = shift;
+
+        _set_no_cache($c->res->headers);
+
+        unless ($c->auth->token) {
+          return $c->render(
+            template => 'exception',
+            msg => $c->loc('Auth_authenticationFail'),
+            status => 401
+          );
+        };
+
+        # Wait for async result
+        $c->render_later;
+
+        $c->auth->client_list_p->then(
+          sub {
+            $c->stash('client_list' => shift);
+          }
+        )->catch(
+          sub {
+            return;
+          }
+        )->finally(
+          sub {
+            return $c->render(template => 'auth/clients')
+          }
+        );
+      }
+    )->name('oauth-settings');
 
     # Route to oauth settings
     $r->get('/settings/oauth')->to(

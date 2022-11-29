@@ -1,0 +1,32 @@
+% extends 'settings', title => loc('Auth_marketplace'), page => 'oauth';
+
+%= page_title
+
+<p> <%= loc('Auth_mp_desc')%> </p>
+
+% my $plugins = stash('plugin_list');
+
+% if ($plugins) {
+<ul class="plugin-list">
+%   foreach (@$plugins) {
+  <li class="plugin">
+  
+    <span class="client-name client-type-<%= lc($_->{'client_type'} // 'PUBLIC') %>"><%=$_->{client_name} %></span>
+    % if ($_->{client_description}) {
+    
+      <p class="plugin-desc"><%= $_->{client_description} %></p>
+    
+    
+    % };
+    % if ($_->{client_url}) {
+    <p class="plugin-url"><a href="<%= $_->{client_url} %>"><%= $_->{client_url} %></a></p>
+    % }
+  %if ($_->{registration_date}) {
+    <p class="registration_date"> <%=loc('Auth_mp_regdate')%>: <%= $_->{registration_date} %></p>
+%   };
+  %if ($_->{registered_by}) {
+    <p class="registered_by"> <%=loc('Auth_mp_regby')%>: <%= $_->{registered_by} %></p>
+%   };
+%}
+</ul>
+% };
