@@ -57,6 +57,13 @@ helper 'add_client' => sub {
   push @$list, $client;
 };
 
+# Add plugin to plugin list for marketplace
+helper 'add_plugin' => sub {
+  my $c = shift;
+  my $cplugin = shift;
+  my $pl_list = $c->app->defaults('oauth.plugin_list');
+  push @$pl_list, $cplugin; 
+};
 
 # Load fixture responses
 helper 'load_response' => sub {
@@ -89,6 +96,7 @@ helper 'load_response' => sub {
 };
 
 app->defaults('oauth.client_list' => []);
+app->defaults('oauth.plugin_list' => []);
 
 
 # Base page
@@ -552,9 +560,8 @@ post '/v1.0/oauth2/client/register' => sub {
   });
 };
 
-
-# Register a client
-post '/v1.0/oauth2/client/list' => sub {
+# List plugins
+post '/v1.0/plugins' => sub {
   my $c = shift;
 
   my $v = $c->validation;
@@ -568,6 +575,28 @@ post '/v1.0/oauth2/client/list' => sub {
       status => 400
     );
   };
+
+  return $c->render(
+   json => $c->stash('oauth.plugin_list'),
+    status => 200
+  );
+};
+
+# Register a client
+post '/v1.0/oauth2/client/list' => sub {
+  my $c = shift;
+
+  my $v = $c->validation;
+  $v->required('super_client_id');
+  $v->required('super_client_secret');
+
+  if ($v->has_error) {
+    return $c->render(
+      json => [],
+      status => 400
+    );
+  };
+
 
   # $c->param('client_secret');
 
