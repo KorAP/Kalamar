@@ -33,6 +33,23 @@
       "message": "Can\u0027t test currently, but LGTM",
       "revId": "da7b9092b2aa95962536a8bb7818209a9ce62f49",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b70f16ab_23ef63e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-11-30T10:06:20Z",
+      "side": 1,
+      "message": "Maybe in addition we should support a $KALAMAR_CLIENT_FILE environment variable, so we do not need to create a configuration",
+      "revId": "da7b9092b2aa95962536a8bb7818209a9ce62f49",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
