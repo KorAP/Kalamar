@@ -16,6 +16,46 @@
       "message": "Work in progress ....",
       "revId": "0152d33d8b14137e084a5499fcbc6cfdef9aca1a",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7fc1f04_9d162745",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-11-30T10:18:13Z",
+      "side": 1,
+      "message": "Looks good so far! Is \u0027/v1.0/plugins\u0027 meant to be a real endpoint?",
+      "revId": "0152d33d8b14137e084a5499fcbc6cfdef9aca1a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f2d1e4_4da8e18a",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-11-30T10:18:13Z",
+      "side": 1,
+      "message": "Maybe it\u0027s better to not mix long- and short-notation here, especially as long-notation would be effectively shorter. See Mojolicious::Plugin::Localize.",
+      "range": {
+        "startLine": 105,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 0
+      },
+      "revId": "0152d33d8b14137e084a5499fcbc6cfdef9aca1a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
