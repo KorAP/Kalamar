@@ -54,7 +54,8 @@ sub register {
   };
 
   # Get client_id and client_secret from client file
-  if ($param->{client_file}) {
+  if ($param->{client_file} || $main::ENV{KALAMAR_CLIENT_FILE}) {
+    $param->{client_file} ||= $main::ENV{KALAMAR_CLIENT_FILE};
     my $client_json = decode_json(path($param->{client_file})->slurp);
     $param->{client_id} //= $client_json->{client_id};
     $param->{client_secret} //= $client_json->{client_secret};

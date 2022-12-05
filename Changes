@@ -3,6 +3,8 @@
           assistant. (diewald)
         - Remove deprecated 'auth_support' (since 0.31)
           configuration parameter - use 'Auth' plugin instead. (diewald)
+        - Support environment variable KALAMAR_CLIENT_FILE for
+          client information.
 
 0.47 2022-11-22
         - Add command to generate super_client_info file. (diewald)

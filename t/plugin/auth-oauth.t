@@ -1004,6 +1004,50 @@ $t->get_ok('/')
   ->element_exists('aside.settings')
   ;
 
+$main::ENV{KALAMAR_CLIENT_FILE} = $client_file;
+
+$t = Test::Mojo::WithRoles->new('Kalamar' => {
+  Kalamar => {
+    plugins => ['Auth']
+  },
+  'Kalamar-Auth' => {
+    oauth2 => 1,
+#    client_file => $client_file,
+  }
+});
+
+$t->app->plugin(
+  Mount => {
+    $mount_point =>
+      $fixtures_path->child('mock.pl')
+  }
+);
+
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.button.top a')
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$t->post_ok('/user/login' => form => {
+  handle_or_email => 'test',
+  pwd => 'pass',
+  csrf_token => $csrf
+})
+  ->status_is(302)
+  ->header_is('Location' => '/')
+  ->content_is('');
+
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists_not('div.notify-error')
+  ->element_exists('div.notify-success')
+  ->text_is('div.notify-success', 'Login successful')
+  ->element_exists_not('aside.off')
+  ->element_exists_not('aside.active')
+  ->element_exists('aside.settings')
+  ;
+
 
 done_testing;
 __END__
