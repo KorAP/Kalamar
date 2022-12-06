@@ -297,15 +297,6 @@ sub startup {
     };
   };
 
-  # Deprecated Legacy code
-  if ($self->config('Kalamar')->{auth_support} &&
-        none { $_ eq 'Auth' } @{$conf->{plugins} // []}) {
-
-    # 2018-11-16
-    deprecated 'auth_support configuration is deprecated in favor of Plugin loading';
-    $self->plugin('Kalamar::Plugin::Auth')
-  };
-
   # Configure documentation navigation
   my $doc_navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $doc_navi = $doc_navi ? decode_json($doc_navi) : [];
