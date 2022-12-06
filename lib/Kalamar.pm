@@ -5,7 +5,7 @@ use Mojo::URL;
 use Mojo::File;
 use Mojo::JSON qw/decode_json encode_json/;
 use Mojo::Util qw/url_escape deprecated slugify/;
-use List::Util 'none';
+use List::Util qw!none uniq!;
 
 # Minor version - may be patched from package.json
 our $VERSION = '0.48';
@@ -288,11 +288,17 @@ sub startup {
     $self->plugin('MailException' => $self->config('MailException'));
   };
 
+  # Load plugins defined in environment variables
+  if ($ENV{'KALAMAR_PLUGINS'}) {
+    $conf->{'plugins'} //= [];
+    push @{$conf->{'plugins'}}, split(/\s*,\s*/, $ENV{'KALAMAR_PLUGINS'} // '');
+  };
+
   # Load further plugins,
   # that can override core functions,
   # therefore order may be of importance
   if (exists $conf->{'plugins'}) {
-    foreach (@{$conf->{'plugins'}}) {
+    foreach (uniq @{$conf->{'plugins'}}) {
       $self->plugin('Kalamar::Plugin::' . $_);
     };
   };
