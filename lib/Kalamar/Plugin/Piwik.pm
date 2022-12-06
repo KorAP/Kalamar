@@ -26,6 +26,8 @@ sub register {
 
   my $url = $piwik_conf->{url};
 
+  return unless $url;
+
   $piwik_conf->{append} .= <<APPEND;
 ;window.addEventListener('korapRequest', function(e) {
     let _paq=window._paq=window._paq||[];
