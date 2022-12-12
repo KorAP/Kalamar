@@ -4,7 +4,7 @@
         - Remove deprecated 'auth_support' (since 0.31)
           configuration parameter - use 'Auth' plugin instead. (diewald)
         - Support environment variable KALAMAR_CLIENT_FILE for
-          client information.
+          client information. (diewald)
         - Support KALAMAR_PLUGINS as a comma-separated environment
           variable to load plugins in addition to the 'plugins'
           parameter in the configuration file. (diewald)
@@ -13,6 +13,7 @@
           (diewald)
         - Add panel types. (diewald)
         - Add textSigle as a plugin receivable information. (diewald)
+        - Introduce krill-indexer command via plugin. (diewald)
 
 0.47 2022-11-22
         - Add command to generate super_client_info file. (diewald)
