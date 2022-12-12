@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d871869_5d8a4b3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-12T10:36:49Z",
+      "side": 1,
+      "message": "While it\u0027s a shame there is no perl environment available, we can at least check the package.json and the Dockerfile (however - I don\u0027t know what it does here).",
+      "revId": "c9517cf07bb9927e7e4f753a63348189c41823e8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
