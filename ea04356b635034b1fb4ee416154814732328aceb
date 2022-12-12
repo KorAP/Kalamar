@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a80835d_11120e70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-12T11:47:41Z",
+      "side": 1,
+      "message": "Usefull for single container KorAP: The Indexer can be called from the same entry point.",
+      "revId": "ea04356b635034b1fb4ee416154814732328aceb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
