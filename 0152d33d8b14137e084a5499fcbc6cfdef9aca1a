@@ -35,6 +35,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4dcd21c_6cfe3bea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-12-19T14:52:00Z",
+      "side": 1,
+      "message": "It is the endpoint of my local development environment, but should be the real endpoint (as I understood Eliza and the Google Doc documentation), too.",
+      "parentUuid": "e7fc1f04_9d162745",
+      "revId": "0152d33d8b14137e084a5499fcbc6cfdef9aca1a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2f2d1e4_4da8e18a",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-11-30T10:18:13Z",
       "side": 1,
       "message": "Maybe it\u0027s better to not mix long- and short-notation here, especially as long-notation would be effectively shorter. See Mojolicious::Plugin::Localize.",
+      "range": {
+        "startLine": 105,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 0
+      },
+      "revId": "0152d33d8b14137e084a5499fcbc6cfdef9aca1a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f4a798_29712492",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-12-19T14:52:00Z",
+      "side": 1,
+      "message": "Deleted the description. Probably it is better to implement a more verbose german and english template in a later commit.",
+      "parentUuid": "e2f2d1e4_4da8e18a",
       "range": {
         "startLine": 105,
         "startChar": 10,
