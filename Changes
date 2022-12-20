@@ -12,6 +12,7 @@
         - Set version via KALAMAR_VERSION environment variable.
           (diewald)
         - Add panel types. (diewald)
+        - Add textSigle as a plugin receivable information. (diewald)
 
 0.47 2022-11-22
         - Add command to generate super_client_info file. (diewald)
