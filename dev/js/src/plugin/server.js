@@ -503,6 +503,12 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
           };
         }
 
+        // Get text sigle from match
+        else if (d.key == 'textSigle') {
+          let v = d["value"] = {};
+          v["value"] = service.panel._match.textSigle;
+        }
+        
         // Get Query information from parameters
         else if (d.key == 'QueryParam') {
 
