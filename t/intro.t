@@ -4,6 +4,8 @@ use Test::Mojo;
 use Mojo::File qw/path/;
 use utf8;
 
+$ENV{KALAMAR_VERSION} = '0.47.999';
+
 my $t = Test::Mojo->new('Kalamar');
 
 $t->app->mode('production');
@@ -16,6 +18,7 @@ $t->get_ok('/')
   ->text_is('div.intro > p > strong', 'KorAP')
   ->content_unlike(qr!onload!)
   ->text_is('#link-guided-tour', 'guided tour')
+  ->text_is('nav > a[href=/doc/korap/kalamar]', 'V 0.47.999')
   ;
 
 # Only routed when existing
