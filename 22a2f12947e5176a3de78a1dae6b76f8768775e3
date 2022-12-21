@@ -16,6 +16,23 @@
       "message": "Not tested, as we haven\u0027t a plugin test suite yet - maybe that\u0027s a good use case for E2E tests.",
       "revId": "22a2f12947e5176a3de78a1dae6b76f8768775e3",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a3b80e_a3a7acd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2022-12-21T14:35:00Z",
+      "side": 1,
+      "message": "Leads to \n\"Uncaught TypeError: service.panel._match is undefined\" after clicking at \"Get textSigle\" in Plugin demo.",
+      "revId": "22a2f12947e5176a3de78a1dae6b76f8768775e3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
