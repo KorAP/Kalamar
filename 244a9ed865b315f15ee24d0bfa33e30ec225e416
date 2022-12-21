@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b722eda5_cccbdb21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-21T08:59:02Z",
+      "side": 1,
+      "message": "This is helpful for A/B testing - when multiple versions of the assets are available and the frontend can switch, which one to pick.",
+      "revId": "244a9ed865b315f15ee24d0bfa33e30ec225e416",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
