@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a836c428_c8cc9dd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-21T11:10:50Z",
+      "side": 1,
+      "message": "Not nice to be necessary, but breakout links are required by the new Kalamar-Plugin that points to external content providers.",
+      "revId": "8f1dbcf93526561c8f3fc5fab2ead2cffde61286",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
