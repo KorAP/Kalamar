@@ -15,6 +15,8 @@ define([
   const loc = KorAP.Locale;
   
   return {
+    type : 'query',
+
     create : function (opened) {
       return Object.create(panelClass)._init(['query']).upgradeTo(this)._init(opened);
     },

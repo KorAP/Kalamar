@@ -19,6 +19,8 @@ define([
 
   
   return {
+    type : 'pagination',
+
     create : function () {
       return Object.create(panelClass)._init(['pagination']).upgradeTo(this)._init();
     },

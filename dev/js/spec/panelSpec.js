@@ -30,6 +30,8 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
     it('should be initializable', function () {
       var panel = panelClass.create();
       var e = panel.element();
+
+      expect(panel.type).toEqual('base');
       expect(e.tagName).toEqual("DIV");
       expect(e.classList.contains("panel")).toBeTruthy();
       expect(e.firstChild.tagName).toEqual("DIV");
@@ -118,6 +120,7 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
     it('should be initializable', function () {
       var show = {};
       var result = resultClass.create(show);
+      expect(result.type).toEqual('result');
       expect(result.element().children.length).toEqual(2);
       expect(result.element().firstChild.children.length).toEqual(0);
     });
@@ -201,6 +204,7 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
       // Create pagination class object
       var pagination = paginationClass.create();
       let list = pagination.actions().element();
+      expect(pagination.type).toEqual('pagination');
       expect(list.classList.contains('button-group-list')).toBeTruthy();
       expect(list.classList.contains('visible')).toBeFalsy();
 

@@ -724,6 +724,8 @@ define(['match',
       // Add table
       matchObj.panel.addTable();
 
+      expect(matchObj.panel.type).toEqual('match');
+
       // now
       var infotable = matchElement.children[1];
       expect(infotable.tagName).toEqual('DIV');

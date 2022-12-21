@@ -27,6 +27,8 @@ define([
   loc.ADDTREE   = loc.ADDTREE   || 'Relations';
 
   return {
+    type : 'match',
+    
     create : function (match) {
       return Object.create(panelClass)._init(['matchinfo']).upgradeTo(this)._init(match);
     },

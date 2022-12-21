@@ -22,6 +22,8 @@ define([
   loc.VERB_SHOWSTAT = loc.VERB_SHOWSTAT    || 'Corpus Statistics';
   
   return {
+    type : 'vc',
+    
     create : function (vc) {
       return Object.create(panelClass)._init(['vcinfo']).upgradeTo(this)._init(vc);
     }, 

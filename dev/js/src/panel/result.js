@@ -20,6 +20,8 @@ define([
   const aRoll = ['left', 'right','center'];
   
   return {
+    type : 'result',
+    
     create : function (opened) {
       return Object.create(panelClass)._init(['result']).upgradeTo(this)._init(opened);
     },
