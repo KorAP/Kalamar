@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a0a91c9_7b11327c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-21T14:01:29Z",
+      "side": 1,
+      "message": "How do I create my own plugin and how to establish system plugins? (I am sure, I knew - but I forgot.)",
+      "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
