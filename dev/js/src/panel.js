@@ -10,6 +10,8 @@
 define(['buttongroup', 'util'], function (buttonGroupClass) {
 
   return {
+    type : 'base',
+    
     create : function (classes) {
       return Object.create(this)._init(classes);
     },
