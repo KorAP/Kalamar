@@ -33,6 +33,23 @@
       "message": "Leads to \n\"Uncaught TypeError: service.panel._match is undefined\" after clicking at \"Get textSigle\" in Plugin demo.",
       "revId": "22a2f12947e5176a3de78a1dae6b76f8768775e3",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c249577e_13f3ced7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-21T14:50:18Z",
+      "side": 1,
+      "message": "You are right. Maybe it\u0027s better to check the panel source - I\u0027ll have to think about a good way to do that.",
+      "revId": "22a2f12947e5176a3de78a1dae6b76f8768775e3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
