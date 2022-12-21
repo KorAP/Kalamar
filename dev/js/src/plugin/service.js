@@ -9,7 +9,8 @@ define(function () {
     "presentation" : 1,
     "forms": 1,
     "downloads-without-user-activation" : 1,
-    "downloads" : 1
+    "downloads" : 1,
+    "popups" : 1
   };
 
   return {
