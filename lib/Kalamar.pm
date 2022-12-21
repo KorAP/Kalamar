@@ -26,7 +26,10 @@ sub startup {
   # Set version based on package file
   # This may introduce a SemVer patch number
   my $pkg_path = $self->home->child('package.json');
-  if (-e $pkg_path->to_abs) {
+  if ($ENV{KALAMAR_VERSION}) {
+    $Kalamar::VERSION = $ENV{KALAMAR_VERSION};
+  }
+  elsif (-e $pkg_path->to_abs) {
     my $pkg = $pkg_path->slurp;
     $Kalamar::VERSION = decode_json($pkg)->{version};
   };
