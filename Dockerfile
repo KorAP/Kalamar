@@ -1,5 +1,7 @@
 # Build assets in builder image
-FROM node:12 as assetbuilder
+FROM node:19 as assetbuilder
+
+WORKDIR '/app'
 
 # This follows the "multi-stage build" pattern
 
