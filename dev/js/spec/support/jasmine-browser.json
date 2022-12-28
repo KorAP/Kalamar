@@ -1,0 +1,22 @@
+{
+  "srcDir": "dev/js/src",
+  "srcFiles": [
+    "**/state.js",
+    "**/state/manager.js"
+  ],
+  "specDir": "dev/js/spec",
+  "specFiles": [
+    "**/state[sS]pec.js"
+  ],
+  "helpers": [
+    "helpers/**/*.js"
+  ],
+  "env": {
+    "stopSpecOnExpectationFailure": false,
+    "stopOnSpecFailure": false,
+    "random": true
+  },
+  "browser": {
+    "name": "headlessFirefox"
+  }
+}

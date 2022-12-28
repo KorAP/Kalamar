@@ -9,9 +9,9 @@
 
 "use strict";
 
-define(['state'], function(stateClass) {
+let stateClass = require('../state.js');
 
-  return {
+let stateManagerClass = {
     // Create new state amanger.
     // Expects an object with a value
     // to contain the serialization of all states.
@@ -91,4 +91,5 @@ define(['state'], function(stateClass) {
       return s;
     }
   };
-});
+
+module.exports = { stateManagerClass };

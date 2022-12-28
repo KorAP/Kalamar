@@ -20,6 +20,8 @@
     "grunt-shell": "^3.0.1",
     "grunt-terser": "^1.0.0",
     "imagemin": "^7.0.1",
+    "jasmine-browser-runner": "^1.2.0",
+    "jasmine-core": "^4.5.0",
     "optipng-bin": "^6.0.0",
     "sass": "^1.44.0",
     "vinyl-fs": "^3.0.3"
@@ -29,5 +31,8 @@
   },
   "dependencies": {
     "grunt-contrib-imagemin": "^4.0.0"
+  },
+  "scripts": {
+    "test": "jasmine-browser-runner runSpecs --config=dev/js/spec/support/jasmine-browser.json"
   }
 }

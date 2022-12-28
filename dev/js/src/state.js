@@ -14,8 +14,7 @@
  */
 "use strict";
 
-define(function () {
-  return {
+module.exports = {
 
     /**
      * Constructor
@@ -125,5 +124,4 @@ define(function () {
       };
       this.set(this.values[next]);
     }
-  }
-});
+};

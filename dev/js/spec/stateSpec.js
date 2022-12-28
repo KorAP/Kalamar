@@ -1,4 +1,6 @@
-define(['state','state/manager'], function (stateClass, stateManagerClass) {
+let stateClass = require('../src/state.js');
+let stateManagerClass = require('../src/state/manager.js');
+
 
   describe('KorAP.State', function () {
     it('should be initializable', function () {
@@ -232,4 +234,3 @@ define(['state','state/manager'], function (stateClass, stateManagerClass) {
       expect(sm.toString()).toEqual("\"test\":2");
     });
   });
-});
