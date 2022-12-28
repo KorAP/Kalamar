@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655d0b06_f18c0d42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2022-12-28T14:44:55Z",
+      "side": 1,
+      "message": "Now that Susanne returns, we may want to have a look into this again.",
+      "revId": "94b359064174255863e51f99109ecca933f0eb89",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
