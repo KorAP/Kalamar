@@ -4,7 +4,10 @@ define(["hint/foundries"], function (ah) {
   );
 
   ah["nkjp/"] = [
+    ["Lemma", "l="],
     ["Morphology", "m="],
+    ["Named Entities", "ne="],
+    ["Original Value", "ov="],
     ["Part-of-Speech", "p="]
   ];
 
