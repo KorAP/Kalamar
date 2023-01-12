@@ -247,7 +247,7 @@ Currently bundled plugins are
 - `KorAPXML2Krill`: For integrated calls to [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill), if installed.
 - `KrillIndexer`: For integrated calls to [Krilll](https://github.com/KorAP/Krill),
   if installed and exposed by `KRILL_INDEXER_PATH`.
-
+- `KorAPXML2CoNLLU`: For integrated calls to [conllu2korapxml and korapxml2conllu](https://github.com/KorAP/KorAP-XML-CoNNL-U), if installed.
 
 ## Troubleshooting
 
