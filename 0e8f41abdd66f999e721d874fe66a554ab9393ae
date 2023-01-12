@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5697897e_3b4abfda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-12T16:28:05Z",
+      "side": 1,
+      "message": "This allows to call conllu-scripts directly from the Kalamar entrypoints in Docker.",
+      "revId": "0e8f41abdd66f999e721d874fe66a554ab9393ae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
