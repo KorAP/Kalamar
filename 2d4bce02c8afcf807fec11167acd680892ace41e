@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b9bd468_3423dc11",
+        "filename": "Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-12T17:06:33Z",
+      "side": 1,
+      "message": "There should be a more current release, I guess.",
+      "range": {
+        "startLine": 103,
+        "startChar": 63,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "2d4bce02c8afcf807fec11167acd680892ace41e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
