@@ -99,7 +99,8 @@ RUN apk update && \
           
 RUN cpanm \
    https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.3.3.tar.gz \
-   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.45.tar.gz
+   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.45.tar.gz \
+   https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.3.tar.gz
 
 # Remove all build dependencies
 RUN apk del git \
@@ -127,7 +128,7 @@ ENV MOJO_PORT   64543
 ENV MOJO_LISTEN http://*:${MOJO_PORT}
 ENV MOJO_MODE   production
 
-RUN echo "{Kalamar=>{plugins=>['KorAPXML2Krill','Tei2KorAPXML']}}" > kalamar.production.conf
+RUN echo "{Kalamar=>{plugins=>['KorAPXML2Krill','Tei2KorAPXML','KorAPXML2CoNNLU']}}" > kalamar.production.conf
 
 EXPOSE ${MOJO_PORT}
 
