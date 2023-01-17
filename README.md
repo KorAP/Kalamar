@@ -242,9 +242,11 @@ via configuration file in an array
 Currently bundled plugins are
 - `Auth`: For integrating user management
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
-- `Piwik`: For integrating Matomo/Piwik
-- `Tei2KorAPXML`: For integrated calls to [tei2korapxml](https://github.com/KorAP/KorAP-XML-TEI), if installed
-- `KorAPXML2Krill`: For integrated calls to [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill), if installed
+- `Piwik`: For integrating [Matomo/Piwik](https://matomo.org/).
+- `Tei2KorAPXML`: For integrated calls to [tei2korapxml](https://github.com/KorAP/KorAP-XML-TEI), if installed.
+- `KorAPXML2Krill`: For integrated calls to [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill), if installed.
+- `KrillIndexer`: For integrated calls to [Krilll](https://github.com/KorAP/Krill),
+  if installed and exposed by `KRILL_INDEXER_PATH`.
 
 
 ## Troubleshooting
