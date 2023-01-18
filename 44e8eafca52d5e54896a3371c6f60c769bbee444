@@ -16,6 +16,23 @@
       "message": "How do I create my own plugin and how to establish system plugins? (I am sure, I knew - but I forgot.)",
       "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ac0463_d0254f59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-18T09:19:51Z",
+      "side": 1,
+      "message": "By Helge:\n\n1. Start Kustvakt-full with\n   $ java -jar target/Kustvakt-full-0.xy.jar \\\n     --spring-config local-config-sqlite.xml\n2. Register plugins using either the Kustvakt web service or Kalamar\n   Example:\n\n   $ curl -v -H \"Content-Type: application/json\" -H \u0027Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ\u003d\u0027 -d \u0027{\"name\":\"Test_test\",\"type\":\"CONFIDENTIAL\",\"description\":\" a plugin\",\"url\":\"http://ids-mannheim.de\", \"redirect_uri\":\"http://ids-mannheim.de/redirect\",\"refresh_token_expiry\" : 7776000,\"source\": {\"name\" : \"Test_test\",\"desc\" : \"Test for the plugin managment\", \"embed\" : [{ \"panel\" : \"match\",\"title\" : \"exports KWICs and snippets\", \"icon\" : \"\\uf019\",\"classes\" : [\"button-icon\", \"plugin\" ],  \"onClick\" : {\"action\" : \"addWidget\", \"template\" : \"http://localhost:7777/export\", \"permissions\":[\"forms\",\"scripts\",\"downloads\"] } }] } }\u0027 http://localhost:8089/api/v1.0/oauth2/client/register\n\n3. Replace :memory: in Kustvakt/full/test-jdbc.properties with a DB name.\n4. Set is_permitted in SQLite DB to 1",
+      "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
