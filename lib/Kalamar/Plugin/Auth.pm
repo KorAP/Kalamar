@@ -1103,7 +1103,7 @@ sub register {
         # Redirect with error
         if ($v->has_error) {
           $c->notify(error => $c->loc('Auth_paramError'));
-          return $c->redirect_to;
+          return $c->redirect_to('oauth-settings');
         };
 
         foreach (qw!scope client_id state redirect_uri!) {
