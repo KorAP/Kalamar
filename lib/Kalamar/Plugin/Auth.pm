@@ -1103,7 +1103,7 @@ sub register {
         # Redirect with error
         if ($v->has_error) {
           $c->notify(error => $c->loc('Auth_paramError'));
-          return $c->redirect_to;
+          return $c->redirect_to('oauth-settings');
         };
 
         foreach (qw!scope client_id state redirect_uri!) {
@@ -1176,7 +1176,7 @@ sub register {
 
         # Render with error
         if ($v->has_error) {
-          my $url = Mojo::URL->new($v->param('redirect_uri_server') // $c->url_for('index'));
+          my $url = Mojo::URL->new($v->param('redirect_uri_server') || $c->url_for('index'));
 
           if ($v->has_error('csrf_token')) {
             $url->query([error_description => $c->loc('Auth_csrfFail')]);

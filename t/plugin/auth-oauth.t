@@ -765,7 +765,11 @@ $t->get_ok('/settings/oauth/')
 # OAuth client authorization flow
 $t->get_ok(Mojo::URL->new('/settings/oauth/authorize'))
   ->status_is(302)
-  ->header_is('location','/settings/oauth/authorize')
+  ->header_is('location','/settings/oauth')
+  ;
+
+$t->get_ok('/settings/oauth/')
+  ->text_is('div.notify-error', 'Some fields are invalid')
   ;
 
 # Logout
