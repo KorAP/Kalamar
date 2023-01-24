@@ -427,6 +427,35 @@ sub register {
     }
   );
 
+  # Get info for registered client
+  $app->helper(
+    'auth.client_info_p' => sub {
+      my $c = shift;
+      my $client_id = shift;
+
+      # Get list of registered clients
+      my $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/')->path($client_id);
+
+      # Get the list of all clients
+      return $c->korap_request(GET => $r_url)->then(
+        sub {
+          my $tx = shift;
+          my $json = $tx->result->json // {};
+
+          # Response is fine
+          if ($tx->res->is_success) {
+            return Mojo::Promise->resolve($json);
+          };
+
+          $c->log->error($c->dumper($tx->res->to_string));
+
+          # Failure
+          return Mojo::Promise->reject($json->{error_description} // 'Client unknown');
+        }
+      );
+    }
+  );
+
 
   # Get a list of registered clients
   $app->helper(
@@ -1115,27 +1144,16 @@ sub register {
 
         my $client_id = $v->param('client_id');
 
-        my $client_information = $c->auth->client_list_p->then(
+        my $client_information = $c->auth->client_info_p($client_id)->then(
           sub {
-            my $clients = shift;
-            foreach (@$clients) {
-              if ($_->{client_id} eq $client_id) {
-                $c->stash(client_name => $_->{'client_name'});
-                $c->stash(client_type => $_->{'client_type'});
-                $c->stash(client_desc => $_->{'client_description'});
-                $c->stash(client_url => $_->{'client_url'});
-                $c->stash(redirect_uri_server => $_->{'client_redirect_uri'});
-                last;
-              };
-            };
+            my $cl = shift;
+            $c->stash(client_name => $cl->{'client_name'});
+            $c->stash(client_type => $cl->{'client_type'});
+            $c->stash(client_desc => $cl->{'client_description'});
+            $c->stash(client_url => $cl->{'client_url'});
+            $c->stash(redirect_uri_server => $cl->{'client_redirect_uri'});
           }
-        )->catch(
-          sub {
-            $c->stash(client_type => 'PUBLIC');
-            $c->stash(client_name => $v->param('client_id'));
-            return;
-          }
-        )->finally(
+        )->then(
           sub {
 
             # Get auth token
@@ -1148,6 +1166,12 @@ sub register {
 
             # Grant authorization
             return $c->render(template => 'auth/grant_scope');
+          }
+        )->catch(
+          sub {
+            my $error = shift;
+            $c->notify(error => $error);
+            return $c->redirect_to('oauth-settings');
           }
         );
       }
