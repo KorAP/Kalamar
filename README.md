@@ -1,6 +1,6 @@
 ![Kalamar](https://raw.githubusercontent.com/KorAP/Kalamar/master/dev/demo/img/kalamar.png)
 
-Kalamar is a [Mojolicious](http://mojolicio.us/)-based user interface
+Kalamar is a simple [Mojolicious](http://mojolicio.us/)-based user interface
 frontend for the [KorAP Corpus Analysis Platform](http://korap.ids-mannheim.de/).
 
 [![DOI](https://zenodo.org/badge/36036704.svg)](https://zenodo.org/badge/latestdoi/36036704)
