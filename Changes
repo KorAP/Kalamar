@@ -17,6 +17,8 @@
         - Introduce start-with-backend command via plugin. (diewald)
         - Update Mojolicious for security reasons. (diewald)
         - Fix terser installation (fixes #182). (diewald)
+        - Replaced list with info API request for client information
+          in OAuth registration flow. (diewald)
 
         WARNING: Mojolicious 9.31 is a security update -
           updating is highly recommended.
