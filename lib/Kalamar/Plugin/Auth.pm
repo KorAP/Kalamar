@@ -1115,8 +1115,11 @@ sub register {
 
         my $client_id = $v->param('client_id');
 
+        # Find registered client
+        # TODO: Use https://github.com/KorAP/Kustvakt/wiki/Service:-OAuth2-Client-Info instead
         my $client_information = $c->auth->client_list_p->then(
           sub {
+            my $found = 0;
             my $clients = shift;
             foreach (@$clients) {
               if ($_->{client_id} eq $client_id) {
@@ -1125,17 +1128,19 @@ sub register {
                 $c->stash(client_desc => $_->{'client_description'});
                 $c->stash(client_url => $_->{'client_url'});
                 $c->stash(redirect_uri_server => $_->{'client_redirect_uri'});
+                $found = 1;
                 last;
               };
             };
+            return Mojo::Promise->reject("Client not registered") unless $found;
           }
         )->catch(
           sub {
-            $c->stash(client_type => 'PUBLIC');
-            $c->stash(client_name => $v->param('client_id'));
-            return;
+            # Client is not registered
+            $c->notify(error => shift);
+            return $c->redirect_to('oauth-settings');
           }
-        )->finally(
+        )->then(
           sub {
 
             # Get auth token
