@@ -772,6 +772,16 @@ $t->get_ok('/settings/oauth/')
   ->text_is('div.notify-error', 'Some fields are invalid')
   ;
 
+# OAuth client authorization flow
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize?client_id=abc'))
+  ->status_is(302)
+  ->header_is('location','/settings/oauth')
+  ;
+
+$t->get_ok('/settings/oauth/')
+  ->text_is('div.notify-error', 'Unknown client with abc.')
+  ;
+
 # Logout
 $t->get_ok('/x/expired-with-wrong-refresh');
 
