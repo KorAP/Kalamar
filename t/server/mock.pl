@@ -53,7 +53,7 @@ helper expired => sub {
 helper 'add_client' => sub {
   my $c = shift;
   my $client = shift;
-  my $list = $c->app->defaults('oauth.client_list');
+  my $list = $c->stash('oauth.client_list');
   push @$list, $client;
 };
 
@@ -576,6 +576,32 @@ post '/v1.0/oauth2/client/list' => sub {
   return $c->render(
     json => $c->stash('oauth.client_list'),
     status => 200
+  );
+};
+
+# Get client info
+get '/v1.0/oauth2/client/:client_id' => sub {
+  my $c = shift;
+
+  my $client_id = $c->stash('client_id');
+
+  my $list = $c->stash('oauth.client_list');
+
+  foreach (@$list) {
+    if ($_->{client_id} eq $client_id) {
+      return $c->render(
+        json => $_,
+        status => 200
+      );
+    };
+  };
+
+  return $c->render(
+    json => {
+      error_description => "Unknown client with $client_id.",
+      error => "invalid_client"
+    },
+    status => 401
   );
 };
 
