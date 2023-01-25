@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "572c665c_e8423c1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-25T09:25:42Z",
+      "side": 1,
+      "message": "This isn\u0027t tested or implemented properly yet, because I would prefer to base it on the other corrections. In principal, this will take a redirect_uri and compares with the server side stored redirect (if it exists) and at least requires the same host, port and scheme. When everything is checked, the URL is signed and a redirect will check for the signage. (That helps to mitigate OpenRedirect attacks without double checking.) To avoid redirect attacks when no server side stored redirect URI is registered, there should be a big warning and the target uri should be shown.",
+      "revId": "a07a45e2210edbc89a3a5def75cd72c96e88d1c6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
