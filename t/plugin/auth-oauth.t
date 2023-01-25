@@ -810,6 +810,41 @@ $fake_backend_app->add_client({
 #  "client_redirect_uri" => $redirect_uri
 });
 
+$fake_backend_app->add_client({
+  "client_id" => 'xyz2',
+  "client_name" => 'New added client',
+  "client_description" => 'This is a new client',
+  "client_url" => 'http://example.com',
+  "client_type" => 'CONFIDENTIAL',
+  "client_redirect_uri" => 'http://redirect.url/'
+});
+
+$fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz2',
+  scope => 'search match',
+  redirect_uri => 'http://test.com/',
+}))
+  ->status_is(200)
+  ->text_is('div.notify-warn', 'redirect_uri host differs from registered host')
+  ->element_exists_not('div.notify-error')
+  ->element_exists_not('div.notify-success')
+  ->element_exists("input[name=handle_or_email]")
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
+$fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz2',
+  scope => 'search match',
+  redirect_uri => 'http://redirect.url:9000/',
+}))
+  ->status_is(200)
+  ->text_is('div.notify-warn', 'redirect_uri port differs from registered port')
+  ->element_exists_not('div.notify-error')
+  ->element_exists_not('div.notify-success')
+  ->element_exists("input[name=handle_or_email]")
+  ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
+  ;
+
 $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
   state => 'abcde',
@@ -844,11 +879,15 @@ $t->get_ok($fwd)
   ->status_is(200)
   ->attr_is('input[name=client_id]','value','xyz')
   ->attr_is('input[name=state]','value','abcde')
+  ->attr_like('input[name=redirect_uri]','value', qr!^http://test\.com\/\?crto=.{3,}!)
   ->text_is('ul#scopes li:nth-child(1)','search')
   ->text_is('ul#scopes li:nth-child(2)','match')
   ->text_is('span.client-name','New added client')
   ->attr_is('a.form-button','href','http://test.com/')
   ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
+  ->element_exists_not('div.notify-error')
+  ->element_exists_not('div.notify-warn')
+  ->element_exists_not('blockquote.warning')
   ;
 
 $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
@@ -874,7 +913,7 @@ $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   redirect_uri => 'http://test.com/'
 }))
   ->status_is(302)
-  ->header_is('location', '/?error_description=Bad+CSRF+token')
+  ->header_is('location', '/settings/oauth?error_description=Bad+CSRF+token')
   ;
 
 $fwd = $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
@@ -899,12 +938,12 @@ $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
   state => 'fail',
   scope => 'search match',
-  redirect_uri_server => 'http://example.com/',
+# redirect_uri_server => 'http://example.com/',
   redirect_uri => $fake_backend_app->url_for('return_uri')->to_abs,
   csrf_token => $csrf,
 }))
   ->status_is(302)
-  ->header_is('location', 'http://example.com/?error_description=FAIL')
+  ->header_is('location', '/realapi/fakeclient/return?error_description=FAIL')
   ;
 
 my $json_post = {
