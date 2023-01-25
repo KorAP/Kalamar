@@ -22,6 +22,7 @@
         - Fix tour localization to be overwritable. (diewald)
         - Make scope a requirement for OAuth authorizations.
           (diewald)
+        - Improve security of OAuth redirects. (diewald)
 
         WARNING: Mojolicious 9.31 is a security update -
           updating is highly recommended.
