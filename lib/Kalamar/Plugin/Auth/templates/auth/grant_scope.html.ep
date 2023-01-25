@@ -15,6 +15,12 @@
     % if (stash('client_type') eq 'PUBLIC') {
     <blockquote class="warning"><%= loc 'oauthGrantPublicWarn' %></blockquote>
     % };
+    % if (stash('redirect_warning')) {
+    <blockquote class="warning">
+      <p><%= stash 'redirect_warning' %>:</p>
+      <pre><%= stash('close_redirect_uri') %></pre>
+    </blockquote>
+    % };
   </li>
 </ul>
 
@@ -22,8 +28,7 @@
    %= csrf_field
    %= hidden_field 'client_id' => stash('client_id')
    %= hidden_field 'state' => stash('state')
-   %= hidden_field 'redirect_uri' => stash('redirect_uri')
-   %= hidden_field 'redirect_uri_server' => stash('redirect_uri_server')
+   %= hidden_field 'redirect_uri' => stash('close_redirect_uri')
    % if (stash('scope')) {
    <ul id="scopes">
    %   foreach (split(/\s+/, stash('scope'))) {
@@ -34,5 +39,5 @@
    % };
 
    <input type="submit" class="form-submit" value="<%= loc 'Auth_oauthGrantScope_short' %>" />
-   %= link_to loc('abort') => (stash('redirect_uri_server') // stash('redirect_uri')) => {} => (class => 'form-button button-abort form-submit')
+   %= link_to loc('abort') => (stash('closed_redirect_uri_server')) => {} => (class => 'form-button button-abort form-submit')
 % end
