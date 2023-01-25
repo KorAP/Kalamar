@@ -19,6 +19,7 @@
         - Fix terser installation (fixes #182). (diewald)
         - Replaced list with info API request for client information
           in OAuth registration flow. (diewald)
+        - Improve security of OAuth redirects. (diewald)
 
         WARNING: Mojolicious 9.31 is a security update -
           updating is highly recommended.
