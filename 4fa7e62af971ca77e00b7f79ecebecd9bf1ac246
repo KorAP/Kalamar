@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf7a8a10_a1084009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-25T09:32:19Z",
+      "side": 1,
+      "message": "I would prefer requiring https, but this is probably ill-advised for local clients like RKorAPClient, spawning their own server.",
+      "revId": "4fa7e62af971ca77e00b7f79ecebecd9bf1ac246",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
