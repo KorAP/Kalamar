@@ -1138,6 +1138,62 @@ sub register {
         )->finally(
           sub {
 
+            # Check, if the client redirect_uri is valid
+            my $redirect_uri_server = $c->stash('redirect_uri_server');
+            my $redirect_uri = $v->param('redirect_uri');
+            my ($server_o, $client_o);
+
+            # Both exist
+            if ($redirect_uri_server $$ $redirect_uri) {
+              $server_o = Mojo::URL->new($redirect_uri_server);
+              $client_o = Mojo::URL->new($redirect_uri);
+
+              # Host not valid - take registered URI
+              if ($server_o->host ne $client_o->host) {
+                $c->notify(warn => 'redirect_uri host differs from registered host');
+                $client_o = $server_o;
+              }
+
+              # Port not valid - take registered URI
+              elsif ($server_o->port ne $client_o->port) {
+                $c->notify(warn => 'redirect_uri port differs from registered port');
+                $client_o = $server_o;
+              };
+            }
+
+            # Client sent exists
+            elsif ($redirect_uri) {
+              $client_o = Mojo::URL->new($redirect_uri);
+            }
+
+            # Server registered exists
+            elsif ($redirect_uri_server) {
+              $client_o = Mojo::URL->new($redirect_uri_server);
+            }
+
+            # Redirect unknown
+            else {
+              $c->notify(error => 'redirect_uri not set');
+              return $c->redirect_to('oauth-settings');
+            };
+
+            # No userinfo allowed
+            if ($client_o->userinfo) {
+              $c->notify(warn => 'redirect_uri contains userinfo');
+              $client_o->userinfo('');
+            };
+
+            # HTTPS required
+            if ($client_o->scheme ne 'https') {
+              $c->notify(warn => 'redirect_uri requires to be HTTPS');
+              $client_o->scheme('https');
+            };
+
+            # Sign redirection URL
+            $c->stash(close_redirect_uri => $c->close_redirect_to($client_o));
+
+            # </Check!>
+
             # Get auth token
             my $auth_token = $c->auth->token;
 
@@ -1169,14 +1225,14 @@ sub register {
         $v->required('client_id');
         $v->optional('scope');
         $v->optional('state');
-        $v->optional('redirect_uri');
 
-        # WARN! SIGN THIS TO PREVENT OPEN REDIRECT ATTACKS!
-        $v->required('redirect_uri_server');
+        # Only signed redirects are allowed!
+        $v->required('redirect_uri')->closed_redirect;
 
         # Render with error
         if ($v->has_error) {
-          my $url = Mojo::URL->new($v->param('redirect_uri_server') || $c->url_for('index'));
+
+          my $url = $c->url_for('oauth-settings');
 
           if ($v->has_error('csrf_token')) {
             $url->query([error_description => $c->loc('Auth_csrfFail')]);
@@ -1189,12 +1245,12 @@ sub register {
         };
 
         state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
-        $c->stash(redirect_uri_server => Mojo::URL->new($v->param('redirect_uri_server')));
+        $c->stash(redirect_uri => Mojo::URL->new($v->param('redirect_uri')));
 
         return $c->korap_request(post => $r_url, {} => form => {
           response_type => 'code',
           client_id => $v->param('client_id'),
-          redirect_uri => $v->param('redirect_uri'),
+          redirect_uri => $v->stash('redirect_uri'),
           state => $v->param('state'),
           scope => $v->param('scope'),
         })->then(
@@ -1231,7 +1287,7 @@ sub register {
         )->catch(
           sub {
             my $err_msg = shift;
-            my $url = $c->stash('redirect_uri_server');
+            my $url = $c->stash('redirect_uri');
             if ($err_msg) {
               $url = $url->query([error_description => $err_msg]);
             };
