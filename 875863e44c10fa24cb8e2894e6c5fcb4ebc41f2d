@@ -16,6 +16,24 @@
       "message": "For some reason, the spaces in the second column of `ah[\"ud/p\u003d\"]` are necessary to make mouse-over hints work. \n\n(This is also missing in nkjp.js but not in stts.js)\n\nLooks good to me, otherwise.",
       "revId": "875863e44c10fa24cb8e2894e6c5fcb4ebc41f2d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "039be084_6fc621cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-01-26T20:00:54Z",
+      "side": 1,
+      "message": "OTOH: these spaces are also inserted by the helper, I don\u0027t know what\u0027s better",
+      "parentUuid": "4356ad66_ab764c74",
+      "revId": "875863e44c10fa24cb8e2894e6c5fcb4ebc41f2d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
