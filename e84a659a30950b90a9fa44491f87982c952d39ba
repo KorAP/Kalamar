@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c058b7_a9086f24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-01-26T18:57:19Z",
+      "side": 1,
+      "message": "works, but only with the WORKDIR\u003d... addition",
+      "revId": "e84a659a30950b90a9fa44491f87982c952d39ba",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
