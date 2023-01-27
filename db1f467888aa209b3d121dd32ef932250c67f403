@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04509e3f_2b2e9954",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-27T16:22:22Z",
+      "side": 1,
+      "message": "I updated the code to work with the new client info API.",
+      "revId": "db1f467888aa209b3d121dd32ef932250c67f403",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
