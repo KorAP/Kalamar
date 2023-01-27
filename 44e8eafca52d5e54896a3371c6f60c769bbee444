@@ -68,6 +68,23 @@
       "message": "Sorry - forget to submit the draft.",
       "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47469dc7_76c9f992",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-27T13:29:40Z",
+      "side": 1,
+      "message": "After discussing the client list with Eliza, I expect this usage to be wrong as well.\n\nhttps://github.com/KorAP/Kustvakt/wiki/Plugin-List says, it only returns the plugins registered by the user - it doesn\u0027t list all plugins. Is that right?",
+      "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
