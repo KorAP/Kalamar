@@ -10,17 +10,21 @@ define(['vc', 'vc/doc'], function (vcClass, docClass) {
   const loc = KorAP.Locale;
   
   //Query example for guided tour
-  loc.TOUR_Qexample = "laufen";
+  if (loc.TOUR_Qexample == undefined)
+    loc.TOUR_Qexample = "laufen";
 
   /* To define vc for guided tour */
-  loc.TOUR_vcQuery = {
+  if (loc.TOUR_vcQuery == undefined)
+    loc.TOUR_vcQuery = {
       '@type' : 'koral:doc',
       'key' : 'docSigle', 
       'match': 'match:eq',
       'value' : 'WPD17/D01',   
     };
   
-  loc.TOUR_Relations = "corenlp/c";
+  if (loc.TOUR_Relations == undefined)
+    loc.TOUR_Relations = "corenlp/c";
 
-  loc.TOUR_DocSigle = "WPD17/D01"; 
+  if (loc.TOUR_DocSigle == undefined)
+    loc.TOUR_DocSigle = "WPD17/D01"; 
 });
