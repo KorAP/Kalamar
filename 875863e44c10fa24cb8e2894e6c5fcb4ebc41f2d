@@ -34,6 +34,23 @@
       "parentUuid": "4356ad66_ab764c74",
       "revId": "875863e44c10fa24cb8e2894e6c5fcb4ebc41f2d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "035c11f8_8e26005f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-27T07:50:55Z",
+      "side": 1,
+      "message": "Good finding! The space is more important for the annotation helper itself than for the mouseover. And the mouseover somehow doesn\u0027t expect a trailing space for key:value annotations. I guess it\u0027s better to rewrite the mouseover to check both for fields with and without trailing spaces.\n\nThe annotations should be lowercase, otherwise the foundry helper looks good to me!",
+      "revId": "875863e44c10fa24cb8e2894e6c5fcb4ebc41f2d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
