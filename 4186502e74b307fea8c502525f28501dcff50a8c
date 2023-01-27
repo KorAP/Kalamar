@@ -16,6 +16,23 @@
       "message": "Currently it\u0027s not possible to overwrite the localization using the client side configuration. This is not a perfect approch (and `dereko` should possibly be renamed to `defaultcorpus`) but makes it possible to define values in a file to overwrite the corpus localization.",
       "revId": "4186502e74b307fea8c502525f28501dcff50a8c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33bb0053_51f3c666",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-01-27T15:56:38Z",
+      "side": 1,
+      "message": "yes, needed for KoDi and ICC instance",
+      "revId": "4186502e74b307fea8c502525f28501dcff50a8c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
