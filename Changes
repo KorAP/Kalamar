@@ -25,6 +25,8 @@
         - Improve security of OAuth redirects. (diewald)
         - Improve error handling for non-redirect error responses.
           (diewald)
+        - Fix Gruntfile to copy css files after sass
+          (fixes #184; diewald)
 
         WARNING: Mojolicious 9.31 is a security update -
           updating is highly recommended.
