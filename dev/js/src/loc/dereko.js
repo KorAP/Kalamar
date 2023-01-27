@@ -6,7 +6,7 @@
 
 "use strict";
 
-define(['vc', 'vc/doc'], function (vcClass, docClass) {
+define(function () {
   const loc = KorAP.Locale;
   
   //Query example for guided tour
