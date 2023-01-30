@@ -769,11 +769,30 @@ $t->get_ok(Mojo::URL->new('/settings/oauth/authorize'))
   ;
 
 $t->get_ok('/settings/oauth/')
-  ->text_is('div.notify-error', 'Some fields are invalid')
+  ->text_is('div.notify-error', 'Client ID required')
+  ;
+
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize?client_id=xyz'))
+  ->status_is(302)
+  ->header_is('location','/settings/oauth')
+  ;
+
+$t->get_ok('/settings/oauth/')
+  ->text_is('div.notify-error', 'Scope required')
   ;
 
 # OAuth client authorization flow
 $t->get_ok(Mojo::URL->new('/settings/oauth/authorize?client_id=abc'))
+  ->status_is(302)
+  ->header_is('location','/settings/oauth')
+  ;
+
+$t->get_ok('/settings/oauth/')
+  ->text_is('div.notify-error', 'Scope required')
+  ;
+
+# OAuth client authorization flow
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize?client_id=abc&scope=match'))
   ->status_is(302)
   ->header_is('location','/settings/oauth')
   ;

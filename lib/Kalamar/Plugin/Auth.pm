@@ -85,6 +85,8 @@ sub register {
           logoutFail => 'Abmeldung fehlgeschlagen',
           authenticationFail => 'Nicht authentifiziert',
           csrfFail => 'Fehlerhafter CSRF Token',
+          scopeFail => 'Scope nicht definiert',
+          clientIDFail => 'Client ID nicht definiert',
           invalidChar => 'Ungültiges Zeichen in Anfrage',
           openRedirectFail => 'Weiterleitungsfehler',
           tokenExpired => 'Zugriffstoken abgelaufen',
@@ -141,6 +143,8 @@ sub register {
           logoutFail => 'Logout failed',
           authenticationFail => 'Not authenticated',
           csrfFail => 'Bad CSRF token',
+          scopeFail => 'Scope required',
+          clientIDFail => 'Client ID required',
           invalidChar => 'Invalid character in request',
           openRedirectFail => 'Redirect failure',
           tokenExpired => 'Access token expired',
@@ -1130,13 +1134,22 @@ sub register {
 
         my $v = $c->validation;
         $v->required('client_id');
-        $v->optional('scope');
+        $v->required('scope');
         $v->optional('state');
         $v->optional('redirect_uri');
 
         # Redirect with error
         if ($v->has_error) {
-          $c->notify(error => $c->loc('Auth_paramError'));
+
+          if ($v->has_error('client_id')) {
+            $c->notify(error => $c->loc('Auth_clientIDFail'));
+          }
+          elsif ($v->has_error('scope')) {
+            $c->notify(error => $c->loc('Auth_scopeFail'));
+          }
+          else {
+            $c->notify(error => $c->loc('Auth_paramError'));
+          };
           return $c->redirect_to('oauth-settings');
         };
 
@@ -1196,7 +1209,7 @@ sub register {
         my $v = $c->validation;
         $v->csrf_protect;
         $v->required('client_id');
-        $v->optional('scope');
+        $v->required('scope');
         $v->optional('state');
         $v->optional('redirect_uri');
 
@@ -1207,7 +1220,13 @@ sub register {
         if ($v->has_error) {
           my $url = Mojo::URL->new($v->param('redirect_uri_server') || $c->url_for('index'));
 
-          if ($v->has_error('csrf_token')) {
+          if ($v->has_error('client_id')) {
+            $url->query([error_description => $c->loc('Auth_clientIDFail')]);
+          }
+          elsif ($v->has_error('scope')) {
+            $url->query([error_description => $c->loc('Auth_scopeFail')]);
+          }
+          elsif ($v->has_error('csrf_token')) {
             $url->query([error_description => $c->loc('Auth_csrfFail')]);
           }
           else {
