@@ -1,4 +1,4 @@
-0.48 2023-01-26
+0.48 2023-01-30
         - Added support for NKJP tagset in annotation
           assistant. (diewald)
         - Remove deprecated 'auth_support' (since 0.31)
@@ -17,6 +17,8 @@
         - Introduce start-with-backend command via plugin. (diewald)
         - Update Mojolicious for security reasons. (diewald)
         - Fix terser installation (fixes #182). (diewald)
+        - Make scope a requirement for OAuth authorizations.
+          (diewald)
 
         WARNING: Mojolicious 9.31 is a security update -
           updating is highly recommended.
