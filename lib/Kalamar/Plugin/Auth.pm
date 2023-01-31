@@ -1306,6 +1306,10 @@ sub register {
           sub {
             my $tx = shift;
 
+            unless (ref($tx)) {
+              return Mojo::Promise->reject('Something went wrong');
+            };
+
             # Check for location header with code in redirects
             my $loc;
             foreach (@{$tx->redirects}) {
@@ -1328,6 +1332,14 @@ sub register {
               if (my $err = $url->query->param('error_description'))  {
                 return Mojo::Promise->reject($err);
               };
+            }
+
+            $c->stash(redirect_uri => undef);
+
+            # Maybe json
+            my $json = $tx->res->json;
+            if ($json && $json->{error_description}) {
+              return Mojo::Promise->reject($json->{error_description});
             };
 
             # No location code
@@ -1337,9 +1349,20 @@ sub register {
           sub {
             my $err_msg = shift;
             my $url = $c->stash('redirect_uri');
-            if ($err_msg) {
-              $url = $url->query([error_description => $err_msg]);
+
+            # Redirect!
+            if ($url) {
+              if ($err_msg) {
+                $url = $url->query([error_description => $err_msg]);
+              };
+            }
+
+            # Do not redirect!
+            else {
+              $c->notify(error => $err_msg);
+              $url = $c->url_for('oauth-settings');
             };
+
             return Mojo::Promise->resolve($url);
           }
         )->then(

@@ -697,6 +697,14 @@ post '/v1.0/oauth2/authorize' => sub {
       return $c->rendered;
     };
 
+    if (index($redirect_uri,'http://wrong') >= 0) {
+      return $c->render(
+        code => 400,
+        content_type => 'text/plain',
+        text => '{"error_description":"Invalid redirect URI","state":"ZMwDGTZ2RY","error":"invalid_request"}'
+      );
+    };
+
     return $c->redirect_to(
       Mojo::URL->new($redirect_uri)->query({
         code => $tokens{auth_token_1},
@@ -713,7 +721,13 @@ post '/v1.0/oauth2/authorize' => sub {
         scope => 'match_info search openid'
       })
       );
-  }
+  };
+
+  return $c->render(
+    code => 400,
+    content_type => 'text/plain',
+    content => 'Unknown'
+  );
 };
 
 
