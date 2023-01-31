@@ -1249,6 +1249,10 @@ sub register {
           sub {
             my $tx = shift;
 
+            unless (ref($tx)) {
+              return Mojo::Promise->reject('Something went wrong');
+            };
+
             # Check for location header with code in redirects
             my $loc;
             foreach (@{$tx->redirects}) {
@@ -1271,6 +1275,12 @@ sub register {
               if (my $err = $url->query->param('error_description'))  {
                 return Mojo::Promise->reject($err);
               };
+            }
+
+            # Maybe json
+            my $json = $tx->res->json;
+            if ($json && $json->{error_description}) {
+              return Mojo::Promise->reject($json->{error_description});
             };
 
             # No location code

@@ -1,4 +1,4 @@
-0.48 2023-01-30
+0.48 2023-01-31
         - Added support for NKJP tagset in annotation
           assistant. (diewald)
         - Remove deprecated 'auth_support' (since 0.31)
@@ -21,6 +21,8 @@
           in OAuth registration flow. (diewald)
         - Fix tour localization to be overwritable. (diewald)
         - Make scope a requirement for OAuth authorizations.
+          (diewald)
+        - Improve error handling for non-redirect error responses.
           (diewald)
 
         WARNING: Mojolicious 9.31 is a security update -

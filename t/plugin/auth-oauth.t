@@ -916,6 +916,19 @@ $t->get_ok($fwd)
 
 $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri_server => 'http://example.com/',
+  redirect_uri => $t->app->close_redirect_to('http://wrong'),
+  csrf_token => $csrf,
+}))
+  ->status_is(302)
+  ->header_like('location', qr!http://example\.com/\?error_description=Invalid\+redirect\+URI!)
+  ->tx->res->headers->header('location')
+  ;
+
+$t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
   state => 'fail',
   scope => 'search match',
   redirect_uri_server => 'http://example.com/',
