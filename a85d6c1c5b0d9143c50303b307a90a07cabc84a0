@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48402cb3_b9ffeff4",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-01-31T10:33:07Z",
+      "side": 1,
+      "message": "Should the scope not be required?",
+      "range": {
+        "startLine": 1135,
+        "startChar": 31,
+        "endLine": 1135,
+        "endChar": 35
+      },
+      "revId": "a85d6c1c5b0d9143c50303b307a90a07cabc84a0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
