@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818a1ee1_bf5ebc1f",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 12
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-01-31T06:29:25Z",
+      "side": 1,
+      "message": "That was a stupid error.",
+      "range": {
+        "startLine": 440,
+        "startChar": 6,
+        "endLine": 440,
+        "endChar": 32
+      },
+      "revId": "9d82690497d616400f4de3955fcc2f4e88669d69",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
