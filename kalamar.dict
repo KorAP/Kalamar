@@ -44,7 +44,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     activateJS => 'Für den vollen Funktionsumfang aktivieren Sie bitte JavaScript!',
     faq => 'FAQ',
-    tutorial => 'Einführung',
+    tutorial => 'Hilfe und Dokumentation',
     notAvailInCorpus => 'Im vorliegenden Korpus nicht verfügbar',
     pubOn => 'veröffentlicht am',
     matchCount => 'Treffer',
@@ -143,7 +143,7 @@ my $THOUSAND_SEP_RE = qr/(
     activateJS => 'To make use of all features, please activate JavaScript!',
     faq => 'FAQ',
     underConstruction => 'Under Construction!',
-    tutorial => 'Tutorial',
+    tutorial => 'Help and Documentation',
     korap => {
       -short => 'KorAP',
       desc => 'KorAP - Corpus Analysis Platform',

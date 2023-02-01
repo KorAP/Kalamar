@@ -70,10 +70,3 @@ body.embedded {
     }
   }
 }
-
-// Link to documentation
-main.tutorial a.embedded-link::after {
-  @include icon-font;
-  content:   " " + $fa-tutorial;
-  font-size: 75%;
-}
