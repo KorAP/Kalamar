@@ -80,6 +80,9 @@ header {
     &.right {
       float:   right;
       display: inline-block;
+      >.tutorial{
+        margin-left: 10px;
+      }
     }
 
     &.top {
