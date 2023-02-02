@@ -34,6 +34,23 @@
       "parentUuid": "f8ae23d7_665edc0c",
       "revId": "d9b2d748336d18bcedf4f3296598c75ca54c0380",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b040ec73_4b73a538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-02T10:40:39Z",
+      "side": 1,
+      "message": "Argumentation: It\u0027s much more than just \"Help\" and what you get when you click ? at https://www.korpus.cz/kontext/query?corpname\u003dsyn2020 .\nDWDS calls it Documentation but without mouse-over.",
+      "revId": "d9b2d748336d18bcedf4f3296598c75ca54c0380",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
