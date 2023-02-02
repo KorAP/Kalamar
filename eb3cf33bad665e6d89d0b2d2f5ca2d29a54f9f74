@@ -33,6 +33,23 @@
       "message": "NKJP is fixed in https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/6577 - spaces are necessary.",
       "revId": "eb3cf33bad665e6d89d0b2d2f5ca2d29a54f9f74",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b25876_29c17f5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-02T08:22:55Z",
+      "side": 1,
+      "message": "I think it\u0027s better to keep the trailing spaces. Checking for both may not work that well. Before it turns out to not work - let\u0027s stick to the working pattern.",
+      "revId": "eb3cf33bad665e6d89d0b2d2f5ca2d29a54f9f74",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
