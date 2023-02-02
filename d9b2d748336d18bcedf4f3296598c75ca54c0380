@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8ae23d7_665edc0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-02T10:28:04Z",
+      "side": 1,
+      "message": "Maybe the link should also be renamed to \"documentation\" or \"help\" or similar.",
+      "revId": "d9b2d748336d18bcedf4f3296598c75ca54c0380",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
