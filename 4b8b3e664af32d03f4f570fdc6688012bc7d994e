@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a57c2f_0e610b5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-02T10:53:13Z",
+      "side": 1,
+      "message": "see it running [here (ICC)](https://korap.ids-mannheim.de/instance/icc?q\u003dgut+%5Bud%252Fm%253Dcase%253Aacc+%5D)\n\nseems to be working fine now\n\nPOS tags need to remain upper case (we don´t want to deviate from ud or udpipe)",
+      "revId": "4b8b3e664af32d03f4f570fdc6688012bc7d994e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
