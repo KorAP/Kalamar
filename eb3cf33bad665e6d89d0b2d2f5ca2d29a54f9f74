@@ -50,6 +50,24 @@
       "message": "I think it\u0027s better to keep the trailing spaces. Checking for both may not work that well. Before it turns out to not work - let\u0027s stick to the working pattern.",
       "revId": "eb3cf33bad665e6d89d0b2d2f5ca2d29a54f9f74",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be55d24_7c3f2516",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-02T10:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e867b3d3_df8e2ffa",
+      "revId": "eb3cf33bad665e6d89d0b2d2f5ca2d29a54f9f74",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
