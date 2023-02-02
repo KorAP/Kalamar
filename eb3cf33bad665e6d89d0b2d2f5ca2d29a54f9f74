@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e867b3d3_df8e2ffa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-02T07:02:41Z",
+      "side": 1,
+      "message": "OK, I removed the spaces again and opened an [issue #193](https://github.com/KorAP/Kalamar/issues/193)\n\nTODO: the morphological features and their values must all be lower case\ne.g.: `Animacy` -\u003e `animacy`, `Hum` -\u003e `hum`",
+      "revId": "eb3cf33bad665e6d89d0b2d2f5ca2d29a54f9f74",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
