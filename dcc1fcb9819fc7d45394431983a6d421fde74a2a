@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d939072_1fcb244a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-02-06T11:50:56Z",
+      "side": 1,
+      "message": "Changed \"Abfragebegriffe\" to \"Suchbegriff\" on the lines of https://www2.ids-mannheim.de/cosmas2/web-app/hilfe/suchanfrage/eingabe-zeile/syntax/suchbegriff.html.",
+      "revId": "dcc1fcb9819fc7d45394431983a6d421fde74a2a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
