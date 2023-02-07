@@ -811,11 +811,25 @@ $t->get_ok('/user/logout')
   ->session_hasnt('/user')
   ->header_is('Location' => '/');
 
-$csrf = $t->get_ok('/')
+$t->get_ok('/')
   ->status_is(200)
   ->element_exists_not('div.notify-error')
   ->element_exists('div.notify-success')
   ->text_is('div.notify-success', 'Logout successful')
+  ->element_exists("input[name=handle_or_email]")
+  ;
+
+# OAuth client authorization flow - but user not logged in
+$t->get_ok(Mojo::URL->new('/settings/oauth/authorize'))
+  ->status_is(302)
+  ->header_is('location','/')
+  ;
+
+$csrf = $t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('div.notify-error')
+  ->element_exists_not('div.notify-success')
+  ->text_is('div.notify-error', 'Client ID required')
   ->element_exists("input[name=handle_or_email]")
   ->tx->res->dom->at('input[name=csrf_token]')->attr('value')
   ;

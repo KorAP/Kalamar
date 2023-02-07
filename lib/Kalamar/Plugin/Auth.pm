@@ -1152,7 +1152,9 @@ sub register {
           else {
             $c->notify(error => $c->loc('Auth_paramError'));
           };
-          return $c->redirect_to('oauth-settings');
+
+          # If logged in, go to oauth settings - otherwise to index
+          return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
         };
 
         foreach (qw!scope client_id state redirect_uri!) {
@@ -1213,7 +1215,9 @@ sub register {
             # Redirect unknown
             else {
               $c->notify(error => 'redirect_uri not set');
-              return $c->redirect_to('oauth-settings');
+
+              # If logged in, go to oauth settings - otherwise to index
+              return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
             };
 
             # No userinfo allowed
@@ -1246,7 +1250,9 @@ sub register {
           sub {
             my $error = shift;
             $c->notify(error => $error);
-            return $c->redirect_to('oauth-settings');
+
+            # If logged in, go to oauth settings - otherwise to index
+            return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
           }
         );
       }
@@ -1275,7 +1281,8 @@ sub register {
         # Render with error
         if ($v->has_error) {
 
-          my $url = $c->url_for('oauth-settings');
+          # If logged in, go to oauth settings - otherwise to index
+          my $url = $c->url_for($c->auth->token ? 'oauth-settings' : 'index');
 
           if ($v->has_error('client_id')) {
             $url->query([error_description => $c->loc('Auth_clientIDFail')]);
@@ -1360,7 +1367,9 @@ sub register {
             # Do not redirect!
             else {
               $c->notify(error => $err_msg);
-              $url = $c->url_for('oauth-settings');
+
+              # If logged in, go to oauth settings - otherwise to index
+              $url = $c->url_for($c->auth->token ? 'oauth-settings' : 'index');
             };
 
             return Mojo::Promise->resolve($url);
