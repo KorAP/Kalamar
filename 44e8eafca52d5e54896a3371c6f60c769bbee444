@@ -120,6 +120,23 @@
       "parentUuid": "079240a9_05c68f78",
       "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37141eb_4bc6f7dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-07T16:05:38Z",
+      "side": 1,
+      "message": "Kalamar needs to be called like\n\n  KALAMAR_CLIENT_FILE\u003d/{hm}/Kustvakt/full/client/super_client_info \\\n  MOJO_MODE\u003d{hm} \\\n  morbo script/kalamar \n  \nIt\u0027s imortant to note, that the client information stored in the configuration can\u0027t be overwritten by the environment variable atm. This should probably be fixed.",
+      "revId": "44e8eafca52d5e54896a3371c6f60c769bbee444",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
