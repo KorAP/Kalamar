@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ba32ee_17021fb6",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-02-08T17:48:26Z",
+      "side": 1,
+      "message": "Is it ok to add this example here? I\u0027m not fully aware to which extend the \u0027regular expressions\u0027 of Cosmas II are implemented in KorAP. This example seems to work.",
+      "range": {
+        "startLine": 80,
+        "startChar": 25,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6b1acb0_6b16212b",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-02-08T17:48:26Z",
+      "side": 1,
+      "message": "Beschreibt \"noch nicht vollständig implementiert\" den richtigen Sachverhalt?",
+      "range": {
+        "startLine": 85,
+        "startChar": 60,
+        "endLine": 85,
+        "endChar": 71
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
