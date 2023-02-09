@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7c1adf4_6b6d3f19",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-09T11:46:55Z",
+      "side": 1,
+      "message": "Actually we were not very careful when implementing regex for C2. e.g. `#REG(Archi.*ung)` in KorAP behaves currently like `#Reg(^Archi.*ung$)` in C2. We should prepend and append `.*` to all non-boundary queries. And it seems that `#REG()` is not enough to mark a regular expression. E.g. character classes do not trigger Regex interpretation. I will file a bug.",
+      "parentUuid": "74ba32ee_17021fb6",
+      "range": {
+        "startLine": 80,
+        "startChar": 25,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6b1acb0_6b16212b",
         "filename": "templates/de/doc/ql/cosmas-2.html.ep",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-08T17:48:26Z",
       "side": 1,
       "message": "Beschreibt \"noch nicht vollständig implementiert\" den richtigen Sachverhalt?",
+      "range": {
+        "startLine": 85,
+        "startChar": 60,
+        "endLine": 85,
+        "endChar": 71
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6e8b62_2008457d",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-09T11:46:55Z",
+      "side": 1,
+      "message": "Actually I thought we did this, but there may be missing parts left. We have no one responsible for Koral atm.",
+      "parentUuid": "b6b1acb0_6b16212b",
       "range": {
         "startLine": 85,
         "startChar": 60,
