@@ -42,6 +42,7 @@ adminToken
 /t/kalamar_user_client.t
 !.gitignore
 !.github
+!.gitlab-ci.yml
 !.dockerignore
 /npm-debug.log
 /package-lock.json
