@@ -1,0 +1,31 @@
+# gitlab ci pipeline to build kalamar docker container
+# automatically triggered on tag pushs or run manually
+#
+# Download container from artifacts and import it
+# e.g. with
+# unxz -c < kalamar-master-fffe0d98.xz | docker load
+#
+image: docker:latest
+
+services:
+  - docker:dind
+
+build:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /.+/
+      variables:
+        VID: $CI_COMMIT_TAG
+    - when: manual
+      variables:
+        VID: $CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
+  stage: build
+  before_script:
+    - apk update
+    - apk add --no-cache git
+  script:
+    - docker build -f Dockerfile -t korap/kalamar:$VID-conv --target kalamar-convert .
+    - docker save korap/kalamar:$VID-conv | xz -T0 -M16G -9 > kalamar-$VID-conv.xz
+  artifacts:
+    paths:
+      - kalamar-$VID-conv.xz
+
