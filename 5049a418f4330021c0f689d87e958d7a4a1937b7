@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0c60c0f3_533ff45e",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-13T14:22:30Z",
+      "side": 1,
+      "message": "Yes, I dropped the `-conv` deliberately, exhausted by the version (and maintenance) explosion. But you are right that if we drop `-conv` and make it the only version, we should not do it secretly here. (Let\u0027s avoid introducing distinctions as Kustvakt-lite/-fulll).",
+      "parentUuid": "3d581931_cec4880e",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 81
+      },
+      "revId": "5049a418f4330021c0f689d87e958d7a4a1937b7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "badf73d2_8775218b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
