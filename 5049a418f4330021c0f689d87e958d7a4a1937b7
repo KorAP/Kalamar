@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "badf73d2_8775218b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-13T11:09:00Z",
+      "side": 1,
+      "message": "Our GitLab takes 30min to build the docker container (completey uncached). Waiting for Olli, now, to allow for uploading artifacts \u003e100MB to make this usable.\nDon\u0027t know about the (version-)naming of the container, but I guess we have to collect experiences and see how we want to origanize CD.",
+      "revId": "5049a418f4330021c0f689d87e958d7a4a1937b7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
