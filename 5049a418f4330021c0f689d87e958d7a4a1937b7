@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d581931_cec4880e",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-13T13:46:34Z",
+      "side": 1,
+      "message": "The target indicates the conversion build, while the tag name is the default Kalamar build.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 81
+      },
+      "revId": "5049a418f4330021c0f689d87e958d7a4a1937b7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "badf73d2_8775218b",
@@ -32,6 +55,23 @@
       "side": 1,
       "message": "Should this also push to docker hub automatically?",
       "parentUuid": "badf73d2_8775218b",
+      "revId": "5049a418f4330021c0f689d87e958d7a4a1937b7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606306b4_7cfffb79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-13T13:46:34Z",
+      "side": 1,
+      "message": "I have moved this to conv completely - but it may be the other way around.",
       "revId": "5049a418f4330021c0f689d87e958d7a4a1937b7",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
