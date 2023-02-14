@@ -16,6 +16,23 @@
       "message": "See https://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/1740#L65",
       "revId": "346b67dcb8404fffc8328a0c16cc5befdef320f7",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c60039e_702ba4ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-14T14:30:37Z",
+      "side": 1,
+      "message": "Ooops ... happens tooo often to me. :-(",
+      "revId": "346b67dcb8404fffc8328a0c16cc5befdef320f7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
