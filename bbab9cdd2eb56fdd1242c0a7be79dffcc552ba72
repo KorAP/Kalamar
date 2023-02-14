@@ -16,6 +16,23 @@
       "message": "OK, works, now. Olli has increased artifact limit to 512 MB.",
       "revId": "bbab9cdd2eb56fdd1242c0a7be79dffcc552ba72",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c766b4a5_30d81247",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-14T09:57:45Z",
+      "side": 1,
+      "message": "I cannot really judge, if it works - so I trust you. :-) But we should add Helge, so she is informed about changes in the Kalamar repo.",
+      "revId": "bbab9cdd2eb56fdd1242c0a7be79dffcc552ba72",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
