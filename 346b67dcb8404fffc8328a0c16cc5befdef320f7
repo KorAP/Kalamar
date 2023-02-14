@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abfc535a_ace75142",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-14T14:22:24Z",
+      "side": 1,
+      "message": "See https://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/1740#L65",
+      "revId": "346b67dcb8404fffc8328a0c16cc5befdef320f7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
