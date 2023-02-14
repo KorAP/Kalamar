@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dce8f7cb_0bf9aa1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2023-02-14T09:54:40Z",
+      "side": 1,
+      "message": "OK, works, now. Olli has increased artifact limit to 512 MB.",
+      "revId": "bbab9cdd2eb56fdd1242c0a7be79dffcc552ba72",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
