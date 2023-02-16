@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71e3d95_696649ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-02-16T12:15:36Z",
+      "side": 1,
+      "message": "Because there were several changes necessary I split them in several patches  to make reviewing easier.",
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f72947_a8a965bd",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-02-16T12:15:36Z",
+      "side": 1,
+      "message": "I\u0027m no sure how to phrase it here? \"Default foundry\" appears at several places right now.",
+      "range": {
+        "startLine": 52,
+        "startChar": 161,
+        "endLine": 52,
+        "endChar": 168
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
