@@ -39,6 +39,99 @@
       },
       "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee186fea_9a8d67e5",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-17T07:25:54Z",
+      "side": 1,
+      "message": "I would stick to that term.",
+      "parentUuid": "e8f72947_a8a965bd",
+      "range": {
+        "startLine": 52,
+        "startChar": 161,
+        "endLine": 52,
+        "endChar": 168
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43bed194_86d2143d",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-17T07:25:54Z",
+      "side": 1,
+      "message": "Better choose either \"Anfrage\" or \"Abfrage\" throughout the documentation.",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a46ddf7c_08f27a7b",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-17T07:25:54Z",
+      "side": 1,
+      "message": "That\u0027s not a very nice sentence construction.",
+      "range": {
+        "startLine": 118,
+        "startChar": 53,
+        "endLine": 118,
+        "endChar": 55
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e33281_cad9a4c3",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-17T07:25:54Z",
+      "side": 1,
+      "message": "This is not a good way to describe queries. We need to replace all example queries with dictionary entries (see PQ+ doc), so describing the example verbatim in the text doesn\u0027t work.",
+      "range": {
+        "startLine": 161,
+        "startChar": 14,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }

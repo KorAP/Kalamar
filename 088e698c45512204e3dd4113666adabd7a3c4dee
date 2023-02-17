@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "150059d8_5e18772f",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-17T07:25:54Z",
+      "side": 1,
+      "message": "Maybe the best approach is to comment out these paragraphs in the english and the germon documentation.",
+      "parentUuid": "b7c1adf4_6b6d3f19",
+      "range": {
+        "startLine": 80,
+        "startChar": 25,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6b1acb0_6b16212b",
         "filename": "templates/de/doc/ql/cosmas-2.html.ep",
         "patchSetId": 6
