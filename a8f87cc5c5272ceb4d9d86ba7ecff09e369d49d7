@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35228a97_ce98bedf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-02-23T13:14:23Z",
+      "side": 1,
+      "message": "This may fail in certain Proxy environments or when the API is upgraded using redirects. If we encounter such a problem, we need to manually resolve the redirect.",
+      "revId": "a8f87cc5c5272ceb4d9d86ba7ecff09e369d49d7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
