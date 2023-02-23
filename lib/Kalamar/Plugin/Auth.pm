@@ -525,15 +525,22 @@ sub register {
   $app->helper(
     korap_request => sub {
       my $c      = shift;
+
+      # Get plugin user agent
+      my $ua = $c->kalamar_ua;
+
+      # Override if UA is granted
+      if (ref $_[0] eq 'Mojo::UserAgent') {
+        $ua = shift;
+      };
+
       my $method = shift;
       my $path   = shift;
+
       my @param = @_;
 
       # TODO:
       #   Check if $tx is not leaked!
-
-      # Get plugin user agent
-      my $ua = $c->kalamar_ua;
 
       my $url = Mojo::URL->new($path);
       my $tx = $ua->build_tx(uc($method), $url->clone, @param);
@@ -622,7 +629,7 @@ sub register {
           my $tx = shift;
 
           # Response is fine
-          if ($tx->res->is_success) {
+          if ($tx->res->is_success || $tx->res->is_redirect) {
             return Mojo::Promise->resolve($tx);
           }
 
@@ -1420,7 +1427,15 @@ sub register {
         state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
         $c->stash(redirect_uri => Mojo::URL->new($v->param('redirect_uri')));
 
-        return $c->korap_request(post => $r_url, {} => form => {
+        my $ua = Mojo::UserAgent->new(
+          connect_timeout => 30,
+          inactivity_timeout => 30,
+          max_redirects => 0
+        );
+
+        $ua->server->app($app);
+
+        return $c->korap_request($ua, post => $r_url, { } => form => {
           response_type => 'code',
           client_id => $v->param('client_id'),
           redirect_uri => $c->stash('redirect_uri'),
@@ -1436,6 +1451,20 @@ sub register {
 
             # Check for location header with code in redirects
             my $loc;
+
+            # Look for code in location URL
+            if ($loc = $tx->res->headers->header('Location')) {
+              my $url = Mojo::URL->new($loc);
+
+              if ($url->query->param('code')) {
+                return Mojo::Promise->resolve($loc);
+              } elsif (my $err = $url->query->param('error_description')) {
+                return Mojo::Promise->reject($err);
+              }
+            };
+
+            # Check for location header with code in redirects
+            # This should be dead code tbh
             foreach (@{$tx->redirects}) {
               $loc = $_->res->headers->header('Location');
 

@@ -1019,22 +1019,55 @@ $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   ->header_is('location', '/settings/oauth?error_description=Bad+CSRF+token')
   ;
 
+
+my $local_port = $t->get_ok('/')->tx->local_port;
+my $remote_port = $t->get_ok('/')->tx->remote_port;
+
+like($local_port, qr!^\d+$!);
+like($remote_port, qr!^\d+$!);
+
+my $port = $remote_port;
+
+my $redirect_url_fakeapi = $t->app->close_redirect_to(Mojo::URL->new('http://localhost:' . $port)->path($fake_backend_app->url_for('return_uri'))->to_abs->to_string);
+
 $fwd = $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
   state => 'abcde',
   scope => 'search match',
-  redirect_uri_server => 'http://example.com/',
-  redirect_uri => $fake_backend_app->url_for('return_uri')->to_abs,
+  redirect_uri_server => 'http://localhost:'.$port,
+  redirect_uri => "$redirect_url_fakeapi",
   csrf_token => $csrf,
 }))
   ->status_is(302)
-  ->header_like('location', qr!/realapi/fakeclient/return!)
+  ->header_like('location', qr!^http://localhost:\d+/realapi/fakeclient/return\?code=.+$!)
   ->tx->res->headers->header('location')
   ;
 
 $t->get_ok($fwd)
   ->status_is(200)
   ->content_like(qr'welcome back! \[(.+?)\]')
+  ;
+
+my $fake_port = $port;
+
+while ($fake_port == $remote_port || $fake_port == $local_port) {
+  $fake_port++;
+};
+
+$redirect_url_fakeapi = $t->app->close_redirect_to(Mojo::URL->new('http://localhost:' . $fake_port)->path($fake_backend_app->url_for('return_uri'))->to_abs->to_string);
+
+$fwd = $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri_server => 'http://localhost:'.$port,
+  redirect_uri => "$redirect_url_fakeapi",
+  csrf_token => $csrf,
+}))
+  ->status_is(302)
+  ->header_unlike('location', qr!^http://localhost:\d+/realapi/fakeclient/return\?error_description=Connection\+refused$!)
+  ->header_like('location', qr!^http://localhost:\d+/realapi/fakeclient/return\?code=.+?$!)
+  ->tx->res->headers->header('location')
   ;
 
 $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
