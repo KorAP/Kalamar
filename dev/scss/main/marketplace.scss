@@ -1,0 +1,53 @@
+@import "../base/base";
+
+/*
+* Styles for marketplace
+*/
+
+
+ul.plugin-list, ul.plugin_in-list {
+  list-style-type: none;
+  padding-left: 1.5em;
+
+  li.plugin {
+
+    margin-bottom: 2.5em;
+
+    span.client-name::before {
+      margin-left: -1.5em;
+    }
+
+    p.plugin-desc{
+      font-weight: normal;
+      font-size: 95%;
+      margin-top: .2em;
+      margin-bottom: .2em;
+    }
+    
+    p.plugin-url, p.registration_date, p.registered_by, p.inst_date {
+      font-weight: normal;
+      font-size: 80%;
+      margin-top: .2em;
+      margin-bottom: .3em;
+    }
+  }
+}
+
+
+.mkplace {
+  input[type=submit]{
+      display:          inline-block;
+      font-size: 80%;
+      margin-top: 0;
+      width:        20%;
+      min-width:    20em;
+      padding:      $base-padding;
+      cursor:           pointer;
+      border-width:     thin;
+      text-align:       center;
+    }
+  
+  a.form-button:hover {
+      color: inherit !important;
+    }
+  }
