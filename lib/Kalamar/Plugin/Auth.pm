@@ -113,9 +113,12 @@ sub register {
           oauthSettings => 'OAuth',
           #for marketplace settings
           marketplace => 'Marktplatz',
-          mp_regby => "Registriert von",
-          mp_regdate => "Registrierungsdatum",
-
+          plugins => 'Plugins',
+          instplugins => 'Bereits installierte Plugins',
+          regby => 'Registriert von',
+          regdate => 'Registrierungsdatum',
+          instdate=> 'Installationsdatum',
+          install => 'Installieren',
           oauthUnregister => {
             -long => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
             short => 'Löschen'
@@ -176,9 +179,14 @@ sub register {
           registerFail => 'Registration denied',
           oauthSettings => 'OAuth',
           #for marketplace settings
-          marketplace => 'Marketplace',
-          mp_regby =>"Registered by",
-          mp_regdate =>"Registration date",
+           marketplace => 'Marketplace',
+          plugins => 'Plugins',
+          instplugins => 'Installed Plugins',
+          regby =>'Registered by',
+          regdate =>'Date of Registration',
+          instdate =>'Date of Installation',
+          install => 'Install',
+          uninstall => 'Uninstall',
           oauthUnregister => {
             -long => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
             short => 'Unregister'
@@ -883,17 +891,17 @@ sub register {
       $app->loc('Auth_oauthSettings'), 'oauth'
     )
     );
-    #$app->navi->add(settings => (
-    #  $app->loc('Auth_marketplace'), 'marketplace'
-    #));
+    
+    $app->navi->add(settings => (
+      $app->loc('Auth_marketplace'), 'marketplace'
+    ));
 
 
-    # Lists all permitted registered plugins
+    # Helper: Returns lists of registered plugins (of all users), which are permitted
     $app->helper(
     'auth.plugin_list_m' => sub {
-
       my $c = shift;
-      state $r_url = Mojo::URL->new($c->korap->api)->path('plugins');
+      my $r_url = Mojo::URL->new($c->korap->api)->path('plugins');
       return $c->korap_request(post => $r_url, {} => form => {
         super_client_id => $client_id,
         super_client_secret => $client_secret,
@@ -901,14 +909,13 @@ sub register {
         permitted_only => 'true'
       })->then( 
           sub {
-          my $tx = shift;
-          my $json = $tx->result->json;
-
-          # Response is fine
-          if ($tx->res->is_success) {
+            my $tx = shift;
+            my $json = $tx->result->json;
+            # Response is fine
+            if ($tx->res->is_success) {
             return Mojo::Promise->resolve($json);
           };
-
+          
           $c->log->error($c->dumper($tx->res->to_string));
 
           # Failure
@@ -919,38 +926,144 @@ sub register {
      }
    );
 
-    # Route to marketplace settings
-    $r->get('/settings/marketplace')->to(
+ 
+    #Helper: Returns list of all plugins, which are already installed
+    $app->helper(
+      'auth.plugin_list_in' => sub {
+        my $c = shift;
+        my $r_url = Mojo::URL->new($c->korap->api)->path('plugins/installed');
+        return $c->korap_request(post => $r_url, {} => form => {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          })->then( 
+            sub {
+              my $tx = shift;
+              my $json = $tx->result->json;
+              # Response is fine
+              if ($tx->res->is_success) {  
+                return Mojo::Promise->resolve($json);
+          };
+          
+          $c->log->error($c->dumper($tx->res->to_string));
+
+          # Failure
+          $c->notify(error => $c->loc('Auth_responseError'));
+          return Mojo::Promise->reject($json // 'No response');
+        }
+      );
+      }
+    );
+
+    # Helper: Installs a plugin
+    $app->helper(
+      'auth.plugin_install' => sub {
+        my $c = shift;
+        my $mclient_id = shift;
+        my $r_url = Mojo::URL->new($c->korap->api)->path('plugins/install');
+        
+        return $c->korap_request(post => $r_url, {} => form => {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          client_id => $mclient_id
+          })->then( 
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+            # Response is fine
+            if ($tx->res->is_success) {
+              return Mojo::Promise->resolve($json);
+              };
+            #Log errors
+            $c->log->error($c->dumper($tx->res->to_string));
+            # Failure
+            return Mojo::Promise->reject($json // 'No response');
+            }
+            );
+        }
+      );
+
+    # Route to marketplace (for installation and deinstallation of plugins)
+    $r->get('/settings/marketplace')->to( 
       cb => sub {
-      my $c = shift;
-      _set_no_cache($c->res->headers);
-      
-      unless ($c->auth->token) {
-      #TODO: Handle authorization (forward to Login for example)
-        return $c->render(
+        my $c = shift; 
+        _set_no_cache($c->res->headers);
+        unless ($c->auth->token) {
+          return $c->render(
             template => 'exception',
             msg => $c->loc('Auth_authenticationFail'),
             status => 401
           );
         };
-
       $c->render_later;
       $c->auth->plugin_list_m->then(
         sub {
           $c->stash('plugin_list' => shift);
-          }
-        )->catch(
-         sub {
-            return;
-          }
-       )->finally(
-         sub {
-           return $c->render(template => 'auth/marketplace');
+          my $pllist = $c->stash('plugin_list');
+                  $c->auth->plugin_list_in->then(
+                  sub {
+                  $c->stash('pluginsin_list' => shift);
+                  my $plist = $c->stash('plugin_list');
+                  my $plinlist = $c->stash('pluginsin_list');
+                  my $clean_pllist = $plist;
+                  if($c->stash('pluginsin_list' )){
+                    foreach my $entry (@$plinlist){
+                      @$clean_pllist = grep{!($_->{client_id} eq $entry->{client_id})} @$clean_pllist ;
+                      $c->stash('plugin_list', $clean_pllist);
+                        }
+                      }
+                    }
+                    )
+                    }
+                  )->catch(
+                sub {
+                  return;
+                  }
+                  )->finally(
+                    sub {
+                      return $c->render(template => 'auth/marketplace');
+                      }
+              ); 
          }
-       );
-      }
      )->name('marketplace');
 
+
+   # Route to install plugin
+    $r->post('/settings/marketplace/install-plugin')->to(
+      cb => sub {
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        my $v = $c->validation;
+        $v->required('client-id');
+        
+        if ($v->has_error) {
+          return $c->render(
+          json => [],
+          status => 400
+          );
+        };
+        
+        unless ($c->auth->token) {
+          return $c->render(
+          content => 'Unauthorized',
+          status => 401
+          );
+        };
+
+        my $client_id = $v->param('client-id');
+        $c->render_later;
+
+        $c->auth->plugin_install($client_id)->then()
+        ->catch(
+          sub {
+            return;
+          }
+        )->finally(
+          sub {
+            return $c->redirect_to('marketplace');
+          }
+        );
+      }
+    )->name('installPlugin');
 
 
     # Route to OAuth settings
