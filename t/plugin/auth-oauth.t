@@ -501,6 +501,8 @@ $t->get_ok('/settings/oauth')
 $t->get_ok('/settings/marketplace')
   ->status_is(200)
   ->text_is('html head title' => 'Marketplace')
+  ->element_exists_not('ul.plugin_list')
+  ->element_exists_not('ul.plugin_in-list')
   ;
 
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
@@ -921,15 +923,14 @@ $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
 
 $fake_backend_app->add_plugin({
 "source" => {"key1" => 'wert1', "key2" => 'wert2'},
-"client_id" => "52abc",
-"permitted" => 'true',
 "client_id" => '52abc',
+"permitted" => 'true',
 "client_name" => 'Plugin 1',
 "client_type" => 'CONFIDENTIAL',
-"client_description" =>"Description Plugin 1",
-"client_url" => "http://example.client.de",
-"registration_date" => "2022-05-31T14:30:09+02:00[Europe/Berlin]",
-"registered_by" => "system"
+"client_description" => 'Description Plugin 1',
+"client_url" => 'http://example.client.de',
+"registration_date" => '2022-05-31T14:30:09+02:00[Europe/Berlin]',
+"registered_by" => 'system'
 });
 
 
@@ -984,10 +985,11 @@ $t->get_ok('/settings/marketplace')
   ->element_exists('ul.plugin-list')
   ->element_exists('ul.plugin-list > li')
   ->element_exists('p.registration_date')
-  ->element_exists('p.registered_by')
   ->text_is('span.client-name','Plugin 1')
   ->text_is('p.plugin-desc','Description Plugin 1')
   ;
+
+
 
 $fake_backend_app->add_plugin({
 "source" => {"one" => '1', "two" => '2'},
@@ -998,15 +1000,6 @@ $fake_backend_app->add_plugin({
 "client_description" =>'Description Plugin 2'
 });
 
-$fake_backend_app->add_plugin({
-"source" => {"answer" => '42', "hello" => 'world'},
-"permitted" => 'true',
-"client_id" => '54abc',
-"client_name" => 'Plugin 3',
-"client_type" => 'CONFIDENTIAL',
-"client_description" =>'Description Plugin 3'
-});
-
 $t->get_ok('/settings/marketplace')
   ->status_is(200)
   ->element_exists('ul.plugin-list')
@@ -1014,12 +1007,47 @@ $t->get_ok('/settings/marketplace')
   ->text_is('span.client-name','Plugin 1')
   ->text_is('p.plugin-desc','Description Plugin 1')
   ->element_exists('ul.plugin-list > li + li')
-  ->text_isnt('ul.plugin-list > li + li >span.client-name','Plugin 2')
-  ->text_isnt('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
-  ->text_is('ul.plugin-list > li + li >span.client-name','Plugin 3')
-  ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 3')
+  ->text_is('ul.plugin-list > li + li >span.client-name','Plugin 2')
+  ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
   ;
 
+$t->ua->max_redirects(0);
+
+$t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
+  ->status_is(302)
+  ->header_is(location => '/settings/marketplace')
+  ;
+
+$t->ua->max_redirects(1);
+
+$t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
+  ->status_is(200)
+  ->element_exists('ul.plugin-list')
+  ->element_exists('ul.plugin-list > li')
+  ->text_is('ul.plugin-list > li > span.client-name','Plugin 2')
+  ->text_is('ul.plugin-list > li > p.plugin-desc','Description Plugin 2')
+  ->element_exists_not('ul.plugin-list > li + li')
+  ->element_exists('ul.plugin_in-list')
+  ->element_exists('ul.plugin_in-list > li')
+  ->text_is('ul.plugin_in-list > li > span.client-name','Plugin 1')
+  ->text_is('ul.plugin_in-list > li > p.inst_date','Date of Installation: 2022-12-13T16:33:27.621+01:00[Europe/Berlin]')
+  ;
+
+$t->ua->max_redirects(0);
+
+ $t->post_ok('/settings/marketplace', form => {'client-id' => 'unsinn31'})
+  ->status_is(302)
+  ->header_is(location => '/settings/marketplace')
+  ;
+
+$t->ua->max_redirects(1);
+
+$t->post_ok('/settings/marketplace', form => {'client-id' => 'unsinn31'})
+  ->status_is(200)
+  ->text_is('div.notify-error', 'Plugin could not be installed')
+  ;
+
+$t->ua->max_redirects(0);
 
 $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
