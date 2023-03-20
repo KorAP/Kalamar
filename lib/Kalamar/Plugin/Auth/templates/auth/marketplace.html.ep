@@ -2,26 +2,48 @@
 
 %= page_title
 
+% my $pluginsin = stash("pluginsin_list");
+  % if (@$pluginsin) {
+  <ul class="plugin_in-list">
+    %foreach (@$pluginsin) {
+    <li class="plugin">
+      <span class="client-name" %><%= $_->{name} %></span>
+      %if ($_->{description}) {
+      <p class="plugin-desc"><%=$_->{description}%></p>
+      % };
+      % if ($_->{url}) {
+      <p class="plugin-url"> <a href="<%= $_->{url} %>"> <%= $_->{url} %></a></p>
+      % }
+      %if ($_->{installed_date}) {
+        <p class="inst_date"><%=loc('Auth_instdate')%>: <%= $_->{installed_date} %></p>
+      % }
+    </li>
+    %};  
+  </ul>
+% };
+
 
 % my $plugins = stash('plugin_list');
 
-% if ($plugins) {
+% if (@$plugins) {
 <ul class="plugin-list">
-  %foreach (@$plugins) {
-    <li class="plugin">
-      <span class="client-name client-type-<%= lc($_->{'client_type'} // 'PUBLIC') %>"><%=$_->{client_name} %></span>
-      %if ($_->{client_description}) {
-        <p class="plugin-desc"><%= $_->{client_description} %></p>
-        % };
-      %if ($_->{client_url}) {
-        <p class="plugin-url"><a href="<%= $_->{client_url} %>"><%= $_->{client_url} %></a></p>
-         %}
-      %if ($_->{registration_date}) {
-        <p class="registration_date"> <%=loc('Auth_mp_regdate')%>: <%= $_->{registration_date} %></p>
-        %};
-      %if ($_->{registered_by}) {
-        <p class="registered_by"> <%=loc('Auth_mp_regby')%>: <%= $_->{registered_by} %></p>
-        %};
-      %}
-  </ul>
-  %};
+%   foreach (@$plugins) {
+  <li class="plugin">
+    <span class="client-name client-type-<%= lc($_->{'client_type'} // 'PUBLIC') %>"><%=$_->{client_name} %></span>
+    % if ($_->{client_description}) {
+      <p class="plugin-desc"><%= $_->{client_description} %></p>
+    % };
+    % if ($_->{client_url}) {
+    <p class="plugin-url"><a href="<%= $_->{client_url} %>"><%= $_->{client_url} %></a></p>
+    % }
+  %if ($_->{registration_date}) {
+    <p class="registration_date"> <%=loc('Auth_regdate')%>: <%= $_->{registration_date} %></p>
+%  };
+   %= form_for 'marketplace/install-plugin', class => 'mkplace', method => "POST",  begin
+   %= hidden_field 'client-id' => $_->{client_id} 
+   <input type="submit" class="form-submit" value="<%= loc('Auth_install')%>"/>
+% end
+</li>
+%};
+</ul>
+% };
