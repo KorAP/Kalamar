@@ -65,6 +65,14 @@ helper 'add_plugin' => sub {
   push @$pl_list, $cplugin;
 };
 
+helper 'add_instplugin' => sub {
+   my $c = shift;
+   my $cplugin = shift;
+   my $pl_list = $c->app->defaults('oauth.pluginin_list');
+   push @$pl_list, $cplugin; 
+};
+
+
 # Load fixture responses
 helper 'load_response' => sub {
   my $c = shift;
@@ -97,7 +105,7 @@ helper 'load_response' => sub {
 
 app->defaults('oauth.client_list' => []);
 app->defaults('oauth.plugin_list' => []);
-
+app->defaults('oauth.pluginin_list' => []);
 
 # Base page
 get '/v1.0/' => sub {
@@ -560,12 +568,29 @@ post '/v1.0/oauth2/client/register' => sub {
   });
 };
 
-# List plugins
+# Mock API list plugins
 post '/v1.0/plugins' => sub {
   my $c = shift;
-
   my $v = $c->validation;
+  $v->required('super_client_id');
+  $v->required('super_client_secret');
+  if ($v->has_error) {
+    return $c->render(
+      json => [],
+      status => 400
+    );
+  };
 
+  return $c->render(
+   json => $c->stash('oauth.plugin_list'),
+   status => 200
+  );
+};
+
+# Mock API list installed plugins
+post '/v1.0/plugins/installed' => sub {
+  my $c = shift;
+  my $v = $c->validation;
   $v->required('super_client_id');
   $v->required('super_client_secret');
 
@@ -575,32 +600,55 @@ post '/v1.0/plugins' => sub {
       status => 400
     );
   };
-  
-  my $p;
-  if($c->param("permitted_only")){
-    $p = $c->param("permitted_only");
-  }
-  else{
-    $p="false";
-  }
 
-  #Mocks the return only of permitted plugins
-  if($p eq "true"){
-    my @p_plugin_list = grep{$_->{permitted} eq "true"}  @{$c->stash('oauth.plugin_list')};
-    my $listref = \@p_plugin_list;
+  return $c->render(
+    json => $c->stash('oauth.pluginin_list'),
+    status => 200
+  );
+};
+
+
+# Mock API plugin installation
+post '/v1.0/plugins/install' => sub {
+  my $c = shift;
+  my $v = $c->validation;
+  $v->required('super_client_id');
+  $v->required('super_client_secret');
+  $v->required('client_id');
+  my $cl_id = $c->param('client_id');
+  if ($v->has_error) {
     return $c->render(
-      json => $listref,
+      json => [],
+      status => 400
+    );
+  };
+  
+  my $date = "2022-12-13T16:33:27.621+01:00[Europe/Berlin]";
+  my $pl_list =  $c->app->defaults('oauth.plugin_list');
+  my $cl_name = (grep{($_->{client_id} eq $cl_id)}@$pl_list)[0]->{client_name};
+  
+  if (length $cl_name){
+    
+    my %inst_plugin = (
+      "name" => $cl_name,
+      "client_id" => $cl_id,
+      "installed_date" => $date,
+      );
+
+    $c->add_instplugin(\%inst_plugin);
+ 
+    return $c->render(
+      json => %inst_plugin,
       status => 200
     );
   }
-  else{
-  return $c->render(
-   json => $c->stash('oauth.plugin_list'),
-    status => 200
-  );
-  }
 
+  return $c->render(
+    json => [],
+    status => 400
+  );
 };
+
 
 # Register a client
 post '/v1.0/oauth2/client/list' => sub {
