@@ -65,6 +65,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d60356_a29e4a59",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-03-23T16:12:04Z",
+      "side": 1,
+      "message": "I stick to that.",
+      "parentUuid": "ee186fea_9a8d67e5",
+      "range": {
+        "startLine": 52,
+        "startChar": 161,
+        "endLine": 52,
+        "endChar": 168
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43bed194_86d2143d",
@@ -78,6 +102,30 @@
       "writtenOn": "2023-02-17T07:25:54Z",
       "side": 1,
       "message": "Better choose either \"Anfrage\" or \"Abfrage\" throughout the documentation.",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc8ff56_f22fc966",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-03-23T16:12:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43bed194_86d2143d",
       "range": {
         "startLine": 99,
         "startChar": 17,
@@ -113,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae03c3bf_f36cfcca",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-03-23T16:12:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a46ddf7c_08f27a7b",
+      "range": {
+        "startLine": 118,
+        "startChar": 53,
+        "endLine": 118,
+        "endChar": 55
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32e33281_cad9a4c3",
         "filename": "templates/de/doc/ql/cosmas-2.html.ep",
         "patchSetId": 12
@@ -124,6 +196,30 @@
       "writtenOn": "2023-02-17T07:25:54Z",
       "side": 1,
       "message": "This is not a good way to describe queries. We need to replace all example queries with dictionary entries (see PQ+ doc), so describing the example verbatim in the text doesn\u0027t work.",
+      "range": {
+        "startLine": 161,
+        "startChar": 14,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "98c672ab8d9cf693cbf5bfd4fff8a4e2fdb2376c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f26eff78_5cb7204a",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-03-23T16:12:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "32e33281_cad9a4c3",
       "range": {
         "startLine": 161,
         "startChar": 14,

@@ -72,6 +72,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36654e5b_080701a4",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-03-23T16:12:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "150059d8_5e18772f",
+      "range": {
+        "startLine": 80,
+        "startChar": 25,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6b1acb0_6b16212b",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "See a.o. https://github.com/KorAP/Koral/issues/66",
       "parentUuid": "8e6e8b62_2008457d",
+      "range": {
+        "startLine": 85,
+        "startChar": 60,
+        "endLine": 85,
+        "endChar": 71
+      },
+      "revId": "088e698c45512204e3dd4113666adabd7a3c4dee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bcc8f64_d3faa291",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-03-23T16:12:04Z",
+      "side": 1,
+      "message": "I sticked to this term, but commented the example out.",
+      "parentUuid": "1d7a77e2_07309282",
       "range": {
         "startLine": 85,
         "startChar": 60,
