@@ -40,7 +40,7 @@
 
   <h4>Regular Expression Operator</h4>
 
-  <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= embedded_link_to 'doc', 'regular expressions', 'ql', 'regexp' %>.</p>
+ %# <p>By using the <code>#REG(...)</code> operator, query terms can be formulated using <%= embedded_link_to 'doc', 'regular expressions', 'ql', 'regexp' %>.</p>
   
 
   <blockquote class="bug">
