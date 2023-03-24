@@ -16,6 +16,24 @@
       "message": "Should the user see the marketplace if not logged in? (Asked if not for authorization)",
       "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af231d41_b9fa8e15",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-24T23:04:48Z",
+      "side": 1,
+      "message": "When the user is not logged in, the whole settings menu shouldn\u0027t be available atm.",
+      "parentUuid": "1530a79f_55bab3b2",
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
