@@ -38,7 +38,7 @@ define(["hint/foundries"], function (ah) {
     ["'naj'","naj ",""],
     ["'nie'","nie ",""],
     ["num","num ","main numeral"],
-    // ["numcol","numcol","collective numeral"],
+    ["numcol","numcol","collective numeral"],
     ["numcomp","numcomp ","numeral compounds forming form"],
     ["pact","pact ","active adjectival participle"],
     ["pacta","pacta ","participal compounds forming form"],
@@ -50,8 +50,6 @@ define(["hint/foundries"], function (ah) {
     ["ppron3","ppron3 ","3rd-person pronoun"],
     ["praet","praet ","l-participle"],
     ["pred","pred ","predicative"],
-    ["prefa","prefa ","prefix"],
-    ["prefs","prefs ","prefix"],
     ["prep","prep ","preposition"],
     ["romandig","romandig ","Roman digits"],
     ["siebie","siebie ","pronoun siebie"],   
@@ -60,7 +58,8 @@ define(["hint/foundries"], function (ah) {
     ["substa","substa ","nominal compounds forming form"],
     ["sym","sym ","symbols"],  
     ["winien","winien ","winien-like verb"],
-    ["xxx","xxx ","foreign material"]
+    ["xxx","xxx ","foreign material"],
+    ["xxs","xxs ","foreign material (substantivish)"]
   ];
 
   ah["nkjp/m="] = [
@@ -74,7 +73,7 @@ define(["hint/foundries"], function (ah) {
     ["Number", "number:"],
     ["Negation", "negation:"],
     ["Post-Prepositionality","postprep:"],
-    ["Vocality","vocal:"]
+    ["Vocalicity","vocal:"]
   ];
 
   ah["nkjp/m=case:"] = [
