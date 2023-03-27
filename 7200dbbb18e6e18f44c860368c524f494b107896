@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e43709f8_0c6c99f3",
+        "filename": "templates/de/doc/ql/cosmas-2.html.ep",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-27T10:40:34Z",
+      "side": 1,
+      "message": "This can be left.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 2
+      },
+      "revId": "7200dbbb18e6e18f44c860368c524f494b107896",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
