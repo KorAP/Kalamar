@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c194872_ff5e040e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-27T10:36:53Z",
+      "side": 1,
+      "message": "While there are serious bugs and we have no one fixing them, It\u0027s still true that a lot of Regexes can be used. Maybe Marc can decide, how to proceed.",
+      "revId": "2f808149d2b7d90d0d85f80c2b5ef2884c0929a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
