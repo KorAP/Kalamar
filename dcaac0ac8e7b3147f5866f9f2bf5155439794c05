@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bf15235_b2a369f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "Looks good sofar! :-)\n\nI made some minor suggestions.",
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d61fd2b_e6dea851",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "Dumper shouldn\u0027t be required for strings. This is true for all new helpers.",
+      "range": {
+        "startLine": 947,
+        "startChar": 25,
+        "endLine": 947,
+        "endChar": 36
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9638927_776ab81b",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "That\u0027s a weird nesting of promises. This should be done in parallel, see https://docs.mojolicious.org/Mojo/Promise.",
+      "range": {
+        "startLine": 1001,
+        "startChar": 10,
+        "endLine": 1014,
+        "endChar": 21
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f15c8c4_affc4883",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "This path is probably not necessary and should be removed. Posting to the marketplace will probably always differ from \"getting\".",
+      "range": {
+        "startLine": 1031,
+        "startChar": 35,
+        "endLine": 1031,
+        "endChar": 50
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1530a79f_55bab3b2",
@@ -50,6 +136,144 @@
       "side": 1,
       "message": "Ok. I agree.",
       "parentUuid": "af231d41_b9fa8e15",
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b3fd60a_aad03e85",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "Can you explain this chain?",
+      "range": {
+        "startLine": 1055,
+        "startChar": 8,
+        "endLine": 1064,
+        "endChar": 10
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cb71e4a_47a8579d",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "This is listed, even if the following list is empty. The same is true for installed plugins. I think it would be better to only have one list with installed plugins at the top (no install button, but an uninstall button there, once it\u0027s available), followed by not installed plugins.",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a1c182d_21d49eaf",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "Classnames should always have the same stile, I would say. So at least not a mixture of dash and underscore.",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ea32d4_1facea8c",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "This is a weird information here, when it\u0027s not also integrated in the installation list.",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19b95e73_d75f3029",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b588a521_cd3549c3",
+        "filename": "t/plugin/auth-oauth.t",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-03-28T12:07:28Z",
+      "side": 1,
+      "message": "There is no test on failing to install a plugin and no check on success.",
+      "range": {
+        "startLine": 989,
+        "startChar": 14,
+        "endLine": 989,
+        "endChar": 50
+      },
       "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
