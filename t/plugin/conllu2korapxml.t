@@ -1,11 +1,10 @@
 use Test::More;
 use Test::Mojo;
 use Test::Output;
+use Kalamar::Plugin::KorAPXML2CoNLLU;
 
-my $script = `sh -c 'command -v conllu2korapxml'`;
-
-if ($script eq '') {
-  plan skip_all => "KorAP::XML::Krill is not installed";
+unless (Kalamar::Plugin::KorAPXML2CoNLLU::check_existence()) {
+  plan skip_all => "KorAP::XML::ConLLU is not installed";
   exit;
 };
 
