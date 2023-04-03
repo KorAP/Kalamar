@@ -211,6 +211,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "240be5a0_56a7aef8",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-03T12:27:08Z",
+      "side": 1,
+      "message": "After revisiting old templates, I have to admit that we weren\u0027t not very coherent in the past as well. So - I guess this is invalid criticism. ;-)",
+      "parentUuid": "0a1c182d_21d49eaf",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48ea32d4_1facea8c",
         "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
         "patchSetId": 1
