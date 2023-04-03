@@ -97,7 +97,7 @@ sub register {
           revokeFail => 'Der Token kann nicht widerrufen werden',
           revokeSuccess => 'Der Token wurde erfolgreich widerrufen',
           paramError => 'Einige Eingaben sind fehlerhaft',
-          redirectUri => 'Weiterleitungs-Adresse',
+          redirectUri => 'Weiterleitungsadresse',
           pluginSrc => 'Beschreibung des Plugins (*.json-Datei)',
           homepage => 'Webseite',
           desc => 'Kurzbeschreibung',
@@ -987,40 +987,6 @@ sub register {
       }
     )->name('oauth-settings');
 
-    # Route to oauth settings
-    $r->get('/settings/oauth')->to(
-      cb => sub {
-        my $c = shift;
-
-        _set_no_cache($c->res->headers);
-
-        unless ($c->auth->token) {
-          return $c->render(
-            template => 'exception',
-            msg => $c->loc('Auth_authenticationFail'),
-            status => 401
-          );
-        };
-
-        # Wait for async result
-        $c->render_later;
-
-        $c->auth->client_list_p->then(
-          sub {
-            $c->stash('client_list' => shift);
-          }
-        )->catch(
-          sub {
-            return;
-          }
-        )->finally(
-          sub {
-            return $c->render(template => 'auth/clients')
-          }
-        );
-      }
-    )->name('oauth-settings');
-
     # Route to oauth client registration
     $r->post('/settings/oauth/register')->to(
       cb => sub {
@@ -1556,6 +1522,7 @@ sub register {
             $c->stash(client_desc => $item->{client_description});
             $c->stash(client_url  => $item->{client_url});
             $c->stash(client_type => ($item->{client_type} // 'PUBLIC'));
+            $c->stash(client_redirect_uri => $item->{client_redirect_uri});
             $c->stash(client_src  => encode_json($item->{source})) if $item->{source};
 
             $c->auth->token_list_p($c->stash('client_id'));
