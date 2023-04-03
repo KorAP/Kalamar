@@ -864,6 +864,15 @@ $fake_backend_app->add_client({
   "client_redirect_uri" => 'http://redirect.url/'
 });
 
+$t->get_ok('/settings/oauth/xyz2')
+  ->status_is(200)
+  ->text_is('li.client span.client-name','New added client')
+  ->attr_is('li.client p.client-url a','href','http://example.com')
+  ->attr_is('li.client input[name=client_id]','value','xyz2')
+  ->element_exists('li.client p.client-type-confidential')
+  ->text_is('li.client p.client-redirect-uri tt','http://redirect.url/')
+  ;
+
 $fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz2',
   scope => 'search match',
