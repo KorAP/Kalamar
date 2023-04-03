@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b3d718e_791cfb97",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-03T12:47:07Z",
+      "side": 0,
+      "message": "This was doubled - don\u0027t know how ...",
+      "range": {
+        "startLine": 990,
+        "startChar": 3,
+        "endLine": 991,
+        "endChar": 35
+      },
+      "revId": "16b38ef74d5c81efb5ea02b0bb727082201d7c41",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
