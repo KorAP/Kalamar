@@ -22,6 +22,30 @@
       },
       "revId": "16b38ef74d5c81efb5ea02b0bb727082201d7c41",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090143bd_96677e70",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-04T13:04:57Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6b3d718e_791cfb97",
+      "range": {
+        "startLine": 990,
+        "startChar": 3,
+        "endLine": 991,
+        "endChar": 35
+      },
+      "revId": "16b38ef74d5c81efb5ea02b0bb727082201d7c41",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
