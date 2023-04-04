@@ -16,6 +16,24 @@
       "message": "I would like to submit this, if this is ok with you. \nIf Marc has objections to the regex-paragraph I will add a change to https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/6795.",
       "revId": "a59b4fc767dfa28931e2e4a3b0a592ce6e5f417f",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9d48cb_5ba11e0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-04T21:33:19Z",
+      "side": 1,
+      "message": "Okay. I made some minor further suggestions.",
+      "parentUuid": "52128dd0_a8da8d5b",
+      "revId": "a59b4fc767dfa28931e2e4a3b0a592ce6e5f417f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
