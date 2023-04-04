@@ -33,6 +33,24 @@
       "message": "I wonder if we should call the redirect uri \"Weiterleitungsadresse\" instead  of \"Weiterleitungs-Adresse\".",
       "revId": "6f25e018dce8fcb424274ea59e79d8ca88c435b8",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ead3cd46_388f01e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-04T13:04:29Z",
+      "side": 1,
+      "message": "Good point. I changed it.",
+      "parentUuid": "97581f29_bb32ac71",
+      "revId": "6f25e018dce8fcb424274ea59e79d8ca88c435b8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
