@@ -16,6 +16,23 @@
       "message": "After request by Eliza.",
       "revId": "6f25e018dce8fcb424274ea59e79d8ca88c435b8",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97581f29_bb32ac71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-04-04T12:59:14Z",
+      "side": 1,
+      "message": "I wonder if we should call the redirect uri \"Weiterleitungsadresse\" instead  of \"Weiterleitungs-Adresse\".",
+      "revId": "6f25e018dce8fcb424274ea59e79d8ca88c435b8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
