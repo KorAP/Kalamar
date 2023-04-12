@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "241f08a9_5e6c4b18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-12T10:52:40Z",
+      "side": 1,
+      "message": "I know - that\u0027s not really a fix. But after quite a lot of testing it seems the error is more dependent on the environment of the test runner than the test itself. I wasn\u0027t able to find the problem. But this should at least fix CI and should do no harm.",
+      "revId": "78e0b6f524c6956c5b149d0d9cd529adf7226239",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
