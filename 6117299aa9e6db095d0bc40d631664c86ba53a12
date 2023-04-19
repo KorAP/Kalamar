@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be42883_d34de5f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-04-19T14:05:39Z",
+      "side": 1,
+      "message": "Dumpers are not required for strings: See comment: https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/6807",
+      "revId": "6117299aa9e6db095d0bc40d631664c86ba53a12",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
