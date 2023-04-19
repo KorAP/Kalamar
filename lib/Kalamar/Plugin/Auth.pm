@@ -434,7 +434,7 @@ sub register {
             return Mojo::Promise->resolve($json);
           };
 
-          $c->log->error($c->dumper($tx->res->to_string));
+          $c->log->error($tx->res->to_string);
 
           # Failure
           $c->notify(error => $c->loc('Auth_responseError'));
@@ -469,7 +469,7 @@ sub register {
             return Mojo::Promise->resolve($json);
           };
 
-          $c->log->error($c->dumper($tx->res->to_string));
+          $c->log->error($tx->res->to_string);
 
           # Failure
           return Mojo::Promise->reject($json->{error_description} // 'Client unknown');
@@ -509,7 +509,7 @@ sub register {
             return Mojo::Promise->resolve($json);
           };
 
-          $c->log->error($c->dumper($tx->res->to_string));
+          $c->log->error($tx->res->to_string);
 
           # Failure
           $c->notify(error => $c->loc('Auth_responseError'));
