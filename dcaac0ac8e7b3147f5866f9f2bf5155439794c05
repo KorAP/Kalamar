@@ -210,6 +210,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ae8cdf8_6d3e8a8c",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-04-25T16:49:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "6cb71e4a_47a8579d",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a1c182d_21d49eaf",
