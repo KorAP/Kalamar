@@ -280,6 +280,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "182aece3_f0c84c86",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-04-25T16:46:27Z",
+      "side": 1,
+      "message": "I thought probably it would be nice to know which user registered a plugin. For example somebody might want to install all plugins from his/her projects members. But I deleted it for the time being.",
+      "parentUuid": "48ea32d4_1facea8c",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19b95e73_d75f3029",
