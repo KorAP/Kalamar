@@ -100,8 +100,8 @@ RUN apk update && \
     cpanm File::ShareDir::Install
           
 RUN cpanm \
-   https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.4.1.tar.gz \
-   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.49.tar.gz \
+   https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.4.4.tar.gz \
+   https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.50.tar.gz \
    https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.1.tar.gz
 
 # Remove all build dependencies
