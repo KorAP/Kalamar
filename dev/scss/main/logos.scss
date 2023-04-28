@@ -19,6 +19,18 @@
     > span {
       @include blind;
     }
+
+    > div.logoaddon {
+      position:absolute;
+      display: block;
+      font-size: 10pt;
+      right: 5pt;
+      bottom: 4pt;
+      text-align:right;
+      color: $light-green;
+      padding: 3pt;
+      text-shadow: 1pt 1pt 0 $nearly-white, -1pt -1pt 0 $nearly-white, -1pt 1pt 0 $nearly-white, 1pt -1pt 0 $nearly-white;
+    }
   }
 }
 

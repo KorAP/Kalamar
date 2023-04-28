@@ -1,10 +1,11 @@
-0.50 2023-04-12
+0.50 2023-04-28
         - Improvement of NKJP-annotation helper. (diewald)
         - Add redirect-uri to client view. (diewald)
         - Added german translation for Cosmas-II. (hebasta)
         - Workaround for failing utf8 test in some
           environments (fixes #197). (diewald)
         - Require at least conllu2korapxml v0.6.1. (diewald)
+        - Introduce logo addon. (diewald)
 
 0.49 2023-02-23
         - Introduce conllu2korapxml command via plugin. (diewald)
