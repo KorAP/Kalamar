@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05b2400_ae544305",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-04-28T09:10:05Z",
+      "side": 1,
+      "message": "This allows for very simple additions to the KorAP logo to differentiate between instances. Not tested much for different resolutions and media - so this probably needs more care.",
+      "revId": "1d152fc627be9fdbb612a1d5635ee84208aa639c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
