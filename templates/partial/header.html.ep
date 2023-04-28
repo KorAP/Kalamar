@@ -1,5 +1,5 @@
 <header>
-  <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span></h1><% end %>
+  <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
   <div class="button top">
     %= content_block 'headerButtonGroup'
   </div>
