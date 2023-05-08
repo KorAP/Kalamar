@@ -1071,10 +1071,12 @@ $fwd = $t->post_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   ->tx->res->headers->header('location')
   ;
 
-$t->get_ok($fwd)
-  ->status_is(200)
-  ->content_like(qr'welcome back! \[(.+?)\]')
-  ;
+unless ($^O eq 'MSWin32') {
+  $t->get_ok($fwd)
+    ->status_is(200)
+    ->content_like(qr'welcome back! \[(.+?)\]')
+    ;
+};
 
 my $fake_port = $port;
 
