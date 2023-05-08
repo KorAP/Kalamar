@@ -1610,6 +1610,7 @@ sub register {
         client_id => $client_id,
         redirect_uri => $redirect_url,
         # TODO: State
+        scope => 'search match_info',
       })->then(
         sub {
           my $tx = shift;
