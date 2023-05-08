@@ -169,10 +169,14 @@ sub startup {
     $self->hook(
       before_dispatch => sub {
         my $c = shift;
-        if (my $host = $c->req->headers->header('X-Forwarded-Host')) {
+        my $h = $c->req->headers;
+        if (my $host = $h->header('X-Forwarded-Host')) {
+
+          my $proto = $h->header('X-Forwarded-Proto') // ($conf->{https_only} ? 'https' : undef);
+
           foreach ($c->req->url->base) {
             $_->host($host);
-            $_->scheme(undef);
+            $_->scheme($proto);
             $_->port(undef);
           };
         };

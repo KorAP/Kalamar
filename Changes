@@ -6,6 +6,8 @@
           environments (fixes #197). (diewald)
         - Require at least conllu2korapxml v0.6.1. (diewald)
         - Improve redirection on all authorization calls. (diewald)
+        - Redirect-URIs are required to be absolute
+          by newer versions of Kustvakt. (diewald)
 
 0.49 2023-02-23
         - Introduce conllu2korapxml command via plugin. (diewald)

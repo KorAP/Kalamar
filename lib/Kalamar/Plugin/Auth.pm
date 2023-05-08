@@ -1624,7 +1624,7 @@ sub register {
       # Get authorization token
       my $client_id = $c->stash('client_id');
       my $name = $v->param('name');
-      my $redirect_url = $c->url_for->query({name => $name});
+      my $redirect_url = $c->url_for->query({name => $name})->to_abs;
 
       $c->auth->new_token_p(
         client_id => $client_id,
