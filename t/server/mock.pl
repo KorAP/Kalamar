@@ -441,7 +441,7 @@ post '/v1.0/oauth2/token' => sub {
 
   # Get auth_token_1
   elsif ($grant_type eq 'authorization_code') {
-    if ($c->param('code') eq $tokens{auth_token_1}) {
+    if ($c->param('code') && $c->param('code') eq $tokens{auth_token_1}) {
       return $c->render(
         status => 200,
         json => {
@@ -763,13 +763,15 @@ post '/v1.0/oauth2/authorize' => sub {
   }
 
   elsif ($type eq 'code') {
+    my $loc = Mojo::URL->new($redirect_uri)->query({
+      code => $tokens{auth_token_1},
+      scope => 'match_info search openid'
+    });
 
-    return $c->redirect_to(
-      Mojo::URL->new($redirect_uri)->query({
-        code => $tokens{auth_token_1},
-        scope => 'match_info search openid'
-      })
-      );
+    my $res = $c->res;
+    $res->headers->location($loc);
+    return $c->rendered($client_id eq '307' ? 307 : 302);
+    # return $c->rendered(302);
   };
 
   return $c->render(

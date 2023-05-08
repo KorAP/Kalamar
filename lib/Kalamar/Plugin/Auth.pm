@@ -283,6 +283,14 @@ sub register {
   my $client_id = $param->{client_id};
   my $client_secret = $param->{client_secret};
 
+  my $no_redirect_ua = Mojo::UserAgent->new(
+    connect_timeout => 30,
+    inactivity_timeout => 30,
+    max_redirects => 0
+  );
+
+  $no_redirect_ua->server->app($app);
+
 
   # Sets a requested token and returns
   # an error, if it didn't work
@@ -409,6 +417,87 @@ sub register {
     }
   );
 
+
+  # Issue new token and return a promise
+  $app->helper(
+    'auth.new_token_p' => sub {
+      my $c = shift;
+      my %param = @_;
+
+      state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
+
+      my $client_id = $param{'client_id'};
+
+      return $c->korap_request($no_redirect_ua, post => $r_url, { } => form => {
+          response_type => 'code',
+          client_id => $client_id,
+          redirect_uri => $param{'redirect_uri'},
+          state => $param{'state'},
+          scope => $param{'scope'},
+        })->then(
+          sub {
+            my $tx = shift;
+
+            unless (ref($tx)) {
+              return Mojo::Promise->reject('Something went wrong');
+            };
+
+            # Check for location header with code in redirects
+            my ($code, $scope, $loc, $name);
+
+            # Check for location header with code in current tx
+            # and in redirects.
+            # The loop should not be relevant though, as for now
+            # redirects are not allowed.
+            foreach ($tx, @{$tx->redirects}) {
+              $loc = $_->res->headers->header('Location');
+
+              next unless $loc;
+
+              my $url = Mojo::URL->new($loc);
+
+              if ($url->query->param('code')) {
+                my $q = $url->query;
+                $code  = $q->param('code');
+                $scope = $q->param('scope');
+                $name  = $q->param('name');
+                last;
+              } elsif (my $err = $url->query->param('error_description')) {
+                return Mojo::Promise->reject($err);
+              }
+            };
+
+            return Mojo::Promise->resolve(
+              $loc,
+              $client_id,
+              $param{'redirect_uri'},
+              $code,
+              $scope,
+              $name
+            ) if $loc;
+
+            # Failed redirect, but location set
+            if ($tx->res->headers->location) {
+              my $url = Mojo::URL->new($tx->res->headers->location);
+              if (my $err = $url->query->param('error_description'))  {
+                return Mojo::Promise->reject($err);
+              };
+            }
+
+            $c->stash(redirect_uri => undef);
+
+            # Maybe json
+            my $json = $tx->res->json;
+            if ($json && $json->{error_description}) {
+              return Mojo::Promise->reject($json->{error_description});
+            };
+
+            # No location code
+            return Mojo::Promise->reject('no location response');
+          }
+        )
+      }
+  );
 
   # Get a list of registered clients
   $app->helper(
@@ -1390,80 +1479,13 @@ sub register {
           return $c->redirect_to($url);
         };
 
-        state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
         $c->stash(redirect_uri => Mojo::URL->new($v->param('redirect_uri')));
 
-        my $ua = Mojo::UserAgent->new(
-          connect_timeout => 30,
-          inactivity_timeout => 30,
-          max_redirects => 0
-        );
-
-        $ua->server->app($app);
-
-        return $c->korap_request($ua, post => $r_url, { } => form => {
-          response_type => 'code',
+        return $c->auth->new_token_p(
           client_id => $v->param('client_id'),
           redirect_uri => $c->stash('redirect_uri'),
           state => $v->param('state'),
           scope => $v->param('scope'),
-        })->then(
-          sub {
-            my $tx = shift;
-
-            unless (ref($tx)) {
-              return Mojo::Promise->reject('Something went wrong');
-            };
-
-            # Check for location header with code in redirects
-            my $loc;
-
-            # Look for code in location URL
-            if ($loc = $tx->res->headers->header('Location')) {
-              my $url = Mojo::URL->new($loc);
-
-              if ($url->query->param('code')) {
-                return Mojo::Promise->resolve($loc);
-              } elsif (my $err = $url->query->param('error_description')) {
-                return Mojo::Promise->reject($err);
-              }
-            };
-
-            # Check for location header with code in redirects
-            # This should be dead code tbh
-            foreach (@{$tx->redirects}) {
-              $loc = $_->res->headers->header('Location');
-
-              my $url = Mojo::URL->new($loc);
-
-              if ($url->query->param('code')) {
-                last;
-              } elsif (my $err = $url->query->param('error_description')) {
-                return Mojo::Promise->reject($err);
-              }
-            };
-
-            return Mojo::Promise->resolve($loc) if $loc;
-
-            # Failed redirect, but location set
-            if ($tx->res->headers->location) {
-              my $url = Mojo::URL->new($tx->res->headers->location);
-              if (my $err = $url->query->param('error_description'))  {
-                return Mojo::Promise->reject($err);
-              };
-            }
-
-            $c->stash(redirect_uri => undef);
-
-            # Maybe json
-            my $json = $tx->res->json;
-            if ($json && $json->{error_description}) {
-              return Mojo::Promise->reject($json->{error_description});
-            };
-
-            # No location code
-            return Mojo::Promise->reject('no location response');
-          }
         )->catch(
           sub {
             my $err_msg = shift;
@@ -1600,49 +1622,17 @@ sub register {
       };
 
       # Get authorization token
-      state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
       my $client_id = $c->stash('client_id');
       my $name = $v->param('name');
       my $redirect_url = $c->url_for->query({name => $name});
 
-      return $c->korap_request(post => $r_url, {} => form => {
-        response_type => 'code',
+      $c->auth->new_token_p(
         client_id => $client_id,
         redirect_uri => $redirect_url,
-        # TODO: State
-      })->then(
-        sub {
-          my $tx = shift;
-
-          # Strip the token from the location header of the fake redirect
-          # TODO: Alternatively redirect!
-          my ($code, $scope, $loc, $name);
-          foreach (@{$tx->redirects}) {
-            $loc = $_->res->headers->header('Location');
-            if (index($loc, 'code') > 0) {
-              my $q = Mojo::URL->new($loc)->query;
-              $code  = $q->param('code');
-              $scope = $q->param('scope');
-              $name  = $q->param('name');
-              last;
-            };
-          };
-
-          # Fine!
-          if ($code) {
-            return Mojo::Promise->resolve(
-              $client_id,
-              $redirect_url,
-              $code,
-              $scope,
-              $name
-            );
-          };
-          return Mojo::Promise->reject;
-        }
+        # TODO: State, scope
       )->then(
         sub {
-          my ($client_id, $redirect_url, $code, $scope, $name) = @_;
+          my ($loc, $client_id, $redirect_url, $code, $scope, $name) = @_;
 
           # Get OAuth access token
           state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/token');

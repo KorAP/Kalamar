@@ -664,6 +664,24 @@ $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->header_is('Pragma','no-cache')
   ;
 
+$t->post_ok('/settings/oauth/307/token' => form => {
+  csrf_token => $csrf,
+  name => 'MyApp2',
+})
+  ->status_is(302)
+  ->header_is('Location','/settings/oauth/307')
+  ;
+
+$t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
+  ->status_is(200)
+  ->text_is('div.notify-success', 'New access token created')
+  ->status_is(200)
+  ->header_is('Cache-Control','max-age=0, no-cache, no-store, must-revalidate')
+  ->header_is('Expires','Thu, 01 Jan 1970 00:00:00 GMT')
+  ->header_is('Pragma','no-cache')
+  ;
+
+
 $csrf = $t->get_ok('/settings/oauth/fCBbQkA2NDA3MzM1Yw==')
   ->status_is(200)
   ->attr_is('form.token-revoke', 'action', '/settings/oauth/fCBbQkA2NDA3MzM1Yw==/token/revoke')
