@@ -1603,7 +1603,7 @@ sub register {
       state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
       my $client_id = $c->stash('client_id');
       my $name = $v->param('name');
-      my $redirect_url = $c->url_for->query({name => $name});
+      my $redirect_url = $c->url_for->query({name => $name})->to_abs;
 
       return $c->korap_request(post => $r_url, {} => form => {
         response_type => 'code',
