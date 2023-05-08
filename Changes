@@ -8,7 +8,9 @@
         - Improve redirection on all authorization calls. (diewald)
         - Redirect-URIs are required to be absolute
           by newer versions of Kustvakt. (diewald)
-
+        - Newer versions of Kustvakt disabled default
+          scope on authorization requests. (diewald)
+          
 0.49 2023-02-23
         - Introduce conllu2korapxml command via plugin. (diewald)
         - Introduce korapxml2conllu command via plugin. (diewald)

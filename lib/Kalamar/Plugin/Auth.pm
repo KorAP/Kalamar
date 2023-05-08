@@ -1013,7 +1013,7 @@ sub register {
       cb => sub {
       my $c = shift;
       _set_no_cache($c->res->headers);
-      
+
       unless ($c->auth->token) {
       #TODO: Handle authorization (forward to Login for example)
         return $c->render(
@@ -1629,7 +1629,8 @@ sub register {
       $c->auth->new_token_p(
         client_id => $client_id,
         redirect_uri => $redirect_url,
-        # TODO: State, scope
+        # TODO: State
+        scope => 'search match_info',
       )->then(
         sub {
           my ($loc, $client_id, $redirect_url, $code, $scope, $name) = @_;
