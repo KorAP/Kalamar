@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util qw!none uniq!;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.50';
+our $VERSION = '0.51';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -101,6 +101,15 @@ sub startup {
     $self->config(Kalamar => {});
     $conf = $self->config('Kalamar');
   };
+
+  # Set log file. All precedng logs where send to stderr
+  if ($conf->{log_file}) {
+    Mojo::File->new(Mojo::File->new($conf->{log_file})->dirname)->make_path;
+    $self->log(Mojo::Log->new(
+      path => $conf->{log_file},
+    ));
+  };
+
 
   # Check for API endpoint and set the endpoint accordingly
   if ($conf->{api}) {
