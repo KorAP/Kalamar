@@ -88,6 +88,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65eaa700_fef31a93",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-05-17T13:32:31Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c9638927_776ab81b",
+      "range": {
+        "startLine": 1001,
+        "startChar": 10,
+        "endLine": 1014,
+        "endChar": 21
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f15c8c4_affc4883",
