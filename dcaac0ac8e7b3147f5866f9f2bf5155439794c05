@@ -137,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "531b39e8_108bbc06",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-05-19T09:15:09Z",
+      "side": 1,
+      "message": "Actually I use this path to install a plugin (and in a further commit the path uninstall-plugin). So right now it is necessary. As an alternative I could probably use a parameter uninstall/install and only use post and the path \u0027/settings/marketplace\u0027.\n\nBut isn\u0027t it one and the same thing?",
+      "parentUuid": "6f15c8c4_affc4883",
+      "range": {
+        "startLine": 1031,
+        "startChar": 35,
+        "endLine": 1031,
+        "endChar": 50
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1530a79f_55bab3b2",
         "filename": "lib/Kalamar/Plugin/Auth.pm",
         "patchSetId": 1
@@ -201,6 +225,30 @@
       "writtenOn": "2023-03-28T12:07:28Z",
       "side": 1,
       "message": "Can you explain this chain?",
+      "range": {
+        "startLine": 1055,
+        "startChar": 8,
+        "endLine": 1064,
+        "endChar": 10
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8285a382_95c8d54a",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-05-19T09:15:09Z",
+      "side": 1,
+      "message": "Revised",
+      "parentUuid": "3b3fd60a_aad03e85",
       "range": {
         "startLine": 1055,
         "startChar": 8,
@@ -307,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edaf78df_4609d2a4",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-05-19T09:15:09Z",
+      "side": 1,
+      "message": "Yes, I actually took a look and could not find a coherent usage. But maybe we can come up with some code conventions at some time or other.",
+      "parentUuid": "240be5a0_56a7aef8",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48ea32d4_1facea8c",
         "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
         "patchSetId": 1
@@ -377,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3833e71f_68972a90",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-05-19T09:15:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "19b95e73_d75f3029",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b588a521_cd3549c3",
         "filename": "t/plugin/auth-oauth.t",
         "patchSetId": 1
@@ -388,6 +484,30 @@
       "writtenOn": "2023-03-28T12:07:28Z",
       "side": 1,
       "message": "There is no test on failing to install a plugin and no check on success.",
+      "range": {
+        "startLine": 989,
+        "startChar": 14,
+        "endLine": 989,
+        "endChar": 50
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e978d301_9d521e56",
+        "filename": "t/plugin/auth-oauth.t",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-05-19T09:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b588a521_cd3549c3",
       "range": {
         "startLine": 989,
         "startChar": 14,
