@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63688f9a_2ea2f13c",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-05-25T12:39:48Z",
+      "side": 1,
+      "message": "That\u0027s what I mean - POST or PUT for installation, and usually \"delete\" for uninstalling. The client_id should probably be part of the path then, like with the oauth paths, so POST \u0027/settings/marketplace/:client_id\u0027?",
+      "parentUuid": "531b39e8_108bbc06",
+      "range": {
+        "startLine": 1031,
+        "startChar": 35,
+        "endLine": 1031,
+        "endChar": 50
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1530a79f_55bab3b2",
         "filename": "lib/Kalamar/Plugin/Auth.pm",
         "patchSetId": 1
