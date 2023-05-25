@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "175b4ea2_cc11f432",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-05-25T13:28:08Z",
+      "side": 1,
+      "message": "In the templates, the references to arrays may not be initialized when the lists are empty.\n\nSo I currently get a crash with:\n\n```\n[2023-05-25 15:24:25.26959] [18499] [info] API expected at https://korap.ids-mannheim.de/instance/test/api/v1.0/\nUnhandled rejected promise: Can\u0027t use an undefined value as an ARRAY reference at template auth/marketplace.html.ep line 6.\nContext:\n  1: % extends \u0027settings\u0027, title \u003d\u003e loc(\u0027Auth_marketplace\u0027), page \u003d\u003e \u0027oauth\u0027;\n  2: \n  3: %\u003d page_title\n  4: \n  5: % my $pluginsin \u003d stash(\"pluginsin_list\");\n  6:   % if (@$pluginsin) {\n  7:   \u003cul class\u003d\"plugin_in-list\"\u003e\n  8:     %foreach (@$pluginsin) {\n  9:     \u003cli class\u003d\"plugin\"\u003e\n  10:       \u003cspan class\u003d\"client-name\" %\u003e\u003c%\u003d $_-\u003e{name} %\u003e\u003c/span\u003e\n  11:       %if ($_-\u003e{description}) {\nTraceback (most recent call first):\n  File \"template auth/marketplace.html.ep\", line 6, in \"Mojo::Template::__ANON__\"\n  File \".../lib/perl5/Mojo/Template.pm\", line 160, in \"Mojo::Template::Sandbox::028a82008fdd95358d96d70212d96459::__ANON__\"\n\n...\n\n at .../lib/perl5/Mojo/Reactor/Poll.pm line 129.\n\n``",
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79b3d2dd_aacadf44",
