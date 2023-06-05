@@ -41,6 +41,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f68dd634_8d15aab6",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-05T16:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b3d2dd_aacadf44",
+      "range": {
+        "startLine": 993,
+        "startChar": 5,
+        "endLine": 993,
+        "endChar": 23
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9675f058_6d01d798",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-25T12:39:48Z",
       "side": 1,
       "message": "No reason to reinitialize it here everytime the helper is called.",
+      "range": {
+        "startLine": 995,
+        "startChar": 6,
+        "endLine": 995,
+        "endChar": 8
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af729739_27ef90fb",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-05T16:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9675f058_6d01d798",
       "range": {
         "startLine": 995,
         "startChar": 6,
@@ -87,6 +135,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e3b398b_d4018fde",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-05T16:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a5c7e87_40083dd3",
+      "range": {
+        "startLine": 1023,
+        "startChar": 8,
+        "endLine": 1023,
+        "endChar": 10
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6da524e1_e5be9cd6",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-05-25T12:39:48Z",
       "side": 1,
       "message": "\u0027plugin_list\u0027 should only be set to the stash once after the loop, not before and then iteratively.",
+      "range": {
+        "startLine": 1074,
+        "startChar": 14,
+        "endLine": 1074,
+        "endChar": 54
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b734d91b_bfdae480",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-05T16:18:20Z",
+      "side": 1,
+      "message": "Still set one time too often.",
+      "parentUuid": "6da524e1_e5be9cd6",
       "range": {
         "startLine": 1074,
         "startChar": 14,
