@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14934b9a_67e26ea9",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-05T21:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b734d91b_bfdae480",
+      "range": {
+        "startLine": 1074,
+        "startChar": 14,
+        "endLine": 1074,
+        "endChar": 54
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b592f302_027a6d7d",
         "filename": "lib/Kalamar/Plugin/Auth.pm",
         "patchSetId": 9
@@ -242,6 +266,30 @@
       "writtenOn": "2023-05-25T12:39:48Z",
       "side": 1,
       "message": "Maybe we can also find a good convention for routes. Currently `perl script/kalamar routes` returns various forms. I have no clear opinion on that though.",
+      "range": {
+        "startLine": 1150,
+        "startChar": 13,
+        "endLine": 1150,
+        "endChar": 26
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4032f729_1b434841",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-05T21:07:39Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "d25f0346_0c398c5e",
       "range": {
         "startLine": 1150,
         "startChar": 13,
