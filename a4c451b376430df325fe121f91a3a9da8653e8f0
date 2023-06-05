@@ -255,6 +255,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64073d9d_602415a9",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-05T21:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b592f302_027a6d7d",
+      "range": {
+        "startLine": 1118,
+        "startChar": 8,
+        "endLine": 1118,
+        "endChar": 10
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d25f0346_0c398c5e",
         "filename": "lib/Kalamar/Plugin/Auth.pm",
         "patchSetId": 9
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "Good idea.",
       "parentUuid": "d25f0346_0c398c5e",
+      "range": {
+        "startLine": 1150,
+        "startChar": 13,
+        "endLine": 1150,
+        "endChar": 26
+      },
+      "revId": "a4c451b376430df325fe121f91a3a9da8653e8f0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285fee69_51e4c8ac",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 9
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-05T21:30:13Z",
+      "side": 1,
+      "message": "Meanwhile I changed the path name to install-plugin,",
+      "parentUuid": "4032f729_1b434841",
       "range": {
         "startLine": 1150,
         "startChar": 13,
