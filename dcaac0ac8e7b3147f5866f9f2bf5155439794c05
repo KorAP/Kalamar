@@ -207,6 +207,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6cd2bf0_18c9edef",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-06T07:28:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46de0e17_47eca145",
+      "range": {
+        "startLine": 1031,
+        "startChar": 35,
+        "endLine": 1031,
+        "endChar": 50
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1530a79f_55bab3b2",
@@ -425,6 +449,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d935d263_ee507eb2",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-06T07:28:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "edaf78df_4609d2a4",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48ea32d4_1facea8c",
@@ -519,6 +567,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3472248b_0367ec35",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/marketplace.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-06T07:28:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3833e71f_68972a90",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b588a521_cd3549c3",
@@ -556,6 +628,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "b588a521_cd3549c3",
+      "range": {
+        "startLine": 989,
+        "startChar": 14,
+        "endLine": 989,
+        "endChar": 50
+      },
+      "revId": "dcaac0ac8e7b3147f5866f9f2bf5155439794c05",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd2b382_28055214",
+        "filename": "t/plugin/auth-oauth.t",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-06T07:28:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e978d301_9d521e56",
       "range": {
         "startLine": 989,
         "startChar": 14,
