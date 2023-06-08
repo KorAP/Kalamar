@@ -3,7 +3,7 @@
 %= page_title
 
 % my $pluginsin = stash("pluginsin_list");
-  % if (@$pluginsin) {
+  % if ($pluginsin && @$pluginsin) {
   <ul class="plugin_in-list">
     %foreach (@$pluginsin) {
     <li class="plugin">
@@ -17,6 +17,10 @@
       %if ($_->{installed_date}) {
         <p class="inst_date"><%=loc('Auth_instdate')%>: <%= $_->{installed_date} %></p>
       % }
+      %= form_for 'uninstall-plugin', class => 'mkplace', method => "POST",  begin
+      %= hidden_field 'client-id' => $_->{client_id}
+      <input type="submit" class="form-submit" value="<%= loc('Auth_uninstall')%>"/>
+      % end
     </li>
     %};  
   </ul>
@@ -27,7 +31,7 @@
 % my $plugins = stash('plugin_list');
 
 
-% if (@$plugins) {
+% if ($plugins && @$plugins) {
 <ul class="plugin-list">
 %   foreach (@$plugins) {
   <li class="plugin">

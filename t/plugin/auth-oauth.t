@@ -1027,7 +1027,6 @@ $t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
   ->status_is(302)
   ->header_is(location => '/settings/marketplace')
   ;
-
 $t->ua->max_redirects(1);
 
 $t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
@@ -1050,15 +1049,52 @@ $t->ua->max_redirects(0);
   ->header_is(location => '/settings/marketplace')
   ;
 
-$t->ua->max_redirects(1);
 
+$t->ua->max_redirects(1);
 $t->post_ok('/settings/marketplace', form => {'client-id' => 'unsinn31'})
   ->status_is(200)
   ->text_is('div.notify-error', 'Plugin could not be installed')
   ;
 
+#$t->delete_ok('/settings/marketplace', form => {'client-id' => 'quatsch04'})
+#   ->status_is(200)
+#   ->text_is('div.notify-error', 'Plugin could not be uninstalled')
+#   ;
+
 $t->ua->max_redirects(0);
 
+$t->delete_ok('/settings/marketplace', form => {'client-id' => '52abc'})
+  ->status_is(302)
+  ->header_is(location => '/settings/marketplace')
+  ;
+
+$t->get_ok('/settings/marketplace')
+  ->status_is(200)  
+  ->element_exists('ul.plugin-list')
+  ->element_exists('ul.plugin-list > li')
+  ->text_is('span.client-name','Plugin 1')
+  ->text_is('p.plugin-desc','Description Plugin 1')
+  ->element_exists('ul.plugin-list > li + li')
+  ->text_is('ul.plugin-list > li + li >span.client-name','Plugin 2')
+  ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
+  ->element_exists_not('ul.plugin_in-list')
+  ;
+
+#$t->ua->max_redirects(1);
+
+#$t->delete_ok('/settings/marketplace', form => {'client-id' => '52abc'})
+#  ->status_is(200)  
+#  ->element_exists('ul.plugin-list')
+#  ->element_exists('ul.plugin-list > li')
+#  ->text_is('span.client-name','Plugin 1')
+#  ->text_is('p.plugin-desc','Description Plugin 1')
+#  ->element_exists('ul.plugin-list > li + li')
+#  ->text_is('ul.plugin-list > li + li >span.client-name','Plugin 2')
+#  ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
+#  ->element_exists_not('ul.plugin_in-list')
+#  ;
+
+$t->ua->max_redirects(0);
 $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
   client_id => 'xyz',
   state => 'abcde',
