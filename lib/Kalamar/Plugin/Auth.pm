@@ -120,6 +120,7 @@ sub register {
           instdate=> 'Installationsdatum',
           install => 'Installieren',
           installFail => 'Plugin konnte nicht installiert werden',
+          uninstallFail => 'Plugin konnte nicht deinstalliert werden',
           oauthUnregister => {
             -long => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
             short => 'Löschen'
@@ -189,6 +190,7 @@ sub register {
           install => 'Install',
           uninstall => 'Uninstall',
           installFail => 'Plugin could not be installed',
+          uninstallFail => 'Plugin could no be uninstalled',
           oauthUnregister => {
             -long => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
             short => 'Unregister'
@@ -983,9 +985,9 @@ sub register {
     )
     );
     
-  #  $app->navi->add(settings => (
-  #    $app->loc('Auth_marketplace'), 'marketplace'
-  #  ));
+    $app->navi->add(settings => (
+      $app->loc('Auth_marketplace'), 'marketplace'
+    ));
 
 
     # Helper: Returns lists of registered plugins (of all users), which are permitted
@@ -1090,7 +1092,7 @@ sub register {
 
 
    # Route to install plugin
-    $r->post('/settings/marketplace')->to(
+    $r->post('/settings/marketplace/install')->to(
       cb => sub {
         my $c = shift;
         _set_no_cache($c->res->headers);
@@ -1135,7 +1137,7 @@ sub register {
             }
             )
         
-         ->catch(
+           ->catch(
             sub {
               $c->notify('error' => $c->loc('Auth_installFail'));
             }
@@ -1148,6 +1150,52 @@ sub register {
       }
     )->name('install-plugin');
 
+
+    # Route to plugin deinstallation
+    $r->post('/settings/marketplace/uninstall')->to(
+      cb => sub {
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        my $v = $c->validation;
+        $v->required('client-id');
+        unless ($c->auth->token) {
+          return $c->render(
+            content => 'Unauthorized',
+            status => 401
+          );
+        };
+        my $uclient_id = $v->param('client-id');
+        $c->render_later;
+        state $s_url = Mojo::URL->new($c->korap->api)->path('plugins/uninstall');
+        return $c->korap_request(post => $s_url, {} => form => {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          client_id => $uclient_id
+         })->then(
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+            # Response is fine
+            if ($tx->res->is_success) {
+              return Mojo::Promise->resolve($json);
+            };
+            $c->log->error($c->dumper($tx->res->to_string));
+            # Failure
+            return Mojo::Promise->reject($json // 'No response');
+            }
+         )
+          ->catch(
+            sub {
+              $c->notify('error' => $c->loc('Auth_uninstallFail'));
+            }
+            )
+          ->finally(
+            sub {
+              return $c->redirect_to('marketplace');
+            }
+        );
+      }
+    )->name('uninstall-plugin');
 
     # Route to OAuth settings
     $r->get('/settings/oauth')->to(

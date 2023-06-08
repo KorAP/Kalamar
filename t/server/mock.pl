@@ -649,6 +649,36 @@ post '/v1.0/plugins/install' => sub {
   );
 };
 
+# Mock API plugin uninstallation
+post '/v1.0/plugins/uninstall' => sub {
+  my $c = shift;
+  my $v = $c->validation;
+  $v->required('super_client_id');
+  $v->required('super_client_secret');
+  $v->required('client_id');
+  if ($v->has_error) {
+    return $c->render(
+      json => [],
+      status => 400
+    );
+  };
+  my $cl_id = $c->param('client_id');
+
+
+  my $plin_list =  $c->app->defaults('oauth.pluginin_list');
+  my @new_list = grep{!($_->{client_id} eq $cl_id)}@$plin_list;
+  $c->app->defaults('oauth.pluginin_list' => \@new_list);
+ 
+  if(scalar @new_list eq scalar @$plin_list){
+    return $c->render(
+      status => 404
+     ); 
+  }
+  return $c->render(
+   json => $c->stash('oauth.pluginin_list'),
+    status => 200
+  );
+  };
 
 # Register a client
 post '/v1.0/oauth2/client/list' => sub {
