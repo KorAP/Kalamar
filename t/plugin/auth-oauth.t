@@ -1021,16 +1021,13 @@ $t->get_ok('/settings/marketplace')
   ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
   ;
 
-$t->ua->max_redirects(0);
-
-$t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
+$t->post_ok('/settings/marketplace/install', form => {'client-id' => '52abc'})
   ->status_is(302)
   ->header_is(location => '/settings/marketplace')
   ;
-
 $t->ua->max_redirects(1);
 
-$t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
+$t->post_ok('/settings/marketplace/install', form => {'client-id' => '52abc'})
   ->status_is(200)
   ->element_exists('ul.plugin-list')
   ->element_exists('ul.plugin-list > li')
@@ -1045,16 +1042,33 @@ $t->post_ok('/settings/marketplace', form => {'client-id' => '52abc'})
 
 $t->ua->max_redirects(0);
 
- $t->post_ok('/settings/marketplace', form => {'client-id' => 'unsinn31'})
+ $t->post_ok('/settings/marketplace/install', form => {'client-id' => 'unsinn31'})
   ->status_is(302)
   ->header_is(location => '/settings/marketplace')
   ;
 
 $t->ua->max_redirects(1);
 
-$t->post_ok('/settings/marketplace', form => {'client-id' => 'unsinn31'})
+$t->post_ok('/settings/marketplace/install', form => {'client-id' => 'unsinn31'})
   ->status_is(200)
   ->text_is('div.notify-error', 'Plugin could not be installed')
+  ;
+
+$t->post_ok('/settings/marketplace/uninstall', form => {'client-id' => '52abc'})
+  ->status_is(200)
+  ->element_exists('ul.plugin-list')
+  ->element_exists('ul.plugin-list > li')
+  ->text_is('span.client-name','Plugin 1')
+  ->text_is('p.plugin-desc','Description Plugin 1')
+  ->element_exists('ul.plugin-list > li + li')
+  ->text_is('ul.plugin-list > li + li >span.client-name','Plugin 2')
+  ->text_is('ul.plugin-list > li + li >p.plugin-desc','Description Plugin 2')
+  ->element_exists_not('ul.plugin_in-list')
+  ;
+
+$t->post_ok('/settings/marketplace/uninstall', form => {'client-id' => 'quatsch12'})
+  ->status_is(200)
+  ->text_is('div.notify-error', 'Plugin could not be uninstalled')
   ;
 
 $t->ua->max_redirects(0);

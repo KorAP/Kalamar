@@ -120,6 +120,11 @@ sub register {
           instdate=> 'Installationsdatum',
           install => 'Installieren',
           installFail => 'Plugin konnte nicht installiert werden',
+          uninstallFail => 'Plugin konnte nicht deinstalliert werden',
+          marketplaceFail => {
+            -long => 'Die Plugins konnten leider nicht angezeigt werden.',
+            short => 'Erneut versuchen'
+            },
           oauthUnregister => {
             -long => 'Möchten sie <span class="client-name"><%= $client_name %></span> wirklich löschen?',
             short => 'Löschen'
@@ -189,6 +194,12 @@ sub register {
           install => 'Install',
           uninstall => 'Uninstall',
           installFail => 'Plugin could not be installed',
+          uninstallFail => 'Plugin could not be uninstalled',
+          uninstallFail => 'Plugin could not be uninstalled',
+          marketplaceFail => {
+            -long => 'Plugins could not be displayed.',
+            short => 'Try again'
+            },
           oauthUnregister => {
             -long => 'Do you really want to unregister <span class="client-name"><%= $client_name %></span>?',
             short => 'Unregister'
@@ -1055,7 +1066,7 @@ sub register {
       $c->render_later;
       my $promiselist = $c->auth->plugin_list_p;
       my $promiseinlist = $c->auth->plugin_listin_p;
-
+      my $fl = 0;
       Mojo::Promise->all($promiselist, $promiseinlist)-> then(
         sub {
           my ($promiselist, $promiseinlist) = @_;
@@ -1068,30 +1079,36 @@ sub register {
               @$clean_pllist = grep{!($_->{client_id} eq $entry->{client_id})} @$clean_pllist ;
             }
           }
-          $c->stash('plugin_list', $clean_pllist);
-        }
-      )->catch(
-        sub {
-          return;
-        }
-      )->finally(
-        sub {
-          return $c->render(template => 'auth/marketplace');
-        }
-      )->wait;
-    }
-  )->name('marketplace');
+            $c->stash('plugin_list', $clean_pllist);
+          }
+          )
+          ->catch(
+            sub { 
+              $fl = 1;
+              }
+              )
+              ->finally(
+                sub {
+                  if($fl){
+                    return $c->render(template => 'auth/marketplace-fail')
+                  }
+                  return $c->render(template => 'auth/marketplace');
+                  }
+              )->wait;
+         }
+     )->name('marketplace');
 
-  # Route to install plugin
-  $r->post('/settings/marketplace')->to(
-    cb => sub {
-      my $c = shift;
-      _set_no_cache($c->res->headers);
-      my $v = $c->validation;
-      $v->required('client-id');
 
-      if ($v->has_error) {
-        return $c->render(
+   # Route to install plugin
+    $r->post('/settings/marketplace/install')->to(
+      cb => sub {
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        my $v = $c->validation;
+        $v->required('client-id');
+
+        if ($v->has_error) {
+          return $c->render(
           json => [],
           status => 400
         );
@@ -1107,71 +1124,125 @@ sub register {
       my $mclient_id = $v->param('client-id');
       $c->render_later;
 
-      state $p_url = Mojo::URL->new($c->korap->api)->path('plugins/install');
-
-      return $c->korap_request(post => $p_url, {} => form => {
-        super_client_id => $client_id,
-        super_client_secret => $client_secret,
-        client_id => $mclient_id
-      })->then(
-        sub {
-          my $tx = shift;
-          my $json = $tx->result->json;
-          # Response is fine
-          if ($tx->res->is_success) {
-            return Mojo::Promise->resolve($json);
-          };
-          #Log errors
-          $c->log->error($tx->res->to_string);
-          # Failure
-          return Mojo::Promise->reject;
-        }
-      )->catch(
-        sub {
-          $c->notify('error' => $c->loc('Auth_installFail'));
-        }
-      )->finally(
-        sub {
-          return $c->redirect_to('marketplace');
-        }
-      );
-    }
-  )->name('install-plugin');
-
-
-  # Route to OAuth settings
-  $r->get('/settings/oauth')->to(
-    cb => sub {
-      my $c = shift;
-
-      _set_no_cache($c->res->headers);
-
-      unless ($c->auth->token) {
-        return $c->render(
-          template => 'exception',
-          msg => $c->loc('Auth_authenticationFail'),
-          status => 401
+        state $p_url = Mojo::URL->new($c->korap->api)->path('plugins/install');
+        
+        return $c->korap_request(post => $p_url, {} => form => {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          client_id => $mclient_id
+          })->then( 
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+            # Response is fine
+            if ($tx->res->is_success) {
+              return Mojo::Promise->resolve($json);
+              };
+            #Log errors
+            $c->log->error($tx->res->to_string);
+            # Failure
+            return Mojo::Promise->reject;
+            }
+            )
+           ->catch(
+            sub {
+              $c->notify('error' => $c->loc('Auth_installFail'));
+            }
+            )
+         ->finally(
+            sub {
+              return $c->redirect_to('marketplace');
+            }
         );
-      };
+      }
+    )->name('install-plugin');
 
-      # Wait for async result
-      $c->render_later;
+    # Route to plugin deinstallation
+    $r->post('/settings/marketplace/uninstall')->to(
+      cb => sub {
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        my $v = $c->validation;
+        $v->required('client-id');
+        
+        if ($v->has_error) {
+          return $c->render(
+          json => [],
+          status => 400
+          );
+        };
 
-      $c->auth->client_list_p->then(
-        sub {
-          $c->stash('client_list' => shift);
-        }
-      )->catch(
-        sub {
-          return;
-        }
-      )->finally(
-        sub {
-          return $c->render(template => 'auth/clients')
-        }
-      );
-    }
-  )->name('oauth-settings');
+        unless ($c->auth->token) {
+          return $c->render(
+            content => 'Unauthorized',
+            status => 401
+          );
+        };
+
+        my $uclient_id = $v->param('client-id');
+     
+        $c->render_later;
+        state $s_url = Mojo::URL->new($c->korap->api)->path('plugins/uninstall');
+        return $c->korap_request(post => $s_url, {} => form => {
+          super_client_id => $client_id,
+          super_client_secret => $client_secret,
+          client_id => $uclient_id
+         })->then(
+          sub {
+            my $tx = shift;
+            my $json = $tx->result->json;
+            # Response is fine
+            if ($tx->res->is_success) {
+              return Mojo::Promise->resolve($json);
+            };
+            $c->log->error($tx->res->to_string);
+            # Failure
+            return Mojo::Promise->reject($json // 'No response');
+            }
+         )
+          ->catch(
+            sub {
+              $c->notify('error' => $c->loc('Auth_uninstallFail'));
+            }
+            )
+          ->finally(
+            sub {
+              return $c->redirect_to('marketplace');
+            }
+        );
+      }
+    )->name('uninstall-plugin');
+
+    # Route to OAuth settings
+    $r->get('/settings/oauth')->to(
+      cb => sub {
+        my $c = shift;
+        _set_no_cache($c->res->headers);
+        unless ($c->auth->token) {
+          return $c->render(
+            template => 'exception',
+            msg => $c->loc('Auth_authenticationFail'),
+            status => 401
+          );
+        };
+        # Wait for async result
+        $c->render_later;
+        $c->auth->client_list_p->then(
+          sub {
+            $c->stash('client_list' => shift);
+          }
+        )->catch(
+          sub {
+            return;
+          }
+        )->finally(
+          sub {
+            return $c->render(template => 'auth/clients')
+          }
+        );
+      }
+    )->name('oauth-settings');
+
 
   # Route to oauth client registration
   $r->post('/settings/oauth/register')->to(

@@ -1,0 +1,8 @@
+% extends 'settings', title => loc('Auth_marketplace'), page => 'oauth';
+
+%= page_title
+
+<%== loc('Auth_marketplaceFail') %>
+%= form_for 'marketplace', class => 'form-table', begin
+  <input type="submit" class="form-submit" value="<%= loc 'Auth_marketplaceFail_short' %>" /> 
+% end
