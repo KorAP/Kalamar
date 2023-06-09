@@ -1,5 +1,8 @@
-0.51 2023-05-16
+0.51 2023-06-09
         - Support defined log file in configuration. (diewald)
+        - Remove experimental_client_registration setting
+          and make client registration mandatory in OAuth
+          (diewald)
 
 0.50 2023-05-08
         - Improvement of NKJP-annotation helper. (diewald)

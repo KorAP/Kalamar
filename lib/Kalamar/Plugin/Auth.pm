@@ -971,25 +971,18 @@ sub register {
   )->name('logout');
 
 
+  # Add settings
+  $app->navi->add(settings => (
+    $app->loc('Auth_oauthSettings'), 'oauth'
+  ));
 
-
-  # If "experimental_registration" is set, open
-  # OAuth registration dialogues.
-  if ($param->{experimental_client_registration}) {
-
-    # Add settings
-    $app->navi->add(settings => (
-      $app->loc('Auth_oauthSettings'), 'oauth'
-    )
-    );
-    
   #  $app->navi->add(settings => (
   #    $app->loc('Auth_marketplace'), 'marketplace'
   #  ));
 
 
-    # Helper: Returns lists of registered plugins (of all users), which are permitted
-    $app->helper(
+  # Helper: Returns lists of registered plugins (of all users), which are permitted
+  $app->helper(
     'auth.plugin_list_p' => sub {
       my $c = shift;
       state $l_url = Mojo::URL->new($c->korap->api)->path('plugins');
@@ -998,41 +991,41 @@ sub register {
         super_client_secret => $client_secret,
         #list only permitted plugins
         permitted_only => 'true'
-      })->then( 
-          sub {
-            my $tx = shift;
-            my $json = $tx->result->json;
-            # Response is fine
-            if ($tx->res->is_success) {
+      })->then(
+        sub {
+          my $tx = shift;
+          my $json = $tx->result->json;
+          # Response is fine
+          if ($tx->res->is_success) {
             return Mojo::Promise->resolve($json);
           };
-            $c->log->error($tx->res->to_string);
+          $c->log->error($tx->res->to_string);
           # Failure
           $c->notify(error => $c->loc('Auth_responseError'));
           return Mojo::Promise->reject($json // 'No response');
         }
       );
-     }
-   );
+    }
+  );
 
- 
-    #Helper: Returns list of all plugins, which are already installed
-    $app->helper(
-      'auth.plugin_listin_p' => sub {
-        my $c = shift;
-        state $i_url = Mojo::URL->new($c->korap->api)->path('plugins/installed');
-        return $c->korap_request(post => $i_url, {} => form => {
-          super_client_id => $client_id,
-          super_client_secret => $client_secret,
-          })->then( 
-            sub {
-              my $tx = shift;
-              my $json = $tx->result->json;
-              # Response is fine
-              if ($tx->res->is_success) {  
-                return Mojo::Promise->resolve($json);
+
+  #Helper: Returns list of all plugins, which are already installed
+  $app->helper(
+    'auth.plugin_listin_p' => sub {
+      my $c = shift;
+      state $i_url = Mojo::URL->new($c->korap->api)->path('plugins/installed');
+      return $c->korap_request(post => $i_url, {} => form => {
+        super_client_id => $client_id,
+        super_client_secret => $client_secret,
+      })->then(
+        sub {
+          my $tx = shift;
+          my $json = $tx->result->json;
+          # Response is fine
+          if ($tx->res->is_success) {
+            return Mojo::Promise->resolve($json);
           };
-          
+
           $c->log->error($tx->res->to_string);
 
           # Failure
@@ -1040,28 +1033,28 @@ sub register {
           return Mojo::Promise->reject($json // 'No response');
         }
       );
-      }
-    );
+    }
+  );
 
-    # Route to marketplace (for installation and deinstallation of plugins)
-    $r->get('/settings/marketplace')->to( 
-      cb => sub {
-        my $c = shift; 
-        _set_no_cache($c->res->headers);
-        unless ($c->auth->token) {
-          return $c->render(
-            template => 'exception',
-            msg => $c->loc('Auth_authenticationFail'),
-            status => 401
-          );
-        };
+  # Route to marketplace (for installation and deinstallation of plugins)
+  $r->get('/settings/marketplace')->to(
+    cb => sub {
+      my $c = shift;
+      _set_no_cache($c->res->headers);
+      unless ($c->auth->token) {
+        return $c->render(
+          template => 'exception',
+          msg => $c->loc('Auth_authenticationFail'),
+          status => 401
+        );
+      };
 
-      $c->render_later;      
+      $c->render_later;
       my $promiselist = $c->auth->plugin_list_p;
       my $promiseinlist = $c->auth->plugin_listin_p;
 
       Mojo::Promise->all($promiselist, $promiseinlist)-> then(
-        sub { 
+        sub {
           my ($promiselist, $promiseinlist) = @_;
           my $plist = ref($promiselist->[0]) eq 'ARRAY' ? $promiselist->[0] : [];
           my $plinlist = ref($promiseinlist->[0]) eq 'ARRAY' ? $promiseinlist->[0] : [];
@@ -1070,614 +1063,607 @@ sub register {
           if($plinlist){
             foreach my $entry (@$plinlist){
               @$clean_pllist = grep{!($_->{client_id} eq $entry->{client_id})} @$clean_pllist ;
-              }
             }
-            $c->stash('plugin_list', $clean_pllist);
           }
-          )
-          ->catch(
-            sub {
-              return;
-              }
-              )
-              ->finally(
-                sub {
-                  return $c->render(template => 'auth/marketplace');
-                  }
-              )->wait; 
-         }
-     )->name('marketplace');
+          $c->stash('plugin_list', $clean_pllist);
+        }
+      )->catch(
+        sub {
+          return;
+        }
+      )->finally(
+        sub {
+          return $c->render(template => 'auth/marketplace');
+        }
+      )->wait;
+    }
+  )->name('marketplace');
 
+  # Route to install plugin
+  $r->post('/settings/marketplace')->to(
+    cb => sub {
+      my $c = shift;
+      _set_no_cache($c->res->headers);
+      my $v = $c->validation;
+      $v->required('client-id');
 
-   # Route to install plugin
-    $r->post('/settings/marketplace')->to(
-      cb => sub {
-        my $c = shift;
-        _set_no_cache($c->res->headers);
-        my $v = $c->validation;
-        $v->required('client-id');
-        
-        if ($v->has_error) {
-          return $c->render(
+      if ($v->has_error) {
+        return $c->render(
           json => [],
           status => 400
-          );
-        };
-        
-        unless ($c->auth->token) {
-          return $c->render(
+        );
+      };
+
+      unless ($c->auth->token) {
+        return $c->render(
           content => 'Unauthorized',
           status => 401
-          );
-        };
-
-        my $mclient_id = $v->param('client-id');
-        $c->render_later;
-
-        state $p_url = Mojo::URL->new($c->korap->api)->path('plugins/install');
-        
-        return $c->korap_request(post => $p_url, {} => form => {
-          super_client_id => $client_id,
-          super_client_secret => $client_secret,
-          client_id => $mclient_id
-          })->then( 
-          sub {
-            my $tx = shift;
-            my $json = $tx->result->json;
-            # Response is fine
-            if ($tx->res->is_success) {
-              return Mojo::Promise->resolve($json);
-              };
-            #Log errors
-            $c->log->error($tx->res->to_string);
-            # Failure
-            return Mojo::Promise->reject;
-            }
-            )
-        
-         ->catch(
-            sub {
-              $c->notify('error' => $c->loc('Auth_installFail'));
-            }
-            )
-         ->finally(
-            sub {
-              return $c->redirect_to('marketplace');
-            }
         );
-      }
-    )->name('install-plugin');
+      };
 
+      my $mclient_id = $v->param('client-id');
+      $c->render_later;
 
-    # Route to OAuth settings
-    $r->get('/settings/oauth')->to(
-      cb => sub {
-        my $c = shift;
+      state $p_url = Mojo::URL->new($c->korap->api)->path('plugins/install');
 
-        _set_no_cache($c->res->headers);
-
-        unless ($c->auth->token) {
-          return $c->render(
-            template => 'exception',
-            msg => $c->loc('Auth_authenticationFail'),
-            status => 401
-          );
-        };
-
-        # Wait for async result
-        $c->render_later;
-
-        $c->auth->client_list_p->then(
-          sub {
-            $c->stash('client_list' => shift);
-          }
-        )->catch(
-          sub {
-            return;
-          }
-        )->finally(
-          sub {
-            return $c->render(template => 'auth/clients')
-          }
-        );
-      }
-    )->name('oauth-settings');
-
-    # Route to oauth client registration
-    $r->post('/settings/oauth/register')->to(
-      cb => sub {
-        my $c = shift;
-
-        _set_no_cache($c->res->headers);
-
-        my $v = $c->validation;
-
-        unless ($c->auth->token) {
-          return $c->render(
-            content => 'Unauthorized',
-            status => 401
-          );
-        };
-
-        $v->csrf_protect;
-        $v->required('name', 'trim', 'not_empty')->size(3, 255);
-        $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
-        $v->required('desc', 'trim', 'not_empty')->size(3, 255);
-        $v->optional('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
-        $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
-        $v->optional('src', 'not_empty');
-
-        $c->stash(template => 'auth/clients');
-
-        # Render with error
-        if ($v->has_error) {
-          if ($v->has_error('csrf_token')) {
-            $c->notify(error => $c->loc('Auth_csrfFail'));
-          }
-          else {
-            $c->notify(error => $c->loc('Auth_paramError'));
+      return $c->korap_request(post => $p_url, {} => form => {
+        super_client_id => $client_id,
+        super_client_secret => $client_secret,
+        client_id => $mclient_id
+      })->then(
+        sub {
+          my $tx = shift;
+          my $json = $tx->result->json;
+          # Response is fine
+          if ($tx->res->is_success) {
+            return Mojo::Promise->resolve($json);
           };
+          #Log errors
+          $c->log->error($tx->res->to_string);
+          # Failure
+          return Mojo::Promise->reject;
+        }
+      )->catch(
+        sub {
+          $c->notify('error' => $c->loc('Auth_installFail'));
+        }
+      )->finally(
+        sub {
+          return $c->redirect_to('marketplace');
+        }
+      );
+    }
+  )->name('install-plugin');
+
+
+  # Route to OAuth settings
+  $r->get('/settings/oauth')->to(
+    cb => sub {
+      my $c = shift;
+
+      _set_no_cache($c->res->headers);
+
+      unless ($c->auth->token) {
+        return $c->render(
+          template => 'exception',
+          msg => $c->loc('Auth_authenticationFail'),
+          status => 401
+        );
+      };
+
+      # Wait for async result
+      $c->render_later;
+
+      $c->auth->client_list_p->then(
+        sub {
+          $c->stash('client_list' => shift);
+        }
+      )->catch(
+        sub {
+          return;
+        }
+      )->finally(
+        sub {
+          return $c->render(template => 'auth/clients')
+        }
+      );
+    }
+  )->name('oauth-settings');
+
+  # Route to oauth client registration
+  $r->post('/settings/oauth/register')->to(
+    cb => sub {
+      my $c = shift;
+
+      _set_no_cache($c->res->headers);
+
+      my $v = $c->validation;
+
+      unless ($c->auth->token) {
+        return $c->render(
+          content => 'Unauthorized',
+          status => 401
+        );
+      };
+
+      $v->csrf_protect;
+      $v->required('name', 'trim', 'not_empty')->size(3, 255);
+      $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
+      $v->required('desc', 'trim', 'not_empty')->size(3, 255);
+      $v->optional('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+      $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+      $v->optional('src', 'not_empty');
+
+      $c->stash(template => 'auth/clients');
+
+      # Render with error
+      if ($v->has_error) {
+        if ($v->has_error('csrf_token')) {
+          $c->notify(error => $c->loc('Auth_csrfFail'));
+        }
+        else {
+          $c->notify(error => $c->loc('Auth_paramError'));
+        };
+        return $c->render;
+      } elsif ($c->req->is_limit_exceeded) {
+        $c->notify(error => $c->loc('Auth_fileSizeExceeded'));
+        return $c->render;
+      };
+
+      my $type = $v->param('type');
+      my $src = $v->param('src');
+      my $src_json;
+
+      my $json_obj = {
+        name         => $v->param('name'),
+        type         => $type,
+        description  => $v->param('desc'),
+        url          => $v->param('url'),
+        redirect_uri => $v->param('redirect_uri')
+      };
+
+      # Check plugin source
+      if ($src) {
+
+        # Source need to be a file upload
+        if (!ref $src || !$src->isa('Mojo::Upload')) {
+          $c->notify(error => $c->loc('Auth_jsonRequired'));
           return $c->render;
-        } elsif ($c->req->is_limit_exceeded) {
+        };
+
+        # Uploads can't be too large
+        if ($src->size > 1_000_000) {
           $c->notify(error => $c->loc('Auth_fileSizeExceeded'));
           return $c->render;
         };
 
-        my $type = $v->param('type');
-        my $src = $v->param('src');
-        my $src_json;
+        # Check upload is not empty
+        if ($src->size > 0 && $src->filename ne '') {
 
-        my $json_obj = {
-          name         => $v->param('name'),
-          type         => $type,
-          description  => $v->param('desc'),
-          url          => $v->param('url'),
-          redirect_uri => $v->param('redirect_uri')
-        };
+          # Plugins need to be confidential
+          if ($type ne 'CONFIDENTIAL') {
+            $c->notify(error => $c->loc('Auth_confidentialRequired'));
+            return $c->render;
+          };
 
-        # Check plugin source
-        if ($src) {
+          my $asset = $src->asset;
 
-          # Source need to be a file upload
-          if (!ref $src || !$src->isa('Mojo::Upload')) {
+          # Check for json
+          eval {
+            $src_json = decode_json($asset->slurp);
+          };
+
+          if ($@ || !ref $src_json || ref $src_json ne 'HASH') {
             $c->notify(error => $c->loc('Auth_jsonRequired'));
             return $c->render;
           };
 
-          # Uploads can't be too large
-          if ($src->size > 1_000_000) {
-            $c->notify(error => $c->loc('Auth_fileSizeExceeded'));
-            return $c->render;
-          };
-
-          # Check upload is not empty
-          if ($src->size > 0 && $src->filename ne '') {
-
-            # Plugins need to be confidential
-            if ($type ne 'CONFIDENTIAL') {
-              $c->notify(error => $c->loc('Auth_confidentialRequired'));
-              return $c->render;
-            }
-
-            my $asset = $src->asset;
-
-            # Check for json
-            eval {
-              $src_json = decode_json($asset->slurp);
-            };
-
-            if ($@ || !ref $src_json || ref $src_json ne 'HASH') {
-              $c->notify(error => $c->loc('Auth_jsonRequired'));
-              return $c->render;
-            };
-
-            $json_obj->{source} = $src_json;
-          };
+          $json_obj->{source} = $src_json;
         };
+      };
 
-        # Wait for async result
-        $c->render_later;
+      # Wait for async result
+      $c->render_later;
 
-        # Register on server
-        state $url = Mojo::URL->new($c->korap->api)->path('oauth2/client/register');
-        $c->korap_request('POST', $url => {} => json => $json_obj)->then(
-          sub {
-            my $tx = shift;
-            my $result = $tx->result;
+      # Register on server
+      state $url = Mojo::URL->new($c->korap->api)->path('oauth2/client/register');
+      $c->korap_request('POST', $url => {} => json => $json_obj)->then(
+        sub {
+          my $tx = shift;
+          my $result = $tx->result;
 
-            if ($result->is_error) {
-              my $json = $result->json;
-              if ($json && $json->{error}) {
-                $c->notify(
-                  error => $json->{error} .
-                    ($json->{error_description} ? ': ' . $json->{error_description} : '')
-                  )
-              };
-
-              return Mojo::Promise->reject;
-            };
-
+          if ($result->is_error) {
             my $json = $result->json;
-
-            my $client_id = $json->{client_id};
-            my $client_secret = $json->{client_secret};
-
-            $c->stash('client_name' => $v->param('name'));
-            $c->stash('client_desc' => $v->param('desc'));
-            $c->stash('client_type' => $v->param('type'));
-            $c->stash('client_url'  => $v->param('url'));
-            $c->stash('client_src'  => $v->param('source'));
-            $c->stash('client_redirect_uri' => $v->param('redirect_uri'));
-            $c->stash('client_id' => $client_id);
-
-            if ($client_secret) {
-              $c->stash('client_secret' => $client_secret);
+            if ($json && $json->{error}) {
+              $c->notify(
+                error => $json->{error} .
+                  ($json->{error_description} ? ': ' . $json->{error_description} : '')
+                )
             };
 
-            $c->notify(success => $c->loc('Auth_en_registerSuccess'));
+            return Mojo::Promise->reject;
+          };
 
-            return $c->render(template => 'auth/client');
-          }
-        )->catch(
-          sub {
-            $c->notify('error' => $c->loc('Auth_en_registerFail'));
-          }
-        )->finally(
-          sub {
-            return $c->redirect_to('settings' => { scope => 'oauth' });
-          }
+          my $json = $result->json;
+
+          my $client_id = $json->{client_id};
+          my $client_secret = $json->{client_secret};
+
+          $c->stash('client_name' => $v->param('name'));
+          $c->stash('client_desc' => $v->param('desc'));
+          $c->stash('client_type' => $v->param('type'));
+          $c->stash('client_url'  => $v->param('url'));
+          $c->stash('client_src'  => $v->param('source'));
+          $c->stash('client_redirect_uri' => $v->param('redirect_uri'));
+          $c->stash('client_id' => $client_id);
+
+          if ($client_secret) {
+            $c->stash('client_secret' => $client_secret);
+          };
+
+          $c->notify(success => $c->loc('Auth_en_registerSuccess'));
+
+          return $c->render(template => 'auth/client');
+        }
+      )->catch(
+        sub {
+          $c->notify('error' => $c->loc('Auth_en_registerFail'));
+        }
+      )->finally(
+        sub {
+          return $c->redirect_to('settings' => { scope => 'oauth' });
+        }
+      );
+    }
+  )->name('oauth-register');
+
+
+  # Unregister client page
+  $r->get('/settings/oauth/:client_id/unregister')->to(
+    cb => sub {
+      my $c = shift;
+      _set_no_cache($c->res->headers);
+      $c->render(template => 'auth/unregister');
+    }
+  )->name('oauth-unregister');
+
+
+  # Unregister client
+  $r->post('/settings/oauth/:client_id/unregister')->to(
+    cb => sub {
+      my $c = shift;
+      _set_no_cache($c->res->headers);
+
+      my $v = $c->validation;
+
+      unless ($c->auth->token) {
+        return $c->render(
+          content => 'Unauthorized',
+          status => 401
         );
-      }
-    )->name('oauth-register');
+      };
 
+      $v->csrf_protect;
+      $v->required('client-name', 'trim')->size(3, 255);
 
-    # Unregister client page
-    $r->get('/settings/oauth/:client_id/unregister')->to(
-      cb => sub {
-        my $c = shift;
-        _set_no_cache($c->res->headers);
-        $c->render(template => 'auth/unregister');
-      }
-    )->name('oauth-unregister');
-
-
-    # Unregister client
-    $r->post('/settings/oauth/:client_id/unregister')->to(
-      cb => sub {
-        my $c = shift;
-        _set_no_cache($c->res->headers);
-
-        my $v = $c->validation;
-
-        unless ($c->auth->token) {
-          return $c->render(
-            content => 'Unauthorized',
-            status => 401
-          );
+      # Render with error
+      if ($v->has_error) {
+        if ($v->has_error('csrf_token')) {
+          $c->notify(error => $c->loc('Auth_csrfFail'));
+        }
+        else {
+          $c->notify(error => $c->loc('Auth_paramError'));
         };
+        return $c->redirect_to('oauth-settings');
+      };
 
-        $v->csrf_protect;
-        $v->required('client-name', 'trim')->size(3, 255);
+      my $client_id =     $c->stash('client_id');
+      my $client_name =   $v->param('client-name');
+      my $client_secret = $v->param('client-secret');
 
-        # Render with error
-        if ($v->has_error) {
-          if ($v->has_error('csrf_token')) {
-            $c->notify(error => $c->loc('Auth_csrfFail'));
+      # Get list of registered clients
+      my $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/deregister/')->path(
+        $client_id
+      );
+
+      my $send = {};
+
+      if ($client_secret) {
+        $send->{client_secret} = $client_secret;
+      };
+
+      # Get the list of all clients
+      return $c->korap_request(delete => $r_url, {} => form => $send)->then(
+        sub {
+          my $tx = shift;
+
+          # Response is fine
+          if ($tx->res->is_success) {
+            # Okay
+            $c->notify(success => 'Successfully deleted ' . $client_name);
           }
           else {
-            $c->notify(error => $c->loc('Auth_paramError'));
+
+            # Failure
+            my $json = $tx->result->json;
+            if ($json && $json->{error_description}) {
+              $c->notify(error => $json->{error_description});
+            } else {
+              $c->notify(error => $c->loc('Auth_responseError'));
+            };
           };
+
           return $c->redirect_to('oauth-settings');
+        }
+      );
+    }
+  )->name('oauth-unregister-post');
+
+
+  # OAuth Client authorization
+  $r->get('/settings/oauth/authorize')->to(
+    cb => sub {
+      my $c = shift;
+
+      _set_no_cache($c->res->headers);
+
+      my $v = $c->validation;
+      $v->required('client_id', 'trim');
+      $v->required('scope', 'trim');
+      $v->optional('state', 'trim');
+      $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+
+      # Redirect with error
+      if ($v->has_error) {
+
+        if ($v->has_error('client_id')) {
+          $c->notify(error => $c->loc('Auth_clientIDFail'));
+        }
+        elsif ($v->has_error('scope')) {
+          $c->notify(error => $c->loc('Auth_scopeFail'));
+        }
+        else {
+          $c->notify(error => $c->loc('Auth_paramError'));
         };
 
-        my $client_id =     $c->stash('client_id');
-        my $client_name =   $v->param('client-name');
-        my $client_secret = $v->param('client-secret');
+        # If logged in, go to oauth settings - otherwise to index
+        return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
+      };
 
-        # Get list of registered clients
-        my $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/client/deregister/')->path(
-          $client_id
-        );
+      foreach (qw!scope client_id state redirect_uri!) {
+        $c->stash($_, $v->param($_));
+      };
 
-        my $send = {};
+      # Wait for async result
+      $c->render_later;
 
-        if ($client_secret) {
-          $send->{client_secret} = $client_secret;
-        };
+      my $client_id = $v->param('client_id');
 
-        # Get the list of all clients
-        return $c->korap_request(delete => $r_url, {} => form => $send)->then(
-          sub {
-            my $tx = shift;
+      my $client_information = $c->auth->client_info_p($client_id)->then(
+        sub {
+          my $cl = shift;
+          $c->stash(client_name => $cl->{'client_name'});
+          $c->stash(client_type => $cl->{'client_type'});
+          $c->stash(client_desc => $cl->{'client_description'});
+          $c->stash(client_url => $cl->{'client_url'});
+          $c->stash(redirect_uri_server => $cl->{'client_redirect_uri'});
+        }
+      )->then(
+        sub {
 
-            # Response is fine
-            if ($tx->res->is_success) {
-              # Okay
-              $c->notify(success => 'Successfully deleted ' . $client_name);
+          # Check, if the client redirect_uri is valid
+          my $redirect_uri_server = $c->stash('redirect_uri_server');
+          my $redirect_uri = $v->param('redirect_uri');
+          my ($server_o, $client_o);
+
+          # Both exist
+          if ($redirect_uri_server && $redirect_uri) {
+            $server_o = Mojo::URL->new($redirect_uri_server);
+            $client_o = Mojo::URL->new($redirect_uri);
+
+            # Host not valid - take registered URI
+            if ($server_o->host ne $client_o->host) {
+              $c->notify(warn => 'redirect_uri host differs from registered host');
+              $client_o = $server_o;
             }
-            else {
 
-              # Failure
-              my $json = $tx->result->json;
-              if ($json && $json->{error_description}) {
-                $c->notify(error => $json->{error_description});
-              } else {
-                $c->notify(error => $c->loc('Auth_responseError'));
-              };
+            # Port not valid - take registered URI
+            elsif (($server_o->port // '') ne ($client_o->port // '')) {
+              $c->notify(warn => 'redirect_uri port differs from registered port');
+              $client_o = $server_o;
             };
-
-            return $c->redirect_to('oauth-settings');
           }
-        );
-      }
-    )->name('oauth-unregister-post');
 
-
-    # OAuth Client authorization
-    $r->get('/settings/oauth/authorize')->to(
-      cb => sub {
-        my $c = shift;
-
-        _set_no_cache($c->res->headers);
-
-        my $v = $c->validation;
-        $v->required('client_id', 'trim');
-        $v->required('scope', 'trim');
-        $v->optional('state', 'trim');
-        $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
-
-        # Redirect with error
-        if ($v->has_error) {
-
-          if ($v->has_error('client_id')) {
-            $c->notify(error => $c->loc('Auth_clientIDFail'));
+          # Client sent exists
+          elsif ($redirect_uri) {
+            $client_o = Mojo::URL->new($redirect_uri);
+            $c->stash(redirect_warning => $c->loc('oauthGrantRedirectWarn'))
           }
-          elsif ($v->has_error('scope')) {
-            $c->notify(error => $c->loc('Auth_scopeFail'));
+
+          # Server registered exists
+          elsif ($redirect_uri_server) {
+            $client_o = Mojo::URL->new($redirect_uri_server);
           }
+
+          # Redirect unknown
           else {
-            $c->notify(error => $c->loc('Auth_paramError'));
-          };
-
-          # If logged in, go to oauth settings - otherwise to index
-          return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
-        };
-
-        foreach (qw!scope client_id state redirect_uri!) {
-          $c->stash($_, $v->param($_));
-        };
-
-        # Wait for async result
-        $c->render_later;
-
-        my $client_id = $v->param('client_id');
-
-        my $client_information = $c->auth->client_info_p($client_id)->then(
-          sub {
-            my $cl = shift;
-            $c->stash(client_name => $cl->{'client_name'});
-            $c->stash(client_type => $cl->{'client_type'});
-            $c->stash(client_desc => $cl->{'client_description'});
-            $c->stash(client_url => $cl->{'client_url'});
-            $c->stash(redirect_uri_server => $cl->{'client_redirect_uri'});
-          }
-        )->then(
-          sub {
-
-            # Check, if the client redirect_uri is valid
-            my $redirect_uri_server = $c->stash('redirect_uri_server');
-            my $redirect_uri = $v->param('redirect_uri');
-            my ($server_o, $client_o);
-
-            # Both exist
-            if ($redirect_uri_server && $redirect_uri) {
-              $server_o = Mojo::URL->new($redirect_uri_server);
-              $client_o = Mojo::URL->new($redirect_uri);
-
-              # Host not valid - take registered URI
-              if ($server_o->host ne $client_o->host) {
-                $c->notify(warn => 'redirect_uri host differs from registered host');
-                $client_o = $server_o;
-              }
-
-              # Port not valid - take registered URI
-              elsif (($server_o->port // '') ne ($client_o->port // '')) {
-                $c->notify(warn => 'redirect_uri port differs from registered port');
-                $client_o = $server_o;
-              };
-            }
-
-            # Client sent exists
-            elsif ($redirect_uri) {
-              $client_o = Mojo::URL->new($redirect_uri);
-              $c->stash(redirect_warning => $c->loc('oauthGrantRedirectWarn'))
-            }
-
-            # Server registered exists
-            elsif ($redirect_uri_server) {
-              $client_o = Mojo::URL->new($redirect_uri_server);
-            }
-
-            # Redirect unknown
-            else {
-              $c->notify(error => 'redirect_uri not set');
-
-              # If logged in, go to oauth settings - otherwise to index
-              return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
-            };
-
-            # No userinfo allowed
-            if ($client_o->userinfo) {
-              $c->notify(warn => 'redirect_uri contains userinfo');
-              $client_o->userinfo('');
-            };
-
-            # HTTPS warning
-            # if ($client_o->scheme ne 'https') {
-            #   $c->notify(warn => 'redirect_uri is not HTTPS');
-            # };
-
-            # Sign redirection URL
-            $c->stash(redirect_uri => $client_o->to_string);
-            $c->stash(close_redirect_uri => '' . $c->close_redirect_to($client_o));
-
-            # Get auth token
-            my $auth_token = $c->auth->token;
-
-            # User is not logged in - log in before!
-            unless ($auth_token) {
-              return $c->render(template => 'auth/login');
-            };
-
-            # Grant authorization
-            return $c->render(template => 'auth/grant_scope');
-          }
-        )->catch(
-          sub {
-            my $error = shift;
-            $c->notify(error => $error);
+            $c->notify(error => 'redirect_uri not set');
 
             # If logged in, go to oauth settings - otherwise to index
             return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
-          }
-        );
-      }
-    )->name('oauth-grant-scope');
-
-
-    # OAuth Client authorization
-    # This will return a location information including some info
-    $r->post('/settings/oauth/authorize')->to(
-      cb => sub {
-        my $c = shift;
-
-        _set_no_cache($c->res->headers);
-
-        # It's necessary that it's clear this was triggered by
-        # KorAP and not by the client!
-        my $v = $c->validation;
-        $v->csrf_protect;
-        $v->required('client_id', 'trim');
-        $v->required('scope', 'trim');
-        $v->optional('state', 'trim');
-
-        # Only signed redirects are allowed
-        $v->required('redirect_uri', 'trim', 'not_empty')->closed_redirect;
-
-        # Render with error
-        if ($v->has_error) {
-
-          # If logged in, go to oauth settings - otherwise to index
-          my $url = $c->url_for($c->auth->token ? 'oauth-settings' : 'index');
-
-          if ($v->has_error('client_id')) {
-            $url->query([error_description => $c->loc('Auth_clientIDFail')]);
-          }
-          elsif ($v->has_error('scope')) {
-            $url->query([error_description => $c->loc('Auth_scopeFail')]);
-          }
-          elsif ($v->has_error('csrf_token')) {
-            $url->query([error_description => $c->loc('Auth_csrfFail')]);
-          }
-          else {
-            $url->query([error_description => $c->loc('Auth_paramError')]);
           };
 
-          return $c->redirect_to($url);
+          # No userinfo allowed
+          if ($client_o->userinfo) {
+            $c->notify(warn => 'redirect_uri contains userinfo');
+            $client_o->userinfo('');
+          };
+
+          # HTTPS warning
+          # if ($client_o->scheme ne 'https') {
+          #   $c->notify(warn => 'redirect_uri is not HTTPS');
+          # };
+
+          # Sign redirection URL
+          $c->stash(redirect_uri => $client_o->to_string);
+          $c->stash(close_redirect_uri => '' . $c->close_redirect_to($client_o));
+
+          # Get auth token
+          my $auth_token = $c->auth->token;
+
+          # User is not logged in - log in before!
+          unless ($auth_token) {
+            return $c->render(template => 'auth/login');
+          };
+
+          # Grant authorization
+          return $c->render(template => 'auth/grant_scope');
+        }
+      )->catch(
+        sub {
+          my $error = shift;
+          $c->notify(error => $error);
+
+          # If logged in, go to oauth settings - otherwise to index
+          return $c->redirect_to($c->auth->token ? 'oauth-settings' : 'index');
+        }
+      );
+    }
+  )->name('oauth-grant-scope');
+
+
+  # OAuth Client authorization
+  # This will return a location information including some info
+  $r->post('/settings/oauth/authorize')->to(
+    cb => sub {
+      my $c = shift;
+
+      _set_no_cache($c->res->headers);
+
+      # It's necessary that it's clear this was triggered by
+      # KorAP and not by the client!
+      my $v = $c->validation;
+      $v->csrf_protect;
+      $v->required('client_id', 'trim');
+      $v->required('scope', 'trim');
+      $v->optional('state', 'trim');
+
+      # Only signed redirects are allowed
+      $v->required('redirect_uri', 'trim', 'not_empty')->closed_redirect;
+
+      # Render with error
+      if ($v->has_error) {
+
+        # If logged in, go to oauth settings - otherwise to index
+        my $url = $c->url_for($c->auth->token ? 'oauth-settings' : 'index');
+
+        if ($v->has_error('client_id')) {
+          $url->query([error_description => $c->loc('Auth_clientIDFail')]);
+        }
+        elsif ($v->has_error('scope')) {
+          $url->query([error_description => $c->loc('Auth_scopeFail')]);
+        }
+        elsif ($v->has_error('csrf_token')) {
+          $url->query([error_description => $c->loc('Auth_csrfFail')]);
+        }
+        else {
+          $url->query([error_description => $c->loc('Auth_paramError')]);
         };
 
-        $c->stash(redirect_uri => Mojo::URL->new($v->param('redirect_uri')));
+        return $c->redirect_to($url);
+      };
 
-        return $c->auth->new_token_p(
-          client_id => $v->param('client_id'),
-          redirect_uri => $c->stash('redirect_uri'),
-          state => $v->param('state'),
-          scope => $v->param('scope'),
-        )->catch(
-          sub {
-            my $err_msg = shift;
-            my $url = $c->stash('redirect_uri');
+      $c->stash(redirect_uri => Mojo::URL->new($v->param('redirect_uri')));
 
-            # Redirect!
-            if ($url) {
-              if ($err_msg) {
-                $url = $url->query([error_description => $err_msg]);
-              };
-            }
+      return $c->auth->new_token_p(
+        client_id => $v->param('client_id'),
+        redirect_uri => $c->stash('redirect_uri'),
+        state => $v->param('state'),
+        scope => $v->param('scope'),
+      )->catch(
+        sub {
+          my $err_msg = shift;
+          my $url = $c->stash('redirect_uri');
 
-            # Do not redirect!
-            else {
-              $c->notify(error => $err_msg);
-
-              # If logged in, go to oauth settings - otherwise to index
-              $url = $c->url_for($c->auth->token ? 'oauth-settings' : 'index');
+          # Redirect!
+          if ($url) {
+            if ($err_msg) {
+              $url = $url->query([error_description => $err_msg]);
             };
-
-            return Mojo::Promise->resolve($url);
           }
-        )->then(
-          sub {
-            my $loc = shift;
-            return $c->redirect_to($loc);
-          }
-        )->wait;
-        return $c->rendered;
-      }
-    )->name('oauth-grant-scope-post');
+
+          # Do not redirect!
+          else {
+            $c->notify(error => $err_msg);
+
+            # If logged in, go to oauth settings - otherwise to index
+            $url = $c->url_for($c->auth->token ? 'oauth-settings' : 'index');
+          };
+
+          return Mojo::Promise->resolve($url);
+        }
+      )->then(
+        sub {
+          my $loc = shift;
+          return $c->redirect_to($loc);
+        }
+      )->wait;
+      return $c->rendered;
+    }
+  )->name('oauth-grant-scope-post');
 
 
-    # Show information of a client
-    $r->get('/settings/oauth/:client_id')->to(
-      cb => sub {
-        my $c = shift;
+  # Show information of a client
+  $r->get('/settings/oauth/:client_id')->to(
+    cb => sub {
+      my $c = shift;
 
-        _set_no_cache($c->res->headers);
+      _set_no_cache($c->res->headers);
 
-        $c->render_later;
+      $c->render_later;
 
-        $c->auth->client_list_p->then(
-          sub {
-            my $json = shift;
+      $c->auth->client_list_p->then(
+        sub {
+          my $json = shift;
 
-            my ($item) = grep {
-              $c->stash('client_id') eq $_->{client_id}
-            } @$json;
+          my ($item) = grep {
+            $c->stash('client_id') eq $_->{client_id}
+          } @$json;
 
-            unless ($item) {
-              return Mojo::Promise->reject;
-            };
+          unless ($item) {
+            return Mojo::Promise->reject;
+          };
 
-            $c->stash(client_name => $item->{client_name});
-            $c->stash(client_desc => $item->{client_description});
-            $c->stash(client_url  => $item->{client_url});
-            $c->stash(client_type => ($item->{client_type} // 'PUBLIC'));
-            $c->stash(client_redirect_uri => $item->{client_redirect_uri});
-            $c->stash(client_src  => encode_json($item->{source})) if $item->{source};
+          $c->stash(client_name => $item->{client_name});
+          $c->stash(client_desc => $item->{client_description});
+          $c->stash(client_url  => $item->{client_url});
+          $c->stash(client_type => ($item->{client_type} // 'PUBLIC'));
+          $c->stash(client_redirect_uri => $item->{client_redirect_uri});
+          $c->stash(client_src  => encode_json($item->{source})) if $item->{source};
 
-            $c->auth->token_list_p($c->stash('client_id'));
-          }
-        )->then(
-          sub {
-            my $json = shift;
+          $c->auth->token_list_p($c->stash('client_id'));
+        }
+      )->then(
+        sub {
+          my $json = shift;
 
-            $c->stash(tokens => $json);
+          $c->stash(tokens => $json);
 
-            return Mojo::Promise->resolve;
-          }
-        )->catch(
-          sub {
-            return $c->reply->not_found;
-          }
-        )->finally(
-          sub {
-            return $c->render(template => 'auth/client')
-          }
-        );
+          return Mojo::Promise->resolve;
+        }
+      )->catch(
+        sub {
+          return $c->reply->not_found;
+        }
+      )->finally(
+        sub {
+          return $c->render(template => 'auth/client')
+        }
+      );
 
-        return;
-      }
-    )->name('oauth-tokens');
-  };
+      return;
+    }
+  )->name('oauth-tokens');
 
 
   # Ask if new token should be issued
