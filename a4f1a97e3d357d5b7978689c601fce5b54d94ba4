@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72a5d74_78bc288c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-09T08:47:51Z",
+      "side": 1,
+      "message": "Guess it was experimental long enough - maybe introducing a similar switch to marketplace instead of commenting it out?\n\nAnd maybe now that Auth.pm and the accompanied test file is so large, it makes sense to split the package a bit.",
+      "revId": "a4f1a97e3d357d5b7978689c601fce5b54d94ba4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
