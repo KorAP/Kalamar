@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29d44af6_8888889a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-23T16:03:37Z",
+      "side": 1,
+      "message": "HTML 5 Forms does not support method\u003dDELETE https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-fs-method.\n\nTherefore I changed the path to  $r-\u003epost(\u0027/settings/marketplace/uninstall\u0027) and /install accordingly. Of course it is possible to use javascript to send an delete request. But I decided against it für accessibility reasons.",
+      "revId": "9670f2e72a00bd6ba5ff75fba8ff72d332f64603",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
