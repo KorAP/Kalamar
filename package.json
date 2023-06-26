@@ -22,7 +22,7 @@
     "imagemin": "^8.0.1",
     "optipng-bin": "^9.0.0",
     "sass": "^1.44.0",
-    "vinyl-fs": "^3.0.3"
+    "vinyl-fs": "^4.0.0"
   },
   "optionalDependencies": {
     "fsevents": "*"
