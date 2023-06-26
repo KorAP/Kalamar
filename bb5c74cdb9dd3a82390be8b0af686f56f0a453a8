@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c35cf5c_d42fe049",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:34:28Z",
+      "side": 1,
+      "message": "There seems to be a problem with the list-showing: Sometimes the plugins to be installed are not visible. This seems to occur quite irregularly, so I guess it\u0027s an async problem and needs to be fixed for the plugin views.\n\nIf confirmation steps for uninstall or install are useful is somehow a matter of taste.",
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8537617_a49c2e9e",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:34:28Z",
+      "side": 1,
+      "message": "not",
+      "range": {
+        "startLine": 193,
+        "startChar": 41,
+        "endLine": 193,
+        "endChar": 43
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a699d07_6b1ae93f",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:34:28Z",
+      "side": 1,
+      "message": "We may want to make this dependable on a configuration flag.",
+      "range": {
+        "startLine": 988,
+        "startChar": 4,
+        "endLine": 988,
+        "endChar": 31
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adbcd058_c8881cf2",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:34:28Z",
+      "side": 1,
+      "message": "Does it make sense to have the client id in the path - although you don\u0027t want to use DELETE?",
+      "range": {
+        "startLine": 1159,
+        "startChar": 8,
+        "endLine": 1159,
+        "endChar": 34
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6563c735_f880cb07",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:34:28Z",
+      "side": 1,
+      "message": "Check validation does not fail.",
+      "range": {
+        "startLine": 1166,
+        "startChar": 25,
+        "endLine": 1166,
+        "endChar": 48
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fdf55ab_061d83e3",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:34:28Z",
+      "side": 1,
+      "message": "Dumping strings doesn\u0027t make sense.",
+      "range": {
+        "startLine": 1181,
+        "startChar": 27,
+        "endLine": 1181,
+        "endChar": 58
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
