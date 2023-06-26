@@ -18,6 +18,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29c74d63_e5d38ffc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-06-26T12:40:36Z",
+      "side": 1,
+      "message": "And from time to time I get:\n\n[2023-06-26 14:14:00.04997] [552248] [info] Mode is instance-test\nUnhandled rejected promise: Transaction already destroyed at /home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/Localize/Locale.pm line 36.\nContext:\n  31: \n  32:         return $lang;\n  33:       };\n  34: \n  35:       # Get languages from request headers\n  36:       my @langs \u003d implicate_supers(\n  37:         I18N::LangTags::Detect-\u003ehttp_accept_langs(\n  38:           $c-\u003ereq-\u003eheaders-\u003eaccept_language\n  39:         ));\n  40: \n  41:       # Prepend override values\nTraceback (most recent call first):\n  File \"/home/ndiewald/perl5/perlbrew/perls/perl-5.32.1/lib/5.32.1/Carp.pm\", line 291, in \"Mojo::Template::__ANON__\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Controller.pm\", line 193, in \"Carp::croak\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/Localize/Locale.pm\", line 36, in \"Mojolicious::Controller::req\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Renderer.pm\", line 76, in \"Mojolicious::Plugin::Localize::Locale::__ANON__\"\n  File \"/home/ndiewald/Repositories/korap-git/Kalamar/script/../lib/Kalamar/Plugin/Auth.pm\", line 79, in \"Mojolicious::Renderer::Helpers::630cc970ede0add60f73a73bc6ba1c28::locale\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/Localize.pm\", line 528, in \"Kalamar::Plugin::Auth::__ANON__\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/Localize.pm\", line 363, in \"Mojolicious::Plugin::Localize::_get_pref_keys\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/Localize.pm\", line 476, in \"Mojolicious::Plugin::Localize::_lookup\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/Localize.pm\", line 94, in \"Mojolicious::Plugin::Localize::_lookup\"\n  File \"/home/ndiewald/.perlbrew/libs/perl-5.32.1@akron/lib/perl5/Mojolicious/Plugin/EPRenderer.pm\", line 48, in \"Mojolicious::Plugin::Localize::__ANON__\"\n  File \"template auth/marketplace.html.ep\", line 1, in \"Mojo::Template::Sandbox::ce3eed1f24256b45875b1af2d24da96e::loc\"\n\nThat means the req is already destroyed when rendering the result, which is an async problem. Maybe it\u0027s an async problem not completely limited to the marketplace.",
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8537617_a49c2e9e",
