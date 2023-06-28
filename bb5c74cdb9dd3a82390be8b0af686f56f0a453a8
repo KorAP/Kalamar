@@ -58,6 +58,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c87a137c_91894657",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-28T16:17:28Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "d8537617_a49c2e9e",
+      "range": {
+        "startLine": 193,
+        "startChar": 41,
+        "endLine": 193,
+        "endChar": 43
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a699d07_6b1ae93f",
@@ -71,6 +95,30 @@
       "writtenOn": "2023-06-26T12:34:28Z",
       "side": 1,
       "message": "We may want to make this dependable on a configuration flag.",
+      "range": {
+        "startLine": 988,
+        "startChar": 4,
+        "endLine": 988,
+        "endChar": 31
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25f47c47_bc162f28",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-28T16:17:28Z",
+      "side": 1,
+      "message": "Good idea!",
+      "parentUuid": "6a699d07_6b1ae93f",
       "range": {
         "startLine": 988,
         "startChar": 4,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d353bcc_46a67af0",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-28T16:17:28Z",
+      "side": 1,
+      "message": "I need the client-id to send it to Kustvakt to delete the client.\nI\u0027m not sure if I understand your comment rightly ?",
+      "parentUuid": "adbcd058_c8881cf2",
+      "range": {
+        "startLine": 1159,
+        "startChar": 8,
+        "endLine": 1159,
+        "endChar": 34
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6563c735_f880cb07",
         "filename": "lib/Kalamar/Plugin/Auth.pm",
         "patchSetId": 3
@@ -117,6 +189,30 @@
       "writtenOn": "2023-06-26T12:34:28Z",
       "side": 1,
       "message": "Check validation does not fail.",
+      "range": {
+        "startLine": 1166,
+        "startChar": 25,
+        "endLine": 1166,
+        "endChar": 48
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf98f893_2603117a",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-28T16:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6563c735_f880cb07",
       "range": {
         "startLine": 1166,
         "startChar": 25,
@@ -140,6 +236,30 @@
       "writtenOn": "2023-06-26T12:34:28Z",
       "side": 1,
       "message": "Dumping strings doesn\u0027t make sense.",
+      "range": {
+        "startLine": 1181,
+        "startChar": 27,
+        "endLine": 1181,
+        "endChar": 58
+      },
+      "revId": "bb5c74cdb9dd3a82390be8b0af686f56f0a453a8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad69fabe_d37a23f6",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-28T16:17:28Z",
+      "side": 1,
+      "message": "Ups, \"Altlasten\" ;)",
+      "parentUuid": "4fdf55ab_061d83e3",
       "range": {
         "startLine": 1181,
         "startChar": 27,

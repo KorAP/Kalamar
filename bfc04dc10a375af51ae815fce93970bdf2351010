@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c165cc0a_a112928c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-06-28T16:17:28Z",
+      "side": 1,
+      "message": "Still analysing the async error, I have to finish and fix it before merging. \nBy the way, I can  reproduce \"Unhandled rejected promise\" now with promise-\u003eall_settled, which is clearly not the same, but maybe a hint at the right direction.",
+      "revId": "bfc04dc10a375af51ae815fce93970bdf2351010",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
