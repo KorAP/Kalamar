@@ -976,9 +976,13 @@ sub register {
     $app->loc('Auth_oauthSettings'), 'oauth'
   ));
 
-  #  $app->navi->add(settings => (
-  #    $app->loc('Auth_marketplace'), 'marketplace'
-  #  ));
+  # Get configuration for marketplace settings
+  my $conf = $app->config('Kalamar');
+  if ($conf->{marketplace}) {
+    $app->navi->add(settings => (
+    $app->loc('Auth_marketplace'), 'marketplace'
+   ));
+  }
 
 
   # Helper: Returns lists of registered plugins (of all users), which are permitted
