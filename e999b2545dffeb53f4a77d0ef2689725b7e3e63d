@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "683f0f69_199ae476",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-07-21T05:50:08Z",
+      "side": 1,
+      "message": "This introduces documentation onm reserved words in PQ+, following the emails by Mark-Christoph Müller.",
+      "revId": "e999b2545dffeb53f4a77d0ef2689725b7e3e63d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
