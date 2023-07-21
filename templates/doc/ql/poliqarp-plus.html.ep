@@ -50,6 +50,31 @@
   <p>You can again apply the <code>/i</code> flag to regular expressions to search case insensitive.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_rexi', '** "r(u|a)n"/xi'), cutoff => 1
+
+  <h4 id="reserved">Reserved terms</h4>
+
+  <p>The following terms are <em>reserved words</em> in Poliqarp+ and can therefore not be used in short notation of simple segments.
+    Use the notation for complex segments (see below) to query them (e.g. <code>[orth='contains']</code>):</p>
+
+  <ul>
+    <li><code>contains</code></li>
+    <li><code>dependency</code></li>
+    <li><code>dominates</code></li>
+    <li><code>endswith</code></li>
+    <li><code>endsWith</code></li>
+    <li><code>focus</code></li>
+    <li><code>i</code> and <code>I</code></li>
+    <li><code>meta</code></li>
+    <li><code>matches</code></li>
+    <li><code>overlaps</code></li>
+    <li><code>relatesTo</code></li>
+    <li><code>split</code></li>
+    <li><code>startswith</code> and <code>startsWith</code></li>
+    <li><code>submatch</code></li>
+    <li><code>within</code></li>
+    <li><code>x</code> and <code>X</code></li>
+  </ul>
+
 </section>
 
 <section id="complex">
