@@ -51,6 +51,29 @@
 
   %= doc_query poliqarp => loc('Q_poliqarp_rexi', '** "r(u|a)n"/xi'), cutoff => 1
 
+  <h4 id="reserved">Geschützte Begriffe</h4>
+
+  <p>Die folgenden Wörter sind Teil der Anfragesprache von Poliqarp+ und können daher nicht in der Kurzschreibung für einfache Segmente verwendet werden. Um dennoch nach ihnen suchen zu können, ist die Schreibung als <%= embedded_link_to 'doc', 'komplexe Segmente', 'ql', 'poliqarp-plus#complex'%> nötig (z.B. <code>[orth='contains']</code>):
+  
+  <ul>
+    <li><code>contains</code></li>
+    <li><code>dependency</code></li>
+    <li><code>dominates</code></li>
+    <li><code>endswith</code></li>
+    <li><code>endsWith</code></li>
+    <li><code>focus</code></li>
+    <li><code>i</code> und <code>I</code></li>
+    <li><code>meta</code></li>
+    <li><code>matches</code></li>
+    <li><code>overlaps</code></li>
+    <li><code>relatesTo</code></li>
+    <li><code>split</code></li>
+    <li><code>startswith</code> und <code>startsWith</code></li>
+    <li><code>submatch</code></li>
+    <li><code>within</code></li>
+    <li><code>x</code> und <code>X</code></li>
+  </ul>
+
 </section>
 
 <section id="complex">
