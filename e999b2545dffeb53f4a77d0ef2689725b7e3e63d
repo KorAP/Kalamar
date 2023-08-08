@@ -16,6 +16,29 @@
       "message": "This introduces documentation onm reserved words in PQ+, following the emails by Mark-Christoph Müller.",
       "revId": "e999b2545dffeb53f4a77d0ef2689725b7e3e63d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06575237_c66fc145",
+        "filename": "templates/de/doc/ql/poliqarp-plus.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-08-08T15:27:05Z",
+      "side": 1,
+      "message": "Ich finde die Kombination von zwei Abkürzungen und Semikolon nicht so schön. Vielleicht hier eher etwas wie:\n... als komplexe Segmente nötig (siehe unten), z.B: \u003ccode\u003e[orth\u003d\u0027contains\u0027]\u003c/code\u003e.",
+      "range": {
+        "startLine": 56,
+        "startChar": 246,
+        "endLine": 56,
+        "endChar": 248
+      },
+      "revId": "e999b2545dffeb53f4a77d0ef2689725b7e3e63d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
