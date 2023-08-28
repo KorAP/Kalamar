@@ -63,6 +63,30 @@
       },
       "revId": "e999b2545dffeb53f4a77d0ef2689725b7e3e63d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18dead2_f3e1772e",
+        "filename": "templates/de/doc/ql/poliqarp-plus.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-08-28T13:49:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0cab8d2e_0a4ada36",
+      "range": {
+        "startLine": 56,
+        "startChar": 246,
+        "endLine": 56,
+        "endChar": 248
+      },
+      "revId": "e999b2545dffeb53f4a77d0ef2689725b7e3e63d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
