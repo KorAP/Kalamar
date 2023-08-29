@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d56b0f8_00490bff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-08-29T13:37:04Z",
+      "side": 1,
+      "message": "I\u0027m fine with that. It\u0027s important to understand that this change will only disable the marketplace in the navigation, while the endpoints will still be available. To disable that, the endpoints shouldn\u0027t be mounted as well. On the other hand: I think the marketplace will be made available by instances that provide plugins. If instances don\u0027t provide plugins, these endpoints won\u0027t return anything meaningful nonetheless.",
+      "revId": "7cb0646ca71f8ddbadcec9602a296c7dbd50d1c9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
