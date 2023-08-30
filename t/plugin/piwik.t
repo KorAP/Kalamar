@@ -37,8 +37,7 @@ $t = Test::Mojo->new('Kalamar' => {
 
 $t->app->plugin('Kalamar::Plugin::Piwik');
 
-is($t->app->piwik_tag('as-script'), '<script src="/settings/assets/tracking.js"></script>' .
-     '<script src="https://piwik.korap.ids-mannheim.de/piwik.js" async defer></script>');
+like($t->app->piwik_tag('as-script'), qr!<script src="/settings/assets/tracking.js"></script><script src="https://piwik\.korap\.ids-mannheim\.de/(?:matomo|piwik)\.js" async defer></script>!);
 
 $t->get_ok('/doc/faq')
   ->status_is(200)
