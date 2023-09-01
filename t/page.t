@@ -45,7 +45,7 @@ $t = Test::Mojo->new('Kalamar' => {
       de_howToCite => 'Zitierhilfe',
       en_recentCorpusPub => 'Recent publications to refer to DeReKo as linguistic research data',
       de_recentCorpusPub => 'Neuere Publikationen zu DeReKo als linguistische Forschungsdatengrundlage',
-      en_recentToolPub => 'Recent publications to refer to KorAP as a tool for research',
+      en_recentToolPub => 'Recent publications to refer to KorAP as a research tool',
       de_recentToolPub => 'Neuere Publikationen zu KorAP als Forschungswerkzeug',
     }
   },
