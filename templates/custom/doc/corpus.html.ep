@@ -5,9 +5,9 @@
 <section> 
 % my $lang = c(@{$c->localize->locale})->first(qr!^(?i:de|en)$!) // 'en';
 % if ($lang eq 'de') {
-  <h3>Aktuelle Datengrundlage: virtuelles Korpus <code>dereko-korap-2022-I</code></h3>
+  <h3>Aktuelle Datengrundlage: virtuelles Korpus <code>dereko-korap-2023-I-beta</code></h3>
 % } else {
-  <h3>Current data set: Virtual corpus <code>dereko-korap-2022-I</code></h3>
+  <h3>Current data set: Virtual corpus <code>dereko-korap-2023-I-beta</code></h3>
 % }
-  <iframe src="https://korap.ids-mannheim.de/data/dereko-korap-2022-I.html" sandbox="position: relative; allow-forms allow-scripts" style="border-width: 0; min-height: 80vh" height="100%" width="100%"></iframe>
+  <iframe src="https://korap.ids-mannheim.de/data/dereko-korap-2023-I.html" sandbox="allow-forms allow-scripts" style="position: relative; border-width: 0; min-height: 80vh" height="100%" width="100%"></iframe>
 </section>
