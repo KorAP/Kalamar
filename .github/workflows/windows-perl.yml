@@ -26,6 +26,7 @@ jobs:
           curl -L https://cpanmin.us > cpanm
           perl cpanm -n -f Crypt::Random::Source
           perl cpanm -n -f Mojolicious::Plugin::MailException
+          perl cpanm -n -f Log::Any
           perl cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
           perl cpanm --installdeps .
       - name: Run Tests
