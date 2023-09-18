@@ -106,6 +106,9 @@ my $THOUSAND_SEP_RE = qr/(
       '#default-foundries' => 'Standard Foundries',
       'development' => 'Entwicklung',
       'faq' => 'FAQ'
+    },
+    QL => {
+      cqp => 'CQP (neu)'
     }
   },
   -en => {
@@ -163,6 +166,7 @@ my $THOUSAND_SEP_RE = qr/(
       poliqarp => 'Poliqarp',
       cosmas2 => 'Cosmas II',
       annis => 'Annis QL',
+      cqp => 'CQP (new)',
       cql => 'CQL v1.2',
       fcsql => 'FCSQL'
     },
