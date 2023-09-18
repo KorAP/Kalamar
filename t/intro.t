@@ -19,6 +19,9 @@ $t->get_ok('/')
   ->content_unlike(qr!onload!)
   ->text_is('#link-guided-tour', 'guided tour')
   ->text_is('nav > a[href=/doc/korap/kalamar]', 'V 0.47.999')
+  ->element_exists('select#ql-field option[value=poliqarp]')
+  ->element_exists('select#ql-field option[value=cqp]')
+  ->element_exists_not('select#ql-field option[value=noliqart]')
   ;
 
 # Only routed when existing

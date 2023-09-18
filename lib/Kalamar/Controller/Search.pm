@@ -31,7 +31,7 @@ sub query {
   my $v = $c->validation;
 
   $v->optional('q', 'trim')->size(1,4096);
-  $v->optional('ql')->in(qw/poliqarp cosmas2 annis cql fcsql/);
+  $v->optional('ql')->in(qw/poliqarp cosmas2 annis cqp cql fcsql/);
   $v->optional('collection', 'trim'); # Legacy
   $v->optional('cq', 'trim');         # New
   $v->optional('cutoff', 'trim')->in(qw/1 0 true false/);

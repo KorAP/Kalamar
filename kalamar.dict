@@ -163,6 +163,7 @@ my $THOUSAND_SEP_RE = qr/(
       poliqarp => 'Poliqarp',
       cosmas2 => 'Cosmas II',
       annis => 'Annis QL',
+      cqp => 'CQP',
       cql => 'CQL v1.2',
       fcsql => 'FCSQL'
     },
