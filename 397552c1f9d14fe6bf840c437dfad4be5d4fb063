@@ -22,6 +22,30 @@
       },
       "revId": "397552c1f9d14fe6bf840c437dfad4be5d4fb063",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d8fa06_6bdd55a8",
+        "filename": "t/intro.t",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-09-19T08:41:40Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s completely necessary. I just added this to check for regressions.",
+      "parentUuid": "30f26999_62568550",
+      "range": {
+        "startLine": 24,
+        "startChar": 24,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "397552c1f9d14fe6bf840c437dfad4be5d4fb063",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
