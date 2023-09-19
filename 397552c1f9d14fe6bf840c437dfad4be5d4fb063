@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f26999_62568550",
+        "filename": "t/intro.t",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-09-19T08:33:33Z",
+      "side": 1,
+      "message": "Should we test here the existence of the other query languages too (cosmas II, annis, ...), or is this not necessary?",
+      "range": {
+        "startLine": 24,
+        "startChar": 24,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "397552c1f9d14fe6bf840c437dfad4be5d4fb063",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
