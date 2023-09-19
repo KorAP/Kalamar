@@ -250,7 +250,7 @@ define([
     if (qlField !== null) {
       KorAP.QLmenu = selectMenuClass.create(
         d.getElementById('ql-field').parentNode
-      ).limit(5);
+      ).limit(10);
     };
 
     var resultInfo = d.getElementById('resultinfo');
