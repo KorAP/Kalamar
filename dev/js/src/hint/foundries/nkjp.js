@@ -1,6 +1,6 @@
 define(["hint/foundries"], function (ah) {
   ah["-"].push(
-    ["NKJP", "nkjp/", "Morphology, Part-of-Speech"]
+    ["NKJP", "nkjp/", "Lemma, Morphology, Named Entities, Original Values, Part-of-Speech"]
   );
 
   ah["nkjp/"] = [
@@ -149,5 +149,22 @@ define(["hint/foundries"], function (ah) {
   ah["nkjp/m=fullstopp:"] = [
     ["pun", "pun ", "With full stop"],
     ["npun", "npun ", "Without full stop"]
+  ];
+
+  ah["nkjp/ne="] = [
+    ["persName","persName ","Personal name"],
+    ["persName:forename","persName:forename ","Personal forename"],
+    ["persName:surname","persName:surname ","Personal surname"],
+    ["persName:addname","persName:addname ","Personal addname"],
+    ["orgName","orgName ","Organizational name"],
+    ["geogName","geogName ","Geographical name"],
+    ["placeName","placeName ","Absolute or relative place name"],
+    ["placeName:district","placeName:district ","Subdivision place name"],
+    ["placeName:settlement","placeName:settlement ","Settlement place name"],
+    ["placeName:region","placeName:region ","Administrative unit place name"],
+    ["placeName:country","placeName:country ","Country name"],
+    ["placeName:bloc","placeName:bloc ","Geopolitical unit name"],
+    ["date","date ","Date information"],
+    ["time","time ","Time information"]
   ];
 });
