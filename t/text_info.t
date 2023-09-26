@@ -37,6 +37,13 @@ $t->get_ok('/corpus/GOE/AGY/00000')
   ->json_is('/notifications/0/1', '630: Document not found')
   ;
 
+# Real example from NKJP
+$t->get_ok('/corpus/NKJP/NKJP/forumowisko.pl_57')
+  ->status_is(200)
+  ->json_like('/notifications/0/1', qr!^Unable to load!)
+  ;
+
+
 
 done_testing;
 __END__

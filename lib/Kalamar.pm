@@ -387,9 +387,9 @@ NONCE_JS
   # Match route
   # Corpus route
   my $corpus = $r->get('/corpus')->to('search#corpus_info')->name('corpus');
-  my $doc    = $r->any('/corpus/:corpus_id/:doc_id');
-  my $text   = $doc->get('/:text_id')->to('search#text_info')->name('text');
-  my $match  = $doc->get('/:text_id/:match_id')->to('search#match_info')->name('match');
+  my $doc    = $r->any('/corpus/#corpus_id/#doc_id');
+  my $text   = $doc->get('/#text_id')->to('search#text_info')->name('text');
+  my $match  = $doc->get('/#text_id/#match_id')->to('search#match_info')->name('match');
 };
 
 
