@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7cb6ed_e0a964b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-09-26T11:13:22Z",
+      "side": 1,
+      "message": "This is a real problem for NKJP, e.g. https://korap.ids-mannheim.de/instance/nkjp1m-sgjp?q\u003dtu\u0026cq\u003dtextSigle+%3D+%22NKJP%2FNKJP%2Fforumowisko.pl_57%22\u0026ql\u003dpoliqarp\u0026cutoff\u003d1 (try to get tokens or metadata).",
+      "revId": "4e413fb7912cc7036fab1ce4038f8dbe5ed02d9e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
