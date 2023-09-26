@@ -8,6 +8,8 @@
         - Fix support for dot-symbols in (corpus/doc/text)-IDs
           (diewald)
         - Update information regarding CSP in conf (diewald)
+        - Support NKJP named entities in annotation helper
+          (diewald)
 
 0.50 2023-05-08
         - Improvement of NKJP-annotation helper. (diewald)
