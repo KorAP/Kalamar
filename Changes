@@ -10,6 +10,7 @@
         - Update information regarding CSP in conf (diewald)
         - Support NKJP named entities in annotation helper
           (diewald)
+	- Marketplace to install and uninstall plugins (hebasta)  
 
 0.50 2023-05-08
         - Improvement of NKJP-annotation helper. (diewald)
