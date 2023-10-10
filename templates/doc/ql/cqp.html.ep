@@ -1,0 +1,358 @@
+% layout 'main', title => 'KorAP: CQP';
+
+%= page_title
+
+<p>The following documentation introduces all features provided by our
+  version of the CQP Query Language and some KorAP specific extensions.
+  This tutorial is based on the IMS Open Corpus Workbench (CWB)
+
+  <%= ext_link_to 'CQP Query Language Tutorial, version 3.4.24 (May 2020)',"https://cwb.sourceforge.io/files/CQP_Manual.pdf"  %>
+  and on
+  <%= embedded_link_to 'doc', 'the Korap Poliqarp+ tutorial', 'ql', 'poliqarp-plus' %>.</p>
+
+<section id="segments">
+  <h3>Simple Segments</h3>
+  <p>The atomic elements of CQP queries are segments. Most of the time,
+    segments represent words and can be queried by encapsulating them in
+    qoutes or double quotes:</p>
+
+
+  %= doc_query cqp => loc('Q_cqp_simplesquote', "** 'Tree'")
+  
+  <p>or</p>
+
+  %= doc_query cqp => loc('Q_cqp_simpledquote', '** "Tree"')
+
+  <p>A word segment is always interpreted as a <%= embedded_link_to 'doc', 'regular expressions', 'ql', 'regexp' %>, e.g., a query like</p>
+
+  %= doc_query cqp => loc('Q_cqp_re', '** "r(u|a)n"'), cutoff => 1
+
+  %# <p>can return both "Tannenbaum" and "baum".</p>
+
+  <p>Sequences of simple segments are expressed using a space delimiter:</p>
+
+  %= doc_query cqp => loc('Q_cqp_simpleseq1', '** "the" "Tree"')
+
+  %= doc_query cqp => loc('Q_cqp_simpleseq2', "** 'the' 'Tree'")
+
+  %# ------------------- Current state (ND)
+  
+  <p>Originally, CQP was developped as a corpus query processor tool and
+    any CQP command had to be followed by a semicolon. <%= ext_link_to 'The CQPweb server', "https://cqpweb.lancs.ac.uk/" %> at
+    Lancaster treats the semicolon as optional, and we implemented it in
+    the same way.</p>
+  <p>Simple segments always refer to the surface form of a word. To search
+    for surface forms without case sensitivity, you can use the <code>%c</code>
+    flag:</p>
+
+  
+  %= doc_query cqp => loc('Q_cqp_simplescflag', '"laufen"%c'), cutoff => 0
+
+
+
+  <p>The query above will find all occurrences of the term irrespective of
+    the capitalization of letters.</p>
+
+  <p>Diacritics is not been supported yet.</p>
+  
+  <!-- EM 
+  <p>To ignore diacritics, you can use the <code>%d</code> flag:</p>
+
+  
+  %= doc_query cqp => loc('Q_cqp_simplesidia2', '"Fraulein"%d'), cutoff => 0
+
+
+
+  <p>The query above will find all occurrences of the term irrespective of
+    the use of diacritics (i.e., <code>Fräulein</code> and <code>Fraulein</code>).</p>
+
+  <p>Flags can be combined to ignore bose case sensitivity and diacritics:</p>
+
+  
+  %= doc_query cqp => loc('Q_cqp_simplesegidia2', '"Fraulein"%cd'), cutoff => 0
+
+  <p>The query above will find all occurrences of the term irrespective of
+    the use of diacritics or of capitalization: <code>fraulein</code>, <code>Fraulein</code>,
+    <code>fräulein</code>, etc.</p>
+-->
+
+  <h4 id="regexp">Regular Expressions</h4>
+        <p>Special regular expressions characters like <code>.</code>, <code>?</code>,
+          <code>*</code>, <code>+</code>, <code>|</code>, <code>(</code>, <code>)</code>,
+          <code>[</code>, <code>]</code>, <code>{</code>, <code>}</code>, <code>^</code>,
+          <code>$</code> have to be "escaped" with backslash (<code>\</code>):</p>
+        <ul>
+          <li><code>"?";</code> fails while <code>"\?";</code> returns <code>?.</code></li>
+          <li><code>"."</code> returns any character, while <code>"\$\."</code>
+            returns <code>$.</code></li>
+        </ul>
+        <blockquote class="warning">
+          <p>Beware: Queries with prepended <code>.*</code> expressions can
+            become extremely slow!</p>
+          <p>In Poliqarp+ only double quotes are used for regular expressions,
+            while single quotes are used to mark verbatim strings. In CQP, you
+            can use %l flag to match the string in a verbatim manner.</p>
+        </blockquote>
+        <p>To match a word form containing single or double quotes, use one of
+          the following methods :</p>
+        <ul>
+          <li>if the string you need to match contain either single or
+            double quotes, use the other quote character to encapsulate the
+            string: </li>
+            
+            %= doc_query cqp => loc('Q_cqp_regexqu1', '"It\'s"'), cutoff => 0
+            
+            <!-- EM 
+            %= doc_query cqp => loc('Q_cqp_xxxx', '\'12"-screen\''), cutoff => 0 
+            -->
+            
+          <li>escape the qoutes by doubling every occurrence of the quotes
+            character inside the string: </li>
+            
+            %= doc_query cqp => loc('Q_cqp_regexequ1', '\'It\'\'s\''), cutoff => 0
+            
+            <!-- %= doc_query cqp => loc('Q_cqp_regexequ2', '"12""-screen"'), cutoff => 0 -->
+            
+          <li>escape the qoutes by using <code>(\)</code>: </li>
+            
+            %= doc_query cqp => loc('Q_cqp_regexequ3', "'It\\'s'"), cutoff => 0
+            
+            <!-- %= doc_query cqp => loc('Q_cqp_regexequ4', '"12\\"-screen"'), cutoff => 0 -->
+        </ul>
+      </section>
+      <section id="complex">
+        <h3>Complex Segments</h3>
+        <p>Complex segments are expressed in square brackets and contain
+          additional information on the resource of the term under scrutiny by
+          providing key/value pairs, separated by an equal-sign.</p>
+        <p>The KorAP implementation of CQP provides three special segment keys:
+          <code>orth</code> for surface forms, <code>base</code> for lemmata,
+          and <code>pos</code> for Part-of-Speech. The following complex query
+          finds all surface forms of the defined word:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compsl1', '[orth="Baum"]'), cutoff => 0
+
+
+        <p>The query is thus equivalent to:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compsl2', '"Baum"'), cutoff => 0
+
+
+        <p>Complex segments expect simple expressions as values, meaning that
+          the following expression is valid as well:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compsse', '[orth="l(au|ie)fen"%c]'), cutoff => 1
+
+
+        <p>Another special key is <code>base</code>, refering to the lemma
+          annotation of the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%>. The following query finds all occurrences of segments
+          annotated as a specified lemma by the default foundry:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compsbase', '[base="Baum"]'), cutoff => 1
+
+
+        <p>The third special key is <code>pos</code>, refering to the
+          part-of-speech annotation of the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%>. The following query finds all attributive adjectives:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compspos', '[pos="ADJA"]'), cutoff => 1
+
+
+        <p>Complex segments requesting further token annotations can have keys
+          following the <code>foundry/layer</code> notation. For example to
+          find all occurrences of plural words in a supporting foundry, you can
+          search using the following queries:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compstoken1', '[marmot/m="number":"pl"]'), cutoff => 1
+
+
+  %= doc_query cqp => loc('Q_cqp_compstoken2', "[marmot/m='tense':'pres']"), cutoff => 1
+
+
+        <p>In case an annotation contains special non-alphabetic and non-numeric
+          characters, the annotation part can be followed by <code>%l</code> to
+          ensure a verbatim interpretation:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_compstokenverb', "[orth='https://de.wikipedia.org'%l]"), cutoff => 1
+
+
+        <h4>Negation</h4>
+        <p>Negation of terms in complex expressions can be expressed by
+          prepending the equal sign or the whole expression with an exclamation
+          mark.</p>
+        
+  %= doc_query cqp => loc('Q_cqp_neg1', '[pos!="ADJA"] "Haare"'), cutoff => 1
+
+
+        
+  %= doc_query cqp => loc('Q_cqp_neg2', '[!pos="ADJA"] "Haare"'), cutoff => 1
+
+
+        <blockquote class="warning">
+          <p>Beware: Negated complex segments can't be searched as a single
+            statement. However, they work in case they are part of a <%= embedded_link_to 'doc', 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%>.</p>
+        </blockquote>
+        <h4 id="empty-segments">Empty Segments</h4>
+        <p>A special segment is the empty segment, that matches every word in
+          the index.</p>
+        
+  %= doc_query cqp => loc('Q_cqp_empseq', '[]'), cutoff => 1
+
+
+        <p>Empty segments are useful to express distances of words by using 
+           <%= embedded_link_to 'doc', 'repetitions', 'ql', 'poliqarp-plus#syntagmatic-operators-repetitions'%>.</p>
+        <blockquote class="warning">
+          <p>Beware: Empty segments can't be searched as a single statement.
+            However, they work in case they are part of a <%= embedded_link_to 'doc', 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%>.</p>
+        </blockquote>
+      </section>
+      <section id="spans">
+        <h3>Span Segments</h3>
+        <p>Not all segments are bound to words - some are bound to concepts
+          spanning multiple words, for example noun phrases, sentences, or
+          paragraphs. Span segments are structural elements and they have
+          specific syntax in different contexts. When used in complex segments,
+          they need to be searched by using angular brackets :
+          
+          %= doc_query cqp => loc('Q_cqp_spansegm', '<corenlp/c=NP>'), cutoff => 1  
+          
+          Some spans such as <code>s</code> are special keywords that can be 
+          used without angular brackets, as operands of specific functional
+          operators like <code>within</code>, <code>region</code>, <code>lbound</code>,
+          <code>rbound</code> or <code>MU(meet)</code>.
+          
+          <!-- EM
+          but when used with specific functional
+          operators like <code>within</code>, <code>region</code>, <code>lbound</code>,
+          <code>rbound</code> or <code>MU(meet)</code>, the angular brackets
+          are not mandatory.
+          -->
+        </p>
+      </section>
+      <section id="paradigmatic-operators">
+        <h3>Paradigmatic Operators</h3>
+        <p>A complex segment can have multiple properties a token requires. For
+          example to search for all words with a certain surface form of a
+          particular lemma (no matter if capitalized or not), you can search
+          for:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="laufe"%c & base="Lauf"]'), cutoff => 1
+
+
+        <p>The ampersand combines multiple properties with a logical AND. Terms
+          of the complex segment can be negated as introduced before. The
+          following queries are equivalent:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="laufe"%c & base!="Lauf"]'), cutoff => 1
+
+
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="laufe"%c & !base="Lauf"]'), cutoff => 1
+
+
+        <p>Alternatives can be expressed by using the pipe symbol:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="laufen" | base="gehen"]'), cutoff => 1
+
+
+        <p>All these sub expressions can be grouped using round brackets to form
+          complex boolean expressions:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[(base="laufen" | base="gehen") & tt/pos="VVFIN"]'), cutoff => 1
+
+
+        Round brackets can also be used to encapsulate simple segments, to
+        increase query readability, although they are not necessary:
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[(base="laufen" | base="gehen") & (tt/pos="VVFIN")]'), cutoff => 1
+
+
+        Negation operator can be used outside expressions grouped by round
+        brackets. Be aware of the <%= ext_link_to "De
+      Morgan's Laws", "https://en.wikipedia.org/wiki/De_Morgan%27s_laws" %> when you design your queries: the following query
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[(!(base="laufen" | base="gehen")) & (tt/pos="VVFIN")]'), cutoff => 1
+
+
+        <a>is logically equivalent to:</a>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[!(base="laufen") & !(base="gehen") & (tt/pos="VVFIN")]'), cutoff => 1
+
+
+        <a>which can be written in a more simple way like:</a>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[!base="laufen" & !base="gehen" & tt/pos="VVFIN"]'), cutoff => 1
+
+
+        <a> or like </a>:
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[base!="laufen" & base!="gehen" & tt/pos="VVFIN"]'), cutoff => 1
+
+
+      </section>
+      <section id="syntagmatic-operators">
+        <h3>Syntagmatic Operators</h3>
+        <h4 id="syntagmatic-operators-sequence">Sequences</h4>
+        <p>Sequences can be used to search for segments in order. For this,
+          simple expressions are separated by whitespaces.</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '"der" "alte" "Mann"'), cutoff => 1
+
+
+        <p>However, you can obviously search using complex segments as well:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="der"][orth="alte"][orth="Mann"]'), cutoff => 1
+
+
+        <p>Now you may see the benefit of the empty segment to search for words
+          you don't know:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="der"][][orth="Mann"]'), cutoff => 1
+
+
+        <h4>Position</h4>
+        <p>You are also able to mix segments and spans in sequences. In CQP,
+          spans are marked by XML-like structural elements signalling the
+          beginning and/or the end of a region and they can be used to look for
+          segments in a specific position in a bigger structure like a noun
+          phrase or a sentence.</p>
+        <p>To search for a word at the beginning of a sentence (or a syntactic
+          group), the following queries are equivalent.
+        <ul>
+          <li> 
+          The queries both match the word "Der" when positioned as a first word in a sentence:
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '<base/s=s>[orth="Der"]'), cutoff => 1 
+          %= doc_query cqp => loc('Q_cqp_xxxxx','<s>[orth="Der"]'), cutoff => 1 
+          </li>
+          <li>The queries both match the word "Der" when positioned after the end of a sentence:
+          %= doc_query cqp => loc('Q_cqp_xxxxx','</base/s=s>[orth="Der"]'), cutoff => 1 
+          %= doc_query cqp => loc('Q_cqp_xxxxx','</s>[orth="Der"]'), cutoff => 1 
+        </li>
+        </ul>
+        To search for a word at the end of a sentence (or a syntactic group),
+        you can use:<br>
+        <ul>
+          <li>Match the word "Mann"
+            when positioned as a last word in a sentence: </li>
+            
+            %= doc_query cqp => loc('Q_cqp_xxxxx','[orth="Mann"]</base/s=s>'), cutoff => 1
+            %= doc_query cqp => loc('Q_cqp_xxxxx','[orth="Mann"]</s>'), cutoff => 1
+            
+          <li>Match the
+            word "Mann" when positioned before the beginning of a sentence, as a
+            last word of the previous sentence: </li>
+            
+            %= doc_query cqp => loc('Q_cqp_xxxxx','[orth="Mann"]<base/s=s>'), cutoff => 1
+            %= doc_query cqp => loc('Q_cqp_xxxxx','[orth="Mann"]<s>'), cutoff => 1
+            
+        </ul>
+        <blockquote class="warning">
+        <p>Beware that when searching for longer sequences, sentence boundaries may be crossed. </p>
+        </blockquote>
+        <p> In the following example, sequences where "für" occurs in a previous 
+            sentence may also be matched, because of the long sequence of empty 
+            tokens in the query (minimum 20, maximum 25).
+        </p>    
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '"für" []{20,25} "uns"</s>'), cutoff => 1
+        
+      </section>
