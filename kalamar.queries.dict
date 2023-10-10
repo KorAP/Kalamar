@@ -61,6 +61,26 @@
         focusempty => 'focus(der {[]} Mann)',
         focusextension => 'focus(der alte und {[]})',
         focusrelevance => 'focus(contains(er []{,10} sagte, {Baum}))'
+      },
+      cqp => {
+        simplesquote => "'Baum'",
+        simpledquote => '"Baum"',
+        re => '"(Tannen)?baum"',
+        simpleseq1 => '"der" "Baum"',
+        simpleseq2 => "'der' 'Baum'",
+        simplescflag => '"laufen"%c',
+        simplesidia1 => '"Fraulein"%d',
+        simplesegidia2 => '"Fraulein"%cd',
+        regexqu1 => '"\'em"',
+        #regexequ1 => '\'\'\'em\'
+        compsl1 => '[orth="Baum"]',
+        compsl2 => '"Baum"',
+        compsse => '[orth="l(au|ie)fen"%c]',
+        compsbase => '[base="Baum"]',
+        compspos => '[pos="ADJA"]',
+        compstoken1 => '[marmot/m="number":"pl"]',
+        #compstoken2 => '[marmot/m='temp':'pres']',
+        #compstokenverb => '[orth='https://de.wikipedia.org'%l]'
       }
     }
   }
