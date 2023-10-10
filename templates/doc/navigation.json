@@ -67,6 +67,33 @@
         ]
       },
       {
+        "title": "CQP",
+        "id": "cqp",
+        "class": "folded",
+        "items": [
+          {
+            "title": "Simple Segments",
+            "id": "#segments"
+          },
+          {
+            "title": "Complex Segments",
+            "id": "#complex"
+          },
+          {
+            "title": "Span Segments",
+            "id": "#spans"
+          },
+          {
+            "title": "Paradigmatic Operators",
+            "id": "#paradigmatic-operators"
+          },
+          {
+            "title": "Syntagmatic Operators",
+            "id": "#syntagmatic-operators"
+          }
+        ]
+      },
+      {
         "title": "Annis QL",
         "id": "annis"
       },
