@@ -61,6 +61,10 @@
         focusempty => 'focus(der {[]} Mann)',
         focusextension => 'focus(der alte und {[]})',
         focusrelevance => 'focus(contains(er []{,10} sagte, {Baum}))'
+      },
+      cqp => {
+        simplesquote => "'Baum'",
+        simpledquote => '"Baum"',
       }
     }
   }
