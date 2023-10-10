@@ -1,0 +1,578 @@
+% layout 'main', title => 'KorAP: CQP';
+
+%= page_title
+
+<p>The following documentation introduces all features provided by our
+  version of the CQP Query Language and some KorAP specific extensions.
+  This tutorial is based on the the IMS Open Corpus Workbench (CWB)
+  <a class="external" href="https://cwb.sourceforge.io/files/CQP_Manual.pdf">CQP Query Language Tutorial, version 3.4.24 (May 2020)</a>
+  and on
+  <%= embedded_link_to 'doc', 'the Korap Poliqarp+ tutorial', 'ql', 'poliqarp-plus' %>.</p>
+
+      <section id="segments">
+        <h3>Simple Segments</h3>
+        <p>The atomic elements of CQP queries are segments. Most of the time
+          segments represent words and can be queried by encapsulating them in
+          qoutes or double quotes:</p>
+        <pre class="query tutorial" data-query="'Baum'" data-query-cutoff="0" data-query-language="cqp"><code>'Baum'</code></pre>
+        <p>or</p>
+        <pre class="query tutorial" data-query="&quot;Baum&quot;" data-query-cutoff="0"
+data-query-language="cqp"><code>"Baum"</code></pre>
+        <p>A word segment is always interpreted as a <a class="embedded-link" href="https://korap.ids-mannheim.de/doc/ql/regexp">regular
+            expression</a>: e.g., a query like</p>
+        <pre class="query tutorial" data-query="&quot;(Tannen)?baum&quot;" data-query-cutoff="0"
+data-query-language="cqp"><code>"(Tannen)?baum"</code></pre>
+        <p>can return both "Tannenbaum" and "baum".</p>
+        <p>Sequences of simple segments are expressed using a space delimiter:</p>
+        <pre class="query tutorial" data-query="&quot;der&quot; &quot;Baum&quot;"
+data-query-cutoff="0"><code>"der" "Baum";</code> or <code>'der' 'Baum'.</code></pre>
+        <p>Originally, CQP was developped as a corpus query processor tool and
+          any CQP command had to be followed by a semicolon; <a class="embedded-link"
+            href="https://cqpweb.lancs.ac.uk/"> the CQPweb server</a> at
+          Lancaster treats the semicolon as optional, and we implemented it in
+          the same way.</p>
+        <p>Simple segments always refer to the surface form of a word. To search
+          for surface forms without case sensitivity, you can use the <code>%c</code>
+          flag:</p>
+        <pre class="query tutorial" data-query="&quot;laufen&quot;%c" data-query-cutoff="0"
+data-query-language="cqp"><code>"laufen"%c</code></pre>
+        <p>The query above will find all occurrences of the term irrespective of
+          the capitalization of letters.</p>
+        <p>To ignore diacritics, you can use the <code>%d</code> flag:</p>
+        <pre class="query tutorial" data-query="&quot;Fraulein&quot;%d" data-query-cutoff="0"
+data-query-language="cqp"><code>"Fraulein"%d</code></pre>
+        <p>The query above will find all occurrences of the term irrespective of
+          the use of diacritics (i.e., <code>Fräulein</code> and <code>Fraulein</code>).</p>
+        <p>Flags can be combined to ignore bose case sensitivity and diacritics:</p>
+        <pre class="query tutorial" data-query="&quot;Fraulein&quot;%cd" data-query-cutoff="0"
+data-query-language="cqp"><code>"Fraulein"%cd</code></pre>
+        <p>The query above will find all occurrences of the term irrespective of
+          the use of diacritics or of capitalization: <code>fraulein</code>, <code>Fraulein</code>,
+          <code>fräulein</code>, etc.</p>
+        <h4 id="regexp">Regular Expressions</h4>
+        <p>Special regular expressions characters like <code>.</code>, <code>?</code>,
+          <code>*</code>, <code>+</code>, <code>|</code>, <code>(</code>, <code>)</code>,
+          <code>[</code>, <code>]</code>, <code>{</code>, <code>}</code>, <code>^</code>,
+          <code>$</code> have to be "escaped" with backslash (<code>\</code>):</p>
+        <ul>
+          <li><code>"?";</code> fails while <code>"\?";</code> returns <code>?.</code></li>
+          <li><code>"."</code> returns any character, while <code>"\$\."</code>
+            returns <code>$.</code></li>
+        </ul>
+        <blockquote class="warning">
+          <p>Beware: Queries with prepended <code>.*</code> expressions can
+            become extremely slow!</p>
+          <p>In Poliqarp+ only double quotes are used for regular expressions,
+            while single quotes are used to mark verbatim strings. In CQP, you
+            can use %l flag to match the string in a verbatim manner.</p>
+        </blockquote>
+        <p>To match a word form containing single or double quotes, use one of
+          the following methods :</p>
+        <ul>
+          <li>if the string you need to match does not contain both single and
+            double quotes, use the other quoute character to encapsulate the
+            string: <code>"'em"</code>, <code>'12"-screen'<code>;</code></code></li>
+          <li>escape the qoutes by doubling every occurrence of the quotes
+            character inside the string: <code>'''em'</code>, <code>"12""-screen"</code>;</li>
+          <li>escape the qoutes by using <code>(\)</code>: <code>'\'em'</code>,
+            <code>"12\"-screen".</code></li>
+        </ul>
+      </section>
+      <section id="complex">
+        <h3>Complex Segments</h3>
+        <p>Complex segments are expressed in square brackets and contain
+          additional information on the resource of the term under scrutiny by
+          providing key/value pairs, separated by an equal-sign.</p>
+        <p>The KorAP implementation of CQP provides three special segment keys:
+          <code>orth</code> for surface forms, <code>base</code> for lemmata,
+          and <code>pos</code> for Part-of-Speech. The following complex query
+          finds all surface forms of the defined word:</p>
+        <pre class="query tutorial" data-query="[orth=&quot;Baum&quot;]" data-query-cutoff="0"
+data-query-language="cqp"><code>[orth="Baum"]</code></pre>
+        <p>The query is thus equivalent to:</p>
+        <pre class="query tutorial" data-query="&quot;Baum&quot;" data-query-cutoff="0"
+data-query-language="cqp"><code>"Baum"</code></pre>
+        <p>Complex segments expect simple expressions as values, meaning that
+          the following expression is valid as well:</p>
+        <pre class="query tutorial" data-query="[orth=&quot;l(au|ie)fen&quot;%cd]"
+data-query-cutoff="1" data-query-language="cqp"><code>[orth="l(au|ie)fen"%cd]</code></pre>
+        <p>Another special key is <code>base</code>, refering to the lemma
+          annotation of the <a class="embedded-link" href="https://korap.ids-mannheim.de/doc/data/annotation">default
+            foundry</a>. The following query finds all occurrences of segments
+          annotated as a specified lemma by the default foundry:</p>
+        <pre class="query tutorial" data-query="[base=&quot;Baum&quot;]" data-query-cutoff="1"
+data-query-language="cqp"><code>[base="Baum"]</code></pre>
+        <p>The third special key is <code>pos</code>, refering to the
+          part-of-speech annotation of the <a class="embedded-link" href="https://korap.ids-mannheim.de/doc/data/annotation">default
+            foundry</a>. The following query finds all attributive adjectives:</p>
+        <pre class="query tutorial" data-query="[pos=&quot;ADJA&quot;]" data-query-cutoff="1"
+data-query-language="cqp"><code>[pos="ADJA"]</code></pre>
+        <p>Complex segments requesting further token annotations can have keys
+          following the <code>foundry/layer</code> notation. For example to
+          find all occurrences of plural words in a supporting foundry, you can
+          search using the following queries:</p>
+        <pre class="query tutorial" data-query="[mate/m=&quot;number&quot;:&quot;pl&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[mate/m="number":"pl"]</code></pre>
+        <pre class="query tutorial" data-query="[mate/m='temp':'pres']" data-query-cutoff="1"
+data-query-language="cqp"><code>[mate/m='number':'pl']</code></pre>
+        <p>In case an annotation contains special non-alphabetic and non-numeric
+          characters, the annotation part can be followed by <code>%l</code> to
+          ensure a verbatim interpretation:</p>
+        <pre class="query tutorial" data-query="[orth='http://www.ids-mannheim.de/cosmas2/projekt/'%l]"
+data-query-cutoff="1" data-query-language="cqp"><code>[orth='http://www.ids-mannheim.de/cosmas2/projekt/'%l]</code></pre>
+        <h4>Negation</h4>
+        <p>Negation of terms in complex expressions can be expressed by
+          prepending the equal sign or the whole expression with an exclamation
+          mark.</p>
+        <pre class="query tutorial" data-query="[pos!=&quot;ADJA&quot;]" data-query-cutoff="1"
+data-query-language="cqp"><code>[pos!="ADJA"]</code></pre>
+        <pre class="query tutorial" data-query="[!pos=&quot;ADJA&quot;]" data-query-cutoff="1"
+data-query-language="cqp"><code>[!pos="ADJA"]</code></pre>
+        <blockquote class="warning">
+          <p>Beware: Negated complex segments can't be searched as a single
+            statement. However, they work in case they are part of a <a class="embedded-link"
+              href="https://korap.ids-mannheim.de/doc/ql/poliqarp-plus#syntagmatic-operators-sequence">sequence</a>.</p>
+        </blockquote>
+        <h4 id="empty-segments">Empty Segments</h4>
+        <p>A special segment is the empty segment, that matches every word in
+          the index.</p>
+        <pre class="query tutorial" data-query="[]" data-query-cutoff="1" data-query-language="cqp"><code>[]</code></pre>
+        <p>Empty segments are useful to express distances of words by using <a
+            class="embedded-link" href="https://korap.ids-mannheim.de/doc/ql/poliqarp-plus#syntagmatic-operators-repetitions">repetitions</a>.</p>
+        <blockquote class="warning">
+          <p>Beware: Empty segments can't be searched as a single statement.
+            However, they work in case they are part of a <a class="embedded-link"
+              href="https://korap.ids-mannheim.de/doc/ql/poliqarp-plus#syntagmatic-operators-sequence">sequence</a>.</p>
+        </blockquote>
+      </section>
+      <section id="spans">
+        <h3>Span Segments</h3>
+        <p>Not all segments are bound to words - some are bound to concepts
+          spanning multiple words, for example noun phrases, sentences, or
+          paragraphs. Span segments are structural elements and they have
+          specific syntax in different contexts. When used in complex segments,
+          they need to be searched by using angular brackets :<code>
+            &lt;corenlp/c=NP&gt;</code> but when used with specific functional
+          operators like <code>within</code>, <code>region</code>, <code>lbound</code>,
+          <code>rbound</code> or <code>MU(meet)</code>, the angular brackets
+          are not mandatory.<code></code></p>
+        <p> <code></code></p>
+      </section>
+      <section id="paradigmatic-operators">
+        <h3>Paradigmatic Operators</h3>
+        <p>A complex segment can have multiple properties a token requires. For
+          example to search for all words with a certain surface form of a
+          particular lemma (no matter if capitalized or not), you can search
+          for:</p>
+        <pre class="query tutorial" data-query="[orth=&quot;laufe&quot;%c &amp; base=&quot;Lauf&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[orth="laufe"%c  &amp; base="Lauf"]</code></pre>
+        <p>The ampersand combines multiple properties with a logical AND. Terms
+          of the complex segment can be negated as introduced before. The
+          following queries are equivalent:</p>
+        <p><code>[orth="laufe"%c &amp; base!="Lauf"]</code></p>
+        <pre class="query tutorial" data-query="[orth=&quot;laufe&quot;%c &amp; !base=&quot;Lauf&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[orth="laufe"%c &amp; !base="Lauf"]</code></pre>
+        <p>Alternatives can be expressed by using the pipe symbol:</p>
+        <pre class="query tutorial" data-query="[base=&quot;laufen&quot; | base=&quot;gehen&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="laufen" | base="gehen"]</code></pre>
+        <p>All these sub expressions can be grouped using round brackets to form
+          complex boolean expressions:</p>
+        <pre class="query tutorial" data-query="[(base=&quot;laufen&quot; | base=&quot;gehen&quot;) &amp; tt/pos=&quot;VVFIN&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[(base="laufen" | base="gehen") &amp; tt/pos="VVFIN"]</code></pre>
+        Round brackets can also be used to encapsulate simple segments, to
+        increase query readability, although they are not necessary:
+        <pre class="query tutorial" data-query="[(base=&quot;laufen&quot; | base=&quot;gehen&quot;) &amp; (tt/pos=&quot;VVFIN&quot;)]"
+data-query-cutoff="1" data-query-language="cqp"><code>[(base="laufen" | base="gehen") &amp; (tt/pos="VVFIN")]</code></pre>
+        Negation operator can be used outside expressions grouped by round
+        brackets. Be aware of the <a class="embedded-link" href="https://en.wikipedia.org/wiki/De_Morgan%27s_laws">De
+          Morgan's Laws</a><a> when you design your queries: the following query</a>
+        <pre class="query tutorial" data-query="[!(base=&quot;laufen&quot; | base=&quot;gehen&quot;) &amp; (tt/pos=&quot;VVFIN=&quot;)]"
+data-query-cutoff="1" data-query-language="cqp"><code>[!(base="laufen" | base="gehen") &amp; (tt/pos="VVFIN")]</code></pre>
+        <a>is logically equivalent to:</a>
+        <pre class="query tutorial" data-query="[!(base=&quot;laufen&quot;) &amp; !(base=&quot;gehen&quot;) &amp; (tt/pos=&quot;VVFIN&quot;)]"
+data-query-cutoff="1" data-query-language="cqp"><code>[!(base="laufen") &amp; !(base="gehen") &amp; (tt/pos="VVFIN")]</code></pre>
+        <a>which can be written in a more simple way like:</a>
+        <pre class="query tutorial" data-query="[!base=&quot;laufen&quot; &amp; !base=&quot;gehen&quot; &amp; tt/pos=&quot;VVFIN&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[!base="laufen" &amp; !base="gehen" &amp; tt/pos="VVFIN"]</code></pre>
+        <a> or like </a>:
+        <pre class="query tutorial" data-query="[base!=&quot;laufen&quot; &amp; base!=&quot;gehen&quot; &amp; tt/pos=&quot;VVFIN&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base!="laufen" &amp; base!="gehen" &amp; tt/pos="VVFIN"]</code></pre>
+      </section>
+      <section id="syntagmatic-operators">
+        <h3>Syntagmatic Operators</h3>
+        <h4 id="syntagmatic-operators-sequence">Sequences</h4>
+        <p>Sequences can be used to search for segments in order. For this,
+          simple expressions are separated by whitespaces.</p>
+        <pre class="query tutorial" data-query="&quot;der&quot; &quot;alte&quot; &quot;Mann&quot;"
+data-query-cutoff="1" data-query-language="cqp"><code>"der" "alte" "Mann"</code></pre>
+        <p>However, you can obviously search using complex segments as well:</p>
+        <pre class="query tutorial" data-query="[orth=&quot;der&quot;][orth=&quot;alte&quot;][orth=&quot;Mann&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[orth="der"][orth="alte"][orth="Mann"]</code></pre>
+        <p>Now you may see the benefit of the empty segment to search for words
+          you don't know:</p>
+        <pre class="query tutorial" data-query="[orth=&quot;der&quot;][][orth=&quot;Mann&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[orth="der"][][orth="Mann"]</code></pre>
+        <h4>Position</h4>
+        <p>You are also able to mix segments and spans in sequences. In CQP,
+          spans are marked by XML-like structural elements signalling the
+          beggining and/or the end of a region and they can be used to look for
+          segments in a specific position in a bigger structure like a noun
+          phrase or a sentence.</p>
+        <p>To search for a word at the beginning of a sentence (or a syntactic
+          group), the following queries are equivalent:</p>
+        <ul>
+          <li>queries<code> &lt;base/s=s&gt;[orth="Der"] </code>and<code>
+              &lt;s&gt;[orth="Der"]</code>&nbsp; both match the word "Der" when
+            positioned as a first word in a sentence; </li>
+          <li>queries<code> &lt;/base/s=s&gt;[orth="Der"] </code>and <code>&lt;/s&gt;[orth="Der"]
+              </code>both<code> </code>match the word "Der" when positioned
+            after the end of a sentence;</li>
+        </ul>
+        To search for a word at the end of a sentence (or a syntactic group),
+        you can use:<br>
+        <ul>
+          <li>queries<code> [orth="Mann"]&lt;/base/s=s&gt; </code>and<code>
+              [orth="Mann"]</code><code>&lt;/s&gt;</code> match the word "Mann"
+            when positioned as a last word in a sentence; </li>
+          <li>queries<code> [orth="Mann"]&lt;base/s=s&gt;</code> and<code>
+              [orth="Mann"]</code><code>&lt;s&gt;</code><code> </code>match the
+            word "Mann" when positioned before the beginning of a sentence, as a
+            last word of the previous sentence; </li>
+        </ul>
+        Beware that when searching for longer sequences, the sentence boundaries
+        may be crossed, as in the example below:
+        <ul>
+          <li><code>"</code><code><code>für</code>" []{20,25} "</code><code><code>uns</code>"
+              &lt;/s&gt;: </code>because of the long sequence of empty tokens
+            in the query (minimum 20, maximum 25), sequences where "für" can be
+            in a previous sentence can also be matched;<code><br>
+            </code></li>
+        </ul>
+        To search for a sequence of words inside the sentence/syntactic group,
+        without crossing the region boundaries, you can:
+        <ol>
+          <li>specify both the beggining and closing region tag:<br>
+            <ul>
+              <li><code>&lt;base/s=s&gt;[]+[orth="der"][orth="Mann"][]+&lt;/base/s=s&gt;</code>:
+                matches a sentence that contains the sequence "Der" "Mann" in
+                any position except the first or the last in the sentence;</li>
+              <li><code>&lt;base/s=s&gt;[]*[orth="der"][orth="Mann"][]*&lt;/base/s=s&gt;</code>:
+                matches a sentence that contains the sequence "Der" "Mann" in
+                any position;</li>
+              <li><code>&lt;base/s=s&gt;[orth="der"][orth="Mann"]&lt;/base/s=s&gt;</code>:
+                matches the exact sentence "der" "Mann"; </li>
+            </ul>
+          </li>
+          <li>use the <em>within</em> operator: </li>
+          <ul>
+            <li><code>"der" "mann" within s </code>and&nbsp; <code>"der"
+                "mann" within </code><code>&lt;base/s=s&gt; </code>are
+              returning the same results as <code>&lt;base/s=s&gt;[]+[orth="der"][orth="Mann"][]+&lt;/base/s=s&gt;</code>;</li>
+            <li><code>[tt/p="NN"] []* [tt/p="NN"] within np;</code></li>
+            <li><span style="font-family: monospace;">&lt;np&gt; "der" []+
+                &lt;/np&gt; within s;<br>
+              </span></li>
+          </ul>
+        </ol>
+        <blockquote class="warning">
+          <p>Beware: </p>
+          <ol>
+            <li>imbricated regions can be matched if all open region tags are
+              correctly closed; e.g: <code>&lt;s&gt; &lt;np&gt; "der"
+                "Mann"&lt;/np&gt; []+ &lt;/s&gt;</code> is a query recognised by
+              our CQP implementation, but <code>&lt;s&gt; &lt;np&gt; "der"
+                "Mann" &lt;/np&gt; </code>is not!</li>
+            <li>the query <code>&lt;s&gt;&lt;np&gt;"der"</code> matches
+              sentences that start with an np that is followed by the word
+              "der";<code> </code>it does not, as expected, match sentences
+              that start with an np that starts with the word "der";&nbsp; to
+              obtain such results, you need a query like <code>&lt;s&gt;&lt;np&gt;"der"[]+&lt;/np&gt;[]+&lt;/s&gt;.</code></li>
+          </ol>
+        </blockquote>
+        <em>region</em> is a macro that matches a region; e.g., <code>/region[np]
+          </code>is a query equivalent to <code>&lt;np&gt; []* &lt;/np&gt;</code>,
+        which can also be simplified as<code> &lt;np<span style="font-family: serif;">&gt;.&nbsp;</span></code><code><span
+            style="font-family: serif;">&nbsp; </span></code></section>
+      <em>lbound</em> and <em>rbound</em> are functions that match the
+      accompanying segment at the start or end of a region; e.g.,:
+      <section id="syntagmatic-operators">
+        <ul>
+          <li><code>[(pos = "VBG") &amp; lbound(s)]</code><span style="font-family: serif;">
+            </span>is the equivalent of<code> &lt;s&gt; [pos="VBG"];</code> </li>
+          <li><code>[(pos = "VBG") &amp; rbound(s)]</code>is the equivalent of <code>[pos="VBG"]&lt;/s&gt;;</code>
+          </li>
+        </ul>
+        <p>In the context of functional operators (like <em>within, lbound,
+            rbound, /region</em>), region labels (like <em>s</em> or <em>np</em>)
+          are interepreted as atomic spans and there is no need (but it is
+          allowed) to use XML-like syntax. For example, the query <code>/region[np]
+            </code> could be written like: <code>/region[&lt;np&gt;] </code>and
+          like: <code>/region[&lt;cnx/c=np&gt;]</code>&nbsp;(where cnx is the
+          foundry and c is the annotation layer where the np label can be
+          found).</p>
+        <h4>Alternation</h4>
+        <p>Alternations allow for searching alternative segments or sequences of
+          segments, similar to the paradigmatic operator. You already have seen
+          that you can search for a sequence with an alternative adjective in
+          between by typing in:</p>
+        <pre class="query tutorial" data-query="&quot;der&quot; [orth=&quot;alte&quot; | orth=&quot;junge&quot;] &quot;&quot;Mann&quot;"
+data-query-cutoff="1" data-query-language="cqp"><code>"der" [orth="alte" | orth="junge"] "Mann"</code></pre>
+        <p>However, this formulation has problems in case you want to search for
+          alternations of sequences rather than terms. In this case you can use
+          syntagmatic alternations and groups:</p>
+        <pre class="query tutorial" data-query="(&quot;dem&quot; &quot;jungen&quot; | &quot;der&quot; &quot;alte&quot;) &quot;Mann&quot;"
+data-query-cutoff="1" data-query-language="cqp"><code>("dem" "jungen" | "der" "alte") "Mann"</code></pre>
+        <p>The pipe symbol works the same way as with the paradigmatic
+          alternation, but supports sequences of different length as operands.
+          The above query with an alternative adjective in a sequence can
+          therefore be reformulated as:</p>
+        <pre class="query tutorial" data-query="&quot;der&quot; (&quot;junge&quot; | &quot;alte&quot;) &quot;Mann&quot;"
+data-query-cutoff="1" data-query-language="cqp"><code>"der" ("junge" | "alte") "Mann"</code></pre>
+        <h4 id="syntagmatic-operators-repetitions">Repetition</h4>
+        <p>Repetitions in CQP are realized as in <a class="embedded-link" href="https://korap.ids-mannheim.de/doc/ql/regexp">regular
+            expressions</a>, by giving quantifiers in curly brackets.</p>
+        <p>To search for a sequence of three occurrences of a defined string,
+          you can formulate your query in any of the following ways - they will
+          have the same results:</p>
+        <pre class="query tutorial" data-query="&quot;der&quot; &quot;&quot;der&quot; &quot;der&quot;"
+data-query-cutoff="1" data-query-language="cqp"><code>"der" "der" "der"</code></pre>
+        <pre class="query tutorial" data-query="&quot;der{3}&quot;" data-query-cutoff="1"
+data-query-language="cqp"><code>"der"{3}</code></pre>
+        <pre class="query tutorial" data-query="[orth=&quot;der&quot;]{3}" data-query-cutoff="1"
+data-query-language="cqp"><code>[orth="der"]{3}</code></pre>
+        <p>In difference to regular expressions, the repetition operation won't
+          refer to the match but to the pattern given. So the following query
+          will give you a sequence of three words with a defined substring - but
+          the words don't have to be identical.</p>
+        <pre class="query tutorial" data-query="&quot;la.*?&quot;%c{3}" data-query-cutoff="1"
+data-query-language="cqp"><code>"la.*?"%c{3}</code></pre>
+        <p>The same is true for annotations. The following query will find a
+          sequence of 3 to 4 adjectives in a defined context. The adjectives do
+          not have to be identical though.</p>
+        <pre class="query tutorial" data-query="[base=&quot;ein&quot;][tt/p=&quot;ADJA&quot;]{3,4}[corenlp/p=&quot;NN&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="ein"][tt/p="ADJA"]{3,4}[corenlp/p="NN"]</code></pre>
+        <p>In addition to numbered quantities, it is also possible to pass
+          repetition information as Kleene operators <code>?</code>, <code>*</code>,
+          and <code>+</code>.</p>
+        <p>To search for a sequence with an optional segment, you can search
+          for:</p>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][tt/pos=&quot;ADJA&quot;]?[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][tt/pos"ADJA"]?[base="Baum"]</code></pre>
+        <p>This query is identical to the numbered quantification of:</p>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][tt/pos=&quot;ADJA&quot;]{,1}[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][tt/pos="ADJA"]{,1}[base="Baum"]</code></pre>
+        <p>To search for the same sequences but with unlimited adjectives in
+          between, you can use the Kleene Star:</p>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][tt/pos=&quot;ADJA&quot;]*[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][tt/pos="ADJA"]*[base="Baum"]</code></pre>
+        <p>And to search for this sequence but with at least one adjective in
+          between, you can use the Kleene Plus (all queries are identical):</p>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][tt/pos=&quot;ADJA&quot;]+[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][tt/pos="ADJA"]+[base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][tt/pos=&quot;ADJA&quot;]{1,}[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][tt/pos="ADJA"]{1,}[base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][tt/pos=&quot;ADJA&quot;][tt/pos=&quot;ADJA&quot;]*[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][tt/pos="ADJA"][tt/pos="ADJA"]*[base="Baum"]</code></pre>
+        <blockquote class="warning">
+          <p>Repetition operators like <code>{,n}</code>, <code>?</code>, and
+            <code>*</code> make segments or groups of segments optional. In case
+            these queries are used separated and not as part of a sequence (and
+            there are no mandatory segments in the query), you will be warned by
+            the system that your query won't be treated as optional.</p>
+          <p>Keep in mind that optionality may be somehow <em>inherited</em>,
+            for example an entire query becomes optional as soon as one segment
+            of an alternation is optional.</p>
+        </blockquote>
+        <p>Repetition can also be used to express distances between segments by
+          using <a class="embedded-link" href="https://korap.ids-mannheim.de/doc/ql/poliqarp-plus#empty-segments">empty
+            segments</a>.</p>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][][base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][][base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][]{2}[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][]{2}[base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][]{2,}[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][]{2,}[base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][]{,3}[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][]{,3}[base="Baum"]</code></pre>
+        <p>Of course, Kleene operators can be used with empty segments as well.</p>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][]?[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][]?[base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][]*[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][]*[base="Baum"]</code></pre>
+        <pre class="query tutorial" data-query="[base=&quot;die&quot;][]+[base=&quot;Baum&quot;]"
+data-query-cutoff="1" data-query-language="cqp"><code>[base="die"][]+[base="Baum"]</code></pre>
+      </section>
+      <section id="class-operators">
+        <h3>Anchor Points <span style="color: #9b7c6f;">(instead of class
+            operators? )</span></h3>
+        <p>The matches that represent the results of a specific query are
+          associated with two anchor points marking the first and the last token
+          in each match: <code>match</code>, for the corpus position of the
+          first token, and <code>matchend, </code>for the corpus position of
+          the last token.</p>
+        <p>Additional anchor points can be set by the user to refer to
+          submatches in a query, similar to captures in regular expressions.
+          They are mostly used for highlighting specific tokens in the match:</p>
+        <ul>
+          <li><code>target</code>: marked by prepending a token with <code>@</code>
+            and shown as underlinded with a red line in KWIC display&nbsp; <span
+              style="color: #9b7c6f;">(it was underlined and bold respectively
+              in CQP tutorial, but i checked with our test instance and adapted
+              accordingly)</span><br>
+            <code> "im" @[pos="DT"] [base="Falle"]</code>;</li>
+          <li><code>keyword</code>: marked by prepending a token with <code>@1</code>
+            and underlined with a blue line in KWIC display <br>
+            <code>"im" @[pos="DT"] @1[pos="J.*"]? [base="Falle"];<code><br>
+              </code></code></li>
+        </ul>
+        <h4>Match Modification (meet operator)</h4>
+        <p>Using anchor points does not modify the match per se, but only
+          highlights specific submatches. Matches can be modified by using the <em>meet</em>
+          operator in the <em>MU</em> macro. For example, to match only the
+          word <code>"im"</code> in the expression <code>"im Falle"</code>,
+          you can use the query:</p>
+        <pre class="query tutorial" data-query="MU(meet &quot;im&quot; &quot;Falle&quot; 1 1);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet "im" "Falle" 1 1);   (1)</code></pre>
+        <p>and to match only the word <code>"Falle"</code> in the same
+          expression you can use the query:</p>
+        <pre class="query tutorial" data-query="MU(meet &quot;Falle&quot; &quot;im&quot; -1 -1);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet "Falle" "im" -1 -1);  (2)</code></pre>
+        <p>The syntax of the meet operator specifies that the match is
+          restricted to its first argument: <code>"im"</code> for the first
+          example and <code>"Falle"</code> for the second example. </p>
+        <p>The numeric last two arguments of <code>meet</code> specify the
+          window of occurence of the two first arguments: a query of the form <code>MU(meet
+            token1 token2 n1 n2)</code>, where <code>n1</code> and <code>n2</code>
+          are integers, means that <code>token2</code> can appear in a window
+          starting at offset <code>n1</code> and ending at offset <code>n2</code>;
+          if <code>n1=n2</code>, <code>token2</code> has to appear in a strict
+          position and not in a window. </p>
+        <p>The negative numbers specify the window or strict position to the
+          left of <code>token1</code> (<code>token2 </code>precedes <code>token1</code>),
+          while the positive ones specify the position of <code>token2</code>
+          to the right of <code>token1</code> (<code>token2</code> follows<code>
+            token1</code>). </p>
+        <p>E.g.: <code>"1" "1"</code> means the second argument directly
+          follows the first arguments while <code>-1 -1</code> means the second
+          argument actually precedes the first one. In this manner, by setting <code>"Falle"</code>
+          as the first argument of <code>meet</code> and using negative integer
+          arguments for specifying the distance, we can change the focus of the
+          match in the <code>"im Falle"</code> expression from <code>"im"</code>
+          to <code>"Falle"</code>.</p>
+        <p>If you want to allow<code> token2 </code>to be anywhere in front or
+          after <code>token1 </code>at a specified maximum distance, you can
+          define a query like:</p>
+        <pre class="query tutorial" data-query="MU(meet &quot;Falle&quot; &quot;im&quot; -2 2);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet "Falle" "im" -2 2); </code></pre>
+        <p>or like:</p>
+        <pre class="query tutorial" data-query="MU(meet &quot;Falle&quot; &quot;im&quot; -1 3);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet "Falle" "im" -1 3);  </code></pre>
+        <p>But to focus on a submatch is way more useful if you are searching
+          for matches without knowing the surface form. For example, to find all
+          terms following a word that follows the word <code>"im"</code> you
+          can search:</p>
+        <pre class="query tutorial" data-query="MU(meet &quot;.+&quot; &quot;im&quot; -2 -2);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet ".+" "im" -2 -2);</code></pre>
+        <p>Offsets <code>-2</code> mean that the matched word is at 2-words
+          distance and changes the order of occurence for the two query terms.
+          Only the tokens in that exact position will be matched and
+          highlighted.</p>
+        <p>Maybe, for example, you want to find all nouns that co-occur with the
+          adjective <code>"schön"</code>, within two tokens to the left (window
+          starting at offset <code>"-2"</code>) or right (window ending at
+          offset <code>"+2"</code>):</p>
+        <pre class="query tutorial" data-query="MU(meet [tt/p=&quot;NN&quot;] [base = &quot;schön&quot;] -2 2)"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet [tt/p="NN"] [base = "schön"] -2 2);</code></pre>
+        <p>If you look only for structures where the adjective is prenominal,
+          you need to change the window to, let's say, three tokens preceding
+          the noun (e.g., offsets <code>-3</code> and <code>-1</code>):</p>
+        <pre class="query tutorial" data-query="MU(meet [tt/p=&quot;NN&quot;] [base = &quot;schön&quot;] -3 -1);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet [tt/p="NN"] [base = "schön"] -3 -1);</code></pre>
+        <p>If you are looking for the same pattern, but you want the match to
+          focus on the adjective, you need to change the ordering and adjust the
+          offsets accordingly:</p>
+        <pre class="query tutorial" data-query="MU(meet [base = &quot;schön&quot;] [tt/p=&quot;NN&quot;] 1 3);"
+data-query-cutoff="1" data-query-language="cqp"><code> MU(meet [base = "schön"] [tt/p="NN"] 1 3);</code></pre>
+        <p>Because the first two arguments of the meet operator can themselves
+          be meet operators, you can use them to look for sequences of three or
+          four tokens:</p>
+        <ul>
+          <li>
+            <pre class="query tutorial" data-query="MU(meet (meet &quot;zu&quot; &quot;gegebener&quot; 1 1) &quot;Zeit&quot; 2 2);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet (meet "zu" "gegebener" 1 1) "Zeit" 2 2); </code></pre>
+            can be used to look for the trigram "zu gegebener Zeit"; the inner
+            clause states that "gegebener" must follow "zu, while the second
+            clause states that "Zeit" has to be at offset +2 from the focus of
+            the inner clause, which is "zu"</li>
+          <li>
+            <pre class="query tutorial" data-query="MU(meet &quot;zu&quot; (meet &quot;gegebener&quot; &quot;Zeit&quot; 1 1) 1 1);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet "zu" (meet "gegebener" "Zeit" 1 1) 1 1);</code></pre>
+            the result of this query is the same as the previous one; the focus
+            of the inner clause, "gegebener", must directly follow the focus of
+            the outer clause, "zu".</li>
+          <li>
+            <pre class="query tutorial" data-query="MU(meet (meet &quot;Zeit&quot; &quot;gegebener&quot; -1 -1) &quot;zu&quot; -2 -2);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet (meet "Zeit" "gegebener" -1 -1) "zu" -2 -2);</code></pre>
+            the focus of a match of a recurrent meet operator is always the
+            leftmost token, which is "zu" in the previous queries; this query
+            moves the focus on "Zeist" and keeps the token order.</li>
+          <li>
+            <pre class="query tutorial" data-query="MU(meet (meet &quot;zu&quot; &quot;einer&quot; 1 1) (meet &quot;bestimmten&quot; &quot;Zeit&quot; 1 1) 2 2);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet (meet "zu" "einer" 1 1) (meet "bestimmten" "Zeit" 1 1) 2 2);</code></pre>
+            the two inner queries have their focus on "zu" and "bestimmten"
+            respectively, thefore the offsets (2, 2) refer to the position of
+            "bestimmten" in relation to "zu";</li>
+          <li>
+            <pre class="query tutorial" data-query="MU(meet (meet &quot;zu&quot; &quot;einer&quot; 1 1) (meet &quot;bestimmten&quot; &quot;Zeit&quot; 1 1) 2 2);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet (meet "zu" "einer" 1 1) (meet "bestimmten" "Zeit" 1 1) 3 3);</code></pre>
+            zu einer vorher bestimmten Zeit</li>
+        </ul>
+        <p>Meet operator can also be used for looking for co-ocurencies in
+          specific regions (sentences or syntactic phrases) with an alternative
+          syntax for the operator: <code>MU(meet token1 token2 region)</code></p>
+        <ul>
+          <li>
+            <pre class="query tutorial" data-query="MU(meet &quot;im&quot;%c &quot;falle&quot;%c s);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet "im"%c "falle"%c s);</code></pre>
+          </li>
+          finds case insensitive occurences of "im" and "falle" in the same
+          sentence, whatever the distance between them or the order in the
+          sentence;
+          <li>
+            <pre class="query tutorial" data-query="MU(meet (meet &quot;weiße&quot; &quot;Katze&quot; 1 1) (meet &quot;schwarze&quot; &quot;Katze&quot; 1 1) s);"
+data-query-cutoff="1" data-query-language="cqp"><code>MU(meet (meet "weiße" "Katze" 1 1) (meet "schwarze" "Katze" 1 1) s); </code></pre>
+            finds occurences of "weiße Katze" and "schwarze Katze" in the same
+            sentence, returning only the position of "weiße".</li>
+        </ul>
+        <blockquote class="warning">
+          <p>Beware: </p>
+          <ol>
+            <li>The numerical offsets cannot be 0 and computing the distance
+              between terms starts from 1: 1 and -1 signify there is no word
+              between the meet terms, 2 and -2 signify there is exactly one word
+              between the terms, and so on and so forth.</li>
+            <li>Imbrication of meet queries is limited and not stable.
+              Imbricated queries with unequal offsets are not supported.
+              Imbricated queries with equal offsets is supported but restricted
+              to some conditions on the offsets values; error messages will be
+              thrown if the values are incompatible in the sense that certain
+              distance values (depending also on the ordering configuration) may
+              cause sequences of tokens to intercalate. In the query: <code>MU(meet
+                (meet "</code><code>weiße</code><code></code><code>" "Katze" 2
+                2) "</code><code>schwarze</code><code></code><code>" 1 1);</code>,
+              the logical interpretation would be that<code> "weiße" </code>and<code>
+                "Katze </code>are separated by a token (as specified by the
+              inner meet query)<code> </code>and this word has to be <br>
+              <code>"</code><code>schwarze</code><code></code><code>", </code>as
+              inforced by outer meet (the zero-distance between the first term
+              of the inner meet<code> "weiße" </code>and the token<code> </code><code>"</code><code>schwarze</code><code></code><code>"</code>).
+              Dealing with this kind of intercalation is not yet implemented in
+              our version of CQP. In this cases, we suggest rewritting the query
+              in a simpler and supported way, e.g. <code>MU(meet (meet "</code><code>weiße</code><code></code><code>"
+                "</code><code><code></code><code>schwarze</code>" 1 1) "</code><code>Katze</code><code>"
+                2 2);</code><code></code> is the equivalent query for the
+              unsupported one.<br>
+            </li>
+          </ol>
+        </blockquote>
+      </section>
