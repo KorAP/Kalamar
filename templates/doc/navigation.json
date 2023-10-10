@@ -67,6 +67,10 @@
         ]
       },
       {
+        "title": "CQP",
+        "id": "cqp"
+      },
+      {
         "title": "Annis QL",
         "id": "annis"
       },
