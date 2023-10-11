@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a4bee5a_750fc504",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-10-11T18:39:15Z",
+      "side": 1,
+      "message": "I wondered if we should implement these and the following examples as doc_query. But it is kind of crowded, that\u0027s why probably Elena decided to add the examples in the subsections as \u003ccode\u003e. So probably I should revert these changes(?).",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8823625c_65071ed3",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-10-11T18:39:15Z",
+      "side": 1,
+      "message": "I commented it out because it should not been seen by the user. But it should be read and discussed from someone with CQP knowledge ( not me ;)).",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe479043_38868ffb",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-10-11T18:39:15Z",
+      "side": 1,
+      "message": "I commented it out because it should not been seen by the user. But it should be read and discussed from someone with CQP knowledge ( not me ;)).",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
