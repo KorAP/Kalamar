@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b37b7f64_4f67dc9a",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-10-17T14:10:39Z",
+      "side": 1,
+      "message": "Give it a try. If it doesn\u0027t look good in the \u003cli\u003e, you can revert.",
+      "parentUuid": "0a4bee5a_750fc504",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8823625c_65071ed3",
         "filename": "templates/doc/ql/cqp.html.ep",
         "patchSetId": 10
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "def2053a_6f7bf5c0",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-10-17T14:10:39Z",
+      "side": 1,
+      "message": "Then better use %# - otherwise it will be in the HTML sources.",
+      "parentUuid": "8823625c_65071ed3",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe479043_38868ffb",
         "filename": "templates/doc/ql/cqp.html.ep",
         "patchSetId": 10
@@ -48,6 +84,24 @@
       "writtenOn": "2023-10-11T18:39:15Z",
       "side": 1,
       "message": "I commented it out because it should not been seen by the user. But it should be read and discussed from someone with CQP knowledge ( not me ;)).",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc6dd42_4bce8c83",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-10-17T14:10:39Z",
+      "side": 1,
+      "message": "I think the \"red line\" should be removed - but this is just a detail.",
+      "parentUuid": "fe479043_38868ffb",
       "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
