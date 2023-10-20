@@ -1,5 +1,5 @@
 # Build assets in builder image
-FROM node:20 as assetbuilder
+FROM node:21 as assetbuilder
 
 WORKDIR '/app'
 
