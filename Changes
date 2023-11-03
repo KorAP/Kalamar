@@ -1,5 +1,6 @@
 0.52 2023-11-22
         - Update Piwik dependency to point to matomo.js. (diewald)
+        - Introduce maintenance tag helper. (diewald)
 
 0.51 2023-09-27
         - Support defined log file in configuration. (diewald)

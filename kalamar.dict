@@ -20,6 +20,12 @@ my $THOUSAND_SEP_RE = qr/(
       $num =~ s/$THOUSAND_SEP_RE/$1\./g;
       return $num;
     },
+    numo => sub {
+      shift;
+      my %val = @_;
+      my $day = $val{day} or return '';
+        return $day . '.';
+    },
     about => 'Über KorAP',
     login => 'Anmelden',
     logout => 'Abmelden',
@@ -63,6 +69,11 @@ my $THOUSAND_SEP_RE = qr/(
     privacy => 'Datenschutz',
     imprint => 'Impressum',
     settings => 'Einstellungen',
+    'oclock' => 'Uhr',
+    maintenanceWork => {
+      time => 'Wartungsfenster',
+      desc => 'Aufgrund von Wartungsarbeiten wird es zu Unterbrechungen des Dienstes kommen.',
+    },
     Template => {
       intro => 'de/intro',
       doc => {
@@ -105,7 +116,7 @@ my $THOUSAND_SEP_RE = qr/(
       'annotation' => 'Annotationen',
       '#default-foundries' => 'Standard Foundries',
       'development' => 'Entwicklung',
-      'faq' => 'FAQ'
+      'faq' => 'FAQ',
     },
     QL => {
       cqp => 'CQP (neu)'
@@ -119,6 +130,19 @@ my $THOUSAND_SEP_RE = qr/(
       my $num = $val{number} or return 0;
       $num =~ s/$THOUSAND_SEP_RE/$1\,/g;
       return $num;
+    },
+    numo => sub {
+      shift;
+      my %val = @_;
+      my $day = $val{day} or return '';
+      if ($day > 3) {
+        return $day . 'th';
+      } elsif ($day == 3) {
+        return '3rd';
+      } elsif ($day == 2) {
+        return '2nd';
+      };
+      return '1st';
     },
     about => 'About KorAP',
     login => 'Login',
@@ -152,6 +176,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     activateJS => 'To make use of all features, please activate JavaScript!',
     faq => 'FAQ',
+    'oclock' => 'o\'clock',
     underConstruction => 'Under Construction!',
     tutorial => 'Help and Documentation',
     korap => {
@@ -173,6 +198,10 @@ my $THOUSAND_SEP_RE = qr/(
     privacy => 'Privacy',
     imprint => 'Imprint',
     settings => 'Settings',
+    maintenanceWork => {
+      time => 'Maintenance',
+      desc => 'Due to maintenance work the service will be interrupted.',
+    },
     Template => {
       intro => 'intro',
       doc => {
