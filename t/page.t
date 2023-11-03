@@ -81,6 +81,23 @@ $t->get_ok('/doc//faq#howToCite')
   ->text_is('section > section h4', 'Recent publications to refer to DeReKo as linguistic research data')
   ;
 
+
+like($app->korap_maintenance('2023-10-03','13:00','15:00'), qr!<time datetime="2023-10-03">!);
+like($app->korap_maintenance('2023-10-03','13:00','15:00'), qr!Tuesday, 3rd October 2023!);
+like($app->korap_maintenance('2023-10-03','13:00','15:00'), qr!Maintenance 13:00 - 15:00 o&#39;clock!);
+like($app->korap_maintenance('2023-10-03','13:00','15:00'), qr!Due to maintenance work the service will be interrupted\.!);
+
+
+$c = $app->build_controller;
+$c->req->headers->accept_language('de-DE, en-US, en');
+$c->app($app);
+
+like($c->korap_maintenance('2023-10-03','13:00','15:00'), qr!<time datetime="2023-10-03">!);
+like($c->korap_maintenance('2023-10-03','13:00','15:00'), qr!Dienstag, 3\. Oktober 2023!);
+like($c->korap_maintenance('2023-10-03','13:00','15:00'), qr!Wartungsfenster 13:00 - 15:00 Uhr!);
+like($c->korap_maintenance('2023-10-03','13:00','15:00'), qr!Aufgrund von Wartungsarbeiten wird es zu Unterbrechungen des Dienstes kommen\.!);
+
+
 done_testing;
 
 1;

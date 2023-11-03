@@ -29,6 +29,7 @@ WriteMakefile(
     'Mojolicious::Plugin::AutoSecrets' => 0.006,
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.11,
     'Cache::FastMmap' => 1.57,
+    'DateTime' => 1.63,
 
     # Required for Mojolicious::Plugin::CHI
     'Data::Serializer' => 0.65,
