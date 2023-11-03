@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e688f941_3f6060aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-11-03T09:21:01Z",
+      "side": 1,
+      "message": "This simplifies setting maintenance announcemnt to just the line\n\n%\u003d korap_maintenance \u00272023-11-03\u0027, \u002713:00\u0027, \u002714:00\u0027\n\nIt\u0027s also a first step to make announcements in the same way available to the API, see https://github.com/KorAP/Kalamar/issues/202",
+      "revId": "609c018b648836815f2b8bf876b3dbac7e4748b3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
