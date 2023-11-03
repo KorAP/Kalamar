@@ -16,6 +16,23 @@
       "message": "This simplifies setting maintenance announcemnt to just the line\n\n%\u003d korap_maintenance \u00272023-11-03\u0027, \u002713:00\u0027, \u002714:00\u0027\n\nIt\u0027s also a first step to make announcements in the same way available to the API, see https://github.com/KorAP/Kalamar/issues/202",
       "revId": "609c018b648836815f2b8bf876b3dbac7e4748b3",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a3cfdb_9f617b74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-11-03T14:31:03Z",
+      "side": 1,
+      "message": "This could also be improved by not being visible anymore, when the server time is beyond the end time. Unfortunately this requires the server time to be in shape and all times need to be given in CEST or similar.",
+      "revId": "609c018b648836815f2b8bf876b3dbac7e4748b3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
