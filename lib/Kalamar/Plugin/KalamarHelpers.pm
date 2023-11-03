@@ -2,7 +2,7 @@ package Kalamar::Plugin::KalamarHelpers;
 use Mojo::ByteStream 'b';
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Util qw/deprecated/;
-
+use DateTime;
 
 sub register {
   my ($plugin, $mojo) = @_;
@@ -167,6 +167,41 @@ sub register {
           return $json;
         }
       );
+    }
+  );
+
+
+  # Maintenance announcement tag helper
+  # Use as '<%= korap_maintenance '2023-11-03', '13:00', '14:00' $>'
+  $mojo->helper(
+    korap_maintenance => sub {
+      my $c = shift;
+      my ($date, $start_time, $end_time) = @_;
+
+      if (!$date || !$start_time || !$end_time) {
+        return '';
+      };
+
+      my ($year, $month, $day) = split('-', $date);
+
+      if (!$year || !$month || !$day) {
+        return '';
+      };
+
+      my $dt = DateTime->new(
+        year => $year,
+        month => $month,
+        day => $day
+      );
+
+      $dt->set_locale($c->localize->locale->[0] // 'en');
+
+      return $c->include(
+        'partial/maintenance',
+        dt => $dt,
+        start_time => $start_time,
+        end_time => $end_time
+      )
     }
   );
 };
