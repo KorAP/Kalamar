@@ -16,6 +16,23 @@
       "message": "I think that looks better.",
       "revId": "af40abac87c5e02050cb24f8f7bea319bb5bd23c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a14baa_f9190a80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-11-07T16:14:43Z",
+      "side": 1,
+      "message": "Actually I prefer the original green, but I\u0027m not very emotional at this subject, so feel free to change the color if you want.",
+      "revId": "af40abac87c5e02050cb24f8f7bea319bb5bd23c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
