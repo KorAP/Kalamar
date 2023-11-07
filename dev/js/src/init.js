@@ -433,11 +433,10 @@ define([
     var queryPanel = queryPanelClass.create();
 
     // Get input field
-    var sform = d.getElementById("searchform");
     var vcView = d.getElementById('vc-view')
-    if (sform && vcView) {
+    if (form && vcView) {
       // The views are below the query bar
-      sform.insertBefore(queryPanel.element(), vcView);
+      form.insertBefore(queryPanel.element(), vcView);
       KorAP.Panel['query'] = queryPanel;
     };
 
@@ -475,10 +474,14 @@ define([
           if (json && json.length > 0) {
 
             // Add state manager
-            const input = d.getElementById("searchform").addE("input");
+            form = d.getElementById("searchform");
+            if (!form) {
+              return;
+            };
+
+            const input = form.addE("input");
             input.setAttribute("name","state");
             KorAP.States = stateManagerClass.create(input);
-            
             
             // Load Plugin Server first
             KorAP.Plugin = pluginClass.create();
