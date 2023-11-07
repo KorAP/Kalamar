@@ -146,7 +146,7 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
 	      t._iframe = d.createElement('iframe');
 	      t._iframe.setAttribute(
 	        'src',
-	        (t.getPage() || t.start) + '?embedded=true'
+          (t.getPage() || t.start + '?embedded=true')
 	      );
 
         const btn = buttonGroupClass.create(
