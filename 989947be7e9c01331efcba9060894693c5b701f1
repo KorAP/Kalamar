@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7740daf_35fc1155",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-11-07T14:49:58Z",
+      "side": 1,
+      "message": "?embedded\u003dtrue is already part of the path which is set in setPage(..)",
+      "revId": "989947be7e9c01331efcba9060894693c5b701f1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
