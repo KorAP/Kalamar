@@ -33,6 +33,23 @@
       "message": "Actually I prefer the original green, but I\u0027m not very emotional at this subject, so feel free to change the color if you want.",
       "revId": "af40abac87c5e02050cb24f8f7bea319bb5bd23c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8d081e2_37ea98ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-11-08T09:40:15Z",
+      "side": 1,
+      "message": "Because it is mainly used as an indicator, I think it\u0027s advantageous to be more visible.",
+      "revId": "af40abac87c5e02050cb24f8f7bea319bb5bd23c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
