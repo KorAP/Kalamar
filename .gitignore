@@ -47,3 +47,4 @@ adminToken
 /npm-debug.log
 /package-lock.json
 /kalamar.code-workspace
+slim.report.json
