@@ -16,7 +16,6 @@ RUN cd /kalamar && \
     grunt && \
     rm -rf node_modules \
            dev/css  \
-           dev/demo \
            dev/font \
            dev/img  \
            dev/js/bench  \
@@ -62,12 +61,10 @@ FROM kalamar-base AS kalamar
 RUN apk del git \
             perl-dev \
             g++ \
-            make \
             wget \
             curl && \
             rm -rf /root/.cpanm \
-                   /usr/local/share/man && \
-            rm -rf t
+                   /usr/local/share/man
 
 RUN addgroup -S korap && \
     adduser -S kalamar -G korap && \
@@ -109,13 +106,11 @@ RUN apk del git \
             perl-dev \
             perl-doc \
             g++ \
-            make \
             wget \
             libxml2-dev \
             curl && \
             rm -rf /root/.cpanm \
-                   /usr/local/share/man && \
-            rm -rf t
+                   /usr/local/share/man
 
 
 RUN addgroup -S korap && \
@@ -142,3 +137,10 @@ LABEL description="Docker Image for Kalamar, the KorAP user frontend, including 
 
 # docker build -f Dockerfile -t korap/kalamar:x.xx-conv --target kalamar-convert .
 # docker build -f Dockerfile -t korap/kalamar:x.xx --target kalamar .
+
+# Slimming (https://github.com/slimtoolkit/slim):
+# slim build --http-probe=true \
+#            --exec="perl Makefile.PL && make test" \
+#            --include-workdir=true \
+#            --tag korap/kalamar:x.xx-conv-slim \
+#            korap/kalamar:x.xx-conv
