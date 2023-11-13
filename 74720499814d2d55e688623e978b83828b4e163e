@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3a5fa4e_92b6eb03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-11-13T13:31:26Z",
+      "side": 1,
+      "message": "I guess this requires intense testing (maybe using the e2e-tests?), but allows to slim down the conv image from ~716MB to roughly 30MB, which is pretty nice and way easier to deploy in a lot of circumstances.",
+      "revId": "74720499814d2d55e688623e978b83828b4e163e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
