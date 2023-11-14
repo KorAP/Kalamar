@@ -53,6 +53,14 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
 	      obj.onclick = function () {
 	        this.show();
 	      }.bind(t);
+        //Shows tutorial if the middle mouse button is clicked
+        //TODO: Should open a new tab/window, see https://github.com/KorAP/Kalamar/issues/204
+        obj.onauxclick = function (e) {
+          if(e.button == 1){
+	        this.show();
+          }
+	      }.bind(t);
+
 
 	      // Injects a tutorial div to the body
 	      const div = d.createElement('div');
