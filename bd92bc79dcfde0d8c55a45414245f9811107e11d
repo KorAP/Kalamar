@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07d7ef58_e9d6b70f",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2023-11-15T11:40:13Z",
+      "side": 1,
+      "message": "Nils and I discussed in emails if we should comment the example for diacritics and say that it has not been supported yet.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 68
+      },
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1738cb_897a5fcb",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2023-11-15T11:40:13Z",
+      "side": 1,
+      "message": "Running these queries: \n\n12\"-screen\u0027\n\n\"12\"\"-screen\"\n\n\"12\\\"-screen\"\n\nproduces the following error:\n\n719: \"Invalid regex\"",
+      "range": {
+        "startLine": 99,
+        "startChar": 46,
+        "endLine": 99,
+        "endChar": 58
+      },
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd34e3b4_29d7c26c",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2023-11-15T11:40:13Z",
+      "side": 1,
+      "message": "Cannot be parsed. Same behavior in PQ.",
+      "range": {
+        "startLine": 247,
+        "startChar": 2,
+        "endLine": 247,
+        "endChar": 110
+      },
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a4bee5a_750fc504",
         "filename": "templates/doc/ql/cqp.html.ep",
         "patchSetId": 10

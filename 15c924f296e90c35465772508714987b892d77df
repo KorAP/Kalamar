@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aedcaae5_62c25d52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2023-11-15T11:40:13Z",
+      "side": 1,
+      "message": "I haven\u0027t finished adding all my reviews yet.\nSome comment may not be relevant for Kalamar.\n\nI did some tests:\n\n1. A combination of a known and an unknown flags\n\n\"Fraulein\"%cs\n\n        Errors:\n\n        [302, \"Failing to parse at symbol: \u0027\\\"\u0027\", 13 ], \n\n        [ 302, \"Could not parse query \u003e\u003e\u003e \\\"Fraulein\\\"%cs \u003c\u003c\u003c.\" ]\n\n        Would it be better to say \"flag is unknown\"? What do you think?\n\n\n2. Combination of flag case-insensitive and literal\n\n\"Fraulein\"%cl \n\n        is interpreted as flags:caseInsensitive. Is this the expected behavior?",
+      "revId": "15c924f296e90c35465772508714987b892d77df",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
