@@ -18,17 +18,13 @@ const sass = require('sass');
 
 module.exports = function(grunt) {
   var config;
-  var includeFile = 'default';
-  if (grunt.file.exists('kalamar.conf.js')) {
-    includeFile = 'root/kalamar.conf';
-  };
 
   // Generate requireJS files for l10n
   var reqTasks = [];
   var uglyFiles = {
     'public/js/korap-plugin-<%= pkg.pluginVersion %>.js': ['dev/js/src/plugin/client.js']
   };
-  
+
   for (var i in {'en' : 0, 'de' : 1}) {
 
     reqTasks.push({
@@ -43,7 +39,7 @@ module.exports = function(grunt) {
         wrap: true,
         // dir : 'public/js',
         name: 'lib/almond',
-        include : [includeFile, "app/" + i],
+        include : ["app/" + i],
         out: 'public/js/kalamar-<%= pkg.version %>-' + i + '.js'
       }
     });
@@ -115,6 +111,44 @@ module.exports = function(grunt) {
       },
       main: {
 	      files:[
+            {
+            expand: true,
+            src: 'kalamar.conf.js',
+            dest:'public/js/hintc/',
+            filter: 'isFile',
+            timestamp: true
+          },
+          {
+            expand: true,
+            cwd: 'dev/js/src/',
+            src: ['default.js','util.js'],
+            dest:'public/js/hintc/',
+            filter: 'isFile',
+            timestamp: true
+          },
+          {
+            expand: true,
+            cwd: 'dev/js/lib/',
+            src: 'require.js',
+            dest:'public/js/hintc/',
+            filter: 'isFile',
+            timestamp: true
+          },
+          {
+            expand: true,
+            cwd: 'dev/js/src/hint/foundries',
+            src: '**',
+            dest:'public/js/hintc/hint/foundries',
+            timestamp: true
+          },
+          {
+            expand: true,
+            cwd: 'dev/js/src/hint/',
+            src: 'foundries.js',
+            dest:'public/js/hintc/hint',
+            filter: 'isFile',
+            timestamp: true
+          },
 	        {
 	          expand: true,
 	          cwd: 'dev/font/',

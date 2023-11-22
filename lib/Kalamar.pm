@@ -202,6 +202,10 @@ sub startup {
     push @{$self->static->paths}, 'dev';
   };
 
+
+  # Add another "public" directory
+  push @{$self->static->paths}, 'public/js/hintc';
+
   # Set proxy timeouts
   if ($conf->{proxy_inactivity_timeout}) {
     $self->ua->inactivity_timeout($conf->{proxy_inactivity_timeout});
