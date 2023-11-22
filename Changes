@@ -1,3 +1,6 @@
+0.52 2023-11-22
+        - Update Piwik dependency to point to matomo.js. (diewald)
+
 0.51 2023-09-27
         - Support defined log file in configuration. (diewald)
         - Remove experimental_client_registration setting

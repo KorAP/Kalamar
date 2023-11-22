@@ -38,7 +38,7 @@ WriteMakefile(
     'List::Util' => 1.63,
 
     # Required for bundled plugins
-    'Mojolicious::Plugin::Piwik' => 1.00,
+    'Mojolicious::Plugin::Piwik' => 2.00,
 
     # Currently on GitHub only (github.com/akron)
     'Mojolicious::Plugin::Localize' => 0.21
