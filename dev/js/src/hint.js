@@ -25,10 +25,14 @@ define([
   'hint/contextanalyzer',
   'hint/alert',
   'util'
-], function (inputClass, 
+], function (inputClass,
              menuClass,
              analyzerClass,
              alertClass) {
+
+  //needed for localization
+  const loc   = KorAP.Locale;
+  loc.HINT_noAnnot =  loc.HINT_noAnnot || 'The assistant can not be displayed.';
 
   // Initialize hint array
 
@@ -266,10 +270,13 @@ define([
      * @param {boolean} Boolean value to indicate if context
      *        is necessary (true) or if the main context should
      *        be shown if context fails.
-     *        
+     *
      */
     show : function (ifContext) {
-
+      if(KorAP.annotationHelper["-"].length == 0){
+        this.alert(0,loc.HINT_noAnnot);
+        return;
+      }
       // Remove the active object
       this._unshow();
       

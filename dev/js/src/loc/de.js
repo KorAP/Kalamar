@@ -103,5 +103,6 @@ define(function () {
 
   // Pagination panel
   loc.RANDOM_PAGE = 'Zufallsseite';
-
+  
+  loc.HINT_noAnnot = 'Der Assistent kann nicht angezeigt werden.';
 });
