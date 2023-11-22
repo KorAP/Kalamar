@@ -15,6 +15,7 @@
  * - obj.alignment() // toggle
  */
 
+
 "use strict";
 define([
   'match',
@@ -54,6 +55,8 @@ define([
              pluginClass,
              pipeClass) {
 
+           
+           
   const d = document;
 
   // Set base URL
@@ -101,14 +104,39 @@ define([
     };
   };
 
+
+  addHintM = function(scripte, file){
+    KorAP.annotationHelper = KorAP.annotationHelper || { '-' : [] };
+    let scriptEl = scripte;
+    scriptEl.setAttribute("type", "text/javascript");
+    scriptEl.setAttribute("async", "async");
+    scriptEl.setAttribute("defer", "defer");
+    scriptEl.setAttribute("src", "require.js");
+    scriptEl.setAttribute("data-main", file);
+    document.getElementsByTagName("head")[0].appendChild(scriptEl);
+  };
+ 
   domReady(function (event) {
-      
+
     var obj = {};
 
     // What should be visible in the beginning?
     var show = KorAP.session.get('show') || {};
     
     KorAP.Panel = KorAP.Panel || {}
+
+    var scriptElement =document.createElement("script")
+    fetch("kalamar.conf.js", { method: "HEAD" }) 
+      .then(response => { 
+         if (response.ok) {  
+          addHintM(scriptElement, "kalamar.conf.js");
+         } else { 
+          addHintM(scriptElement, "default.js"); 
+         } 
+     }) 
+     .catch(error => { 
+         KorAP.log(0, "No kalamar.conf.js or default.js file"); 
+      }); 
 
     /**
      * Release notifications
@@ -270,7 +298,6 @@ define([
       sb.insertBefore(resultPanel.element(), sb.firstChild);
     };
 
-    
     // There is a koralQuery
     if (KorAP.koralQuery !== undefined) {    
 
@@ -413,6 +440,7 @@ define([
       tourClass.gTshowResults().start();
     }
     
+    
     /**
      * Init hint helper
      * has to be final because of
@@ -420,13 +448,12 @@ define([
      */
     // Todo: Pass an element, so this works with
     // tutorial pages as well!
+    scriptElement.onload = function(){
     if (obj.hint === undefined)
       obj.hint = hintClass.create();
-
-    // Add the hinthelper to the KorAP object to make it manipulatable globally
-    KorAP.Hint = obj.hint;
-
-
+      // Add the hinthelper to the KorAP object to make it manipulatable globally
+      KorAP.Hint = obj.hint;
+    };
     /**
      * Add query panel
      */
