@@ -11,7 +11,13 @@ use Kalamar::Controller::Search;
 my $mount_point = '/realapi/';
 $ENV{KALAMAR_API} = $mount_point;
 
-my $t = Test::Mojo->new('Kalamar');
+my $t = Test::Mojo->new('Kalamar' => {
+  Localize => {
+    dict => {
+      title_addon => 'Test'
+    }
+  }
+});
 
 # Mount fake backend
 # Get the fixture path
@@ -32,8 +38,8 @@ my $err = $t->get_ok('/?q=baum')
   ->status_is(200)
   ->content_type_is('text/html;charset=UTF-8')
 
-  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
-  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->text_is('title', 'KorAP-Test: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP-Test: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
 
   # Total results
@@ -102,8 +108,8 @@ $t->get_ok('/?q=[orth=das&ql=poliqarp')
 # Query with partial cache (for total results)
 $err = $t->get_ok('/?q=baum')
   ->status_is(200)
-  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
-  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->text_is('title', 'KorAP-Test: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP-Test: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
@@ -115,8 +121,8 @@ is(defined $err ? $err->text : '', '');
 # Query without partial cache (unfortunately) (but no total results)
 $err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
-  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
-  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->text_is('title', 'KorAP-Test: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP-Test: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
@@ -128,8 +134,8 @@ is(defined $err ? $err->text : '', '');
 # Query with partial cache (but no total results)
 $err = $t->get_ok('/?q=baum&cutoff=true')
   ->status_is(200)
-  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
-  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->text_is('title', 'KorAP-Test: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP-Test: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_is('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
@@ -142,8 +148,8 @@ is(defined $err ? $err->text : '', '');
 # Query with full cache
 $err = $t->get_ok('/?q=baum')
   ->status_is(200)
-  ->text_is('title', 'KorAP: Find »baum« with Poliqarp')
-  ->element_exists('meta[name="DC.title"][content="KorAP: Find »baum« with Poliqarp"]')
+  ->text_is('title', 'KorAP-Test: Find »baum« with Poliqarp')
+  ->element_exists('meta[name="DC.title"][content="KorAP-Test: Find »baum« with Poliqarp"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/SearchResultsPage"]')
   ->header_is('X-Kalamar-Cache', 'true')
   ->content_like(qr!${q}cutOff${q}:true!)
@@ -156,7 +162,7 @@ is(defined $err ? $err->text : '', '');
 # Query with page information
 $err = $t->get_ok('/?q=der&p=1&count=2' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
-  ->text_is('title', 'KorAP: Find »der« with Poliqarp')
+  ->text_is('title', 'KorAP-Test: Find »der« with Poliqarp')
 
   # Total results
   ->text_is('#total-results', '14,581')
@@ -193,7 +199,8 @@ unlike($next_href, qr/p=1/);
 # Query with page information - next page
 $err = $t->get_ok('/?q=der&p=2&count=2' => { 'Accept-Language' => 'de-DE, en-US, en' })
   ->status_is(200)
-  ->text_is('title', 'KorAP: Finde »der« mit Poliqarp')
+  ->text_is('div.logoaddon', 'Test')
+  ->text_is('title', 'KorAP-Test: Finde »der« mit Poliqarp')
   ->element_exists('#search')
 
   # Total results

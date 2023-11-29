@@ -20,7 +20,7 @@
     <meta name="author" content="The KorAP Team" />
     <meta name="DC.type" content="service" />
     <meta name="DC.creator" content="IDS Mannheim" />
-    <meta name="DC.title" content="<%= title() || loc('korap_short') %>" />
+    <meta name="DC.title" content="<%= title() || loc('korap_desc') %>" />
     <meta name="DC.description" content="<%= $desc %>" />
     <meta name="DC.format" content="text/html" />
     <meta name="DC.contributor" content="The KorAP Team" />

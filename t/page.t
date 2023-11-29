@@ -47,6 +47,7 @@ $t = Test::Mojo->new('Kalamar' => {
       de_recentCorpusPub => 'Neuere Publikationen zu DeReKo als linguistische Forschungsdatengrundlage',
       en_recentToolPub => 'Recent publications to refer to KorAP as a research tool',
       de_recentToolPub => 'Neuere Publikationen zu KorAP als Forschungswerkzeug',
+      title_addon => 'Test',
     }
   },
   'TagHelpers-ContentBlock' => {
@@ -79,6 +80,12 @@ $t->get_ok('/')
 $t->get_ok('/doc//faq#howToCite')
   ->text_is('#howToCite', 'Citation Help')
   ->text_is('section > section h4', 'Recent publications to refer to DeReKo as linguistic research data')
+  ;
+
+$t->get_ok('/')
+  ->text_is('title', 'KorAP-Test - Corpus Analysis Platform')
+  ->text_is('h1 > span', 'KorAP-Test - Corpus Analysis Platform')
+  ->text_is('div.logoaddon', 'Test')
   ;
 
 done_testing;

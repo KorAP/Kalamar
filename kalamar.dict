@@ -27,7 +27,7 @@ my $THOUSAND_SEP_RE = qr/(
     pwdforgotten => 'Password vergessen?',
     # TODO: use document.write() refering to vc.getName()!
     searchjob => '»<%== $q %>« <% if (param("collection")) { %>im definierten Korpus <% } %>mit <%== loc("QL_" . $ql, "unbekannter Anfragesprache") %>',
-    searchtitle => 'KorAP: Finde <%== loc("searchjob") %>',
+    searchtitle => '<%= loc("en_korap_label") %>: Finde <%== loc("searchjob") %>',
     searchplaceholder => 'Finde ...',
     go => 'Los!',
     news => 'Neuigkeiten & Ankündigungen',
@@ -56,8 +56,8 @@ my $THOUSAND_SEP_RE = qr/(
     underConstruction => 'In Vorbereitung!',
     korap => {
       -short => 'KorAP',
-      desc => 'KorAP - Korpusanalyseplattform der nächsten Generation',
-      overview => 'KorAP - Übersicht',
+      desc => '<%= loc "en_korap_label" %> - Korpusanalyseplattform der nächsten Generation',
+      overview => '<%= loc "en_korap_label" %> - Übersicht',
       keywords => 'KorAP, DeReKo, Korpussuche, IDS Mannheim, Leibniz-Institut für Deutsche Sprache',
     },
     privacy => 'Datenschutz',
@@ -129,7 +129,7 @@ my $THOUSAND_SEP_RE = qr/(
     news => 'News & Announcements',
     # TODO: use document.write() refering to vc.getName()!
     searchjob => '»<%== $q %>« <% if (param("collection")) { %>in the defined corpus <% } %>with <%== loc("QL_". $ql, "unknown query language") %>',
-    searchtitle => 'KorAP: Find <%== loc("searchjob") %>',
+    searchtitle => '<%= loc("korap_label") %>: Find <%== loc("searchjob") %>',
     searchplaceholder => 'Find ...',
     in => 'in',
     by => 'by',
@@ -156,8 +156,9 @@ my $THOUSAND_SEP_RE = qr/(
     tutorial => 'Help and Documentation',
     korap => {
       -short => 'KorAP',
-      desc => 'KorAP - Corpus Analysis Platform',
-      overview => 'KorAP - Overview',
+      label => '<%= loc "korap_short" %><% if (loc("title_addon")) { %>-<%= loc("title_addon") %><% } %>',
+      desc => '<%= loc "korap_label" %> - Corpus Analysis Platform',
+      overview => '<%= loc "korap_label" %> - Overview',
       region => 'DE-BW',
       placename => 'Mannheim',
       keywords => 'KorAP, DeReKo, Corpus Query Platform, IDS Mannheim, Leibniz Institute for the German Language'
