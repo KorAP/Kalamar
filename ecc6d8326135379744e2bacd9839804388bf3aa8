@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e13a2cc_c580b150",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2023-12-21T15:52:37Z",
+      "side": 1,
+      "message": "Don\u0027t forget to delete the browser\u0027s cache when testing.",
+      "revId": "ecc6d8326135379744e2bacd9839804388bf3aa8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
