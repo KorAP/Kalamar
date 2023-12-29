@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0373b08_78176667",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-12-29T07:59:32Z",
+      "side": 1,
+      "message": "Thank you for that work! The approach works and would help to configure in a Docker environment, but it would probably result in too much clutter on the client side when relying on require.js. I think a non-require.js approach would be better.",
+      "revId": "e91ba39535490ad15d5fa863bd7bf32e97a03f7d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e0ee17_187fec84",
+        "filename": "Gruntfile.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-12-29T07:59:32Z",
+      "side": 1,
+      "message": "I think it\u0027s better to remove the requirement of require.js (~ 86kb) alltogether and flatten all dynamic configurations instead in a more modern way (i.e. using modules). I know I failed once to remove it from the whole code base, but for the hint helper it makes sense in my opinion. Another advantage would be, that someone who wants less dynamic support could just bundle kalamar.conf.js herself for use in Docker.",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 30
+      },
+      "revId": "e91ba39535490ad15d5fa863bd7bf32e97a03f7d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcca6a69_242cca90",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-12-29T07:59:32Z",
+      "side": 1,
+      "message": "Adding this dynamically when exists is a good idea, but I guess the default could be part of the already loaded code, making an additional call irrelevant.",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 53
+      },
+      "revId": "e91ba39535490ad15d5fa863bd7bf32e97a03f7d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6673607f_1e71a928",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-12-29T07:59:32Z",
+      "side": 1,
+      "message": "Very good!",
+      "range": {
+        "startLine": 447,
+        "startChar": 4,
+        "endLine": 447,
+        "endChar": 38
+      },
+      "revId": "e91ba39535490ad15d5fa863bd7bf32e97a03f7d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23c0d23_4157323f",
+        "filename": "lib/Kalamar.pm",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2023-12-29T07:59:32Z",
+      "side": 1,
+      "message": "I think it\u0027s easier to understand the paths when they are not merged into the same public. Public is already exposed and this would mean \"when not find in public, see there\", always resulting in multiplechecks and potentially weird behaviours, because the files are exposed multiple times.",
+      "range": {
+        "startLine": 207,
+        "startChar": 2,
+        "endLine": 207,
+        "endChar": 50
+      },
+      "revId": "e91ba39535490ad15d5fa863bd7bf32e97a03f7d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
