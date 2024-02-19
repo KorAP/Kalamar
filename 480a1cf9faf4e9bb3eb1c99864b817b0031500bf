@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb1dd94c_17f61eba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-19T07:56:26Z",
+      "side": 1,
+      "message": "Hard to test - but this could potentially be too fast for rapid responses (like no or cached results). Requires some manual testing.",
+      "revId": "480a1cf9faf4e9bb3eb1c99864b817b0031500bf",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
