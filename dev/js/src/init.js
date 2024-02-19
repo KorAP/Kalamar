@@ -54,22 +54,6 @@ define([
              pluginClass,
              pipeClass) {
 
-  const d = document;
-
-  // Set base URL
-  KorAP.URL = d.body.getAttribute('data-korap-url') || "";
-
-  // Get koralQuery response
-  const kqe = d.getElementById('koralQuery');
-  if (kqe !== null) {
-    KorAP.koralQuery = JSON.parse(kqe.getAttribute('data-koralquery') || "");
-  };
-  
-  // Create suffix if KorAP is run in a subfolder
-  KorAP.session = sessionClass.create(
-    KorAP.URL.length > 0 ? 'kalamarJS-' + KorAP.URL.slugify() : 'kalamarJS'
-  );
-
   // Override KorAP.log
   window.alertify = alertifyClass;
   KorAP.log = function (code, msg, src) {
@@ -89,20 +73,36 @@ define([
 
   KorAP.vc = vcClass.create(vcArray); 
 
-  let gt;
-  if (gt = document.getElementById('link-guided-tour')) {
-    gt.setAttribute('href', '#');
-    gt.addEventListener('click', function(){
-      tourClass.gTstartSearch().start();
-    });
-    
-    KorAP.tourshowR = function(){
-      tourClass.gTshowResults().start();
-    };
-  };
-
   domReady(function (event) {
-      
+
+    const d = document;
+    
+    // Set base URL
+    KorAP.URL = d.body.getAttribute('data-korap-url') || "";
+  
+    // Create suffix if KorAP is run in a subfolder
+    KorAP.session = sessionClass.create(
+      KorAP.URL.length > 0 ? 'kalamarJS-' + KorAP.URL.slugify() : 'kalamarJS'
+    );
+
+    // Get koralQuery response
+    const kqe = d.getElementById('koralQuery');
+    if (kqe !== null) {
+      KorAP.koralQuery = JSON.parse(kqe.getAttribute('data-koralquery') || "");
+    };
+
+    let gt;
+    if (gt = document.getElementById('link-guided-tour')) {
+      gt.setAttribute('href', '#');
+      gt.addEventListener('click', function(){
+        tourClass.gTstartSearch().start();
+      });
+    
+      KorAP.tourshowR = function(){
+        tourClass.gTshowResults().start();
+      };
+    };
+    
     var obj = {};
 
     // What should be visible in the beginning?
