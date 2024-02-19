@@ -8,7 +8,7 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util qw!none uniq!;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.52';
+our $VERSION = '0.53';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
@@ -416,7 +416,7 @@ B<See the README for further information!>
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2023, L<IDS Mannheim|https://www.ids-mannheim.de/>
+Copyright (C) 2015-2024, L<IDS Mannheim|https://www.ids-mannheim.de/>
 Author: L<Nils Diewald|https://www.nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>
