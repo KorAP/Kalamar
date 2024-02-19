@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2c5dea_5b7fb897",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-19T14:34:29Z",
+      "side": 1,
+      "message": "We may want to keep this commit in Gerrit and checkout from here (instead of a separate branch) until we have a configuration based solution.",
+      "revId": "3394c6646bac2b2829f9b967c5b3416d857b176f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
