@@ -16,6 +16,23 @@
       "message": "Hard to test - but this could potentially be too fast for rapid responses (like no or cached results). Requires some manual testing.",
       "revId": "480a1cf9faf4e9bb3eb1c99864b817b0031500bf",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f9c239_589ad209",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-02-19T11:24:31Z",
+      "side": 1,
+      "message": "Can not test itlocally, but I think it is a good approach.",
+      "revId": "480a1cf9faf4e9bb3eb1c99864b817b0031500bf",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
