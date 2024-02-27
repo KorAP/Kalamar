@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50b5408_855f5a29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-27T15:54:04Z",
+      "side": 1,
+      "message": "Could be part of Kalamar-Instance-IDS, e.g. in a Footer link or similar.",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
