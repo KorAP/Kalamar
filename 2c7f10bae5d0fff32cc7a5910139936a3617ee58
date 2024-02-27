@@ -34,6 +34,23 @@
       "parentUuid": "a50b5408_855f5a29",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e69147f_8f5db31b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-27T17:37:08Z",
+      "side": 1,
+      "message": "But we shouldn\u0027t declare the OpenAPI endpoint of a single instance for all instances.",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
