@@ -16,6 +16,24 @@
       "message": "Could be part of Kalamar-Instance-IDS, e.g. in a Footer link or similar.",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c396cde9_f9022daa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-02-27T16:10:02Z",
+      "side": 1,
+      "message": "I am not sure if I agree with that. \nIf we put the OpenAPI in a Footer link at Kalmar-Instance-IDS, why is the API described in the Github Wiki part of api.html.ep? Seems to be inconsistent.",
+      "parentUuid": "a50b5408_855f5a29",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
