@@ -127,6 +127,13 @@ $t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
   ->status_is(200)
   ->text_is('#api-service-uri', 'https://korap.ids-mannheim.de/test/api/v1.0/');
 
+# Set openapi path
+$app->config('Kalamar')->{openapi} = '/api/v1.0/openapi/';
+
+# Check openapi endpoint
+$t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
+  ->status_is(200)
+  ->element_exists('#openapi > a[href="https://korap.ids-mannheim.de/api/v1.0/openapi/"]');
 
 # Languages of dev pages
 $t->get_ok('/doc/development/kalamar')

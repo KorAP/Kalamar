@@ -1,4 +1,5 @@
 0.53 2024-03-15
+        - Add openapi url to documentation. (hebasta)
         - Solve a potential timing issue in VC rendering. (diewald)
         - Update DeReKo link in corpus specific localization. (hebasta)
         - News and announcements are now displayed in Safari (fixes #208). (hebasta) 
