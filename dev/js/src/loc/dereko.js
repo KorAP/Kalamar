@@ -1,5 +1,5 @@
 /**
- * Corpus specific localization, here for DeReKo (http://www1.ids-mannheim.de/kl/projekte/korpora.html)
+ * Corpus specific localization, here for DeReKo (http://www.ids-mannheim.de/kl/projekte/korpora.html)
  * 
  * @author Helge Stallkamp
  */
