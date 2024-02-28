@@ -158,6 +158,24 @@
       "parentUuid": "c8c6b2c8_5070745f",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9416e7_10e6ca6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-02-28T10:51:08Z",
+      "side": 1,
+      "message": "Ah, Ok. I did not know, that the root service URL was embedded programmatically, and therefore did not look for it at the source code.",
+      "parentUuid": "1712724d_dd237e5e",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
