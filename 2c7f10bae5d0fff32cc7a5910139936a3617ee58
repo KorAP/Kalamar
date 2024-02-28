@@ -51,6 +51,24 @@
       "message": "But we shouldn\u0027t declare the OpenAPI endpoint of a single instance for all instances.",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a071ce_bee61b1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-02-28T08:03:53Z",
+      "side": 1,
+      "message": "Is the API not for all instances the same? And couldn\u0027t we just make all benefit from this – or are there any specifics?",
+      "parentUuid": "8e69147f_8f5db31b",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
