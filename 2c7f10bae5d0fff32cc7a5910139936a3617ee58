@@ -104,6 +104,24 @@
       "parentUuid": "59a071ce_bee61b1e",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3020b121_0ba700d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-02-28T09:52:19Z",
+      "side": 1,
+      "message": "I don\u0027t think there will be any problem implementing it. I\u0027m only pointing out, that I do not see much difference  in the Open API, the API  GitHub Wiki of Kustvakt and the information about the root service \"The root service can be found at https://korap.ids-mannheim.de/api/v1.0/\".",
+      "parentUuid": "622df50a_b53b8eb1",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
