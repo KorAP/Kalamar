@@ -140,6 +140,24 @@
       "parentUuid": "3020b121_0ba700d5",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1712724d_dd237e5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-28T10:36:26Z",
+      "side": 1,
+      "message": "Regarding the root service URL, it\u0027s:\n```\n% my $api_url \u003d $c-\u003eurl_for(\u0027proxy\u0027 \u003d\u003e (apiv \u003d\u003e $Kalamar::API_VERSION))-\u003eto_abs-\u003escheme(\u0027https\u0027);\n% $api_url-\u003epath-\u003etrailing_slash(1);\n\u003cp\u003eThe root service can be found at \u003ccode id\u003d\"api-service-uri\"\u003e\u003c%\u003d  $api_url %\u003e\u003c/code\u003e.\u003c/p\u003e\n```",
+      "parentUuid": "c8c6b2c8_5070745f",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
