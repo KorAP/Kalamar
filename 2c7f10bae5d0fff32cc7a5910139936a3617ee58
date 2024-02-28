@@ -69,6 +69,41 @@
       "parentUuid": "8e69147f_8f5db31b",
       "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "622df50a_b53b8eb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-28T08:46:40Z",
+      "side": 1,
+      "message": "What is the problem with linking to the API via Footer data or adding a configurable section to the API documentation?",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9368c880_e997d2b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-02-28T08:46:40Z",
+      "side": 1,
+      "message": "While the difference between full and lite might be ignorable and - aside from the actual endpoints - the swagger.json is probably similar.\nBut the idea of the current instance of the OpenAPI docker (if I understand Eliza correctly) is to support authentication. So - to have this being beneficial, every user would be required to have an IDS account, no matter what instance is used, and the example data (which is the main point of the OpenAPI frontend) will always be from DeReKo.\n\nThe current instance of the OpenAPI server supports foreign swagger.json files as well, so theoretically could load other specifications from other instances, but I think that\u0027s a security thread (or, when authenication is involved, at least an OAuth anti pattern).",
+      "parentUuid": "59a071ce_bee61b1e",
+      "revId": "2c7f10bae5d0fff32cc7a5910139936a3617ee58",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
