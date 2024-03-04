@@ -191,6 +191,24 @@
       "parentUuid": "adc6dd42_4bce8c83",
       "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e4c68a9_30ce25cb",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-04T12:21:26Z",
+      "side": 1,
+      "message": "Ok, Thanks. I will remove it.",
+      "parentUuid": "344657f8_af8c6c5c",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
