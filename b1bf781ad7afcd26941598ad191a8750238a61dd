@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87cdf31c_c524a4f3",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T16:02:03Z",
+      "side": 1,
+      "message": "This should be mandatory, except for some keywords such as s, that are automatically rewritten to \u003cbase/s\u003ds\u003e.",
+      "range": {
+        "startLine": 213,
+        "startChar": 34,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "b1bf781ad7afcd26941598ad191a8750238a61dd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}

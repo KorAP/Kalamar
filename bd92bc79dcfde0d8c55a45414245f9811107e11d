@@ -179,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab45bdee_3144a5c5",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T16:02:03Z",
+      "side": 1,
+      "message": "I usually separate the sentence within \u003cli\u003e and the listed the queries below.",
+      "parentUuid": "b37b7f64_4f67dc9a",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8823625c_65071ed3",
         "filename": "templates/doc/ql/cqp.html.ep",
         "patchSetId": 10
