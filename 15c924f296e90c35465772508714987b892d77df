@@ -39,6 +39,29 @@
       },
       "revId": "15c924f296e90c35465772508714987b892d77df",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a11a037_231ca02b",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T12:03:58Z",
+      "side": 1,
+      "message": "I don\u0027t really get what Elena means here. Can anyone rewrite this?",
+      "range": {
+        "startLine": 453,
+        "startChar": 11,
+        "endLine": 454,
+        "endChar": 55
+      },
+      "revId": "15c924f296e90c35465772508714987b892d77df",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
