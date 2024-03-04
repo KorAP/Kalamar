@@ -18,6 +18,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cee533a_125e208f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T15:21:16Z",
+      "side": 1,
+      "message": "I have created two issues for each of the cases above:\nhttps://github.com/KorAP/Koral/issues/176\nhttps://github.com/KorAP/Koral/issues/177",
+      "parentUuid": "aedcaae5_62c25d52",
+      "revId": "15c924f296e90c35465772508714987b892d77df",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f2035af_e0b9c350",

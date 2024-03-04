@@ -24,6 +24,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93e6da50_60a2989b",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T15:21:16Z",
+      "side": 1,
+      "message": "Done in Patch 14",
+      "parentUuid": "07d7ef58_e9d6b70f",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 68
+      },
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb1738cb_897a5fcb",
@@ -47,6 +71,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "969be644_150d119c",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T15:21:16Z",
+      "side": 1,
+      "message": "Commented in the tutorial. I have written a Koral issue about this: https://github.com/KorAP/Koral/issues/177",
+      "parentUuid": "bb1738cb_897a5fcb",
+      "range": {
+        "startLine": 99,
+        "startChar": 46,
+        "endLine": 99,
+        "endChar": 58
+      },
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd34e3b4_29d7c26c",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-11-15T11:40:13Z",
       "side": 1,
       "message": "Cannot be parsed. Same behavior in PQ.",
+      "range": {
+        "startLine": 247,
+        "startChar": 2,
+        "endLine": 247,
+        "endChar": 110
+      },
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d351c12_e7acbbe2",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-04T15:21:16Z",
+      "side": 1,
+      "message": "Fixed in Patch 12. Besides, a Koral issue has been added: https://github.com/KorAP/Koral/issues/175",
+      "parentUuid": "dd34e3b4_29d7c26c",
       "range": {
         "startLine": 247,
         "startChar": 2,
