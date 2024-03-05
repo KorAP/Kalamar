@@ -68,6 +68,25 @@
         re => '"(Tannen)?baum"',
         simpleseq1 => '"der" "Baum"',
         simpleseq2 => "'der' 'Baum'",
+        posbreg1 => '<base/s=s>[]+[orth="der"][orth="Mann"][]+</base/s=s>',
+        posbreg2 => '<base/s=s>[]*[orth="der"][orth="Mann"][]*</base/s=s>',
+        posbreg3 => '<base/s=s>[orth="der"][orth="Mann"]</base/s=s>',
+        posbreg4 => '<base/s=s>[]+[orth="der"][orth="Mann"][]+</base/s=s>',
+        posbreg5 => '"der" "Mann" within s',
+        posbreg6 => '"der" "Mann" within <base/s=s>',
+        posbreg7 => '<corenlp/c=NP> "der" []+ </corenlp/c=NP> within s;',
+        posbreg8 => ' <s>[]+ <corenlp/c=NP> "der" "Mann"</corenlp/c=NP></s>',
+        posbreg9 =>  '<s>[]+<corenlp/c=NP> "der" "Mann"</corenlp/c=NP>',
+        posbreg10 => '<s><corenlp/c=NP> "der"',
+        posbreg11 => '<s><corenlp/c=NP> "der"[]+</corenlp/c=NP>[]+</s>',
+        posbreg12 =>  '/region[s]',
+        posbreg13 => '<s>',
+        posbreg14 => '[(pos = "VVIMP") & lbound(s)]',
+        posbreg15 =>  '<s> [pos="VVIMP"];',
+        posbreg16 => '[(pos = "VVIMP") & rbound(s)]',
+        posbreg17 => '[pos="VVIMP"]</s>;',
+        posbreg18 => '/region[s]',
+        Ausprobieren!!!
       }
     }
   }
