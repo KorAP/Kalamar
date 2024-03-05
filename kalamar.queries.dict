@@ -68,6 +68,7 @@
         re => '"(Tannen)?baum"',
         simpleseq1 => '"der" "Baum"',
         simpleseq2 => "'der' 'Baum'",
+        hjjjh => "test",
       }
     }
   }

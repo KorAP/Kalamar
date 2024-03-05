@@ -46,7 +46,7 @@
     flag:</p>
 
   
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '"laufen"%c'), cutoff => 0
+  %= doc_query cqp => loc('Q_cqp_simplescflag', '"laufen"%c'), cutoff => 0
 
 
 
@@ -59,7 +59,7 @@
   <p>To ignore diacritics, you can use the <code>%d</code> flag:</p>
 
   
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '"Fraulein"%d'), cutoff => 0
+  %= doc_query cqp => loc('Q_cqp_simplesidia2', '"Fraulein"%d'), cutoff => 0
 
 
 
@@ -69,7 +69,7 @@
   <p>Flags can be combined to ignore bose case sensitivity and diacritics:</p>
 
   
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '"Fraulein"%cd'), cutoff => 0
+  %= doc_query cqp => loc('Q_cqp_simplesegidia2', '"Fraulein"%cd'), cutoff => 0
 
   <p>The query above will find all occurrences of the term irrespective of
     the use of diacritics or of capitalization: <code>fraulein</code>, <code>Fraulein</code>,
@@ -100,24 +100,24 @@
             double quotes, use the other quote character to encapsulate the
             string: </li>
             
-            %= doc_query cqp => loc('Q_cqp_xxxxx', '"\'em"'), cutoff => 0
+            %= doc_query cqp => loc('Q_cqp_regexqu1', '"It\'s"'), cutoff => 0
             
             <!-- EM 
-            %= doc_query cqp => loc('Q_cqp_xxxxx', '\'12"-screen\''), cutoff => 0 
+            %= doc_query cqp => loc('Q_cqp_xxxx', '\'12"-screen\''), cutoff => 0 
             -->
             
           <li>escape the qoutes by doubling every occurrence of the quotes
             character inside the string: </li>
             
-            %= doc_query cqp => loc('Q_cqp_xxxxx', '\'\'\'em\''), cutoff => 0
+            %= doc_query cqp => loc('Q_cqp_regexequ1', '\'It\'\'s\''), cutoff => 0
             
-            <!-- %= doc_query cqp => loc('Q_cqp_xxxxx', '"12""-screen"'), cutoff => 0 -->
+            <!-- %= doc_query cqp => loc('Q_cqp_regexequ2', '"12""-screen"'), cutoff => 0 -->
             
           <li>escape the qoutes by using <code>(\)</code>: </li>
             
-            %= doc_query cqp => loc('Q_cqp_xxxxx', "'\\'em'"), cutoff => 0
+            %= doc_query cqp => loc('Q_cqp_regexequ3', "'It\\'s'"), cutoff => 0
             
-            <!-- %= doc_query cqp => loc('Q_cqp_xxxxx', '"12\\"-screen"'), cutoff => 0 -->
+            <!-- %= doc_query cqp => loc('Q_cqp_regexequ4', '"12\\"-screen"'), cutoff => 0 -->
         </ul>
       </section>
       <section id="complex">
@@ -130,31 +130,31 @@
           and <code>pos</code> for Part-of-Speech. The following complex query
           finds all surface forms of the defined word:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="Baum"]'), cutoff => 0
+  %= doc_query cqp => loc('Q_cqp_compsl1', '[orth="Baum"]'), cutoff => 0
 
 
         <p>The query is thus equivalent to:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '"Baum"'), cutoff => 0
+  %= doc_query cqp => loc('Q_cqp_compsl2', '"Baum"'), cutoff => 0
 
 
         <p>Complex segments expect simple expressions as values, meaning that
           the following expression is valid as well:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="l(au|ie)fen"%c]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_compsse', '[orth="l(au|ie)fen"%c]'), cutoff => 1
 
 
         <p>Another special key is <code>base</code>, refering to the lemma
           annotation of the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%>. The following query finds all occurrences of segments
           annotated as a specified lemma by the default foundry:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="Baum"]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_compsbase', '[base="Baum"]'), cutoff => 1
 
 
         <p>The third special key is <code>pos</code>, refering to the
           part-of-speech annotation of the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation'%>. The following query finds all attributive adjectives:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[pos="ADJA"]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_compspos', '[pos="ADJA"]'), cutoff => 1
 
 
         <p>Complex segments requesting further token annotations can have keys
@@ -162,17 +162,17 @@
           find all occurrences of plural words in a supporting foundry, you can
           search using the following queries:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[marmot/m="number":"pl"]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_compstoken1', '[marmot/m="number":"pl"]'), cutoff => 1
 
 
-  %= doc_query cqp => loc('Q_cqp_xxxxx', "[marmot/m='temp':'pres']"), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_compstoken2', "[marmot/m='tense':'pres']"), cutoff => 1
 
 
         <p>In case an annotation contains special non-alphabetic and non-numeric
           characters, the annotation part can be followed by <code>%l</code> to
           ensure a verbatim interpretation:</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', "[orth='https://de.wikipedia.org'%l]"), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_compstokenverb', "[orth='https://de.wikipedia.org'%l]"), cutoff => 1
 
 
         <h4>Negation</h4>
@@ -180,11 +180,11 @@
           prepending the equal sign or the whole expression with an exclamation
           mark.</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[pos!="ADJA"]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_neg1', '[pos!="ADJA"] "Haare"'), cutoff => 1
 
 
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[!pos="ADJA"]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_neg2', '[!pos="ADJA"] "Haare"'), cutoff => 1
 
 
         <blockquote class="warning">
@@ -195,7 +195,7 @@
         <p>A special segment is the empty segment, that matches every word in
           the index.</p>
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_empseq', '[]'), cutoff => 1
 
 
         <p>Empty segments are useful to express distances of words by using 
@@ -213,7 +213,7 @@
           specific syntax in different contexts. When used in complex segments,
           they need to be searched by using angular brackets :
           
-          %= doc_query cqp => loc('Q_cqp_xxxxx', '<corenlp/c=NP>'), cutoff => 1  
+          %= doc_query cqp => loc('Q_cqp_spansegm', '<corenlp/c=NP>'), cutoff => 1  
           
           Some spans such as <code>s</code> are special keywords that can be 
           used without angular brackets, as operands of specific functional
@@ -270,7 +270,7 @@
         brackets. Be aware of the <%= ext_link_to "De
       Morgan's Laws", "https://en.wikipedia.org/wiki/De_Morgan%27s_laws" %> when you design your queries: the following query
         
-  %= doc_query cqp => loc('Q_cqp_xxxxx', '[(!(base="laufen" | base="gehen")) & (tt/pos="VVFIN=")]'), cutoff => 1
+  %= doc_query cqp => loc('Q_cqp_xxxxx', '[(!(base="laufen" | base="gehen")) & (tt/pos="VVFIN")]'), cutoff => 1
 
 
         <a>is logically equivalent to:</a>
@@ -316,20 +316,17 @@
           segments in a specific position in a bigger structure like a noun
           phrase or a sentence.</p>
         <p>To search for a word at the beginning of a sentence (or a syntactic
-          group), the following queries are equivalent:</p>
+          group), the following queries are equivalent.
         <ul>
-          <li>queries 
+          <li> 
+          The queries both match the word "Der" when positioned as a first word in a sentence:
           %= doc_query cqp => loc('Q_cqp_xxxxx', '<base/s=s>[orth="Der"]'), cutoff => 1 
-           and 
-           %= doc_query cqp => loc('Q_cqp_xxxxx','<s>[orth="Der"]'), cutoff => 1 
-           &nbsp; both match the word "Der" when
-            positioned as a first word in a sentence; </li>
-          <li>queries
+          %= doc_query cqp => loc('Q_cqp_xxxxx','<s>[orth="Der"]'), cutoff => 1 
+          </li>
+          <li>The queries both match the word "Der" when positioned after the end of a sentence:
           %= doc_query cqp => loc('Q_cqp_xxxxx','</base/s=s>[orth="Der"]'), cutoff => 1 
-          and 
           %= doc_query cqp => loc('Q_cqp_xxxxx','</s>[orth="Der"]'), cutoff => 1 
-          both match the word "Der" when positioned
-            after the end of a sentence;</li>
+        </li>
         </ul>
         To search for a word at the end of a sentence (or a syntactic group),
         you can use:<br>
@@ -351,12 +348,501 @@
         <blockquote class="warning">
         <p>Beware that when searching for longer sequences, sentence boundaries may be crossed. </p>
         </blockquote>
-        <ul>
-          <li>Because of the long sequence of empty tokens
-            in the query (minimum 20, maximum 25), sequences where "für" can be
-            in a previous sentence can also be matched</li>
+        <p> In the following example, sequences where "für" occurs in a previous 
+            sentence may also be matched, because of the long sequence of empty 
+            tokens in the query (minimum 20, maximum 25).
+        </p>    
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '"für" []{20,25} "uns"</s>'), cutoff => 1
+        
+        
+        <p>To search for a sequence of words inside the sentence/syntactic group,
+           without crossing the region boundaries, you can:
+        </p>   
+        <ol>
+          <li>specify both the beginning and closing region tag:<br>
+            <ul>
+              <li>
+                matches a sentence that contains the sequence "Der" "Mann" in
+                any position except the first or the last in the sentence;</li>
+                
+                %= doc_query cqp => loc('Q_cqp_xxxxx', '<base/s=s>[]+[orth="der"][orth="Mann"][]+</base/s=s>'), cutoff => 1
+                
+              <li>
+                matches a sentence that contains the sequence "Der" "Mann" in
+                any position;</li>
+                
+                %= doc_query cqp => loc('Q_cqp_xxxxx', '<base/s=s>[]*[orth="der"][orth="Mann"][]*</base/s=s>'), cutoff => 1
+                
+              <li>
+                matches the exact sentence "der" "Mann"; </li>
+                
+                %= doc_query cqp => loc('Q_cqp_xxxxx', '<base/s=s>[orth="der"][orth="Mann"]</base/s=s>'), cutoff => 1
+            </ul>
+          </li>
+          <li>use the <code>within</code> operator: </li>
+          <ul>
+            <li>the following queries return the same results</li>
+              %= doc_query cqp => loc('Q_cqp_xxxxx', '<base/s=s>[]+[orth="der"][orth="Mann"][]+</base/s=s>'), cutoff => 1
+              %= doc_query cqp => loc('Q_cqp_xxxxx', '"der" "Mann" within s'), cutoff => 1
+              %= doc_query cqp => loc('Q_cqp_xxxxx', '"der" "Mann" within <base/s=s>'), cutoff => 1
+              
+            <li>other examples:</li>
             
-            %= doc_query cqp => loc('Q_cqp_xxxxx', '"für" []{20,25} "uns"</s>'), cutoff => 1
+            %# Serialization bug: https://github.com/KorAP/Koral/issues/179
+            %# = doc_query cqp => loc('Q_cqp_xxxxx', '[tt/p="NN"] within <corenlp/c=NP>'), cutoff => 1
+            
+            %= doc_query cqp => loc('Q_cqp_xxxxx', '<corenlp/c=NP> "der" []+ </corenlp/c=NP> within s;'), cutoff => 1 
+          </ul>
+        </ol>
+        <blockquote class="warning">
+          <p>Beware: </p>
+          <ol>
+            <li>imbricated regions can be matched if all open region tags are
+              correctly closed; For instance: the following query is recognised by
+              our CQP implementation  
+            </li>    
+            
+            %= doc_query cqp => loc('Q_cqp_xxxxx', ' <s>[]+ <corenlp/c=NP> "der" "Mann"</corenlp/c=NP></s>'), cutoff => 1
+            <p> but the query below not!
+            </p>    
+            
+            %= doc_query cqp => loc('Q_cqp_xxxxx', '<s>[]+<corenlp/c=NP> "der" "Mann"</corenlp/c=NP>'), cutoff => 1
+            
+            <li>the following query matches
+              sentences that start with an np that is followed by the word
+              "der"; </li>
+            
+            %= doc_query cqp => loc('Q_cqp_xxxxx', '<s><corenlp/c=NP> "der"'), cutoff => 1
+              
+              <p>
+              it does not, as expected, match sentences
+              that start with an np that starts with the word "der";&nbsp; to
+              obtain such results, you need a query like:</p> 
+              
+              %= doc_query cqp => loc('Q_cqp_xxxxx', '<s><corenlp/c=NP> "der"[]+</corenlp/c=NP>[]+</s>'), cutoff => 1
+          </ol>
+        </blockquote>
+        
+        <p>
+        <code>/region</code> is a macro that matches a region. For instance, 
+        </p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '/region[s]'), cutoff => 1
+        
+        <p>
+        is a query equivalent to 
+        </p>
+          
+        %# EM: omitted since []* not supported in position operations.
+         
+        %#= doc_query cqp => loc('Q_cqp_xxxxx', '<s> []* </s>'), cutoff => 1
+        
+        %# <p> which can also be simplified as</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '<s>'), cutoff => 1
+        
+      %# EM </section>
+      
+        <p><code>lbound</code> and <code>rbound</code> are functions that match the
+           accompanying segment at the start or end of a region, for instance: 
+        </p>
+      
+      
+      %# EM redundant: <section id="syntagmatic-operators">
+      
+        <ul>
+          <li> Match at the start of a region </li>
+          
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '[(pos = "VVIMP") & lbound(s)]'), cutoff => 1
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '<s> [pos="VVIMP"];'), cutoff => 1
+          
+          <li> Match at the end of a region</li>
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '[(pos = "VVIMP") & rbound(s)]'), cutoff => 1
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '[pos="VVIMP"]</s>;'), cutoff => 1
+        </ul>
+        
+        <p>In the context of functional operators (like <code>within</code>, <code>lbound</code>,
+            <code>rbound</code>, <code>/region</code>), region labels (like <code>s</code>)
+          are interepreted as atomic spans and there is no need (but it is
+          allowed) to use XML-like syntax. For example, the query 
+        </p>
+          
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '/region[s]'), cutoff => 1
+          
+          
+        <p>could be written like</p>
+          
+        %= doc_query cqp => loc('Q_cqp_xxxxx','/region[<s>]'), cutoff => 1
+          
+        <p>or</p>
+          
+        %= doc_query cqp => loc('Q_cqp_xxxxx','/region[<base/s=s>]'), cutoff => 1 
+          
+        <p>where <code>base</code> is the foundry and <code>s</code> is the annotation 
+          layer where the <code>s</code> label can be found.</p>
+          
+        <h4>Alternation</h4>
+        <p>Alternations allow for searching alternative segments or sequences of
+          segments, similar to the paradigmatic operator. You already have seen
+          that you can search for a sequence with an alternative adjective in
+          between by typing in:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '"der" [orth="alte" | orth="junge"] ""Mann"'), cutoff => 1
+
+
+        <p>However, this formulation has problems in case you want to search for
+          alternations of sequences rather than terms. In this case you can use
+          syntagmatic alternations and groups:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '("dem" "jungen" | "der" "alte") "Mann"'), cutoff => 1
+
+
+        <p>The pipe symbol works the same way as with the paradigmatic
+          alternation, but supports sequences of different length as operands.
+          The above query with an alternative adjective in a sequence can
+          therefore be reformulated as:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '"der" ("junge" | "alte") "Mann"'), cutoff => 1
+
+
+        <h4 id="syntagmatic-operators-repetitions">Repetition</h4>
+        <p>Repetitions in CQP are realized as in  <%= embedded_link_to 'doc', 'regular
+            expressions', 'ql', 'regexp'%>, by giving quantifiers in curly brackets.</p>
+        <p>To search for a sequence of three occurrences of a defined string,
+          you can formulate your query in any of the following ways - they will
+          have the same results:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '"der" "der" "der"'), cutoff => 1
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '"der"{3}'), cutoff => 1
+
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[orth="der"]{3}'), cutoff => 1
+
+
+        <p>In difference to regular expressions, the repetition operation won't
+          refer to the match but to the pattern given. So the following query
+          will give you a sequence of three words with a defined substring - but
+          the words don't have to be identical.</p>
+        
+       %# EM: original query "la.*?"%c{3}  
+       %= doc_query cqp => loc('Q_cqp_xxxxx', '"wa.*?"{3}'), cutoff => 1
+
+
+        <p>The same is true for annotations. The following query will find a
+          sequence of 3 to 4 adjectives in a defined context. The adjectives do
+          not have to be identical though.</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="ein"][tt/p="ADJA"]{3,4}[corenlp/p="NN"]'), cutoff => 1
+
+
+        <p>In addition to numbered quantities, it is also possible to pass
+          repetition information as Kleene operators <code>?</code>, <code>*</code>,
+          and <code>+</code>.</p>
+        <p>To search for a sequence with an optional segment, you can search
+          for:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][tt/pos="ADJA"]?[base="Baum"]'), cutoff => 1
+
+
+        <p>This query is identical to the numbered quantification of:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][tt/pos="ADJA"]{,1}[base="Baum"]'), cutoff => 1
+
+
+        <p>To search for the same sequences but with unlimited adjectives in
+          between, you can use the Kleene Star:</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][tt/pos="ADJA"]*[base="Baum"]'), cutoff => 1
+
+
+        <p>And to search for this sequence but with at least one adjective in
+          between, you can use the Kleene Plus (all queries are identical):</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][tt/pos="ADJA"]+[base="Baum"]'), cutoff => 1
+
+
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][tt/pos="ADJA"]{1,}[base="Baum"]'), cutoff => 1
+
+
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][tt/pos="ADJA"][tt/pos="ADJA"]*[base="Baum"]'), cutoff => 1
+
+
+        <blockquote class="warning">
+          <p>Repetition operators like <code>{,n}</code>, <code>?</code>, and
+            <code>*</code> make segments or groups of segments optional. In case
+            these queries are used separated and not as part of a sequence (and
+            there are no mandatory segments in the query), you will be warned by
+            the system that your query won't be treated as optional.</p>
+          <p>Keep in mind that optionality may be somehow <em>inherited</em>,
+            for example an entire query becomes optional as soon as one segment
+            of an alternation is optional.</p>
+        </blockquote>
+        <p>Repetition can also be used to express distances between segments by
+           using  <%= embedded_link_to 'doc', 'empty segments', 'ql', 'poliqarp-plus#empty-segments'%>.</p>
+        
+        %# EM added
+        <p>One token distance</p>
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][][base="Baum"]'), cutoff => 1
+
+        %# EM added
+        <p>Two token distance</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][]{2}[base="Baum"]'), cutoff => 1
+
+        %# EM added
+        <p>At least two token distance in a sentence</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '<s>[base="die"][]{2,}[base="Baum"]</s>'), cutoff => 1
+
+        %# EM added
+        <p>Maximum 3 token distance</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][]{,3}[base="Baum"]'), cutoff => 1
+
+
+        <p>Of course, Kleene operators can be used with empty segments as well.</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '[base="die"][]?[base="Baum"]'), cutoff => 1
+
+
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '<s>[base="die"][]*[base="Baum"]</s>'), cutoff => 1
+
+
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', '<s>[base="die"][]+[base="Baum"]</s>'), cutoff => 1
+
+
+      </section>
+      <section id="class-operators">
+        <h3>Anchor Points
+        %# Elena: instead of class operators?
+        </h3>
+        <p>The matches that represent the results of a specific query are
+          associated with two anchor points marking the first and the last token
+          in each match: <code>match</code> for the corpus position of the
+          first token, and <code>matchend</code> for the corpus position of
+          the last token.</p>
+        <p>Additional anchor points can be set by the user to refer to
+          submatches in a query, similar to captures in regular expressions.
+          They are mostly used for highlighting specific tokens in the match:</p>
+        <ul>
+          <li><code>target</code>: marked by prepending a token with <code>@</code>
+            and shown as underlined with a red line in KWIC display</li> 
+          %# Elena: it was underlined and bold respectively
+          %#    in CQP tutorial, but i checked with our test instance and adapted
+          %#    accordingly) 
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '"im" @[pos="ADJA"] [base="Falle"]'), cutoff => 1
+            
+          <li><code>keyword</code>: marked by prepending a token with <code>@1</code>
+            and underlined with a blue line in KWIC display</li>
+          
+          %# "im" @[pos="DT"] @1[pos="J.*"]? [base="Falle"]
+          %= doc_query cqp => loc('Q_cqp_xxxxx', '"im" @[pos="ADJA"] @1[pos="NE"]'), cutoff => 1
             
         </ul>
+        <h4>Match Modification (meet operator)</h4>
+        <p>Using anchor points does not modify the match per se, but only
+          highlights specific submatches. Matches can be modified by using the <code>meet</code>
+          operator in the <code>MU</code> macro. For example, to match only the
+          word <code>"im"</code> in the expression <code>"im Falle"</code>,
+          you can use the query:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet "im" "Falle" 1 1);'), cutoff => 1
+
+
+        <p>and to match only the word <code>"Falle"</code> in the same
+          expression you can use the query:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet "Falle" "im" -1 -1);'), cutoff => 1
+
+
+        <p>The syntax of the meet operator specifies that the match is
+          restricted to its first argument: <code>"im"</code> for the first
+          example and <code>"Falle"</code> for the second example. </p>
+        <p>The numeric last two arguments of <code>meet</code> specify the
+          window of occurence of the two first arguments: a query of the form <code>MU(meet
+            token1 token2 n1 n2)</code>, where <code>n1</code> and <code>n2</code>
+          are integers, means that <code>token2</code> can appear in a window
+          starting at offset <code>n1</code> and ending at offset <code>n2</code>;
+          if <code>n1=n2</code>, <code>token2</code> has to appear in a strict
+          position and not in a window. </p>
+        <p>The negative numbers specify the window or strict position to the
+          left of <code>token1</code> (<code>token2</code>precedes <code>token1</code>),
+          while the positive ones specify the position of <code>token2</code>
+          to the right of <code>token1</code> (<code>token2</code> follows<code>
+            token1</code>). </p>
+        <p>E.g.: <code>"1" "1"</code> means the second argument directly
+          follows the first arguments while <code>-1 -1</code> means the second
+          argument actually precedes the first one. In this manner, by setting <code>"Falle"</code>
+          as the first argument of <code>meet</code> and using negative integer
+          arguments for specifying the distance, we can change the focus of the
+          match in the <code>"im Falle"</code> expression from <code>"im"</code>
+          to <code>"Falle"</code>.</p>
+ 
+  %#EM the following examples throws error 100 as described in Krill issue
+  %# https://github.com/KorAP/Krill/issues/125
+  
+  %#      <p>If you want to allow <code>token2</code> to be anywhere in front or
+  %#        after <code>token1</code> at a specified maximum distance, you can
+  %#        define a query like:</p>
+        
+  %# = doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet "Falle" "im" -2 2);'), cutoff => 1
+
+  %#       <p>or like:</p>
+        
+  %# = doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet "Falle" "im" -1 3);'), cutoff => 1
+
+
+  %#EM not supported
+  %#      <p>But to focus on a submatch is way more useful if you are searching
+  %#        for matches without knowing the surface form. For example, to find all
+  %#        terms following a word that follows the word <code>"im"</code> you
+  %#        can search:</p>
+        
+  %# = doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet ".+" "im" -2 -2);'), cutoff => 1
+
+
+  %# EM: move this paragraph below the query example because the example aboves are omitted.
+  
+  %#      <p>Offsets <code>-2</code> mean that the matched word is at 2-words
+  %#        distance and changes the order of occurrence for the two query terms.
+  %#        Only the tokens in that exact position will be matched and
+  %#        highlighted.</p>
+  
+        <p>Maybe, for example, you would like to find all nouns that co-occur with the
+          adjective <code>"schön"</code>, within two tokens to the left (window
+          starting at offset <code>"-2"</code>) or right (window ending at
+          offset <code>"+2"</code>):</p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet [tt/p="NN"] [base = "schön"] -2 2)'), cutoff => 1
+
+        <p>Offsets <code>-2</code> mean that the matched word is at 2-words
+          distance and changes the order of occurrence for the two query terms.
+          Only the tokens in that exact position will be matched and
+          highlighted.</p>
+  
+
+        <p>If you look only for structures where the adjective is prenominal,
+          you need to change the window to, let's say, three tokens preceding
+          the noun (e.g., offsets <code>-3</code> and <code>-1</code>):</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet [tt/p="NN"] [base = "schön"] -3 -1);'), cutoff => 1
+
+
+        <p>If you are looking for the same pattern, but you want the match to
+          focus on the adjective, you need to change the ordering and adjust the
+          offsets accordingly:</p>
+        
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet [base = "schön"] [tt/p="NN"] 1 3);'), cutoff => 1
+
+
+        <p>Because the first two arguments of the meet operator can themselves
+          be meet operators, you can use them to look for sequences of three or
+          four tokens:</p>
+        <ul>
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "zu" "gegebener" 1 1) "Zeit" 2 2);'), cutoff => 1
+
+
+            can be used to look for the trigram "zu gegebener Zeit"; the inner
+            clause states that "gegebener" must follow "zu, while the second
+            clause states that "Zeit" has to be at offset +2 from the focus of
+            the inner clause, which is "zu"</li>
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet "zu" (meet "gegebener" "Zeit" 1 1) 1 1);'), cutoff => 1
+
+
+            the result of this query is the same as the previous one; the focus
+            of the inner clause, "gegebener", must directly follow the focus of
+            the outer clause, "zu".</li>
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "Zeit" "gegebener" -1 -1) "zu" -2 -2);'), cutoff => 1
+
+
+            the focus of a match of a recurrent meet operator is always the
+            leftmost token, which is "zu" in the previous queries; this query
+            moves the focus on "Zeist" and keeps the token order.</li>
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "zu" "einer" 1 1) (meet "bestimmten" "Zeit" 1 1) 2 2);'), cutoff => 1
+
+
+            the two inner queries have their focus on "zu" and "bestimmten"
+            respectively, thefore the offsets (2, 2) refer to the position of
+            "bestimmten" in relation to "zu";</li>
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "zu" "einer" 1 1) (meet "bestimmten" "Zeit" 1 1) 2 2);'), cutoff => 1
+
+
+            zu einer vorher bestimmten Zeit</li>
+        </ul>
+        <p>Meet operator can also be used for looking for co-ocurencies in
+          specific regions (sentences or syntactic phrases) with an alternative
+          syntax for the operator: <code>MU(meet token1 token2 region)</code></p>
+        <ul>
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet "im"%c "falle"%c s);'), cutoff => 1
+
+
+          </li>
+          finds case insensitive occurences of "im" and "falle" in the same
+          sentence, whatever the distance between them or the order in the
+          sentence;
+          <li>
+            
+  %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "weiße" "Katze" 1 1) (meet "schwarze" "Katze" 1 1) s);'), cutoff => 1
+
+	
+            finds occurences of "weiße Katze" and "schwarze Katze" in the same
+            sentence, returning only the position of "weiße".</li>
+        </ul>
+        <blockquote class="warning">
+          <p>Beware: </p>
+          <ol>
+            <li>The numerical offsets cannot be 0 and computing the distance
+              between terms starts from 1: 1 and -1 signify there is no word
+              between the meet terms, 2 and -2 signify there is exactly one word
+              between the terms, and so on and so forth.</li>
+            <li>Imbrication of meet queries is limited and not stable.
+              Imbricated queries with unequal offsets are not supported.
+              Imbricated queries with equal offsets is supported but restricted
+              to some conditions on the offsets values; error messages will be
+              thrown if the values are incompatible in the sense that certain
+              distance values (depending also on the ordering configuration) may
+              cause sequences of tokens to intercalate. 
+            </li>
+          </ol>
+        </blockquote>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "weiße" "Katze" 2 2) "schwarze" 1 1);'), cutoff => 1
+        
+        %# In the query: <code>MU(meet
+        %# (meet "</code><code>weiße</code><code></code><code>" "Katze" 2
+        %# 2) "</code><code>schwarze</code><code></code><code>" 1 1);</code>,
+                
+        <p>The logical interpretation of the query above would be that "weiße"
+           and "Katze are separated by a token (as specified by the
+           inner meet query) and this word has to be "schwarze" as
+           inforced by outer meet (the zero-distance between the first term
+           of the inner meet "weiße" and the token "schwarze").
+           Dealing with this kind of intercalation is not yet implemented in
+           our version of CQP. In this cases, we suggest rewritting the query
+           in a simpler and supported way. This following query is equivalent 
+           the unsupported query above.
+        </p>
+        
+        %= doc_query cqp => loc('Q_cqp_xxxxx', 'MU(meet (meet "weiße" "schwarze" 1 1) "Katze" 2 2);'), cutoff => 1
+        
+        %# <code>MU(meet (meet "</code><code>weiße</code><code></code><code>"
+        %#        "</code><code><code></code><code>schwarze</code>" 1 1) "</code><code>Katze</code><code>"
+        %#        2 2);</code> 
       </section>
