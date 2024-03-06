@@ -195,6 +195,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f978bc7e_ccb2bb21",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T08:46:26Z",
+      "side": 1,
+      "message": "These will be handled in the next tutorial part.\nhttps://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/8289",
+      "parentUuid": "ab45bdee_3144a5c5",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8823625c_65071ed3",
@@ -226,6 +244,24 @@
       "side": 1,
       "message": "Then better use %# - otherwise it will be in the HTML sources.",
       "parentUuid": "8823625c_65071ed3",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "013b9afa_7d35ecdc",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T08:46:26Z",
+      "side": 1,
+      "message": "Added in the next tutorial part.",
+      "parentUuid": "def2053a_6f7bf5c0",
       "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
@@ -297,6 +333,24 @@
       "side": 1,
       "message": "Ok, Thanks. I will remove it.",
       "parentUuid": "344657f8_af8c6c5c",
+      "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7962892_b350ddc9",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T08:46:26Z",
+      "side": 1,
+      "message": "I guess that was comments from Elena. We should remove them in the next tutorial part.\n\nhttps://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/8289",
+      "parentUuid": "0e4c68a9_30ce25cb",
       "revId": "bd92bc79dcfde0d8c55a45414245f9811107e11d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }

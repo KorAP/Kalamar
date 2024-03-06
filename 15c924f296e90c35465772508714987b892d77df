@@ -104,6 +104,30 @@
       },
       "revId": "15c924f296e90c35465772508714987b892d77df",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88798210_0eadd9bd",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 12
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T08:46:26Z",
+      "side": 1,
+      "message": "Added in the next tutorial part.",
+      "parentUuid": "6a11a037_231ca02b",
+      "range": {
+        "startLine": 453,
+        "startChar": 11,
+        "endLine": 454,
+        "endChar": 55
+      },
+      "revId": "15c924f296e90c35465772508714987b892d77df",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "b1bf781ad7afcd26941598ad191a8750238a61dd",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa869e9f_bd6d6258",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T08:46:26Z",
+      "side": 1,
+      "message": "Rewritten.",
+      "parentUuid": "87cdf31c_c524a4f3",
+      "range": {
+        "startLine": 213,
+        "startChar": 34,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "b1bf781ad7afcd26941598ad191a8750238a61dd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
