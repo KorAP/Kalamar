@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5617085b_a50e5f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T09:05:20Z",
+      "side": 1,
+      "message": "Added from the previous tutorial part.\nhttps://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/7632",
+      "revId": "b5b3b7dfafff5840cc6f49a1e5cda9a6fd93f8b3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a29fd4ef_ee1c0d1f",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T09:05:20Z",
+      "side": 1,
+      "message": "I don\u0027t really get what Elena means here. Can anyone rewrite this?",
+      "range": {
+        "startLine": 477,
+        "startChar": 11,
+        "endLine": 478,
+        "endChar": 54
+      },
+      "revId": "b5b3b7dfafff5840cc6f49a1e5cda9a6fd93f8b3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a0cf58_c0b32a20",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T09:05:20Z",
+      "side": 1,
+      "message": "Helge said: I commented it out because it should not been seen by the user. But it should be read and discussed from someone with CQP knowledge ( not me ;)).\n\nNils said: Then better use %# - otherwise it will be in the HTML sources.",
+      "range": {
+        "startLine": 570,
+        "startChar": 8,
+        "endLine": 570,
+        "endChar": 83
+      },
+      "revId": "b5b3b7dfafff5840cc6f49a1e5cda9a6fd93f8b3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
