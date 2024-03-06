@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf8ce785_3ab8b075",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T09:42:10Z",
+      "side": 1,
+      "message": "I have reviewed until Anchor Points so far.",
+      "revId": "e7e29a0b8f088c5b42bf58894bde9d977c83d1c3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
