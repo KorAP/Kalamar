@@ -62,6 +62,30 @@
       },
       "revId": "b5b3b7dfafff5840cc6f49a1e5cda9a6fd93f8b3",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed686a8_93fb3ea8",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-06T09:47:36Z",
+      "side": 1,
+      "message": "I have checked the CQP documentation and there are indeed anchor points that are similar to our class operators.\n\nI have changed the HTML comment as Nils suggested.",
+      "parentUuid": "15a0cf58_c0b32a20",
+      "range": {
+        "startLine": 570,
+        "startChar": 8,
+        "endLine": 570,
+        "endChar": 83
+      },
+      "revId": "b5b3b7dfafff5840cc6f49a1e5cda9a6fd93f8b3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
