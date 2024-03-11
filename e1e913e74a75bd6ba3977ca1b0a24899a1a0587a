@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12f4219a_c94eba96",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-11T13:19:32Z",
+      "side": 1,
+      "message": "These examples throws a warning:\n\n\"warnings\": [\n    [\n      782,\n      \"Exclusivity of query is ignored\"\n    ]\n\nShould we give the examples in sequence queries instead? Or one of them?\nFor instance:\n\n[pos!\u003d\"ADJA\"] \"Haare\"",
+      "range": {
+        "startLine": 183,
+        "startChar": 1,
+        "endLine": 187,
+        "endChar": 70
+      },
+      "revId": "e1e913e74a75bd6ba3977ca1b0a24899a1a0587a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
