@@ -1,11 +1,13 @@
-0.53 2024-02-19
+0.53 2024-02-27
         - Solve a potential timing issue in VC rendering. (diewald)
+        - Update DeReKo link in corpus specific localization. (hebasta)
 
 0.52 2023-11-29
         - Update Piwik dependency to point to matomo.js. (diewald)
         - Add addon to title and description. (diewald)
         - Improve Dockerfile to enable docker-slim. (diewald)
         - Introduce maintenance tag helper. (diewald)
+        - Fix: Remembers the last position in the tutorial. (hebasta)
 
 0.51 2023-09-27
         - Support defined log file in configuration. (diewald)
@@ -19,7 +21,7 @@
         - Update information regarding CSP in conf (diewald)
         - Support NKJP named entities in annotation helper
           (diewald)
-	- Marketplace to install and uninstall plugins (hebasta)
+        - Marketplace to install and uninstall plugins (hebasta)
 
 0.50 2023-05-08
         - Improvement of NKJP-annotation helper. (diewald)
