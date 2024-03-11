@@ -110,6 +110,13 @@ You may change that endpoint to the KorAP API provider in the configuration
 (see [Kustvakt](https://github.com/KorAP/Kustvakt) for further information)
 or by using the environment variable `KALAMAR_API`.
 
+If the endpoint is remote and requires SSL support, like the default endpoint,
+you have to install SSL support in addition:
+
+```
+$ cpanm IO::Socket::SSL
+```
+
 ## Updates
 
 To update Kalamar, just run
