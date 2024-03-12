@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e99ae4_f7d386ce",
+        "filename": "kalamar.queries.dict",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-12T10:57:26Z",
+      "side": 1,
+      "message": "The key is not correct. it should be \u0027tense\u0027",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 53
+      },
+      "revId": "10b0d13f114b0a52105bb8b55d61a50e64d9fa88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
