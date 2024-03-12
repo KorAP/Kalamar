@@ -22,6 +22,30 @@
       },
       "revId": "e1e913e74a75bd6ba3977ca1b0a24899a1a0587a",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ef6a57_4694fe90",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-12T10:54:37Z",
+      "side": 1,
+      "message": "Is resolved in Patch 23.",
+      "parentUuid": "12f4219a_c94eba96",
+      "range": {
+        "startLine": 183,
+        "startChar": 1,
+        "endLine": 187,
+        "endChar": 70
+      },
+      "revId": "e1e913e74a75bd6ba3977ca1b0a24899a1a0587a",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
