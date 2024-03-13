@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1361cfe3_3c7dccc6",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-13T12:06:59Z",
+      "side": 1,
+      "message": "This query returns error with code 100 and message null/unknown. An issue about that has been posted in Koral Github page.\n\nhttps://github.com/KorAP/Koral/issues/182",
+      "range": {
+        "startLine": 416,
+        "startChar": 52,
+        "endLine": 416,
+        "endChar": 75
+      },
+      "revId": "35dce3eda8ea0fbfe4da7e10c506129b227c04b7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
