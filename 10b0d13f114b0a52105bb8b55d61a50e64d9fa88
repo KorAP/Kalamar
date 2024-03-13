@@ -46,6 +46,30 @@
       },
       "revId": "10b0d13f114b0a52105bb8b55d61a50e64d9fa88",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1905585d_72d0e72c",
+        "filename": "kalamar.queries.dict",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-13T16:32:21Z",
+      "side": 1,
+      "message": "You changed it back to \u0027temp\u0027 in Patch 26. I thought that might be a mistake so I changed it to \u0027tense\u0027  again in Patch 27. Or was that by purpose?",
+      "parentUuid": "c59e4522_7e386aaf",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 53
+      },
+      "revId": "10b0d13f114b0a52105bb8b55d61a50e64d9fa88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
