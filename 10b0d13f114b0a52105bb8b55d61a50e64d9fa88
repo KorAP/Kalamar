@@ -70,6 +70,30 @@
       },
       "revId": "10b0d13f114b0a52105bb8b55d61a50e64d9fa88",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d0d728_f8b2bb73",
+        "filename": "kalamar.queries.dict",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-13T16:41:35Z",
+      "side": 1,
+      "message": "No that was a mistake. Thanks Helge!",
+      "parentUuid": "1905585d_72d0e72c",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 53
+      },
+      "revId": "10b0d13f114b0a52105bb8b55d61a50e64d9fa88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
