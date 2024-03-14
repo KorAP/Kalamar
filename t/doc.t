@@ -12,7 +12,17 @@ my $t = Test::Mojo->new('Kalamar' => {
 
 # Bug 2021-06-11
 $t->get_ok('/doc/ql/wildcards?cat=1')
-  ->status_is(404)
+  ->status_is(404) # ! Should be 404!
+  ;
+
+$t->get_ok('/doc/ql/')
+  ->status_is(200)
+  ->text_is('title','KorAP: Query Languages')
+  ;
+
+$t->get_ok('/doc/ql')
+  ->status_is(200)
+  ->text_is('title','KorAP: Query Languages')
   ;
 
 # Embedding
@@ -46,6 +56,16 @@ $t->get_ok('/' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
   ->text_is("title", "KorAP - Corpus Analysis Platform");
 
+$t->get_ok('/doc/ql/' => { 'Accept-Language' => 'de-DE, en-US, en' })
+  ->status_is(200)
+  ->text_is('title','KorAP: Anfragesprachen')
+  ->text_is('h3','Beispielanfragen')
+  ;
+
+$t->get_ok('/doc/ql' => { 'Accept-Language' => 'de-DE, en-US, en' })
+  ->status_is(200)
+  ->text_is('title','KorAP: Anfragesprachen')
+  ;
 
 # Pages
 $t->get_ok('/doc/ql/poliqarp-plus' => { 'Accept-Language' => 'en-US, en, de-DE' })

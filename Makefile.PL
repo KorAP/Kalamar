@@ -42,7 +42,7 @@ WriteMakefile(
     'Mojolicious::Plugin::Piwik' => 2.00,
 
     # Currently on GitHub only (github.com/akron)
-    'Mojolicious::Plugin::Localize' => 0.21
+    'Mojolicious::Plugin::Localize' => 0.22
   },
 
   META_MERGE   => {

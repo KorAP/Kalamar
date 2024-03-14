@@ -1,0 +1,48 @@
+% layout 'main', title => 'KorAP: ' . loc('Nav_ql');
+
+%= page_title
+
+<p>
+  KorAP bietet für die Recherche mehrere Anfragesprachen an, wobei <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %>
+  derzeit die beste Unterstützung aufweist.
+  Poliqarp ist den Anfragesprachen der
+  <%= ext_link_to 'IMS Open Corpus Workbench (CWB)', "http://cwb.sourceforge.net/" %> und der
+  <%= ext_link_to 'SketchEngine', "https://www.sketchengine.eu/documentation/corpus-querying/" %> sehr ähnlich.
+  Die Sprache wurde ursprünglich für das
+  <%= ext_link_to 'Polnische National Korpus', "http://nkjp.pl/poliqarp/" %> entwickelt.
+</p>
+
+<section id="examples">
+  <h3>Beispielanfragen</h3>
+  
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Finde alle Vorkommen des Lemmas &quot;Baum&quot; (annotiert durch die <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>).</p>
+  %= doc_query poliqarp => '[base=Baum]'
+
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Finde Adjektiv-Sequenzen (annotiert durch Treetagger), die eine Länge zwischen 3 und 5 Elementen haben.</p>
+  %= doc_query poliqarp => '[tt/p=ADJA]{3,5}'
+
+  <p><strong><%= embedded_link_to 'doc', 'Cosmas-II', 'ql', 'cosmas-2' %></strong>: Finde alle Vorkommen des Wortes &quot;der&quot; und des Wortes &quot;Baum&quot;, die in einem Abstand von maximal 5 Token zueinander stehen, wobei die Reihenfolge irrelevant ist.</p>
+  %= doc_query cosmas2 => 'der /w5 Baum'
+
+%#  <p><strong><%= embedded_link_to 'doc', 'Cosmas-II', 'ql', 'cosmas-2' %></strong>: Finde alle Vorkommen einer Wortfolge, dessen erstes Wort ein Adjektiv ist (annotiert durch Marmot), gefolgt von dem Wort &quot;Baum&quot; (wobei die Groß-/Kleinschreibung ignoriert werden kann). Zusätzlich soll diese Wortfolge innerhalb eines Satzes stehen, wie er in der <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotiert wurde.</p>
+%#  <p><em>Bitte beachten</em>: Inkompatibilitäten von Anfragen mit anderen Systemen werden in Form von Warnungen ausgegeben.</p>
+%#  %= doc_query cosmas2 => 'MORPH(marmot/p=ADJA) $Baum #IN #ELEM(s)', cutoff => 1
+
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Finde alle Nominalphrasen (annotiert von CoreNLP), die ein Adverb (annotiert von OpenNLP) enthalten, das von Treetagger als Wortart annotiert wurde, welche mit einem &quot;A&qot; beginnen muss (ausgedrück durch einen regulären Ausdruck).</p>
+  %= doc_query poliqarp => 'contains(<corenlp/c=NP>,{[opennlp/p=ADV & tt/p="A.*"]})', cutoff => 1
+    
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Finde alle Sätze (wie sie von der base foundry annotiert wurde), die mit einer Wortfolge beginnen, die zunächst ein Wort im Präsens aufweist (annotiert durch Marmot) und von dem Lemma &quot;die&quot; (annotiert von der <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>) gefolgt wird. Hebe beide Trefferwörter in unterschiedlichen Farben hervor.</p>
+  %= doc_query poliqarp => 'startswith(<base/s=s>, {1:[marmot/m=tense:pres]}{2:[base=die]})', cutoff => 1
+
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Finde alle Wortfolgen eines Artikels, gefolgt von drei Adjektiven und einem Substantiv (alle annotiert von Treetagger), die einen Satz beenden (wie er in der base foundry definiert wurde). Hebe alle Teile der Wortfolge farblich hervor.</p>
+  %= doc_query poliqarp => 'focus(3:endswith(<base/s=s>,{3:[tt/p=ART]{1:{2:[tt/p=ADJA]{3,4}}[tt/p=NN]}}))', cutoff => 1
+
+  <p><strong><%= embedded_link_to 'doc', 'Annis', 'ql', 'annis' %></strong>: Finde alle Vorkommen zweier aufeinanderfolgender Adverben, wie sie von der <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %> annotiert wurden.</p>
+  %= doc_query annis => 'pos="ADV" & pos="ADV" & #1 . #2'
+
+  <p><strong><%= embedded_link_to 'doc', 'Annis', 'ql', 'annis' %></strong>: Finde alle Artikel, die von einem attributivem Possesivpronomen ausgehend (annotiert durch Treetagger) in einer Determiner-Relation (mit dem Label <code>DET</code> von Malt annotiert) stehen.</p>
+  %= doc_query annis => 'tt/p="PPOSAT" ->malt/d[func="DET"] node'
+
+  <p><strong><%= embedded_link_to 'doc', 'CQL', 'ql', 'cql' %></strong>: Finde alle Vorkommen der Wortfolge &quot;der alte Mann&quot;.</p>
+  %= doc_query cql => '"der alte Mann"'	
+</section>

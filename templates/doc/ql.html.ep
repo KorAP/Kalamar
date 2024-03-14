@@ -18,7 +18,7 @@
 <section id="examples">
   <h3>Example Queries</h3>
   
-  <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Find all occurrences of the lemma &quot;baum&quot; as annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>.</p>
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Find all occurrences of the lemma &quot;Baum&quot; as annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>.</p>
   %= doc_query poliqarp => '[base=Baum]'
 
   <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Find all sequences of adjectives as annotated by Treetagger, that are repeated 3 to 5 times in a row.</p>
@@ -27,9 +27,9 @@
   <p><strong><%= embedded_link_to 'doc', 'Cosmas-II', 'ql', 'cosmas-2' %></strong>: Find all occurrences of the words &quot;der&quot; and &quot;Baum&quot;, in case they are in a maximum distance of 5 tokens. The order is not relevant.</p>
   %= doc_query cosmas2 => 'der /w5 Baum'
 
-  <p><strong><%= embedded_link_to 'doc', 'Cosmas-II', 'ql', 'cosmas-2' %></strong>: Find all sequences of a word starting with a &quot;d&quot; (using a wildcard) followed by an adjective as annotated in the marmot foundry, followed by the word &quot;Baum&quot; (ignore the case), that is in a sentence element annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>.</p>
-  <p><em>Be aware</em>: Minor incompatibilities with implemented languages may be announced with warnings.</p>
-  %= doc_query cosmas2 => 'd* MORPH(marmot/p=ADJA) $Baum #IN #ELEM(s)'
+%#  <p><strong><%= embedded_link_to 'doc', 'Cosmas-II', 'ql', 'cosmas-2' %></strong>: Find all sequences of an adjective as annotated in the marmot foundry, followed by the word &quot;Baum&quot; (ignore the case), that is in a sentence element annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>.</p>
+%#  <p><em>Be aware</em>: Minor incompatibilities with implemented languages may be announced with warnings.</p>
+%#  %= doc_query cosmas2 => 'MORPH(marmot/p=ADJA) $Baum #IN #ELEM(s)', cutoff => 1
 
   <p><strong><%= embedded_link_to 'doc', 'Poliqarp+', 'ql', 'poliqarp-plus' %></strong>: Find all nominal phrases as annotated using CoreNLP, that contain an adverb as annotated by OpenNLP, that is annotated as something starting with an &quot;A&quot; using regular expressions in Treetagger.</p>
   %= doc_query poliqarp => 'contains(<corenlp/c=NP>,{[opennlp/p=ADV & tt/p="A.*"]})', cutoff => 1
