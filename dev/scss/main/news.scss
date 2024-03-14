@@ -3,6 +3,7 @@
 
 section#news {
   background-color: $ids-green-2;
+  -webkit-mix-blend-mode: normal; // Safari
   mix-blend-mode: soft-light;
   padding: 1em;
   padding-right: 2em;
