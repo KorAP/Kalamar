@@ -78,6 +78,7 @@ my $THOUSAND_SEP_RE = qr/(
       intro => 'de/intro',
       doc => {
         ql => {
+          '-ql' => 'de/doc/ql',
           'poliqarp-plus' => 'de/doc/ql/poliqarp-plus',
           'cosmas-2' => 'de/doc/ql/cosmas-2'
         },
@@ -207,6 +208,7 @@ my $THOUSAND_SEP_RE = qr/(
       intro => 'intro',
       doc => {
         ql => {
+          '-ql' => 'doc/ql',
           'poliqarp-plus' => 'doc/ql/poliqarp-plus',
           'cosmas-2' => 'doc/ql/cosmas-2'
         },
