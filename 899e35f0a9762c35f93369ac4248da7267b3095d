@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e6dcd5_cd81d009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-14T12:37:19Z",
+      "side": 1,
+      "message": "Can\u0027t judge. ¯\\_(ツ)_/¯",
+      "revId": "899e35f0a9762c35f93369ac4248da7267b3095d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
