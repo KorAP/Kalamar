@@ -1,7 +1,8 @@
-0.53 2024-02-27
+0.53 2024-03-14
         - Solve a potential timing issue in VC rendering. (diewald)
         - Update DeReKo link in corpus specific localization. (hebasta)
         - News and announcements are now displayed in Safari (fixes #208). (hebasta) 
+        - Translate example query documentation. (diewald)
 
 0.52 2023-11-29
         - Update Piwik dependency to point to matomo.js. (diewald)
