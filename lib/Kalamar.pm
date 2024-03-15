@@ -65,7 +65,7 @@ sub startup {
     }
 
     eval {
-      $secret_file->spurt(encode_json(@$secrets));
+      $secret_file->spew(encode_json(@$secrets));
       $secret_file->chmod(0600);
       if (-w $secret_file) {
         $self->log->warn(
