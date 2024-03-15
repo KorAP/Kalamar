@@ -1246,7 +1246,7 @@ $t->get_ok('/settings/oauth/jh0gfjhjbfdsgzjghj==')
 # Retest client with super_client_file
 my $client_file = tempfile;
 
-$client_file->spurt(
+$client_file->spew(
   '{"client_id":"2","client_secret":"k414m4r-s3cr3t"}'
 );
 

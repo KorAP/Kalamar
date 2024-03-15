@@ -8,7 +8,7 @@ my $t = Test::Mojo->new('Kalamar');
 
 my $temp = tempfile();
 
-$temp->spurt(<<SCRIPT);
+$temp->spew(<<SCRIPT);
 [{
   "name" : "Export",
   "desc" : "Exports Kalamar results",
