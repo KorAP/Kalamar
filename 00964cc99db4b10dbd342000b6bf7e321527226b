@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75f5c909_b49368b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-15T11:45:14Z",
+      "side": 1,
+      "message": "I have reviewed until the end. Problematic queries have been commented out.",
+      "revId": "00964cc99db4b10dbd342000b6bf7e321527226b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d4fecaf_fb7b22a7",
+        "filename": "templates/doc/ql/cqp.html.ep",
+        "patchSetId": 6
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-03-15T11:45:14Z",
+      "side": 1,
+      "message": "It seems that we don\u0027t support match and matchend keywords, so this is not so relevant. Maybe we can just commented out?",
+      "range": {
+        "startLine": 624,
+        "startChar": 8,
+        "endLine": 629,
+        "endChar": 21
+      },
+      "revId": "00964cc99db4b10dbd342000b6bf7e321527226b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
