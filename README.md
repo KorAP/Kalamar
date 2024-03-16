@@ -12,13 +12,13 @@ frontend for the [KorAP Corpus Analysis Platform](http://korap.ids-mannheim.de/)
 The easiest way to install and run Kalamar is using [Docker](https://www.docker.com/).
 
 ```shell
-$ docker pull korap/kalamar
+docker pull korap/kalamar
 ```
 
 Then start Kalamar listening on port `64543`.
 
 ```shell
-$ docker run --network host --name kalamar korap/kalamar
+docker run --network host --name kalamar korap/kalamar
 ```
 
 Kalamar will be available at `http://localhost:64543`.
@@ -31,7 +31,7 @@ regarding further information.
 To install the latest version of Kalamar, first fetch the resource ...
 
 ```shell
-$ git clone https://github.com/KorAP/Kalamar
+git clone https://github.com/KorAP/Kalamar
 ```
 
 ... and follow the steps below.
@@ -50,16 +50,16 @@ These tools may also be available with a package manager.
 You can check your version using
 
 ```shell
-$ npm -v
+npm -v
 ```
 
 Afterwards you can install the dependencies and run `grunt` to create the assets.
 
 ```shell
-$ cd Kalamar
-$ npm install -g grunt-cli
-$ npm install
-$ grunt
+cd Kalamar
+npm install -g grunt-cli
+npm install
+grunt
 ```
 
 Whenever the assets change, just rerun `npm install` and `grunt`.
@@ -79,7 +79,7 @@ The easiest way to do this is using
 This will probably need administration rights.
 
 ```shell
-$ cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
+cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
 ```
 
 Then install the dependencies using
@@ -88,10 +88,10 @@ Then install the dependencies using
 and run the test suite.
 
 ```shell
-$ cd Kalamar
-$ cpanm --installdeps .
-$ perl Makefile.PL
-$ make test
+cd Kalamar
+cpanm --installdeps .
+perl Makefile.PL
+make test
 ```
 
 Kalamar can be deployed like all
@@ -99,7 +99,7 @@ Kalamar can be deployed like all
 The easiest way is to start the built-in server:
 
 ```shell
-$ perl script/kalamar daemon
+perl script/kalamar daemon
 ```
 
 Kalamar will then be available at `localhost:3000` in your browser.
@@ -114,7 +114,7 @@ If the endpoint is remote and requires SSL support, like the default endpoint,
 you have to install SSL support in addition:
 
 ```
-$ cpanm IO::Socket::SSL
+cpanm IO::Socket::SSL
 ```
 
 ## Updates
@@ -122,10 +122,10 @@ $ cpanm IO::Socket::SSL
 To update Kalamar, just run
 
 ```shell
-$ git pull origin master
-$ cpanm --installdeps .
-$ npm install
-$ grunt
+git pull origin master
+cpanm --installdeps .
+npm install
+grunt
 ```
 
 And both the server and client dependencies should be up to date.
@@ -140,7 +140,7 @@ To start Kalamar with a derivative configuration, set the `MOJO_MODE`
 environment variable.
 
 ```shell
-$ MOJO_MODE=myconf perl script/kalamar daemon
+MOJO_MODE=myconf perl script/kalamar daemon
 ```
 
 Or in the windows command line with:
@@ -172,7 +172,7 @@ To create a localized version of Kalamar, start the `localize` command
 with the target locale as its argument, e.g. `pl` for polish.
 
 ```shell
-$ perl script/kalamar localize pl
+perl script/kalamar localize pl
 ```
 
 The newly defined dictionary file can then be modified and added to the resources
@@ -217,7 +217,6 @@ require([
 See `dev/js/src/hint/foundries` for
 more optional foundries.
 
-
 ### Customization
 
 The landing page can be customized by overriding the
@@ -231,7 +230,6 @@ Currently the documented sections are in
 `sidebar`, in the left part of the user interface if present,
 `headerButtonGroup`, in the right top part of the user interface,
 and `loginInfo`, below the login form if present.
-
 
 ### Plugins
 
@@ -247,6 +245,7 @@ via configuration file in an array
 ```
 
 Currently bundled plugins are
+
 - `Auth`: For integrating user management
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
 - `Piwik`: For integrating [Matomo/Piwik](https://matomo.org/).
@@ -263,14 +262,14 @@ Currently bundled plugins are
 Instead of running
 
 ```shell
-$ perl Makefile.PL
-$ make test
+perl Makefile.PL
+make test
 ```
 
 it is also possible to run the test suite using `prove`.
 
 ```shell
-$ prove -lr t
+prove -lr t
 ```
 
 ### Problem installing Crypt::Random::Source on Windows
@@ -283,7 +282,7 @@ You should be able to force install
 though this environment is not recommended for production:
 
 ```shell
-$ cpanm -f Crypt::Random::Source
+cpanm -f Crypt::Random::Source
 ```
 
 ### Problem installing Mojolicious::Plugin::MailException on Windows
@@ -295,7 +294,7 @@ have a
 in the test suite, so a force install may be necessary.
 
 ```perl
-$ cpanm -f Mojolicious::Plugin::MailException
+cpanm -f Mojolicious::Plugin::MailException
 ```
 
 ### Problem running scripts on Windows with Powershell
