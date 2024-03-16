@@ -1,4 +1,4 @@
-define(["hint/foundries"], function (ah) {
+define(["hint/foundries", "hint/foundries/upos"], function (ah, uposArray) {
   ah["-"].push(
     ["UDPipe", "ud/", "Morphology, Part-of-Speech"]
   );
@@ -8,25 +8,7 @@ define(["hint/foundries"], function (ah) {
     ["Part-of-Speech", "p="]
   ];
 
-  ah["ud/p="] = [
-    ["ADJ","ADJ ","adjective"],
-    ["ADP","ADP ","adposition"],
-    ["ADV","ADV ","adverb"],
-    ["AUX","AUX ","auxiliary"],
-    ["CCONJ","CCONJ ","coordinating conjunction"],
-    ["DET","DET ","determiner"],
-    ["INTJ","INTJ ","interjection"],
-    ["NOUN","NOUN ","noun"],
-    ["NUM","NUM ","numeral"],
-    ["PART","PART ","particle"],
-    ["PRON","PRON ","pronoun"],
-    ["PROPN","PROPN ","proper noun"],
-    ["PUNCT","PUNCT ","punctuation"],
-    ["SCONJ","SCONJ ","subordinating conjunction"],
-    ["SYM","SYM ","symbol"],
-    ["VERB","VERB ","verb"],
-    ["X","X ","other"]
-  ];
+  ah["ud/p="] = uposArray;
 
   ah["ud/m="] = [
     ["abbreviation","abbr:"],
