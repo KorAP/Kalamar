@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09005e9_e1ea89c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-03-17T09:31:27Z",
+      "side": 1,
+      "message": "In work here with ud and spaCy: http://10.0.10.11:64543/?q\u003d%5Bspacy%2Fl%3Dsein+%26+spacy%2Fp%3DAUX%5D%5Btt%2Fl%3Der+%26+tt%2Fp%3DPPER%5D%5B%5D%5Bud%2Fm%3Ddegree%3Apos%5D\u0026ql\u003dpoliqarp",
+      "revId": "9a7ed1bb8d02d7a8e697fd249486ee8149e19cef",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
