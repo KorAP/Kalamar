@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9ee731_84307689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-03-17T09:32:51Z",
+      "side": 1,
+      "message": "Otherwise very annoying if you want to cut and paste and costs most time for installing Kalamar...",
+      "revId": "36d7f85cd89b2723deba784bdc2db9129689c7d0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
