@@ -3,6 +3,7 @@
         - Update DeReKo link in corpus specific localization. (hebasta)
         - News and announcements are now displayed in Safari (fixes #208). (hebasta) 
         - Translate example query documentation. (diewald)
+        - Fix: The content of blockquote is displayed. (hebasta) 
 
 0.52 2023-11-29
         - Update Piwik dependency to point to matomo.js. (diewald)
