@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4148e76f_c09a3224",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-20T16:29:40Z",
+      "side": 1,
+      "message": "That\u0027s just a change for https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar-Instance-IDS/+/8406 - but for backwards compatibility with other instances using announcements, it may be better to add a switch for the separate news page.",
+      "revId": "3c5df16c21f26a1995a45c646c713dfc8a3dc8ed",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
