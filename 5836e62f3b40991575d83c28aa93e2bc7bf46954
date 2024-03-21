@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2454572_26977303",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-21T12:21:46Z",
+      "side": 1,
+      "message": "Nothing serious, just a proposal on how imho the intro page could become cleaner without a complete design overhaul. The list could be a contentblock, so news etc. would be configurable.",
+      "revId": "5836e62f3b40991575d83c28aa93e2bc7bf46954",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
