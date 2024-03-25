@@ -33,6 +33,23 @@
       "message": "The repo is here: /KorAP/Kalamar-Instance-IDS",
       "revId": "c71176d202cfd6a0c58e730bd766b53937fedeb0",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a8bb7b_cefb7af1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T17:16:33Z",
+      "side": 1,
+      "message": "I am mainly confused by the .gitignore, as the valid .gitignore excludes /templates/custom .\n\nBtw. - I don\u0027t want to be impolite because of the -2, but I think abandoning may result in further problems when we have to cherry pick the changes.",
+      "revId": "c71176d202cfd6a0c58e730bd766b53937fedeb0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
