@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf83dc4f_9d017f8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T17:09:37Z",
+      "side": 1,
+      "message": "Like #8437 this can\u0027t be part of the Kalamar repo and was already changed in the IDS instance repo.",
+      "revId": "031f0587329aed64c8494bf38b29b3fa491bd444",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
