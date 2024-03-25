@@ -33,6 +33,23 @@
       "message": "Actually, I think this is a bit confusing because on the first glance there is horizontal navigation bar in the middle of the page. I\u0027m als not sure if everything has to be on the intro page (maybe we could do without \"Open Source\" and \"Clients\" for example and put these topics somewhere else). But in the end Uyen should tip the scales ;).\n\nWhat I like is the \"clean look\" resulting the new position of the news.",
       "revId": "5836e62f3b40991575d83c28aa93e2bc7bf46954",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4be0cca3_3c8dafec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T12:04:58Z",
+      "side": 1,
+      "message": "I think we should gather some ideas and decide quickly, if we want to have a new intro page for the evaluation.",
+      "revId": "5836e62f3b40991575d83c28aa93e2bc7bf46954",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
