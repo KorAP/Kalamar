@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07cd8c9d_9ad7097b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T17:58:42Z",
+      "side": 1,
+      "message": "The first impression is fantastic! Thank you very much for your work!\n\nThere are some general issues, as the test suite currently fails, the documentation has no navigation and some media queries don\u0027t work properly, but overall that looks pretty good! I like the top bar. However, I don\u0027t think it can completely replace the left navigation bar (for settings and documentation).",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80367825_fa848dc9",
+        "filename": "dev/scss/header/searchbar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T17:58:42Z",
+      "side": 1,
+      "message": "Looks good! Should probably be left only, otherwise the media queries don\u0027t work, but that\u0027s just a minor issue.",
+      "range": {
+        "startLine": 13,
+        "startChar": 17,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a41ce5c_6e96d5b8",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T17:58:42Z",
+      "side": 1,
+      "message": "user_handle is probably more appropriate than including a template.",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
