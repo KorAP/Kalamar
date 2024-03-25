@@ -1,0 +1,5 @@
+% layout 'main', title => 'KorAP: ' . $c->loc('news');
+
+<h2 id="tutorial-top"><%= loc 'news' %></h2>
+
+%= include 'announcement', lang => $c->localize->preference
