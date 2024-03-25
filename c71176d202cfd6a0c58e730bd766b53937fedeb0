@@ -16,6 +16,23 @@
       "message": "This data is in a separate repository and can not be part of the Kalamar repository (especially some configs in kalamar.ids-mannheim.conf. Did you make any changes here?",
       "revId": "c71176d202cfd6a0c58e730bd766b53937fedeb0",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e05903eb_2a8d89e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-25T17:11:36Z",
+      "side": 1,
+      "message": "The repo is here: /KorAP/Kalamar-Instance-IDS",
+      "revId": "c71176d202cfd6a0c58e730bd766b53937fedeb0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
