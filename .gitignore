@@ -17,6 +17,7 @@
 /.sass-cache
 /dev/css
 /dev/js/spec/src
+<<<<<<< HEAD
 /dev/js/src/custom
 /templates/announcement.html.ep*
 /templates/custom
@@ -24,13 +25,21 @@
 /log
 /blib
 /super_client_info
+=======
+/lib/Kalamar/Plugin/Announcements.pm
+/log
+/blib
+>>>>>>> 8dbf9c626c0ec10d49c8ea535f6e1a8806efbbeb
 /script*
 /MYMETA*
 /Makefile
 /pm_to_blib
 /t/kalamar_user_client.t
 \#*
+<<<<<<< HEAD
 adminToken
+=======
+>>>>>>> 8dbf9c626c0ec10d49c8ea535f6e1a8806efbbeb
 *.tar.gz
 *~
 *.sqlite
@@ -42,9 +51,17 @@ adminToken
 /t/kalamar_user_client.t
 !.gitignore
 !.github
+<<<<<<< HEAD
 !.gitlab-ci.yml
+=======
+>>>>>>> 8dbf9c626c0ec10d49c8ea535f6e1a8806efbbeb
 !.dockerignore
 /npm-debug.log
 /package-lock.json
 /kalamar.code-workspace
+<<<<<<< HEAD
 slim.report.json
+=======
+
+!/kalamar.ids-mannheim.conf
+>>>>>>> 8dbf9c626c0ec10d49c8ea535f6e1a8806efbbeb
