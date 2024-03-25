@@ -110,6 +110,7 @@
 
       &.minimize::after {
 	      content: $fa-minimize;
+        color: $dark-grey;
       }
       
       &.plugin::after {

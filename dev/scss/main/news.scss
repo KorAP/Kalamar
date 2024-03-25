@@ -2,8 +2,14 @@
 @import "../util";
 
 section#news {
+  background-color: $ids-green-2;
+  mix-blend-mode: soft-light;
   padding: 1em;
   padding-right: 2em;
+  border-radius: $standard-border-radius;
+  border-left: 5px solid $ids-green-1;
+  height: 20rem;
+  overflow-y: scroll;
 
   dt {
     float: left;
@@ -23,7 +29,7 @@ section#news {
     margin: 0 1ex 0 16ex;
     padding: 0 0 0.5em 1em;
     > p { 
-      max-width: 100ex;
+      max-width: 80ex;
       margin-block-start: 0ex;
     }
 
