@@ -9,6 +9,8 @@ section#news {
   padding-right: 2em;
   border-radius: $standard-border-radius;
   border-left: 5px solid $ids-green-1;
+  height: 20rem;
+  overflow-y: scroll;
 
   dt {
     float: left;

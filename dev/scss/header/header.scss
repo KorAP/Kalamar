@@ -15,10 +15,176 @@ header {
   @include box-sizing-box();
   position:         relative;
   background-color: $light-green;
-  padding:          $base-padding 0 0 $base-padding;
+  // padding:          $base-padding 0 0 $base-padding;
+  padding-top:      4rem;
   font-size:        10pt;
   color:            $nearly-white;
   
+  .navbar {
+    width: 100%;
+    height: 3rem;
+    background-color: $dark-green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    // overflow: hidden;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+
+    &-group {
+
+      & fieldset.fieldset-login {
+        display: inline;
+        margin-right: 0;
+        padding: 0;
+        min-inline-size: unset;
+        border: unset;
+
+        & form.login {
+          display: flex;
+          align-items: center;
+          
+          & input[type=text],
+          & input[type=password] {
+            @include input-field;
+            margin-right: 8px;
+            height: 2rem;
+          }
+    
+          & button.btn-login {
+            width: 3rem;
+            height: 3rem;
+            background-color: $dark-green;
+            color: $nearly-white;
+            // padding: .75rem 1rem;
+            font-size: 180%;
+            border: none;
+            border-color: unset;
+            border-radius: 0;
+            text-shadow: none;
+            font-weight: normal;
+            top: unset;
+            transition:  all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            -webkit-transition: all .2s ease-in-out;
+    
+            &::after {
+              content: $fa-login;
+            }
+          }
+          & button.btn-login:hover {
+            background-color: $middle-green;
+          }
+        }
+      }
+    }
+
+    .dropdown {
+      display: flex;
+      align-items: center;
+      margin-right: 4rem;
+      position: relative;
+
+      &:hover .dropdown-content {
+        display: block;
+      }
+
+      &:hover .dropdown-btn {
+        background-color: $middle-green;
+      }
+
+      &-btn {
+        height: 3rem;
+        padding: .6rem .9rem;
+        font-size: 180% !important;
+        color: $nearly-white;
+        transition:  all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        -moz-transition: all .2s ease-in-out;
+        -webkit-transition: all .2s ease-in-out;
+        cursor: pointer;
+        
+        &.profile::before {
+          @include icon-font;
+          content: $fa-user;
+        }
+
+        h3.user-name {
+          padding-right: 2px;
+          font-size: 85%;
+          display: inline;
+        }
+      }
+
+      &-content {
+        display: none;
+        width: 100%;
+        margin-top: 3rem;
+        padding: 0;
+        background-color: $middle-green;
+        list-style: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+      }
+
+      &-item {
+        display: block;
+        padding: .75rem;
+        font-size: 120%;
+        // font-weight: bold;
+        color: $nearly-white;
+        transition:  all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        -moz-transition: all .2s ease-in-out;
+        -webkit-transition: all .2s ease-in-out;
+
+        &:hover {
+          background-color: $light-green;
+        }
+      }
+    }
+
+    // &-item {
+    //   height: 3rem;
+    //   padding: .6rem .9rem;
+    //   font-size: 180% !important;
+    //   transition:  all .2s ease-in-out;
+    //   -o-transition: all .2s ease-in-out;
+    //   -moz-transition: all .2s ease-in-out;
+    //   -webkit-transition: all .2s ease-in-out;
+
+    //   &:hover {
+    //     background-color: $middle-green;
+    //   }
+
+    //   &.profile {
+    //     width: 3rem;
+    //     height: 3rem;
+    //     padding: .6rem .9rem;
+
+    //     &:hover {
+    //       background-color: $middle-green;
+    //     }
+    //   }
+
+    //   &.logout {
+    //     width: 3rem;
+    //     height: 3rem;
+    //     margin-left: 1rem;
+    //     padding: .6rem .9rem;
+        
+    //     &:hover {
+    //       background-color: $middle-green;
+    //     }
+    //   }
+    // }
+  }
+
   span.select {
     display:     inline-block;
     cursor:      pointer;
@@ -63,9 +229,9 @@ header {
   form {
     position:     relative;
     display:      block;
-    padding-left: $logo-left-distance;
+    // padding-left: $logo-left-distance;
     min-height:   2.7em;
-    margin:       0px;
+    margin:       0 4rem;
   }
 
   input {
@@ -91,7 +257,8 @@ header {
       top:              0;
       right:            0;
       margin-right:     0;
-      width:            math.div($standard-margin,2);
+      width:            20px;
+      // width:            math.div($standard-margin,2);
       background-color: $dark-green;
       text-align:       center;
       height:           100%;
@@ -117,7 +284,6 @@ header {
       @include icon-font;
     }
 
-    // Icons for buttons
     > a.tutorial::after {
       content: $fa-tutorial;
     }

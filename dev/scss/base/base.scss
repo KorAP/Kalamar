@@ -34,16 +34,17 @@ g > text {
   fill: $dark-grey;
 }
 
-html {
-  height: 100vh;
-}
+// html {
+//   height: 100vh;
+// }
 
 body {
-  position:   relative;
   min-height: 100vh;
   font-size:  12pt;
   margin:     0;
   padding:    0;
+  display:    flex;
+  flex-direction: column;
 }
 
 a {

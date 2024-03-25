@@ -3,11 +3,12 @@
 @import "../util";
 
 aside {
+  display: none;
   background-color: $dark-green;
   color:       $nearly-white;
   width:       $logo-left-distance;
   position:    fixed;
-  display:     block;
+  // display:     block;
   transition:  all .3s ease-in-out;
   outline:     none;
   font-size:   10pt;
@@ -152,6 +153,7 @@ aside {
       width: 100%;
     }
     
+    // search form
     > form > div {
       position:      relative;
       width:         100%;
