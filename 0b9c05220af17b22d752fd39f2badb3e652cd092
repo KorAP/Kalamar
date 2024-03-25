@@ -16,6 +16,46 @@
       "message": "Requires a new feature in M::P::L",
       "revId": "0b9c05220af17b22d752fd39f2badb3e652cd092",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb7560c6_e33cb349",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-25T12:18:35Z",
+      "side": 1,
+      "message": "Fails with: \n#   Failed test \u0027exact match for selector \"title\"\u0027\n#   at t/doc.t line 59.\n#          got: \u0027KorAP: Query Languages\u0027\n#     expected: \u0027KorAP: Anfragesprachen\u0027\n\n#   Failed test \u0027exact match for selector \"h3\"\u0027\n#   at t/doc.t line 59.\n#          got: \u0027Example Queries\u0027\n#     expected: \u0027Beispielanfragen\u0027\n\n#   Failed test \u0027exact match for selector \"title\"\u0027\n#   at t/doc.t line 65.\n#          got: \u0027KorAP: Query Languages\u0027\n#     expected: \u0027KorAP: Anfragesprachen\u0027\n# Looks like you failed 3 tests of 78.",
+      "revId": "0b9c05220af17b22d752fd39f2badb3e652cd092",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e4e564_b3e236e8",
+        "filename": "kalamar.dict",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-25T12:18:35Z",
+      "side": 1,
+      "message": "The page is only displayed in Patchset1.",
+      "range": {
+        "startLine": 81,
+        "startChar": 18,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "0b9c05220af17b22d752fd39f2badb3e652cd092",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
