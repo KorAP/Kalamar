@@ -18,7 +18,7 @@
 <section id="examples">
   <h3>Example Queries</h3>
   
-  <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Find all occurrences of the lemma &quot;baum&quot; as annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>.</p>
+  <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Find all occurrences of the lemma &quot;Baum&quot; as annotated by the <%= embedded_link_to 'doc', 'default foundry', 'data', 'annotation' %>.</p>
   %= doc_query poliqarp => '[base=Baum]'
 
   <p><strong><%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %></strong>: Find all sequences of adjectives as annotated by Treetagger, that are repeated 3 to 5 times in a row.</p>
