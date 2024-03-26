@@ -35,6 +35,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f933f5_bee35c68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T11:16:06Z",
+      "side": 1,
+      "message": "Sorry - \"doesn\u0027t work\" isn\u0027t helpful. It\u0027s not shown properly. A registration link (and for the main instance also a hint regarding the credentials) is important.",
+      "parentUuid": "d586dcfc_981881ad",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce28ad4_cb98c00d",
