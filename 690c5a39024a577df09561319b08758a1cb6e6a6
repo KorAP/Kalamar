@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cce28ad4_cb98c00d",
+        "filename": "dev/scss/base/buttongroup.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:10:07Z",
+      "side": 1,
+      "message": "This seems to be wrong - it paints the buttons in the snippet view grey.",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 26
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b7c2a6_d881ba59",
+        "filename": "dev/scss/header/header.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:10:07Z",
+      "side": 1,
+      "message": "I am opposed to have the header bar fixed. We played around fixing the searchbar back in the day, but the searchbar can become pretty large, which made it hard to see results on smaller phones. The top bar has no purpose when the instance has no user management - so, it takes up a lot of space on smaller screens for no purpose.",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80367825_fa848dc9",
         "filename": "dev/scss/header/searchbar.scss",
         "patchSetId": 4
@@ -36,6 +82,75 @@
         "startChar": 17,
         "endLine": 13,
         "endChar": 20
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3ab143e_d75bc837",
+        "filename": "dev/scss/main/main.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:10:07Z",
+      "side": 1,
+      "message": "I am fine with larger standard margins, but it should adjust to media queries.",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447a469f_b3899cae",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:10:07Z",
+      "side": 1,
+      "message": "This way the doc navigation is invisible on larger screens (it\u0027s visible on smaller screens).",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e441e238_4ae3899c",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:10:07Z",
+      "side": 1,
+      "message": "I am not fluent in current screenreader tech, but I always tried to keep legends and labels if possible.",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 59
       },
       "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
