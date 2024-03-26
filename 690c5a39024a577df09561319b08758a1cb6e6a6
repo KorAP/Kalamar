@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13468169_0bd52506",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-26T13:22:06Z",
+      "side": 1,
+      "message": "I agree that we should habe to keep the left navigation bar for detailled user settings.",
+      "parentUuid": "07cd8c9d_9ad7097b",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
