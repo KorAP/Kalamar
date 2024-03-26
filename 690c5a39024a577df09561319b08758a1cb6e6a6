@@ -72,6 +72,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d11edbe_b54cd437",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-26T12:03:26Z",
+      "side": 1,
+      "message": "Great!\nOnly a very minor issue: If you scroll down at the intro page, you can scroll \"over\" the footer and a white area appears.",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
