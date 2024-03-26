@@ -177,6 +177,53 @@
       },
       "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdeb1d23_152a81e8",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:21:30Z",
+      "side": 1,
+      "message": "It is worth to keep in mind that we had (have?) no guarantee that this is a handle instead of an email adress. That\u0027s why we\u0027ve put it in a title to not display it, especially for demonstration purposes.",
+      "parentUuid": "5a41ce5c_6e96d5b8",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29438472_28d6bbe9",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:21:30Z",
+      "side": 1,
+      "message": "This may point to \"settings\".",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 78
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
