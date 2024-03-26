@@ -224,6 +224,29 @@
       },
       "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b37f58_1f46fa34",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:28:24Z",
+      "side": 1,
+      "message": "Removing the content_block breaks backward compatibility.",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
