@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3a14fc6_5b9072f3",
+        "filename": "dev/scss/header/header.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-26T10:37:09Z",
+      "side": 1,
+      "message": "An alternative option would be to fix it for large screens, but again I don\u0027t know if it\u0027s worth the space.",
+      "parentUuid": "f9b7c2a6_d881ba59",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80367825_fa848dc9",
         "filename": "dev/scss/header/searchbar.scss",
         "patchSetId": 4
