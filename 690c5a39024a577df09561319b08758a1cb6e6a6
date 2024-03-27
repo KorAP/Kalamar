@@ -122,6 +122,60 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee56c73d_539d75db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Sorry, I have troubles to find the mentioned login info and registration link ... only saw the login area (input fields for username and password) in the sidebar. Maybe the registration link etc. were not installed on my Kalamar instance ...?",
+      "parentUuid": "f6f933f5_bee35c68",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fde97c_7c7534ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Oh, that\u0027s strange – on which browser did you see that issue? I tested on Chrome and Firefox and it seems to be fine on my side.\nOr could you try to do a hard reload on the page? Maybe there are still parts of the old css stored in the cache ...",
+      "parentUuid": "4d11edbe_b54cd437",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aad3f8e_e217d1f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Thank you so much for all your feedback! I really had fun working on the changes and I\u0027m glad that I\u0027m able to help you with your project! 😊\n\nAbout the sidebar: There was only one item (\"OAuth\") on the sidebar, so I thought it\u0027s not necessary to keep a whole sidebar for it. Could you tell me, where I can find the links for the mentioned settings and documentation?\nI was thinking about making the top navbar change to a sidebar, when on smaller screens, so all menu items can be found there including login/logout.",
+      "parentUuid": "13468169_0bd52506",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce28ad4_cb98c00d",
@@ -182,6 +236,30 @@
       "side": 1,
       "message": "An alternative option would be to fix it for large screens, but again I don\u0027t know if it\u0027s worth the space.",
       "parentUuid": "f9b7c2a6_d881ba59",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c158dfb6_0e6254e9",
+        "filename": "dev/scss/header/header.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Yeah, I get your point. Maybe a solution could be to make the navbar disappear when the user scrolls down, and make it appear again when they scroll up. So it would always adjust to the current user needs. Because when I played around with KorAP, I noticed that the page can get very long depending on the results the user wants to see (e.g. when clicking on all the dropdowns in the result table). So it could be a bit bothersome to scroll all the way up, just to log out or get to another page.",
+      "parentUuid": "a3a14fc6_5b9072f3",
       "range": {
         "startLine": 32,
         "startChar": 14,
@@ -263,6 +341,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36f186b3_06b25011",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "I would remove the sidebar code completely, if all navigation items are rearranged somewhere else (e.g. in the top navbar). Will try things out ... 😄",
+      "parentUuid": "447a469f_b3899cae",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e441e238_4ae3899c",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
         "patchSetId": 4
@@ -274,6 +376,30 @@
       "writtenOn": "2024-03-26T10:10:07Z",
       "side": 1,
       "message": "I am not fluent in current screenreader tech, but I always tried to keep legends and labels if possible.",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6267681_6054dda0",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Oh, yeah, sure! I don\u0027t know why I commented this line out ... :D",
+      "parentUuid": "e441e238_4ae3899c",
       "range": {
         "startLine": 11,
         "startChar": 11,
@@ -333,6 +459,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e73c6ec_5f82ed9d",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "So you mean I can just use the user_handle helper to get the username? (I think I tried it out, but it didn\u0027t work ... is there another way to extract only the username?)",
+      "parentUuid": "fdeb1d23_152a81e8",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29438472_28d6bbe9",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
         "patchSetId": 4
@@ -356,6 +506,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5cd946c_41e7f397",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Yes, sure! I just copied that path from my current view.\nDo you think the \"OAuth\" item is needed as an extra point in the nav? Otherwise I would change the name to \"settings\".",
+      "parentUuid": "29438472_28d6bbe9",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 78
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2b37f58_1f46fa34",
         "filename": "templates/partial/header.html.ep",
         "patchSetId": 4
@@ -367,6 +541,30 @@
       "writtenOn": "2024-03-26T10:28:24Z",
       "side": 1,
       "message": "Removing the content_block breaks backward compatibility.",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "694b33b9_5f1c762a",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-03-27T09:42:59Z",
+      "side": 1,
+      "message": "Oh, no... although there were only two buttons in that block? Can\u0027t we force the users to upgrade their old versions? xD\nHm...",
+      "parentUuid": "b2b37f58_1f46fa34",
       "range": {
         "startLine": 10,
         "startChar": 23,
