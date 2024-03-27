@@ -250,6 +250,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13ece2ec_96b6875b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T14:40:38Z",
+      "side": 1,
+      "message": "Yes, maybe true. It\u0027s grown with the years, but I think navigation menus like in the documentation are still pretty common on the left side.",
+      "parentUuid": "23db380e_586a19b6",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
@@ -416,6 +434,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f5a02be_9e17fbff",
+        "filename": "dev/scss/header/header.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T14:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0c310464_e0cdc455",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80367825_fa848dc9",
         "filename": "dev/scss/header/searchbar.scss",
         "patchSetId": 4
@@ -569,6 +611,30 @@
       "side": 1,
       "message": "Oh, also because of backwards compatibility reasons?",
       "parentUuid": "385dbf4b_652a635b",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "803c7edf_2d351606",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T14:40:38Z",
+      "side": 1,
+      "message": "No, but because e.g. the documentation menu also has submenus etc. But we are open for suggestions.",
+      "parentUuid": "40307c4b_69576b04",
       "range": {
         "startLine": 6,
         "startChar": 2,
@@ -747,6 +813,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cdea403a_fbd9a28b",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T14:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dcd0c4e9_ba4384c9",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29438472_28d6bbe9",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
         "patchSetId": 4
@@ -901,6 +991,30 @@
       "side": 1,
       "message": "The group contained the logout and minimize button, so it was a bit tricky to style them independently, especially, because both buttons are lying on different places now. (And also, I don\u0027t think they should be put together, since they don\u0027t seem to be related at all.)\nBut if it\u0027s a problem concerning backwards compatibility, I can leave one of the buttons in the group and style it within the group, I guess.",
       "parentUuid": "59cb567d_8c87448c",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "593ed8bf_2a347eda",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T14:40:38Z",
+      "side": 1,
+      "message": "The div class group is not really the issue, it\u0027s the content_block. There needs to be no common div around it, when that\u0027s a problem.",
+      "parentUuid": "bce14c4b_ad3e4d34",
       "range": {
         "startLine": 10,
         "startChar": 23,
