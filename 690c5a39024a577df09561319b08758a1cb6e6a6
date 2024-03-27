@@ -105,6 +105,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2c8b80_afd4cf38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T06:43:40Z",
+      "side": 1,
+      "message": "Another thing, that I don\u0027t like that much (although I can bear with it), is, that we have two differently styled pull-down menus here. I don\u0027t think it\u0027s confusing to the user, but it decouples the top bar from the rest of the application.",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce28ad4_cb98c00d",
