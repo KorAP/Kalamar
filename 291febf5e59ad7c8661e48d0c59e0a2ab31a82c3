@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8c572d_084a2dc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-27T12:04:17Z",
+      "side": 1,
+      "message": "We had now for a long time the three subsections there with the content \"Under construction.\" This does look rather undone and contains no information for the user. I made a issue as a reminder for me to not forget to complete the tutorial.",
+      "revId": "291febf5e59ad7c8661e48d0c59e0a2ab31a82c3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
