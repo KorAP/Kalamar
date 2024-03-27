@@ -178,6 +178,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f74ab93_67b3192d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "Interestingly that\u0027s the other way around as it currently is (so - the navigation moves to the top when an smaller screens now - and is on the left otherwise).\n\nThe sidebar settings are configurable, so can be different per instance. Instead of adding OAuth, the menu could show all items that are configurable. Or have a settings option, that would require to have a settings overview page (I think there is none atm).",
+      "parentUuid": "4aad3f8e_e217d1f7",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e43e544b_213bbeaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "You can see it here: https://korap.ids-mannheim.de/. To have it in your instance, you may need to change the configuration to something similar to:\n\n```\n  {\n    \u0027TagHelpers-ContentBlock\u0027 \u003d\u003e {\n      loginInfo \u003d\u003e [\n        {\n          inline \u003d\u003e \u0027\u003cp\u003eHello World\u003c/p\u003e\u0027,\n          position \u003d\u003e 50\n        }\n      ]\n    }\n  }\n```",
+      "parentUuid": "ee56c73d_539d75db",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
@@ -272,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48227f32_ae2329e4",
+        "filename": "dev/scss/header/header.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "That would be an option - but I think more people would want to have the searchbar in reach under such circumstances and not the logout ...",
+      "parentUuid": "c158dfb6_0e6254e9",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80367825_fa848dc9",
         "filename": "dev/scss/header/searchbar.scss",
         "patchSetId": 4
@@ -353,6 +413,30 @@
       "side": 1,
       "message": "I would remove the sidebar code completely, if all navigation items are rearranged somewhere else (e.g. in the top navbar). Will try things out ... 😄",
       "parentUuid": "447a469f_b3899cae",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "385dbf4b_652a635b",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s an option.",
+      "parentUuid": "36f186b3_06b25011",
       "range": {
         "startLine": 6,
         "startChar": 2,
@@ -483,6 +567,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "352363d3_01413271",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "Yes, it should work. If there is a problem, I can have a look. But as I said: There is no guarantee for user handles. (There may be, when requesting the user handle from LDAP on login, but I am not sure we do that.)",
+      "parentUuid": "2e73c6ec_5f82ed9d",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29438472_28d6bbe9",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
         "patchSetId": 4
@@ -530,6 +638,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5a41e59_79ed3a10",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "The settings menu is configurable. It may show different options for different instances, like the marketplace Helge is working on and certain settings like \"default context size\" etc.",
+      "parentUuid": "b5cd946c_41e7f397",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 78
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2b37f58_1f46fa34",
         "filename": "templates/partial/header.html.ep",
         "patchSetId": 4
@@ -565,6 +697,30 @@
       "side": 1,
       "message": "Oh, no... although there were only two buttons in that block? Can\u0027t we force the users to upgrade their old versions? xD\nHm...",
       "parentUuid": "b2b37f58_1f46fa34",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59cb567d_8c87448c",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-27T10:00:48Z",
+      "side": 1,
+      "message": "Why is the change required?",
+      "parentUuid": "694b33b9_5f1c762a",
       "range": {
         "startLine": 10,
         "startChar": 23,
