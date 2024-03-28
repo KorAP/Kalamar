@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a379e6a_3d89e673",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-03-28T22:01:30Z",
+      "side": 1,
+      "message": "I think it would be more flexible, when the path is in `$c-\u003eapp-\u003econfig(\u0027Kalamar\u0027)-\u003e{openapi}` and not bound to `/openapi/`.",
+      "revId": "ed14bd95e78895ae2a8617f269e924493b0635b4",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
