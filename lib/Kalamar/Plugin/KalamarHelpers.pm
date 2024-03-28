@@ -123,6 +123,11 @@ sub register {
         );
       };
 
+      if ($c->stash('refresh') && $c->chi->is_valid($cache_str)) {
+        $c->app->log->debug("deleting " . $cache_str . " from cache");
+        $c->chi->remove($cache_str);
+      };
+
       # Get koral from cache
       my $koral = $c->chi->get($cache_str);
 
