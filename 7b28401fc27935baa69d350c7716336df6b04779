@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff561e05_92a85b9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-03-28T15:15:57Z",
+      "side": 1,
+      "message": "I checked every query. They are working and have results if the research takes place outside the IDS.",
+      "revId": "7b28401fc27935baa69d350c7716336df6b04779",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
