@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c9f86f_56c35691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-02T14:44:34Z",
+      "side": 1,
+      "message": "Following https://github.com/KorAP/Kalamar/pull/210",
+      "revId": "6da4af0f299834cad12fcc9dddbfebc01201b323",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
