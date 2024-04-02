@@ -255,6 +255,21 @@ Currently bundled plugins are
   if installed and exposed by `KRILL_INDEXER_PATH`.
 - `KorAPXML2CoNLLU`: For integrated calls to [conllu2korapxml and korapxml2conllu](https://github.com/KorAP/KorAP-XML-CoNNL-U), if installed.
 
+## Maintaining
+
+### Caching
+
+Kalamar supports [CHI](https://metacpan.org/dist/Mojolicious-Plugin-CHI) for caching,
+allowing various cache drivers to configure.
+
+To see options for cache maintenance
+(e.g. to clear search results after index update),
+run the command
+
+```shell
+perl script/kalamar chi
+```
+
 ## Troubleshooting
 
 ### `make` not available under Windows
