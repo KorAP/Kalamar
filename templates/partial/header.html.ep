@@ -1,8 +1,13 @@
 <header>
-  <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
-  <div class="button top">
-    %= content_block 'headerButtonGroup'
-  </div>
+  <nav class="navbar">
+    <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
+
+    <div class="navbar-group">
+      %= include 'partial/auth/login'
+      %= content_block 'headerButtonGroup'
+    </div>
+  </nav>
+
   <form autocomplete="off" action="<%= url_for 'index' %>" id="searchform">
     <div id="searchbar">
       %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder'), spellcheck => 'false', autocomplete => 'off', autocorrect => 'off', autocapitalize => 'off'
