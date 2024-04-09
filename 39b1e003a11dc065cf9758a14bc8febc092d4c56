@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc1e6788_802d6131",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-04-09T11:43:19Z",
+      "side": 1,
+      "message": "Thanks for the input, I was swaying between putting the path in the conf or not while implementing it.",
+      "revId": "39b1e003a11dc065cf9758a14bc8febc092d4c56",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
