@@ -6,9 +6,9 @@
 %   } elsif (flash('handle') && !param('handle')) {
 %     param(handle_or_email => flash('handle'));
 %   };
-    <fieldset>
+    <fieldset class="fieldset-login">
     %= form_for 'login', 'accept-charset' => 'utf-8', class => 'login', begin
-      <legend><span><%= loc 'login' %></span></legend>
+      <!-- <legend><span><%= loc 'login' %></span></legend> -->
       %= csrf_field
       %= text_field 'handle_or_email', placeholder => loc('userormail')
       %= hidden_field fwd => $c->url_with
@@ -19,10 +19,10 @@
         %= hidden_field 'scope' => stash('scope')
         %= hidden_field 'redirect_uri' => stash('close_redirect_uri')
       % };
-      <div>
+      <!-- <div> -->
         %= password_field 'pwd', placeholder => loc('pwd')
-        <button type="submit"><span><%= loc 'go' %></span></button>
-      </div>
+        <button type="submit" class="btn-login"><span><%= loc 'go' %></span></button>
+      <!-- </div> -->
     % end
 
     %= content_block 'loginInfo', separator => '<hr />'
