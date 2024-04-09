@@ -63,8 +63,9 @@ $standard-margin: 4px;
   #searchbar {
     padding-right: 30px;
     margin-top: 0;
-    input {
+    input#q-field {
       font-size: 9pt;
+      border-radius: 6px 0 0 6px;
     }
     button[type=submit] {
       right: 0;
