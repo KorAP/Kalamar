@@ -3,7 +3,7 @@
    <div class="dropdown">
       <div class="dropdown-btn profile">
          <h3 class="user-name">
-            <%= get_user_name %>
+            <%= user_handle %>
          </h3>
       </div>
       <ul class="dropdown-content">
