@@ -96,14 +96,20 @@ define([
       for(let j = 0; j < gt.length; j++){
         gt[j].setAttribute('href', '#');
         gt[j].addEventListener('click', function(){
-        tourClass.gTstartSearch().start();
-      });
-    }
+          tourClass.gTstartSearch().start();
 
-    KorAP.tourshowR = function(){
-      tourClass.gTshowResults().start();
+          // Close the burger menu by simulating a click on the burger icon
+          const burgerIcon = document.querySelector('.burger-icon');
+          if (isBurgerMenuOpen) {
+            burgerIcon.click();
+          }
+        });
+      }
+
+      KorAP.tourshowR = function(){
+        tourClass.gTshowResults().start();
       };
-    };
+    }
     
     var obj = {};
 
@@ -128,6 +134,50 @@ define([
         alertifyClass.log(msg, type, 10000);
       }
     );
+
+    // Responsive navbar: hide and show burger menu
+    const burgerIcon = document.querySelector('.burger-icon');
+    let isBurgerMenuOpen = false;
+
+    if (burgerIcon) {
+      burgerIcon.addEventListener('click', function() {
+        const navbar = document.querySelector('.navbar');
+        navbar.classList.toggle('show');
+
+        isBurgerMenuOpen = !isBurgerMenuOpen;
+        if (isBurgerMenuOpen) {
+          navbar.style.top = '0';
+        }
+      });
+    }
+    
+    // Fallback solution for login dropdown visibility (if :focus-within is not supported)
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdown = document.querySelector('.dropdown');
+      const dropdownContent = document.querySelector('.dropdown-content');
+      
+      dropdown.addEventListener('mouseenter', function() {
+        dropdownContent.style.display = 'block';
+      });
+    
+      dropdown.addEventListener('mouseleave', function() {
+        // If no input inside the form is focused, then close dropdown content
+        if (!dropdown.contains(document.activeElement)) {
+          dropdownContent.style.display = 'none';
+        }
+      });
+    
+      dropdownContent.addEventListener('focusin', function() {
+        dropdownContent.style.display = 'block';
+      });
+    
+      dropdownContent.addEventListener('focusout', function(e) {
+        // If focus moved outside the dropdown content, then close it
+        if (!dropdownContent.contains(e.relatedTarget)) {
+          dropdownContent.style.display = 'none';
+        }
+      });
+    });
 
     /**
      * Replace Virtual Corpus field
@@ -212,6 +262,88 @@ define([
       };
     });
     
+    // Function to toggle the shifted class on elements
+    function shiftContent() {
+      // Get elements to perform content shift when sidebar is active
+      const header = document.querySelector('header');
+      const main = document.querySelector('main');
+      const footer = document.querySelector('footer');
+      const hint = document.querySelector('#hint');
+      const results = document.querySelector('.found');
+      const aside = document.querySelector('aside');
+
+      if (aside && aside.classList.contains('active')) {
+        header.classList.add('shifted');
+        if (!results) {
+          main.classList.add('shifted');
+        }
+        footer.classList.add('shifted');
+        if (hint) {
+          hint.classList.add('shifted');
+          adjustHintPosition();
+        }
+      } else {
+        header.classList.remove('shifted');
+        main.classList.remove('shifted');
+        footer.classList.remove('shifted');
+        if (hint) {
+          hint.classList.remove('shifted');
+          adjustHintPosition();
+        }
+      }
+    }
+    
+    // Function to adjust the position of the annotation assistant bar (hint), when user types into the searchbar and clicks the sidebar (or anywhere outside the searchbar) afterwards
+    function adjustHintPosition() {
+      const hint = document.querySelector('#hint');
+      const searchInput = document.querySelector('#q-field');
+      const aside = document.querySelector('aside');
+
+      if (hint && searchInput) {
+        // Create a temporary span to measure the exact text width
+        const span = document.createElement('span');
+        span.style.visibility = 'hidden';
+        span.style.position = 'absolute';
+        span.style.whiteSpace = 'pre';
+        // Copy the input's font properties
+        const inputStyle = window.getComputedStyle(searchInput);
+        span.style.font = inputStyle.font;
+        span.style.fontSize = inputStyle.fontSize;
+        span.style.fontFamily = inputStyle.fontFamily;
+        span.textContent = searchInput.value;
+        document.body.appendChild(span);
+
+        // Get the actual width of the text
+        const inputWidth = searchInput.value.length > 0 ? span.offsetWidth : 0;
+        document.body.removeChild(span);
+        let hintLeftPosition = inputWidth;
+
+        // TODO: This shouldn't be a fixed position!
+        if (aside && aside.classList.contains('active')) {
+          hintLeftPosition += 230;
+        }
+        
+        hint.style.left = `${hintLeftPosition}px`;
+      }
+    }
+
+    document.querySelector('#q-field').addEventListener('blur', adjustHintPosition);
+
+    // MutationObserver to detect when #hint is injected into the DOM
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          const hint = document.querySelector('#hint');
+          if (hint) {
+            shiftContent();
+            observer.disconnect();
+          }
+        }
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
     // Add focus listener to aside
     var aside = d.getElementsByTagName('aside')[0];
 
@@ -219,34 +351,36 @@ define([
 
       // Horrible lock to deal with sidebar clicks
       var asideClicked = false;
-      
+
+      shiftContent();
+
       // Make aside active on focus
-      aside.addEventListener('focus', function(e) {
+      aside.addEventListener('focus', function (e) {
         this.classList.add('active');
+        shiftContent();
       });
 
       // Deactivate focus when clicking anywhere else
       var body = d.getElementsByTagName('body')[0];
       if (body !== null) {
-        body.addEventListener('click', function() {
+        body.addEventListener('click', function () {
           if (!asideClicked) {
             aside.classList.remove('active');
-          }
-          else {
+            shiftContent();
+          } else {
             asideClicked = false;
-          };
+          }
         });
-      };
+      }
 
       /* Stop click event on aside
        * (to not trickle down to body)
        */
-      aside.addEventListener('click', function(e) {
+      aside.addEventListener('click', function (e) {
         asideClicked = true;
       });
-    };
+    }
 
-      
     // Replace QL select menus with KorAP menus
     var qlField = d.getElementById('ql-field');
     if (qlField !== null) {
