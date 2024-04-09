@@ -127,6 +127,28 @@ define([
       }
     );
 
+    // Hide and show navbar on scroll
+    let prevScrollPos = window.scrollY;
+
+    window.onscroll = function() {
+      const navbar = document.querySelector('.navbar');
+      let currentScrollPos = window.scrollY;
+      if (prevScrollPos > currentScrollPos) {
+          navbar.style.top = '0';
+      } else {
+        if (!navbar.classList.contains('show')) {
+          navbar.style.top = '-4rem';
+        }
+      }
+      prevScrollPos = currentScrollPos;
+    }
+
+    // Responsive navbar: hide and show burger menu
+    document.querySelector('.burger-icon').addEventListener('click', function() {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('show');
+    });
+
     /**
      * Replace Virtual Corpus field
      */
@@ -209,6 +231,21 @@ define([
         });
       };
     });
+
+    // Get header and main tag to perform content shift when sidebar is active
+    const header = document.querySelector('header');
+    const main = document.querySelector('main');
+    
+    // Function to toggle the shifted class on header and main
+    function shiftContent() {
+      if (aside.classList.contains('active')) {
+        header.classList.add('shifted');
+        main.classList.add('shifted');
+      } else {
+        header.classList.remove('shifted');
+        main.classList.remove('shifted');
+      }
+    }
     
     // Add focus listener to aside
     var aside = d.getElementsByTagName('aside')[0];
@@ -217,10 +254,13 @@ define([
 
       // Horrible lock to deal with sidebar clicks
       var asideClicked = false;
+
+      shiftContent();
       
       // Make aside active on focus
       aside.addEventListener('focus', function(e) {
         this.classList.add('active');
+        shiftContent();
       });
 
       // Deactivate focus when clicking anywhere else
@@ -229,6 +269,7 @@ define([
         body.addEventListener('click', function() {
           if (!asideClicked) {
             aside.classList.remove('active');
+            shiftContent();
           }
           else {
             asideClicked = false;
@@ -244,7 +285,6 @@ define([
       });
     };
 
-      
     // Replace QL select menus with KorAP menus
     var qlField = d.getElementById('ql-field');
     if (qlField !== null) {

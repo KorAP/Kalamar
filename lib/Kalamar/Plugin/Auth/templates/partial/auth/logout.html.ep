@@ -1,6 +1,27 @@
 % if ($c->auth->token) {
    %# TODO: CSRF protection
-   <a href="<%= url_for 'logout' %>"
-      class="logout"
-      title="<%= loc 'logout' %>: <%= user_handle %>"><span><%= loc 'logout' %></span></a>
+   <h3 class="news"><%= link_to loc("news") => url_for(doc => {page => "news" }) %></h3>
+   <div class="dropdown">
+      <div class="dropdown-btn profile">
+         <h3 class="user-name">
+            <%= user_handle %>
+         </h3>
+      </div>
+      <ul class="dropdown-content">
+         <li>
+            <%= link_to loc('settings') => 'settings', class => 'dropdown-item' %>
+         </li>
+         <li>
+            <a href="<%= url_for 'logout' %>"
+            class="dropdown-item logout"
+            title="<%= loc 'logout' %>: <%= user_handle %>">
+               <span><%= loc 'logout' %></span>
+            </a>
+         </li>
+      </ul>
+      <!-- <a href="<%= url_for 'logout' %>"
+         class="navbar-item logout"
+         title="<%= loc 'logout' %>: <%= user_handle %>"><span><%= loc 'logout' %></span>
+      </a> -->
+   </div>
 % };

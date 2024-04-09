@@ -23,11 +23,16 @@
 
 
 main {
+  padding: 0 4rem;
   padding-bottom: $footer-height + math.div($standard-margin,2);
 
-  margin: {
-    left:  $standard-margin; 
-    right: math.div($standard-margin,2);
+  // margin: {
+  //   left:  $standard-margin; 
+  //   right: math.div($standard-margin,2);
+  // }
+
+  &.shifted {
+    margin-left: 230px;
   }
 
   &.embedded {
@@ -47,20 +52,20 @@ main {
     padding-top: 1em;
   }
 
-  &.page {
-    margin-left: $logo-left-distance + 15px;
-    p,
-    li,
-    dd,
-    dt {
-      code {
-        background-color: $ids-grey-2;
-        color:            $ids-grey-1;
-        padding:          0 .5em;
-        border-radius:    $standard-border-radius;
-      }
-    }
-  }
+  // &.page {
+  //   margin-left: $logo-left-distance + 15px;
+  //   p,
+  //   li,
+  //   dd,
+  //   dt {
+  //     code {
+  //       background-color: $ids-grey-2;
+  //       color:            $ids-grey-1;
+  //       padding:          0 .5em;
+  //       border-radius:    $standard-border-radius;
+  //     }
+  //   }
+  // }
 
   p.hint {
     margin:     0 auto;
