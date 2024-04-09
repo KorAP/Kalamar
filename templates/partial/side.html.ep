@@ -1,7 +1,7 @@
 % my $side_bar = content_block 'sidebar';
 
 % my $classes = '';
-%
+
 % if (length($side_bar) == 0) {
 %   if (my $nav = navigation('settings')) {
 %     $side_bar = b('<nav>' . $nav . '</nav>');
@@ -9,14 +9,21 @@
 %   };
 % }
 
+% my $is_empty_sidebar = $side_bar =~ /^\s*(<div[^>]*>\s*<\/div>\s*)*$/i;
+
+% if ($is_empty_sidebar) {
+%   $classes .= ' invisible';
+% };
+
 % if (length($side_bar) == 0) {
 %   $classes .= ' off';
 % } elsif (stash('sidebar_active')) {
 %   $classes .= ' active';
 % } elsif (stash('login_active') && !$classes) {
-%   $classes .= ' active';
+%   $classes .= ' invisible';
+% } elsif (!stash('login_active') && $side_bar =~ /<form.*class=".*login.*".*>/i) {
+%   $classes .= ' invisible';
 % };
-
 
 <aside tabindex="0" class="<%= $classes %>">
   <div>

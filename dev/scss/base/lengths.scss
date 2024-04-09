@@ -4,15 +4,16 @@
  * Defined lengths and sizes for the
  * Kalamar layout.
  */
-$standard-border-radius: 6px;
-$item-padding:           3pt 6pt;
-$button-width:           30px;
-$base-padding:           8px;
-$border-size:            2px;
-$result-border-size:     1px;
-$left-width:             176px;
-$border-size:            2px;
-$left-distance:          $left-width + ($border-size * 2);
+$standard-border-radius:    6px;
+$item-padding:              3pt 6pt;
+$button-width:              30px;
+$base-padding:              8px;
+$border-size:               2px;
+$result-border-size:        1px;
+$left-width:                176px;
+$border-size:               2px;
+$left-distance:             $left-width + ($border-size * 2);
+$standard-size-and-spacing: 4rem;
 
 /**
  * Margins
