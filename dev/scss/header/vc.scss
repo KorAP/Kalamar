@@ -14,6 +14,12 @@ $bracket-size: .4em;
 
   .builder {
     position: initial;
+
+    + .action {
+      .minimize::after {
+        color: $dark-grey !important;
+      }
+    }
   }
 
   .docGroup {
