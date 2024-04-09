@@ -9,17 +9,17 @@
     content: "" !important;
   }
 
-  div.logoaddon {
-    position:absolute;
-    display: block;
-    font-size: 45%;
-    right: 5pt;
-    bottom: 2.5pt;
-    text-align:right;
-    color: $nearly-white;
-    padding: 3pt;
-    text-shadow: 1pt 1pt 0 $light-green, -1pt -1pt 0 $light-green, -1pt 1pt 0 $light-green, 1pt -1pt 0 $light-green;
-  }
+//  div.logoaddon {
+//    position:absolute;
+//    display: block;
+//    font-size: 45%;
+//    right: 5pt;
+//    bottom: 2.5pt;
+//    text-align:right;
+//    color: $nearly-white;
+//    padding: 3pt;
+//    text-shadow: 1pt 1pt 0 $light-green, -1pt -1pt 0 $light-green, -1pt 1pt 0 $light-green, 1pt -1pt 0 $light-green;
+//  }
   
   > * {
     background: {
@@ -30,6 +30,26 @@
 
     > span {
       @include blind;
+    }
+
+    > div.logoaddon {
+      position:absolute;
+      display: block;
+      font-size: 10pt;
+      right: -1rem;
+      top: 1.7rem;
+      // bottom: 4pt;
+      // text-align:right;
+      color: $nearly-white;
+      // padding: 3pt;
+      text-shadow: 1pt 1pt 0 $light-green, -1pt -1pt 0 $light-green, -1pt 1pt 0 $light-green, 1pt -1pt 0 $light-green;
+
+      // Values from new logo:
+      // font-size: 45%;
+      // right: 5pt;
+      // bottom: 2.5pt;
+      // text-align: right;
+      // padding: 3pt;
     }
   }
 }
@@ -44,9 +64,10 @@ aside.active + header .logo div.logoaddon {
 a.logo > h1 {
   position:    absolute;
   margin:      0;
-  margin-left: 10pt;
+  // margin-left: 10pt;
+  margin-left: 3rem;
   left:        0;
-  top:         0;
+  top:         50%;
   width:       7.8em;
   height:      2.4em;
   z-index:     105;
@@ -54,11 +75,15 @@ a.logo > h1 {
     size:  78% !important;
     image: url('#{$img-path}/korap-logo.svg');
   }
+  transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
 
-aside.active ~ header h1 {
-  position: fixed;
-}
+// aside.active ~ header h1 {
+//   position: fixed;
+// }
 
 
 #overview {
