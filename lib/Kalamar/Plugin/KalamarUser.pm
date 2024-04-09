@@ -54,7 +54,7 @@ sub register {
         $c->stash(user => $user);
         return $user;
       };
-
+      
       return 'not_logged_in';
     }
   );

@@ -127,6 +127,32 @@ define([
       }
     );
 
+    // Hide and show navbar on scroll
+    let prevScrollPos = window.scrollY;
+
+    window.onscroll = function() {
+      const navbar = document.querySelector('.navbar');
+      let currentScrollPos = window.scrollY;
+      if (prevScrollPos > currentScrollPos) {
+          navbar.style.top = '0';
+      } else {
+        if (!navbar.classList.contains('show')) {
+          navbar.style.top = '-4rem';
+        }
+      }
+      prevScrollPos = currentScrollPos;
+    }
+
+    // Responsive navbar: hide and show burger menu
+    document.querySelector('.burger-icon').addEventListener('click', function() {
+      const navbar = document.querySelector('.navbar');
+      if (navbar.className === 'navbar') {
+        navbar.className += ' show';
+      } else {
+        navbar.className = 'navbar';
+      }
+    })
+
     /**
      * Replace Virtual Corpus field
      */
