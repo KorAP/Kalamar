@@ -1,8 +1,15 @@
-<header>
+<nav class="navbar">
   <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
-  <div class="button top">
+
+  <div class="navbar-group">
     %= content_block 'headerButtonGroup'
+    %= include 'partial/auth/login'
   </div>
+
+  <div class="burger-icon"></div>
+</nav>
+
+<header>
   <form autocomplete="off" action="<%= url_for 'index' %>" id="searchform">
     <div id="searchbar">
       %= search_field 'q', id => 'q-field', autofocus => 'autofocus', placeholder => loc('searchplaceholder'), spellcheck => 'false', autocomplete => 'off', autocorrect => 'off', autocapitalize => 'off'
