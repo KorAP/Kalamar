@@ -54,7 +54,7 @@ sub register {
         $c->stash(user => $user);
         return $user;
       };
-
+      
       return 'not_logged_in';
     }
   );
@@ -99,6 +99,28 @@ sub register {
         url => shift,
         ua => $plugin->ua
       )->param(@_);
+    }
+  );
+
+  
+  $mojo->helper(
+    'get_user_name' => sub {
+      my $c = shift;
+
+      # Get from stash
+      my $user = $c->stash('user');
+      return $user if $user;
+
+      # Get from session
+      $user = $c->session('user');
+
+      # Set in stash
+      if ($user) {
+        $c->stash(user => $user);
+        return $user;
+      };
+      
+      $c->render(template => '/templates/partial/header', user => $user);
     }
   );
 };
