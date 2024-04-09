@@ -5,6 +5,12 @@
  */
 div.intro {
 
+  &-container {
+    margin-top: 3rem;
+    display: flex;
+    gap: 4rem;
+  }
+
   // Visited links
   a:visited {
     color: $darkest-orange
@@ -20,6 +26,16 @@ div.intro {
   }
 }
 
-aside.active ~ main div.intro {
-  margin-left: $logo-left-distance - $standard-margin + $base-padding;
+@media all and (max-width: 42.5em) {
+  div.intro {
+    &-container {
+      margin-top: 1rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
 }
+
+// aside.active ~ main div.intro {
+//   margin-left: $logo-left-distance - $standard-margin + $base-padding;
+// }
