@@ -116,8 +116,8 @@ $t->get_ok('/?q=Baum')
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists('form[action=/user/login] input[name=handle_or_email]')
-  ->element_exists('aside.active')
-  ->element_exists_not('aside.off')
+  ->element_exists('aside')
+  ->attr_is('aside', 'class', ' invisible')
   ;
 
 $t->get_ok('/settings/oauth')
@@ -229,8 +229,8 @@ $t->get_ok('/?q=Baum')
   ->text_like('#total-results', qr/\d+$/)
   ->element_exists_not('div.notify-error')
   ->content_like(qr/${q}authorized${q}:${q}yes${q}/)
-  ->element_exists('div.button.top a')
-  ->element_exists('div.button.top a.logout[title~="test"]')
+  ->element_exists('nav.dropdown')
+  ->element_exists('a.dropdown-item.logout[title~="test"]')
   ;
 
 $t->get_ok('/?q=Paum')
