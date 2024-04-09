@@ -91,13 +91,21 @@ define([
       KorAP.koralQuery = JSON.parse(kqe.getAttribute('data-koralquery') || "");
     };
 
-    let gt;
-    if (gt = document.getElementById('link-guided-tour')) {
-      gt.setAttribute('href', '#');
-      gt.addEventListener('click', function(){
-        tourClass.gTstartSearch().start();
-      });
-    
+    let gt = document.getElementsByClassName('link-guided-tour');
+    if (gt.length != null){
+      for(let j = 0; j < gt.length; j++){
+        gt[j].setAttribute('href', '#');
+        gt[j].addEventListener('click', function(){
+          tourClass.gTstartSearch().start();
+
+          // Close the burger menu by simulating a click on the burger icon
+          const burgerIcon = document.querySelector('.burger-icon');
+          if (isBurgerMenuOpen) {
+            burgerIcon.click();
+          }
+        });
+      }
+
       KorAP.tourshowR = function(){
         tourClass.gTshowResults().start();
       };
@@ -126,6 +134,85 @@ define([
         alertifyClass.log(msg, type, 10000);
       }
     );
+
+    // Hide and show navbar on scroll
+    // let prevScrollPos = window.scrollY;
+    // let isClickingHashLink = false;
+    let isBurgerMenuOpen = false;
+
+    // Check if user clicks on a link that has a hash target to prevent the top navbar from sliding up initially
+    // document.querySelectorAll('a[href^="#"]').forEach(link => {
+    //   link.addEventListener('click', function() {
+    //     isClickingHashLink = true;
+    //     setTimeout(() => {
+    //       isClickingHashLink = false;
+    //     }, 400);
+    //   });
+    // });
+
+    // window.onscroll = function() {
+    //   const navbar = document.querySelector('.navbar');
+    //   let currentScrollPos = window.scrollY;
+
+    //   // If burger menu is open, don't slide the navbar
+    //   if (isBurgerMenuOpen) {
+    //     return;
+    //   }
+
+    //   if (!isClickingHashLink) {
+    //     if (currentScrollPos > 0) {
+    //       if (prevScrollPos > currentScrollPos) {
+    //         navbar.style.top = '0';
+    //       } else {
+    //         navbar.style.top = '-4rem';
+    //       }
+    //       prevScrollPos = currentScrollPos;
+    //     }
+    //   }
+    // }
+
+    // Responsive navbar: hide and show burger menu
+    const burgerIcon = document.querySelector('.burger-icon');
+
+    if (burgerIcon) {
+      burgerIcon.addEventListener('click', function() {
+        const navbar = document.querySelector('.navbar');
+        navbar.classList.toggle('show');
+
+        isBurgerMenuOpen = !isBurgerMenuOpen;
+        if (isBurgerMenuOpen) {
+          navbar.style.top = '0';
+        }
+      });
+    }
+    
+    // Fallback solution for login dropdown visibility (if :focus-within is not supported)
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdown = document.querySelector('.dropdown');
+      const dropdownContent = document.querySelector('.dropdown-content');
+      
+      dropdown.addEventListener('mouseenter', function() {
+        dropdownContent.style.display = 'block';
+      });
+    
+      dropdown.addEventListener('mouseleave', function() {
+        // If no input inside the form is focused, then close dropdown content
+        if (!dropdown.contains(document.activeElement)) {
+          dropdownContent.style.display = 'none';
+        }
+      });
+    
+      dropdownContent.addEventListener('focusin', function() {
+        dropdownContent.style.display = 'block';
+      });
+    
+      dropdownContent.addEventListener('focusout', function(e) {
+        // If focus moved outside the dropdown content, then close it
+        if (!dropdownContent.contains(e.relatedTarget)) {
+          dropdownContent.style.display = 'none';
+        }
+      });
+    });
 
     /**
      * Replace Virtual Corpus field
@@ -210,6 +297,49 @@ define([
       };
     });
     
+    // Function to toggle the shifted class on header and main
+    function shiftContent() {
+      // Get elements to perform content shift when sidebar is active
+      const header = document.querySelector('header');
+      const main = document.querySelector('main');
+      const footer = document.querySelector('footer');
+      const hint = document.querySelector('#hint');
+      const results = document.querySelector('.found');
+
+      if (aside.classList.contains('active')) {
+        header.classList.add('shifted');
+        if (!results) {
+          main.classList.add('shifted')
+        }
+        footer.classList.add('shifted');
+        if (hint) {
+          hint.classList.add('shifted');
+        }
+      } else {
+        header.classList.remove('shifted');
+        main.classList.remove('shifted');
+        footer.classList.remove('shifted');
+        if (hint) {
+          hint.classList.remove('shifted');
+        }
+      }
+    }
+
+    // Set up a mutation observer to detect when #hint is injected into the DOM
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          const hint = document.querySelector('#hint');
+          if (hint) {
+            shiftContent();
+            observer.disconnect();
+          }
+        }
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+    
     // Add focus listener to aside
     var aside = d.getElementsByTagName('aside')[0];
 
@@ -217,10 +347,13 @@ define([
 
       // Horrible lock to deal with sidebar clicks
       var asideClicked = false;
+
+      shiftContent();
       
       // Make aside active on focus
       aside.addEventListener('focus', function(e) {
         this.classList.add('active');
+        shiftContent();
       });
 
       // Deactivate focus when clicking anywhere else
@@ -229,6 +362,7 @@ define([
         body.addEventListener('click', function() {
           if (!asideClicked) {
             aside.classList.remove('active');
+            shiftContent();
           }
           else {
             asideClicked = false;
@@ -244,7 +378,6 @@ define([
       });
     };
 
-      
     // Replace QL select menus with KorAP menus
     var qlField = d.getElementById('ql-field');
     if (qlField !== null) {

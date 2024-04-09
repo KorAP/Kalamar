@@ -1,69 +1,76 @@
 @use 'sass:math';
-@import "highlight";   // JSON highlighting
-@import "kwic";        // Kwic view information
-@import "logos";       // Logo images
-@import "matchinfo";   // Match table
-@import "pagination";  // Pagination
-@import "query";       // View query
-@import "resultinfo";  // Information on results
-@import "tutorial";    // Embedded and non-embedded tutorial
-@import "koralquery";  // KoralQuery
-@import "alertify";    // Styling alerts
-@import "intro";       // Intro page
-@import "panel";       // Base panel system
-@import "introjs";     // Guided Tour
-@import "introjs-ids"; // Guided Tour: IDS specific 
-@import "oauth";       // OAuth Management styles
-@import "news";        // View for optional news
-@import "plugin";      // Rules for embedded plugins
-@import "marketplace"; // Plugin Marketplace styles
+@import 'highlight'; // JSON highlighting
+@import 'kwic'; // Kwic view information
+@import 'logos'; // Logo images
+@import 'matchinfo'; // Match table
+@import 'pagination'; // Pagination
+@import 'query'; // View query
+@import 'resultinfo'; // Information on results
+@import 'tutorial'; // Embedded and non-embedded tutorial
+@import 'koralquery'; // KoralQuery
+@import 'alertify'; // Styling alerts
+@import 'intro'; // Intro page
+@import 'panel'; // Base panel system
+@import 'introjs'; // Guided Tour
+@import 'introjs-ids'; // Guided Tour: IDS specific
+@import 'oauth'; // OAuth Management styles
+@import 'announcements'; // Styling for announcements
+@import 'news'; // View for optional news
+@import 'plugin'; // Rules for embedded plugins
+@import 'marketplace'; // Plugin Marketplace styles
 // @import "tagger";   // Tagger
 
-@import "../util";
-
+@import '../util';
 
 main {
-  padding-bottom: $footer-height + math.div($standard-margin,2);
+  padding: 0 $standard-size-and-spacing;
+  padding-bottom: $footer-height + math.div($standard-margin, 2);
 
-  margin: {
-    left:  $standard-margin; 
-    right: math.div($standard-margin,2);
+  // margin: {
+  //   left:  $standard-margin;
+  //   right: math.div($standard-margin,2);
+  // }
+
+  &.shifted {
+    padding-left: calc($standard-size-and-spacing + $logo-left-distance);
   }
 
   &.embedded {
     margin: {
-      left:  14px;
+      left: 14px;
       right: 14px;
     }
   }
 
   p {
     text-align: justify;
-    hyphens:    auto;
+    hyphens: auto;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   h2#page-top {
-    margin-top:  0;
+    margin-top: 0;
     padding-top: 1em;
   }
 
-  &.page {
-    margin-left: $logo-left-distance + 15px;
-    p,
-    li,
-    dd,
-    dt {
-      code {
-        background-color: $ids-grey-2;
-        color:            $ids-grey-1;
-        padding:          0 .5em;
-        border-radius:    $standard-border-radius;
-      }
-    }
-  }
+  // &.page {
+  //   margin-left: $logo-left-distance + 15px;
+  //   p,
+  //   li,
+  //   dd,
+  //   dt {
+  //     code {
+  //       background-color: $ids-grey-2;
+  //       color:            $ids-grey-1;
+  //       padding:          0 .5em;
+  //       border-radius:    $standard-border-radius;
+  //     }
+  //   }
+  // }
 
   p.hint {
-    margin:     0 auto;
+    margin: 0 auto;
     text-align: center;
   }
 }

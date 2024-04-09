@@ -19,6 +19,7 @@
 /dev/js/spec/src
 /dev/js/src/custom
 /templates/announcement.html.ep*
+/templates/news.html.ep*
 /templates/custom
 /lib/Kalamar/Plugin/Announcements.pm
 /log
