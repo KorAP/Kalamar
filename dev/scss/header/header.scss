@@ -11,14 +11,283 @@
 @import "pipe";          // Pipe
 @import "state";         // State
 
+.navbar {
+  width: 100%;
+  height: 4rem;
+  background-color: $dark-green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  // overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  transition: top .3s ease-in-out;
+  -o-transition: top .3s ease-in-out;
+  -moz-transition: top .3s ease-in-out;
+  -webkit-transition: top .3s ease-in-out;
+
+  &-group {
+    display: flex;
+    align-items: center;
+
+    h3.nav-link {
+      height: 4rem;
+      font-size: 1rem;
+      transition:  all .2s ease-in-out;
+      -o-transition: all .2s ease-in-out;
+      -moz-transition: all .2s ease-in-out;
+      -webkit-transition: all .2s ease-in-out;
+
+      &:hover {
+        background-color: $middle-green;
+      }
+
+      a {
+        display: block;
+        padding: 1.5rem 1rem;
+        color: $nearly-white;
+      }
+    }
+
+    // fieldset.fieldset-login {
+    //   display: flex;
+    //   flex-direction: column;
+    //   margin-right: 4rem;
+    //   padding: 0;
+    //   min-inline-size: unset;
+    //   border: unset;
+
+    //   form.login {
+    //     display: flex;
+    //     align-items: center;
+        
+    //     input[type=text],
+    //     input[type=password] {
+    //       @include input-field;
+    //       margin-right: 8px;
+    //       height: 1.5rem;
+    //     }
+  
+    //     button.btn-login {
+    //       // width: 3rem;
+    //       // height: 3rem;
+    //       // background-color: $dark-green;
+    //       background-color: unset;
+    //       color: $nearly-white;
+    //       // padding: .75rem 1rem;
+    //       font-size: 180%;
+    //       border: none;
+    //       border-color: unset;
+    //       border-radius: 0;
+    //       text-shadow: none;
+    //       font-weight: normal;
+    //       top: unset;
+    //       transition:  all .2s ease-in-out;
+    //       -o-transition: all .2s ease-in-out;
+    //       -moz-transition: all .2s ease-in-out;
+    //       -webkit-transition: all .2s ease-in-out;
+  
+    //       &::after {
+    //         content: $fa-login;
+    //       }
+
+    //       &:hover {
+    //         // background-color: $middle-green;
+    //         color: $dark-orange;
+    //       }
+    //     }
+    //   }
+
+    //   p {
+    //     margin: 0;
+    //     font-size: .7rem;
+    //     color: $nearly-white;
+
+    //     a {
+    //       color: $dark-orange;
+
+    //       &:hover {
+    //         color: $middle-orange;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+
+  .dropdown {
+    display: flex;
+    align-items: center;
+    margin-right: 4rem;
+    position: relative;
+
+    &:hover .dropdown-content,
+    &:focus-within .dropdown-content {
+      display: block;
+    }
+
+    &:hover .dropdown-btn,
+    &:focus-within .dropdown-btn {
+      color: $nearly-white;
+      background-color: $middle-green;
+    }
+
+    &-btn {
+      height: 4rem;
+      padding: 1.25rem 1rem;
+      color: $nearly-white;
+      transition:  all .2s ease-in-out;
+      -o-transition: all .2s ease-in-out;
+      -moz-transition: all .2s ease-in-out;
+      -webkit-transition: all .2s ease-in-out;
+      cursor: pointer;
+
+      &.login::before {
+        @include icon-font;
+        content: $fa-login;
+        font-size: 150%;
+      }
+      
+      &.profile::before {
+        @include icon-font;
+        content: $fa-user;
+        font-size: 150%;
+      }
+
+      h3.user-name {
+        padding-right: 2px;
+        // font-size: 85%;
+        font-size: 120%;
+        display: inline;
+      }
+    }
+
+    &-content {
+      display: none;
+      width: fit-content;
+      margin-top: 4rem;
+      padding: 0;
+      background-color: $middle-green;
+      position: absolute;
+      top: 0;
+      z-index: 999;
+
+      &--left {
+        left: 0;
+      }
+
+      &--right {
+        right: 0;
+        padding: 1rem;
+      }
+
+      form.login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        input[type=text],
+        input[type=password] {
+          @include input-field;
+          margin-bottom: 8px;
+          height: 2rem;
+        }
+  
+        button.btn-login {
+          width: 100%;
+          height: 2rem;
+          margin-bottom: 1rem;
+          background-color: $dark-green;
+          color: $nearly-white;
+          font-size: 120%;
+          border: none;
+          border-color: unset;
+          border-radius: 0;
+          text-shadow: none;
+          font-weight: normal;
+          top: unset;
+          transition:  all .2s ease-in-out;
+          -o-transition: all .2s ease-in-out;
+          -moz-transition: all .2s ease-in-out;
+          -webkit-transition: all .2s ease-in-out;
+  
+          &::after {
+            content: $fa-login;
+          }
+
+          &:hover {
+            // color: $dark-orange;
+            background-color: $dark-orange;
+          }
+        }
+      }
+
+      p {
+        margin: 0;
+        font-size: .7rem;
+        color: $nearly-white;
+
+        a {
+          color: $dark-orange;
+
+          &:hover {
+            color: $middle-orange;
+          }
+        }
+      }
+    }
+
+    &-item {
+      display: block;
+      padding: .75rem;
+      font-size: 1rem;
+      color: $nearly-white;
+      transition:  all .2s ease-in-out;
+      -o-transition: all .2s ease-in-out;
+      -moz-transition: all .2s ease-in-out;
+      -webkit-transition: all .2s ease-in-out;
+
+      &:hover {
+        color: $nearly-white;
+        background-color: $light-green;
+      }
+
+      &.logout::before {
+        @include icon-font;
+        content: $fa-logout;
+        font-size: 1rem;
+      }
+
+      span {
+        display: inline;
+      }
+    }
+  }
+
+  .burger-icon {
+    display: none;
+
+    &::after {
+      @include icon-font;
+      content: $fa-bars;
+    }
+  }
+}
+
 header {
   @include box-sizing-box();
   position:         relative;
   background-color: $light-green;
-  padding:          $base-padding 0 0 $base-padding;
+  // padding:          $base-padding 0 0 $base-padding;
+  padding-top:      4rem;
   font-size:        10pt;
   color:            $nearly-white;
-  
+
+  &.shifted {
+    padding-left: 230px;
+  }
+
   span.select {
     display:     inline-block;
     cursor:      pointer;
@@ -63,9 +332,12 @@ header {
   form {
     position:     relative;
     display:      block;
-    padding-left: $logo-left-distance;
+    // padding-left: $logo-left-distance;
     min-height:   2.7em;
-    margin:       0px;
+
+    &#searchform {
+      margin: 0 4rem;
+    }
   }
 
   input {
@@ -91,7 +363,8 @@ header {
       top:              0;
       right:            0;
       margin-right:     0;
-      width:            math.div($standard-margin,2);
+      width:            20px;
+      // width:            math.div($standard-margin,2);
       background-color: $dark-green;
       text-align:       center;
       height:           100%;
@@ -117,7 +390,6 @@ header {
       @include icon-font;
     }
 
-    // Icons for buttons
     > a.tutorial::after {
       content: $fa-tutorial;
     }

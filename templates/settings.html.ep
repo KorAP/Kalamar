@@ -10,6 +10,6 @@
 %    inline => '<nav>' . navigation('settings') . '</nav>'
 % });
 
-% layout 'main', sidebar_active => 1, main_class => 'page settings';
+% layout 'main', sidebar_active => 1, main_class => 'shifted page settings';
 
 %= content 'settings'

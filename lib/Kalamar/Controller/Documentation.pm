@@ -28,7 +28,8 @@ sub page {
 
   # Render template
   $c->stash(sidebar_active => 1);
-  $c->stash(main_class => 'page tutorial');
+  # $c->stash(main_class => 'page tutorial');
+  $c->stash(main_class => 'shifted page tutorial');
   $c->stash(documentation => 1);
   $c->stash('robots' => 'index,follow');
 

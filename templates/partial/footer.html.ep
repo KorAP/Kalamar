@@ -1,4 +1,4 @@
-<footer>
+<footer class="shifted">
   <nav>
     <div><%= content_block 'footer', separator => '</div><div>' %></div>
   </nav>

@@ -4,6 +4,13 @@
 /**
  * Rules for the Kalamar hint helper.
  */
+
+#hint {
+  &.shifted {
+    left: 230px;
+  }
+}
+
 ul.menu.hint {
   display:     inline-block;
   white-space: normal;

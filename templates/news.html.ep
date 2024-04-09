@@ -1,0 +1,293 @@
+<section id="news">
+  % if ($lang eq 'de') {
+    <h3>Neuigkeiten</h3>
+  % } else {
+    <h3>News</h3>
+  % } 
+  <dl>
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2024-02-19">Montag, 19. Februar 2024</time></dt>
+  <dd>
+    <h4>KorAP-Update mit CQP-Unterstützung</h4>
+    <p>Im Anfragesprachenmenü kann jetzt auch CQP ausgewählt werden.</p>
+   </dd>
+% } else {
+  <dt><time datetime="2024-02-19">Monday, 19 February 2024</time></dt>
+  <dd>
+    <h4>KorAP Update with CQP support</h4>
+    <p>In the query language menu, now also CQP can be selected.</p>
+  </dd>
+% } 
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2024-01-28">Dienstag, 28. Januar 2024</time></dt>
+  <dd>
+    <h4>Update der Client-Bibliotheken</h4>
+    <p>v0.8.0 der Client Bibliotheken für R und Python bringt u.a. die neue Methode <code class="language-python">textMetada</code>, zur Abfrage von Text-Metadaten anhand von Siglen. Siehe <a href="https://github.com/KorAP/RKorAPClient/blob/master/NEWS.md" class="external">RKorAPCLient-News</a>, bzw. <a href="https://github.com/KorAP/PythonKorAPClient/blob/master/CHANGELOG.md" class="external">PythonKorAPCLient-Changelog</a>.</p>
+   </dd>
+% } else {
+  <dt><time datetime="2024-01-28">Tuesday, 28 January 2024</time></dt>
+  <dd>
+    <h4>Client Libraries Updated</h4>
+    <p>v0.8.0 of the client libraries for R and Python includes the new method <code class="language-python">textMetada</code>, for querying text metadata using sigles. See <a href="https://github.com/KorAP/RKorAPClient/blob/master/NEWS.md" class="external">RKorAPCLient-News</a>, or <a href="https://github.com/KorAP/PythonKorAPClient/blob/master/CHANGELOG.md" class="external">PythonKorAPCLient-Changelog</a>.</p>
+  </dd>
+% } 
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2023-10-24">Dienstag, 24. Oktober 2023</time></dt>
+  <dd>
+    <h4>KorAP Update</h4>
+    <p>Auf dem Produktionssystem wurde KorAP hinsichtlich des Backends aktualisiert (<a href="https://github.com/KorAP/Kustvakt/releases/tag/v0.71.1-release" class="external">v0.71.1</a>)!</p>
+   </dd>
+% } else {
+  <dt><time datetime="2023-10-24">Tuesday, 24 October 2023</time></dt>
+  <dd>
+    <h4>KorAP Update</h4>
+    <p>The KorAP-Backend is now up-to-date (<a href="https://github.com/KorAP/Kustvakt/releases/tag/v0.71.1-release" class="external">v0.71.1</a>)!</p>
+  </dd>
+% } 
+
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2023-07-17">Montag, 17. Juli 2023</time></dt>
+  <dd>
+    <h4>KorAP Update</h4>
+    <p>Auf dem Produktionssystem wurde KorAP auf den aktuellen Stand gebracht. Hinsichtlich des Frontends auf <a href="https://github.com/KorAP/Kalamar/blob/a4f1a97e3d357d5b7978689c601fce5b54d94ba4/Changes#L7" class="external">v0.50.1</a>, hinsichtlich des Backends auf <a href="https://github.com/KorAP/Kustvakt/blob/8b6822153d249572ba6340a25efa2f92d3255fdc/full" class="external">v0.71</a>.</p>
+   </dd>
+% } else {
+  <dt><time datetime="2023-07-17">Monday, 17 July 2023</time></dt>
+  <dd>
+    <h4>KorAP Update</h4>
+    <p>KorAP is now up-to-date on the production system. The current version of the frontend is <a href="https://github.com/KorAP/Kalamar/blob/a4f1a97e3d357d5b7978689c601fce5b54d94ba4/Changes#L7" class="external">v0.50.1</a>, the current version of the backend is <a href="https://github.com/KorAP/Kustvakt/blob/8b6822153d249572ba6340a25efa2f92d3255fdc/full" class="external">v0.71</a>.</p>
+  </dd>
+% } 
+
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2023-03-10">Samstag, 10. März 2023</time></dt>
+  <dd>
+    <h4>DeReKo-KorAP-Release 2023-I</h4>
+    <p>Ab heute steht <a href="/doc/corpus">DeReKo-KorAP 2023-I-beta</a> für alle Nutzer*innen zur Verfügung.</p>
+    <p>Zudem wurde die Plattform um einige Funktionen, wie dem Zugriff auf Volltexte bei Lizenzpartnern, erweitert. Einige Fehler konnten ebenfalls bereinigt werden.</p>
+   </dd>
+% } else {
+  <dt><time datetime="2023-03-10">Saturday, 10 March 2023</time></dt>
+  <dd>
+    <h4>DeReKo-KorAP-Release 2023-I</h4>
+    <p>As of today, <a href="/doc/corpus">DeReKo-KorAP 2023-I-beta</a> is available to all users.</p>
+    <p>In addition, the platform has been extended with several features, such as access to full texts from licensing partners. Also some bugs were fixed.</p>
+  </dd>
+% }
+
+% if ($lang eq 'de') {
+    <dt><time datetime="2022-09-08">8. September 2022</time></dt>
+    <dd><h4>Neue RKorAPClient-Version 0.7.5 veröffentlicht</h4>
+      <p>
+      Die neue Version behebt vor allem Konflikte mit CRAN-Richtlinien, enthält aber auch
+      einige neue Demos und einen Bug-Fix bei der Kookkurrenzanalyse mit lemmatisierten
+      Komponenten.
+      </p>
+    </dd>
+  % } else {
+    <dt><time datetime="2022-09-08">8 September 2022</time></dt>
+    <dd><h4>New RKorAPClient version 0.7.5 published</h4>
+      <p>
+      The new version mainly fixes conflicts with CRAN policies, but also contains
+      new demos and a bug fix for collocation analysis with lemmatized components.
+      </p>
+    </dd>
+  % }
+
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2022-03-11">Freitag, 11. März 2022</time></dt>
+    <dd>
+    <h4>DeReKo-KorAP-Release 2022-I</h4>
+    <p>Ab heute steht <a href="/doc/corpus">DeReKo-KorAP-Release 2022-I</a> für alle Nutzer*innen zur Verfügung. Neben Aktualisierungen bestehender Korpora enthält es:</p>
+    <ul>
+      <li><strong>NottDeuYTsch-Korpus</strong> (NDY; nur IDS-intern)</li>
+      <li><strong>Twitter-Sample-Korpus</strong> (TWI21; nur IDS-intern)</li>
+    </ul>
+    </dd>
+% } else {
+  <dt><time datetime="2022-03-11">Friday, 11 March 2022</time></dt>
+  <dd>
+    <h4>DeReKo-KorAP-Release 2022-I</h4>
+    <p>As of today, <a href="/doc/corpus">DeReKo-KorAP-Release 2022-I</a> is available to all users. In addition to updates to existing corpora, it includes:</p>
+    <ul>
+      <li><strong>NottDeuYTsch Corpus</strong> (NDY; IDS-internal only)</li>
+      <li><strong>Twitter-Sample Corpus</strong> (TWI21; IDS-internal only)</li>
+    </ul>
+    </dd>
+  </dd>
+% } 
+
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2022-02-08">8. Februar 2022</time></dt>
+    <dd><h4>Neues Korpus: Gingko - Geschriebenes Ingenieurwissenschaftliches Korpus</h4>
+      <p>Schon vor der Veröffentlichung von DeReKo-2022-I ist nun das Korpus des Projekts
+      <a href="https://www.philol.uni-leipzig.de/herder-institut/forschung/projekte/laufende-projekte/gingko">&quot;Muster in der Sprache der Ingenieurwissenschaften&quot;</a> in KorAP verfügbar.</p>
+    </dd>
+  % } else {
+    <dt><time datetime="2022-02-08">8 February 2022</time></dt>
+    <dd><h4>New corpus: Gingko - Geschriebenes Ingenieurwissenschaftliches Korpus</h4>
+      <p>Even before the publication of DeReKo-2022-I, the corpus of the project
+      <a href="https://www.philol.uni-leipzig.de/herder-institut/forschung/projekte/laufende-projekte/gingko">&quot;Patterns in the Language of Engineering&quot;</a> is now available in KorAP.</p>
+    </dd>
+  % }
+
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2021-10-02">02. Oktober 2021</time></dt>
+    <dd><h4>Neue Python-KorAPClient-Version veröffentlicht</h4>
+      <p>
+	Zur Aktualisierung auf v0.7.1 unter Linux/macOS <code class="language-bash">python3 -m pip install -U KoraPClient</code> und unter Windows <code class="language-bash">py -m pip install -U KoraPClient</code>.
+	Die neue Version setzt die Änderungen der entsprechenden R-Bibliothek um und beinhaltet ebenfalls eine  vorläufige, noch langsame aber 
+	mächtige <a href="https://github.com/KorAP/PythonKorAPClient#identify-in--setzen-light-verb-constructions-by-the-collocationanalysis-method">Funktion
+	zur Kookurrenzanalyse</a>.
+      </p>
+    </dd>
+  % } else {
+    <dt><time datetime="2021-10-02">02 October 2021</time></dt>
+    <dd><h4>New KorAPClient version for Python published</h4>
+      <p>
+       To upgrade to v0.7.1 on Linux/macOS run <code class="language-bash">python3 -m pip install -U KoraPClient</code> and on Windows <code class="language-bash">p\
+y -m pip install -U KoraPClient</code>.
+        The new version implements the changes of the corresponding R library and also includes a preliminary, still slow but
+        powerful <a href="https://github.com/KorAP/PythonKorAPClient#identify-in--setzen-light-verb-constructions-by-the-collocationanalysis-method">function
+        for collocation analysis</a>.
+      </p>
+    </dd>
+  % }
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2021-09-21">21. September 2021</time></dt>
+    <dd><h4>Neue RKorAPClient-Version veröffentlicht</h4>
+      <p>
+	Zur Aktualisierung auf v0.7.1 in RStudio unter <i>Tools -> Check for Package Updates</i> 
+	RKorAPClient auswählen und auf <i>Install Updates</i> klicken.
+	Die neue Version enthält u.a. einen Bug-Fix für Suchen mit
+	Umlauten und eine vorläufige, noch sehr langsame aber sehr
+	mächtige <a href="https://github.com/KorAP/RKorAPClient#identify-in--setzen-light-verb-constructions-by-using-the-new-collocationanalysis-function">Funktion
+	zur Kookurrenzanalyse</a> (siehe
+	auch <a href="https://cran.r-project.org/web/packages/RKorAPClient/news/news.html">News</a>).
+      </p>
+    </dd>
+  % } else {
+    <dt><time datetime="2021-09-21">21 September 2021</time></dt>
+    <dd><h4>New RKorAPClient version published</h4>
+      <p>
+        To update to v0.7.1 in RStudio, go to <i>Tools -> Check for Package Updates</i>, 
+	select RKorAPClient and click <i>Install Updates</i>.
+        The new version includes, among other things, a bug fix for
+        searches with umlauts on Windows and a preliminary, still very slow but
+        very  powerful <a href="https://github.com/KorAP/RKorAPClient#identify-in--setzen-light-verb-constructions-by-using-the-new-collocationanalysis-function">collocation
+        analysis function</a> (see also 
+        <a href="https://cran.r-project.org/web/packages/RKorAPClient/news/news.html">News</a>).
+      </p>
+    </dd>
+  % }
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2021-05-06">6. Mai 2021</time></dt>
+    <dd><h4>KorAP hat ein neues Logo!</h4>
+      <p>Im Zuge des Neustart der IDS-Webseiten führt KorAP auch ein neues Logo ein -
+	entwickelt von Norbert Cußler-Volz. Ein erster Schritt - denn in den nächsten
+	Monaten wird die Benutzeroberfläche nach und nach modernisiert und in Teilen
+	an weiteren Angeboten des IDS angeglichen.</p>
+    </dd>
+  % } else {
+    <dt><time datetime="2021-05-06">6 May 2021</time></dt>
+    <dd><h4>KorAP has a new logo!</h4>
+      <p>In the course of the relaunch of the IDS web pages KorAP also introduces a new logo -
+	developed by Norbert Cußler-Volz. Just a first step - in the next couple of months the
+	user interface will be modernized step by step and will adapt in parts to other
+	IDS services.</p>
+    </dd>
+  % }
+
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2021-03-02">2. März 2021</time></dt>
+    <dd><h4>Neue Export-Funktion für Suchergebnisse</h4>
+      <p>Durch ein neu integriertes Plugin ist es nun möglich,
+	Suchergebnisse direkt über die grafische Nutzerschnittstelle
+	von KorAP zu exportieren. Hierfür erscheint nach einer
+	erfolgreichen Suche rechts über der Trefferliste 
+	ein <span class="button-icon plugin" title="Export" data-icon=""><span>Export</span></span>-Symbol,
+	das zu einer Auswahl von zunächst drei unterschiedlichen Export-Formaten führt.</p>
+
+      <p>Zusätzlich haben wir in dieser Version die Dokumentation erweitert und
+	beispielsweise eine kurze Publikationsliste als
+	<%= link_to loc("howToCite") => url_for(doc => { page => "faq" })->fragment("howToCite") %>
+	für die Nutzung von KorAP eingeführt.</p>
+    </dd>
+  % } else {
+    <dt><time datetime="2021-03-02">2 March 2021</time></dt>
+    <dd><h4>New export feature for search results</h4>
+      <p>Thanks to a newly integrated plugin, it is now possible to export search results
+	directly via KorAP's graphical user interface. For this purpose, an
+	<span class="button-icon plugin" title="Export" data-icon=""><span>Export</span></span>
+	icon appears above the hit list on the right after a successful search, which leads
+	to a selection of initially three different export formats.</p>
+      <p>In addition, we have expanded the documentation in this version and,
+	for example, introduced a short publication list as a
+	<%= link_to 'citation aid' => url_for(doc => { page => "faq" })->fragment("howToCite") %>
+	for using KorAP.</p>
+    </dd>
+  % }
+
+
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2021-02-02">2. Februar 2021</time></dt>
+    <dd><h4><code>dereko-korap-2021-I</code> mit über 21,3 Milliarden Tokens verfügbar</h4>
+    <p>Das virtuelle Korpus enthält zusätzlich zu den Inhalten aus dereko-korap-2020-I neue Zeitungs- und Zeitschriften-Jahrgänge aus 2021. <%= doc_opener 'corpus', begin %>Zur vollständigen Auflistung der Zusammenstellung<% end %> von <code>dereko-korap-2021-I</code>. </p>
+    </dd>
+  % } else {
+    <dt><time datetime="2021-02-02">2 February 2021</time></dt>
+    <dd>
+    <h4><code>dereko-korap-2021-I</code> with over 21.3 billion tokens available via <a href="https://korap.ids-mannheim.de/">KorAP</a></h4>
+    <p>In addition to the content of theeko-korap-2020-I, the virtual corpus contains new newspaper and journal volumes from 2021. See the <%= doc_opener 'corpus', begin %>detailed breakdown of the composition<% end %> of <code>dereko-korap-2021-I</code>. </time></p>
+    </dd>
+    % }
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2020-07-31">31. Juli 2020</time></dt>
+    <dd><h4>KorAP-Client-Bibliothek für Python veröffentlicht</h4>
+    <p>DeReKo bzw. KorAP lässt sich nun auch von der Programmiersprache Python aus abfragen. Mehr Informationen und eine Anleitung zur installation gibt es auf <a href="https://pypi.org/project/KorAPClient/">PyPI</a> oder auf <a href="https://github.com/KorAP/PythonKorAPClient/">GitHub</a>.</p>
+    </dd>
+  % } else {
+    <dt><time datetime="2020-07-31">31 July 2020</time></dt>
+    <dd><h4>KorAP client library for Python released</h4>
+    <p>DeReKo or KorAP can now be queried from the programming language Python. More information and installation instructions are available on <a href="https://pypi.org/project/KorAPClient/">PyPI</a> or on <a href="https://github.com/KorAP/PythonKorAPClient/">GitHub</a>.</p>
+    </dd>
+    % }
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2020-06-26">26. Juni 2020</time></dt>
+    <dd><h4><code>dereko-korap-2020-I</code> mit über 20,6 Milliarden Tokens verfügbar</h4>
+    <p>Das virtuelle Korpus enthält  das in COSMAS II angebotene <a href="http://www.ids-mannheim.de/cosmas2/projekt/referenz/archive.html"><i>W-gesamt</i> (DeReKo-2020-I)</a>,  weitere Wikipedia-Korpora (inkl. Artikel- und Diskussionskorpora), sowie einige weitere Korpora aus <a href="https://www1.ids-mannheim.de/kl/projekte/korpora/archiv.html#Textorganisation">DeReKo-2020-I</a>. <%= doc_opener 'corpus', begin %>Zur vollständigen Auflistung der Zusammenstellung<% end %> von <code>dereko-korap-2020-I</code>. </p>
+  % } else {
+    <dt><time datetime="2020-06-26">26 June 2020</time></dt>
+    <dd>
+    <h4><code>dereko-korap-2020-I</code> with over 20.6 billion tokens available via <a href="https://korap.ids-mannheim.de/">KorAP</a></h4>
+    <p>The virtual corpus contains <a href="http://www.ids-mannheim.de/cosmas2/projekt/referenz/archive.html"><i>W-gesamt</i> of COSMAS II (DeReKo-2020-I)</a>, Wikipedia corpora with articles and talk pages, and more corpora from <a href="https://www1.ids-mannheim.de/kl/projekte/korpora/archiv.html#Textorganisation">DeReKo-2020-I</a>. See the <%= doc_opener 'corpus', begin %>detailed breakdown of the composition<% end %> of <code>dereko-korap-2020-I</code>. </time></p>
+    </dd>
+  % }
+
+  % if ($lang eq 'de') {
+    <dt><time datetime="2020-06-17">17. Juni 2020</time></dt>
+    <dd><h4>Danke für die zahlreichen Rückmeldungen zur <a href="https://www1.ids-mannheim.de/kl/projekte/korpora/bib.html">DeReKo-Bibliographie</a> !</h4>
+        <p>(Wir hatten eine Mail an alle 40.000 KorAP-, COSMAS-II-, und DeReKo-Nutzer verschickt, mit der Bitte, uns für unsere <a href="https://www1.ids-mannheim.de/kl/projekte/korpora/bib.html">DeReKo-Bibliographie</a> noch fehlende Referenzen zu Veröffentlichungen, Veranstaltungen, Tutorials, Filmen, etc. mitzuteilen. 
+        Wer noch etwas ergänzen möchte, bitte formlos per Mail an 
+        <%= mail_to_chiffre join('@', 'dereko-feedback', 'ids-mannheim.de'), subject => 'Ergänzung zur DeReKo-Bibliographie', begin %>dereko-feedback<% end %>.)
+    </p>
+    </dd>
+  % }
+
+  </dl>
+</section>
+

@@ -61,7 +61,7 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
        "</form>" + 
        "<div class='hint mirror' style='height: 0px; left: 238px; top: 36px; width: 1272px; padding-left: 2px; margin-left: 0px; border-left-width: 2px; border-left-style: solid; font-size: 14.6667px; font-family: Noto Sans;'>" +
          "<span></span>" +
-           "<div id='hint' class=''>" +
+           "<div id='hint'>" +
            "<div style='display: none;' class='alert hint'></div>" +
            "<ul style='outline: currentcolor none 0px;' tabindex='0' class='menu roll hint'>" +
              "<span class='pref'></span>" +
