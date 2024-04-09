@@ -14,6 +14,7 @@
 @import "introjs";     // Guided Tour
 @import "introjs-ids"; // Guided Tour: IDS specific 
 @import "oauth";       // OAuth Management styles
+@import "announcements";        // Styling for announcements
 @import "news";        // View for optional news
 @import "plugin";      // Rules for embedded plugins
 @import "marketplace"; // Plugin Marketplace styles
@@ -23,11 +24,16 @@
 
 
 main {
+  padding: 0 $standard-size-and-spacing;
   padding-bottom: $footer-height + math.div($standard-margin,2);
 
-  margin: {
-    left:  $standard-margin; 
-    right: math.div($standard-margin,2);
+  // margin: {
+  //   left:  $standard-margin; 
+  //   right: math.div($standard-margin,2);
+  // }
+
+  &.shifted {
+    padding-left: calc($standard-size-and-spacing + $logo-left-distance);
   }
 
   &.embedded {
@@ -40,6 +46,8 @@ main {
   p {
     text-align: justify;
     hyphens:    auto;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   h2#page-top {
@@ -47,20 +55,20 @@ main {
     padding-top: 1em;
   }
 
-  &.page {
-    margin-left: $logo-left-distance + 15px;
-    p,
-    li,
-    dd,
-    dt {
-      code {
-        background-color: $ids-grey-2;
-        color:            $ids-grey-1;
-        padding:          0 .5em;
-        border-radius:    $standard-border-radius;
-      }
-    }
-  }
+  // &.page {
+  //   margin-left: $logo-left-distance + 15px;
+  //   p,
+  //   li,
+  //   dd,
+  //   dt {
+  //     code {
+  //       background-color: $ids-grey-2;
+  //       color:            $ids-grey-1;
+  //       padding:          0 .5em;
+  //       border-radius:    $standard-border-radius;
+  //     }
+  //   }
+  // }
 
   p.hint {
     margin:     0 auto;

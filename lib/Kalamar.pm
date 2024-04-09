@@ -369,6 +369,9 @@ NONCE_JS
   # Base query route
   $r->get('/')->to('search#query')->name('index');
 
+  # News route
+  $r->get('/news')->to('news#news')->name('news');
+
   # Documentation routes
   $r->get('/doc')->to('documentation#page', page => 'ql')->name('doc_start');
   $r->get('/doc/:scope/:page')->to('documentation#page', scope => undef)->name('doc');

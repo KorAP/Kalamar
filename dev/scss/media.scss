@@ -21,16 +21,148 @@ $standard-margin: 4px;
   }
 
   header {
-    padding-right: 8px;
+    padding-top: 3rem;
+    // padding-right: 8px;
+
+    &.shifted {
+      padding-left: 0;
+    }
   }
   
   header form {
+    margin: 1.5rem 1rem;
     padding-left: 0;
-    padding-top: 33px;
+    // padding-top: 33px;
+
+    &#searchform {
+      margin: 2.5rem 1rem 0 1rem;
+    }
+  }
+
+  .navbar {
+    *:not(:first-child) {
+      display: none;
+    }
+
+    &-group {
+      h3.nav-link {
+        height: 2rem;
+
+        a {
+          padding: .75rem !important;
+        }
+      }
+    }
+
+    .burger-icon {
+      position: relative;
+      display: block !important;
+      width: $standard-size-and-spacing;
+      height: $standard-size-and-spacing;
+      font-size: 1.8rem;
+      color: $nearly-white;
+
+      &::after {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+      }
+    }
+
+    &.show .burger-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $middle-green;
+    }
+
+    &.show * {
+      display: block;
+    }
+
+    &-group {
+      margin-top: $standard-size-and-spacing;
+      width: 100%;
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: $middle-green;
+
+      fieldset.fieldset-login {
+        display: block !important;
+        margin-right: 0 !important;
+        padding: 1rem;
+
+        form.login {
+          align-items: normal !important;
+          flex-direction: column;
+          gap: 8px;
+          
+          input[type=text],
+          input[type=password] {
+            @include input-field;
+            margin-right: 0 !important;
+          }
+    
+          button.btn-login {
+            width: 100% !important;
+            align-self: center;
+            background-color: $dark-green !important;
+
+            &:hover {
+              background-color: $middle-green !important;
+              color: unset !important;
+            }
+          }
+        }
+
+        p {
+          padding: 1rem 0 0;
+
+          a {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .dropdown {
+        margin-right: 0 !important;
+
+        &-btn {
+          &.login {
+            visibility: hidden;
+          }
+        }
+
+        &-content {
+          display: block !important;
+          width: 100% !important;
+
+          form.login {
+            input[type=text],
+            input[type=password] {
+              width: 100%;
+            }
+          }
+
+          p {
+            a {
+              display: inline;
+            }
+          }
+        }
+      }
+    }
   }
 
   .vc {
-    
     font-size: 9pt;
     .builder {
       .doc {
@@ -58,13 +190,19 @@ $standard-margin: 4px;
     }
     z-index: 110;
     position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    -o-transform: translateY(-50%);;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
   }
 
   #searchbar {
     padding-right: 30px;
     margin-top: 0;
-    input {
+    input#q-field {
       font-size: 9pt;
+      border-radius: 6px 0 0 6px;
     }
     button[type=submit] {
       right: 0;
@@ -80,8 +218,13 @@ $standard-margin: 4px;
   }
 
   main {
+    padding: 1rem;
     margin-left: $standard-margin;
     margin-right: $standard-margin;
+
+    &.shifted {
+      padding-left: 0;
+    }
   }
 
   header .button {
@@ -129,10 +272,17 @@ $standard-margin: 4px;
       padding-right: 0;
       .logo > * {
         background: {
-        size: 60%;
-        position: 0 0;
+          size: 60%;
+          position: 0 0;
+        }
       }
-      }
+    }
+  }
+
+  .logo > * {
+    > div.logoaddon {
+      right: -1.2rem;
+      top: 1.4rem;
     }
   }
 
@@ -160,10 +310,10 @@ $standard-margin: 4px;
       font-size: 9pt;
       line-height: 1em;
     }
-    &.active ~ main div.intro,
-    &.active ~ main.page {
-      margin-left: $standard-margin !important;
-    }
+    // &.active ~ main div.intro,
+    // &.active ~ main.page {
+    //   margin-left: $standard-margin !important;
+    // }
 
     &.active {
       position: relative;
@@ -172,6 +322,7 @@ $standard-margin: 4px;
       width: 100%;
       top: 0;
       border-width: 0;
+
       fieldset input {
         font-size: 9pt;
       }
@@ -181,6 +332,10 @@ $standard-margin: 4px;
       p, hr {
         display: none;
       }
+    }
+
+    .nav.nav-doc:first-child {
+      margin-top: $standard-size-and-spacing !important;
     }
   }
 
@@ -203,9 +358,9 @@ $standard-margin: 4px;
     }
   }
 
-  main.page {
-    margin-right: 20px;
-  }
+  // main.page {
+  //   margin-right: 20px;
+  // }
 
   footer {
     padding-left: 0 !important;
@@ -220,6 +375,9 @@ $standard-margin: 4px;
         }
       }
     }
+    padding-top: 2rem;
+    flex-direction: column;
+    height: unset;
   }
 }
 

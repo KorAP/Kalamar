@@ -1,0 +1,40 @@
+<section id="announcements">
+  % if ($lang eq 'de') {
+    <h3>Ankündigungen</h3>
+  % } else {
+    <h3>Announcements</h3>
+  % } 
+  <dl>
+
+% if ($lang eq 'de') {
+   <dt class="maintenance"><time datetime="2023-11-16">Donnerstag, 16. November 2023</time></dt>
+     <dd  class="maintenance">
+     <h4>Wartungsfenster 12:30 - 14:30 Uhr</h4>
+     <p>Aufgrund von Wartungsarbeiten wird es zu Unterbrechungen des Dienstes kommen.</p>
+     </dd>
+% } else {
+ <dt class="maintenance"><time datetime="2023-11-16">Thursday, 16th November 2023</time></dt>
+  <dd class="maintenance">
+    <h4>Maintenance 12:30 - 2:30pm</h4>
+     <p>Due to maintenance work the service will be interrupted.</p>
+  </dd>
+% }
+
+% if ($lang eq 'de') {
+  <dt><time datetime="2023-03-10">Samstag, 10. März 2023</time></dt>
+  <dd>
+    <h4>DeReKo-KorAP-Release 2023-I</h4>
+    <p>Ab heute steht <a href="/doc/corpus">DeReKo-KorAP-Release 2023-I</a> für alle Nutzer*innen zur Verfügung.</p>
+    <p>Zudem wurde die Plattform um einige Funktionen, wie dem Zugriff auf Volltexte bei Lizenzpartnern, erweitert. Einige Fehler konnten ebenfalls bereinigt werden.</p>
+   </dd>
+% } else {
+  <dt><time datetime="2023-03-10">Saturday, 10 March 2023</time></dt>
+  <dd>
+    <h4>DeReKo-KorAP-Release 2023-I</h4>
+    <p>As of today, <a href="/doc/corpus">DeReKo-KorAP-Release 2023-I</a> is available to all users.</p>
+    <p>In addition, the platform has been extended with several features, such as access to full texts from licensing partners. Also some bugs were fixed.</p>
+  </dd>
+% }
+
+  </dl>
+</section>
