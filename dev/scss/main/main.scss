@@ -23,12 +23,13 @@
 
 
 main {
+  padding: 0 4rem;
   padding-bottom: $footer-height + math.div($standard-margin,2);
 
-  margin: {
-    left:  $standard-margin; 
-    right: math.div($standard-margin,2);
-  }
+  // margin: {
+  //   left:  $standard-margin; 
+  //   right: math.div($standard-margin,2);
+  // }
 
   &.embedded {
     margin: {
