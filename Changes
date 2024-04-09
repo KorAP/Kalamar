@@ -1,3 +1,26 @@
+0.56 2024-07-14
+        - Improve appearance of title-addon on logo. (uyen-nhu)
+        - Create and style new item on top navbar for 'News'. (uyen-nhu)
+        - Change settings link in logout.html.ep to dynamic link. (uyen-nhu)
+
+0.55 2024-07-09
+        - Add an indicator for user login, and some minor design changes. (uyen-nhu)
+        - Add back content_block headerButtonGroup due to backwards
+          compatibility and modify header.html.ep to fit changes. (uyen-nhu)
+        - Correct color of minimize button for snippets to
+          nearly-white, and add media query for border-radius of
+          the search bar. (uyen-nhu)
+        - Delete helper class get_user_name and set user_handle
+          instead to get the user name. (uyen-nhu)
+        - Add scroll functionality for navbar: hide on scroll down,
+          show on scroll up. (uyen-nhu)
+        - Create burger menu and add responsive styles for navbar,
+          optimize element positions in header. (uyen-nhu)
+        - Add and style registration link to fit in login area,
+          change navbar size and input fields, improve positionings of
+          logo and icons, fix animation of navbar when scrolling on
+          small devices. (uyen-nhu)
+
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
         - Improve footer responsiveness. (diewald)

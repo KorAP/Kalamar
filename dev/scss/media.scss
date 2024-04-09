@@ -21,16 +21,122 @@ $standard-margin: 4px;
   }
 
   header {
-    padding-right: 8px;
+    padding-top: 2rem;
+    // padding-right: 8px;
   }
   
   header form {
+    margin: 1.5rem 1rem;
     padding-left: 0;
-    padding-top: 33px;
+    // padding-top: 33px;
+
+    &#searchform {
+      margin: 2.5rem 1rem 0 1rem;
+    }
+  }
+
+  .navbar {
+    *:not(:first-child) {
+      display: none;
+    }
+
+    &-group {
+      h3.news {
+        a {
+          padding: .75rem !important;
+        }
+      }
+    }
+
+    .burger-icon {
+      position: relative;
+      display: block !important;
+      width: 4rem;
+      height: 4rem;
+      font-size: 1.8rem;
+      color: $nearly-white;
+
+      &::after {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+      }
+    }
+
+    &.show .burger-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $middle-green;
+    }
+
+    &.show * {
+      display: block;
+    }
+
+    &-group {
+      margin-top: 4rem;
+      width: 100%;
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: $middle-green;
+
+      fieldset.fieldset-login {
+        display: block !important;
+        margin-right: 0 !important;
+
+        form.login {
+          align-items: normal !important;
+          flex-direction: column;
+          gap: 6px;
+          
+          input[type=text],
+          input[type=password] {
+            @include input-field;
+            margin-right: 0 !important;
+          }
+    
+          button.btn-login {
+            width: 100% !important;
+            align-self: center;
+            background-color: $dark-green !important;
+
+            &:hover {
+              background-color: $middle-green !important;
+              color: unset !important;
+            }
+          }
+        }
+
+        p {
+          padding: 0 1rem 1rem;
+
+          a {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .dropdown {
+        margin-right: 0 !important;
+
+        &-content {
+          display: block !important;
+          width: 100% !important;
+        }
+      }
+    }
   }
 
   .vc {
-    
     font-size: 9pt;
     .builder {
       .doc {
@@ -58,13 +164,19 @@ $standard-margin: 4px;
     }
     z-index: 110;
     position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    -o-transform: translateY(-50%);;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
   }
 
   #searchbar {
     padding-right: 30px;
     margin-top: 0;
-    input {
+    input#q-field {
       font-size: 9pt;
+      border-radius: 6px 0 0 6px;
     }
     button[type=submit] {
       right: 0;
@@ -80,6 +192,7 @@ $standard-margin: 4px;
   }
 
   main {
+    padding: 1rem;
     margin-left: $standard-margin;
     margin-right: $standard-margin;
   }
@@ -129,10 +242,17 @@ $standard-margin: 4px;
       padding-right: 0;
       .logo > * {
         background: {
-        size: 60%;
-        position: 0 0;
+          size: 60%;
+          position: 0 0;
+        }
       }
-      }
+    }
+  }
+
+  .logo > * {
+    > div.logoaddon {
+      right: -1.2rem;
+      top: 1.4rem;
     }
   }
 
@@ -172,6 +292,7 @@ $standard-margin: 4px;
       width: 100%;
       top: 0;
       border-width: 0;
+
       fieldset input {
         font-size: 9pt;
       }
@@ -220,6 +341,9 @@ $standard-margin: 4px;
         }
       }
     }
+    padding-top: 2rem;
+    flex-direction: column;
+    height: unset;
   }
 }
 

@@ -10,6 +10,7 @@
   margin-bottom: 3px;
   width:         100%;
   margin:        0;
+  border-radius: 6px;
 
   &::-webkit-search-cancel-button {
     display: none;
@@ -28,13 +29,14 @@
   position:      relative;
   width:         100%;
   padding:       0;
-  padding-right: $right-distance + $button-width;
+  // padding-right: $right-distance + $button-width;
   margin-top: 7pt;
 
   button[type=submit] {
     position: absolute;
     padding:  0;
-    right:    $right-distance;
+    // right:    $right-distance;
+    right: 0;
 
     &:not(.loading)::after {
       content: $fa-search;
