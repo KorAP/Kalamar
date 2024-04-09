@@ -13,8 +13,8 @@
 %   $classes .= ' off';
 % } elsif (stash('sidebar_active')) {
 %   $classes .= ' active';
-% } elsif (stash('login_active') && !$classes) {
-%   $classes .= ' active';
+#% } elsif (stash('login_active') && !$classes) {
+#%   $classes .= ' active';
 % };
 
 
