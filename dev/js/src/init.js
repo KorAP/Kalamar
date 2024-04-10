@@ -127,6 +127,19 @@ define([
       }
     );
 
+    // Hide and show navbar on scroll
+    let prevScrollPos = window.scrollY;
+
+    window.onscroll = function() {
+      let currentScrollPos = window.scrollY;
+      if (prevScrollPos > currentScrollPos) {
+          document.querySelector('.navbar').style.top = '0';
+      } else {
+          document.querySelector('.navbar').style.top = '-3rem';
+      }
+      prevScrollPos = currentScrollPos;
+    }
+
     /**
      * Replace Virtual Corpus field
      */
