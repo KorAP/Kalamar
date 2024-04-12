@@ -209,9 +209,28 @@ $standard-margin: 4px;
 
   footer {
     padding-left: 0 !important;
+    nav {
+      margin-left: 1em;
+      height: auto;
+      flex-direction: column;
+      div:after {
+        content: "";
+      }
+    }
   }
 }
 
+@media all and (max-width: 32em) {
+  footer {
+    padding-top: 1em;
+    height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    div#logos {
+      margin: auto;
+    }
+  }
+}
 
 @media print {
   body, html, select, g > text {
