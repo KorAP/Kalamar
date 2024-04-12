@@ -36,7 +36,7 @@ sub register {
       my $url = $c->url_with($realm, page => $page, scope => $scope);
       my $p = $url->query;
 
-      # Remove oauth-specific psarameters
+      # Remove oauth-specific parameters
       # (Maybe only allowing specific parameters is better though)
       $p->remove('client_id')
         ->remove('client_secret')
