@@ -10,6 +10,7 @@
         - Add configuration option for defaults: items_per_page, context.
           (diewald)
         - Support for inline-markers in snippets. (see Krill #132; diewald)
+        - Improve footer responsiveness. (diewald)
 
 0.52 2023-11-29
         - Update Piwik dependency to point to matomo.js. (diewald)
