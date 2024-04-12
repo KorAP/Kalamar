@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbac415_f11e199b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-12T11:51:49Z",
+      "side": 1,
+      "message": "Probably not the most flex-idiomatic solution, but should work okay.",
+      "revId": "87046dd45d31af3555293cdfcf37f3f63bdf9610",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
