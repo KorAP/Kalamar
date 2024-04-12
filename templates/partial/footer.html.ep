@@ -1,6 +1,6 @@
 <footer>
   <nav>
-    %= content_block 'footer', separator => '<span class="separator"></span>'
+    <div><%= content_block 'footer', separator => '</div><div>' %></div>
   </nav>
   <div id="logos">
     <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Entwickelt am Leibniz-Institut für Deutsche Sprache (IDS)</span></p></a>

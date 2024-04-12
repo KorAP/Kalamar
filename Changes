@@ -1,5 +1,6 @@
-0.54 2024-05-05
+0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
+        - Improve footer responsiveness. (diewald)
 
         WARNING: This change requires at least Kustvakt v0.61.6.
 
