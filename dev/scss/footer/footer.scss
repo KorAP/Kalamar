@@ -24,11 +24,32 @@ footer {
     padding: $item-padding;
     text-align: left;
     flex-grow: 2;
+    display: flex;
+    flex-direction: row;
     a {
       white-space: nowrap;
     }
   }
 
+  > nav > div {
+    display: inline;
+    margin: .2em;
+    &:after {
+      font-size: bold;
+      content: " | ";
+      color:   $dark-orange;
+    }
+    &:last-child {
+      margin-right: 0;
+      &:after {
+        content: none;
+      }
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  
   div.logos {
     font-size: 0;
     flex-grow: 1;
@@ -50,14 +71,6 @@ footer {
     &[href^="http://"]::after,
     &[href^="https://"]::after {
       content: none
-    }
-  }
-
-  span.separator {
-    &:after {
-      font-size: bold;
-      content: " | ";
-      color:   $dark-orange;
     }
   }
 }
