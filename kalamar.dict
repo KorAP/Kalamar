@@ -36,7 +36,7 @@ my $THOUSAND_SEP_RE = qr/(
     searchtitle => '<%= loc("en_korap_label") %>: Finde <%== loc("searchjob") %>',
     searchplaceholder => 'Finde ...',
     go => 'Los!',
-    news => 'Neuigkeiten & Ankündigungen',
+    news => 'Neuigkeiten',
     in => 'in',
     by => 'von',
     pwd => 'Passwort',
@@ -151,7 +151,7 @@ my $THOUSAND_SEP_RE = qr/(
     register => 'Register',
     pwdforgotten => 'Password forgotten?',
     go => 'Go!',
-    news => 'News & Announcements',
+    news => 'News',
     # TODO: use document.write() refering to vc.getName()!
     searchjob => '»<%== $q %>« <% if (param("collection")) { %>in the defined corpus <% } %>with <%== loc("QL_". $ql, "unknown query language") %>',
     searchtitle => '<%= loc("korap_label") %>: Find <%== loc("searchjob") %>',
