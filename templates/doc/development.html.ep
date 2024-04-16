@@ -4,7 +4,7 @@
 
 %= korap_overview 'development'
 
-<p>The KorAP project was launched in 2011 at the <%= ext_link_to 'Leibniz Institute for the German Language (IDS)', "http://www.ids-mannheim.de/" %> in Mannheim, Germany. KorAP is a Corpus Analysis Platform, with an extensible and scalable architecture. It consists of multiple components, that are exchangable due to well defined APIs.</p>
+<p>The KorAP project was launched in 2011 at the <%= ext_link_to 'Leibniz Institute for the German Language (IDS)', "https://www.ids-mannheim.de/" %> in Mannheim, Germany. KorAP is a Corpus Analysis Platform, with an extensible and scalable architecture. It consists of multiple components, that are exchangable due to well defined APIs.</p>
 
 <dl>
   <dt><%= embedded_link_to('doc', 'Kalamar', 'development', 'kalamar') %></dt>
@@ -31,37 +31,38 @@
 <dl>
   <dt>Head</dt>
   <dd>
-    <%= ext_link_to 'Marc Kupietz', "http://www.ids-mannheim.de/direktion/personal/kupietz.html" %>,
-    <%= ext_link_to 'Andreas Witt', "http://www.ids-mannheim.de/direktion/personal/witt.html" %>
+    <%= ext_link_to 'Marc Kupietz', "https://www.ids-mannheim.de/digspra/personal/kupietz/" %>,
+    <%= ext_link_to 'Andreas Witt', "https://www.ids-mannheim.de/digspra/personal/witt/" %>
   </dd>
 
   <dt>Scientific Staff</dt>
   <dd>
-    <%= ext_link_to 'Franck Bodmer', "http://www.ids-mannheim.de/direktion/personal/bodmer.html" %>,
-    <%= ext_link_to 'Nils Diewald', "http://nils-diewald.de/" %>,
-    <%= ext_link_to 'Peter Harders', "http://www.ids-mannheim.de/direktion/personal/harders.html" %>,
-    <%= ext_link_to 'Eliza Margaretha', "http://www.ids-mannheim.de/direktion/personal/margaretha/" %>,
-    <%= ext_link_to 'Helge Stallkamp', "http://www.ids-mannheim.de/direktion/personal/krause.html" %>
+    <%= ext_link_to 'Franck Bodmer', "https://perso.ids-mannheim.de/seiten/bodmer.html" %>,
+    <%= ext_link_to 'Nils Diewald', "https://www.nils-diewald.de/" %>,
+    <%= ext_link_to 'Peter Harders', "https://perso.ids-mannheim.de/seiten/harders.html" %>,
+    <%= ext_link_to 'Eliza Margaretha', "https://perso.ids-mannheim.de/seiten/margaretha.html" %>,
+    <%= ext_link_to 'Helge Stallkamp', "https://www.ids-mannheim.de/digspra/personal/krause/" %>,
+    <%= ext_link_to 'Rameela Yaddehige',"https://perso.ids-mannheim.de/seiten/yaddehige.html" %>
   </dd>
 
   <dt>Translations</dt>
   <dd>
-    <%= ext_link_to 'Susanne Feix', "http://www.ids-mannheim.de/direktion/personal/bergmann.html" %>
+    <%= ext_link_to 'Susanne Feix', "https://www.ids-mannheim.de/digspra/personal/bergmann/" %>
   </dd>
 
   <dt>Past Project Members</dt>
   <dd>
-    <%= ext_link_to 'Piotr Bański', "http://www.ids-mannheim.de/direktion/personal/banski.html" %>,
+    <%= ext_link_to 'Piotr Bański', "https://www.ids-mannheim.de/gra/personal/banski/" %>,
     Joachim Bingel,
-    <%= ext_link_to 'Elena Frick', "http://www.ids-mannheim.de/direktion/personal/frick/" %>,
+    <%= ext_link_to 'Elena Frick', "https://www.ids-mannheim.de/prag/personal/frick/" %>,
     Michael Hanl,
-    <%= ext_link_to 'Carsten Schnober', "http://www.ids-mannheim.de/direktion/personal/ehemalige/schnober.html" %>
+    Carsten Schnober
   </dd>
 
   <dt>Consulting</dt>
   <dd>
-    <%= ext_link_to 'Cyril Belica', "http://www.ids-mannheim.de/direktion/personal/belica.html" %>,
-		Piotr Pęzik,
-    <%= ext_link_to 'Oliver Schonefeld', "http://www.ids-mannheim.de/direktion/personal/schonefeld/" %>
+    <%= ext_link_to 'Cyril Belica', "https://www.ids-mannheim.de/digspra/kl/misc/tlk-cb/" %>,
+    Piotr Pęzik,
+    <%= ext_link_to 'Oliver Schonefeld', "https://www.ids-mannheim.de/zentrale-bereiche/informationstechnik/personal/schonefeld/" %>
   </dd>
 </dl>
