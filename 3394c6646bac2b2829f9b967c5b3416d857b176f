@@ -16,6 +16,23 @@
       "message": "We may want to keep this commit in Gerrit and checkout from here (instead of a separate branch) until we have a configuration based solution.",
       "revId": "3394c6646bac2b2829f9b967c5b3416d857b176f",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d880abad_47ca9bff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-17T10:27:09Z",
+      "side": 1,
+      "message": "You may want to create a Kalamar-KoKoKom-Instance repo or similar.",
+      "revId": "3394c6646bac2b2829f9b967c5b3416d857b176f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
