@@ -24,6 +24,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90b5d8fe_ca517983",
+        "filename": "templates/doc/api.html.ep",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-17T21:08:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b09aff1_37dae87d",
+      "range": {
+        "startLine": 18,
+        "startChar": 25,
+        "endLine": 18,
+        "endChar": 65
+      },
+      "revId": "e5d9aaf8266fc485d2b824be0399f4efa1dcafbb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f97b7055_63201510",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-17T14:13:39Z",
       "side": 1,
       "message": "The opening \u003cp\u003e is conditioned, while the closing \u003c/p\u003e is outside the condition.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 4
+      },
+      "revId": "e5d9aaf8266fc485d2b824be0399f4efa1dcafbb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d523a0a5_261134b7",
+        "filename": "templates/doc/api.html.ep",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-17T21:08:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f97b7055_63201510",
       "range": {
         "startLine": 20,
         "startChar": 0,
