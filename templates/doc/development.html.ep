@@ -41,7 +41,7 @@
     <%= ext_link_to 'Nils Diewald', "https://www.nils-diewald.de/" %>,
     <%= ext_link_to 'Peter Harders', "https://perso.ids-mannheim.de/seiten/harders.html" %>,
     <%= ext_link_to 'Eliza Margaretha', "https://perso.ids-mannheim.de/seiten/margaretha.html" %>,
-    <%= ext_link_to 'Helge Stallkamp', "https://www.ids-mannheim.de/digspra/personal/krause/" %>,
+    <%= ext_link_to 'Helge Stallkamp', "https://perso.ids-mannheim.de/seiten/krause.html" %>,
     <%= ext_link_to 'Rameela Yaddehige',"https://perso.ids-mannheim.de/seiten/yaddehige.html" %>
   </dd>
 
