@@ -16,6 +16,23 @@
       "message": "I checked every query. They are working and have results if the research takes place outside the IDS.",
       "revId": "7b28401fc27935baa69d350c7716336df6b04779",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b4c91d_ab355251",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21
+      },
+      "writtenOn": "2024-04-19T08:53:00Z",
+      "side": 1,
+      "message": "Thanks Helge. I will take the latest patch and merge it to the 2nd part.",
+      "revId": "7b28401fc27935baa69d350c7716336df6b04779",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
