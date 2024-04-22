@@ -39,25 +39,25 @@ header {
 
     &-group {
 
-      & fieldset.fieldset-login {
+      fieldset.fieldset-login {
         display: inline;
         margin-right: 0;
         padding: 0;
         min-inline-size: unset;
         border: unset;
 
-        & form.login {
+        form.login {
           display: flex;
           align-items: center;
           
-          & input[type=text],
-          & input[type=password] {
+          input[type=text],
+          input[type=password] {
             @include input-field;
             margin-right: 8px;
             height: 2rem;
           }
     
-          & button.btn-login {
+          button.btn-login {
             width: 3rem;
             height: 3rem;
             background-color: $dark-green;
@@ -79,7 +79,7 @@ header {
               content: $fa-login;
             }
           }
-          & button.btn-login:hover {
+          button.btn-login:hover {
             background-color: $middle-green;
           }
         }
@@ -140,7 +140,6 @@ header {
         display: block;
         padding: .75rem;
         font-size: 120%;
-        // font-weight: bold;
         color: $nearly-white;
         transition:  all .2s ease-in-out;
         -o-transition: all .2s ease-in-out;
@@ -153,40 +152,14 @@ header {
       }
     }
 
-    // &-item {
-    //   height: 3rem;
-    //   padding: .6rem .9rem;
-    //   font-size: 180% !important;
-    //   transition:  all .2s ease-in-out;
-    //   -o-transition: all .2s ease-in-out;
-    //   -moz-transition: all .2s ease-in-out;
-    //   -webkit-transition: all .2s ease-in-out;
+    .burger-icon {
+      display: none;
 
-    //   &:hover {
-    //     background-color: $middle-green;
-    //   }
-
-    //   &.profile {
-    //     width: 3rem;
-    //     height: 3rem;
-    //     padding: .6rem .9rem;
-
-    //     &:hover {
-    //       background-color: $middle-green;
-    //     }
-    //   }
-
-    //   &.logout {
-    //     width: 3rem;
-    //     height: 3rem;
-    //     margin-left: 1rem;
-    //     padding: .6rem .9rem;
-        
-    //     &:hover {
-    //       background-color: $middle-green;
-    //     }
-    //   }
-    // }
+      &::after {
+        @include icon-font;
+        content: $fa-bars;
+      }
+    }
   }
 
   span.select {

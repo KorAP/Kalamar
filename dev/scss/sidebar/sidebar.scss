@@ -3,12 +3,11 @@
 @import "../util";
 
 aside {
-  display: none;
   background-color: $dark-green;
   color:       $nearly-white;
   width:       $logo-left-distance;
   position:    fixed;
-  // display:     block;
+  display:     block;
   transition:  all .3s ease-in-out;
   outline:     none;
   font-size:   10pt;
@@ -17,6 +16,10 @@ aside {
   left:        0;
   height:      100%;
   padding-top: 65px;
+
+  &:not(.settings) {
+    display: none;
+  }
 
   > div {
     overflow-y: auto;
@@ -151,6 +154,10 @@ aside {
     input[type=password] {
       @include input-field;
       width: 100%;
+    }
+
+    .login {
+      display: none;
     }
     
     // search form

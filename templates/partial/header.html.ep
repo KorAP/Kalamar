@@ -6,6 +6,13 @@
       %= include 'partial/auth/login'
       %= content_block 'headerButtonGroup'
     </div>
+
+    <div class="burger-icon"></div>
+
+    <!-- <a href="javascript:void(0);" class="burger-icon" onclick="toggleNavBar()"></a> -->
+
+    <!-- <input type="checkbox" class="burger-icon" id="burger-menu" />
+    <label for="burger-menu" class="burger-icon"></label> -->
   </nav>
 
   <form autocomplete="off" action="<%= url_for 'index' %>" id="searchform">
