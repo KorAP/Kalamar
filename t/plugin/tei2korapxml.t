@@ -28,6 +28,21 @@ stdout_like(
   qr{cat corpus\.i5\.xml}
 );
 
+# Added for slim-testing in Docker
+use_ok('KorAP::XML::TEI::Inline');
+use_ok('KorAP::XML::TEI::Header');
+use_ok('KorAP::XML::TEI::Zipper');
+use_ok('KorAP::XML::TEI::Tokenizer::Aggressive');
+use_ok('KorAP::XML::TEI::Tokenizer::Conservative');
+use_ok('KorAP::XML::TEI::Tokenizer::External');
+
+# Only works in a java environment
+# use_ok('KorAP::XML::TEI::Tokenizer::KorAP');
+# my $ext = KorAP::XML::TEI::Tokenizer::KorAP->new(1);
+# $ext->tokenize("Der alte Mann");
+# my $str = $ext->to_string('unknown');
+# like($str,qr!from="4" to="8"!);
+
 done_testing;
 
 1;
