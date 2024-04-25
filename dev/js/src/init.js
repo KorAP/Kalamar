@@ -137,7 +137,7 @@ define([
           navbar.style.top = '0';
       } else {
         if (!navbar.classList.contains('show')) {
-          navbar.style.top = '-3rem';
+          navbar.style.top = '-4rem';
         }
       }
       prevScrollPos = currentScrollPos;

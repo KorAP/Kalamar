@@ -22,13 +22,17 @@ $standard-margin: 4px;
 
   header {
     padding-top: 2rem;
-    padding-right: 8px;
+    // padding-right: 8px;
   }
   
   header form {
     margin: 1.5rem 1rem;
     padding-left: 0;
     // padding-top: 33px;
+
+    &#searchform {
+      margin: 2.5rem 1rem 0 1rem;
+    }
   }
 
   .navbar {
@@ -37,10 +41,22 @@ $standard-margin: 4px;
     }
 
     .burger-icon {
+      position: relative;
       display: block !important;
-      padding: .6rem .9rem;
-      font-size: 1.5rem;
+      width: 4rem;
+      height: 4rem;
+      font-size: 1.8rem;
       color: $nearly-white;
+
+      &::after {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+      }
     }
 
     &.show .burger-icon {
@@ -55,7 +71,7 @@ $standard-margin: 4px;
     }
 
     &-group {
-      margin-top: 3rem;
+      margin-top: 4rem;
       width: 100%;
       display: block;
       position: fixed;
@@ -64,7 +80,8 @@ $standard-margin: 4px;
       background-color: $middle-green;
 
       fieldset.fieldset-login {
-        width: 100%;
+        display: block !important;
+        margin-right: 0 !important;
 
         form.login {
           align-items: normal !important;
@@ -80,6 +97,20 @@ $standard-margin: 4px;
           button.btn-login {
             width: 100% !important;
             align-self: center;
+            background-color: $dark-green !important;
+
+            &:hover {
+              background-color: $middle-green !important;
+              color: unset !important;
+            }
+          }
+        }
+
+        p {
+          padding: 0 1rem 1rem;
+
+          a {
+            display: inline;
           }
         }
       }
@@ -91,6 +122,7 @@ $standard-margin: 4px;
 
         &-content {
           display: block !important;
+          width: 100% !important;
         }
       }
     }
@@ -283,6 +315,9 @@ $standard-margin: 4px;
 
   footer {
     padding-left: 0 !important;
+    padding-top: 2rem;
+    flex-direction: column;
+    height: unset;
   }
 }
 
