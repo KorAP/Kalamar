@@ -22,7 +22,7 @@ header {
   
   .navbar {
     width: 100%;
-    height: 3rem;
+    height: 4rem;
     background-color: $dark-green;
     display: flex;
     flex-direction: column;
@@ -40,8 +40,9 @@ header {
     &-group {
 
       fieldset.fieldset-login {
-        display: inline;
-        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        margin-right: 4rem;
         padding: 0;
         min-inline-size: unset;
         border: unset;
@@ -54,13 +55,14 @@ header {
           input[type=password] {
             @include input-field;
             margin-right: 8px;
-            height: 2rem;
+            height: 1.5rem;
           }
     
           button.btn-login {
-            width: 3rem;
-            height: 3rem;
-            background-color: $dark-green;
+            // width: 3rem;
+            // height: 3rem;
+            // background-color: $dark-green;
+            background-color: unset;
             color: $nearly-white;
             // padding: .75rem 1rem;
             font-size: 180%;
@@ -78,9 +80,24 @@ header {
             &::after {
               content: $fa-login;
             }
+
+            &:hover {
+              // background-color: $middle-green;
+              color: $dark-orange;
+            }
           }
-          button.btn-login:hover {
-            background-color: $middle-green;
+        }
+
+        p {
+          margin: 0;
+          font-size: .7rem;
+
+          a {
+            color: $dark-orange;
+
+            &:hover {
+              color: $middle-orange;
+            }
           }
         }
       }
@@ -101,8 +118,8 @@ header {
       }
 
       &-btn {
-        height: 3rem;
-        padding: .6rem .9rem;
+        height: 4rem;
+        padding: 1rem;
         font-size: 180% !important;
         color: $nearly-white;
         transition:  all .2s ease-in-out;
@@ -125,8 +142,8 @@ header {
 
       &-content {
         display: none;
-        width: 100%;
-        margin-top: 3rem;
+        width: fit-content;
+        margin-top: 4rem;
         padding: 0;
         background-color: $middle-green;
         list-style: none;
@@ -208,7 +225,10 @@ header {
     display:      block;
     // padding-left: $logo-left-distance;
     min-height:   2.7em;
-    margin:       0 4rem;
+
+    &#searchform {
+      margin: 0 4rem;
+    }
   }
 
   input {

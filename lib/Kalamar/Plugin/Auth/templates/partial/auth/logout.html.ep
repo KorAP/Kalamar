@@ -8,7 +8,7 @@
       </div>
       <ul class="dropdown-content">
          <li>
-            <a class="dropdown-item" href="/settings/oauth#page-top">OAuth</a>
+            <a class="dropdown-item" href="/settings">Einstellungen</a>
          </li>
          <li>
             <a href="<%= url_for 'logout' %>"
