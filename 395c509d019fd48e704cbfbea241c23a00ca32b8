@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65a2da4b_553310d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-25T07:48:47Z",
+      "side": 1,
+      "message": "This change helps to require the installation of some files, making them \"survive\" the slimming of docker images.",
+      "revId": "395c509d019fd48e704cbfbea241c23a00ca32b8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
