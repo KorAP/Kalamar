@@ -18,6 +18,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4123844e_8f0c58c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-30T14:08:58Z",
+      "side": 1,
+      "message": "Ah - and the current implementation has the login form integrated twice. (One visible, one hidden.) It should only be one.",
+      "revId": "3f88a273e2d7e5074fcf4f7fbc7ec7aa2aaa60a9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34122212_e177a5c2",
