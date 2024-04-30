@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeed8011_a7375e64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-04-30T13:56:34Z",
+      "side": 1,
+      "message": "I may even prefer to not have the login form visible all the time, but have a login-button there that opens a menu similar to the small screen variant.\n\nIn the current variant we made the login form hidden, when a user is searching. I agree, that would look awkward now, but having the registration hint visible all the time may distract users who don\u0027t want to log in.",
+      "revId": "3f88a273e2d7e5074fcf4f7fbc7ec7aa2aaa60a9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34122212_e177a5c2",
