@@ -1,0 +1,18 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Kalamar
+message: 'Frontend for KorAP'
+type: software
+authors:
+  - given-names: Nils
+    family-names: Diewald
+    affiliation: Leibniz Institute for the German Language
+    orcid: 'https://orcid.org/0000-0002-2993-9180'
+  - given-names: Helge
+    family-names: Stallkamp
+    affiliation: Leibniz Institute for the German Language
+repository-code: 'https://github.com/KorAP/Kalamar'
+url: 'https://korap.ids-mannheim.de/'
+license: BSD-2-Clause
