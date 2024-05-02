@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13f4806_74c02e82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-05-02T11:41:23Z",
+      "side": 1,
+      "message": "This can be picked up by Zenodo.",
+      "revId": "de3a2a81cbcb0d4cf5bf28eeacac35394d194e55",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
