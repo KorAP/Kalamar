@@ -16,6 +16,24 @@
       "message": "left and right margins are too wide – particularly on mobiles in portrait mode",
       "revId": "6e18dca6a7ecd4ff676b6bef7035ad4d76a92bec",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc6f57d_e6ca52d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-05-02T08:30:30Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "4b6cb610_8b4dd052",
+      "revId": "6e18dca6a7ecd4ff676b6bef7035ad4d76a92bec",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
