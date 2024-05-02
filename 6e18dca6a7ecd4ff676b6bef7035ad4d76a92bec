@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b6cb610_8b4dd052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-05-02T07:42:43Z",
+      "side": 1,
+      "message": "left and right margins are too wide – particularly on mobiles in portrait mode",
+      "revId": "6e18dca6a7ecd4ff676b6bef7035ad4d76a92bec",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
