@@ -35,6 +35,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a6d1c0_3be39fb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-05-07T07:13:49Z",
+      "side": 1,
+      "message": "2 Tests fail:\n\n   Failed test \u0027element for selector \"div.button.top a\" exists\u0027\n#   at t/plugin/auth-oauth.t line 222.\n\n#   Failed test \u0027element for selector \"div.button.top a.logout[title~\u003d\"test\"]\" exists\u0027\n#   at t/plugin/auth-oauth.t line 222.",
+      "revId": "3f88a273e2d7e5074fcf4f7fbc7ec7aa2aaa60a9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34122212_e177a5c2",
