@@ -266,6 +266,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f32ae6_9cce7140",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-05-07T15:48:59Z",
+      "side": 1,
+      "message": "8554 is the new base commit.",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce28ad4_cb98c00d",
