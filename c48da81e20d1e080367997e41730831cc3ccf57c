@@ -16,6 +16,23 @@
       "message": "This doesn\u0027t help when nothing is in the burger menu (i.e. no authentication is there). And as I said - this is the less interesting bar for a user imho.",
       "revId": "c48da81e20d1e080367997e41730831cc3ccf57c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa021337_e3bdf94e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-05-07T15:50:56Z",
+      "side": 1,
+      "message": "8554 is the new base commit.",
+      "revId": "c48da81e20d1e080367997e41730831cc3ccf57c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
