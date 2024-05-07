@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3908062e_421abe79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-05-07T10:30:38Z",
+      "side": 1,
+      "message": "I like it very much 😊!\n\nBTW: This commit throws quite a lot of faling test, but because you plan to amend the chained commits in the end this should not be a problem in the end.",
+      "revId": "89208ed53f9377f5174dc2c2a168b88cce6ca6be",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
