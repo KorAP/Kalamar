@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98e8f3c9_342b71f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-05-07T09:26:46Z",
+      "side": 1,
+      "message": "OAuth is wrong. There has to be the localization of \"settings\" (see kalamar.dict). But I think Nils mentioned that already somewhere else. \nI think we probably can not do without the side navigation bar. \nRight now she overlaps the page which she does not in the \"original\" KorAP.",
+      "revId": "50169d18d0e4c82fb2367e7b6b83c8506ef35d83",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
