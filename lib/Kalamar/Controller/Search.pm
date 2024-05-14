@@ -6,8 +6,6 @@ use Mojo::Util qw/quote/;
 use Mojo::JSON;
 use POSIX 'ceil';
 
-has items_per_page => 25;
-
 # TODO:
 #   Support server timing API
 #
@@ -90,21 +88,19 @@ sub query {
     );
   };
 
+  my $items_per_page = $c->stash('items_per_page');
 
-  $query{count}   = $v->param('count') // $c->items_per_page;
+  $query{count}   = $v->param('count') // $items_per_page;
 
   $query{cq}      = $cq;
   $query{cutoff}  = $cutoff;
-  # Before: 'base/s:p'/'paragraph'
-  $query{context} = $v->param('context') // '40-t,40-t';
+  $query{context} = $v->param('context') // $c->stash('context');
 
   # Start page
   my $page = $v->param('p') // 1;
 
-  my $items_per_page = $c->items_per_page;
-
   # Set count
-  if ($query{count} && $query{count} <= $c->items_per_page ) {
+  if ($query{count} && $query{count} <= $items_per_page ) {
     $items_per_page = delete $query{count};
     $query{count} = $items_per_page;
   };

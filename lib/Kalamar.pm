@@ -319,6 +319,18 @@ sub startup {
     };
   };
 
+  # Set defaults per config
+  $self->defaults(
+    items_per_page => 25,
+    context => '40-t,40-t', # Before: 'base/s:p'/'paragraph'
+  );
+
+  if (exists $conf->{defaults}) {
+    my $def = $conf->{defaults};
+    $self->defaults(items_per_page => $def->{items_per_page}) if $def->{items_per_page};
+    $self->defaults(context => $def->{context}) if $def->{context};
+  };
+
   # Configure documentation navigation
   my $doc_navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $doc_navi = $doc_navi ? decode_json($doc_navi) : [];

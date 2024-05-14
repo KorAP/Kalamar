@@ -1,4 +1,4 @@
-0.53 2024-03-15
+0.53 2024-05-14
         - Add openapi url to documentation. (hebasta)
         - Solve a potential timing issue in VC rendering. (diewald)
         - Update DeReKo link in corpus specific localization. (hebasta)
@@ -7,6 +7,8 @@
         - Fix: The content of blockquote is displayed. (hebasta) 
         - Upgrade dependency and remove deprecated
           method. (diewald)
+        - Add configuration option for defaults: items_per_page, context.
+          (diewald)
 
 0.52 2023-11-29
         - Update Piwik dependency to point to matomo.js. (diewald)

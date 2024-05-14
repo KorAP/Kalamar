@@ -86,8 +86,22 @@ my $err = $t->get_ok('/?q=baum')
   ->attr_is('#pagination','data-count','25')
   ->tx->res->dom->at('#error')
   ;
+
 is(defined $err ? $err->text : '', '');
 
+# Query passed
+$t->app->defaults(items_per_page => 20);
+
+$t->get_ok('/?q=baum')
+  ->status_is(200)
+  ->content_type_is('text/html;charset=UTF-8')
+  ->element_count_is('#pagination > a', 5)
+  ->attr_is('#pagination','data-page','1')
+  ->attr_is('#pagination','data-total','3')
+  ->attr_is('#pagination','data-count','20')
+;
+
+$t->app->defaults(items_per_page => 25);
 
 $t->get_ok('/?q=[orth=das')
   ->status_is(400)
