@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50999fba_2e179d1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-05-21T09:07:10Z",
+      "side": 1,
+      "message": "I suppose if more context as allowed is requested, Kustvakt handles that.",
+      "revId": "3422d45800ed62a0d29f9fce86a933764832c226",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
