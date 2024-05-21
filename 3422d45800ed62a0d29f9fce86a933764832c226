@@ -16,6 +16,24 @@
       "message": "I suppose if more context as allowed is requested, Kustvakt handles that.",
       "revId": "3422d45800ed62a0d29f9fce86a933764832c226",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a08be5ef_c23b4335",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-05-21T09:14:50Z",
+      "side": 1,
+      "message": "It was always possible to override with query param.",
+      "parentUuid": "50999fba_2e179d1e",
+      "revId": "3422d45800ed62a0d29f9fce86a933764832c226",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
