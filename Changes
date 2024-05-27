@@ -1,4 +1,4 @@
-0.53 2024-05-14
+0.53 2024-05-27
         - Add openapi url to documentation. (hebasta)
         - Solve a potential timing issue in VC rendering. (diewald)
         - Update DeReKo link in corpus specific localization. (hebasta)
@@ -9,6 +9,7 @@
           method. (diewald)
         - Add configuration option for defaults: items_per_page, context.
           (diewald)
+        - Support for inline-markers in snippets. (see Krill #132; diewald)
 
 0.52 2023-11-29
         - Update Piwik dependency to point to matomo.js. (diewald)

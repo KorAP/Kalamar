@@ -162,7 +162,7 @@ div.snippet {
       right: 4pt;
     }
   }
-
+  
   &.startMore:before,
   &.endMore:after {
     content:       "…";
@@ -221,10 +221,41 @@ body.no-js #search > ol > li:active,
       display: inline !important;
     }
 
-	  > * {
-	    background-color: transparent;
-	  }
+    > * {
+      background-color: transparent;
+    }
 
+    span.inline-marker {
+      font-weight: normal;
+      color: $dark-grey;
+      &::before, &::after {
+        display: inline-block !important;
+        border-width: 2px;
+        border-radius: 0;
+        margin: 0 3pt;
+        padding:  0 4pt;
+      }
+      &::before {
+        color: white;
+        margin-right: 0;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-width-right: 0;
+        background-color: $dark-orange  !important;
+        content: attr(data-key) ': ';
+      }
+
+      &::after {
+        border-width-left: 0;
+        margin-left: 0;
+        padding-left: 0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: $dark-orange  !important;
+        content: attr(data-value);
+      }
+    }
+          
     div.flag {
       display: none;
     }
