@@ -16,6 +16,24 @@
       "message": "The `title_addon` should be bigger or more readable.\nTo test it, you can add `\u0027en_title_addon\u0027 \u003d\u003e \u0027@DNB\u0027` to the dict hash in your `kalamar.conf`, like this:\n\n```\nLocalize \u003d\u003e {\n  dict \u003d\u003e {\n    \u0027en_title_addon\u0027 \u003d\u003e \u0027@DNB\u0027,\n   }\n}\n```",
       "revId": "d4545bd7fc0b2a3e638285c204539cff51cf23ec",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204d46d0_543e9c97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-05-28T08:40:50Z",
+      "side": 1,
+      "message": "tbf this may have been changed in https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/8570",
+      "parentUuid": "08dd4aac_e5b4dcfc",
+      "revId": "d4545bd7fc0b2a3e638285c204539cff51cf23ec",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
