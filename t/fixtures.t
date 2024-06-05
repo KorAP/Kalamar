@@ -46,7 +46,7 @@ $err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25')
 is(defined $err ? $err->text : '', '');
 
 
-$t->get_ok('/v1.0/corpus/WPD15/232/39681/p2133-2134/matchInfo?spans=false&foundry=*')
+$t->get_ok('/v1.0/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*')
   ->status_is(200)
   ->json_is('/textSigle', 'WPD15/232/39681')
   ;

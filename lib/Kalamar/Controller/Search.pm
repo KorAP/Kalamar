@@ -465,8 +465,7 @@ sub match_info {
       $c->stash('corpus_id'),
       $c->stash('doc_id'),
       $c->stash('text_id'),
-      $c->stash('match_id'),
-      'matchInfo'
+      $c->stash('match_id')
     ))
   );
 

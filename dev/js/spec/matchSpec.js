@@ -386,7 +386,7 @@ define(['match',
       expect(m.textSigle).toEqual("WPD/UUU/01912");
       expect(m.matchID).toEqual("p121-122");
 
-      // /corpus/WPD/UUU.01912/p121-122/matchInfo?spans=false&foundry=*
+      // /corpus/WPD/UUU.01912/p121-122?spans=false&foundry=*
       var m = matchClass.create(match);
 
       // Spans:

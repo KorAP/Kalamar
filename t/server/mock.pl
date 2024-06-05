@@ -246,7 +246,7 @@ get '/v1.0/corpus/#corpusId/#docId/#textId' => sub {
 
 
 # Matchinfo fixtures
-get '/v1.0/corpus/#corpusId/#docId/#textId/#matchId/matchInfo' => sub {
+get '/v1.0/corpus/#corpusId/#docId/#textId/#matchId' => sub {
   my $c = shift;
 
   my $file = join('_', (
