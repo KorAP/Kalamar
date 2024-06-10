@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbdb701_417c7b31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-06-10T08:43:10Z",
+      "side": 1,
+      "message": "I think this is a nice improvement 😊.  \nOnly a minor topic: At some point the \"|\" appear in the next line, which they should not (see screenshot in Slack).\n\nMaybe Uyen wants to look at it, too.",
+      "revId": "3f84cb121d691f78eee3ca21bedecfb2d15872cd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
