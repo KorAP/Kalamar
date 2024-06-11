@@ -169,10 +169,16 @@ define(['util'], function () {
             return;
           };
 
-          if (retJSObj !== undefined && retJSObj["errors"] !== undefined) {
-            retJSObj["errors"].forEach(
-              e => KorAP.log(e[0], e[1] || "Unknown")
-            );
+          if (retJSObj !== undefined) {
+            if (retJSObj["errors"] !== undefined) {
+              retJSObj["errors"].forEach(
+                e => KorAP.log(e[0], e[1] || "Unknown")
+              );
+            } else if (retJSObj["warnings"] !== undefined) {
+              retJSObj["warnings"].forEach(
+                e => KorAP.log(e[0], e[1] || "Unknown", null, 'warn')
+              );
+            }
           }
 
           else if (this.status !== 200) {

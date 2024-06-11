@@ -1,3 +1,6 @@
+0.55 2024-06-11
+        - Correctly propagate warnings in frontend calls. (diewald)
+
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
         - Improve footer responsiveness. (diewald)
