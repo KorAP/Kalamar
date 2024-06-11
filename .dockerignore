@@ -14,4 +14,8 @@
 !.dockerignore
 /templates/announcement.html.ep
 /templates/custom
+/dev/js/src/custom
 /lib/Kalamar/Plugin/Announcements.pm
+/script/hypnotoad.pid
+/dev/css
+/dev/demo
