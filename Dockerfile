@@ -135,8 +135,8 @@ CMD [ "daemon" ]
 
 LABEL description="Docker Image for Kalamar, the KorAP user frontend, including Conversion"
 
-# docker build -f Dockerfile -t korap/kalamar:x.xx-conv --target kalamar-convert .
-# docker build -f Dockerfile -t korap/kalamar:x.xx --target kalamar .
+# docker build -f Dockerfile -t korap/kalamar:x.xx-conv -t korap/kalamar:latest-conv --target kalamar-convert .
+# docker build -f Dockerfile -t korap/kalamar:x.xx -t korap/kalamar:latest --target kalamar .
 
 # Slimming (https://github.com/slimtoolkit/slim):
 # slim build --http-probe=true \
