@@ -1,4 +1,9 @@
-0.55 2024-06-11
+0.55 2024-06-12
+        - Removed deprecated doc_link_to helper. (diewald)
+        - Removed deprecated doc_ext_link_to helper. (diewald)
+        - Removed deprecated doc_uc helper. (diewald)
+        - Removed deprecated doc_navi helper. (diewald)
+        - Removed deprecated doc->url helper. (diewald)
         - Correctly propagate warnings in frontend calls. (diewald)
 
 0.54 2024-06-10
