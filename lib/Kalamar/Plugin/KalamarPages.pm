@@ -54,15 +54,6 @@ sub register {
     }
   );
 
-  # DEPRECATED: 2019-10-17
-  $mojo->helper(
-    doc_link_to => sub {
-      my $c = shift;
-      deprecated 'Deprecated "doc_link_to" in favor of "embedded_link_to"';
-      return $c->embedded_link_to('doc', @_)
-    }
-  );
-
   # Link to an external page
   $mojo->helper(
     ext_link_to => sub {
@@ -71,30 +62,11 @@ sub register {
     }
   );
 
-  # DEPRECATED: 2019-10-17
-  $mojo->helper(
-    doc_ext_link_to => sub {
-      my $c = shift;
-      deprecated 'Deprecated "doc_ext_link_to" in favor of "ext_link_to"';
-      return $c->ext_link_to(@_);
-    }
-  );
-
   # Page alert - Under Construction!
   $mojo->helper(
     under_construction => sub {
       my $c = shift;
       return $c->tag('p', $c->loc('underConstruction', 'Under Construction!'));
-    }
-  );
-
-  # Page alert - Under Construction!
-  # DEPRECATED: 2019-10-17
-  $mojo->helper(
-    doc_uc => sub {
-      my $c = shift;
-      deprecated 'Deprecated "doc_uc" in favor of "under_construction"';
-      return $c->under_construction
     }
   );
 
@@ -121,32 +93,6 @@ sub register {
         $url = $c->url_for('doc_start');
       };
       return $c->link_to($cb->($c), $url);
-    }
-  );
-
-
-  # DEPRECATED: 2019-10-24
-  $mojo->helper(
-    'doc.url' => sub {
-      deprecated 'Deprecated "doc->url" in favor of direct usage with "url_with"';
-      my $c = shift;
-      my $page = pop;
-      my $scope = shift;
-      return $c->url_with(
-        'doc',
-        page => $page,
-        scope => $scope
-      );
-    }
-  );
-
-  # Documentation navigation helper
-  # DEPRECATED: 2019-10-24
-  $mojo->helper(
-    doc_navi => sub {
-      deprecated 'Deprecated "docnavi" in favor of "navigation"';
-      my $c = shift;
-      return $c->navigation('doc', @_)
     }
   );
 
@@ -363,10 +309,10 @@ Create a link to the documentation. Accepts a realm, a title, a scope, and a pag
 Creates a link to an external page, that will be opened in the top frame,
 in case it's in an embedded frame.
 
-=head2 doc_uc
+=head2 doc_under_construction
 
   %# In templates
-  %= doc_uc
+  %= doc_under_construction
 
 Generates an C<Under Construction> notification.
 
