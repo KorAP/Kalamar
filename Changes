@@ -5,6 +5,8 @@
         - Removed deprecated doc_navi helper. (diewald)
         - Removed deprecated doc->url helper. (diewald)
         - Correctly propagate warnings in frontend calls. (diewald)
+        - Remove corpusQuery from statistics
+          (as per Kudstvakt #758). (diewald)
 
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)

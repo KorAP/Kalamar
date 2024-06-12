@@ -307,13 +307,7 @@ sub corpus_info {
 
   # Add query
   my $cq = $v->param('cq');
-  if ($cq) {
-    $url->query({cq => $cq});
-
-    # Temporary for backwards compatibility
-    # with Kustvakt < 0.62.1
-    $url->query({corpusQuery => $cq});
-  };
+  $url->query({cq => $cq}) if $cq;
 
   $c->app->log->debug("Statistics info: $url");
 
