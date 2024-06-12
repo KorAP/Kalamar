@@ -1,3 +1,7 @@
+0.55 2024-06-12
+        - Remove corpusQuery from statistics
+          (as per Kudstvakt #758). (diewald)
+
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
         - Improve footer responsiveness. (diewald)
