@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74b4b76_5816fc9b",
+        "filename": "t/plugin/auth-oauth.t",
+        "patchSetId": 2
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-06-17T11:13:22Z",
+      "side": 1,
+      "message": "Should probably check for content.",
+      "range": {
+        "startLine": 1001,
+        "startChar": 19,
+        "endLine": 1001,
+        "endChar": 36
+      },
+      "revId": "833edb287ebe2453ce78137a97e39b83e5b29c3d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
