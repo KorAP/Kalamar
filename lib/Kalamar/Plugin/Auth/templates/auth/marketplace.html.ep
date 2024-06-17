@@ -43,8 +43,12 @@
     <p class="plugin-url"><a href="<%= $_->{client_url} %>"><%= $_->{client_url} %></a></p>
     % }
   %if ($_->{registration_date}) {
-    <p class="registration_date"> <%=loc('Auth_regdate')%>: <%= $_->{registration_date} %></p>
+    <p class="registration_date"><%=loc('Auth_regdate')%>: <%= $_->{registration_date} %></p>
 %  };
+  %if ($_->{registered_by}) {
+    <p class="registered_by"><%=loc('Auth_regby')%>: <%=$_->{registered_by} %></p>
+    %   };
+
    %= form_for 'install-plugin', class => 'mkplace', method => "POST",  begin
    %= hidden_field 'client-id' => $_->{client_id} 
    <input type="submit" class="form-submit" value="<%= loc('Auth_install')%>"/>
