@@ -940,7 +940,8 @@ $fake_backend_app->add_plugin({
 "client_description" => 'Description Plugin 1',
 "client_url" => 'http://example.client.de',
 "registration_date" => '2022-05-31T14:30:09+02:00[Europe/Berlin]',
-"registered_by" => 'system'
+"registered_by" => 'testuser',
+"refresh_token_expiry" => '7776000',
 });
 
 
@@ -994,9 +995,10 @@ $t->get_ok('/settings/marketplace')
   ->text_is('html head title' => 'Marketplace')
   ->element_exists('ul.plugin-list')
   ->element_exists('ul.plugin-list > li')
-  ->element_exists('p.registration_date')
   ->text_is('span.client-name','Plugin 1')
   ->text_is('p.plugin-desc','Description Plugin 1')
+  ->element_exists('p.registration_date')
+  ->element_exists('p.registered_by')
   ;
 
 
