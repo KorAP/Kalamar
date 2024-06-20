@@ -33,6 +33,7 @@ sub query {
   $v->optional('collection', 'trim'); # Legacy
   $v->optional('cq', 'trim');         # New
   $v->optional('cutoff', 'trim')->in(qw/1 0 true false/);
+  $v->optional('refresh', 'trim')->in(qw/1 0 true false/);
   $v->optional('count', 'trim')->num(1, undef);
   $v->optional('p', 'trim')->num(1, undef); # Start page
   $v->optional('o', 'trim')->num(1, undef); # Offset
@@ -44,6 +45,9 @@ sub query {
   my $cutoff;
   if ($v->param('cutoff') && $v->param('cutoff') =~ /^1|true$/i) {
     $cutoff = 'true';
+  };
+  if ($v->param('refresh') && $v->param('refresh') =~ /^1|true$/i) {
+    $c->stash(refresh  => 'true');
   };
 
   # Deal with legacy collection
