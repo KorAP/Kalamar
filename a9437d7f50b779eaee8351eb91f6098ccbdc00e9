@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb60ce04_703adde1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-06-25T12:04:55Z",
+      "side": 1,
+      "message": "I think we should flatten all sass rules a bit - it\u0027s pretty confusing when trying to understand the rulesets.",
+      "revId": "a9437d7f50b779eaee8351eb91f6098ccbdc00e9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
