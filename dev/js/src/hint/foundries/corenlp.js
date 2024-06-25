@@ -14,15 +14,11 @@ define(
 
     ah["corenlp/"] = [
       ["Constituency", "c="],
-      ["Named Entity", "ne=" , "Combined"],
-      ["Named Entity", "ne_dewac_175m_600=" , "ne_dewac_175m_600"],
-      ["Named Entity", "ne_hgc_175m_600=",    "ne_hgc_175m_600"],
+      ["Named Entity", "ne=" ],
       ["Part-of-Speech", "p="]
     ];
 
     ah["corenlp/ne="] = namedEntities;
-    ah["corenlp/ne_dewac_175m_600="] = namedEntities;
-    ah["corenlp/ne_hgc_175m_600="] = namedEntities;
     ah["corenlp/p="] = sttsArray;
     ah["corenlp/c="] = negraNodesArray;
 
