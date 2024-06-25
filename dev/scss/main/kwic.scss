@@ -225,7 +225,9 @@ body.no-js #search > ol > li:active,
       background-color: transparent;
     }
 
-    span.inline-marker {
+    span.inline-marker[data-key][data-value]:not([data-value=""]) {
+      font-size: 85%;
+      text-shadow:none;
       font-weight: normal;
       color: $dark-grey;
       &::before, &::after {
