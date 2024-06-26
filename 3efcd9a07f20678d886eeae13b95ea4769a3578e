@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4116c433_8609a5d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-06-26T15:12:40Z",
+      "side": 1,
+      "message": "Now that the page calculation is improved in Krill, they should be shown in Kalamar.",
+      "revId": "3efcd9a07f20678d886eeae13b95ea4769a3578e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
