@@ -30,9 +30,23 @@
   <p class="ref">\
 <% if ($match->{title}) { %><strong><%= $match->{title} %></strong><% }; %>\
 <%= $match->{author} ? ' ' . loc('by') . ' ' . $match->{author}  : '' %>\
-% if ($match->{pubDate}) {
- (<time datetime="<%= $match->{pubDate} %>"><%= $match->{pubDate} %></time>)\
+% if ($match->{pubDate} || ($match->{pages} && ref $match->{pages} eq 'ARRAY')) {
+ (\
+%   if ($match->{pubDate}) {
+<time datetime="<%= $match->{pubDate} %>"><%= $match->{pubDate} %></time>\
+%   };
+%   if ($match->{pages}) {
+%     if ($match->{pubDate}) {
+, \
+%     };
+%     if (@{$match->{pages}} == 1) {
+<span class="pages"><%=loc 'page_sg' %> <%= $match->{pages}->[0] %></span>\
+%     } else {
+<span class="pages"><%=loc 'page_pl' %> <%= $match->{pages}->[0] %>&ndash;<%= $match->{pages}->[-1] %></span>\
+%     };
+%   };
+) \
 % };
-  <span class="sigle">[<%= $text_sigle %>]</span> \
+<span class="sigle">[<%= $text_sigle %>]</span> \
 </p>
 </li>

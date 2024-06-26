@@ -39,6 +39,10 @@ my $THOUSAND_SEP_RE = qr/(
     news => 'Neuigkeiten',
     in => 'in',
     by => 'von',
+    page => {
+      -sg => 'S.',
+      pl => 'S.'
+    },
     pwd => 'Passwort',
     email => 'Email',
     username => 'Benutzername',
@@ -158,6 +162,10 @@ my $THOUSAND_SEP_RE = qr/(
     searchplaceholder => 'Find ...',
     in => 'in',
     by => 'by',
+    page => {
+      -sg => 'p.',
+      pl  => 'pp.',
+    },
     pwd => 'Password',
     email => 'Email',
     username => 'Username',
