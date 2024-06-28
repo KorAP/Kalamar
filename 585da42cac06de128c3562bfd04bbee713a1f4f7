@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ecdd6d1_90797ab3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-06-28T11:27:23Z",
+      "side": 1,
+      "message": "This is required for the next release of Kustvakt. It\u0027s only the half way - because now searches will behave like text info API and return an array of field objects for search. So - in the future we won\u0027t be able to rely on flat fields, like we already do for text info.",
+      "revId": "585da42cac06de128c3562bfd04bbee713a1f4f7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
