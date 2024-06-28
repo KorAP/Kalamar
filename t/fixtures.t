@@ -45,6 +45,16 @@ $err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25')
   ;
 is(defined $err ? $err->text : '', '');
 
+$err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25&fields=textSigle')
+  ->status_is(200)
+  ->json_is('/meta/count', 25)
+  ->json_is('/meta/serialQuery', "tokens:s:Baum")
+  ->json_hasnt('/matches/0/docSigle')
+  ->json_is('/matches/0/textSigle', "GOE/AGI/00000")
+  ->tx->res->dom->at('#error')
+  ;
+is(defined $err ? $err->text : '', '');
+
 
 $t->get_ok('/v1.0/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*')
   ->status_is(200)
