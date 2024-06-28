@@ -10,6 +10,7 @@
         - Improve test suite for slim images. (diewald)
         - Add pages to references in snippet view. (diewald)
         - Added category to Piwik calls. (diewald)
+        - Add SpaCy with STTS to annotation assistant. (diewald)
 
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
