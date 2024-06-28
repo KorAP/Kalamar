@@ -12,6 +12,8 @@
         - Added category to Piwik calls. (diewald)
         - Add SpaCy with STTS to annotation assistant. (diewald)
         - Support field objects in search responses. (diewald)
+        - Add fields to search API (necessary
+          for future Kustvakt releases). (diewald)
 
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)

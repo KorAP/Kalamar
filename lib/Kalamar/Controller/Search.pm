@@ -6,6 +6,8 @@ use Mojo::Util qw/quote/;
 use Mojo::JSON;
 use POSIX 'ceil';
 
+our @search_fields = qw!ID UID textSigle layerInfo title subTitle pubDate author availability snippet!;
+
 # TODO:
 #   Support server timing API
 #
@@ -20,6 +22,9 @@ use POSIX 'ceil';
 #
 # TODO:
 #   set caches with timing like '120min'
+#
+# TODO:
+#  Use nested fields
 
 # Query endpoint
 sub query {
@@ -120,6 +125,10 @@ sub query {
   # Set offset
   # From Mojolicious::Plugin::Search::Index
   $query{offset} = $v->param('o') || ((($page // 1) - 1) * ($items_per_page || 1));
+
+
+  # Add requested fields
+  $query{fields} = join ',', @search_fields;
 
   # Create remote request URL
   my $url = Mojo::URL->new($c->korap->api);
