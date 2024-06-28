@@ -7,6 +7,9 @@ use strict;
 use warnings;
 use Mojo::File qw/path/;
 use Mojo::Util qw/slugify/;
+use Kalamar::Controller::Search;
+
+our @default_search_fields = @Kalamar::Controller::Search::search_fields;
 
 # This is an API fake server with fixtures
 
@@ -139,6 +142,7 @@ get '/v1.0/search' => sub {
   $v->optional('context');
   $v->optional('offset');
   $v->optional('pipes');
+  $v->optional('fields');
   $v->optional('cutoff')->in(qw/true false/);
 
   $c->app->log->debug('Receive request');
@@ -170,6 +174,10 @@ get '/v1.0/search' => sub {
   push @slug_base, 'co' . $v->param('cutoff') if defined $v->param('cutoff');
   push @slug_base, 'cq' if defined $v->param('cq');
   push @slug_base, 'p' . $v->param('pipes') if defined $v->param('pipes');
+
+  if (defined $v->param('fields') && ($v->param('fields') ne join(',', @default_search_fields))) {
+    push @slug_base, 'f' .join('-', split(',', $v->param('fields')));
+  };
 
   # Get response based on query parameter
   my $response = $c->load_response('query_' . slugify(join('_', @slug_base)));
