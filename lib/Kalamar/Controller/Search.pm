@@ -121,6 +121,10 @@ sub query {
   # From Mojolicious::Plugin::Search::Index
   $query{offset} = $v->param('o') || ((($page // 1) - 1) * ($items_per_page || 1));
 
+
+  # Add requested fields
+  $query{fields} = join ',', qw!textSigle layerInfo snippet pubDate pages title author!;
+
   # Create remote request URL
   my $url = Mojo::URL->new($c->korap->api);
   $url->path('search');
