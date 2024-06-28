@@ -1,7 +1,7 @@
 % use Mojo::JSON qw/encode_json/;
 % my $match = stash('match') || {};
 % my %match_data = %$match;
-% delete @match_data{qw/snippet startMore endMore field/};
+% delete @match_data{qw/snippet startMore endMore/};
 % my $text_sigle = $match->{textSigle} // join('/', $match->{corpusID}, $match->{docID}, $match->{textID});
 % my $id = $text_sigle . '#' . $match->{matchID};
 % # Legacy:
