@@ -545,6 +545,10 @@ sub _map_matches {
 sub _map_match {
   my $match = shift or return;
 
+  if ($match->{fields}) {
+    _flatten_fields($match->{fields}, $match);
+  };
+
   # Legacy match id
   if ($match->{matchID}) {
     $match->{matchID} =~ s/^match\-(?:[^!]+!|[^_]+_)[^\.]+?\..+?-([pc]\d)/$1/ or
@@ -563,6 +567,20 @@ sub _map_match {
   return $match;
 };
 
+
+# Flatten requested field objects
+sub _flatten_fields {
+  my $fields_obj = shift;
+  my $flat_fields = shift // {};
+
+  return $flat_fields if ref $fields_obj ne 'ARRAY';
+
+  foreach (@{$fields_obj}) {
+    next unless ref $_ ne 'HASH' || $_->{'key'};
+    $flat_fields->{$_->{'key'}} //= $_->{value};
+  };
+  return $flat_fields;
+};
 
 1;
 
