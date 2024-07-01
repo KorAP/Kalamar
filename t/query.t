@@ -2,6 +2,7 @@ use Mojo::Base -strict;
 use Test::Mojo;
 use Test::More;
 use Mojo::File qw/path/;
+use Mojo::JSON qw'decode_json';
 use Kalamar::Controller::Search;
 
 
@@ -341,6 +342,35 @@ $err = $t->get_ok('/?q=baum&pipe=glemm')
   ->tx->res->dom->at('#error')
   ;
 is(defined $err ? $err->text : '', '');
+
+
+my $base_fixtures = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
+my $text_info = $base_fixtures->child('response_textinfo_goe_agi_00000.json')->slurp;
+my $fields = decode_json($text_info)->{json}->{document}->{fields};
+
+my $f = Kalamar::Controller::Search::_flatten_fields($fields);
+
+is($f->{textSigle}, 'GOE/AGI/00000');
+is($f->{author}, 'Goethe, Johann Wolfgang von');
+is($f->{docSigle}, 'GOE/AGI');
+is($f->{docTitle}, 'Goethe: Autobiographische Schriften III, (1813-1816, 1819-1829)');
+is($f->{textType}, 'Autobiographie');
+is($f->{language}, 'de');
+is($f->{availability}, 'ACA-NC');
+is($f->{title}, 'Italienische Reise');
+is($f->{creationDate}, '1813');
+is($f->{pubDate}, '1982');
+is($f->{reference}, 'Goethe, Johann Wolfgang von: Italienische Reise. Auch ich in Arkadien!, (Geschrieben: 1813-1816), In: Goethe, Johann Wolfgang von: Goethes Werke, Bd. 11, Autobiographische Schriften III, Hrsg.: Trunz, Erich. München: Verlag C. H. Beck, 1982, S. 9-349');
+is($f->{subTitle}, 'Auch ich in Arkadien!');
+is($f->{tokenSource}, 'base#tokens');
+is($f->{foundries}, 'corenlp corenlp/constituency corenlp/morpho corenlp/sentences dereko dereko/structure dereko/structure/base-sentences-paragraphs-pagebreaks malt malt/dependency marmot marmot/morpho opennlp opennlp/morpho opennlp/sentences treetagger treetagger/morpho');
+is($f->{publisher}, 'Verlag C. H. Beck');
+is($f->{corpusAuthor}, 'Goethe, Johann Wolfgang von');
+is($f->{layerInfos}, 'corenlp/c=spans corenlp/p=tokens corenlp/s=spans dereko/s=spans malt/d=rels marmot/m=tokens marmot/p=tokens opennlp/p=tokens opennlp/s=spans tt/l=tokens tt/p=tokens');
+is($f->{pubPlace}, 'München');
+is($f->{corpusTitle}, 'Goethes Werke');
+is($f->{corpusSigle}, 'GOE');
+is($f->{corpusEditor}, 'Trunz, Erich');
 
 
 done_testing;
