@@ -1,4 +1,4 @@
-0.55 2024-06-26
+0.55 2024-07-03
         - Removed deprecated doc_link_to helper. (diewald)
         - Removed deprecated doc_ext_link_to helper. (diewald)
         - Removed deprecated doc_uc helper. (diewald)
@@ -9,6 +9,7 @@
           (as per Kudstvakt #758). (diewald)
         - Improve test suite for slim images. (diewald)
         - Add pages to references in snippet view. (diewald)
+        - Added category to Piwik calls. (diewald)
 
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
