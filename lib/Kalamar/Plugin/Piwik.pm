@@ -74,6 +74,9 @@ APPEND
     inline => q!<%= piwik_tag 'as-script' %>!
   });
 
+  # Add instance title as category
+  my $action_addon = $mojo->loc('title_addon') ? $mojo->loc('title_addon') . ' / ' : '';
+
   # If all requests should be pinged,
   # establish this hook
   if ($param->{ping_requests}) {
@@ -87,7 +90,7 @@ APPEND
         # This won't forward personalized information
         my $hash = {
           action_url => $c->url_for->to_abs,
-          action_name => $route,
+          action_name => $action_addon . $route,
           ua => '',
           urlref => '',
           send_image => 0,

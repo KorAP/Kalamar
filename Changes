@@ -1,4 +1,4 @@
-0.55 2024-06-12
+0.55 2024-07-03
         - Removed deprecated doc_link_to helper. (diewald)
         - Removed deprecated doc_ext_link_to helper. (diewald)
         - Removed deprecated doc_uc helper. (diewald)
@@ -7,6 +7,7 @@
         - Correctly propagate warnings in frontend calls. (diewald)
         - Remove corpusQuery from statistics
           (as per Kudstvakt #758). (diewald)
+        - Added category to Piwik calls. (diewald)
 
 0.54 2024-06-10
         - Remove deprecated 'matchInfo' API path. (diewald, margaretha)
