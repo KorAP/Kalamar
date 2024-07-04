@@ -3,6 +3,7 @@ define(function () {
     // layerInfo                   // stored
     // tokenSource                 // stored
     ['author', 'text'],            // text
+    ['availability', 'string'],    // string
     // ['biblEditionStatement', 'string'], // stored
     ['corpusAuthor', 'text'],      // text
     // ['corpusEditor', 'string'], // stored
