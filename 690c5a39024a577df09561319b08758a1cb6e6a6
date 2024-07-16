@@ -285,6 +285,60 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f06d7e61_6489d856",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-07-16T13:15:35Z",
+      "side": 1,
+      "message": "I put a link into the user dropdown and refer it to /settings. Can\u0027t verify if the link works, but I just noticed you mentioned that there is no settings overview page at the moment. If there is none, should I create one or just refer to another page? (If a new page is wanted, maybe we should create a new issue for this case.)",
+      "parentUuid": "13ece2ec_96b6875b",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1a9cbb_f1efacbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-07-16T13:15:35Z",
+      "side": 1,
+      "message": "I added the registration link below the login field. Is it okay like that?",
+      "parentUuid": "c96394f0_7ca71593",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb3e683_6f4013b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-07-16T13:15:35Z",
+      "side": 1,
+      "message": "Can you still scroll over the footer or is it okay now?",
+      "parentUuid": "66fde97c_7c7534ad",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
@@ -760,6 +814,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97043563_77d5b59d",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-07-16T13:15:35Z",
+      "side": 1,
+      "message": "I set the sidebar to visible again as you suggested to keep both – side and top. So this issue should be resolved or is the doc navigation still invisible?",
+      "parentUuid": "803c7edf_2d351606",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e441e238_4ae3899c",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
         "patchSetId": 4
@@ -795,6 +873,30 @@
       "side": 1,
       "message": "Oh, yeah, sure! I don\u0027t know why I commented this line out ... :D",
       "parentUuid": "e441e238_4ae3899c",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9cac0a_6b085462",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-07-16T13:15:35Z",
+      "side": 1,
+      "message": "I checked it again and now remember why I removed the legend: The text would show up next to the form, which I think is not necessary in this context, because it is self-explanatory and also consumes too much space, imho. If okay, I would leave it like that.",
+      "parentUuid": "c6267681_6054dda0",
       "range": {
         "startLine": 11,
         "startChar": 11,
@@ -962,6 +1064,30 @@
       "side": 1,
       "message": "Partially resolved in #8556",
       "parentUuid": "cdea403a_fbd9a28b",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e4e9c9_24ad793a",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-07-16T13:15:35Z",
+      "side": 1,
+      "message": "I already removed get_user_name and used user_handle. Why is it only partially resolved? Is anything not working?",
+      "parentUuid": "e1080fbe_247447cc",
       "range": {
         "startLine": 6,
         "startChar": 16,
