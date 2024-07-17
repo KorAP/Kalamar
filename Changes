@@ -1,3 +1,4 @@
+        - Migration of menu to ES6 (diewald)
         - Migration of util and datepicker to ES6 (hebasta)
 
 0.66 2026-07-15

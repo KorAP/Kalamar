@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Menu demo</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="menu" style="padding-top: 80px; padding-left: 80px;"></div>
+
+    <script type="module">
+      import '../../../../scss/kalamar.scss';
+      import KalamarMenu from '../menu.js';
+
+      const menu = new KalamarMenu([
+        ["Constituency", "c=", "Example 1"],
+        ["Lemma", "l="],
+        ["Morphology", "m=", "Example 2"],
+        ["Part-of-Speech", "p="],
+        ["Syntax", "syn="]
+      ]);
+
+      document.getElementById('menu').appendChild(menu.element());
+      menu.limit(3).show(3);
+      menu.focus();
+    </script>
+  </body>
+</html>

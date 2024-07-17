@@ -7,7 +7,6 @@ super_client_info
 /sandbox
 /Sandbox
 node_modules
-/local/
 /cache/data
 /public
 /kalamar.*.conf
