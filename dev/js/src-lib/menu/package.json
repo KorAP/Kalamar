@@ -1,0 +1,15 @@
+{
+  "name": "kalamar-menu",
+  "version": "0.0.1",
+  "description": "Scrollable drop-down menu with view filters",
+  "main": "menu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"vite"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^5.3.4"
+  }
+}
