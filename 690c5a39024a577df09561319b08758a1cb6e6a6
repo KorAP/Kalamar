@@ -337,6 +337,42 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d94322_4838c40f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-17T10:03:55Z",
+      "side": 1,
+      "message": "Yes. It kind of destroys the clean look, but I guess there is no better way.",
+      "parentUuid": "8a1a9cbb_f1efacbb",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c866b9fd_b55094cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-17T10:03:55Z",
+      "side": 1,
+      "message": "This can better be answered by Helge.",
+      "parentUuid": "f06d7e61_6489d856",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce28ad4_cb98c00d",
@@ -838,6 +874,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a84d1faa_10923a31",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-17T10:03:55Z",
+      "side": 1,
+      "message": "No - does it work for you? I hope I checked out the last version, but it doesn\u0027t show the navigation on the left side for me.\n\nBut the sidebar for settings is now visible all the time, which wasn\u0027t intended, I guess.",
+      "parentUuid": "97043563_77d5b59d",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e441e238_4ae3899c",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
         "patchSetId": 4
@@ -897,6 +957,30 @@
       "side": 1,
       "message": "I checked it again and now remember why I removed the legend: The text would show up next to the form, which I think is not necessary in this context, because it is self-explanatory and also consumes too much space, imho. If okay, I would leave it like that.",
       "parentUuid": "c6267681_6054dda0",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "800171e6_25bfed81",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-17T10:03:55Z",
+      "side": 1,
+      "message": "There is no need to make it visible, but a legend is always helpful imho.",
+      "parentUuid": "df9cac0a_6b085462",
       "range": {
         "startLine": 11,
         "startChar": 11,
@@ -1088,6 +1172,30 @@
       "side": 1,
       "message": "I already removed get_user_name and used user_handle. Why is it only partially resolved? Is anything not working?",
       "parentUuid": "e1080fbe_247447cc",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "479158e6_036991c0",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-17T10:03:55Z",
+      "side": 1,
+      "message": "My second comment refered to the fact, that this can as well be an email address, which makes the view a bit intimidating. For this to be shown in the frontend (opposed to just an icon), the auth plugin should probably fetch the username first. And that would require some changes by Helge.",
+      "parentUuid": "f7e4e9c9_24ad793a",
       "range": {
         "startLine": 6,
         "startChar": 16,
