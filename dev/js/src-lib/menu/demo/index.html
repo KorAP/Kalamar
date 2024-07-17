@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <script type="module">
+    import KalamarMenu from '../menu.js';
+
+    const menu = new KalamarMenu([
+        ["Constituency", "c=", "Example 1"],
+        ["Lemma", "l="],
+        ["Morphology", "m=", "Example 2"],
+        ["Part-of-Speech", "p="],
+        ["Syntax", "syn="]
+      ]);
+
+    document.body.appendChild(menu.element());
+  </script>
+  <body></body>
+</html>
