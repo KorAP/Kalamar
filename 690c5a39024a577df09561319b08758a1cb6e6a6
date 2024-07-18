@@ -375,6 +375,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df60df8a_b8a37b4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-07-18T12:08:07Z",
+      "side": 1,
+      "message": "I can still scroll over the footer. I\u0027m using Firefox 126.0.1 (needs to be upgraded, so I will try that). I deleted the cache but this did not help. I will investigate further (have a bunch of browsers here on two notebooks).\nBut as mentioned, it is a minor issue...",
+      "parentUuid": "7bb3e683_6f4013b5",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
@@ -898,6 +916,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef4c48b7_713d168b",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-07-18T12:08:07Z",
+      "side": 1,
+      "message": "Same here regarding the behavior of the navigation/sidebar.\nI agree to Nils that we need to keep both - side and top. Except we have a flash on inspiration how to solve it otherwise.",
+      "parentUuid": "a84d1faa_10923a31",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e441e238_4ae3899c",
         "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
         "patchSetId": 4
@@ -1196,6 +1238,30 @@
       "side": 1,
       "message": "My second comment refered to the fact, that this can as well be an email address, which makes the view a bit intimidating. For this to be shown in the frontend (opposed to just an icon), the auth plugin should probably fetch the username first. And that would require some changes by Helge.",
       "parentUuid": "f7e4e9c9_24ad793a",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a042eccb_5cd74485",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/logout.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-07-18T12:08:07Z",
+      "side": 1,
+      "message": "I would suggest, that I look into it and make the necessary changes in Kalamar. I actually like the view with the user name better as the icon only view. \nBut it works either way, so we can submit it without the username right now and add the user name after I changed Kalamar accordingly.",
+      "parentUuid": "479158e6_036991c0",
       "range": {
         "startLine": 6,
         "startChar": 16,
