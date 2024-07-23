@@ -411,6 +411,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "571d8b64_f67ed80b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-07-23T12:21:25Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m not sure about that. \nMaybe keeping \"OAuth\" instead of settings here would make more sense. If we choose to make an entry \"Settings/Einstellungen\" in the menu we need to provide a settings overview page. But that makes no sense, because we do not have settings yet.",
+      "parentUuid": "c866b9fd_b55094cc",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
