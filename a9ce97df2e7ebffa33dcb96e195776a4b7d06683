@@ -16,6 +16,23 @@
       "message": "Contains falining tests:\n\n   Failed test \u0027element for selector \"div.button.top a\" exists\u0027\n   at t/plugin/auth-oauth.t line 222.\n\n   Failed test \u0027element for selector \"div.button.top a.logout[title~\u003d\"test\"]\" exists\u0027\n   at t/plugin/auth-oauth.t line 222.",
       "revId": "a9ce97df2e7ebffa33dcb96e195776a4b7d06683",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df8b364_01b90975",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-07-23T12:35:50Z",
+      "side": 1,
+      "message": "If I click on an entry in the sidebar the sidebar is lost. I can therefore not navigate between \"OAuth\" and marketplace.",
+      "revId": "a9ce97df2e7ebffa33dcb96e195776a4b7d06683",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
