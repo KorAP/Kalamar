@@ -14,11 +14,11 @@
     display: block;
     font-size: 45%;
     right: 5pt;
-    bottom: 4pt;
+    bottom: 2.5pt;
     text-align:right;
-    color: $dark-orange;
+    color: $nearly-white;
     padding: 3pt;
-    text-shadow: 1pt 1pt 0 $nearly-white, -1pt -1pt 0 $nearly-white, -1pt 1pt 0 $nearly-white, 1pt -1pt 0 $nearly-white;
+    text-shadow: 1pt 1pt 0 $light-green, -1pt -1pt 0 $light-green, -1pt 1pt 0 $light-green, 1pt -1pt 0 $light-green;
   }
   
   > * {
@@ -32,6 +32,10 @@
       @include blind;
     }
   }
+}
+
+aside.active + header .logo div.logoaddon {
+  text-shadow: 1pt 1pt 0 $dark-green, -1pt -1pt 0 $dark-green, -1pt 1pt 0 $dark-green, 1pt -1pt 0 $dark-green;
 }
 
 /**

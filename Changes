@@ -2,6 +2,7 @@
         - Improve slim test for plugin support
           (korapxml2...; diewald)
         - Fix layerInfo retrieval for relation view. (diewald)
+        - Change look of addon logo. (diewald)
 
 0.55 2024-07-03
         - Removed deprecated doc_link_to helper. (diewald)
