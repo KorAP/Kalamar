@@ -25,7 +25,7 @@ require(['buttongroup', 'panel', 'view/result/koralquery', 'state'], function (b
   };
 
   let panel = panelClass.create();
-  let actions = panel.actions;
+  let actions = panel.actions();
 
   // Add simple button
   actions.add('Meta',{'cls':['meta']}, function () {
@@ -37,7 +37,7 @@ require(['buttongroup', 'panel', 'view/result/koralquery', 'state'], function (b
   // Add list button
   var list = actions.addList('More', ['list']);
 
-  list.readItems([
+  list.list.readItems([
     ['cool', 'cool', function (e, action) { console.log('really' + this.action()) }],
     ['very cool', 'veryCool', function (e, action) { console.log('very cool') }]
   ]);
