@@ -16,6 +16,24 @@
       "message": "Maybe \"all necessary\" or something? Not all parts are (yet) published or developed in the open. And I think it\u0027s worth to make that clear - otherwise people may ask what we are doing.",
       "revId": "f47ae37856bc07169f5b9c7ccb8564112652c1fd",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2732d81e_24397638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-07-29T15:17:00Z",
+      "side": 1,
+      "message": "But all parts the user sees running as KorAP or do you man the local configurations?",
+      "parentUuid": "2e7790fb_fb71b174",
+      "revId": "f47ae37856bc07169f5b9c7ccb8564112652c1fd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
