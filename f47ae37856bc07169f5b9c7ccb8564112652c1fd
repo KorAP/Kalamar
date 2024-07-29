@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e7790fb_fb71b174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-29T14:56:54Z",
+      "side": 1,
+      "message": "Maybe \"all necessary\" or something? Not all parts are (yet) published or developed in the open. And I think it\u0027s worth to make that clear - otherwise people may ask what we are doing.",
+      "revId": "f47ae37856bc07169f5b9c7ccb8564112652c1fd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
