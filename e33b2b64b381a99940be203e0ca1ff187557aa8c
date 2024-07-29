@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3621c614_f2970cab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-07-29T14:49:08Z",
+      "side": 1,
+      "message": "A suggestion to make logo addons more subtile as asked for by Marc.",
+      "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
