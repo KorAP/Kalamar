@@ -6,7 +6,7 @@
 
 <section>
   <h3>Where is the source code?</h3>
-  <p>Parts of KorAP are already available on <%= ext_link_to 'GitHub', 'https://github.com/KorAP' %>, and we will publish more components in the future.</p>
+  <p>All KorAP sources are available on <%= ext_link_to 'GitHub', 'https://github.com/KorAP' %>.
 </section>
 
 <section>
