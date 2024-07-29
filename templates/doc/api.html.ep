@@ -20,3 +20,10 @@ The OpenAPI documentation is described <%= ext_link_to 'here',  $openapi  %>.
 % } 
 
 <p>The root service can be found at <code id="api-service-uri"><%=  $api_url %></code>.</p>
+
+<h2>Client Libraries</h2>
+
+<p>Client libraries are available for R on <%= ext_link_to 'CRAN', 'https://cran.r-project.org/package=RKorAPClient' %>
+(sources and more info on <%= ext_link_to 'GitHub', 'https://github.com/KorAP/RKorAPClient' %>)
+and for Python on <%= ext_link_to 'PyPI', 'https://pypi.org/project/KorAPClient/' %>
+(sources on <%= ext_link_to 'GitHub', 'https://github.com/KorAP/PythonKorAPClient' %>).</p>
