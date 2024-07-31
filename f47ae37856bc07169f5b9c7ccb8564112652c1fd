@@ -68,6 +68,24 @@
       "message": "OK, that\u0027s not yet part of KorAP and not relevant here, I think.",
       "revId": "f47ae37856bc07169f5b9c7ccb8564112652c1fd",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b9f00cb_67f30b58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-07-31T08:36:04Z",
+      "side": 1,
+      "message": "Just removed the \"All\". No place for detailied nitpicking here 😊",
+      "parentUuid": "2732d81e_24397638",
+      "revId": "f47ae37856bc07169f5b9c7ccb8564112652c1fd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
