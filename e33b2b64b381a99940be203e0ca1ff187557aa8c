@@ -16,6 +16,23 @@
       "message": "A suggestion to make logo addons more subtile as asked for by Marc.",
       "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce486408_a43da655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-07-31T09:18:27Z",
+      "side": 1,
+      "message": "with drawbacks, but better after all: better readibility, does not look \"broken\" or pixelized with lower case letters",
+      "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
