@@ -33,6 +33,23 @@
       "message": "with drawbacks, but better after all: better readibility, does not look \"broken\" or pixelized with lower case letters",
       "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f42db16b_c8dfd037",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-01T07:20:45Z",
+      "side": 1,
+      "message": "text-shadow for text outlines has quite some issues, but it should work fine for most resolutions. -webkit-text-stroke has unfortunately more issues, so better not use it (even though caniuse is fine).\n\nMaybe you can list the drawbacks and Uyen can have a look into it.\n\nThe sidebar switch isn\u0027t necessary anymore for the new top-bar design, maybe there is a better solution for that design as well (without overlaps and therefore outline magic).",
+      "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
