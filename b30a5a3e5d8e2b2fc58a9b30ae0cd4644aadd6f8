@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ee7c93_4bb2829c",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-05T15:50:09Z",
+      "side": 1,
+      "message": "Changing the format style makes reviewing harder, as it is recognized by diff, so seeing differences is harder. We can prettify all scss files in a separated commit, if you want.",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "b30a5a3e5d8e2b2fc58a9b30ae0cd4644aadd6f8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc06c0b_200e0397",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-05T15:50:09Z",
+      "side": 1,
+      "message": "This change makes the empty sidebar still appear on click.",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "b30a5a3e5d8e2b2fc58a9b30ae0cd4644aadd6f8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5136ed4b_1564da55",
+        "filename": "templates/partial/side.html.ep",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-05T15:50:09Z",
+      "side": 1,
+      "message": "These are wrong - to comment in ep you need to switch the symbols, so \u0027%#\u0027 instead of \u0027#%\u0027.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "b30a5a3e5d8e2b2fc58a9b30ae0cd4644aadd6f8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
