@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "081fc262_d0f91956",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-08-06T17:27:03Z",
+      "side": 1,
+      "message": "Kalamar changes for #8687",
+      "revId": "fff25a4eb665f1a8b9fdeee6ce9219b89376870b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
