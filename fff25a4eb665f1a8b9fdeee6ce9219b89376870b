@@ -16,6 +16,23 @@
       "message": "Kalamar changes for #8687",
       "revId": "fff25a4eb665f1a8b9fdeee6ce9219b89376870b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b438bd_e41391e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-06T18:42:12Z",
+      "side": 1,
+      "message": "This should be testable via the mockserver.",
+      "revId": "fff25a4eb665f1a8b9fdeee6ce9219b89376870b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
