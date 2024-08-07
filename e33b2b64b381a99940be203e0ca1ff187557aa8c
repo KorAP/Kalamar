@@ -50,6 +50,23 @@
       "message": "text-shadow for text outlines has quite some issues, but it should work fine for most resolutions. -webkit-text-stroke has unfortunately more issues, so better not use it (even though caniuse is fine).\n\nMaybe you can list the drawbacks and Uyen can have a look into it.\n\nThe sidebar switch isn\u0027t necessary anymore for the new top-bar design, maybe there is a better solution for that design as well (without overlaps and therefore outline magic).",
       "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9486bd4a_488a6188",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-08-07T15:35:55Z",
+      "side": 1,
+      "message": "I think it is a considerable improvement. It is much clearer, I prefer the white to the orange coloring and there is no lightly \"tattered\" look anymore.\n\nMaybe Uyen can have a look at the drawbacks.",
+      "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
