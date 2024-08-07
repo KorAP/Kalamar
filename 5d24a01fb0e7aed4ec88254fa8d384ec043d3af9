@@ -16,6 +16,23 @@
       "message": "Fails now addtitionaly the test:\n   Failed test \u0027element for selector \"aside.active\" exists\u0027\n   at t/plugin/auth-oauth.t line 116.\nt/plugin/auth-oauth.t .......... 19/?",
       "revId": "5d24a01fb0e7aed4ec88254fa8d384ec043d3af9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d8d21e_714062a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-08-07T16:53:04Z",
+      "side": 1,
+      "message": "Nice that the sidebar on the documentation is there again: \nWhen you click now on the entries in the sidebars on top of the page \"\u0026 !$classes) { #% $classes .\u003d \u0027 active\u0027; \" appears (see for example FAQ).",
+      "revId": "5d24a01fb0e7aed4ec88254fa8d384ec043d3af9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
