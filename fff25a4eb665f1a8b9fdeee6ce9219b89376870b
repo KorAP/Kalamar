@@ -33,6 +33,23 @@
       "message": "This should be testable via the mockserver.",
       "revId": "fff25a4eb665f1a8b9fdeee6ce9219b89376870b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f139ef4d_a33a8de0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-08-07T09:42:15Z",
+      "side": 1,
+      "message": "Comment removed by: Helge; Reason: Deleted",
+      "revId": "fff25a4eb665f1a8b9fdeee6ce9219b89376870b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
