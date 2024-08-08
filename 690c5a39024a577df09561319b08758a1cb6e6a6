@@ -974,6 +974,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ee61f1_68ea7611",
+        "filename": "dev/scss/sidebar/sidebar.scss",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-08T07:53:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ef4c48b7_713d168b",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e441e238_4ae3899c",
