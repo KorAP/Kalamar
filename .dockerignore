@@ -15,6 +15,7 @@
 /templates/announcement.html.ep
 /templates/custom
 /dev/js/src/custom
+**/node_modules
 /lib/Kalamar/Plugin/Announcements.pm
 /script/hypnotoad.pid
 /dev/css
