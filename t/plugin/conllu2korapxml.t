@@ -3,6 +3,13 @@ use Test::Mojo;
 use Test::Output;
 use Kalamar::Plugin::KorAPXML2CoNLLU;
 
+use_ok('Log::Any::Adapter::Stderr');
+use_ok('Log::Any::Adapter::Stdout');
+use_ok('Log::Any::Adapter::Null');
+use_ok('Log::Any::Adapter::Multiplex');
+use_ok('Log::Any::Adapter::Syslog');
+use_ok('Log::Any::Adapter::Test');
+
 unless (Kalamar::Plugin::KorAPXML2CoNLLU::check_existence()) {
   plan skip_all => "KorAP::XML::ConLLU is not installed";
   exit;
