@@ -14,6 +14,9 @@ my $t = Test::Mojo->new(Kalamar => {
 });
 my $app = $t->app;
 my $cmds = $app->commands;
+
+use_ok('Method::Generate::DemolishAll');
+
 ok(grep/::KorAPXML2Krill/, @{$cmds->namespaces}, 'Namespace is set');
 stdout_like(
   sub {
@@ -21,5 +24,18 @@ stdout_like(
   },
   qr{\[archive\|extract\]}
 );
+
+unless (grep { -x "$_/unzip"} split /:/, $ENV{PATH}) {
+  fail("unzip is not installed");
+};
+
+stdout_like(
+  sub {
+    exec('unzip','-v'),
+  },
+  qr/UnZip/
+);
+
 done_testing;
+
 1;
