@@ -8,6 +8,13 @@ unless (Kalamar::Plugin::KorAPXML2CoNLLU::check_existence()) {
   exit;
 };
 
+use_ok('Log::Any::Adapter::Stderr');
+use_ok('Log::Any::Adapter::Stdout');
+use_ok('Log::Any::Adapter::Null');
+use_ok('Log::Any::Adapter::Multiplex');
+use_ok('Log::Any::Adapter::Syslog');
+use_ok('Log::Any::Adapter::Test');
+
 my $t = Test::Mojo->new(Kalamar => {
   Kalamar => {
     plugins => ['KorAPXML2CoNLLU']
