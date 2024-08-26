@@ -99,7 +99,7 @@ LABEL repository="https://github.com/KorAP/Kalamar"
 
 # Slimming (https://github.com/slimtoolkit/slim):
 # slim build --http-probe=true \
-#            --exec="perl Makefile.PL && make test" \
+#            --exec="perl Makefile.PL && make test & unzip -v" \
 #            --include-workdir=true \
 #            --tag korap/kalamar:x.xx \
 #            --tag korap/kalamar:latest \
