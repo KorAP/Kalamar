@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d02d1f1_f843b063",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-08-27T10:40:34Z",
+      "side": 1,
+      "message": "This at least let the examples from KorAP-Docker run again.",
+      "revId": "828b60839b9aedcc74b20a2916437294d9b519f6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
