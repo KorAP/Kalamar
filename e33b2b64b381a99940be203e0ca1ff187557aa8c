@@ -67,6 +67,24 @@
       "message": "I think it is a considerable improvement. It is much clearer, I prefer the white to the orange coloring and there is no lightly \"tattered\" look anymore.\n\nMaybe Uyen can have a look at the drawbacks.",
       "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a798a54_c8d2b12c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-08-27T13:31:32Z",
+      "side": 1,
+      "message": "Let\u0027s make small steps forward and resolve the drawbacks later.",
+      "parentUuid": "9486bd4a_488a6188",
+      "revId": "e33b2b64b381a99940be203e0ca1ff187557aa8c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
