@@ -1,3 +1,6 @@
+0.56 2024-08-28
+        - Fix layerInfo retrieval for relation view. (diewald)
+
 0.55 2024-07-03
         - Removed deprecated doc_link_to helper. (diewald)
         - Removed deprecated doc_ext_link_to helper. (diewald)

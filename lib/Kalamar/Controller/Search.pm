@@ -6,7 +6,7 @@ use Mojo::Util qw/quote/;
 use Mojo::JSON;
 use POSIX 'ceil';
 
-our @search_fields = qw!ID UID textSigle layerInfo title subTitle pubDate author availability snippet!;
+our @search_fields = qw!ID UID textSigle layerInfos title subTitle pubDate author availability snippet!;
 
 # TODO:
 #   Support server timing API
