@@ -1,0 +1,53 @@
+% layout 'main', title => 'KorAP: Reguläre Ausdrücke';
+
+%= page_title
+
+<p>Bei regulären Ausdrücken handelt es sich um Suchmuster, die Mengen von Zeichenketten beschreiben.</p>
+<p>Im Backend von KorAP wird eine große Bandbreite von Operatoren unterstützt. Für die folgenden Operatoren kann garantiert werden, dass sie zuverlässig über das ganze System hinweg funktionieren:</p>
+
+<section id="quantifiers">
+  <h3>Operatoren</h3>
+  <dl>
+    <dt><code>.</code> - Platzhalter</dt>
+    <dd>Beliebiges Zeichen</dd>
+    <dt><code>()</code> - Gruppe</dt>
+    <dd>Bildet eine Gruppe von Operanden</dd>
+    <dt><code>|</code> - Alternative</dt>
+    <dd>Stellt eine Alternative zwischen Operanden dar</dd>
+    <dt><code>[]</code> - Zeichenklasse</dt>
+    <dd>Entspricht einem beliebigen der in eckige Klammern gesetzen Zeichen</dd>
+    <dt><code>\</code> - Escapezeichen</dt>
+    <dd>Hebt die Sonderbedeutung des darauffolgenden Zeichens auf, damit dieses nicht als Operator oder Quantor, sondern als normales Zeichen behandelt wird</dd>
+  </dl>
+
+  %= doc_query poliqarp => '".eine" Frau', cutoff => 1
+  %= doc_query poliqarp => '"Fr..de"', cutoff => 1
+  %= doc_query poliqarp => '"Fr(ie|eu)de" []{,3} Eierkuchen', cutoff => 1
+  %= doc_query poliqarp => '"Fre[um]de"', cutoff => 1
+  %= doc_query poliqarp => '"b.w\."', cutoff => 1
+</section>
+
+<section id="quantifiers">
+  <h3>Quantoren</h3>
+
+  <p>Quantoren werden genutzt, um Operanden in regulären Ausdrücken zu quantifizieren, d.h., um anzugeben, wie viele Male in Folge ein Operand in einer Zeichenkette vorkommen darf. Die folgenden Quantoren werden von KorAP unterstützt:</p>
+  
+  <dl>
+    <dt><code>?</code></dt>
+    <dd>0 oder 1 Vorkommen</dd>
+    <dt><code>*</code></dt>
+    <dd>0 oder mehrere Vorkommen</dd>
+    <dt><code>+</code></dt>
+    <dd>1 oder mehrere Vorkommen</dd>
+    <dt><code>{n}</code></dt>
+    <dd><code>n</code> Vorkommen</dd>
+    <dt><code>{n,}</code></dt>
+    <dd>Mindestens <code>n</code> Vorkommen</dd>
+    <dt><code>{n,m}</code></dt>
+    <dd>Mindestens <code>n</code>, aber höchstens <code>m</code> Vorkommen</dd>
+  </dl>
+  %= doc_query poliqarp => '"Schif+ahrt"', cutoff => 1
+  %= doc_query poliqarp => '"kl?eine" Kinder', cutoff => 1
+  %= doc_query poliqarp => '"Schlos{2,3}traße"', cutoff => 1
+  %= doc_query poliqarp => '"Rha(bar){2}"', cutoff => 1
+</section>
