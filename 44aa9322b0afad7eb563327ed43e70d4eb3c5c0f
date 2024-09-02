@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d8d559_713b563e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-09-02T11:04:47Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I\u0027m the right person to test this, because I\u0027m not working with KorAPXML2Krill. \n\nNonetheless I run the test:  It fails with \n\n\u0027t/plugin/conllu2korapxml.t   (Wstat: 0 Tests: 6 Failed: 0)\n  Parse errors: Bad plan.  You planned 0 tests but ran 6.\nFiles\u003d33, Tests\u003d1563, 14 wallclock secs ( 0.15 usr  0.02 sys + 12.02 cusr  1.15 csys \u003d 13.34 CPU)\nResult: FAIL\nFailed 1/33 test programs. 0/1563 subtests failed.\nmake: *** [Makefile:937: test_dynamic] Fehler 2\u0027\n\nalthough it skipped conllu2korapxml.t:\n\n\u0027t/page.t ....................... ok    \nt/plugin/auth-oauth.t .......... ok     \nt/plugin/conllu2korapxml.t ..... skipped: KorAP::XML::ConLLU is not installed\nt/plugin/csp.t ................. ok    \nt/plugin/demo_server.t ......... ok   \nt/plugin/environment.t ......... ok   \nt/plugin/korapxml2krill.t ...... skipped: KorAP::XML::Krill is not installed\nt/plugin/krill-indexer.t ....... skipped: Krill-Indexer is not installed\nt/plugin/notifications.t ....... ok   \nt/plugin/piwik.t ............... ok    \nt/plugin/plugins.t ............. ok    \nt/plugin/query_reference.t ..... ok    \nt/plugin/tei2korapxml.t ........ skipped: KorAP::XML::TEI is not installed\nt/proxy.t ...................... ok    \nt/query.t ...................... ok     \nt/request.t .................... ok\u0027",
+      "revId": "44aa9322b0afad7eb563327ed43e70d4eb3c5c0f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
