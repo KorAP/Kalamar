@@ -16,6 +16,23 @@
       "message": "Patchset 3: displays English and German version",
       "revId": "25e9a35e6db7a650c6d83c3d587c8e628bd4eb53",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e035209_5887edc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-09-02T16:51:29Z",
+      "side": 1,
+      "message": "Thanks 😊! Fine by me.",
+      "revId": "25e9a35e6db7a650c6d83c3d587c8e628bd4eb53",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
