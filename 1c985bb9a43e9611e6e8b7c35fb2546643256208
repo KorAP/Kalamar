@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52263035_30a48543",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-03T07:28:57Z",
+      "side": 1,
+      "message": "Doesn\u0027t change anything behaviour like, but allows for caching the setup stage.",
+      "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
