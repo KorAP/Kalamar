@@ -28,11 +28,6 @@ RUN cd /kalamar && \
 # Use alpine linux as base image
 FROM alpine:latest as kalamar
 
-# Copy assets from former container
-COPY --from=assetbuilder /kalamar /kalamar
-
-WORKDIR /kalamar
-
 RUN apk update && \
     apk add --no-cache git \
             perl \
@@ -45,8 +40,14 @@ RUN apk update && \
             libxml2 \
             libxml2-dev \
             unzip \
-            curl && \
-    set -o pipefail && \
+            curl
+
+# Copy assets from former container
+COPY --from=assetbuilder /kalamar /kalamar
+
+WORKDIR /kalamar
+
+RUN set -o pipefail && \
     curl -L https://cpanmin.us | perl - App::cpanminus && \
     cpanm https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz \
           Cpanel::JSON::XS \
