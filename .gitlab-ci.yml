@@ -1,16 +1,16 @@
 # gitlab ci pipeline to build kalamar docker container
 # automatically triggered on tag pushs or run manually
 #
-# Download container from artifacts and import it
-# e.g. with
-# unxz -c < kalamar-master-fffe0d98.xz | docker load
+# Download latest container from artifacts and import it:
 #
+# curl -Ls 'https://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/artifacts/master/raw/kalamar.tar.xz?job=build-docker' | docker load
+
 image: docker:latest
 
 services:
   - docker:dind
 
-build:
+build-docker:
   rules:
     - if: $CI_COMMIT_TAG =~ /.+/
       variables:
@@ -23,9 +23,13 @@ build:
     - apk update
     - apk add --no-cache git
   script:
-    - docker build -f Dockerfile -t korap/kalamar:$VID-conv --target kalamar-convert .
-    - docker save korap/kalamar:$VID-conv | xz -T0 -M16G -9 > kalamar-$VID-conv.xz
+    - docker build -f Dockerfile -t korap/kalamar:$VID-large --target kalamar .
+#    - wget https://github.com/slimtoolkit/slim/releases/latest/download/dist_linux.tar.gz
+#    - tar zxf dist_linux.tar.gz
+#    - export PATH=$(pwd)/dist_linux:$PATH
+    - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock dslim/slim build --http-probe=true --exec="perl Makefile.PL && make test && unzip -v" --include-workdir=true --include-path=/usr/local/share/perl5/site_perl/KorAP/ --tag korap/kalamar:$VID --tag korap/kalamar:latest korap/kalamar:$VID-large
+    - docker save korap/kalamar:$VID | xz -T0 -M16G -9 > kalamar.tar.xz
   artifacts:
     paths:
-      - kalamar-$VID-conv.xz
+      - kalamar.tar.xz
 
