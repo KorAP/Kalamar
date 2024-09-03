@@ -16,6 +16,23 @@
       "message": "Doesn\u0027t change anything behaviour like, but allows for caching the setup stage.",
       "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba74a5f_c4c57dfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-09-03T09:13:37Z",
+      "side": 1,
+      "message": "A great build speed improvement would also come with cpm instead of cpanm, but it\u0027s not as easy to handle.",
+      "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
