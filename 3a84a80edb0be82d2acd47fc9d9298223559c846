@@ -33,6 +33,24 @@
       "message": "Great! Could we also incorporate publishing?",
       "revId": "3a84a80edb0be82d2acd47fc9d9298223559c846",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27dab1a9_5447d626",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-09-03T07:36:48Z",
+      "side": 1,
+      "message": "Definitely, next step...",
+      "parentUuid": "a8d19b04_63b111d9",
+      "revId": "3a84a80edb0be82d2acd47fc9d9298223559c846",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
