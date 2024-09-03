@@ -33,6 +33,24 @@
       "message": "A great build speed improvement would also come with cpm instead of cpanm, but it\u0027s not as easy to handle.",
       "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "038d5a06_c35b8401",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-03T13:32:24Z",
+      "side": 1,
+      "message": "Do you have experience with cpm?",
+      "parentUuid": "dba74a5f_c4c57dfb",
+      "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
