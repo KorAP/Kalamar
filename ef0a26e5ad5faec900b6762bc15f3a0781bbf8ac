@@ -33,6 +33,23 @@
       "message": "Please prioritize this. It costs so much time building specialized builds for every instance.",
       "revId": "ef0a26e5ad5faec900b6762bc15f3a0781bbf8ac",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c75e461_fffefd16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-03T07:25:25Z",
+      "side": 1,
+      "message": "It\u0027s kind opf a side effect that this is done once the es6 port is finished.",
+      "revId": "ef0a26e5ad5faec900b6762bc15f3a0781bbf8ac",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
