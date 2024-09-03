@@ -16,6 +16,23 @@
       "message": "Works, see: \nhttps://gitlab.ids-mannheim.de/KorAP/Kalamar/-/tree/slim?ref_type\u003dheads and \nhttps://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/5081/artifacts/browse",
       "revId": "3a84a80edb0be82d2acd47fc9d9298223559c846",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8d19b04_63b111d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-03T06:40:56Z",
+      "side": 1,
+      "message": "Great! Could we also incorporate publishing?",
+      "revId": "3a84a80edb0be82d2acd47fc9d9298223559c846",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
