@@ -51,6 +51,24 @@
       "parentUuid": "dba74a5f_c4c57dfb",
       "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b7d5f2_46822274",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-09-05T11:00:07Z",
+      "side": 1,
+      "message": "Yes, some. It uses all cores, so it\u0027s so much quicker. However, it requires META.json or META.yml files for installations from source or GitHub so that it fails with all our modules. If there is a workaround, I haven\u0027t found it yet.",
+      "parentUuid": "038d5a06_c35b8401",
+      "revId": "1c985bb9a43e9611e6e8b7c35fb2546643256208",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
