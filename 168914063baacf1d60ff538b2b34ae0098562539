@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21b2665c_f8332adf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-09-09T19:04:58Z",
+      "side": 1,
+      "message": "* rebased on master\n* install cpm to /bin/\n* add test to Kalamar installation\n* remove /bin/cpm\n* fix case deprecations with as/AS",
+      "revId": "168914063baacf1d60ff538b2b34ae0098562539",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
