@@ -46,19 +46,18 @@ RUN apk update && \
             libxml2-dev \
             unzip \
             curl && \
-    set -o pipefail && \
-    curl -L https://cpanmin.us | perl - App::cpanminus && \
-    cpanm https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz \
-          Cpanel::JSON::XS \
-          File::ShareDir::Install \
-          EV \
-          IO::Socket::Socks \
-          https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.5.0.tar.gz \
-          https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.55.tar.gz \
-          https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz
+    set -o pipefail
+    
+RUN curl -fsSL https://raw.githubusercontent.com/kupietz/cpm/main/cpm > cpm && chmod a+x ./cpm
+
+RUN ./cpm install --test -g Cpanel::JSON::XS File::ShareDir::Install EV IO::Socket::Socks && \
+    ./cpm install --test -g "https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz" && \
+    ./cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.5.0.tar.gz" && \
+    ./cpm install --test -g "https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.55.tar.gz" && \
+    ./cpm install --test -g "https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz"
 
 # Install Kalamar including all dependencies
-RUN cpanm --installdeps . -M https://cpan.metacpan.org
+RUN ./cpm install -g
 
 # Remove all build dependencies
 RUN apk del git \
