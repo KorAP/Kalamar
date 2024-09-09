@@ -1,5 +1,5 @@
 # Build assets in builder image
-FROM node:20 as assetbuilder
+FROM node:20 AS assetbuilder
 
 WORKDIR '/app'
 
@@ -25,8 +25,8 @@ RUN cd /kalamar && \
     rm package-lock.json \
        dev/robots.txt
 
-# Use alpine linux as base image
-FROM alpine:latest as kalamar
+# Use alpine linux AS base image
+FROM alpine:latest AS kalamar
 
 RUN apk update && \
     apk add --no-cache git \
@@ -40,29 +40,28 @@ RUN apk update && \
             libxml2 \
             libxml2-dev \
             unzip \
-            curl
+            curl && \
+    set -o pipefail
+
+RUN curl -fsSL https://raw.githubusercontent.com/kupietz/cpm/main/cpm > /bin/cpm && chmod a+x /bin/cpm
+
+RUN cpm install --test -g Cpanel::JSON::XS File::ShareDir::Install EV IO::Socket::Socks && \
+    cpm install --test -g "https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz" && \
+    cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.5.0.tar.gz" && \
+    cpm install --test -g "https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.55.tar.gz" && \
+    cpm install --test -g "https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz"
 
 # Copy assets from former container
 COPY --from=assetbuilder /kalamar /kalamar
 
 WORKDIR /kalamar
 
-RUN set -o pipefail && \
-    curl -L https://cpanmin.us | perl - App::cpanminus && \
-    cpanm https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz \
-          Cpanel::JSON::XS \
-          File::ShareDir::Install \
-          EV \
-          IO::Socket::Socks \
-          https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.5.0.tar.gz \
-          https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.55.tar.gz \
-          https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz
-
 # Install Kalamar including all dependencies
-RUN cpanm --installdeps . -M https://cpan.metacpan.org
+RUN cpm install --test -g
 
 # Remove all build dependencies
-RUN apk del git \
+RUN rm /bin/cpm && \
+    apk del git \
             perl-dev \
             perl-doc \
             g++ \
