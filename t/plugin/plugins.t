@@ -30,7 +30,7 @@ $t->app->plugin('Plugins' => {
 });
 
 $t->get_ok('/')
-  ->text_is('h1 span', 'KorAP - Corpus Analysis Platform')
+  ->text_is('h1 span', 'KorAP-DeLiKo@DNB - Corpus Analysis Platform')
   ->content_unlike(qr!KorAP\.Plugins\s*=\s*\[!)
   ->content_unlike(qr!<script>\/\/<\!\[CDATA\[!)
   ->content_like(qr!<span id="kalamar-plugins" data-plugins="/settings/plugin/list\.json"></span>!)

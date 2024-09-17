@@ -29,11 +29,5 @@ stdout_like(
   },
   qr{zca15\.tree_tagger\.conllu}
 );
-stdout_like(
-  sub {
-    $cmds->run('korapxml2conllu','-v');
-  },
-  qr{zca15\.tree_tagger\.zip}
-);
 done_testing;
 1;

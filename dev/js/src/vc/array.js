@@ -4,6 +4,7 @@ define(function () {
     // tokenSource                 // stored
     ['author', 'text'],            // text
     ['availability', 'string'],    // string
+    ['award', 'string'],           // string
     // ['biblEditionStatement', 'string'], // stored
     ['corpusAuthor', 'text'],      // text
     // ['corpusEditor', 'string'], // stored
