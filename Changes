@@ -4,6 +4,7 @@
         - Fix layerInfo retrieval for relation view. (diewald)
         - Change look of addon logo. (diewald)
         - Support VCs via URL without queries (diewald)
+        - Added translations for regexp and FCSQL (r-wilm)
 
 0.55 2024-07-03
         - Removed deprecated doc_link_to helper. (diewald)

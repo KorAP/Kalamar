@@ -326,7 +326,8 @@ to allow specific scripts to run.
 
 Copyright (C) 2015-2024, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](https://www.nils-diewald.de/), Helge Stallkamp<br>
-Contributor: Eliza Margaretha (Documentation), Susanne Feix (Translation),
+Contributor: Eliza Margaretha (Documentation), Susanne Feix and Rebecca
+Wilm (Translation),
 Leo Repp
 
 Kalamar is developed as part of the [KorAP](https://korap.ids-mannheim.de/)
