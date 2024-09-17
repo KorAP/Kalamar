@@ -1,0 +1,88 @@
+% layout 'main', title => 'KorAP: FCS-QL';
+
+%= page_title
+
+<p>FCS-QL ist eine Anfragesprache, die speziell für die erweiterte Suche in der <%= ext_link_to 'CLARIN Federated Content Search (FCS)', "https://www.clarin.eu/content/federated-content-search-clarin-fcs" %> entwickelt wurde und eine Suche über annotierte Daten ermöglicht. FCS-QL ist also vor allem dann als Anfragesprache zu empfehlen, wenn es um Anfragen geht, die Annotationsebenen wie Part-of-Speech oder Lemma einbeziehen. Da FCS-QL zu großen Teilen auf Poliqarp/CQP basiert, sind sich <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %> und FCS-QL syntaktisch gesehen recht ähnlich.</p>
+
+<p>Foundries werden in FCS-QL Qualifikatoren genannt. Um eine bestimmte Annotationsebene einer Foundry anzusprechen, werden Foundry und Annotationsebene mithilfe eines Doppelpunkts verbunden. Zum Beispiel wird die Lemma-Ebene der TreeTagger-Foundry wie folgt repräsentiert: <code>tt:lemma</code>. In Bezug auf FCS-QL unterstützt KorAP die folgenden Annotationsebenen:</p>
+
+<dl>
+  <dt>text</dt>
+  <dd>Oberflächenform</dd>
+  <dt>lemma</dt>
+  <dd>Lemma</dd>
+  <dt>pos</dt>
+  <dd>Part-of-Speech</dd>
+</dl>
+
+<section id="simple-queries">
+
+  <h3>Einfache Anfragen</h3>
+
+  <p>Suche nach einzelnen Begriffen</p>
+  %= doc_query fcsql => '"Semmel"', cutoff => 1
+
+  <p>Einbindung von regulären Ausdrücken</p>
+  %= doc_query fcsql => '"gie(ss|ß)en"', cutoff => 1
+
+  <p>Suche ohne Beachtung der Groß- und Kleinschreibung</p>
+  %= doc_query fcsql => '"essen"/c', cutoff => 1
+</section>
+
+<section id="complex-queries">
+
+  <h3>Komplexe Anfragen</h3>
+
+  <h4>Einbeziehung von Annotationsebenen</h4>
+
+  <p>Suche nach einzelnen Begriffen auf Basis der Annotationsebene für Oberflächenformen</p>
+  %= doc_query fcsql => '[text = "Semmel"]', cutoff => 1
+  %= doc_query fcsql => '[text = "essen"/c]', cutoff => 1
+
+  <p>Suche nach Adverbien laut <%= embedded_link_to 'doc', 'Standard-Foundry', 'data', 'annotation' %>.</p>
+  %= doc_query fcsql => '[pos="ADV"]', cutoff => 1
+
+  <h4>Einbeziehung von Qualifikatoren (Foundries)</h4>
+
+  <p>Suche nach mithilfe von OpenNLP annotierten Adverbien</p>
+  %= doc_query fcsql => '[opennlp:pos="ADV"]', cutoff => 1
+
+  <p>Suche nach Tokens mit einem bestimmten TreeTagger-Lemma</p>
+  %= doc_query fcsql => '[tt:lemma = "leben"]', cutoff => 1
+
+  <h4>Suche mithilfe von booleschen Operatoren</h4>
+
+  <p>Alle Tokens mit dem Lemma <code>&quot;leben&quot;</code>, die auch finite Vollverben sind</p>
+  %= doc_query fcsql => '[tt:lemma ="leben" & pos="VVFIN"]', cutoff => 1
+
+  <p>Alle Tokens mit dem Lemma <code>&quot;leben&quot;</code>, die auch finite Vollverben oder Vollverben im Partizip Perfekt sind</p>
+  %= doc_query fcsql => '[tt:lemma ="leben" & (pos="VVFIN" | pos="VVPP")]', cutoff => 1
+
+  <h4>Sequenzanfragen</h4>
+
+  <p>Kombination von zwei Begriffen in einer Sequenzanfrage</p>
+  %= doc_query fcsql => '[opennlp:pos="ADJA"] "leben"', cutoff => 1
+
+  <h4>Leeres Token</h4>
+
+  <p>Wie es auch in <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %> der Fall ist, stellt <code>[]</code> in FCS-QL ein leeres Token dar, welches für jedes beliebige Token stehen kann. Um eine zu hohe Anzahl von Suchresultaten zu vermeiden, darf das leere Token in Anfragen nicht ganz alleine, sondern nur in Kombination mit anderen Tokens verwendet werden. Es spielt also vor allem bei Sequenzanfragen eine Rolle.</p>
+  %= doc_query fcsql => '[] "Wolke"', cutoff => 1
+
+  <h4>Negation</h4>
+
+  <p>Wie das leere Token darf eine Negation in einer Suchanfrage nicht ganz alleine stehen, da dies zu einer unverhältnismäßig hohen Anzahl von Resultaten führen würde. In Sequenzanfragen hingegen ist der Einsatz von Negationen möglich.</p>
+  %= doc_query fcsql => '[pos != "ADJA"] "Buch"', cutoff => 1
+
+  <h4>Einsatz von Quantifizierern</h4>
+
+  <p>Quantifizierer machen es möglich, nach Wiederholungen eines Begriffes zu suchen. Sie können zum Beispiel verwendet werden, um nach genau zwei aufeinanderfolgenden Vorkommen von <code>&quot;die&quot;</code> zu suchen.</p>
+  %= doc_query fcsql => '"die" {2}', cutoff => 1
+
+  <p>Des Weiteren sind Quantifizierer nützlich, um nach Vorkommen von beliebigen Tokens in der Nähe von anderen ganz spezifischen Tokens zu suchen. Die folgende Anfrage zum Beispiel lässt genau zwei oder drei beliebige Tokens zwischen <code>&quot;wir&quot;</code> und <code>&quot;leben&quot;</code> zu.</p>
+  %= doc_query fcsql => '"wir" []{2,3} "leben"', cutoff => 1
+
+  <h4>Suche nach einem Begriff innerhalb eines Satzes</h4>
+
+  %= doc_query fcsql => '"Boot" within s', cutoff => 1
+
+</section>

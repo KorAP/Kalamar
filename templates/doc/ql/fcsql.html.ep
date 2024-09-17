@@ -1,16 +1,16 @@
-% layout 'main', title => 'KorAP: FCSQL';
+% layout 'main', title => 'KorAP: FCS-QL';
 
 %= page_title
 
 <p>FCS-QL is a query language specifically developed to accomodate advanced search in
-  <%= ext_link_to 'Clarin Federated Content Search (FCS)', "https://www.clarin.eu/content/federated-content-search-clarin-fcs" %>,
+  <%= ext_link_to 'CLARIN Federated Content Search (FCS)', "https://www.clarin.eu/content/federated-content-search-clarin-fcs" %>
   that allows searching through annotated data.
 Accordingly, FCS-QL is primarily intended to represent queries involving annotation layers
 such as part-of-speech and lemma. FCS-QL grammar is fairly similar to <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %> since it was
 built heavily based on Poliqarp/CQP.</p>
 
 <p>In FCS-QL, foundries are called qualifiers. A combination of a foundry and a layer is
-separated with a colon, for example the lemma layer of Tree Tagger is represented as
+separated with a colon, for example the lemma layer of TreeTagger is represented as
 <code>tt:lemma</code>. KorAP supports the following annotation layers for FCS-QL:</p>
 
 <dl>
@@ -49,10 +49,10 @@ separated with a colon, for example the lemma layer of Tree Tagger is represente
 
   <h4>Querying using qualifiers (foundries)</h4>
 	
-	<p>Querying adverbs annotated by Opennlp</p>
+	<p>Querying adverbs annotated by OpenNLP</p>
   %= doc_query fcsql => '[opennlp:pos="ADV"]', cutoff => 1
 	
-	<p>Querying tokens with a lemma from Tree tagger</p>
+	<p>Querying tokens with a lemma from TreeTagger</p>
   %= doc_query fcsql => '[tt:lemma = "leben"]', cutoff => 1
 	
 
@@ -72,15 +72,15 @@ separated with a colon, for example the lemma layer of Tree Tagger is represente
 	
 
   <h4>Empty token</h4>
-	<p>Like in <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %>, an empty token is signified by <code>[]</code>
+	<p>Like in <%= embedded_link_to 'doc', 'Poliqarp', 'ql', 'poliqarp-plus' %>, an empty token is signified by <code>[]</code>,
     which means any token. Due to the
-	excessive number of results, empty token is not allowed to be used independently, but in
+	excessive number of results, the empty token is not allowed to be used independently but only in
 	combination with other tokens, for instance in a sequence query.</p>
   %= doc_query fcsql => '[] "Wolke"', cutoff => 1
 	
 	
 	<h4>Negation</h4>
-	<p>Similar to empty token, negation is not allowed to be used independently due to the
+	<p>Similar to the empty token, negation is not allowed to be used independently due to the
 	excessive number of results. However, it can be used in a sequence query.</p>
   %= doc_query fcsql => '[pos != "ADJA"] "Buch"', cutoff => 1
 	
