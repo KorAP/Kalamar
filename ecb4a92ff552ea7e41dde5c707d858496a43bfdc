@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfae986c_37131c8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-20T11:58:15Z",
+      "side": 1,
+      "message": "I haven\u0027t reviewed - +1 should only be the indication that it\u0027s up for review.",
+      "revId": "ecb4a92ff552ea7e41dde5c707d858496a43bfdc",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
