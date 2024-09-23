@@ -1,10 +1,12 @@
-0.56 2024-09-23
+0.57 2024-09-23
+        - Support VCs via URL without queries (diewald)
+        - Added translations for regexp and FCSQL (r-wilm)
+
+0.56 2024-08-28
         - Improve slim test for plugin support
           (korapxml2...; diewald)
         - Fix layerInfo retrieval for relation view. (diewald)
         - Change look of addon logo. (diewald)
-        - Support VCs via URL without queries (diewald)
-        - Added translations for regexp and FCSQL (r-wilm)
 
 0.55 2024-07-03
         - Removed deprecated doc_link_to helper. (diewald)
