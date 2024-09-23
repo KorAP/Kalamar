@@ -24,8 +24,6 @@
 </p>
 </div>
 
-%= include 'query'
-
 <div id="search">
 % if (stash('results')->size && stash('total_results') != 0) {
   <ol class="align-left">

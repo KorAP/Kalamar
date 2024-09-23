@@ -76,7 +76,10 @@
     </noscript>
     
     <main<% if (stash 'main_class') { %> class="<%= stash 'main_class' %>"<% } %>>
-    %= content
+
+      %= include 'query'
+
+      %= content
     </main>
 
     % unless ($embedded) {

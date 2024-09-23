@@ -7,6 +7,7 @@ use Mojo::JSON;
 use POSIX 'ceil';
 
 our @search_fields = qw!ID UID textSigle layerInfos title subTitle pubDate author availability snippet!;
+our $query_placeholder = 'NOQUERY';
 
 # TODO:
 #   Support server timing API
@@ -58,27 +59,38 @@ sub query {
     $cq = $v->param('collection');
   };
 
-  # No query (Check ignoring validation)
-  unless ($c->param('q')) {
-    return $c->render(
-      $c->loc('Template_intro', 'intro'),
-      robots => 'index,follow'
-    );
-  };
-
-  $c->res->headers->header('X-Robots', 'noindex');
-
   my %query = ();
   $query{q}  = $v->param('q')  // '';
   $query{ql} = $v->param('ql') // 'poliqarp';
 
+  # No query (Check ignoring validation)
+  unless ($c->param('q')) {
+
+    # No corpus query
+    unless ($v->param('cq')) {
+      return $c->render(
+        $c->loc('Template_intro', 'intro'),
+        robots => 'index,follow'
+      );
+    };
+
+    # Corpus query exists
+    $query{q} = $query_placeholder;
+    $query{count} = 0;
+  }
+
+  else {
+    $c->stash(title => $c->loc(
+      'searchtitle',
+      q => $query{'q'},
+      ql => $query{'ql'}
+    ));
+  };
+
+  $c->res->headers->header('X-Robots', 'noindex');
+
   $c->stash(q  => $query{q});
   $c->stash(ql => $query{ql});
-  $c->stash(title => $c->loc(
-    'searchtitle',
-    q => $query{'q'},
-    ql => $query{'ql'}
-  ));
 
   # Check validation
   if ($v->has_error) {
@@ -96,7 +108,6 @@ sub query {
   my $items_per_page = $c->stash('items_per_page');
 
   $query{count}   = $v->param('count') // $items_per_page;
-
   $query{cq}      = $cq;
   $query{cutoff}  = $cutoff;
   $query{context} = $v->param('context') // $c->stash('context');
@@ -268,6 +279,17 @@ sub query {
 
       # Emit after search hook
       $c->app->plugins->emit_hook(after_search => $c);
+
+      # Only corpus query is set
+      if ($c->stash('q') eq $query_placeholder) {
+        $c->stash(q => '');
+        $c->req->query_params->remove('q');
+        $c->req->query_params->remove('count');
+        return $c->render(
+          $c->loc('Template_intro', 'intro'),
+          robots => 'index,follow'
+        );
+      };
 
       # Render result
       return $c->render(template => 'search');

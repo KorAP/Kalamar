@@ -168,6 +168,12 @@ get '/v1.0/search' => sub {
     );
   };
 
+  if ($v->param('q') eq $Kalamar::Controller::Search::query_placeholder) {
+    # Get response based on query parameter
+    my $response = $c->load_response('query_baum_o0_c25_cq');
+    return $c->render(%$response);
+  };
+
   my @slug_base = ($v->param('q'));
   push @slug_base, 'o' . $v->param('offset') if defined $v->param('offset');
   push @slug_base, 'c' . $v->param('count') if defined $v->param('count');

@@ -49,6 +49,20 @@ $t->get_ok('/')
   ->element_exists('meta[name="DC.description"][content="KorAP - Corpus Analysis Platform"]')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
+  ->element_exists_not('#koralQuery')
+  ;
+
+$t->get_ok('/?cq=corpusSigle%3DGOE')
+  ->status_is(200)
+  ->text_is('title', 'KorAP - Corpus Analysis Platform')
+  ->text_is('h1 span', 'KorAP - Corpus Analysis Platform')
+  ->element_exists_not('#notifications div.notify')
+  ->element_exists('div.intro')
+  ->text_is('div.intro h2', 'This is a custom intro page!')
+  ->element_exists('meta[name="DC.description"][content="KorAP - Corpus Analysis Platform"]')
+  ->element_exists('meta[name="keywords"][content^="KorAP"]')
+  ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
+  ->element_exists('#koralQuery')
   ;
 
 $t->get_ok('/huhuhuhuhu')
