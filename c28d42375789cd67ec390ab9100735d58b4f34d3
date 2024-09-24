@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "947cb993_664f38e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-24T15:35:27Z",
+      "side": 1,
+      "message": "I missed that in case cutoff is not set, the number of matches is calculated. So - cutoff is required (although the query string is rare).",
+      "revId": "c28d42375789cd67ec390ab9100735d58b4f34d3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
