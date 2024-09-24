@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f2af76e_5980a1b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-24T09:28:01Z",
+      "side": 1,
+      "message": "This helps to know when the UI can be altered after its loaded, e.g. for changing the virtual corpus composition.",
+      "revId": "442c251e0ebdd2c8cae124afece3b9fb12ef128b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
