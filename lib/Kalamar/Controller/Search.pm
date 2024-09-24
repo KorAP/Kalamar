@@ -77,6 +77,7 @@ sub query {
     # Corpus query exists
     $query{q} = $query_placeholder;
     $query{count} = 0;
+    $query{cutoff}  = 'true';
   }
 
   else {
