@@ -1,3 +1,6 @@
+0.57 2024-09-24
+        - Introduce 'ui-ready' global event. (diewald)
+
 0.56 2024-09-23
         - Improve slim test for plugin support
           (korapxml2...; diewald)

@@ -505,6 +505,8 @@ define([
         });
       };
     };
+
+    window.dispatchEvent(new Event("ui-ready"));
       
     return obj;
   });
