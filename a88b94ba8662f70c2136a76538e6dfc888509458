@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0429122_1aa45cb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-09-25T12:04:51Z",
+      "side": 1,
+      "message": "This still shows the pagination panel (which is true for all panels), but at least it doesn\u0027t show the random page option.",
+      "revId": "a88b94ba8662f70c2136a76538e6dfc888509458",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
