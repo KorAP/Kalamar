@@ -16,7 +16,6 @@ define([
   // Localization values
   const loc = KorAP.Locale;
   loc.RANDOM_PAGE = loc.RANDOM_PAGE || 'Random page';
-
   
   return {
     type : 'pagination',
@@ -77,18 +76,23 @@ define([
      */
     addRandomPage : function () {
       const pi = pageInfoClass.create();
-      
+
+      if (pi.total() < 2)
+        return false;
+
       const button = this.actions().add(
         loc.RANDOM_PAGE,
         {},
         function () {
-          if (pi.total() > 0) {
+          if (pi.total() > 1) {
             const sp = new URLSearchParams(window.location.search);
             sp.set("p", Math.floor(Math.random() * pi.total()) + 1);
             window.location.search = sp.toString();
           };
         }
-      )
+      );
+
+      return true;
     }
   }
 });

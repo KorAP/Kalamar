@@ -2,6 +2,8 @@
         - Support VCs via URL without queries (diewald)
         - Added translations for regexp and FCSQL (r-wilm)
         - Introduce 'ui-ready' global event. (diewald)
+        - Don't show random page option for single page
+          results (diewald)
 
 0.56 2024-09-23
         - Improve slim test for plugin support
