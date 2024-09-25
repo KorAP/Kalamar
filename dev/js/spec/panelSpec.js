@@ -208,7 +208,7 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
       expect(list.classList.contains('button-group-list')).toBeTruthy();
       expect(list.classList.contains('visible')).toBeFalsy();
 
-      pagination.addRandomPage();
+      expect(pagination.addRandomPage()).toBeTruthy();
 
       let clicked = false;
       pagination.actions().add(
@@ -225,5 +225,27 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
       document.body.removeChild(p);
       document.body.removeChild(pagination.actions().element());
     });
+
+    it('shouldn\'t show random page on single pages', function () {
+
+      // Create pagination element for pagination information
+      let p = document.createElement('div');
+      p.setAttribute('id', 'pagination')
+      p.setAttribute('data-page',1);
+      p.setAttribute('data-total',1);
+      p.setAttribute('data-count',25);
+
+      document.body.appendChild(p);
+
+      // Create pagination class object
+      var pagination = paginationClass.create();
+      let list = pagination.actions().element();
+      expect(pagination.type).toEqual('pagination');
+      expect(list.classList.contains('button-group-list')).toBeTruthy();
+      expect(list.classList.contains('visible')).toBeFalsy();
+
+      expect(pagination.addRandomPage()).toBeFalsy();
+    });
+
   });
 });
