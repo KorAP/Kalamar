@@ -1,0 +1,6 @@
+% layout 'main', sidebar_off => 1;
+
+
+<div class="intro">
+  <h2>This has no sidebar!</h2>
+</div>

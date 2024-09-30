@@ -93,7 +93,7 @@ footer {
   background-image: url('#{$img-path}/ids-institute-for-the-german-language-white.svg');
 }
 
-aside.active ~ footer {
+aside.active:not(.off) ~ footer {
   padding-left: $logo-left-distance;
   transition:  all .3s ease-in-out;
 }
