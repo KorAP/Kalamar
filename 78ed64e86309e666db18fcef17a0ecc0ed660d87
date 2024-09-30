@@ -16,6 +16,23 @@
       "message": "This allows to disable the sidebar for specific pages like the dnb landing page.",
       "revId": "78ed64e86309e666db18fcef17a0ecc0ed660d87",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d7512fd_08b44d8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-09-30T14:05:20Z",
+      "side": 1,
+      "message": "OK, pushed it to gitlab/dnb and will trigger new docker build",
+      "revId": "78ed64e86309e666db18fcef17a0ecc0ed660d87",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
