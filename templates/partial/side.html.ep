@@ -9,7 +9,7 @@
 %   };
 % }
 
-% if (length($side_bar) == 0) {
+% if (length($side_bar) == 0 || stash('sidebar_off')) {
 %   $classes .= ' off';
 % } elsif (stash('sidebar_active')) {
 %   $classes .= ' active';

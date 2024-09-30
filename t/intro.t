@@ -50,6 +50,7 @@ $t->get_ok('/')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
   ->element_exists_not('#koralQuery')
+  ->attr_is('aside', 'class', ' off')
   ;
 
 $t->get_ok('/?cq=corpusSigle%3DGOE')
@@ -63,11 +64,21 @@ $t->get_ok('/?cq=corpusSigle%3DGOE')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
   ->element_exists('#koralQuery')
+  ->attr_is('aside', 'class',' off')
   ;
 
 $t->get_ok('/huhuhuhuhu')
   ->status_is(404)
   ->text_is('title', 'KorAP: 404 - Page not found')
   ->text_is('h1 span', 'KorAP: 404 - Page not found');
+
+
+$t->get_ok('/doc/off')
+  ->status_is(200)
+  ->text_is('title', 'KorAP - Corpus Analysis Platform')
+  ->text_is('h1 span', 'KorAP - Corpus Analysis Platform')
+  ->attr_is('aside', 'class',' off')
+  ;
+
 
 done_testing();
