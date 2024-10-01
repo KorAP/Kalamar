@@ -7,6 +7,7 @@
         - Move page to top after click on example queries (diewald)
         - Disable sidebar via stash (diewald)
         - Change malt/d for relation default in tour (kupietz)
+        - Use 'pubDate eq 2018' as VC example in tour (kupietz)
 
 0.56 2024-09-23
         - Improve slim test for plugin support

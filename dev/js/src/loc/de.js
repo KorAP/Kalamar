@@ -65,7 +65,7 @@ define(function () {
   loc.TOUR_vccho3ti = "Korpusassistent (2)";
   loc.TOUR_vccho3 = "Einige der bekannten Metadatenfelder werden in einem DropDown-Menü angezeigt.";
   loc.TOUR_vccho4ti = "Korpusassistent (3)";
-  loc.TOUR_vccho4 = "Ein Beispiel: Bilden eines virtuellen Korpus, der alle Texte mit der Dokumentsigle " + loc.TOUR_DocSigle + " enthält.";
+  loc.TOUR_vccho4 = "Ein Beispiel: Bilden eines virtuellen Korpus, das alle Texte enthält, die " + loc.TOUR_pubDate + " veröffentlicht wurden.";
   loc.TOUR_vcStat1ti =  "Korpusstatistik (1)",
   loc.TOUR_vcStat1 = "Anzeige der Korpusstatistik.";
   loc.TOUR_vcStat2ti = "Korpusstatistik (2)",
