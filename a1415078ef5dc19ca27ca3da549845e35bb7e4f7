@@ -16,6 +16,23 @@
       "message": "This is actually only relevant for non-embedded queries, e.g. the DNB landingpage.",
       "revId": "a1415078ef5dc19ca27ca3da549845e35bb7e4f7",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2524a709_da7d2436",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-10-01T09:24:19Z",
+      "side": 1,
+      "message": "Seems to work in Chrome, but not in Firefox (version 130.0.1). See screenshot in Slack.",
+      "revId": "a1415078ef5dc19ca27ca3da549845e35bb7e4f7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
