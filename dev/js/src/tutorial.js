@@ -102,6 +102,9 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
 
       t.setPage(e);
       t.hide();
+
+      d.body.scrollTop = 0;
+      d.documentElement.scrollTop = 0; 
     },
 
 
