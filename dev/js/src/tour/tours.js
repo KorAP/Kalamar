@@ -234,7 +234,6 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
         case "vc-view":  
           let vchoo = doe.querySelector("#vc-choose");
           let vcv = doe.querySelector("#vc-view");  
-          KorAP._delete.apply(KorAP.vc.root());
           if(!(vcv.querySelector(".active"))){
             vchoo.click();
             /*
