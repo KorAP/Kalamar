@@ -16,6 +16,24 @@
       "message": "I patched the intro.scss because the introduction text on the landing page should also be positioned correctly.",
       "revId": "0fd4f8c66de90fed430af5bb9b4575ae9d9c8f02",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dcfc2da_7398aa68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-01T16:00:36Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "43e4ec0e_c7d0d6ce",
+      "revId": "0fd4f8c66de90fed430af5bb9b4575ae9d9c8f02",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
