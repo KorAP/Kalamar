@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7a639b3_fa482fbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-01T07:59:46Z",
+      "side": 1,
+      "message": "This is actually only relevant for non-embedded queries, e.g. the DNB landingpage.",
+      "revId": "a1415078ef5dc19ca27ca3da549845e35bb7e4f7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
