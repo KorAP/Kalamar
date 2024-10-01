@@ -23,7 +23,7 @@ define(function () {
     };
   
   if (loc.TOUR_Relations == undefined)
-    loc.TOUR_Relations = "corenlp/c";
+    loc.TOUR_Relations = "malt/d";
 
   if (loc.TOUR_DocSigle == undefined)
     loc.TOUR_DocSigle = "WPD17/D01"; 
