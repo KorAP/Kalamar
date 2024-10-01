@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d57cc38_ae7479a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-10-01T15:33:25Z",
+      "side": 1,
+      "message": "This should also resolve all tour issues of all KorAP instances, I can think of (also KoKoKom has one text from 2018).",
+      "revId": "e9f36f869df7e23d6f5d64a6781b4b2f2d67203e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
