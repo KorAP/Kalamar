@@ -33,6 +33,23 @@
       "message": "Seems to work in Chrome, but not in Firefox (version 130.0.1). See screenshot in Slack.",
       "revId": "a1415078ef5dc19ca27ca3da549845e35bb7e4f7",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20bf3ea5_ed656842",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-10-01T09:43:20Z",
+      "side": 1,
+      "message": "My mistake. Missed to delete the cache. Works :)!",
+      "revId": "a1415078ef5dc19ca27ca3da549845e35bb7e4f7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
