@@ -36,7 +36,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   loc.TOUR_vccho3ti = loc.TOUR_vccho3ti || "Corpus Assistant (2)";
   loc.TOUR_vccho3 = loc.TOUR_vccho3 || "A drop down box lists some of the available metadata fields.";
   loc.TOUR_vccho4ti =  loc.TOUR_vccho4ti || "Corpus Assistant (3)";
-  loc.TOUR_vccho4 = loc.TOUR_vccho4 || "This example defines a virtual corpus consisting of all documents with the document sigle " + loc.TOUR_DocSigle + ".";
+  loc.TOUR_vccho4 = loc.TOUR_vccho4 || "This example defines a virtual corpus consisting of all texts published in " + loc.TOUR_pubDate + ".";
   loc.TOUR_vcStat1ti = loc.TOUR_vcStat1ti || "Corpus Statistics (1)";
   loc.TOUR_vcStat1 = loc.TOUR_vcStat1 || "Click here to display the corpus statistics.";
   loc.TOUR_vcStat2ti = loc.TOUR_vcStat2ti || "Corpus Statistics (2)";

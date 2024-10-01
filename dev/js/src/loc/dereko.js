@@ -8,7 +8,7 @@
 
 define(function () {
   const loc = KorAP.Locale;
-  
+
   //Query example for guided tour
   if (loc.TOUR_Qexample == undefined)
     loc.TOUR_Qexample = "laufen";
@@ -17,14 +17,14 @@ define(function () {
   if (loc.TOUR_vcQuery == undefined)
     loc.TOUR_vcQuery = {
       '@type' : 'koral:doc',
-      'key' : 'docSigle', 
+      'key' : 'pubDate',
       'match': 'match:eq',
-      'value' : 'WPD17/D01',   
+      'value' : '2018',
     };
-  
+
   if (loc.TOUR_Relations == undefined)
     loc.TOUR_Relations = "corenlp/c";
 
-  if (loc.TOUR_DocSigle == undefined)
-    loc.TOUR_DocSigle = "WPD17/D01"; 
+  if (loc.TOUR_pubDate == undefined)
+    loc.TOUR_pubDate = "2018";
 });
