@@ -67,6 +67,24 @@
       "message": "It is rare, but yes ;). It works on /instance/test because the cookies names differ.",
       "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7925ac3a_7ce48879",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-07T16:56:58Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "f61e567e_314287d4",
+      "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
