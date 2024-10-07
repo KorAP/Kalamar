@@ -85,6 +85,23 @@
       "parentUuid": "f61e567e_314287d4",
       "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ceebf06_bd554775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-07T16:57:35Z",
+      "side": 1,
+      "message": "It still could be overwritable, but that could be changed later as well.",
+      "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
