@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59aa7a1c_f1622ba3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-10-07T13:54:28Z",
+      "side": 1,
+      "message": "Should solve the /doc/buchpreis problem with the tour.",
+      "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
