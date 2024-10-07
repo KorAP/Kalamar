@@ -1,4 +1,4 @@
-0.57 2024-10-07
+0.57 2024-10-08
         - Support VCs via URL without queries (diewald)
         - Added translations for regexp and FCSQL (r-wilm)
         - Introduce 'ui-ready' global event (diewald)
@@ -8,6 +8,7 @@
         - Disable sidebar via stash (diewald)
         - Change malt/d for relation default in tour (kupietz)
         - Use 'pubDate eq 2018' as VC example in tour (kupietz)
+        - Fix tour when started from a non-root path (hebasta)
 
 0.56 2024-09-23
         - Improve slim test for plugin support
