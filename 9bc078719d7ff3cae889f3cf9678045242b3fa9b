@@ -33,6 +33,23 @@
       "message": "This doesn\u0027t work for e.g. `/instance/test`. I would recommend two changes:\n\n1. Set the path as a default but make it overridable.\n2. Add a data-korap-prefix attribute to the body of every page and read that value for the default path.",
       "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f5e657d_bf124628",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-07T14:20:41Z",
+      "side": 1,
+      "message": "Maybe I am wrong.",
+      "revId": "9bc078719d7ff3cae889f3cf9678045242b3fa9b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
