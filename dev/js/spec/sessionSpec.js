@@ -55,7 +55,23 @@ define(['session'], function (sessionClass) {
       expect(document.cookie.includes("koraptest=%7B%22test3%22%3A%22works%22%7D")).toBeTruthy();
       s.clear();     
       expect(document.cookie.includes("koraptest=")).toBeTruthy();
-      expect(s.toString()).toEqual("koraptest=%7B%7D;SameSite=Lax");
-    });   
+      expect(s.toString()).toEqual("koraptest=%7B%7D;SameSite=Lax;path=/");
+    }); 
+    
+    /*
+    * The cookie path should by default be '/'. The path should be settable.
+    */
+    it('cookie path should have default and be settable', function(){
+      //cookie should be created with the default path=/
+      let c = sessionClass.create("cookwithoutp");
+      c.clear();
+      expect(c.toString().includes("path=/")).toBeTruthy();
+      //the path should be settable
+      let d =  sessionClass.create("cookwithp", "/instance/blub");
+      d.clear();
+      expect(d.toString().includes("path=/instance/blub")).toBeTruthy();
+    });
+
   })
+
 });

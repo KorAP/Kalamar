@@ -11,10 +11,12 @@ define({
   /**
    * Create a new session.
    * Expects a name or defaults to 'korap'
+   * Expects a path or defaults to '/'
    */
-  create : function (name = 'korap') {
+  create : function (name = 'korap', path ="/") {
     const obj = Object.create(this);
     obj._name = name.toLowerCase();
+    obj._path = path;
     obj._hash = {};
     obj._parse();
     return obj;
@@ -38,7 +40,7 @@ define({
     this._hash[key] = value;
     this._store();
   },
-
+ 
 
   /**
    * Clears the session by removing the cookie
@@ -63,7 +65,7 @@ define({
       var date = new Date();
       date.setYear(date.getFullYear() + 1);
     */
-    return this._name + '=' + encodeURIComponent(JSON.stringify(this._hash)) + ';SameSite=Lax' + ';path=/';
+    return this._name + '=' + encodeURIComponent(JSON.stringify(this._hash)) + ';SameSite=Lax' + ';path='+this._path;
   },
 
 
