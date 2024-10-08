@@ -24,14 +24,20 @@ div.metatable > dl {
       cursor: pointer;
 
       &.metakeyvalues {
-        padding: 0;
 
         > div {
-          padding: .2em;
+          padding: 0;
+          text-indent: -5pt;
+          margin-left: 6pt;
+          padding-left: 4pt;
+          border-radius: $standard-border-radius;
+          margin-bottom: 2pt;
 
           &::before {
             content: "\2022\00A0";
-            color:   $dark-orange
+            color:   $dark-orange;
+            width: 5pt;
+            display: inline-block;
           }
         }
       }
