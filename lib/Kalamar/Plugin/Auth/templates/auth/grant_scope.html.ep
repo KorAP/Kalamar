@@ -13,7 +13,7 @@
     <p class="client-url"><a href="<%= stash('client_url') %>"><%= stash('client_url') %></a></p>
     % };
     % if (stash('client_type') eq 'PUBLIC') {
-    <blockquote class="warning"><%= loc 'oauthGrantPublicWarn' %></blockquote>
+    <blockquote class="warning"><%= loc 'Auth_oauthGrantPublicWarn' %></blockquote>
     % };
     % if (stash('redirect_warning')) {
     <blockquote class="warning">
