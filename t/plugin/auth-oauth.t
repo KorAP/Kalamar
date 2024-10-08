@@ -885,6 +885,15 @@ $fake_backend_app->add_client({
 #  "client_redirect_uri" => $redirect_uri
 });
 
+$fake_backend_app->add_client({
+  "client_id" => 'xyz-public',
+  "client_name" => 'New added public client',
+  "client_description" => 'This is a new public client',
+  "client_url" => 'http://example.com',
+  "client_type" => 'PUBLIC'
+#  "client_redirect_uri" => $redirect_uri
+});
+
 
 $fake_backend_app->add_client({
   "client_id" => 'xyz2',
@@ -988,7 +997,30 @@ $t->get_ok($fwd)
   ->element_exists_not('div.notify-error')
   ->element_exists_not('div.notify-warn')
   ->element_exists_not('blockquote.warning')
+  ->text_is('h2 + p', ' wants to have access')
   ;
+
+$fwd = $t->get_ok(Mojo::URL->new('/settings/oauth/authorize')->query({
+  client_id => 'xyz-public',
+  state => 'abcde',
+  scope => 'search match',
+  redirect_uri => 'http://test.com/',
+}))
+  ->status_is(200)
+  ->attr_is('input[name=client_id]','value','xyz-public')
+  ->attr_is('input[name=state]','value','abcde')
+  ->attr_like('input[name=redirect_uri]','value', qr!^http://test\.com\/\?crto=.{3,}!)
+  ->text_is('ul#scopes li:nth-child(1)','search')
+  ->text_is('ul#scopes li:nth-child(2)','match')
+  ->text_is('span.client-name','New added public client')
+  ->attr_is('a.form-button','href','http://test.com/')
+  ->attr_is('a.embedded-link', 'href', '/doc/korap/kalamar')
+  ->element_exists_not('div.notify-error')
+  ->element_exists_not('div.notify-warn')
+  ->text_is('blockquote.warning','Warning - this is a public client!')
+  ->text_is('h2 + p', ' wants to have access')
+  ;
+
 
 $t->get_ok('/settings/marketplace')
   ->status_is(200)
