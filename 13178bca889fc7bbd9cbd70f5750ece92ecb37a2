@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bccc98c_0c0c9f72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-09T06:41:16Z",
+      "side": 1,
+      "message": "Currently key-value pairs in the metatable have a slight glitch (not in line with other metadata). This patch tries to repair that.",
+      "revId": "13178bca889fc7bbd9cbd70f5750ece92ecb37a2",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
