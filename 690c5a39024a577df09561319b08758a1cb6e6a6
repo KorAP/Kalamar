@@ -465,6 +465,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb62a24f_49fbc7e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-14T14:29:58Z",
+      "side": 1,
+      "message": "Instead of a settings page, the top-level settings entries should be listed directly in the burger menu. This helper https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/8962 allows to directly retrieve the items in order of addition (so at least predictably).",
+      "parentUuid": "9e47b4b9_ddbb7f7a",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
