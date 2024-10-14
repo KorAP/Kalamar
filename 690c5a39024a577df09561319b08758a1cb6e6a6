@@ -429,6 +429,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e47b4b9_ddbb7f7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-14T11:35:52Z",
+      "side": 1,
+      "message": "Alternatively the settings entry could do the same as the settings icon and just open the settings sidebar.",
+      "parentUuid": "571d8b64_f67ed80b",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce28ad4_cb98c00d",
         "filename": "dev/scss/base/buttongroup.scss",
         "patchSetId": 4
