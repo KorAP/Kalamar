@@ -445,6 +445,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57a49873_7768bd77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-10-14T11:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "231a37a9_9cb2ac7f",
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce28ad4_cb98c00d",
@@ -1101,6 +1119,30 @@
       "side": 1,
       "message": "There is no need to make it visible, but a legend is always helpful imho.",
       "parentUuid": "df9cac0a_6b085462",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "690c5a39024a577df09561319b08758a1cb6e6a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc11355c_ea4eb56a",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/partial/auth/login.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-10-14T11:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800171e6_25bfed81",
       "range": {
         "startLine": 11,
         "startChar": 11,
