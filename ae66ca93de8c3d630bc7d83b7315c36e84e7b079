@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b30e899_c9a15180",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-14T14:28:02Z",
+      "side": 1,
+      "message": "This helper allows to retrieve a list of dynamically definied navigation items to e.g. list in a burger menu.",
+      "revId": "ae66ca93de8c3d630bc7d83b7315c36e84e7b079",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
