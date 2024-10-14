@@ -12,6 +12,8 @@ push(@{$app->plugins->namespaces}, 'Kalamar::Plugin');
 
 # Establish test route
 $app->routes->get('/doc/:scope/:page')->to(cb => sub {}, scope => undef)->name('doc');
+$app->routes->get('/settings/:scope/:page')->to(cb => sub {}, scope => undef)->name('settings');
+
 
 # Load plugin to test
 $app->plugin('KalamarPages');
@@ -273,7 +275,27 @@ like($render, qr!<a href="/doc/development/krill(?:#[^"]+)?">Krill</a>!,
 like($render, qr!<a href="/doc/faq(?:#[^"]+)?">FAQ</a>!,
      'Path matches FAQ');
 
+# Create settings realm
+$app->navi->add(settings => (
+  'OAuth', 'oauth'
+));
 
+# Create settings realm
+$app->navi->add(settings => (
+  'Marketplace', 'marketplace'
+));
+
+$render = $app->navigation('settings');
+
+like($render, qr!/settings/oauth#page-top!);
+like($render, qr!/settings/marketplace#page-top!);
+
+my @list = $app->navi->list('settings');
+
+is($list[0]->{url}, '/settings/oauth#page-top');
+is($list[0]->{title}, 'OAuth');
+is($list[1]->{url}, '/settings/marketplace#page-top');
+is($list[1]->{title}, 'Marketplace');
 
 done_testing;
 

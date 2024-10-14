@@ -1,3 +1,6 @@
+0.58 2024-10-14
+        - Introduce navi->list helper (diewald)
+
 0.57 2024-10-08
         - Support VCs via URL without queries (diewald)
         - Added translations for regexp and FCSQL (r-wilm)

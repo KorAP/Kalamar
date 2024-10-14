@@ -268,6 +268,33 @@ sub register {
       return 1;
     }
   );
+
+  # List navi entries on top level
+  $mojo->helper(
+    'navi.list' => sub {
+      my $c = shift;
+      my $realm = shift;
+      my @list = ();
+
+      # Iterate over items
+      foreach (@{$navi->{$realm} // []}) {
+        # Fragments are not allowed on the top level - so ignore this!
+
+        # Generate url with query parameter inheritance
+        my $url = $c->url_with($realm, page => $_->{id});
+
+        # Canonicalize (for empty scopes)
+        $url->path->canonicalize;
+        $url->fragment('page-top');
+
+        push @list, {
+          url => $url,
+          title => $c->loc('Nav_' . $_->{id}, $_->{title})
+        };
+      };
+      return @list;
+    }
+  );
 }
 
 1;
