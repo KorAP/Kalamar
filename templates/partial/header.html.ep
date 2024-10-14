@@ -2,8 +2,7 @@
   <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
 
   <div class="navbar-group">
-    <h3 class="nav-link"><%= link_to loc("news") => url_for('news') %></h3>
-    <h3 class="nav-link"><a id="link-guided-tour">Tour</a></h3>
+    %= content_block 'headerNavGroup'
     %= include 'partial/auth/login'
     %= content_block 'headerButtonGroup'
   </div>
