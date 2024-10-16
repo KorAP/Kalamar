@@ -91,15 +91,17 @@ define([
       KorAP.koralQuery = JSON.parse(kqe.getAttribute('data-koralquery') || "");
     };
 
-    let gt;
-    if (gt = document.getElementById('link-guided-tour')) {
-      gt.setAttribute('href', '#');
-      gt.addEventListener('click', function(){
+    let gt = document.getElementsByClassName('link-guided-tour');
+    if (gt.length != null){
+      for(let j = 0; j < gt.length; j++){
+        gt[j].setAttribute('href', '#');
+        gt[j].addEventListener('click', function(){
         tourClass.gTstartSearch().start();
       });
-    
-      KorAP.tourshowR = function(){
-        tourClass.gTshowResults().start();
+    }
+
+    KorAP.tourshowR = function(){
+      tourClass.gTshowResults().start();
       };
     };
     
