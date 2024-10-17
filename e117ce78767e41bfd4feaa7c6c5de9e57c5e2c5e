@@ -16,6 +16,29 @@
       "message": "This would be a way to make the top list configurable. This was used before for the button bar (logout etc.) but can be reused for any other item.",
       "revId": "e117ce78767e41bfd4feaa7c6c5de9e57c5e2c5e",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1ae002_d448e905",
+        "filename": "kalamar.uyen-extension.conf",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-17T09:33:45Z",
+      "side": 1,
+      "message": "This now needs to be \u0027class\u0027.",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "e117ce78767e41bfd4feaa7c6c5de9e57c5e2c5e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
