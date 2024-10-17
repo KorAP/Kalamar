@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "834b53cf_11771ae2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-10-17T09:36:06Z",
+      "side": 1,
+      "message": "Nice! Tested it and it works. \n\nOnly one small issue:\nIn #8554 the sidebar is not displayed after clicking at \"News\". I think this is to be preferred.\n\n\n\nWill be abandoned, so just for the sake of completeness:\nFails test:\n\n#   Failed test \u0027element for selector \"aside.active\" exists\u0027\n#   at t/plugin/auth-oauth.t line 116.\n\n#   Failed test \u0027element for selector \"div.button.top a\" exists\u0027\n#   at t/plugin/auth-oauth.t line 222.\n\n#   Failed test \u0027element for selector \"div.button.top a.logout[title~\u003d\"test\"]\" exists\u0027\n#   at t/plugin/auth-oauth.t line 222.",
+      "revId": "e117ce78767e41bfd4feaa7c6c5de9e57c5e2c5e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd1ae002_d448e905",
         "filename": "kalamar.uyen-extension.conf",
         "patchSetId": 3
