@@ -25,7 +25,8 @@
       </div>
     % end
 
-    %= content_block 'loginInfo', separator => '<hr />'
-
+    %= content_block 'loginInfo', separator => '<hr />' 
+    
     </fieldset>
+      
 % }
