@@ -33,6 +33,29 @@
       "message": "I think \u0027loginInfo\u0027 should be reused for this purpose.",
       "revId": "cd6e87f63d73104a2f7c8dd1f13cf2ef9dcc1eae",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edef4be6_25b5b80a",
+        "filename": "kalamar.saml-extension.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-19T08:56:05Z",
+      "side": 1,
+      "message": "Is SAML the right term?",
+      "range": {
+        "startLine": 5,
+        "startChar": 20,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "cd6e87f63d73104a2f7c8dd1f13cf2ef9dcc1eae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
