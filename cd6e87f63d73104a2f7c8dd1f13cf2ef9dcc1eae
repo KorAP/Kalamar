@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b95feb9_cda483ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-10-21T09:32:51Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m not sure about it. We need that for the message \"Login with a registered Cosmas 2 account\". Are we sure, we don\u0027t need Shibboleth-Login for the korap instance? Maybe we want to add it at some time in the future?",
+      "parentUuid": "91b3b25d_2f76f081",
+      "revId": "cd6e87f63d73104a2f7c8dd1f13cf2ef9dcc1eae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edef4be6_25b5b80a",
         "filename": "kalamar.saml-extension.conf",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2024-10-19T08:56:05Z",
       "side": 1,
       "message": "Is SAML the right term?",
+      "range": {
+        "startLine": 5,
+        "startChar": 20,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "cd6e87f63d73104a2f7c8dd1f13cf2ef9dcc1eae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "467e61f6_96c98fb2",
+        "filename": "kalamar.saml-extension.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-10-21T09:32:51Z",
+      "side": 1,
+      "message": "It is most probably not! Thanks for the sensible objection.",
+      "parentUuid": "edef4be6_25b5b80a",
       "range": {
         "startLine": 5,
         "startChar": 20,
