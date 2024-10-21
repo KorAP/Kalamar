@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e59cbeef_aadaf0b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-21T09:40:09Z",
+      "side": 1,
+      "message": "ContentBlocks are arrays - you can add multiple information (order by `position`). There is currently a `\u003cbr/\u003e` defined as the separator which may not be necessary.",
+      "parentUuid": "7b95feb9_cda483ae",
+      "revId": "cd6e87f63d73104a2f7c8dd1f13cf2ef9dcc1eae",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edef4be6_25b5b80a",
         "filename": "kalamar.saml-extension.conf",
         "patchSetId": 1
