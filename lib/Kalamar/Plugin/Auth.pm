@@ -533,7 +533,7 @@ sub register {
       return $c->korap_request(post => $r_url, {} => form => {
         super_client_id => $client_id,
         super_client_secret => $client_secret,
-        filter_by => 'owned_only'
+        #filter_by => 'authorized_only'
       })->then(
         sub {
           my $tx = shift;
