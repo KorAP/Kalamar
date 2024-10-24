@@ -16,6 +16,23 @@
       "message": "I didn\u0027t test much tbh. Maybe better to let it being test by someone with knowledge of the languages.",
       "revId": "80ec4afc1456b51be62a7cc468f535d98cad06f9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a3cd34e_a0da5658",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-10-24T12:34:00Z",
+      "side": 1,
+      "message": "We may want to move all `*.dict` into this folder. And may rename it to `dict`. But that\u0027s open to discussions.",
+      "revId": "80ec4afc1456b51be62a7cc468f535d98cad06f9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
