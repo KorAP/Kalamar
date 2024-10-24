@@ -241,7 +241,12 @@ sub startup {
         _ => sub { shift->config('Kalamar')->{'examplecorpus'} },
       }
     },
-    resources => ['kalamar.dict', 'kalamar.queries.dict']
+    resources => [
+      'kalamar.dict',
+      'kalamar.queries.dict',
+      'loc/kalamar.ro.dict',
+      'loc/kalamar.hu.dict'
+    ]
   });
 
   # Pagination widget
