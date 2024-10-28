@@ -10,6 +10,7 @@
 @import "querylanguage"; // Query language
 @import "pipe";          // Pipe
 @import "state";         // State
+@import "panel";         // Panel
 
 header {
   @include box-sizing-box();
