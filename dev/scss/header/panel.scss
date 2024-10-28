@@ -1,0 +1,11 @@
+@import "../util";
+
+// In addition to main/panel.scss
+
+div.panel.query div.view {
+  background-color: $dark-green;
+  border-left: $border-size solid $dark-green;
+  iframe {
+    background-color: $nearly-white;
+  }
+}
