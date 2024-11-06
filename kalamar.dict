@@ -86,7 +86,8 @@ my $THOUSAND_SEP_RE = qr/(
           'poliqarp-plus' => 'de/doc/ql/poliqarp-plus',
           'cosmas-2' => 'de/doc/ql/cosmas-2',
           'regexp' => 'de/doc/ql/regexp',
-          'fcsql' => 'de/doc/ql/fcsql'
+          'fcsql' => 'de/doc/ql/fcsql',
+          'cql' => 'de/doc/ql/cql'
         },
         api => {
           'koralquery' => 'de/doc/api/koralquery'
@@ -222,7 +223,8 @@ my $THOUSAND_SEP_RE = qr/(
           'poliqarp-plus' => 'doc/ql/poliqarp-plus',
           'cosmas-2' => 'doc/ql/cosmas-2',
           'regexp' => 'doc/ql/regexp',
-          'fcsql' => 'doc/ql/fcsql'
+          'fcsql' => 'doc/ql/fcsql',
+          'cql' => 'doc/ql/cql'
         },
         api => {
           'koralquery' => 'doc/api/koralquery'

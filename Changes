@@ -1,4 +1,4 @@
-0.58 2024-11-08
+0.58 2024-11-15
         - Cookie path is settable now (hebasta)
         - Fix meta table view for key value pairs (diewald)
         - Fix warning on OAuth public clients (diewald)
@@ -9,7 +9,8 @@
           (fixes #224; diewald)
         - Support setting of query form elements via plugins (diewald)
         - Fix h1-logo (only visible in header; diewald)
-
+        - Added translations for CQL (r-wilm)
+ 
 0.57 2024-10-08
         - Support VCs via URL without queries (diewald)
         - Added translations for regexp and FCSQL (r-wilm)

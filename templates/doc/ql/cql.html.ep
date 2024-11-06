@@ -2,20 +2,14 @@
 
 %= page_title
 
-<p>CQL stands for Contextual Query Language. The main purpose of CQL is to represent queries
-    to information retrieval systems. In fact, CQL is commonly used together with the Search
-    Retrieve URL (SRU) protocol to represent URL-friendly search queries.</p>
+<p>CQL stands for Contextual Query Language. The main purpose of CQL is to represent queries to information retrieval systems. In fact, CQL is commonly used together with the Search/Retrieve via URL (SRU) protocol to represent URL-friendly search queries.</p>
     
-<p>In KorAP, we support basic CQL as defined in the <a
-href="https://www.clarin.eu/content/federated-content-search-clarin-fcs">CLARIN
-Federated Content Search (FCS)</a> specification for basic search. KorAP does not
-    support other operators and modifiers than AND and OR, such as REL and PROX. </p>
+<p>In KorAP, we support basic CQL as defined in the <a href="https://www.clarin.eu/content/federated-content-search-clarin-fcs">CLARIN Federated Content Search (FCS)</a> specification for basic search. KorAP does not support other operators and modifiers than AND and OR, such as REL and PROX.</p>
 
 <section id="examples">
     <h3>Examples</h3>
     <p>Querying a simple term</p>
     %= doc_query cql => 'Feuer'
-
     
     <p>Querying a phrase</p>
     %= doc_query cql => '"Öl ins Feuer"'
