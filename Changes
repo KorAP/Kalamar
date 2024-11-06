@@ -8,6 +8,7 @@
         - Add 'desc' support to embedded widgets
           (fixes #224; diewald)
         - Support setting of query form elements via plugins (diewald)
+        - Fix h1-logo (only visible in header; diewald)
 
 0.57 2024-10-08
         - Support VCs via URL without queries (diewald)
