@@ -1,0 +1,26 @@
+% layout 'main', title => 'KorAP: CQL';
+
+%= page_title
+
+<p>CQL steht für Contextual Query Language (Kontextuelle Anfragesprache) und dient vor allem der Repräsentation von Anfragen an Information-Retrieval-Systeme. Häufig wird CQL im Zusammenhang mit dem Webservice-Protokoll Search/Retrieve via URL (SRU) verwendet, um Suchanfragen URL-freundlich darzustellen.</p>
+    
+<p>KorAP unterstützt grundlegendes CQL gemäß der Spezifikation für die einfache Suche in der <a href="https://www.clarin.eu/content/federated-content-search-clarin-fcs">CLARIN Federated Content Search (FCS)</a>. Operatoren und Modifikatoren, die über AND und OR hinausgehen, werden von KorAP nicht unterstützt. Dies betrifft zum Beispiel REL und PROX.</p>
+
+<section id="examples">
+    <h3>Beispiele</h3>
+    <p>Suche nach einzelnen Begriffen</p>
+    %= doc_query cql => 'Feuer'
+    
+    <p>Suche nach aufeinanderfolgenden Wörtern</p>
+    %= doc_query cql => '"Öl ins Feuer"'
+    
+    <p>Boolesche Anfragen</p>
+    %= doc_query cql => 'giessen OR gießen'
+    %= doc_query cql => 'Feuer and gießen'
+</section>
+
+<section id="References">
+    <h3>Referenzen: </h3>
+    <p><%= ext_link_to 'searchRetrieve: Part 5', "http://docs.oasis-open.org/search-ws/searchRetrieve/v1.0/os/part5-cql/searchRetrieve-v1.0-os-part5-cql.doc" %>.
+      <%= ext_link_to 'CQL: The Contextual Query Language version 1.0', "https://www.loc.gov/standards/sru/cql/" %>, OASIS, Januar 2013</p>
+</section>
