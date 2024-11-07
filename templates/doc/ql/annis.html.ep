@@ -1,8 +1,8 @@
-% layout 'main', title => 'KorAP: Annis QL';
+% layout 'main', title => 'KorAP: ANNIS QL';
 
 %= page_title
 
-<p><%= ext_link_to 'ANNIS Query Language (Annis QL or AQL)', "https://corpus-tools.org/annis/aql.html" %>
+<p><%= ext_link_to 'ANNIS Query Language (ANNIS QL or AQL)', "https://corpus-tools.org/annis/aql.html" %>
   is a query language of the <%= ext_link_to 'ANNIS corpus search system', "https://corpus-tools.org/annis/" %>
   designed particularly to deal with complex linguistic corpora with multiple
   annotation layers (e.g. morphology) and various annotation types (e.g. attribute-value
@@ -18,9 +18,9 @@
   <dt><code>cat</code> or <code>c</code></dt>
   <dd>a constituent</dd>
   <dt><code>lemma</code> or <code>l</code></dt>
-  <dd>a lemma annotated node</dd>
+  <dd>a lemma-annotated node</dd>
   <dt><code>pos</code> or <code>p</code></dt>
-  <dd>a part-of speech annotated node</dd>
+  <dd>a part-of-speech-annotated node</dd>
   <dt><code>m</code></dt>
   <dd>a morphologically annotated node</dd>
 </dl>
@@ -93,7 +93,7 @@
     <h3>Unary operators</h3>
     <dl>Arity</dl>
     <dt>the number of children directly dominated by a node</dt>
-    <p>Querying adverbial phrases having exactly 2 direct childeren</p>
+    <p>Querying adverbial phrases having exactly 2 direct children</p>
     <p>cat="AVP"  & #1:arity=2</p>
     
     <dl>Tokenarity</dl>
