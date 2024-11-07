@@ -1,0 +1,102 @@
+% layout 'main', title => 'KorAP: ANNIS QL';
+
+%= page_title
+
+<p><%= ext_link_to 'ANNIS Query Language (auch ANNIS QL oder AQL genannt)', "https://corpus-tools.org/annis/aql.html" %> ist eine Anfragesprache des <%= ext_link_to 'Korpussuchtools ANNIS', "https://corpus-tools.org/annis/" %>. Sie wurde speziell für den Umgang mit komplexen linguistischen Korpora entwickelt, für die mehrere Annotationsebenen (z.B. Morphologie) unterschiedlicher Annotationstypen (z.B. Attribut-Wert-Paare, Relationen) vorhanden sind. Man kann sich AQL konzeptuell als eine Suche nach Knotenelementen und Kanten, die sie verbinden, vorstellen. Bei einem Knotenelement kann es sich dabei um ein Token oder ein Attribut-Wert-Paar handeln.</p>
+
+<p>KorAP unterstützt die folgenden Schlüsselwörter. Dabei werden die <%= embedded_link_to 'doc', 'Standardfoundries', 'data', 'annotation' %> verwendet.</p>
+<dl>
+  <dt><code>node</code></dt>
+  <dd>ein Knotenelement</dd>
+  <dt><code>tok</code></dt>
+  <dd>ein Token</dd>
+  <dt><code>cat</code> oder <code>c</code></dt>
+  <dd>eine Konstituente</dd>
+  <dt><code>lemma</code> oder <code>l</code></dt>
+  <dd>ein Knoten mit Lemma-Annotation</dd>
+  <dt><code>pos</code> oder <code>p</code></dt>
+  <dd>ein Knoten mit Part-of-Speech-Annotation</dd>
+  <dt><code>m</code></dt>
+  <dd>ein morphologisch annotierter Knoten</dd>
+</dl>
+
+<blockquote class="warning">
+  <p>In KorAP ist es aktuell nicht möglich, innerhalb von AQL-Anfragen Bedingungen zu stellen, die Metadaten betreffen; das Präfix &quot;meta::&quot; wird nicht unterstützt. Metadaten-Bedingungen werden in KorAP von Suchanfragen getrennt und können in Form von Korpusanfragen, die virtuelle Korpora definieren, gestellt werden.</p>
+</blockquote>
+
+<section id="examples">
+  <h3>Knotenelemente</h3>
+
+  <p>Einfache Tokens</p>
+  %= doc_query annis => '"liebe"', cutoff => 1
+
+  <p>Attribut-Wert-Paare</p>
+  %= doc_query annis => 'tok="liebe"', cutoff => 1
+
+  <p>AQL-Namensräume werden in KorAP als eine Kombination zwischen Foundry und Annotationsebene realisiert. Sie sind dann von Bedeutung, wenn von speziellen Tools (Foundries) erstellte Annotationsebenen in Suchanfragen eine Rolle spielen. Die folgende Anfrage sucht zum Beispiel nach nebenordnenden Konjunktionen laut Part-of-Speech-Annotationsebene der TreeTagger-Foundry.</p>
+  %= doc_query annis => 'tt/p="KON"', cutoff => 1
+
+  <h3>Reguläre Ausdrücke</h3>
+  %= doc_query annis => 'tok =/m.*keit/', cutoff => 1
+
+  <h3>Sequenzanfragen</h3>
+  <p>Zwei aufeinanderfolgende Tokens</p>
+  %= doc_query annis => '"der"."Bär"', cutoff => 1
+
+  <p>Finite Verben, auf die indirekt ein Adverb folgt, wobei eine beliebige Anzahl von Tokens dazwischen stehen kann</p>
+  %= doc_query annis => 'pos="VVFIN" .* pos="ADV"', cutoff => 1
+
+  <h3>Negation</h3>
+  <p>In KorAP wird die Negation (z.B. von Tokens) nur innerhalb von Sequenzanfragen unterstützt.</p>
+  %= doc_query annis => '"Katze" . pos != "VVFIN"', cutoff => 1
+
+  <h3>Gerichtete Relationen</h3>
+  <p>Gerichtete Relationen beschreiben direkte Beziehungen zwischen zwei Knotenelementen. Es kann sich zum Beispiel um Dependenzrelationen handeln.</p>
+
+  <p>Suche nach allen <code>&quot;SUBJ&quot;</code>-Dependenzrelationen</p>
+  %= doc_query annis => 'node ->malt/d[func="SUBJ"] node', cutoff => 1
+
+  <p>Suche nach <code>&quot;SUBJ&quot;</code>-Dependenzrelationen, deren Startknoten das Token <code>&quot;ich&quot;</code> ist</p>
+  %= doc_query annis => '"ich" ->malt/d[func="SUBJ"] node', cutoff => 1
+
+  <p>Suche nach <code>&quot;SUBJ&quot;</code>-Dependenzrelationen, deren Startknoten das Token <code>&quot;ich&quot;</code> und deren Zielknoten ein Vollverb im Partizip Perfekt ist</p>
+  %= doc_query annis => '"ich" ->malt/d[func="SUBJ"] pos="VVPP"', cutoff => 1
+
+  <h3>Referenzierung von Knotenelementen</h3>
+  <p>Knotenelemente können durch <code>#</code> gefolgt von ihrer Position in der Anfrage referenziert werden. Zum Beispiel:</p>
+  %= doc_query annis => '"ich" & pos="VVPP" & #1 ->malt/d[func="SUBJ"] #2', cutoff => 1
+  %= doc_query annis => '"ich" & pos="VVPP" & #1 . #2', cutoff => 1
+
+  %# Bug in Krill 
+  %# <p>"ich" & pos="VVFIN" & #1 ->malt/d[func="SUBJ"] #2 & #1 . #2</p>
+
+  <blockquote class="warning">
+    <p>Unäre Operatoren wie <code>arity</code> oder <code>tokenarity</code> sind in KorAP noch nicht implementiert worden.</p>
+  </blockquote>
+
+   
+  <!-- Noch nicht in Krill implementiert
+         
+    <h3>Unäre Operatoren</h3>
+    <dl>Arity</dl>
+    <dt>die Anzahl der direkt dominierten Kinder eines Knotens</dt>
+    <p>Suche nach Adverbialphrasen, die genau zwei direkte Kinder haben</p>
+    <p>cat="AVP"  & #1:arity=2</p>
+    
+    <dl>Tokenarity</dl>
+    <dt>die Anzahl von Tokens innerhalb eines Knotens</dt>
+    <p>Suche nach Adverbialphrasen, die aus genau zwei Tokens bestehen</p>
+    <p>cat="AVP"  & #1:tokenarity=2</p>
+    
+    <h3>Suche innerhalb eines Baumes</h3>
+    <h4>Dominanz</h4>
+    <p>AQL beschreibt hierarchische Relationen zwischen Knoten eines Baumes und nutzt dabei ein Konzept der Dominanz. Knoten A dominiert Knoten B, wenn A sich im Baum in einer höheren Positions befindet als B. Darüber hinaus wird B von A <strong>direkt dominiert</strong>, wenn sich A genau über B befindet und es keine anderen Knoten dazwischen gibt.</p>
+        
+    <p>Direkte Dominanz</p>
+    <p></p>
+    
+    <p>Indirekte Dominanz</p>
+    <p></p>
+    
+    -->
+</section>

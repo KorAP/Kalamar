@@ -39,7 +39,7 @@
   %= doc_query fcsql => '[text = "Semmel"]', cutoff => 1
   %= doc_query fcsql => '[text = "essen"/c]', cutoff => 1
 
-  <p>Suche nach Adverbien laut <%= embedded_link_to 'doc', 'Standard-Foundry', 'data', 'annotation' %>.</p>
+  <p>Suche nach Adverbien laut <%= embedded_link_to 'doc', 'Standardfoundry', 'data', 'annotation' %>.</p>
   %= doc_query fcsql => '[pos="ADV"]', cutoff => 1
 
   <h4>Einbeziehung von Qualifikatoren (Foundries)</h4>

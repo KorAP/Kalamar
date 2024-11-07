@@ -80,7 +80,7 @@ $t->get_ok('/doc/ql/poliqarp-plus' => { 'Accept-Language' => 'de-DE, en-US, en' 
 
 $t->get_ok('/doc/ql/annis' => { 'Accept-Language' => 'en-US, en, de-DE' })
   ->status_is(200)
-  ->text_is("title", "KorAP: Annis QL");
+  ->text_is("title", "KorAP: ANNIS QL");
 
 # Check corpus examples
 $t->get_ok('/doc/ql/poliqarp-plus')
