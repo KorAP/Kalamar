@@ -77,7 +77,6 @@
           KorAPlugin.log(0, d.value.search);
         });
       }
-
       
       </script>
     <ul>
@@ -89,6 +88,7 @@
       <li><a onclick="flood()">Flood!</a></li>
       <li><a onclick="KorAPlugin.requestMsg({'action':'get', 'key':'KQ'}, function (d) { document.write(JSON.stringify(d.value))})">Get KQ</a></li>
       <li><a onclick="KorAPlugin.requestMsg({'action':'get', 'key':'textSigle', 'value':'textSigle'}, function (d) { document.write(JSON.stringify(d.value))})">Get textSigle</a></li>
+      <li><a onclick="KorAPlugin.sendMsg({'action':'set', 'key':'QueryForm', 'value':{'q':'[This][is][a][query]'}})">Set query</a></li>
     </ul>
     <p style="width: 2000px">------------------------------------------------------------------------------------------------------------------------</p>
   </body>
