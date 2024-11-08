@@ -115,10 +115,25 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       var btn = group.element().firstChild;
       expect(btn.tagName).toEqual('SPAN');
       expect(btn.getAttribute('data-icon')).toEqual('metaicon');
+      expect(btn.getAttribute('title')).toEqual('Meta');
       expect(btn.classList.contains('meta')).toBeTruthy();
       expect(btn.innerText).toEqual('Meta');
     });
 
+    it('should add description', function () {
+      var group = buttonGroupClass.create();
+      expect(group.element().classList.contains('button-group')).toBeTruthy();
+
+      group.add('Meta', {'cls':['meta'], 'icon': 'metaicon', 'desc': 'MyMeta'}, function (e) {});
+
+      var btn = group.element().firstChild;
+      expect(btn.tagName).toEqual('SPAN');
+      expect(btn.getAttribute('data-icon')).toEqual('metaicon');
+      expect(btn.getAttribute('title')).toEqual('MyMeta');
+      expect(btn.classList.contains('meta')).toBeTruthy();
+      expect(btn.innerText).toEqual('Meta');
+    });
+    
     it('should open lists', function () {
       var group = buttonGroupClass.create();
       expect(group.element().classList.contains('button-group')).toBeTruthy();
@@ -228,6 +243,13 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       // Check state
       expect(s.get()).toBeTruthy();
       expect(e.firstChild.firstChild.classList.contains("checked")).toBeTruthy();
+
+
+      group.addToggle('example2',{'cls':["examplecls"], "desc":"Haha"}, s);
+
+      e = group.element();
+
+      expect(e.children[1].getAttribute("title")).toBe("Haha");
     });
 
     it('should allow adoption', function () {

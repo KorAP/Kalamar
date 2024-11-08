@@ -253,6 +253,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
         embed : [{
           panel : 'result',
           title : 'Glemm',
+          desc : 'Start Glemm',
           onClick : {
             state : 'check',
             template : 'about:blank',
@@ -265,7 +266,8 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       let b = p.actions().element().firstChild;
       expect(b.hasAttribute("data-icon")).toBeFalsy();
       expect(b.hasAttribute("cls")).toBeFalsy();
-      expect(b.getAttribute("title")).toEqual("Glemm");
+      expect(b.lastChild.innerText).toEqual("Glemm");
+      expect(b.getAttribute("title")).toEqual("Start Glemm");
       expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
       expect(b.firstChild.classList.contains('check')).toBeTruthy();
       expect(b.firstChild.classList.contains('checked')).toBeFalsy();
@@ -278,7 +280,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       expect(manager.states().toString()).toEqual("\"check\":true");
       
-      expect(b.getAttribute("title")).toEqual("Glemm");
+      expect(b.getAttribute("title")).toEqual("Start Glemm");
       expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
       expect(b.firstChild.classList.contains('check')).toBeTruthy();
       expect(b.firstChild.classList.contains('checked')).toBeTruthy();
@@ -401,6 +403,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
         embed : [{
           panel : 'result',
           title : 'Add',
+          desc : 'Add something',
           onClick : {
             template : 'about:blank',
             action : 'addWidget',
@@ -410,6 +413,8 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       });
 
       let b = p.actions().element().firstChild;
+      expect(b.lastChild.innerText).toEqual("Add");
+      expect(b.getAttribute("title")).toEqual("Add something");
       b.click();
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
       expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts');

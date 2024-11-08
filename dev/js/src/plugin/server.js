@@ -205,7 +205,10 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
 
 
           // Button object
-          let obj = {'cls':embed["classes"], 'icon': icon }
+          let obj = {'cls':embed["classes"], 'icon': icon };
+
+          if (embed['desc'] != undefined)
+            obj['desc'] = embed['desc'];
 
           if (onClick["action"] && onClick["action"] == "setWidget") {
 
@@ -231,7 +234,6 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
           }
         }
 
-        // TODO There is no possibility to add icons to a plugin toggle button right now. 
         else if (onClick["action"] == "toggle") {
 
           // TODO:
@@ -244,9 +246,14 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
             onClick["default"]
           );
 
+          let obj = {'cls':["title"], 'icon': icon};
+
+          if (embed['desc'] != undefined)
+            obj['desc'] = embed['desc'];          
+          
           // TODO:
           //   Lazy registration (see above!)
-          KorAP.Panel[panel].actions().addToggle(title, {'cls':["title"]}, state);
+          KorAP.Panel[panel].actions().addToggle(title, obj, state);
 
           // Add the service
           let id = this.addService({
