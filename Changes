@@ -1,8 +1,9 @@
-0.58 2024-10-28
+0.58 2024-11-08
         - Fix meta table view for key value pairs (diewald)
         - Fix warning on OAuth public clients (diewald)
         - Introduce navi->list helper (diewald)
         - Add border to query panel widgets (fixes #225; diewald)
+        - Support setting of query form elements via plugins (diewald)
 
 0.57 2024-10-08
         - Support VCs via URL without queries (diewald)
