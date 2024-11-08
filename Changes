@@ -1,7 +1,8 @@
-0.58 2024-10-14
+0.58 2024-11-08
         - Fix meta table view for key value pairs (diewald)
         - Fix warning on OAuth public clients (diewald)
         - Introduce navi->list helper (diewald)
+        - Add 'desc' support to embedded widgets (diewald)
 
 0.57 2024-10-08
         - Support VCs via URL without queries (diewald)

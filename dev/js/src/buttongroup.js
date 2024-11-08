@@ -81,7 +81,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      */
     add : function (title, data, cb) {
       const b = this._insert('span');
-      b.setAttribute('title',title);
+      let desc = title;
 
       if (data !== undefined) {
         if (data['cls'] !== undefined) {
@@ -94,9 +94,14 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
 
         if (data['state'] !== undefined) {
           b['state'] = data['state'];
-        }
+        };
+
+        if (data['desc'] !== undefined) {
+          desc = data['desc'];
+        };
       };
-     
+
+      b.setAttribute('title', desc);
       b.addE('span').addT(title);
 
       let that = this;
@@ -149,7 +154,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
      */
     addToggle : function (title, data, state) {
       const b = this._insert('span');
-      b.setAttribute('title',title);
+      let desc = title;
 
       if (data != undefined) {
         if (data['cls'] !== undefined) {
@@ -158,8 +163,18 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
             data['cls']
           );
         };
+
+        if (data['icon'] !== undefined) { 
+          b.setAttribute('data-icon', data['icon']);
+        };
+        
+        if (data['desc'] !== undefined) {
+          desc = data['desc'];
+        };
       };
 
+      b.setAttribute('title',desc);
+      
       // Set check marker
       const check = b.addE('span');
       check.classList.add("check", "button-icon");
