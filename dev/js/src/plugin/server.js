@@ -13,6 +13,8 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
 
   KorAP.Panel = KorAP.Panel || {};
 
+  const d = document;
+
   // State manager undefined
   const states = KorAP.States ? KorAP.States :
 
@@ -69,6 +71,10 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
      * Initialize the plugin manager
      */
     _init : function () {
+      this._ql     = d.getElementById("ql-field");
+      this._q      = d.getElementById("q-field")
+      this._cutoff = d.getElementById("q-cutoff-field");
+
       return this;
     },
 
@@ -548,6 +554,33 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
 
         break;
 
+      case 'set':
+
+        // Get Query information from form
+        if (d.key == 'QueryForm') {
+          let v = d["value"];
+          if (v["q"] != undefined && this._q) {
+            this._q.value = v["q"];
+          };
+
+          // Set query language field
+          // Identical to tutorial.js
+          if (v[ql] != undefined && KorAP.QLmenu) {
+            KorAP.QLmenu.selectValue(ql);
+          }
+
+          else if (this._ql) {
+            let found = Array.from(this._ql.options).find(o => o.value === ql);
+            if (found)
+              found.selected = true;
+          };
+
+          window.scrollTo(0, 0);
+          // if (v["cq"] != undefined) {};
+        }
+
+        break;
+        
         // Redirect to a different page relative to the current
       case 'redirect':
         const url = new URL(window.location);
