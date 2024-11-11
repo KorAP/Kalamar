@@ -129,6 +129,40 @@ define([
       }
     );
 
+
+    // Hide and show navbar on scroll
+    // let prevScrollPos = window.scrollY;
+    // let isClickingHashLink = false;
+    // let isBurgerMenuOpen = false;
+    
+    // Check if user clicks on a link that has a hash target to prevent the top navbar from sliding up initially
+    // document.querySelectorAll('a[href^="#"]').forEach(link => {
+    //   link.addEventListener('click', function() {
+    //     isClickingHashLink = true;
+    //     setTimeout(() => {
+    //       isClickingHashLink = false;
+    //     }, 400);
+    //   });
+    // });
+    // window.onscroll = function() {
+    //   const navbar = document.querySelector('.navbar');
+    //   let currentScrollPos = window.scrollY;
+    //   // If burger menu is open, don't slide the navbar
+    //   if (isBurgerMenuOpen) {
+    //     return;
+    //   }
+    //   if (!isClickingHashLink) {
+    //     if (currentScrollPos > 0) {
+    //       if (prevScrollPos > currentScrollPos) {
+    //         navbar.style.top = '0';
+    //       } else {
+    //         navbar.style.top = '-4rem';
+    //       }
+    //       prevScrollPos = currentScrollPos;
+    //     }
+    //   }
+    // }
+    
     /**
      * Replace Virtual Corpus field
      */
