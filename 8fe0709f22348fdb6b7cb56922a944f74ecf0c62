@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f01126b7_b2cd811a",
+        "filename": "loc/kalamar.ro.dict",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-11-11T16:54:55Z",
+      "side": 1,
+      "message": "Wasn\u0027t displayed. I added a \"-\" here (See patch).",
+      "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a2b6ed_1b5dbe36",
+        "filename": "loc/kalamar.ro.dict",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-11-11T16:54:55Z",
+      "side": 1,
+      "message": "\"ro_Nav_development\" is missing here",
+      "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8eac4c2_4b2ccbe8",
+        "filename": "loc/kalamar.ro.dict",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-11-11T16:54:55Z",
+      "side": 1,
+      "message": "Why did you comment this out?",
+      "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
