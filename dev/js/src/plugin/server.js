@@ -555,24 +555,27 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
         break;
 
       case 'set':
-
-        // Get Query information from form
+        
+        // Get Query information from data
         if (d.key == 'QueryForm') {
           let v = d["value"];
+
           if (v["q"] != undefined && this._q) {
             this._q.value = v["q"];
           };
 
           // Set query language field
           // Identical to tutorial.js
-          if (v[ql] != undefined && KorAP.QLmenu) {
-            KorAP.QLmenu.selectValue(ql);
-          }
+          if (v["ql"] != undefined) {
+            if (KorAP.QLmenu) {
+              KorAP.QLmenu.selectValue(v["ql"]);
+            }
 
-          else if (this._ql) {
-            let found = Array.from(this._ql.options).find(o => o.value === ql);
-            if (found)
-              found.selected = true;
+            else if (this._ql) {
+              let found = Array.from(this._ql.options).find(o => o.value === v["ql"]);
+              if (found)
+                found.selected = true;
+            };
           };
 
           window.scrollTo(0, 0);

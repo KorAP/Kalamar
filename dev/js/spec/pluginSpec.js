@@ -742,6 +742,44 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       document.body.removeChild(f);
     });
 
+    it('should send messages', function () {
+      let qel = document.createElement('input');
+      qel.setAttribute('id','q-field');
+
+      let qlel = document.createElement('select');
+      qlel.setAttribute('id','ql-field');
+      qlel.innerHTML = '<option value="poliqarp">Poliqarp</option><option value="cosmas2">Cosmas II</option><option value="annis">Annis QL</option><option value="cqp">CQP (neu)</option><option value="cql">CQL v1.2</option><option value="fcsql">FCSQL</option>';
+
+      document.body.appendChild(qel);
+      document.body.appendChild(qlel);
+
+      var manager = pluginServerClass.create();
+      var id = manager.addService({"name":'Example 1', "src":'about:blank'});
+      expect(id).toMatch(/^id-/);
+      
+      let data = {
+        "originID" : id,
+        "action" : "set",
+        "key" : "QueryForm",
+        "value" : {
+          "q" : "test3",
+          "ql" : "cosmas2"
+        }
+      };
+
+      manager._receiveMsg({
+        "data" : data
+      });
+      manager.destroy();
+      expect(qel.value).toEqual("test3");
+      expect(qlel.value).toEqual("cosmas2");
+      // Recreate initial state
+
+      qel.remove();
+      qlel.remove();
+    });
+
+    
     it('should reply to query information requests (pagination)', function () {
       var manager = pluginServerClass.create();
       var id = manager.addService({"name":'Service', "src":'about:blank'});
