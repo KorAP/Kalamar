@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "793b259d_5203dcff",
+        "filename": "loc/kalamar.ro.dict",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-11-14T11:38:11Z",
+      "side": 1,
+      "message": "Great - thanks!",
+      "parentUuid": "f01126b7_b2cd811a",
+      "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35a2b6ed_1b5dbe36",
         "filename": "loc/kalamar.ro.dict",
         "patchSetId": 4
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dadad02c_c549d787",
+        "filename": "loc/kalamar.ro.dict",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-11-14T11:38:11Z",
+      "side": 1,
+      "message": "This fgile was created by Elena, I guess. I don\u0027t think we can come back to her.",
+      "parentUuid": "35a2b6ed_1b5dbe36",
+      "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8eac4c2_4b2ccbe8",
         "filename": "loc/kalamar.ro.dict",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2024-11-11T16:54:55Z",
       "side": 1,
       "message": "Why did you comment this out?",
+      "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66689842_70054f64",
+        "filename": "loc/kalamar.ro.dict",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-11-14T11:38:11Z",
+      "side": 1,
+      "message": "I didn\u0027t create that file.",
+      "parentUuid": "f8eac4c2_4b2ccbe8",
       "revId": "8fe0709f22348fdb6b7cb56922a944f74ecf0c62",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
