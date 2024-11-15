@@ -16,6 +16,23 @@
       "message": "Test failed with: \n   Failed test \u0027exact match for selector \"title\"\u0027\n   at t/doc.t line 81.\n          got: \u0027KorAP: ANNIS QL\u0027\n     expected: \u0027KorAP: Annis QL\u0027\n Looks like you failed 1 test of 81.\n\nI patched it. Is fixed.",
       "revId": "f15bba666ed87fa7125df199ef901137b56a5ac8",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eccf1c0f_6c32bbe7",
+        "filename": "templates/de/doc/ql/annis.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-11-15T10:12:26Z",
+      "side": 1,
+      "message": "This link \"https://corpus-tools.org/annis/aql.html\" leads to 404. Maybe it should be linked to \"http://korpling.github.io/ANNIS/4/user-guide/aql/\" ? But I\u0027m not sure about it, because my knowledge of query languages is not very profound, so I leave it open. Same with the englisch annis documentation. They seemed to have moved the website.",
+      "revId": "f15bba666ed87fa7125df199ef901137b56a5ac8",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
