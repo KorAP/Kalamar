@@ -320,6 +320,17 @@ you can set the execution policy with
 If using the RemoteSigned execution policy, you can use `Unblock-File`
 to allow specific scripts to run.
 
+### Problem installing Module::Pluggable
+
+In case [Module::Pluggable](https://metacpan.org/pod/Module-Pluggable) fails
+as a dependency of the [DateTime](https://metacpan.org/pod/DateTime) module,
+just force the installation and ignore warnings.
+
+```perl
+cpanm --force Module::Pluggable
+```
+
+
 ## COPYRIGHT AND LICENSE
 
 ### Original Software
