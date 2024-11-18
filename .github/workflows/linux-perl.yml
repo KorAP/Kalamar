@@ -23,6 +23,7 @@ jobs:
         run: perl -V
       - name: Install dependencies
         run: |
+          cpanm --force Module::Pluggable
           cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
           cpanm --installdeps .
           cpanm -n Cpanel::JSON::XS EV
