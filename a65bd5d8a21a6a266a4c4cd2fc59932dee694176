@@ -16,6 +16,24 @@
       "message": "I guess that can be merged in 0.58.",
       "revId": "a65bd5d8a21a6a266a4c4cd2fc59932dee694176",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4681f4ab_7f0dabc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-11-18T08:38:02Z",
+      "side": 1,
+      "message": "Fine with me.",
+      "parentUuid": "bb1a2299_8b247ef3",
+      "revId": "a65bd5d8a21a6a266a4c4cd2fc59932dee694176",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
