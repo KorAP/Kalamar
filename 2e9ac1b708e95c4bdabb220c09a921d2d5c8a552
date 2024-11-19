@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d444263a_e4b0ff78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-11-19T15:33:26Z",
+      "side": 1,
+      "message": "Had to check the reposition method",
+      "revId": "2e9ac1b708e95c4bdabb220c09a921d2d5c8a552",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
