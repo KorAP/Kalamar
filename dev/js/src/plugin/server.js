@@ -514,6 +514,9 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
           if (el = KorAP.vc) {
             v["cq"] = el.toQuery();
           };
+          if (el = KorAP.Hint) {
+            v["selection"] = KorAP.Hint.selectionRange();
+          };
         }
 
         // Get text sigle from match
