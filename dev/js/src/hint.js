@@ -153,6 +153,14 @@ define([
 
 
     /**
+     * Return selection range of the input field.
+     */
+    selectionRange : function () {
+      return this._inputField.selectionRange();
+    },
+
+
+    /**
      * Alert at a specific character position.
      */
     alert : function (charPos, msg) {

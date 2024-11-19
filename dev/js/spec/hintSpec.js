@@ -139,6 +139,8 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(input.style.left).toEqual("30px");
       expect(inputField.mirror().style.left.match(/^(\d+)px$/)[1]).toBeGreaterThan(29);
       expect(inputField.mirror().style.top.match(/^(\d+)px$/)[1]).toBeGreaterThan(20);
+      expect(inputField.selectionRange()[0]).toEqual(5);
+      expect(inputField.selectionRange()[1]).toEqual(5);
     });
 
     it('should have a correct context', function () {
