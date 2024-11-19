@@ -16,6 +16,23 @@
       "message": "Had to check the reposition method",
       "revId": "2e9ac1b708e95c4bdabb220c09a921d2d5c8a552",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2d814be_dbb1f93e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2024-11-19T16:07:42Z",
+      "side": 1,
+      "message": "Great, thank you!",
+      "revId": "2e9ac1b708e95c4bdabb220c09a921d2d5c8a552",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
