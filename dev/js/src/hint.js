@@ -138,6 +138,8 @@ define([
       this._analyzer = analyzerClass.create(
         param["context"] || KorAP.context
       );
+
+      this.update();
       return this;
     },
 

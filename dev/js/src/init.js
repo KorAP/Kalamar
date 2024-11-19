@@ -271,7 +271,6 @@ define([
       const header = document.querySelector('header');
       const main = document.querySelector('main');
       const footer = document.querySelector('footer');
-      const hint = document.querySelector('#hint');
       const results = document.querySelector('.found');
       const aside = document.querySelector('aside');
 
@@ -281,59 +280,24 @@ define([
           main.classList.add('shifted');
         }
         footer.classList.add('shifted');
-        if (hint) {
-          hint.classList.add('shifted');
-          adjustHintPosition();
-        }
+        adjustHintPosition();
       } else {
         header.classList.remove('shifted');
         main.classList.remove('shifted');
         footer.classList.remove('shifted');
-        if (hint) {
-          hint.classList.remove('shifted');
-          adjustHintPosition();
-        }
+        adjustHintPosition();
       }
     }
     
-    // Function to adjust the position of the annotation assistant bar (hint), when user types into the searchbar and clicks the sidebar (or anywhere outside the searchbar) afterwards
+    // Function to adjust the position of the annotation assistant bar (hint),
+    // when user types into the searchbar and clicks the sidebar (or anywhere
+    // outside the searchbar) afterwards
     function adjustHintPosition() {
-      const hint = document.querySelector('#hint');
-      const searchInput = document.querySelector('#q-field');
-      const aside = document.querySelector('aside');
-
-      if (hint && searchInput) {
-        // Create a temporary span to measure the exact text width
-        const span = document.createElement('span');
-        span.style.visibility = 'hidden';
-        span.style.position = 'absolute';
-        span.style.whiteSpace = 'pre';
-        // Copy the input's font properties
-        const inputStyle = window.getComputedStyle(searchInput);
-        span.style.font = inputStyle.font;
-        span.style.fontSize = inputStyle.fontSize;
-        span.style.fontFamily = inputStyle.fontFamily;
-        span.textContent = searchInput.value;
-        document.body.appendChild(span);
-
-        // Get the actual width of the text
-        const inputWidth = searchInput.value.length > 0 ? span.offsetWidth : 0;
-        document.body.removeChild(span);
-        let hintLeftPosition = inputWidth;
-
-        // TODO: This shouldn't be a fixed position!
-        if (aside && aside.classList.contains('active')) {
-          hintLeftPosition += 230;
-        }
-        
-        hint.style.left = `${hintLeftPosition}px`;
-      }
-    }
-    //Can be solved more elegant witch ES6 (see optional chaining operator)
-    let qlf = document.querySelector('#q-field');
-      if(qlf != null){
-      qlf.addEventListener('blur', adjustHintPosition);
-    }
+      if (KorAP.Hint != undefined) {
+        KorAP.Hint.inputField().reposition();
+        KorAP.Hint.update();
+      };
+    };
  
     // MutationObserver to detect when #hint is injected into the DOM
     const observer = new MutationObserver((mutationsList, observer) => {

@@ -5,12 +5,6 @@
  * Rules for the Kalamar hint helper.
  */
 
-#hint {
-  &.shifted {
-    left: $logo-left-distance;
-  }
-}
-
 ul.menu.hint {
   display:     inline-block;
   white-space: normal;
