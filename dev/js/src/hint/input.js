@@ -40,6 +40,16 @@ define(['util'], function () {
       window.addEventListener('resize', re);
       this._el.addEventListener('onfocus', re);
       this.reposition();
+
+      // Prevent multiselections
+      this._el.addEventListener("select", () => {
+        const start = this._el.selectionStart;
+        const end = this._el.selectionEnd;
+        if (start !== null && end !== null && start !== end) {
+          this._el.setSelectionRange(start, end);
+        }
+      });
+
       return this;
     },
 
@@ -198,6 +208,13 @@ define(['util'], function () {
         value.substring(0, start),
         value.substring(start, value.length)
       );
+    },
+
+    /**
+     * Return the cursor character offsets
+     */
+    selectionRange : function () {
+      return [this._el.selectionStart, this._el.selectionEnd];
     }
   }
 });
