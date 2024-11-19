@@ -337,9 +337,8 @@ cpanm --force Module::Pluggable
 
 Copyright (C) 2015-2024, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](https://www.nils-diewald.de/), Helge Stallkamp<br>
-Contributor: Eliza Margaretha (Documentation), Susanne Feix and Rebecca
-Wilm (Translation),
-Leo Repp
+Contributor: Uyen-Nhu Tran, Eliza Margaretha (Documentation), Susanne Feix
+and Rebecca Wilm (Translation), Leo Repp
 
 Kalamar is developed as part of the [KorAP](https://korap.ids-mannheim.de/)
 Corpus Analysis Platform at the

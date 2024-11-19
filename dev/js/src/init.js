@@ -2,7 +2,7 @@
  * Initialize The JS frontend part and decorate
  * the static HTML data.
  *
- * @author Nils Diewald, Helge Stallkamp
+ * @author Nils Diewald, Helge Stallkamp, Uyen-Nhu Tran
  *
  * TODO: Create lazy loading of objects including
  * - obj.hint()
