@@ -50,7 +50,8 @@ $t->get_ok('/')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
   ->element_exists_not('#koralQuery')
-  ->attr_is('aside', 'class', ' invisible off')
+  ->element_exists('aside.invisible')
+  ->element_exists('aside.off')
   ;
 
 $t->get_ok('/?cq=corpusSigle%3DGOE')
@@ -64,7 +65,8 @@ $t->get_ok('/?cq=corpusSigle%3DGOE')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
   ->element_exists('#koralQuery')
-  ->attr_is('aside', 'class',' invisible off')
+  ->element_exists('aside.invisible')
+  ->element_exists('aside.off')
   ;
 
 $t->get_ok('/huhuhuhuhu')
