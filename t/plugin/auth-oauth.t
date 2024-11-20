@@ -479,7 +479,9 @@ $t->get_ok('/')
   ->element_exists_not('aside.off')
   ->element_exists_not('aside.active')
   ->element_exists('aside.settings')
+  ->text_is('nav.dropdown a:first-child span','OAuth')
   ;
+
 
 $t->get_ok('/settings/oauth')
   ->text_is('form.form-table legend', 'Register new client application')
