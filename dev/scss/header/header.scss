@@ -246,7 +246,9 @@
     }
 
     &-item {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       padding: .75rem;
       font-size: 1rem;
       color: $nearly-white;
