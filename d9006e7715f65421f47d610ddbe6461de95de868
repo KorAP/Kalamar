@@ -51,6 +51,24 @@
       "parentUuid": "17f2e615_4100947f",
       "revId": "d9006e7715f65421f47d610ddbe6461de95de868",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8417a7ef_9f48a546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2024-11-21T09:15:38Z",
+      "side": 1,
+      "message": "Yes, the burger menu should be independent of the login. I would suggest to submit this patch and make it independent in a separate commit.",
+      "parentUuid": "7a5ccebe_73dd2310",
+      "revId": "d9006e7715f65421f47d610ddbe6461de95de868",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
