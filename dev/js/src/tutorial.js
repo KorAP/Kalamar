@@ -197,23 +197,22 @@ define(['session','buttongroup','util'], function (sessionClass, buttonGroupClas
       let page = obj;
 
       if (typeof page != 'string') {
-	      const l = this._iframe !== null ? window.frames[0].location : window.location;
+	const l = this._iframe !== null ? window.frames[0].location : window.location;
 
-	      page = l.pathname + l.search;
+        page = l.pathname + l.search;
 
-	      for (let i = 1; i < 5; i++) {
-	        if ((obj.nodeName === 'SECTION' || obj.nodeName === 'PRE') && obj.hasAttribute('id')) {
-	          page += '#' + obj.getAttribute('id');
-	          break;
-	        }
-	        else {
-	          obj = obj.parentNode;
+	for (let i = 1; i < 5; i++) {
+	  if ((obj.nodeName === 'SECTION' || obj.nodeName === 'PRE') && obj.hasAttribute('id')) {
+	    page += '#' + obj.getAttribute('id');
+	    break;
+	  }
+	  else {
+	    obj = obj.parentNode;
             if (obj === null)
               break;
-	        };
-	      };
+	  };
+	};
       };
-
       this._session.set('tutpage', page);
     },
 
