@@ -33,6 +33,24 @@
       "message": "I wrote in Slack that this may render the sidebar slide-button useless, but the problem the burger-list is currently in the logout template means, all settings are only available when the Auth plugin is used. That\u0027s currently no problem, as we have no settings not associated with logins, but when we have, they are not reachable. We may want to have the burger menu independent of the login, and login/logout as well as the change of the burger menu item as an independent mechanism.\n\nSee e.g. the test in t/settings.html.ep.",
       "revId": "d9006e7715f65421f47d610ddbe6461de95de868",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a5ccebe_73dd2310",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-11-21T07:31:34Z",
+      "side": 1,
+      "message": "Unsolved.",
+      "parentUuid": "17f2e615_4100947f",
+      "revId": "d9006e7715f65421f47d610ddbe6461de95de868",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
