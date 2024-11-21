@@ -22,6 +22,7 @@
         - Keep plugin state in statemanager (fixes #201; diewald)
         - Fix alerts in hint helper (diewald)
         - Don't send empty pipes and states via query param (diewald)
+        - Fix access of iframe location in tutorials. (diewald)
 
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)

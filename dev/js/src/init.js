@@ -82,10 +82,13 @@ define([
     
     // Set base URL
     KorAP.URL = d.body.getAttribute('data-korap-url') || "";
-  
+
+    
+    
     // Create suffix if KorAP is run in a subfolder
     KorAP.session = sessionClass.create(
-      KorAP.URL.length > 0 ? 'kalamarJS-' + KorAP.URL.slugify() : 'kalamarJS'
+      (KorAP.URL.length > 0 ? 'kalamarJS-' + KorAP.URL.slugify() : 'kalamarJS'),
+      KorAP.URL
     );
 
     // Get koralQuery response
