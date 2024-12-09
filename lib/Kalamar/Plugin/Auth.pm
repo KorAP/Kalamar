@@ -1264,9 +1264,16 @@ sub register {
       $v->required('name', 'trim', 'not_empty')->size(3, 255);
       $v->required('type')->in('PUBLIC', 'CONFIDENTIAL');
       $v->required('desc', 'trim', 'not_empty')->size(3, 255);
-      $v->optional('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
       $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
       $v->optional('src', 'not_empty');
+     
+      my $src = $v->param('src');
+      if ($src && ref $src && $src->size > 0){
+        $v->required('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+        }
+      else{
+        $v->optional('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
+      }
 
       $c->stash(template => 'auth/clients');
 
@@ -1285,8 +1292,9 @@ sub register {
       };
 
       my $type = $v->param('type');
-      my $src = $v->param('src');
       my $src_json;
+ 
+  
 
       my $json_obj = {
         name         => $v->param('name'),
@@ -1313,7 +1321,7 @@ sub register {
 
         # Check upload is not empty
         if ($src->size > 0 && $src->filename ne '') {
-
+      
           # Plugins need to be confidential
           if ($type ne 'CONFIDENTIAL') {
             $c->notify(error => $c->loc('Auth_confidentialRequired'));

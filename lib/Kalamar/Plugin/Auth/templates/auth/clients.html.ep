@@ -47,7 +47,7 @@
     </div>
 
     <div>
-      %= label_for url => loc('Auth_homepage')
+      %= label_for url => loc('Auth_homepage'), class => 'field-required-pl'
       %= url_field 'url', placeholder => 'https://...'
     </div>
 
