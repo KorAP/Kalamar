@@ -1221,9 +1221,11 @@ my $json_post = {
   name => 'Funny',
   type => 'PUBLIC',
   desc => 'This is my plugin application 2',
+  url => 'https://xyz/123',
   csrf_token => $csrf,
   src => 'hMMM'
 };
+
 
 $t->post_ok('/settings/oauth/register' => form => $json_post)
   ->status_is(200)
