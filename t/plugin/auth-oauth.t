@@ -489,7 +489,8 @@ $t->get_ok('/settings/oauth')
   ->text_is('label[for=name]','Name of the client application')
   ->text_is('label[for=type]','Type of the client application')
   ->text_is('label[for=desc]','Short description')
-  ->text_is('label[for=url]','Homepage')
+  ->text_like('label[for=url]'=> '/Homepage/')
+  ->element_exists('label[for=url] > span.field-required')
   ->text_is('label[for=redirect_uri]','Redirect URI')
   ->text_is('label[for=src]','Declaration of the plugin (*.json file)')
   ->element_exists('ul.client-list')
@@ -1221,9 +1222,11 @@ my $json_post = {
   name => 'Funny',
   type => 'PUBLIC',
   desc => 'This is my plugin application 2',
+  url => 'https://xyz/123',
   csrf_token => $csrf,
   src => 'hMMM'
 };
+
 
 $t->post_ok('/settings/oauth/register' => form => $json_post)
   ->status_is(200)
