@@ -20,6 +20,7 @@
           small devices. (uyen-nhu)
         - Return cursor position for query object (fixes #228; diewald)
         - Keep plugin state in statemanager (fixes #201; diewald)
+        - URLs for plugins are mandatory (closes # 322; hebasta)
 
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)
