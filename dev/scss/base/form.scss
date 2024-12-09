@@ -170,6 +170,12 @@
     color:   $ids-blue-1;
     content: '*';
   }
+
+  label.field-required-pl::after {
+    color:   $ids-blue-1;
+    content: '*(Plugins)';
+  }
+
 }
 
 .button-abort {
