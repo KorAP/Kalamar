@@ -503,6 +503,18 @@ define([
           input.removeAttribute('name');
         };
 
+        if (KorAP.States != null) {
+          const statesE = KorAP.States.element();
+          if (statesE.value == "")
+            statesE.removeAttribute('name');
+        };
+        
+        if (KorAP.Pipe != null) {
+          const pipeE = KorAP.Pipe.element();
+          if (pipeE.value == "")
+            pipeE.removeAttribute("name");
+        };
+
         // This would preferably set the query to be "disabled",
         // but in that case the query wouldn't be submitted
         // at all.
@@ -510,6 +522,13 @@ define([
         // of webkit.
         qf.classList.add("loading");
         d.getElementById('qsubmit').classList.add("loading");
+
+        // Alternatively the submission could be prevented early
+        // and the formData API could be used instead:
+        // e.preventDefault();
+        // const formData = new FormData(this);
+        // const queryString = new URLSearchParams(formData).toString();
+        // window.location.href = `${this.action}?${queryString}`;
       });
     };
  
