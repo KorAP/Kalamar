@@ -22,7 +22,6 @@ $standard-margin: 4px;
 
   header {
     padding-top: 3rem;
-    // padding-right: 8px;
 
     &.shifted {
       padding-left: 0;
@@ -32,7 +31,6 @@ $standard-margin: 4px;
   header form {
     margin: 1.5rem 1rem;
     padding-left: 0;
-    // padding-top: 33px;
 
     &#searchform {
       margin: 2.5rem 1rem 0 1rem;
@@ -44,14 +42,8 @@ $standard-margin: 4px;
       display: none;
     }
 
-    &-group {
-      h3.nav-link {
-        height: 2rem;
-
-        a {
-          padding: .75rem !important;
-        }
-      }
+    a.logo > h1 {
+      margin-left: 0;
     }
 
     .burger-icon {
@@ -120,42 +112,58 @@ $standard-margin: 4px;
             }
           }
         }
+      }
 
-        p {
-          padding: 1rem 0 0;
-
-          a {
-            display: inline;
-          }
+      h3.nav-link {
+        height: 2rem;
+  
+        a {
+          padding: .75rem !important;
+        }
+      }
+      
+      p {
+        padding: 1rem 0 0;
+  
+        a {
+          display: inline;
         }
       }
     }
+    
+    .dropdown {
+      margin-right: 0 !important;
 
-    @media (hover: none) and (pointer: coarse) {
-      .dropdown {
-        margin-right: 0 !important;
+      &-btn {
+        &.login {
+          display: none;
 
-        &-btn {
-          &.login {
-            visibility: hidden;
+          & + .dropdown-content {
+            margin-top: 0;
           }
         }
 
-        &-content {
-          display: block !important;
-          width: 100% !important;
-
-          form.login {
-            input[type=text],
-            input[type=password] {
-              width: 100%;
-            }
+        &.profile {
+          & + .dropdown-content {
+            margin-top: 4rem;
           }
+        }
+      }
 
-          p {
-            a {
-              display: inline;
-            }
+      &-content {
+        display: block !important;
+        width: 100% !important;
+
+        form.login {
+          input[type=text],
+          input[type=password] {
+            width: 100%;
+          }
+        }
+
+        p {
+          a {
+            display: inline;
           }
         }
       }
