@@ -231,5 +231,18 @@ define(['state','state/manager'], function (stateClass, stateManagerClass) {
 
       expect(sm.toString()).toEqual("\"test\":2");
     });
+
+    it('should load stored states', function () {
+      const el = document.createElement('input');
+      el.setAttribute("value","\"test\":2");
+      const sm = stateManagerClass.create(el);
+      expect(sm).toBeTruthy();
+
+      const s1 = sm.newState('test', [1,2,3], 1);
+
+      expect(s1.get()).toEqual(2);
+      
+      expect(sm.toString()).toEqual("\"test\":2");
+    });
   });
 });
