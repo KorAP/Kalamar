@@ -264,6 +264,9 @@ define([
         });
       };
     });
+
+    // Media Query for adjusting dynamically added elements (e.g. hint)
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
     
     // Function to toggle the shifted class on elements
     function shiftContent() {
@@ -275,7 +278,7 @@ define([
       const results = document.querySelector('.found');
       const aside = document.querySelector('aside');
 
-      if (aside && aside.classList.contains('active')) {
+      if (aside && aside.classList.contains('active') && !isSmallScreen) {
         header.classList.add('shifted');
         if (!results) {
           main.classList.add('shifted');
@@ -322,7 +325,7 @@ define([
         let hintLeftPosition = inputWidth;
 
         // TODO: This shouldn't be a fixed position!
-        if (aside && aside.classList.contains('active')) {
+        if (aside && aside.classList.contains('active') && !isSmallScreen) {
           hintLeftPosition += 230;
         }
         
