@@ -52,7 +52,7 @@ define(['state'], function(stateClass) {
 
     // Update the query component for states
     _update : function () {
-      this._e.value = this.toString();
+      this._e.setAttribute("value", this.toString());
     },
 
 

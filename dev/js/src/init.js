@@ -586,6 +586,7 @@ define([
             };
 
             const input = form.addE("input");
+            input.setAttribute("type","text");
             input.setAttribute("name","state");
             KorAP.States = stateManagerClass.create(input);
             
