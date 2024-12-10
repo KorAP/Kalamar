@@ -14,13 +14,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
   KorAP.Panel = KorAP.Panel || {};
 
   const d = document;
-
-  // State manager undefined
-  const states = KorAP.States ? KorAP.States :
-
-        // Not serialized state manager
-        stateManagerClass.create(document.createElement('input'));
-  
+ 
   // Contains all servicess to address with
   // messages to them
   var services = {};
@@ -74,6 +68,11 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
       this._ql     = d.getElementById("ql-field");
       this._q      = d.getElementById("q-field")
       this._cutoff = d.getElementById("q-cutoff-field");
+
+       // State manager undefined
+      this._states =  KorAP.States ? KorAP.States :
+        // Not serialized state manager
+        stateManagerClass.create(document.createElement('input'));
 
       return this;
     },
@@ -246,7 +245,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
           //   Accept a "value" list here for toggling, which should
           //   also allow for "rolling" through states via CSS classes
           //   as 'toggle-true', 'toggle-false' etc.
-          let state = states.newState(
+          let state = that._states.newState(
             (onClick["state"] ? onClick["state"] : name),
             [true, false],
             onClick["default"]
@@ -651,7 +650,7 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
 
     // Return states object
     states : function () {
-      return states;
+      return this._states;
     },
 
     // Destructor, just for testing scenarios

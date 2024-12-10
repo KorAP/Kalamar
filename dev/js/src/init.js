@@ -586,7 +586,17 @@ define([
             };
 
             const input = form.addE("input");
+            input.setAttribute("type","text");
             input.setAttribute("name","state");
+
+            const url = new URL(window.location.href);
+
+            // Access the query parameters to check for states
+            const state = new URLSearchParams(url.search).get('state');
+            if (state != "") {
+              input.setAttribute("value", state);
+            };
+            
             KorAP.States = stateManagerClass.create(input);
             
             // Load Plugin Server first

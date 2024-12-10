@@ -35,7 +35,7 @@ define(['state'], function(stateClass) {
     _parse : function (value) {
       if (value === undefined || value === '')
         return;
-      
+
       this._states = JSON.parse('{' + value + '}');
     },
 
@@ -52,7 +52,7 @@ define(['state'], function(stateClass) {
 
     // Update the query component for states
     _update : function () {
-      this._e.value = this.toString();
+      this._e.setAttribute("value", this.toString());
     },
 
 
@@ -62,6 +62,11 @@ define(['state'], function(stateClass) {
 
       const t = this;
       let s = stateClass.create(values);
+
+      if (this._states[name] != undefined) {
+        if (values.includes(this._states[name]))
+          s.setIfNotYet(this._states[name]);
+      };
 
       // Set default value
       // TODO: It would be better to make this part
