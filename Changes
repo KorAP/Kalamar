@@ -1,4 +1,4 @@
-0.59 2024-12-10
+0.59 2024-12-11
         - Improve appearance of title-addon on logo. (uyen-nhu)
         - Create and style new item on top navbar for 'News'. (uyen-nhu)
         - Change settings link in logout.html.ep to dynamic link. (uyen-nhu)
@@ -20,6 +20,7 @@
           small devices. (uyen-nhu)
         - Return cursor position for query object (fixes #228; diewald)
         - Keep plugin state in statemanager (fixes #201; diewald)
+        - Add 'glimpse' option to query panel (diewald)
 
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)

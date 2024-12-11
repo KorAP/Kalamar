@@ -6,8 +6,9 @@
 "use strict";
 
 define([
-  'panel'
-], function (panelClass) {
+  'panel',
+  'state'
+], function (panelClass, stateClass) {
 
   const d = document;
 
@@ -25,6 +26,31 @@ define([
     _init : function (opened) {
       this._opened = opened;
       const a = this.actions();
+
+      // Add glimpse button
+      const s = stateClass.create([true,false]);
+      const cof = document.getElementById("q-cutoff-field");
+      const colabel = document.getElementById("glimpse").parentNode;
+     
+      let glimpseChange = {
+        setState : function (val) {
+          cof.checked = val;
+        }
+      };
+      s.associate(glimpseChange);
+      s.set(cof.checked);
+      
+      a.addToggle(
+        "Glimpse", {
+          'cls':['glimpse'],
+          'desc':colabel.getAttribute('title')
+        },
+        s
+      );
+
+      // Don't show default glimpse
+      colabel.style.display = "none";
+
       
       // If plugins are enabled, add all buttons for the query panel
       if (KorAP.Plugin) {
