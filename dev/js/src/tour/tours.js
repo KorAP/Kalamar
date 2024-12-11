@@ -197,7 +197,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
         },  
         {
           title: loc.TOUR_glimpseti,
-          element: doe.querySelector('#glimpse').parentNode,
+          element: doe.querySelector('.glimpse'),
           intro: loc.TOUR_glimpse,
           position: "bottom",
         }, 
