@@ -18,6 +18,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff67d3b_504c28e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-11T09:05:30Z",
+      "side": 1,
+      "message": "The navigation in the documentation is now no longer on the left side, but at the top. It also seems to be cutted when embedded.",
+      "revId": "22b0b45bf6ec3037589ee6e0211654ee341ec568",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "414ac61a_1c2c504e",
