@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a474dc_80238897",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-12T06:13:46Z",
+      "side": 1,
+      "message": "Only small remarks, but the localization aspect should be taken into account.",
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53c3baad_93557756",
+        "filename": "dev/scss/base/form.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-12T06:13:46Z",
+      "side": 1,
+      "message": "Instead of using a non-localizable term in css, it may be better to add an attribute to the label and reuse it. That way it\u0027s localizable and you may even get away with a single css rule that just ignores the attribute if not set.",
+      "range": {
+        "startLine": 176,
+        "startChar": 16,
+        "endLine": 176,
+        "endChar": 23
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b89869_68541265",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-12T06:13:46Z",
+      "side": 1,
+      "message": "Fine, but could be simplified with a single optional rule, that checks for validity. I think something like that:\n\n  my $vopt \u003d $v-\u003eoptional(\u0027url\u0027, \u0027trim\u0027, \u0027not_empty\u0027)-\u003elike(qr/^(http|$)/i);\n  if ($src \u0026\u0026 ref $src \u0026\u0026 $src-\u003esize \u003e 0){\n    $v-\u003eerror(\u0027url\u0027 \u003d\u003e [\u0027required\u0027]) unless $vopt-\u003eis_valid;\n  };",
+      "range": {
+        "startLine": 1272,
+        "startChar": 7,
+        "endLine": 1272,
+        "endChar": 71
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613bd97d_ba02e72b",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/clients.html.ep",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-12T06:13:46Z",
+      "side": 1,
+      "message": "Class is not tested yet.",
+      "range": {
+        "startLine": 50,
+        "startChar": 58,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
