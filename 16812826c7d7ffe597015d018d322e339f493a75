@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d07cfe5_70af1cf0",
+        "filename": "dev/js/src/vc.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-16T09:58:07Z",
+      "side": 1,
+      "message": "gt and lt are not defined in KoralQuery, so this may be enough.",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "16812826c7d7ffe597015d018d322e339f493a75",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
