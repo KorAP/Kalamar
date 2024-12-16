@@ -100,9 +100,11 @@ define(['match/corpusByMatch', 'vc'], function (cbmClass, vcClass) {
       cbm.add("pubDate", "2018-11-20", "type:date");
       expect(cbm.toQuery()).toEqual('author = "Peter" & pubDate in 2018-11-20');
 
+      cbm.add("KED.nToks", 200, "type:integer");
+
       cbm.toVcBuilder();
 
-      expect(KorAP.vc.toQuery()).toEqual('(title = "Hello World!" | foo = "bar") & author = "Peter" & pubDate in 2018-11-20');
+      expect(KorAP.vc.toQuery()).toEqual('(title = "Hello World!" | foo = "bar") & author = "Peter" & pubDate in 2018-11-20 & KED.nToks = 200');
     })
   });
 });

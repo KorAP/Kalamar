@@ -7,9 +7,10 @@ define([
   'vc/jsonld',
   'vc/rewritelist',
   'vc/stringval',
+  'vc/intval',
   'vc/docgroupref',
   'util'
-], function (jsonldClass, rewriteListClass, stringValClass, docGroupRefClass) {
+], function (jsonldClass, rewriteListClass, stringValClass, intValClass, docGroupRefClass) {
 
   /*
    * TODO:
@@ -219,8 +220,14 @@ define([
         return;
       };
 
-      if (json["value"] === undefined ||
-          typeof json["value"] != 'string') {
+      if (json["value"] === undefined
+          ||
+          (typeof json["value"] != 'string'
+
+           && !(json["type"] != undefined &&
+                json["type"] == "type:integer" &&
+                typeof json["value"] == 'number')
+          )) {
         KorAP.log(805, "Value is invalid");
         return;
       };
@@ -305,6 +312,24 @@ define([
           t.value(json["value"]);
         }
 
+        // Key is integer
+        else if (json["type"] == "type:integer") {
+          t.type("integer");
+
+          // Check match type
+          if (!KorAP._validIntegerMatchRE.test(t.matchop())) {
+            KorAP.log(802, errstr802);
+
+            // Rewrite method
+            t.matchop('eq');
+            rewrite = 'modification';
+          };
+
+          // Set string value
+          t.value(json["value"]);
+        }
+
+        
         // Key is a date
         else if (json["type"] === "type:date") {
           t.type("date");
@@ -450,6 +475,8 @@ define([
             ||
             (t._type === 'text' && KorAP._validTextMatchRE.test(m))
             ||
+            (t._type === 'integer' && KorAP._validIntegerMatchRE.test(m))
+            ||
             (t._type === 'date' && KorAP._validDateMatchRE.test(m))
         ) {
           t._matchop = m;
@@ -557,32 +584,49 @@ define([
 
         dp.input().focus();
       }
-
+   
       else {
-        const regex = this.type() === 'regex' ? true : false;
-        const str = stringValClass.create(this.value(), regex);
-        const strElem = str.element();
 
-        str.store = function (value, regex) {
-          that.value(value);
-          if (regex === true)
-            that.type('regex');
-          else
-            that.type('string');
+        let vcVal;
+        
+        if (this.type() === 'integer') {
+          vcVal = intValClass.create(this.value());
+
+          vcVal.store = function (value) {
+            that.value(value);
+            that.type('integer');
+            that._el.removeChild(
+              this._el
+            );
+            that.update();
+          };
+        }
+
+        else {
+          const regex = this.type() === 'regex' ? true : false;
+          vcVal = stringValClass.create(this.value(), regex);
+
+          vcVal.store = function (value, regex) {
+            that.value(value);
+            if (regex === true)
+              that.type('regex');
+            else
+              that.type('string');
           
-          that._el.removeChild(
-            this._el
-          );
-          that.update();
+            that._el.removeChild(
+              this._el
+            );
+            that.update();
+          };
         };
 
         // Insert element
         this._el.insertBefore(
-          strElem,
+          vcVal.element(),
           this._valueE
         );
 
-        str.focus();
+        vcVal.focus();
       };
     },
 
@@ -666,10 +710,10 @@ define([
         string += '!~';
         break;
       case "geq":
-        string += 'since';
+        string += (this.type() == 'date') ? 'since' : '>=';
         break;
       case "leq":
-        string += 'until';
+        string += (this.type() == 'date') ? 'until' : '<=';
         break;
       default:
         string += (this.type() == 'date') ? 'in' : '=';
@@ -681,6 +725,7 @@ define([
       // Add value
       switch (this.type()) {
       case "date":
+      case "integer":
         return string + this.value();
       case "regex":
         return string + '/' + this.value().escapeRegex() + '/';

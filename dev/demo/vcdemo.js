@@ -38,6 +38,13 @@ var json = {
             },
             {
               "@type":"koral:doc",
+              "key":"nTok",
+              "type":"type:integer",
+              "value":200,
+              "match":"match:eq"
+            },
+            {
+              "@type":"koral:doc",
               "key":"subTitle",
               "value":"Gedichte",
               "match":"match:eq",
