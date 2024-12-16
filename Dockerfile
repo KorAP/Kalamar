@@ -37,8 +37,11 @@ RUN apk update && \
             make \
             wget \
             perl-doc \
-            libxml2 \
             libxml2-dev \
+            perl-xml-libxml \
+            perl-module-pluggable \
+            perl-datetime \
+            perl-readonly \
             unzip \
             curl && \
     set -o pipefail
@@ -73,7 +76,7 @@ RUN rm /bin/cpm && \
 
 RUN addgroup -S korap && \
     adduser -S kalamar -G korap && \
-    chown -R kalamar.korap /kalamar
+    chown -R kalamar:korap /kalamar
 
 USER kalamar
 
