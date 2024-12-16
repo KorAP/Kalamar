@@ -22,6 +22,30 @@
       },
       "revId": "16812826c7d7ffe597015d018d322e339f493a75",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e5636c5_12406092",
+        "filename": "dev/js/src/vc.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-12-16T10:46:46Z",
+      "side": 1,
+      "message": "But we have defined them, now, don\u0027t we? https://korap.ids-mannheim.de/gerrit/q/topic:%22integer-cq%22\n\nIt\u0027s important to have them for systematicity",
+      "parentUuid": "8d07cfe5_70af1cf0",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "16812826c7d7ffe597015d018d322e339f493a75",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
