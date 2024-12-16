@@ -305,6 +305,24 @@ define([
           t.value(json["value"]);
         }
 
+        // Key is integer
+        else if (json["type"] == "type:integer") {
+          t.type("integer");
+
+          // Check match type
+          if (!KorAP._validIntegerMatchRE.test(t.matchop())) {
+            KorAP.log(802, errstr802);
+
+            // Rewrite method
+            t.matchop('eq');
+            rewrite = 'modification';
+          };
+
+          // Set string value
+          t.value(json["value"]);
+        }
+
+        
         // Key is a date
         else if (json["type"] === "type:date") {
           t.type("date");
@@ -449,6 +467,8 @@ define([
             )
             ||
             (t._type === 'text' && KorAP._validTextMatchRE.test(m))
+            ||
+            (t._type === 'integer' && KorAP._validIntegerMatchRE.test(m))
             ||
             (t._type === 'date' && KorAP._validDateMatchRE.test(m))
         ) {
@@ -666,10 +686,10 @@ define([
         string += '!~';
         break;
       case "geq":
-        string += 'since';
+        string += (this.type() == 'date') ? 'since' : '>=';
         break;
       case "leq":
-        string += 'until';
+        string += (this.type() == 'date') ? 'until' : '<=';
         break;
       default:
         string += (this.type() == 'date') ? 'in' : '=';
@@ -681,6 +701,7 @@ define([
       // Add value
       switch (this.type()) {
       case "date":
+      case "integer":
         return string + this.value();
       case "regex":
         return string + '/' + this.value().escapeRegex() + '/';
