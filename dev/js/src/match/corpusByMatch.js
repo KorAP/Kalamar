@@ -99,7 +99,7 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       if (target.tagName === 'DD') {
         type = target.getAttribute("data-type");
         key  = target.previousElementSibling.innerText;
-        value = target.innerText;
+        value = (type == "type:integer" ? Number(target.innerText) : target.innerText);
       }
 
       // Meta information is in a list

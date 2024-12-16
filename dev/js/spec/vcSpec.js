@@ -132,6 +132,14 @@ define([
       "@type" : "koral:doc"
     });
 
+    var integerFactory = buildFactory(docClass, {
+      "key"   : "KED.nToks",
+      "type"  : "type:integer",
+      "match" : "match:geq",
+      "value" : "200",
+      "@type" : "koral:doc"
+    });
+
     // Create example factories
     var regexFactory = buildFactory(docClass, {
       "key"   : "title",
@@ -281,6 +289,15 @@ define([
       expect(doc.matchop()).toEqual('eq');
     });
 
+    it('should deserialize JSON-LD integer', function () {
+      doc = integerFactory.create({});
+
+      expect(doc.matchop()).toEqual('geq');
+      expect(doc.key()).toEqual("KED.nToks");
+      expect(doc.type()).toEqual("integer");
+      expect(doc.value()).toEqual("200");
+    });
+
     it('should be serializale to JSON', function () {
 
       // Empty doc
@@ -381,6 +398,14 @@ define([
         value : "2014"
       });
       expect(doc.toQuery()).toEqual('pubDate in 2014');
+
+      doc = integerFactory.create();
+      expect(doc.toQuery()).toEqual('KED.nToks >= 200');
+
+      doc = integerFactory.create({
+        value : "100"
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks >= 100');
     });
   });
 
@@ -571,7 +596,15 @@ define([
                 "match": 'match:ne',
                 "value": '[a]?bar',
                 "type": 'type:regex'
+              },
+              {
+                "@type": 'koral:doc',
+                "key": 'KED.nToks',
+                "match": 'match:leq',
+                "value": '300',
+                "type": 'type:integer'
               }
+
             ]
           }
         ]
@@ -579,7 +612,8 @@ define([
       expect(docGroup.toQuery()).toEqual(
         'author = "Max Birkendale" | ' +
           '(pubDate since 2014-05-12 & ' +
-          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+          'pubDate until 2014-12-05 & foo != /[a]?bar/ & ' +
+          'KED.nToks <= 300)'
       );
 
 
@@ -590,7 +624,8 @@ define([
       expect(docGroup.incomplete()).toBeFalsy();
       expect(docGroup.toQuery()).toEqual(
         '(pubDate since 2014-05-12 & ' +
-          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+          'pubDate until 2014-12-05 & foo != /[a]?bar/ & ' +
+          'KED.nToks <= 300)'
       );
     });
   });
@@ -2889,7 +2924,8 @@ define([
       vc = vcClass.create([
         ['d', 'text'],
         ['e', 'string'],
-        ['f', 'date']
+        ['f', 'date'],
+        ['g', 'integer']
       ]).fromJson();
       expect(vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
       expect(vc.builder().firstChild.firstChild.tagName).toEqual('SPAN');
@@ -2903,6 +2939,7 @@ define([
       expect(list.getElementsByTagName("LI")[1].innerText).toEqual('d');
       expect(list.getElementsByTagName("LI")[2].innerText).toEqual('e');
       expect(list.getElementsByTagName("LI")[3].innerText).toEqual('f');
+      expect(list.getElementsByTagName("LI")[4].innerText).toEqual('g');
       // blur
       document.body.click();
     });
@@ -3022,6 +3059,33 @@ define([
       document.body.click();
     });
 
+    it('should be clickable on operation for integer', function () {
+
+      vc.builder().firstChild.firstChild.click();// Choose "g"
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[4].click()
+      // Click on "g" (or unspecified)
+      vc.builder().firstChild.firstChild.click();
+      // Rechoose "g"
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[4].click();
+      // Click on matchop
+      vc.builder().firstChild.children[1].click();
+      // Choose "geq"
+      vc.builder().firstChild.children[1].getElementsByTagName('li')[2].click();
+      expect(vc.builder().firstChild.children[1].innerText).toEqual("geq");
+
+      // Click on "e"
+      vc.builder().firstChild.firstChild.click();
+      // Choose "f"
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[3].click();
+
+      // The matchoperator should still be "geq" as this is valid for dates as well (now)
+      var fc = vc.builder().firstChild;
+      expect(fc.firstChild.tagName).toEqual('SPAN');
+      expect(fc.firstChild.innerText).toEqual('f');
+      expect(fc.children[1].innerText).toEqual('geq');
+      // blur
+      document.body.click();
+    });
 
     // Check json deserialization
     it('should be initializable', function () {
