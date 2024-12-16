@@ -10,6 +10,7 @@
 !/lib
 !/script
 !/t
+!/loc
 !/templates
 !.dockerignore
 /templates/announcement.html.ep
