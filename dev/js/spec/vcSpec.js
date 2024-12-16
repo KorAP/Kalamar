@@ -12,6 +12,7 @@ define([
   'vc/operators',
   'vc/rewrite',
   'vc/stringval',
+  'vc/intval',
   'vc/fragment'
 ], function (vcClass,
              docClass,
@@ -23,6 +24,7 @@ define([
              operatorsClass,
              rewriteClass,
              stringValClass,
+             intValClass,
              fragmentClass) {
 
   KorAP._vcKeyMenu = undefined;
@@ -129,6 +131,14 @@ define([
       "type"  : "type:date",
       "match" : "match:eq",
       "value" : "2014-11-05",
+      "@type" : "koral:doc"
+    });
+
+    var integerFactory = buildFactory(docClass, {
+      "key"   : "KED.nToks",
+      "type"  : "type:integer",
+      "match" : "match:eq",
+      "value" : "200",
       "@type" : "koral:doc"
     });
 
@@ -281,6 +291,15 @@ define([
       expect(doc.matchop()).toEqual('eq');
     });
 
+    it('should deserialize JSON-LD integer', function () {
+      doc = integerFactory.create({});
+
+      expect(doc.matchop()).toEqual('eq');
+      expect(doc.key()).toEqual("KED.nToks");
+      expect(doc.type()).toEqual("integer");
+      expect(doc.value()).toEqual("200");
+    });
+
     it('should be serializale to JSON', function () {
 
       // Empty doc
@@ -381,6 +400,33 @@ define([
         value : "2014"
       });
       expect(doc.toQuery()).toEqual('pubDate in 2014');
+
+      doc = integerFactory.create();
+      expect(doc.toQuery()).toEqual('KED.nToks = 200');
+
+      doc = integerFactory.create({
+        value : "100"
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks = 100');
+
+      doc = integerFactory.create({
+        value : "100",
+        match : "match:geq"
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks >= 100');
+
+      doc = integerFactory.create({
+        value : "100",
+        match : "match:leq"
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks <= 100');
+
+      // Check for numeric values
+      doc = integerFactory.create({
+        value : 100,
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks = 100');
+
     });
   });
 
@@ -571,7 +617,15 @@ define([
                 "match": 'match:ne',
                 "value": '[a]?bar',
                 "type": 'type:regex'
+              },
+              {
+                "@type": 'koral:doc',
+                "key": 'KED.nToks',
+                "match": 'match:leq',
+                "value": '300',
+                "type": 'type:integer'
               }
+
             ]
           }
         ]
@@ -579,7 +633,8 @@ define([
       expect(docGroup.toQuery()).toEqual(
         'author = "Max Birkendale" | ' +
           '(pubDate since 2014-05-12 & ' +
-          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+          'pubDate until 2014-12-05 & foo != /[a]?bar/ & ' +
+          'KED.nToks <= 300)'
       );
 
 
@@ -590,7 +645,8 @@ define([
       expect(docGroup.incomplete()).toBeFalsy();
       expect(docGroup.toQuery()).toEqual(
         '(pubDate since 2014-05-12 & ' +
-          'pubDate until 2014-12-05 & foo != /[a]?bar/)'
+          'pubDate until 2014-12-05 & foo != /[a]?bar/ & ' +
+          'KED.nToks <= 300)'
       );
     });
   });
@@ -2820,6 +2876,7 @@ define([
       var sv = stringValClass.create('der');
       expect(sv.element().nodeName).toBe('DIV');
       expect(sv.element().firstChild.nodeName).toBe('INPUT');
+      expect(sv.element().firstChild.getAttribute('type')).toBeNull();
       expect(sv.element().firstChild.value).toBe('der');
     });
 
@@ -2862,6 +2919,50 @@ define([
 
   });
 
+
+  describe('KorAP.VC.intValue', function () {
+    it('should be initializable', function () {
+      var iv = intValClass.create();
+      expect(iv.value()).toBe(0);
+
+      iv = intValClass.create('400');
+      expect(iv.value()).toBe(400);
+
+      iv = intValClass.create(400);
+      expect(iv.value()).toBe(400);
+
+      iv = intValClass.create('Baum');
+      expect(iv.value()).toBe(0);
+    });
+
+    it('should be modifiable', function () {
+      var iv = intValClass.create();
+      expect(iv.value()).toBe(0);
+
+      expect(iv.value('33')).toBe(33);
+      expect(iv.value()).toBe(33);
+    });
+
+    it('should have an element', function () {
+      var iv = intValClass.create(22);
+      expect(iv.element().nodeName).toBe('DIV');
+      expect(iv.element().firstChild.nodeName).toBe('INPUT');
+      expect(iv.element().firstChild.getAttribute('type')).toBe('number');
+      expect(iv.element().firstChild.value).toBe('22');
+    });
+
+    it('should be storable', function () {
+      var iv = intValClass.create();
+      var count = 1;
+      iv.store = function (value) {
+        expect(value).toBe(80);
+      };
+      iv.value('80');
+      iv.element().lastChild.click();
+    });
+  });
+
+  
   describe('KorAP.VC.Menu', function () {
 
     var vc;
@@ -2889,7 +2990,8 @@ define([
       vc = vcClass.create([
         ['d', 'text'],
         ['e', 'string'],
-        ['f', 'date']
+        ['f', 'date'],
+        ['g', 'integer']
       ]).fromJson();
       expect(vc.builder().firstChild.classList.contains('unspecified')).toBeTruthy();
       expect(vc.builder().firstChild.firstChild.tagName).toEqual('SPAN');
@@ -2903,6 +3005,7 @@ define([
       expect(list.getElementsByTagName("LI")[1].innerText).toEqual('d');
       expect(list.getElementsByTagName("LI")[2].innerText).toEqual('e');
       expect(list.getElementsByTagName("LI")[3].innerText).toEqual('f');
+      expect(list.getElementsByTagName("LI")[4].innerText).toEqual('g');
       // blur
       document.body.click();
     });
@@ -3022,6 +3125,33 @@ define([
       document.body.click();
     });
 
+    it('should be clickable on operation for integer', function () {
+
+      vc.builder().firstChild.firstChild.click();// Choose "g"
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[4].click()
+      // Click on "g" (or unspecified)
+      vc.builder().firstChild.firstChild.click();
+      // Rechoose "g"
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[4].click();
+      // Click on matchop
+      vc.builder().firstChild.children[1].click();
+      // Choose "geq"
+      vc.builder().firstChild.children[1].getElementsByTagName('li')[2].click();
+      expect(vc.builder().firstChild.children[1].innerText).toEqual("geq");
+
+      // Click on "e"
+      vc.builder().firstChild.firstChild.click();
+      // Choose "f"
+      vc.builder().firstChild.firstChild.getElementsByTagName("LI")[3].click();
+
+      // The matchoperator should still be "geq" as this is valid for dates as well (now)
+      var fc = vc.builder().firstChild;
+      expect(fc.firstChild.tagName).toEqual('SPAN');
+      expect(fc.firstChild.innerText).toEqual('f');
+      expect(fc.children[1].innerText).toEqual('geq');
+      // blur
+      document.body.click();
+    });
 
     // Check json deserialization
     it('should be initializable', function () {

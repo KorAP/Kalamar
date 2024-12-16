@@ -115,7 +115,7 @@ define(['vc/doc', 'util'], function (docClass) {
           doc.key(item[0]);
           doc.matchop("eq");
           doc.value(item[1]);
-          doc.type(item[2] === "date" ? "date" : "string");
+          doc.type(item[2] === "date" ? "date" : (item[2] === "integer" ? "integer" : "string"));
           return doc;
         }
       );
