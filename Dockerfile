@@ -50,7 +50,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/kupietz/cpm/main/cpm > /bin/cpm
 
 RUN cpm install --test -g Cpanel::JSON::XS File::ShareDir::Install EV IO::Socket::Socks && \
     cpm install --test -g "https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz" && \
-    cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.5.0.tar.gz" && \
+    cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.6.0.tar.gz" && \
     cpm install --test -g "https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.55.tar.gz" && \
     cpm install --test -g "https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz"
 
