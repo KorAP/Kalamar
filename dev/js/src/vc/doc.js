@@ -691,7 +691,13 @@ define([
       case "leq":
         string += (this.type() == 'date') ? 'until' : '<=';
         break;
-      default:
+      case "lt":
+        string += '<';
+        break;
+      case "gt":
+        string += '>';
+        break;
+       default:
         string += (this.type() == 'date') ? 'in' : '=';
         break;
       };
