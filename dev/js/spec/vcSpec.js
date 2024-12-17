@@ -401,6 +401,7 @@ define([
       });
       expect(doc.toQuery()).toEqual('pubDate in 2014');
 
+      // Checks for integer values
       doc = integerFactory.create();
       expect(doc.toQuery()).toEqual('KED.nToks = 200');
 
@@ -421,7 +422,18 @@ define([
       });
       expect(doc.toQuery()).toEqual('KED.nToks <= 100');
 
-      // Check for numeric values
+      doc = integerFactory.create({
+        value : "100",
+        match : "match:gt"
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks > 100');
+
+      doc = integerFactory.create({
+        value : "100",
+        match : "match:lt"
+      });
+      expect(doc.toQuery()).toEqual('KED.nToks < 100');
+
       doc = integerFactory.create({
         value : 100,
       });

@@ -74,7 +74,7 @@ define([
   KorAP._validUnspecMatchRE = new RegExp(
     "^(?:eq|ne|contains(?:not)?|excludes)$");
   KorAP._validStringMatchRE = new RegExp("^(?:eq|ne)$");
-  KorAP._validIntegerMatchRE = new RegExp("^(?:[gl]?eq|ne)$");
+  KorAP._validIntegerMatchRE = new RegExp("^(?:[gl]?eq|ne|[gl]t)$");
   KorAP._validTextMatchRE = KorAP._validUnspecMatchRE;
   KorAP._validTextOnlyMatchRE = new RegExp(
     "^(?:contains(?:not)?|excludes)$");
@@ -117,7 +117,9 @@ define([
       [ 'eq', null ],
       [ 'ne', null ],
       [ 'geq', null ],
-      [ 'leq', null ]
+      [ 'leq', null ],
+      [ 'gt', null ],
+      [ 'lt', null ]
     ])
   };
 
