@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc645381_62bf8e15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2024-12-17T10:42:10Z",
+      "side": 1,
+      "message": "I think there was a reason we didn\u0027t pull https://github.com/KorAP/Kalamar/pull/203 - but I can\u0027t remember. Maybe Helge remembers.",
+      "revId": "28900fc50b7ed1ecfa8b361ab1abf6ba8678339c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
