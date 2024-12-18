@@ -16,6 +16,24 @@
       "message": "I think there was a reason we didn\u0027t pull https://github.com/KorAP/Kalamar/pull/203 - but I can\u0027t remember. Maybe Helge remembers.",
       "revId": "28900fc50b7ed1ecfa8b361ab1abf6ba8678339c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "867945c3_d9737a45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-12-18T08:44:15Z",
+      "side": 1,
+      "message": "Then it\u0027s probably good news that 21 does seem to work as well. The number of deprecation warning lines is about 1600 😊, just as with node 20, see https://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/5537 (for 20) and https://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/5529 (for node 21) and instance ked is running with node 21 (and all integer comparisons): https://korap.ids-mannheim.de/instance/ked",
+      "parentUuid": "dc645381_62bf8e15",
+      "revId": "28900fc50b7ed1ecfa8b361ab1abf6ba8678339c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
