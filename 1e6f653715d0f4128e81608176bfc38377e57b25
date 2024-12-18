@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4677af_150e1a29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-12-18T09:49:46Z",
+      "side": 1,
+      "message": "@nils@diewald-online.de: why -1? This does not affect DeReKo instances, but helps us maintain instance KED. The most urgent addition is probably disabling the RegEx switch for integer input.",
+      "revId": "1e6f653715d0f4128e81608176bfc38377e57b25",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
