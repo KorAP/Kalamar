@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee34ecfa_23170ad1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2024-12-20T08:44:59Z",
+      "side": 1,
+      "message": "OK, I\u0027ve added some test, wondering now, what \"etc.\" means",
+      "revId": "a82d830f2c1dfc20d38ee122830a6853425d2d68",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
