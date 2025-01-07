@@ -16,6 +16,29 @@
       "message": "OK, I\u0027ve added some test, wondering now, what \"etc.\" means",
       "revId": "a82d830f2c1dfc20d38ee122830a6853425d2d68",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cf11d8_8e4a459c",
+        "filename": "dev/js/src/vc/doc.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-07T14:39:17Z",
+      "side": 1,
+      "message": "Does it require to be \"notin\" for dates now? So that dates like \"pubDate !\u003d 1999\" can be type-distinguished from \"nTok !\u003d 1999\"? Which also needs to be supported by Koral and Krill.",
+      "range": {
+        "startLine": 677,
+        "startChar": 19,
+        "endLine": 677,
+        "endChar": 21
+      },
+      "revId": "a82d830f2c1dfc20d38ee122830a6853425d2d68",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
