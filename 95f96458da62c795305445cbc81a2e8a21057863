@@ -16,6 +16,23 @@
       "message": "I added a demo and the intval class.",
       "revId": "95f96458da62c795305445cbc81a2e8a21057863",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e02ac2af_7c2ea97e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-08T12:04:37Z",
+      "side": 1,
+      "message": "We also need to find a way to mark the field type in the VC builder now for integer values. Currently it\u0027s not possible to do that easily. When switching from KoralQuery match operator names to collection query operator names (if we want to do that), we can distinguish between numbers and dates, but for \u003d and !\u003d we can\u0027t yet distinguish between numbers and strings.",
+      "revId": "95f96458da62c795305445cbc81a2e8a21057863",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
