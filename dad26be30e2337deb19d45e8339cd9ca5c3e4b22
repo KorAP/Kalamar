@@ -16,6 +16,23 @@
       "message": "This is not final - as there is still the documentation button that needs to move. When done, the query panel should behave similar to the right buttons, in that the panel should be on the same line, as the query sentence (vc + ql) and only be above on small displays.",
       "revId": "dad26be30e2337deb19d45e8339cd9ca5c3e4b22",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da31a1a_e4c771c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-09T11:27:34Z",
+      "side": 1,
+      "message": "I commented \"colabel.style.display \u003d \"none\";\" out and took a look. I think it is really nice to have it at this new position 👍",
+      "revId": "dad26be30e2337deb19d45e8339cd9ca5c3e4b22",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
