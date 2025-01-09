@@ -71,6 +71,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e685d4_554b6037",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-09T12:07:00Z",
+      "side": 1,
+      "message": "Took a look. Also found the empty burger menu, but Nils already mentioned that.",
+      "revId": "22b0b45bf6ec3037589ee6e0211654ee341ec568",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "414ac61a_1c2c504e",
