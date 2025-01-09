@@ -33,6 +33,23 @@
       "message": "I commented \"colabel.style.display \u003d \"none\";\" out and took a look. I think it is really nice to have it at this new position 👍",
       "revId": "dad26be30e2337deb19d45e8339cd9ca5c3e4b22",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03cd64b9_d13168ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-09T11:31:53Z",
+      "side": 1,
+      "message": "Thanks - I agree. Makes also a lot of sense.\n\nI don\u0027t know if the tutorial button will be moved in the next release, but this should happen before.",
+      "revId": "dad26be30e2337deb19d45e8339cd9ca5c3e4b22",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
