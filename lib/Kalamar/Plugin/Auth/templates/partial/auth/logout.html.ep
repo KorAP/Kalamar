@@ -12,6 +12,9 @@
                 <span><%= $item->{title} %></span>
             </a>
          <% } %>
+         <a href="<%= url_for 'doc' %>" class="dropdown-item tutorial" id="view-tutorial" title="<%= loc 'tutorial' %>">
+            <span><%= loc 'tutorial' %></span>
+         </a>
          <a href="<%= url_for 'logout' %>"
          class="dropdown-item logout"
          title="<%= loc 'logout' %>: <%= user_handle %>">

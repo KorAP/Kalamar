@@ -55,7 +55,6 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
        "<div class='button right'>" +
          "<input checked='' class='checkbox' id='q-cutoff-field' name='cutoff' type='checkbox' value='1'>" +
            "<label for='q-cutoff-field' title='Zeige nur die ersten Treffer in beliebiger Reihenfolge'><span id='glimpse'></span>Glimpse</label>" +
-           "<a class='tutorial' id='view-tutorial' tabindex='-1' title='Einführung'><span>Einführung</span></a>"+
        "</div>" +
        "<div class='clear'></div>"+
        "</form>" + 
