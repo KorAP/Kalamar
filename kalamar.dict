@@ -54,7 +54,7 @@ my $THOUSAND_SEP_RE = qr/(
     },
     activateJS => 'Für den vollen Funktionsumfang aktivieren Sie bitte JavaScript!',
     faq => 'FAQ',
-    tutorial => 'Hilfe und Dokumentation',
+    tutorial => 'Einführung',
     notAvailInCorpus => 'Im vorliegenden Korpus nicht verfügbar',
     pubOn => 'veröffentlicht am',
     matchCount => 'Treffer',
@@ -190,7 +190,7 @@ my $THOUSAND_SEP_RE = qr/(
     faq => 'FAQ',
     'oclock' => 'o\'clock',
     underConstruction => 'Under Construction!',
-    tutorial => 'Help and Documentation',
+    tutorial => 'Introduction',
     korap => {
       -short => 'KorAP',
       label => '<%= loc "korap_short" %><% if (loc("title_addon")) { %>-<%= loc("title_addon") %><% } %>',

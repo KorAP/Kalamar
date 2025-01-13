@@ -192,6 +192,7 @@
       -o-transition: all .2s ease-in-out;
       -moz-transition: all .2s ease-in-out;
       -webkit-transition: all .2s ease-in-out;
+      cursor: pointer;
 
       &:hover {
         color: $nearly-white;
@@ -335,9 +336,9 @@ header {
       @include icon-font;
     }
 
-    > a.tutorial::after {
-      content: $fa-tutorial;
-    }
+    // > a.tutorial::after {
+    //   content: $fa-tutorial;
+    // }
 
     > a.question::after {
       content: $fa-question;
