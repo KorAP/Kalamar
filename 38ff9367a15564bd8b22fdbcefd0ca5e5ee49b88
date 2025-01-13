@@ -16,6 +16,23 @@
       "message": "Maybe there should be tests for that?",
       "revId": "38ff9367a15564bd8b22fdbcefd0ca5e5ee49b88",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36233945_c976eadb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-13T14:29:12Z",
+      "side": 1,
+      "message": "At the moment init isn\u0027t testable, afaik, right?",
+      "revId": "38ff9367a15564bd8b22fdbcefd0ca5e5ee49b88",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
