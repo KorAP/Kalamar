@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "429ebf7a_6e20c30f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-14T08:50:43Z",
+      "side": 1,
+      "message": "The relocation of the hint helper will hide the alert on startup. This will reshow the alert.",
+      "revId": "be2f9a01cec5db3c8bb9f7031903e5aaf40830e1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
