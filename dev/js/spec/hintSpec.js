@@ -271,6 +271,14 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(hint.alert().active).toBeTruthy();
       expect(hint.active()).toBeTruthy();
 
+      // Show again with the same message
+      expect(hint.alert().active).toBeTruthy();
+      hint.update();
+      expect(hint.alert().active).toBeFalsy();
+      hint.alert().show();
+      expect(hint.alert().active).toBeTruthy();
+      expect(hint.alert().element().textContent).toEqual("That does not work!");
+      
       // Show menu, hide alert!
       hint.show(false);
     });

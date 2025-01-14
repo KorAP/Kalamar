@@ -307,6 +307,7 @@ define([
           if (hint) {
             shiftContent();
             observer.disconnect();
+            KorAP.Hint.alert().show();
           }
         }
       }

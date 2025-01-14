@@ -30,9 +30,12 @@ define(function () {
      * Show alert.
      */
     show : function (msg) {
-      this.active = true;
       const e = this._el;
-      e.textContent = msg;
+      if (msg !== undefined)
+        e.textContent = msg;
+      if (e.textContent == "")
+        return;
+      this.active = true;
       e.style.display = 'block';
     },
 

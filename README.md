@@ -335,7 +335,7 @@ cpanm --force Module::Pluggable
 
 ### Original Software
 
-Copyright (C) 2015-2024, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
+Copyright (C) 2015-2025, [IDS Mannheim](https://www.ids-mannheim.de/)<br>
 Author: [Nils Diewald](https://www.nils-diewald.de/), Helge Stallkamp<br>
 Contributor: Uyen-Nhu Tran, Eliza Margaretha (Documentation), Susanne Feix
 and Rebecca Wilm (Translation), Leo Repp
