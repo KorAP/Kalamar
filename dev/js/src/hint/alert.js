@@ -32,7 +32,8 @@ define(function () {
     show : function (msg) {
       this.active = true;
       const e = this._el;
-      e.textContent = msg;
+      if (msg !== undefined)
+        e.textContent = msg;
       e.style.display = 'block';
     },
 
