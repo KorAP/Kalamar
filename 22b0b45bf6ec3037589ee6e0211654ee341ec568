@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcf9f40f_a8a1c82d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-01-15T12:20:46Z",
+      "side": 1,
+      "message": "Should be solved in #9151 now.",
+      "parentUuid": "2f82f246_e53178f0",
+      "revId": "22b0b45bf6ec3037589ee6e0211654ee341ec568",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "414ac61a_1c2c504e",
         "filename": "dev/js/src/init.js",
         "patchSetId": 1
@@ -101,6 +119,30 @@
       "writtenOn": "2024-12-11T09:04:23Z",
       "side": 1,
       "message": "I don\u0027t think it\u0027s good to mix media queries decoupled Javascript.",
+      "range": {
+        "startLine": 269,
+        "startChar": 3,
+        "endLine": 269,
+        "endChar": 74
+      },
+      "revId": "22b0b45bf6ec3037589ee6e0211654ee341ec568",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3ba6df0_161c20f0",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-01-15T12:20:46Z",
+      "side": 1,
+      "message": "Yeah, I know it\u0027s not optimal, but unfortunately, I couldn\u0027t find a way to make it work with only CSS, yet. 😞",
+      "parentUuid": "414ac61a_1c2c504e",
       "range": {
         "startLine": 269,
         "startChar": 3,
