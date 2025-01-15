@@ -140,6 +140,14 @@ define([
 
     // Responsive navbar: hide and show burger menu
     const burgerIcon = document.querySelector('.burger-icon');
+    const navbarGroup = document.querySelector('.navbar-group');
+    
+    if (burgerIcon && navbarGroup) {
+      if (navbarGroup.innerHTML.trim() !== '') {
+        burgerIcon.classList.add('show');
+      }
+    }
+
     let isBurgerMenuOpen = false;
 
     if (burgerIcon) {
