@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b6efd2_03c4efeb",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-15T15:36:31Z",
+      "side": 1,
+      "message": "That\u0027s not really what it is.",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
