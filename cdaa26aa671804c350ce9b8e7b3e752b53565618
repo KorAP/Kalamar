@@ -22,6 +22,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afa798f_bf0f4a3c",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-01-15T15:50:53Z",
+      "side": 1,
+      "message": "I chose \u0027Einführung\u0027, because I found it in tourSpec.js (\u003ca class\u003d\u0027tutorial\u0027 id\u003d\u0027view-tutorial\u0027 tabindex\u003d\u0027-1\u0027 title\u003d\u0027Einführung\u0027\u003e\u003cspan\u003eEinführung\u003c/span\u003e\u003c/a\u003e).\nAlso, the text on the starting page mentions it as \u0027Einführung\u0027.",
+      "parentUuid": "45b6efd2_03c4efeb",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
