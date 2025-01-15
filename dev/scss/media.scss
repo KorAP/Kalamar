@@ -48,11 +48,15 @@ $standard-margin: 4px;
 
     .burger-icon {
       position: relative;
-      display: block !important;
+      display: none;
       width: $standard-size-and-spacing;
       height: $standard-size-and-spacing;
       font-size: 1.8rem;
       color: $nearly-white;
+
+      &.show {
+        display: block;
+      }
 
       &::after {
         position: absolute;
@@ -145,7 +149,7 @@ $standard-margin: 4px;
 
         &.profile {
           & + .dropdown-content {
-            margin-top: 4rem;
+            margin-top: 3.9rem;
           }
         }
       }
