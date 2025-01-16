@@ -94,6 +94,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1058fd3b_759e9f46",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-16T11:35:19Z",
+      "side": 1,
+      "message": "Yes, that sounds reasonable.",
+      "parentUuid": "7efcc181_ff57c214",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
