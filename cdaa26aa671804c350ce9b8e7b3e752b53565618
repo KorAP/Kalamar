@@ -70,6 +70,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7efcc181_ff57c214",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-16T11:10:02Z",
+      "side": 1,
+      "message": "Probably \"Hilfe\" for the dropdown-item and \"Hilfe und Dokumentation\" for the title",
+      "parentUuid": "b1b3b4b1_5c28d834",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
