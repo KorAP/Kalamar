@@ -16,6 +16,23 @@
       "message": "We have to adapt the tour for this change. I can do that in a separate commit.",
       "revId": "40c9331aa4f2e90be75440fd99937a9bf393dbaa",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86309b17_04ea57b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-16T10:59:32Z",
+      "side": 1,
+      "message": "If i click on \"Einführung\" I get a 404. The help/doc page is not shown.",
+      "revId": "40c9331aa4f2e90be75440fd99937a9bf393dbaa",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
