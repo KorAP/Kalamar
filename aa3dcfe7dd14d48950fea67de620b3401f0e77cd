@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9aa42a8_14c11a66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-16T11:14:56Z",
+      "side": 1,
+      "message": "Is it submittable without?",
+      "revId": "aa3dcfe7dd14d48950fea67de620b3401f0e77cd",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
