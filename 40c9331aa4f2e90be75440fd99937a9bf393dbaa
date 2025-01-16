@@ -33,6 +33,23 @@
       "message": "If i click on \"Einführung\" I get a 404. The help/doc page is not shown.",
       "revId": "40c9331aa4f2e90be75440fd99937a9bf393dbaa",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fcacfd2_9f2b14fb",
+        "filename": "kalamar.dict",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-16T11:23:07Z",
+      "side": 1,
+      "message": "Same here (see above). \"Introduction\" is not the right term. \nI would suggest \"Help\" for the dropdown-menu and \"Help and Documentation\" for the title.",
+      "revId": "40c9331aa4f2e90be75440fd99937a9bf393dbaa",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
