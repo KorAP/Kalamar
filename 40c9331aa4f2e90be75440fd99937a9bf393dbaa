@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6b7ecd_11997dcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-16T10:57:46Z",
+      "side": 1,
+      "message": "We have to adapt the tour for this change. I can do that in a separate commit.",
+      "revId": "40c9331aa4f2e90be75440fd99937a9bf393dbaa",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}

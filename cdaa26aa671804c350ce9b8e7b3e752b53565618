@@ -46,6 +46,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1b3b4b1_5c28d834",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-16T10:57:46Z",
+      "side": 1,
+      "message": "Actually \"Hilfe und Dokumentation\" is the right term. The term \"Einführung\" is  on the starting page/tour  to help the users to find the \"starting point\" for learning  the usage of KorAP. \nBut \"Hilfe und Einführung\" is far too long for the dropdown menu, so maybe we should use \"Hilfe\" in this case?",
+      "parentUuid": "6afa798f_bf0f4a3c",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
