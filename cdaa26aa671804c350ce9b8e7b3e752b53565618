@@ -118,6 +118,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b54ee98_6e31bc79",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-01-20T13:41:32Z",
+      "side": 1,
+      "message": "Since the current \"Hilfe und Dokumentation\"-button and \"Einführung\"-term on the starting page actually show the same page, it would be good to use the same term for each element (for consistency). I would change the text a bit then, e.g.: \"Dann starten Sie doch mit unserer Tour oder schauen Sie in die Hilfe!\"\nDo you agree?",
+      "parentUuid": "1058fd3b_759e9f46",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
