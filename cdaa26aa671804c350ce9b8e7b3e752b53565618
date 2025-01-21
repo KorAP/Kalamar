@@ -142,6 +142,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147d689a_5e24daa7",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-21T08:34:36Z",
+      "side": 1,
+      "message": "That would be OK with me.",
+      "parentUuid": "5b54ee98_6e31bc79",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
