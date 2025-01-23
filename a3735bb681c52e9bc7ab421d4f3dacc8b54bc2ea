@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50ebb13_ef4ceb7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-23T13:12:26Z",
+      "side": 1,
+      "message": "Try to find the problem with the Mac CI test (also happens now on my new linux box).",
+      "revId": "a3735bb681c52e9bc7ab421d4f3dacc8b54bc2ea",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
