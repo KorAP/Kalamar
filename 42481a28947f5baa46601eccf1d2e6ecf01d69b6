@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0abf6b1_77d5353c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-23T15:26:17Z",
+      "side": 1,
+      "message": "Oh - actually the test was wrong now that we introduced support of VC passing. That\u0027s why it didn\u0027t work in SSL-free envoironments. This will fix the Mac port issue.",
+      "revId": "42481a28947f5baa46601eccf1d2e6ecf01d69b6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
