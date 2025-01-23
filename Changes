@@ -1,4 +1,4 @@
-0.59 2025-01-14
+0.59 2025-01-23
         - Improve appearance of title-addon on logo. (uyen-nhu)
         - Create and style new item on top navbar for 'News'. (uyen-nhu)
         - Change settings link in logout.html.ep to dynamic link. (uyen-nhu)
@@ -23,6 +23,7 @@
         - Fix alerts in hint helper (diewald)
         - Don't send empty pipes and states via query param (diewald)
         - Fix access of iframe location in tutorials. (diewald)
+        - Fix test that wrongly required SSL support. (diewald)
 
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)
