@@ -67,6 +67,7 @@ $t->get_ok('/?cq=corpusSigle%3DGOE')
   ->element_exists('#koralQuery')
   ->element_exists('aside.invisible')
   ->element_exists('aside.off')
+  ->text_is('#notifications > .notify-error', undef)
   ;
 
 $t->get_ok('/huhuhuhuhu')
