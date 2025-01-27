@@ -166,6 +166,30 @@
       },
       "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab28e6b1_ee009c4a",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-01-27T11:36:11Z",
+      "side": 1,
+      "message": "Thanks for your feedback! I just changed the terms and did a commit --amend, but on #9151, since it\u0027s more up-to-date than this commit. If everything is fine, we can abandon this one.",
+      "parentUuid": "147d689a_5e24daa7",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "cdaa26aa671804c350ce9b8e7b3e752b53565618",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
