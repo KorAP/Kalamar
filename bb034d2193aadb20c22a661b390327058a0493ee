@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03dc6e87_48462479",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2025-01-28T11:08:59Z",
+      "side": 1,
+      "message": "This is a draft for a guide to Kalamar Plugins. It got a little bit longer than first intended, but I hope that every detail is helpfull when developing the first plugin.\n\nAny comments, addings or corrections welcome.",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
