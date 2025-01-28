@@ -1,0 +1,346 @@
+
+<html>
+
+ <head>
+  <title>Guide for Kalamar Plugins</title>
+  <style>
+   td {vertical-align: top; padding-top: 10px;}
+   li {vertical-align: top; padding-top: 10px;}
+   p,li,pre,td {line-height: 1.2; font-size: 110%}
+   body { counter-reset: TiNr; }
+   h2::before { counter-increment: TiNr;
+                content: counter(TiNr) ". "; }
+   .cgrey {background-color: AliceBlue;}
+  </style>
+ </head>
+
+ <body>
+  <h1>Short Guide for the Implementation of Plugins in Kalamar</h1>
+
+ <p><small>Jan. 2025</small></p>
+
+  <h2>Introduction</h2>
+
+  <p>Kalamar, the graphical user interface of KorAP, allows the integration of plugins 
+     to enhance its functionalities. The plugins may appear in the frontend as a button 
+     or a widget or work without being displayed. Their functionalities already cover a wide
+     range of purposes: importing or exporting data, displaying data or communicating
+     with remote services. For being displayed Kalamar currently offers 2 regions
+     called <i>panels</i> where plugins can be integrated. See the Kalamar screenshot
+     below which shows some plugins already implemented in these panels.
+  </p>
+
+  <p class="cgrey">
+   <ul> 
+     <li> the <b><i>search</i></b> panel contains
+      <ul>
+      	<li><img src="./GA_button.png"></img> : GlemmAssistant
+	<li><img src="./Glemm_button.png"></img> : Glemm activation button
+      </ul>
+     <li> the <b><i>result</i></b> panel contains
+      <ul>
+        <li><img src="./KoralQuery_button.png"></img>the KoralQuery display button
+        <li><img src="./Align_button.png"></img>the text alignment button
+	<li><img src="./Export_button.png"></img>the export button
+      </ul>
+   </ul>
+  </p>
+
+  <div style="text-align:center;">
+    <img src="Kalamar_plugins.png">
+    <p>[ Kalamar with 5 plugins in 2 panels ]</p>
+    </img>
+   </div>
+
+  <p>Some of the actions you can implement with the current plugin system are:
+    <ul>
+     <li>toggle on or off a remote service
+     <li>calling an assistant which interacts e.g. with the query line
+     <li>sending data to or receiving data from a remote service
+    </ul>
+  </p>
+
+  <h2>Technical implementation</h2>
+
+  <p>A panel is an &lt;iframe&gt; element which acts like a window inside the Kalamar window.
+     The role of the iframe is to restrict the behaviour of the plugin to safe actions that
+     cannot harm Kalamar or the KorAP system. The <i>cross origin restriction</i> is such a 
+     rule that applies to the running plugin and which prevents it from downloading
+     malicious code from a third party site.
+  </p>
+  <p>You will have to register your plugin first and let (for the time being) a KorAP admin 
+     store your registration on the Kalamar server.
+  </p>
+
+ <h2>Configuring your plugin</h2>
+
+ <p>Let's have a look at a plugin configuration for a toogle button.</p>
+ 
+ <div style="text-align: center;">
+   <img src="./toggle_conf.png" style="border: 1px solid;"></img>
+   <p>[configuration of a toggle button in JSON]</P>
+ </div>
+
+ <p>
+ where:
+ </p>
+
+ <p>
+  <table>
+   <body>
+    <tr><td>"<b>name</b>"</td> <td>:</td>
+	<td>give your plugin a name</td></tr>
+    <tr><td>"<b>panel</b>"</td> <td>:</td>
+	<td>specify the "panel" where the plugin will appear in. <br>
+	    currently only "query" and "result" are available.</td></tr>
+    <tr><td>"<b>title</b>"</td>  <td>:</td>
+	<td>the text label on the button.</td></tr>
+    <tr><td>"<b>desc</b>" (inside "embed")</td>  <td>:</td>
+	<td>the text of the plugin's tooltip.</td></tr>
+    <tr><td>"<b>icon</b>"</td>  <td>:</td>
+	<td>lets you specify the button's icon.</td></tr>
+    <tr><td>"<b>classes</b>"</td> <td>:</td>
+	<td>declares as a 'plugin' and a 'button'.</td></tr>
+    <tr><td>"<b>template</b>"</td> <td>:</td>
+	<td>contains the URL of the HTML file which will be
+	    automatically loaded by Kalamar's Plugin System during the initialization step. <br>
+            This file contains the appearance of the Widget and the javascript functions
+            it needs to run.
+    <tr><td>"<b>permissions</b>"</td> <td>:</td>
+	<td>for security reasons, the permitted plugin's actions inside iframes
+            (see 'sandbox' attribute of iframe element for more infos): <br>
+	    "<b>forms</b>" &nbsp; : allow submission of HTML forms. <br>
+	    "<b>scripts</b>" : allow scripts (e.g. Javascripts) to run. 
+	    
+    </tr>   
+   </body>
+  </table>
+  
+ </p>
+
+ <h2>Plugin Initialization</h2>
+
+ <p>Registrated plugins are automatically initialized by Kalamar's Plugin System by
+    loading the HTML file you have entered under "<b>template</b>". If it contains javascript
+    commands, they will be executed. If it contains HTML code, it will be displayed inside the
+    iframe you specified in "<b>panel</b>". If none HTML is specified, the plugin remains in the 
+    background and is not visible. 
+ </p>
+
+ <h2>Case 1: Activating a Remote Service in the KoralPipe</h2>
+
+ <p>The KoralPipe is the Kustvakt component which transforms a submitted query into a 
+    KoralQuery and transmits it to services which restrict, modify or enhance it.
+    Registered remote services may be added to the KoralPipe by the way of a plugin services
+    and switched on and off by the user in Kalamar.</p>
+ 
+ <p>The GlemmServices are such a remote service which may
+    be activated in the KoralPipe to rewrite lemma queries as wordform lists.
+    The GlemmServices are activated by the user when the corresponding "glemm" button 
+    (see the screenshot above) is pressed. In this case, the "glemm" button is the plugin
+    which activates or deactivates the connection to the GlemmServices.</p>
+
+ <h3>Declaration of a toggle button</h3>
+
+ <p>A toggle button in the KorAP Plugin System has to be implemented like in the following 'plugin.html':</p>
+
+ <div style="text-align:center;">
+  <img src="./plugin_html.png" style="border:1px solid;"></img>
+  <p>[ plugin.html of the Glemm Plugin ] </p>
+ </div>
+
+ <h3>Data flow between the Plugin and Kalamar</h3>
+
+  <ul>
+   <li>the 'plugin.html' is the one you specify with the URL in the "<b>template</b>" field of
+       the Plugin configuration (see plugin configuration above).
+   <li>this JS script defines a data structure which will be sent to the KoralPipe, so
+       the "<b>action</b>" field is initialized with the value "<b>pipe</b>".
+   <li>the "<b>service</b>" field is filled with the URL of the GlemmServices (which 
+       are fronted by another service, i.e. the WformServices).
+   <li>each time the user presses the "glemm" button, the JS function '<code>pluginit(p)</code>'
+       is called. The data field "<b>job</b>" is set to "<b>add</b>" or "<b>del</b>"
+       depending on the state of the toggle button.
+   <li>the content of the '<b>data</b>' object 
+       is added by <code>KorAPlugin.sendMsg(data)</code> to the query and will be sent
+       together with the query to the KoralPipe when the user starts the search.
+  </ul>
+
+ <h3>Where the remote service comes into play</h3>
+
+  <ul>
+   <li>When the sumitted query is processed by the KoralPipe (on the KorAP server)
+       and <code>'job'='add'</code>, the query (now being converted to a KoralQuery) 
+       is sent to the remote service referenced by '<b>template</b>' 
+       (i.e. to the GlemmServices in our case).
+  <li>The GlemmServices read the KoralQuery, extracts each lemma search query and replaces
+      it by a list of corresponding wordforms.
+  </ul>
+
+ <h2>Case 2: Calling an Assistant as a Widget for editing the query</h2>
+
+ <p>In this case, the assistant (= widget) consists of a main HTML file 
+    refered to by the URL in the "<b>template</b>" field,
+    with its Javascript functions and it may specify e.g. other .js and .css to load. The "<b>action</b>"
+    must specify "<b>addWidget</b>". You also may specify an "<b>icon</b>" for the 
+    button which will call the assistant and which will appear in the selected "<b>panel</b>".</p>
+
+ <div style="text-align:center;">
+  <img src="./assistant_conf.png" style="border:1px solid;"></img>
+  <p>[configuration of a widget in JSON] </p>
+ </div>
+
+ <h3>Appearance of the Widget's calling button</h3>
+
+ <div style="text-align:center;">
+  <img src="./Assistant_button.png"></img>
+  <p>[the Widget's button (orange) in the query panel with tooltip] </p>
+ </div>
+
+ <h3>Appearance of the Widget inside the iframe</h3>
+
+ <p>A click on the widget's button loads and displays the widget
+    inside the iframe. The white cross will close the widget.
+ </p>
+
+ <div style="text-align:center;">
+  <img src="./Assistant_display.png"></img>
+  <p>[the Assistant (= widget) displayed inside the iframe] </p>
+ </div>
+
+ <h3>Interaction between the widget and Kalamar</h3>
+
+ <p>Inside the iframe the widget is like an idependent browser window, which (to avoid security
+    issues) is not allowed to share data with the embedding Kalamar window. 
+    Fortunatly the Kalamar Plugin System offers an API to let
+    the widget access e.g. the edited query line. The communication is achieved via the
+    <code>postMessage()</code> function.
+ </p>
+
+ <p>After sending a message to the Kalamar Plugin System, keep in mind, 
+    as javascripts are run asynchronously, that you have to delay your JS code before
+    your message has returned with an answer. As a example, use a delay of 250ms.
+ </p>
+
+ <h2>The Kalamar Plugin System's API (extract) </h3>
+
+ <p>To communicate with the Kalamar Plugin system, the Widget has to send a message
+    by calling <code>KorAPlugin.sendMsg(msg)</code>. Here are some of the currently implemented
+    messages the Widget can send to the Kalamar APIs. 
+ </p>
+
+ <p><b>Get the Query Line</b></p>
+
+ <pre class="cgrey">
+ msg = { 
+   'action' : 'get', 
+   'key'    : 'QueryForm',
+   }</pre>
+
+ <p>These are the returned values:</p>
+
+ <pre class="cgrey">
+  'value' : {
+      'q'         : the full query line,
+      'ql'        : the selected query language, 
+      'selection' : the cursor position and the selected text inside the query line.
+      }</pre>
+ 
+ <p>The 'selection' property is an array with 2 integers: <br>
+  <pre class="cgrey">
+    selection[0] = start position of selection,
+    selection[1] = end position of selection.</pre>
+ </p>
+ 
+ <p>If <code>start = end position</code> then no text has been selected and the value
+ returned is the cursor position.
+ </p>
+   
+ <p><b>Replace the current query line by a new query</b></p>
+
+ <pre class="cgrey">
+ msg = { 
+   'action' : 'set', 
+   'key'    : 'QueryForm',
+   'value'  : {
+      'q'     : 'text of the new query...',
+      }
+   }</pre>
+
+ <p><b>Select a new Query Language</b></p>
+
+ <pre class="cgrey">
+ msg = { 
+   'action' : 'set', 
+   'key'    : 'QueryForm',
+   'value'  : {
+      'ql'    : 'name of new query language'
+      }
+   }</pre>
+
+ <h2>Adding more than one Services to a plugin</h3>
+
+ <p>In fact you can even add a list of services to a plugin. This is the case in our
+    above examples: Case 1 and 2 are two services of the Glemm Plugin. You configure
+    a list of services like this:
+
+ <pre class="cgrey">
+   {
+     "name": "Glemm Plugin",
+     "embed" :  [
+       { 
+         configuration of service 1
+       },
+       {
+         configuration of service 2
+       }, etc.
+      ]
+    }</pre>
+ </p>
+
+
+ <h2>Testing your own plugins in Kalamar</h2>
+
+ <p>When developing plugins for KorAP, you need to get access to the Plugin Server of Kalamar
+    to test them. You can download, build and install Kalamar on your computer. 
+    This gives you the opportunity to configure your plugins and activate them.
+ </p>
+
+ <p>You can download the sources of Kalamar from GitHub at
+    <a href="https://github.com/KorAP/Kalamar">https://github.com/KorAP/Kalamar</a>.
+    Follow the instructions of the Readme to build it.</p>
+    
+ <p>Having built Kalamar successfully you will be able to start it by launching
+    the <code>morbo</code> HTTP Server and specifying your own Kalamar test 
+    configuration with the following command:</p>
+
+ <pre class="cgrey">
+  MOJO_CONFIG=<b>your_test.conf</b> morbo -v script/kalamar
+ </pre>
+
+ <p>Your <b>Kalamar configuration file</b> 'your_test.conf' should look like this and 
+    must specify the name of the file containing your plugin declaration:</p>
+
+ <pre class="cgrey">
+ {
+    Kalamar => {
+       plugins => ['Plugins']
+       },
+    'Kalamar-Plugins' => {
+       default_plugins => '<b>your_plugin_declarations.json</b>'
+       }
+ }
+ </pre>
+
+ <p>Last but not least, you must be aware that your declaration file is expected
+    to hold your plugin(s) in a JSON list, even if you only declare 1 plugin. So
+    your declaration file must have the following syntax:
+ </p>
+
+ <pre class="cgrey">
+  [ <b>{plugin 1}</b> (<b>, {plugin 2}</b>)* ]
+ </pre>
+
+ </body>
+
+</html>
