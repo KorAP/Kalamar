@@ -68,6 +68,23 @@
       "message": "We have to adapt the tour for this change. I can do that in a separate commit.",
       "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f9dbb74_0ae4e4e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-30T11:24:35Z",
+      "side": 1,
+      "message": "9150 is patched here. Therefore vote reset to -1. Copied the unresolved issues from 9150.",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
