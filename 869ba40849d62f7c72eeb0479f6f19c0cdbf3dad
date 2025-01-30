@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0668684e_2370b3e4",
+        "filename": "dev/scss/base/form.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-30T10:27:08Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "53c3baad_93557756",
+      "range": {
+        "startLine": 176,
+        "startChar": 16,
+        "endLine": 176,
+        "endChar": 23
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97b89869_68541265",
         "filename": "lib/Kalamar/Plugin/Auth.pm",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2024-12-12T06:13:46Z",
       "side": 1,
       "message": "Fine, but could be simplified with a single optional rule, that checks for validity. I think something like that:\n\n  my $vopt \u003d $v-\u003eoptional(\u0027url\u0027, \u0027trim\u0027, \u0027not_empty\u0027)-\u003elike(qr/^(http|$)/i);\n  if ($src \u0026\u0026 ref $src \u0026\u0026 $src-\u003esize \u003e 0){\n    $v-\u003eerror(\u0027url\u0027 \u003d\u003e [\u0027required\u0027]) unless $vopt-\u003eis_valid;\n  };",
+      "range": {
+        "startLine": 1272,
+        "startChar": 7,
+        "endLine": 1272,
+        "endChar": 71
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ddf537b_577450cc",
+        "filename": "lib/Kalamar/Plugin/Auth.pm",
+        "patchSetId": 3
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-30T10:27:08Z",
+      "side": 1,
+      "message": "I will leave it as it is, but thanks for the input 😊.",
+      "parentUuid": "97b89869_68541265",
       "range": {
         "startLine": 1272,
         "startChar": 7,
