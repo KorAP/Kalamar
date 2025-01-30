@@ -51,6 +51,23 @@
       "parentUuid": "b7439736_2a5d55a9",
       "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e27618c1_782d1371",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-30T11:20:45Z",
+      "side": 1,
+      "message": "We have to adapt the tour for this change. I can do that in a separate commit.",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
