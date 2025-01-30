@@ -16,6 +16,41 @@
       "message": "https://korap.ids-mannheim.de/gerrit/c/KorAP/Kalamar/+/9150/comment/45b6efd2_03c4efeb/",
       "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfa667a8_b6c9f5c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-30T11:19:39Z",
+      "side": 1,
+      "message": "Clicking to  \"Einführung\" I leads to 404. The help/doc page is not shown.",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ef0f17_b68be71a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-01-30T11:19:39Z",
+      "side": 1,
+      "message": "See #9150 (link above). I\u0027m okay with the term \"Help\" and \"Hilfe\". But we still have the title. It is shown if the mouse moves over the entry in the burger menu. We can think about if we want to use \"Help and Documentation / Hilfe und Dokumentation\" there (Additional entry to kalamar.dict). \nUsually this was designed for the ?-icon, so I\u0027m not sure if we need this feature anymore. But maybe it would be nice to have?",
+      "parentUuid": "b7439736_2a5d55a9",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
