@@ -65,6 +65,30 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3181d89_cdd6a6ac",
+        "filename": "dev/scss/base/form.scss",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-31T12:39:35Z",
+      "side": 1,
+      "message": "I rather meant https://developer.mozilla.org/en-US/docs/Web/CSS/attr, but your approach is valid, too.",
+      "parentUuid": "0668684e_2370b3e4",
+      "range": {
+        "startLine": 176,
+        "startChar": 16,
+        "endLine": 176,
+        "endChar": 23
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97b89869_68541265",
@@ -125,6 +149,30 @@
       "writtenOn": "2024-12-12T06:13:46Z",
       "side": 1,
       "message": "Class is not tested yet.",
+      "range": {
+        "startLine": 50,
+        "startChar": 58,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "869ba40849d62f7c72eeb0479f6f19c0cdbf3dad",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d70de495_363b8fd8",
+        "filename": "lib/Kalamar/Plugin/Auth/templates/auth/clients.html.ep",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-01-31T12:39:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "613bd97d_ba02e72b",
       "range": {
         "startLine": 50,
         "startChar": 58,
