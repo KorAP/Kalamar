@@ -24,7 +24,7 @@
         - Don't send empty pipes and states via query param (diewald)
         - Fix access of iframe location in tutorials. (diewald)
         - Fix test that wrongly required SSL support. (diewald)
-        - URLs for plugins are mandatory (closes # 322; hebasta)
+        - URLs for plugins are mandatory (closes #233; hebasta)
 
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)
