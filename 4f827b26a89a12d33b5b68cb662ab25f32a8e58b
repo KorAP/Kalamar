@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f49e89f_2034e965",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-06T12:20:10Z",
+      "side": 1,
+      "message": "After adding glimpse to the query panel the glimpse id should not be selected anmyore. This line has then to be replaced with the line above to make the tour work.\nI assume in the end glimpse is deleted from header.html.ep.",
+      "revId": "4f827b26a89a12d33b5b68cb662ab25f32a8e58b",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
