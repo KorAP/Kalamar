@@ -27,7 +27,7 @@ WriteMakefile(
     'Mojolicious::Plugin::CHI' => 0.20,
     'Mojolicious::Plugin::ClientIP' => 0.02,
     'Mojolicious::Plugin::AutoSecrets' => 0.006,
-    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.11,
+    'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.12,
     'Cache::FastMmap' => 1.57,
     'DateTime' => 1.63,
 

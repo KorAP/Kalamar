@@ -140,6 +140,14 @@ define([
 
     // Responsive navbar: hide and show burger menu
     const burgerIcon = document.querySelector('.burger-icon');
+    const navbarGroup = document.querySelector('.navbar-group');
+    
+    if (burgerIcon && navbarGroup) {
+      if (navbarGroup.innerHTML.trim() !== '') {
+        burgerIcon.classList.add('show');
+      }
+    }
+
     let isBurgerMenuOpen = false;
 
     if (burgerIcon) {
@@ -319,9 +327,9 @@ define([
         document.body.removeChild(span);
         let hintLeftPosition = inputWidth;
 
-        // TODO: This shouldn't be a fixed position!
         if (aside && aside.classList.contains('active') && !isSmallScreen) {
-          hintLeftPosition += 230;
+          const asideWidth = aside.getBoundingClientRect().width;
+          hintLeftPosition += asideWidth;
         }
         
         hint.style.left = `${hintLeftPosition}px`;
@@ -339,7 +347,9 @@ define([
         if (mutation.type === 'childList') {
           const hint = document.querySelector('#hint');
           if (hint) {
-            shiftContent();
+            if (window.location.pathname !== '/settings' && window.location.pathname !== '/settings/') {
+              shiftContent();
+            }
             observer.disconnect();
           }
         }
@@ -385,6 +395,18 @@ define([
       });
     }
 
+    if (window.location.pathname === '/settings' || window.location.pathname === '/settings/') {
+      const header = document.querySelector('header');
+      const main = document.querySelector('main');
+      const footer = document.querySelector('footer');
+
+      aside.style.display = 'none';
+
+      if (header) header.style.setProperty('padding-left', '0', 'important');
+      if (main) main.style.setProperty('padding-left', '0', 'important');
+      if (footer) footer.style.setProperty('padding-left', '0', 'important');
+    }
+    
     // Replace QL select menus with KorAP menus
     var qlField = d.getElementById('ql-field');
     if (qlField !== null) {
