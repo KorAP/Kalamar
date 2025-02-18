@@ -41,6 +41,7 @@
       -o-transition: all .2s ease-in-out;
       -moz-transition: all .2s ease-in-out;
       -webkit-transition: all .2s ease-in-out;
+      cursor: pointer;
 
       &:hover {
         background-color: $middle-green;
@@ -72,6 +73,9 @@
     }
 
     &-btn {
+      display: flex;
+      align-items: center;
+      column-gap: $base-padding;
       height: $standard-size-and-spacing;
       padding: 1.25rem 1rem;
       color: $nearly-white;
@@ -95,9 +99,12 @@
 
       h3.user-name {
         padding-right: 2px;
-        // font-size: 85%;
         font-size: 120%;
-        display: inline;
+        display: inline-block;
+        max-width: 6ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
@@ -297,10 +304,10 @@ header {
 
     &.right {
       float:   right;
-      display: inline-block;
-      >.tutorial{
-        margin-left: 10px;
-      }
+      // display: inline-block;
+      // >.tutorial{
+      //   margin-left: 10px;
+      // }
     }
 
     &.top {
