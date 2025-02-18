@@ -1,5 +1,5 @@
 %# # user not logged in
-% if (!stash('documentation') && !$embedded && !$c->auth->token) {
+% if (!$embedded && !$c->auth->token) {
 %   if (flash('handle_or_email') && !param('handle_or_email')) {
 %     param(handle_or_email => flash('handle_or_email'));
 %#  Legacy-Support:
