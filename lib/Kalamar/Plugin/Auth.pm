@@ -241,11 +241,11 @@ sub register {
 
 
   # Add logout button to header button list
-  $app->content_block(
-    headerButtonGroup => {
-      template => 'partial/auth/logout'
-    }
-  );
+  # $app->content_block(
+  #   headerButtonGroup => {
+  #     template => 'partial/auth/logout'
+  #   }
+  # );
 
 
   # Add hook after search
