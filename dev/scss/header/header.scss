@@ -72,6 +72,9 @@
     }
 
     &-btn {
+      display: flex;
+      align-items: center;
+      column-gap: $base-padding;
       height: $standard-size-and-spacing;
       padding: 1.25rem 1rem;
       color: $nearly-white;
@@ -95,9 +98,12 @@
 
       h3.user-name {
         padding-right: 2px;
-        // font-size: 85%;
         font-size: 120%;
-        display: inline;
+        display: inline-block;
+        max-width: 4ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
