@@ -85,6 +85,42 @@
       "message": "9150 is patched here. Therefore vote reset to -1. Copied the unresolved issues from 9150.",
       "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea3e6c6_36f25f99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-02-19T11:15:46Z",
+      "side": 1,
+      "message": "That\u0027s strange ... I can\u0027t figure out the problem, it works on my side. Maybe there\u0027s still some old code in the cache? Can you check again, please?",
+      "parentUuid": "cfa667a8_b6c9f5c2",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc610d3c_fff61618",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-02-19T11:15:46Z",
+      "side": 1,
+      "message": "What do you mean by this?",
+      "parentUuid": "e27618c1_782d1371",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
