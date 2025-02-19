@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb5d5b72_795e5808",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-02-19T11:09:27Z",
+      "side": 1,
+      "message": "As mentioned in Slack before, the relevant files for this change are header.scss and media.scss.",
+      "revId": "fd6d0368bc9fc087f979cfc5c2b0e87484520e0c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
