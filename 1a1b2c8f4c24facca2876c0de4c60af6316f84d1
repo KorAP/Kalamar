@@ -139,6 +139,24 @@
       "parentUuid": "fc610d3c_fff61618",
       "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b17a84c_9e53b582",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-19T13:13:30Z",
+      "side": 1,
+      "message": "Hmm, I tried it again... I mean the help entry in the dropdown list. Actually it works if I click on help on the intro page first, then at the dropdown list entry. But not if I reload the intro page and then click at the help entry. Results to: \nhttp://127.0.0.1:3000/doc//?embedded\u003dtrue\n[HTTP/1.1 404 Not Found 14ms]",
+      "parentUuid": "bea3e6c6_36f25f99",
+      "revId": "1a1b2c8f4c24facca2876c0de4c60af6316f84d1",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
