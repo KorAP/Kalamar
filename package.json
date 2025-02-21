@@ -19,7 +19,7 @@
     "grunt-sass": "^4.0.0",
     "grunt-shell": "^4.0.0",
     "grunt-terser": "^2.0.0",
-    "imagemin": "^8.0.1",
+    "imagemin": "^9.0.0",
     "optipng-bin": "^9.0.0",
     "sass": "^1.44.0",
     "vinyl-fs": "^4.0.0"
