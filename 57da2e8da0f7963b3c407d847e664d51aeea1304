@@ -33,6 +33,23 @@
       "message": "When choosing \"News\" the help entries are displayed at the side bar. This is a little confusing, because the news are not an entry on the side bar.",
       "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f74f9b86_270046d7",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-26T17:24:18Z",
+      "side": 1,
+      "message": "As I remember it, we wanted to make the news configurable in kalamar.xy.conf. Right now, if there are no news there is still the \"News\" leading to a blank page with header \"News\".",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
