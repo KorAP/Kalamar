@@ -16,6 +16,23 @@
       "message": "We should not forget to change the \"OAuth\" entry in the menu. As I remember it, we agreed in the JF to the term API Tokens (?).",
       "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0f3980_fd0921cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-26T17:17:38Z",
+      "side": 1,
+      "message": "When choosing \"News\" the help entries are displayed at the side bar. This is a little confusing, because the news are not an entry on the side bar.",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
