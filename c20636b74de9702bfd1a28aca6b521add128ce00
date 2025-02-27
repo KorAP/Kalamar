@@ -16,6 +16,23 @@
       "message": "This is not so important for the current master, because it is not intuitive and kind of difficult to open the help and the tour at the same time, but is needed for #9230.",
       "revId": "c20636b74de9702bfd1a28aca6b521add128ce00",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9553ba5a_df11c94c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-27T11:22:31Z",
+      "side": 1,
+      "message": "The tooltip has to be floating for #9230, too, because  in #9230 the tour can start not only at the intro page.",
+      "revId": "c20636b74de9702bfd1a28aca6b521add128ce00",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
