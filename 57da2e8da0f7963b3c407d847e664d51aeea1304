@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a42be548_e1a190d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-27T10:02:32Z",
+      "side": 1,
+      "message": "Fails Test: \n#   Failed test \u0027exact match for selector \"h3\"\u0027\n#   at t/doc.t line 59.\n#          got: \u0027\u0027\n#     expected: \u0027Beispielanfragen\u0027\n\nI can fix that in the end",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f74f9b86_270046d7",
         "filename": "templates/partial/header.html.ep",
         "patchSetId": 2
