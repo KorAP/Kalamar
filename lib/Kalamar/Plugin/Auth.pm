@@ -111,7 +111,7 @@ sub register {
           clientRegister => 'Neue Client-Applikation registrieren',
           registerSuccess => 'Registrierung erfolgreich',
           registerFail => 'Registrierung fehlgeschlagen',
-          oauthSettings => 'OAuth',
+          oauthSettings => 'API Tokens',
           #for marketplace settings
           marketplace => 'Marktplatz',
           plugins => 'Plugins',
@@ -185,7 +185,7 @@ sub register {
           clientRegister => 'Register new client application',
           registerSuccess => 'Registration successful',
           registerFail => 'Registration denied',
-          oauthSettings => 'OAuth',
+          oauthSettings => 'API tokens',
           #for marketplace settings
           marketplace => 'Marketplace',
           plugins => 'Plugins',
