@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb8ec447_59cdfc53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-27T09:38:40Z",
+      "side": 1,
+      "message": "Right now, we do not distinguish between announcements and news. Actually I\u0027m not sure if we wanted to do that before the new release.\nRight now, doc/news is linked and includes announcement.html.ep. The announcements appear in the news page and at the right box at the intro page.\nAs far as I remembered we wanted to have the maintenances announcements on the intro page (I like the \"right box design 😊\") and the news at the news page.",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f74f9b86_270046d7",
         "filename": "templates/partial/header.html.ep",
         "patchSetId": 2
