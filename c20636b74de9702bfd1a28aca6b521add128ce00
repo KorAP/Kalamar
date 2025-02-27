@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd670e53_a9e04368",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-27T11:20:32Z",
+      "side": 1,
+      "message": "This is not so important for the current master, because it is not intuitive and kind of difficult to open the help and the tour at the same time, but is needed for #9230.",
+      "revId": "c20636b74de9702bfd1a28aca6b521add128ce00",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
