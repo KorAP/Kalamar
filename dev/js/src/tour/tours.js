@@ -121,10 +121,8 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
       let Steps =[
         //Step 1, intro_item 0
         {  
-          element: '#link-guided-tour',
           title: loc.TOUR_welcti,
           intro: loc.TOUR_welc,
-          position: 'right',
         },
         //Step 2, intro_item 1
         {
@@ -245,7 +243,14 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
           intro._introItems[7].element = doe.querySelector('#vc-view * .doc');
           intro._introItems[7].position = "left";
           break;    
-        } 
+        }
+        /*
+        * Hides the tutorial. If it is opened in an iframe the searchbar which is needed for the tour is not visible anymore.
+        */
+        if(this._currentStep == 1){
+          let tutel = doe.querySelector('#tutorial');
+          tutel.style.display = 'none';
+        }
         if(this._currentStep == 9){
           let statbut = doe.querySelector('.statistic');
           statbut.click();
