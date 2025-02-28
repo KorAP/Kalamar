@@ -16,6 +16,24 @@
       "message": "I am not sure I fully understand that.",
       "revId": "f4107f1334a4d10ff34dfaa3d844e19b8d4fed40",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba220372_4f082459",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-02-28T13:27:57Z",
+      "side": 1,
+      "message": "The first tooltip of the tour was linked to the guided-tour entry on the intro page, which does not work anymore in #9230. Therefore it should be a floating tooltip. \n\nIn #9230 the user can open the help and then the tour, which leads to the help overlapping the elements on the searchbar which are needed for the tour. \n\nBoth changes are needed for #9230, but do change anything for the user in the current master.",
+      "parentUuid": "0a7a571d_6f1bd1ba",
+      "revId": "f4107f1334a4d10ff34dfaa3d844e19b8d4fed40",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
