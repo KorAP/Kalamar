@@ -89,6 +89,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be9f15a2_f2b6efc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-03-04T13:08:55Z",
+      "side": 1,
+      "message": "That\u0027s odd, I can\u0027t remember the sidebar was there in one of my earlier commits ... :/\nWill check it now.",
+      "parentUuid": "0b0f3980_fd0921cf",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10da2b05_8d9ff80d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-03-04T13:08:55Z",
+      "side": 1,
+      "message": "I created a separate file for each case (announcement.html.ep and news.html.ep) a while ago, when I added the news link to the navbar. Maybe we can use them now, if we want to have both? And yes, I also remember that we wanted to have the box on the starting page for maintenance announcements and a separate news page (that\u0027s why I tried to create a separate page for news back then xD) ... 😊",
+      "parentUuid": "bb8ec447_59cdfc53",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f74f9b86_270046d7",
         "filename": "templates/partial/header.html.ep",
         "patchSetId": 2
@@ -100,6 +136,24 @@
       "writtenOn": "2025-02-26T17:24:18Z",
       "side": 1,
       "message": "As I remember it, we wanted to make the news configurable in kalamar.xy.conf. Right now, if there are no news there is still the \"News\" leading to a blank page with header \"News\".",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8f78db_51ac615e",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-03-04T13:08:55Z",
+      "side": 1,
+      "message": "Ah, yes, I somehow couldn\u0027t figure out how to remove the content block from my kalamar.xy.conf file to another place and make it work from there, so I just put the links into the header template directly and will check it out later!",
+      "parentUuid": "f74f9b86_270046d7",
       "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
