@@ -59,7 +59,7 @@ $t->get_ok('/' => { 'Accept-Language' => 'en-US, en, de-DE' })
 $t->get_ok('/doc/ql/' => { 'Accept-Language' => 'de-DE, en-US, en' })
   ->status_is(200)
   ->text_is('title','KorAP: Anfragesprachen')
-  ->text_is('h3','Beispielanfragen')
+  ->text_is('#examples > h3','Beispielanfragen')
   ;
 
 $t->get_ok('/doc/ql' => { 'Accept-Language' => 'de-DE, en-US, en' })
