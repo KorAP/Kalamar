@@ -2,7 +2,9 @@
 
 % my $classes = '';
 
-% if (length($side_bar) == 0) {
+%# TODO: This should not check for login!!!
+% my $helpers = app->renderer->helpers;
+% if (length($side_bar) == 0 && exists $helpers->{'auth.token'} && $c->auth->token) {
 %   if (my $nav = navigation('settings')) {
 %     $side_bar = b('<nav>' . $nav . '</nav>');
 %     $classes = 'settings ';

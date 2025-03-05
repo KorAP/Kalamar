@@ -1,4 +1,5 @@
 %# # user not logged in
+% my $embedded = stash('embedded');
 % if (!$embedded && !$c->auth->token) {
 %   if (flash('handle_or_email') && !param('handle_or_email')) {
 %     param(handle_or_email => flash('handle_or_email'));
