@@ -177,6 +177,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33736c00_3ede8278",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-05T18:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a8be1e_ac830d62",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f74f9b86_270046d7",
@@ -226,6 +244,24 @@
       "side": 1,
       "message": "I reintroduced headerButtonGroup, but it requires 0.12 of ContenBlock.",
       "parentUuid": "9e8f78db_51ac615e",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc762e0_a2c9201e",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-05T18:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e2c466f_f42e70f0",
       "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
