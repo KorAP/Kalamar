@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab4156b_ce7a5361",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-05T09:58:02Z",
+      "side": 1,
+      "message": "Fixes failing test in #9230, does no harm in current master",
+      "revId": "c166a6385a5d123e0529ae0512ad0f3c753d0646",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
