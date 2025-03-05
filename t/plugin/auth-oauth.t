@@ -110,7 +110,7 @@ $t->get_ok('/?q=Baum')
   ->content_like(qr/${q}authorized${q}:null/)
   ->element_exists_not('div.button.top a')
   ->element_exists_not('aside.active')
-  ->element_exists_not('aside.off')
+  ->element_exists('aside.off')
   ;
 
 $t->get_ok('/')
