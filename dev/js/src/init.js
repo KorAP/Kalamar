@@ -411,6 +411,14 @@ define([
       if (footer) footer.style.setProperty('padding-left', '0', 'important');
     }
     
+    if (window.location.pathname.startsWith('/doc')) {
+      const navDropdown = aside.querySelector('nav.dropdown');
+
+      if (navDropdown) {
+        navDropdown.remove();
+      }
+    }
+
     // Replace QL select menus with KorAP menus
     var qlField = d.getElementById('ql-field');
     if (qlField !== null) {
