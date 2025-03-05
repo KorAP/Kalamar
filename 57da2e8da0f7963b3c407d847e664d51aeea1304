@@ -210,6 +210,24 @@
       "parentUuid": "f74f9b86_270046d7",
       "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2c466f_f42e70f0",
+        "filename": "templates/partial/header.html.ep",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-05T13:40:49Z",
+      "side": 1,
+      "message": "I reintroduced headerButtonGroup, but it requires 0.12 of ContenBlock.",
+      "parentUuid": "9e8f78db_51ac615e",
+      "revId": "57da2e8da0f7963b3c407d847e664d51aeea1304",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
