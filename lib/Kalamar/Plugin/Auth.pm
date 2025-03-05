@@ -235,11 +235,11 @@ sub register {
 
 
   # Add login frame to sidebar
-  $app->content_block(
-    sidebar => {
-      template => 'partial/auth/login'
-    }
-  );
+  # $app->content_block(
+  #   sidebar => {
+  #     template => 'partial/auth/login'
+  #   }
+  # );
 
 
   # Add logout button to header button list
