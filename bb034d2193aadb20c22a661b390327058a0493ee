@@ -88,6 +88,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04bf88b9_2805a1a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:38:10Z",
+      "side": 1,
+      "message": "We should take care that we don\u0027t publish this publication before we support that users SHOULD write their own plugins ;).",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c2ee6e0_6c5f388f",
         "filename": "doc/guide_Kalamar_plugins.html",
         "patchSetId": 1
