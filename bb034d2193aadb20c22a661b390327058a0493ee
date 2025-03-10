@@ -135,6 +135,80 @@
       "message": "Images should be integrated in the Mojolicious template with %\u003dGA_button and put under dev/img",
       "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6280ba88_e2fba2e0",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:19:44Z",
+      "side": 1,
+      "message": "Layout(h1 - h6) should be following the structure of the Kalamar\u0027s tutorial layout.",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ecb7d00_88a08f1c",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:19:44Z",
+      "side": 1,
+      "message": "Subsections should be defined and added to templates/doc/navigation.json (throughout the whole guide).",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde58f1c_f2231352",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:19:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure, if we should put the descriptions of the image like that in the doc. Maybe as tooltip if the user hovers over the image? Or in some other way?",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d92a48e6_36e2c005",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:19:44Z",
+      "side": 1,
+      "message": "This should be realised as \u003c%\u003d ext_link_to ... (template).",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
