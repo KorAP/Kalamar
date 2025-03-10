@@ -67,6 +67,74 @@
       "message": "I would tend to put the guide unter the help entry Entwicklung/Development. Any opinions?",
       "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2ee6e0_6c5f388f",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T10:33:00Z",
+      "side": 1,
+      "message": "The title should be part of the Mojolicious template layout.",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ffdb7ae_b9174300",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T10:33:00Z",
+      "side": 1,
+      "message": "style information should be part of dev/scss/main/tutorial.scss",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd7883ba_176a08f9",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T10:33:00Z",
+      "side": 1,
+      "message": "I would not put the date here. We should always have the tutorial up to date.",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8caba14_61dcf139",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T10:33:00Z",
+      "side": 1,
+      "message": "Images should be integrated in the Mojolicious template with %\u003dGA_button and put under dev/img",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
