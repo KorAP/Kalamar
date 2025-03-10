@@ -213,6 +213,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5569be32_e67147ce",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:32:32Z",
+      "side": 1,
+      "message": "one",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d92a48e6_36e2c005",
         "filename": "doc/guide_Kalamar_plugins.html",
         "patchSetId": 1
@@ -224,6 +241,23 @@
       "writtenOn": "2025-03-10T15:19:44Z",
       "side": 1,
       "message": "This should be realised as \u003c%\u003d ext_link_to ... (template).",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf693800_15cfd3f5",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:32:32Z",
+      "side": 1,
+      "message": "one",
       "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
