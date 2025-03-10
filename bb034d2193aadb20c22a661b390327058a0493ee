@@ -71,6 +71,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "872f31e5_ac545390",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T15:25:40Z",
+      "side": 1,
+      "message": "As non native speaker I think the rules in which case the words are capitalized in headings are quite confusing. As far as I know, there are three different possibilites, but I think all these possibiities are mixed here so we have to choose one.",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c2ee6e0_6c5f388f",
         "filename": "doc/guide_Kalamar_plugins.html",
         "patchSetId": 1
