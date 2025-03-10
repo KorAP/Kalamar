@@ -50,6 +50,23 @@
       "message": "Thank you very much for your work 😊 🙏!\n\nThe documentation has to be in the directory templates (templates/doc/...) and  guide_Kalamar_plugins.html has to be realised as Mojo template (https://docs.mojolicious.org/Mojo/Template).\nI can create a guide_Kalamar_plugins.ep.html file based on your data if you want me to do that.",
       "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d98ff68a_a4b4dd46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-10T10:08:55Z",
+      "side": 1,
+      "message": "I would tend to put the guide unter the help entry Entwicklung/Development. Any opinions?",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
