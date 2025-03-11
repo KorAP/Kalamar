@@ -332,11 +332,15 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_focusextension', '** focus(the old and {[]})'), cutoff => 1
 
-  <p><code>focus()</code> is especially useful if you are searching for matches in certain areas,
-    for example in quotes using positional operators.
-    While not being interested in the whole quote as a match, you can focus on what's really relevant to you.</p>
+  <p><code>focus()</code> is especially useful in combination with positional operators, when you are not interesetd in the whole matching span, which serves just a restriction, but just in a certain part of it.</p>
+
+  For example if you are searching something inside quotations, but are not interested int the whole quotation:</p>
 
   %= doc_query poliqarp => loc('Q_poliqarp_focusrelevance', '** focus(contains(she []{,10} said, {Tree}))'), cutoff => 1
+
+  <p>Or if you are looking for some sequence within sentence boundaries, but are not interested in the whole sentence, like here a sequence of adjective, negation, adjectiv noun:</p>
+
+  %= doc_query poliqarp => loc('Q_poliqarp_focusrelevance2', '** focus(contains(<base/s=s>, {[tt/p=ADJA][tt/p=PTKNEG][tt/p=ADJA] [tt/p=NN]}))'), cutoff => 1
 
   <p>In case a class number is missing, the focus operator defaults to the class number 1: <code>focus(...)</code> is equal to <code>focus(1: ...)</code>.</p>
 
