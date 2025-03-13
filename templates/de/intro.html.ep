@@ -3,8 +3,6 @@
 <div class="intro-container">
   <div class="intro">
     <p><noscript>KorAP erwartet für einige Funktionen die Aktivierung von JavaScript.</noscript></p>
-    <p><strong>Neu bei KorAP?</strong> Dann starten Sie doch mit unserer <a class="link-guided-tour">Tour</a> oder schauen Sie in unsere <%= doc_opener 'ql', begin %>Hilfe<% end %>!</p>
-
     <p>KorAP wird am <a href="http://www.ids-mannheim.de">Leibniz-Institut für Deutsche Sprache</a> in Mannheim entwickelt, Mitglied der <a href="http://www.leibniz-gemeinschaft.de">Leibniz Gemeinschaft</a>. Die einzelnen Module werden als Open Source auf <a href="http://github.com/KorAP">GitHub</a> veröffentlicht.</p>
   </div>
 
