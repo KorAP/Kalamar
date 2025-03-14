@@ -139,7 +139,7 @@ $standard-margin: 4px;
       margin-right: 0 !important;
 
       &-btn {
-        &.login {
+        & {
           display: none;
 
           & + .dropdown-content {
@@ -148,6 +148,7 @@ $standard-margin: 4px;
         }
 
         &.profile {
+          display: block;
           & + .dropdown-content {
             margin-top: 3.9rem;
           }
