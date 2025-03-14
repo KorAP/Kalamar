@@ -6,13 +6,13 @@
   <h3 class="nav-link"><a href="<%= url_for 'doc_start' %>" class="tutorial" id="view-tutorial"><%= loc "tutorial" %></a></h3>
 % end
 
+% content_block('headerButtonGroup' => { position => 200, template => 'partial/dropdown' });
+  
 <nav class="navbar">
   <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
 
   <div class="navbar-group">
     %= content_block 'headerButtonGroup'
-    %= include 'partial/auth/logout'
-    %= include 'partial/auth/login'
   </div>
 
   <div class="burger-icon"></div>

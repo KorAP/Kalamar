@@ -58,9 +58,9 @@
 
   .dropdown {
     display: flex;
-    align-items: center;
+    // align-items: center;
     margin-right: $standard-size-and-spacing;
-    position: relative;
+    // position: relative;
 
     &:hover .dropdown-content,
     &:focus-within .dropdown-content {
@@ -86,7 +86,7 @@
       -webkit-transition: all .2s ease-in-out;
       cursor: pointer;
 
-      &.login::before {
+      &::before {
         @include icon-font;
         content: $fa-login;
         font-size: 150%;
@@ -112,6 +112,7 @@
     &-content {
       display: none;
       width: fit-content;
+      min-width: 12rem;
       margin-top: $standard-size-and-spacing;
       padding: 0;
       background-color: $middle-green;
@@ -119,21 +120,27 @@
       top: 0;
       z-index: 999;
 
+      /*
       &--left {
         left: 0;
       }
+      */
 
       &--right {
         right: 0;
-        padding: 1rem;
       }
 
+      .login-form {
+        padding: 1rem;
+      }
+      
       form.login {
         display: flex;
         flex-direction: column;
         align-items: center;
 
         legend {
+          display: none;
           padding-bottom: $base-padding;
           color: $nearly-white;
         }
