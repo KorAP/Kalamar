@@ -111,6 +111,8 @@ $t->get_ok('/?q=Baum')
   ->element_exists_not('div.button.top a')
   ->element_exists_not('aside.active')
   ->element_exists('aside.off')
+  ->element_exists('nav.dropdown > div.dropdown-content .login-form')
+  ->element_exists_not('nav.dropdown h3.user-name')
   ;
 
 $t->get_ok('/')
@@ -215,6 +217,9 @@ $t->get_ok('/')
   ->element_exists_not('aside.off')
   ->element_exists_not('aside.active')
   ->element_exists('aside.settings')
+  ->element_exists_not('nav.dropdown > div.dropdown-content .login-form')
+  ->element_exists('nav.dropdown  h3.user-name')
+  ->text_like('nav.dropdown  h3.user-name', qr!test!)
   ;
 
 # Now the user is logged in and should be able to
