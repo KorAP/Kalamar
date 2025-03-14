@@ -233,21 +233,12 @@ sub register {
     }
   });
 
-
-  # Add login frame to sidebar
-  # $app->content_block(
-  #   sidebar => {
-  #     template => 'partial/auth/login'
-  #   }
-  # );
-
-
-  # Add logout button to header button list
-  # $app->content_block(
-  #   headerButtonGroup => {
-  #     template => 'partial/auth/logout'
-  #   }
-  # );
+  $app->content(
+    'headerButtonGroup' => {
+      template => 190,
+      template => 'partial/auth/login'
+    }
+  );
 
 
   # Add hook after search
@@ -985,6 +976,7 @@ sub register {
 
 
   # Add settings
+  # Only relevant for logged in users!
   $app->navi->add(settings => (
     $app->loc('Auth_oauthSettings'), 'oauth'
   ));
@@ -994,7 +986,7 @@ sub register {
     $app->navi->add(settings => (
     $app->loc('Auth_marketplace'), 'marketplace'
    ));
-  }
+  };
 
 
   # Helper: Returns lists of registered plugins (of all users), which are permitted
@@ -1127,7 +1119,7 @@ sub register {
       $c->render_later;
 
         state $p_url = Mojo::URL->new($c->korap->api)->path('plugins/install');
-        
+
         return $c->korap_request(post => $p_url, {} => form => {
           super_client_id => $client_id,
           super_client_secret => $client_secret,
@@ -1166,7 +1158,7 @@ sub register {
         _set_no_cache($c->res->headers);
         my $v = $c->validation;
         $v->required('client-id');
-        
+
         if ($v->has_error) {
           return $c->render(
           json => [],
@@ -1182,7 +1174,7 @@ sub register {
         };
 
         my $uclient_id = $v->param('client-id');
-     
+
         $c->render_later;
         state $s_url = Mojo::URL->new($c->korap->api)->path('plugins/uninstall');
         return $c->korap_request(post => $s_url, {} => form => {
@@ -1268,7 +1260,7 @@ sub register {
       $v->required('desc', 'trim', 'not_empty')->size(3, 255);
       $v->optional('redirect_uri', 'trim', 'not_empty')->like(qr/^(http|$)/i);
       $v->optional('src', 'not_empty');
-     
+
       my $src = $v->param('src');
       if ($src && ref $src && $src->size > 0){
         $v->required('url', 'trim', 'not_empty')->like(qr/^(http|$)/i);
@@ -1295,8 +1287,6 @@ sub register {
 
       my $type = $v->param('type');
       my $src_json;
- 
-  
 
       my $json_obj = {
         name         => $v->param('name'),
@@ -1323,7 +1313,7 @@ sub register {
 
         # Check upload is not empty
         if ($src->size > 0 && $src->filename ne '') {
-      
+
           # Plugins need to be confidential
           if ($type ne 'CONFIDENTIAL') {
             $c->notify(error => $c->loc('Auth_confidentialRequired'));

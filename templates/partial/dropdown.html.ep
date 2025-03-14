@@ -1,0 +1,27 @@
+% my $block_position = 50;
+% foreach my $item ($c->navi->list('settings')) {
+  %= content_block 'dropdown-list', { position => $block_position }, begin
+  <a href="<%= $item->{url} %>"
+     class="dropdown-item"
+     title="<%= $item->{title} %>">
+     <span><%= $item->{title} %></span>
+  </a>
+  % end
+  % $block_position += 1;
+% };
+
+
+%# Ignored when already set
+%= content 'dropdown-header', begin
+  <div class="dropdown-btn"></div>
+% end
+  
+
+% if (content_block_ok('dropdown-list')) {
+  <nav class="dropdown">
+    %= content 'dropdown-header'
+    <div class="dropdown-content dropdown-content--left">
+      %= content_block 'dropdown-list'
+    </div>
+  </nav>
+% };

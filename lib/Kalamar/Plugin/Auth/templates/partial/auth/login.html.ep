@@ -1,53 +1,49 @@
-%# # user not logged in
-% my $embedded = stash('embedded');
-% if (!$embedded && !$c->auth->token) {
-%   if (flash('handle_or_email') && !param('handle_or_email')) {
-%     param(handle_or_email => flash('handle_or_email'));
-%#  Legacy-Support:
-%   } elsif (flash('handle') && !param('handle')) {
-%     param(handle_or_email => flash('handle'));
-%   };
-%#    <fieldset class="fieldset-login">
-%#    %= form_for 'login', 'accept-charset' => 'utf-8', class => 'login', begin
-%#      %= csrf_field
-%#      %= text_field 'handle_or_email', placeholder => loc('userormail')
-%#      %= hidden_field fwd => $c->url_with
-%#      % if (stash('client_id')) {
-%#        %= hidden_field 'client_id' => stash('client_id')
-%#        %= hidden_field 'client_name' => stash('client_name')
-%#        %= hidden_field 'state' => stash('state')
-%#        %= hidden_field 'scope' => stash('scope')
-%#        %= hidden_field 'redirect_uri' => stash('close_redirect_uri')
-%#      % };
-%#      <div>
-%#        %= password_field 'pwd', placeholder => loc('pwd')
-%#        <button type="submit" class="btn-login"><span><%= loc 'go' %></span></button>
-%#      </div>
-%#    % end
+% if ($c->auth->token) {
+  %= content 'dropdown-header', begin
+    <div class="dropdown-btn">
+      <h3 class="user-name">
+        <%= user_handle %>
+      </h3>
+    </div>
+  % end
 
-%#    %= content_block 'loginInfo', separator => '<hr />'
+  %# TODO: CSRF protection
+  %= content_block 'dropdown-list', { position => 1000 }, begin
+    <a href="<%= url_for 'logout' %>"
+       class="dropdown-item logout"
+       title="<%= loc 'logout' %>: <%= user_handle %>">
+       <span><%= loc 'logout' %></span>
+    </a>
+  % end
+% } else {
 
-%#    </fieldset>
+  %# # user not logged in
+  % my $embedded = stash('embedded');
+  % if (!$embedded) {
+  %   if (flash('handle_or_email') && !param('handle_or_email')) {
+  %     param(handle_or_email => flash('handle_or_email'));
+  %#  Legacy-Support:
+  %   } elsif (flash('handle') && !param('handle')) {
+  %     param(handle_or_email => flash('handle'));
+  %   };
 
-    <nav class="dropdown">
-      <div class="dropdown-btn login"></div>
-      <div class="dropdown-content dropdown-content--right">
-        %= form_for 'login', 'accept-charset' => 'utf-8', class => 'login', begin
-          <legend><span><%= loc 'login' %></span></legend>
-          %= csrf_field
-          %= text_field 'handle_or_email', placeholder => loc('userormail')
-          %= hidden_field fwd => $c->url_with
-          % if (stash('client_id')) {
-            %= hidden_field 'client_id' => stash('client_id')
-            %= hidden_field 'client_name' => stash('client_name')
-            %= hidden_field 'state' => stash('state')
-            %= hidden_field 'scope' => stash('scope')
-            %= hidden_field 'redirect_uri' => stash('close_redirect_uri')
-          % };
-          %= password_field 'pwd', placeholder => loc('pwd')
-          <button type="submit" class="btn-login"><span><%= loc 'go' %></span></button>
-        % end
-          %= content_block 'loginInfo', separator => '<hr />'
-      </div>
-    </nav>
-% }
+  %= content_block 'dropdown-list', { position => 1000 }, begin
+    %= form_for 'login', 'accept-charset' => 'utf-8', class => 'login', begin
+<legend><span><%= loc 'login' %></span></legend>
+      %= csrf_field
+      %= text_field 'handle_or_email', placeholder => loc('userormail')
+      %= hidden_field fwd => $c->url_with
+      % if (stash('client_id')) {
+        %= hidden_field 'client_id' => stash('client_id')
+        %= hidden_field 'client_name' => stash('client_name')
+        %= hidden_field 'state' => stash('state')
+        %= hidden_field 'scope' => stash('scope')
+        %= hidden_field 'redirect_uri' => stash('close_redirect_uri')
+      % };
+      %= password_field 'pwd', placeholder => loc('pwd')
+      <button type="submit" class="btn-login"><span><%= loc 'go' %></span></button>
+      % end
+      %= content_block 'loginInfo', separator => '<hr />'
+    % end
+  % };
+% };
