@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9dd5205_3272cbd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-17T10:52:19Z",
+      "side": 1,
+      "message": "If news are there, these are now on the left and not on the right. Therefore it looks more crowded than before.",
+      "revId": "554142512af824870598c8701744175bc590c1d6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
