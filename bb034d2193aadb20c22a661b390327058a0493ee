@@ -105,6 +105,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8c384aa_17505d87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2025-03-17T10:33:18Z",
+      "side": 1,
+      "message": "Thank you for your remarks, I will consider them for a new version.",
+      "parentUuid": "706c48b0_dd0b8a3e",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c2ee6e0_6c5f388f",
         "filename": "doc/guide_Kalamar_plugins.html",
         "patchSetId": 1
