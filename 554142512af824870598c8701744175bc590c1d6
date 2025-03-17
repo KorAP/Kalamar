@@ -34,6 +34,24 @@
       "parentUuid": "f9dd5205_3272cbd2",
       "revId": "554142512af824870598c8701744175bc590c1d6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "313d971f_d3c0ae82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-17T16:10:08Z",
+      "side": 1,
+      "message": "Yes, sorry,the announcements, of course. Nothing speaks against the deletion of the paragraph, but we have to position the announcements then to the right.",
+      "parentUuid": "1b3c11f9_be8c017f",
+      "revId": "554142512af824870598c8701744175bc590c1d6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
