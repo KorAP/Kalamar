@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0332e96_fb1a1c73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-17T10:42:40Z",
+      "side": 1,
+      "message": "Because the help and tour is now very prominent on the top navigation bar, it makes sense to remove both.",
+      "revId": "4b1599f73bd3e602c6f9376472dfe907f109a0d0",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
