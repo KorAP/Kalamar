@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7acc5ab_04cf5d03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-17T16:59:05Z",
+      "side": 1,
+      "message": "It\u0027s not done yet (missing tests) and it\u0027s not perfect (menu position, API tokens listed while not being logged in ...), but at least auth should be removed now. Can you have a look?",
+      "revId": "2d4182da036651ddaf4b1e4efc77075b26614cd3",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
