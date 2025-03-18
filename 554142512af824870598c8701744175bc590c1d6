@@ -69,6 +69,24 @@
       "message": "I\u0027d really empty the content area. Having to scan every time (in vain) if something is changed there is just annoying. In addition I fear that I wouldn\u0027t even notice if there was a change. Let\u0027s follow our IoD approach and empty it completely. I think this really makes sense.\n(The only one thing that also made some sense in the content area was news, preceded and ordered by a date, so that you can quickly scan if it is worth another look.)\n\nWhat do you think?",
       "revId": "554142512af824870598c8701744175bc590c1d6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c3f2d8_92d94bd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-03-18T07:58:19Z",
+      "side": 1,
+      "message": "Now, that we have an overflow menu in addition to the footer, we can do it without any drawbacks.",
+      "parentUuid": "8f4700f5_3e518ca7",
+      "revId": "554142512af824870598c8701744175bc590c1d6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
