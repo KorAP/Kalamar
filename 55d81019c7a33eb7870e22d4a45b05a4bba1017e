@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4c0ffa_09e53829",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-19T16:00:16Z",
+      "side": 1,
+      "message": "This misses some important features for Glemm integration and the new UI, but I guess it\u0027s better to publish a fixed Windows docker while waiting for a release version including the new UI.",
+      "revId": "55d81019c7a33eb7870e22d4a45b05a4bba1017e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
