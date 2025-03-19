@@ -1,4 +1,4 @@
-0.59 2025-01-23
+0.60 2025-01-23
         - Create top navbar and modify sidebar. (uyen-nhu)
         - Improve appearance of title-addon on logo. (uyen-nhu)
         - Create and style new item on top navbar for 'News'. (uyen-nhu)
@@ -14,6 +14,9 @@
         - Fix access of iframe location in tutorials. (diewald)
         - Fix test that wrongly required SSL support. (diewald)
         - URLs for plugins are mandatory (closes #233; hebasta)
+
+0.59 2025-03-28
+        - Docker only release (diewald)
 
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)
