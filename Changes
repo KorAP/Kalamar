@@ -1,3 +1,6 @@
+0.59 2025-03-28
+        - Docker only release (diewald)
+
 0.58 2024-11-15
         - Cookie path is settable now (hebasta)
         - Fix meta table view for key value pairs (diewald)

@@ -6,7 +6,25 @@ use utf8;
 
 $ENV{KALAMAR_VERSION} = '0.47.999';
 
+#####################
+# Start Fake server #
+#####################
+my $mount_point = '/realapi/';
+$ENV{KALAMAR_API} = $mount_point;
+
 my $t = Test::Mojo->new('Kalamar');
+
+# Mount fake backend
+# Get the fixture path
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, 'server');
+my $fake_backend = $t->app->plugin(
+  Mount => {
+    $mount_point =>
+      $fixtures_path->child('mock.pl')
+  }
+);
+# Configure fake backend
+$fake_backend->pattern->defaults->{app}->log($t->app->log);
 
 $t->app->mode('production');
 
@@ -50,7 +68,7 @@ $t->get_ok('/')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
   ->element_exists_not('#koralQuery')
-  ->attr_is('aside', 'class', ' off')
+  ->element_exists('aside.off')
   ;
 
 $t->get_ok('/?cq=corpusSigle%3DGOE')
@@ -64,7 +82,8 @@ $t->get_ok('/?cq=corpusSigle%3DGOE')
   ->element_exists('meta[name="keywords"][content^="KorAP"]')
   ->element_exists('body[itemscope][itemtype="http://schema.org/WebApplication"]')
   ->element_exists('#koralQuery')
-  ->attr_is('aside', 'class',' off')
+  ->element_exists('aside.off')
+  ->text_is('#notifications > .notify-error', undef)
   ;
 
 $t->get_ok('/huhuhuhuhu')

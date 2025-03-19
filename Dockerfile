@@ -1,5 +1,5 @@
 # Build assets in builder image
-FROM node:20 AS assetbuilder
+FROM node:21 AS assetbuilder
 
 WORKDIR '/app'
 
@@ -37,8 +37,11 @@ RUN apk update && \
             make \
             wget \
             perl-doc \
-            libxml2 \
             libxml2-dev \
+            perl-xml-libxml \
+            perl-module-pluggable \
+            perl-datetime \
+            perl-readonly \
             unzip \
             curl && \
     set -o pipefail
@@ -47,7 +50,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/kupietz/cpm/main/cpm > /bin/cpm
 
 RUN cpm install --test -g Cpanel::JSON::XS File::ShareDir::Install EV IO::Socket::Socks && \
     cpm install --test -g "https://github.com/Akron/Mojolicious-Plugin-Localize/archive/refs/tags/v0.22.tar.gz" && \
-    cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.5.0.tar.gz" && \
+    cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.6.0.tar.gz" && \
     cpm install --test -g "https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.55.tar.gz" && \
     cpm install --test -g "https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz"
 
@@ -73,7 +76,7 @@ RUN rm /bin/cpm && \
 
 RUN addgroup -S korap && \
     adduser -S kalamar -G korap && \
-    chown -R kalamar.korap /kalamar
+    chown -R kalamar:korap /kalamar
 
 USER kalamar
 
