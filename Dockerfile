@@ -100,7 +100,7 @@ LABEL repository="https://github.com/KorAP/Kalamar"
 
 # docker build -f Dockerfile -t korap/kalamar:x.xx-large --target kalamar .
 
-# Slimming (https://github.com/slimtoolkit/slim):
+# Slimming (https://github.com/slimtoolkit/slim or https://github.com/mintoolkit/mint):
 # slim build --http-probe=true \
 #            --exec="perl Makefile.PL && make test && unzip -v" \
 #            --include-workdir=true \
