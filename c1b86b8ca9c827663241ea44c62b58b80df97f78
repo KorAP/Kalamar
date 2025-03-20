@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "601740ad_9f14b471",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-20T12:59:30Z",
+      "side": 1,
+      "message": "Released and now abandoned. Only here for references.",
+      "revId": "c1b86b8ca9c827663241ea44c62b58b80df97f78",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
