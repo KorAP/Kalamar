@@ -87,7 +87,12 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
     return cb(preDefinedStat);
   }; 
   
-
+  var noresultkorap =  
+  "<div id='search' class=''>" + 
+    "<div class='panel result'><div></div></div></div>" +
+    "<p class='no-results'>Unable to perform the action.</p>" +
+  "</div>";
+  
   var resultkorap =  
     "<div id='search'>" +
       "<ol class='align-left' tabindex='-8'>" +
@@ -393,6 +398,11 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
   let htmlZwei = resultkorap.trim(); 
   resulttemplate.innerHTML = resultkorap;
   var resultkor = resulttemplate.content;
+ 
+  let noresulttemplate = document.createElement('template');
+  noresultkorap.trim(); 
+  noresulttemplate.innerHTML = noresultkorap;
+  var noresultkor = noresulttemplate.content;
 
   resultkor.querySelector('#search > ol > li:not(.active)').addEventListener('click', function (e) {
     if (this._match !== undefined)
@@ -549,7 +559,15 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
        resultTour.exit();
      } 
    });
-   
+
+   it('Guided Tour should gracefully stop, if no results are retrieved', function(){
+    let resultTour = tourClass.gTshowResults(noresultkor);
+    KorAP.session = sessionClass.create('KalamarJSDem'); 
+    resultTour.start(noresultkor);
+    expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldone);  
+    resultTour.exit();
+  });
+
    it('Guided Tour should hide Hint if aborted',  function(){
      let tourAbort = tourClass.gTstartSearch(intrkorap);
      tourAbort.start(); 
