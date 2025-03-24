@@ -248,8 +248,10 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
         * Hides the tutorial. If it is opened in an iframe the searchbar which is needed for the tour is not visible anymore.
         */
         if(this._currentStep == 1){
+          if(doe.querySelector('#tutorial')){
           let tutel = doe.querySelector('#tutorial');
           tutel.style.display = 'none';
+          }
         }
         if(this._currentStep == 9){
           let statbut = doe.querySelector('.statistic');
