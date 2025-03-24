@@ -51,6 +51,7 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
   loc.TOUR_seargo = loc.TOUR_seargo || "Start the search by clicking the magnifying glass.";
 
   //localization guided Tour gTshowResults
+  loc.TOUR_nokwicti = loc.TOUR_nokwicti || "The search has no results, therefore the tour ends here. You can try to log in to get more results.";
   loc.TOUR_kwicti = loc.TOUR_kwicti || "Results";
   loc.TOUR_kwic = loc.TOUR_kwic || "The results of the query are displayed as KWIC (keyword in context). On the left side, you can see the according text sigle.";
   loc.TOUR_snippetti = loc.TOUR_snippetti ||  "KWIC (2)";
@@ -248,8 +249,10 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
         * Hides the tutorial. If it is opened in an iframe the searchbar which is needed for the tour is not visible anymore.
         */
         if(this._currentStep == 1){
+          if(doe.querySelector('#tutorial')){
           let tutel = doe.querySelector('#tutorial');
           tutel.style.display = 'none';
+          }
         }
         if(this._currentStep == 9){
           let statbut = doe.querySelector('.statistic');
@@ -404,13 +407,16 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
         tourR.setOption('scrollToElement', true);
         tourR.setOption('scrollTo','tooltip');
         this.testPrerequ(StepsSR, tourR);
-      
-        //TODO see also: introJS.totalSteps() merge requested: //github.com/usablica/intro.js/pull/268/files
+
         tourR.onbeforechange(function(targetedElement){
-          
-        if(this._currentStep == 1){
-          KorAP.session.set("tour", false);
-        }
+           if(this._currentStep == 0){
+            KorAP.session.set("tour", false);
+            if(doe.querySelector("#search + p.no-results")){
+              tourR._introItems[0].intro = loc.TOUR_nokwicti;
+              tourR.goToStepNumber(10);
+              document.querySelector(".introjs-prevbutton").style.visibility = "hidden";
+            }
+            } 
         
         if(this._currentStep == 2){
           doe.querySelector("#search > ol > li").click();
