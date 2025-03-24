@@ -80,6 +80,7 @@ define(function () {
   loc.TOUR_seargo = "Durch das Klicken auf das Lupensymbol wird die Suchanfrage gestartet.";
     
   //Guided Tour: explain the result
+  loc.TOUR_nokwicti = loc.TOUR_nokwicti || "Die Suche ergab keine Ergebnisse, daher wird die Tour hier beendet. Eventuell erhalten Sie Ergebnisse, wenn Sie sich einloggen.";
   loc.TOUR_kwicti = "Ergebnisse";
   loc.TOUR_kwic = "Die Ergebnisse der Suche werden hier als KWIC (keyword in context) angezeigt. Vor dem KWIC steht die jeweilige Textsigle des Treffers.";
   loc.TOUR_snippetti = "KWIC";
