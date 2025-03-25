@@ -141,6 +141,21 @@ define([
       }
     );
 
+    // Prevent automatic scrolling when user clicks on a link that includes #page-top
+    document.querySelectorAll('a[href*="#"]').forEach(link => {
+      link.addEventListener('click', function(event) {
+        const href = this.getAttribute('href');
+
+        if (href.includes('#page-top')) {
+          event.preventDefault();
+    
+          const [url, hash] = href.split('#');
+
+          window.location.href = url ? `${url}` : '/';
+        }
+      });
+    });
+
     // Responsive navbar: hide and show burger menu
     const burgerIcon = document.querySelector('.burger-icon');
     const navbarGroup = document.querySelector('.navbar-group');
@@ -164,34 +179,6 @@ define([
         }
       });
     }
-    
-    // Fallback solution for login dropdown visibility (if :focus-within is not supported)
-    document.addEventListener('DOMContentLoaded', function() {
-      const dropdown = document.querySelector('.dropdown');
-      const dropdownContent = document.querySelector('.dropdown-content');
-      
-      dropdown.addEventListener('mouseenter', function() {
-        dropdownContent.style.display = 'block';
-      });
-    
-      dropdown.addEventListener('mouseleave', function() {
-        // If no input inside the form is focused, then close dropdown content
-        if (!dropdown.contains(document.activeElement)) {
-          dropdownContent.style.display = 'none';
-        }
-      });
-    
-      dropdownContent.addEventListener('focusin', function() {
-        dropdownContent.style.display = 'block';
-      });
-    
-      dropdownContent.addEventListener('focusout', function(e) {
-        // If focus moved outside the dropdown content, then close it
-        if (!dropdownContent.contains(e.relatedTarget)) {
-          dropdownContent.style.display = 'none';
-        }
-      });
-    });
 
     /**
      * Replace Virtual Corpus field
