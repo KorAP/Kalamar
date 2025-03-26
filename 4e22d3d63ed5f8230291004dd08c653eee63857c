@@ -16,6 +16,23 @@
       "message": "This seems to not be based on master. Please rebase or cherry pick.",
       "revId": "4e22d3d63ed5f8230291004dd08c653eee63857c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b5b30f_5e9dcbdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-26T09:37:12Z",
+      "side": 1,
+      "message": "Should be abandoned after vfix",
+      "revId": "4e22d3d63ed5f8230291004dd08c653eee63857c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
