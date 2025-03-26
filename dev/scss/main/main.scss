@@ -23,7 +23,7 @@
 @import '../util';
 
 main {
-  padding: 0 $standard-size-and-spacing;
+  padding: $top-bottom-spacing $standard-size-and-spacing;
 
   // margin: {
   //   left:  $standard-margin;

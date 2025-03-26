@@ -15,7 +15,7 @@ aside {
   top: 0;
   left: 0;
   height: 100%;
-  padding-top: 65px;
+  padding-top: 4rem;
 
   > div {
     overflow-y: auto;
@@ -78,10 +78,21 @@ aside {
 
     li {
       padding: 0;
+
       > a {
-        padding: $item-padding;
+        padding: .5rem;
+        display: block;
+        
+        &:link,
         &:visited {
-          @include choose-item;
+          color: $nearly-white;
+          background-color: $dark-green;
+        }
+
+        &:active,
+        &:hover {
+          color: $nearly-white;
+          background-color: $middle-green;
         }
       }
 
@@ -94,25 +105,6 @@ aside {
           &.active {
             display: block !important;
           }
-        }
-      }
-
-      &.active > a:link {
-        @include choose-active;
-      }
-
-      > a:link {
-        @include choose-item;
-        display: block;
-
-        border-right: {
-          width: $border-size;
-          style: solid;
-        }
-
-        &:hover {
-          @include choose-hover;
-          transition: none;
         }
       }
 
