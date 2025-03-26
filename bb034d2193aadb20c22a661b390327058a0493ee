@@ -123,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "816dbfa6_4dd6790c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2025-03-26T14:39:59Z",
+      "side": 1,
+      "message": "I would propose \u0027extensions\u0027 at the same level in the help system than \u0027development\u0027, and not under \u0027development\u0027, because plugins extend Kalamar on a higher level.",
+      "parentUuid": "d98ff68a_a4b4dd46",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c2ee6e0_6c5f388f",
         "filename": "doc/guide_Kalamar_plugins.html",
         "patchSetId": 1
