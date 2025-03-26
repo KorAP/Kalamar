@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a04b4657_a35586da",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-26T08:15:08Z",
+      "side": 1,
+      "message": "That doesn\u0027t make sense for instances without log in.",
+      "range": {
+        "startLine": 83,
+        "startChar": 112,
+        "endLine": 83,
+        "endChar": 171
+      },
+      "revId": "2937e19a398944188214a8517a451fbb51982006",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55eaf618_3d86f6d0",
+        "filename": "dev/js/src/tour/tours.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-03-26T08:15:08Z",
+      "side": 1,
+      "message": "That doesn\u0027t make sense for instances without login.",
+      "range": {
+        "startLine": 54,
+        "startChar": 101,
+        "endLine": 54,
+        "endChar": 143
+      },
+      "revId": "2937e19a398944188214a8517a451fbb51982006",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
