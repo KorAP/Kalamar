@@ -57,12 +57,10 @@ p.bibentry {
 body.embedded {
   background-color: $nearly-white;
   aside {
-    @include choose-item;
     padding-top: 0;
-    background-color: $middle-grey;
-
+    
     > div {
-      position:         relative;
+      position:          relative;
       top:               50%;
       -webkit-transform: translateY(-50%);
       -ms-transform:     translateY(-50%);

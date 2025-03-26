@@ -23,12 +23,7 @@
 @import '../util';
 
 main {
-  padding: 0 $standard-size-and-spacing;
-
-  // margin: {
-  //   left:  $standard-margin;
-  //   right: math.div($standard-margin,2);
-  // }
+  padding: $top-bottom-spacing $standard-size-and-spacing;
 
   &.shifted {
     padding-left: calc($standard-size-and-spacing + $logo-left-distance);
@@ -52,22 +47,7 @@ main {
     margin-top: 0;
     padding-top: 1em;
   }
-
-  // &.page {
-  //   margin-left: $logo-left-distance + 15px;
-  //   p,
-  //   li,
-  //   dd,
-  //   dt {
-  //     code {
-  //       background-color: $ids-grey-2;
-  //       color:            $ids-grey-1;
-  //       padding:          0 .5em;
-  //       border-radius:    $standard-border-radius;
-  //     }
-  //   }
-  // }
-
+  
   p.hint {
     margin: 0 auto;
     text-align: center;
