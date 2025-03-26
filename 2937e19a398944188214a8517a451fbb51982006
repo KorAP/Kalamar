@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a39c9b5a_c5bfaaa3",
+        "filename": "dev/js/src/loc/de.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-03-26T11:15:41Z",
+      "side": 1,
+      "message": "Thanks for the hint.",
+      "parentUuid": "a04b4657_a35586da",
+      "range": {
+        "startLine": 83,
+        "startChar": 112,
+        "endLine": 83,
+        "endChar": 171
+      },
+      "revId": "2937e19a398944188214a8517a451fbb51982006",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55eaf618_3d86f6d0",
         "filename": "dev/js/src/tour/tours.js",
         "patchSetId": 1
