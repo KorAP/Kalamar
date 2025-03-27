@@ -281,6 +281,24 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66dfa540_5f058d01",
+        "filename": "doc/guide_Kalamar_plugins.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2025-03-27T10:38:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5569be32_e67147ce",
+      "revId": "bb034d2193aadb20c22a661b390327058a0493ee",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d92a48e6_36e2c005",
