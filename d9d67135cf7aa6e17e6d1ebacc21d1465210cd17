@@ -22,6 +22,30 @@
       },
       "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17b55ac_95a19774",
+        "filename": "templates/partial/dropdown.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 67
+      },
+      "writtenOn": "2025-04-02T09:53:28Z",
+      "side": 1,
+      "message": "What is the main goal? Should \u0027API Tokens\u0027 be visible in the dropdown-list when the user is logged out?",
+      "parentUuid": "7f8a94dc_e7ff6ba5",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
