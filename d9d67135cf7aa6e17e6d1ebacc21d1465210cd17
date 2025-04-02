@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8a94dc_e7ff6ba5",
+        "filename": "templates/partial/dropdown.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-04-02T08:54:51Z",
+      "side": 1,
+      "message": "That\u0027s against the main goal of the patch.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
