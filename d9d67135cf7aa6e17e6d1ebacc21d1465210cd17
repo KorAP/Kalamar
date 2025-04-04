@@ -46,6 +46,30 @@
       },
       "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6136eb33_65d9ea1a",
+        "filename": "templates/partial/dropdown.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-04-04T09:43:04Z",
+      "side": 1,
+      "message": "The main goal is to remove auth stuff from the core templates.",
+      "parentUuid": "e17b55ac_95a19774",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
