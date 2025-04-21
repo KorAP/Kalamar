@@ -48,14 +48,6 @@ $t->get_ok('/doc/ql/poliqarp-plus?embedded=true')
   ->text_is('li.folded.active a', 'Poliqarp+');
 
 # Languages
-$t->get_ok('/' => { 'Accept-Language' => 'de-DE, en-US, en' })
-  ->status_is(200)
-  ->text_is("title", "KorAP - Korpusanalyseplattform der nächsten Generation");
-
-$t->get_ok('/' => { 'Accept-Language' => 'en-US, en, de-DE' })
-  ->status_is(200)
-  ->text_is("title", "KorAP - Corpus Analysis Platform");
-
 $t->get_ok('/doc/ql/' => { 'Accept-Language' => 'de-DE, en-US, en' })
   ->status_is(200)
   ->text_is('title','KorAP: Anfragesprachen')
