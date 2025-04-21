@@ -69,6 +69,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
             k !== "corpusID" &&
             k !== "docID" &&
             k !== "textID" &&
+	    k !== "docTitle" &&
             k !== "layerInfos") {
 
           metaL = document.createElement('div');
