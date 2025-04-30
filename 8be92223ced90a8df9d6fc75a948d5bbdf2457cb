@@ -22,6 +22,30 @@
       },
       "revId": "8be92223ced90a8df9d6fc75a948d5bbdf2457cb",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5206ea4_2114d5b7",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-04-30T08:00:00Z",
+      "side": 1,
+      "message": "Should I add `annotations` then or use the old `annotation` – even when I mean annotations?",
+      "parentUuid": "cc17aaa6_8f4419b5",
+      "range": {
+        "startLine": 126,
+        "startChar": 7,
+        "endLine": 126,
+        "endChar": 18
+      },
+      "revId": "8be92223ced90a8df9d6fc75a948d5bbdf2457cb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
