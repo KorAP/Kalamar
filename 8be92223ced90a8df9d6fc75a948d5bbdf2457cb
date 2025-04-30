@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc17aaa6_8f4419b5",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-04-30T07:36:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be changed, as it would break translations.",
+      "range": {
+        "startLine": 126,
+        "startChar": 7,
+        "endLine": 126,
+        "endChar": 18
+      },
+      "revId": "8be92223ced90a8df9d6fc75a948d5bbdf2457cb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
