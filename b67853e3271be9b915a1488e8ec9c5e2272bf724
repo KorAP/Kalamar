@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "894f96fc_781c04c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-04-30T12:19:46Z",
+      "side": 1,
+      "message": "To not show API tokens, a new mechanism needs to be developed.",
+      "revId": "b67853e3271be9b915a1488e8ec9c5e2272bf724",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
