@@ -44,7 +44,7 @@
 
   <blockquote class="warning">
     <p>Achtung: Diese Art von Abfragen (mit vorangestellten <code>.*</Code> Ausdrücken) können extrem langsam sein!</p>
-    <p>In der ursprünglichen Poliqarp-Implementation konnten sowohl doppelte Anführungszeichen als auch einfache Anführungszeichen reguläre Ausdrücke markieren. In Poliqarp+ hingegen werden einfache Anführungszeichen für zeichengetreue Ausdrücke verwendet.</p>
+    <p>In der ursprünglichen Poliqarp-Implementation konnten sowohl doppelte Anführungszeichen als auch einfache Anführungszeichen reguläre Ausdrücke markieren. In Poliqarp+ können nur doppelte Anführungszeichen verwendet werden.</p>
   </blockquote>
 
   <p>Sie können das <code>/i</code> Flag erneut anwenden, um unabhängig von Groß-Kleinschreibung zu suchen.</p>
