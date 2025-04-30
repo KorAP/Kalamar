@@ -46,6 +46,30 @@
       },
       "revId": "8be92223ced90a8df9d6fc75a948d5bbdf2457cb",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b21a62_9f9c1152",
+        "filename": "kalamar.dict",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-04-30T08:22:25Z",
+      "side": 1,
+      "message": "The usual way would be to add a `-pl` postfix, if there are differences between singular and plural. But as long as that\u0027s not required, it should be kept as it is.",
+      "parentUuid": "f5206ea4_2114d5b7",
+      "range": {
+        "startLine": 126,
+        "startChar": 7,
+        "endLine": 126,
+        "endChar": 18
+      },
+      "revId": "8be92223ced90a8df9d6fc75a948d5bbdf2457cb",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
