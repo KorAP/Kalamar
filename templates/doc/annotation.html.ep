@@ -1,0 +1,20 @@
+% layout 'main', title => 'Annotations';
+
+%= page_title
+
+<p>KorAP supports an arbitrary number of <%= embedded_link_to 'doc', 'Annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
+
+<dl>
+  <p>Annotations of the following kind are supported:</p>
+  <dt>Tokens</dt>
+  <dd>Annotations associated to single tokens (e.g. words or numbers)</dd>
+  
+  <dt>Spans</dt>
+  <dd>Annotations to a sequence of words or nodes (e.g. sentences, phrases, constituency annotations)</dd>
+
+  <dt>Relations</dt>
+  <dd>Annotations of relations between tokens or spans (e.g. dependency annotations)</dd>
+
+  <dt>Attributes</dt>
+  <dd>Attribute information for tokens, spans, or relations (e.g. attributes of HTML elements)</dd>
+</dl>

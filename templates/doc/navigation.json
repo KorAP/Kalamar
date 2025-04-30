@@ -100,15 +100,9 @@
     ]
   },
   {
-    "title": "Corpus Data",
-    "id": "data",
-    "class": "folded",
-    "items": [
-      {
-        "title": "Annotations",
-        "id": "annotation"
-      }
-    ]
+    "title": "Annotations",
+    "id": "annotation",
+    "class": "folded"
   },
   {
     "title": "FAQ",
