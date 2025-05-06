@@ -2,7 +2,7 @@
 
 %= page_title
 
-<p>KorAP supports an arbitrary number of <%= embedded_link_to 'doc', 'Annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
+<p>KorAP also supports an arbitrary number of <%= embedded_link_to 'doc', 'annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
 
 <dl>
   <p>Annotations of the following kind are supported:</p>

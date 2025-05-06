@@ -95,13 +95,21 @@ my $THOUSAND_SEP_RE = qr/(
           'cql' => 'de/doc/ql/cql',
           'annis' => 'de/doc/ql/annis'
         },
+        faq => {
+          '.' => 'de/doc/faq'
+        },
         api => {
+          '.' => 'de/doc/api',
           'koralquery' => 'de/doc/api/koralquery'
+        },
+        annotation => {
+          '.' => 'de/doc/annotation'
         },
         data => {
           'annotation' => 'de/doc/data/annotation'
         },
         development => {
+          '.' => 'de/doc/development',
           'kalamar' => 'de/doc/development/kalamar',
           'karang' => 'de/doc/development/karang',
           'koral' => 'de/doc/development/koral',
@@ -239,13 +247,21 @@ my $THOUSAND_SEP_RE = qr/(
           'cql' => 'doc/ql/cql',
           'annis' => 'doc/ql/annis'
         },
+        faq => {
+          '.' => 'doc/faq'
+        },
         api => {
+          '.' => 'doc/api',
           'koralquery' => 'doc/api/koralquery'
+        },
+        annotation => {
+          '.' => '/doc/annotation'
         },
         data => {
           'annotation' => 'doc/data/annotation'
         },
         development => {
+          '.' => 'doc/development',
           'kalamar' => 'doc/development/kalamar',
           'karang' => 'doc/development/karang',
           'koral' => 'doc/development/koral',

@@ -1,0 +1,23 @@
+% layout 'main', title => 'KorAP: Frequently Asked Questions';
+
+%= page_title
+
+<p>Dieses Dokument bietet eine Zusammenstellung von häufig gestellten Fragen und bereits aufgefallenen Problemen. Gerne können Sie per <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'Question via Kalamar', begin %>E-Mail<% end %> weitere Fragen stellen. 
+
+<section>
+  <h3>Wo befindet sich der Quellcode?</h3>
+  <p>Der Quellcode von KorAP ist auf <%= ext_link_to 'GitHub', 'https://github.com/KorAP' %> verfügbar.</p>
+</section>
+
+<section>
+  <h3>Warum brauchen manche Anfragen so lange oder liefern am Ende keine Ergebnisse?</h3>
+  <p>In der Alpha-Phase ist es Teil unserer Aufgaben, das System zu optimieren. Am Anfang ist davon auszugehen, dass manche Aktionen unverhältnismäßig viel Zeit brauchen werden, aber das wird mit der Zeit besser und besser. Wenn Sie in einem bestimmten Fall einen wiederkehrenden Fehler bemerken, seien Sie bitte so freundlich und <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found a bug in the query system', begin %>lassen Sie es uns wissen<% end %>.</p>
+</section
+
+<section>
+  <h3>Ich möchte ein Problem melden - wie mache ich das?</h3>
+  <p>Bitte nutzen Sie unser öffentliches Ticketsystem <%= ext_link_to 'für das Frontend auf GitHub', 'https://github.com/KorAP/Kalamar/issues' %>, um Probleme zu melden. Falls Sie kein GitHub-Konto haben, senden Sie uns bitte eine <%= mail_to_chiffre join('@', 'korap', 'ids-mannheim.de'), subject => 'I found an issue', begin %>E-Mail<% end %>.</p>
+  %# Diese Option ist uns lieber, da hiermit wichtige Versionierungsdaten gesammelt werden können (in Zukunft noch mehr als jetzt)
+</section>
+
+%= content_block 'faq'

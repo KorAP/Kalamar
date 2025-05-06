@@ -1,0 +1,24 @@
+% layout 'main', title => 'KorAP: Application Programming Interface';
+
+%= page_title
+
+<p>Die Kommunikation zwischen KorAP-Komponenten wird intern über das KoralQuery-Protokoll geregelt. Die Spezifikation für KoralQuery ist auf <%= ext_link_to 'GitHub', "http://korap.github.io/Koral" %> verfügbar. Alle API-Endpunkte nutzen entweder KoralQuery oder sind (mehr oder weniger) RESTful-Web-APIs.</p>
+
+<p>Alle (teilweise experimentellen) öffentlich verfügbaren API-Endpunkte inklusive ihrer Anfragen und Antworten sind im <%= ext_link_to 'GitHub-Wiki', "https://github.com/KorAP/Kustvakt/wiki" %> von <%= embedded_link_to 'doc', 'Kustvakt', 'korap', 'kustvakt' %> beschrieben.</p>
+
+% my $api_url = $c->url_for('proxy' => (apiv => $Kalamar::API_VERSION))->to_abs->scheme('https');
+% $api_url->path->trailing_slash(1);
+
+%if ($c->app->config('Kalamar')->{openapi}) { 
+<p id="openapi">
+% my $openapi= $api_url->to_abs;
+% $openapi->path->merge($c->app->config('Kalamar')->{openapi})->trailing_slash(1); 
+Die OpenAI-Dokumentation befindet sich <%= ext_link_to 'hier',  $openapi  %>.
+</p>
+% } 
+
+<p>Der Root-Service ist unter <code id="api-service-uri"><%=  $api_url %></code> zu finden.</p>
+
+<h2>Client-Bibliotheken</h2>
+
+<p>Client-Bibliotheken sind für R auf <%= ext_link_to 'CRAN', 'https://cran.r-project.org/package=RKorAPClient' %> (Quellcode und weitere Informationen auf <%= ext_link_to 'GitHub', 'https://github.com/KorAP/RKorAPClient' %>) und für Python auf <%= ext_link_to 'PyPI', 'https://pypi.org/project/KorAPClient/' %> (Quellcode auf <%= ext_link_to 'GitHub', 'https://github.com/KorAP/PythonKorAPClient' %>) verfügbar.</p>
