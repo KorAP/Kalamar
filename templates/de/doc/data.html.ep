@@ -1,0 +1,24 @@
+% layout 'main', title => 'KorAP: Korpusdaten';
+
+%= page_title
+
+<p>KorAP wird als der Hauptzugriffspunkt zu <%= ext_link_to 'DeReKo', 'http://www1.ids-mannheim.de/kl/projekte/korpora' %> entwickelt und ist in dieser Hinsicht die Nachfolgeplattform von <%= ext_link_to 'COSMAS II', 'https://cosmas2.ids-mannheim.de/cosmas2-web/' %>. KorAP beschränkt sich jedoch nicht auf ein spezielles Korpus, sondern wird inzwischen beispielsweise auch für den Zugriff auf das rumänische Nationalkorpus <%= ext_link_to 'CoRoLa', 'http://corola.racai.ro/' %> genutzt.</p>
+
+<p>In KorAP können Korpustexte mit beliebigen Metadaten assoziiert sein, welche teilweise genutzt werden können, um Subkorpora (sogenannte virtuelle Korpora) zu erstellen.</p>
+
+<p>Des weiteren unterstützt KorAP eine beliebige Anzahl von <%= embedded_link_to 'doc', 'Annotationen', 'data', 'annotation' %> aus unterschiedlichen (<em>Foundries</em> genannten) Quellen mit unterschiedlichen <em>Annotationsebenen</em>.</p>
+
+<dl>
+  <p>Folgende Arten von Annotationen werden unterstützt:</p>
+  <dt>Tokens</dt>
+  <dd>Annotationen, die mit einzelnen Tokens (z.B. Wörtern oder Zahlen) assoziiert sind</dd>
+  
+  <dt>Spans</dt>
+  <dd>Annotationen einer Sequenz von Wörtern oder Knoten (z.B. Sätze, Phrasen, Konstituenzannotationen)</dd>
+
+  <dt>Relationen</dt>
+  <dd>Annotationen von Relationen zwischen Tokens oder Spans (z.B. Dependenzannotationen)</dd>
+
+  <dt>Attribute</dt>
+  <dd>Attributinformationen zu Tokens, Spans oder Relationen (z.B. Attribute von HTML-Elementen)</dd>
+</dl>
