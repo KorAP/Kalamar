@@ -1,0 +1,68 @@
+% layout 'main', title => 'KorAP: Architektur & Entwicklung';
+
+%= page_title
+
+%= korap_overview 'development'
+
+<p>Das KorAP-Projekt wurde 2011 am <%= ext_link_to 'Leibniz-Institut für Deutsche Sprache (IDS)', "https://www.ids-mannheim.de/" %> in Mannheim ins Leben gerufen. KorAP ist eine Korpusanalyseplattform mit einer erweiterbaren und skalierbaren Architektur. Sie besteht aus mehreren Komponenten, die dank wohldefinierter APIs austauschbar sind.</p>
+
+<dl>
+  <dt><%= embedded_link_to('doc', 'Kalamar', 'development', 'kalamar') %></dt>
+  <dd>Kalamar ist das Benutzer-Frontend. Die meisten Nutzenden werden über dieses Frontend auf die Such- und Analysemöglichkeiten, die KorAP bietet, zugreifen. Dies geschieht durch die Formulierung von Anfragen in einer der unterstützten Anfragesprachen, die an Kustvakt weitergereicht werden.</dd>
+
+  <dt><%= embedded_link_to('doc', 'API', 'api') %></dt>
+  <dd>Als Alternative zum Benutzer-Frontend können Anfragen auch über eine direkte REST-Webschnittstelle zu Kustvakt initiiert werden.</dd>
+
+  <dt><%= embedded_link_to('doc', 'Kustvakt', 'development', 'kustvakt') %></dt>
+  <dd>Kustvakt ist der zentrale Dienst für Benutzer- und Rechteverwaltung. Er nimmt Anfragen an und formuliert sie so um, dass sich der Skopus der Suche auf Dokumente beschränkt, auf die der oder die Nutzende Zugriff hat. Darüber hinaus können weitere benutzerdefinierte Parameter wie zum Beispiel bevorzugte Annotationsebenen in die Anfragen eingebunden werden. Um eine Anfrage, die in einer bestimmten Anfragesprache geschrieben wurde, in das interne allgemeine Anfrageprotokoll <%= ext_link_to 'KoralQuery', "https://korap.github.io/Koral/" %> zu überführen, verwendet Kustvakt <%= embedded_link_to('doc', 'Koral', 'development', 'koral') %>.</dd>
+
+  <dt><%= embedded_link_to('doc', 'Koral', 'development', 'koral') %></dt>
+  <dd>Koral ist eine Bibliothek, die Anfragen, die in einer von mehreren implementierten Anfragesprachen geschrieben wurden, in ein allgemeines Anfrageprotokoll namens <%= ext_link_to 'KoralQuery', "https://korap.github.io/Koral/" %> überführt.</dd>
+
+  <dt><%= embedded_link_to('doc', 'Krill', 'development', 'krill') %></dt>
+  <dd>Krill ist eine Lucene-basierte Backend-Engine, die große Korpora nach Vorkommen von in <%= ext_link_to 'KoralQuery', "https://korap.github.io/Koral/" %> formulierten Suchmustern durchsuchen kann.</dd>
+
+  <dt><%= embedded_link_to('doc', 'Karang', 'development', 'karang') %></dt>
+  <dd>Karang ist eine Neo4j-basierte Backend-Engine, die in Graphform repräsentierte Korpora durchlaufen kann.</dd>
+</dl>
+
+<h3>Team</h3>
+
+<dl>
+  <dt>Leitung</dt>
+  <dd>
+    <%= ext_link_to 'Marc Kupietz', "https://www.ids-mannheim.de/digspra/personal/kupietz/" %>,
+    <%= ext_link_to 'Andreas Witt', "https://www.ids-mannheim.de/digspra/personal/witt/" %>
+  </dd>
+
+  <dt>Wissenschaftliche Mitarbeit</dt>
+  <dd>
+    <%= ext_link_to 'Franck Bodmer', "https://perso.ids-mannheim.de/seiten/bodmer.html" %>,
+    <%= ext_link_to 'Nils Diewald', "https://www.nils-diewald.de/" %>,
+    <%= ext_link_to 'Peter Harders', "https://perso.ids-mannheim.de/seiten/harders.html" %>,
+    <%= ext_link_to 'Eliza Margaretha', "https://perso.ids-mannheim.de/seiten/margaretha.html" %>,
+    <%= ext_link_to 'Helge Stallkamp', "https://perso.ids-mannheim.de/seiten/krause.html" %>,
+    <%= ext_link_to 'Rameela Yaddehige',"https://perso.ids-mannheim.de/seiten/yaddehige.html" %>
+  </dd>
+
+  <dt>Übersetzungen</dt>
+  <dd>
+    <%= ext_link_to 'Susanne Feix', "https://www.ids-mannheim.de/digspra/personal/bergmann/" %>
+  </dd>
+
+  <dt>Ehemalige Projektmitglieder</dt>
+  <dd>
+    <%= ext_link_to 'Piotr Bański', "https://www.ids-mannheim.de/gra/personal/banski/" %>,
+    Joachim Bingel,
+    <%= ext_link_to 'Elena Frick', "https://www.ids-mannheim.de/prag/personal/frick/" %>,
+    Michael Hanl,
+    Carsten Schnober
+  </dd>
+
+  <dt>Beratung</dt>
+  <dd>
+    <%= ext_link_to 'Cyril Belica', "https://www.ids-mannheim.de/digspra/kl/misc/tlk-cb/" %>,
+    Piotr Pęzik,
+    <%= ext_link_to 'Oliver Schonefeld', "https://www.ids-mannheim.de/zentrale-bereiche/informationstechnik/personal/schonefeld/" %>
+  </dd>
+</dl>

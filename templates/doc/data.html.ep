@@ -5,11 +5,11 @@
 <p>KorAP is developed as being the main access point to
   <%= ext_link_to 'DeReKo', 'http://www1.ids-mannheim.de/kl/projekte/korpora' %>,
   being the successor of <%= ext_link_to 'COSMAS II', 'https://cosmas2.ids-mannheim.de/cosmas2-web/' %> in that regard.
-  But KorAP is not focussed on any specific corpus, it is, for example, now also used for the Romanian national corpus <%= ext_link_to 'CoRoLa', 'http://corola.racai.ro/' %>.</p>
+  But KorAP is not focussed on any specific corpus. It is, for example, now also used for the Romanian national corpus <%= ext_link_to 'CoRoLa', 'http://corola.racai.ro/' %>.</p>
 
-<p>In KorAP, corpus texts are allowed to have arbitrary metadata information, that partially can be used to create subcorpora (so-called virtual corpora).</p>
+<p>In KorAP, corpus texts are allowed to have arbitrary metadata information, which can partially be used to create subcorpora (so-called virtual corpora).</p>
 
-<p>KorAP also supports an arbitrary number of <%= embedded_link_to 'doc', 'Annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
+<p>KorAP also supports an arbitrary number of <%= embedded_link_to 'doc', 'annotations', 'data', 'annotation' %> from different sources (called <em>foundries</em>) with different <em>layers</em>.</p>
 
 <dl>
   <p>Annotations of the following kind are supported:</p>
