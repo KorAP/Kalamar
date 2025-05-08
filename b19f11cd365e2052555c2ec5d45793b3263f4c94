@@ -16,6 +16,23 @@
       "message": "OK, done",
       "revId": "b19f11cd365e2052555c2ec5d45793b3263f4c94",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84682ff_33b4a35f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-05-08T11:25:01Z",
+      "side": 1,
+      "message": "I\u0027m principally ok with it, but the change has the effect that, unlike the other help pages, you can no longer navigate back to the overview page. This is somewhat inconsistent.",
+      "revId": "b19f11cd365e2052555c2ec5d45793b3263f4c94",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
