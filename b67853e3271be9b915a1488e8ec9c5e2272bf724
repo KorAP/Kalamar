@@ -16,6 +16,23 @@
       "message": "To not show API tokens, a new mechanism needs to be developed.",
       "revId": "b67853e3271be9b915a1488e8ec9c5e2272bf724",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d34a17f_02bba8c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-05-13T08:11:03Z",
+      "side": 1,
+      "message": "I think the display of the API Tokens if the user is logged out is confusing and a deterioation to the status quo.",
+      "revId": "b67853e3271be9b915a1488e8ec9c5e2272bf724",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }

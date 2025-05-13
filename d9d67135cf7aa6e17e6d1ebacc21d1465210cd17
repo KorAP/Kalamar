@@ -70,6 +70,30 @@
       },
       "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42ae26c8_bbcb722a",
+        "filename": "templates/partial/dropdown.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-05-13T08:11:03Z",
+      "side": 1,
+      "message": "But now it API Tokens is visible in the dropdown-list when the user is logged out.",
+      "parentUuid": "6136eb33_65d9ea1a",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
