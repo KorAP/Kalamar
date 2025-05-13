@@ -16,6 +16,23 @@
       "message": "After a quick check, this introduces a larger gap between the header and the search results, so I wouldn\u0027t add that to the master for now. Maybe I am doing something wrong though.",
       "revId": "6cb89f3e0c565b12d23fa636d17f7f309f7fa7e9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25a7d0a9_63a7fb49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-05-13T08:35:24Z",
+      "side": 1,
+      "message": "Actually, I don\u0027t see a larger gap between the header and the search results. Maybe I\u0027m looking at the wrong place ..\nBut the borders at the Login window are gone, this looks strange.",
+      "revId": "6cb89f3e0c565b12d23fa636d17f7f309f7fa7e9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
