@@ -33,6 +33,23 @@
       "message": "I think the display of the API Tokens if the user is logged out is confusing and a deterioation to the status quo.",
       "revId": "b67853e3271be9b915a1488e8ec9c5e2272bf724",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "949f7e34_5e875ee0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-05-13T08:35:16Z",
+      "side": 1,
+      "message": "Then please create a new mechanism for optional settings.",
+      "revId": "b67853e3271be9b915a1488e8ec9c5e2272bf724",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
