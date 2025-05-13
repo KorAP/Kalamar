@@ -94,6 +94,30 @@
       },
       "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f302daea_2a229329",
+        "filename": "templates/partial/dropdown.html.ep",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-05-13T08:38:38Z",
+      "side": 1,
+      "message": "That is correct.",
+      "parentUuid": "42ae26c8_bbcb722a",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "d9d67135cf7aa6e17e6d1ebacc21d1465210cd17",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
