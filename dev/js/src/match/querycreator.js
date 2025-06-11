@@ -121,7 +121,7 @@ define(['util'], function () {
 
         if (target.tagName == 'TD') {
 
-          if (target.innerText == '')
+          if (target.innerText == '' || target.classList.contains("notinindex"))
             return;
 
           if (target.classList.contains('matchkeyvalues'))
@@ -154,7 +154,7 @@ define(['util'], function () {
         // The annotation is part of a key-value-pair
         else if (target.tagName == 'SPAN' || target.tagName == 'DIV') {
 
-          if (target.innerText == '')
+          if (target.innerText == '' || target.classList.contains("notinindex"))
             return;
 
           if (target.tagName == 'SPAN') {

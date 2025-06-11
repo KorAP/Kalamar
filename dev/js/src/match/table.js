@@ -17,7 +17,8 @@ define([
    */
   const _TermRE = new RegExp("^(?:([^\/]+?)\/)?([^:]+?):(.+?)$");
   const d = document;
-
+  const notinindexSuffix = "_NOTININDEX";
+ 
   return {
 
     /**
@@ -149,7 +150,11 @@ define([
             };
 
             value = RegExp.$3;
-      
+
+	    if (c.classList.contains("notinindex")) {
+	      value += notinindexSuffix;
+	    };
+	    
             if (found[foundry + "/" + layer] === undefined) {
               found[foundry + "/" + layer] = [value];
             }
@@ -232,7 +237,14 @@ define([
 
           let e, anno;
           value.forEach(function(v) {
+
             e = c.addE('div');
+
+	    if (v.endsWith(notinindexSuffix)) {
+	      v = v.slice(0, -11);
+	      e.classList.add("notinindex");
+	    };
+	    
             e.addT(v);
 
             anno = ah.getDesc(key, v);
@@ -247,6 +259,11 @@ define([
           if (value instanceof Array)
             value = value[0];
 
+	  if (value.endsWith(notinindexSuffix)) {
+	    value = value.slice(0, -11);
+	    c.classList.add("notinindex");
+	  };
+	  
           c.addT(value);
 
           // Add tooltip

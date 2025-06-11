@@ -72,7 +72,7 @@ function matchTableComplexFactory () {
     "          <th>corenlp</th>" +
     "          <th>p</th>" +
     "          <td>ART</td>" +
-    "          <td>ADJA</td>" +
+    "          <td class=\"notinindex\">ADJA</td>" +
     "          <td>ADJA<br>ADJD</td>" +
     "          <td class=\"matchkeyvalues mark\">" +
     "            <div>case:nom</div>" +
@@ -86,7 +86,7 @@ function matchTableComplexFactory () {
     "          <td class=\"matchkeyvalues\">" +
     "            <div>case:nom</div>" +
     "            <div>gender:masc</div>" +
-    "            <div>number:sg</div>" +
+    "            <div class=\"notinindex\">number:sg</div>" +
     "            <div>morphemes:.::_SORSZ \\ZERO::NOM 'period::PUNCT'</div>" +
     "            <div>morphemes:ZERO::NOM</div>" +
     "          </td>" +
@@ -626,6 +626,27 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       expect(qc.toString()).toEqual("");
 
+      // notinindex
+      cell = matchTable.querySelector("tbody > tr:nth-child(2) > td > div:nth-child(3)");
+      expect(cell.innerString()).toEqual("number:sg");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+
+      cell = matchTable.querySelector("tbody > tr:nth-child(1) > td.notinindex");
+      expect(cell.innerString()).toEqual("ADJA");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+      
       cell = matchTable.querySelector("tbody > tr:nth-child(3) > td:nth-child(3)");
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
