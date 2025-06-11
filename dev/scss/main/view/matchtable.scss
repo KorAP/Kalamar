@@ -64,6 +64,11 @@ div.matchtable {
     }
   }
 
+  td.notinindex, div.notinindex {
+    background-color: $ids-grey-2 !important;
+    cursor: default;
+  }
+
   tr {
     outline: none;
 
