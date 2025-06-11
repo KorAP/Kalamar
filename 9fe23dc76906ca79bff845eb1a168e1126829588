@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae925e33_2747a9d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-11T09:52:03Z",
+      "side": 1,
+      "message": "This change introduces support for annotations that are not related to the index and therefore not \"easily\" queryable. For now the best way is to mark them as notinindex and exclude them from the querycreator.\n\nThe use case is the new KoralPipe-TermMapper that will add annotations on-the-fly to the result, whose are not queryable.",
+      "revId": "9fe23dc76906ca79bff845eb1a168e1126829588",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
