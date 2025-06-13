@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c101c6b2_20f2e670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-06-13T13:35:15Z",
+      "side": 1,
+      "message": "Checked the automatic scroll on sub pages, it works now (and once I recognized it, I really appreciated that it is there ;)).\n\nI really like the new nav design!",
+      "revId": "704c149fccd6c0c8635c2f14362e030e47d3f7a7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
