@@ -36,9 +36,12 @@
       position:absolute;
       display: block;
       font-size: 10pt;
-      right: -1rem;
-      top: 1.7rem;
+      // right: -1rem;
+      // top: 1.7rem;
       // bottom: 4pt;
+      right: -2rem;
+      top: 2.1rem;
+      transform: rotate(-5deg);
       // text-align:right;
       color: $nearly-white;
       // padding: 3pt;
