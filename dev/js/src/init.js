@@ -278,7 +278,18 @@ define([
 
     // Media Query for adjusting dynamically added elements (e.g. hint)
     const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+
+    // Change styles for different lengths of logo add-on
+    const logoAddon = document.querySelector('.logoaddon');
     
+    if (logoAddon && logoAddon.textContent.length < 6) {
+      if (!isSmallScreen) {
+        logoAddon.style.right = '0.1rem';
+      } else {
+        logoAddon.style.right = '-0.3rem';
+      }
+    }
+
     // Function to toggle the shifted class on elements
     function shiftContent() {
       // Get elements to perform content shift when sidebar is active
