@@ -16,6 +16,41 @@
       "message": "Hi all, I\u0027ve played around a bit and ended up with this solution for the logo add-on for now. Not sure if I like it, but at least it\u0027s better than before in terms of readability. I also tried to consider the display for different lengths of the add-on on large and small screens.",
       "revId": "5ee966efebe69a2bf0a3d0ab2c06a6a42df1ed45",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6c55de_530d8e14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-18T10:32:43Z",
+      "side": 1,
+      "message": "Can you please add some demos for checking?\n\nI probably would have tried hard to avoid JS, e.g. using container queries or embedded SVG, as it makes maintenance harder in the future, but I am not sure I would\u0027ve succeed.",
+      "parentUuid": "d90f1e32_f3c8b249",
+      "revId": "5ee966efebe69a2bf0a3d0ab2c06a6a42df1ed45",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd73fa4_bc8b27f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-18T10:32:43Z",
+      "side": 1,
+      "message": "I guess I would\u0027ve tried",
+      "revId": "5ee966efebe69a2bf0a3d0ab2c06a6a42df1ed45",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
