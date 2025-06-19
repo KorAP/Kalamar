@@ -52,6 +52,52 @@
       "parentUuid": "be990950_108d96bd",
       "revId": "704c149fccd6c0c8635c2f14362e030e47d3f7a7",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86f1637b_36fb05bd",
+        "filename": "dev/js/src/init.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-19T08:16:12Z",
+      "side": 1,
+      "message": "I don\u0027t think, that this is the correct way. #page-top had a purpose, and this renders it purposeless. When the behaviour to not use page-top is preferred, the simplest solution is probably to remove the fragment advice from KalamarPages.pm. If the page-top is not the correct element (both for embedded and iframed documentations), it should be reassigned.\nChanging this here seems to me unnecessary and also hard to maintain (because everything in init.js is currently untested and therefore likely to break, while there are lots of tests for page-top in the test suite.",
+      "range": {
+        "startLine": 144,
+        "startChar": 1,
+        "endLine": 157,
+        "endChar": 7
+      },
+      "revId": "704c149fccd6c0c8635c2f14362e030e47d3f7a7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15dea576_7ae3c0bd",
+        "filename": "dev/scss/main/main.scss",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-19T08:16:12Z",
+      "side": 1,
+      "message": "I am not sure, that\u0027s the change that makes the padding between the head arrea and the main area in the search results too large - but compare this commit with the current korap.ids-mannheim.de when you search and you will see a large white area between the head and the search results. That should be fixed.",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 58
+      },
+      "revId": "704c149fccd6c0c8635c2f14362e030e47d3f7a7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
