@@ -54,6 +54,23 @@
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "091fb060_0a93ccf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-19T10:49:02Z",
+      "side": 1,
+      "message": "I guess the best way to proceed is to remove the scroll-part from this change. If you have problems to remove the fragment from the perl code, I can help, of course. But I guess, the real solution is to change the position of the top, by having `name` attributes instead of `id`s, so the notion of \"top\" can be different based on the time of layout.",
+      "revId": "704c149fccd6c0c8635c2f14362e030e47d3f7a7",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86f1637b_36fb05bd",
