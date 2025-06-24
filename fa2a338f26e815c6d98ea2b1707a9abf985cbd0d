@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24877c4b_eab3dac8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-24T08:58:10Z",
+      "side": 1,
+      "message": "Display is already set and `*display` is not a valid property.",
+      "revId": "fa2a338f26e815c6d98ea2b1707a9abf985cbd0d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
