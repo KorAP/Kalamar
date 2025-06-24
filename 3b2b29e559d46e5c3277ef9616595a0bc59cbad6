@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87115cae_5666009c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-24T08:56:17Z",
+      "side": 1,
+      "message": "I am not sure regarding the oauth rule ...",
+      "revId": "3b2b29e559d46e5c3277ef9616595a0bc59cbad6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
