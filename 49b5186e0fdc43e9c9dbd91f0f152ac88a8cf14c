@@ -16,6 +16,24 @@
       "message": "This seems to be based on a different version of \"Add help/doc button to dropdown menu, remove button from old position, edit Change file\" - so, when I tried to rebase it, I am successful, but I can push to gerrit, as the history is not linear. I guess that would mean it requires cherry-picking, but I only would try to do it, if it isn\u0027t already abandoned.",
       "revId": "49b5186e0fdc43e9c9dbd91f0f152ac88a8cf14c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7cd114_a462a5f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-26T09:21:00Z",
+      "side": 1,
+      "message": "Is this a current change?",
+      "parentUuid": "46c1707e_c6d2bf84",
+      "revId": "49b5186e0fdc43e9c9dbd91f0f152ac88a8cf14c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
