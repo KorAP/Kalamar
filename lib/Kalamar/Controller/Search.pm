@@ -44,6 +44,7 @@ sub query {
   $v->optional('o', 'trim')->num(1, undef); # Offset
   $v->optional('context');
   $v->optional('pipe', 'trim');
+  $v->optional('response-pipe', 'trim');
   # $v->optional('action'); # action 'inspect' is no longer valid
   # $v->optional('snippet');
 
@@ -122,11 +123,18 @@ sub query {
     $query{count} = $items_per_page;
   };
 
-  # Forward pipe
+  # Query pipe
   if ($v->param('pipe')) {
 
     # Temporary, as this is not agreed among the services yet
     $query{pipes} = $v->param('pipe');
+  };
+
+  # Response pipe
+  if ($v->param('response-pipe')) {
+
+    # Temporary, as this is not agreed among the services yet
+    $query{'response-pipes'} = $v->param('response-pipe');
   };
 
   $c->stash(items_per_page => $items_per_page);

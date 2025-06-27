@@ -142,6 +142,7 @@ get '/v1.0/search' => sub {
   $v->optional('context');
   $v->optional('offset');
   $v->optional('pipes');
+  $v->optional('response-pipes');
   $v->optional('fields');
   $v->optional('cutoff')->in(qw/true false/);
 
@@ -180,6 +181,7 @@ get '/v1.0/search' => sub {
   push @slug_base, 'co' . $v->param('cutoff') if defined $v->param('cutoff');
   push @slug_base, 'cq' if defined $v->param('cq');
   push @slug_base, 'p' . $v->param('pipes') if defined $v->param('pipes');
+  push @slug_base, 'rp' . $v->param('response-pipes') if defined $v->param('response-pipes');
 
   if (defined $v->param('fields') && ($v->param('fields') ne join(',', @default_search_fields))) {
     push @slug_base, 'f' .join('-', split(',', $v->param('fields')));
@@ -225,6 +227,10 @@ get '/v1.0/search' => sub {
 
   if ($v->param('pipes')) {
     $response->{json}->{meta}->{pipes} = $v->param('pipes');
+  };
+
+  if ($v->param('response-pipes')) {
+    $response->{json}->{meta}->{responsePipes} = $v->param('response-pipes');
   };
 
   # Set page parameter
