@@ -1,7 +1,13 @@
 "use strict";
 
+window.KorAP = window.KorAP || {};
+
 define(function () {
   const loc = KorAP.Locale;
+
+  if (loc == undefined)
+    return;
+  
   loc.OR = 'oder';
   loc.AND = 'und';
   // EMPTY, DELETE
