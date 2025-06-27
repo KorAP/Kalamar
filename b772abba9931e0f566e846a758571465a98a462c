@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8acbe224_65a7976e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-06-27T13:39:44Z",
+      "side": 1,
+      "message": "These are rewrite services that will be added after the search (aka response rewrites).",
+      "revId": "b772abba9931e0f566e846a758571465a98a462c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
