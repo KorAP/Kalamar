@@ -33,10 +33,11 @@ $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*&_format=jso
   ->header_isnt('X-Kalamar-Cache', 'true')
   ;
 
-$t->get_ok('/corpus/GOE/AGF/02286/p75682-75683?_format=json')
+$t->get_ok('/corpus/GOE/AGF/02286/p75682-75683?_format=json&response-pipe=glemm')
   ->status_is(200)
   ->json_is('/textSigle', 'GOE/AGF/02286')
   ->json_is('/title','Materialien zur Geschichte der Farbenlehre')
+  ->json_is('/meta/responsePipes','glemm')
   ;
 
 # TODO:
@@ -102,6 +103,13 @@ $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no&_format=json')
   ;
 
 $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no&_format=html')
+  ->content_type_is('text/html;charset=UTF-8')
+  ->status_is(400)
+  ->text_is('p.no-results', 'Unable to perform the action.')
+  ->text_is('div.notify', 'Parameter "spans" invalid')
+  ;
+
+$t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=no')
   ->content_type_is('text/html;charset=UTF-8')
   ->status_is(400)
   ->text_is('p.no-results', 'Unable to perform the action.')

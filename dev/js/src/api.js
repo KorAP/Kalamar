@@ -41,11 +41,11 @@ define(['util'], function () {
     }
 
     docFragment += '/' + match.matchID;
-    url += '/' + docFragment;
+    url += '/' + docFragment + '?';
 
     // { spans: true, layer:x, foundry : y}
     if (param['spans'] == true) {
-      url += '?spans=true';
+      url += 'spans=true';
       docFragment += ' +spans ';
       if (param['foundry'] !== undefined) {
 	      url += '&foundry=' + param['foundry'];
@@ -61,8 +61,11 @@ define(['util'], function () {
     else {
       // TODO
       docFragment += ' -spans';
-      url += '?spans=false';
-    }
+      url += 'spans=false';
+    };
+
+    if (KorAP.ResponsePipe != null)
+      url += '&response-pipe=' + KorAP.ResponsePipe.toString();
 
     KorAP.API.getJSON(url, cb, "MatchInfo: " + docFragment);
   };
@@ -81,8 +84,12 @@ define(['util'], function () {
     }
     else {
       url += '?fields=@all'; // TODO: Maybe '*'?
-    }
+    };
 
+    if (KorAP.ResponsePipe != null)
+      url += '&response-pipe=' + KorAP.ResponsePipe.toString();
+
+    
     KorAP.API.getJSON(url, cb, "TextInfo: " + doc.textSigle);
   };
 

@@ -35,6 +35,29 @@ $t->get_ok('/corpus')
   ->header_isnt('X-Kalamar-Cache', 'true')
   ;
 
+# Query passed
+$t->get_ok('/corpus')
+  ->status_is(200)
+  ->content_like(qr!"tokens":5991667065!)
+  ->json_is('/documents', 20216975)
+  ->json_is('/tokens', 5991667065)
+  ->json_is('/sentences', 403923016)
+  ->json_is('/paragraphs', 129385487)
+  ->json_is('/meta/responsePipes',undef)
+  ->header_is('X-Kalamar-Cache', 'true')
+  ;
+
+$t->get_ok('/corpus?response-pipe=glemm')
+  ->status_is(200)
+  ->content_like(qr!"tokens":5991667065!)
+  ->json_is('/documents', 20216975)
+  ->json_is('/tokens', 5991667065)
+  ->json_is('/sentences', 403923016)
+  ->json_is('/paragraphs', 129385487)
+  ->json_is('/meta/responsePipes','glemm')
+  ->header_isnt('X-Kalamar-Cache', 'true')
+  ;
+
 $t->get_ok('/corpus?cq=docSigle+%3D+\"GOE/AGA\"')
   ->status_is(200)
   ->json_is('/documents', 5)

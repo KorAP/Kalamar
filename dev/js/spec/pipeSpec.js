@@ -94,12 +94,19 @@ define(['pipe'], function (pipeClass) {
       let e = p.element();
       expect(e.tagName).toEqual("INPUT");
       expect(e.getAttribute("type")).toEqual("text");
+      expect(e.getAttribute("name")).toEqual("pipe");
       p.append('service1');
       expect(e.getAttribute("value")).toEqual("service1");
       p.append('service2');
       expect(e.getAttribute("value")).toEqual("service1,service2");
       p.remove('service1');
       expect(e.getAttribute("value")).toEqual("service2");
+
+      p = pipeClass.create("response-pipe");
+      e = p.element();
+      expect(e.tagName).toEqual("INPUT");
+      expect(e.getAttribute("type")).toEqual("text");
+      expect(e.getAttribute("name")).toEqual("response-pipe");
     });
   });
 });

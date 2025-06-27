@@ -1,12 +1,13 @@
 /**
  * Create a pipe object, that holds a list of services
  * meant to transform the KQ passed before it's finally
- * passed to the search engine.
+ * passed to the search engine or to transform the response
+ * afterwards.
  *
  * @author Nils Diewald
  */
 "use strict";
-define(function () {
+define(['util'], function () {
   const notNullRe = new RegExp("[a-zA-Z0-9]");
 
   // Trim and check
@@ -23,8 +24,9 @@ define(function () {
     /**
      * Constructor
      */
-    create : function () {
+    create : function (name) {
       const obj = Object.create(this);
+      obj._name = (name == undefined) ? 'pipe' : name;
       obj._pipe = [];
       return obj;
     },
@@ -81,6 +83,13 @@ define(function () {
       return this._pipe.join(',');
     },
 
+    /**
+     * Return the pipe as a an URI compliant string.
+     */
+    toUriString : function () {
+      return encodeURIComponent(this.toString());
+    },
+
 
     /**
      * Update the pipe value.
@@ -100,7 +109,7 @@ define(function () {
       if (e == null) {
         e = this.e = document.createElement('input');
         e.setAttribute("type","text");
-        e.setAttribute("name","pipe");
+        e.setAttribute("name",this._name);
         e.classList.add("pipe");
       };
       return e;

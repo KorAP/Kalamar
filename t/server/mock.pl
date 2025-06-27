@@ -142,6 +142,7 @@ get '/v1.0/search' => sub {
   $v->optional('context');
   $v->optional('offset');
   $v->optional('pipes');
+  $v->optional('response-pipes');
   $v->optional('fields');
   $v->optional('cutoff')->in(qw/true false/);
 
@@ -180,6 +181,7 @@ get '/v1.0/search' => sub {
   push @slug_base, 'co' . $v->param('cutoff') if defined $v->param('cutoff');
   push @slug_base, 'cq' if defined $v->param('cq');
   push @slug_base, 'p' . $v->param('pipes') if defined $v->param('pipes');
+  push @slug_base, 'rp' . $v->param('response-pipes') if defined $v->param('response-pipes');
 
   if (defined $v->param('fields') && ($v->param('fields') ne join(',', @default_search_fields))) {
     push @slug_base, 'f' .join('-', split(',', $v->param('fields')));
@@ -227,6 +229,10 @@ get '/v1.0/search' => sub {
     $response->{json}->{meta}->{pipes} = $v->param('pipes');
   };
 
+  if ($v->param('response-pipes')) {
+    $response->{json}->{meta}->{responsePipes} = $v->param('response-pipes');
+  };
+
   # Set page parameter
   if ($v->param('page')) {
     $response->{json}->{meta}->{startIndex} = $v->param("startIndex");
@@ -243,6 +249,8 @@ get '/v1.0/search' => sub {
 # Textinfo fixtures
 get '/v1.0/corpus/#corpusId/#docId/#textId' => sub {
   my $c = shift;
+  my $v = $c->validation;
+  $v->optional('response-pipes');
 
   my $file = join('_', (
     'textinfo',
@@ -255,6 +263,11 @@ get '/v1.0/corpus/#corpusId/#docId/#textId' => sub {
 
   # Get response based on query parameter
   my $response = $c->load_response($slug);
+
+  if ($v->param('response-pipes')) {
+    $response->{json}->{meta}->{responsePipes} = $v->param('response-pipes');
+  };
+
   return $c->render(%$response);
 };
 
@@ -262,6 +275,8 @@ get '/v1.0/corpus/#corpusId/#docId/#textId' => sub {
 # Matchinfo fixtures
 get '/v1.0/corpus/#corpusId/#docId/#textId/#matchId' => sub {
   my $c = shift;
+  my $v = $c->validation;
+  $v->optional('response-pipes');
 
   my $file = join('_', (
     'matchinfo',
@@ -275,6 +290,11 @@ get '/v1.0/corpus/#corpusId/#docId/#textId/#matchId' => sub {
 
   # Get response based on query parameter
   my $response = $c->load_response($slug);
+
+  if ($v->param('response-pipes')) {
+    $response->{json}->{meta}->{responsePipes} = $v->param('response-pipes');
+  };
+
   return $c->render(%$response);
 };
 
@@ -284,6 +304,7 @@ get '/v1.0/statistics' => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('cq');
+  $v->optional('response-pipes', 'trim');
 
   my @list = 'corpusinfo';
   if ($v->param('cq')) {
@@ -293,6 +314,13 @@ get '/v1.0/statistics' => sub {
 
   # Get response based on query parameter
   my $response = $c->load_response($slug);
+
+  if ($v->param('response-pipes')) {
+    my $meta = $response->{json}->{meta} // {};
+    $meta->{responsePipes} = $v->param('response-pipes');
+    $response->{json}->{meta} = $meta;
+  };
+
   return $c->render(%$response);
 };
 
