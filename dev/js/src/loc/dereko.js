@@ -6,8 +6,13 @@
 
 "use strict";
 
+window.KorAP = window.KorAP || {};
+
 define(function () {
   const loc = KorAP.Locale;
+
+  if (loc == undefined)
+    return;
 
   //Query example for guided tour
   if (loc.TOUR_Qexample == undefined)
