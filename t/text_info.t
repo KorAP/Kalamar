@@ -31,6 +31,14 @@ $t->get_ok('/corpus/GOE/AGI/00000')
   ->json_is('/document/fields/0/value', 'GOE/AGI/00000')
   ;
 
+$t->get_ok('/corpus/GOE/AGI/00000?response-pipe=glemm')
+  ->status_is(200)
+  ->json_is('/document/fields/0/key', 'textSigle')
+  ->json_is('/document/fields/0/value', 'GOE/AGI/00000')
+  ->json_is('/meta/responsePipes', 'glemm')
+  ;
+
+
 # Not found - should probably be 404
 $t->get_ok('/corpus/GOE/AGY/00000')
   ->status_is(200)

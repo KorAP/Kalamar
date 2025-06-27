@@ -17,6 +17,7 @@
         - URLs for plugins are mandatory (closes #233; hebasta)
         - Support non-indexed annotations in match tables (diewald)
         - Improve explanation of timed-out match counts (diewald)
+        - Support response pipes (preliminary; diewald)
 
 0.59 2025-03-28
         - Docker only release (diewald)

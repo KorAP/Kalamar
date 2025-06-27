@@ -586,6 +586,13 @@ define([
             pipeE.removeAttribute("name");
         };
 
+        if (KorAP.ResponsePipe != null) {
+          const pipeE = KorAP.ResponsePipe.element();
+          if (pipeE.value == "")
+            pipeE.removeAttribute("name");
+        };
+
+	
         // This would preferably set the query to be "disabled",
         // but in that case the query wouldn't be submitted
         // at all.
@@ -696,8 +703,13 @@ define([
             d.head.appendChild(KorAP.Plugin.element());
 
             // Add pipe form
-            KorAP.Pipe = pipeClass.create();
-            d.getElementById("searchform").appendChild(KorAP.Pipe.element());
+            KorAP.Pipe = pipeClass.create("pipe");
+            let searchF = d.getElementById("searchform");
+	    searchF.appendChild(KorAP.Pipe.element());
+
+            // Add pipe form
+            KorAP.ResponsePipe = pipeClass.create("response-pipe");
+            searchF.appendChild(KorAP.ResponsePipe.element());
 
             try {
               

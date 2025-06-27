@@ -479,12 +479,24 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
 
       // Modify pipes
       case 'pipe':
-        if (KorAP.Pipe != undefined) {
-          if (d.job == 'del') {
-            KorAP.Pipe.remove(d.service);
-          } else {
-            KorAP.Pipe.append(d.service);
-          };
+	let j = d.job;
+        if (
+	  ((j == 'del-after' || j == 'add-after') &&
+	   KorAP.ResponsePipe == undefined) ||
+	    KorAP.Pipe == undefined) {
+	  
+	  KorAP.log(0,"No Pipe established");
+	  break;
+	};
+
+	if (j == 'del') {
+          KorAP.Pipe.remove(d.service);
+	} else if (j == 'del-after') {
+	  KorAP.ResponsePipe.remove(d.service);
+        } else if (j == 'add-after') {
+	  KorAP.ResponsePipe.append(d.service);
+	} else {
+          KorAP.Pipe.append(d.service);
         };
         break;
 

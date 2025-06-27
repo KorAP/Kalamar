@@ -44,6 +44,7 @@ sub query {
   $v->optional('o', 'trim')->num(1, undef); # Offset
   $v->optional('context');
   $v->optional('pipe', 'trim');
+  $v->optional('response-pipe', 'trim');
   # $v->optional('action'); # action 'inspect' is no longer valid
   # $v->optional('snippet');
 
@@ -122,11 +123,18 @@ sub query {
     $query{count} = $items_per_page;
   };
 
-  # Forward pipe
+  # Query pipe
   if ($v->param('pipe')) {
 
     # Temporary, as this is not agreed among the services yet
     $query{pipes} = $v->param('pipe');
+  };
+
+  # Response pipe
+  if ($v->param('response-pipe')) {
+
+    # Temporary, as this is not agreed among the services yet
+    $query{'response-pipes'} = $v->param('response-pipe');
   };
 
   $c->stash(items_per_page => $items_per_page);
@@ -331,6 +339,7 @@ sub corpus_info {
   # Input validation
   my $v = $c->validation;
   $v->optional('cq');
+  $v->optional('response-pipe', 'trim');
 
   my $url = Mojo::URL->new($c->korap->api);
 
@@ -339,8 +348,18 @@ sub corpus_info {
 
   # Add query
   my $cq = $v->param('cq');
-  $url->query({cq => $cq}) if $cq;
 
+  my %query = ();
+  $query{cq} = $cq if $cq;
+
+  # Response pipe
+  if ($v->param('response-pipe')) {
+
+    # Temporary, as this is not agreed among the services yet
+    $query{'response-pipes'} = $v->param('response-pipe');
+  };
+
+  $url->query(\%query);
   $c->app->log->debug("Statistics info: $url");
 
   # Async
@@ -385,9 +404,17 @@ sub text_info {
   # Input validation
   my $v = $c->validation;
   $v->optional('fields');
+  $v->optional('response-pipe', 'trim');
 
   my %query = (fields => '@all');
   $query{fields} = $v->param('fields') if $v->param('fields');
+
+  # Response pipe
+  if ($v->param('response-pipe')) {
+
+    # Temporary, as this is not agreed among the services yet
+    $query{'response-pipes'} = $v->param('response-pipe');
+  };
 
   my $url = Mojo::URL->new($c->korap->api);
 
@@ -446,6 +473,7 @@ sub match_info {
   $v->optional('foundry');
   $v->optional('layer');
   $v->optional('spans')->in(qw/true false/);
+  $v->optional('response-pipe', 'trim');
 
   # Check validation
   if ($v->has_error) {
@@ -479,6 +507,13 @@ sub match_info {
     $query{foundry} = $v->param('foundry');
     $query{layer} = $v->param('layer') if $v->param('layer');
     $query{spans} = $v->param('spans') if $v->param('spans');
+  };
+
+  # Response pipe
+  if ($v->param('response-pipe')) {
+
+    # Temporary, as this is not agreed among the services yet
+    $query{'response-pipes'} = $v->param('response-pipe');
   };
 
   # Create new request API
