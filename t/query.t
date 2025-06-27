@@ -343,9 +343,10 @@ $match = Kalamar::Controller::Search::_map_match($match);
 is($match->{matchID}, 'p5441-5442');
 
 # Query with pipe
-$err = $t->get_ok('/?q=baum&pipe=glemm')
+$err = $t->get_ok('/?q=baum&pipe=glemm&response-pipe=rewind')
   ->status_is(200)
   ->content_like(qr/${q}pipes${q}:${q}glemm${q}/)
+  ->content_like(qr/${q}responsePipes${q}:${q}rewind${q}/)
   ->tx->res->dom->at('#error')
   ;
 is(defined $err ? $err->text : '', '');
