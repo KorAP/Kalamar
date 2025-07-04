@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f841d7_46145ec6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-07-04T10:44:15Z",
+      "side": 1,
+      "message": "That is an outcome from a discussion with Jan-Oliver.",
+      "revId": "2a9855cc2e8aac2436d8a995b058e0b158e1e7a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
