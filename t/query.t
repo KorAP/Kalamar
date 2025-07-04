@@ -286,7 +286,8 @@ is(defined $err ? $err->text : '', '');
 $t->get_ok('/?q=timeout')
   ->status_is(200)
   ->text_like('#notifications div.notify-warn', qr!Response time exceeded!)
-  ->text_is('#total-results', '> 4,274,841');
+  ->text_is('#total-results', ' 4,274,841')
+  ->text_is('#total-results span[title]', 'more than');
 ;
 
 # Query with error
@@ -301,7 +302,8 @@ $t->get_ok('/?q=timeout')
   # ->text_like('#notifications div.notify-warning', qr!Response time exceeded!)
   ->element_exists("input#cq")
   ->element_exists_not("input#cq[value]")
-  ->text_is('#total-results', '> 4,274,841');
+  ->text_is('#total-results', ' 4,274,841')
+  ->text_is('#total-results span[title]', 'more than');
   ;
 
 $t->app->defaults(no_cache => 1);

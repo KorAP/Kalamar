@@ -14,9 +14,10 @@
 % if ($found != -1) {
 %   my $found_text = loc('numf', number => $found);
 %   if (stash('time_exceeded')) {
-%     $found_text = '> ' . $found_text;
+%     $found_text = '<span title="' . $c->loc('moreMatches_long') . '">' .
+%     $c->loc('moreMatches') . '</span> ' . $found_text;
 %   };
-<span id="total-results"><%= $found_text %></span> <%= loc('matchCount', found => $found) %>\
+<span id="total-results"><%== $found_text %></span> <%= loc('matchCount', found => $found) %>\
 %# <% if (stash('benchmark')) { %> (~ <%= stash('benchmark') %>)<% } %>
 % } elsif (stash('start_index') == 0 && stash('results')->size == 0) {
 <span id="total-results">0</span> <%= loc('matchCount', found => $found) %>\
