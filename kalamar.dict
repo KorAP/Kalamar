@@ -60,6 +60,10 @@ my $THOUSAND_SEP_RE = qr/(
     pubOn => 'veröffentlicht am',
     matchCount => 'Treffer',
     noMatches => 'Es wurden keine Treffer für <%== loc("searchjob") %> gefunden.',
+    moreMatches => {
+      -short => 'mehr als',
+      long => 'Dieser Wert gibt die Mindestanzahl an Treffern wider. Die tatsächliche Trefferanzahl kann aufgrund von Sucheinschränkungen nicht angezeigt werden.',
+    },
     notFound => '404 - Seite nicht gefunden',
     notIssued => 'Die Aktion konnte nicht durchgeführt werden.',
     backendNotAvailable => 'Das Backend ist nicht verfügbar unter <code><%= app->korap->api =></code>!',
@@ -181,6 +185,11 @@ my $THOUSAND_SEP_RE = qr/(
     pubOn => 'published on',
     matchCount => '<%= quant($found, "match", "matches") %>',
     noMatches => 'There were no matches found for <%== loc("searchjob") %>.',
+    moreMatches => {
+      -short => 'more than',
+      long => 'This value represents the minimum number of matches in the database. The exact number cannot be displayed due to search restrictions.',
+    },
+
     notFound => '404 - Page not found',
     notIssued => 'Unable to perform the action.',
     backendNotAvailable => 'The backend is not available at <code><%= app->korap->api %></code>!',
