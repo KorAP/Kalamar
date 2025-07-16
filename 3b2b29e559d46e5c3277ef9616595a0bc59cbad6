@@ -33,6 +33,24 @@
       "message": "\"top\" is not a valid line-height value, so maybe we should delete this line?",
       "revId": "3b2b29e559d46e5c3277ef9616595a0bc59cbad6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf150de4_57a4bf39",
+        "filename": "dev/scss/main/oauth.scss",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-07-16T15:46:22Z",
+      "side": 1,
+      "message": "Maybe `vertical-align` was meant? But yes - better delete or comment out.",
+      "parentUuid": "1bbe7b97_e6a249bb",
+      "revId": "3b2b29e559d46e5c3277ef9616595a0bc59cbad6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
