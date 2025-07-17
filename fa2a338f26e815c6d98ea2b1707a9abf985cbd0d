@@ -33,6 +33,24 @@
       "message": "Hmm, this is the official introjs.css, we did not write it. I would not change this, because it should not be harmful.\nI should upgrade introjs(already an issue #241) anyways, I guess this isn\u0027t an issue after upgrading anymore.",
       "revId": "fa2a338f26e815c6d98ea2b1707a9abf985cbd0d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "304cd2ea_894c3813",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-07-17T14:48:54Z",
+      "side": 1,
+      "message": "Please check, if this is possible. So - the CSS is meant to be copied?",
+      "parentUuid": "68bfaff5_beb13d33",
+      "revId": "fa2a338f26e815c6d98ea2b1707a9abf985cbd0d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
