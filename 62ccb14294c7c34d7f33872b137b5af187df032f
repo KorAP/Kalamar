@@ -16,6 +16,24 @@
       "message": "Replaced \"wider\" with \"wieder\".",
       "revId": "62ccb14294c7c34d7f33872b137b5af187df032f",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dddd3c5_c0b7b862",
+        "filename": "kalamar.dict",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-07-23T13:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8593ab5c_66f2081a",
+      "revId": "62ccb14294c7c34d7f33872b137b5af187df032f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
