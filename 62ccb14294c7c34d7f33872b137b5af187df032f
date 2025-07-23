@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8593ab5c_66f2081a",
+        "filename": "kalamar.dict",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-07-23T11:40:58Z",
+      "side": 1,
+      "message": "Replaced \"wider\" with \"wieder\".",
+      "revId": "62ccb14294c7c34d7f33872b137b5af187df032f",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}

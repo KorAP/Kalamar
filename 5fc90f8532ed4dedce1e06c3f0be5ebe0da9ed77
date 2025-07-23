@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce5fc95_95f5a69d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-07-23T11:40:58Z",
+      "side": 1,
+      "message": "Works now! I only patched a typo. It is a really nice improvement, by the way.",
+      "revId": "5fc90f8532ed4dedce1e06c3f0be5ebe0da9ed77",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
