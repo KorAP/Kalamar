@@ -16,6 +16,23 @@
       "message": "That is an outcome from a discussion with Jan-Oliver.",
       "revId": "2a9855cc2e8aac2436d8a995b058e0b158e1e7a6",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0413d13a_a8f7fd23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-07-23T11:00:47Z",
+      "side": 1,
+      "message": "The HTML tags are displayed for the user. This should not be the case.\n\n\u003cspan title\u003d\"Dieser Wert gibt die Mindestanzahl an Treffern wider. Die tatsächliche Trefferanzahl kann aufgrund von Sucheinschränkungen nicht angezeigt werden.\"\u003emehr als\u003c/span\u003e\n\n(Screenshot in Slack)",
+      "revId": "2a9855cc2e8aac2436d8a995b058e0b158e1e7a6",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
