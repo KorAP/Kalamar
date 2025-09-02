@@ -1,5 +1,7 @@
-  <dt class="maintenance"><time datetime="<%= $dt->ymd %>"><%= $dt->day_name %>, <%= loc('numo', day => $dt->day) %> <%= $dt->month_name %> <%= $dt->year %></time></dt>
-  <dd  class="maintenance">
-    <h4><%= loc 'maintenanceWork_time' %> <%= $start_time %> - <%= $end_time %> <%= loc('oclock') %></h4>
-    <p><%= loc 'maintenanceWork_desc' %></p>
-  </dd>
+  <ul class="maintenance">
+    <time datetime="<%= $dt->ymd %>"><%= $dt->day_name %>, <%= loc('numo', day => $dt->day) %> <%= $dt->month_name %> <%= $dt->year %></time>
+    <li class="maintenance">
+      <h4><%= loc 'maintenanceWork_time' %> <%= $start_time %> - <%= $end_time %> <%= loc('oclock') %></h4>
+      <p><%= loc 'maintenanceWork_desc' %></p>
+    </li>
+  </ul>
