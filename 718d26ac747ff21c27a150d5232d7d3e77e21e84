@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8a71a5_23b0f86e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-09-07T12:23:42Z",
+      "side": 1,
+      "message": "Not quite right, yet, I think. This makes any border around the announcement completely disappear. Tested on Firefox and Chrome.",
+      "revId": "718d26ac747ff21c27a150d5232d7d3e77e21e84",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
