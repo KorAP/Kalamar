@@ -197,6 +197,10 @@ $err = $t->get_ok('/?q=der&p=1&count=2' => { 'Accept-Language' => 'en-US, en, de
   ->content_like(qr!${q}startIndex${q}:0!)
   ->content_like(qr!${q}itemsPerPage${q}:2!)
 
+  # Alignment
+  ->element_exists('#search ol.align-left')
+  ->element_exists_not('#search ol.align-right')
+
   # No caching
   ->header_isnt('X-Kalamar-Cache', 'true')
 
@@ -352,7 +356,6 @@ $err = $t->get_ok('/?q=baum&pipe=glemm')
   ;
 is(defined $err ? $err->text : '', '');
 
-
 my $base_fixtures = path(Mojo::File->new(__FILE__)->dirname, 'fixtures');
 my $text_info = $base_fixtures->child('response_textinfo_goe_agi_00000.json')->slurp;
 my $fields = decode_json($text_info)->{json}->{document}->{fields};
@@ -380,7 +383,6 @@ is($f->{pubPlace}, 'München');
 is($f->{corpusTitle}, 'Goethes Werke');
 is($f->{corpusSigle}, 'GOE');
 is($f->{corpusEditor}, 'Trunz, Erich');
-
 
 done_testing;
 __END__
