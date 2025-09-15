@@ -328,12 +328,14 @@ sub startup {
   $self->defaults(
     items_per_page => 25,
     context => '40-t,40-t', # Before: 'base/s:p'/'paragraph'
+    alignment => 'left'
   );
 
   if (exists $conf->{defaults}) {
     my $def = $conf->{defaults};
-    $self->defaults(items_per_page => $def->{items_per_page}) if $def->{items_per_page};
-    $self->defaults(context => $def->{context}) if $def->{context};
+    foreach (qw!items_per_page context alignment!) {
+      $self->defaults($_ => $def->{$_}) if $def->{$_};
+    };
   };
 
   # Configure documentation navigation
