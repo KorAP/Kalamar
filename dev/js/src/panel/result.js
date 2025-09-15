@@ -91,9 +91,17 @@ define([
       /**
        * Toggle the alignment (left <=> right)
        */
-      this.actions().add(loc.TOGGLE_ALIGN, {'cls':['align','right','button-icon']}, function (e) {
-        var olCl = d.querySelector('#search > ol').classList;
+      let olCl = d.querySelector('#search > ol').classList;
+      let buttonInit = "right";
 
+      aRoll.find(function(align, i) {
+        if (olCl.contains('align-' + align)) {
+	  buttonInit = aRoll[i >= 2 ? 0 : i+1];
+	  return true;
+	};
+      });
+      
+      this.actions().add(loc.TOGGLE_ALIGN, {'cls':['align',buttonInit,'button-icon']}, function (e) {
         aRoll.find(function(align, i) {
           if (olCl.contains('align-' + align)) {
             const n  = i >= 2 ? 0 : i+1;
