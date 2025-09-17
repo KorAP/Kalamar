@@ -1,4 +1,4 @@
-0.60 2025-07-04
+0.60 2025-09-17
         - Tour stops gracefully if there are no results (closes #189; hebasta)
         - Create top navbar and modify sidebar. (uyen-nhu)
         - Improve appearance of title-addon on logo. (uyen-nhu)
@@ -18,6 +18,7 @@
         - Support non-indexed annotations in match tables (diewald)
         - Improve explanation of timed-out match counts (diewald)
         - Support response pipes (preliminary; diewald)
+        - Add general proxies (diewald)
 
 0.59 2025-03-28
         - Docker only release (diewald)
