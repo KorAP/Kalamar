@@ -19,6 +19,7 @@
         - Improve explanation of timed-out match counts (diewald)
         - Support response pipes (preliminary; diewald)
         - Support default alignment changes (diewald)
+        - Add general proxies support (diewald)
 
 0.59 2025-03-28
         - Docker only release (diewald)

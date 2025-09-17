@@ -400,8 +400,32 @@ NONCE_JS
   $r->get('/contact')->mail_to_chiffre('documentation#contact');
 
   # API proxy route
-  $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#pass');
-  $r->any('/api/v#apiv/*api_path' => [apiv => ['1.0']])->to('Proxy#pass');
+  $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#api_pass');
+  $r->any('/api/v#apiv/*proxy_path' => [apiv => ['1.0']])->to('Proxy#api_pass');
+
+  # General proxy mounts
+  my $proxies = $conf->{'proxies'} // [];
+  foreach (@$proxies) {
+    next if $_ eq 'PROXY_STUB';
+
+    my $root_path = Mojo::Path->new($_->{root_path})
+      ->canonicalize->leading_slash(1)
+      ->trailing_slash(1);
+
+    my %stash_hash = (
+      service   => $_->{service},
+      root_path => $root_path,
+      mount     => $_->{mount},
+    );
+
+    $r->any($root_path)->name($_->{service})->to(
+      'Proxy#pass', %stash_hash
+    );
+
+    $r->any($root_path . '*proxy_path')->to(
+      'Proxy#pass', %stash_hash
+    );
+  };
 
   # Match route
   # Corpus route
