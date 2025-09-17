@@ -158,6 +158,52 @@ $t->options_ok('/api/v1.0/search?ql=cosmas3')
   ->header_is('Access-Control-Max-Age', '86400')
   ;
 
+# General proxy mounts
+my $plugin_path = '/realplugin';
+
+$t = Test::Mojo->new('Kalamar' => {
+  Kalamar => {
+    proxies => [{
+      root_path => '/plugin/hello',
+      mount => $plugin_path,
+      service => 'export-plugin-proxy'
+    }],
+    proxy_inactivity_timeout => 99,
+    proxy_connect_timeout => 66,
+  }
+});
+
+my $fake_plugin = $t->app->plugin(
+  Mount => {
+    $plugin_path =>
+      $fixtures_path->child('plugin-ex.pl')
+  }
+);
+
+# Configure fake plugin
+my $fake_plugin_app = $fake_plugin->pattern->defaults->{app};
+$fake_plugin_app->log($t->app->log);
+
+# Globally set server
+$t->app->ua->server->app($t->app);
+
+$t->get_ok('/realplugin')
+  ->status_is(200)
+  ->content_is('Hello base world!');
+
+$t->get_ok('/realplugin/huhux')
+  ->status_is(200)
+  ->content_is('Hello world! huhux');
+
+$t->get_ok('/plugin/hello/huhux')
+  ->status_is(200)
+  ->content_is('Hello world! huhux');
+
+# require Mojolicious::Command::routes;
+# use Mojo::Util qw(encode tablify);
+# my $rows = [];
+# Mojolicious::Command::routes::_walk($_, 0, $rows, 0) for @{$t->app->routes->children};
+# warn encode('UTF-8', tablify($rows));
 
 done_testing;
 __END__
