@@ -400,8 +400,26 @@ NONCE_JS
   $r->get('/contact')->mail_to_chiffre('documentation#contact');
 
   # API proxy route
-  $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#pass');
-  $r->any('/api/v#apiv/*api_path' => [apiv => ['1.0']])->to('Proxy#pass');
+  $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#api_pass');
+  $r->any('/api/v#apiv/*proxy_path' => [apiv => ['1.0']])->to('Proxy#api_pass');
+
+  # General proxy mounts
+  my $proxies = $conf->{'proxies'} // [];
+  foreach (@$proxies) {
+    my %stash_hash = (
+      service   => $_->{service},
+      root_path => $_->{root_path},
+      mount     => $_->{mount},
+    );
+
+    $r->any($_->{root_path})->name($_->{service})->to(
+      'Proxy#pass', %stash_hash
+    );
+
+    $r->any($_->{root_path} . '/*proxy_path')->to(
+      'Proxy#pass', %stash_hash
+    );
+  };
 
   # Match route
   # Corpus route
