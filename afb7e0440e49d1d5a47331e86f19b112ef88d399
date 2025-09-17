@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b6556c_79a9b5c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-09-17T09:51:28Z",
+      "side": 1,
+      "message": "As long as we don\u0027t advertise the config too much, we can submit it, I guess.",
+      "revId": "afb7e0440e49d1d5a47331e86f19b112ef88d399",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
