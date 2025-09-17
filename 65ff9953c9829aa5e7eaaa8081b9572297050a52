@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c309d1_0c72addb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-09-17T09:59:25Z",
+      "side": 1,
+      "message": "Stupid me broke my local master, that\u0027s why this commit isn\u0027t independent. Sorry.\n\nThis commit should allow Kalamar to act as a proxy for other services than Kustvakt, including the export, so only one service needs to be exposed by docker compose, if the services run in the same docker network. This will require tests with different hosts in the wild.",
+      "revId": "65ff9953c9829aa5e7eaaa8081b9572297050a52",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
