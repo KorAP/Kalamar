@@ -1,12 +1,34 @@
 package Kalamar::Controller::Proxy;
 use Mojo::Base 'Mojolicious::Controller';
 
-# Pass proxy command to API
-sub pass {
+sub api_pass {
   my $c = shift;
 
   my $apiv = $c->stash('apiv');
-  my $path = $c->stash('api_path') // '';
+
+  # Get API request for proxying
+  # External URL!
+  my $base_url = Mojo::URL->new($c->korap->api($apiv));
+  $c->stash('root_path', $base_url->to_string);
+
+  $c->stash(service => 'proxy');
+
+  return $c->pass($base_url);
+};
+
+# Pass proxy command to API
+sub pass {
+  my $c = shift;
+  my $base_url = shift // Mojo::URL->new($c->stash('mount'));
+
+  my $base_path = $base_url->path->trailing_slash(1);
+
+  my $proxy_path = Mojo::Path->new(
+    $c->stash('proxy_path') ? $c->stash('proxy_path') : ''
+  )->leading_slash(0);
+
+  $base_path = $base_path->merge($proxy_path);
+  $base_url = $base_url->path($base_path);
 
   # Get the original request
   my $req = $c->req;
@@ -25,8 +47,7 @@ sub pass {
   # Get parameters of the request
   my $params = $req->query_params->clone;
 
-  # Get API request for proxying
-  my $url = Mojo::URL->new($c->korap->api($apiv))->path($path)->query($params);
+  my $url = $base_url->query($params);
 
   # Resend headers
   my $tx = $c->kalamar_ua->build_tx(
@@ -39,15 +60,16 @@ sub pass {
     before_korap_request => ($c, $tx)
   );
 
-  my $h = $c->res->headers;
-  $h->access_control_allow_origin('*');
+  my $origin = $c->req->headers->origin;
 
   # Retrieve CORS header
   if ($c->req->method eq 'OPTIONS') {
 
+    my $h = $c->res->headers;
     # Remember this option for a day
     $h->header('Access-Control-Max-Age' => '86400');
     $h->header('Access-Control-Allow-Headers' => '*');
+    $h->header('Access-Control-Allow-Origin', $origin || '*');
     $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
     return $c->render(
       status => 204,
@@ -75,7 +97,7 @@ sub pass {
       my $h = $c->res->headers;
       $h->header('X-Proxy' => 'Kalamar');
       $h->header('X-Robots' => 'noindex');
-      $h->access_control_allow_origin('*');
+      $h->header('Access-Control-Allow-Origin', $origin || '*');
       $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
 
       # Response is a redirect
@@ -83,16 +105,16 @@ sub pass {
 
         # Rewrite redirect location to surface URL
         my $location_url = $h->location;
-        my $base_url = Mojo::URL->new($c->korap->api)->to_abs->to_string;
+        my $root_path = $c->stash('root_path');
 
         # Remove the api part
         # ".*?" is just required for non-absolute base_urls
-        $location_url =~ s/^.*?${base_url}//;
+        $location_url =~ s/^.*?${root_path}//;
 
         # Turn the rewritten location into a URL object
         $location_url = Mojo::URL->new($location_url);
 
-        my $proxy_url = $c->url_for('proxy');
+        my $proxy_url = $c->url_for($c->stash('service') || 'proxy');
         $proxy_url->path->trailing_slash(1);
 
         # Rebase to proxy path
