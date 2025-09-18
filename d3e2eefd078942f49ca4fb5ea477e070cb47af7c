@@ -33,6 +33,24 @@
       "message": "@helge ? That would - unless I cherrypick - also add the alignment.",
       "revId": "d3e2eefd078942f49ca4fb5ea477e070cb47af7c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ae63e62_81a62837",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-09-18T16:30:30Z",
+      "side": 1,
+      "message": "Maybe better cherry pick. I have the impression that the alignment does not work. But maybe I have made a configuration error in deliko. But it does not hurt.",
+      "parentUuid": "6cfb07b8_dd00b8ef",
+      "revId": "d3e2eefd078942f49ca4fb5ea477e070cb47af7c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
