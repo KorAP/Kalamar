@@ -16,6 +16,23 @@
       "message": "Works for export plugin. Maybe merge and test general function later?",
       "revId": "d3e2eefd078942f49ca4fb5ea477e070cb47af7c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cfb07b8_dd00b8ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-09-18T16:15:00Z",
+      "side": 1,
+      "message": "@helge ? That would - unless I cherrypick - also add the alignment.",
+      "revId": "d3e2eefd078942f49ca4fb5ea477e070cb47af7c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
