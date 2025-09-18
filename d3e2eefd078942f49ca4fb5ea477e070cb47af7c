@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a941440_61f889b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-09-18T09:44:25Z",
+      "side": 1,
+      "message": "Works for export plugin. Maybe merge and test general function later?",
+      "revId": "d3e2eefd078942f49ca4fb5ea477e070cb47af7c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
