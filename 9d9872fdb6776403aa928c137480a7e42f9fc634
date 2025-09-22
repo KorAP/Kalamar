@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9178cb_4b053f86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-09-22T18:08:07Z",
+      "side": 1,
+      "message": "I cannot see it working: https://korap.dnb.de/?q\u003dgeht\u0026ql\u003dpoliqarp\u0026cutoff\u003d1\n\nOr have I made a mistake in the configuration?\n\nhttps://gitlab.ids-mannheim.de/korap4dnb/epub2i5/-/blob/main/data/kalamar-xl.conf?ref_type\u003dheads",
+      "revId": "9d9872fdb6776403aa928c137480a7e42f9fc634",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
