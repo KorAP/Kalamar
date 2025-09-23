@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09c4495_5474da89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-09-23T16:54:46Z",
+      "side": 1,
+      "message": "Actually it worked for me already before (Firefox), maybe as default? But the change works, too, so 2+.",
+      "revId": "5f3715cae735c30edb3f6ec0c44d28cb11209903",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
