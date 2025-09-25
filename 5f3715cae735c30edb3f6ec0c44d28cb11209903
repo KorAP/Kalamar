@@ -33,6 +33,24 @@
       "message": "Hm - maybe we are having different issues? It didn\u0027t work for me (both on master and korap.ids-mannheim.de), neither in Firefox nor in Chrome. So, when you are logged in and shrink the window, so the burger icon appears, it was already showing you the hand cursor?",
       "revId": "5f3715cae735c30edb3f6ec0c44d28cb11209903",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abf4ae63_c814cb45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-09-25T11:50:34Z",
+      "side": 1,
+      "message": "Ah, sorry, my fault, probably caching issue. I can reproduce it now. Works!",
+      "parentUuid": "598cb1a5_e520fc41",
+      "revId": "5f3715cae735c30edb3f6ec0c44d28cb11209903",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
