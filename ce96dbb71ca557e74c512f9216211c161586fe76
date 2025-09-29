@@ -16,6 +16,24 @@
       "message": "I testet it locally. Tests run trough, the export template is displayed but the export is not executed, Error message:\nRessource von \"http://localhost:3000/plugin/export.js\" wurde wegen eines MIME-Typ-Konfliktes (\"text/html\") blockiert (X-Content-Type-Options: nosniff).\nI added to kalamar.conf   \nproxies \u003d\u003e [{\n       root_path \u003d\u003e \u0027/plugin/export\u0027,\n       mount \u003d\u003e \u0027http://localhost:7777/export\u0027,\n       service \u003d\u003e \u0027export-plugin-proxy\u0027\n     }],\nand defined the export plugin in my plugin.json file like that:\n\n\n{\n  \"name\" : \"Export\",\n  \"desc\" : \"Exports Kalamar results\",\n  \"embed\" : [{\n    \"panel\" : \"result\",\n    \"title\" : \"exports KWICs and snippets\",\n    \"icon\" : \"\\uf019\",\n    \"classes\" : [\"button-icon\", \"plugin\" ],\n    \"onClick\" : {\n        \"action\" : \"addWidget\",\n        \"permissions\":[\"forms\",\"scripts\",\"downloads\"],\n      \"template\" : \"http://localhost:3000/plugin/export\"\n    }\n  }]\n}\n]\nWhat did I do wrong? Kalamar is running at localhost:3000",
       "revId": "ce96dbb71ca557e74c512f9216211c161586fe76",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97dbde59_0282a930",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-09-29T07:25:37Z",
+      "side": 1,
+      "message": "I don\u0027t know, and must admit that I haven\u0027t even tried to run it locally. But it works fine at the DNB https://korap.dnb.de/?q\u003dgeht\u0026ql\u003dpoliqarp\u0026cutoff\u003d1\n\nThe configuration is a bit complicated now and a further obstacle for others to use KorAP locally. We still have to tackle that.",
+      "parentUuid": "31653e9f_e5647262",
+      "revId": "ce96dbb71ca557e74c512f9216211c161586fe76",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
