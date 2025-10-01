@@ -12,44 +12,62 @@ sub register {
     $param = { %$param, %$config_param };
   };
 
+  my @json_array = ();
+
+  # Legacy support
+  $param->{default_file} //= $param->{default_plugins};
+
   # There are default plugins to be registered
-  if ($param->{default_plugins}) {
+  if ($param->{default_file}) {
 
     # Read default plugins file
-    my $default = path($param->{default_plugins});
+    my $default = path($param->{default_file});
 
     # Use correct working directory
     $default = $app->home->child($default) unless $default->is_abs;
 
-    my $json_array = decode_json $default->slurp;
+    @json_array = @{ decode_json $default->slurp };
+  };
 
-    # If any scripts are defined
-    if ($json_array) {
+  # There are default plugins to be registered
+  if ($param->{default}) {
+    if (ref $param->{default} ne 'ARRAY') {
+      push @json_array, $param->{default};
+    }
 
-      # TODO:
-      #   Add user registered plugins as a path
-
-      # TODO:
-      #   Add sources to CORS.
-
-      # Add default plugins, if exist
-      $app->routes->get('/settings/plugin/list.json')->to(
-        cb => sub {
-          my $c = shift;
-          $c->res->headers->cache_control('no-cache');
-          $c->render(
-            json => $json_array
-          );
-        }
-      )->name('plugin_list');
-
-      $app->content_block(
-        scripts => {
-          inline => q!<span id="kalamar-plugins" ! .
-            q!data-plugins="<%== url_for 'plugin_list' %>"></span>!
-        }
-      );
+    else {
+      push @json_array, @{$param->{default}};
     };
+  };
+
+  @json_array = grep { $_ ne 'PLUGIN_STUB' } @json_array;
+
+  # If any scripts are defined
+  if (@json_array > 0) {
+
+    # TODO:
+    #   Add user registered plugins as a path
+
+    # TODO:
+    #   Add sources to CORS.
+
+    # Add default plugins, if exist
+    $app->routes->get('/settings/plugin/list.json')->to(
+      cb => sub {
+        my $c = shift;
+        $c->res->headers->cache_control('no-cache');
+        $c->render(
+          json => \@json_array
+        );
+      }
+    )->name('plugin_list');
+
+    $app->content_block(
+      scripts => {
+        inline => q!<span id="kalamar-plugins" ! .
+        q!data-plugins="<%== url_for 'plugin_list' %>"></span>!
+      }
+    );
   };
 };
 
@@ -81,16 +99,21 @@ C<Kalamar-Plugins> configuration section in the Kalamar configuration:
 
 =over 2
 
-=item B<default_plugins>
+=item B<default_file>
 
-Path for default plugins (mandatory for all users) to register in the
+Path for default plugins (mandatory to all users) to register in the
+frontend.
+
+=item B<default>
+
+Array of default plugins (mandatory to all users) to register in the
 frontend.
 
 =back
 
 =head2 COPYRIGHT AND LICENSE
 
-Copyright (C) 2021, L<IDS Mannheim|http://www.ids-mannheim.de/>
+Copyright (C) 2021-2025, L<IDS Mannheim|http://www.ids-mannheim.de/>
 Author: L<Nils Diewald|http://nils-diewald.de/>
 
 Kalamar is developed as part of the L<KorAP|http://korap.ids-mannheim.de/>

@@ -26,7 +26,28 @@ $temp->spew(<<SCRIPT);
 SCRIPT
 
 $t->app->plugin('Plugins' => {
-  default_plugins => $temp->to_string
+  default_file => $temp->to_string,
+  default => [
+    'PLUGIN_STUB',
+    {
+      "name" => "External Resources",
+      "desc" => "Get extended access from an external provider",
+      "embed" => [{
+        "panel" => "match",
+        "title" => "Full Text",
+        "classes" => ["plugin","cart"],
+        "icon" => "\f07a",
+        "onClick" => {
+          "action" => "addWidget",
+          "template" => "https://korap.ids-mannheim.de/plugin/external/",
+          "permissions"=> [
+            "scripts",
+            "popups"
+          ]
+        }
+      }]
+    }
+  ]
 });
 
 $t->get_ok('/')
@@ -40,8 +61,12 @@ $t->get_ok('/settings/plugin/list.json')
   ->status_is(200)
   ->header_is('Content-Type','application/json;charset=UTF-8')
   ->content_unlike(qr!KorAP\.Plugins=!)
+  ->content_unlike(qr!STUB!)
   ->content_like(qr!button-icon!)
+  ->content_like(qr!exports KWICs and snippets!)
+  ->content_like(qr!Get extended access from an external provider!)
   ->json_is('/0/embed/0/title','exports KWICs and snippets')
+  ->json_is('/1/embed/0/title','Full Text')
   ;
 
 done_testing;
