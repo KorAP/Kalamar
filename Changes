@@ -1,4 +1,4 @@
-0.60 2025-09-19
+0.60 2025-10-01
         - Tour stops gracefully if there are no results (closes #189; hebasta)
         - Create top navbar and modify sidebar. (uyen-nhu)
         - Improve appearance of title-addon on logo. (uyen-nhu)
@@ -19,6 +19,7 @@
         - Improve explanation of timed-out match counts (diewald)
         - Support response pipes (preliminary; diewald)
         - Support default alignment changes (diewald)
+        - Improve 'Plugins' mounting (diewald)
 
 0.59 2025-03-28
         - Docker only release (diewald)
