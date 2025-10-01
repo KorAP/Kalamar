@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f74e77d0_beec51bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-01T09:01:39Z",
+      "side": 1,
+      "message": "My idea here is as follows:\n- adding plugin json blobs directly via Kalamar conf\n- esp. for: allowing plugins and proxies to be added via file modification in docker compose\n\nThat should (although it\u0027s only the first step) simplify running plugins such as export via docker compose profiles.",
+      "revId": "c2e5193eeab13b2a180f2f05dcd8f1d0cdb0fc22",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
