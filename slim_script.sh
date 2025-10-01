@@ -9,7 +9,7 @@ VERSION=${VERSION#v}
 
 # Build the docker-slim command
 slim build --http-probe=true \
-           --exec="perl Makefile.PL && make test && unzip -v" \
+           --exec="perl Makefile.PL && MOJO_MODE=test make test && unzip -v" \
            --include-workdir=true \
            --include-path="/usr/local/share/perl5/site_perl/KorAP/" \
            --include-path="/usr/local/share/perl5/site_perl/Mojolicious/" \
