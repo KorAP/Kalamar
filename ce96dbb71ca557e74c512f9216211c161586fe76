@@ -34,6 +34,24 @@
       "parentUuid": "31653e9f_e5647262",
       "revId": "ce96dbb71ca557e74c512f9216211c161586fe76",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580740a1_61b6676c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-01T06:54:00Z",
+      "side": 1,
+      "message": "The proxy config for your scenario needs to be\n\n```\nproxies \u003d\u003e [{\n  root_path \u003d\u003e \u0027/plugin/export/\u0027,\n  mount    \u003d\u003e \u0027http://localhost:7777/\u0027,\n  service \u003d\u003e \u0027export-plugin-proxy\u0027\n}]\n```\n\nAnd the template path should be:\n```\n\"template\" : \"http://localhost:3000/plugin/export/export\",\n```\n\nI altered the path-parsing, so it\u0027s okay to mis the trailing slash at the end (good hint - thanks!)\n\nIf it is a further obstacle, we don\u0027t need to advertise it for using it locally (there is actually no point in doing so outside of docker).",
+      "parentUuid": "97dbde59_0282a930",
+      "revId": "ce96dbb71ca557e74c512f9216211c161586fe76",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
