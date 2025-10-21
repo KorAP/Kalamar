@@ -16,6 +16,23 @@
       "message": "Can you post a screenshot on how it should look like?",
       "revId": "af49b249734e09ed10bacffdb88cc341d333a990",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9668a495_4b39fd4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-21T13:37:57Z",
+      "side": 1,
+      "message": "When using the announcements helper, there is no class .announcements - so I guess that\u0027s why it doesn\u0027t work for me (and therefore not on the main instance). Or am I doing something wrong?",
+      "revId": "af49b249734e09ed10bacffdb88cc341d333a990",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
