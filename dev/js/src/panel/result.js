@@ -91,7 +91,10 @@ define([
       /**
        * Toggle the alignment (left <=> right)
        */
-      let olCl = d.querySelector('#search > ol').classList;
+      let ol = d.querySelector('#search > ol');
+      
+      if (!ol) return false;
+      let olCl = ol.classList;
       let buttonInit = "right";
 
       aRoll.find(function(align, i) {
