@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70265c26_bea9d73c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-10-21T11:46:09Z",
+      "side": 1,
+      "message": "Thanks 😊! \nThe query could not be choosen as query(was not clickable). I fixed this. The German translation is missing. Should I try to add it?",
+      "revId": "f96a5ed02d3d691ab53d6b7213429a65cedab5fe",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
