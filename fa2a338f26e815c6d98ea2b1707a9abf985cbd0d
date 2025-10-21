@@ -51,6 +51,23 @@
       "parentUuid": "68bfaff5_beb13d33",
       "revId": "fa2a338f26e815c6d98ea2b1707a9abf985cbd0d",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68bcfabc_75725dd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-21T09:12:03Z",
+      "side": 1,
+      "message": "@stallkamp@ids-mannheim.de Was a fix possible?",
+      "revId": "fa2a338f26e815c6d98ea2b1707a9abf985cbd0d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
