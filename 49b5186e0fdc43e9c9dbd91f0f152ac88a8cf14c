@@ -51,6 +51,23 @@
       "message": "Is this still current?",
       "revId": "49b5186e0fdc43e9c9dbd91f0f152ac88a8cf14c",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84110fdd_73174d8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-21T08:58:10Z",
+      "side": 1,
+      "message": "I expect this to be outdated, right?",
+      "revId": "49b5186e0fdc43e9c9dbd91f0f152ac88a8cf14c",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
