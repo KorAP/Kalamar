@@ -245,6 +245,12 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
       expect(list.classList.contains('visible')).toBeFalsy();
 
       expect(pagination.addRandomPage()).toBeFalsy();
+
+      // Clean up
+      document.body.removeChild(p);
+      if (pagination && pagination.actions && pagination.actions().element) {
+        document.body.removeChild(pagination.actions().element());
+      }
     });
 
   });
