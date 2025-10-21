@@ -33,6 +33,23 @@
       "message": "Actually, I don\u0027t see a larger gap between the header and the search results. Maybe I\u0027m looking at the wrong place ..\nBut the borders at the Login window are gone, this looks strange.",
       "revId": "6cb89f3e0c565b12d23fa636d17f7f309f7fa7e9",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fbaadc4_bf77da0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-21T08:59:18Z",
+      "side": 1,
+      "message": "What is the state of this commit?",
+      "revId": "6cb89f3e0c565b12d23fa636d17f7f309f7fa7e9",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
