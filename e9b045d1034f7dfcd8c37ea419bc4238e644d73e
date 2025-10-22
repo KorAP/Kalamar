@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc630855_c5767a98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-22T12:34:47Z",
+      "side": 1,
+      "message": "This removes all deprecation warnings from grunt with more recent versions of SCSS. See https://sass-lang.com/d/mixed-decls",
+      "revId": "e9b045d1034f7dfcd8c37ea419bc4238e644d73e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
