@@ -123,12 +123,12 @@ div.matchtable {
   }
 
   thead th {
+    border-top-width: 0px !important;
+    text-align:       center;
+
     &:not(.no-anno) {
       background-color: $darker-orange;
     }
-
-    border-top-width: 0px !important;
-    text-align:       center;
 
     &:nth-of-type(1),
     &:nth-of-type(2) {

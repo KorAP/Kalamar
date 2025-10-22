@@ -384,6 +384,9 @@ $standard-margin: 4px;
 
   footer {
     padding-left: 0 !important;
+    padding-top: 2rem;
+    flex-direction: column;
+    height: unset;
     nav {
       margin-left: 1em;
       height: auto;
@@ -395,9 +398,6 @@ $standard-margin: 4px;
         }
       }
     }
-    padding-top: 2rem;
-    flex-direction: column;
-    height: unset;
   }
 }
 

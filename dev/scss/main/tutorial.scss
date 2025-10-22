@@ -16,17 +16,17 @@
   background-color: $nearly-white;
   box-shadow:       $choose-box-shadow;
 
-  .button-group.button-view {
-    background-color: $middle-grey;
-    display:          block;
-    height:           100%;
-  }
-
   border: {
     width:  2 * $border-size;
     color:  $dark-grey;
     style:  solid;
     radius: $standard-border-radius;
+  }
+
+  .button-group.button-view {
+    background-color: $middle-grey;
+    display:          block;
+    height:           100%;
   }
 
   iframe {
@@ -48,10 +48,10 @@ p.bibentry {
   font-size: 80%;
   margin-left: 3em;
   margin-bottom: 3em;
+  text-indent: -1.5em;
   cite {
     font-weight: bold;
   }
-  text-indent: -1.5em;
 }
 
 body.embedded {

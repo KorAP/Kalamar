@@ -28,14 +28,14 @@ $bracket-size: .4em;
     margin-left: $left-padding;
     padding:     4pt 2pt 4pt 0pt;
 
-    .docGroup {
-      display: block;
-    }
-
     border: {
       radius: $standard-border-radius * 2;
       style:  solid;
       width:  0 $bracket-size;
+    }
+
+    .docGroup {
+      display: block;
     }
 
     &[data-operation] {
