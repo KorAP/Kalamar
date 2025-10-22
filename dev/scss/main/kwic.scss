@@ -214,8 +214,15 @@ body.no-js #search > ol > li:active,
   
   .snippet {
     white-space:      normal !important;
-	  padding:          2pt 0 5pt 5pt;
+    padding:          2pt 0 5pt 5pt;
     background-color: $light-orange;
+
+    margin: {
+      top:    0;
+      right:  $right-view-distance;
+      bottom: 0;
+      left:   0;
+    }
 
     span {
       display: inline !important;
@@ -263,14 +270,7 @@ body.no-js #search > ol > li:active,
       display: none;
     }
 
-	  margin: {
-	    top:    0;
-	    right:  $right-view-distance;
-	    bottom: 0;
-	    left:   0;
-	  }
-
-	  > span {
+    > span {
       line-height: 1.4em;
       width:       auto;
 
@@ -281,7 +281,7 @@ body.no-js #search > ol > li:active,
         text-align:  left;
         width:       auto;
       }
-	  }
+    }
   }
   
   .button-group.button-view {

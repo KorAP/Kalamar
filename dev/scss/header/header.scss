@@ -247,15 +247,15 @@ header {
     cursor:      pointer;
     line-height: 1.8em;
 
-    > span {
-      font-weight: bold;
-    }
-
     border: {
       width:        0;
       bottom-width: 3px;
       style:        solid;
       color:        transparent;
+    }
+
+    > span {
+      font-weight: bold;
     }
 
     &:hover {

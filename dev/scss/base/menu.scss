@@ -14,13 +14,14 @@ ul.menu {
   text-indent: 0;
 
   opacity: 0;
-  &.visible {
-    opacity: 1;
-  }
 
   list-style: {
     type:     none;
     position: outside;
+  }
+  
+  &.visible {
+    opacity: 1;
   }
 
   &,

@@ -12,9 +12,9 @@ body {
   }
   section {
     padding-left: $base-padding;
+    padding-bottom: $base-padding;
     &::before{
       content:'';
     }
-    padding-bottom: $base-padding;
   }
 }
