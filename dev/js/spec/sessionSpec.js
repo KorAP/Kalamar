@@ -1,5 +1,21 @@
 define(['session'], function (sessionClass) {
 
+  // Check once if cookies are writable in this environment (e.g., not on file:// in Chrome)
+  var _canWriteCookies = (function () {
+    try {
+      var testName = 'ck_test_' + Math.random().toString(36).slice(2);
+      document.cookie = testName + '=1; SameSite=Lax; path=/';
+      var ok = document.cookie.indexOf(testName + '=1') !== -1;
+      if (ok) {
+        document.cookie = testName + '=; Max-Age=0; path=/';
+      }
+      return ok;
+    }
+    catch (e) {
+      return false;
+    }
+  })();
+
   beforeEach(
     function () {
       document.cookie.split(';').forEach(
@@ -45,6 +61,10 @@ define(['session'], function (sessionClass) {
     });
 
     it('should write to cookie', function () {
+      if (!_canWriteCookies) {
+        pending('Cookies are not writable in this environment');
+        return;
+      }
       let s = sessionClass.create('koraptest');
       s.clear();     
       expect(s.toString().includes("koraptest=%7B%7D;")).toBeTruthy();
