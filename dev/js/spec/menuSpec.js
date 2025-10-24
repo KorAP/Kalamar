@@ -1904,6 +1904,7 @@ define(
       });
     });
 
+    /*
     describe('KorAP.MenuBenchmark', function () {
       var menu = menuClass.create([
         ['Titel', 'title'],
@@ -1932,5 +1933,7 @@ define(
       menu.prev();
       menu.prev();
       menu.prev();
-    });
+
+      });
+      */
   });

@@ -1440,6 +1440,7 @@ define(
 
     });
 
+    /*
     describe('KorAP.AlwaysMenu.Benchmark', function () {
       var menu = alwaysMenuClass.create([
         ['Titel', 'title'],
@@ -1469,4 +1470,5 @@ define(
       menu.prev();
       menu.prev();
     });
+    */
   });
