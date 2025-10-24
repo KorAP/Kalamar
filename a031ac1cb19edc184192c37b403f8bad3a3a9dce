@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfcd8bc0_fe1e66df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-10-24T09:57:28Z",
+      "side": 1,
+      "message": "The goal is to upgrade Jasmine and allow for a headless test run in the terminal (as part of the CI run in the future). Some of the tests fail for newer versions of Jasmine, so I need to adapt them. Jasmine works fine with ES6 - so we may keep it instead of Vite, but it\u0027s rather complicated to get it to work with AMD/requireJS. It works now okay-ish, but I need to go through all specs iteratively.",
+      "revId": "a031ac1cb19edc184192c37b403f8bad3a3a9dce",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
