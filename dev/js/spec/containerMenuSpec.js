@@ -2252,7 +2252,7 @@ define(
         menu.prev();
         expect(container.active()).toBeTruthy();
       });
-      it("should support dynamic adding of items", function () {
+      it("should support dynamic adding of items (2)", function () {
 
         var list = [
           ["Constituency"],
@@ -2345,7 +2345,7 @@ define(
         
       });
 
-      it("should support dynamic adding of items", function () {
+      it("should support dynamic adding of items (1)", function () {
 
         var list = [
           ["Constituency"],
