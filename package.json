@@ -4,6 +4,10 @@
   "license": "BSD-2-Clause",
   "version": "0.60.0",
   "pluginVersion": "0.2.3",
+  "scripts": {
+    "test": "jasmine-browser-runner runSpecs --config=dev/js/spec/support/jasmine-browser.mjs",
+    "serve": "jasmine-browser-runner serve --config=dev/js/spec/support/jasmine-browser.mjs"
+  },
   "engines": {
     "node": ">=6.0.0"
   },
@@ -20,6 +24,8 @@
     "grunt-shell": "^4.0.0",
     "grunt-terser": "^2.0.0",
     "imagemin": "^9.0.0",
+    "jasmine-browser-runner": "^3.0.0",
+    "jasmine-core": "^5.12.0",
     "optipng-bin": "^9.0.0",
     "sass": "^1.93.3",
     "vinyl-fs": "^4.0.0"
