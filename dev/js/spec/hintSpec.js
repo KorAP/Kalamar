@@ -60,11 +60,9 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
     catch (e) {};
     
     var body = document.body;
-    for (var i in body.children) {
-      if (body.children[i].nodeType && body.children[i].nodeType === 1) {
-        if (!body.children[i].classList.contains("jasmine_html-reporter")) {
-          body.removeChild(body.children[i]);
-        };
+    for (const child of body.children) {
+      if (child.nodeType === 1 && !child.classList.contains("jasmine_html-reporter")) {
+        body.removeChild(child);
       };
     };
     KorAP.API.getMatchInfo = undefined;
