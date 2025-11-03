@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4231f0dc_b519459a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-03T17:14:38Z",
+      "side": 1,
+      "message": "Don\u0027t know if there is a more elegant way to implement this, but it works, see:\nhttps://gist.github.com/kupietz/ee5c076bc5a285f2f6a3c1417cc14dd5?permalink_comment_id\u003d5844753#gistcomment-5844753\n\nMore or less depends on https://korap.ids-mannheim.de/gerrit/c/KorAP/KorAP-XML-Krill/+/9976",
+      "revId": "ce7d299cd1e5149e76524370391dcc14db3e0f0d",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
