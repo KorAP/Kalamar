@@ -1,13 +1,17 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 section#announcements {
-  background-color: $ids-green-2;
+  background-color: colors.$ids-green-2;
   mix-blend-mode: soft-light;
   padding: 1em;
   padding-right: 2em;
-  border-radius: $standard-border-radius;
-  border-left: 5px solid $ids-green-1;
+  border-radius: lengths.$standard-border-radius;
+  border-left: 5px solid colors.$ids-green-1;
   height: 20rem;
   overflow-y: scroll;
   font-size: .8rem;
@@ -30,9 +34,9 @@ section#announcements {
   }
   
   dd.maintenance > h4::after {
-    @include icon-font;
-    color: $ids-pink-1;
-    content: " " + $fa-warn;
+    @include mixins.icon-font;
+    color: colors.$ids-pink-1;
+    content: " " + icons.$fa-warn;
   }
   
   dd {

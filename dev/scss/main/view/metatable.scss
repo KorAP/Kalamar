@@ -1,26 +1,28 @@
 @charset "utf-8";
-@import "../../util";
+@use "../../util";
+@use "../../base/colors";
+@use "../../base/lengths";
 
 // Metatable
 div.metatable > dl {
-  margin-right: $right-view-distance;
-  margin-top:   $border-size;
+  margin-right: lengths.$right-view-distance;
+  margin-top:   lengths.$border-size;
 
   > div {
-    border-color: $dark-orange;
+    border-color: colors.$dark-orange;
 
     > * {
       padding: .2em;
     }
 
     > dt {
-      background: $darker-orange;
-      color:      $nearly-white;
+      background: colors.$darker-orange;
+      color:      colors.$nearly-white;
       width:      12.5em;
     }
 
     > dd {
-      background-color: $light-orange;
+      background-color: colors.$light-orange;
       cursor: pointer;
 
       &.metakeyvalues {
@@ -30,12 +32,12 @@ div.metatable > dl {
           text-indent: -5pt;
           margin-left: 6pt;
           padding-left: 4pt;
-          border-radius: $standard-border-radius;
+          border-radius: lengths.$standard-border-radius;
           margin-bottom: 2pt;
 
           &::before {
             content: "\2022\00A0";
-            color:   $dark-orange;
+            color:   colors.$dark-orange;
             width: 5pt;
             display: inline-block;
           }
@@ -45,13 +47,13 @@ div.metatable > dl {
       // equal to td.chosen
       &.chosen,
       > div.chosen {
-        background-color: $light-green !important;
-        color:            $nearly-white;
+        background-color: colors.$light-green !important;
+        color:            colors.$nearly-white;
       }
 
       &[data-type="type:store"],
       &[data-type="type:attachement"] {
-        background-color: $middle-orange;
+        background-color: colors.$middle-orange;
         cursor:           default;
 
         a {

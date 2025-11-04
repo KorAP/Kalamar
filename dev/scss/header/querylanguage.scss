@@ -1,4 +1,5 @@
-@import "../util";
+@use "../util";
+@use "../base/colors";
 
 /**
  * Temporary hack for language chooser
@@ -8,7 +9,7 @@
  */
 #ql-field {
   position:         relative;
-  background-color: $light-green;
+  background-color: colors.$light-green;
   cursor:           pointer;
   margin:           0;
   outline:          none;

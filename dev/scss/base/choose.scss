@@ -1,13 +1,14 @@
-@import "colors";
+@use 'sass:color';
+@use "colors";
 
 /**
  * Some color definitions and mixins for
  * buttons and menus.
  */
-$choose-bg:           $light-grey;
-$choose-color:        $dark-grey;
-$choose-blind-color:  $middle-grey;
-$choose-border-color: $middle-grey;
+$choose-bg:           colors.$light-grey;
+$choose-color:        colors.$dark-grey;
+$choose-blind-color:  colors.$middle-grey;
+$choose-border-color: colors.$middle-grey;
 $choose-border:       2px solid $choose-border-color;
 $choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
 
@@ -19,7 +20,7 @@ $choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
   color:            $choose-color;
   background-color: $choose-bg;
   border-color:     $choose-border-color;
-  text-shadow:      $light-shadow;
+  text-shadow:      colors.$light-shadow;
 }
 
 
@@ -27,9 +28,9 @@ $choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
  * Chooseable items (mouse over)
  */
 @mixin choose-hover {
-  color:            $nearly-white;
-  background-color: $dark-orange;
-  border-color:     $darker-orange;
+  color:            colors.$nearly-white;
+  background-color: colors.$dark-orange;
+  border-color:     colors.$darker-orange;
   text-shadow:      none;
 }
 
@@ -38,8 +39,8 @@ $choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
  * Chooseable items (not available)
  */
 @mixin choose-inactive {
-  color:            lighten($choose-color, 20%);
-  background-color: lighten($choose-bg, 20%);
+  color:            color.adjust($choose-color, $lightness: 20%, $space: hsl);
+  background-color: color.adjust($choose-bg, $lightness: 20%, $space: hsl);
   border-color:     transparent;
   text-shadow:      none;
 }
@@ -48,9 +49,9 @@ $choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
  * Chooseable items (active)
  */
 @mixin choose-active {
-  color:            $dark-green;
-  background-color: $light-green;
-  border-color:     $dark-green;
+  color:            colors.$dark-green;
+  background-color: colors.$light-green;
+  border-color:     colors.$dark-green;
   text-shadow:      none;
 }
 
@@ -59,8 +60,8 @@ $choose-box-shadow:   2px 2px 2px  rgba(0,0,0,0.2);
  * Chooseable items (action: remove something)
  */
 @mixin choose-remove {
-  color:            $nearly-white;
-  background-color: $middle-red;
-  border-color:     $dark-red;
+  color:            colors.$nearly-white;
+  background-color: colors.$middle-red;
+  border-color:     colors.$dark-red;
   text-shadow:      none;
 }

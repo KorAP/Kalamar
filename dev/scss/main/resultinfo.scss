@@ -1,5 +1,8 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
 
 /**
  * Rules applicable for the result panel
@@ -54,8 +57,8 @@
 
 
 div.result.panel .view {
-  border:           1px solid $kwic-border;
-  background-color: $dark-orange;
+  border:           1px solid colors.$kwic-border;
+  background-color: colors.$dark-orange;
 }
 
 
@@ -68,21 +71,21 @@ div.result.panel .view {
 
   > span {
     line-height:  1.5em;
-    border-width: $result-border-size 0;
+    border-width: lengths.$result-border-size 0;
 
     &:first-child {
-      border-left-width: $result-border-size;
+      border-left-width: lengths.$result-border-size;
     }
 
     &:last-child {
-      border-right-width: $result-border-size;
+      border-right-width: lengths.$result-border-size;
     }
   }
 }
 
 
 #total-results {
-  color:       $light-green;
+  color:       colors.$light-green;
   font-weight: bold;
 }
 
@@ -102,15 +105,15 @@ div.result.panel .view {
   // TODO:
   //   Add icon via data-icon
   &.align.left::after {
-    content: $fa-left-align;
+    content: icons.$fa-left-align;
   }
   &.align.right::after {
-    content: $fa-right-align;
+    content: icons.$fa-right-align;
   }
   &.align.center::after {
-    content: $fa-center-align;
+    content: icons.$fa-center-align;
   }
   &.show-kq::after {
-    content: $fa-code;
+    content: icons.$fa-code;
   }
 }

@@ -1,5 +1,8 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
 
 
 /**
@@ -18,7 +21,7 @@
 
   &.loading {
     background: {
-      color: $light-orange;
+      color: colors.$light-orange;
       image: none;
     }
   }
@@ -39,13 +42,13 @@
     right: 0;
 
     &:not(.loading)::after {
-      content: $fa-search;
+      content: icons.$fa-search;
     }
   }
 }
 
 .query.panel {
-  padding-right: $button-width;
+  padding-right: lengths.$button-width;
 }
 
 // Specify result button group layout

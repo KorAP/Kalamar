@@ -1,5 +1,8 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/mixins";
 
 section#news {
   margin: 2rem 0;
@@ -21,9 +24,9 @@ section#news {
   }
   
   dd.maintenance > h4::after {
-    @include icon-font;
-    color: $ids-pink-1;
-    content: " " + $fa-warn;
+    @include mixins.icon-font;
+    color: colors.$ids-pink-1;
+    content: " " + icons.$fa-warn;
   }
   
   dd {

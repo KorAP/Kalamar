@@ -1,5 +1,8 @@
-@import "../../util";
-@import "tree";
+@use "../../util";
+@use "tree";
+@use "../../base/colors";
+@use "../../base/lengths";
+@use "../../base/mixins";
 
 /**
  * Matchtree view
@@ -15,19 +18,19 @@ div.matchtree {
   h6 {
     display:   inline;
     font-size: inherit;
-    color:     $nearly-white;
+    color:     colors.$nearly-white;
     margin:    0;
     padding:   0 !important;
     float:     left;
 
     > span {
-      @include matchinfo-head;
-      @include cell-info;
+      @include mixins.matchinfo-head;
+      @include mixins.cell-info;
       display: inline-block !important;
       margin: 0;
 
       &:nth-of-type(2) {
-	      margin-left: $border-size;
+	      margin-left: lengths.$border-size;
       }
     }
   }
@@ -36,10 +39,10 @@ div.matchtree {
     position:         unset;
     z-index:          4;
     overflow-x:       auto;
-    margin:           $border-size;
-    margin-left:      $left-distance;
-    margin-right:     $right-view-distance;
-    background-color: $light-orange;
+    margin:           lengths.$border-size;
+    margin-left:      lengths.$left-distance;
+    margin-right:     lengths.$right-view-distance;
+    background-color: colors.$light-orange;
   }
 
   svg {

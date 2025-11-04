@@ -1,5 +1,10 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 /**
  * Rules for the datepicker widget
@@ -8,18 +13,18 @@
  */
 
 div.datepicker {
-  @include choose-item;
+  @include choose.choose-item;
   position:   absolute;
   display:    inline-block;
   z-index:    90;
   font-size:  80%;
   padding:    4pt;
-  box-shadow: $choose-box-shadow;
+  box-shadow: choose.$choose-box-shadow;
 
   border: {
-    width:  $border-size;
+    width:  lengths.$border-size;
     style:  solid;
-    radius: $standard-border-radius;
+    radius: lengths.$standard-border-radius;
   }
 
   > div {
@@ -39,7 +44,7 @@ div.datepicker {
       &:last-child {
 	      width: 15%;
 	      &::before {
-          @include icon-font;
+          @include mixins.icon-font;
 	        display:    inline-block;
 	        text-align: center;
 	        cursor:     pointer;
@@ -48,11 +53,11 @@ div.datepicker {
       }
 
       &:first-child::before {
-	      content: $fa-previous;
+	      content: icons.$fa-previous;
       }
 
       &:last-child::before {
-	      content: $fa-next;
+	      content: icons.$fa-next;
       }
 
       &:nth-child(2) {
@@ -63,18 +68,18 @@ div.datepicker {
 	      text-overflow: ellipsis;
 
 	      border: {
-	        radius: $standard-border-radius;
+	        radius: lengths.$standard-border-radius;
 	        style:  solid;
-	        width:  $border-size;
+	        width:  lengths.$border-size;
 	        color:  transparent;
 	      }
 
 	      &:hover {
-	        @include choose-hover;
+	        @include choose.choose-hover;
 	      }
 
 	      &.selected {
-	        @include choose-active;
+	        @include choose.choose-active;
 	      }
       }
     }
@@ -86,9 +91,9 @@ div.datepicker {
   }
 
   input {
-    @include choose-item;
-    @include standard-text-padding;
-    background-color: $nearly-white;
+    @include choose.choose-item;
+    @include mixins.standard-text-padding;
+    background-color: colors.$nearly-white;
     width:            100%;
 
     border: {
@@ -98,7 +103,7 @@ div.datepicker {
   }
 
   td {
-    @include standard-text-padding;
+    @include mixins.standard-text-padding;
     text-align: center;
 
     border: {
@@ -107,22 +112,22 @@ div.datepicker {
     }
 
     &:not(.out) {
-      @include choose-item;
+      @include choose.choose-item;
       cursor: pointer;
-      background-color: $nearly-white;
+      background-color: colors.$nearly-white;
 
       &.today {
-	      background-color: $light-blue;
-	      color: $dark-blue;
+	      background-color: colors.$light-blue;
+	      color: colors.$dark-blue;
 	      text-shadow: none;
       }
 
       &.selected {
-	      @include choose-active;
+	      @include choose.choose-active;
       }
 
       &:hover {
-	      @include choose-hover;
+	      @include choose.choose-hover;
       }
     }
 

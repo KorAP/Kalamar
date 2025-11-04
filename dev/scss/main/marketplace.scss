@@ -1,4 +1,5 @@
-@import "../base/base";
+@use "../base/base";
+@use "../base/lengths";
 
 /*
 * Styles for marketplace
@@ -39,7 +40,7 @@ ul.plugin-list, ul.plugin_in-list {
       margin-top: 0;
       width:        20%;
       min-width:    20em;
-      padding:      $base-padding;
+      padding:      lengths.$base-padding;
       cursor:           pointer;
       border-width:     thin;
       text-align:       center;

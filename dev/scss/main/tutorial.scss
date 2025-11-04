@@ -1,5 +1,9 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/colors";
+@use "../base/lengths";
+@use "../base/paths";
 
 /**
  * Rules for the embedded documentation.
@@ -12,19 +16,19 @@
   bottom:           5%;
   left:             2%;
   right:            2%;
-  padding-right:    $right-view-distance;
-  background-color: $nearly-white;
-  box-shadow:       $choose-box-shadow;
+  padding-right:    lengths.$right-view-distance;
+  background-color: colors.$nearly-white;
+  box-shadow:       choose.$choose-box-shadow;
 
   border: {
-    width:  2 * $border-size;
-    color:  $dark-grey;
+    width:  2 * lengths.$border-size;
+    color:  colors.$dark-grey;
     style:  solid;
-    radius: $standard-border-radius;
+    radius: lengths.$standard-border-radius;
   }
 
   .button-group.button-view {
-    background-color: $middle-grey;
+    background-color: colors.$middle-grey;
     display:          block;
     height:           100%;
   }
@@ -36,7 +40,7 @@
     // Hack for a Firefox bug
     min-height: 100.1%;
     background: {
-      image:    url('#{$img-path}/korap-bg.svg');
+      image:    url('#{paths.$img-path}/korap-bg.svg');
       repeat:   no-repeat;
       position: center center;
       size:     15%;
@@ -55,11 +59,11 @@ p.bibentry {
 }
 
 body.embedded {
-  background-color: $nearly-white;
+  background-color: colors.$nearly-white;
   aside {
-    @include choose-item;
+    @include choose.choose-item;
     padding-top: 0;
-    background-color: $middle-grey;
+    background-color: colors.$middle-grey;
 
     > div {
       position:         relative;

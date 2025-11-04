@@ -1,7 +1,7 @@
 @charset "utf-8";
-@import "choose";
-@import "lengths";
-@import "icons";
+@use "choose";
+@use "lengths";
+@use "icons";
 
 /**
  * Definitions of fragments for vc and query
@@ -10,25 +10,25 @@
 
 .vc.fragment,
 p.query.fragment {
-  @include choose-item;
+  @include choose.choose-item;
   position: relative;
   padding:  4pt 6pt !important;
   
   border : {
-    width:  $border-size;
+    width:  lengths.$border-size;
     style:  solid;
-    radius: $standard-border-radius;
+    radius: lengths.$standard-border-radius;
   }
 
   margin: {
-    left:   $left-distance;
+    left:   lengths.$left-distance;
     top:    .5em;
     bottom: .5em;
-    right:  $right-view-distance;
+    right:  lengths.$right-view-distance;
   }
 
   &:hover {
-    @include choose-hover;
+    @include choose.choose-hover;
     cursor: pointer;
   }
 
@@ -45,9 +45,9 @@ p.query.fragment {
   
   &::after {
 	  font-family: 'FontAwesome';
-	  content:     $fa-to-query;
+	  content:     icons.$fa-to-query;
     position:    absolute;
     right:       4pt;
-    top:         $border-size;
+    top:         lengths.$border-size;
   }
 }

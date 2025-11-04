@@ -1,5 +1,8 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/colors";
+@use "../base/lengths";
 
 /**
  * Rules for the Kalamar hint helper.
@@ -24,18 +27,18 @@ ul.menu.hint {
 // Alert bubble
 div.alert.hint {
   position:         absolute;
-  background-color: $alert-red;
-  color:            $nearly-white;
-  padding:          $item-padding;
+  background-color: colors.$alert-red;
+  color:            colors.$nearly-white;
+  padding:          lengths.$item-padding;
   margin-top:       8px;
-  box-shadow:       $choose-box-shadow;
+  box-shadow:       choose.$choose-box-shadow;
   width:            auto;
   min-width:        20em;
   max-width:        23em !important;
   transition:       opacity 0.2s ease 0s;
 
   border: {
-    radius:          $standard-border-radius;
+    radius:          lengths.$standard-border-radius;
     top-left-radius: 0;
   }
 
@@ -50,7 +53,7 @@ div.alert.hint {
     border: {
       width: 0 8px 12px 0;
       style: solid;
-      color: $alert-red transparent;
+      color: colors.$alert-red transparent;
     }
   }
 }
@@ -83,12 +86,12 @@ div.alert.hint {
     left:       0;
     text-align: left;
     padding:    0;
-    border-top: 5px solid $dark-orange;
+    border-top: 5px solid colors.$dark-orange;
     height:     10px;
     width:      1.2em;
 
     &:hover:not(.active) {
-      border-top: 10px solid $dark-orange;
+      border-top: 10px solid colors.$dark-orange;
     }
 
     &.active {

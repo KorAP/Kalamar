@@ -1,11 +1,13 @@
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/lengths";
 
 // In addition to main/panel.scss
 
 div.panel.query div.view {
-  background-color: $dark-green;
-  border-left: $border-size solid $dark-green;
+  background-color: colors.$dark-green;
+  border-left: lengths.$border-size solid colors.$dark-green;
   iframe {
-    background-color: $nearly-white;
+    background-color: colors.$nearly-white;
   }
 }

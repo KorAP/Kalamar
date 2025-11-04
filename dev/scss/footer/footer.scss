@@ -1,12 +1,15 @@
 @charset "utf-8";
 @use 'sass:math';
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/lengths";
+@use "../base/paths";
 
 /**
  * Rules for the footer section of Kalamar
  */
 footer {
-  background-color: $dark-grey;
+  background-color: colors.$dark-grey;
   // position:         absolute;
   // bottom:           0;
   margin-top:       auto;
@@ -17,15 +20,15 @@ footer {
 
   display: flex;
   align-items: center;
-  height: $footer-height;
+  height: lengths.$footer-height;
 
   &.shifted {
-    padding-left: $logo-left-distance;
+    padding-left: lengths.$logo-left-distance;
   }
 
   nav {
-    margin-left: $button-width;
-    padding: $item-padding;
+    margin-left: lengths.$button-width;
+    padding: lengths.$item-padding;
     text-align: left;
     flex-grow: 2;
     display: flex;
@@ -42,7 +45,7 @@ footer {
       font-size: bold;
       content: " | ";
       white-space: nowrap;
-      color:   $dark-orange;
+      color:   colors.$dark-orange;
     }
     &:last-child {
       margin-right: 0;
@@ -65,13 +68,13 @@ footer {
     font-size: 10pt;
     &:link {
       // margin: 0 .5em;
-      color:  $light-grey;
+      color:  colors.$light-grey;
     }
     &:visited {
-      color:  $light-grey;
+      color:  colors.$light-grey;
     }
     &:hover {
-      color:  $nearly-white;
+      color:  colors.$nearly-white;
     }
     &[href^="http://"]::after,
     &[href^="https://"]::after {
@@ -84,7 +87,7 @@ footer {
  * Logo table of the front page
  */
 #logos {
-  margin-right: $standard-margin;
+  margin-right: lengths.$standard-margin;
 }
 
 /**
@@ -94,7 +97,7 @@ footer {
   display:          inline-block;
   width:            math.div(631,30) + em;
   height:           math.div(200,30) + em;
-  background-image: url('#{$img-path}/ids-institute-for-the-german-language-white.svg');
+  background-image: url('#{paths.$img-path}/ids-institute-for-the-german-language-white.svg');
 }
 
 aside.active:not(.off) ~ footer {

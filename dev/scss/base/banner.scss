@@ -1,3 +1,5 @@
+@use "colors";
+
 .banner {
   position: fixed;
   width: 10em;
@@ -32,8 +34,8 @@
     transform-origin: 0 0 ;
     transform:rotate(45deg);
 
-    background-color: $light-orange;
-    color: $dark-orange;
-    border: 1px solid $dark-orange;
+    background-color: colors.$light-orange;
+    color: colors.$dark-orange;
+    border: 1px solid colors.$dark-orange;
   }
 }
