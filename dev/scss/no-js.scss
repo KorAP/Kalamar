@@ -1,4 +1,6 @@
-@import "util";
+@use "util";
+@use "base/colors";
+@use "base/lengths";
 
 /**
  * Optimization for no-js behaviour
@@ -46,16 +48,16 @@ body.no-js {
   }
 
   main div.intro {
-    margin-left: $base-padding !important;
+    margin-left: lengths.$base-padding !important;
   }
 }
 
 #activate {
   text-align:       right;
-  background-color: $dark-orange;
+  background-color: colors.$dark-orange;
   margin-top:       0;
-  padding:          $base-padding;
-  padding-right:    $standard-margin;
-  color:            $nearly-white;
+  padding:          lengths.$base-padding;
+  padding-right:    lengths.$standard-margin;
+  color:            colors.$nearly-white;
   font-size:        80%;
 }

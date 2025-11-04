@@ -1,6 +1,10 @@
 @charset "utf-8";
 @use 'sass:math';
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 /**
  * The pagination view
@@ -23,8 +27,8 @@
    */
     position:    fixed;
     font-size:   0;
-    right:       math.div($standard-margin,4);
-    bottom:      math.div($standard-margin,2);
+    right:       math.div(lengths.$standard-margin,4);
+    bottom:      math.div(lengths.$standard-margin,2);
     z-index:     35;
     padding:     0;
     height:      auto;
@@ -36,40 +40,40 @@
         vertical-align: bottom;
 
         &:not(:link):not([rel=self]) {
-            color: $choose-blind-color;
+            color: choose.$choose-blind-color;
         }
 
         &.ellipsis, &[rel=prev], &[rel=next] {
             > span {
-	        @include blind;
+	        @include mixins.blind;
             }
         }
     
         &.ellipsis::after {
-	    @include icon-font;
-	    content:     $fa-elipsis;
+	    @include mixins.icon-font;
+	    content:     icons.$fa-elipsis;
 	    line-height: 1em;
         }
 
         &[rel=self] {
-            @include choose-active;
+            @include choose.choose-active;
             border: {
-	        left-width:  $border-size;
-	        right-width: $border-size;
+	        left-width:  lengths.$border-size;
+	        right-width: lengths.$border-size;
 	        left-style:  solid;
 	        right-style: solid;
             }
         }
 
         &[rel=prev]::after {
-            @include icon-font;
-	    content:     $fa-previous;
+            @include mixins.icon-font;
+	    content:     icons.$fa-previous;
 	    line-height: 1em;
         }
 
         &[rel=next]::after {
-            @include icon-font;
-	    content:     $fa-next;
+            @include mixins.icon-font;
+	    content:     icons.$fa-next;
 	    line-height: 1em;
         }
     }

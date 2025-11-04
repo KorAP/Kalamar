@@ -1,4 +1,5 @@
-@import "icons";
+@use "icons";
+@use "mixins";
 
 input.show-pwd {
     padding-right: 2em;
@@ -6,9 +7,9 @@ input.show-pwd {
 
 a.show-pwd::after {
     position: absolute;
-    @include icon-font;
+    @include mixins.icon-font;
     width: 1em;
-    content: $fa-show;
+    content: icons.$fa-show;
     cursor: pointer;
     margin-left: -1.5em;
     margin-top: .6em;
@@ -16,5 +17,5 @@ a.show-pwd::after {
 }
 
 a.show-pwd.hide::after {
-    content: $fa-hide;
+    content: icons.$fa-hide;
 }

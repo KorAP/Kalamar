@@ -1,5 +1,5 @@
-@import "colors";
+@use "colors";
 
 .result-view {
-  background-color: $nearly-white;
+  background-color: colors.$nearly-white;
 }

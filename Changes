@@ -22,6 +22,7 @@
         - Add general proxies support (diewald)
         - Fix guided tour test suite (closes #265; hebasta)
         - Windows is no longer natively supported (diewald)
+        - Upgrade SCSS to module system (fixes #266; diewald)
 
 0.59 2025-03-28
         - Docker only release (diewald)

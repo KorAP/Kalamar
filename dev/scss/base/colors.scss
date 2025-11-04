@@ -3,6 +3,8 @@
  * for Kalamar,
  */
 
+@use 'sass:color';
+
 /**
  * Official IDS colors
  */
@@ -35,10 +37,10 @@ $darkest-orange: #e55d00;
  * Green Colors
  */
 $dark-green:     $ids-green-1; // #496000;
-$middle-green:   lighten($ids-green-1, 9%);
-$light-green:    lighten($ids-green-1, 13%); // #7ba400;
-$lightest-green: desaturate(lighten($light-green, 35%), 20%); // #d8e38c;
-$grey-green:     darken(desaturate($lightest-green, 25%), 12%); // #bcc387;
+$middle-green:   color.adjust($ids-green-1, $lightness: 9%, $space: hsl);
+$light-green:    color.adjust($ids-green-1, $lightness: 13%, $space: hsl); // #7ba400;
+$lightest-green: color.adjust($light-green, $lightness: 35%, $saturation: -20%, $space: hsl); // #d8e38c;
+$grey-green:     color.adjust($lightest-green, $saturation: -25%, $lightness: -12%, $space: hsl); // #bcc387;
 
 
 /**
@@ -46,7 +48,7 @@ $grey-green:     darken(desaturate($lightest-green, 25%), 12%); // #bcc387;
  */
 $light-blue:     $ids-blue-2;
 $dark-blue:      $ids-blue-1;
-$darkest-blue:   darken($dark-blue, 40%);
+$darkest-blue:   color.adjust($dark-blue, $lightness: -40%, $space: hsl);
 
 
 /**
@@ -54,7 +56,7 @@ $darkest-blue:   darken($dark-blue, 40%);
  */
 $middle-grey:  $ids-grey-1; // #999;
 $light-grey:   $ids-grey-2; // #ddd;
-$dark-grey:    darken($middle-grey, 15%);
+$dark-grey:    color.adjust($middle-grey, $lightness: -15%, $space: hsl);
 $nearly-white: #fefefe;
 
 
@@ -62,8 +64,8 @@ $nearly-white: #fefefe;
  * Red Colors (no IDS relation)
  */
 $middle-red: #c1002b;
-$light-red:  lighten($middle-red, 40%);
-$dark-red:   darken($middle-red, 40%);
+$light-red:  color.adjust($middle-red, $lightness: 40%, $space: hsl);
+$dark-red:   color.adjust($middle-red, $lightness: -40%, $space: hsl);
 $alert-red:  rgb(254,26,0);
 
 /**

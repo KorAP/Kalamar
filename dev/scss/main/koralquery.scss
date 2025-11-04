@@ -1,5 +1,7 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/lengths";
 
 /**
  * Styles for the KoralQuery view.
@@ -10,13 +12,13 @@
   > div {
     // TODO:
     //   Mark this with result-view
-    background-color: $nearly-white;
+    background-color: colors.$nearly-white;
     overflow-x:       auto;
     font-size:        85%;
 
     margin: {
       top:    2pt;
-      right:  $right-view-distance;
+      right:  lengths.$right-view-distance;
       bottom: 2pt;
       left:  2pt;
     }

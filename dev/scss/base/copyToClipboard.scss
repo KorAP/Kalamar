@@ -1,10 +1,11 @@
-@import "icons";
+@use "icons";
+@use "mixins";
 
 a.copy-to-clipboard::after {
     position: absolute;
-    @include icon-font;
+    @include mixins.icon-font;
     width: 1em;
-    content: $fa-copy;
+    content: icons.$fa-copy;
     cursor: pointer;
     margin-left: .4em;
     margin-top: .6em;

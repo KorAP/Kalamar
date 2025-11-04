@@ -1,6 +1,6 @@
 @use 'sass:math';
-@import "lengths";
-@import "mixins";
+@use "lengths";
+@use "mixins";
 
 /**
  * This defines flexible table cells
@@ -21,26 +21,26 @@ dl.flex {
     flex-direction: row;
     text-align: center;
     width: 100%;
-    border-width: math.div($border-size,2);
+    border-width: math.div(lengths.$border-size,2);
     border-style: solid;
     align-items: stretch;
     > * {
-      @include cell-info;
+      @include mixins.cell-info;
     }
     > dt {
       text-align: left;
       width: 12.5em;
-      padding: $item-padding;
+      padding: lengths.$item-padding;
       margin: 0;
     }
     > dd {
       text-align: left;
-      padding: $item-padding;
+      padding: lengths.$item-padding;
       margin: 0;
       width: 100%;
       max-width: none;
       max-height: 6em;
-      margin-left: $border-size;
+      margin-left: lengths.$border-size;
       white-space: normal;
       overflow-y: auto;
       overflow-x: hidden;

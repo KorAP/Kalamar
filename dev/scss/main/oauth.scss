@@ -1,4 +1,8 @@
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 /**
  * Styles for OAuth management form.
@@ -33,17 +37,17 @@ span.client-name {
   font-weight: bold;
 
   &::before {
-    @include icon-font;
+    @include mixins.icon-font;
     display:   inline-block;
     width:     1.5em;
-    content:   $fa-client;
-    color:     $ids-blue-1;
+    content:   icons.$fa-client;
+    color:     colors.$ids-blue-1;
     font-size: 100%;
   }
 }
 
 .client-type-confidential::after {
-  @include icon-font;
+  @include mixins.icon-font;
   margin-left: .3em;
   display:   inline-block;
   width:     1.5em;
@@ -53,16 +57,16 @@ span.client-name {
 }
 
 .client-type-confidential::after {
-  content:   $fa-confidential;
-  color:     $ids-blue-1;
+  content:   icons.$fa-confidential;
+  color:     colors.$ids-blue-1;
 }
 
 #client_source {
   white-space: pre;
-  border-radius: $standard-border-radius;
-  border-color:     $ids-grey-2;
+  border-radius: lengths.$standard-border-radius;
+  border-color:     colors.$ids-grey-2;
   border-style:     solid;
-  background-color: $light-orange;
+  background-color: colors.$light-orange;
 }
 
 li.token {
@@ -74,13 +78,13 @@ label[for=token] {
     font-weight: bold;
 
   &::before {
-    @include icon-font;
+    @include mixins.icon-font;
     font-feature-settings: "ss01" on;
     margin-left: -1.5em;
     display:   inline-block;
     width:     1.5em;
-    content:   $fa-token;
-    color:     $ids-blue-1 !important;
+    content:   icons.$fa-token;
+    color:     colors.$ids-blue-1 !important;
     font-size: 100%;
     font-weight: 900;
   }

@@ -1,16 +1,20 @@
 @charset "utf-8";
-@import "../util";
-@import "fonts";
-@import "flextable";
-@import "fragment";
-@import "load";
-@import "form";
-@import "view";
-@import "menu";
-@import "banner";
-@import "showPWD";
-@import "copyToClipboard";
-@import "buttongroup";
+@use "../util";
+@use "fonts";
+@use "flextable";
+@use "fragment";
+@use "load";
+@use "form";
+@use "view";
+@use "menu";
+@use "banner";
+@use "showPWD";
+@use "copyToClipboard";
+@use "buttongroup";
+@use "colors";
+@use "icons";
+@use "lengths";
+@use "mixins";
 
 /**
  * Basic global CSS rules for Kalamar
@@ -18,7 +22,7 @@
 
 
 * {
-  @include box-sizing-box;
+  @include mixins.box-sizing-box;
 }
 
 body,
@@ -26,12 +30,12 @@ html,
 select,
 g > text {
   font-family: verdana, tahoma, arial, Helvetica, sans-serif;
-  color:       $dark-grey;
+  color:       colors.$dark-grey;
   margin:      0;
 }
 
 g > text {
-  fill: $dark-grey;
+  fill: colors.$dark-grey;
 }
 
 // html {
@@ -49,14 +53,14 @@ body {
 
 a {
   &:visited {
-    color: $darkest-orange;
+    color: colors.$darkest-orange;
   }
   
   &:link {
     text-decoration: none;
-    color:           $dark-orange;
+    color:           colors.$dark-orange;
     &:hover {
-      color:      $darkest-orange;
+      color:      colors.$darkest-orange;
       transition: color 0.3s ease 0s;
     }
   }
@@ -64,8 +68,8 @@ a {
   // External links
   &[href^="http://"]::after,
   &[href^="https://"]::after {
-    @include icon-font;
-    content:   " " + $fa-extlink;
+    @include mixins.icon-font;
+    content:   " " + icons.$fa-extlink;
     font-size: 75%;
   }
 }
@@ -94,21 +98,21 @@ iframe {
 }
 
 blockquote {
-  border-radius:    $standard-border-radius;
+  border-radius:    lengths.$standard-border-radius;
   padding:          2pt 5pt 2pt 20pt;
   margin:           0;
-  border-left:      5px solid $ids-blue-1;
-  background-color: $ids-blue-2;
-  color:            $ids-blue-1;
+  border-left:      5px solid colors.$ids-blue-1;
+  background-color: colors.$ids-blue-2;
+  color:            colors.$ids-blue-1;
   -webkit-mix-blend-mode: normal; // Safari
   mix-blend-mode:   soft-light;
   
   &.bug,
   &.missing,
   &.warning {
-    border-left-color: $dark-red;
-    background-color:  $middle-red;
-    color:             $nearly-white;
+    border-left-color: colors.$dark-red;
+    background-color:  colors.$middle-red;
+    color:             colors.$nearly-white;
     mix-blend-mode:    multiply;
   }
 }
@@ -124,11 +128,11 @@ dl {
       border-width: 0;
 
       &[data-type=token]::after {
-	      color: $ids-blue-1;
+	      color: colors.$ids-blue-1;
       }
 
       &[data-type=span]::after {
-	      color: $ids-pink-1;
+	      color: colors.$ids-pink-1;
       }
 
       &::after {

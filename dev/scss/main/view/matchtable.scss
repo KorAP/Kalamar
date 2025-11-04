@@ -1,5 +1,9 @@
 @use 'sass:math';
-@import "../../util";
+@use "../../util";
+@use "../../base/colors";
+@use "../../base/icons";
+@use "../../base/lengths";
+@use "../../base/mixins";
 
 /**
  * Table view
@@ -11,8 +15,8 @@ div.matchtable {
 
   > div {
     z-index:      20;
-    margin-left:  $left-distance - math.div($border-size,2);
-    margin-right: $right-view-distance;
+    margin-left:  lengths.$left-distance - math.div(lengths.$border-size,2);
+    margin-right: lengths.$right-view-distance;
     padding:      0;
     overflow-x:   auto;
     overflow-y:   visible;
@@ -26,7 +30,7 @@ div.matchtable {
   }
 
   th {
-    color: $nearly-white;
+    color: colors.$nearly-white;
   }
 
   // Use matchinfo cells for query creation
@@ -51,9 +55,9 @@ div.matchtable {
     &.matchkeyvalues {
       padding: 0;
       > div {
-        @include cell-info;
+        @include mixins.cell-info;
         > span {
-          color:         $darkest-orange;
+          color:         colors.$darkest-orange;
           text-align:    right;
           padding-right: .5em;
           &::after {
@@ -66,7 +70,7 @@ div.matchtable {
 
   td, div {
     &.notinindex {
-      background-color: $ids-grey-2 !important;
+      background-color: colors.$ids-grey-2 !important;
       cursor: default;
     }
   }
@@ -78,8 +82,8 @@ div.matchtable {
     td.chosen,
     th.chosen,
     div.chosen {
-      background-color: $light-green !important;
-      color:            $nearly-white;
+      background-color: colors.$light-green !important;
+      color:            colors.$nearly-white;
     }
 
     /**
@@ -87,7 +91,7 @@ div.matchtable {
      */
     > th:nth-of-type(1),
     > th:nth-of-type(2) {
-      @include matchinfo-head;
+      @include mixins.matchinfo-head;
       position:       absolute;
       z-index:        80;
       vertical-align: middle;
@@ -95,29 +99,29 @@ div.matchtable {
     }
 
     > th:nth-of-type(2) {
-      left: math.div($left-width,2) + $border-size;
+      left: math.div(lengths.$left-width,2) + lengths.$border-size;
     }
 
     // Includes header line as well
     > * {
-      @include cell-info;
-      border: math.div($border-size,2) solid $dark-orange;
+      @include mixins.cell-info;
+      border: math.div(lengths.$border-size,2) solid colors.$dark-orange;
     }
 
     > td {
-      background-color: $middle-orange;
+      background-color: colors.$middle-orange;
       white-space:      nowrap;
       vertical-align:   top;
       text-align:       center;
       &.mark {
-        background-color: $light-orange;
+        background-color: colors.$light-orange;
       }
     }
 
     &:nth-child(even) > td {
-      background-color: $light-orange;
+      background-color: colors.$light-orange;
       &.mark {
-        background-color: $middle-orange;
+        background-color: colors.$middle-orange;
       }
     }
   }
@@ -127,7 +131,7 @@ div.matchtable {
     text-align:       center;
 
     &:not(.no-anno) {
-      background-color: $darker-orange;
+      background-color: colors.$darker-orange;
     }
 
     &:nth-of-type(1),
@@ -136,16 +140,16 @@ div.matchtable {
     }
 
     &.mark {
-      background-color: $darkest-orange;
+      background-color: colors.$darkest-orange;
     }
     
     &.cutted {
-      background-color: $light-orange;
+      background-color: colors.$light-orange;
 
       &::after {
-        @include icon-font;
-        content: $fa-cut;
-        color:   $light-green;
+        @include mixins.icon-font;
+        content: icons.$fa-cut;
+        color:   colors.$light-green;
         padding: {
           left:  4pt;
           right: 4pt;

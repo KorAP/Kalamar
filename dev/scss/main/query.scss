@@ -1,30 +1,33 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/colors";
+@use "../base/lengths";
 
 
 pre.query {
   overflow-x: hidden; 
   padding: .5em;
-  @include choose-item;
+  @include choose.choose-item;
   position:relative;
   border: {
     width: 2px;
     style: solid;
-    radius: $standard-border-radius;
+    radius: lengths.$standard-border-radius;
   }
-  box-shadow: $choose-box-shadow;
+  box-shadow: choose.$choose-box-shadow;
   &:not(.unsupported) {
     cursor: pointer;
     &:hover {
-      @include choose-hover;
+      @include choose.choose-hover;
     }
     &:active {
-      @include choose-active;
+      @include choose.choose-active;
     }
   }
   &.unsupported span {
     vertical-align: super;
-    color: $dark-blue;
+    color: colors.$dark-blue;
     font-size: 90%;
     font-weight: bold;
     cursor: help;
