@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f75d9b85_65ea4674",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-04T15:45:37Z",
+      "side": 1,
+      "message": "I think, we can\u0027t relyably support Windows without WSL - so we should at least discourage it.",
+      "revId": "af6c5f84ead5589818bd47c5651d80103a027e86",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
