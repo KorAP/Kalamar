@@ -39,6 +39,9 @@ git clone https://github.com/KorAP/Kalamar
 If you have any problems with installing Kalamar,
 see the *Troubleshooting* section.
 
+Windows is not a natively supported environment for development anymore.
+Please use [WSL](https://learn.microsoft.com/windows/wsl/install).
+
 ### Generate Static Asset Files
 
 To generate the static asset files (scripts, styles, images ...),
@@ -68,7 +71,6 @@ Whenever the assets change, just rerun `npm install` and `grunt`.
 
 Kalamar uses the [Mojolicious](http://mojolicio.us/) framework,
 that expects a Perl version of at least 5.16.
-On Windows [Strawberry Perl](http://strawberryperl.com/) is recommended.
 An environment based on [Perlbrew](http://perlbrew.pl/) is recommended,
 if available. The installation guide requires
 [App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/) as well.
@@ -141,18 +143,6 @@ environment variable.
 
 ```shell
 MOJO_MODE=myconf perl script/kalamar daemon
-```
-
-Or in the windows command line with:
-
-```cmd
-> cmd /C "set MOJO_MODE=qr && perl .\script\kalamar daemon"
-```
-
-Or in the windows powershell with:
-
-```powershell
-> $env:MOJO_MODE='myconf'; perl .\script\kalamar daemon; Remove-Item Env:\MOJO_MODE
 ```
 
 For client-side configurations, a file `kalamar.conf.js` can be
@@ -271,54 +261,6 @@ perl script/kalamar chi
 ```
 
 ## Troubleshooting
-
-### `make` not available under Windows
-
-Instead of running
-
-```shell
-perl Makefile.PL
-make test
-```
-
-it is also possible to run the test suite using `prove`.
-
-```shell
-prove -lr t
-```
-
-### Problem installing Crypt::Random::Source on Windows
-
-[Crypt::Random::Source](https://metacpan.org/pod/Crypt::Random::Source)
-recently removed support for C<rand> as a random source,
-which may lead to missing sources in tests under certain operating systems.
-You should be able to force install
-[Crypt::Random::Source](https://metacpan.org/pod/Crypt::Random::Source),
-though this environment is not recommended for production:
-
-```shell
-cpanm -f Crypt::Random::Source
-```
-
-### Problem installing Mojolicious::Plugin::MailException on Windows
-
-Some versions of
-[Mojolicious::Plugin::MailException](https://metacpan.org/pod/Mojolicious::Plugin::MailException)
-have a
-[minor bug](https://github.com/dr-co/libmojolicious-plugin-mail_exception/pull/13)
-in the test suite, so a force install may be necessary.
-
-```perl
-cpanm -f Mojolicious::Plugin::MailException
-```
-
-### Problem running scripts on Windows with Powershell
-
-In case you are having issues with running scripts under Windows,
-you can set the execution policy with
-[`Set-ExecutionPolicy`](https://docs.microsoft.com/de-de/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1).
-If using the RemoteSigned execution policy, you can use `Unblock-File`
-to allow specific scripts to run.
 
 ### Problem installing Module::Pluggable
 
