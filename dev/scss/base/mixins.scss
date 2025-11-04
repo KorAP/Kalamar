@@ -1,5 +1,6 @@
 @use 'sass:math';
-@import "colors";
+@use "colors";
+@use "lengths";
 
 /**
  * Mixin for blind elements
@@ -28,7 +29,7 @@
 @mixin input-field {
   outline:   none;
   font-size: 11pt;
-  border:    $border-size solid $nearly-white;
+  border:    lengths.$border-size solid colors.$nearly-white;
   padding:   2px;
   margin:    0;
 }
@@ -64,6 +65,6 @@
 
 
 @mixin matchinfo-head {
-  border-top: $border-size solid $darker-orange; // #ff8000;
-  width:      math.div($left-width, 2);
+  border-top: lengths.$border-size solid colors.$darker-orange; // #ff8000;
+  width:      math.div(lengths.$left-width, 2);
 }

@@ -1,8 +1,10 @@
 @charset "utf-8";
-@import "../util";
-@import "view/matchtable";
-@import "view/matchtree";
-@import "view/metatable";
+@use "../util";
+@use "view/matchtable";
+@use "view/matchtree";
+@use "view/metatable";
+@use "../base/colors";
+@use "../base/lengths";
 
 
 /**
@@ -14,7 +16,7 @@
 div.matchinfo {
   position:    relative;
   width:       100%;
-  padding-top: $border-size;
+  padding-top: lengths.$border-size;
   height:      auto;
   font-size:   10pt;
   text-align:  left;
@@ -24,7 +26,7 @@ div.matchinfo {
   }
 
   .view + .view {
-    margin-top: 4 * $border-size !important;
+    margin-top: 4 * lengths.$border-size !important;
   }
 }
 
@@ -33,7 +35,7 @@ div.metatable,
 div.matchtable,
 div.matchtree {
   position:         relative;
-  background-color: $dark-orange;
+  background-color: colors.$dark-orange;
 }
 
 div.button-group.button-panel.button-matchinfo {

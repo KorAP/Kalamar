@@ -1,5 +1,8 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/mixins";
+@use "../base/paths";
 
 /**
  * Rules for logos.
@@ -29,7 +32,7 @@
     }
 
     > span {
-      @include blind;
+      @include mixins.blind;
     }
 
     > div.logoaddon {
@@ -43,9 +46,9 @@
       top: 2.1rem;
       transform: rotate(-5deg);
       // text-align:right;
-      color: $nearly-white;
+      color: colors.$nearly-white;
       // padding: 3pt;
-      text-shadow: 1pt 1pt 0 $light-green, -1pt -1pt 0 $light-green, -1pt 1pt 0 $light-green, 1pt -1pt 0 $light-green;
+      text-shadow: 1pt 1pt 0 colors.$light-green, -1pt -1pt 0 colors.$light-green, -1pt 1pt 0 colors.$light-green, 1pt -1pt 0 colors.$light-green;
 
       // Values from new logo:
       // font-size: 45%;
@@ -58,7 +61,7 @@
 }
 
 aside.active + header .logo div.logoaddon {
-  text-shadow: 1pt 1pt 0 $dark-green, -1pt -1pt 0 $dark-green, -1pt 1pt 0 $dark-green, 1pt -1pt 0 $dark-green;
+  text-shadow: 1pt 1pt 0 colors.$dark-green, -1pt -1pt 0 colors.$dark-green, -1pt 1pt 0 colors.$dark-green, 1pt -1pt 0 colors.$dark-green;
 }
 
 /**
@@ -75,7 +78,7 @@ a.logo > h1 {
   z-index:     105;
   background: {
     size:  78% !important;
-    image: url('#{$img-path}/korap-logo.svg');
+    image: url('#{paths.$img-path}/korap-logo.svg');
   }
   transform: translateY(-50%);
   -o-transform: translateY(-50%);

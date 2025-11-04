@@ -1,29 +1,30 @@
 @use 'sass:math';
-@import 'highlight'; // JSON highlighting
-@import 'kwic'; // Kwic view information
-@import 'logos'; // Logo images
-@import 'matchinfo'; // Match table
-@import 'pagination'; // Pagination
-@import 'query'; // View query
-@import 'resultinfo'; // Information on results
-@import 'tutorial'; // Embedded and non-embedded tutorial
-@import 'koralquery'; // KoralQuery
-@import 'alertify'; // Styling alerts
-@import 'intro'; // Intro page
-@import 'panel'; // Base panel system
-@import 'introjs'; // Guided Tour
-@import 'introjs-ids'; // Guided Tour: IDS specific
-@import 'oauth'; // OAuth Management styles
-@import 'announcements'; // Styling for announcements
-@import 'news'; // View for optional news
-@import 'plugin'; // Rules for embedded plugins
-@import 'marketplace'; // Plugin Marketplace styles
+@use 'highlight'; // JSON highlighting
+@use 'kwic'; // Kwic view information
+@use 'logos'; // Logo images
+@use 'matchinfo'; // Match table
+@use 'pagination'; // Pagination
+@use 'query'; // View query
+@use 'resultinfo'; // Information on results
+@use 'tutorial'; // Embedded and non-embedded tutorial
+@use 'koralquery'; // KoralQuery
+@use 'alertify'; // Styling alerts
+@use 'intro'; // Intro page
+@use 'panel'; // Base panel system
+@use 'introjs'; // Guided Tour
+@use 'introjs-ids'; // Guided Tour: IDS specific
+@use 'oauth'; // OAuth Management styles
+@use 'announcements'; // Styling for announcements
+@use 'news'; // View for optional news
+@use 'plugin'; // Rules for embedded plugins
+@use 'marketplace'; // Plugin Marketplace styles
 // @import "tagger";   // Tagger
 
-@import '../util';
+@use '../util';
+@use "../base/lengths";
 
 main {
-  padding: 0 $standard-size-and-spacing;
+  padding: 0 lengths.$standard-size-and-spacing;
 
   // margin: {
   //   left:  $standard-margin;
@@ -31,7 +32,7 @@ main {
   // }
 
   &.shifted {
-    padding-left: calc($standard-size-and-spacing + $logo-left-distance);
+    padding-left: calc(lengths.$standard-size-and-spacing + lengths.$logo-left-distance);
   }
 
   &.embedded {

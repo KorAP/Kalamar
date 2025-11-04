@@ -1,12 +1,15 @@
 @charset "utf-8";
-@import "util";
+@use "util";
+@use "base/colors";
+@use "base/lengths";
+@use "base/mixins";
 
 /**
  * Media rules for different screen sizes.
  * This will override some basic rules.
  */
 
-$standard-margin: 4px;
+lengths.$standard-margin: 4px;
 
 // (orientation: portrait),
 @media all and (max-width: 42.5em) {
@@ -49,10 +52,10 @@ $standard-margin: 4px;
     .burger-icon {
       position: relative;
       display: none;
-      width: $standard-size-and-spacing;
-      height: $standard-size-and-spacing;
+      width: lengths.$standard-size-and-spacing;
+      height: lengths.$standard-size-and-spacing;
       font-size: 1.8rem;
-      color: $nearly-white;
+      color: colors.$nearly-white;
 
       &.show {
         display: block;
@@ -74,7 +77,7 @@ $standard-margin: 4px;
       position: absolute;
       top: 0;
       right: 0;
-      background-color: $middle-green;
+      background-color: colors.$middle-green;
     }
 
     &.show * {
@@ -82,13 +85,13 @@ $standard-margin: 4px;
     }
 
     &-group {
-      margin-top: $standard-size-and-spacing;
+      margin-top: lengths.$standard-size-and-spacing;
       width: 100%;
       display: block;
       position: absolute;
       top: 0;
       left: 0;
-      background-color: $middle-green;
+      background-color: colors.$middle-green;
 
       fieldset.fieldset-login {
         display: block !important;
@@ -102,17 +105,17 @@ $standard-margin: 4px;
           
           input[type=text],
           input[type=password] {
-            @include input-field;
+            @include mixins.input-field;
             margin-right: 0 !important;
           }
     
           button.btn-login {
             width: 100% !important;
             align-self: center;
-            background-color: $dark-green !important;
+            background-color: colors.$dark-green !important;
 
             &:hover {
-              background-color: $middle-green !important;
+              background-color: colors.$middle-green !important;
               color: unset !important;
             }
           }
@@ -237,8 +240,8 @@ $standard-margin: 4px;
 
   main {
     padding: 1rem;
-    margin-left: $standard-margin;
-    margin-right: $standard-margin;
+    margin-left: lengths.$standard-margin;
+    margin-right: lengths.$standard-margin;
 
     &.shifted {
       padding-left: 0;
@@ -246,7 +249,7 @@ $standard-margin: 4px;
   }
 
   header .button {
-    margin-right: $standard-margin;
+    margin-right: lengths.$standard-margin;
     &.top {
       height: auto;
     }
@@ -317,7 +320,7 @@ $standard-margin: 4px;
   
   aside {
     &:not(:focus):not(.active) {
-      margin-left: -1 * $logo-left-distance;
+      margin-left: -1 * lengths.$logo-left-distance;
       &::after {
 	      font-size: 12pt;
 	      height: 11pt;
@@ -355,7 +358,7 @@ $standard-margin: 4px;
     }
 
     .nav.nav-doc:first-child {
-      margin-top: $standard-size-and-spacing !important;
+      margin-top: lengths.$standard-size-and-spacing !important;
     }
   }
 

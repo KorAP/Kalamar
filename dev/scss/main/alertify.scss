@@ -1,26 +1,28 @@
-@import "../util";
-@import "alertify/alertify-core";
-@import "alertify/alertify-default";
+@use "../util";
+@use "alertify/alertify-core";
+@use "alertify/alertify-default";
+@use "../base/colors";
+@use "../base/lengths";
 
 /**
  * Alertify styles.
  */
 
 article.alertify-log-warn {
-  background-color: $dark-orange;
+  background-color: colors.$dark-orange;
   code.src {
-    color: $darkest-orange;
+    color: colors.$darkest-orange;
   }
 }
 
 article.alertify-log code.src {
   display: block;
-  color: $dark-red;
+  color: colors.$dark-red;
   font-size: 70%;
 }
 
 .alertify-log-error {
-  background-color: $alert-red;
+  background-color: colors.$alert-red;
 }
 
 #notifications {
@@ -35,14 +37,14 @@ div.notify {
   display: block;
   padding: .5em;
   
-  border-radius: $standard-border-radius;
+  border-radius: lengths.$standard-border-radius;
   max-width: 30em;
-  background-color: $alert-red;
-  color: $nearly-white;
+  background-color: colors.$alert-red;
+  color: colors.$nearly-white;
   &.notify-success {
-    background-color: $ids-green-1
+    background-color: colors.$ids-green-1
   }
   &.notify-warn {
-    background-color: $ids-orange-2
+    background-color: colors.$ids-orange-2
   }
 }

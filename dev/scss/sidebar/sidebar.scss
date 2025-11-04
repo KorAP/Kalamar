@@ -1,11 +1,16 @@
 @charset "utf-8";
 @use "sass:math";
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 aside {
-  background-color: $dark-green;
-  color: $nearly-white;
-  width: $logo-left-distance;
+  background-color: colors.$dark-green;
+  color: colors.$nearly-white;
+  width: lengths.$logo-left-distance;
   position: fixed;
   display: block;
   transition: all 0.3s ease-in-out;
@@ -32,7 +37,7 @@ aside {
   }
 
   &::after {
-    @include icon-font;
+    @include mixins.icon-font;
     position: absolute;
     display: block;
     opacity: 0;
@@ -45,13 +50,13 @@ aside {
     width: 16pt;
     height: 17pt;
     padding: 6pt;
-    background-color: $dark-green;
-    border-top-right-radius: $standard-border-radius;
-    margin-right: -1 * math.div($standard-margin, 2);
+    background-color: colors.$dark-green;
+    border-top-right-radius: lengths.$standard-border-radius;
+    margin-right: -1 * math.div(lengths.$standard-margin, 2);
   }
 
   &.settings::after {
-    content: $fa-settings;
+    content: icons.$fa-settings;
   }
 
   h2,
@@ -79,9 +84,9 @@ aside {
     li {
       padding: 0;
       > a {
-        padding: $item-padding;
+        padding: lengths.$item-padding;
         &:visited {
-          @include choose-item;
+          @include choose.choose-item;
         }
       }
 
@@ -98,20 +103,20 @@ aside {
       }
 
       &.active > a:link {
-        @include choose-active;
+        @include choose.choose-active;
       }
 
       > a:link {
-        @include choose-item;
+        @include choose.choose-item;
         display: block;
 
         border-right: {
-          width: $border-size;
+          width: lengths.$border-size;
           style: solid;
         }
 
         &:hover {
-          @include choose-hover;
+          @include choose.choose-hover;
           transition: none;
         }
       }
@@ -153,7 +158,7 @@ aside {
 
     input[type="text"],
     input[type="password"] {
-      @include input-field;
+      @include mixins.input-field;
       width: 100%;
     }
 
@@ -166,15 +171,15 @@ aside {
       position: relative;
       width: 100%;
       margin-top: 4px;
-      padding-right: $button-width;
+      padding-right: lengths.$button-width;
     }
 
     > p {
-      color: $light-green;
+      color: colors.$light-green;
     }
 
     > p.announcement {
-      color: $nearly-white;
+      color: colors.$nearly-white;
       > time {
         display: block;
         font-size: 70%;
@@ -183,7 +188,7 @@ aside {
 
     hr {
       border: none;
-      border-top: 2px solid $ids-grey-2;
+      border-top: 2px solid colors.$ids-grey-2;
     }
 
     ul {
@@ -206,7 +211,7 @@ aside {
       top: 0;
       right: 0;
       &::after {
-        content: $fa-login;
+        content: icons.$fa-login;
       }
     }
   }
@@ -214,7 +219,7 @@ aside {
   // Off aside
   &.off,
   &:not(:focus):not(.active) {
-    margin-left: -1 * ($logo-left-distance - math.div($standard-margin, 2));
+    margin-left: -1 * (lengths.$logo-left-distance - math.div(lengths.$standard-margin, 2));
     &::after {
       opacity: 1;
     }

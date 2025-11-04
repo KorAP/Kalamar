@@ -1,5 +1,10 @@
 @charset "utf-8";
-@import "../util";
+@use "../util";
+@use "../base/choose";
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 /**
  * Virtual Collection Builder
@@ -17,7 +22,7 @@ $bracket-size: .4em;
 
     + .action {
       .minimize::after {
-        color: $dark-grey !important;
+        color: colors.$dark-grey !important;
       }
     }
   }
@@ -29,7 +34,7 @@ $bracket-size: .4em;
     padding:     4pt 2pt 4pt 0pt;
 
     border: {
-      radius: $standard-border-radius * 2;
+      radius: lengths.$standard-border-radius * 2;
       style:  solid;
       width:  0 $bracket-size;
     }
@@ -53,7 +58,7 @@ $bracket-size: .4em;
         width:       $left-padding;
         margin-left: -1 * ($left-padding + .5em);
         line-height: 1.5em;
-        border-top:  $border-size solid transparent;
+        border-top:  lengths.$border-size solid transparent;
       }
 
       > .docGroup::before {
@@ -140,7 +145,7 @@ $bracket-size: .4em;
         }
 
         &.fixed {
-          color: $light-green;
+          color: colors.$light-green;
         }
       }
     }
@@ -148,14 +153,14 @@ $bracket-size: .4em;
     // Unspecified value
     &.unspecified > span,
     span.unspecified {
-      @include choose-item;
+      @include choose.choose-item;
       padding:    0 4px;
-      box-shadow: $choose-box-shadow;
+      box-shadow: choose.$choose-box-shadow;
 
       border: {
         style:  solid;
-        width:  $border-size;
-        radius: $standard-border-radius;
+        width:  lengths.$border-size;
+        radius: lengths.$standard-border-radius;
       }
     }
 
@@ -169,12 +174,12 @@ $bracket-size: .4em;
   .rewritten .rewrite {
     display:     inline-block;
     margin-left: 4pt;
-    color:       $dark-orange;
+    color:       colors.$dark-orange;
     &::after {
-      @include icon-font;
+      @include mixins.icon-font;
       font-style:      normal;
       font-weight:     normal;
-      content:         $fa-rewrite;
+      content:         icons.$fa-rewrite;
       text-decoration: underline;
     }
 
@@ -206,8 +211,8 @@ $bracket-size: .4em;
   // referTo entries
   .menu li[data-type=ref]::before,
   span.key.ref::before {
-    @include icon-font;
-    content:       $fa-referto;
+    @include mixins.icon-font;
+    content:       icons.$fa-referto;
     padding-right: 4pt;
     font: {
       style:  normal;
@@ -224,8 +229,8 @@ $bracket-size: .4em;
     margin-top: -6pt;
 
     border: {
-      radius: $standard-border-radius;
-      width:  $border-size;
+      radius: lengths.$standard-border-radius;
+      width:  lengths.$border-size;
       style:  solid;
     }
 
@@ -235,7 +240,7 @@ $bracket-size: .4em;
     }
 
     > div {
-      @include choose-item;
+      @include choose.choose-item;
       display: inline-block;
       padding: 0 4pt;
       margin-left: 4pt;
@@ -246,9 +251,9 @@ $bracket-size: .4em;
       }
 
       border: {
-        width:  $border-size;
+        width:  lengths.$border-size;
         style:  solid;
-        radius: $standard-border-radius;
+        radius: lengths.$standard-border-radius;
       }
     }
 
@@ -258,7 +263,7 @@ $bracket-size: .4em;
       }
 
       > div {
-        @include choose-active;
+        @include choose.choose-active;
       }
     }
   }
@@ -271,7 +276,7 @@ $bracket-size: .4em;
 
   .docGroup,
   .doc {
-    color: $dark-grey;
+    color: colors.$dark-grey;
   }
   
   /**
@@ -285,7 +290,7 @@ $bracket-size: .4em;
   .doc > span:not(.fixed) {
     cursor: pointer;
     &:hover {
-      color: $dark-orange;
+      color: colors.$dark-orange;
     }
   }
 
@@ -293,7 +298,7 @@ $bracket-size: .4em;
   .doc.unspecified > span,
   span.unspecified {
     &:hover {
-	    @include choose-hover;
+	    @include choose.choose-hover;
     }
   }
   
@@ -307,22 +312,22 @@ $bracket-size: .4em;
     &[data-operation] {
       > .doc::before,
       > .docGroup::before {
-        color: $dark-orange;
+        color: colors.$dark-orange;
       }
     }
     &[data-operation=or] {
-      border-color: $dark-orange;
+      border-color: colors.$dark-orange;
     }
   }
 
   div.value {
-    @include choose-item;
-    box-shadow: $choose-box-shadow;
+    @include choose.choose-item;
+    box-shadow: choose.$choose-box-shadow;
 
     > div {
       cursor:  pointer;
       &:hover {
-        @include choose-hover;
+        @include choose.choose-hover;
       }
     }
   }
@@ -380,15 +385,15 @@ $dg-index : 30;
 
 #collection {
   line-height: 1em;
-  border-radius: $standard-border-radius;
+  border-radius: lengths.$standard-border-radius;
 }
 
 #vc-choose > span.rewritten::after {
-  @include icon-font;
-  color:           $dark-orange;
+  @include mixins.icon-font;
+  color:           colors.$dark-orange;
   padding:         0;
   padding-left:    4px;
-  content:         $fa-rewrite;
+  content:         icons.$fa-rewrite;
   text-decoration: underline;
   font-style:      normal;
   font-weight:     normal;
@@ -400,8 +405,8 @@ div#vc-view {
   > div.vc {
     display:          none;
     margin:           1.3em 0 .5em 0;
-    border:           2px solid $dark-green;
-    background-color: $nearly-white;
+    border:           2px solid colors.$dark-green;
+    background-color: colors.$nearly-white;
 
     &.active {
       display: block;
@@ -415,7 +420,7 @@ div#vc-view {
 
 div.panel.vcinfo {
   padding:          3pt 0pt 3pt 3pt;
-  background-color: $dark-green;
+  background-color: colors.$dark-green;
 
   div.button-group > span {
     box-shadow: none;

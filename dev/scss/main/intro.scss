@@ -1,4 +1,6 @@
-@import "../util";
+@use "../util";
+@use "../base/colors";
+@use "../base/lengths";
 
 /**
  * Styles for the intro page
@@ -8,18 +10,18 @@ div.intro {
   &-container {
     margin-top: 3rem;
     display: flex;
-    gap: $standard-size-and-spacing;
+    gap: lengths.$standard-size-and-spacing;
   }
 
   // Visited links
   a:visited {
-    color: $darkest-orange
+    color: colors.$darkest-orange
   }
 
   div.announcement {
-    background-color: $light-orange;
-    padding:          $base-padding;
-    border:           5px dashed $dark-orange;
+    background-color: colors.$light-orange;
+    padding:          lengths.$base-padding;
+    border:           5px dashed colors.$dark-orange;
     border-radius:    1em;
     width:            90%;
     margin:           auto;

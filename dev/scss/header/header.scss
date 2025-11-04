@@ -1,21 +1,25 @@
 @charset "utf-8";
 @use 'sass:math';
-@import "../util";
-@import "hint";          // Hint specific menu list
-@import "containermenu"; // Container menu specific
-@import "searchbar";     // The search bar
-@import "vc";            // Virtual corpus builder
-@import "statistics";    // Statistics for VCs
-@import "datepicker";    // Datepicker
-@import "querylanguage"; // Query language
-@import "pipe";          // Pipe
-@import "state";         // State
-@import "panel";         // Panel
+@use "../util";
+@use "hint";          // Hint specific menu list
+@use "containermenu"; // Container menu specific
+@use "searchbar";     // The search bar
+@use "vc";            // Virtual corpus builder
+@use "statistics";    // Statistics for VCs
+@use "datepicker";    // Datepicker
+@use "querylanguage"; // Query language
+@use "pipe";          // Pipe
+@use "state";         // State
+@use "panel";         // Panel
+@use "../base/colors";
+@use "../base/icons";
+@use "../base/lengths";
+@use "../base/mixins";
 
 .navbar {
   width: 100%;
-  height: $standard-size-and-spacing;
-  background-color: $dark-green;
+  height: lengths.$standard-size-and-spacing;
+  background-color: colors.$dark-green;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,7 +39,7 @@
     align-items: center;
 
     h3.nav-link {
-      height: $standard-size-and-spacing;
+      height: lengths.$standard-size-and-spacing;
       font-size: 1rem;
       transition:  all .2s ease-in-out;
       -o-transition: all .2s ease-in-out;
@@ -44,13 +48,13 @@
       cursor: pointer;
 
       &:hover {
-        background-color: $middle-green;
+        background-color: colors.$middle-green;
       }
 
       a {
         display: block;
         padding: 1.5rem 1rem;
-        color: $nearly-white;
+        color: colors.$nearly-white;
         cursor: pointer;
       }
     }
@@ -59,7 +63,7 @@
   .dropdown {
     display: flex;
     align-items: center;
-    margin-right: $standard-size-and-spacing;
+    margin-right: lengths.$standard-size-and-spacing;
     position: relative;
 
     &:hover .dropdown-content,
@@ -69,17 +73,17 @@
 
     &:hover .dropdown-btn,
     &:focus-within .dropdown-btn {
-      color: $nearly-white;
-      background-color: $middle-green;
+      color: colors.$nearly-white;
+      background-color: colors.$middle-green;
     }
 
     &-btn {
       display: flex;
       align-items: center;
-      column-gap: $base-padding;
-      height: $standard-size-and-spacing;
+      column-gap: lengths.$base-padding;
+      height: lengths.$standard-size-and-spacing;
       padding: 1.25rem 1rem;
-      color: $nearly-white;
+      color: colors.$nearly-white;
       transition:  all .2s ease-in-out;
       -o-transition: all .2s ease-in-out;
       -moz-transition: all .2s ease-in-out;
@@ -87,14 +91,14 @@
       cursor: pointer;
 
       &.login::before {
-        @include icon-font;
-        content: $fa-login;
+        @include mixins.icon-font;
+        content: icons.$fa-login;
         font-size: 150%;
       }
       
       &.profile::before {
-        @include icon-font;
-        content: $fa-user;
+        @include mixins.icon-font;
+        content: icons.$fa-user;
         font-size: 150%;
       }
 
@@ -112,9 +116,9 @@
     &-content {
       display: none;
       width: fit-content;
-      margin-top: $standard-size-and-spacing;
+      margin-top: lengths.$standard-size-and-spacing;
       padding: 0;
-      background-color: $middle-green;
+      background-color: colors.$middle-green;
       position: absolute;
       top: 0;
       z-index: 999;
@@ -134,13 +138,13 @@
         align-items: center;
 
         legend {
-          padding-bottom: $base-padding;
-          color: $nearly-white;
+          padding-bottom: lengths.$base-padding;
+          color: colors.$nearly-white;
         }
         
         input[type=text],
         input[type=password] {
-          @include input-field;
+          @include mixins.input-field;
           margin-bottom: 8px;
           height: 2rem;
         }
@@ -149,8 +153,8 @@
           width: 100%;
           height: 2rem;
           margin-bottom: 1rem;
-          background-color: $dark-green;
-          color: $nearly-white;
+          background-color: colors.$dark-green;
+          color: colors.$nearly-white;
           font-size: 120%;
           border: none;
           border-color: unset;
@@ -164,12 +168,12 @@
           -webkit-transition: all .2s ease-in-out;
   
           &::after {
-            content: $fa-login;
+            content: icons.$fa-login;
           }
 
           &:hover {
             // color: $dark-orange;
-            background-color: $dark-orange;
+            background-color: colors.$dark-orange;
           }
         }
       }
@@ -177,13 +181,13 @@
       p {
         margin: 0;
         font-size: .7rem;
-        color: $nearly-white;
+        color: colors.$nearly-white;
 
         a {
-          color: $dark-orange;
+          color: colors.$dark-orange;
 
           &:hover {
-            color: $middle-orange;
+            color: colors.$middle-orange;
           }
         }
       }
@@ -195,7 +199,7 @@
       gap: 5px;
       padding: .75rem;
       font-size: 1rem;
-      color: $nearly-white;
+      color: colors.$nearly-white;
       transition:  all .2s ease-in-out;
       -o-transition: all .2s ease-in-out;
       -moz-transition: all .2s ease-in-out;
@@ -203,13 +207,13 @@
       cursor: pointer;
 
       &:hover {
-        color: $nearly-white;
-        background-color: $light-green;
+        color: colors.$nearly-white;
+        background-color: colors.$light-green;
       }
 
       &.logout::before {
-        @include icon-font;
-        content: $fa-logout;
+        @include mixins.icon-font;
+        content: icons.$fa-logout;
         font-size: 1rem;
       }
 
@@ -223,23 +227,23 @@
     display: none;
 
     &::after {
-      @include icon-font;
-      content: $fa-bars;
+      @include mixins.icon-font;
+      content: icons.$fa-bars;
     }
   }
 }
 
 header {
-  @include box-sizing-box();
+  @include mixins.box-sizing-box();
   position:         relative;
-  background-color: $light-green;
+  background-color: colors.$light-green;
   // padding:          $base-padding 0 0 $base-padding;
-  padding-top:      $standard-size-and-spacing;
+  padding-top:      lengths.$standard-size-and-spacing;
   font-size:        10pt;
-  color:            $nearly-white;
+  color:            colors.$nearly-white;
 
   &.shifted {
-    padding-left: $logo-left-distance;
+    padding-left: lengths.$logo-left-distance;
   }
 
   span.select {
@@ -259,15 +263,15 @@ header {
     }
 
     &:hover {
-      color:        $dark-green;
-      border-color: $dark-green;
+      color:        colors.$dark-green;
+      border-color: colors.$dark-green;
     }
 
     &::after {
-      @include icon-font;
+      @include mixins.icon-font;
       pointer-events: none;
       text-align:     center;
-      content:        $fa-down;
+      content:        icons.$fa-down;
 
       padding: {
 	      left:  4pt;
@@ -276,9 +280,9 @@ header {
     }
 
     &.active {
-      border-color: $dark-orange;
+      border-color: colors.$dark-orange;
       &::after {
-        content: $fa-up;
+        content: icons.$fa-up;
       }
     }
   }
@@ -290,18 +294,18 @@ header {
     min-height:   2.7em;
 
     &#searchform {
-      margin: 0 $standard-size-and-spacing;
+      margin: 0 lengths.$standard-size-and-spacing;
     }
   }
 
   input {
-    @include input-field;
+    @include mixins.input-field;
   }
 
   .button {
-    color:        $nearly-white;
+    color:        colors.$nearly-white;
     line-height:  2em;
-    margin-right: $right-distance;
+    margin-right: lengths.$right-distance;
 
     &.right {
       float:   right;
@@ -319,29 +323,29 @@ header {
       margin-right:     0;
       width:            20px;
       // width:            math.div($standard-margin,2);
-      background-color: $dark-green;
+      background-color: colors.$dark-green;
       text-align:       center;
       height:           100%;
       z-index:          20;
 
       > a:hover {
-	      color: $nearly-white
+	      color: colors.$nearly-white
       }
     }
 
     > a {
-      color:     $nearly-white;
+      color:     colors.$nearly-white;
       cursor:    pointer;
       position:  relative;
       font-size: 120%;
 
       > span {
-	      @include blind;
+	      @include mixins.blind;
       }
     }
 
     > a::after {
-      @include icon-font;
+      @include mixins.icon-font;
     }
 
     // > a.tutorial::after {
@@ -349,15 +353,15 @@ header {
     // }
 
     > a.question::after {
-      content: $fa-question;
+      content: icons.$fa-question;
     }
 
     > a.login::after {
-      content: $fa-login;
+      content: icons.$fa-login;
     }
 
     > a.logout::after {
-      content: $fa-logout;
+      content: icons.$fa-logout;
     }
   }
 }
