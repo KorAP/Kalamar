@@ -16,6 +16,23 @@
       "message": "I tested the migration system.",
       "revId": "e0e48a0e3d8379bb7496d436313147ce599aff48",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ba98b1_57e89435",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2025-11-05T15:33:23Z",
+      "side": 1,
+      "message": "Throws Error running grunt: \n\nRunning \"sass:dist\" (sass) task\nFatal error: No argument named $space.\n   ╷\n40 │ $middle-green:   color.adjust($ids-green-1, $lightness: 9%, $space: hsl);\n   │                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n  dev/scss/base/colors.scss 40:18  @use\n  dev/scss/util.scss 1:1           @use\n  dev/scss/main/kwic.scss 3:1      root stylesheet",
+      "revId": "e0e48a0e3d8379bb7496d436313147ce599aff48",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
