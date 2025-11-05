@@ -4,77 +4,128 @@
  * @author Helge Stallkamp
  */
 
-define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint/foundries/cnx', 'selectMenu', 'loc/dereko'], function(tourClass, vcClass, docClassUnspec, sessionClass, matchClass, hintClass, hintArray, selectMenuClass){
+define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint/foundries/cnx', 'selectMenu', 'loc/dereko'], 
+  function(tourClass, vcClass, docClassUnspec, sessionClass, matchClass, hintClass, hintArray, selectMenuClass){
   const loc   = KorAP.Locale;
-  
+  loc.TOUR_Relations = "malt/d";
+
   var introKorAP =
-  	"<form autocomplete='off' action='/' id='searchform'>" + 
-    "<div id='searchbar' class=''>" +
-      "<input autocapitalize='off' autocomplete='off' autocorrect='off' autofocus='autofocus' id='q-field' name='q' placeholder='Finde ...' spellcheck='false' type='search'>" +
-      "<button type='submit' id='qsubmit' title='Los!'><span>Los!</span></button>" + 
-    "</div>" + 
-    "<!-- Search in the following virtual corpus -->"+
-    "<div id='vc-view'>" +
-      "<div class='vc'>"+
-        "<div class='builder'>"+
-          "<div class='doc unspecified'><span>⋯</span></div>" +
-        "</div>" +
-       "<div class='action button-view button-group'><span title='Zuklappen' class='button-icon minimize'><span>Zuklappen</span></span></div>" +
-       "<div>" +
-          "<div class='panel vcinfo'>" +
-            "<div></div>" +
-            "<div class='action button-panel vcinfo button-group'><span title='Korpusstatistik' class='statistic'><span>Korpusstatistik</span></span></div>" +
+  "<nav class='navbar'>" +
+    "<a class='logo' href='/'>" +
+      "<h1>" +
+        "<span>KorAP-HeDeV - Korpusanalyseplattform der nächsten Generation</span>" +
+        "<div class='logoaddon' style='right: 0.1rem;'>HeDeV</div>" +
+      "</h1>" +
+    "</a>" +
+
+    "<div class='navbar-group'>" +
+      "<h3 class='nav-link'><a class='link-guided-tour' href='#'>Tour</a></h3>" +
+      "<h3 class='nav-link'><a class='tutorial' id='view-tutorial'>Hilfe</a></h3>" +
+    "</div>" +
+
+    "<div class='burger-icon show'></div>" +
+  "</nav>" +
+
+  "<header>" +
+    "<form autocomplete='off' action='/' id='searchform'>" +
+
+      "<div id='searchbar'>" +
+        "<input autocapitalize='none' autocomplete='off' autocorrect='off' " +
+               "autofocus='autofocus' id='q-field' name='q' " +
+               "placeholder='Finde ...' spellcheck='false' type='search'>" +
+        "<button type='submit' id='qsubmit' title='Los!'><span>Los!</span></button>" +
+      "</div>" +
+
+      "<div id='vc-view'>" +
+        "<div class='vc'>" +
+          "<div class='builder'>" +
+            "<div class='doc unspecified'><span>⋯</span></div>" +
           "</div>" +
-       "</div>" +
-      "</div>" + 
-    "in" +
-    "<span id='vc-choose' class='select'><span>allen Korpora</span></span>" +
-    "<input id='cq' name='cq' type='text' style='display: none;'>" +
-      "mit" +
-      "<span class='select'>" +
-        "<select id='ql-field' name='ql' style='display: none;'>" +
+
+          "<div class='action button-view button-group'>" +
+            "<span title='Zuklappen' class='button-icon minimize'>" +
+              "<span>Zuklappen</span>" +
+            "</span>" +
+          "</div>" +
+
+          "<div>" +
+            "<div class='panel vcinfo'>" +
+              "<div></div>" +
+              "<div class='action button-panel vcinfo button-group'>" +
+                "<span title='Korpusstatistik' class='statistic'>" +
+                  "<span>Korpusstatistik</span>" +
+                "</span>" +
+              "</div>" +
+            "</div>" +
+          "</div>" +
+        "</div>" +
+
+        "in" +
+        "<span id='vc-choose' class='select'><span>allen Korpora</span></span>" +
+        "<input id='cq' name='cq' type='text' style='display: none;'>" +
+
+        "mit" +
+        "<span class='select'>" +
+          "<select id='ql-field' name='ql' style='display: none;'>" +
             "<option value='poliqarp'>Poliqarp</option>" +
             "<option value='cosmas2'>Cosmas II</option>" +
             "<option value='annis'>Annis QL</option>" +
             "<option value='cql'>CQL v1.2</option>" +
             "<option value='fcsql'>FCSQL</option>" +
-        "</select>" +
-      "<span style='display: inline;'> Poliqarp</span>" +
-        "<ul style='outline: currentcolor none 0px;' tabindex='0' class='menu roll'>" +
-          "<span class='pref'></span>" +
-          "<div class='lengthField'>" +
-            "<span>Poliqarp--</span>" +
-            "<span>Cosmas II--</span>" +
-            "<span>Annis QL--</span>" +
-            "<span>CQL v1.2--</span>" +
-            "<span>FCSQL--</span>" +
-            "</div><div class='ruler' style='display: none;'><span></span><div></div>" +
-          "</div>" +
-         "</ul>" +
-       "</span>" +
-       "<div class='button right'>" +
-         "<input checked='' class='checkbox' id='q-cutoff-field' name='cutoff' type='checkbox' value='1'>" +
-           "<label for='q-cutoff-field' title='Zeige nur die ersten Treffer in beliebiger Reihenfolge'><span id='glimpse'></span>Glimpse</label>" +
-       "</div>" +
-       "<div class='clear'></div>"+
-       "</form>" + 
-       "<div class='hint mirror' style='height: 0px; left: 238px; top: 36px; width: 1272px; padding-left: 2px; margin-left: 0px; border-left-width: 2px; border-left-style: solid; font-size: 14.6667px; font-family: Noto Sans;'>" +
-         "<span></span>" +
-           "<div id='hint' class=''>" +
-           "<div style='display: none;' class='alert hint'></div>" +
-           "<ul style='outline: currentcolor none 0px;' tabindex='0' class='menu roll hint'>" +
-             "<span class='pref'></span>" +
-             "<div class='lengthField'>" +
-               "<span>Base Annotation--</span>" +
-               "<span class='desc'>Structure--</span>" +
-               "<span>DeReKo--</span><span class='desc'>Structure--</span>"+
-             "</div>"
-             "<div class='ruler' style='display: none;'><span></span><div></div></div>"
-            "</ul>" +
-           "</div>" +
-          "</div>"; 
-  
-  
+          "</select>" +
+
+          "<span style='display: inline;'>Poliqarp</span>" +
+          "<ul style='outline: none;' tabindex='0' class='menu roll'>" +
+            "<span class='pref'></span>" +
+            "<div class='lengthField'>" +
+              "<span>Poliqarp--</span>" +
+              "<span>Cosmas II--</span>" +
+              "<span>Annis QL--</span>" +
+              "<span>CQL v1.2--</span>" +
+              "<span>FCSQL--</span>" +
+            "</div>" +
+            "<div class='ruler' style='display: none;'>" +
+              "<span></span><div></div>" +
+            "</div>" +
+          "</ul>" +
+        "</span>" +
+
+        "<div class='button right'>" +
+          "<input checked='checked' class='checkbox' id='q-cutoff-field' " +
+                 "name='cutoff' type='checkbox' value='1'>" +
+          "<label for='q-cutoff-field' " +
+                 "title='Zeige nur die ersten Treffer in beliebiger Reihenfolge'>" +
+            "<span id='glimpse'></span>Glimpse" +
+          "</label>" +
+        "</div>" +
+
+        "<div class='clear'></div>" +
+      "</div>" +
+    "</form>" +
+  "</header>" +
+
+  "<div class='hint mirror' " +
+       "style='height: 0px; left: 238px; top: 36px; width: 1272px; padding-left: 2px; " +
+              "margin-left: 0px; border-left-width: 2px; border-left-style: solid; " +
+              "font-size: 14.6667px; font-family: Noto Sans;'>" +
+    "<span></span>" +
+    "<div id='hint' class=''>" +
+      "<div style='display: none;' class='alert hint'></div>" +
+      "<ul style='outline: none;' tabindex='0' class='menu roll hint'>" +
+        "<span class='pref'></span>" +
+        "<div class='lengthField'>" +
+          "<span>Base Annotation--</span>" +
+          "<span class='desc'>Structure--</span>" +
+          "<span>DeReKo--</span>" +
+          "<span class='desc'>Structure--</span>" +
+        "</div>" +
+        "<div class='ruler' style='display: none;'>" +
+          "<span></span><div></div>" +
+        "</div>" +
+      "</ul>" +
+    "</div>" +
+  "</div>";
+
   var preDefinedStat={
       "documents":12,
       "tokens":2323,
@@ -87,7 +138,8 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
     return cb(preDefinedStat);
   }; 
   
-  var noresultkorap =  
+
+   var noresultkorap =  
   "<div id='search' class=''>" + 
     "<div class='panel result'><div></div></div></div>" +
     "<p class='no-results'>Unable to perform the action.</p>" +
@@ -421,7 +473,7 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
   });
   
   KorAP.vc = vc;
-  
+
   describe('KorAP.GuidedTour', function(){
 
     afterAll(function () {
@@ -479,9 +531,9 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
       expect(resultkor.querySelector('.tree')).not.toBeNull(); 
 
     });
-      
+ 
    it('Guided Tour should be started and display steps and labels in the right order', function(){
-
+    
      let vcpanel = intrkorap.getElementById("vc-view");
      vcpanel.appendChild(vc.element());
      let searchTour = tourClass.gTstartSearch(intrkorap);
@@ -530,6 +582,7 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
          break;
         case 8:
           expect(KorAP._vcKeyMenu.dontHide).toBe(false);
+          
           break;
        case totalSteps:
          expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldoneSearch);
@@ -539,7 +592,8 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
        }
        searchTour.exit();
     } 
-     
+      
+    
      let resultTour = tourClass.gTshowResults(resultkor);
      KorAP.session = sessionClass.create('KalamarJSDem'); 
      
@@ -550,12 +604,13 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
      expect(document.querySelector(".introjs-skipbutton")).toBeDefined();
      resultTour.exit();
+
      for(let i = 2; i <= totalStepsR; i++){
        resultTour.goToStepNumber(i);
        expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(resultTour.testIntros[i-1]);
        if(i == totalStepsR){
-         expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldone);  
-       }   
+        expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldone);  
+       } 
        resultTour.exit();
      } 
    });

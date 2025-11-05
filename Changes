@@ -20,6 +20,7 @@
         - Support response pipes (preliminary; diewald)
         - Support default alignment changes (diewald)
         - Add general proxies support (diewald)
+        - Fix guided tour test suite (closes #265; hebasta)
 
 0.59 2025-03-28
         - Docker only release (diewald)
