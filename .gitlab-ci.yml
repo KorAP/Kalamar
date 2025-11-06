@@ -10,6 +10,10 @@ image: docker:latest
 services:
   - docker:dind
 
+stages:
+  - build
+  - deploy
+
 build-docker:
   rules:
     - if: $CI_COMMIT_TAG =~ /.+/
@@ -32,4 +36,24 @@ build-docker:
   artifacts:
     paths:
       - kalamar.tar.xz
+
+push-dockerhub:
+  stage: deploy
+  needs:
+    - job: build-docker
+      artifacts: true
+  dependencies:
+    - build-docker
+  rules:
+    - if: $CI_COMMIT_TAG =~ /.+/
+      when: manual
+    - when: never
+  script:
+    - apk update
+    - apk add --no-cache xz
+    - echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    - xz -d -c kalamar.tar.xz | docker load
+    - docker tag korap/kalamar:$CI_COMMIT_TAG korap/kalamar:latest
+    - docker push korap/kalamar:$CI_COMMIT_TAG
+    - docker push korap/kalamar:latest
 
