@@ -240,6 +240,24 @@
       "parentUuid": "e1408b41_ef327220",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3079e764_23db1a84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T13:04:16Z",
+      "side": 1,
+      "message": "Because it is useless outside. The link https://gitlab.ids-mannheim.de/KorAP/Kalamar/-/jobs/artifacts/master/raw/kalamar.tar.xz?job\u003dbuild-docker isn\u0027t resolvable, and a fork in another gitlab would probably not want it.",
+      "parentUuid": "ac00b4cb_4924fe8d",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
