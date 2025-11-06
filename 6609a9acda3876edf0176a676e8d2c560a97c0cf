@@ -33,6 +33,23 @@
       "message": "Looks good now. Will old artefacts automatically be cleaned up?",
       "revId": "6609a9acda3876edf0176a676e8d2c560a97c0cf",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cebe92b0_050c8f1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T14:36:39Z",
+      "side": 1,
+      "message": "I think there is a default retention time. Which is good for such important and small images.",
+      "revId": "6609a9acda3876edf0176a676e8d2c560a97c0cf",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
