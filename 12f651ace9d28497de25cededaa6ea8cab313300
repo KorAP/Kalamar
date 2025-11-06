@@ -276,6 +276,60 @@
       "parentUuid": "3079e764_23db1a84",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c738521_88e1193d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:21:27Z",
+      "side": 1,
+      "message": "Is that link anywhere in our source code?",
+      "parentUuid": "3cd7c90d_0803fbea",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5fe492f_a683af9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:21:27Z",
+      "side": 1,
+      "message": "OK, but you know that the current Dockerfile does not support -conv? (Which I like, cause never an application case for -conv.)\n\nI think, we should better update the compose files, or maybe do it manually on docker hub. What do you think?",
+      "parentUuid": "2f3b196b_efee02ff",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f46da867_15cf2569",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:21:27Z",
+      "side": 1,
+      "message": "Don\u0027t know. Just realized this at some point, after I forgot to tag derekovecs as latest, but I\u0027ll better change it here. I am not 100% sure.",
+      "parentUuid": "c7127d0e_28e09d4d",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
