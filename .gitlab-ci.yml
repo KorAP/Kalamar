@@ -10,6 +10,10 @@ image: docker:latest
 services:
   - docker:dind
 
+stages:
+  - build
+  - deploy
+
 build-docker:
   rules:
     - if: $CI_COMMIT_TAG =~ /.+/
@@ -27,9 +31,29 @@ build-docker:
 #    - wget https://github.com/slimtoolkit/slim/releases/latest/download/dist_linux.tar.gz
 #    - tar zxf dist_linux.tar.gz
 #    - export PATH=$(pwd)/dist_linux:$PATH
-    - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock dslim/slim build --http-probe=true --exec="perl Makefile.PL && make test && unzip -v" --include-workdir=true --include-path=/usr/local/share/perl5/site_perl/KorAP/ --tag korap/kalamar:$VID --tag korap/kalamar:latest korap/kalamar:$VID-large
+    - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock dslim/slim build --http-probe=true --exec="perl Makefile.PL && make test && unzip -v" --include-workdir=true --include-path=/usr/local/share/perl5/site_perl/KorAP/ --include-path=/usr/local/share/perl5/site_perl/Mojolicious/ --include-path=/usr/local/share/perl5/site_perl/Mojo/ --tag korap/kalamar:$VID --tag korap/kalamar:latest korap/kalamar:$VID-large
     - docker save korap/kalamar:$VID | xz -T0 -M16G -9 > kalamar.tar.xz
   artifacts:
     paths:
       - kalamar.tar.xz
+
+push-dockerhub:
+  stage: deploy
+  needs:
+    - job: build-docker
+      artifacts: true
+  dependencies:
+    - build-docker
+  rules:
+    - if: $CI_COMMIT_TAG =~ /.+/
+      when: manual
+    - when: never
+  script:
+    - apk update
+    - apk add --no-cache xz
+    - echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    - xz -d -c kalamar.tar.xz | docker load
+    - docker tag korap/kalamar:$CI_COMMIT_TAG korap/kalamar:latest
+    - docker push korap/kalamar:$CI_COMMIT_TAG
+    - docker push korap/kalamar:latest
 
