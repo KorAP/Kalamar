@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "958d39d0_d0a6952b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T07:25:24Z",
+      "side": 1,
+      "message": "Probably just an outdated version - I updated the package.json.",
+      "revId": "8a5069c3e09e2252716073ed6c9b1ccf2874c053",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
