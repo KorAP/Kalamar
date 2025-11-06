@@ -87,6 +87,23 @@
       "message": "I dodn\u0027t know that gitlab-cy was in the repo - I think this should be in the instance repo for the IDS and added to .gitignore here.",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1451b5b0_4949a124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T12:42:42Z",
+      "side": 1,
+      "message": "I am not completely sure I understand the non-manual mechanism here, but it seems to me that the latest tag is missing for releases (and because trust in docker hub is limited and they may demand removing old images, only releases should be pushed).",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
