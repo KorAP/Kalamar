@@ -330,6 +330,24 @@
       "parentUuid": "c7127d0e_28e09d4d",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd49c72_ac297e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:23:17Z",
+      "side": 1,
+      "message": "OK, now also tagged as latest and pushed as such.",
+      "parentUuid": "f46da867_15cf2569",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
