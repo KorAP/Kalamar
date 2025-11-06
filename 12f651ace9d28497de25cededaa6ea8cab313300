@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "08649029_450bbeea",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T12:50:01Z",
+      "side": 1,
+      "message": "Someone could build a DNB branch docker at the same time. Then that could get pushed.",
+      "parentUuid": "c32ff281_a492a4b4",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8456103b_d0bdf631",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -102,6 +126,41 @@
       "writtenOn": "2025-11-06T12:42:42Z",
       "side": 1,
       "message": "I am not completely sure I understand the non-manual mechanism here, but it seems to me that the latest tag is missing for releases (and because trust in docker hub is limited and they may demand removing old images, only releases should be pushed).",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac00b4cb_4924fe8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T12:50:01Z",
+      "side": 1,
+      "message": "Why should it be private? Not having it in the git repo would make this unmaintainable.",
+      "parentUuid": "8456103b_d0bdf631",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e582b6de_9c0d8152",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T12:50:01Z",
+      "side": 1,
+      "message": "We could indeed tag it as latest, as well, but docker hub does that too.",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
