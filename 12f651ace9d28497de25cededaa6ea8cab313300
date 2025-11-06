@@ -348,6 +348,42 @@
       "parentUuid": "f46da867_15cf2569",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b438c140_6ff12188",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T13:31:36Z",
+      "side": 1,
+      "message": "Yes - at the top.",
+      "parentUuid": "5c738521_88e1193d",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecab609d_c8b74c6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T13:31:36Z",
+      "side": 1,
+      "message": "All images are now \"conv\". Before, \"latest\" did not include the preprocessing pipeline. But in case there are older compose files out there, these wouldn\u0027t be updated. Because tags don\u0027t cost anything, it makes sense to push the \"latest-conv\" tag as well.\n\nWhat do you mean by \"manually on docker hub\"?",
+      "parentUuid": "c5fe492f_a683af9c",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
