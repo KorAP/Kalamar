@@ -122,6 +122,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6ba105d0_f42d2e41",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:49:57Z",
+      "side": 1,
+      "message": "I think it is only in the registry, not in the file.",
+      "parentUuid": "960c0e53_a18efb6e",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8456103b_d0bdf631",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -382,6 +406,24 @@
       "side": 1,
       "message": "All images are now \"conv\". Before, \"latest\" did not include the preprocessing pipeline. But in case there are older compose files out there, these wouldn\u0027t be updated. Because tags don\u0027t cost anything, it makes sense to push the \"latest-conv\" tag as well.\n\nWhat do you mean by \"manually on docker hub\"?",
       "parentUuid": "c5fe492f_a683af9c",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c0a55e8_afd68bcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:49:57Z",
+      "side": 1,
+      "message": "OK, added latest-conv tag",
+      "parentUuid": "ecab609d_c8b74c6b",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }

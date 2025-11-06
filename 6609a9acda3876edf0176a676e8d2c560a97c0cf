@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2622b714_36d64ba0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T13:49:57Z",
+      "side": 1,
+      "message": "Sorry, I wonder where the IDS gitlab link in the header came from. Maybe, initially I pushed this only to refs/for for Rameela to have sth to start with.",
+      "revId": "6609a9acda3876edf0176a676e8d2c560a97c0cf",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
