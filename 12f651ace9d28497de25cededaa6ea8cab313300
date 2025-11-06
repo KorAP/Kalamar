@@ -22,6 +22,30 @@
       },
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8361369c_74d758d3",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-06T12:07:36Z",
+      "side": 1,
+      "message": "We can ask Olli to turn it on, I guess, but I would not use it for this application where we need to make sure that exactly the image from build-docker run is pushed.\n\nIt would however make sense for docker images we cannot upload to docker hub for license reasons, like treetagger-conllu.",
+      "parentUuid": "00061313_399c1431",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
   ]
 }
