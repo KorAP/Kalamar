@@ -98,6 +98,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "960c0e53_a18efb6e",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T12:59:38Z",
+      "side": 1,
+      "message": "And that wouldn\u0027t be in kalamar.tar.xz? I would get that image should have a different tag and shouldn\u0027t have $CI_COMMIT_TAG.",
+      "parentUuid": "08649029_450bbeea",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8456103b_d0bdf631",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -161,6 +185,41 @@
       "writtenOn": "2025-11-06T12:50:01Z",
       "side": 1,
       "message": "We could indeed tag it as latest, as well, but docker hub does that too.",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7127d0e_28e09d4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T12:59:38Z",
+      "side": 1,
+      "message": "Is that a new feature?",
+      "parentUuid": "e582b6de_9c0d8152",
+      "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1408b41_ef327220",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2025-11-06T12:59:38Z",
+      "side": 1,
+      "message": "Ah - latest-conv for old docker compose files.",
       "revId": "12f651ace9d28497de25cededaa6ea8cab313300",
       "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
     }
