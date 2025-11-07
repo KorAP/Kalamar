@@ -1,3 +1,9 @@
+0.61 2025-11-07
+        - Share UPOS morphological hint configuration across foundries (kupietz)
+        - Extend spaCy hint helper with UPOS and morphology support (kupietz)
+        - Add manual Docker Hub release pipeline and tagging improvements (kupietz)
+        - Update Dockerfile with latest dependencies (diewald)
+
 0.60 2025-11-04
         - Tour stops gracefully if there are no results (closes #189; hebasta)
         - Create top navbar and modify sidebar. (uyen-nhu)
