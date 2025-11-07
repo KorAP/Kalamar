@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "380f1c11_f818b2b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2025-11-07T08:27:54Z",
+      "side": 1,
+      "message": "Please rebase this on any commit you want to include in v0.61, today.",
+      "revId": "2c719d9eb9310102be69bf1ba09c943acfb15a1e",
+      "serverId": "626241b7-b7d0-4197-b843-1ee23887649c"
+    }
+  ]
+}
