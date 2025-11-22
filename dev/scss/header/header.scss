@@ -300,6 +300,11 @@ header {
 
   input {
     @include mixins.input-field;
+    display: none;
+
+    .no-js & {
+      display: inline-block;
+    }
   }
 
   .button {
