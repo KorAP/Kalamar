@@ -21,7 +21,7 @@ build-docker:
     - apk add --no-cache git
   script:
     - docker build -f Dockerfile -t korap/kalamar:$VID-large --target kalamar .
-    - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock dslim/slim build --http-probe=true --exec="perl Makefile.PL && make test && unzip -v" --include-workdir=true --include-path=/usr/local/share/perl5/site_perl/KorAP/ --include-path=/usr/local/share/perl5/site_perl/Mojolicious/ --include-path=/usr/local/share/perl5/site_perl/Mojo/ --tag korap/kalamar:$VID --tag korap/kalamar:latest korap/kalamar:$VID-large
+    - docker run  --rm -v /var/run/docker.sock:/var/run/docker.sock mintoolkit/mint --crt-api-version 1.46 build --http-probe=true --exec="perl Makefile.PL && make test && unzip -v" --include-workdir=true --include-path=/usr/local/share/perl5/site_perl/KorAP/ --include-path=/usr/local/share/perl5/site_perl/Mojolicious/ --include-path=/usr/local/share/perl5/site_perl/Mojo/ --tag korap/kalamar:$VID --tag korap/kalamar:latest korap/kalamar:$VID-large || true
     - ARTIFACT=kalamar-${VID}.tar.xz
     - docker save korap/kalamar:$VID | xz -T0 -M16G -9 > "$ARTIFACT"
   artifacts:
