@@ -1,7 +1,10 @@
 image: docker:latest
 
+variables:
+  FF_NETWORK_PER_BUILD: true
 services:
-  - docker:dind
+  - name: docker:dind
+    command: [--dns=127.0.0.11]
 
 stages:
   - build
