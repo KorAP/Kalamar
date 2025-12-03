@@ -300,8 +300,12 @@ header {
 
   input {
     @include mixins.input-field;
-    display: none;
+  }
 
+  // Don't show cq input field,
+  // in javascript mode.
+  #cq {
+    display: none;
     .no-js & {
       display: inline-block;
     }

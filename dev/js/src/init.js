@@ -685,6 +685,7 @@ define([
             const input = form.addE("input");
             input.setAttribute("type","text");
             input.setAttribute("name","state");
+            input.setAttribute("id","state");
 
             const url = new URL(window.location.href);
 
