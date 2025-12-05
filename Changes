@@ -1,3 +1,8 @@
+0.62 2025-12-05
+        - Fixed white box under query field glitch (kupietz, diewald)
+        - Add translations of api, data, development and faq (wilm, stallkamp)
+        - CI: Fix docker build and slimming pipeline (kupietz)
+
 0.61 2025-11-07
         - Share UPOS morphological hint configuration across foundries (kupietz)
         - Extend spaCy hint helper with UPOS and morphology support (kupietz)
