@@ -35,6 +35,8 @@ $t->get_ok('/')
   ->header_is('X-Content-Type-Options', 'nosniff')
   ->header_is('Access-Control-Allow-Methods','GET, POST, OPTIONS')
   ->header_is('X-XSS-Protection', '1; mode=block')
+  ->element_exists('*[data-testid=home]')
+  ->element_exists('*[data-testid=tour-start]')
   ;
 
 # Test additions

@@ -1,3 +1,5 @@
+        - Add data-testid to test relevant elements (fixes #244; diewald)
+
 0.62 2025-12-05
         - Fixed white box under query field glitch (kupietz, diewald)
         - Add translations of api, data, development and faq (wilm, stallkamp)

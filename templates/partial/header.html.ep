@@ -1,5 +1,5 @@
 % content_block 'headerButtonGroup', { position => 50 }, begin
-  <h3 class="nav-link"><a class="link-guided-tour">Tour</a></h3>
+  <h3 class="nav-link"><a class="link-guided-tour" data-testid="tour-start">Tour</a></h3>
 % end
 
 % content_block 'headerButtonGroup', { position => 100 }, begin
@@ -7,7 +7,7 @@
 % end
 
 <nav class="navbar">
-  <%= link_to 'index', class => 'logo', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
+  <%= link_to 'index', class => 'logo', 'data-testid' => 'home', begin %><h1><span><%= title() // loc('korap_desc') %></span><% if (loc('title_addon')) { %><div class="logoaddon"><%= loc('title_addon') %></div><% } %></h1><% end %>
 
   <div class="navbar-group">
     %= content_block 'headerButtonGroup'

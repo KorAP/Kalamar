@@ -116,6 +116,10 @@ $t->get_ok('/?q=Baum')
 $t->get_ok('/')
   ->status_is(200)
   ->element_exists('form[action=/user/login] input[name=handle_or_email]')
+  ->element_exists('*[data-testid=handle-or-email]')
+  ->element_exists('*[data-testid=pwd]')
+  ->element_exists('*[data-testid=login-submit]')
+  ->element_exists_not('*[data-testid=logout]')
   ->element_exists('aside')
   ->element_exists('aside.invisible')
   ;
@@ -123,6 +127,7 @@ $t->get_ok('/')
 $t->get_ok('/settings/oauth')
   ->status_is(401)
   ->text_is('p.no-results', 'Not authenticated')
+  ->text_is('*[data-testid=error-message]','Not authenticated')
   ;
 
 $t->get_ok('/settings/marketplace')
@@ -230,6 +235,8 @@ $t->get_ok('/?q=Baum')
   ->element_exists_not('div.notify-error')
   ->content_like(qr/${q}authorized${q}:${q}yes${q}/)
   ->element_exists('nav.dropdown')
+  ->element_exists_not('*[data-testid=handle-or-email]')
+  ->element_exists('*[data-testid=logout]')
   ->element_exists('a.dropdown-item.logout[title~="test"]')
   ;
 

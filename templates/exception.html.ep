@@ -1,6 +1,6 @@
 % my $msg = stash('msg') // stash('exception')->message // '500: Internal Server Error';
 % layout 'main', title => 'KorAP: ' . $msg;
 
-<p class="no-results"><%= $msg  %></p>
+<p class="no-results" data-testid="error-message"><%= $msg  %></p>
 
 % notify('error' => $msg);

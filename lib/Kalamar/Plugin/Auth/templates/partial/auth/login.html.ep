@@ -35,7 +35,7 @@
         %= form_for 'login', 'accept-charset' => 'utf-8', class => 'login', begin
           <legend><span><%= loc 'login' %></span></legend>
           %= csrf_field
-          %= text_field 'handle_or_email', placeholder => loc('userormail')
+          %= text_field 'handle_or_email', 'data-testid' => 'handle-or-email', placeholder => loc('userormail')
           %= hidden_field fwd => $c->url_with
           % if (stash('client_id')) {
             %= hidden_field 'client_id' => stash('client_id')
@@ -44,8 +44,8 @@
             %= hidden_field 'scope' => stash('scope')
             %= hidden_field 'redirect_uri' => stash('close_redirect_uri')
           % };
-          %= password_field 'pwd', placeholder => loc('pwd')
-          <button type="submit" class="btn-login"><span><%= loc 'go' %></span></button>
+          %= password_field 'pwd', 'data-testid' => 'pwd', placeholder => loc('pwd')
+          <button type="submit" class="btn-login" data-testid="login-submit"><span><%= loc 'go' %></span></button>
         % end
           %= content_block 'loginInfo', separator => '<hr />'
       </div>
