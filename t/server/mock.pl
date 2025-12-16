@@ -111,10 +111,10 @@ app->defaults('oauth.plugin_list' => []);
 app->defaults('oauth.pluginin_list' => []);
 
 # Base page
-get '/v1.0/' => sub {
-  shift->render(text => 'Fake server available');
+get '/v#apiv' => [apiv => ['1.0','1.1']] => sub {
+  my $c = shift;
+  $c->render(text => 'Fake server available: ' . $c->stash('apiv'));
 };
-
 
 get '/v1.0/redirect-target-a' => sub {
   shift->render(text => 'Redirect Target!');

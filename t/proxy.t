@@ -56,8 +56,14 @@ is($rendered, 1);
 
 $t->get_ok('/realapi/v1.0')
   ->status_is(200)
-  ->content_is('Fake server available')
+  ->content_is('Fake server available: 1.0')
   ;
+
+$t->get_ok('/realapi/v1.1')
+  ->status_is(200)
+  ->content_is('Fake server available: 1.1')
+  ;
+
 
 is($rendered, 1);
 
@@ -68,7 +74,7 @@ $t->get_ok('/api/v1.0/')
   ->header_is('Connection', 'close')
   ->header_is('Access-Control-Allow-Origin', '*')
   ->header_is('Access-Control-Allow-Methods', 'GET, OPTIONS')
-  ->content_is('Fake server available')
+  ->content_is('Fake server available: 1.0')
   ;
 
 # Proxy renders

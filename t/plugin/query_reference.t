@@ -96,7 +96,7 @@ $ENV{QUERY_REF_MOCKUP} = 0;
 
 $t->get_ok('/realapi/v1.0')
   ->status_is(200)
-  ->content_is('Fake server available')
+  ->content_is('Fake server available: 1.0')
   ;
 
 # Login

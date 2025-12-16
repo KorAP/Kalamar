@@ -8,10 +8,11 @@ use Mojo::Util qw/url_escape deprecated slugify/;
 use List::Util qw!none uniq!;
 
 # Minor version - may be patched from package.json
-our $VERSION = '0.63.1';
+our $VERSION = '0.64';
 
 # Supported version of Backend API
 our $API_VERSION = '1.0';
+our $API_VERSION_SUPPORTED = ['1.0','1.1'];
 
 # TODO: The FAQ-Page has a contact form for new questions
 # TODO: Embed query serialization
@@ -436,8 +437,8 @@ NONCE_JS
   $r->get('/contact')->mail_to_chiffre('documentation#contact');
 
   # API proxy route
-  $r->any('/api/v#apiv' => [apiv => ['1.0']])->name('proxy')->to('Proxy#api_pass');
-  $r->any('/api/v#apiv/*proxy_path' => [apiv => ['1.0']])->to('Proxy#api_pass');
+  $r->any('/api/v#apiv' => [apiv => $API_VERSION_SUPPORTED])->name('proxy')->to('Proxy#api_pass');
+  $r->any('/api/v#apiv/*proxy_path' => [apiv => $API_VERSION_SUPPORTED])->to('Proxy#api_pass');
 
   # General proxy mounts
   my $proxies = $conf->{'proxies'} // [];
