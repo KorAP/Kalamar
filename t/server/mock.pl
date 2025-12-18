@@ -728,9 +728,7 @@ post '/v1.0/oauth2/client/list' => sub {
   my $v = $c->validation;
   $v->required('super_client_id');
   $v->required('super_client_secret');
-
-  $v->optional('filter_by' );
-  $v->optional('authorized_only' );
+  $v->optional('filter_by');
 
   if ($v->has_error) {
     return $c->render(
