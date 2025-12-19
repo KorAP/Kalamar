@@ -80,5 +80,32 @@ define(["util"], function () {
     return '';
   };
 
+  /**
+   * Filter available foundries based on configuration.
+   * Reads from data-hint-foundries attribute on body element.
+   * Each foundry module pushes entries like ["Name", "prefix/", "Description"]
+   * to ah["-"]. The prefix (e.g., "corenlp/") is matched against enabled list.
+   */
+  ah.filterByConfig = function () {
+    const body = document.body;
+    if (!body) return;
+    
+    const configAttr = body.getAttribute('data-hint-foundries');
+    if (!configAttr) return; // No filter - show all
+    
+    const enabledFoundries = configAttr.split(',').map(f => f.trim().toLowerCase());
+    if (enabledFoundries.length === 0) return;
+
+    // Filter the root foundry list ah["-"]
+    // Each entry is ["Name", "prefix/", "Description"]
+    // Match prefix (without trailing /) against enabled list
+    this["-"] = this["-"].filter(entry => {
+      if (!entry || !entry[1]) return false;
+      // Extract foundry name from prefix like "corenlp/" -> "corenlp"
+      const foundryName = entry[1].replace(/\/$/, '').toLowerCase();
+      return enabledFoundries.includes(foundryName);
+    });
+  };
+
   return ah;
 });

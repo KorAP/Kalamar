@@ -58,6 +58,7 @@
         % my $api = url_for('index');
         % $api =~ s!/$!!;
         data-korap-url="<%== $api %>"
+        data-hint-foundries="<%= join(',', @{stash('hint_foundries') // []}) %>"
         itemscope
         itemtype="http://schema.org/<%= stash('schematype') || 'WebApplication' %>">
     

@@ -64,6 +64,11 @@ define([
         console.log("No annotationhelper defined");
         return;
       };
+
+      // Apply configured foundry filter from data-hint-foundries attribute
+      if (KorAP.annotationHelper.filterByConfig) {
+        KorAP.annotationHelper.filterByConfig();
+      };
       
       /**
        * @define {regex} Regular expression for context

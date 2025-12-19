@@ -192,20 +192,56 @@ the `Template` dictionary entries.
 Currently the JavaScript translations are separated and stored in `dev/js/src/loc`.
 To generate assets relying on different locales, add the locale to `Gruntfile.js`.
 
-To localize the annotation helper according to a special corpus environment,
-different annotation foundries can be loaded in `kalamar.conf.js`.
-For example to support `marmot` and `malt`,
-the configuration may look like this:
+#### Annotation Helper Foundries
 
-```js
-require([
-  "hint/foundries/marmot",
-  "hint/foundries/malt"
-]);
+![Experimental](https://img.shields.io/badge/status-experimental-orange)
+
+The annotation helper hints can be configured at runtime via configuration
+file or environment variable. The default foundries are: `base`, `corenlp`,
+`dereko`, `malt`, `marmot`, `opennlp`, `spacy`, `treetagger`. Additionally available is `ud` (udpipe).
+
+To **exclude** specific foundries from the defaults, prefix them with `-`:
+
+```perl
+{
+  Kalamar => {
+    hint_foundries => ['-spacy', '-corenlp']  # Removes spacy and corenlp
+  }
+}
 ```
 
-See `dev/js/src/hint/foundries` for
-more optional foundries.
+```shell
+KALAMAR_HINT_FOUNDRIES=-spacy,-corenlp perl script/kalamar daemon
+```
+
+To **replace** the default list entirely, specify foundries without `-` prefix:
+
+```perl
+{
+  Kalamar => {
+    hint_foundries => ['base', 'marmot', 'malt']  # Only these three
+  }
+}
+```
+
+For Docker deployments:
+
+```shell
+docker run -e KALAMAR_HINT_FOUNDRIES=-spacy korap/kalamar
+```
+
+Or mount a custom configuration file:
+
+```shell
+docker run -v /path/to/my.conf:/kalamar/kalamar.production.conf korap/kalamar
+```
+
+See `dev/js/src/hint/foundries` for available foundries.
+
+
+> **Note:** For build-time customization, `kalamar.conf.js` can still
+> be used to control which foundries are bundled into the JavaScript assets.
+
 
 ### Customization
 
