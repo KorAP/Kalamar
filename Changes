@@ -1,4 +1,6 @@
+v0.63 2026-01-??
         - Add data-testid to test relevant elements (fixes #244; diewald)
+        - Make hint foundries configurable (fixes #173; kupietz)
 
 0.62 2025-12-05
         - Fixed white box under query field glitch (kupietz, diewald)
