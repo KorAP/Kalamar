@@ -1,4 +1,7 @@
-v0.63 2026-01-??
+v0.63.1 2026-01-15
+        - Fix hint foundry selection (kupietz)
+
+0.63 2026-01-15
         - Add data-testid to test relevant elements (fixes #244; diewald)
         - Make hint foundries configurable (fixes #173; kupietz)
 
