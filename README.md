@@ -197,8 +197,8 @@ To generate assets relying on different locales, add the locale to `Gruntfile.js
 ![Experimental](https://img.shields.io/badge/status-experimental-orange)
 
 The annotation helper hints can be configured at runtime via configuration
-file or environment variable. The default foundries are: `base`, `corenlp`,
-`dereko`, `malt`, `marmot`, `opennlp`, `spacy`, `treetagger`. Additionally available is `ud` (udpipe).
+file or environment variable. By default all available foundries are offered: `base`, `corenlp`,
+`dereko`, `malt`, `marmot`, `opennlp`, `spacy`, `tt`, `ud`.
 
 To **exclude** specific foundries from the defaults, prefix them with `-`:
 

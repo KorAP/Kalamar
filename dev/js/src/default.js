@@ -11,5 +11,6 @@ require([
   "hint/foundries/marmot",
   "hint/foundries/opennlp",
   "hint/foundries/spacy",
-  "hint/foundries/treetagger"
+  "hint/foundries/treetagger",
+  "hint/foundries/ud"
 ]);

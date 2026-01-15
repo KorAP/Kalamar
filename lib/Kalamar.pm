@@ -344,7 +344,7 @@ sub startup {
   # Items starting with '-' exclude that foundry from defaults (e.g., '-spacy')
   # If only exclusions are specified, they're removed from defaults
   # If any positive items exist, they replace the defaults entirely
-  my @default_foundries = qw(base corenlp dereko malt marmot opennlp spacy treetagger);
+  my @default_foundries = qw(base corenlp dereko malt marmot opennlp spacy tt);
   my $hint_foundries;
   my $config_foundries;
   

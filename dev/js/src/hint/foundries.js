@@ -84,7 +84,8 @@ define(["util"], function () {
    * Filter available foundries based on configuration.
    * Reads from data-hint-foundries attribute on body element.
    * Each foundry module pushes entries like ["Name", "prefix/", "Description"]
-   * to ah["-"]. The prefix (e.g., "corenlp/") is matched against enabled list.
+   * to ah["-"]. The prefix (e.g., "corenlp/", "base/s=", "tt/") is matched
+   * against the enabled list by extracting the foundry name (part before /).
    */
   ah.filterByConfig = function () {
     const body = document.body;
@@ -97,12 +98,12 @@ define(["util"], function () {
     if (enabledFoundries.length === 0) return;
 
     // Filter the root foundry list ah["-"]
-    // Each entry is ["Name", "prefix/", "Description"]
-    // Match prefix (without trailing /) against enabled list
+    // Each entry is ["Name", "prefix/...", "Description"]
+    // Extract foundry name from prefix: "corenlp/" -> "corenlp", "base/s=" -> "base", "tt/" -> "tt"
     this["-"] = this["-"].filter(entry => {
       if (!entry || !entry[1]) return false;
-      // Extract foundry name from prefix like "corenlp/" -> "corenlp"
-      const foundryName = entry[1].replace(/\/$/, '').toLowerCase();
+      // Extract foundry name as the part before the first '/'
+      const foundryName = entry[1].split('/')[0].toLowerCase();
       return enabledFoundries.includes(foundryName);
     });
   };
