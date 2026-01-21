@@ -56,9 +56,27 @@ sub register {
   # Get client_id and client_secret from client file
   if ($param->{client_file} || $main::ENV{KALAMAR_CLIENT_FILE}) {
     $param->{client_file} ||= $main::ENV{KALAMAR_CLIENT_FILE};
-    my $client_json = decode_json(path($param->{client_file})->slurp);
-    $param->{client_id} //= $client_json->{client_id};
-    $param->{client_secret} //= $client_json->{client_secret};
+
+    # Load client file
+    if (-e $param->{client_file}) {
+      my $client_file = path($param->{client_file})->slurp;
+
+      eval {
+        my $client_json = decode_json($client_file);
+
+        if ($client_json) {
+          $param->{client_id} //= $client_json->{client_id};
+          $param->{client_secret} //= $client_json->{client_secret};
+        }
+      };
+
+      if ($@) {
+          $app->log->error('provided client file syntax invalid:' . $param->{client_file} . '; ' . $@);
+      };
+    }
+    else {
+      $app->log->error('provided client file does not exist: ' . $param->{client_file});
+    };
   };
 
   # Get the client id and the client_secret as a requirement

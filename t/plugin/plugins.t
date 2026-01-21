@@ -69,4 +69,28 @@ $t->get_ok('/settings/plugin/list.json')
   ->json_is('/1/embed/0/title','Full Text')
   ;
 
+# Test non-existing file
+my $t2 = Test::Mojo->new('Kalamar');
+my $log_output = '';
+open my $log_fh, '>', \$log_output or die $!;
+$t2->app->log->handle($log_fh);
+$t2->app->log->level('error');
+$t2->app->plugin('Plugins' => {
+  default_plugins => '/nonexistent/file.json'
+});
+like($log_output, qr/provided default_plugins file does not exist/, 'Non-existing file logged');
+
+# Test malformed JSON
+$log_output = '';
+my $t3 = Test::Mojo->new('Kalamar');
+my $bad_json = tempfile();
+$bad_json->spew('{invalid json}');
+#$t3->app->log->level('error');
+$t3->app->log->handle($log_fh);
+$t3->app->log->level('error');
+$t3->app->plugin('Plugins' => {
+  default_plugins => $bad_json->to_string
+});
+like($log_output, qr/provided plugin file syntax invalid/, 'Malformed JSON logged');
+
 done_testing;

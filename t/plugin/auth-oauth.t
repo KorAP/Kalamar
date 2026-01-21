@@ -507,14 +507,11 @@ $t->get_ok('/settings/oauth')
   ->header_is('Pragma','no-cache')
   ;
 
-my $loglines = '';
-$t->app->log->on(
-  message => sub {
-    my ($log, $level, @lines) = @_;
-    if ($level eq 'warn') {
-      $loglines = join ',', @lines;
-    };
-  });
+
+my $log_output = '';
+open my $log_fh, '>', \$log_output or die $!;
+$t->app->log->handle($log_fh);
+$t->app->log->level('warn');
 
 $t->get_ok('/settings/marketplace')
   ->status_is(200)
@@ -523,7 +520,7 @@ $t->get_ok('/settings/marketplace')
   ->element_exists_not('ul.plugin_in-list')
   ;
 
-is($loglines, '', 'Check log is fine');
+is($log_output, '', 'Check log is fine');
 
 $csrf = $t->post_ok('/settings/oauth/register' => form => {
   name => 'MyApp',
@@ -1382,7 +1379,43 @@ $t->get_ok('/')
   ->element_exists('aside.settings')
   ;
 
+$log_output = '';
 
+# Test non-existing client file (app should initialize without crashing)
+$t = Test::Mojo->new('Kalamar');
+$t->app->log->handle($log_fh);
+$t->app->log->level('error');
+$t->app->plugin('Mount' => {
+  $mount_point => $fixtures_path->child('mock.pl')
+});
+
+$t->app->plugin('Auth' => {
+    client_file => '/nonexistent/client.json',
+    oauth2 => 1
+  }
+);
+ok($t->app, 'App initializes with non-existing client file');
+like($log_output, qr'provided client file does not exist', 'Check log is fine');
+
+$log_output = '';
+
+# Test malformed JSON client file (app should initialize without crashing)
+my $bad_client_file = tempfile();
+$bad_client_file->spew('{invalid json}');
+$t = Test::Mojo->new('Kalamar');
+$t->app->log->handle($log_fh);
+$t->app->log->level('error');
+$t->app->plugin('Mount' => {
+  $mount_point => $fixtures_path->child('mock.pl')
+});
+
+$t->app->plugin('Auth' => {
+    client_file => $bad_client_file->to_string,
+    oauth2 => 1
+  }
+);
+ok($t->app, 'App initializes with malformed JSON client file');
+like($log_output, qr'provided client file syntax invalid', 'Check log is fine');
 done_testing;
 __END__
 

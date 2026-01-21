@@ -21,12 +21,23 @@ sub register {
   if ($param->{default_file}) {
 
     # Read default plugins file
+    unless (-e $param->{default_file}) {
+      $app->log->error('provided default_plugins file does not exist: ' . $param->{default_file});
+      return;
+    };
+
     my $default = path($param->{default_file});
 
     # Use correct working directory
     $default = $app->home->child($default) unless $default->is_abs;
 
-    @json_array = @{ decode_json $default->slurp };
+    eval {
+      @json_array = @{ decode_json $default->slurp };
+    };
+
+    if ($@) {
+      $app->log->error('provided plugin file syntax invalid:' . $param->{default_file} . '; ' . $@);
+    };
   };
 
   # There are default plugins to be registered

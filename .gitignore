@@ -1,11 +1,13 @@
 /cache
 /kalamar.secret*
+super_client_info
 /start-test
 /todo.org
 /fixtures.txt
 /sandbox
 /Sandbox
-/node_modules
+node_modules
+/local/
 /cache/data
 /public
 /kalamar.*.conf
