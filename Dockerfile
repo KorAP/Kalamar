@@ -100,13 +100,5 @@ LABEL repository="https://github.com/KorAP/Kalamar"
 
 # docker build -f Dockerfile -t korap/kalamar:x.xx-large --target kalamar .
 
-# Slimming (https://github.com/slimtoolkit/slim or https://github.com/mintoolkit/mint):
-# slim build --http-probe=true \
-#            --exec="perl Makefile.PL && make test && unzip -v" \
-#            --include-workdir=true \
-#            --include-path="/usr/local/share/perl5/site_perl/KorAP/" \
-#            --include-path="/usr/local/share/perl5/site_perl/Mojolicious/" \
-#            --include-path="/usr/local/share/perl5/site_perl/Mojo/" \
-#            --tag korap/kalamar:x.xx \
-#            --tag korap/kalamar:latest \
-#            korap/kalamar:x.xx-large
+# Slimming (https://github.com/mintoolkit/mint):
+# ./slim_script.sh "x.xx"
