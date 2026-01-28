@@ -3,29 +3,32 @@ use Test::More;
 use Test::Mojo;
 use Mojo::File qw/path/;
 
+# Get API version from Kalamar config (respects env and config file)
+my $api_version = Test::Mojo->new('Kalamar')->app->config('Kalamar')->{api_version};
+
 # Get the fixture path
 my $mock_server = path(Mojo::File->new(__FILE__)->dirname, 'server')->child('mock.pl');
 
 my $t = Test::Mojo->new($mock_server);
 
-$t->get_ok('/v1.0')
+$t->get_ok("/v$api_version")
   ->status_is(200)
-  ->content_is('Fake server available: 1.0');
+  ->content_is("Fake server available: $api_version");
 
-$t->get_ok('/v1.0/search?ql=cosmas3')
+$t->get_ok("/v$api_version/search?ql=cosmas3")
   ->status_is(400)
   ->json_is('/errors/0/0',"307")
   ->json_is('/errors/0/1',"cosmas3 is not a supported query language!")
   ;
 
-my $err = $t->get_ok('/v1.0/search?q=server_fail')
+my $err = $t->get_ok("/v$api_version/search?q=server_fail")
   ->status_is(500)
   ->content_like(qr!Oooops!)
   ->tx->res->dom->at('#error')
   ;
 is(defined $err ? $err->text : '', '');
 
-$err = $t->get_ok('/v1.0/search?q=[orth=das&ql=poliqarp&offset=0&count=25')
+$err = $t->get_ok("/v$api_version/search?q=[orth=das&ql=poliqarp&offset=0&count=25")
   ->status_is(400)
   ->json_is('/errors/0/0',302)
   ->json_is('/errors/0/1','Parantheses/brackets unbalanced.')
@@ -36,7 +39,7 @@ $err = $t->get_ok('/v1.0/search?q=[orth=das&ql=poliqarp&offset=0&count=25')
 is(defined $err ? $err->text : '', '');
 
 
-$err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25')
+$err = $t->get_ok("/v$api_version/search?q=baum&ql=poliqarp&offset=0&count=25")
   ->status_is(200)
   ->json_is('/meta/count', 25)
   ->json_is('/meta/serialQuery', "tokens:s:Baum")
@@ -45,7 +48,7 @@ $err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25')
   ;
 is(defined $err ? $err->text : '', '');
 
-$err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25&fields=textSigle')
+$err = $t->get_ok("/v$api_version/search?q=baum&ql=poliqarp&offset=0&count=25&fields=textSigle")
   ->status_is(200)
   ->json_is('/meta/count', 25)
   ->json_is('/meta/serialQuery', "tokens:s:Baum")
@@ -56,7 +59,7 @@ $err = $t->get_ok('/v1.0/search?q=baum&ql=poliqarp&offset=0&count=25&fields=text
 is(defined $err ? $err->text : '', '');
 
 
-$t->get_ok('/v1.0/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*')
+$t->get_ok("/v$api_version/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*")
   ->status_is(200)
   ->json_is('/textSigle', 'WPD15/232/39681')
   ;

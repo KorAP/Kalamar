@@ -116,13 +116,13 @@ get '/v#apiv' => [apiv => ['1.0','1.1']] => sub {
   $c->render(text => 'Fake server available: ' . $c->stash('apiv'));
 };
 
-get '/v1.0/redirect-target-a' => sub {
+get '/v#apiv/redirect-target-a' => [apiv => ['1.0','1.1']] => sub {
   shift->render(text => 'Redirect Target!');
 } => 'redirect-target';
 
 
 # Base page
-get '/v1.0/redirect' => sub {
+get '/v#apiv/redirect' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   $c->res->code(308);
   $c->res->headers->location($c->url_for('redirect-target')->to_abs);
@@ -131,7 +131,7 @@ get '/v1.0/redirect' => sub {
 
 
 # Search fixtures
-get '/v1.0/search' => sub {
+get '/v#apiv/search' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('q');
@@ -247,7 +247,7 @@ get '/v1.0/search' => sub {
 };
 
 # Textinfo fixtures
-get '/v1.0/corpus/#corpusId/#docId/#textId' => sub {
+get '/v#apiv/corpus/#corpusId/#docId/#textId' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('response-pipes');
@@ -273,7 +273,7 @@ get '/v1.0/corpus/#corpusId/#docId/#textId' => sub {
 
 
 # Matchinfo fixtures
-get '/v1.0/corpus/#corpusId/#docId/#textId/#matchId' => sub {
+get '/v#apiv/corpus/#corpusId/#docId/#textId/#matchId' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('response-pipes');
@@ -300,7 +300,7 @@ get '/v1.0/corpus/#corpusId/#docId/#textId/#matchId' => sub {
 
 
 # Statistics endpoint
-get '/v1.0/statistics' => sub {
+get '/v#apiv/statistics' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->optional('cq');
@@ -329,7 +329,7 @@ get '/v1.0/statistics' => sub {
 ############
 
 # Request API token
-get '/v1.0/auth/logout' => sub {
+get '/v#apiv/auth/logout' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   if (my $auth = $c->req->headers->header('Authorization')) {
@@ -345,7 +345,7 @@ get '/v1.0/auth/logout' => sub {
 
 
 # Request API token
-get '/v1.0/auth/apiToken' => sub {
+get '/v#apiv/auth/apiToken' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   # Get auth header
@@ -391,7 +391,7 @@ get '/v1.0/auth/apiToken' => sub {
 
 
 # Request API token
-post '/v1.0/oauth2/token' => sub {
+post '/v#apiv/oauth2/token' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   my $grant_type = $c->param('grant_type') // 'undefined';
@@ -520,7 +520,7 @@ post '/v1.0/oauth2/token' => sub {
 };
 
 # Revoke API token
-post '/v1.0/oauth2/revoke' => sub {
+post '/v#apiv/oauth2/revoke' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   my $refresh_token = $c->param('token');
@@ -541,7 +541,7 @@ post '/v1.0/oauth2/revoke' => sub {
 };
 
 # Register a client
-post '/v1.0/oauth2/client/register' => sub {
+post '/v#apiv/oauth2/client/register' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $json = $c->req->json;
 
@@ -611,7 +611,7 @@ post '/v1.0/oauth2/client/register' => sub {
 };
 
 # Mock API list plugins
-post '/v1.0/plugins' => sub {
+post '/v#apiv/plugins' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->required('super_client_id');
@@ -630,7 +630,7 @@ post '/v1.0/plugins' => sub {
 };
 
 # Mock API list installed plugins
-post '/v1.0/plugins/installed' => sub {
+post '/v#apiv/plugins/installed' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->required('super_client_id');
@@ -651,7 +651,7 @@ post '/v1.0/plugins/installed' => sub {
 
 
 # Mock API plugin installation
-post '/v1.0/plugins/install' => sub {
+post '/v#apiv/plugins/install' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->required('super_client_id');
@@ -692,7 +692,7 @@ post '/v1.0/plugins/install' => sub {
 };
 
 # Mock API plugin uninstallation
-post '/v1.0/plugins/uninstall' => sub {
+post '/v#apiv/plugins/uninstall' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $v = $c->validation;
   $v->required('super_client_id');
@@ -722,7 +722,7 @@ post '/v1.0/plugins/uninstall' => sub {
   };
 
 # Register a client
-post '/v1.0/oauth2/client/list' => sub {
+post '/v#apiv/oauth2/client/list' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   my $v = $c->validation;
@@ -749,7 +749,7 @@ post '/v1.0/oauth2/client/list' => sub {
 };
 
 # Get client info
-post '/v1.0/oauth2/client/:client_id' => sub {
+post '/v#apiv/oauth2/client/:client_id' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   # Validate input
@@ -791,7 +791,7 @@ post '/v1.0/oauth2/client/:client_id' => sub {
 
 
 # Get token list
-post '/v1.0/oauth2/token/list' => sub {
+post '/v#apiv/oauth2/token/list' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   return $c->render(json => [
     {
@@ -812,7 +812,7 @@ post '/v1.0/oauth2/token/list' => sub {
   ]);
 };
 
-del '/v1.0/oauth2/client/deregister/:client_id' => sub {
+del '/v#apiv/oauth2/client/deregister/:client_id' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $client_id = $c->stash('client_id');
 
@@ -846,7 +846,7 @@ del '/v1.0/oauth2/client/deregister/:client_id' => sub {
   );
 };
 
-get '/v1.0/oauth2/authorize' => sub {
+get '/v#apiv/oauth2/authorize' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $type = $c->param('response_type');
   my $client_id = $c->param('client_id');
@@ -913,7 +913,7 @@ my $chi = CHI->new(
 );
 
 # Store query
-put '/v1.0/query/~:user/:query_name' => sub {
+put '/v#apiv/query/~:user/:query_name' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $user = $c->stash('user');
   my $qname = $c->stash('query_name');
@@ -959,7 +959,7 @@ put '/v1.0/query/~:user/:query_name' => sub {
 };
 
 # Get query
-get '/v1.0/query/~:user/:query_name' => sub {
+get '/v#apiv/query/~:user/:query_name' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   my $user = $c->stash('user');
@@ -986,7 +986,7 @@ get '/v1.0/query/~:user/:query_name' => sub {
 
 
 # Get all queries
-get '/v1.0/query/~:user' => sub {
+get '/v#apiv/query/~:user' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $user = $c->stash('user');
   my $qs = $chi->get('~queries') // [];
@@ -998,8 +998,8 @@ get '/v1.0/query/~:user' => sub {
 };
 
 
-# Store query
-del '/v1.0/query/~:user/:query_name' => sub {
+# Delete query
+del '/v#apiv/query/~:user/:query_name' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
   my $user = $c->stash('user');
   my $qname = $c->stash('query_name');
@@ -1021,7 +1021,7 @@ del '/v1.0/query/~:user/:query_name' => sub {
   );
 };
 
-post '/v1.0/oauth2/revoke/super' => sub {
+post '/v#apiv/oauth2/revoke/super' => [apiv => ['1.0','1.1']] => sub {
   my $c = shift;
 
   my $s_client_id = $c->param('super_client_id');

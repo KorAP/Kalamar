@@ -196,7 +196,7 @@ sub startup {
 
   # API is not yet set - define the default Kustvakt api endpoint
   $conf->{api_path} //= $ENV{KALAMAR_API} || 'https://korap.ids-mannheim.de/api/';
-  $conf->{api_version} //= $API_VERSION;
+  $conf->{api_version} //= $ENV{KALAMAR_API_VERSION} || $API_VERSION;
 
   # Add development path
   if ($self->mode eq 'development') {

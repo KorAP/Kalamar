@@ -11,6 +11,11 @@ use Data::Dumper;
 my $mount_point = '/realapi/';
 $ENV{KALAMAR_API} = $mount_point;
 
+# Get the fixture path
+my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, '..', 'server');
+
+my $q = qr!(?:\"|&quot;)!;
+
 my $t = Test::Mojo::WithRoles->new('Kalamar' => {
   Kalamar => {
     plugins => ['Auth']
@@ -23,9 +28,9 @@ my $t = Test::Mojo::WithRoles->new('Kalamar' => {
   }
 });
 
+my $api_version = $t->app->config('Kalamar')->{api_version};
+
 # Mount fake backend
-# Get the fixture path
-my $fixtures_path = path(Mojo::File->new(__FILE__)->dirname, '..', 'server');
 my $fake_backend = $t->app->plugin(
   Mount => {
     $mount_point =>
@@ -97,11 +102,9 @@ $t->app->routes->get('/x/expired-with-wrong-refresh')->to(
   }
 );
 
-my $q = qr!(?:\"|&quot;)!;
-
-$t->get_ok('/realapi/v1.0')
+$t->get_ok("/realapi/v$api_version")
   ->status_is(200)
-  ->content_is('Fake server available: 1.0');
+  ->content_is("Fake server available: $api_version");
 
 $t->get_ok('/?q=Baum')
   ->status_is(200)

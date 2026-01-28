@@ -10,6 +10,10 @@ my $t = Test::Mojo->new('Kalamar' => {
   }
 });
 
+# Get API version from app config (set in Kalamar.pm startup)
+my $api_version = $t->app->config('Kalamar')->{api_version};
+
+
 # Bug 2021-06-11
 $t->get_ok('/doc/ql/wildcards?cat=1')
   ->status_is(404) # ! Should be 404!
@@ -125,15 +129,15 @@ $t->get_ok('/doc/ql/poliqarp-plus')
 # Check API endpoint
 $t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
   ->status_is(200)
-  ->text_is('#api-service-uri', 'https://korap.ids-mannheim.de/test/api/v1.0/');
+  ->text_is('#api-service-uri', 'https://korap.ids-mannheim.de/test/api/v' . $api_version . '/');
 
 # Set openapi path
-$app->config('Kalamar')->{openapi} = '/api/v1.0/openapi/';
+$app->config('Kalamar')->{openapi} = '/api/v' . $api_version . '/openapi/';
 
 # Check openapi endpoint
 $t->get_ok('/doc/api' => { 'X-Forwarded-Host' => 'korap.ids-mannheim.de' })
   ->status_is(200)
-  ->element_exists('#openapi > a[href="https://korap.ids-mannheim.de/api/v1.0/openapi/"]');
+  ->element_exists('#openapi > a[href="https://korap.ids-mannheim.de/api/v' . $api_version . '/openapi/"]');
 
 # Languages of dev pages
 $t->get_ok('/doc/development/kalamar')
