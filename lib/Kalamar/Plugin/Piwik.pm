@@ -84,6 +84,9 @@ APPEND
       after_render => sub {
         my $c = shift;
 
+        # Don't track errors
+        return if $c->res->is_error;
+
         # Only track valid routes
         my $route = $c->current_route or return;
 
@@ -103,8 +106,11 @@ APPEND
           $hash->{idsite} = $param->{ping_site_id}
         };
 
-        # Send track
-        $c->piwik->api_p(Track => $hash)->wait;
+        $c->piwik->api_p(Track => $hash)->catch(
+          sub {
+            $c->app->log->debug("Matomo track failed: $_[0]");
+          }
+        );
       }
     );
   };
