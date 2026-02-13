@@ -1,6 +1,8 @@
-0.64 2026-01-15
-        - Support API version 1.1 (diewald)
+0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)
+        - Don't track errors in Piwik/Matomo (diewald)
+        - Fixed GitLab CI docker slimming (diewald)
+        - Fixed export issue with Firefox and Safari (requires Kalamar Export Plugin >= 0.4.0) (kupietz)
 
 0.63 2026-01-15
         - Add data-testid to test relevant elements (fixes #244; diewald)
