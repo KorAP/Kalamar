@@ -450,19 +450,14 @@ sub register {
       state $r_url = Mojo::URL->new($c->korap->api)->path('oauth2/authorize');
 
       my $client_id = $param{'client_id'};
-      
-      my $query = {
-        response_type => 'code',
-        client_id     => $client_id,
-        redirect_uri  => $param{'redirect_uri'},
-        state         => $param{'state'},
-        scope         => $param{'scope'},
-      };
-      
-      my $url = $r_url->clone->query($query);
-      
-      return $c->korap_request($no_redirect_ua, get => $url)
-      ->then(
+
+      return $c->korap_request($no_redirect_ua, post => $r_url, { } => form => {
+          response_type => 'code',
+          client_id => $client_id,
+          redirect_uri => $param{'redirect_uri'},
+          state => $param{'state'},
+          scope => $param{'scope'},
+        })->then(
           sub {
             my $tx = shift;
 
