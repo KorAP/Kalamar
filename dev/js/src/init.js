@@ -74,6 +74,33 @@ define([
     );
   };
 
+  // Apply configured VC helper field modifications from data-vc-helper-fields attribute
+  const vcFieldsConfig = document.body ? document.body.getAttribute('data-vc-helper-fields') : null;
+  if (vcFieldsConfig) {
+    const mods = vcFieldsConfig.split(',').map(s => s.trim()).filter(s => s.length > 0);
+    mods.forEach(mod => {
+      if (mod.startsWith('-')) {
+        // Remove field by name
+        const name = mod.substring(1);
+        const idx = vcArray.findIndex(f => f[0] === name);
+        if (idx >= 0) vcArray.splice(idx, 1);
+      } else if (mod.startsWith('+')) {
+        // Add field: +name:type
+        const spec = mod.substring(1);
+        const colonIdx = spec.indexOf(':');
+        if (colonIdx > 0) {
+          const name = spec.substring(0, colonIdx);
+          const type = spec.substring(colonIdx + 1);
+          if (!vcArray.some(f => f[0] === name)) {
+            vcArray.push([name, type]);
+          }
+        }
+      }
+    });
+    // Sort alphabetically by field name
+    vcArray.sort((a, b) => a[0].localeCompare(b[0]));
+  };
+
   KorAP.vc = vcClass.create(vcArray); 
 
   domReady(function (event) {

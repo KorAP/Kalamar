@@ -59,6 +59,7 @@
         % $api =~ s!/$!!;
         data-korap-url="<%== $api %>"
         data-hint-foundries="<%= join(',', @{stash('hint_foundries') // []}) %>"
+        data-vc-helper-fields="<%= stash('vc_helper_fields') // '' %>"
         itemscope
         itemtype="http://schema.org/<%= stash('schematype') || 'WebApplication' %>">
     

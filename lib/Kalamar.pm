@@ -375,6 +375,21 @@ sub startup {
   };
   $self->defaults(hint_foundries => $hint_foundries);
 
+  # Configure VC helper fields for the virtual corpus builder
+  # Can be overridden via KALAMAR_VC_HELPER_FIELDS environment variable (comma-separated)
+  # or via vc_helper_fields config option (array)
+  # Items starting with '+' add a field (format: +name:type), e.g. '+award:text'
+  # Items starting with '-' remove a field by name, e.g. '-docTitle'
+  # The result is always sorted alphabetically by field name
+  my $vc_helper_fields_spec = '';
+
+  if ($ENV{'KALAMAR_VC_HELPER_FIELDS'}) {
+    $vc_helper_fields_spec = $ENV{'KALAMAR_VC_HELPER_FIELDS'};
+  } elsif (exists $conf->{vc_helper_fields}) {
+    $vc_helper_fields_spec = join(',', @{$conf->{vc_helper_fields}});
+  };
+  $self->defaults(vc_helper_fields => $vc_helper_fields_spec);
+
   # Configure documentation navigation
   my $doc_navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $doc_navi = $doc_navi ? decode_json($doc_navi) : [];

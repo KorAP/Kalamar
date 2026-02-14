@@ -242,6 +242,34 @@ See `dev/js/src/hint/foundries` for available foundries.
 > **Note:** For build-time customization, `kalamar.conf.js` can still
 > be used to control which foundries are bundled into the JavaScript assets.
 
+#### VC Helper Fields
+
+![Experimental](https://img.shields.io/badge/status-experimental-orange)
+
+The virtual corpus builder fields can be configured at runtime to add or remove
+fields from the default list defined in `dev/js/src/vc/array.js`.
+
+Use `+name:type` to **add** a field and `-name` to **remove** a field.
+The result is always sorted alphabetically.
+
+```perl
+{
+  Kalamar => {
+    vc_helper_fields => ['+award:text', '-docTitle']
+  }
+}
+```
+
+```shell
+KALAMAR_VC_HELPER_FIELDS=+award:text,-docTitle perl script/kalamar daemon
+```
+
+For Docker deployments:
+
+```shell
+docker run -e KALAMAR_VC_HELPER_FIELDS=+award:text,-docTitle korap/kalamar
+```
+
 
 ### Customization
 
