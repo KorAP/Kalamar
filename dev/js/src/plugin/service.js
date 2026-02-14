@@ -70,7 +70,9 @@ define(function () {
       e.setAttribute('allowTransparency',"true");
       e.setAttribute('frameborder', 0);
       // Allow forms in Plugins
-      e.setAttribute('sandbox', Array.from(this._perm).sort().map(function(i){ return "allow-"+i }).join(" "));
+      let permissions = Array.from(this._perm).sort().map(function(i){ return "allow-"+i });
+      permissions.push("allow-same-origin");
+      e.setAttribute('sandbox', permissions.join(" "));
       e.style.height = '0px';
       e.setAttribute('name', this.id);
       e.setAttribute('src', this.src);
