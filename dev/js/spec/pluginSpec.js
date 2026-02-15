@@ -204,7 +204,8 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
           title : 'Add',
           onClick : {
             template : 'about:blank',
-            action : 'setWidget'
+            action : 'setWidget',
+            permissions: ['same-origin'] // Temporary
           }
         }]
       });
@@ -417,10 +418,10 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(b.getAttribute("title")).toEqual("Add something");
       b.click();
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
-      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts allow-same-origin'); // Temporary
+      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts');
     });
   });
-  
+
   describe('KorAP.Plugin.Widget', function () {
     it('should be initializable', function () {
       expect(function () { widgetClass.create() }).toThrow(new Error("Service not well defined"));
@@ -447,7 +448,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       var iframe = we.firstChild;
       expect(iframe.tagName).toEqual("IFRAME");
-      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts allow-same-origin");  // Temporary
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts");
       expect(iframe.getAttribute("src")).toEqual("https://example");
       expect(iframe.getAttribute("name")).toEqual("56");
       
@@ -507,6 +508,31 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(i.getAttribute("name")).toEqual(''+service.id);
       expect(i.getAttribute("src")).toEqual(service.src);
     });
+    
+    // Temporary
+    it('should grant same-origin for same-origin plugins', function () {
+    // about:blank inherits current origin
+    let service = serviceClass.create({
+      "name": "Test",
+      "src": window.location.origin + "/plugin.html",
+      "id": 1,
+      "permissions": ["same-origin"]
+    });
+    let iframe = service.load();
+    expect(iframe.getAttribute("sandbox")).toContain("allow-same-origin");
+    });
+    //Temporary
+    it('should deny same-origin for cross-origin plugins', function () {
+    let service = serviceClass.create({
+      "name": "Test", 
+      "src": "https://evil.example.com/plugin.html",
+      "id": 2,
+      "permissions": ["same-origin"]
+    });
+    let iframe = service.load();
+    expect(iframe.getAttribute("sandbox")).not.toContain("allow-same-origin");
+   });
+
   });
   
   describe('KorAP.Plugin.QueryPanel', function () {

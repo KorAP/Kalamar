@@ -3,14 +3,28 @@
 define(function () {
 
   // Limit the supported sandbox permissions, especially
-  // to disallow 'same-origin'.
+  // to disallow 'same-origin' unless explicitly requested
+  // and the plugin is hosted on the same origin.
   let allowed = {
     "scripts" : 1,
     "presentation" : 1,
     "forms": 1,
     "downloads-without-user-activation" : 1,
     "downloads" : 1,
-    "popups" : 1
+    "popups" : 1,
+    "same-origin" : 1
+  };
+
+  /**
+   * Check if a URL is on the same origin as the current page.
+   */
+  function _isSameOrigin (src) {
+    try {
+      const url = new URL(src, window.location.href);
+      return url.origin === window.location.origin;
+    } catch (e) {
+      return false;
+    }
   };
 
   return {
@@ -71,7 +85,14 @@ define(function () {
       e.setAttribute('frameborder', 0);
       // Allow forms in Plugins
       let permissions = Array.from(this._perm).sort().map(function(i){ return "allow-"+i });
-      permissions.push("allow-same-origin");
+
+      // Only grant same-origin if plugin explicitly requested it
+      // AND is hosted on the same origin (security gate)
+      if (this._perm.has("same-origin") && !_isSameOrigin(this.src)) {
+        permissions = permissions.filter(function(p) { return p !== "allow-same-origin" });
+        KorAP.log(0, "Ignoring same-origin permission for cross-origin plugin");
+      };
+
       e.setAttribute('sandbox', permissions.join(" "));
       e.style.height = '0px';
       e.setAttribute('name', this.id);
