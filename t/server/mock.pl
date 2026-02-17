@@ -848,7 +848,7 @@ del '/v1.0/oauth2/client/deregister/:client_id' => sub {
   );
 };
 
-post '/v1.0/oauth2/authorize' => sub {
+get '/v1.0/oauth2/authorize' => sub {
   my $c = shift;
   my $type = $c->param('response_type');
   my $client_id = $c->param('client_id');
