@@ -1,3 +1,4 @@
+0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)
         - Support additional activity-toggle in buttons (diewald)
         - Authorization service with POST (support API version 1.1) (hebasta)
@@ -17,12 +18,14 @@
         - Support combined toggle+widget button for plugins (diewald)
         - Make KWIC metadata fields configurable by request URL (kupietz)
         - Fix localization in slimming process (diewald; fixes #277)
+        - Make VC helper fields configurable (kupietz)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)
         - Don't track errors in Piwik/Matomo (diewald)
         - Fixed GitLab CI docker slimming (diewald)
         - Fixed export issue with Firefox and Safari (requires Kalamar Export Plugin >= 0.4.0) (kupietz)
+        - Supports API version 1.1 in paths (diewald)
 
 0.63 2026-01-15
         - Add data-testid to test relevant elements (fixes #244; diewald)
