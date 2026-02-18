@@ -115,7 +115,12 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       };
 
       b.setAttribute('title', desc);
-      b.addE('span').addT(title);
+      let innerSpan = b.addE('span');
+      innerSpan.addT(title);
+
+      b["changeTitle"] = function (title) {
+	innerSpan.textContent = title;
+      };
       
       let that = this;
       b.addEventListener('click', function (e) {

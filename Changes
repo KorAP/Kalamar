@@ -3,6 +3,7 @@
         - Authorization service with POST (support API version 1.1) (hebasta)
         - Enhance handling of improper json files (diewald)
         - Support API version 1.1 (diewald)
+        - Support title change in button groups (diewald)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)

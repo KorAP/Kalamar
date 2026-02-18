@@ -74,7 +74,7 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
 
       var count = 0;
 
-      group.add('Meta', undefined, function () {
+      let btn = group.add('Meta', undefined, function () {
         count++;
       });
 
@@ -84,6 +84,10 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       group.element().firstChild.click();
 
       expect(count).toEqual(1);
+
+      expect(btn.textContent).toEqual("Meta");
+      btn.changeTitle("Cool");
+      expect(btn.textContent).toEqual("Cool");
     });
 
     it('should respect binds', function () {
