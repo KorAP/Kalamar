@@ -252,6 +252,36 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       expect(e.children[1].getAttribute("title")).toBe("Haha");
     });
 
+    it('should support active state on regular buttons', function () {
+      var group = buttonGroupClass.create();
+      let active = stateClass.create();
+      let count = 0;
+
+      group.add('Meta', {'active': active}, function () {
+        count++;
+      });
+
+      let e = group.element();
+      let button = e.firstChild;
+      let check = button.firstChild;
+
+      expect(check.classList.contains("check")).toBeTruthy();
+      expect(check.classList.contains("button-icon")).toBeTruthy();
+      expect(active.get()).toBeFalsy();
+      expect(check.classList.contains("checked")).toBeFalsy();
+      expect(count).toEqual(0);
+
+      // Clicking the check toggles active state, but does not trigger callback.
+      check.click();
+      expect(active.get()).toBeTruthy();
+      expect(check.classList.contains("checked")).toBeTruthy();
+      expect(count).toEqual(0);
+
+      // Clicking the button still triggers the callback.
+      button.click();
+      expect(count).toEqual(1);
+    });
+
     it('should allow adoption', function () {
 
       const el = document.createElement('div');

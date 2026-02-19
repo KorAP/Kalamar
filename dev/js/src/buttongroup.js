@@ -96,6 +96,19 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
           b['state'] = data['state'];
         };
 
+        if (data['active'] !== undefined) {
+          let active = data['active'];
+
+	  let check = _addCheck(b,active);
+	  check.addEventListener('click', function (e) {
+	    // Do not bubble
+	    e.halt();
+            // Toggle state
+	    active.roll();
+	  });
+        };
+
+	
         if (data['desc'] !== undefined) {
           desc = data['desc'];
         };
@@ -103,7 +116,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
 
       b.setAttribute('title', desc);
       b.addE('span').addT(title);
-
+      
       let that = this;
       b.addEventListener('click', function (e) {
 
@@ -174,22 +187,8 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       };
 
       b.setAttribute('title',desc);
-      
-      // Set check marker
-      const check = b.addE('span');
-      check.classList.add("check", "button-icon");
-      check.addE('span');
 
-      // Associate this object to state
-      // Add setState method to object
-      check.setState = function (value) {
-        if (value) {
-          this.classList.add("checked");
-        } else {
-          this.classList.remove("checked");
-        }
-      };
-      state.associate(check);
+      _addCheck(b, state);
 
       b.addE('span').addT(title);
       
@@ -229,3 +228,23 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
     }
   }
 });
+
+function _addCheck(b,state) {
+      
+  // Set check marker
+  const check = b.addE('span');
+  check.classList.add("check", "button-icon");
+  check.addE('span');
+
+  // Associate this object to state
+  // Add setState method to object
+  check.setState = function (value) {
+    if (value) {
+      this.classList.add("checked");
+    } else {
+      this.classList.remove("checked");
+    }
+  };
+  state.associate(check);
+  return check;
+};
