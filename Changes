@@ -1,3 +1,5 @@
+        - Expose colors and forms to plugins (diewald)
+
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)
         - Don't track errors in Piwik/Matomo (diewald)

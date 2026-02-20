@@ -1,19 +1,26 @@
 @use "base/base";
 @use "base/colors";
 @use "base/lengths";
+@use "base/form";
 
 body {
   margin: 0;
   padding: 0;
+  color: colors.$dark-grey;
   h1 {
     font-size: 110%;
     background-color: colors.$ids-orange-1;
-    color: white;
+    color: colors.$nearly-white;
     margin-top: 0;
     padding: lengths.$base-padding;
   }
+  h2 {
+    font-size: 100%;
+    font-weight: bold;
+  }
   section {
     padding-left: lengths.$base-padding;
+    padding-right: lengths.$base-padding;
     padding-bottom: lengths.$base-padding;
     &::before{
       content:'';

@@ -22,6 +22,21 @@ $ids-pink-2:   rgb(250, 243, 222); // Lexik
 $black:        #333;
 $darker-black: rgb(20,20,20); // official footer
 
+:root {
+  --ids-orange-1: #{$ids-orange-1};
+  --ids-orange-2: #{$ids-orange-2};
+  --ids-grey-1: #{$ids-grey-1};
+  --ids-grey-2: #{$ids-grey-2};
+  --ids-blue-1: #{$ids-blue-1};
+  --ids-blue-2: #{$ids-blue-2};
+  --ids-green-1: #{$ids-green-1};
+  --ids-green-2: #{$ids-green-2};
+  --ids-pink-1: #{$ids-pink-1};
+  --ids-pink-2: #{$ids-pink-2};
+  --black-color: #{$black};
+  --darker-black-color: #{$darker-black};
+}
+
 
 /**
  * Orange Colors
@@ -31,6 +46,14 @@ $middle-orange:  #ffd080;
 $dark-orange:    $ids-orange-1;
 $darker-orange:  #ff8000;
 $darkest-orange: #e55d00;
+
+:root {
+  --light-orange-color: #{$light-orange};
+  --middle-orange-color: #{$middle-orange};
+  --dark-orange-color: #{$dark-orange};
+  --darker-orange-color: #{$darker-orange};
+  --darkest-orange-color: #{$darkest-orange};
+}
 
 
 /**
@@ -42,6 +65,14 @@ $light-green:    color.adjust($ids-green-1, $lightness: 13%, $space: hsl); // #7
 $lightest-green: color.adjust($light-green, $lightness: 35%, $saturation: -20%, $space: hsl); // #d8e38c;
 $grey-green:     color.adjust($lightest-green, $saturation: -25%, $lightness: -12%, $space: hsl); // #bcc387;
 
+:root {
+  --light-green-color: #{$light-green};
+  --middle-green-color: #{$middle-green};
+  --dark-green-color: #{$dark-green};
+  --lightest-green-color: #{$lightest-green};
+  --grey-green-color: #{$grey-green};
+}
+ 
 
 /**
  * Blue Colors
@@ -49,6 +80,12 @@ $grey-green:     color.adjust($lightest-green, $saturation: -25%, $lightness: -1
 $light-blue:     $ids-blue-2;
 $dark-blue:      $ids-blue-1;
 $darkest-blue:   color.adjust($dark-blue, $lightness: -40%, $space: hsl);
+
+:root {
+  --light-blue-color: #{$light-blue};
+  --dark-blue-color: #{$dark-blue};
+  --darkest-blue-color: #{$darkest-blue};
+}
 
 
 /**
@@ -59,6 +96,12 @@ $light-grey:   $ids-grey-2; // #ddd;
 $dark-grey:    color.adjust($middle-grey, $lightness: -15%, $space: hsl);
 $nearly-white: #fefefe;
 
+:root {
+  --middle-grey-color: #{$middle-grey};
+  --dark-grey-color: #{$dark-grey};
+  --light-grey-color: #{$light-grey};
+  --nearly-white-color: #{$nearly-white};
+}
 
 /**
  * Red Colors (no IDS relation)

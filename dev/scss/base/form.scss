@@ -258,7 +258,7 @@ button[type=submit] {
   + label {
     cursor: pointer;
 
-    span {
+    span:first-of-type {
       display:        inline-block;
       border-radius:  4px;
       width:          1em;
@@ -275,7 +275,7 @@ button[type=submit] {
     }
   }
 
-  &:checked + label span::after {
+  &:checked + label span:first-of-type::after {
     content: icons.$fa-checked;
   }
 }
