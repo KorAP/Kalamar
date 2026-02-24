@@ -55,6 +55,22 @@ define(['pipe'], function (pipeClass) {
       expect(p.toString()).toEqual('service2,service1');
     });
     
+    it('should not add duplicates', function () {
+      let p = pipeClass.create();
+      p.append('service1');
+      p.append('service2');
+      expect(p.size()).toEqual(2);
+      expect(p.toString()).toEqual('service1,service2');
+
+      p.append('service1');
+      expect(p.size()).toEqual(2);
+      expect(p.toString()).toEqual('service1,service2');
+
+      p.prepend('service2');
+      expect(p.size()).toEqual(2);
+      expect(p.toString()).toEqual('service1,service2');
+    });
+
     it('should be deletable', function () {
       let p = pipeClass.create();
       p.append('service1');

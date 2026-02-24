@@ -22,7 +22,7 @@
     </style>
   </head>
   <body class="result-view">
-    <h2>Example Widget!</h2>
+    <h1>Example Widget!</h1>
     <script>
       function flood () {
         var i = 0;
@@ -78,7 +78,8 @@
         });
       }
       
-      </script>
+    </script>
+    <section>
     <ul>
       <li><a onclick="KorAPlugin.log(333, 'Huhu!')">Send log!</a></li>
       <li><a onclick="KorAPlugin.resize()">Resize</a></li>
@@ -89,7 +90,9 @@
       <li><a onclick="KorAPlugin.requestMsg({'action':'get', 'key':'KQ'}, function (d) { document.write(JSON.stringify(d.value))})">Get KQ</a></li>
       <li><a onclick="KorAPlugin.requestMsg({'action':'get', 'key':'textSigle', 'value':'textSigle'}, function (d) { document.write(JSON.stringify(d.value))})">Get textSigle</a></li>
       <li><a onclick="KorAPlugin.sendMsg({'action':'set', 'key':'QueryForm', 'value':{'q':'[This][is][a][query]'}})">Set query</a></li>
+      <li><a onclick="KorAPlugin.sendMsg({'action':'set', 'key':'Title', 'value':'Huhuhu'})">Set title</a></li>
     </ul>
     <p style="width: 2000px">------------------------------------------------------------------------------------------------------------------------</p>
+    </section>
   </body>
 </html>

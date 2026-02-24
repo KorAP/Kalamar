@@ -161,6 +161,55 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
             // "this".button is the button
             // "that" is the server object
 
+            // Active-check click: load iframe as a background service,
+            // not as a visible widget.
+            if (this.button._activeClick && 'active' in this.button) {
+
+              // Service already running - just return
+              // (active.roll() was already called in buttongroup)
+              if (this.button['widgetID'] &&
+                  services[this.button['widgetID']]) {
+                return;
+              };
+
+              // For addWidget mode (no state), just toggle - no service
+              if (!('state' in this.button)) {
+                return;
+              };
+
+              // Create a background service (iframe in services container)
+              let id = that.addService({
+                "name": name,
+                "src": onClick["template"],
+                "permissions": onClick["permissions"]
+              });
+              plugin["widgets"].push(id);
+
+              this.button['widgetID'] = id;
+
+              // Store panel reference so 'get Active' works
+              services[id].panel = this;
+
+              let activeState = this.button.active;
+              let iframe = services[id].load();
+
+              iframe.onload = function () {
+                activeState.associate({
+                  setState : function (value) {
+                    if (services[id]) {
+                      services[id].sendMsg({
+                        action: 'state',
+                        key : 'active',
+                        value : value
+                      });
+                    };
+                  }
+                });
+              };
+
+              return;
+            };
+
             // The button has a state and the state is associated to the
             // a intermediate object to toggle the view
             if ('state' in this.button && this.button.state.associates() > 0) {
@@ -182,15 +231,26 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
               }
             };
 
+            // If a background service exists (from active-check),
+            // close it before creating the widget
+            if ('active' in this.button &&
+                this.button['widgetID'] &&
+                services[this.button['widgetID']] &&
+                !services[this.button['widgetID']].isWidget) {
+              that._closeService(this.button['widgetID']);
+              this.button['widgetID'] = undefined;
+            };
+
             // Add the widget to the panel
             let id = that.addWidget(this, {
               "name": name,
               "src": onClick["template"], // that._interpolateURI(onClick["template"], this.match);
               "permissions": onClick["permissions"],
-              "desc":desc
+              "desc":desc,
+              "panel":panel
             });
             plugin["widgets"].push(id);
-            
+
             // If a state exists, associate with a mediator object
             if ('state' in this.button) {
               this.button['widgetID'] = id;
@@ -205,7 +265,29 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
                   };
                 }
               });
-            }
+            };
+
+            // If an active state exists, associate it with the widget
+            // so active-state changes can be reflected in the iframe.
+            if ('active' in this.button) {
+              this.button['widgetID'] = id;
+              let first = true;
+              this.button.active.associate({
+                setState : function (value) {
+                  if (first) {
+                    first = false;
+                    return;
+                  };
+                  if (services[id]) {
+                    services[id].sendMsg({
+                      action: 'state',
+                      key : 'active',
+                      value : value
+                    });
+                  };
+                }
+              });
+            };
           };
 
 
@@ -214,6 +296,11 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
 
           if (embed['desc'] != undefined)
             obj['desc'] = embed['desc'];
+
+          if (onClick['active'] !== undefined) {
+            obj['active'] = stateClass.create([true, false]);
+            obj['active'].setIfNotYet(onClick['active'] ? true : false);
+          };
 
           if (onClick["action"] && onClick["action"] == "setWidget") {
 
@@ -559,6 +646,14 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
           v["page"] = pi.page();
           v["total"] = pi.total();
           v["count"] = pi.count();
+        }
+
+        // Get active toggle state of the widget button
+        else if (d.key == 'Active') {
+          let button = services[d["originID"]].panel.button;
+          if (button && button.active) {
+            d["value"] = button.active.get();
+          };
         };
 
         // data needs to be mirrored
@@ -595,6 +690,24 @@ define(['plugin/widget', 'plugin/service', 'state', 'state/manager', 'pageInfo',
           window.scrollTo(0, 0);
           // if (v["cq"] != undefined) {};
         }
+
+	      else if (d.key == "Title") {
+          // TODO: Only support "Add title"!
+	        let v = d["value"];
+          services[d["originID"]].panel.button.changeTitle(v);
+	      }
+
+        else if (d.key == "Active") {
+          let v = d["value"];
+          let button = services[d["originID"]].panel.button;
+          if (button && button.active) {
+            if (v !== undefined) {
+              button.active.set(v);
+            } else {
+              button.active.roll();
+            };
+          };
+        };
 
         break;
         

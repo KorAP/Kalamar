@@ -244,6 +244,457 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       KorAP.Panel["result"] = undefined;
     });
 
+    it('should accept valid registrations for setWidget with active', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      // Attach services container so addService works
+      document.body.appendChild(manager.element());
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget',
+            active : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+      expect(b.getAttribute("title")).toEqual("Map");
+
+      // Button should have a check element (marker-box)
+      expect(b.firstChild.classList.contains('check')).toBeTruthy();
+      expect(b.firstChild.classList.contains('button-icon')).toBeTruthy();
+
+      // active state should be set to false initially
+      expect(b.active).toBeDefined();
+      expect(b.active.get()).toBe(false);
+
+      // Check is not checked initially
+      expect(b.firstChild.classList.contains('checked')).toBeFalsy();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      // Click on check (marker-box) - loads background service,
+      // no visible widget in the panel
+      b.firstChild.click();
+
+      // No iframe in the panel - service is in the services container
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+      expect(manager.element().querySelectorAll("iframe").length).toEqual(1);
+
+      // No widget view element should exist in the panel
+      expect(p.element().querySelectorAll("div.view").length).toEqual(0);
+
+      // active state should have toggled to true
+      expect(b.active.get()).toBe(true);
+      expect(b.firstChild.classList.contains('checked')).toBeTruthy();
+
+      // Click on check again - should not add another service, just toggle active
+      b.firstChild.click();
+      expect(manager.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(b.active.get()).toBe(false);
+      expect(b.firstChild.classList.contains('checked')).toBeFalsy();
+
+      // Click on title - should open the widget visibly
+      b.click();
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      // Click title again - should toggle visibility (hide via state)
+      b.click();
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(0);
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should not show any view element when checkbox is clicked', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      let manager = pluginServerClass.create();
+
+      document.body.appendChild(manager.element());
+
+      manager.register({
+        name : 'NoBar',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget',
+            active : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+
+      // Click checkbox
+      b.firstChild.click();
+
+      // No view element must exist in the panel at all —
+      // not visible, not hidden, not minimized. The checkbox
+      // must only create a background service, never a widget.
+      expect(p.element().querySelectorAll("div.view").length).toEqual(0);
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      // The iframe must be in the services container instead
+      expect(manager.element().querySelectorAll("iframe").length).toEqual(1);
+
+      // Clicking the title afterwards must properly open the widget
+      b.click();
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should toggle active via checkbox when widget is open', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      let manager = pluginServerClass.create();
+
+      document.body.appendChild(manager.element());
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget',
+            active : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+
+      // Open the widget via title-click
+      b.click();
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+      expect(b.active.get()).toBe(false);
+
+      let id = b['widgetID'];
+      expect(id).toBeDefined();
+
+      // Active association should exist on the widget
+      expect(b.active.associates()).toBeGreaterThan(0);
+
+      // Click checkbox to activate - should toggle active state
+      b.firstChild.click();
+      expect(b.active.get()).toBe(true);
+      expect(b.firstChild.classList.contains('checked')).toBeTruthy();
+
+      // Widget should still be visible
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      // widgetID should remain the same (no new service created)
+      expect(b['widgetID']).toEqual(id);
+
+      // Click checkbox again to deactivate
+      b.firstChild.click();
+      expect(b.active.get()).toBe(false);
+      expect(b.firstChild.classList.contains('checked')).toBeFalsy();
+
+      // Widget should still be visible
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should not duplicate pipes when opening widget after checkbox', function () {
+      var tempPipe = KorAP.Pipe;
+      KorAP.Pipe = pipeClass.create();
+
+      let p = KorAP.Panel["result"] = panelClass.create();
+      let manager = pluginServerClass.create();
+
+      document.body.appendChild(manager.element());
+
+      manager.register({
+        name : 'PipeCheck',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget',
+            active : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+
+      // Click checkbox - background service created, active becomes true
+      b.firstChild.click();
+      expect(b.active.get()).toBe(true);
+      expect(manager.element().querySelectorAll("iframe").length).toEqual(1);
+
+      // Simulate the plugin adding a pipe via the background service
+      let bgId = b['widgetID'];
+      manager._receiveMsg({
+        "data" : {
+          "originID" : bgId,
+          "action" : "pipe",
+          "job" : "add",
+          "service" : "https://mapper.example"
+        }
+      });
+      expect(KorAP.Pipe.toString()).toEqual("https://mapper.example");
+
+      // Click title - opens widget, closes background service
+      b.click();
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      // The new widget's plugin re-initializes and tries to add the
+      // same pipe again — the pipe system must deduplicate.
+      let wId = b['widgetID'];
+      manager._receiveMsg({
+        "data" : {
+          "originID" : wId,
+          "action" : "pipe",
+          "job" : "add",
+          "service" : "https://mapper.example"
+        }
+      });
+
+      // Pipe must still contain only one entry
+      expect(KorAP.Pipe.toString()).toEqual("https://mapper.example");
+      expect(KorAP.Pipe.size()).toEqual(1);
+
+      manager.destroy();
+      KorAP.Pipe = tempPipe;
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should toggle checkbox visual when widget is open', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      let manager = pluginServerClass.create();
+
+      document.body.appendChild(manager.element());
+
+      manager.register({
+        name : 'VisualCheck',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget',
+            active : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+      let check = b.firstChild;
+
+      // Open widget via title
+      b.click();
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+      expect(check.classList.contains('checked')).toBeFalsy();
+
+      // Click checkbox - should visually check
+      check.click();
+      expect(b.active.get()).toBe(true);
+      expect(check.classList.contains('checked')).toBeTruthy();
+
+      // Click checkbox again - should visually uncheck
+      check.click();
+      expect(b.active.get()).toBe(false);
+      expect(check.classList.contains('checked')).toBeFalsy();
+
+      // Widget should still be visible throughout
+      expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should accept valid registrations for addWidget with active', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Export',
+          onClick : {
+            template : 'about:blank',
+            action : 'addWidget',
+            active : true
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+
+      // active state should be set to true initially
+      expect(b.active).toBeDefined();
+      expect(b.active.get()).toBe(true);
+      expect(b.firstChild.classList.contains('checked')).toBeTruthy();
+
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+
+      // Click on check - only toggles active, no widget created
+      b.firstChild.click();
+      expect(p.element().querySelectorAll("iframe").length).toEqual(0);
+      expect(b.active.get()).toBe(false);
+      expect(b.firstChild.classList.contains('checked')).toBeFalsy();
+
+      // Click on title - should load a widget visibly
+      b.click();
+      expect(p.element().querySelectorAll("iframe").length).toEqual(1);
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should support changeTitle on buttons', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'Check',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget'
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+      expect(b.lastChild.textContent).toEqual("Map");
+
+      b.changeTitle("New Title");
+      expect(b.lastChild.textContent).toEqual("New Title");
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should handle Title set message', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'TitlePlugin',
+        embed : [{
+          panel : 'result',
+          title : 'Original',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget'
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+      expect(b.lastChild.textContent).toEqual("Original");
+
+      // Click to open widget
+      b.click();
+
+      let id = b['widgetID'];
+      expect(id).toBeDefined();
+
+      // Send Title set message
+      manager._receiveMsg({
+        "data" : {
+          "originID" : id,
+          "action" : "set",
+          "key" : "Title",
+          "value" : "Changed"
+        }
+      });
+
+      expect(b.lastChild.textContent).toEqual("Changed");
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
+    it('should handle Active get/set messages', function () {
+      let p = KorAP.Panel["result"] = panelClass.create();
+      
+      let manager = pluginServerClass.create();
+
+      manager.register({
+        name : 'ActivePlugin',
+        embed : [{
+          panel : 'result',
+          title : 'Map',
+          onClick : {
+            template : 'about:blank',
+            action : 'setWidget',
+            active : false
+          }
+        }]
+      });
+
+      let b = p.actions().element().firstChild;
+      expect(b.active.get()).toBe(false);
+
+      // Click title to open widget
+      b.click();
+
+      let id = b['widgetID'];
+      expect(id).toBeDefined();
+
+      // Get active state
+      let data = {
+        "originID" : id,
+        "action" : "get",
+        "key" : "Active"
+      };
+      manager._receiveMsg({ "data" : data });
+      expect(data.value).toBe(false);
+
+      // Set active state via message
+      manager._receiveMsg({
+        "data" : {
+          "originID" : id,
+          "action" : "set",
+          "key" : "Active",
+          "value" : true
+        }
+      });
+      expect(b.active.get()).toBe(true);
+      expect(b.firstChild.classList.contains('checked')).toBeTruthy();
+
+      // Roll active state via message (no value)
+      manager._receiveMsg({
+        "data" : {
+          "originID" : id,
+          "action" : "set",
+          "key" : "Active"
+        }
+      });
+      expect(b.active.get()).toBe(false);
+      expect(b.firstChild.classList.contains('checked')).toBeFalsy();
+
+      manager.destroy();
+      KorAP.Panel["result"] = undefined;
+    });
+
     it('should accept valid registrations for toggle', function () {
       let p = KorAP.Panel["result"] = panelClass.create();
       

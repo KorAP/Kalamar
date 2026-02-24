@@ -50,3 +50,5 @@ adminToken
 /package-lock.json
 /kalamar.code-workspace
 slim.report.json
+/dev/js/src-lib/
+/local/

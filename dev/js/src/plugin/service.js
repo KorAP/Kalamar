@@ -107,10 +107,12 @@ define(function () {
      */
     sendMsg : function (d) {
       let iframe = this.load();
-      iframe.contentWindow.postMessage(
-        d,
-        '*'
-      ); // TODO: Fix origin
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+          d,
+          '*'
+        ); // TODO: Fix origin
+      };
     },
 
     // onClose : function () {},

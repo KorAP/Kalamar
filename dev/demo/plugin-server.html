@@ -12,52 +12,96 @@
     window.KorAP = window.KorAP || {};
 
     //]]></script>  
+
     <script data-main="plugin-serverdemo.js" src="../js/lib/require.js" async="async"></script>
   </head>
-  <body>    
+  <body class="no-js"
+        data-korap-url="/"
+        data-hint-foundries="base,corenlp,dereko,malt,marmot,opennlp,spacy,tt"
+        itemscope
+        itemtype="http://schema.org/WebApplication">    
     <p>Start the demo server with <code>morbo -l 'http://*:3003' t/server/plugin.pl</code> and open <a href="http://localhost:3003/demo/plugin-server.html"><code>this website</code></a>.</p>
 
+<div id="kalamar-bg"></div>
+    
+    
+
+
+
+
+
+<aside tabindex="0" class=" invisible off">
+  <div>
+    
+  </div>
+</aside>
+
+    
+      
+
+<nav class="navbar">
+  <a class="logo" data-testid="home" href="/instance/test"><h1><span>KorAP - Korpusanalyseplattform der nächsten Generation</span></h1></a>
+
+  <div class="navbar-group">
+    <h3 class="nav-link"><a class="link-guided-tour" data-testid="tour-start">Tour</a></h3><h3 class="nav-link"><a href="/instance/test/doc" class="tutorial" id="view-tutorial">Hilfe</a></h3>
+    
+    
+
+
+    <nav class="dropdown">
+      <div class="dropdown-btn login"></div>
+      <div class="dropdown-content dropdown-content--right">
+        <form accept-charset="utf-8" action="/instance/test/user/login" class="login" method="POST">
+          <legend><span>Anmelden</span></legend>
+          <input name="csrf_token" type="hidden" value="0a3feea1e8b1400421d18783b4aba1950a388215">
+          <input data-testid="handle-or-email" name="handle_or_email" placeholder="Benutzername oder Email" type="text">
+          <input name="fwd" type="hidden" value="/instance/test">
+          <input data-testid="pwd" name="pwd" placeholder="Passwort" type="password">
+          <button type="submit" class="btn-login" data-testid="login-submit"><span>Los!</span></button>
+</form>          <p>Anmeldung mit einem registrierten <a href="https://perso.ids-mannheim.de/registration/" style="white-space: nowrap">Cosmas-II</a>-Konto</p>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="burger-icon"></div>
+</nav>
+
+    
     <header>
       <form autocomplete="off" action="/kalamar" id="searchform">      
 	<div id="searchbar">
-	  <input type="search"
-		 placeholder="Find ..."
-		 name="q"
-		 id="q-field"
-		 value="abcdefghijklmnopqrstuvwxyz"
-		 autofocus="autofocus" />
-	  <button id="qsubmit" type="submit"><span>Go</span></button>
+          <input autocapitalize="off"
+                 autocomplete="off"
+                 autocorrect="off"
+                 autofocus="autofocus"
+                 id="q-field"
+                 name="q"
+                 placeholder="Finde ..."
+                 spellcheck="false"
+                 value="abcdefghijklmnopqrstuvwxyz"
+                 type="search">
+           <button type="submit" id="qsubmit" title="Los!"><span>Los!</span></button>           
 	  <!-- <i class="fa fa-arrow-circle-down show-hint" onclick="hint.popUp()"></i> -->
 	</div>
 
-        <!-- Search in the following virtual corpus -->
-        <div id="vc-view"></div>
-        in
-        <input id="show" name="show" type="hidden" />
-        <!--<input id="collection-name" name="collection-name" type="hidden"> -->
-        <input id="cq" name="cq" type="text" value="">
-	with <span class="menu select">
-	  <select name="ql" id="ql-field">
-	    <option value="poliqarp">Poliqarp</option>
-	    <option value="cosmas2">Cosmas II</option>
-	    <option value="annis">Annis</option>
-	    <option value="cql">CQL v1.2</option>
-	  </select>
-	</span>
-	<div class="button right">
-	  <input type="checkbox"
-		 value="1"
-		 name="cutoff"
-		 class="checkbox"
-		 id="q-cutoff-field" />
-	  <label for="q-cutoff-field"><span id="glimpse"></span>Glimpse</label>
 
-	  <!-- Todo: open tutorial - like openTutorial() -->
-	  <a href="doc/faq" tabindex="-1" class="question"><span>Question</span></a>
-	  <a href="tutorial.html" title="Tutorial" class="tutorial" id="view-tutorial"><span>Tutorial</span></a>
-	</div>
-      </form>
-    </header>
+    <!-- Search in the following virtual corpus -->
+    <div id="vc-view"></div>
+    in
+    <input id="cq" name="cq" type="text">
+
+    mit
+    <span class="select">
+      <select id="ql-field" name="ql"><option value="poliqarp">Poliqarp</option><option value="cosmas2">Cosmas II</option><option value="annis">Annis QL</option><option value="cqp">CQP (neu)</option><option value="cql">CQL v1.2</option><option value="fcsql">FCSQL</option></select>
+    </span>
+    <div class="button right">
+      <input checked class="checkbox" id="q-cutoff-field" name="cutoff" type="checkbox" value="1">
+      <label for="q-cutoff-field" title="Zeige nur die ersten Treffer in beliebiger Reihenfolge"><span id="glimpse"></span>Glimpse</label>
+    </div>
+    <div class="clear"></div>
+  </form>
+</header>
     
     <main> 
         <script>
@@ -155,5 +199,16 @@
         </ol>
       </div>
     </main>
+
+<footer>
+  <nav>
+    <div><a href="http://www.ids-mannheim.de/kl/projekte/korap/">Über KorAP</a></div><div><a href="/instance/test/doc//faq#howToCite">Zitierhilfe</a></div><div><a href="http://www.ids-mannheim.de/allgemein/impressum.html">Impressum</a></div><div><a href="http://www.ids-mannheim.de/allgemein/datenschutz/">Datenschutz</a></div><div><a class="embedded-link" href="/instance/test/doc/korap/kalamar">V 0.64.0</a></div>
+  </nav>
+  <div id="logos">
+    <a href="http://www.ids-mannheim.de/" class="logo"><p id="ids-logo"><span>Entwickelt am Leibniz-Institut für Deutsche Sprache (IDS)</span></p></a>
+  </div>
+</footer>
+
+
   </body>
 </html>

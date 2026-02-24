@@ -83,6 +83,7 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       const b = this._insert('span');
       let desc = title;
 
+      let that = this;
       if (data !== undefined) {
         if (data['cls'] !== undefined) {
           b.classList.add.apply(b.classList, data['cls']);
@@ -98,14 +99,21 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
 
         if (data['active'] !== undefined) {
           let active = data['active'];
+          b['active'] = active;
 
-	  let check = _addCheck(b,active);
-	  check.addEventListener('click', function (e) {
-	    // Do not bubble
-	    e.halt();
+      	  let check = _addCheck(b,active);
+	        check.addEventListener('click', function (e) {
+	          // Do not bubble
+	          e.halt();
             // Toggle state
-	    active.roll();
-	  });
+	          active.roll();
+
+            let obj = that._bind || this;
+            obj.button = b;
+            b._activeClick = true;
+            cb.apply(obj, e);
+            b._activeClick = false;
+	        });
         };
 
 	
@@ -119,10 +127,9 @@ define(['buttongroup/menu','menu/item','util'], function (treeMenuClass, default
       innerSpan.addT(title);
 
       b["changeTitle"] = function (title) {
-	innerSpan.textContent = title;
+       	innerSpan.textContent = title;
       };
       
-      let that = this;
       b.addEventListener('click', function (e) {
 
         // Do not bubble

@@ -275,15 +275,15 @@ define(['buttongroup','buttongroup/menu','menu/item','state'], function (buttonG
       expect(check.classList.contains("checked")).toBeFalsy();
       expect(count).toEqual(0);
 
-      // Clicking the check toggles active state, but does not trigger callback.
+      // Clicking the check toggles active state and triggers the callback.
       check.click();
       expect(active.get()).toBeTruthy();
       expect(check.classList.contains("checked")).toBeTruthy();
-      expect(count).toEqual(0);
-
-      // Clicking the button still triggers the callback.
-      button.click();
       expect(count).toEqual(1);
+
+      // Clicking the button also triggers the callback.
+      button.click();
+      expect(count).toEqual(2);
     });
 
     it('should allow adoption', function () {

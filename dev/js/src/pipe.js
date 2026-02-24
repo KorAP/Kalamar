@@ -37,7 +37,7 @@ define(['util'], function () {
      */
     append : function (service) {
       service = _notNull(service);
-      if (service) {
+      if (service && this._pipe.indexOf(service) === -1) {
         this._pipe.push(service);
         this._update();
       };
@@ -49,7 +49,7 @@ define(['util'], function () {
      */
     prepend : function (service) {
       service = _notNull(service);
-      if (service) {
+      if (service && this._pipe.indexOf(service) === -1) {
         this._pipe.unshift(service);
         this._update();
       };
