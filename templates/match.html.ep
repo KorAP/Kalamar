@@ -12,14 +12,19 @@
     data-info="<%== b(encode_json(\%match_data))->decode->xml_escape %>"
     id="<%= $id %>"<% if (current_route eq 'match') { %> class="active"<% } =%>>
 %# This should be done using JavaScript
-% my ($show_sigle, $flip) = ('', stash('flip') // 'flip');
-% if ($text_sigle ne (stash('last_sigle') // '')) {
-%   $show_sigle = $text_sigle;
-%   stash(last_sigle => $text_sigle);
+% my @vfields_fields = @{stash('vfields_fields')};
+% my $is_new = ($text_sigle ne (stash('last_text_sigle') // ''));
+% my $flip = stash('flip') // 'flip';
+% if ($is_new) {
+%   stash(last_text_sigle => $text_sigle);
 %   $flip = $flip eq 'flip' ? 'flop' : 'flip'; 
 %   stash(flip => $flip);
 % }  
-  <div class="meta <%= $flip %>"><%= $show_sigle %></div>
+% foreach my $field (@vfields_fields) {
+%   my $info = match_field($match, $field);
+%   my $val = ($is_new && defined $info->{raw} && $info->{raw} ne '') ? $info->{html} : '';
+  <div class="meta <%= $flip %><%= $info->{type} ? " type-" . $info->{type} : '' %>"><% if ($val ne '') { %><span><%== $val %></span><% } %></div>
+% }
   <div class="match-main">
     <div class="match-wrap">
 %# --- Snippet

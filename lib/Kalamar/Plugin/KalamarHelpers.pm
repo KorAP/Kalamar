@@ -204,6 +204,32 @@ sub register {
       )
     }
   );
+  $mojo->helper(
+    match_field => sub {
+      my ($c, $match, $field) = @_;
+      my $v = '';
+      my $type = 'string';
+      if ($match->{fields} && ref $match->{fields}->[0] eq 'HASH') {
+        foreach (@{$match->{fields}}) {
+          if ($_->{key} && $_->{key} eq $field) {
+            $v = $_->{value};
+            $type = $_->{type} || 'string';
+            last;
+          }
+        }
+      } else {
+        $v = $match->{$field};
+      }
+
+      $type =~ s/^type://;
+
+      my $html = ref $v eq 'ARRAY' 
+        ? b('<ul class="meta-list"><li>' . join('</li><li>', map { b($_ // '')->xml_escape } @$v) . '</li></ul>') 
+        : b($v // '')->xml_escape;
+        
+      return { html => $html, type => $type, raw => $v };
+    }
+  );
 };
 
 

@@ -83,6 +83,8 @@ $font-size: 10pt;
       }
 
       div.meta {
+        display:          flex;
+        align-items:      center;
         flex:             1 0;
         min-width:        12em;
         max-width:        15em;
@@ -97,6 +99,17 @@ $font-size: 10pt;
         color:            colors.$nearly-white;
         font-size:        75%;
         padding:          0 5pt;
+
+        > span, > ul.meta-list {
+          min-width: 0;
+          width: 100%;
+        }
+
+        ul.meta-list {
+          list-style-type: disc;
+          margin: 0;
+          padding: 0 0 0 1em;
+        }
 
         border: {
           color: colors.$dark-grey;
@@ -118,6 +131,11 @@ $font-size: 10pt;
 
         &.flip {
           background-color: color.adjust(colors.$middle-grey, $lightness: 17%, $space: hsl);
+        }
+
+        &.type-text, &.type-keywords {
+          white-space: normal;
+          word-wrap: break-word;
         }
       }
 

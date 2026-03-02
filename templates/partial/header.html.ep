@@ -36,6 +36,9 @@
       %= select_field 'ql', [[loc('QL_poliqarp') => 'poliqarp'], [loc('QL_cosmas2') => 'cosmas2'], [loc('QL_annis') => 'annis'], [loc('QL_cqp') => 'cqp'], [loc('QL_cql') => 'cql'], [loc('QL_fcsql') => 'fcsql']], id => 'ql-field'
     </span>
     <div class="button right">
+      % if (my @vfields = @{$c->req->every_param('vfields') || []}) {
+      %= hidden_field 'vfields' => join(',', @vfields)
+      % }
       % param(cutoff => 1) unless param 'q';
       %= check_box cutoff => 1, id => 'q-cutoff-field', class => 'checkbox'
       <label for="q-cutoff-field" title="<%= loc('glimpse_desc') %>"><span id="glimpse"></span><%= loc('glimpse') %></label>

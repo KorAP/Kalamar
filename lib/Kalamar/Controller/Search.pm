@@ -5,6 +5,7 @@ use Mojo::ByteStream 'b';
 use Mojo::Util qw/quote/;
 use Mojo::JSON;
 use POSIX 'ceil';
+use List::Util qw/uniq/;
 
 our @search_fields = qw!ID UID textSigle layerInfos title subTitle pubDate author availability snippet!;
 our $query_placeholder = 'NOQUERY';
@@ -45,6 +46,7 @@ sub query {
   $v->optional('context');
   $v->optional('pipe', 'trim');
   $v->optional('response-pipe', 'trim');
+  $v->optional('vfields', 'comma_separated', 'trim');
   # $v->optional('action'); # action 'inspect' is no longer valid
   # $v->optional('snippet');
 
@@ -139,6 +141,13 @@ sub query {
 
   $c->stash(items_per_page => $items_per_page);
 
+  # Meta fields to display in KWIC
+  my @vfields_fields = ('textSigle');
+  if (my $m = $v->param('vfields')) {
+    @vfields_fields = @{$v->every_param('vfields')};
+  }
+  $c->stash(vfields_fields => \@vfields_fields);
+
   # TODO:
   #   if ($v->param('action') eq 'inspect') use trace!
 
@@ -148,7 +157,7 @@ sub query {
 
 
   # Add requested fields
-  $query{fields} = join ',', @search_fields;
+  $query{fields} = join ',', uniq(@search_fields, @vfields_fields);
 
   # Create remote request URL
   my $url = Mojo::URL->new($c->korap->api);

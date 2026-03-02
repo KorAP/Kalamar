@@ -70,7 +70,7 @@ my $err = $t->get_ok('/?q=baum')
                      '[id="GOE/AGI/00000#p2030-2031"]' .
                      '[data-available-info^="base/s=spans"]' .
                      '[data-info^="{"]')
-  ->text_is('li:nth-of-type(1) div.meta', 'GOE/AGI/00000')
+  ->text_is('li:nth-of-type(1) div.meta > span', 'GOE/AGI/00000')
   ->element_exists('li:nth-of-type(1) div.match-main div.match-wrap div.snippet')
   ->element_exists('li:nth-of-type(1) div.snippet.startMore.endMore')
   ->text_like('li:nth-of-type(1) div.snippet span.context-left',qr!sie etwas bedeuten!)
@@ -384,6 +384,40 @@ is($f->{pubPlace}, 'München');
 is($f->{corpusTitle}, 'Goethes Werke');
 is($f->{corpusSigle}, 'GOE');
 is($f->{corpusEditor}, 'Trunz, Erich');
+
+# Test vfields query parameter
+# vfields=textSigle should behave like default
+$t->get_ok('/?q=baum&vfields=textSigle')
+  ->status_is(200)
+  ->text_is('li:nth-of-type(1) div.meta > span', 'GOE/AGI/00000')
+  ->text_is('li:nth-of-type(2) div.meta > span', 'GOE/AGI/00001') # Value repeats in actual behavior but texts are different
+  ;
+
+# Test vfields query parameter
+# vfields=textSigle should behave like default
+$t->get_ok('/?q=der&p=1&count=2&vfields=textSigle')
+  ->status_is(200)
+  ->text_is('li:nth-of-type(1) div.meta > span', 'GOE/AGI/00000')
+  ->element_exists_not('li:nth-of-type(2) div.meta > span')
+  ->text_is('li:nth-of-type(2) div.meta', '') # Should be completely empty
+  ;
+
+
+# vfields=textSigle,title should show both fields in separate divs
+$t->get_ok('/?q=baum&vfields=textSigle,title')
+  ->status_is(200)
+  ->text_is('li:nth-of-type(1) div.meta:nth-of-type(1) > span', 'GOE/AGI/00000')
+  ->text_is('li:nth-of-type(1) div.meta:nth-of-type(2) > span', 'Italienische Reise')
+  ->text_is('li:nth-of-type(2) div.meta:nth-of-type(1) > span', 'GOE/AGI/00001') # Texts are different
+  ->text_is('li:nth-of-type(2) div.meta:nth-of-type(2) > span', 'Italienische Reise') 
+  ;
+
+# vfields=author should show only author
+$t->get_ok('/?q=baum&vfields=author')
+  ->status_is(200)
+  ->text_is('li:nth-of-type(1) div.meta > span', 'Goethe, Johann Wolfgang von')
+  ->text_is('li:nth-of-type(2) div.meta > span', 'Goethe, Johann Wolfgang von') # Printed again because it's a new document
+  ;
 
 done_testing;
 __END__
