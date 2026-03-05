@@ -236,7 +236,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.widget").length).toEqual(1);
       expect(p.element().querySelectorAll("div.view.show.widget").length).toEqual(1);
-      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('');
+      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-same-origin'); // Temporary
 
       manager.destroy();
 
@@ -417,7 +417,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
       expect(b.getAttribute("title")).toEqual("Add something");
       b.click();
       expect(p.element().querySelectorAll("iframe").length).toEqual(1);
-      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts');
+      expect(p.element().querySelector("iframe").getAttribute('sandbox')).toEqual('allow-forms allow-scripts allow-same-origin'); // Temporary
     });
   });
   
@@ -447,7 +447,7 @@ define(['plugin/server','plugin/widget','panel', 'panel/query', 'panel/result', 
 
       var iframe = we.firstChild;
       expect(iframe.tagName).toEqual("IFRAME");
-      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts");
+      expect(iframe.getAttribute("sandbox")).toEqual("allow-forms allow-scripts allow-same-origin");  // Temporary
       expect(iframe.getAttribute("src")).toEqual("https://example");
       expect(iframe.getAttribute("name")).toEqual("56");
       
