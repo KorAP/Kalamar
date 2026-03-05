@@ -460,7 +460,7 @@ require(['init'], function () {
   "      <span title=\"mate/l:deutlich\">" +
   "        <span title=\"mate/m:degree:pos\">" +
   "          <span title=\"mate/p:ADJD\">" +
-  "            <span title=\"opennlp/p:ADJD\">deutlich</span>" +
+  "            <span title=\"opennlp/p:ADJD\" class=\"notinindex\">deutlich</span>" +
   "          </span>" +
   "        </span>" +
   "      </span>" +
@@ -666,6 +666,13 @@ require(['init'], function () {
           "key":"availability",
           "type":"type:string",
           "value":"CC-BY-SA"
+        },
+        {
+          "@type":"koral:field",
+          "key":"wiki",
+          "type":"type:string",
+          "value":"Science",
+	  "comment":"notinindex"
         },
         {
           "@type":"koral:field",

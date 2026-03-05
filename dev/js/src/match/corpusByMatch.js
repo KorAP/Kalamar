@@ -110,7 +110,7 @@ define(['vc/fragment', 'util'], function (vcFragmentClass) {
       };
 
       // Ignore stored types
-      if (type === "type:store" || type === "type:attachement")
+      if (type === "type:store" || type === "type:attachement" || target.classList.contains("notinindex"))
         return;
 
       type = type || "type:string";

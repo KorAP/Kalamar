@@ -106,6 +106,13 @@ define(['match',
       "type": "type:attachement",
       "value": "data:,This is a reference"
     },
+    {
+      "@type": "koral:field",
+      "key": "zz-notinindex",
+      "type": "type:text",
+      "comment": "notinindex",
+      "value": "Stored but not indexed"
+    },
   ];
 
 
@@ -1095,6 +1102,16 @@ define(['match',
       expect(mel.children[6].children[0].firstChild.nodeValue).toEqual('z-reference');
       expect(mel.children[6].children[1].firstChild.nodeValue).toEqual('This is a reference');
     }); 
+
+    it('should mark metadata not in index', function () {
+      let notInIndexField = Array.from(mel.children).find(function (field) {
+        return field.children[0].firstChild.nodeValue === 'zz-notinindex';
+      });
+
+      expect(notInIndexField).toBeTruthy();
+      expect(notInIndexField.children[1].classList.contains('notinindex')).toBeTruthy();
+      expect(notInIndexField.children[1].firstChild.nodeValue).toEqual('Stored but not indexed');
+    });
  
     
   

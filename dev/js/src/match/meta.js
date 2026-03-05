@@ -63,6 +63,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
         let field = fields[posInMetaArray[k]]; // This is the object
 
         let metaL, dt, metaDescr, metaDD, att;
+        const isNotInIndex = field["comment"] === "notinindex";
 
         // Ignore internal IDs
         if (k !== "UID" &&
@@ -72,7 +73,7 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
             k !== "layerInfos") {
 
           metaL = document.createElement('div');
-          
+
           dt = metaL.addE('dt');
           dt.addT(k);
           dt.setAttribute("title", k);
@@ -80,6 +81,9 @@ define(['match/corpusByMatch','match/attachement','util'], function (cbmClass, a
           metaDescr = field["value"];
           metaDD = metaL.addE('dd');
           metaDD.setAttribute('data-type', field["type"]);
+          if (isNotInIndex) {
+            metaDD.classList.add("notinindex");
+          };
 
           if(metaDescr instanceof Array){
         	  metaDD.classList.add("metakeyvalues");

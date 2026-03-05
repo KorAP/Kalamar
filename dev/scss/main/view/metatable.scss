@@ -25,6 +25,12 @@ div.metatable > dl {
       background-color: colors.$light-orange;
       cursor: pointer;
 
+
+      &.notinindex {
+        background-color: colors.$ids-grey-2 !important;
+        cursor: default;
+      }
+
       &.metakeyvalues {
 
         > div {
@@ -52,7 +58,8 @@ div.metatable > dl {
       }
 
       &[data-type="type:store"],
-      &[data-type="type:attachement"] {
+      &[data-type="type:attachement"],
+      &.notinindex {
         background-color: colors.$middle-orange;
         cursor:           default;
 
