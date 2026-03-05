@@ -27,11 +27,34 @@ define([
       this._opened = opened;
       const a = this.actions();
 
+
+      // If plugins are enabled, add all buttons for the query panel
+      if (KorAP.Plugin) {
+
+        // Add all matchbuttons in order
+        KorAP.Plugin
+          .buttonGroup("query")
+          .forEach(i => a.add.apply(a, i));
+
+        KorAP.Plugin.clearButtonGroup("query")
+      };
+      
+      let colabel = document.getElementById("glimpse");
+
+      if (colabel == undefined) {
+	return this;
+      }
+      
+      colabel = colabel.parentNode;
+
+      if (colabel == undefined) {
+	return this;
+      };
+      
       // Add glimpse button
       const s = stateClass.create([true,false]);
       const cof = document.getElementById("q-cutoff-field");
-      const colabel = document.getElementById("glimpse").parentNode;
-     
+    
       let glimpseChange = {
         setState : function (val) {
           cof.checked = val;
@@ -47,22 +70,10 @@ define([
         },
         s
       );
-
+      
       // Don't show default glimpse
       colabel.style.display = "none";
-
-      
-      // If plugins are enabled, add all buttons for the query panel
-      if (KorAP.Plugin) {
-
-        // Add all matchbuttons in order
-        KorAP.Plugin
-          .buttonGroup("query")
-          .forEach(i => a.add.apply(a, i));
-
-        KorAP.Plugin.clearButtonGroup("query")
-      };
-      
+     
       return this;
     }
   }

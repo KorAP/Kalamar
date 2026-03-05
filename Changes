@@ -6,6 +6,7 @@
         - Support title change in button groups (diewald)
         - Eliminates authorized_only (deprecation in API version 1.1)
         - Add 'glimpse' option to query panel (diewald)
+        - Fix test suite for glimpse-rearrangement (diewald)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)
