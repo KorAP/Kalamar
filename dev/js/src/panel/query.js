@@ -63,13 +63,15 @@ define([
       s.associate(glimpseChange);
       s.set(cof.checked);
       
-      a.addToggle(
+      let b = a.addToggle(
         "Glimpse", {
           'cls':['glimpse'],
           'desc':colabel.getAttribute('title')
         },
         s
       );
+
+      b.setAttribute('data-testid', 'glimpse');
       
       // Don't show default glimpse
       colabel.style.display = "none";

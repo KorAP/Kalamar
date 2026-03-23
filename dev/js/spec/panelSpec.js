@@ -1,4 +1,4 @@
-define(['panel','view','panel/result','panel/pagination','util'], function (panelClass,viewClass,resultClass,paginationClass) {
+define(['panel','view','panel/result','panel/pagination','panel/query','util'], function (panelClass,viewClass,resultClass,paginationClass,queryPanelClass) {
 
   var controlStr = "";
 
@@ -253,5 +253,33 @@ define(['panel','view','panel/result','panel/pagination','util'], function (pane
       }
     });
 
+  });
+
+  describe('KorAP.Panel.Query', function () {
+
+    it('should set data-testid on glimpse button', function () {
+      // Set up required DOM elements
+      var colabel = document.createElement('label');
+      colabel.setAttribute('title', 'Glimpse description');
+      var glimpse = document.createElement('input');
+      glimpse.setAttribute('id', 'glimpse');
+      colabel.appendChild(glimpse);
+      document.body.appendChild(colabel);
+
+      var cutoff = document.createElement('input');
+      cutoff.setAttribute('type', 'checkbox');
+      cutoff.setAttribute('id', 'q-cutoff-field');
+      document.body.appendChild(cutoff);
+
+      var queryPanel = queryPanelClass.create();
+
+      var btn = queryPanel.element().querySelector('[data-testid="glimpse"]');
+      expect(btn).toBeTruthy();
+      expect(btn.getAttribute('data-testid')).toEqual('glimpse');
+
+      // Clean up
+      document.body.removeChild(colabel);
+      document.body.removeChild(cutoff);
+    });
   });
 });
