@@ -9,6 +9,7 @@
         - Fix test suite for glimpse-rearrangement (diewald)
         - Mark "notinindex"-fields (diewald)
         - Fix test suite for "allow-same-origin" sandbox rule (diewald)
+        - Escape commas and asterisks in query-by-match query creator (kupietz, hebasta)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)

@@ -95,10 +95,18 @@ function matchTableComplexFactory () {
     "          <td class=\"mark\">NN</td>" +
     "        </tr>" +
     "        <tr tabindex=\"0\">" +
-    "          <th>tt</th>" +
+    "          <th>gender</th>" +
     "          <th>l</th>" +
     "          <td>Lese|Lesen</td>" +
     "          <td>a b</td>" +
+    "          <td></td>" +
+    "          <td class=\"mark\">NN</td>" +
+    "        </tr>" +
+    "        <tr tabindex=\"0\">" +
+    "          <th>tt</th>" +
+    "          <th>l</th>" +
+    "          <td>Lehrer*in</td>" +
+    "          <td>gender:fem,masc,nonbin</td>" +
     "          <td></td>" +
     "          <td class=\"mark\">NN</td>" +
     "        </tr>" +
@@ -651,7 +659,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
-      expect(qc.toString()).toEqual("[tt/l='Lese|Lesen']");
+      expect(qc.toString()).toEqual("[gender/l='Lese|Lesen']");
       cell.click()
       expect(cell.classList.contains("chosen")).toBe(false);
       expect(qc.toString()).toEqual("");
@@ -660,7 +668,7 @@ define(['match/querycreator'], function (qcClass) {
       expect(cell.classList.contains("chosen")).toBe(false);
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
-      expect(qc.toString()).toEqual("[tt/l='a b']");
+      expect(qc.toString()).toEqual("[gender/l='a b']");
       cell.click()
       expect(cell.classList.contains("chosen")).toBe(false);
       expect(qc.toString()).toEqual("");
@@ -671,6 +679,24 @@ define(['match/querycreator'], function (qcClass) {
       cell.click();
       expect(cell.classList.contains("chosen")).toBeTruthy();
       expect(qc.toString()).toEqual("[opennlp/p='morphemes:ZERO::NOM']");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+
+      cell = matchTable.querySelector("tbody > tr:nth-child(4) > td:nth-child(3)");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[tt/l='Lehrer*in']");
+      cell.click()
+      expect(cell.classList.contains("chosen")).toBe(false);
+      expect(qc.toString()).toEqual("");
+
+      cell = matchTable.querySelector("tbody > tr:nth-child(4) > td:nth-child(4)");
+      expect(cell.classList.contains("chosen")).toBe(false);
+      cell.click();
+      expect(cell.classList.contains("chosen")).toBeTruthy();
+      expect(qc.toString()).toEqual("[tt/l='gender:fem,masc,nonbin']");
       cell.click()
       expect(cell.classList.contains("chosen")).toBe(false);
       expect(qc.toString()).toEqual("");

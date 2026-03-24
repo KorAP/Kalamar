@@ -20,7 +20,7 @@ define(['util'], function () {
   const loc = KorAP.Locale;
   loc.NEW_QUERY = loc.NEW_QUERY || 'New Query';
 
-  const esc = RegExp("^(?:[^ \:\.\'\\\\\|\&]+:)?[^ \:\.\'\\\\\|\&]+$");
+  const esc = RegExp("^(?:[^ \:\.\'\\\\\|\&,\*]+:)?[^ \:\.\'\\\\\|\&,\*]+$");
   
   function _getKeyValue (keyValue) {
     if (keyValue.match(esc) === null) {
