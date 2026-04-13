@@ -1,6 +1,6 @@
 "use strict";
 
-define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'], function (hintClass, inputClass, contextClass, menuClass, menuItemClass) {
+define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item', 'hint/foundries'], function (hintClass, inputClass, contextClass, menuClass, menuItemClass, foundriesClass) {
 
   function emitKeyboardEvent (element, type, letter, keyCode) {
     // event type : keydown, keyup, keypress
@@ -67,6 +67,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
         };
       };
     };
+      
     KorAP.API.getMatchInfo = undefined;
     KorAP.context = undefined;
     // KorAP.annotationHelper = undefined;
@@ -227,7 +228,7 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(hint).toBeTruthy();
     });
 
-    
+
     it('should alert at char pos', function () {
       var hint = hintClass.create({
         inputField : input
@@ -509,7 +510,64 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item'],
       expect(menu.container().element().classList.contains("visible")).toBeFalsy();
     });
 
+    it('should filter available foundries based on configuration', function () {
+  
+      KorAP.annotationHelper["-"] = [
+        ["Base Annotation", "base/s=", "Structure"],
+        ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
+        ["TreeTagger", "tt/", "Lemma, Part-of-Speech"]
+      ];
+      KorAP.annotationHelper.filterByConfig();
+      let foundries = KorAP.annotationHelper["-"].map(e => e[1]);
+      expect(foundries).toContain("base/s=");
+      expect(foundries).toContain("corenlp/");
+      expect(foundries).toContain("tt/");
     
+    
+      //set configuration to corenlp and tt
+      document.body.setAttribute('data-hint-foundries', 'corenlp,tt');
+      KorAP.annotationHelper.filterByConfig();
+      foundries = KorAP.annotationHelper["-"].map(e => e[1]);
+      expect(foundries).not.toContain("base/s=");
+      expect(foundries).toContain("corenlp/");
+      expect(foundries).toContain("tt/");
+      
+      //set configuration to corenlp only, with different case and whitespaces
+      document.body.setAttribute('data-hint-foundries', ' coREnlp');
+      KorAP.annotationHelper.filterByConfig();
+      foundries = KorAP.annotationHelper["-"].map(e => e[1]);
+      expect(foundries).not.toContain("base/s=");
+      expect(foundries).toContain("corenlp/");
+      expect(foundries).not.toContain("tt/");
+      
+      //Clean up 
+      document.body.removeAttribute('data-hint-foundries');
+    });
+
+    it('should apply configured foundry filter if initialized', function () {
+    
+      KorAP.annotationHelper["-"] = [
+        ["Base Annotation", "base/s=", "Structure"],
+        ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
+        ["TreeTagger", "tt/", "Lemma, Part-of-Speech"]
+      ];
+
+      document.body.setAttribute('data-hint-foundries', 'tt');
+
+      var hint = hintClass.create({
+        inputField : input
+      });
+      expect(hint).toBeTruthy();
+           
+      let foundries = KorAP.annotationHelper["-"].map(e => e[1]);
+      expect(foundries).not.toContain("base/s=");
+      expect(foundries).not.toContain("corenlp/");
+      expect(foundries).toContain("tt/");
+
+      //Clean up 
+      document.body.removeAttribute('data-hint-foundries');
+    });
+
     xit('should remove all menus on escape');
   });
 

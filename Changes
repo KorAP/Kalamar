@@ -4,12 +4,13 @@
         - Enhance handling of improper json files (diewald)
         - Support API version 1.1 (diewald)
         - Support title change in button groups (diewald)
-        - Eliminates authorized_only (deprecation in API version 1.1)
+        - Eliminates authorized_only (deprecation in API version 1.1) (hebasta)
         - Add 'glimpse' option to query panel (diewald)
         - Fix test suite for glimpse-rearrangement (diewald)
         - Mark "notinindex"-fields (diewald)
         - Fix test suite for "allow-same-origin" sandbox rule (diewald)
         - Escape commas and asterisks in query-by-match query creator (kupietz, hebasta)
+        - Tests for configurable hint foundries added (hebasta)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)
