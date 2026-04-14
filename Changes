@@ -10,6 +10,7 @@
         - Documentation: Hint on using negations with annotations
           (diewald)
         - Fix shift issue when clicking on empty sidebar(uyen-nhu, closes #242)
+        - Fix 'Query by match' constraint line (uyen-nhu, closes #276)
 
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)

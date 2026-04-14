@@ -13,6 +13,7 @@ p.query.fragment {
   @include choose.choose-item;
   position: relative;
   padding:  4pt 6pt !important;
+  text-align: left;
   
   border : {
     width:  lengths.$border-size;

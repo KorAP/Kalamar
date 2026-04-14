@@ -390,6 +390,10 @@ lengths.$standard-margin: 4px;
   //   margin-right: 20px;
   // }
 
+  p.query.fragment {
+    margin-left: 0;
+  }
+
   footer {
     padding-left: 0 !important;
     padding-top: 2rem;
