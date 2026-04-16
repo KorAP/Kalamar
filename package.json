@@ -4,8 +4,13 @@
   "license": "BSD-2-Clause",
   "version": "0.66.0",
   "pluginVersion": "0.2.3",
+  "scripts": {
+    "dev": "vite --config vite.config.js",
+    "build": "vite build --config vite.config.js",
+    "test": "vitest --config vitest.config.js --run"
+  },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=20.19.0"
   },
   "repository": {
     "type": "git",
@@ -22,7 +27,10 @@
     "imagemin": "^9.0.1",
     "optipng-bin": "^9.0.0",
     "sass": "^1.99.0",
-    "vinyl-fs": "^4.0.2"
+    "vinyl-fs": "^4.0.2",
+    "vite": "^8.1.4",
+    "vitest": "^2.0.0",
+    "jsdom": "^24.0.0"
   },
   "optionalDependencies": {
     "fsevents": "*"

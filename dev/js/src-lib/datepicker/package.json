@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-datepicker",
+  "version": "0.0.1",
+  "description": "Datepicker for Kalmar",
+  "main": "datepicker.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}

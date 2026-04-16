@@ -144,6 +144,11 @@ module.exports = function(grunt) {
 	          timestamp: true
 	        },
           {
+            src: 'public/css/kalamar-<%= pkg.version %>.css',
+            dest: 'public/css/kalamar-latest.css',
+            timestamp: true
+          },
+          {
 	          src: 'public/css/kalamar-plugin-<%= pkg.pluginVersion %>.css',
 	          dest: 'public/css/kalamar-plugin-latest.css',
 	          timestamp: true
@@ -159,7 +164,7 @@ module.exports = function(grunt) {
     watch: {
       css: {
 	      files: ['dev/scss/**/*.scss'],
-	      tasks: ['sass'],
+        tasks: ['sass'],
 	      options: {
 	        spawn: false
 	      }
