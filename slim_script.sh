@@ -14,6 +14,9 @@ slim build --http-probe=true \
            --include-path="/usr/local/share/perl5/site_perl/KorAP/" \
            --include-path="/usr/local/share/perl5/site_perl/Mojolicious/" \
            --include-path="/usr/local/share/perl5/site_perl/Mojo/" \
+           --include-path="/usr/share/perl5/vendor_perl/DateTime/" \
+           --include-path="/usr/share/perl5/vendor_perl/auto/share/dist/DateTime-Locale" \
+           --include-path="/usr/share/perl5/core_perl/Unicode/Collate/Locale" \
            --tag "korap/kalamar:$VERSION" \
            --tag "korap/kalamar:latest" \
            "korap/kalamar:${VERSION}-large"

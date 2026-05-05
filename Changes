@@ -16,6 +16,7 @@
         - Update dependencies (diewald)
         - Support combined toggle+widget button for plugins (diewald)
         - Make KWIC metadata fields configurable by request URL (kupietz)
+        - Fix localization in slimming process (diewald; fixes #277)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)
