@@ -12,23 +12,23 @@
     "url": "https://github.com/KorAP/Kalamar.git"
   },
   "devDependencies": {
-    "grunt": "^1.6.1",
+    "grunt": "^1.6.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-requirejs": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-sass": "^4.0.0",
+    "grunt-sass": "^4.1.0",
     "grunt-shell": "^4.0.0",
     "grunt-terser": "^2.0.0",
-    "imagemin": "^9.0.0",
+    "imagemin": "^9.0.1",
     "optipng-bin": "^9.0.0",
-    "sass": "^1.93.3",
-    "vinyl-fs": "^4.0.0"
+    "sass": "^1.99.0",
+    "vinyl-fs": "^4.0.2"
   },
   "optionalDependencies": {
     "fsevents": "*"
   },
   "dependencies": {
     "grunt-contrib-imagemin": "^4.0.0",
-    "terser": "^5.16.1"
+    "terser": "^5.46.2"
   }
 }

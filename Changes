@@ -13,6 +13,7 @@
         - Tests for configurable hint foundries added (hebasta)
         - Restrict allow-same-origin to plugins that actually ARE AND request it (Requires the export plugin >= 0.4.1)(kupietz, tests hebasta)
         - Add data-testid to glimpse (diewald)
+        - Update dependencies (diewald)
 
 0.64 2026-02-14
         - Improve 'Plugins' mounting (diewald)

@@ -17,7 +17,7 @@ WriteMakefile(
   },
   LICENSE      => 'freebsd',
   PREREQ_PM => {
-    'Mojolicious' => '9.34',
+    'Mojolicious' => '9.43',
     'Mojolicious::Plugin::TagHelpers::Pagination' => 0.10,
     'Mojolicious::Plugin::TagHelpers::MailToChiffre' => 0.13,
     'Mojolicious::Plugin::ClosedRedirect' => 0.15,
@@ -28,15 +28,15 @@ WriteMakefile(
     'Mojolicious::Plugin::ClientIP' => 0.02,
     'Mojolicious::Plugin::AutoSecrets' => 0.006,
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.12,
-    'Cache::FastMmap' => 1.57,
-    'DateTime' => 1.63,
+    'Cache::FastMmap' => 1.61,
+    'DateTime' => 1.66,
 
     # Required for Mojolicious::Plugin::CHI
     'Data::Serializer' => 0.65,
-    'JSON' => 4.10,
+    'JSON' => 4.11,
 
     # Required for older perl bundles
-    'List::Util' => 1.63,
+    'List::Util' => 1.70,
 
     # Required for bundled plugins
     'Mojolicious::Plugin::Piwik' => 2.00,
