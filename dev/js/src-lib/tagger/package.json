@@ -1,0 +1,11 @@
+{
+  "name": "Kalamar-tagger",
+  "version": "0.0.1",
+  "description": "Tagger for Kalmar",
+  "main": "tagger.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}
