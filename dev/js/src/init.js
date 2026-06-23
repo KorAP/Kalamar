@@ -326,7 +326,7 @@ define([
       const results = document.querySelector('.found');
       const aside = document.querySelector('aside');
 
-      if (aside && aside.classList.contains('active') && !isSmallScreen) {
+      if (aside && aside.classList.contains('active') && !aside.classList.contains('off') && !isSmallScreen) {
         header.classList.add('shifted');
         if (!results) {
           main.classList.add('shifted');
@@ -368,7 +368,7 @@ define([
         document.body.removeChild(span);
         let hintLeftPosition = inputWidth;
 
-        if (aside && aside.classList.contains('active') && !isSmallScreen) {
+        if (aside && aside.classList.contains('active') && !aside.classList.contains('off') && !isSmallScreen) {
           const asideWidth = aside.getBoundingClientRect().width;
           hintLeftPosition += asideWidth;
         }
@@ -412,8 +412,10 @@ define([
 
       // Make aside active on focus
       aside.addEventListener('focus', function (e) {
-        this.classList.add('active');
-        shiftContent();
+        if (!this.classList.contains('off')) {
+          this.classList.add('active');
+          shiftContent();
+        }
       });
 
       // Deactivate focus when clicking anywhere else
