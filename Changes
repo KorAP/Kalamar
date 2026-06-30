@@ -1,3 +1,6 @@
+0.66 2026-06-30
+        - Fix link to NEGRA corpus (diewald)
+
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)
         - Support additional activity-toggle in buttons (diewald)
