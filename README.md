@@ -75,16 +75,7 @@ An environment based on [Perlbrew](http://perlbrew.pl/) is recommended,
 if available. The installation guide requires
 [App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/) as well.
 
-Some perl modules are not on CPAN yet, so you need to install them from GitHub.
-The easiest way to do this is using
-[App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/).
-This will probably need administration rights.
-
-```shell
-cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
-```
-
-Then install the dependencies using
+Install the dependencies using
 [App::cpanminus](http://search.cpan.org/~miyagawa/App-cpanminus/)
 (there is no need to install Kalamar)
 and run the test suite.

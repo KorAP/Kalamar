@@ -24,7 +24,6 @@ jobs:
       - name: Install dependencies
         run: |
           cpanm --force -v Module::Pluggable
-          cpanm https://github.com/Akron/Mojolicious-Plugin-Localize.git
           cpanm --installdeps .
           cpanm -n Cpanel::JSON::XS EV
       - name: Run tests

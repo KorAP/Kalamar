@@ -28,6 +28,7 @@ WriteMakefile(
     'Mojolicious::Plugin::ClientIP' => 0.02,
     'Mojolicious::Plugin::AutoSecrets' => 0.006,
     'Mojolicious::Plugin::TagHelpers::ContentBlock' => 0.12,
+    'Mojolicious::Plugin::Localize' => 0.23,
     'Cache::FastMmap' => 1.61,
     'DateTime' => 1.66,
 
@@ -39,10 +40,7 @@ WriteMakefile(
     'List::Util' => 1.70,
 
     # Required for bundled plugins
-    'Mojolicious::Plugin::Piwik' => 2.00,
-
-    # Currently on GitHub only (github.com/akron)
-    'Mojolicious::Plugin::Localize' => 0.22
+    'Mojolicious::Plugin::Piwik' => 2.00
   },
 
   META_MERGE   => {
