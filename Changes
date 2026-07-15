@@ -1,6 +1,7 @@
-0.66 2026-07-03
+0.66 2026-07-15
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
+        - Update dependency to Mojolicious (diewald)
 
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)
