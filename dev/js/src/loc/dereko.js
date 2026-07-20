@@ -24,12 +24,12 @@ define(function () {
       '@type' : 'koral:doc',
       'key' : 'pubDate',
       'match': 'match:eq',
-      'value' : '2018',
+      'value' : '2016',
     };
 
   if (loc.TOUR_Relations == undefined)
     loc.TOUR_Relations = "malt/d";
 
   if (loc.TOUR_pubDate == undefined)
-    loc.TOUR_pubDate = "2018";
+    loc.TOUR_pubDate = "2016";
 });
