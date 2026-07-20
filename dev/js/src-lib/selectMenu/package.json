@@ -1,0 +1,11 @@
+{
+  "name": "Kalamar-SelectMenu",
+  "version": "0.0.1",
+  "description": "Select menu for Kalamar",
+  "main": "selectmenu.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}

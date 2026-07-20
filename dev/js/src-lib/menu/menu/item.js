@@ -18,7 +18,24 @@ export default class KalamarMenuItem {
    *   optionally a description
    */
   constructor (params) {
-    return this._init(params);
+    if (params !== undefined) {
+      if (params[0] === undefined) {
+        throw new Error("Missing parameters");
+      };
+
+      const t = this;
+
+      t.content(params[0]);
+
+      if (params.length > 1) {
+        t._action = params[1];
+        if (params.length > 2)
+          t._onclick = params[2];
+      };
+
+      t._lcField = ' ' + t.content().textContent.toLowerCase();
+      t._prefix = null;
+    }
   }
 
 
@@ -241,31 +258,6 @@ export default class KalamarMenuItem {
       };
     };
   }
-
-  // Initialize menu item
-  _init (params) {
-    
-    if (params[0] === undefined) {
-      throw new Error("Missing parameters");
-    };
-
-    const t = this;
-
-    t.content(params[0]);
-    
-    if (params.length > 1) {
-      t._action = params[1];
-
-      if (params.length > 2)
-        t._onclick = params[2];
-    };
-    
-    t._lcField = ' ' + t.content().textContent.toLowerCase();
-    t._prefix = null;
-
-    return this;
-  }
-
 
   /**
    * The click action of the menu item.

@@ -18,20 +18,20 @@ function directElementChildrenByTagName(element, tagName) {
 
     // The OwnMenu item
     class OwnMenuItem extends menuItemClass {
+      constructor (params) {
+        super();
+
+        if (params === undefined || params[0] === undefined)
+	        throw new Error("Missing parameters");
+
+        this._content = document.createTextNode(params[0]);
+        this._lcField = ' ' + this.content().textContent.toLowerCase();
+      }
       content (content) {
         if (arguments.length === 1) {
 	        this._content = content;
         };
         return this._content;
-      }
-      _init (params) {
-        if (params[0] === undefined)
-	        throw new Error("Missing parameters");
-
-        this._content = document.createTextNode(params[0]);
-        this._lcField = ' ' + this.content().textContent.toLowerCase();
-
-        return this;
       }
     };
 
@@ -45,13 +45,9 @@ function directElementChildrenByTagName(element, tagName) {
 
     // HintMenuItem
     class HintMenuItem extends menuItemClass {
-      content (content) {
-        if (arguments.length === 1) {
-	        this._content = content;
-        };
-        return this._content;
-      }
-      _init (params) {
+      constructor (params) {
+        super();
+
         if (params[0] === undefined || params[1] === undefined)
 	        throw new Error("Missing parameters");
 
@@ -63,8 +59,12 @@ function directElementChildrenByTagName(element, tagName) {
 	        this._desc = params[2];
 	        this._lcField += " " + this._desc.toLowerCase();
         };
-        
-        return this;
+      }
+      content (content) {
+        if (arguments.length === 1) {
+	        this._content = content;
+        };
+        return this._content;
       }
 
       name () {
@@ -113,13 +113,9 @@ function directElementChildrenByTagName(element, tagName) {
 
     // The ComplexMenuItem
     class ComplexMenuItem extends menuItemClass {
-      content (content) {
-        if (arguments.length === 1) {
-	        this._content = content;
-        };
-        return this._content;
-      }
-      _init (params) {
+      constructor (params) {
+        super();
+
         if (params[0] === undefined)
 	        throw new Error("Missing parameters");
 
@@ -132,8 +128,12 @@ function directElementChildrenByTagName(element, tagName) {
 
         this._content = r;
         this._lcField = ' ' + this.content().textContent.toLowerCase();
-
-        return this;
+      }
+      content (content) {
+        if (arguments.length === 1) {
+	        this._content = content;
+        };
+        return this._content;
       }
     };
 

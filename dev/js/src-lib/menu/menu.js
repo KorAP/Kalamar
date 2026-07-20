@@ -44,11 +44,6 @@ export default class KalamarMenu {
      * @param {Array.<Array.<string>>} List of menu items
      */
   constructor (list, params) {
-      return this._init(list, params);
-    }
-
-    // Initialize list
-    _init (list, params) {
       if (params === undefined)
         params = {};
 
@@ -126,8 +121,6 @@ export default class KalamarMenu {
       t.readItems(list);
 
       t.dontHide = false;
-        
-      return t;
     }
 
     // Read items to add to list
@@ -150,14 +143,16 @@ export default class KalamarMenu {
       t._lengthField.reset();
 
       // Initialize item list based on parameters
-      list.forEach(function(i){
-        const obj = new this._itemClass(i);
+      if (list) {
+        list.forEach(function(i){
+          const obj = new this._itemClass(i);
 
-        // This may become circular
-        obj["_menu"] = this;
-        this._lengthField.add(i);
-        this._items.push(obj);
-      }, t);
+          // This may become circular
+          obj["_menu"] = this;
+          this._lengthField.add(i);
+          this._items.push(obj);
+        }, t);
+      }
 
       t._slider.length(t.liveLength())
         .limit(t._limit)
