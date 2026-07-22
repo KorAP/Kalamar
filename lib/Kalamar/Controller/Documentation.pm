@@ -32,9 +32,32 @@ sub page {
   $c->stash(documentation => 1);
   $c->stash('robots' => 'index,follow');
 
+  # 1. Built-in template, localized via the Localize "Template" dictionary
+  #    (e.g. doc/faq -> de/doc/faq for German).
   my $render = $c->render_maybe(
     template => $c->loc('Template_' . join('_', @path), join('/', @path))
-  ) || $c->render_maybe(
+  );
+
+  # 2. Localized custom template by directory: a German visitor gets
+  #    custom/de/doc/... when that file exists, so instances can ship one
+  #    Markdown/EP file per language side by side without a dict entry.
+  #    The visitor's language preferences are tried in order (e.g. de-de,
+  #    then de); English is the default and handled by step 3.
+  unless ($render) {
+    my $tries = 0;
+    for my $locale (@{$c->localize->locale}) {
+      last if $locale =~ /^en(?:-|$)/;
+      # The locale is derived from a client-supplied Accept-Language header,
+      # so only let well-formed language tags reach the template path.
+      next unless $locale =~ /^[a-z]{2,3}(?:-[a-z0-9]+)?\z/i;
+      last if ++$tries > 6;
+      $render = $c->render_maybe(template => join('/', 'custom', $locale, @path))
+        and last;
+    };
+  };
+
+  # 3. Default (English) custom template.
+  $render ||= $c->render_maybe(
     template => $c->loc('Template_' . join('_', 'custom', @path), join('/', 'custom', @path))
   );
   return $render if $render;

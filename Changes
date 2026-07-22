@@ -1,10 +1,11 @@
-        - Migration of menu to ES6 (diewald)
-        - Migration of util and datepicker to ES6 (hebasta)
-
-0.66 2026-07-15
+0.66 2026-08-03
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
         - Update dependency to Mojolicious (diewald)
+        - Migration of menu to ES6 (diewald)
+        - Migration of util and datepicker to ES6 (hebasta)
+        - Introduced Markdown renderer for docs
+          (diewald; kupietz; with AI assistance, Claude Opus 4.6 and 5.0)
 
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)

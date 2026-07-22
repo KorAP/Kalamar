@@ -39,6 +39,9 @@ WriteMakefile(
     # Required for older perl bundles
     'List::Util' => 1.70,
 
+    # Required for Markdown template support
+    'Text::MultiMarkdown' => 1.005,
+
     # Required for bundled plugins
     'Mojolicious::Plugin::Piwik' => 2.00
   },

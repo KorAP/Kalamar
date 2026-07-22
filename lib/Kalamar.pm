@@ -280,6 +280,19 @@ sub startup {
     $self->plugin($_);
   };
 
+  $self->plugin('Markdown' => {
+    link_callback => sub {
+      my ($c, $url, $text) = @_;
+      if ($url =~ m{^https?://}) {
+        # $text is already-rendered HTML from the Markdown converter (it may
+        # contain inline markup such as <em>/<code>), so mark it safe to keep
+        # link_to from escaping it back to visible tags.
+        return $c->ext_link_to(b($text), $url)->to_string;
+      }
+      return undef;
+    },
+  });
+
   my $serializer = 'JSON';
 
   if (my $chi = $self->config('CHI')) {

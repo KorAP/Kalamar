@@ -99,6 +99,42 @@ $t->get_ok('/doc/data/annotation' => { 'Accept-Language' => 'de-DE, en-US, en' }
   ->status_is(200)
   ->text_is('#page-top', 'KorAP: Annotationen');
 
+# Path-traversal attempt via Accept-Language header
+$t->get_ok('/doc/ql' => { 'Accept-Language' => '../../etc/passwd, en' })
+  ->status_is(200)
+  ->text_is('title', 'KorAP: Query Languages')
+  ;
+
+# Null-byte injection attempt
+$t->get_ok('/doc/ql' => { 'Accept-Language' => "de\x00malicious, en" })
+  ->status_is(200)
+  ;
+
+# Overly long locale
+$t->get_ok('/doc/ql' => { 'Accept-Language' => 'abcdefghijklmnop, en' })
+  ->status_is(200)
+  ->text_is('title', 'KorAP: Query Languages')
+  ;
+
+# Locale with special/shell characters
+$t->get_ok('/doc/ql' => { 'Accept-Language' => 'de;rm -rf /, en' })
+  ->status_is(200)
+  ;
+
+# Locale with slashes (directory traversal)
+$t->get_ok('/doc/ql' => { 'Accept-Language' => 'de/../../../etc, en' })
+  ->status_is(200)
+  ;
+
+# Construct an Accept-Language header with far more than 6 non-English locales.
+my @many_locales = map { "xx-" . sprintf("%02d", $_) } (1..50);
+my $huge_header = join(', ', @many_locales, 'en');
+
+$t->get_ok('/doc/ql' => { 'Accept-Language' => $huge_header })
+  ->status_is(200)
+  ->text_is('title', 'KorAP: Query Languages')
+  ;
+
 my $app = $t->app;
 
 $app->plugin(
