@@ -1,3 +1,5 @@
+        - Migration of util and datepicker to ES6 (hebasta)
+
 0.66 2026-07-15
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
