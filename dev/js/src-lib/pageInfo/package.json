@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-pageInfo",
+  "version": "0.0.1",
+  "description": "PageInfo for Kalmar",
+  "main": "pageInfo.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}
