@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     root: 'dev/js/src-lib',
     environment: 'jsdom',
-    include: ['*/test/**/*Spec.js'],
+    include: ['**/test/**/*Spec.js'],
     globals: true
   }
 });

@@ -1,0 +1,11 @@
+{
+  "name": "Kalamar-querycreator",
+  "version": "0.0.1",
+  "description": "Query Creator for Kalmar",
+  "main": "querycreator.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}

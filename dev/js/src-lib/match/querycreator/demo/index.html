@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Query creator demo</title>
+    <meta charset="utf-8" />
+    <script type="module" src="query-creator.js"></script>
+    <style type="text/css" rel="stylesheet">
+      body {
+        background-color: #f6a800;
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="matchinfo">
+      <div class="matchtable">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Foundry</th>
+                <th>Layer</th>
+                <th>Der</th>
+                <th>älteste</th>
+                <th>lebende</th>
+                <th>Baum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr tabindex="0">
+                <th>corenlp</th>
+                <th>p</th>
+                <td>ART</td>
+                <td>ADJA</td>
+                <td>ADJA<br>ADJD</td>
+                <td class="matchkeyvalues">
+                  <div>case:nom</div>
+                  <div>gender:masc<br/>gender:fem</div>
+                  <div>number:sg</div>
+                </td>
+              </tr>
+              <tr tabindex="0">
+                <th>opennlp</th>
+                <th>p</th>
+                <td class="matchkeyvalues">
+                  <div>case:nom</div>
+                  <div>gender:masc</div>
+                  <div>number:sg</div>
+                </td>
+                <td>ADJA</td>
+                <td></td>
+                <td>NN</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

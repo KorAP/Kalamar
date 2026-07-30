@@ -4,6 +4,7 @@
         - Migration pageInfo to ES6 (hebasta)
         - Migration tagger to ES6 (hebasta)
         - Support configLoader 'native' for Vite (hebasta)
+        - Migration queryCreator to ES6(hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)
