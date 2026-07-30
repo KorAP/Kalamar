@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-alwaysmenu",
+  "version": "0.0.1",
+  "description": "Always menu for Kalmar",
+  "main": "alwaysmenu.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -17,6 +17,7 @@
         - Migration infolayer to ES6 (hebasta)
         - Migration session to ES6 (hebasta)
         - Migration default to ES6 (hebasta)
+        - Migration alwaysentry and alwaysmenu to ES6 (hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)
