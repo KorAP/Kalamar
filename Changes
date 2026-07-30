@@ -30,6 +30,7 @@
         - Migration tutorial to ES6 (hebasta)
         - Migration container to ES6 (hebasta)
         - Migration panel to ES6 (hebasta)
+        - Migration hint to ES6 (hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)

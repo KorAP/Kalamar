@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-hint",
+  "version": "0.0.1",
+  "description": "Hint menu for Kalmar",
+  "main": "hint.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,209 @@
+// Input field for queries
+/*
+ * TODO: Support alert for query problems.
+ */
+
+import '../../util/util.js';
+
+export default class HintInput {
+
+    /**
+     * Create a new input field.
+     */
+    constructor (element) {
+      this._el = element;
+
+      this._container = document.createElement("div");
+      this._container.setAttribute('id', 'hint');
+
+      // Create mirror for searchField
+      // This is important for positioning
+      // if ((this._mirror = document.getElementById("searchMirror")) === null) {
+      this._mirror = document.createElement("div");
+      const m = this._mirror;
+      m.classList.add('hint', 'mirror');
+      m.addE("span");
+      m.appendChild(this._container);
+      m.style.height = "0px";
+      document.getElementsByTagName("body")[0].appendChild(m);
+
+      // Update position of the mirror
+      const re = this.reposition.bind(this);
+      window.addEventListener('resize', re);
+      this._el.addEventListener('onfocus', re);
+      this.reposition();
+
+      // Prevent multiselections
+      this._el.addEventListener("select", () => {
+        const start = this._el.selectionStart;
+        const end = this._el.selectionEnd;
+        if (start !== null && end !== null && start !== end) {
+          this._el.setSelectionRange(start, end);
+        }
+      });
+    }
+
+
+    /**
+     * Get the mirrored input field.
+     */
+    mirror () {
+      return this._mirror;
+    }
+
+
+    /**
+     * Get the container element.
+     * This contains the hint helper / menus
+     * and probably an
+     * error message.
+     */
+    container () {
+      return this._container;
+    }
+
+
+    /**
+     * Get the input element the
+     * hint helper is attached to.
+     */
+    element () {
+      return this._el;
+    }
+
+
+    /**
+     * Get the value of the input field
+     * the hint helper is attached to.
+     */
+    value () {
+      return this._el.value;
+    }
+
+
+    /**
+     * Get the value of the input field mirror.
+     */
+    mirrorValue () {
+      return this._mirror.firstChild.textContent;
+    }
+
+
+    /**
+     * Reset the input value
+     */
+    reset () {
+      this._el.value = "";
+    }
+
+
+    /**
+     * Update the mirror content.
+     */
+    update () {
+      this._mirror.firstChild.textContent = this._split()[0];
+      this._container.style.left = this._rightPos() + 'px';
+      return this;
+    }
+
+
+    /**
+     * Insert text into the mirror.
+     * This is a prefix of the input field's
+     * value.
+     */
+    insert (text) {
+      const splittedText = this._split();
+      const s = this._el;
+      s.value = splittedText[0] + text + splittedText[1];
+      s.selectionStart = (splittedText[0] + text).length;
+      s.selectionEnd = s.selectionStart;
+
+      // Maybe update?
+      this._mirror.firstChild.textContent = splittedText[0] + text;
+      return this;
+    }
+
+
+    /**
+     * Move hinthelper to given character position
+     */
+    moveto (charpos) {
+      const e = this._el;
+      e.selectionStart = charpos;
+      e.selectionEnd = charpos;
+      e.focus();
+      return this.update();
+    }
+
+
+    /**
+     * Reposition the input mirror directly
+     * below the input box.
+     */
+    reposition () {
+      const inputClientRect = this._el.getBoundingClientRect();
+      const inputStyle = window.getComputedStyle(this._el, null);
+
+      const bodyClientRect = 
+            document.getElementsByTagName('body')[0].getBoundingClientRect();
+
+      // Reset position
+      const mirrorStyle = this._mirror.style;
+      mirrorStyle.left  = parseInt(inputClientRect.left) + "px";
+      mirrorStyle.top   = parseInt(inputClientRect.bottom - bodyClientRect.top) + "px";
+      mirrorStyle.width = inputStyle.getPropertyValue("width");
+
+      // These may be relevant in case of media depending css
+      mirrorStyle.paddingLeft     = inputStyle.getPropertyValue("padding-left");
+      mirrorStyle.marginLeft      = inputStyle.getPropertyValue("margin-left");
+      mirrorStyle.borderLeftWidth = inputStyle.getPropertyValue("border-left-width");
+      mirrorStyle.borderLeftStyle = inputStyle.getPropertyValue("border-left-style");
+      mirrorStyle.fontSize        = inputStyle.getPropertyValue("font-size");
+      mirrorStyle.fontFamily      = inputStyle.getPropertyValue("font-family");
+    }
+
+
+    /**
+     * Get the context, which is the input
+     * field's value bounded to the
+     * cursor position.
+     */
+    context () {
+      return this._split()[0];
+    }
+
+
+    // Get the right position
+    _rightPos () {
+      const box = this._mirror.firstChild.getBoundingClientRect();
+      return box.right - box.left;
+    }
+
+
+    /*
+     * Return two substrings,
+     * splitted at a given position
+     * or at the current cursor position.
+     */
+    _split (start) {
+      const s = this._el;
+      const value = s.value;
+
+      // Get start from cursor position
+      if (arguments.length === 0)
+        start = s.selectionStart;
+
+      return new Array(
+        value.substring(0, start),
+        value.substring(start, value.length)
+      );
+    }
+
+    /**
+     * Return the cursor character offsets
+     */
+    selectionRange () {
+      return [this._el.selectionStart, this._el.selectionEnd];
+    }
+}
