@@ -1,5 +1,4 @@
 0.66 2026-08-03
-        - Duplicate jsdom entry in package.json deleted (hebasta)
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
         - Update dependency to Mojolicious (diewald)
@@ -7,6 +6,9 @@
         - Migration of util and datepicker to ES6 (hebasta)
         - Introduced Markdown renderer for docs
           (diewald; kupietz; with AI assistance, Claude Opus 4.6 and 5.0)
+        - Duplicate jsdom entry in package.json deleted (hebasta)
+        - Documentation: Hint on using negations with annotations
+          (diewald)
 
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)

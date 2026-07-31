@@ -123,6 +123,8 @@
   <blockquote class="warning">
     <p>Vorsicht: Negierte komplexe Segmente können nicht alleinstehend gesucht werden.
       Allerdings funktionieren sie, wenn sie Teil einer <%= embedded_link_to 'doc', 'Sequenz', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence'%> sind.</p>
+
+    <p>Bezieht sich die Negation auf eine Annotation und nicht auf die Oberflächenform eines Terms, kann es hilfreich sein, die Annotationsebene im virtuellen Korpus als Einschränkung anzugeben (Metadatenfeld <tt>foundries</tt>), damit nicht alle Vorkommen gefunden werden, die diese Annotationsebene gar nicht aufweisen.</p>
   </blockquote>
 
   <h4 id="empty-segments">Leere Segmente</h4>

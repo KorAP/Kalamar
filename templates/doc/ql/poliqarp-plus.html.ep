@@ -123,6 +123,8 @@
   <blockquote class="warning">
     <p>Beware: Negated complex segments can't be searched as a single statement.
       However, they work in case they are part of a <%= embedded_link_to 'doc', 'sequence', 'ql', 'poliqarp-plus#syntagmatic-operators-sequence' %>.</p>
+
+    <p>If the negation refers to an annotation rather than to the surface form of a term, it may be advantageous to specify the annotation layer in the virtual corpus as a constraint (meta data field <tt>foundries</tt>) so that not all occurrences that do not have this annotation layer are found.</p>
   </blockquote>
 
   <h4 id="empty-segments">Empty Segments</h4>
