@@ -244,7 +244,11 @@ lengths.$standard-margin: 4px;
     margin-right: lengths.$standard-margin;
 
     &.shifted {
-      padding-left: 0;
+      // On mobile the sidebar/logo is not beside the content, so keep the
+      // normal 1rem left padding here (instead of the desktop logo offset)
+      // rather than dropping it to 0 -- otherwise the text is flush to the
+      // left edge and the left/right margins look unbalanced.
+      padding-left: 1rem;
     }
   }
 
@@ -367,6 +371,7 @@ lengths.$standard-margin: 4px;
     border-width: 0;
     right: 0;
     left: 0;
+    width: auto;
     bottom: 0;
     top: 0;
     padding: 0;

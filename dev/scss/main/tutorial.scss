@@ -14,8 +14,13 @@
   z-index:          9999;
   top:              5%;
   bottom:           5%;
-  left:             2%;
+  // Anchor the panel to the right and cap its width, so it reads as a
+  // right-hand documentation drawer and leaves the main workspace on the left
+  // uncovered. On narrow viewports it still uses (almost) the full width (see
+  // the media query, which resets left/right/width for a full-screen panel).
+  left:             auto;
   right:            2%;
+  width:            min(96%, 72em);
   padding-right:    lengths.$right-view-distance;
   background-color: colors.$nearly-white;
   box-shadow:       choose.$choose-box-shadow;

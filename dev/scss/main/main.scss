@@ -54,6 +54,55 @@ main {
     padding-top: 1em;
   }
 
+  // Documentation prose (doc pages carry the "tutorial" class). Without a
+  // measure the content is as wide as the viewport, which on large screens
+  // yields very long, hard-to-read lines; justified text then stretches the
+  // word spacing unevenly. Cap the line length, left-align and give the flow
+  // a calm, consistent vertical rhythm.
+  &.tutorial {
+    p, ul, ol, dl, blockquote, table, pre, details,
+    h2, h3, h4, h5, h6 {
+      max-width: 44em;
+    }
+
+    p, li, dd {
+      text-align:  left;
+      line-height: 1.6;
+    }
+
+    // Only set vertical (block) margins here; using the "margin" shorthand
+    // would reset horizontal margins set elsewhere -- e.g. the hanging indent
+    // of p.bibentry in the citation help (margin-left) would be lost.
+    p {
+      margin-block: 0 1em;
+    }
+
+    li {
+      margin-block: .25em;
+    }
+
+    // Tighter list indentation than the ~40px UA default, which is a lot of
+    // space especially on narrow screens.
+    ul, ol {
+      padding-left: 1.5em;
+    }
+
+    // MultiMarkdown renders a list item as "loose" (its text wrapped in a
+    // <p>) when the item carries block content, and "tight" (bare text)
+    // otherwise -- so within one list some labels would end up in a <p> and
+    // others not. Keep those consistent: give list-item paragraphs the list
+    // text's size, and drop the block margin on a leading label paragraph so
+    // a loose item does not look larger/more spaced than its tight siblings.
+    // Following paragraphs in the same item keep their spacing.
+    li p {
+      font-size: inherit;
+    }
+
+    li > p:first-child {
+      margin-block: 0;
+    }
+  }
+
   // &.page {
   //   margin-left: $logo-left-distance + 15px;
   //   p,
