@@ -1,0 +1,17 @@
+%# Citation help: how to cite this KorAP instance -- the corpus it serves,
+%# KorAP itself, and the tools its data was annotated and classified with.
+%#
+%# Each part can be replaced by an instance template, e.g. to cite the corpus
+%# the instance actually serves -- Kalamar ships no corpus of its own, so the
+%# corpus part is only a placeholder:
+%#
+%#   %= include 'partial/citation', corpus_citation => 'custom/partial/citation/corpus'
+%#
+%# The korap and annotation parts describe KorAP and the standard
+%# KorAP-Ingestion pipeline and are normally used as they are.
+%# (%#-lines are comments and never reach the HTML.)
+<p class="citation-intro"><%== loc 'citationIntro' %></p>
+
+%== include stash('corpus_citation')     // 'partial/citation/corpus'
+%== include stash('korap_citation')      // 'partial/citation/korap'
+%== include stash('annotation_citation') // 'partial/citation/annotation'

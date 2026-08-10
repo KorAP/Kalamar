@@ -1,0 +1,5 @@
+<section>
+  <h4><%= loc 'corpusPub' %></h4>
+
+  <p class="bibentry">Example Institute (2026): <cite>The Example Corpus</cite>.</p>
+</section>

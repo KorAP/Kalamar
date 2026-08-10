@@ -42,13 +42,16 @@ $t->get_ok('/')
 # Test additions
 $t = Test::Mojo->new('Kalamar' => {
   'Localize' => {
+    # Behave like a real instance conf: let these entries override the
+    # defaults now shipped in kalamar.dict (corpusPub etc.).
+    override => 1,
     dict => {
       en_howToCite => 'Citation Help',
       de_howToCite => 'Zitierhilfe',
-      en_recentCorpusPub => 'Recent publications to refer to DeReKo as linguistic research data',
-      de_recentCorpusPub => 'Neuere Publikationen zu DeReKo als linguistische Forschungsdatengrundlage',
-      en_recentToolPub => 'Recent publications to refer to KorAP as a research tool',
-      de_recentToolPub => 'Neuere Publikationen zu KorAP als Forschungswerkzeug',
+      en_corpusPub => 'Recent publications to refer to DeReKo as linguistic research data',
+      de_corpusPub => 'Neuere Publikationen zu DeReKo als linguistische Forschungsdatengrundlage',
+      en_korapPub => 'Recent publications to refer to KorAP as a research tool',
+      de_korapPub => 'Neuere Publikationen zu KorAP als Forschungswerkzeug',
       title_addon => 'Test',
     }
   },

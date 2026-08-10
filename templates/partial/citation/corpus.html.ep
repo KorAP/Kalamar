@@ -1,0 +1,10 @@
+%# References for the corpus behind this KorAP instance. Kalamar ships no
+%# corpus of its own, so this part is a placeholder meant to be replaced per
+%# instance by the citations for your corpus. The korap and annotation parts
+%# are usually inherited unchanged.
+%# (%#-lines are comments and never reach the HTML.)
+<section>
+  <h4><%= loc 'corpusPub' %></h4>
+
+  %= under_construction
+</section>
