@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-vc",
+  "version": "0.0.1",
+  "description": "Handling virtual corpus for Kalamar",
+  "main": "vc.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}

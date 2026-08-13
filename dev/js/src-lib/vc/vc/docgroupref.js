@@ -1,0 +1,317 @@
+/**
+ * A reference to another VC.
+ * Inherits everything from jsonld
+ */
+
+import jsonldClass from './jsonld.js';
+import rewriteListClass from './rewritelist.js';
+import stringValClass from './stringval.js';
+import docGroupClass from './docgroup.js';
+import { removeChildren } from '../../util/util.js';
+
+// TODO:
+//   Does not support rewrites currently
+
+const loc = KorAP.Locale;
+loc.EMPTY = loc.EMPTY || '⋯';
+
+export default class DocGroupRef extends jsonldClass {
+
+    // The ld-type
+    _ldType = "docGroupRef";
+
+    /**
+     * Create new unspecified criterion
+     * with a link to the parent object
+     */
+    constructor (parent) {
+      super();
+
+      if (parent !== undefined)
+	      this._parent = parent;
+      
+      this.__changed = true;
+    }
+
+
+    /**
+     * Create new criterion based on a json construct
+     * with a link to the parent object.
+     * Returns undefined, if the json is invalid.
+     */
+    static fromJson (parent, json) {
+      const obj = new DocGroupRef().fromJson(json);
+      
+      if (obj === undefined) {
+        console.log(json);
+        return;
+      };
+
+      if (parent !== undefined)
+	      obj._parent = parent;
+      
+      return obj;
+    }
+
+
+    /**
+     * Update the element
+     */
+    update () {
+      const t = this;
+
+      if (t._el === undefined)
+        return t.element();
+
+      const e = t._el;
+
+      // Check if there is a change in the underlying data
+      if (!t.__changed)
+        return e;
+
+      // Set ref - TODO: Cleanup!
+      e.refTo = t;
+     
+      // Was rewritten
+      if (t.rewrites() !== undefined) {
+        e.classList.add("rewritten");
+      };
+     
+      const refTitle = document.createElement('span');
+      refTitle.classList.add('key','fixed', 'ref');
+      refTitle.addT('referTo');
+
+      // Added value operator
+      const refE = t._refE = document.createElement('span');
+      refE.setAttribute('data-type', "string");
+      refE.setAttribute('class', 'value');
+
+      if (this.ref()) {
+        refE.addT(t.ref());
+      }
+      else {
+        refE.addT(loc.EMPTY);
+        refE.classList.add('unspecified');
+      };
+
+      // Change value
+      refE.addEventListener(
+        'click',
+        t._changeRef.bind(t)
+      );
+
+      // Remove all element children
+      removeChildren(e);
+
+      // Add spans
+      e.appendChild(refTitle);
+      e.appendChild(refE);
+
+      t.__changed = false;
+
+      if (t._rewrites !== undefined) {
+        e.appendChild(t._rewrites.element());
+      };
+     
+      if (t._parent !== undefined) {
+
+        // Set operators
+        // Append new operators
+        e.appendChild(t.operators(
+          true,
+          true,
+          true
+        ).element());
+      };  
+
+      if (KorAP.vc !== undefined) {
+        KorAP.vc.element().dispatchEvent(
+          new CustomEvent('vcChange', { 'detail' : t })
+        );
+      };
+      
+      return t.element();
+    }
+
+
+    /**
+     * Get the associated element
+     */
+    element () {
+
+      if (this._el !== undefined)
+	      return this._el;
+
+      const e = this._el = document.createElement('div');
+      e.setAttribute('class', 'doc groupref');
+      this.update();
+      return e;
+    }
+
+
+    /**
+     * Get or set the value
+     */
+    ref (ref) {
+      if (arguments.length === 1) {
+        this._ref = ref;
+        this._changed();
+        return this;
+      };
+      return this._ref;
+    }
+
+
+    // Click on the reference operator, show me the option
+    _changeRef (e) {
+      const that = this;
+      const str = new stringValClass(this.ref(), false, false);
+      const strElem = str.element();
+
+      str.store = function (ref, regex) {
+        that.ref(ref);
+          
+        that._el.removeChild(
+          this._el
+        );
+        that.update();
+      };
+
+      // Insert element
+      this._el.insertBefore(
+        strElem,
+        this._refE
+      );
+
+      str.focus();
+    }
+    
+
+    /**
+     * Wrap a new operation around the doc element.
+     * This is copypasta from doc.js
+     */
+    wrap (op) {
+      const parent = this.parent();
+      const group = new docGroupClass(parent);
+      group.operation(op);
+      group.append(this);
+      group.append();
+      return parent.replaceOperand(this, group).update();
+    }
+
+
+    // Wrap a new operation around the root group element
+    wrapOnRoot (op) {
+      const parent = this.parent();
+      const group = new docGroupClass(parent);
+
+      group.operation(op);
+      group.append(this);
+      this.parent(group);
+      group.append();
+      group.element(); // Init (seems to be necessary)
+      parent.root(group);
+      return this.parent();
+    }
+
+
+    /**
+     * Deserialize from json
+     */
+    fromJson (json) {
+      if (json === undefined)
+        return this;
+
+      if (json["@type"] === undefined) {
+        KorAP.log(701, "JSON-LD group has no @type attribute");
+        return;
+      };
+
+      if (json["ref"] === undefined ||
+          typeof json["ref"] != 'string') {
+        KorAP.log(821, "Reference is missing");
+        return;
+      };
+
+      this.ref(json["ref"]);
+
+      // Rewrite coming from the server
+      if (json["rewrites"] !== undefined) {
+        this.rewrite(json["rewrites"]);
+      };
+
+      return this;
+    }
+
+
+    /**
+     * Click on the unspecified object
+     */
+    onclick () {
+      console.log("Do not support click on this");
+    }
+
+
+    // TODO: This is identical to doc.js
+    rewrites () {
+      return this._rewrites;
+    }
+
+
+    // TODO: This is identical to doc.js
+    rewrite (value) {
+      if (typeof value === 'string') {
+        value = [{
+          "@type" : "koral:rewrite",
+          "operation" : "operation:" + value,
+          "src" : "Kalamar"
+        }];
+      };
+      this._rewrites = new rewriteListClass(value);
+    }
+
+
+    // Mark the underlying data as being changed.
+    // This is important for rerendering the dom.
+    // This will also remove rewrite markers, when the data
+    // change happened by the user
+    _changed () {
+      this.__changed = true;
+
+      if (this._rewrites === undefined)
+        return;
+
+      delete this["_rewrites"];
+
+      if (this._el === undefined)
+        return;
+
+      this._el.classList.remove("rewritten");
+    }
+
+
+    toJson () {
+      if (!this.ref)
+        return {};
+      
+      return {
+        "@type" : "koral:" + this.ldType(),
+        "ref"   : this.ref()
+      };
+    }
+
+
+    incomplete () {
+      return this.ref() ? false : true
+    }
+    
+
+    toQuery () {
+      if (this.incomplete())
+        return "";
+
+      // Build doc string based on key
+      return 'referTo ' + this.ref().quote();
+    }
+  };

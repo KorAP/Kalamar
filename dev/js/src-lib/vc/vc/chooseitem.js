@@ -1,0 +1,83 @@
+import itemClass from '../../menu/menu/item.js';
+import '../../util/util.js';
+
+const loc = KorAP.Locale;
+
+export default class ChooseItem extends itemClass {
+
+  /**
+   * Create new menu item.
+   * Pass two parameters: value and type.
+   * the value may be localized by a name in
+   * KorAP.Locale with the prefix 'VC_',
+   * e.g. 'VC_subTitle'.
+   */
+  constructor (params) {
+    super(params);
+    
+    if (params[0] === undefined)
+      throw new Error("Missing parameters");
+    
+    this._id   = params[0];
+    this._name = params[1];
+    this._desc = params[2];
+
+    this._lcField =  ' ' + this._name.toLowerCase();
+    this._lcField += ' ' + this._desc.toLowerCase();
+  }
+
+  /**
+   * Override click event by passing all clicks
+   * to the menu object.
+   */
+  onclick (e) {
+      this.menu().release(
+	      this._id,
+	      this._name
+      );
+    e.halt();
+  }
+
+  /**
+   * Get the name of the item.
+   */
+  name () {
+    return this._name;
+  }
+
+  /**
+   * Get the identifier of the item.
+   */
+  id () {
+    return this._id;
+  }
+
+  /**
+   * Get the description of the item.
+   */
+  desc () {
+    return this._desc;
+  }
+
+  /**
+   * Get the HTML element associated with the item. 
+   */
+  element () {
+      const t = this;
+
+      // already defined
+      if (t._el !== undefined)
+	      return t._el;
+
+      // Create list item
+      const li = document.createElement("li");
+      li.setAttribute("data-type", t._type);
+      li.setAttribute("data-key",  t._key);
+
+      // Connect action
+      li["onclick"] = t.onclick.bind(t);
+
+      li.addT(t._name);
+      return t._el = li;
+    }
+  };

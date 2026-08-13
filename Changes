@@ -37,6 +37,7 @@
         - Create jsdom once for vitest test (hebasta)
         - Migration panel result, panel pagination and panel query to ES6 (hebasta)
         - Update Intro.js to v7.2.0 (hebasta)
+        - Migration vc to ES6 (hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)
