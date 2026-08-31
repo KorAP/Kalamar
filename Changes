@@ -13,6 +13,8 @@
         - Fix 'Query by match' constraint line (uyen-nhu, closes #276)
         - Add configurable match-info extension (fixes part of Krill-Issue #271;
           diewald; with AI assistance, GPT-5.4 Mini)
+        - Top navbar should be visible when clicking on API Tokens(uyen-nhu, closes #247)
+
 
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)

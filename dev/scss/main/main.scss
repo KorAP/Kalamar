@@ -52,6 +52,7 @@ main {
   h2#page-top {
     margin-top: 0;
     padding-top: 1em;
+    scroll-margin-top: 10rem;
   }
 
   // Documentation prose (doc pages carry the "tutorial" class). Without a
@@ -122,4 +123,8 @@ main {
     margin: 0 auto;
     text-align: center;
   }
+}
+
+body.embedded main h2#page-top {
+  scroll-margin-top: 0;
 }
