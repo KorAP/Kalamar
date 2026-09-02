@@ -10,7 +10,13 @@ use Mojo::File qw/path/;
 my $mount_point = '/realapi/';
 $ENV{KALAMAR_API} = $mount_point;
 
-my $t = Test::Mojo->new('Kalamar');
+my $t = Test::Mojo->new('Kalamar' => {
+  Kalamar => {
+    defaults => {
+      match_info_extended => 'max'
+    }
+  }
+});
 
 # Mount fake backend
 # Get the fixture path
@@ -23,6 +29,12 @@ my $fake_backend = $t->app->plugin(
 );
 # Configure fake backend
 $fake_backend->pattern->defaults->{app}->log($t->app->log);
+
+# The config is exposed on rendered pages
+$t->get_ok('/')
+  ->status_is(200)
+  ->element_exists('body[data-match-info-extended="max"]')
+  ;
 
 # Query passed
 $t->get_ok('/corpus/WPD15/232/39681/p2133-2134?spans=false&foundry=*&_format=json')
@@ -38,6 +50,12 @@ $t->get_ok('/corpus/GOE/AGF/02286/p75682-75683?_format=json&response-pipe=glemm'
   ->json_is('/textSigle', 'GOE/AGF/02286')
   ->json_is('/title','Materialien zur Geschichte der Farbenlehre')
   ->json_is('/meta/responsePipes','glemm')
+  ;
+
+# Extended match-info request is accepted and forwarded
+$t->get_ok('/corpus/GOE/AGF/02286/p75682-75683?extended=max&_format=json')
+  ->status_is(200)
+  ->json_is('/textSigle', 'GOE/AGF/02286')
   ;
 
 # TODO:

@@ -482,6 +482,7 @@ sub match_info {
   $v->optional('foundry');
   $v->optional('layer');
   $v->optional('spans')->in(qw/true false/);
+  $v->optional('extended', 'trim');
   $v->optional('response-pipe', 'trim');
 
   # Check validation
@@ -516,6 +517,10 @@ sub match_info {
     $query{foundry} = $v->param('foundry');
     $query{layer} = $v->param('layer') if $v->param('layer');
     $query{spans} = $v->param('spans') if $v->param('spans');
+  };
+
+  if (defined $v->param('extended') && $v->param('extended') ne '') {
+    $query{extended} = $v->param('extended');
   };
 
   # Response pipe
@@ -813,6 +818,11 @@ B<This parameter is experimental and may change without warnings!>
 
 Boolean value - either C<true> or C<false> - indicating, whether span information
 (i.e. for tree structures) should be retrieved.
+
+=item B<extended>
+
+Optional value forwarded to the backend match-info request. Configure this to
+request wider match context, for example C<max>.
 
 =back
 

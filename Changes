@@ -1,4 +1,4 @@
-0.66 2026-08-03
+0.66 2026-09-02
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
         - Update dependency to Mojolicious (diewald)
@@ -11,6 +11,8 @@
           (diewald)
         - Fix shift issue when clicking on empty sidebar(uyen-nhu, closes #242)
         - Fix 'Query by match' constraint line (uyen-nhu, closes #276)
+        - Add configurable match-info extension (fixes part of Krill-Issue #271;
+          diewald; with AI assistance, GPT-5.4 Mini)
 
 0.65 2026-04-21
         - Expose colors and forms to plugins (diewald)

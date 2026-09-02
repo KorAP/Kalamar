@@ -347,7 +347,7 @@ sub startup {
 
   if (exists $conf->{defaults}) {
     my $def = $conf->{defaults};
-    foreach (qw!items_per_page context alignment!) {
+    foreach (qw!items_per_page context alignment match_info_extended!) {
       $self->defaults($_ => $def->{$_}) if $def->{$_};
     };
   };

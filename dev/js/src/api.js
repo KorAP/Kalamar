@@ -24,6 +24,9 @@ define(['util'], function () {
 
     // match is a KorAP.Match object
     let url = KorAP.URL + '/corpus';
+    const matchInfoExtended = document.body
+      ? document.body.getAttribute('data-match-info-extended')
+      : null;
     /*
       url += '/' + match.corpusID;
       url += '/' + match.docID;
@@ -56,13 +59,18 @@ define(['util'], function () {
         docFragment += '/'+param['layer'];
       }
     }
-    
+
     // { spans : false, layer: [Array of KorAP.InfoLayer] }
     else {
       // TODO
       docFragment += ' -spans';
       url += 'spans=false';
     };
+
+    if (matchInfoExtended) {
+      url += '&extended=' + encodeURIComponent(matchInfoExtended);
+      docFragment += ' +extended=' + matchInfoExtended;
+    }
 
     if (KorAP.ResponsePipe != null)
       url += '&response-pipe=' + KorAP.ResponsePipe.toString();
