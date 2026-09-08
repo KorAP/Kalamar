@@ -1,3 +1,5 @@
+        - Migration of pageInfo to ES6 (hebasta)
+
 0.66 2026-09-02
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
