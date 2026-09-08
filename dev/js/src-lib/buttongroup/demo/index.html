@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ButtonGroup demo</title>
+    <meta charset="utf-8" />
+    <script type="module" src="./buttongroupdemo.js"></script>
+    <style type="text/css">
+body {
+  margin: 0;
+  background-color: #ddd;
+}
+main {
+  padding: 80px;
+}
+h2 {
+  font-family: sans-serif;
+  font-size: 12pt;
+  margin: 2em 0 .5em 0;
+}
+#log {
+  background-color: #fff;
+  color: black;
+  padding: 1em;
+  margin-top: 2em;
+  font-family: monospace;
+  min-height: 4em;
+  white-space: pre-wrap;
+}
+    </style>
+  </head>
+  <body>
+    <div style="position: absolute; background-color: #7ba400; height: 50px; width: 100%;"></div>
+
+    <main>
+      <h1>ButtonGroup demo</h1>
+
+      <h2>Simple buttons</h2>
+      <div id="simple"></div>
+
+      <h2>Buttons with active state and toggle</h2>
+      <div id="toggles"></div>
+
+      <h2>Button with list (open-menu-below)</h2>
+      <div id="list"></div>
+
+      <h2>Adopted button group with anchor</h2>
+      <div id="adopt" class="button-group button-panel">
+        <span><span>First</span></span>
+        <span><span>Last</span></span>
+      </div>
+
+      <div id="log"></div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-buttongroup",
+  "version": "0.0.1",
+  "description": "ButtonGroup for Kalmar",
+  "main": "buttongroup.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}
