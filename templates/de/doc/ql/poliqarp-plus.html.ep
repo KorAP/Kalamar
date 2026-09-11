@@ -2,7 +2,8 @@
 
 %= page_title
 
-<p>Die folgende Dokumentation präsentiert alle Funktionen, die unsere Version der Poliqarp Abfragesprache zur Verfügung stellt und enthält zusätzlich einige spezifische KorAP Erweiterungen.</p>
+<p>Die folgende Dokumentation präsentiert alle Funktionen, die unsere Version der Poliqarp Abfragesprache zur Verfügung stellt und enthält zusätzlich einige spezifische KorAP Erweiterungen.
+  Eine umfassendere Beschreibung von Poliqarp+ finden Sie in der <%= ext_link_to 'ausführlichen Poliqarp+-Dokumentation (PDF)', "https://corpora.ids-mannheim.de/doc/Poliqarp_Plus-Dokumentation.pdf" %>.</p>
 
 <section id="segments">
   <h3>Einfache Segmente</h3>

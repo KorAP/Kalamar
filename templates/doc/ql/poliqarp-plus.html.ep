@@ -2,7 +2,8 @@
 
 %= page_title
 
-<p>The following documentation introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.</p>
+<p>The following documentation introduces all features provided by our version of the Poliqarp Query Language and some KorAP specific extensions.
+  For a more comprehensive description of Poliqarp+, please refer to the <%= ext_link_to 'detailed Poliqarp+ documentation (PDF, in German)', "https://corpora.ids-mannheim.de/doc/Poliqarp_Plus-Dokumentation.pdf" %>.</p>
 
 <section id="segments">
   <h3>Simple Segments</h3>
