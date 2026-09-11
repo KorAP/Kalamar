@@ -5,8 +5,8 @@
   "version": "0.66.0",
   "pluginVersion": "0.2.3",
   "scripts": {
-    "dev": "vite --config vite.config.js",
-    "build": "vite build --config vite.config.js",
+    "dev": "vite --config vite.config.mjs",
+    "build": "vite build --config vite.config.mjs",
     "test": "vitest --config vitest.config.mjs --run"
   },
   "engines": {

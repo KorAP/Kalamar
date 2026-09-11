@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 
-const scssDir = path.resolve(__dirname, '../../../scss'); // Path to your SCSS directory
-const fontDir = path.resolve(__dirname, '../../../font');
+const scssDir = path.resolve(import.meta.dirname, '../../../scss'); // Path to your SCSS directory
 
 export default defineConfig({
 
@@ -10,8 +9,7 @@ export default defineConfig({
     fs: {
       allow: [
         scssDir,
-        fontDir,
-        __dirname
+        import.meta.dirname
       ]
     },
     port: 3000
