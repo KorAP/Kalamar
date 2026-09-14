@@ -3,6 +3,7 @@ use Test::More;
 use Test::Mojo;
 use Mojo::File qw/path/;
 use Data::Dumper;
+use Mojo::Server::Daemon;
 
 
 #####################
@@ -123,9 +124,19 @@ $fake_app->routes->get('/v1.0/longwait')->to(
     );
   });
 
-# Set proxy timeout
-is($t->app->ua->inactivity_timeout, 99);
-is($t->app->ua->connect_timeout, 66);
+# Both outbound user agents must use the configured proxy timeouts:
+# the application UA is used by Mojolicious' proxy helper, while the
+# KalamarUser UA is used by kalamar_ua/korap_request.
+is($t->app->ua->inactivity_timeout, 99, 'application UA inactivity timeout');
+is($t->app->ua->connect_timeout, 66, 'application UA connect timeout');
+my $controller = $t->app->build_controller;
+is($controller->kalamar_ua->inactivity_timeout, 99, 'KalamarUser UA inactivity timeout');
+is($controller->kalamar_ua->connect_timeout, 66, 'KalamarUser UA connect timeout');
+
+# The startup hook also configures the server-side client connection timeout.
+my $daemon = Mojo::Server::Daemon->new;
+$t->app->server($daemon);
+is($daemon->inactivity_timeout, 99, 'server inactivity timeout');
 
 # Set proxy timeout
 $t->app->ua->inactivity_timeout(1);

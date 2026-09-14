@@ -204,12 +204,28 @@ sub startup {
   };
 
   # Set proxy timeouts
-  if ($conf->{proxy_inactivity_timeout}) {
+  if (defined $conf->{proxy_inactivity_timeout}) {
     $self->ua->inactivity_timeout($conf->{proxy_inactivity_timeout});
   };
-  if ($conf->{proxy_connect_timeout}) {
+  if (defined $conf->{proxy_connect_timeout}) {
     $self->ua->connect_timeout($conf->{proxy_connect_timeout});
   };
+
+  # Keep the client connection open as long as an API request is
+  # running: the inactivity timeout of the Mojolicious server (30s by
+  # default) would otherwise abort proxied API requests while the
+  # backend is still processing them. This applies to both
+  # `kalamar daemon` and Hypnotoad and needs no extra configuration -
+  # it follows proxy_inactivity_timeout, with a raised default, since
+  # Kustvakt searches can legitimately run for minutes.
+  my $server_inactivity_timeout = $conf->{proxy_inactivity_timeout} // 600;
+  $self->hook(
+    before_server_start => sub {
+      my ($server, $app) = @_;
+      $server->inactivity_timeout($server_inactivity_timeout)
+        if $server->can('inactivity_timeout');
+    }
+  );
 
   # Client notifications
   $self->plugin(Notifications => {

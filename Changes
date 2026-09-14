@@ -1,3 +1,6 @@
+        - Make proxy timeouts govern all user agents and the server
+          connection, so the UI can wait as long as the API proxy
+          (kupietz, fixes #280)
         - Migration pageInfo to ES6 (hebasta)
         - Migration tagger to ES6 (hebasta)
 

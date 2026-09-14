@@ -14,15 +14,20 @@ sub register {
 
   # Load parameter from config file
   if (my $config_param = $mojo->config('Kalamar')) {
-    $param = { %$param, %$config_param };
+    $param = { %{$param // {}}, %$config_param };
   };
+  $param //= {};
 
   # Set API!
   $plugin->api($param->{api}) or return;
+
+  # Build the user agent for backend requests. Honour the proxy timeout
+  # settings, so the UI is able to wait as long for the backend as the
+  # proxied API calls do (defaults keep the historic behavior).
   $plugin->ua(Mojo::UserAgent->new(
-    connect_timeout => 90,
-    inactivity_timeout => 120,
-    max_redirects => 3
+    connect_timeout    => $param->{proxy_connect_timeout} // 90,
+    inactivity_timeout => $param->{proxy_inactivity_timeout} // 120,
+    max_redirects      => 3
   ));
 
   # Set app to server
