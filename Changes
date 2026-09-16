@@ -3,8 +3,9 @@
           (kupietz, fixes #280)
         - Migration pageInfo to ES6 (hebasta)
         - Migration tagger to ES6 (hebasta)
+        - Support configLoader 'native' for Vite (hebasta)
 
-0.66 2026-09-02
+0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)
         - Use M::P::Localize from CPAN (diewald)
         - Update dependency to Mojolicious (diewald)
