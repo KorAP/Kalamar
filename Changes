@@ -1,9 +1,13 @@
         - Make proxy timeouts govern all user agents and the server
           connection, so the UI can wait as long as the API proxy
           (kupietz, fixes #280)
+        - Link added to Sophie Nesterovskij's Poliqarp+ documentation 
+        - Update vitest (diewald)
+        - Migration state to ES6 (hebasta)
         - Migration pageInfo to ES6 (hebasta)
         - Migration tagger to ES6 (hebasta)
         - Support configLoader 'native' for Vite (hebasta)
+        - Migration pipe to ES6 (hebasta)
         - Migration queryCreator to ES6(hebasta)
 
 0.66 2026-09-02'
