@@ -25,7 +25,11 @@
         - Migration alwaysentry and alwaysmenu to ES6 (hebasta)
         - Migration buttonGroup to ES6 (hebasta)
         - Migration loc to ES6 (hebasta)
+        - Redesign announcements (uyen-nhu)
         - Migration view to ES6 (hebasta)
+        - Migration tutorial to ES6 (hebasta)
+        - Migration container to ES6 (hebasta)
+        - Migration panel to ES6 (hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)
