@@ -37,6 +37,7 @@
         - Update Intro.js to v7.2.0 (hebasta)
         - Migration vc to ES6 (hebasta)
         - Migrate suggest short standard named-entity tags to ES6 (hebasta)
+        - Migrate corpusByMatch to ES6 (hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)
