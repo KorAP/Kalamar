@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-match-meta",
+  "version": "0.0.1",
+  "description": "Match meta for Kalmar",
+  "main": "meta.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}
