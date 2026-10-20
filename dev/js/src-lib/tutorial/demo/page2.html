@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tutorial page 2</title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+body {
+  font-family: sans-serif;
+  margin: 1em;
+}
+pre.query {
+  background-color: #eee;
+  padding: .5em;
+  cursor: pointer;
+}
+    </style>
+  </head>
+  <body>
+    <h2>Second page</h2>
+
+    <section id="tut-more">
+      <h3>More queries</h3>
+      <pre class="query tutorial" id="q-cql" data-query="&quot;Baum&quot;" data-query-language="cql"><code>"Baum"</code></pre>
+      <p><a class="doc-link" href="./page.html">Back to the first page</a></p>
+    </section>
+
+    <script>
+      const tut = window.parent.tutorial;
+      if (tut) {
+        tut.initQueries(document);
+        tut.initDocLinks(document);
+      };
+    </script>
+  </body>
+</html>

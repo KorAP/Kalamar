@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tutorial demo</title>
+    <meta charset="utf-8" />
+    <script type="module" src="./tutorialdemo.js"></script>
+    <style type="text/css">
+body {
+  margin: 0;
+  background-color: #ddd;
+}
+main {
+  padding: 80px;
+  font-family: sans-serif;
+}
+form {
+  margin: 1em 0;
+}
+#tutorial-link {
+  cursor: pointer;
+  color: #0000ee;
+  text-decoration: underline;
+}
+#info {
+  background-color: #fff;
+  color: black;
+  padding: 1em;
+  margin-top: 2em;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+    </style>
+  </head>
+  <body>
+    <div style="position: absolute; background-color: #7ba400; height: 50px; width: 100%;"></div>
+
+    <main>
+      <h1>Tutorial demo</h1>
+
+      <p>
+        <a id="view-tutorial" href="./page.html">Open tutorial</a>
+        &middot;
+        <a id="reset" href="#">Reset stored tutorial page</a>
+      </p>
+
+      <p>Click a query in the tutorial to copy it to the search form.</p>
+
+      <form onsubmit="return false">
+        <input type="text" id="q-field" size="40" placeholder="Query" />
+        <select id="ql-field">
+          <option value="poliqarp">Poliqarp+</option>
+          <option value="cosmas2">Cosmas II</option>
+          <option value="annis">Annis QL</option>
+          <option value="cql">CQL</option>
+        </select>
+        <label><input type="checkbox" id="q-cutoff-field" /> Cutoff</label>
+      </form>
+
+      <div id="info"></div>
+    </main>
+  </body>
+</html>

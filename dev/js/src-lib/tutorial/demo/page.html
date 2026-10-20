@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tutorial page</title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+body {
+  font-family: sans-serif;
+  margin: 1em;
+}
+pre.query {
+  background-color: #eee;
+  padding: .5em;
+  cursor: pointer;
+}
+pre.query.unsupported {
+  cursor: default;
+  color: #999;
+}
+    </style>
+  </head>
+  <body>
+    <h2>Example tutorial</h2>
+
+    <section id="tut-queries">
+      <h3>Queries</h3>
+      <p>Click on a query to use it:</p>
+      <pre class="query tutorial" id="q-baum" data-query="[base=Baum]" data-query-language="poliqarp"><code>[base=Baum]</code></pre>
+      <pre class="query tutorial" id="q-cosmas" data-query="Baum /+w1 Wald" data-query-language="cosmas2" data-query-cutoff="0"><code>Baum /+w1 Wald</code></pre>
+      <pre class="query tutorial unsupported" data-query="foo" data-query-language="poliqarp"><code>Unsupported query</code></pre>
+    </section>
+
+    <section id="tut-docs">
+      <h3>Documentation links</h3>
+      <p><a class="doc-link" href="./page2.html">Go to the second page</a></p>
+    </section>
+
+    <script>
+      const tut = window.parent.tutorial;
+      if (tut) {
+        tut.initQueries(document);
+        tut.initDocLinks(document);
+      };
+    </script>
+  </body>
+</html>
