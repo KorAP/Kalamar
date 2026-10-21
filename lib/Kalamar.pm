@@ -419,6 +419,11 @@ sub startup {
   };
   $self->defaults(vc_helper_fields => $vc_helper_fields_spec);
 
+  # TEMPORARY WORKAROUND (not a feature - do not document):
+  # Comma-separated foundry/layer rows to hide in the token table,
+  # e.g. the base/p punctuation marker layer of DeReKo-KorAP-2026-II.
+  $self->defaults(hide_annotation_rows => $ENV{'TMP_KALAMAR_HIDE_ANNOTATION_ROW'} // 'base/p');
+
   # Configure documentation navigation
   my $doc_navi = Mojo::File->new($self->home->child('templates','doc','navigation.json'))->slurp;
   $doc_navi = $doc_navi ? decode_json($doc_navi) : [];

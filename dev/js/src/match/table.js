@@ -46,6 +46,9 @@ define([
       t._info    = [];
       t._foundry = {};
       t._layer   = {};
+
+      // TEMPORARY WORKAROUND: foundry/layer rows to hide
+      t._hidden  = (d.body.getAttribute('data-hide-annotation-rows') || '').split(/\s*,\s*/);
     
       // Parse the snippet
       t._parse(html.childNodes, false);      
@@ -150,6 +153,12 @@ define([
             };
 
             value = RegExp.$3;
+
+            // TEMPORARY WORKAROUND: skip hidden rows
+            if (t._hidden.includes(foundry + "/" + layer)) {
+              t._parse(c.childNodes, newMark);
+              return;
+            };
 
 	    if (c.classList.contains("notinindex")) {
 	      value += notinindexSuffix;

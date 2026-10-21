@@ -7,6 +7,8 @@
         - Migration pageInfo to ES6 (hebasta)
         - Migration tagger to ES6 (hebasta)
         - Support configLoader 'native' for Vite (hebasta)
+        - Temporary workaround to hide the base/p punctuation marker row
+          in the token annotation table (kupietz)
         - Migration pipe to ES6 (hebasta)
         - Migration queryCreator to ES6 (hebasta)
         - Migration attachement to ES6 (hebasta)
