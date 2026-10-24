@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-% my $lang = app->localize->preference // 'en';
+% my $lang = $c->localize->preference // 'en';
 % my $desc = loc('korap_desc');
 % my $keywords = loc('korap_keywords');
 <html lang="<%= $lang %>" xml:lang="<%= $lang %>" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/">
