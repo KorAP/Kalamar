@@ -310,6 +310,29 @@ $t->get_ok('/?q=timeout')
   ->text_is('#total-results span[title]', 'more than');
   ;
 
+# Query with zero matches
+$fake_backend->pattern->defaults->{app}->hook(before_dispatch => sub {
+  my $c = shift;
+  return unless ($c->param('q') // '') eq 'zero';
+  my $response = $c->load_response('query_timeout_o0_c25');
+  delete $response->{json}->{warnings};
+  delete $response->{json}->{meta}->{timeExceeded};
+  $response->{json}->{meta}->{totalResults} = 0;
+  $response->{json}->{matches} = [];
+  $c->render(%$response);
+});
+
+$t->get_ok('/?q=zero')
+  ->status_is(200)
+  ->text_is('#total-results', '0')
+  ;
+$t->get_ok('/?q=zero' => { 'Accept-Language' => 'de' })
+  ->status_is(200)
+  ->text_is('#total-results', '0')
+  ;
+is($t->tx->res->dom->at('#resultinfo p.found')->all_text, '0 Treffer',
+   'German zero-hit count includes the number');
+
 $t->app->defaults(no_cache => 1);
 
 # Query with collection

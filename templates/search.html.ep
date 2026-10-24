@@ -1,5 +1,6 @@
 % layout 'main', schematype => 'SearchResultsPage';
-% my $numf = sub { return loc('numf', number => $_[0]) };
+%# Fall back to the raw number, as loc() treats a formatted 0 as missing
+% my $numf = sub { return loc('numf', $_[0], number => $_[0]) };
 
 <div id="pagination"
      class="button-group button-panel"
@@ -12,7 +13,7 @@
 % my $found = stash('total_results') // 0;
   <p class="found">\
 % if ($found != -1) {
-%   my $found_text = loc('numf', number => $found);
+%   my $found_text = $numf->($found);
 %   if (stash('time_exceeded')) {
 %     $found_text = '<span title="' . $c->loc('moreMatches_long') . '">' .
 %     $c->loc('moreMatches') . '</span> ' . $found_text;
