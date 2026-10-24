@@ -14,7 +14,7 @@
   <p class="found">\
 % if ($found != -1) {
 %   my $found_text = $numf->($found);
-%   if (stash('time_exceeded')) {
+%   if (stash('time_exceeded') || stash('count_incomplete')) {
 %     $found_text = '<span title="' . $c->loc('moreMatches_long') . '">' .
 %     $c->loc('moreMatches') . '</span> ' . $found_text;
 %   };

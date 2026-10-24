@@ -1,6 +1,8 @@
         - Match the page language in development mode and HTML metadata
           (kupietz)
         - Show zero match counts instead of an empty number (kupietz)
+        - Mark match counts stopped by the memory limit as minimums
+          (kupietz)
         - Make proxy timeouts govern all user agents and the server
           connection, so the UI can wait as long as the API proxy
           (kupietz, fixes #280)

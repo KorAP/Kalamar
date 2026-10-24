@@ -333,6 +333,32 @@ $t->get_ok('/?q=zero' => { 'Accept-Language' => 'de' })
 is($t->tx->res->dom->at('#resultinfo p.found')->all_text, '0 Treffer',
    'German zero-hit count includes the number');
 
+# Query stopped by the memory limit, first counted, then from cache
+$fake_backend->pattern->defaults->{app}->hook(before_dispatch => sub {
+  my $c = shift;
+  return unless ($c->param('q') // '') eq 'memory';
+  my $response = $c->load_response('query_timeout_o0_c25');
+  my $meta = $response->{json}->{meta};
+  delete $response->{json}->{warnings};
+  delete $meta->{timeExceeded};
+  if (($c->param('cutoff') // '') eq 'true') {
+    $meta->{totalResults} = -1;
+  }
+  else {
+    $meta->{totalResults} = 12347;
+    $meta->{memoryExceeded} = Mojo::JSON::true;
+  };
+  $c->render(%$response);
+});
+
+for (1 .. 2) {
+  $t->get_ok('/?q=memory')
+    ->status_is(200)
+    ->text_is('#total-results', ' 12,347')
+    ->text_is('#total-results span[title]', 'more than')
+    ;
+};
+
 $t->app->defaults(no_cache => 1);
 
 # Query with collection

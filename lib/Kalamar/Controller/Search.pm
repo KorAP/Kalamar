@@ -188,6 +188,9 @@ sub query {
 
       if ($total_results =~ s/^!//) {
         $c->stash(time_exceeded => 1);
+      }
+      elsif ($total_results =~ s/^\?//) {
+        $c->stash(count_incomplete => 1);
       };
 
       $c->stash(total_results => $total_results);
@@ -235,7 +238,8 @@ sub query {
 
           # Set cache
           $c->chi->set(
-            $total_cache_str => ($json->{meta}->{timeExceeded} ? '!' : '') . $total_results
+            $total_cache_str => ($json->{meta}->{timeExceeded} ? '!' :
+                                 $json->{meta}->{memoryExceeded} ? '?' : '') . $total_results
             );
         }
 
@@ -277,6 +281,9 @@ sub query {
       if ($meta->{timeExceeded} &&
             $meta->{timeExceeded} eq Mojo::JSON::true) {
         $c->stash(time_exceeded => 1);
+      };
+      if ($meta->{memoryExceeded}) {
+        $c->stash(count_incomplete => 1);
       };
 
       # Set result values
