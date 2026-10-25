@@ -43,6 +43,18 @@ define(function () {
   //Corpus statistic
   loc.SHOW_STAT = 'Korpusstatistik';
   loc.REFRESH = 'Neu laden';
+
+  // Relative query frequency
+  loc.FREQ_ACTION = 'Relative Häufigkeit berechnen';
+  loc.FREQ_LOADING = 'Korpusgröße wird ermittelt …';
+  loc.FREQ_UNIT = 'Treffer je Million Token';
+  loc.FREQ_MINIMUM = 'mindestens';
+  loc.FREQ_RETRY = 'Erneut versuchen';
+  loc.FREQ_ERROR = 'Relative Häufigkeit nicht verfügbar. Die Korpusstatistik konnte nicht geladen werden.';
+  loc.FREQ_EMPTY = 'Für ein leeres Korpus ist keine relative Häufigkeit verfügbar.';
+  loc.FREQ_INCOMPLETE = 'Die Zählung wurde vorzeitig beendet. Dies ist eine Mindesthäufigkeit.';
+  loc.FREQ_BASIS = 'Korpusgröße';
+  loc.FREQ_TOKENS = 'Token';
  
   loc.NEW_CONSTRAINT = 'Neue Bedingung';
 

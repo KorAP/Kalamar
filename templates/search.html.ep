@@ -9,8 +9,9 @@
      data-count="<%= stash('items_per_page') %>"
      ><%= pagination(stash('start_page'), stash('total_pages'), url_with->query({'p' => '{page}'}), { num_format => $numf }) =%></div>
 
-<div id="resultinfo" <% if (stash('results')->size) { %> class="found"<%} %>>
 % my $found = stash('total_results') // 0;
+% my $count_state = (stash('time_exceeded') || stash('count_incomplete')) ? 'lower-bound' : ($found >= 0 ? 'exact' : 'unknown');
+<div id="resultinfo" data-hit-count="<%= $found %>" data-count-state="<%= $count_state %>" <% if (stash('results')->size) { %> class="found"<%} %>>
   <p class="found">\
 % if ($found != -1) {
 %   my $found_text = $numf->($found);

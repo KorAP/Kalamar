@@ -3,6 +3,8 @@
         - Show zero match counts instead of an empty number (kupietz)
         - Mark match counts stopped by the memory limit as minimums
           (kupietz)
+        - Show relative search frequencies in IPM on demand and reuse verified
+          corpus sizes across searches (kupietz, resolves #282)
         - Make proxy timeouts govern all user agents and the server
           connection, so the UI can wait as long as the API proxy
           (kupietz, fixes #280)

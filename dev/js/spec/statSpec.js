@@ -198,6 +198,27 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
     
   describe('KorAP.CorpusStat', function(){
 
+    it('keeps warning responses visible in the existing panel', function(done) {
+      var response = {tokens: 25, warnings: [[1, 'Partial statistics']]};
+      spyOn(KorAP.API, 'getCorpStat').and.callFake(function(cq, cb) { cb(response); });
+      corpStatVClass.getStatistic.call({vc: {toQuery: function() { return 'warning case'; }}}, function(data) {
+        expect(data).toEqual(response);
+        done();
+      });
+    });
+
+    it('logs the original notification and does not render it as statistics', function(done) {
+      spyOn(KorAP, 'log');
+      spyOn(KorAP.API, 'getCorpStat').and.callFake(function(cq, cb) {
+        cb({notifications: [[1, 'Original server message']]});
+      });
+      corpStatVClass.getStatistic.call({vc: {toQuery: function() { return 'notification case'; }}}, function(data) {
+        expect(data).toBeNull();
+        expect(KorAP.log).toHaveBeenCalledWith(0, 'Original server message');
+        done();
+      });
+    });
+
 		it('should be initiable', function(){
 		  var stat = statClass.create(preDefinedStat);		
 	    expect( function() { statClass.create() }).toThrow(new Error("Missing parameter"));
@@ -250,7 +271,7 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
     });
 		
 		
-		it('should display corpus statistic after creating a corpus statistic view', function(){
+		it('should display corpus statistic after creating a corpus statistic view', function(done){
 		  var vc = vcClass.create([
 	      ['title', 'string'],
 	      ['subTitle', 'string'],
@@ -267,11 +288,15 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
 			testDiv.appendChild(statView.show());
 			// statClass.showCorpStat(testDiv, vc);
 			
+
+      statView.getStatistic(function () {
 			expect(testDiv.children[0].tagName).toEqual('DIV');
 			expect(testDiv.children[0].getAttribute("class")).toEqual('stattable');   
 			expect(testDiv.children[0].children[0].tagName).toEqual('DL');	
 			expect(testDiv.children[0].children[0].children[0].children[0].firstChild.nodeValue).toEqual('documents');
 			expect(testDiv.children[0].children[0].children[0].children[1].firstChild.nodeValue).toEqual('12');
+        done();
+      });
 		});
 
     it('should display the statistics button in a panel', function () {
@@ -321,7 +346,7 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
     });
 
     
-    it('should display and hide corpus statistics view in the panel', function () {
+    it('should display and hide corpus statistics view in the panel', function (done) {
 
 		  var vc = vcClass.create([
 	      ['title', 'string'],
@@ -339,6 +364,7 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
       // Show statistics
       panel.lastChild.children[0].click();
 
+      vc.panel.statView.getStatistic(function () {
       // Statistics view
       var viewE = panel.firstChild.firstChild;
 
@@ -378,6 +404,8 @@ define(['vc', 'vc/statistic', 'view/vc/corpstatv'], function(vcClass, statClass,
       // Only show once
       panel.lastChild.children[0].click();
       expect(panel.firstChild.children.length).toEqual(1);
+        done();
+      });
     });
     
    

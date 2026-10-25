@@ -36,6 +36,7 @@ define([
   'tour/tours',
   'plugin/server',
   'pipe',
+  'view/result/frequency',
   'api',
   'mailToChiffre',
   'util',
@@ -55,7 +56,8 @@ define([
              paginationPanelClass,
              tourClass,
              pluginClass,
-             pipeClass) {
+             pipeClass,
+             frequencyClass) {
 
   // Override KorAP.log
   window.alertify = alertifyClass;
@@ -254,6 +256,24 @@ define([
       };
 
       input.parentNode.insertBefore(vcname, input);
+    };
+
+    var resultInfo = d.getElementById('resultinfo');
+    if (resultInfo) {
+      // Use the executed (including rewritten) corpus, never later draft edits.
+      // If parsing failed or an explicit selection was not echoed, do not guess.
+      const response = KorAP.koralQuery || {};
+      const collection = response.collection || response.corpus;
+      let resultCq = null;
+      if (collection) {
+        try {
+          const snapshot = vcClass.create(vcArray).fromJson(collection);
+          if (snapshot) resultCq = snapshot.toQuery();
+        }
+        catch (e) { KorAP.log(0, e); }
+      }
+      else if (input && !input.value) resultCq = '';
+      frequencyClass.default.create(resultInfo, resultCq);
     };
 
     /**
@@ -459,7 +479,6 @@ define([
       ).limit(10);
     };
 
-    var resultInfo = d.getElementById('resultinfo');
 
     /**
      * Add result panel
