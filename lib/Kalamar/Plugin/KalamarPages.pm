@@ -2,6 +2,7 @@ package Kalamar::Plugin::KalamarPages;
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::JSON qw/decode_json true false/;
 use Mojo::ByteStream 'b';
+use Mojo::DOM;
 use Mojo::Util qw/xml_escape deprecated/;
 
 our $navi = {};
@@ -112,10 +113,16 @@ sub register {
         return '' unless $items;
       }
 
-      # Set realm
+      # Only a root list updates the realm; scoped plugin rendering must
+      # not replace the stored navigation with its child items.
       else {
-        $navi->{$realm} = $items;
+        $navi->{$realm} = $items unless $scope;
       };
+
+      # Plugins can append list items to a realm or a nested scope.
+      # ContentBlock is optional when this helper is used on its own.
+      my $blocks = exists $c->app->renderer->helpers->{content_block};
+      my $block = join '.', 'navigation', $realm, grep { length } split '/', ($scope // '');
 
       # Create unordered list
       my $html = '<ul class="nav nav-'.$realm;
@@ -177,16 +184,24 @@ sub register {
         # Generate link
         $item_str .= $c->link_to($title, $url);
 
-        # Set sub entries
-        if ($_->{items} && ref($_->{items}) eq 'ARRAY') {
+        # Set sub entries, including plugin entries for otherwise empty scopes.
+        my $subscope = $scope ? scalar($scope) . '/' . $_->{id} : $_->{id};
+        if (ref($_->{items}) eq 'ARRAY' ||
+            ($blocks && $c->content_block_ok("$block.$_->{id}"))) {
           $item_str .= "\n";
-          my $subscope = $scope ? scalar($scope) . '/' . $_->{id} : $_->{id};
-          $item_str .= $c->navigation($realm, $subscope, $_->{items});
+          $item_str .= $c->navigation($realm, $subscope, $_->{items} // []);
           $item_str .= "</li>\n";
         }
         else {
           $item_str .= "</li>\n";
         };
+      };
+
+      if ($blocks && $c->content_block_ok($block)) {
+        my $extra = $c->content_block($block);
+        $item_str .= $extra;
+        # Active plugin links open a folded scope just like configured links.
+        $men_active ||= Mojo::DOM->new($extra)->children('li.active')->size;
       };
 
       $html .= ' active' if $men_active;
