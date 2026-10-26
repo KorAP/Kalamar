@@ -261,6 +261,38 @@ For Docker deployments:
 docker run -e KALAMAR_VC_HELPER_FIELDS=+award:text,-docTitle korap/kalamar
 ```
 
+#### Corpus Issues
+
+Errors in the corpus data (e.g. metadata, tokenisation or annotation errors)
+can be collected in a public GitHub repository. Enable the bundled
+`CorpusIssues` plugin and set the repository URL.
+The documentation gets a page `/doc/corpus/issues` that explains how to report
+an error (including a note to quote only short passages for copyright
+reasons) and links to the issues of the repository.
+
+```perl
+{
+  Kalamar => {
+    plugins => ['CorpusIssues'],
+    corpus_issues => 'https://github.com/KorAP/DeReKo-Issues'
+  }
+}
+```
+
+```shell
+KALAMAR_PLUGINS=CorpusIssues KALAMAR_CORPUS_ISSUES=https://github.com/KorAP/DeReKo-Issues perl script/kalamar daemon
+```
+
+The page is added to the documentation section with the id `corpus`
+(e.g. defined in a custom `templates/doc/navigation.json` or in `navi_ext`).
+If there is no such section, the plugin supplies one. Remove `CorpusIssues`
+from the plugins array to disable both the page and its navigation entry.
+The generated section links directly to its issue page; existing corpus pages
+remain unchanged. No separate installation or instance-specific template copies
+are needed.
+The menu label can be changed via the dictionary entry `Nav_issues`,
+the page itself via `Template_doc_corpus_issues`.
+
 
 ### Customization
 
@@ -275,6 +307,12 @@ Currently the documented sections are in
 `sidebar`, in the left part of the user interface if present,
 `headerButtonGroup`, in the right top part of the user interface,
 and `loginInfo`, below the login form if present.
+
+Navigation lists also expose ContentBlocks named `navigation.<realm>` and
+`navigation.<realm>.<scope>` (replace scope slashes with dots), for example
+`navigation.doc.corpus`. A plugin can add `<li>` elements to these blocks;
+they appear after the configured entries within that section. Block positions
+order plugin entries without changing the instance's navigation JSON.
 
 ### Plugins
 
@@ -293,6 +331,7 @@ Currently bundled plugins are
 
 - `Auth`: For integrating user management
   supported by [Kustvakt full](https://github.com/KorAP/Kustvakt/tree/master/full).
+- `CorpusIssues`: For linking a corpus issue tracker; see [Corpus Issues](#corpus-issues).
 - `Piwik`: For integrating [Matomo/Piwik](https://matomo.org/).
 - `Tei2KorAPXML`: For integrated calls to [tei2korapxml](https://github.com/KorAP/KorAP-XML-TEI), if installed.
 - `KorAPXML2Krill`: For integrated calls to [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill), if installed.

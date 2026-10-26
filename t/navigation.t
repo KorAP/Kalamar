@@ -297,6 +297,34 @@ is($list[0]->{title}, 'OAuth');
 is($list[1]->{url}, '/settings/marketplace#page-top');
 is($list[1]->{title}, 'Marketplace');
 
+# Plugins append scoped entries through ContentBlocks. Existing JSON entries
+# stay in their original order; repeated rendering does not accumulate links.
+$app->plugin('TagHelpers::ContentBlock');
+$app->content_block('navigation.doc.corpus' => {
+  inline => '<li id="plugin-later">Later</li>', position => 20
+});
+$app->content_block('navigation.doc.corpus' => {
+  inline => '<li id="plugin-first">First</li>', position => 10
+});
+$app->content_block('navigation.doc' => {inline => '<li id="plugin-root">Root</li>'});
+
+my $nav = [{id => 'corpus', title => 'Corpus'}, {id => 'faq', title => 'FAQ'}];
+for (1 .. 2) {
+  my $dom = Mojo::DOM->new($app->navigation('doc', $nav));
+  is($dom->find('ul.nav > li#plugin-root')->size, 1, 'root extension occurs once');
+  is($dom->at('ul.nav > li:first-child > ul > li:first-child')->{id},
+    'plugin-first', 'scoped block positions are respected');
+  is($dom->at('ul.nav > li:first-child > ul > li:last-child')->{id},
+    'plugin-later', 'scoped entries stay inside an otherwise empty section');
+  is($dom->at('ul.nav > li:nth-child(2) > a')->all_text, 'FAQ',
+    'configured sibling stays in place');
+}
+is_deeply($nav, [{id => 'corpus', title => 'Corpus'}, {id => 'faq', title => 'FAQ'}],
+  'navigation remains unchanged');
+my @root_links = $app->navi->list('doc');
+is_deeply([map { $_->{title} } @root_links], ['Corpus', 'FAQ'],
+  'scoped rendering preserves the stored root navigation');
+
 done_testing;
 
 __END__
