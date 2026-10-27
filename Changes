@@ -1,3 +1,5 @@
+        - Exclude temporary FastMmap test caches from slim Docker images
+          (kupietz; with AI assistance, Codex)
         - Add optional CorpusIssues plugin with localized documentation
           and a link below Corpus, using navigation ContentBlocks
           (kupietz; with AI assistance, Claude Opus 5.5 and Codex)
