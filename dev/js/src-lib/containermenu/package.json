@@ -1,0 +1,11 @@
+{
+  "name": "kalamar-containermenu",
+  "version": "0.0.1",
+  "description": "Container menu for Kalmar",
+  "main": "containermenu.js",
+  "scripts": {
+    "dev": "vite --open /demo/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}
