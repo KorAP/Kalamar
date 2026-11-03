@@ -160,6 +160,34 @@ subtest 'Case insensitive exclusions' => sub {
   ok((grep { $_ eq 'base' } @$defaults), 'Still contains base');
 };
 
+subtest 'Layer inclusions and exclusions' => sub {
+  my $t = Test::Mojo->new('Kalamar' => {
+    Kalamar => {
+      hint_foundries => ['base', 'corenlp/ne', 'spacy', '-spacy/m']
+    }
+  });
+  $t->get_ok('/')
+    ->status_is(200)
+    ->attr_is('body', 'data-hint-foundries', 'base,corenlp/ne,spacy,-spacy/m');
+};
+
+subtest 'Layer exclusions with the default foundries' => sub {
+  local $ENV{KALAMAR_HINT_FOUNDRIES} = '-corenlp/c,-corenlp/p,-spacy';
+  my $t = Test::Mojo->new('Kalamar');
+  $t->get_ok('/')
+    ->status_is(200)
+    ->attr_is('body', 'data-hint-foundries',
+              'base,corenlp,dereko,malt,marmot,opennlp,tt,-corenlp/c,-corenlp/p');
+};
+
+subtest 'All foundries excluded' => sub {
+  local $ENV{KALAMAR_HINT_FOUNDRIES} = '-base,-corenlp,-dereko,-malt,-marmot,-opennlp,-spacy,-tt';
+  my $t = Test::Mojo->new('Kalamar');
+  $t->get_ok('/')
+    ->status_is(200)
+    ->attr_is('body', 'data-hint-foundries', '');
+};
+
 
 done_testing;
 __END__

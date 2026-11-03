@@ -80,32 +80,60 @@ define(["util"], function () {
     return '';
   };
 
-  /**
-   * Filter available foundries based on configuration.
-   * Reads from data-hint-foundries attribute on body element.
-   * Each foundry module pushes entries like ["Name", "prefix/", "Description"]
-   * to ah["-"]. The prefix (e.g., "corenlp/", "base/s=", "tt/") is matched
-   * against the enabled list by extracting the foundry name (part before /).
-   */
-  ah.filterByConfig = function () {
-    const body = document.body;
-    if (!body) return;
-    
-    const configAttr = body.getAttribute('data-hint-foundries');
-    if (!configAttr) return; // No filter - show all
-    
-    const enabledFoundries = configAttr.split(',').map(f => f.trim().toLowerCase());
-    if (enabledFoundries.length === 0) return;
+  // Apply deployment configuration to menus while keeping descriptions
+  // available to getDesc() for annotations in search results.
+  ah.getMenuEntries = function (action) {
+    const entries = this[action];
+    if (!Array.isArray(entries))
+      return;
 
-    // Filter the root foundry list ah["-"]
-    // Each entry is ["Name", "prefix/...", "Description"]
-    // Extract foundry name from prefix: "corenlp/" -> "corenlp", "base/s=" -> "base", "tt/" -> "tt"
-    this["-"] = this["-"].filter(entry => {
-      if (!entry || !entry[1]) return false;
-      // Extract foundry name as the part before the first '/'
-      const foundryName = entry[1].split('/')[0].toLowerCase();
-      return enabledFoundries.includes(foundryName);
-    });
+    const config = document.body && document.body.getAttribute('data-hint-foundries');
+    if (config == null)
+      return entries;
+
+    const selectors = new Set(config.split(',').map(value => value.trim().toLowerCase()));
+
+    const isLayerEnabled = (foundry, layerAction) => {
+      const layer = layerAction.split('=', 1)[0];
+      const selector = foundry + '/' + layer;
+      return !selectors.has('-' + selector) &&
+        (selectors.has(foundry) || selectors.has(selector));
+    };
+
+    const filterLayers = (foundry, layers) =>
+      layers.filter(([, layerAction]) => isLayerEnabled(foundry, layerAction.toLowerCase()));
+
+    if (action === '-') {
+      const foundries = entries.flatMap(entry => {
+        if (!entry || !entry[1])
+          return [];
+
+        const [name, prefix] = entry;
+        const [foundry, layerAction] = prefix.toLowerCase().split('/');
+        // Some entries go straight to a layer, e.g. base/s=.
+        if (layerAction)
+          return isLayerEnabled(foundry, layerAction) ? [entry] : [];
+
+        const layers = this[prefix];
+        if (!layers)
+          return selectors.has(foundry) ? [entry] : [];
+
+        const enabledLayers = filterLayers(foundry, layers);
+        if (!enabledLayers.length)
+          return [];
+        if (enabledLayers.length === layers.length)
+          return [entry];
+        return [[name, prefix, enabledLayers.map(([label]) => label).join(', ')]];
+      });
+      return foundries.length ? foundries : undefined;
+    }
+
+    const [foundry, layerAction] = action.toLowerCase().split('/');
+    if (layerAction)
+      return isLayerEnabled(foundry, layerAction) ? entries : undefined;
+
+    const layers = filterLayers(foundry, entries);
+    return layers.length ? layers : undefined;
   };
 
   return ah;

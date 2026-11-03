@@ -4,7 +4,7 @@ use Mojo::ByteStream 'b';
 use Mojo::URL;
 use Mojo::File;
 use Mojo::JSON qw/decode_json encode_json/;
-use Mojo::Util qw/url_escape deprecated slugify/;
+use Mojo::Util qw/url_escape deprecated slugify trim/;
 use List::Util qw!none uniq!;
 
 # Minor version - may be patched from package.json
@@ -368,12 +368,7 @@ sub startup {
     };
   };
 
-  # Configure hint foundries for annotation layer helper hints
-  # Can be overridden via KALAMAR_HINT_FOUNDRIES environment variable (comma-separated)
-  # or via hint_foundries config option (array)
-  # Items starting with '-' exclude that foundry from defaults (e.g., '-spacy')
-  # If only exclusions are specified, they're removed from defaults
-  # If any positive items exist, they replace the defaults entirely
+  # Configure annotation helper foundries and optional foundry/layer selectors.
   my @default_foundries = qw(base corenlp dereko malt marmot opennlp spacy tt);
   my $hint_foundries;
   my $config_foundries;
@@ -385,20 +380,14 @@ sub startup {
   };
 
   if ($config_foundries) {
-    # Separate exclusions (starting with '-') from inclusions
-    my @exclusions = map { substr($_, 1) } grep { /^-/ } @$config_foundries;
-    my @inclusions = grep { !/^-/ } @$config_foundries;
-
-    if (@inclusions) {
-      # If there are any positive items, use them as the full list
-      $hint_foundries = \@inclusions;
-    } elsif (@exclusions) {
-      # If only exclusions, remove them from defaults
-      my %exclude = map { lc($_) => 1 } @exclusions;
-      $hint_foundries = [grep { !$exclude{lc($_)} } @default_foundries];
-    } else {
-      $hint_foundries = \@default_foundries;
+    my @selectors = grep { length } map { trim($_) } @$config_foundries;
+    my @inclusions = grep { !/^-/ } @selectors;
+    if (!@inclusions) {
+      my %exclude = map { lc(substr($_, 1)) => 1 } grep { !m!/! } @selectors;
+      @inclusions = grep { !$exclude{$_} } @default_foundries;
     };
+    # Layer exclusions apply to the default or explicit list.
+    $hint_foundries = [@inclusions, grep { m!^-[^/]+/! } @selectors];
   } else {
     $hint_foundries = \@default_foundries;
   };

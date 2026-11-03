@@ -65,11 +65,6 @@ define([
         return;
       };
 
-      // Apply configured foundry filter from data-hint-foundries attribute
-      if (KorAP.annotationHelper.filterByConfig) {
-        KorAP.annotationHelper.filterByConfig();
-      };
-      
       /**
        * @define {regex} Regular expression for context
        */
@@ -205,14 +200,13 @@ define([
 
       if (this._menuCollection[action] === undefined) {
         
-        // No matching hint menu
-        if (KorAP.annotationHelper[action] === undefined)
+        const helper = KorAP.annotationHelper;
+        const entries = helper.getMenuEntries ? helper.getMenuEntries(action) : helper[action];
+        if (entries === undefined)
           return;
 
         // Create matching hint menu
-        this._menuCollection[action] = menuClass.create(
-          this, action, KorAP.annotationHelper[action]
-        );
+        this._menuCollection[action] = menuClass.create(this, action, entries);
       };
 
       // Return matching hint menu

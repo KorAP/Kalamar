@@ -183,13 +183,14 @@ the `Template` dictionary entries.
 Currently the JavaScript translations are separated and stored in `dev/js/src/loc`.
 To generate assets relying on different locales, add the locale to `Gruntfile.js`.
 
-#### Annotation Helper Foundries
+#### Annotation Helper Foundries and Layers
 
 ![Experimental](https://img.shields.io/badge/status-experimental-orange)
 
-The annotation helper hints can be configured at runtime via configuration
-file or environment variable. By default all available foundries are offered: `base`, `corenlp`,
-`dereko`, `malt`, `marmot`, `opennlp`, `spacy`, `tt`, `ud`.
+The annotation helper hints can be configured at runtime via the configuration
+file or the `KALAMAR_HINT_FOUNDRIES` environment variable, which takes
+precedence. The defaults include all helper layers from `base`, `corenlp`,
+`dereko`, `malt`, `marmot`, `opennlp`, `spacy`, and `tt`.
 
 To **exclude** specific foundries from the defaults, prefix them with `-`:
 
@@ -214,6 +215,19 @@ To **replace** the default list entirely, specify foundries without `-` prefix:
   }
 }
 ```
+
+Use `foundry/layer` to select a single layer. For example, to add only the
+CoreNLP named-entity layer to the foundries offered by DeLiKo-alpha:
+
+```shell
+KALAMAR_HINT_FOUNDRIES=base,dereko,malt,marmot,spacy,tt,corenlp/ne
+```
+
+Use `-foundry/layer` to hide an individual layer. For example,
+`hint_foundries => ['-corenlp/c', '-corenlp/p']` keeps the default foundries
+and shows only named entities under CoreNLP. Layer exclusions also apply to
+explicit lists, so `['base', 'spacy', '-spacy/m']` shows Base Annotation and
+the spaCy layers other than morphology.
 
 For Docker deployments:
 

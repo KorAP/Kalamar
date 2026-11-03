@@ -1,4 +1,9 @@
 0.67.0-beta.6
+        - Suggest short standard named-entity tags (LOC, MISC, ORG, PER)
+          for corenlp/ne in the annotation assistant (kupietz; with AI
+          assistance, Claude Opus 5.5 / Antigravity)
+        - Allow deployments to select individual layers in the annotation
+          assistant, including the CoreNLP named-entity layer on its own.
         - Keep export progress compact below the action button, announce its
           status, and replace the completed bar with a download-started message.
           Prevent duplicate submissions and allow retries after errors

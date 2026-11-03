@@ -1,6 +1,8 @@
 "use strict";
 
-define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item', 'hint/foundries'], function (hintClass, inputClass, contextClass, menuClass, menuItemClass, foundriesClass) {
+define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item',
+        'hint/foundries', 'hint/foundries/corenlp', 'hint/foundries/spacy'],
+function (hintClass, inputClass, contextClass, menuClass, menuItemClass, foundriesClass) {
 
   function emitKeyboardEvent (element, type, letter, keyCode) {
     // event type : keydown, keyup, keypress
@@ -360,21 +362,26 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item', 
 
       expect(hint.active()).toBeTruthy();
       var cont = hint.inputField().container();
-      expect(cont.getElementsByTagName('li')[0].firstChild.innerText).toEqual("Base Annotation");
+      expect(cont.getElementsByTagName('li')[0].firstChild.textContent).toEqual("Base Annotation");
 
       // Type in prefix
       hint.active().prefix("cor").show();
       expect(hint.active().prefix()).toEqual("cor");
 
       // Click first step
-      expect(cont.getElementsByTagName('li')[0].firstChild.firstChild.innerText).toEqual("Cor");
+      expect(cont.getElementsByTagName('li')[0].firstChild.firstChild.textContent).toEqual("Cor");
       cont.getElementsByTagName('li')[0].click();
 
       expect(hint.active()).toBeTruthy();
       
       // Click second step
-      expect(cont.getElementsByTagName('li')[0].firstChild.innerText).toEqual("Named Entity");
-      cont.getElementsByTagName('li')[0].click()
+      expect(cont.getElementsByTagName('li')[0].firstChild.textContent).toEqual("Named Entity");
+      cont.getElementsByTagName('li')[0].click();
+
+      expect(hint.active()).toBeTruthy();
+      expect(cont.getElementsByTagName('li')[0].firstChild.textContent).toEqual("LOC");
+      cont.getElementsByTagName('li')[0].click();
+      expect(hint.inputField().value()).toEqual("corenlp/ne=LOC ");
 
       // Invisible menu
       expect(cont.getElementsByTagName('li')[0]).toBeUndefined();
@@ -511,61 +518,72 @@ define(['hint', 'hint/input', 'hint/contextanalyzer', 'hint/menu', 'hint/item', 
     });
 
     it('should filter available foundries based on configuration', function () {
-  
-      KorAP.annotationHelper["-"] = [
+      foundriesClass["-"] = [
         ["Base Annotation", "base/s=", "Structure"],
         ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
         ["TreeTagger", "tt/", "Lemma, Part-of-Speech"]
       ];
-      KorAP.annotationHelper.filterByConfig();
-      let foundries = KorAP.annotationHelper["-"].map(e => e[1]);
-      expect(foundries).toContain("base/s=");
-      expect(foundries).toContain("corenlp/");
-      expect(foundries).toContain("tt/");
-    
-    
-      //set configuration to corenlp and tt
-      document.body.setAttribute('data-hint-foundries', 'corenlp,tt');
-      KorAP.annotationHelper.filterByConfig();
-      foundries = KorAP.annotationHelper["-"].map(e => e[1]);
-      expect(foundries).not.toContain("base/s=");
-      expect(foundries).toContain("corenlp/");
-      expect(foundries).toContain("tt/");
-      
-      //set configuration to corenlp only, with different case and whitespaces
-      document.body.setAttribute('data-hint-foundries', ' coREnlp');
-      KorAP.annotationHelper.filterByConfig();
-      foundries = KorAP.annotationHelper["-"].map(e => e[1]);
-      expect(foundries).not.toContain("base/s=");
-      expect(foundries).toContain("corenlp/");
-      expect(foundries).not.toContain("tt/");
-      
-      //Clean up 
-      document.body.removeAttribute('data-hint-foundries');
+      const actions = () => foundriesClass.getMenuEntries("-").map(entry => entry[1]);
+      expect(actions()).toEqual(["base/s=", "corenlp/", "tt/"]);
+
+      try {
+        document.body.setAttribute('data-hint-foundries', ' coREnlp,tt');
+        expect(actions()).toEqual(["corenlp/", "tt/"]);
+        document.body.setAttribute('data-hint-foundries', 'base/s');
+        expect(actions()).toEqual(["base/s="]);
+        document.body.setAttribute('data-hint-foundries', '');
+        expect(foundriesClass.getMenuEntries("-")).toBeUndefined();
+      }
+      finally {
+        document.body.removeAttribute('data-hint-foundries');
+      }
+      expect(actions()).toEqual(["base/s=", "corenlp/", "tt/"]);
     });
 
-    it('should apply configured foundry filter if initialized', function () {
-    
-      KorAP.annotationHelper["-"] = [
+    it('should offer only the configured CoreNLP layer and its short NE tags', function () {
+      document.body.setAttribute('data-hint-foundries', 'corenlp/ne');
+      try {
+        const hint = hintClass.create({inputField: input});
+        const root = hint.menu("-");
+        expect(root.length()).toBe(1);
+        expect(root.item(0).desc()).toBe("Named Entity");
+
+        const layers = hint.menu("corenlp/");
+        expect(layers.length()).toBe(1);
+        expect(layers.item(0).action()).toBe("ne=");
+
+        const entities = hint.menu("corenlp/ne=");
+        expect(Array.from({length: entities.length()}, (_, i) => entities.item(i).action()))
+          .toEqual(["LOC ", "MISC ", "ORG ", "PER "]);
+        expect(hint.menu("corenlp/p=")).toBeUndefined();
+        expect(hint.menu("corenlp/c=NP-")).toBeUndefined();
+        expect(hint.menu("corenlp/ne_dewac_175m_600=")).toBeUndefined();
+      }
+      finally {
+        document.body.removeAttribute('data-hint-foundries');
+      }
+    });
+
+    it('should honor layer exclusions in root, foundry and nested menus', function () {
+      foundriesClass["-"] = [
         ["Base Annotation", "base/s=", "Structure"],
-        ["CoreNLP", "corenlp/", "Constituency, Named Entities, Part-of-Speech"],
-        ["TreeTagger", "tt/", "Lemma, Part-of-Speech"]
+        ["spaCy", "spacy/", "Lemma, Morphology, Part-of-Speech, UPOS"]
       ];
 
-      document.body.setAttribute('data-hint-foundries', 'tt');
-
-      var hint = hintClass.create({
-        inputField : input
-      });
-      expect(hint).toBeTruthy();
-           
-      let foundries = KorAP.annotationHelper["-"].map(e => e[1]);
-      expect(foundries).not.toContain("base/s=");
-      expect(foundries).not.toContain("corenlp/");
-      expect(foundries).toContain("tt/");
-
-      //Clean up 
-      document.body.removeAttribute('data-hint-foundries');
+      document.body.setAttribute('data-hint-foundries', 'base,spacy,-base/s,-spacy/m');
+      try {
+        const hint = hintClass.create({inputField: input});
+        expect(hint.menu("-").length()).toBe(1);
+        expect(hint.menu("-").item(0).desc()).not.toContain("Morphology");
+        expect(hint.menu("spacy/").length()).toBe(foundriesClass["spacy/"].length - 1);
+        expect(hint.menu("spacy/p=")).toBeDefined();
+        expect(hint.menu("spacy/m=")).toBeUndefined();
+        expect(hint.menu("spacy/m=case:")).toBeUndefined();
+        expect(foundriesClass.getDesc("spacy/m=", "case:nom")).toBeTruthy();
+      }
+      finally {
+        document.body.removeAttribute('data-hint-foundries');
+      }
     });
 
     xit('should remove all menus on escape');
