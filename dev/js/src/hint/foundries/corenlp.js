@@ -1,11 +1,13 @@
 define(
   ["hint/foundries","hint/foundries/stts","hint/foundries/negranodes","hint/foundries/negraedges"],
   function (ah, sttsArray, negraNodesArray, negraEdgesArray) {
+    // Standard short NE tags written by korapxmltool -N (older models
+    // emitted I-LOC, I-PER etc.); outside ("O") tokens are not indexed.
     var namedEntities = [
-      ["I-LOC",  "I-LOC ",  "Location"],
-      ["I-MISC", "I-MISC ", "Miscellaneous"],
-      ["I-ORG",  "I-ORG ",  "Organization"],
-      ["I-PER",  "I-PER ",  "Person"]
+      ["LOC",  "LOC ",  "Location"],
+      ["MISC", "MISC ", "Miscellaneous"],
+      ["ORG",  "ORG ",  "Organization"],
+      ["PER",  "PER ",  "Person"]
     ];
 
     ah["-"].push(
