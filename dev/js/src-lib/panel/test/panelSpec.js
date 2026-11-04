@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import panelClass from '../panel.js';
+import resultClass from '../panel/result.js';
+import paginationClass from '../panel/pagination.js';
+import queryPanelClass from '../panel/query.js';
 import viewClass from '../../view/view.js';
 import '../../util/util.js';
 
@@ -118,3 +121,170 @@ import '../../util/util.js';
     
   });
 
+  describe('KorAP.Panel.Result', function () {
+
+    it('should be initializable', function () {
+      var show = {};
+      var result = new resultClass(show);
+      expect(result.type).toEqual('result');
+      expect(result.element().children.length).toEqual(2);
+      expect(result.element().firstChild.children.length).toEqual(0);
+    });
+
+    it('should open KQAction', function () {
+      var show = {};
+      var result = new resultClass(show);
+
+      result.addKqAction();
+
+      expect(result.element().lastChild.firstChild.textContent).toEqual("show KoralQuery");
+      expect(show["kq"]).toBeFalsy();
+
+      // Open KQ view
+      result.element().lastChild.firstChild.click();
+
+      expect(result.element().querySelector('#koralquery').textContent).toEqual("{}");
+      expect(show["kq"]).toBeTruthy();
+
+      var close = result.element().firstChild.firstChild.lastChild.firstChild;
+      expect(close.textContent).toEqual("Close");
+
+      // Close view
+      close.click();
+
+      expect(result.element().querySelector('#koralquery')).toBeFalsy();
+      expect(show["kq"]).toBeFalsy();
+    });
+
+    it('should open toggler', function () {
+      const show = {};
+
+      const div = document.body.addE("div");
+      div.setAttribute("id","search");
+      const ol = div.addE("ol");
+      ol.classList.add("align-left");
+
+      const result = new resultClass(show);
+
+      result.addAlignAction();
+
+      const b = result.element().lastChild.firstChild;
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('right')).toBeTruthy();
+      expect(ol.classList.contains('align-left')).toBeTruthy();
+
+      b.click();
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('center')).toBeTruthy();
+      expect(ol.classList.contains('align-right')).toBeTruthy();
+
+      b.click();
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('left')).toBeTruthy();
+      expect(ol.classList.contains('align-center')).toBeTruthy();
+
+      b.click();
+
+      expect(b.textContent).toEqual("toggle alignment");
+      expect(b.classList.contains('right')).toBeTruthy();
+      expect(ol.classList.contains('align-left')).toBeTruthy();
+
+      document.body.removeChild(div);
+    });
+  });
+
+  describe('KorAP.Panel.Pagination', function () {
+    it('should be initializable', function () {
+      // Create pagination element for pagination information
+      let p = document.createElement('div');
+      p.setAttribute('id', 'pagination')
+      p.setAttribute('data-page',3);
+      p.setAttribute('data-total',30);
+      p.setAttribute('data-count',25);
+
+      document.body.appendChild(p);
+
+      // Create pagination class object
+      var pagination = new paginationClass();
+      let list = pagination.actions().element();
+      expect(pagination.type).toEqual('pagination');
+      expect(list.classList.contains('button-group-list')).toBeTruthy();
+      expect(list.classList.contains('visible')).toBeFalsy();
+
+      expect(pagination.addRandomPage()).toBeTruthy();
+
+      let clicked = false;
+      pagination.actions().add(
+        "test", {}, function () { clicked = true }
+      );
+      
+      pagination.buttonGroup().element().firstChild.click();
+      expect(list.classList.contains('visible')).toBeTruthy();
+
+      expect(clicked).toBeFalsy();
+      pagination.actions().element().children[4].click();
+      expect(clicked).toBeTruthy();
+      
+      document.body.removeChild(p);
+      document.body.removeChild(pagination.actions().element());
+    });
+
+    it('shouldn\'t show random page on single pages', function () {
+
+      // Create pagination element for pagination information
+      let p = document.createElement('div');
+      p.setAttribute('id', 'pagination')
+      p.setAttribute('data-page',1);
+      p.setAttribute('data-total',1);
+      p.setAttribute('data-count',25);
+
+      document.body.appendChild(p);
+
+      // Create pagination class object
+      var pagination = new paginationClass();
+      let list = pagination.actions().element();
+      expect(pagination.type).toEqual('pagination');
+      expect(list.classList.contains('button-group-list')).toBeTruthy();
+      expect(list.classList.contains('visible')).toBeFalsy();
+
+      expect(pagination.addRandomPage()).toBeFalsy();
+
+      // Clean up
+      document.body.removeChild(p);
+      if (pagination && pagination.actions && pagination.actions().element) {
+        document.body.removeChild(pagination.actions().element());
+      }
+    });
+
+  });
+
+  describe('KorAP.Panel.Query', function () {
+
+    it('should set data-testid on glimpse button', function () {
+      // Set up required DOM elements
+      var colabel = document.createElement('label');
+      colabel.setAttribute('title', 'Glimpse description');
+      var glimpse = document.createElement('input');
+      glimpse.setAttribute('id', 'glimpse');
+      colabel.appendChild(glimpse);
+      document.body.appendChild(colabel);
+
+      var cutoff = document.createElement('input');
+      cutoff.setAttribute('type', 'checkbox');
+      cutoff.setAttribute('id', 'q-cutoff-field');
+      document.body.appendChild(cutoff);
+
+      var queryPanel = new queryPanelClass();
+
+      var btn = queryPanel.element().querySelector('[data-testid="glimpse"]');
+      expect(btn).toBeTruthy();
+      expect(btn.getAttribute('data-testid')).toEqual('glimpse');
+
+      // Clean up
+      document.body.removeChild(colabel);
+      document.body.removeChild(cutoff);
+    });
+  });

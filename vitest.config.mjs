@@ -1,6 +1,15 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  plugins: [{
+    // The vendored highlight.js pack registers the global "hljs" only
+    // if "exports" is undefined, which isn't the case in vitest.
+    name: 'hljs-global',
+    transform (code, id) {
+      if (id.endsWith('highlight/highlight.pack.js'))
+        return code.replace('"undefined"!=typeof exports', 'false');
+    }
+  }],
   test: {
     root: 'dev/js/src-lib',
     environment: 'jsdom',
