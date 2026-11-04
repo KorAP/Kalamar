@@ -5,9 +5,8 @@
  */
 "use strict";
 
-define(['view', 'vc/statistic', 'buttongroup', 'vc/statistics', 'api'],
-       function (viewClass, statClass, buttonGroup, statisticsModule) {
-  const statistics = statisticsModule.default;
+define(['view', 'vc/statistic', 'buttongroup'],
+       function (viewClass, statClass, buttonGroup) {
 
          // Localization values
   const loc   = KorAP.Locale;
@@ -42,17 +41,36 @@ define(['view', 'vc/statistic', 'buttongroup', 'vc/statistics', 'api'],
      * Receive Corpus statistic from the server
      */
     getStatistic : function (cb) {
-      // Capture the query before the asynchronous request; the editor may change.
-      statistics.load(this.vc.toQuery()).then(function (response) {
-        if (response && response.notifications && response.notifications.length) {
-          KorAP.log(0, response.notifications[0][1]);
-          response = null;
-        }
-        cb(response || null);
-      }).catch(function (e) {
+      const vc = this.vc;
+
+      try {
+        KorAP.API.getCorpStat(vc.toQuery(), function(statResponse) {
+          if (statResponse === null) {
+            cb(null);
+            return;
+          }
+          if (statResponse === undefined) {
+            cb(null);
+            return;
+          }
+
+          // catches notifications
+          if (statResponse["notifications"] !== null
+              && statResponse["notifications"] !== undefined) {
+            const notif = statResponse["notifications"];
+            KorAP.log(0, notif[0][1]);
+            cb(null);
+            return;
+          }
+
+          cb(statResponse);
+        });
+      }
+
+      catch (e) {
         KorAP.log(0, e);
         cb(null);
-      });
+      }
 
     },
 

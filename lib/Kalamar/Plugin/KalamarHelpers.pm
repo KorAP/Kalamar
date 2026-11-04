@@ -3,7 +3,6 @@ use Mojo::ByteStream 'b';
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Util qw/deprecated/;
 use DateTime;
-use Digest::SHA qw/hmac_sha256_hex/;
 
 sub register {
   my ($plugin, $mojo) = @_;
@@ -15,15 +14,6 @@ sub register {
   my $api_url = Mojo::URL->new(
     $conf->{api_path} // '-'
   )->path('v' . ($conf->{api_version} // '-') . '/')->to_string;
-
-  # Keep remembered corpus sizes separate across instances and login contexts,
-  # without exposing the access token to JavaScript.
-  $mojo->helper(statistics_scope => sub {
-    my $c = shift;
-    return hmac_sha256_hex(Mojo::Util::encode('UTF-8', join("\0",
-      $c->korap->api, $c->user_handle, $c->session('auth') // ''
-    )), $c->app->secrets->[0]);
-  });
 
   # Embed the korap architecture image
   $mojo->helper(

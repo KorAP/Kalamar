@@ -57,7 +57,6 @@
   <body class="no-js<% if ($embedded) { %> embedded<% } %>"
         % my $api = url_for('index');
         % $api =~ s!/$!!;
-        data-statistics-scope="<%= current_route eq 'index' ? statistics_scope : '' %>"
         data-korap-url="<%== $api %>"
         data-hint-foundries="<%= join(',', @{stash('hint_foundries') // []}) %>"
         data-vc-helper-fields="<%= stash('vc_helper_fields') // '' %>"
