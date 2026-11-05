@@ -413,8 +413,9 @@ define(['lib/intro', 'vc', 'hint', 'menu', 'vc/doc', 'vc/docgroup'],
             KorAP.session.set("tour", false);
             if(doe.querySelector("#search + p.no-results")){
               tourR._introItems[0].intro = loc.TOUR_nokwicti;
-              tourR.goToStepNumber(10);
-              document.querySelector(".introjs-prevbutton").style.visibility = "hidden";
+              tourR.goToStepNumber(10).then(function(){
+                document.querySelector(".introjs-prevbutton").style.visibility = "hidden";
+              });
             }
             } 
         

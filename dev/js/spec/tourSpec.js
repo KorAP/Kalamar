@@ -492,6 +492,12 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
     
     KorAP.Hint = hintClass.create({inputField: intrkorap.getElementById("q-field")});
     
+    // intro.js (>= 7) works asynchronously, but Jasmine 2.1 only supports a done callback
+    function itAsync(desc, spec){
+      it(desc, function(done){
+        spec.call(this).then(done, function(e){ fail(e); done(); });
+      });
+    };
 
     it('IDs and classes, that are needed for the guided tour should be in existence', function(){
       //gTstartSearch
@@ -532,12 +538,12 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
 
     });
  
-   it('Guided Tour should be started and display steps and labels in the right order', function(){
+   itAsync('Guided Tour should be started and display steps and labels in the right order', async function(){
     
      let vcpanel = intrkorap.getElementById("vc-view");
      vcpanel.appendChild(vc.element());
      let searchTour = tourClass.gTstartSearch(intrkorap);
-     searchTour.start();
+     await searchTour.start();
      let totalSteps = searchTour.stepCount;
      let welc = document.createElement("DIV");
      welc.innerHTML = loc.TOUR_welc;
@@ -545,7 +551,7 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
      expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
      expect(document.querySelector(".introjs-skipbutton")).toBeDefined();
-     searchTour.exit();
+     await searchTour.exit();
      
      let show = document.createElement('div');
      show.appendChild(vc.element());
@@ -555,7 +561,7 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
      intrkorap.appendChild(corpstat);
      
      for(let i = 2; i <= totalSteps; i++){
-       searchTour.goToStepNumber(i);
+       await searchTour.goToStepNumber(i);
        if(i ==3){
          //Test for equality. Ignore HTML-Tags, replace down arrow.
          expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual((searchTour.testIntros[i-1]).replace(/(<([^>]+)>)/ig,"").replace("&darr;","↓"));
@@ -590,70 +596,70 @@ define(['tour/tours', 'vc', 'vc/unspecified', 'session', 'match', 'hint',  'hint
          expect(document.querySelector(".introjs-skipbutton")).toBeDefined();
          break;
        }
-       searchTour.exit();
+       await searchTour.exit();
     } 
       
     
      let resultTour = tourClass.gTshowResults(resultkor);
      KorAP.session = sessionClass.create('KalamarJSDem'); 
      
-     resultTour.start(resultkor);
+     await resultTour.start(resultkor);
      let totalStepsR = resultTour.stepCount;
      expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(loc.TOUR_kwic);
      expect(document.querySelector(".introjs-prevbutton").textContent).toEqual(loc.TOUR_lprev);
      expect(document.querySelector(".introjs-nextbutton").textContent).toEqual(loc.TOUR_lnext);
      expect(document.querySelector(".introjs-skipbutton")).toBeDefined();
-     resultTour.exit();
+     await resultTour.exit();
 
      for(let i = 2; i <= totalStepsR; i++){
-       resultTour.goToStepNumber(i);
+       await resultTour.goToStepNumber(i);
        expect(document.querySelector(".introjs-tooltiptext").textContent).toEqual(resultTour.testIntros[i-1]);
        if(i == totalStepsR){
         expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldone);  
        } 
-       resultTour.exit();
+       await resultTour.exit();
      } 
    });
 
-   it('Guided Tour should gracefully stop, if no results are retrieved', function(){
+   itAsync('Guided Tour should gracefully stop, if no results are retrieved', async function(){
     let resultTour = tourClass.gTshowResults(noresultkor);
     KorAP.session = sessionClass.create('KalamarJSDem'); 
-    resultTour.start(noresultkor);
+    await resultTour.start(noresultkor);
     expect(document.querySelector(".introjs-donebutton").textContent).toEqual(loc.TOUR_ldone);  
-    resultTour.exit();
+    await resultTour.exit();
   });
 
-   it('Guided Tour should hide Hint if aborted',  function(){
+   itAsync('Guided Tour should hide Hint if aborted',  async function(){
      let tourAbort = tourClass.gTstartSearch(intrkorap);
-     tourAbort.start(); 
+     await tourAbort.start(); 
      expect(KorAP.Hint._active).toBeNull();
      expect(document.querySelector(".introjs-skipbutton")).not.toBeNull();
-     tourAbort.goToStepNumber(4);
+     await tourAbort.goToStepNumber(4);
      expect(KorAP.Hint._active).not.toBeNull()
      expect(KorAP.Hint.active().dontHide).toBe(true);
-     tourAbort.exit();
+     await tourAbort.exit();
      expect(KorAP.Hint._active).toBeNull();
    });
 
-   it('Guided Tour should hide vcKeyMenu if aborted',  function(){
+   itAsync('Guided Tour should hide vcKeyMenu if aborted',  async function(){
      let tourAbort = tourClass.gTstartSearch(intrkorap);
-     tourAbort.start(); 
+     await tourAbort.start(); 
      expect(KorAP._vcKeyMenu.dontHide).toBe(false);
-     tourAbort.goToStepNumber(6);
+     await tourAbort.goToStepNumber(6);
      expect(KorAP._vcKeyMenu.dontHide).toBe(false);
-     tourAbort.goToStepNumber(7);
+     await tourAbort.goToStepNumber(7);
      expect(KorAP._vcKeyMenu.dontHide).toBe(true);
-     tourAbort.exit();
+     await tourAbort.exit();
      expect(KorAP._vcKeyMenu.dontHide).toBe(false);
    });
    
-   it('Guided Tour should hide vcKeyMenu in the next step ',  function(){
+   itAsync('Guided Tour should hide vcKeyMenu in the next step ',  async function(){
      let tourNext = tourClass.gTstartSearch(intrkorap);
-     tourNext.start(); 
+     await tourNext.start(); 
      expect(KorAP._vcKeyMenu.dontHide).toBe(false);
-     tourNext.goToStepNumber(7);
+     await tourNext.goToStepNumber(7);
      expect(KorAP._vcKeyMenu.dontHide).toBe(true);
-     tourNext.goToStepNumber(8);
+     await tourNext.goToStepNumber(8);
      expect(KorAP._vcKeyMenu.dontHide).toBe(false);
    });
 
