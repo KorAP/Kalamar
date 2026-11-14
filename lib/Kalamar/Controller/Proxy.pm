@@ -71,6 +71,10 @@ sub pass {
   # Respect an authorization sent by the client
   $headers->authorization($auth) if $auth && !$headers->authorization;
 
+  # The mount gets the authorization instead of the session,
+  # that also contains the refresh token
+  $headers->remove('Cookie') if $c->stash('pass_auth');
+
   # Get parameters of the request
   my $params = $req->query_params->clone;
 

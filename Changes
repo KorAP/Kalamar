@@ -7,6 +7,8 @@
         - Pass the authorization of the session to proxy mounts marked
           with pass_auth, so the export plugin no longer needs to read
           the session cookie (kupietz)
+        - Do not pass the session cookie to proxy mounts marked with
+          pass_auth (kupietz)
         - Exclude temporary FastMmap test caches from slim Docker images
           (kupietz; with AI assistance, Codex)
         - Add optional CorpusIssues plugin with localized documentation

@@ -289,6 +289,15 @@ $t->get_ok('/plugin/untrusted/auth')
   ->status_is(200)
   ->content_is('none');
 
+# The session cookie is not passed to trusted mounts
+$t->get_ok('/plugin/trusted/cookie')
+  ->status_is(200)
+  ->content_is('none');
+
+$t->get_ok('/plugin/untrusted/cookie')
+  ->status_is(200)
+  ->content_like(qr/^kalamar=/);
+
 # Authorization of the client is respected
 $t->get_ok('/plugin/trusted/auth' => { Authorization => 'Bearer cl13nt' })
   ->status_is(200)
