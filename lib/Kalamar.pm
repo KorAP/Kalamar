@@ -505,7 +505,8 @@ NONCE_JS
       pass_auth => $_->{pass_auth},
     );
 
-    $r->any($root_path)->name($_->{service})->to(
+    # Stringify, as routes ignore path objects
+    $r->any("$root_path")->name($_->{service})->to(
       'Proxy#pass', %stash_hash
     );
 

@@ -220,6 +220,11 @@ $t->get_ok('/plugin/hello/huhux')
   ->status_is(200)
   ->content_is('Hello world! huhux');
 
+# The root of the mount is passed as well
+$t->get_ok('/plugin/hello/')
+  ->status_is(200)
+  ->content_is('Hello base world!');
+
 # Pass the authorization of the session to trusted mounts
 $t = Test::Mojo::WithRoles->new('Kalamar' => {
   Kalamar => {

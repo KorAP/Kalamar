@@ -1,3 +1,5 @@
+        - Fix proxy mounts not passing requests to their root path
+          (kupietz)
         - Pass the authorization of the session to proxy mounts marked
           with pass_auth, so the export plugin no longer needs to read
           the session cookie (kupietz)
