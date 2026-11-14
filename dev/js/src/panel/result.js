@@ -7,8 +7,9 @@
 
 define([
   'panel',
-  'view/result/koralquery'
-], function (panelClass, kqViewClass) {
+  'view/result/koralquery',
+  'view/result/export'
+], function (panelClass, kqViewClass, exportViewClass) {
 
   const d = document;
 
@@ -81,6 +82,30 @@ define([
       // Show KoralQuery in case it's meant to be shown
       if (this._opened['kq'])
         kqButton.click();
+    },
+
+
+    /**
+     * Add export action to panel,
+     * based on the form template of the page
+     */
+    addExportAction : function (tmpl) {
+      this.actions().add(
+        tmpl.dataset.title,
+        {'cls':['export','button-icon']},
+        function () {
+          const t = this;
+
+          // Show only once - otherwise toggle
+          if (t._export && t._export.shown()) {
+            t._export.close();
+            return;
+          };
+
+          t._export = exportViewClass.create(tmpl);
+          t.add(t._export);
+        }
+      );
     },
 
 

@@ -1,0 +1,74 @@
+@charset "utf-8";
+@use "../base/colors";
+@use "../base/lengths";
+
+/**
+ * Styles for the export view.
+ * The form is based on .form-table, with compact fields.
+ */
+
+#export {
+  background-color: colors.$nearly-white;
+  padding: .5em 1em 1em 1em;
+  margin: 2pt lengths.$right-view-distance 2pt 2pt;
+
+  fieldset.form-line:first-of-type {
+    margin-top: 0;
+  }
+
+  fieldset.form-line > div {
+    margin-top: .3em;
+  }
+
+  input[type=number] {
+    width: 7em;
+    min-width: 0;
+    vertical-align: middle;
+  }
+
+  input[type=checkbox] {
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  span.desc {
+    font-size: 80%;
+    margin-left: .5em;
+  }
+
+  details {
+    margin: 1em 0;
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    // Options in a row
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .5em 2em;
+      margin: .5em 0 0 1em;
+    }
+
+    label[for] {
+      display: inline;
+      margin: 0 .3em;
+    }
+  }
+
+  progress {
+    display: block;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  // The attribute needs to win over display rules
+  [hidden] {
+    display: none;
+  }
+}

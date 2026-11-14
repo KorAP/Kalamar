@@ -39,3 +39,6 @@
 % }
 %= content_for 'after_search_results'
 </div>
+% if (stash('results')->size && app->routes->lookup('export')) {
+%= include 'partial/export'
+% }

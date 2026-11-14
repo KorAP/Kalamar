@@ -491,6 +491,16 @@ NONCE_JS
 
   # General proxy mounts
   my $proxies = $conf->{'proxies'} // [];
+
+  # Built-in export, done by the export service
+  if (my $export = $conf->{export} // $ENV{KALAMAR_EXPORT_SERVICE}) {
+    push @$proxies, {
+      root_path => '/export',
+      mount     => $export,
+      service   => 'export',
+      pass_auth => 1
+    };
+  };
   foreach (@$proxies) {
     next if $_ eq 'PROXY_STUB';
 

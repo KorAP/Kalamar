@@ -1,3 +1,7 @@
+        - Offer the export of matches as a built-in feature, enabled by
+          the single setting "export" (or KALAMAR_EXPORT_SERVICE), without
+          plugin registration, iframe and sandbox permissions.
+          Requires the export service with export/config (kupietz)
         - Fix proxy mounts not passing requests to their root path
           (kupietz)
         - Pass the authorization of the session to proxy mounts marked

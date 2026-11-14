@@ -1,0 +1,56 @@
+%# Form of the built-in export. It is cloned into a view of the
+%# result panel by view/result/export.js, limits are set by the service.
+<template id="export-template" data-title="<%= loc 'export_desc' %>">
+  <div id="export">
+    <form class="form-table" action="<%= url_for('export') %>/export" method="POST">
+      <fieldset>
+        %= hidden_field q => stash('q')
+        %= hidden_field ql => stash('ql')
+        %= hidden_field cq => param('cq')
+
+        <fieldset class="form-line">
+          <legend><%= loc 'export_format' %></legend>
+% my $checked = 1;
+% foreach (['rtf', 'Rich Text Format (Word etc.)'], ['csv', 'Comma-separated Values (Excel etc.)'], ['json', 'JavaScript Object Notation']) {
+          <div>
+            %= radio_button format => $_->[0], id => 'export-' . $_->[0], ($checked ? (checked => undef) : ())
+            <label for="export-<%= $_->[0] %>"><%= uc $_->[0] %> <span class="desc"><%= $_->[1] %></span></label>
+          </div>
+%   $checked = 0;
+% }
+        </fieldset>
+
+        <p class="announcement" hidden></p>
+
+        <fieldset class="form-line">
+          <legend><%= loc 'export_hitc' %></legend>
+          <div>
+            %= number_field hitc => 100, id => 'export-hitc', min => 1
+            <span class="desc max-hitc" hidden><%= loc 'export_maxHitc' %> <code></code></span>
+          </div>
+        </fieldset>
+
+        <details>
+          <summary><%= loc 'export_options' %></summary>
+          <div>
+            <span>
+              %= check_box randomizePageOrder => 'true', id => 'export-randomize'
+              <label for="export-randomize"><%= loc 'export_randomize' %></label>
+              <span class="desc page-size" hidden>(<%= loc 'export_pageSize' %> <code></code>)</span>
+            </span>
+            <span>
+              <label for="export-seed"><%= loc 'export_seed' %></label>
+              %= number_field seed => 42, id => 'export-seed', min => 0
+            </span>
+          </div>
+        </details>
+
+        <progress value="0" max="100" hidden>0%</progress>
+
+        <span class="button-group button-panel">
+          %= submit_button loc('export_button')
+        </span>
+      </fieldset>
+    </form>
+  </div>
+</template>

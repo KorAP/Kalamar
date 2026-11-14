@@ -189,4 +189,7 @@ div.result.panel .view {
   &.show-kq::after {
     content: icons.$fa-code;
   }
+  &.export::after {
+    content: icons.$fa-download;
+  }
 }

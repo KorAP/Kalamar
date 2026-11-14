@@ -523,6 +523,11 @@ define([
     };
 
     
+    // The export is enabled
+    const exportTmpl = d.getElementById('export-template');
+    if (exportTmpl && resultInfo !== null)
+      resultPanel.addExportAction(exportTmpl);
+
     /*
      * There is more than 0 matches, so allow for
      * alignment toggling (left <=> right)
