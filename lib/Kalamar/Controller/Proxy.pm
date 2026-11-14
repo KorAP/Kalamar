@@ -19,6 +19,30 @@ sub api_pass {
 # Pass proxy command to API
 sub pass {
   my $c = shift;
+
+  # Pass the authorization of the session to trusted mounts
+  my $auth;
+  if ($c->stash('pass_auth') && $c->app->renderer->get_helper('auth')) {
+    $auth = $c->auth->token;
+    my $exp = $c->session('auth_exp');
+
+    # Token is expired
+    if ($auth && defined $exp && $exp < time) {
+      $auth = undef;
+      my $refresh_token = $c->session('auth_r');
+
+      # Refresh once and restart
+      if ($refresh_token && !$c->stash('auth_refreshed')) {
+        my @args = @_;
+        $c->stash(auth_refreshed => 1);
+        $c->render_later;
+        $c->auth->refresh_p($refresh_token)->catch(sub {})->finally(
+          sub { $c->pass(@args) }
+        );
+        return 1;
+      };
+    };
+  };
   my $base_url = shift // Mojo::URL->new($c->stash('mount'));
 
   my $base_path = $base_url->path->trailing_slash(1);
@@ -43,6 +67,9 @@ sub pass {
   $headers->header(
     'X-Forwarded-For' => $c->client_ip
   );
+
+  # Respect an authorization sent by the client
+  $headers->authorization($auth) if $auth && !$headers->authorization;
 
   # Get parameters of the request
   my $params = $req->query_params->clone;
@@ -99,6 +126,10 @@ sub pass {
       $h->header('X-Robots' => 'noindex');
       $h->header('Access-Control-Allow-Origin', $origin || '*');
       $h->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
+
+      # The proxy replaced the response headers, so the
+      # session cookie with the refreshed tokens is set here
+      $c->app->sessions->store($c) if $c->stash('auth_refreshed');
 
       # Response is a redirect
       if ($c->res->is_redirect) {

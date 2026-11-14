@@ -502,6 +502,7 @@ NONCE_JS
       service   => $_->{service},
       root_path => $root_path,
       mount     => $_->{mount},
+      pass_auth => $_->{pass_auth},
     );
 
     $r->any($root_path)->name($_->{service})->to(

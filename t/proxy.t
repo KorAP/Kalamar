@@ -1,6 +1,7 @@
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
+use Test::Mojo::WithRoles 'Session';
 use Mojo::File qw/path/;
 use Data::Dumper;
 use Mojo::Server::Daemon;
@@ -218,6 +219,99 @@ $t->get_ok('/realplugin/huhux')
 $t->get_ok('/plugin/hello/huhux')
   ->status_is(200)
   ->content_is('Hello world! huhux');
+
+# Pass the authorization of the session to trusted mounts
+$t = Test::Mojo::WithRoles->new('Kalamar' => {
+  Kalamar => {
+    plugins => ['Auth'],
+    proxies => [
+      {
+        root_path => '/plugin/trusted',
+        mount => $plugin_path,
+        service => 'trusted-plugin-proxy',
+        pass_auth => 1
+      },
+      {
+        root_path => '/plugin/untrusted',
+        mount => $plugin_path,
+        service => 'untrusted-plugin-proxy'
+      }
+    ]
+  },
+  'Kalamar-Auth' => {
+    client_id => 2,
+    client_secret => 'k414m4r-s3cr3t',
+    oauth2 => 1
+  }
+});
+
+$fake_backend = $t->app->plugin(
+  Mount => { $mount_point => $fixtures_path->child('mock.pl') }
+);
+$fake_app = $fake_backend->pattern->defaults->{app};
+$fake_app->log($t->app->log);
+
+$t->app->plugin(
+  Mount => { $plugin_path => $fixtures_path->child('plugin-ex.pl') }
+)->pattern->defaults->{app}->log($t->app->log);
+
+$t->app->ua->server->app($t->app);
+
+# Set the session directly
+$t->app->routes->get('/x/session')->to(
+  cb => sub {
+    my $c = shift;
+    $c->session(auth => 'Bearer s3ss10n');
+    $c->session(auth_exp => time + $c->param('exp'));
+    delete $c->session->{auth_r};
+    $c->session(auth_r => $c->param('r')) if $c->param('r');
+    return $c->render(text => 'okay');
+  }
+);
+
+# Not logged in
+$t->get_ok('/plugin/trusted/auth')
+  ->status_is(200)
+  ->content_is('none');
+
+$t->get_ok('/x/session?exp=1000')->status_is(200);
+
+$t->get_ok('/plugin/trusted/auth')
+  ->status_is(200)
+  ->content_is('Bearer s3ss10n');
+
+$t->get_ok('/plugin/untrusted/auth')
+  ->status_is(200)
+  ->content_is('none');
+
+# Authorization of the client is respected
+$t->get_ok('/plugin/trusted/auth' => { Authorization => 'Bearer cl13nt' })
+  ->status_is(200)
+  ->content_is('Bearer cl13nt');
+
+# Expired tokens are refreshed and the session is updated
+$t->get_ok('/x/session?exp=-1000&r=' . $fake_app->get_token('refresh_token'))
+  ->status_is(200);
+
+$t->get_ok('/plugin/trusted/auth')
+  ->status_is(200)
+  ->content_is('Bearer ' . $fake_app->get_token('access_token_2'))
+  ->session_is('/auth', 'Bearer ' . $fake_app->get_token('access_token_2'))
+  ->session_is('/auth_r', $fake_app->get_token('refresh_token_2'));
+
+# Expired tokens without refresh token are not passed
+$t->get_ok('/x/session?exp=-1000')->status_is(200);
+
+$t->get_ok('/plugin/trusted/auth')
+  ->status_is(200)
+  ->content_is('none');
+
+# Failing refresh is not retried
+$t->get_ok('/x/session?exp=-1000&r=inv4lid')->status_is(200);
+
+$t->get_ok('/plugin/trusted/auth')
+  ->status_is(200)
+  ->content_is('none');
 
 # require Mojolicious::Command::routes;
 # use Mojo::Util qw(encode tablify);
