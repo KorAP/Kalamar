@@ -1,7 +1,9 @@
-0.67.0-beta.4
+0.67.0-beta.5
         - Expose public maintenance schedules at maintenance.json for API
           clients, with freshness information and a bounded cold-cache wait
           (kupietz; with AI assistance, Codex)
+
+0.67.0-beta.4
         - Show the date once for maintenance windows on the same day,
           including single all-day events (kupietz; with AI assistance, Codex)
         - Center search hits by default; configured alignment overrides
