@@ -1,3 +1,10 @@
+0.67.0-beta.6
+        - Place export options next to the hit limit and indent expanded
+          settings below the toggle; keep narrow panels left-aligned and
+          improve the export button spacing (kupietz; with AI assistance, Codex)
+        - Limit Docker CI build concurrency and compression memory, and use
+          the runner socket consistently for building and slimming (kupietz)
+
 0.67.0-beta.5
         - Expose public maintenance schedules at maintenance.json for API
           clients, with freshness information and a bounded cold-cache wait

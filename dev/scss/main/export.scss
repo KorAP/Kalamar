@@ -11,6 +11,7 @@
   background-color: colors.$nearly-white;
   padding: .5em 1em 1em 1em;
   margin: 2pt lengths.$right-view-distance 2pt 2pt;
+  container-type: inline-size;
 
   fieldset.form-line:first-of-type {
     margin-top: 0;
@@ -20,7 +21,24 @@
     margin-top: .3em;
   }
 
+  fieldset.form-line:first-of-type > div {
+    display: flex;
+    align-items: baseline;
+    gap: .3em;
+    white-space: normal;
+
+    label[for] {
+      min-width: 0;
+      margin-right: 0;
+    }
+  }
+
+  input[type=radio] {
+    flex-shrink: 0;
+  }
+
   input[type=number] {
+    box-sizing: border-box;
     width: 7em;
     min-width: 0;
     vertical-align: middle;
@@ -38,26 +56,111 @@
     margin-left: .5em;
   }
 
+  .export-limits {
+    display: flow-root;
+  }
+
+  .export-hit-count {
+    float: left;
+    width: 7em;
+    margin-right: 1em;
+
+    .max-hitc:not([hidden]) {
+      display: block;
+      margin: .3em 0 0;
+    }
+  }
+
   details {
-    margin: 1em 0;
+    margin: .3em 0 0;
+    min-height: 4.3em;
 
     summary {
+      box-sizing: border-box;
+      width: max-content;
+      max-width: calc(100% - 8em);
+      margin-left: 8em;
+      padding: lengths.$base-padding 10px;
+      border: 1px solid colors.$light-grey;
+      border-radius: lengths.$standard-border-radius;
       cursor: pointer;
       font-weight: bold;
+
+      &:hover {
+        border-color: colors.$darker-orange;
+      }
+
+      &:focus-visible {
+        outline: 2px solid colors.$darker-orange;
+        outline-offset: 3px;
+      }
     }
 
-    // Options in a row
-    > div {
+    .export-options-content {
+      clear: both;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: .5em 2em;
-      margin: .5em 0 0 1em;
+      gap: 1em 2em;
+      padding: 1em 0 0 8em;
+      white-space: normal;
+    }
+
+    .export-randomize {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      gap: 0 .5em;
+
+      .page-size {
+        grid-column: 2;
+        margin-left: 0;
+      }
+    }
+
+    .export-seed {
+      display: flex;
+      align-items: center;
+      gap: .5em;
+
+      input {
+        width: 6em;
+      }
     }
 
     label[for] {
       display: inline;
-      margin: 0 .3em;
+      margin: 0;
+    }
+  }
+
+  .button-panel input[type=submit] {
+    margin-top: 1em;
+    padding: 5px 14px;
+  }
+
+  @container (max-width: 250px) {
+    .form-line label[for] .desc {
+      display: block;
+      margin-left: 0;
+    }
+
+    .export-hit-count {
+      float: none;
+      margin-bottom: 1em;
+    }
+
+    details {
+      min-height: 0;
+
+      summary {
+        margin-left: 0;
+        max-width: 100%;
+      }
+
+      .export-options-content {
+        padding-left: 0;
+      }
     }
   }
 

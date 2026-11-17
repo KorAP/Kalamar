@@ -367,10 +367,25 @@ Responses use `Cache-Control: no-store`. A cold worker waits asynchronously for
 the first refresh, for at most two seconds; warm workers respond immediately.
 The route is absent when the optional plugin is disabled.
 
-Set `KORAP_HOSTNAME` to the physical host in Docker, e.g. through Compose's
-`KORAP_HOSTNAME: "${HOSTNAME}"` with an exported `HOSTNAME` on the deployment
-host. Without Docker the module discovers the local host. The calendar's
-Location field contains affected hostnames/IPs, or `*` for all instances.
+The module discovers the local hostname with `Sys::Hostname`. On Linux,
+Compose can expose the Docker host's hostname automatically:
+
+```yaml
+services:
+  kalamar:
+    uts: host
+```
+
+Leave `KORAP_HOSTNAME` unset or empty with this setup. The container then sees
+the current host's name without a hard-coded value or a deployment shell
+wrapper. Hostname discovery runs when the application starts. After moving or
+renaming a host, restart Kalamar to refresh the identity.
+
+Alternatively, pass `KORAP_HOSTNAME` explicitly, for example with
+`KORAP_HOSTNAME="$(hostname -f)" docker compose up -d`. An explicit
+`DowntimeCalendar => { hosts => ['example.org'] }` configuration overrides
+both environment and hostname discovery. The calendar's Location field
+contains affected hostnames/IPs, or `*` for all instances.
 
 The box displays ongoing events and events starting within 14 days, sorted by
 date. Fetches are asynchronous and cached; on a cold worker the first page

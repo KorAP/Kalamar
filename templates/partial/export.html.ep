@@ -22,28 +22,28 @@
 
         <p class="announcement" hidden></p>
 
-        <fieldset class="form-line">
+        <fieldset class="form-line export-limits">
           <legend><%= loc 'export_hitc' %></legend>
-          <div>
+          <div class="export-hit-count">
             %= number_field hitc => 100, id => 'export-hitc', min => 1
             <span class="desc max-hitc" hidden><%= loc 'export_maxHitc' %> <code></code></span>
           </div>
-        </fieldset>
 
-        <details>
-          <summary><%= loc 'export_options' %></summary>
-          <div>
-            <span>
-              %= check_box randomizePageOrder => 'true', id => 'export-randomize'
-              <label for="export-randomize"><%= loc 'export_randomize' %></label>
-              <span class="desc page-size" hidden>(<%= loc 'export_pageSize' %> <code></code>)</span>
-            </span>
-            <span>
-              <label for="export-seed"><%= loc 'export_seed' %></label>
-              %= number_field seed => 42, id => 'export-seed', min => 0
-            </span>
-          </div>
-        </details>
+          <details>
+            <summary><%= loc 'export_options' %></summary>
+            <div class="export-options-content">
+              <span class="export-randomize">
+                %= check_box randomizePageOrder => 'true', id => 'export-randomize'
+                <label for="export-randomize"><%= loc 'export_randomize' %></label>
+                <span class="desc page-size" hidden>(<%= loc 'export_pageSize' %> <code></code>)</span>
+              </span>
+              <span class="export-seed">
+                <label for="export-seed"><%= loc 'export_seed' %></label>
+                %= number_field seed => 42, id => 'export-seed', min => 0
+              </span>
+            </div>
+          </details>
+        </fieldset>
 
         <progress value="0" max="100" hidden>0%</progress>
 
