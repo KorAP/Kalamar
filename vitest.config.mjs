@@ -5,6 +5,7 @@ export default defineConfig({
     root: 'dev/js/src-lib',
     environment: 'jsdom',
     include: ['**/test/**/*Spec.js'],
+    pool: 'vmThreads',
     globals: true
   }
 });
