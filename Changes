@@ -1,7 +1,7 @@
 0.67.0-beta.6
         - Place export options next to the hit limit and group expanded
-          settings with the toggle in a shared box; keep narrow panels left-aligned and
-          improve the export button spacing (kupietz; with AI assistance, Codex)
+          settings with the toggle in a box sized to its content; keep narrow
+          panels left-aligned and improve the export button spacing (kupietz; with AI assistance, Codex)
         - Limit Docker CI build concurrency and compression memory, and use
           the runner socket consistently for building and slimming (kupietz)
 

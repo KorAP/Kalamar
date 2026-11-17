@@ -74,6 +74,8 @@
 
   details {
     display: flow-root;
+    width: fit-content;
+    max-width: calc(100% - 8em);
     margin: .3em 0 0 8em;
     min-height: 4.3em;
 
@@ -166,6 +168,7 @@
 
     details {
       margin-left: 0;
+      max-width: 100%;
       min-height: 0;
     }
   }
