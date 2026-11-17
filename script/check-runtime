@@ -1,0 +1,86 @@
+#!/usr/bin/env perl
+use 5.016;
+use strict;
+use warnings;
+use utf8;
+use Config;
+use FindBin;
+use File::Find qw(find);
+use File::Spec;
+use Digest::SHA;
+use Getopt::Long qw(GetOptions);
+use Mojo::File qw(path);
+use Mojo::JSON qw(decode_json encode_json);
+use DateTime;
+use DateTime::Locale;
+use Unicode::Collate::Locale;
+
+my ($record, $manifest, $paths);
+GetOptions('record=s' => \$record, 'manifest=s' => \$manifest, 'paths' => \$paths) or die "Invalid arguments\n";
+die "Choose record or manifest, not both\n" if $record && $manifest;
+my %seen;
+my @roots = grep {-d && !$seen{$_}++} @Config{qw(privlib archlib vendorlib vendorarch sitelib sitearch)};
+if ($paths) {
+  print "$_\n" for @roots;
+  print "/usr/share/zoneinfo\n" if -d '/usr/share/zoneinfo';
+  exit 0;
+}
+my $home = path($FindBin::Bin)->dirname;
+my $expected = $manifest ? decode_json(path($manifest)->slurp) : undef;
+
+# Snapshot the actual files, not just a locale registry: a registry can remain
+# after slimming even when the lazily loaded language data has disappeared.
+sub inventory {
+  my %files;
+  my @targets = (@roots, grep {-e} (
+    '/usr/share/zoneinfo',
+    "$home/loc", "$home/kalamar.dict", "$home/kalamar.queries.dict",
+    glob("$home/public/js/kalamar-*.js"),
+  ));
+  find({no_chdir => 1, wanted => sub {
+    return unless -f $_;
+    open my $fh, '<:raw', $_ or die "Cannot read runtime resource $_: $!\n";
+    $files{$_} = Digest::SHA->new(256)->addfile($fh)->hexdigest;
+  }}, @targets);
+  return \%files;
+}
+if ($expected) {
+  die "Unsupported runtime manifest\n" unless $expected->{format} == 1;
+  for my $filename (sort keys %{$expected->{files}}) {
+    open my $fh, '<:raw', $filename or die "Missing runtime resource $filename: $!\n";
+    die "Changed runtime resource $filename\n" unless Digest::SHA->new(256)->addfile($fh)->hexdigest eq $expected->{files}{$filename};
+  }
+}
+
+my @locales = sort DateTime::Locale->codes;
+if ($expected) {
+  die "DateTime locale registry changed\n" unless join('\n', @locales) eq join('\n', @{$expected->{datetime_locales}});
+}
+for my $locale (@locales) {
+  my $dt = DateTime->new(year => 2026, month => 11, day => 17, locale => $locale, time_zone => 'UTC');
+  die "Empty locale data: $locale\n" unless length($dt->day_name) && length($dt->month_name);
+}
+my %examples = (
+  nl_NL => ['dinsdag', 'november'], ro_RO => ['marți', 'noiembrie'],
+  bg_BG => ['вторник', 'ноември'], cs_CZ => ['úterý', 'listopadu'],
+);
+my %collations;
+for my $locale (sort keys %examples) {
+  my $dt = DateTime->new(year => 2026, month => 11, day => 17, locale => $locale);
+  die "Incorrect language data: $locale\n" unless $dt->day_name eq $examples{$locale}[0] && $dt->month_name eq $examples{$locale}[1];
+  (my $language = $locale) =~ s/_.*//;
+  my $collator = Unicode::Collate::Locale->new(locale => $language);
+  $collations{$language} = $collator->getlocale;
+  my @words = $language eq 'cs' ? ('h', 'ch', 'i') : $language eq 'ro' ? ('s', 'ș', 't') : $language eq 'bg' ? ('а', 'б', 'в') : ('aap', 'boom', 'zee');
+  die "Collation failed: $language\n" unless $collator->lt($words[0], $words[1]) && $collator->lt($words[1], $words[2]);
+}
+if ($expected) {
+  for my $language (keys %collations) {
+    die "Collation support changed: $language\n" unless $collations{$language} eq ($expected->{collations}{$language} // '');
+  }
+}
+
+if ($record) {
+  path($record)->spew(encode_json({format => 1, files => inventory(), datetime_locales => \@locales, collations => \%collations}));
+}
+print "Runtime checks passed: ", scalar(@locales), " DateTime locales; nl/ro/bg/cs dates and collation\n";

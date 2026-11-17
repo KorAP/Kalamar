@@ -314,6 +314,23 @@ Navigation lists also expose ContentBlocks named `navigation.<realm>` and
 they appear after the configured entries within that section. Block positions
 order plugin entries without changing the instance's navigation JSON.
 
+### Slim Docker images and languages
+
+Use `sh slim_script.sh IMAGE_TAG` after building
+`korap/kalamar:IMAGE_TAG-large`. CI uses the same entry point and preserves the
+tag verbatim, including any `v` prefix. The script uses containerized Mint and
+requires a local Docker socket at `/var/run/docker.sock`.
+
+All installed Perl library/data directories and timezone files are retained,
+including DateTime locale data, Unicode collation tables and lazily loaded
+parser dependencies. The build records a SHA-256 inventory of the Perl files,
+Kalamar dictionaries and JavaScript bundles. After slimming, a fresh container
+must match that inventory and load every registered DateTime locale.
+Dutch, Romanian, Bulgarian and Czech have additional date-text and
+collation checks. These checks preserve available language resources; they do
+not add UI translations that Kalamar does not yet provide. A failed check fails
+the build rather than allowing an incomplete image to be published.
+
 ### Plugins
 
 Some plugins are bundled as part of Kalamar. Plugins can be loaded

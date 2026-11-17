@@ -1,3 +1,7 @@
+        - Preserve all Perl language resources in slim Docker images and
+          verify their hashes and all DateTime locales after slimming;
+          explicitly check Dutch, Romanian, Bulgarian and Czech dates
+          and collation (kupietz; with AI assistance, Codex)
         - Offer the export of matches as a built-in feature, enabled by
           the single setting "export" (or KALAMAR_EXPORT_SERVICE), without
           plugin registration, iframe and sandbox permissions.

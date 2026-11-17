@@ -73,6 +73,10 @@ RUN rm /bin/cpm && \
             rm -rf /root/.cpanm \
                    /usr/local/share/man
 
+# Record all language/library resources before slimming. The same checker is
+# run again in a fresh process against the finished slim image.
+RUN perl script/check-runtime --record /kalamar/runtime-manifest.json
+
 RUN addgroup -S korap && \
     adduser -S kalamar -G korap && \
     chown -R kalamar:korap /kalamar

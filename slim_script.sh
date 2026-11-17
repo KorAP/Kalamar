@@ -1,26 +1,30 @@
-#!/bin/bash
+#!/bin/sh
+# One slimming entry point for local builds and GitLab CI.
+set -eu
+VERSION=${1:-$(git describe --tags --abbrev=0 2>/dev/null || echo latest)}
+SLIM_IMAGE=${SLIM_IMAGE:-mintoolkit/mint}
+full_image="korap/kalamar:${VERSION}-large"
+slim_image="korap/kalamar:${VERSION}"
 
-# Get the version from the parameter or
-# the latest git tag or "latest"
-VERSION="${1:-$(git describe --tags --abbrev=0 2>/dev/null || echo "latest")}"
-
-# Remove the leading 'v' if it exists
-VERSION=${VERSION#v}
-
-# Slimming tests create a root-owned FastMmap cache. Runtime users must
-# create their own temporary cache instead of inheriting that test file.
-# Build the docker-slim command
-slim build --http-probe=true \
-           --exec="perl Makefile.PL && MOJO_MODE=test make test && unzip -v" \
-           --include-workdir=true \
-           --include-path="/usr/local/share/perl5/site_perl/KorAP/" \
-           --include-path="/usr/local/share/perl5/site_perl/Mojolicious/" \
-           --include-path="/usr/local/share/perl5/site_perl/Mojo/" \
-           --include-path="/usr/share/perl5/vendor_perl/DateTime/" \
-           --include-path="/usr/share/perl5/vendor_perl/auto/share/dist/DateTime-Locale" \
-           --include-path="/usr/share/perl5/core_perl/Unicode/Collate/Locale" \
-           --exclude-pattern="/tmp/chi-driver-fastmmap" \
-           --exclude-pattern="/tmp/chi-driver-fastmmap/**" \
-           --tag "korap/kalamar:$VERSION" \
-           --tag "korap/kalamar:latest" \
-           "korap/kalamar:${VERSION}-large"
+# Keep every installed Perl library/data directory, not only the files touched
+# by a probe. Locale, Unicode and timezone resources are loaded lazily.
+paths=$(docker run --rm --entrypoint perl "$full_image" script/check-runtime --paths)
+set -- --http-probe=true \
+  --exec='perl Makefile.PL && MOJO_MODE=test make test && perl script/check-runtime --manifest /kalamar/runtime-manifest.json && unzip -v' \
+  --include-workdir=true \
+  --exclude-pattern=/tmp/chi-driver-fastmmap \
+  '--exclude-pattern=/tmp/chi-driver-fastmmap/**' \
+  --tag "$slim_image" --tag korap/kalamar:latest
+while IFS= read -r directory; do
+  [ -n "$directory" ] && set -- "$@" "--include-path=$directory"
+done <<PATHS
+$paths
+PATHS
+# The old host slim binary uses a Docker API unsupported by newer daemons.
+# The same containerized Mint invocation is used locally and in CI.
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+  "$SLIM_IMAGE" --crt-api-version 1.46 build "$@" "$full_image"
+# Never publish an image just because the optimization command returned: check
+# its language resources in a fresh runtime process.
+docker run --rm --entrypoint perl "$slim_image" script/check-runtime \
+  --manifest /kalamar/runtime-manifest.json
