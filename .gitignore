@@ -54,8 +54,6 @@ slim.report.json
 !/script/
 /script/*
 !/script/kalamar
-!/script/install-downtime
 !/script/check-runtime
 !/script/check-downtime
 /runtime-manifest.json
-/downtime-build.json

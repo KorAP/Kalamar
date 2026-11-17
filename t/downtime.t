@@ -18,7 +18,7 @@ sub frontend {
 
 my $plain = frontend();
 $plain->get_ok('/')->status_is(200)->element_exists_not('.maintenance-notices');
-ok !exists $INC{'Mojolicious/Plugin/DowntimeCalendar.pm'}, 'normal Kalamar does not load calendar distribution';
+ok !exists $INC{'Mojolicious/Plugin/DowntimeCalendar.pm'}, 'normal Kalamar does not load bundled calendar module';
 ok !exists $INC{'Data/ICal.pm'}, 'normal Kalamar does not load parser dependencies';
 unshift @{$plain->app->renderer->paths}, path(__FILE__)->dirname->child('fixtures/downtime-legacy')->to_string;
 $plain->get_ok('/')->status_is(200)->content_like(qr/LEGACY_NOTICE/);
@@ -36,13 +36,13 @@ ok !exists $INC{'Mojolicious/Plugin/DowntimeCalendar.pm'}, 'invalid configuratio
     frontend({Kalamar => {plugins => ['DowntimeCalendar']}, DowntimeCalendar => {url => 'https://example.org/calendar'}});
     1;
   };
-  ok !$ok, 'explicit activation without installed distribution fails';
-  like $@, qr/Install the optional distribution/, 'missing dependency error explains installation';
+  ok !$ok, 'explicit activation with a missing bundled module fails';
+  like $@, qr/cpanm --installdeps/, 'load error explains standard dependency installation';
 }
 
-SKIP: {
-  skip 'Install optional Mojolicious::Plugin::DowntimeCalendar 0.02 to test active integration', 29
-    unless eval {require Mojolicious::Plugin::DowntimeCalendar; Mojolicious::Plugin::DowntimeCalendar->VERSION('0.02'); 1};
+{
+  require Mojolicious::Plugin::DowntimeCalendar;
+  Mojolicious::Plugin::DowntimeCalendar->VERSION('0.02');
   my $active = frontend({Kalamar => {plugins => ['DowntimeCalendar']}, DowntimeCalendar => {url => 'https://example.org/calendar', resolve_hosts => 0}});
   my $events = [{
     start => '2026-11-16T00:00:00+0100', end => '2026-11-18T00:00:00+0100',

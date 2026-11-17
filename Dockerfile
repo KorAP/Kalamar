@@ -61,18 +61,6 @@ WORKDIR /kalamar
 # Install Kalamar including all dependencies
 RUN cpm install --test -g
 
-# Shared module is part of official images, but may be omitted by downstream
-# builders. This is a build decision; runtime activation is separate.
-ARG WITH_DOWNTIME_CALENDAR=1
-ARG DOWNTIME_CALENDAR_REPOSITORY=https://korap.ids-mannheim.de/gerrit/KorAP/Mojolicious-Plugin-DowntimeCalendar
-ARG DOWNTIME_CALENDAR_REF=fe2a70ca7c24d16f7ef0f4cec872665d78aa5ee7
-RUN WITH_DOWNTIME_CALENDAR="$WITH_DOWNTIME_CALENDAR" \
-    DOWNTIME_CALENDAR_REPOSITORY="$DOWNTIME_CALENDAR_REPOSITORY" \
-    DOWNTIME_CALENDAR_REF="$DOWNTIME_CALENDAR_REF" sh script/install-downtime
-
-# Re-run integration tests with the selected package set (including opt-out).
-RUN perl Makefile.PL && MOJO_MODE=test make test && perl script/check-downtime
-
 # Remove all build dependencies
 RUN rm /bin/cpm && \
     apk del git \

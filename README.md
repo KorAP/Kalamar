@@ -316,26 +316,27 @@ order plugin entries without changing the instance's navigation JSON.
 
 ### Optional downtime calendar
 
-The bundled `Kalamar::Plugin::DowntimeCalendar` adapter can use a shared
-Nextcloud ICS export to show host-specific maintenance notices in the existing
-landing-page announcement area. The separate
-`Mojolicious::Plugin::DowntimeCalendar` distribution (0.02+) is **not a required
-Kalamar dependency** for source installations. Official Docker builds include
-it by default, pinned to a full source commit from the separate Gerrit repository.
-No extra container, IDS image or calendar-specific Compose overlay is needed.
-The feature remains disabled until explicitly configured.
-
-Downstream builders can omit the package entirely:
+The bundled `Kalamar::Plugin::DowntimeCalendar` adapter uses a shared Nextcloud
+ICS export to show host-specific maintenance notices in the landing-page
+announcement area. The generic `Mojolicious::Plugin::DowntimeCalendar` modules
+ship with Kalamar's source, together with their upstream tests and license.
+Their dependencies are declared in `Makefile.PL`, so the normal setup suffices:
 
 ```sh
-docker build --build-arg WITH_DOWNTIME_CALENDAR=0 -t my-kalamar .
+cpanm --installdeps .
+perl Makefile.PL
+make test
 ```
 
-`DOWNTIME_CALENDAR_REF` selects the pinned full commit; the Dockerfile records the
-default. `DOWNTIME_CALENDAR_REPOSITORY` can point at a trusted mirror. Packages
-are installed and tested during the build, never at container startup. For a
-source installation, install the separate distribution in Kalamar's Perl
-environment before enabling it.
+Source installations and Docker images use the same bundled code. The feature
+stays disabled until explicitly configured; ordinary startup loads neither the
+calendar implementation nor its parser dependencies. There is no separate
+calendar package installation, build flag, container or deployment overlay.
+
+The shared implementation is maintained in the separate Gerrit repository.
+Its imported version, full commit and update procedure are recorded in
+[third-party/downtime-calendar/README.md](third-party/downtime-calendar/README.md).
+Updates are committed to Kalamar before building or deploying it.
 
 Merge the adapter and calendar settings into the instance configuration:
 
@@ -352,10 +353,9 @@ Merge the adapter and calendar settings into the instance configuration:
 ```
 
 Or append `DowntimeCalendar` to `KALAMAR_PLUGINS` and set
-`DOWNTIME_CALENDAR_URL`. Explicit activation requires both a URL and version
-0.02 or newer of the shared package. Missing configuration, a missing package
-or an incompatible version produces a clear startup error. Without activation,
-Kalamar does not load the calendar or its parser dependencies.
+`DOWNTIME_CALENDAR_URL`. Explicit activation requires a URL. Missing
+configuration or dependencies produce a clear startup error, with a reminder
+to install dependencies through the normal Perl setup.
 
 Set `KORAP_HOSTNAME` to the physical host in Docker, e.g. through Compose's
 `KORAP_HOSTNAME: "${HOSTNAME}"` with an exported `HOSTNAME` on the deployment
@@ -386,8 +386,7 @@ including DateTime locale data, Unicode collation tables and lazily loaded
 parser dependencies. The build records a SHA-256 inventory of the Perl files,
 Kalamar dictionaries and JavaScript bundles. After slimming, a fresh container
 must match that inventory and load every registered DateTime locale. Separate
-calendar checks exercise recurrence and timezone handling when the package is
-included.
+calendar checks exercise the bundled parser, recurrence and timezone handling.
 Dutch, Romanian, Bulgarian and Czech have additional date-text and
 collation checks. These checks preserve available language resources; they do
 not add UI translations that Kalamar does not yet provide. A failed check fails

@@ -1,8 +1,8 @@
 package Kalamar::Plugin::DowntimeCalendar;
 use Mojo::Base 'Mojolicious::Plugin';
 
-# Optional adapter: the calendar distribution is deliberately not a Kalamar
-# prerequisite and is loaded only when this plugin is configured with a URL.
+# The shared implementation ships with Kalamar, but is loaded only when
+# this adapter is explicitly activated with a calendar URL.
 sub register {
   my ($self, $app, $param) = @_;
   my %options = (%{$app->config('DowntimeCalendar') // {}}, %{$param // {}});
@@ -15,7 +15,7 @@ sub register {
     Mojolicious::Plugin::DowntimeCalendar->VERSION('0.02');
     1;
   } or die "DowntimeCalendar requires Mojolicious::Plugin::DowntimeCalendar 0.02 or newer. "
-    . "Install the optional distribution before enabling it.\n$@";
+    . "Install Kalamar dependencies with 'cpanm --installdeps .' and check the bundled module.\n$@";
 
   $app->plugin('Mojolicious::Plugin::DowntimeCalendar' => \%options);
   $app->content_block('intro.announcements' => sub {

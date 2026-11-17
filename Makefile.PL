@@ -32,6 +32,10 @@ WriteMakefile(
     'Cache::FastMmap' => 1.61,
     'DateTime' => 1.66,
 
+    # Required by the bundled downtime calendar
+    'Data::ICal' => 0.24,
+    'DateTime::Format::ICal' => 0.09,
+
     # Required for Mojolicious::Plugin::CHI
     'Data::Serializer' => 0.65,
     'JSON' => 4.11,
@@ -48,6 +52,8 @@ WriteMakefile(
 
   META_MERGE   => {
     'meta-spec' => { version => 2 },
+    # The bundled namespace is maintained by its upstream distribution.
+    no_index => { directory => ['lib/Mojolicious'] },
     requires  => { perl => '5.010001' },
     resources => {
       license     => 'https://opensource.org/licenses/BSD-2-Clause',
@@ -63,6 +69,6 @@ WriteMakefile(
   },
 
   test => {
-    TESTS => 't/*.t t/plugin/*.t t/command/*.t'
+    TESTS => 't/*.t t/plugin/*.t t/command/*.t t/downtime-calendar/*.t'
   }
 );

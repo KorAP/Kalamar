@@ -1,8 +1,8 @@
         - Add optional host-specific downtime notices through the
-          intro.announcements content block, without a required calendar
-          dependency for source installs or public calendar/host metadata;
-          include the separate pinned package in regular Docker builds
-          with a build-time opt-out (kupietz; with AI assistance, Codex)
+          intro.announcements content block, without exposing calendar/host
+          metadata. Bundle the shared implementation and tests in the source
+          tree and install its dependencies through Makefile.PL for both
+          source and Docker setups (kupietz; with AI assistance, Codex)
         - Preserve all Perl language resources in slim Docker images and
           verify their hashes and all DateTime locales after slimming;
           explicitly check Dutch, Romanian, Bulgarian and Czech dates

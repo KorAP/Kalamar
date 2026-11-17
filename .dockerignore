@@ -12,6 +12,7 @@
 !/t
 !/loc
 !/templates
+!/third-party
 !.dockerignore
 /templates/announcement.html.ep
 /templates/custom
