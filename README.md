@@ -384,6 +384,18 @@ when it is registered. Otherwise the legacy include remains available. Other
 applications can use the same generic Mojolicious package with their own UI.
 No iframe plugin slot or instance-specific template copy is needed.
 
+### Docker builds in GitLab CI
+
+The pipeline uses the runner's `/var/run/docker.sock`, including for Mint.
+The runner must mount that socket into jobs; no Docker-in-Docker service or
+privileged service is started. `docker info` checks daemon access before builds.
+
+CI builds the asset stage first so npm/Grunt and CPAN compilation do not run
+concurrently. `CPM_WORKERS` defaults to 2 and can be overridden as a Docker build
+argument. A resource group serializes this project's Docker build jobs. Artifact
+compression uses at most two xz threads with a 1 GiB memory limit. Release image
+tags omit the Git tag's optional `v` prefix, consistently with deployed images.
+
 ### Slim Docker images and languages
 
 Use `sh slim_script.sh IMAGE_TAG` after building

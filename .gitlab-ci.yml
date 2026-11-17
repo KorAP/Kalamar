@@ -1,10 +1,11 @@
 image: docker:latest
 
+# This pipeline and Mint use the runner-mounted Docker socket.
 variables:
-  FF_NETWORK_PER_BUILD: true
-services:
-  - name: docker:dind
-    command: [--dns=127.0.0.11]
+  FF_NETWORK_PER_BUILD: "true"
+  DOCKER_HOST: unix:///var/run/docker.sock
+  DOCKER_TLS_CERTDIR: ""
+  CPM_WORKERS: "2"
 
 stages:
   - build
@@ -17,16 +18,24 @@ build-docker:
         VID: $CI_COMMIT_TAG
     - when: manual
       variables:
-        VID: $CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
+        VID: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   stage: build
+  resource_group: kalamar-docker-build
   before_script:
+    - test -S /var/run/docker.sock
+    - docker info
     - apk update
-    - apk add --no-cache git
+    - apk add --no-cache git xz
   script:
-    - docker build -f Dockerfile -t korap/kalamar:$VID-large --target kalamar .
-    - sh slim_script.sh "$VID"
+    - IMAGE_TAG="${CI_COMMIT_TAG:-}"
+    - IMAGE_TAG="${IMAGE_TAG#v}"
+    - IMAGE_TAG="${IMAGE_TAG:-$VID}"
+    # Finish npm/Grunt before starting memory-intensive CPAN compilation.
+    - docker build -f Dockerfile -t "korap/kalamar:$IMAGE_TAG-assets" --target assetbuilder .
+    - docker build -f Dockerfile --build-arg CPM_WORKERS="$CPM_WORKERS" -t "korap/kalamar:$IMAGE_TAG-large" --target kalamar .
+    - sh slim_script.sh "$IMAGE_TAG"
     - ARTIFACT=kalamar-${VID}.tar.xz
-    - docker save korap/kalamar:$VID | xz -T0 -M16G -9 > "$ARTIFACT"
+    - docker save "korap/kalamar:$IMAGE_TAG" | xz -T2 -M1G -6 > "$ARTIFACT"
   artifacts:
     paths:
       - kalamar-*.tar.xz
@@ -43,14 +52,17 @@ push-dockerhub:
       when: manual
     - when: never
   script:
+    - test -S /var/run/docker.sock
+    - docker info
+    - IMAGE_TAG="${CI_COMMIT_TAG#v}"
     - apk update
     - apk add --no-cache xz
     - echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
     - ARTIFACT=kalamar-${CI_COMMIT_TAG}.tar.xz
     - xz -d -c "$ARTIFACT" | docker load
-    - docker tag korap/kalamar:$CI_COMMIT_TAG korap/kalamar:latest
-    - docker tag korap/kalamar:$CI_COMMIT_TAG korap/kalamar:latest-conv
-    - docker push korap/kalamar:$CI_COMMIT_TAG
+    - docker tag korap/kalamar:$IMAGE_TAG korap/kalamar:latest
+    - docker tag korap/kalamar:$IMAGE_TAG korap/kalamar:latest-conv
+    - docker push korap/kalamar:$IMAGE_TAG
     - docker push korap/kalamar:latest
     - docker push korap/kalamar:latest-conv
 

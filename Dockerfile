@@ -28,6 +28,9 @@ RUN cd /kalamar && \
 # Use alpine linux AS base image
 FROM alpine:3.22 AS kalamar
 
+# cpm otherwise starts one worker per CPU, including on shared CI runners.
+ARG CPM_WORKERS=2
+
 RUN apk update && \
     apk add --no-cache git \
             perl \
@@ -48,10 +51,10 @@ RUN apk update && \
 
 RUN curl -fsSL https://raw.githubusercontent.com/kupietz/cpm/main/cpm > /bin/cpm && chmod a+x /bin/cpm
 
-RUN cpm install --test -g Cpanel::JSON::XS File::ShareDir::Install EV IO::Socket::Socks && \
-    cpm install --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.6.1.tar.gz" && \
-    cpm install --test -g "https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.64.tar.gz" && \
-    cpm install --test -g "https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz"
+RUN cpm install --workers "$CPM_WORKERS" --test -g Cpanel::JSON::XS File::ShareDir::Install EV IO::Socket::Socks && \
+    cpm install --workers "$CPM_WORKERS" --test -g "https://github.com/KorAP/KorAP-XML-TEI/archive/refs/tags/v2.6.1.tar.gz" && \
+    cpm install --workers "$CPM_WORKERS" --test -g "https://github.com/KorAP/KorAP-XML-Krill/archive/refs/tags/v0.64.tar.gz" && \
+    cpm install --workers "$CPM_WORKERS" --test -g "https://github.com/KorAP/KorAP-XML-CoNLL-U/archive/refs/tags/v0.6.3.tar.gz"
 
 # Copy assets from former container
 COPY --from=assetbuilder /kalamar /kalamar
@@ -59,7 +62,7 @@ COPY --from=assetbuilder /kalamar /kalamar
 WORKDIR /kalamar
 
 # Install Kalamar including all dependencies
-RUN cpm install --test -g
+RUN cpm install --workers "$CPM_WORKERS" --test -g
 
 # Remove all build dependencies
 RUN rm /bin/cpm && \
