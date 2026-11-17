@@ -45,11 +45,20 @@
           </details>
         </fieldset>
 
-        <progress value="0" max="100" hidden>0%</progress>
-
         <span class="button-group button-panel">
           %= submit_button loc('export_button')
         </span>
+
+        <div class="export-feedback" hidden
+             data-running="<%= loc 'export_progress' %>"
+             data-done="<%= loc 'export_started' %>"
+             data-error="<%= loc 'export_failed' %>">
+          <div class="export-status">
+            <span class="export-status-text" role="status"></span>
+            <span class="export-percent" aria-hidden="true"></span>
+          </div>
+          <progress value="0" max="100" aria-label="<%= loc 'export_progressLabel' %>" hidden></progress>
+        </div>
       </fieldset>
     </form>
   </div>

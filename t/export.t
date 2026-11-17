@@ -1,4 +1,5 @@
 use Mojo::Base -strict;
+use utf8;
 use Test::Mojo;
 use Test::More;
 use Mojo::File qw/path/;
@@ -52,7 +53,10 @@ $t->get_ok('/?q=baum&cq=corpusSigle+%3D+GOE')
   ->element_exists('#export-template input[type=number][name=hitc]')
   ->element_exists('#export-template input[type=checkbox][name=randomizePageOrder][value=true]')
   ->element_exists('#export-template input[type=number][name=seed][value=42]')
-  ->element_exists('#export-template input[type=submit][value=Export]');
+  ->element_exists('#export-template input[type=submit][value=Export]')
+  ->element_exists('#export-template .export-feedback[hidden][data-done="Download started."]')
+  ->element_exists('#export-template .export-status-text[role=status]')
+  ->element_exists('#export-template progress[hidden][aria-label="Export progress"]');
 
 # The service is reached through the proxy
 $t->get_ok('/export/')
@@ -72,7 +76,9 @@ $t->get_ok('/?q=paum')
 $t->get_ok('/?q=baum' => { 'Accept-Language' => 'de-DE, en-US, en' })
   ->status_is(200)
   ->element_exists('#export-template[data-title="Treffer exportieren"]')
-  ->element_exists('#export-template input[type=submit][value=Exportieren]');
+  ->element_exists('#export-template input[type=submit][value=Exportieren]')
+  ->element_exists('#export-template .export-feedback[data-done="Download gestartet."]')
+  ->element_exists('#export-template .export-feedback[data-running="Export wird erstellt …"]');
 
 # The form respects a proxy prefix
 $t = kalamar(export => $export_path, proxy_prefix => '/instance/test');

@@ -23,6 +23,8 @@ define(['view'], function (viewClass) {
       // Import to resolve the form action against the page
       const e = document.importNode(this._tmpl.content.firstElementChild, true);
       const form = e.querySelector('form');
+      const button = form.querySelector('input[type=submit]');
+      button.disabled = true;
 
       // Set the limits of the service
       fetch(form.action + '/config').then(
@@ -38,6 +40,8 @@ define(['view'], function (viewClass) {
           info.querySelector('code').textContent = i[1];
           info.hidden = false;
         });
+
+        button.disabled = false;
 
         if (conf.announcement) {
           const a = e.querySelector('.announcement');
@@ -55,12 +59,14 @@ define(['view'], function (viewClass) {
       // is sent directly and answered with the file.
       form.addEventListener('submit', function (ev) {
         ev.preventDefault();
+        if (button.disabled || this._busy)
+          return;
         const url = new URL(form.action);
         new FormData(form).forEach(function (v, k) {
           if (v !== '')
             url.searchParams.append(k, v);
         });
-        this._stream(url, form.querySelector('progress'));
+        this._stream(url, form);
       }.bind(this));
 
       this._show = e;
@@ -68,25 +74,71 @@ define(['view'], function (viewClass) {
     },
 
     // Follow the export of the service and fetch the file in the end
-    _stream : function (url, prog) {
-      let file;
-      const sse = new EventSource(url);
+    _stream : function (url, form) {
+      if (this._busy)
+        return;
+      this._busy = true;
+
+      const feedback = form.querySelector('.export-feedback');
+      const prog = feedback.querySelector('progress');
+      const status = feedback.querySelector('.export-status-text');
+      const percent = feedback.querySelector('.export-percent');
+      const button = form.querySelector('input[type=submit]');
+      let file, sse, settled = false;
+
+      feedback.hidden = false;
+      prog.hidden = false;
+      prog.value = 0;
+      percent.textContent = '0 %';
+      status.textContent = feedback.dataset.running;
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+
+      const finish = function (message) {
+        if (settled)
+          return;
+        settled = true;
+        if (sse)
+          sse.close();
+        prog.hidden = true;
+        percent.textContent = '';
+        status.textContent = message;
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        this._busy = false;
+      }.bind(this);
 
       const err = function (e) {
-        sse.close();
-        prog.hidden = true;
+        if (settled)
+          return;
+        finish(feedback.dataset.error);
         KorAP.log(0, e.data || 'Unable to export');
       };
 
+      try {
+        sse = new EventSource(url);
+      }
+      catch (e) {
+        err(e);
+        return;
+      }
       sse.addEventListener('Error', err);
       sse.onerror = err;
 
       sse.addEventListener('Progress', function (e) {
-        prog.value = e.data;
+        if (settled)
+          return;
+        const value = Number(e.data);
+        if (!Number.isFinite(value))
+          return;
+        prog.value = Math.min(100, Math.max(0, value));
+        percent.textContent = Math.round(prog.value) + ' %';
       });
 
       // Location of the file: "<file>;<filename>"
       sse.addEventListener('Relocate', function (e) {
+        if (settled)
+          return;
         const data = (e.data || '').split(';');
         if (!data[0])
           return;
@@ -99,18 +151,19 @@ define(['view'], function (viewClass) {
       });
 
       sse.addEventListener('Process', function (e) {
-        prog.hidden = false;
-        if (e.data !== 'done')
+        if (settled || e.data !== 'done')
           return;
+        if (!file) {
+          err({});
+          return;
+        }
+        finish(feedback.dataset.done);
+        this._download(file.href);
+      }.bind(this));
+    },
 
-        sse.close();
-        prog.value = 100;
-
-        if (file)
-          location.href = file.href;
-        else
-          KorAP.log(0, 'Unable to export');
-      });
+    _download : function (url) {
+      location.href = url;
     }
   }
 });

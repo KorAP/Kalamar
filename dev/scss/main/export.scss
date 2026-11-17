@@ -173,10 +173,51 @@
     }
   }
 
+  .export-feedback {
+    width: 100%;
+    max-width: 32rem;
+    margin-top: 12px;
+  }
+
+  .export-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1em;
+    margin-bottom: 5px;
+    font-size: 90%;
+  }
+
+  .button-panel input[type=submit]:disabled {
+    opacity: .6;
+    cursor: default;
+  }
+
   progress {
     display: block;
     width: 100%;
-    margin-bottom: 1em;
+    height: 6px;
+    margin: 0;
+    border: 0;
+    border-radius: 3px;
+    background: colors.$light-grey;
+    accent-color: colors.$dark-orange;
+    overflow: hidden;
+
+    &::-webkit-progress-bar {
+      background: colors.$light-grey;
+      border-radius: 3px;
+    }
+
+    &::-webkit-progress-value {
+      background: colors.$dark-orange;
+      border-radius: 3px;
+    }
+
+    &::-moz-progress-bar {
+      background: colors.$dark-orange;
+      border-radius: 3px;
+    }
   }
 
   // The attribute needs to win over display rules

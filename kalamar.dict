@@ -73,6 +73,10 @@ my $THOUSAND_SEP_RE = qr/(
       pageSize => 'Seitengröße:',
       seed => 'Seed',
       button => 'Exportieren',
+      progress => 'Export wird erstellt …',
+      started => 'Download gestartet.',
+      failed => 'Der Export ist fehlgeschlagen. Bitte versuchen Sie es erneut.',
+      progressLabel => 'Fortschritt des Exports',
     },
     noMatches => 'Es wurden keine Treffer für <%== loc("searchjob") %> gefunden.',
     moreMatches => {
@@ -215,6 +219,10 @@ my $THOUSAND_SEP_RE = qr/(
       pageSize => 'page size:',
       seed => 'Seed',
       button => 'Export',
+      progress => 'Preparing export …',
+      started => 'Download started.',
+      failed => 'The export failed. Please try again.',
+      progressLabel => 'Export progress',
     },
     noMatches => 'There were no matches found for <%== loc("searchjob") %>.',
     moreMatches => {
