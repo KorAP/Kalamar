@@ -10,12 +10,15 @@
       % my $start = DateTime->from_epoch(epoch => $event->{start_epoch}, time_zone => $downtime_time_zone);
       % my $end = DateTime->from_epoch(epoch => $event->{end_epoch}, time_zone => $downtime_time_zone);
       % $end->subtract(days => 1) if $event->{all_day};
+      % my $same_day = $start->ymd eq $end->ymd;
       <li class="maintenance-notices__event">
         <div class="maintenance-notices__schedule">
           <div class="maintenance-notices__dates">
             <time datetime="<%= $event->{start} %>"><%= $start->strftime($event->{all_day} ? '%d.%m.%Y' : '%d.%m.%Y %H:%M') %></time>
-            <span aria-hidden="true">–</span>
-            <time datetime="<%= $event->{end} %>"><%= $end->strftime($event->{all_day} ? '%d.%m.%Y' : '%d.%m.%Y %H:%M') %></time>
+            % unless ($same_day && $event->{all_day}) {
+              <span aria-hidden="true">–</span>
+              <time datetime="<%= $event->{end} %>"><%= $end->strftime($event->{all_day} ? '%d.%m.%Y' : $same_day ? '%H:%M' : '%d.%m.%Y %H:%M') %></time>
+            % }
           </div>
           % if ($event->{all_day}) {
             <span class="maintenance-notices__duration"><%= $de ? 'Ganztägig' : 'All day' %></span>

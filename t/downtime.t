@@ -67,9 +67,33 @@ ok !exists $INC{'Mojolicious/Plugin/DowntimeCalendar.pm'}, 'invalid configuratio
     ->content_unlike(qr/LEGACY_NOTICE/);
   $events = [{start => '2026-11-17T10:00:00+0100', end => '2026-11-17T11:30:00+0100', start_epoch => 1794906000, end_epoch => 1794911400, all_day => 0, ongoing => 0}];
   $active->get_ok('/')->status_is(200)->content_like(qr/17\.11\.2026 10:00/)
-    ->content_like(qr/17\.11\.2026 11:30/);
+    ->text_is('.maintenance-notices__dates time:nth-of-type(2)', '11:30')
+    ->attr_is('.maintenance-notices__dates time:nth-of-type(2)', 'datetime', $events->[0]{end});
   my $utc = frontend({Kalamar => {plugins => ['DowntimeCalendar']}, DowntimeCalendar => {url => 'https://example.org/calendar', resolve_hosts => 0, time_zone => 'UTC'}});
   $utc->app->helper('downtime_calendar.public_events' => sub {$events});
-  $utc->get_ok('/')->status_is(200)->content_like(qr/17\.11\.2026 09:00/)->content_like(qr/17\.11\.2026 10:30/);
+  $utc->get_ok('/')->status_is(200)->content_like(qr/17\.11\.2026 09:00/)->text_is('.maintenance-notices__dates time:nth-of-type(2)', '10:30');
+  # Compare dates in the displayed timezone, not UTC or the input offset.
+  $events = [{start => '2026-11-17T23:30:00Z', end => '2026-11-18T00:30:00Z', start_epoch => 1794958200, end_epoch => 1794961800, all_day => 0, ongoing => 0}];
+  for my $lang (qw(de en)) {
+    $active->get_ok('/' => {'Accept-Language' => $lang})->status_is(200)
+      ->text_is('.maintenance-notices__dates time:nth-of-type(1)', '18.11.2026 00:30')
+      ->text_is('.maintenance-notices__dates time:nth-of-type(2)', '01:30');
+  }
+  $utc->get_ok('/')->status_is(200)
+    ->text_is('.maintenance-notices__dates time:nth-of-type(1)', '17.11.2026 23:30')
+    ->text_is('.maintenance-notices__dates time:nth-of-type(2)', '18.11.2026 00:30');
+
+  # A single all-day event has one visible date; DTEND stays exclusive.
+  $events = [{start => '2026-11-17T00:00:00+0100', end => '2026-11-18T00:00:00+0100', start_epoch => 1794870000, end_epoch => 1794956400, all_day => 1, ongoing => 0}];
+  $active->get_ok('/')->status_is(200)
+    ->element_count_is('.maintenance-notices__dates time', 1)
+    ->text_is('.maintenance-notices__dates time', '17.11.2026')
+    ->element_exists_not('.maintenance-notices__dates span');
+  $events->[0]{end} = '2026-11-19T00:00:00+0100';
+  $events->[0]{end_epoch} += 86400;
+  $active->get_ok('/')->status_is(200)
+    ->element_count_is('.maintenance-notices__dates time', 2)
+    ->text_is('.maintenance-notices__dates time:nth-of-type(1)', '17.11.2026')
+    ->text_is('.maintenance-notices__dates time:nth-of-type(2)', '18.11.2026');
 }
 done_testing;
