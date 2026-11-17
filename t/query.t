@@ -198,7 +198,7 @@ $err = $t->get_ok('/?q=der&p=1&count=2' => { 'Accept-Language' => 'en-US, en, de
   ->content_like(qr!${q}itemsPerPage${q}:2!)
 
   # Alignment
-  ->element_exists('#search ol.align-left')
+  ->element_exists('#search ol.align-center')
   ->element_exists_not('#search ol.align-right')
 
   # No caching

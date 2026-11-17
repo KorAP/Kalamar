@@ -358,7 +358,7 @@ sub startup {
   $self->defaults(
     items_per_page => 25,
     context => '40-t,40-t', # Before: 'base/s:p'/'paragraph'
-    alignment => 'left'
+    alignment => 'center'
   );
 
   if (exists $conf->{defaults}) {
