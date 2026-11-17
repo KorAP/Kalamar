@@ -1,0 +1,118 @@
+@use "../base/lengths";
+
+/* A secondary notice beside the introduction; stack it on smaller screens. */
+div.intro-container.with-announcements {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.with-announcements > div.intro {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+.with-announcements .maintenance-notices {
+  display: grid;
+  grid-template-columns: 1.15rem minmax(0, 1fr);
+  gap: .65rem;
+  flex: 0 0 23rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  color: #423b2f;
+  background: #fffbf3;
+  border: 1px solid #e9dfcc;
+  border-left: 3px solid #c39a54;
+  border-radius: lengths.$standard-border-radius;
+  line-height: 1.5;
+}
+.maintenance-notices__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: .1rem;
+  color: #946214;
+}
+.maintenance-notices #maintenance-title {
+  margin: 0 0 .4rem;
+  padding: 0;
+  font-size: .85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #805512;
+}
+.maintenance-notices ul.maintenance-notices__events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.maintenance-notices li.maintenance-notices__event {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: .3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.maintenance-notices li.maintenance-notices__event + li.maintenance-notices__event {
+  margin-top: .75rem;
+  padding-top: .75rem;
+  border-top: 1px solid #ead9b6;
+}
+.maintenance-notices__summary {
+  font-size: .8rem;
+  font-weight: 400;
+  color: #71634d;
+  overflow-wrap: anywhere;
+}
+.maintenance-notices__schedule {
+  text-align: left;
+  font-size: .85rem;
+}
+.maintenance-notices__dates {
+  font-size: .95rem;
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 .35rem;
+  justify-content: flex-start;
+}
+.maintenance-notices__dates time {
+  white-space: nowrap;
+}
+.maintenance-notices__duration {
+  display: block;
+  color: #71634d;
+  font-size: .75rem;
+}
+.maintenance-notices p.maintenance-notices__detail {
+  margin: .5rem 0 0;
+  color: #71634d;
+  font-size: .8rem;
+  text-align: left;
+}
+@media (max-width: 60em) {
+  div.intro-container.with-announcements {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 1rem;
+    gap: 1.25rem;
+  }
+  .with-announcements .maintenance-notices {
+    flex-basis: auto;
+    padding: 1rem;
+    gap: .75rem;
+  }
+  .maintenance-notices li.maintenance-notices__event {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .25rem;
+  }
+  .maintenance-notices__schedule {
+    text-align: left;
+  }
+  .maintenance-notices__dates {
+    justify-content: flex-start;
+  }
+}

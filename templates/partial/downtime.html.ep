@@ -1,0 +1,31 @@
+% my $events = $downtime_events;
+% my $de = ($downtime_language // 'en') eq 'de';
+% if (@$events) {
+<section class="maintenance-notices" aria-labelledby="maintenance-title">
+  <svg class="maintenance-notices__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+  <div class="maintenance-notices__content">
+    <h2 id="maintenance-title"><%= $de ? 'Mögliche Dienstunterbrechungen' : 'Possible service interruptions' %></h2>
+    <ul class="maintenance-notices__events">
+    % for my $event (@$events) {
+      % my $start = DateTime->from_epoch(epoch => $event->{start_epoch}, time_zone => $downtime_time_zone);
+      % my $end = DateTime->from_epoch(epoch => $event->{end_epoch}, time_zone => $downtime_time_zone);
+      % $end->subtract(days => 1) if $event->{all_day};
+      <li class="maintenance-notices__event">
+        <div class="maintenance-notices__schedule">
+          <div class="maintenance-notices__dates">
+            <time datetime="<%= $event->{start} %>"><%= $start->strftime($event->{all_day} ? '%d.%m.%Y' : '%d.%m.%Y %H:%M') %></time>
+            <span aria-hidden="true">–</span>
+            <time datetime="<%= $event->{end} %>"><%= $end->strftime($event->{all_day} ? '%d.%m.%Y' : '%d.%m.%Y %H:%M') %></time>
+          </div>
+          % if ($event->{all_day}) {
+            <span class="maintenance-notices__duration"><%= $de ? 'Ganztägig' : 'All day' %></span>
+          % }
+        </div>
+        <span class="maintenance-notices__summary"><%= $de ? 'Systemwartung' : 'System maintenance' %></span>
+      </li>
+    % }
+    </ul>
+    <p class="maintenance-notices__detail"><%= $de ? 'Während der Wartungsarbeiten kann der Dienst zeitweise nicht verfügbar sein.' : 'The service may be temporarily unavailable during maintenance.' %></p>
+  </div>
+</section>
+% }

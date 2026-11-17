@@ -28,3 +28,5 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
 # its language resources in a fresh runtime process.
 docker run --rm --entrypoint perl "$slim_image" script/check-runtime \
   --manifest /kalamar/runtime-manifest.json
+# Feature-specific runtime checks are separate from the general resource check.
+docker run --rm --entrypoint perl "$slim_image" script/check-downtime

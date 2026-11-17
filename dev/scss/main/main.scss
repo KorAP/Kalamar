@@ -15,6 +15,7 @@
 @use 'introjs'; // Guided Tour
 @use 'introjs-ids'; // Guided Tour: IDS specific
 @use 'oauth'; // OAuth Management styles
+@use 'downtime'; // Optional host-specific maintenance notices
 @use 'announcements'; // Styling for announcements
 @use 'news'; // View for optional news
 @use 'plugin'; // Rules for embedded plugins

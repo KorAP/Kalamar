@@ -50,9 +50,12 @@ adminToken
 /kalamar.code-workspace
 slim.report.json
 /local/
-# Versioned language-resource check
+# Versioned image build/runtime checks
 !/script/
 /script/*
 !/script/kalamar
+!/script/install-downtime
 !/script/check-runtime
+!/script/check-downtime
 /runtime-manifest.json
+/downtime-build.json

@@ -1,10 +1,14 @@
 % layout 'main', login_active => 1;
 
-<div class="intro-container">
+<div class="intro-container<%= content_block_ok('intro.announcements') ? ' with-announcements' : '' %>">
   <div class="intro">
     <p><noscript>KorAP erwartet für einige Funktionen die Aktivierung von JavaScript.</noscript></p>
     <p>KorAP wird am <a href="http://www.ids-mannheim.de">Leibniz-Institut für Deutsche Sprache</a> in Mannheim entwickelt, Mitglied der <a href="http://www.leibniz-gemeinschaft.de">Leibniz Gemeinschaft</a>. Die einzelnen Module werden als Open Source auf <a href="http://github.com/KorAP">GitHub</a> veröffentlicht.</p>
   </div>
 
+  % if (content_block_ok('intro.announcements')) {
+    %= content_block 'intro.announcements'
+  % } else {
   %= include 'announcement', lang => 'de'
+  % }
 </div>

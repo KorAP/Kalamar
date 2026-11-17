@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+use 5.016;
+use strict;
+use warnings;
+use FindBin;
+use Mojo::File qw(path);
+use Mojo::JSON qw(decode_json);
+
+my $build_file = path($FindBin::Bin)->dirname->child('downtime-build.json');
+my $build = decode_json($build_file->slurp);
+my $available = eval {require Mojolicious::Plugin::DowntimeCalendar; 1};
+my $calendar_version;
+if ($available) {
+  $calendar_version = Mojolicious::Plugin::DowntimeCalendar->VERSION('0.02');
+  die "Calendar package present in opt-out image\n" if $build && !$build->{enabled};
+  for my $zone (qw(Europe/Berlin America/New_York Asia/Tokyo UTC)) {
+    my $calendar = Mojolicious::Plugin::DowntimeCalendar::Calendar->new(time_zone => $zone);
+    my $events = $calendar->events("BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:runtime\nDTSTART;TZID=$zone:20261117T100000\nDURATION:PT1H\nRRULE:FREQ=DAILY;COUNT=2\nLOCATION:runtime-test\nEND:VEVENT\nEND:VCALENDAR\n", hosts => ['runtime-test'], now => 1794783600, until => 1795042800);
+    die "Calendar recurrence failed in $zone\n" unless @$events == 2;
+  }
+  my $hosts = Mojolicious::Plugin::DowntimeCalendar::Hosts->discover(resolve => 0);
+  die "Local hostname discovery failed\n" unless @$hosts;
+} else {
+  die "Calendar dependency unavailable: $@" if $build && $build->{enabled};
+  die "Broken calendar installation: $@" unless $@ =~ m{Can't locate Mojolicious/Plugin/DowntimeCalendar\.pm};
+}
+print "Calendar runtime checks passed: ", ($available ? $calendar_version : 'not included'), "\n";
