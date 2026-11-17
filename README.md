@@ -357,6 +357,16 @@ Or append `DowntimeCalendar` to `KALAMAR_PLUGINS` and set
 configuration or dependencies produce a clear startup error, with a reminder
 to install dependencies through the normal Perl setup.
 
+When enabled, the adapter also serves `GET /maintenance.json`, relative to the
+instance's mount path. The version-1 JSON response contains `schema_version`,
+`state` (`ok`, `stale` or `unknown`), `time_zone`, Unix `last_success` and
+`valid_until` timestamps (nullable), and `events` with the public schedule fields
+only. An empty `unknown` response does not establish that no maintenance is
+planned. Internal calendar text, URLs, hostnames and refresh errors are omitted.
+Responses use `Cache-Control: no-store`. A cold worker waits asynchronously for
+the first refresh, for at most two seconds; warm workers respond immediately.
+The route is absent when the optional plugin is disabled.
+
 Set `KORAP_HOSTNAME` to the physical host in Docker, e.g. through Compose's
 `KORAP_HOSTNAME: "${HOSTNAME}"` with an exported `HOSTNAME` on the deployment
 host. Without Docker the module discovers the local host. The calendar's
