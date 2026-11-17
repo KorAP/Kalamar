@@ -1,4 +1,5 @@
 @charset "utf-8";
+@use "sass:color";
 @use "../base/colors";
 @use "../base/lengths";
 
@@ -72,14 +73,14 @@
   }
 
   details {
-    margin: .3em 0 0;
+    display: flow-root;
+    margin: .3em 0 0 8em;
     min-height: 4.3em;
 
     summary {
       box-sizing: border-box;
       width: max-content;
-      max-width: calc(100% - 8em);
-      margin-left: 8em;
+      max-width: 100%;
       padding: lengths.$base-padding 10px;
       border: 1px solid colors.$light-grey;
       border-radius: lengths.$standard-border-radius;
@@ -96,13 +97,26 @@
       }
     }
 
+    &[open] {
+      border: 1px solid colors.$light-grey;
+      border-radius: lengths.$standard-border-radius;
+      background-color: color.mix(colors.$nearly-white, colors.$light-grey, 78%);
+
+      summary {
+        width: auto;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid colors.$light-grey;
+        border-radius: lengths.$standard-border-radius lengths.$standard-border-radius 0 0;
+      }
+    }
+
     .export-options-content {
-      clear: both;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 1em 2em;
-      padding: 1em 0 0 8em;
+      padding: 12px;
       white-space: normal;
     }
 
@@ -151,16 +165,8 @@
     }
 
     details {
+      margin-left: 0;
       min-height: 0;
-
-      summary {
-        margin-left: 0;
-        max-width: 100%;
-      }
-
-      .export-options-content {
-        padding-left: 0;
-      }
     }
   }
 
