@@ -1,3 +1,4 @@
+0.67.0-beta.4
         - Add optional host-specific downtime notices through the
           intro.announcements content block, without exposing calendar/host
           metadata. Bundle the shared implementation and tests in the source
