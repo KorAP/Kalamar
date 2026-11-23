@@ -3,11 +3,13 @@ import sttsArray from './stts.js';
 import negraNodesArray from './negranodes.js';
 import negraEdgesArray from './negraedges.js';
 
+   // Standard short NE tags written by korapxmltool -N (older models
+    // emitted I-LOC, I-PER etc.); outside ("O") tokens are not indexed.
     var namedEntities = [
-      ["I-LOC",  "I-LOC ",  "Location"],
-      ["I-MISC", "I-MISC ", "Miscellaneous"],
-      ["I-ORG",  "I-ORG ",  "Organization"],
-      ["I-PER",  "I-PER ",  "Person"]
+      ["LOC",  "LOC ",  "Location"],
+      ["MISC", "MISC ", "Miscellaneous"],
+      ["ORG",  "ORG ",  "Organization"],
+      ["PER",  "PER ",  "Person"]
     ];
 
     ah["-"].push(
