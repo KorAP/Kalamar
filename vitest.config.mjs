@@ -9,6 +9,14 @@ export default defineConfig({
       if (id.endsWith('highlight/highlight.pack.js'))
         return code.replace('"undefined"!=typeof exports', 'false');
     }
+  }, {
+    // The vendored dagre registers the global "dagre" only
+    // if "exports" is undefined, which isn't the case in vitest.
+    name: 'dagre-global',
+    transform (code, id) {
+      if (id.endsWith('lib/dagre.js'))
+        return code.replace('"object"==typeof exports&&"undefined"!=typeof module', 'false');
+    }
   }],
   test: {
     root: 'dev/js/src-lib',
