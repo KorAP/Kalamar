@@ -1,4 +1,4 @@
-import QueryCreator from '../querycreator.js';
+import QueryCreator from '../../match/querycreator.js';
 import '../../../../../scss/kalamar.scss';
 
 document.addEventListener('DOMContentLoaded', function () {

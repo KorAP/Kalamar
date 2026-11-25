@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import metaClass from '../meta.js';
-import attachementClass from '../../attachement/attachement.js';
+import metaClass from '../match/meta.js';
+import attachementClass from '../match/attachement.js';
 
   var available = [
     'base/s=spans',

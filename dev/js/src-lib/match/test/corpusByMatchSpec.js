@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import cbmClass from '../corpusByMatch.js';
-import vcClass from '../../../vc/vc.js';
+import cbmClass from '../match/corpusByMatch.js';
+import vcClass from '../../vc/vc.js';
 
 if (HTMLElement.prototype.innerText === undefined) {
   Object.defineProperty(HTMLElement.prototype, 'innerText', {

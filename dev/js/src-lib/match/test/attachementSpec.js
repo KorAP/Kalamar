@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import attachementClass from '../attachement.js';
+import attachementClass from '../match/attachement.js';
 
 describe('KorAP.Attachement', function () {
   it('should handle attachements', function () {

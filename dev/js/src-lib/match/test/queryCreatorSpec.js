@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import qcClass from '../querycreator.js';
+import qcClass from '../match/querycreator.js';
 
 if (HTMLElement.prototype.innerText === undefined) {
   Object.defineProperty(HTMLElement.prototype, 'innerText', {

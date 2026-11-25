@@ -1,5 +1,5 @@
-import cbmClass from '../corpusByMatch/corpusByMatch.js';
-import attClass from '../attachement/attachement.js';
+import cbmClass from './corpusByMatch.js';
+import attClass from './attachement.js';
 import '../../util/util.js';
 
   // Localization values

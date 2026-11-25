@@ -1,5 +1,5 @@
 import '../../../../../scss/kalamar.scss';
-import Meta from '../meta.js';
+import Meta from '../../match/meta.js';
 
 /**
  * Demo for the match meta view.

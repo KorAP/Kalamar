@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import InfoLayer from '../infolayer.js';
+import InfoLayer from '../match/infolayer.js';
 
 describe('KorAP.InfoLayer', function () {
   it('should be initializable', function () {
