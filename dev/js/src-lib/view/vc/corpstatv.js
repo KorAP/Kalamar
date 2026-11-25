@@ -4,10 +4,10 @@
  * @author Helge Stallkamp
  */
 
-import viewClass from '../../view.js';
-import statClass from '../../../vc/vc/statistic.js';
-import buttonGroup from '../../../buttongroup/buttongroup.js';
-import '../../../util/util.js';
+import viewClass from '../view.js';
+import statClass from '../../vc/vc/statistic.js';
+import buttonGroup from '../../buttongroup/buttongroup.js';
+import '../../util/util.js';
 
          // Localization values
   const loc   = KorAP.Locale;

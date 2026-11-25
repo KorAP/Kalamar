@@ -9,7 +9,7 @@
 import { describe, it, expect } from 'vitest';
 import vcClass from '../vc.js';
 import statClass from '../vc/statistic.js';
-import corpStatVClass from '../../view/view/vc/corpstatv.js';
+import corpStatVClass from '../../view/vc/corpstatv.js';
 
 	var json = {
    	"@type":"koral:docGroup",

@@ -39,6 +39,8 @@
         - Migrate suggest short standard named-entity tags to ES6 (hebasta)
         - Migrate corpusByMatch to ES6 (hebasta)
         - Migrate meta to ES6 (hebasta)
+        - ES6 migration: match directory structure changed (hebasta)
+        - ES6 migration: flatten directory structure for view vc (hebasta)
 
 0.66 2026-09-02'
         - Fix link to NEGRA corpus (diewald)

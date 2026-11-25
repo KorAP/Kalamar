@@ -8,7 +8,7 @@
  */
 
 import panelClass from '../panel.js';
-import corpStatVClass from '../../view/view/vc/corpstatv.js';
+import corpStatVClass from '../../view/vc/corpstatv.js';
   
   const d = document;
 
