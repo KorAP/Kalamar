@@ -49,6 +49,10 @@
             "id": "#syntagmatic-operators"
           },
           {
+            "title": "Dependency Relations",
+            "id": "#dependency-relations"
+          },
+          {
             "title": "Class Operators",
             "id": "#class-operators"
           }
