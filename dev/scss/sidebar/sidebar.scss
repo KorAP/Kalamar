@@ -85,9 +85,6 @@ aside {
       padding: 0;
       > a {
         padding: lengths.$item-padding;
-        &:visited {
-          @include choose.choose-item;
-        }
       }
 
       &.folded {
@@ -102,11 +99,11 @@ aside {
         }
       }
 
-      &.active > a:link {
+      &.active > a:any-link {
         @include choose.choose-active;
       }
 
-      > a:link {
+      > a:any-link {
         @include choose.choose-item;
         display: block;
 
@@ -115,7 +112,8 @@ aside {
           style: solid;
         }
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
           @include choose.choose-hover;
           transition: none;
         }
