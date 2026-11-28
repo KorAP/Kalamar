@@ -310,6 +310,32 @@ Terms of the complex segment can be negated as introduced before.</p>
       
 </section>
 
+<section id="dependency-relations">
+  <h3>Dependency Relations</h3>
+
+  <p>Use <code>dependency(foundry/d=label: source, target)</code> to search for a labelled dependency. For the German spaCy dependencies in these examples, the dependent comes first and its head comes second. You can add constraints on either word, for example by specifying its part of speech or lemma.</p>
+
+  <p>This query finds common nouns (<code>spacy/p=NN</code>) that spaCy marks as genitive attributes (<code>ag</code>). The head is selected by its lemma (<code>spacy/l=Bestimmung</code>), so the query also matches the plural form in <em>Bestimmungen des Urheberrechtsgesetzes</em>.</p>
+
+  %= doc_query poliqarp => 'dependency(spacy/d=ag: [spacy/p=NN], [spacy/l=Bestimmung])', cutoff => 1
+
+  <p>This query finds <em>von</em> tagged as a preposition (<code>spacy/p=APPR</code>) that spaCy attaches to a common noun with the label <code>pg</code>. Any common noun can be the head, as in <em>Entnahme von Abbildungen</em> or <em>Welt von Stadt und Vorstadt</em>. For the grammatical term, see <a href="https://grammis.ids-mannheim.de/terminologie/35">Attribut in grammis (in German)</a>.</p>
+
+  %= doc_query poliqarp => 'dependency(spacy/d=pg: [orth=von & spacy/p=APPR], [spacy/p=NN])', cutoff => 1
+
+  <h4>Two dependents of the same head</h4>
+
+  <p>To require a genitive attribute and a postnominal prepositional modifier (<code>mnr</code>) on the same noun, mark the head in the inner query as class 2. <code>focus(2: ...)</code> passes just that head to the outer dependency query. One example is <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em>.</p>
+
+  %= doc_query poliqarp => 'dependency(spacy/d=mnr: [spacy/p=APPR], focus(2: dependency(spacy/d=ag: [spacy/p=NN], {2:[spacy/l=Bestimmung]})))', cutoff => 1
+
+  <p>For more complex dependency queries, consider using <%= embedded_link_to 'doc', 'ANNIS QL', 'ql', 'annis' %>, especially when several relations share a head. The following query finds the same two modifiers. In the second relation, <code>#2</code> refers back to the head introduced in the first relation (<code>spacy/l="Bestimmung"</code>).</p>
+
+  %= doc_query annis => 'spacy/p="NN" ->spacy/d[func="ag"] spacy/l="Bestimmung" & spacy/p="APPR" ->spacy/d[func="mnr"] #2', cutoff => 1
+
+  <p>These examples require texts with spaCy dependency, part-of-speech and lemma annotations. For broad dependency searches, try restricting the virtual corpus first.</p>
+</section>
+
 <section id="class-operators">
   <h3>Class Operators</h3>
 
