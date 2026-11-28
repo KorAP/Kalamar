@@ -316,27 +316,29 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 <section id="dependency-relations">
   <h3>Dependenzrelationen</h3>
 
-  <p>Mit <code>dependency(foundry/d=label: quelle, ziel)</code> suchen Sie nach einer Dependenzrelation mit einem bestimmten Label. In den deutschen spaCy-Annotationen dieser Beispiele steht zuerst das abhängige Wort und dann sein Kopf. Für beide Wörter können Sie weitere Bedingungen angeben, zum Beispiel zur Wortart oder zum Lemma.</p>
+  <p>Mit <code>dependency(foundry/d=label: quelle, ziel)</code> kann man nach einer Dependenzrelation suchen. In den folgenden Beispielen steht zuerst das abhängige Wort, dann sein Kopf. Für beide kann man weitere Bedingungen angeben, zum Beispiel zur Wortart oder zum Lemma.</p>
 
-  <p>Diese Anfrage findet Nomen (<code>spacy/p=NN</code>), die spaCy als Genitivattribut (<code>ag</code>) annotiert hat. <code>spacy/l=Bestimmung</code> sucht beim Kopf nach dem Lemma <em>Bestimmung</em> und erfasst so auch die Pluralform, etwa in <em>Bestimmungen des Urheberrechtsgesetzes</em>.</p>
+  <p>Die folgende Anfrage findet Nomen (<code>spacy/p=NN</code>), die spaCy als Genitivattribut (<code>ag</code>) annotiert hat. <code>spacy/l=Bestimmung</code> sucht beim Kopf nach dem Lemma <em>Bestimmung</em>, wie in <em>Bestimmungen des Urheberrechtsgesetzes</em>.</p>
 
   %= doc_query poliqarp => 'dependency(spacy/d=ag: [spacy/p=NN], [spacy/l=Bestimmung])', cutoff => 1
 
-  <p>Diese Anfrage findet <em>von</em> als Präposition (<code>spacy/p=APPR</code>), wenn spaCy sie mit der Relation <code>pg</code> an ein Nomen anbindet. Das Bezugsnomen ist frei, wie in <em>Entnahme von Abbildungen</em> oder <em>Welt von Stadt und Vorstadt</em>. Zum grammatischen Begriff siehe <a href="https://grammis.ids-mannheim.de/terminologie/35">Attribut in grammis</a>.</p>
+  <p>Enthält das Korpus auch Malt-Dependenzen, kann man im ersten Beispiel für das Genitivattribut <code>malt/d=GMOD</code> einsetzen.</p>
 
-  %= doc_query poliqarp => 'dependency(spacy/d=pg: [orth=von & spacy/p=APPR], [spacy/p=NN])', cutoff => 1
+  <p>Die folgende Anfrage findet <em>von</em>, wenn es laut spaCy mit der Relation <code>pg</code> von einem Nomen abhängt, etwa von <em>Entnahme</em> in <em>Entnahme von Abbildungen</em>.</p>
+
+  %= doc_query poliqarp => 'dependency(spacy/d=pg: [orth=von], [spacy/p=NN])', cutoff => 1
 
   <h4>Zwei Attribute mit demselben Kopf</h4>
 
-  <p>Um nach einem Genitivattribut und einem nachgestellten Präpositionalattribut (<code>mnr</code>) zum selben Substantiv zu suchen, markieren Sie den Kopf in der inneren Anfrage als Klasse 2. <code>focus(2: ...)</code> übergibt genau diesen Kopf an die äußere Dependenzanfrage. Ein Beispiel ist <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em>.</p>
+  <p>In <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em> hängen laut spaCy sowohl <em>Urheberrechtsgesetzes</em> (<code>ag</code>) als auch <em>in</em> (<code>mnr</code>) von <em>Bestimmungen</em> ab. Die innere Anfrage erfasst die Spanne <em>Bestimmungen des Urheberrechtsgesetzes</em>. Mit <code>{2:…}</code> kann man den Kopf markieren und mit <code>focus(2: …)</code> genau dieses Wort als Ziel der äußeren Relation verwenden.</p>
 
   %= doc_query poliqarp => 'dependency(spacy/d=mnr: [spacy/p=APPR], focus(2: dependency(spacy/d=ag: [spacy/p=NN], {2:[spacy/l=Bestimmung]})))', cutoff => 1
 
-  <p>Für komplexere Dependenzanfragen empfiehlt sich <%= embedded_link_to 'doc', 'ANNIS QL', 'ql', 'annis' %>, besonders wenn mehrere Relationen denselben Kopf haben. Die folgende Anfrage sucht nach denselben beiden Attributen. Mit <code>#2</code> verweist die zweite Relation auf den Knoten, den die erste Relation als Kopf eingeführt hat (<code>spacy/l="Bestimmung"</code>).</p>
+  <p>Für komplexere Dependenzanfragen empfiehlt sich <%= embedded_link_to 'doc', 'ANNIS QL', 'ql', 'annis' %>. Dieselbe Suche lässt sich dort ohne Verschachtelung formulieren. In der zweiten Relation verweist <code>#2</code> auf den bereits genannten Kopf (<code>spacy/l="Bestimmung"</code>).</p>
 
   %= doc_query annis => 'spacy/p="NN" ->spacy/d[func="ag"] spacy/l="Bestimmung" & spacy/p="APPR" ->spacy/d[func="mnr"] #2', cutoff => 1
 
-  <p>Diese Beispiele setzen Texte mit Dependenz-, Wortart- und Lemma-Annotationen von spaCy voraus. Bei breit angelegten Dependenzsuchen empfiehlt es sich, zunächst das virtuelle Korpus einzuschränken.</p>
+  <p>Bei breit angelegten Dependenzsuchen empfiehlt es sich, zunächst das virtuelle Korpus einzuschränken.</p>
 </section>
 
 <section id="class-operators">
