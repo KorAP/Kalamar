@@ -1,14 +1,23 @@
 define(["hint/foundries", "hint/foundries/stts", "hint/foundries/upos", "hint/foundries/umorpho"], function (ah, sttsArray, uposArray, morpho) {
   ah["-"].push(
-    ["spaCy", "spacy/", "Lemma, Morphology, Part-of-Speech, UPOS"]
+    ["spaCy", "spacy/", "Dependency, Lemma, Morphology, Part-of-Speech, UPOS"]
   );
 
   ah["spacy/"] = [
+    ["Dependency", "d="],
     ["Lemma", "l="],
     ["Morphology", "m="],
     ["Part-of-Speech", "p="],
     ["UPOS", "u="]
   ];
+
+  // Parser labels of the German spaCy pipelines (de_core_news_*).
+  ah["spacy/d="] = [
+    "ROOT", "ac", "adc", "ag", "ams", "app", "avc", "cc", "cd", "cj", "cm",
+    "cp", "cvc", "da", "dep", "dm", "ep", "ju", "mnr", "mo", "ng", "nk",
+    "nmc", "oa", "oc", "og", "op", "par", "pd", "pg", "ph", "pm", "pnc",
+    "punct", "rc", "re", "rs", "sb", "sbp", "svp", "uc", "vo"
+  ].map(label => [label, label + " "]);
 
   ah["spacy/p="] = sttsArray;
   ah["spacy/u="] = uposArray;

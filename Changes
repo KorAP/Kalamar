@@ -4,6 +4,8 @@
           assistance, Claude Opus 5.5 / Antigravity)
         - Allow deployments to select individual layers in the annotation
           assistant, including the CoreNLP named-entity layer on its own.
+        - Suggest German spaCy dependency labels in the annotation assistant
+          (fixes #285).
         - Keep export progress compact below the action button, announce its
           status, and replace the completed bar with a download-started message.
           Prevent duplicate submissions and allow retries after errors

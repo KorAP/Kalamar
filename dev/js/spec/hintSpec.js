@@ -586,6 +586,15 @@ function (hintClass, inputClass, contextClass, menuClass, menuItemClass, foundri
       }
     });
 
+    it('should suggest case-sensitive spaCy dependency labels', function () {
+      const hint = hintClass.create({inputField: input});
+      expect(hint.menu("spacy/").item(0).action()).toBe("d=");
+      const deps = hint.menu("spacy/d=");
+      const actions = Array.from({length: deps.length()}, (_, i) => deps.item(i).action());
+      expect(actions).toContain("ROOT ");
+      expect(actions).toContain("sb ");
+    });
+
     xit('should remove all menus on escape');
   });
 
