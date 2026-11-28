@@ -314,7 +314,7 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 </section>
 
 <section id="dependency-relations">
-  <h3>Dependenzrelationen</h3>
+  <h3>Dependenzanfragen</h3>
 
   <p>Mit <code>dependency(foundry/d=label: quelle, ziel)</code> kann man nach einer Dependenzrelation suchen. In den folgenden Beispielen steht zuerst das abhängige Wort, dann sein Kopf. Für beide kann man weitere Bedingungen angeben, zum Beispiel zur Wortart oder zum Lemma.</p>
 

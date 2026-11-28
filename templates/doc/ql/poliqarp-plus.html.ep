@@ -311,7 +311,7 @@ Terms of the complex segment can be negated as introduced before.</p>
 </section>
 
 <section id="dependency-relations">
-  <h3>Dependency Relations</h3>
+  <h3>Dependency Queries</h3>
 
   <p>Use <code>dependency(foundry/d=label: source, target)</code> to search for a dependency relation. In the examples below, the dependent comes first and its head comes second. Either word can have additional constraints, such as a part of speech or a lemma.</p>
 
