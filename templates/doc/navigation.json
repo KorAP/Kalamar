@@ -53,6 +53,10 @@
             "id": "#dependency-relations"
           },
           {
+            "title": "Constituency Queries",
+            "id": "#constituency-queries"
+          },
+          {
             "title": "Class Operators",
             "id": "#class-operators"
           }

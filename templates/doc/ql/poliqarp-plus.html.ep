@@ -338,6 +338,14 @@ Terms of the complex segment can be negated as introduced before.</p>
   <p>For broad dependency searches, try restricting the virtual corpus first.</p>
 </section>
 
+<section id="constituency-queries">
+  <h3>Constituency Queries</h3>
+
+  <p>In texts with CoreNLP constituency annotations, <code>&lt;corenlp/c=NP&gt;</code> finds spans annotated as noun phrases. The following query finds those containing a prepositional phrase (<code>PP</code>), as in <em>ein Ablösen von irgendeinem Gegenstande</em>. With <code>contains</code>, the prepositional phrase can occur at any depth within the noun phrase.</p>
+
+  %= doc_query poliqarp => loc('Q_poliqarp_constituencypp', '** contains(<corenlp/c=NP>, <corenlp/c=PP>)'), cutoff => 1
+</section>
+
 <section id="class-operators">
   <h3>Class Operators</h3>
 

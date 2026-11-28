@@ -21,6 +21,7 @@
         neg1 => '[pos!=ADJA]',
         neg2 => '[!pos=ADJA]',
         span => '<corenlp/c=NP>',
+        constituencypp => 'contains(<corenlp/c=NP>, <corenlp/c=PP>)',
         and => '[orth=laufe/i & base=Lauf]',
         andneg1 => '[orth=laufe/i & base!=Lauf]',
         andneg2 => '[orth=laufe/i & !base=Lauf]',

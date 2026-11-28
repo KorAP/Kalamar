@@ -341,6 +341,14 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
   <p>Bei breit angelegten Dependenzsuchen empfiehlt es sich, zunächst das virtuelle Korpus einzuschränken.</p>
 </section>
 
+<section id="constituency-queries">
+  <h3>Konstituenzanfragen</h3>
+
+  <p>In Texten mit CoreNLP-Konstituenzannotation findet <code>&lt;corenlp/c=NP&gt;</code> als Nominalphrase annotierte Wortgruppen. Die folgende Anfrage sucht darunter solche, die eine Präpositionalphrase (<code>PP</code>) enthalten, etwa <em>ein Ablösen von irgendeinem Gegenstande</em>. Mit <code>contains</code> kann die Präpositionalphrase auch tiefer in die Nominalphrase eingebettet sein.</p>
+
+  %= doc_query poliqarp => loc('Q_poliqarp_constituencypp', '** contains(<corenlp/c=NP>, <corenlp/c=PP>)'), cutoff => 1
+</section>
+
 <section id="class-operators">
   <h3>Klassen-Operatoren</h3>
 
