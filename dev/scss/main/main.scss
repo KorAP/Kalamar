@@ -63,6 +63,8 @@ main {
   // word spacing unevenly. Cap the line length, left-align and give the flow
   // a calm, consistent vertical rhythm.
   &.tutorial {
+    padding-bottom: 2rem;
+
     p, ul, ol, dl, blockquote, table, pre, details,
     h2, h3, h4, h5, h6 {
       max-width: 44em;
