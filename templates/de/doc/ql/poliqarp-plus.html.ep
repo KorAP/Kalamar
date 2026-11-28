@@ -324,13 +324,13 @@ Die Ausdrücke des komplexen Segments können negiert werden wie zuvor eingefüh
 
   <p>Enthält das Korpus auch Malt-Dependenzen, kann man im ersten Beispiel für das Genitivattribut <code>malt/d=GMOD</code> einsetzen.</p>
 
-  <p>Die folgende Anfrage findet <em>von</em>, wenn es laut spaCy mit der Relation <code>pg</code> von einem Nomen abhängt, etwa von <em>Entnahme</em> in <em>Entnahme von Abbildungen</em>.</p>
+  <p>Die folgende Anfrage sucht nach <em>von</em>-Attributen wie in <em>Entnahme von Abbildungen</em>. Das Label <code>pg</code> (phrasaler Genitiv) kennzeichnet eine <em>von</em>-Phrase, die die Funktion eines Genitivattributs hat. Im Beispiel verbindet die Relation <em>von</em> mit dem Bezugsnomen <em>Entnahme</em>.</p>
 
   %= doc_query poliqarp => 'dependency(spacy/d=pg: [orth=von], [spacy/p=NN])', cutoff => 1
 
   <h4>Zwei Attribute mit demselben Kopf</h4>
 
-  <p>In <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em> hängen laut spaCy sowohl <em>Urheberrechtsgesetzes</em> (<code>ag</code>) als auch <em>in</em> (<code>mnr</code>) von <em>Bestimmungen</em> ab. Die innere Anfrage erfasst die Spanne <em>Bestimmungen des Urheberrechtsgesetzes</em>. Mit <code>{2:…}</code> kann man den Kopf markieren und mit <code>focus(2: …)</code> genau dieses Wort als Ziel der äußeren Relation verwenden.</p>
+  <p>In <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em> hängen laut spaCy sowohl das Genitivattribut (<code>ag</code>) als auch die nachgestellte Präpositionalphrase (<code>mnr</code>, nachgestellter Modifikator) von <em>Bestimmungen</em> ab. Die innere Anfrage erfasst die Spanne <em>Bestimmungen des Urheberrechtsgesetzes</em>. Mit <code>{2:…}</code> kann man den Kopf markieren und mit <code>focus(2: …)</code> genau dieses Wort als Ziel der äußeren Relation verwenden.</p>
 
   %= doc_query poliqarp => 'dependency(spacy/d=mnr: [spacy/p=APPR], focus(2: dependency(spacy/d=ag: [spacy/p=NN], {2:[spacy/l=Bestimmung]})))', cutoff => 1
 

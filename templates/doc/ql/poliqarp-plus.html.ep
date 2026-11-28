@@ -321,13 +321,13 @@ Terms of the complex segment can be negated as introduced before.</p>
 
   <p>If the corpus also has Malt dependencies, the first example can use <code>malt/d=GMOD</code> for the genitive attribute.</p>
 
-  <p>The following query finds <em>von</em> where spaCy attaches it to a common noun with the relation <code>pg</code>, for example to <em>Entnahme</em> in <em>Entnahme von Abbildungen</em>.</p>
+  <p>The following query searches for <em>von</em>-phrases as in <em>Entnahme von Abbildungen</em>. The label <code>pg</code> (phrasal genitive) marks a <em>von</em>-phrase that functions as a genitive attribute. In this example the relation links <em>von</em> to the head noun <em>Entnahme</em>.</p>
 
   %= doc_query poliqarp => 'dependency(spacy/d=pg: [orth=von], [spacy/p=NN])', cutoff => 1
 
   <h4>Two dependents of the same head</h4>
 
-  <p>In <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em>, spaCy attaches both <em>Urheberrechtsgesetzes</em> (<code>ag</code>) and <em>in</em> (<code>mnr</code>) to <em>Bestimmungen</em>. The inner query matches the span <em>Bestimmungen des Urheberrechtsgesetzes</em>. Marking the head with <code>{2:…}</code> lets <code>focus(2: …)</code> select that word as the target of the outer relation.</p>
+  <p>In <em>Bestimmungen des Urheberrechtsgesetzes in der jeweils geltenden Fassung</em>, spaCy attaches both the genitive attribute (<code>ag</code>) and the prepositional phrase (<code>mnr</code>, postnominal modifier) to <em>Bestimmungen</em>. The inner query matches the span <em>Bestimmungen des Urheberrechtsgesetzes</em>. Marking the head with <code>{2:…}</code> lets <code>focus(2: …)</code> select that word as the target of the outer relation.</p>
 
   %= doc_query poliqarp => 'dependency(spacy/d=mnr: [spacy/p=APPR], focus(2: dependency(spacy/d=ag: [spacy/p=NN], {2:[spacy/l=Bestimmung]})))', cutoff => 1
 
