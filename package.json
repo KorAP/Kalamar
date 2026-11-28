@@ -2,7 +2,7 @@
   "name": "Kalamar",
   "description": "Mojolicious-based Frontend for KorAP",
   "license": "BSD-2-Clause",
-  "version": "0.67.0-beta.6",
+  "version": "0.67.0-beta.7",
   "pluginVersion": "0.2.3",
   "scripts": {
     "dev": "vite --config vite.config.mjs",
